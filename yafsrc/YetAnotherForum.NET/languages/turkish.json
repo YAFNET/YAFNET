@@ -3795,14 +3795,6 @@
             "#text": "Arama Motorları ve Botlar gibi \"Takip Etme\" olarak işaretlenen kullanıcılar için oturumları otomatik olarak terk edin. Herhangi bir oturum sorunu yaşıyorsanız etkinleştirin."
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "Kabul Edilen HTML Etiketleri:"
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "HTML düzenleyicileri kullanan gönderilerde izin verilen HTML etiketlerinin virgülle ayrılmış listesi (boşluk yok)."
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Aktif Kullanıcı Süresi:"
           },
@@ -4251,22 +4243,6 @@
             "#text": "İşaretlenirse, açıklama ve anahtar kelimeler meta etiketleri yazı sayfalarında dinamik olarak oluşturulur."
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "İmzalar ve Hızlı Yanıtlar için kullanılan Editör Araç Çubuğu."
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "Editör Araç Çubuğu Temel:"
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "Editör Araç Çubuğu Dolu:"
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "Gönderme ve Özel Mesajlar için kullanılan Editör Araç Çubuğu."
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "E-posta Doğrulaması Gerektir:"
           },
@@ -4339,6 +4315,14 @@
             "#text": "Kullanıcıların İtibar Vermesine veya Kaldırmasına izin vermek için Yerleşik İtibar Sistemini Etkinleştirme/Devre Dışı Bırakma Ayarı."
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "Olay günlüğü için maksimum gün sayısı"
           },
@@ -4407,14 +4391,6 @@
             "#text": "Bu forumun ileriye dönük tam URL'si."
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "Forum Editörü:"
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "Forumunuz için genel düzenleyici türünü seçin. HTML editörlerini (FCK ve FreeTextBox) kullanmak için .bin dosyası \\bin dizininde olmalı ve uygun destek dosyaları \\editors'a yerleştirilmelidir."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forum E-postası:"
           },
@@ -4453,10 +4429,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "Ekran Ayarları"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "Ayarları Düzenleme/Formatlandırma"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4549,10 +4521,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "Ekran"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "Editörler"
           },
           {
             "@tag": "HOST_FEATURES",

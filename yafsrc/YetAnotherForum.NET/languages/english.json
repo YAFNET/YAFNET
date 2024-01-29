@@ -3777,1920 +3777,1888 @@
         },
         {
             "@name": "ADMIN_HOSTSETTINGS",
-            "Resource": [
-                {
-                    "@tag": "ABANDON_TRACKUSR",
-                    "#text": "Abandon Sessions for \"Don't Track\" Users:"
-                },
-                {
-                    "@tag": "ABANDON_TRACKUSR_HELP",
-                    "#text": "Automatically abandon sessions for users who are marked as \"Don't Track\" such as Search Engines and Bots. Enable if you're having any session issues."
-                },
-                {
-                    "@tag": "ACCEPT_HTML",
-                    "#text": "Accepted HTML Tags:"
-                },
-                {
-                    "@tag": "ACCEPT_HTML_HELP",
-                    "#text": "Comma separated list (no spaces) of HTML tags that are allowed in posts using HTML editors."
-                },
-                {
-                    "@tag": "ACTIVE_USERTIME",
-                    "#text": "Active Users Time:"
-                },
-                {
-                    "@tag": "ACTIVE_USERTIME_HELP",
-                    "#text": "Number of minutes to display users in Active Users list."
-                },
-                {
-                    "@tag": "AKISMET_KEY_DOWN",
-                    "#text": "Sign Up here"
-                },
-                {
-                    "@tag": "ALBUM_IMAGE_SIZE",
-                    "#text": "Max Album Image File Size"
-                },
-                {
-                    "@tag": "ALBUM_IMAGE_SIZE_HELP",
-                    "#text": "Maximum size of uploaded album image files. Leave empty for no limit."
-                },
-                {
-                    "@tag": "ALBUM_IMAGES_PER_PAGE",
-                    "#text": "Album Images Per Page:"
-                },
-                {
-                    "@tag": "ALBUM_IMAGES_PER_PAGE_HELP",
-                    "#text": "Number of Album Images to show per page."
-                },
-                {
-                    "@tag": "ALBUMS_PER_PAGE",
-                    "#text": "Albums Per Page:"
-                },
-                {
-                    "@tag": "ALBUMS_PER_PAGE_HELP",
-                    "#text": "Number of albums to show per page."
-                },
-                {
-                    "@tag": "ALL_USERS",
-                    "#text": "All Users"
-                },
-                {
-                    "@tag": "ALLOW_CHANGE_AFTERVOTE",
-                    "#text": "Allow Poll Changes After First Vote:"
-                },
-                {
-                    "@tag": "ALLOW_CHANGE_AFTERVOTE_HELP",
-                    "#text": "If enabled a poll creator can change choices and question after the first vote was given."
-                },
-                {
-                    "@tag": "ALLOW_DISPLAY_COUNTRY",
-                    "#text": "Allow Display Country:"
-                },
-                {
-                    "@tag": "ALLOW_DISPLAY_COUNTRY_HELP",
-                    "#text": "If checked, the user country flag/name is displayed in the user data in messages list."
-                },
-                {
-                    "@tag": "ALLOW_DISPLAY_GENDER",
-                    "#text": "Allow Display Gender:"
-                },
-                {
-                    "@tag": "ALLOW_DISPLAY_GENDER_HELP",
-                    "#text": "If checked, the user gender is displayed in the user data in messages list."
-                },
-                {
-                    "@tag": "ALLOW_EMAIL_CHANGE",
-                    "#text": "Allow Email Change:"
-                },
-                {
-                    "@tag": "ALLOW_EMAIL_CHANGE_HELP",
-                    "#text": "Allow users to change their email address."
-                },
-                {
-                    "@tag": "ALLOW_EMAIL_TOPIC",
-                    "#text": "Allow Email Topic:"
-                },
-                {
-                    "@tag": "ALLOW_EMAIL_TOPIC_HELP",
-                    "#text": "If checked, users will be allowed to email topics."
-                },
-                {
-                    "@tag": "ALLOW_FORUMS_DUPLICATENAME",
-                    "#text": "Allow Forums With Same Name:"
-                },
-                {
-                    "@tag": "ALLOW_FORUMS_DUPLICATENAME_HELP",
-                    "#text": "If checked forums with duplicated names can be created."
-                },
-                {
-                    "@tag": "ALLOW_GUESTS_VIEWPOLL",
-                    "#text": "Allow Guests View Poll Options:"
-                },
-                {
-                    "@tag": "ALLOW_GUESTS_VIEWPOLL_HELP",
-                    "#text": "If enabled Guests can see poll choices."
-                },
-                {
-                    "@tag": "ALLOW_HIDE_POLLRESULTS",
-                    "#text": "Allow Users Hide Poll Results:"
-                },
-                {
-                    "@tag": "ALLOW_HIDE_POLLRESULTS_HELP",
-                    "#text": "If enabled a poll creator can hide results before voting end or if not all polls in a group are voted."
-                },
-                {
-                    "@tag": "ALLOW_MOD_VIEWIP",
-                    "#text": "Allow Moderators View IPs:"
-                },
-                {
-                    "@tag": "ALLOW_MOD_VIEWIP_HELP",
-                    "#text": "Allow to view IPs to moderators."
-                },
-                {
-                    "@tag": "ALLOW_MODIFY_DISPLAYNAME",
-                    "#text": "Allow Display Name Modification:"
-                },
-                {
-                    "@tag": "ALLOW_MODIFY_DISPLAYNAME_HELP",
-                    "#text": "If checked, and \"Enable Display Name\" checked, allow modification of Display Name in Edit Profile."
-                },
-                {
-                    "@tag": "ALLOW_MULTI_VOTING",
-                    "#text": "Allow Multiple Choices Voting:"
-                },
-                {
-                    "@tag": "ALLOW_MULTI_VOTING_HELP",
-                    "#text": "If enabled users can create poll questions allowing multiple choices voting."
-                },
-                {
-                    "@tag": "ALLOW_NOTIFICATION_ONALL",
-                    "#text": "Allow Notification of All Posts on All topics:"
-                },
-                {
-                    "@tag": "ALLOW_NOTIFICATION_ONALL_HELP",
-                    "#text": "Allow users to get individual email notifications on all emails -- tons of email traffic."
-                },
-                {
-                    "@tag": "ALLOW_PM_NOTIFICATION",
-                    "#text": "Allow Private Message Notifications:"
-                },
-                {
-                    "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-                    "#text": "Allow users email notifications when new private messages arrive."
-                },
-                {
-                    "@tag": "ALLOW_PMS",
-                    "#text": "Allow Private Messages:"
-                },
-                {
-                    "@tag": "ALLOW_PMS_HELP",
-                    "#text": "Allow users to access and send private messages. You should explicitly give permission for each group and/or rank too to enable them for users."
-                },
-                {
-                    "@tag": "ALLOW_POSTBLOG",
-                    "#text": "Allow Post to Blog:"
-                },
-                {
-                    "@tag": "ALLOW_POSTBLOG_HELP",
-                    "#text": "If checked, post to blog feature is enabled."
-                },
-                {
-                    "@tag": "ALLOW_QUICK_ANSWER",
-                    "#text": "Allow Quick Answer:"
-                },
-                {
-                    "@tag": "ALLOW_QUICK_ANSWER_HELP",
-                    "#text": "Enable or disable display of the Quick Reply Box at the bottom of the Posts page"
-                },
-                {
-                    "@tag": "ALLOW_SENDMAIL",
-                    "#text": "Allow Email Sending:"
-                },
-                {
-                    "@tag": "ALLOW_SENDMAIL_HELP",
-                    "#text": "Allow users to send emails to each other."
-                },
-                {
-                    "@tag": "ALLOW_SHARE_TOPIC",
-                    "#text": "Enable Share Menu:"
-                },
-                {
-                    "@tag": "ALLOW_SHARE_TOPIC_HELP",
-                    "#text": "Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg, Reddit or Tumblr a Topic."
-                },
-                {
-                    "@tag": "ALLOW_SIGNATURE",
-                    "#text": "Allow Signatures:"
-                },
-                {
-                    "@tag": "ALLOW_SIGNATURE_HELP",
-                    "#text": "Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature."
-                },
-                {
-                    "@tag": "ALLOW_TOPICS_DUPLICATENAME",
-                    "#text": "Allow Topics With Same Name:"
-                },
-                {
-                    "@tag": "ALLOW_TOPICS_DUPLICATENAME_HELP",
-                    "#text": "Duplicate topic names are allowed to:"
-                },
-                {
-                    "@tag": "ALLOW_USER_HIDE",
-                    "#text": "Allow User To Hide Himself:"
-                },
-                {
-                    "@tag": "ALLOW_USER_HIDE_HELP",
-                    "#text": "If checked, the user who checked it will not be visible in the active users list."
-                },
-                {
-                    "@tag": "ALLOW_USERS_POLLIMAGES",
-                    "#text": "Allow Users Poll Images:"
-                },
-                {
-                    "@tag": "ALLOW_USERS_POLLIMAGES_HELP",
-                    "#text": "If enabled Users can add images as poll options."
-                },
-                {
-                    "@tag": "ALLOWED_EXTENSIONS",
-                    "#text": "Allowed File Extensions:"
-                },
-                {
-                    "@tag": "ALLOWED_EXTENSIONS_HELP",
-                    "#text": "The list of allowed File Extensions for Attachments."
-                },
-                {
-                    "@tag": "AMOUNT_OF_SUBFORUMS",
-                    "#text": "Sub Forums In Forums List:"
-                },
-                {
-                    "@tag": "AMOUNT_OF_SUBFORUMS_HELP",
-                    "#text": "The amount of Sub Forums In Forums List."
-                },
-                {
-                    "@tag": "APP_CORES",
-                    "#text": "Processor Cores:"
-                },
-                {
-                    "@tag": "APP_CORES_HELP",
-                    "#text": "Number of Processor cores."
-                },
-                {
-                    "@tag": "APP_MEMORY",
-                    "#text": "Application memory:"
-                },
-                {
-                    "@tag": "APP_MEMORY_HELP",
-                    "#text": "Application memory used."
-                },
-                {
-                    "@tag": "APP_OS_NAME",
-                    "#text": "Operating System:"
-                },
-                {
-                    "@tag": "APP_OS_NAME_HELP",
-                    "#text": "What version of operating system is running."
-                },
-                {
-                    "@tag": "APP_RUNTIME",
-                    "#text": ".NET Runtime Version:"
-                },
-                {
-                    "@tag": "APP_RUNTIME_HELP",
-                    "#text": "What .NET Runtime is running."
-                },
-                {
-                    "@tag": "AVATAR_GALLERY",
-                    "#text": "Allow Avatar Gallery:"
-                },
-                {
-                    "@tag": "AVATAR_GALLERY_HELP",
-                    "#text": "Can users select an Avatar from the local Avatar Gallery."
-                },
-                {
-                    "@tag": "AVATAR_HEIGHT",
-                    "#text": "Avatar Height:"
-                },
-                {
-                    "@tag": "AVATAR_HEIGHT_HELP",
-                    "#text": "Maximum height for avatars."
-                },
-                {
-                    "@tag": "AVATAR_SIZE",
-                    "#text": "Avatar Size:"
-                },
-                {
-                    "@tag": "AVATAR_SIZE_HELP",
-                    "#text": "Maximum size for avatars in bytes."
-                },
-                {
-                    "@tag": "AVATAR_UPLOAD",
-                    "#text": "Allow User Avatar uploading:"
-                },
-                {
-                    "@tag": "AVATAR_UPLOAD_HELP",
-                    "#text": "Can users upload avatars to their profile."
-                },
-                {
-                    "@tag": "AVATAR_WIDTH",
-                    "#text": "Avatar Width:"
-                },
-                {
-                    "@tag": "AVATAR_WIDTH_HELP",
-                    "#text": "Maximum width for avatars."
-                },
-                {
-                    "@tag": "BOT_CHECK_1",
-                    "#text": "StopForumSpam.com"
-                },
-                {
-                    "@tag": "BOT_CHECK_2",
-                    "#text": "BotScout.com (Needs Registration)"
-                },
-                {
-                    "@tag": "BOT_CHECK_3",
-                    "#text": "StopForumSpam.com & BotScout.com (Needs Registration)"
-                },
-                {
-                    "@tag": "BOT_CHECK_4",
-                    "#text": "StopForumSpam.com or BotScout.com (Needs Registration)"
-                },
-                {
-                    "@tag": "BOT_CHECK_ONREGISTER",
-                    "#text": "Handling of Bots during Registration:"
-                },
-                {
-                    "@tag": "BOT_CHECK_ONREGISTER_HELP",
-                    "#text": "If enabled it detects Spammers during the Registration, you can set to Block that user or simply log it and send a Message to the Admins."
-                },
-                {
-                    "@tag": "BOT_IPBAN_ONREGISTER",
-                    "#text": "Automatically Ban Ip Address of Detected Bot:"
-                },
-                {
-                    "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-                    "#text": "If enabled and a Bot is detected during registration, and if bot handling is set to reject Registration, the IP Address of the Bot is automatically banned."
-                },
-                {
-                    "@tag": "BOT_MESSAGE_0",
-                    "#text": "Do nothing"
-                },
-                {
-                    "@tag": "BOT_MESSAGE_1",
-                    "#text": "Approve User & Log User & Send Admin an Email"
-                },
-                {
-                    "@tag": "BOT_MESSAGE_2",
-                    "#text": "Block User"
-                },
-                {
-                    "@tag": "BOTSCOUT_KEY",
-                    "#text": "BotScout.com API Key:"
-                },
-                {
-                    "@tag": "BOTSCOUT_KEY_HELP",
-                    "#text": "To Use the BotScout Bot Service you need an API Key"
-                },
-                {
-                    "@tag": "CDN_SCRIPTMANAGER",
-                    "#text": "Use CDN Hosted Script Manager JS Files?"
-                },
-                {
-                    "@tag": "CDN_SCRIPTMANAGER_HELP",
-                    "#text": "You can use the CDN Hosted Script Files, or instead use internal."
-                },
-                {
-                    "@tag": "CHECK_FOR_BOTSPAM",
-                    "#text": "Choose a Service for Automatically User Bot Checking:"
-                },
-                {
-                    "@tag": "CHECK_FOR_BOTSPAM_HELP",
-                    "#text": "Enables/disables automatically Bot SPAM Checking via the <a href=\"http://stopforumspam.com/\">StopForumSpam.com API</a> , BotScout.com API, or both together."
-                },
-                {
-                    "@tag": "CHECK_FOR_SPAM",
-                    "#text": "Choose a SPAM Service for Automatically SPAM Checking:"
-                },
-                {
-                    "@tag": "CLEAR_CACHE",
-                    "#text": "Clear Cache"
-                },
-                {
-                    "@tag": "COLLAPSED",
-                    "#text": "Collapsed"
-                },
-                {
-                    "@tag": "CROP_IMAGE_ATTACH",
-                    "#text": "Crop Image Attachment Preview:"
-                },
-                {
-                    "@tag": "CROP_IMAGE_ATTACH_HELP",
-                    "#text": "Crop the Preview of the Image and use above Dimensions as Image Size."
-                },
-                {
-                    "@tag": "DAYS_BEFORE_POSTLOCK",
-                    "#text": "Days before posts are locked:"
-                },
-                {
-                    "@tag": "DAYS_BEFORE_POSTLOCK_HELP",
-                    "#text": "Number of days until posts are locked and not possible to edit or delete. Set to 0 for no limit."
-                },
-                {
-                    "@tag": "DISABLE_NOFOLLOW_ONOLDERPOSTS",
-                    "#text": "Disable \"NoFollow\" Tag on Links on Posts Older Than:"
-                },
-                {
-                    "@tag": "DISABLE_NOFOLLOW_ONOLDERPOSTS_HELP",
-                    "#text": "If \"NoFollow\" is enabled above, this is disable no follow for links on messages older then X days old (which takes into consideration last edited)."
-                },
-                {
-                    "@tag": "DISABLE_REGISTER",
-                    "#text": "Disable New Registrations:"
-                },
-                {
-                    "@tag": "DISABLE_REGISTER_HELP",
-                    "#text": "New users won't be able to register."
-                },
-                {
-                    "@tag": "DISCUSSIONS_CACHE_TIMEOUT",
-                    "#text": "Active Discussions Cache Timeout:"
-                },
-                {
-                    "@tag": "DISCUSSIONS_CACHE_TIMEOUT_HELP",
-                    "#text": "In minutes"
-                },
-                {
-                    "@tag": "DISPLAY_TRESHOLD_IMGATTACH",
-                    "#text": "Image Attachment Display Threshold:"
-                },
-                {
-                    "@tag": "DISPLAY_TRESHOLD_IMGATTACH_HELP",
-                    "#text": "Maximum size of picture attachment to display as picture. Pictures over this size will be displayed as links."
-                },
-                {
-                    "@tag": "DISPLAYNAME_MIN_LENGTH",
-                    "#text": "User/Display Name Min. Length"
-                },
-                {
-                    "@tag": "DISPLAYNAME_MIN_LENGTH_HELP",
-                    "#text": "Minimum Length for Display and User Names."
-                },
-                {
-                    "@tag": "DYNAMIC_METATAGS",
-                    "#text": "Add Dynamic Page Meta Tags:"
-                },
-                {
-                    "@tag": "DYNAMIC_METATAGS_HELP",
-                    "#text": "If checked, description and keywords meta tags will be created dynamically on the post pages."
-                },
-                {
-                    "@tag": "EDITOR_BASCIC_HELP",
-                    "#text": "Editor Toolbar used for Signatures ans Quick Replies."
-                },
-                {
-                    "@tag": "EDITOR_BASIC",
-                    "#text": "Editor Toolbar Basic:"
-                },
-                {
-                    "@tag": "EDITOR_FULL",
-                    "#text": "Editor Toolbar Full:"
-                },
-                {
-                    "@tag": "EDITOR_FULL_HELP",
-                    "#text": "Editor Toolbar used for Posting and Private Messages."
-                },
-                {
-                    "@tag": "EMAIL_VERIFICATION",
-                    "#text": "Require Email Verification:"
-                },
-                {
-                    "@tag": "EMAIL_VERIFICATION_HELP",
-                    "#text": "If unchecked users will not need to verify their email address."
-                },
-                {
-                    "@tag": "ENABLE_ABLBUMS",
-                    "#text": "Enable Album Feature:"
-                },
-                {
-                    "@tag": "ENABLE_ABLBUMS_HELP",
-                    "#text": "If checked, album feature is enabled. You should set allowed number of images and albums for each group and/or rank too, to enable the feature."
-                },
-                {
-                    "@tag": "ENABLE_BUDDYLIST",
-                    "#text": "Enable Friend List:"
-                },
-                {
-                    "@tag": "ENABLE_BUDDYLIST_HELP",
-                    "#text": "If checked users can add each other as Friends."
-                },
-                {
-                    "@tag": "ENABLE_CALENDER",
-                    "#text": "Enable calendar:"
-                },
-                {
-                    "@tag": "ENABLE_CALENDER_HELP",
-                    "#text": "Enables/disables calendar in profile, if it causes troubles on servers/for users with different cultures."
-                },
-                {
-                    "@tag": "ENABLE_DISPLAY_NAME",
-                    "#text": "Enable Display Name:"
-                },
-                {
-                    "@tag": "ENABLE_DISPLAY_NAME_HELP",
-                    "#text": "If checked, YAF uses an alternative \"Display Name\" instead of the UserName."
-                },
-                {
-                    "@tag": "ENABLE_HOVERCARDS",
-                    "#text": "Enable User Info Hover Cards:"
-                },
-                {
-                    "@tag": "ENABLE_HOVERCARDS_HELP",
-                    "#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter & Facebook Profile Button.\r\n     "
-                },
-                {
-                    "@tag": "ENABLE_RETWEET_MSG",
-                    "#text": "Enable Retweet Message Button:"
-                },
-                {
-                    "@tag": "ENABLE_RETWEET_MSG_HELP",
-                    "#text": "Enables/disables the Retweet Button, where the User can retweet a topic message."
-                },
-                {
-                    "@tag": "ENABLE_SSO",
-                    "#text": "Enable Single Sign On:"
-                },
-                {
-                    "@tag": "ENABLE_SSO_HELP",
-                    "#text": "If checked, users will be able to Login to an existing account via Facebook and/or Twitter. To Enable it for Facebook you need to setup YAF.FacebookAPIKey and YAF.FacebookSecretKey Values, and for Twitter YAF.TwitterConsumerKey and YAF.TwitterConsumerSecret Values in the app.config (AppSettings)."
-                },
-                {
-                    "@tag": "ENABLE_USERREPUTATION",
-                    "#text": "Use Reputation System:"
-                },
-                {
-                    "@tag": "ENABLE_USERREPUTATION_HELP",
-                    "#text": "Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation."
-                },
-                {
-                    "@tag": "EVENTLOG_MAX_DAYS",
-                    "#text": "Max number of days for event log"
-                },
-                {
-                    "@tag": "EVENTLOG_MAX_DAYS_HELP",
-                    "#text": "Max number of days for event log. Older ones will be deleted"
-                },
-                {
-                    "@tag": "EVENTLOG_MAX_MESSAGES",
-                    "#text": "Max event log message"
-                },
-                {
-                    "@tag": "EVENTLOG_MAX_MESSAGES_HELP",
-                    "#text": "Max number of event log messages. Outdated will be deleted."
-                },
-                {
-                    "@tag": "EXPANDED",
-                    "#text": "Expanded"
-                },
-                {
-                    "@tag": "EXTERN_NEWWINDOW",
-                    "#text": "External Search Results In A New Window:"
-                },
-                {
-                    "@tag": "EXTERN_NEWWINDOW_HELP",
-                    "#text": "Show External Search Results In A New Window."
-                },
-                {
-                    "@tag": "EXTERN_SEARCH_PERMISS",
-                    "#text": "External Search Permissions:"
-                },
-                {
-                    "@tag": "EXTERN_SEARCH_PERMISS_HELP",
-                    "#text": "Allow external search to:"
-                },
-                {
-                    "@tag": "FILE_TABLE",
-                    "#text": "Use File Table:"
-                },
-                {
-                    "@tag": "FILE_TABLE_HELP",
-                    "#text": "Uploaded files will be saved in the database instead of the file system."
-                },
-                {
-                    "@tag": "FLOOT_DELAY",
-                    "#text": "Post Flood Delay:"
-                },
-                {
-                    "@tag": "FLOOT_DELAY_HELP",
-                    "#text": "Number of seconds before another post can be entered (Does not apply to admins or mods)."
-                },
-                {
-                    "@tag": "FORBIDDEN",
-                    "#text": "Forbidden"
-                },
-                {
-                    "@tag": "FORCE_SEARCHINDED",
-                    "#text": "Search Index Task started."
-                },
-                {
-                    "@tag": "FORUM_BASEURLMASK",
-                    "#text": "Forum Base URL Mask:"
-                },
-                {
-                    "@tag": "FORUM_BASEURLMASK_HELP",
-                    "#text": "The full forward-facing url to this forum."
-                },
-                {
-                    "@tag": "FORUM_EDITOR",
-                    "#text": "Forum Editor:"
-                },
-                {
-                    "@tag": "FORUM_EDITOR_HELP",
-                    "#text": "Select global editor type for your forum. To use the HTML editors (FCK and FreeTextBox) the .bin file must be in the \\bin directory and the proper support files must be put in \\editors."
-                },
-                {
-                    "@tag": "FORUM_EMAIL",
-                    "#text": "Forum Email:"
-                },
-                {
-                    "@tag": "FORUM_EMAIL_HELP",
-                    "#text": "The from address when sending emails to users."
-                },
-                {
-                    "@tag": "HEADER_ADVERTS",
-                    "#text": "Advert Settings"
-                },
-                {
-                    "@tag": "HEADER_ALBUM",
-                    "#text": "Album Settings"
-                },
-                {
-                    "@tag": "HEADER_ATTACHMENTS",
-                    "#text": "Attachments Settings"
-                },
-                {
-                    "@tag": "HEADER_AVATARS",
-                    "#text": "Avatar Settings"
-                },
-                {
-                    "@tag": "HEADER_BOTSPAM",
-                    "#text": "Bot Spam Settings (User Checking)"
-                },
-                {
-                    "@tag": "HEADER_CACHE",
-                    "#text": "Cache Settings"
-                },
-                {
-                    "@tag": "HEADER_CDN",
-                    "#text": "Scripts CDN Settings"
-                },
-                {
-                    "@tag": "HEADER_DISPLAY",
-                    "#text": "Display Settings"
-                },
-                {
-                    "@tag": "HEADER_EDITORS",
-                    "#text": "Editing/Formatting Settings"
-                },
-                {
-                    "@tag": "HEADER_FEATURES",
-                    "#text": "Feature Settings"
-                },
-                {
-                    "@tag": "HEADER_GEOLOCATION",
-                    "#text": "Geolocation Settings"
-                },
-                {
-                    "@tag": "HEADER_HOTTOPICS",
-                    "#text": "Hot (Popular) Topic Settings"
-                },
-                {
-                    "@tag": "HEADER_HOVERCARD",
-                    "#text": "Hover Cards Settings"
-                },
-                {
-                    "@tag": "HEADER_IMAGE_ATTACH",
-                    "#text": "Image Attachment & Resize Settings"
-                },
-                {
-                    "@tag": "HEADER_LOG",
-                    "#text": "Log settings"
-                },
-                {
-                    "@tag": "HEADER_LOGIN",
-                    "#text": "Login/Registration Settings"
-                },
-                {
-                    "@tag": "HEADER_LOGSCOPE",
-                    "#text": "Log scope"
-                },
-                {
-                    "@tag": "HEADER_MESSAGE_NOTIFICATION",
-                    "#text": "Message Notification Settings"
-                },
-                {
-                    "@tag": "HEADER_PASSWORD",
-                    "#text": "Password Strength Settings"
-                },
-                {
-                    "@tag": "HEADER_PERMISSION",
-                    "#text": "Permission Settings"
-                },
-                {
-                    "@tag": "HEADER_PMS",
-                    "#text": "Private Messages"
-                },
-                {
-                    "@tag": "HEADER_POLL",
-                    "#text": "Poll Settings"
-                },
-                {
-                    "@tag": "HEADER_REPUTATION",
-                    "#text": "Reputation Settings"
-                },
-                {
-                    "@tag": "HEADER_SEARCH",
-                    "#text": "Search Settings"
-                },
-                {
-                    "@tag": "HEADER_SERVER_INFO",
-                    "#text": "Server Info"
-                },
-                {
-                    "@tag": "HEADER_SETUP",
-                    "#text": "Host Setup"
-                },
-                {
-                    "@tag": "HEADER_SPAM",
-                    "#text": "Spam Settings (Content Checking)"
-                },
-                {
-                    "@tag": "HEADER_SYNDICATION",
-                    "#text": "Syndication Feed Settings"
-                },
-                {
-                    "@tag": "HOST_ADVERTS",
-                    "#text": "Adverts"
-                },
-                {
-                    "@tag": "HOST_AVATARS",
-                    "#text": "Avatars"
-                },
-                {
-                    "@tag": "HOST_CACHE",
-                    "#text": "Cache"
-                },
-                {
-                    "@tag": "HOST_DISPLAY",
-                    "#text": "Display"
-                },
-                {
-                    "@tag": "HOST_EDITORS",
-                    "#text": "Editors"
-                },
-                {
-                    "@tag": "HOST_FEATURES",
-                    "#text": "Features"
-                },
-                {
-                    "@tag": "HOST_LOG",
-                    "#text": "Logs"
-                },
-                {
-                    "@tag": "HOST_PERMISSION",
-                    "#text": "Permission"
-                },
-                {
-                    "@tag": "HOST_SEARCH",
-                    "#text": "Search"
-                },
-                {
-                    "@tag": "HOVERCARD_DELAY",
-                    "#text": "Hover Card opening Delay (Milliseconds):"
-                },
-                {
-                    "@tag": "HOVERCARD_DELAY_HELP",
-                    "#text": "The Delay before opening the Hover Card when a user hovers over a user name."
-                },
-                {
-                    "@tag": "IGNORE_SPAMCHECK_COUNT",
-                    "#text": "User Post Count to be ignored from Spam Check:"
-                },
-                {
-                    "@tag": "IGNORE_SPAMCHECK_COUNT_HELP",
-                    "#text": "The amount of posts a user has to have to be ignored by the spam checking."
-                },
-                {
-                    "@tag": "IMAGE_ATTACH_RESIZE",
-                    "#text": "Enable Image Attachment Resize:"
-                },
-                {
-                    "@tag": "IMAGE_ATTACH_RESIZE_HELP",
-                    "#text": "Attached images will be resized to thumbnails if they are too large."
-                },
-                {
-                    "@tag": "IMAGE_RESIZE_HEIGHT",
-                    "#text": "Image Resize Max Height:"
-                },
-                {
-                    "@tag": "IMAGE_RESIZE_HEIGHT_HELP",
-                    "#text": "Maximum Height of the resized attachment images."
-                },
-                {
-                    "@tag": "IMAGE_RESIZE_WIDTH",
-                    "#text": "Image Resize Max Width:"
-                },
-                {
-                    "@tag": "IMAGE_RESIZE_WIDTH_HELP",
-                    "#text": "Maximum Width of the resized attachment images."
-                },
-                {
-                    "@tag": "IMAGE_THUMB_HEIGHT",
-                    "#text": "Thumbnail Image  Max Height:"
-                },
-                {
-                    "@tag": "IMAGE_THUMB_HEIGHT_HELP",
-                    "#text": "Maximum Height of the attachment and album image thumbnail."
-                },
-                {
-                    "@tag": "IMAGE_THUMB_WIDTH",
-                    "#text": "Thumbnail Image  Max Width:"
-                },
-                {
-                    "@tag": "IMAGE_THUMB_WIDTH_HELP",
-                    "#text": "Maximum Width of the attachment and album image thumbnail."
-                },
-                {
-                    "@tag": "IMAGES_PER_PAGE",
-                    "#text": "Images Per Page:"
-                },
-                {
-                    "@tag": "IMAGES_PER_PAGE_HELP",
-                    "#text": "Number of images to show per page."
-                },
-                {
-                    "@tag": "INDEX_SEARCH",
-                    "#text": "Re-Index Search"
-                },
-                {
-                    "@tag": "INDEX_SEARCH_HELP",
-                    "#text": "Indexes all Messages in all Forums of the current Board for the Search Engine"
-                },
-                {
-                    "@tag": "IP_INFOSERVICE",
-                    "#text": "Enable IP Info Service:"
-                },
-                {
-                    "@tag": "IP_INFOSERVICE_DATAMAPPING",
-                    "#text": "IP Info Geolocation Web Service arguments mapping string:"
-                },
-                {
-                    "@tag": "IP_INFOSERVICE_DATAMAPPING_HELP",
-                    "#text": "Maps string array or deserialized return data to properties."
-                },
-                {
-                    "@tag": "IP_INFOSERVICE_HELP",
-                    "#text": "If checked, we will get info about a registering user from a web service like country and city."
-                },
-                {
-                    "@tag": "IP_INFOSERVICE_XMLURL",
-                    "#text": "IP Info XML Web Service URL:"
-                },
-                {
-                    "@tag": "IP_INFOSERVICE_XMLURL_HELP",
-                    "#text": "Set it to get details about user IPs as XML data."
-                },
-                {
-                    "@tag": "IPINFO_ULRL",
-                    "#text": "IP Info Page URL:"
-                },
-                {
-                    "@tag": "IPINFO_ULRL_HELP",
-                    "#text": "Set it to get details about IPs whereabouts as web page."
-                },
-                {
-                    "@tag": "LASTPOST_COUNT",
-                    "#text": "Active Discussions Count:"
-                },
-                {
-                    "@tag": "LASTPOST_COUNT_HELP",
-                    "#text": "Number of records to display in Active Discussions list on forum index."
-                },
-                {
-                    "@tag": "LASTPOSTS_FEEDS_ACCESS",
-                    "#text": "Post Latest Feeds Access:"
-                },
-                {
-                    "@tag": "LASTPOSTS_FEEDS_ACCESS_HELP",
-                    "#text": "Restrict display of posts feeds for latest posts."
-                },
-                {
-                    "@tag": "LAZY_CACHE_TIMEOUT",
-                    "#text": "User Lazy Data Cache Timeout:"
-                },
-                {
-                    "@tag": "LAZY_CACHE_TIMEOUT_HELP",
-                    "#text": "In minutes"
-                },
-                {
-                    "@tag": "LOG_BANNEDIP",
-                    "#text": "Allow log Banned IP actions:"
-                },
-                {
-                    "@tag": "LOG_BANNEDIP_HELP",
-                    "#text": "Log banned IP set and lift."
-                },
-                {
-                    "@tag": "LOG_ERROR",
-                    "#text": "Allow log Application Errors:"
-                },
-                {
-                    "@tag": "LOG_ERROR_HELP",
-                    "#text": "Application errors will be logged."
-                },
-                {
-                    "@tag": "LOG_INFORMATION",
-                    "#text": "Allow log Application Info:"
-                },
-                {
-                    "@tag": "LOG_INFORMATION_HELP",
-                    "#text": "Application info messages will be logged."
-                },
-                {
-                    "@tag": "LOG_SUSPENDEDANDCONTRA",
-                    "#text": "Allow log when users suspended or un-suspended:"
-                },
-                {
-                    "@tag": "LOG_SUSPENDEDANDCONTRA_HELP",
-                    "#text": "Log when users are suspended or un-suspended."
-                },
-                {
-                    "@tag": "LOG_USERDELETED",
-                    "#text": "Allow log user deleting event:"
-                },
-                {
-                    "@tag": "LOG_USERDELETED_HELP",
-                    "#text": "User deleting event will be logged."
-                },
-                {
-                    "@tag": "LOG_USERSUSPENDED",
-                    "#text": "Allow log user suspended and un-suspended:"
-                },
-                {
-                    "@tag": "LOG_USERSUSPENDED_HELP",
-                    "#text": "Suspended and un-suspended events will be logged."
-                },
-                {
-                    "@tag": "LOG_VIEWSTATEERROR",
-                    "#text": "Log ViewState Exceptions:"
-                },
-                {
-                    "@tag": "LOG_VIEWSTATEERROR_HELP",
-                    "#text": "ViewState Exceptions (mainly caused by SPAM Bots) will be logged."
-                },
-                {
-                    "@tag": "LOG_WARNING",
-                    "#text": "Allow log Application Warnings:"
-                },
-                {
-                    "@tag": "LOG_WARNING_HELP",
-                    "#text": "Application warnings will be logged."
-                },
-                {
-                    "@tag": "LOGIN_REDIR_URL",
-                    "#text": "Custom Login Redirect Url:"
-                },
-                {
-                    "@tag": "LOGIN_REDIR_URL_HELP",
-                    "#text": "If login is disabled in the AppSettings (AllowLoginAndLogoff needs to be set to \"false\"), this is the URL users will be redirected to when they need to access the forum. Optionally add \"{0}\" to the URL to pass the return URL to the custom Url. E.g. \"http://mydomain.com/login.aspx?PreviousUrl={{0}}\""
-                },
-                {
-                    "@tag": "MAX_ALLOWED_CHOICES",
-                    "#text": "Max. Allowed Number of Poll Choices:"
-                },
-                {
-                    "@tag": "MAX_ALLOWED_CHOICES_HELP",
-                    "#text": "Number of a question choices, max value no more than 99."
-                },
-                {
-                    "@tag": "MAX_ATTACHMENTS",
-                    "#text": "Maximum Number of Attachments per Post:"
-                },
-                {
-                    "@tag": "MAX_ATTACHMENTS_HELP",
-                    "#text": "Maximum Number of uploaded files per Post. Set to 0 for unlimited."
-                },
-                {
-                    "@tag": "MAX_FILESIZE",
-                    "#text": "Max File Size:"
-                },
-                {
-                    "@tag": "MAX_FILESIZE_HELP",
-                    "#text": "Maximum size of uploaded files. Leave empty for no limit."
-                },
-                {
-                    "@tag": "MAX_IMAGE_SIZE",
-                    "#text": "Maximum Image Size:"
-                },
-                {
-                    "@tag": "MAX_IMAGE_SIZE_HELP",
-                    "#text": "Maximum size of image in bytes a user can upload."
-                },
-                {
-                    "@tag": "MAX_PM_RECIPIENTS",
-                    "#text": "Max no. of PM Recipients:"
-                },
-                {
-                    "@tag": "MAX_PM_RECIPIENTS_HELP",
-                    "#text": "Maximum allowed recipients per on PM sent (0 = unlimited)"
-                },
-                {
-                    "@tag": "MAX_POST_CHARS",
-                    "#text": "Max Report Post Length:"
-                },
-                {
-                    "@tag": "MAX_POST_CHARS_HELP",
-                    "#text": "Max Allowed Report Post length."
-                },
-                {
-                    "@tag": "MAX_POST_SIZE",
-                    "#text": "Max Post Size:"
-                },
-                {
-                    "@tag": "MAX_POST_SIZE_HELP",
-                    "#text": "Maximum size of a post in bytes. Set to 0 for unlimited (not recommended)."
-                },
-                {
-                    "@tag": "MAX_SEARCH_RESULTS",
-                    "#text": "Max Search Results:"
-                },
-                {
-                    "@tag": "MAX_SEARCH_RESULTS_HELP",
-                    "#text": "Maximum number of search results that can be returned. Enter \"0\" for unlimited (not recommended)."
-                },
-                {
-                    "@tag": "MESSAGE_CHANGE_HISTORY",
-                    "#text": "Message history archive time"
-                },
-                {
-                    "@tag": "MESSAGE_CHANGE_HISTORY_HELP",
-                    "#text": "Number of days to keep message change history."
-                },
-                {
-                    "@tag": "MESSAGE_SYSTEM",
-                    "#text": "Notification System for System Messages:"
-                },
-                {
-                    "@tag": "MESSAGE_SYSTEM_HELP",
-                    "#text": "You can choose Between Modal Dialog or a Top Notification Bar for System Messages."
-                },
-                {
-                    "@tag": "MOD_CACHE_TIMEOUT",
-                    "#text": "Board Moderators Cache Timeout:"
-                },
-                {
-                    "@tag": "MOD_CACHE_TIMEOUT_HELP",
-                    "#text": "In minutes"
-                },
-                {
-                    "@tag": "MODAL_DIALOG",
-                    "#text": "Modal Dialog"
-                },
-                {
-                    "@tag": "MODAL_LOGIN",
-                    "#text": "Use Login Box (Modal PopUp Dialog):"
-                },
-                {
-                    "@tag": "MODAL_LOGIN_HELP",
-                    "#text": "If checked, the Login Control is displayed as Login Box. Otherwise Login Control will be Displayed on a Single Page."
-                },
-                {
-                    "@tag": "NAME_LENGTH",
-                    "#text": "User/Display Name Max Length:"
-                },
-                {
-                    "@tag": "NAME_LENGTH_HELP",
-                    "#text": "Max Allowed User Name or User Display Name Max Length."
-                },
-                {
-                    "@tag": "NOFOLLOW_LINKTAGS",
-                    "#text": "Use \"NoFollow\" Tag in Links:"
-                },
-                {
-                    "@tag": "NOFOLLOW_LINKTAGS_HELP",
-                    "#text": "If this is checked, all links will have the nofollow tag."
-                },
-                {
-                    "@tag": "NOTIFICATION_BAR",
-                    "#text": "Notification Bar"
-                },
-                {
-                    "@tag": "NOTIFICATION_DURATION",
-                    "#text": "Notification Bar Display Duration:"
-                },
-                {
-                    "@tag": "NOTIFICATION_DURATION_HELP",
-                    "#text": "Duration (in Seconds) how long the Bar is displayed."
-                },
-                {
-                    "@tag": "NOTIFICATION_MOBILE",
-                    "#text": "Use Native Message Dialogs on Mobile:"
-                },
-                {
-                    "@tag": "NOTIFICATION_MOBILE_HELP",
-                    "#text": "Option to Show Native Notification Dialogs on Mobile Devices."
-                },
-                {
-                    "@tag": "ONLINE_STATUS_TIMEOUT",
-                    "#text": "Online User Status Cache Timeout:"
-                },
-                {
-                    "@tag": "ONLINE_STATUS_TIMEOUT_HELP",
-                    "#text": "You can fine-tune it depending on your site activity (in milliseconds)"
-                },
-                {
-                    "@tag": "PASSWORD_LOWER_CASE",
-                    "#text": "Require Lower Case:"
-                },
-                {
-                    "@tag": "PASSWORD_LOWER_CASE_HELP",
-                    "#text": "Option to require a lower case letter ('a' - 'z') in a Password."
-                },
-                {
-                    "@tag": "PASSWORD_MIN_LENGTH",
-                    "#text": "Minimum Length:"
-                },
-                {
-                    "@tag": "PASSWORD_MIN_LENGTH_HELP",
-                    "#text": "The minimum required password length."
-                },
-                {
-                    "@tag": "PASSWORD_REQUIRE_DIGIT",
-                    "#text": "Require Digit:"
-                },
-                {
-                    "@tag": "PASSWORD_REQUIRE_DIGIT_HELP",
-                    "#text": "Option to require a numeric digit ('0' - '9') in a Password."
-                },
-                {
-                    "@tag": "PASSWORD_REQUIRE_NON_LETTER",
-                    "#text": "Require non Letter Or Digit:"
-                },
-                {
-                    "@tag": "PASSWORD_REQUIRE_NON_LETTER_HELP",
-                    "#text": "Option to requires a non-letter or digit character in a Password."
-                },
-                {
-                    "@tag": "PASSWORD_UPPER_CASE",
-                    "#text": "Require Upper Case:"
-                },
-                {
-                    "@tag": "PASSWORD_UPPER_CASE_HELP",
-                    "#text": "Option to require a upper case letter ('A' - 'Z') in a Password."
-                },
-                {
-                    "@tag": "PM_ATTACHMENTS",
-                    "#text": "Allow attachments in Private Messages"
-                },
-                {
-                    "@tag": "PM_ATTACHMENTS_HELP",
-                    "#text": "Allows the upload and use of attachments in Private messages."
-                },
-                {
-                    "@tag": "POLL_IMAGE_FILESIZE",
-                    "#text": "Max. File Size for User Poll Images:"
-                },
-                {
-                    "@tag": "POLL_IMAGE_FILESIZE_HELP",
-                    "#text": "Define the Max. File Size in Kilo Bytes for an User Poll Image."
-                },
-                {
-                    "@tag": "POPULAR_DAYS",
-                    "#text": "Active Days to stay Hot:"
-                },
-                {
-                    "@tag": "POPULAR_DAYS_HELP",
-                    "#text": "Define the Number of days the topics last post must have been posted. By Default it is set to 7 (One Week), that means a topic stays popular for one week."
-                },
-                {
-                    "@tag": "POPULAR_REPLYS",
-                    "#text": "Min. Replies to became Hot:"
-                },
-                {
-                    "@tag": "POPULAR_REPLYS_HELP",
-                    "#text": "The number of Replies per topic becomes popular."
-                },
-                {
-                    "@tag": "POPULAR_VIEWS",
-                    "#text": "Min. Views to became Hot:"
-                },
-                {
-                    "@tag": "POPULAR_VIEWS_HELP",
-                    "#text": "The number of topic views before a topic becomes popular."
-                },
-                {
-                    "@tag": "POST_AD",
-                    "#text": "2nd post ad:"
-                },
-                {
-                    "@tag": "POST_AD_HELP",
-                    "#text": "Place the code that you wish to be displayed in each thread after the 1st post. If you do not want an ad to be displayed, don't put anything in the box."
-                },
-                {
-                    "@tag": "POSTED_IMAGE_RESIZE",
-                    "#text": "Resize User Posted Images:"
-                },
-                {
-                    "@tag": "POSTED_IMAGE_RESIZE_HELP",
-                    "#text": "Resize user posted images in messages, if there are bigger then the max values bellow."
-                },
-                {
-                    "@tag": "POSTEDIT_TIMEOUT",
-                    "#text": "Post editing timeout:"
-                },
-                {
-                    "@tag": "POSTEDIT_TIMEOUT_HELP",
-                    "#text": "Number of seconds while post may be modified without showing that to other users"
-                },
-                {
-                    "@tag": "POSTS_FEEDS_ACCESS",
-                    "#text": "Posts Feeds Access:"
-                },
-                {
-                    "@tag": "POSTS_FEEDS_ACCESS_HELP",
-                    "#text": "Restrict display of posts feeds for a topic."
-                },
-                {
-                    "@tag": "POSTS_PER_PAGE",
-                    "#text": "Posts Per Page:"
-                },
-                {
-                    "@tag": "POSTS_PER_PAGE_HELP",
-                    "#text": "Number of posts to show per page."
-                },
-                {
-                    "@tag": "QUICK_SEARCH",
-                    "#text": "Show Quick Search:"
-                },
-                {
-                    "@tag": "QUICK_SEARCH_HELP",
-                    "#text": "Show Quick Search field and button in toolbar."
-                },
-                {
-                    "@tag": "REG_USERS",
-                    "#text": "Registered Users"
-                },
-                {
-                    "@tag": "REMOVE_NESTED_QUOTES",
-                    "#text": "Remove Nested Quotes:"
-                },
-                {
-                    "@tag": "REMOVE_NESTED_QUOTES_HELP",
-                    "#text": "Automatically remove nested [quote] tags from replies."
-                },
-                {
-                    "@tag": "REPLACE_CACHE_TIMEOUT",
-                    "#text": "Replace Rules Cache Timeout:"
-                },
-                {
-                    "@tag": "REPLACE_CACHE_TIMEOUT_HELP",
-                    "#text": " BB code, bad words, etc. (in minutes)"
-                },
-                {
-                    "@tag": "REPORT_POST_PERMISSION",
-                    "#text": "Report Post Permissions:"
-                },
-                {
-                    "@tag": "REPORT_POST_PERMISSION_HELP",
-                    "#text": "Allow reporting posts to:"
-                },
-                {
-                    "@tag": "REPUTATION_ALLOWNEGATIVE",
-                    "#text": "Allow Negative Reputation:"
-                },
-                {
-                    "@tag": "REPUTATION_ALLOWNEGATIVE_HELP",
-                    "#text": "If allowed Users can get Negative Reputation Numbers."
-                },
-                {
-                    "@tag": "REPUTATION_MAX",
-                    "#text": "Maximum Positive Reputation Value:"
-                },
-                {
-                    "@tag": "REPUTATION_MAX_HELP",
-                    "#text": "This Value is used to generate the Reputation Bar."
-                },
-                {
-                    "@tag": "REPUTATION_MIN",
-                    "#text": "Maximum Negative Reputation Value:"
-                },
-                {
-                    "@tag": "REPUTATION_MIN_HELP",
-                    "#text": "This Value is used to generate the Reputation Bar."
-                },
-                {
-                    "@tag": "REPUTATION_MINDOWN",
-                    "#text": "Min. Value to allow Remove Reputation:"
-                },
-                {
-                    "@tag": "REPUTATION_MINDOWN_HELP",
-                    "#text": "Check if the User matches minimal requirements for voting down."
-                },
-                {
-                    "@tag": "REPUTATION_MINUP",
-                    "#text": "Min. Value to allow Add Reputation:"
-                },
-                {
-                    "@tag": "REPUTATION_MINUP_HELP",
-                    "#text": "Check if the User matches minimal requirements for voting up."
-                },
-                {
-                    "@tag": "REQUIRE_LOGIN",
-                    "#text": "Require User Login:"
-                },
-                {
-                    "@tag": "REQUIRE_LOGIN_HELP",
-                    "#text": "If checked, users will be required to log in before they can see any content. They'll be redirected straight to login page."
-                },
-                {
-                    "@tag": "RULES_ONREGISTER",
-                    "#text": "Show \"Rules\" Before Registration:"
-                },
-                {
-                    "@tag": "RULES_ONREGISTER_HELP",
-                    "#text": "Require that \"rules\" are shown and accepted before a new user can register."
-                },
-                {
-                    "@tag": "SAVE_SETTINGS",
-                    "#text": "Save Settings"
-                },
-                {
-                    "@tag": "SEARCH_MAXLENGTH",
-                    "#text": "Search Text Maximum Length:"
-                },
-                {
-                    "@tag": "SEARCH_MAXLENGTH_HELP",
-                    "#text": "Maximum length of the search string allowed."
-                },
-                {
-                    "@tag": "SEARCH_MINLENGTH",
-                    "#text": "Search Text Minimal Length:"
-                },
-                {
-                    "@tag": "SEARCH_MINLENGTH_HELP",
-                    "#text": "Minimal length of the search string allowed."
-                },
-                {
-                    "@tag": "SEARCH_PATTERN",
-                    "#text": "Search Text Pattern:"
-                },
-                {
-                    "@tag": "SEARCH_PATTERN_HELP",
-                    "#text": "Allowed search text (Regular Expression) pattern."
-                },
-                {
-                    "@tag": "SEARCH_PERMISS",
-                    "#text": "Search Permissions:"
-                },
-                {
-                    "@tag": "SEARCH_PERMISS_HELP",
-                    "#text": "Allow search to:"
-                },
-                {
-                    "@tag": "SERVER_VERSION",
-                    "#text": "SQL Server Version:"
-                },
-                {
-                    "@tag": "SERVER_VERSION_HELP",
-                    "#text": "What version of SQL Server is running."
-                },
-                {
-                    "@tag": "SERVERTIME_CORRECT",
-                    "#text": "Server Time Zone Correction:"
-                },
-                {
-                    "@tag": "SERVERTIME_CORRECT_HELP",
-                    "#text": "Enter a positive or a negative value in minutes between -720 and 720, if the server UTC time value is incorrect: "
-                },
-                {
-                    "@tag": "SHOW_ACTIVE_DISCUSSION",
-                    "#text": "Show Active Discussions:"
-                },
-                {
-                    "@tag": "SHOW_ACTIVE_DISCUSSION_HELP",
-                    "#text": "Enable or disable display of active discussions list on board index page."
-                },
-                {
-                    "@tag": "SHOW_ATOM_LINKS",
-                    "#text": "Show Atom Links:"
-                },
-                {
-                    "@tag": "SHOW_ATOM_LINKS_HELP",
-                    "#text": "Enable or disable display of Atom links throughout the forum."
-                },
-                {
-                    "@tag": "SHOW_AVATARS_TOPICLISTS",
-                    "#text": "Show Avatars in Topic Listing:"
-                },
-                {
-                    "@tag": "SHOW_AVATARS_TOPICLISTS_HELP",
-                    "#text": "If this is checked, the topic pages will show avatar graphics."
-                },
-                {
-                    "@tag": "SHOW_BOTS_INACTIVE",
-                    "#text": "Show Crawlers In Active Lists:"
-                },
-                {
-                    "@tag": "SHOW_BOTS_INACTIVE_HELP",
-                    "#text": "If checked, Crawlers will be displayed In Active Lists."
-                },
-                {
-                    "@tag": "SHOW_CONNECT_MESSAGE",
-                    "#text": "Show Guest Connect Message after first Message and in the page Header:"
-                },
-                {
-                    "@tag": "SHOW_CONNECT_MESSAGE_HELP",
-                    "#text": "Whether or not to show a Connect Message after the first Message in a topic and in the Page Header for Guests. Containing login and registration links."
-                },
-                {
-                    "@tag": "SHOW_COOKIECONSET",
-                    "#text": "Show Cookie Consent Popup message"
-                },
-                {
-                    "@tag": "SHOW_COOKIECONSET_HELP",
-                    "#text": "When enabled show the Cookie Accept Popup message."
-                },
-                {
-                    "@tag": "SHOW_DEL_MESSAGES",
-                    "#text": "Show Deleted Messages:"
-                },
-                {
-                    "@tag": "SHOW_DEL_MESSAGES_HELP",
-                    "#text": "If this is checked, messages that are deleted will leave with some notes"
-                },
-                {
-                    "@tag": "SHOW_DEL_MESSAGES_TOALL",
-                    "#text": "Show Deleted Messages to All:"
-                },
-                {
-                    "@tag": "SHOW_DEL_MESSAGES_TOALL_HELP",
-                    "#text": "If Show Deleted Messages is checked above, checking this will force showing the delete message stub to all users.<br /> If it remains unchecked, the deleted message stub will only show to administrators, moderators, and the owner of the deleted message."
-                },
-                {
-                    "@tag": "SHOW_EDIT_MESSAGE",
-                    "#text": "Show Edit Message:"
-                },
-                {
-                    "@tag": "SHOW_EDIT_MESSAGE_HELP",
-                    "#text": "If enabled it shows a Note in the footer of the Message if the Message was edited (incl. the Reason and Time)"
-                },
-                {
-                    "@tag": "SHOW_FORUM_JUMP",
-                    "#text": "Show Forum Jump Box:"
-                },
-                {
-                    "@tag": "SHOW_FORUM_JUMP_HELP",
-                    "#text": "Enable or disable display of the Forum Jump Box throughout the forum."
-                },
-                {
-                    "@tag": "SHOW_FORUM_STATS",
-                    "#text": "Show Forum Statistics:"
-                },
-                {
-                    "@tag": "SHOW_FORUM_STATS_HELP",
-                    "#text": "Enable or disable display of forum statistics on board index page."
-                },
-                {
-                    "@tag": "SHOW_GROUPS",
-                    "#text": "Show Groups:"
-                },
-                {
-                    "@tag": "SHOW_GROUPS_HELP",
-                    "#text": "Should the groups a user is part of be visible on the posts page."
-                },
-                {
-                    "@tag": "SHOW_GROUPS_INPROFILE",
-                    "#text": "Show Groups in profile:"
-                },
-                {
-                    "@tag": "SHOW_GROUPS_INPROFILE_HELP",
-                    "#text": "Should the groups a user is part of be visible on the users profile page."
-                },
-                {
-                    "@tag": "SHOW_GUESTS_INACTIVE",
-                    "#text": "Show Guests In Detailed Active List:"
-                },
-                {
-                    "@tag": "SHOW_GUESTS_INACTIVE_HELP",
-                    "#text": "If checked, Guests will be displayed In Detailed Active List."
-                },
-                {
-                    "@tag": "SHOW_JOINDATE",
-                    "#text": "Show Join Date:"
-                },
-                {
-                    "@tag": "SHOW_JOINDATE_HELP",
-                    "#text": "If checked, join date will be displayed for each user."
-                },
-                {
-                    "@tag": "SHOW_LINKS_NEWWINDOW",
-                    "#text": "Show Links in New Window:"
-                },
-                {
-                    "@tag": "SHOW_LINKS_NEWWINDOW_HELP",
-                    "#text": "If this is checked, links in messages will open in a new window."
-                },
-                {
-                    "@tag": "SHOW_MEDALS",
-                    "#text": "Show Medals:"
-                },
-                {
-                    "@tag": "SHOW_MEDALS_HELP",
-                    "#text": "Should medals of a user be visible on the posts page."
-                },
-                {
-                    "@tag": "SHOW_MODLIST",
-                    "#text": "Show Moderator List:"
-                },
-                {
-                    "@tag": "SHOW_MODLIST_ASCOLUMN",
-                    "#text": "Show Moderator List in column:"
-                },
-                {
-                    "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-                    "#text": "Shows moderator list as a separate column in a category list."
-                },
-                {
-                    "@tag": "SHOW_MODLIST_HELP",
-                    "#text": "If this is checked, the moderator list column is displayed in the forum list."
-                },
-                {
-                    "@tag": "SHOW_MOVED_TOPICS",
-                    "#text": "Show Moved Topics:"
-                },
-                {
-                    "@tag": "SHOW_MOVED_TOPICS_HELP",
-                    "#text": "If this is checked, topics that are moved will leave behind a pointer to the new topic."
-                },
-                {
-                    "@tag": "SHOW_NOCOUNT_POSTS",
-                    "#text": "Show 'no-count' Forum Posts in Active Discussions:"
-                },
-                {
-                    "@tag": "SHOW_NOCOUNT_POSTS_HELP",
-                    "#text": "If this is checked, posts from 'no-count' forums will be displayed in Active Discussions."
-                },
-                {
-                    "@tag": "SHOW_RECENT_USERS",
-                    "#text": "Show Recent Users in Forum Info:"
-                },
-                {
-                    "@tag": "SHOW_RECENT_USERS_HELP",
-                    "#text": "Enable to Show Recent Users within the last 24 hours in the forum info on board index page."
-                },
-                {
-                    "@tag": "SHOW_RELATIVE_TIME",
-                    "#text": "Show Relative Time:"
-                },
-                {
-                    "@tag": "SHOW_RELATIVE_TIME_HELP",
-                    "#text": "If checked, client-side \"Time Ago\" library will be used to show \"relative times\" to users instead of UTC and or imperfect server-side times."
-                },
-                {
-                    "@tag": "SHOW_RENDERTIME",
-                    "#text": "Show Page Generated Time:"
-                },
-                {
-                    "@tag": "SHOW_RENDERTIME_HELP",
-                    "#text": "Enable or disable display of page generation text at the bottom of the page."
-                },
-                {
-                    "@tag": "SHOW_RSS_LINKS",
-                    "#text": "Show RSS Links:"
-                },
-                {
-                    "@tag": "SHOW_RSS_LINKS_HELP",
-                    "#text": "Enable or disable display of RSS links throughout the forum."
-                },
-                {
-                    "@tag": "SCROLL_TO_POST",
-                    "#text": "Scroll to unread/first post"
-                },
-                {
-                    "@tag": "SCROLL_TO_POST_HELP",
-                    "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
-                },
-                {
-                    "@tag": "SHOW_SCROLL",
-                    "#text": "Show Scroll Back to Top Button"
-                },
-                {
-                    "@tag": "SHOW_SCROLL_HELP",
-                    "#text": "If enabled automatically show Back to Top Button when scrolling down the page"
-                },
-                {
-                    "@tag": "SHOW_SIMILARTOPICS",
-                    "#text": "Show Similar Topics:"
-                },
-                {
-                    "@tag": "SHOW_SIMILARTOPICS_HELP",
-                    "#text": "Should similar topics to be displayed at the bottom of a topic."
-                },
-                {
-                    "@tag": "SHOW_THANK_DATE",
-                    "#text": "Show The Date on Which Users Have Thanked Posts:"
-                },
-                {
-                    "@tag": "SHOW_THANK_DATE_HELP",
-                    "#text": "If checked users can see on which date posts have been thanked. (Thanks Mod must be enabled first.)"
-                },
-                {
-                    "@tag": "SHOW_UNREAD_LINKS",
-                    "#text": "Show Unread Links:"
-                },
-                {
-                    "@tag": "SHOW_UNREAD_LINKS_HELP",
-                    "#text": "Unread Links will be displayed."
-                },
-                {
-                    "@tag": "SHOW_USER_STATUS",
-                    "#text": "Show User Online/Offline Status:"
-                },
-                {
-                    "@tag": "SHOW_USER_STATUS_HELP",
-                    "#text": "If checked, current user status is displayed in the forum. Hidden users are always displayed as offline."
-                },
-                {
-                    "@tag": "SHOW_USERSBROWSING",
-                    "#text": "Show Users Browsing:"
-                },
-                {
-                    "@tag": "SHOW_USERSBROWSING_HELP",
-                    "#text": "Should users currently browsing forums/topics be displayed at the bottom."
-                },
-                {
-                    "@tag": "SHOW_YAFVERSION",
-                    "#text": "Show YetAnotherForum Version:"
-                },
-                {
-                    "@tag": "SHOW_YAFVERSION_HELP",
-                    "#text": "Enable or disable display of the version/date information the bottom of the page (disable if your concerned about security)."
-                },
-                {
-                    "@tag": "SHOWAD_LOGINUSERS",
-                    "#text": "Show Ad to \"Signed In\" Users:"
-                },
-                {
-                    "@tag": "SHOWAD_LOGINUSERS_HELP",
-                    "#text": "If checked, signed in users will see ads."
-                },
-                {
-                    "@tag": "SHOWHELP",
-                    "#text": "Show Help:"
-                },
-                {
-                    "@tag": "SHOWHELP_HELP",
-                    "#text": "Enable or disable display the Help Link in the Header that Shows the Help Files Pages"
-                },
-                {
-                    "@tag": "SHOWTEAM",
-                    "#text": "Show Team Page:"
-                },
-                {
-                    "@tag": "SHOWTEAM_HELP",
-                    "#text": "Enable or disable display the Team Link in the Header that Shows the Team Page"
-                },
-                {
-                    "@tag": "SPAM_MESSAGE_0",
-                    "#text": "Do nothing"
-                },
-                {
-                    "@tag": "SPAM_MESSAGE_1",
-                    "#text": "Flag Message as Unapproved"
-                },
-                {
-                    "@tag": "SPAM_MESSAGE_2",
-                    "#text": "Reject Message"
-                },
-                {
-                    "@tag": "SPAM_MESSAGE_3",
-                    "#text": "Delete & Ban user"
-                },
-                {
-                    "@tag": "SPAM_MESSAGE_HANDLING",
-                    "#text": "Handling of as SPAM Detected Messages"
-                },
-                {
-                    "@tag": "SPAM_MESSAGE_HANDLING_HELP",
-                    "#text": "Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message."
-                },
-                {
-                    "@tag": "SPAM_SERVICE_TYP_1",
-                    "#text": "BlogSpam.NET API"
-                },
-                {
-                    "@tag": "SPAM_SERVICE_TYP_3",
-                    "#text": "Internal Spam Check Words"
-                },
-                {
-                    "@tag": "SPAMCHECK_ALLOWED_URLS",
-                    "#text": "Allowed Number of URLs before flagged as SPAM:"
-                },
-                {
-                    "@tag": "SPAMCHECK_ALLOWED_URLS_HELP",
-                    "#text": "If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have."
-                },
-                {
-                    "@tag": "SQL_FULLTEXT",
-                    "#text": "Use SQL Full Text Search:"
-                },
-                {
-                    "@tag": "SQL_FULLTEXT_HELP",
-                    "#text": "Toggle use of FULLTEXT SQL Server support on searches."
-                },
-                {
-                    "@tag": "SSL_LOGIN_HELP",
-                    "#text": "Redirect all non Secure Urls to Secure"
-                },
-                {
-                    "@tag": "SSL_REQUIRE",
-                    "#text": "Require SSL"
-                },
-                {
-                    "@tag": "STATS_CACHE_TIMEOUT",
-                    "#text": "Forum Statistics Cache Timeout:"
-                },
-                {
-                    "@tag": "STATS_CACHE_TIMEOUT_HELP",
-                    "#text": "In minutes"
-                },
-                {
-                    "@tag": "STOPFORUMSPAM_KEY",
-                    "#text": "StopForumSpam.com API Key:"
-                },
-                {
-                    "@tag": "STOPFORUMSPAM_KEY_HELP",
-                    "#text": "To Use the StopForumSpam Service you need an API Key"
-                },
-                {
-                    "@tag": "STYLED_NICKS",
-                    "#text": "Use styled nicks:"
-                },
-                {
-                    "@tag": "STYLED_NICKS_HELP",
-                    "#text": "If checked, you can use colors, font size change etc. for active users nicks."
-                },
-                {
-                    "@tag": "STYLED_TOPIC_TITLES",
-                    "#text": "Use styled Topic Titles:"
-                },
-                {
-                    "@tag": "STYLED_TOPIC_TITLES_HELP",
-                    "#text": "If checked, Mods and Admins can use colors, font size change etc. for topic titles."
-                },
-                {
-                    "@tag": "TEMPLATE_TITLE",
-                    "#text": "Page title template:"
-                },
-                {
-                    "@tag": "TEMPLATE_TITLE_HELP",
-                    "#text": "Template for the title meta tag."
-                },
-                {
-                    "@tag": "TEMPLATE_TITLE_PAGER",
-                    "#text": "Pager page title template:"
-                },
-                {
-                    "@tag": "TEMPLATE_TITLE_PAGER_HELP",
-                    "#text": "Template for the page title inside the page title."
-                },
-                {
-                    "@tag": "TITLE",
-                    "#text": "Host Settings"
-                },
-                {
-                    "@tag": "TOPIC_FEEDS_ACCESS",
-                    "#text": "Topics Feeds Access:"
-                },
-                {
-                    "@tag": "TOPIC_FEEDS_ACCESS_HELP",
-                    "#text": "Restrict display of topics feeds."
-                },
-                {
-                    "@tag": "TOPICFEED_COUNT",
-                    "#text": "Max. Topics on the Forum Feed:"
-                },
-                {
-                    "@tag": "TOPICFEED_COUNT_HELP",
-                    "#text": "The maximum Amount of Topics to show on the Atom/Rss Feed."
-                },
-                {
-                    "@tag": "TWOCOLUMN_BOARD",
-                    "#text": "Use 2 Column Board layout"
-                },
-                {
-                    "@tag": "TWOCOLUMN_BOARD_HELP",
-                    "#text": "If enabled show forums in the left column and forum discussions and Stats in the Right Column"
-                },
-                {
-                    "@tag": "USE_CUSTOM_CONTEXTMENU",
-                    "#text": "Use Custom Context Menus in Posts:"
-                },
-                {
-                    "@tag": "USE_CUSTOM_CONTEXTMENU_HELP",
-                    "#text": "If enabled use a custom context menu inside a post, otherwise browser default context menu is used"
-                },
-                {
-                    "@tag": "USE_FARSI_CALENDER",
-                    "#text": "Use Farsi (Shamsi) Persian Calender:"
-                },
-                {
-                    "@tag": "USE_FARSI_CALENDER_HELP",
-                    "#text": "If enabled the Persian Calender all Date Times are Converted to the Persian Calender."
-                },
-                {
-                    "@tag": "USE_READ_TRACKING",
-                    "#text": "Use User Read Tracking via Database:"
-                },
-                {
-                    "@tag": "USE_READ_TRACKING_HELP",
-                    "#text": "If enabled it stores the Last Time a User Visits a Forum and Topic, to find Unread Messages. <br />WARNING: This Can Increase your DB if you have a big amount of users and/or topics"
-                },
-                {
-                    "@tag": "USER_CHANGE_LANGUAGE",
-                    "#text": "Allow User Change Language:"
-                },
-                {
-                    "@tag": "USER_CHANGE_LANGUAGE_HELP",
-                    "#text": "Should users be able to choose what language they want to use?"
-                },
-                {
-                    "@tag": "USER_CHANGE_THEME",
-                    "#text": "Allow User Change Theme:"
-                },
-                {
-                    "@tag": "USER_CHANGE_THEME_HELP",
-                    "#text": "Should users be able to choose what theme they want to use?"
-                },
-                {
-                    "@tag": "USRSTATS_CACHE_TIMEOUT",
-                    "#text": "Board User Statistics Cache Timeout:"
-                },
-                {
-                    "@tag": "USRSTATS_CACHE_TIMEOUT_HELP",
-                    "#text": "In minutes"
-                },
-                {
-                    "@tag": "VIEWACTIVE_PERMISSION",
-                    "#text": "Active Users Viewing Permissions:"
-                },
-                {
-                    "@tag": "VIEWACTIVE_PERMISSION_HELP",
-                    "#text": "Allow viewing of active users list to:"
-                },
-                {
-                    "@tag": "VIEWMEMBERLIST_PERMISSION",
-                    "#text": "Members List Viewing Permissions:"
-                },
-                {
-                    "@tag": "VIEWMEMBERLIST_PERMISSION_HELP",
-                    "#text": "Allow viewing of members list to:"
-                },
-                {
-                    "@tag": "VIEWPROFILE_PERMISSION",
-                    "#text": "Profile Viewing Permissions:"
-                },
-                {
-                    "@tag": "VIEWPROFILE_PERMISSION_HELP",
-                    "#text": "Allow viewing of other users' profiles to:"
-                },
-                {
-                    "@tag": "WELCOME_NOTIFICATION",
-                    "#text": "Send User Welcome Notification:"
-                },
-                {
-                    "@tag": "WELCOME_NOTIFICATION_0",
-                    "#text": "Send No Message"
-                },
-                {
-                    "@tag": "WELCOME_NOTIFICATION_1",
-                    "#text": "Send as e-mail"
-                },
-                {
-                    "@tag": "WELCOME_NOTIFICATION_2",
-                    "#text": "Send as private message"
-                },
-                {
-                    "@tag": "WELCOME_NOTIFICATION_HELP",
-                    "#text": "If enabled you it sends a user a Welcome Mail/Private Message after successfully registration."
-                },
-                {
-                    "@tag": "WSERVICE_TOKEN",
-                    "#text": "Web Service Token:"
-                },
-                {
-                    "@tag": "WSERVICE_TOKEN_HELP",
-                    "#text": "Token used to make secure web service calls. Constantly changing until you save your host settings."
-                }
-            ]
+          "Resource": [
+            {
+              "@tag": "ABANDON_TRACKUSR",
+              "#text": "Abandon Sessions for \"Don't Track\" Users:"
+            },
+            {
+              "@tag": "ABANDON_TRACKUSR_HELP",
+              "#text": "Automatically abandon sessions for users who are marked as \"Don't Track\" such as Search Engines and Bots. Enable if you're having any session issues."
+            },
+            {
+              "@tag": "ACTIVE_USERTIME",
+              "#text": "Active Users Time:"
+            },
+            {
+              "@tag": "ACTIVE_USERTIME_HELP",
+              "#text": "Number of minutes to display users in Active Users list."
+            },
+            {
+              "@tag": "AKISMET_KEY_DOWN",
+              "#text": "Sign Up here"
+            },
+            {
+              "@tag": "ALBUM_IMAGE_SIZE",
+              "#text": "Max Album Image File Size"
+            },
+            {
+              "@tag": "ALBUM_IMAGE_SIZE_HELP",
+              "#text": "Maximum size of uploaded album image files. Leave empty for no limit."
+            },
+            {
+              "@tag": "ALBUM_IMAGES_PER_PAGE",
+              "#text": "Album Images Per Page:"
+            },
+            {
+              "@tag": "ALBUM_IMAGES_PER_PAGE_HELP",
+              "#text": "Number of Album Images to show per page."
+            },
+            {
+              "@tag": "ALBUMS_PER_PAGE",
+              "#text": "Albums Per Page:"
+            },
+            {
+              "@tag": "ALBUMS_PER_PAGE_HELP",
+              "#text": "Number of albums to show per page."
+            },
+            {
+              "@tag": "ALL_USERS",
+              "#text": "All Users"
+            },
+            {
+              "@tag": "ALLOW_CHANGE_AFTERVOTE",
+              "#text": "Allow Poll Changes After First Vote:"
+            },
+            {
+              "@tag": "ALLOW_CHANGE_AFTERVOTE_HELP",
+              "#text": "If enabled a poll creator can change choices and question after the first vote was given."
+            },
+            {
+              "@tag": "ALLOW_DISPLAY_COUNTRY",
+              "#text": "Allow Display Country:"
+            },
+            {
+              "@tag": "ALLOW_DISPLAY_COUNTRY_HELP",
+              "#text": "If checked, the user country flag/name is displayed in the user data in messages list."
+            },
+            {
+              "@tag": "ALLOW_DISPLAY_GENDER",
+              "#text": "Allow Display Gender:"
+            },
+            {
+              "@tag": "ALLOW_DISPLAY_GENDER_HELP",
+              "#text": "If checked, the user gender is displayed in the user data in messages list."
+            },
+            {
+              "@tag": "ALLOW_EMAIL_CHANGE",
+              "#text": "Allow Email Change:"
+            },
+            {
+              "@tag": "ALLOW_EMAIL_CHANGE_HELP",
+              "#text": "Allow users to change their email address."
+            },
+            {
+              "@tag": "ALLOW_EMAIL_TOPIC",
+              "#text": "Allow Email Topic:"
+            },
+            {
+              "@tag": "ALLOW_EMAIL_TOPIC_HELP",
+              "#text": "If checked, users will be allowed to email topics."
+            },
+            {
+              "@tag": "ALLOW_FORUMS_DUPLICATENAME",
+              "#text": "Allow Forums With Same Name:"
+            },
+            {
+              "@tag": "ALLOW_FORUMS_DUPLICATENAME_HELP",
+              "#text": "If checked forums with duplicated names can be created."
+            },
+            {
+              "@tag": "ALLOW_GUESTS_VIEWPOLL",
+              "#text": "Allow Guests View Poll Options:"
+            },
+            {
+              "@tag": "ALLOW_GUESTS_VIEWPOLL_HELP",
+              "#text": "If enabled Guests can see poll choices."
+            },
+            {
+              "@tag": "ALLOW_HIDE_POLLRESULTS",
+              "#text": "Allow Users Hide Poll Results:"
+            },
+            {
+              "@tag": "ALLOW_HIDE_POLLRESULTS_HELP",
+              "#text": "If enabled a poll creator can hide results before voting end or if not all polls in a group are voted."
+            },
+            {
+              "@tag": "ALLOW_MOD_VIEWIP",
+              "#text": "Allow Moderators View IPs:"
+            },
+            {
+              "@tag": "ALLOW_MOD_VIEWIP_HELP",
+              "#text": "Allow to view IPs to moderators."
+            },
+            {
+              "@tag": "ALLOW_MODIFY_DISPLAYNAME",
+              "#text": "Allow Display Name Modification:"
+            },
+            {
+              "@tag": "ALLOW_MODIFY_DISPLAYNAME_HELP",
+              "#text": "If checked, and \"Enable Display Name\" checked, allow modification of Display Name in Edit Profile."
+            },
+            {
+              "@tag": "ALLOW_MULTI_VOTING",
+              "#text": "Allow Multiple Choices Voting:"
+            },
+            {
+              "@tag": "ALLOW_MULTI_VOTING_HELP",
+              "#text": "If enabled users can create poll questions allowing multiple choices voting."
+            },
+            {
+              "@tag": "ALLOW_NOTIFICATION_ONALL",
+              "#text": "Allow Notification of All Posts on All topics:"
+            },
+            {
+              "@tag": "ALLOW_NOTIFICATION_ONALL_HELP",
+              "#text": "Allow users to get individual email notifications on all emails -- tons of email traffic."
+            },
+            {
+              "@tag": "ALLOW_PM_NOTIFICATION",
+              "#text": "Allow Private Message Notifications:"
+            },
+            {
+              "@tag": "ALLOW_PM_NOTIFICATION_HELP",
+              "#text": "Allow users email notifications when new private messages arrive."
+            },
+            {
+              "@tag": "ALLOW_PMS",
+              "#text": "Allow Private Messages:"
+            },
+            {
+              "@tag": "ALLOW_PMS_HELP",
+              "#text": "Allow users to access and send private messages. You should explicitly give permission for each group and/or rank too to enable them for users."
+            },
+            {
+              "@tag": "ALLOW_POSTBLOG",
+              "#text": "Allow Post to Blog:"
+            },
+            {
+              "@tag": "ALLOW_POSTBLOG_HELP",
+              "#text": "If checked, post to blog feature is enabled."
+            },
+            {
+              "@tag": "ALLOW_QUICK_ANSWER",
+              "#text": "Allow Quick Answer:"
+            },
+            {
+              "@tag": "ALLOW_QUICK_ANSWER_HELP",
+              "#text": "Enable or disable display of the Quick Reply Box at the bottom of the Posts page"
+            },
+            {
+              "@tag": "ALLOW_SENDMAIL",
+              "#text": "Allow Email Sending:"
+            },
+            {
+              "@tag": "ALLOW_SENDMAIL_HELP",
+              "#text": "Allow users to send emails to each other."
+            },
+            {
+              "@tag": "ALLOW_SHARE_TOPIC",
+              "#text": "Enable Share Menu:"
+            },
+            {
+              "@tag": "ALLOW_SHARE_TOPIC_HELP",
+              "#text": "Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg, Reddit or Tumblr a Topic."
+            },
+            {
+              "@tag": "ALLOW_SIGNATURE",
+              "#text": "Allow Signatures:"
+            },
+            {
+              "@tag": "ALLOW_SIGNATURE_HELP",
+              "#text": "Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature."
+            },
+            {
+              "@tag": "ALLOW_TOPICS_DUPLICATENAME",
+              "#text": "Allow Topics With Same Name:"
+            },
+            {
+              "@tag": "ALLOW_TOPICS_DUPLICATENAME_HELP",
+              "#text": "Duplicate topic names are allowed to:"
+            },
+            {
+              "@tag": "ALLOW_USER_HIDE",
+              "#text": "Allow User To Hide Himself:"
+            },
+            {
+              "@tag": "ALLOW_USER_HIDE_HELP",
+              "#text": "If checked, the user who checked it will not be visible in the active users list."
+            },
+            {
+              "@tag": "ALLOW_USERS_POLLIMAGES",
+              "#text": "Allow Users Poll Images:"
+            },
+            {
+              "@tag": "ALLOW_USERS_POLLIMAGES_HELP",
+              "#text": "If enabled Users can add images as poll options."
+            },
+            {
+              "@tag": "ALLOWED_EXTENSIONS",
+              "#text": "Allowed File Extensions:"
+            },
+            {
+              "@tag": "ALLOWED_EXTENSIONS_HELP",
+              "#text": "The list of allowed File Extensions for Attachments."
+            },
+            {
+              "@tag": "AMOUNT_OF_SUBFORUMS",
+              "#text": "Sub Forums In Forums List:"
+            },
+            {
+              "@tag": "AMOUNT_OF_SUBFORUMS_HELP",
+              "#text": "The amount of Sub Forums In Forums List."
+            },
+            {
+              "@tag": "APP_CORES",
+              "#text": "Processor Cores:"
+            },
+            {
+              "@tag": "APP_CORES_HELP",
+              "#text": "Number of Processor cores."
+            },
+            {
+              "@tag": "APP_MEMORY",
+              "#text": "Application memory:"
+            },
+            {
+              "@tag": "APP_MEMORY_HELP",
+              "#text": "Application memory used."
+            },
+            {
+              "@tag": "APP_OS_NAME",
+              "#text": "Operating System:"
+            },
+            {
+              "@tag": "APP_OS_NAME_HELP",
+              "#text": "What version of operating system is running."
+            },
+            {
+              "@tag": "APP_RUNTIME",
+              "#text": ".NET Runtime Version:"
+            },
+            {
+              "@tag": "APP_RUNTIME_HELP",
+              "#text": "What .NET Runtime is running."
+            },
+            {
+              "@tag": "AVATAR_GALLERY",
+              "#text": "Allow Avatar Gallery:"
+            },
+            {
+              "@tag": "AVATAR_GALLERY_HELP",
+              "#text": "Can users select an Avatar from the local Avatar Gallery."
+            },
+            {
+              "@tag": "AVATAR_HEIGHT",
+              "#text": "Avatar Height:"
+            },
+            {
+              "@tag": "AVATAR_HEIGHT_HELP",
+              "#text": "Maximum height for avatars."
+            },
+            {
+              "@tag": "AVATAR_SIZE",
+              "#text": "Avatar Size:"
+            },
+            {
+              "@tag": "AVATAR_SIZE_HELP",
+              "#text": "Maximum size for avatars in bytes."
+            },
+            {
+              "@tag": "AVATAR_UPLOAD",
+              "#text": "Allow User Avatar uploading:"
+            },
+            {
+              "@tag": "AVATAR_UPLOAD_HELP",
+              "#text": "Can users upload avatars to their profile."
+            },
+            {
+              "@tag": "AVATAR_WIDTH",
+              "#text": "Avatar Width:"
+            },
+            {
+              "@tag": "AVATAR_WIDTH_HELP",
+              "#text": "Maximum width for avatars."
+            },
+            {
+              "@tag": "BOT_CHECK_1",
+              "#text": "StopForumSpam.com"
+            },
+            {
+              "@tag": "BOT_CHECK_2",
+              "#text": "BotScout.com (Needs Registration)"
+            },
+            {
+              "@tag": "BOT_CHECK_3",
+              "#text": "StopForumSpam.com & BotScout.com (Needs Registration)"
+            },
+            {
+              "@tag": "BOT_CHECK_4",
+              "#text": "StopForumSpam.com or BotScout.com (Needs Registration)"
+            },
+            {
+              "@tag": "BOT_CHECK_ONREGISTER",
+              "#text": "Handling of Bots during Registration:"
+            },
+            {
+              "@tag": "BOT_CHECK_ONREGISTER_HELP",
+              "#text": "If enabled it detects Spammers during the Registration, you can set to Block that user or simply log it and send a Message to the Admins."
+            },
+            {
+              "@tag": "BOT_IPBAN_ONREGISTER",
+              "#text": "Automatically Ban Ip Address of Detected Bot:"
+            },
+            {
+              "@tag": "BOT_IPBAN_ONREGISTER_HELP",
+              "#text": "If enabled and a Bot is detected during registration, and if bot handling is set to reject Registration, the IP Address of the Bot is automatically banned."
+            },
+            {
+              "@tag": "BOT_MESSAGE_0",
+              "#text": "Do nothing"
+            },
+            {
+              "@tag": "BOT_MESSAGE_1",
+              "#text": "Approve User & Log User & Send Admin an Email"
+            },
+            {
+              "@tag": "BOT_MESSAGE_2",
+              "#text": "Block User"
+            },
+            {
+              "@tag": "BOTSCOUT_KEY",
+              "#text": "BotScout.com API Key:"
+            },
+            {
+              "@tag": "BOTSCOUT_KEY_HELP",
+              "#text": "To Use the BotScout Bot Service you need an API Key"
+            },
+            {
+              "@tag": "CDN_SCRIPTMANAGER",
+              "#text": "Use CDN Hosted Script Manager JS Files?"
+            },
+            {
+              "@tag": "CDN_SCRIPTMANAGER_HELP",
+              "#text": "You can use the CDN Hosted Script Files, or instead use internal."
+            },
+            {
+              "@tag": "CHECK_FOR_BOTSPAM",
+              "#text": "Choose a Service for Automatically User Bot Checking:"
+            },
+            {
+              "@tag": "CHECK_FOR_BOTSPAM_HELP",
+              "#text": "Enables/disables automatically Bot SPAM Checking via the <a href=\"http://stopforumspam.com/\">StopForumSpam.com API</a> , BotScout.com API, or both together."
+            },
+            {
+              "@tag": "CHECK_FOR_SPAM",
+              "#text": "Choose a SPAM Service for Automatically SPAM Checking:"
+            },
+            {
+              "@tag": "CLEAR_CACHE",
+              "#text": "Clear Cache"
+            },
+            {
+              "@tag": "COLLAPSED",
+              "#text": "Collapsed"
+            },
+            {
+              "@tag": "CROP_IMAGE_ATTACH",
+              "#text": "Crop Image Attachment Preview:"
+            },
+            {
+              "@tag": "CROP_IMAGE_ATTACH_HELP",
+              "#text": "Crop the Preview of the Image and use above Dimensions as Image Size."
+            },
+            {
+              "@tag": "DAYS_BEFORE_POSTLOCK",
+              "#text": "Days before posts are locked:"
+            },
+            {
+              "@tag": "DAYS_BEFORE_POSTLOCK_HELP",
+              "#text": "Number of days until posts are locked and not possible to edit or delete. Set to 0 for no limit."
+            },
+            {
+              "@tag": "DISABLE_NOFOLLOW_ONOLDERPOSTS",
+              "#text": "Disable \"NoFollow\" Tag on Links on Posts Older Than:"
+            },
+            {
+              "@tag": "DISABLE_NOFOLLOW_ONOLDERPOSTS_HELP",
+              "#text": "If \"NoFollow\" is enabled above, this is disable no follow for links on messages older then X days old (which takes into consideration last edited)."
+            },
+            {
+              "@tag": "DISABLE_REGISTER",
+              "#text": "Disable New Registrations:"
+            },
+            {
+              "@tag": "DISABLE_REGISTER_HELP",
+              "#text": "New users won't be able to register."
+            },
+            {
+              "@tag": "DISCUSSIONS_CACHE_TIMEOUT",
+              "#text": "Active Discussions Cache Timeout:"
+            },
+            {
+              "@tag": "DISCUSSIONS_CACHE_TIMEOUT_HELP",
+              "#text": "In minutes"
+            },
+            {
+              "@tag": "DISPLAY_TRESHOLD_IMGATTACH",
+              "#text": "Image Attachment Display Threshold:"
+            },
+            {
+              "@tag": "DISPLAY_TRESHOLD_IMGATTACH_HELP",
+              "#text": "Maximum size of picture attachment to display as picture. Pictures over this size will be displayed as links."
+            },
+            {
+              "@tag": "DISPLAYNAME_MIN_LENGTH",
+              "#text": "User/Display Name Min. Length"
+            },
+            {
+              "@tag": "DISPLAYNAME_MIN_LENGTH_HELP",
+              "#text": "Minimum Length for Display and User Names."
+            },
+            {
+              "@tag": "DYNAMIC_METATAGS",
+              "#text": "Add Dynamic Page Meta Tags:"
+            },
+            {
+              "@tag": "DYNAMIC_METATAGS_HELP",
+              "#text": "If checked, description and keywords meta tags will be created dynamically on the post pages."
+            },
+            {
+              "@tag": "EMAIL_VERIFICATION",
+              "#text": "Require Email Verification:"
+            },
+            {
+              "@tag": "EMAIL_VERIFICATION_HELP",
+              "#text": "If unchecked users will not need to verify their email address."
+            },
+            {
+              "@tag": "ENABLE_ABLBUMS",
+              "#text": "Enable Album Feature:"
+            },
+            {
+              "@tag": "ENABLE_ABLBUMS_HELP",
+              "#text": "If checked, album feature is enabled. You should set allowed number of images and albums for each group and/or rank too, to enable the feature."
+            },
+            {
+              "@tag": "ENABLE_BUDDYLIST",
+              "#text": "Enable Friend List:"
+            },
+            {
+              "@tag": "ENABLE_BUDDYLIST_HELP",
+              "#text": "If checked users can add each other as Friends."
+            },
+            {
+              "@tag": "ENABLE_CALENDER",
+              "#text": "Enable calendar:"
+            },
+            {
+              "@tag": "ENABLE_CALENDER_HELP",
+              "#text": "Enables/disables calendar in profile, if it causes troubles on servers/for users with different cultures."
+            },
+            {
+              "@tag": "ENABLE_DISPLAY_NAME",
+              "#text": "Enable Display Name:"
+            },
+            {
+              "@tag": "ENABLE_DISPLAY_NAME_HELP",
+              "#text": "If checked, YAF uses an alternative \"Display Name\" instead of the UserName."
+            },
+            {
+              "@tag": "ENABLE_HOVERCARDS",
+              "#text": "Enable User Info Hover Cards:"
+            },
+            {
+              "@tag": "ENABLE_HOVERCARDS_HELP",
+              "#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter & Facebook Profile Button.\r\n     "
+            },
+            {
+              "@tag": "ENABLE_RETWEET_MSG",
+              "#text": "Enable Retweet Message Button:"
+            },
+            {
+              "@tag": "ENABLE_RETWEET_MSG_HELP",
+              "#text": "Enables/disables the Retweet Button, where the User can retweet a topic message."
+            },
+            {
+              "@tag": "ENABLE_SSO",
+              "#text": "Enable Single Sign On:"
+            },
+            {
+              "@tag": "ENABLE_SSO_HELP",
+              "#text": "If checked, users will be able to Login to an existing account via Facebook and/or Twitter. To Enable it for Facebook you need to setup YAF.FacebookAPIKey and YAF.FacebookSecretKey Values, and for Twitter YAF.TwitterConsumerKey and YAF.TwitterConsumerSecret Values in the app.config (AppSettings)."
+            },
+            {
+              "@tag": "ENABLE_USERREPUTATION",
+              "#text": "Use Reputation System:"
+            },
+            {
+              "@tag": "ENABLE_USERREPUTATION_HELP",
+              "#text": "Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation."
+            },
+            {
+              "@tag": "ENABLE_WYSIWYG",
+              "#text": "Enable WYSIWYG Editor"
+            },
+            {
+              "@tag": "ENABLE_WYSIWYG_HELP",
+              "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            },
+            {
+              "@tag": "EVENTLOG_MAX_DAYS",
+              "#text": "Max number of days for event log"
+            },
+            {
+              "@tag": "EVENTLOG_MAX_DAYS_HELP",
+              "#text": "Max number of days for event log. Older ones will be deleted"
+            },
+            {
+              "@tag": "EVENTLOG_MAX_MESSAGES",
+              "#text": "Max event log message"
+            },
+            {
+              "@tag": "EVENTLOG_MAX_MESSAGES_HELP",
+              "#text": "Max number of event log messages. Outdated will be deleted."
+            },
+            {
+              "@tag": "EXPANDED",
+              "#text": "Expanded"
+            },
+            {
+              "@tag": "EXTERN_NEWWINDOW",
+              "#text": "External Search Results In A New Window:"
+            },
+            {
+              "@tag": "EXTERN_NEWWINDOW_HELP",
+              "#text": "Show External Search Results In A New Window."
+            },
+            {
+              "@tag": "EXTERN_SEARCH_PERMISS",
+              "#text": "External Search Permissions:"
+            },
+            {
+              "@tag": "EXTERN_SEARCH_PERMISS_HELP",
+              "#text": "Allow external search to:"
+            },
+            {
+              "@tag": "FILE_TABLE",
+              "#text": "Use File Table:"
+            },
+            {
+              "@tag": "FILE_TABLE_HELP",
+              "#text": "Uploaded files will be saved in the database instead of the file system."
+            },
+            {
+              "@tag": "FLOOT_DELAY",
+              "#text": "Post Flood Delay:"
+            },
+            {
+              "@tag": "FLOOT_DELAY_HELP",
+              "#text": "Number of seconds before another post can be entered (Does not apply to admins or mods)."
+            },
+            {
+              "@tag": "FORBIDDEN",
+              "#text": "Forbidden"
+            },
+            {
+              "@tag": "FORCE_SEARCHINDED",
+              "#text": "Search Index Task started."
+            },
+            {
+              "@tag": "FORUM_BASEURLMASK",
+              "#text": "Forum Base URL Mask:"
+            },
+            {
+              "@tag": "FORUM_BASEURLMASK_HELP",
+              "#text": "The full forward-facing url to this forum."
+            },
+            {
+"@tag": "FORUM_EMAIL",
+              "#text": "Forum Email:"
+            },
+            {
+              "@tag": "FORUM_EMAIL_HELP",
+              "#text": "The from address when sending emails to users."
+            },
+            {
+              "@tag": "HEADER_ADVERTS",
+              "#text": "Advert Settings"
+            },
+            {
+              "@tag": "HEADER_ALBUM",
+              "#text": "Album Settings"
+            },
+            {
+              "@tag": "HEADER_ATTACHMENTS",
+              "#text": "Attachments Settings"
+            },
+            {
+              "@tag": "HEADER_AVATARS",
+              "#text": "Avatar Settings"
+            },
+            {
+              "@tag": "HEADER_BOTSPAM",
+              "#text": "Bot Spam Settings (User Checking)"
+            },
+            {
+              "@tag": "HEADER_CACHE",
+              "#text": "Cache Settings"
+            },
+            {
+              "@tag": "HEADER_CDN",
+              "#text": "Scripts CDN Settings"
+            },
+            {
+              "@tag": "HEADER_DISPLAY",
+              "#text": "Display Settings"
+            },
+            {
+              "@tag": "HEADER_FEATURES",
+              "#text": "Feature Settings"
+            },
+            {
+              "@tag": "HEADER_GEOLOCATION",
+              "#text": "Geolocation Settings"
+            },
+            {
+              "@tag": "HEADER_HOTTOPICS",
+              "#text": "Hot (Popular) Topic Settings"
+            },
+            {
+              "@tag": "HEADER_HOVERCARD",
+              "#text": "Hover Cards Settings"
+            },
+            {
+              "@tag": "HEADER_IMAGE_ATTACH",
+              "#text": "Image Attachment & Resize Settings"
+            },
+            {
+              "@tag": "HEADER_LOG",
+              "#text": "Log settings"
+            },
+            {
+              "@tag": "HEADER_LOGIN",
+              "#text": "Login/Registration Settings"
+            },
+            {
+              "@tag": "HEADER_LOGSCOPE",
+              "#text": "Log scope"
+            },
+            {
+              "@tag": "HEADER_MESSAGE_NOTIFICATION",
+              "#text": "Message Notification Settings"
+            },
+            {
+              "@tag": "HEADER_PASSWORD",
+              "#text": "Password Strength Settings"
+            },
+            {
+              "@tag": "HEADER_PERMISSION",
+              "#text": "Permission Settings"
+            },
+            {
+              "@tag": "HEADER_PMS",
+              "#text": "Private Messages"
+            },
+            {
+              "@tag": "HEADER_POLL",
+              "#text": "Poll Settings"
+            },
+            {
+              "@tag": "HEADER_REPUTATION",
+              "#text": "Reputation Settings"
+            },
+            {
+              "@tag": "HEADER_SEARCH",
+              "#text": "Search Settings"
+            },
+            {
+              "@tag": "HEADER_SERVER_INFO",
+              "#text": "Server Info"
+            },
+            {
+              "@tag": "HEADER_SETUP",
+              "#text": "Host Setup"
+            },
+            {
+              "@tag": "HEADER_SPAM",
+              "#text": "Spam Settings (Content Checking)"
+            },
+            {
+              "@tag": "HEADER_SYNDICATION",
+              "#text": "Syndication Feed Settings"
+            },
+            {
+              "@tag": "HOST_ADVERTS",
+              "#text": "Adverts"
+            },
+            {
+              "@tag": "HOST_AVATARS",
+              "#text": "Avatars"
+            },
+            {
+              "@tag": "HOST_CACHE",
+              "#text": "Cache"
+            },
+            {
+              "@tag": "HOST_DISPLAY",
+              "#text": "Display"
+            },
+            {
+              "@tag": "HOST_FEATURES",
+              "#text": "Features"
+            },
+            {
+              "@tag": "HOST_LOG",
+              "#text": "Logs"
+            },
+            {
+              "@tag": "HOST_PERMISSION",
+              "#text": "Permission"
+            },
+            {
+              "@tag": "HOST_SEARCH",
+              "#text": "Search"
+            },
+            {
+              "@tag": "HOVERCARD_DELAY",
+              "#text": "Hover Card opening Delay (Milliseconds):"
+            },
+            {
+              "@tag": "HOVERCARD_DELAY_HELP",
+              "#text": "The Delay before opening the Hover Card when a user hovers over a user name."
+            },
+            {
+              "@tag": "IGNORE_SPAMCHECK_COUNT",
+              "#text": "User Post Count to be ignored from Spam Check:"
+            },
+            {
+              "@tag": "IGNORE_SPAMCHECK_COUNT_HELP",
+              "#text": "The amount of posts a user has to have to be ignored by the spam checking."
+            },
+            {
+              "@tag": "IMAGE_ATTACH_RESIZE",
+              "#text": "Enable Image Attachment Resize:"
+            },
+            {
+              "@tag": "IMAGE_ATTACH_RESIZE_HELP",
+              "#text": "Attached images will be resized to thumbnails if they are too large."
+            },
+            {
+              "@tag": "IMAGE_RESIZE_HEIGHT",
+              "#text": "Image Resize Max Height:"
+            },
+            {
+              "@tag": "IMAGE_RESIZE_HEIGHT_HELP",
+              "#text": "Maximum Height of the resized attachment images."
+            },
+            {
+              "@tag": "IMAGE_RESIZE_WIDTH",
+              "#text": "Image Resize Max Width:"
+            },
+            {
+              "@tag": "IMAGE_RESIZE_WIDTH_HELP",
+              "#text": "Maximum Width of the resized attachment images."
+            },
+            {
+              "@tag": "IMAGE_THUMB_HEIGHT",
+              "#text": "Thumbnail Image  Max Height:"
+            },
+            {
+              "@tag": "IMAGE_THUMB_HEIGHT_HELP",
+              "#text": "Maximum Height of the attachment and album image thumbnail."
+            },
+            {
+              "@tag": "IMAGE_THUMB_WIDTH",
+              "#text": "Thumbnail Image  Max Width:"
+            },
+            {
+              "@tag": "IMAGE_THUMB_WIDTH_HELP",
+              "#text": "Maximum Width of the attachment and album image thumbnail."
+            },
+            {
+              "@tag": "IMAGES_PER_PAGE",
+              "#text": "Images Per Page:"
+            },
+            {
+              "@tag": "IMAGES_PER_PAGE_HELP",
+              "#text": "Number of images to show per page."
+            },
+            {
+              "@tag": "INDEX_SEARCH",
+              "#text": "Re-Index Search"
+            },
+            {
+              "@tag": "INDEX_SEARCH_HELP",
+              "#text": "Indexes all Messages in all Forums of the current Board for the Search Engine"
+            },
+            {
+              "@tag": "IP_INFOSERVICE",
+              "#text": "Enable IP Info Service:"
+            },
+            {
+              "@tag": "IP_INFOSERVICE_DATAMAPPING",
+              "#text": "IP Info Geolocation Web Service arguments mapping string:"
+            },
+            {
+              "@tag": "IP_INFOSERVICE_DATAMAPPING_HELP",
+              "#text": "Maps string array or deserialized return data to properties."
+            },
+            {
+              "@tag": "IP_INFOSERVICE_HELP",
+              "#text": "If checked, we will get info about a registering user from a web service like country and city."
+            },
+            {
+              "@tag": "IP_INFOSERVICE_XMLURL",
+              "#text": "IP Info XML Web Service URL:"
+            },
+            {
+              "@tag": "IP_INFOSERVICE_XMLURL_HELP",
+              "#text": "Set it to get details about user IPs as XML data."
+            },
+            {
+              "@tag": "IPINFO_ULRL",
+              "#text": "IP Info Page URL:"
+            },
+            {
+              "@tag": "IPINFO_ULRL_HELP",
+              "#text": "Set it to get details about IPs whereabouts as web page."
+            },
+            {
+              "@tag": "LASTPOST_COUNT",
+              "#text": "Active Discussions Count:"
+            },
+            {
+              "@tag": "LASTPOST_COUNT_HELP",
+              "#text": "Number of records to display in Active Discussions list on forum index."
+            },
+            {
+              "@tag": "LASTPOSTS_FEEDS_ACCESS",
+              "#text": "Post Latest Feeds Access:"
+            },
+            {
+              "@tag": "LASTPOSTS_FEEDS_ACCESS_HELP",
+              "#text": "Restrict display of posts feeds for latest posts."
+            },
+            {
+              "@tag": "LAZY_CACHE_TIMEOUT",
+              "#text": "User Lazy Data Cache Timeout:"
+            },
+            {
+              "@tag": "LAZY_CACHE_TIMEOUT_HELP",
+              "#text": "In minutes"
+            },
+            {
+              "@tag": "LOG_BANNEDIP",
+              "#text": "Allow log Banned IP actions:"
+            },
+            {
+              "@tag": "LOG_BANNEDIP_HELP",
+              "#text": "Log banned IP set and lift."
+            },
+            {
+              "@tag": "LOG_ERROR",
+              "#text": "Allow log Application Errors:"
+            },
+            {
+              "@tag": "LOG_ERROR_HELP",
+              "#text": "Application errors will be logged."
+            },
+            {
+              "@tag": "LOG_INFORMATION",
+              "#text": "Allow log Application Info:"
+            },
+            {
+              "@tag": "LOG_INFORMATION_HELP",
+              "#text": "Application info messages will be logged."
+            },
+            {
+              "@tag": "LOG_SUSPENDEDANDCONTRA",
+              "#text": "Allow log when users suspended or un-suspended:"
+            },
+            {
+              "@tag": "LOG_SUSPENDEDANDCONTRA_HELP",
+              "#text": "Log when users are suspended or un-suspended."
+            },
+            {
+              "@tag": "LOG_USERDELETED",
+              "#text": "Allow log user deleting event:"
+            },
+            {
+              "@tag": "LOG_USERDELETED_HELP",
+              "#text": "User deleting event will be logged."
+            },
+            {
+              "@tag": "LOG_USERSUSPENDED",
+              "#text": "Allow log user suspended and un-suspended:"
+            },
+            {
+              "@tag": "LOG_USERSUSPENDED_HELP",
+              "#text": "Suspended and un-suspended events will be logged."
+            },
+            {
+              "@tag": "LOG_VIEWSTATEERROR",
+              "#text": "Log ViewState Exceptions:"
+            },
+            {
+              "@tag": "LOG_VIEWSTATEERROR_HELP",
+              "#text": "ViewState Exceptions (mainly caused by SPAM Bots) will be logged."
+            },
+            {
+              "@tag": "LOG_WARNING",
+              "#text": "Allow log Application Warnings:"
+            },
+            {
+              "@tag": "LOG_WARNING_HELP",
+              "#text": "Application warnings will be logged."
+            },
+            {
+              "@tag": "LOGIN_REDIR_URL",
+              "#text": "Custom Login Redirect Url:"
+            },
+            {
+              "@tag": "LOGIN_REDIR_URL_HELP",
+              "#text": "If login is disabled in the AppSettings (AllowLoginAndLogoff needs to be set to \"false\"), this is the URL users will be redirected to when they need to access the forum. Optionally add \"{0}\" to the URL to pass the return URL to the custom Url. E.g. \"http://mydomain.com/login.aspx?PreviousUrl={{0}}\""
+            },
+            {
+              "@tag": "MAX_ALLOWED_CHOICES",
+              "#text": "Max. Allowed Number of Poll Choices:"
+            },
+            {
+              "@tag": "MAX_ALLOWED_CHOICES_HELP",
+              "#text": "Number of a question choices, max value no more than 99."
+            },
+            {
+              "@tag": "MAX_ATTACHMENTS",
+              "#text": "Maximum Number of Attachments per Post:"
+            },
+            {
+              "@tag": "MAX_ATTACHMENTS_HELP",
+              "#text": "Maximum Number of uploaded files per Post. Set to 0 for unlimited."
+            },
+            {
+              "@tag": "MAX_FILESIZE",
+              "#text": "Max File Size:"
+            },
+            {
+              "@tag": "MAX_FILESIZE_HELP",
+              "#text": "Maximum size of uploaded files. Leave empty for no limit."
+            },
+            {
+              "@tag": "MAX_IMAGE_SIZE",
+              "#text": "Maximum Image Size:"
+            },
+            {
+              "@tag": "MAX_IMAGE_SIZE_HELP",
+              "#text": "Maximum size of image in bytes a user can upload."
+            },
+            {
+              "@tag": "MAX_PM_RECIPIENTS",
+              "#text": "Max no. of PM Recipients:"
+            },
+            {
+              "@tag": "MAX_PM_RECIPIENTS_HELP",
+              "#text": "Maximum allowed recipients per on PM sent (0 = unlimited)"
+            },
+            {
+              "@tag": "MAX_POST_CHARS",
+              "#text": "Max Report Post Length:"
+            },
+            {
+              "@tag": "MAX_POST_CHARS_HELP",
+              "#text": "Max Allowed Report Post length."
+            },
+            {
+              "@tag": "MAX_POST_SIZE",
+              "#text": "Max Post Size:"
+            },
+            {
+              "@tag": "MAX_POST_SIZE_HELP",
+              "#text": "Maximum size of a post in bytes. Set to 0 for unlimited (not recommended)."
+            },
+            {
+              "@tag": "MAX_SEARCH_RESULTS",
+              "#text": "Max Search Results:"
+            },
+            {
+              "@tag": "MAX_SEARCH_RESULTS_HELP",
+              "#text": "Maximum number of search results that can be returned. Enter \"0\" for unlimited (not recommended)."
+            },
+            {
+              "@tag": "MESSAGE_CHANGE_HISTORY",
+              "#text": "Message history archive time"
+            },
+            {
+              "@tag": "MESSAGE_CHANGE_HISTORY_HELP",
+              "#text": "Number of days to keep message change history."
+            },
+            {
+              "@tag": "MESSAGE_SYSTEM",
+              "#text": "Notification System for System Messages:"
+            },
+            {
+              "@tag": "MESSAGE_SYSTEM_HELP",
+              "#text": "You can choose Between Modal Dialog or a Top Notification Bar for System Messages."
+            },
+            {
+              "@tag": "MOD_CACHE_TIMEOUT",
+              "#text": "Board Moderators Cache Timeout:"
+            },
+            {
+              "@tag": "MOD_CACHE_TIMEOUT_HELP",
+              "#text": "In minutes"
+            },
+            {
+              "@tag": "MODAL_DIALOG",
+              "#text": "Modal Dialog"
+            },
+            {
+              "@tag": "MODAL_LOGIN",
+              "#text": "Use Login Box (Modal PopUp Dialog):"
+            },
+            {
+              "@tag": "MODAL_LOGIN_HELP",
+              "#text": "If checked, the Login Control is displayed as Login Box. Otherwise Login Control will be Displayed on a Single Page."
+            },
+            {
+              "@tag": "NAME_LENGTH",
+              "#text": "User/Display Name Max Length:"
+            },
+            {
+              "@tag": "NAME_LENGTH_HELP",
+              "#text": "Max Allowed User Name or User Display Name Max Length."
+            },
+            {
+              "@tag": "NOFOLLOW_LINKTAGS",
+              "#text": "Use \"NoFollow\" Tag in Links:"
+            },
+            {
+              "@tag": "NOFOLLOW_LINKTAGS_HELP",
+              "#text": "If this is checked, all links will have the nofollow tag."
+            },
+            {
+              "@tag": "NOTIFICATION_BAR",
+              "#text": "Notification Bar"
+            },
+            {
+              "@tag": "NOTIFICATION_DURATION",
+              "#text": "Notification Bar Display Duration:"
+            },
+            {
+              "@tag": "NOTIFICATION_DURATION_HELP",
+              "#text": "Duration (in Seconds) how long the Bar is displayed."
+            },
+            {
+              "@tag": "NOTIFICATION_MOBILE",
+              "#text": "Use Native Message Dialogs on Mobile:"
+            },
+            {
+              "@tag": "NOTIFICATION_MOBILE_HELP",
+              "#text": "Option to Show Native Notification Dialogs on Mobile Devices."
+            },
+            {
+              "@tag": "ONLINE_STATUS_TIMEOUT",
+              "#text": "Online User Status Cache Timeout:"
+            },
+            {
+              "@tag": "ONLINE_STATUS_TIMEOUT_HELP",
+              "#text": "You can fine-tune it depending on your site activity (in milliseconds)"
+            },
+            {
+              "@tag": "PASSWORD_LOWER_CASE",
+              "#text": "Require Lower Case:"
+            },
+            {
+              "@tag": "PASSWORD_LOWER_CASE_HELP",
+              "#text": "Option to require a lower case letter ('a' - 'z') in a Password."
+            },
+            {
+              "@tag": "PASSWORD_MIN_LENGTH",
+              "#text": "Minimum Length:"
+            },
+            {
+              "@tag": "PASSWORD_MIN_LENGTH_HELP",
+              "#text": "The minimum required password length."
+            },
+            {
+              "@tag": "PASSWORD_REQUIRE_DIGIT",
+              "#text": "Require Digit:"
+            },
+            {
+              "@tag": "PASSWORD_REQUIRE_DIGIT_HELP",
+              "#text": "Option to require a numeric digit ('0' - '9') in a Password."
+            },
+            {
+              "@tag": "PASSWORD_REQUIRE_NON_LETTER",
+              "#text": "Require non Letter Or Digit:"
+            },
+            {
+              "@tag": "PASSWORD_REQUIRE_NON_LETTER_HELP",
+              "#text": "Option to requires a non-letter or digit character in a Password."
+            },
+            {
+              "@tag": "PASSWORD_UPPER_CASE",
+              "#text": "Require Upper Case:"
+            },
+            {
+              "@tag": "PASSWORD_UPPER_CASE_HELP",
+              "#text": "Option to require a upper case letter ('A' - 'Z') in a Password."
+            },
+            {
+              "@tag": "PM_ATTACHMENTS",
+              "#text": "Allow attachments in Private Messages"
+            },
+            {
+              "@tag": "PM_ATTACHMENTS_HELP",
+              "#text": "Allows the upload and use of attachments in Private messages."
+            },
+            {
+              "@tag": "POLL_IMAGE_FILESIZE",
+              "#text": "Max. File Size for User Poll Images:"
+            },
+            {
+              "@tag": "POLL_IMAGE_FILESIZE_HELP",
+              "#text": "Define the Max. File Size in Kilo Bytes for an User Poll Image."
+            },
+            {
+              "@tag": "POPULAR_DAYS",
+              "#text": "Active Days to stay Hot:"
+            },
+            {
+              "@tag": "POPULAR_DAYS_HELP",
+              "#text": "Define the Number of days the topics last post must have been posted. By Default it is set to 7 (One Week), that means a topic stays popular for one week."
+            },
+            {
+              "@tag": "POPULAR_REPLYS",
+              "#text": "Min. Replies to became Hot:"
+            },
+            {
+              "@tag": "POPULAR_REPLYS_HELP",
+              "#text": "The number of Replies per topic becomes popular."
+            },
+            {
+              "@tag": "POPULAR_VIEWS",
+              "#text": "Min. Views to became Hot:"
+            },
+            {
+              "@tag": "POPULAR_VIEWS_HELP",
+              "#text": "The number of topic views before a topic becomes popular."
+            },
+            {
+              "@tag": "POST_AD",
+              "#text": "2nd post ad:"
+            },
+            {
+              "@tag": "POST_AD_HELP",
+              "#text": "Place the code that you wish to be displayed in each thread after the 1st post. If you do not want an ad to be displayed, don't put anything in the box."
+            },
+            {
+              "@tag": "POSTED_IMAGE_RESIZE",
+              "#text": "Resize User Posted Images:"
+            },
+            {
+              "@tag": "POSTED_IMAGE_RESIZE_HELP",
+              "#text": "Resize user posted images in messages, if there are bigger then the max values bellow."
+            },
+            {
+              "@tag": "POSTEDIT_TIMEOUT",
+              "#text": "Post editing timeout:"
+            },
+            {
+              "@tag": "POSTEDIT_TIMEOUT_HELP",
+              "#text": "Number of seconds while post may be modified without showing that to other users"
+            },
+            {
+              "@tag": "POSTS_FEEDS_ACCESS",
+              "#text": "Posts Feeds Access:"
+            },
+            {
+              "@tag": "POSTS_FEEDS_ACCESS_HELP",
+              "#text": "Restrict display of posts feeds for a topic."
+            },
+            {
+              "@tag": "POSTS_PER_PAGE",
+              "#text": "Posts Per Page:"
+            },
+            {
+              "@tag": "POSTS_PER_PAGE_HELP",
+              "#text": "Number of posts to show per page."
+            },
+            {
+              "@tag": "QUICK_SEARCH",
+              "#text": "Show Quick Search:"
+            },
+            {
+              "@tag": "QUICK_SEARCH_HELP",
+              "#text": "Show Quick Search field and button in toolbar."
+            },
+            {
+              "@tag": "REG_USERS",
+              "#text": "Registered Users"
+            },
+            {
+              "@tag": "REMOVE_NESTED_QUOTES",
+              "#text": "Remove Nested Quotes:"
+            },
+            {
+              "@tag": "REMOVE_NESTED_QUOTES_HELP",
+              "#text": "Automatically remove nested [quote] tags from replies."
+            },
+            {
+              "@tag": "REPLACE_CACHE_TIMEOUT",
+              "#text": "Replace Rules Cache Timeout:"
+            },
+            {
+              "@tag": "REPLACE_CACHE_TIMEOUT_HELP",
+              "#text": " BB code, bad words, etc. (in minutes)"
+            },
+            {
+              "@tag": "REPORT_POST_PERMISSION",
+              "#text": "Report Post Permissions:"
+            },
+            {
+              "@tag": "REPORT_POST_PERMISSION_HELP",
+              "#text": "Allow reporting posts to:"
+            },
+            {
+              "@tag": "REPUTATION_ALLOWNEGATIVE",
+              "#text": "Allow Negative Reputation:"
+            },
+            {
+              "@tag": "REPUTATION_ALLOWNEGATIVE_HELP",
+              "#text": "If allowed Users can get Negative Reputation Numbers."
+            },
+            {
+              "@tag": "REPUTATION_MAX",
+              "#text": "Maximum Positive Reputation Value:"
+            },
+            {
+              "@tag": "REPUTATION_MAX_HELP",
+              "#text": "This Value is used to generate the Reputation Bar."
+            },
+            {
+              "@tag": "REPUTATION_MIN",
+              "#text": "Maximum Negative Reputation Value:"
+            },
+            {
+              "@tag": "REPUTATION_MIN_HELP",
+              "#text": "This Value is used to generate the Reputation Bar."
+            },
+            {
+              "@tag": "REPUTATION_MINDOWN",
+              "#text": "Min. Value to allow Remove Reputation:"
+            },
+            {
+              "@tag": "REPUTATION_MINDOWN_HELP",
+              "#text": "Check if the User matches minimal requirements for voting down."
+            },
+            {
+              "@tag": "REPUTATION_MINUP",
+              "#text": "Min. Value to allow Add Reputation:"
+            },
+            {
+              "@tag": "REPUTATION_MINUP_HELP",
+              "#text": "Check if the User matches minimal requirements for voting up."
+            },
+            {
+              "@tag": "REQUIRE_LOGIN",
+              "#text": "Require User Login:"
+            },
+            {
+              "@tag": "REQUIRE_LOGIN_HELP",
+              "#text": "If checked, users will be required to log in before they can see any content. They'll be redirected straight to login page."
+            },
+            {
+              "@tag": "RULES_ONREGISTER",
+              "#text": "Show \"Rules\" Before Registration:"
+            },
+            {
+              "@tag": "RULES_ONREGISTER_HELP",
+              "#text": "Require that \"rules\" are shown and accepted before a new user can register."
+            },
+            {
+              "@tag": "SAVE_SETTINGS",
+              "#text": "Save Settings"
+            },
+            {
+              "@tag": "SEARCH_MAXLENGTH",
+              "#text": "Search Text Maximum Length:"
+            },
+            {
+              "@tag": "SEARCH_MAXLENGTH_HELP",
+              "#text": "Maximum length of the search string allowed."
+            },
+            {
+              "@tag": "SEARCH_MINLENGTH",
+              "#text": "Search Text Minimal Length:"
+            },
+            {
+              "@tag": "SEARCH_MINLENGTH_HELP",
+              "#text": "Minimal length of the search string allowed."
+            },
+            {
+              "@tag": "SEARCH_PATTERN",
+              "#text": "Search Text Pattern:"
+            },
+            {
+              "@tag": "SEARCH_PATTERN_HELP",
+              "#text": "Allowed search text (Regular Expression) pattern."
+            },
+            {
+              "@tag": "SEARCH_PERMISS",
+              "#text": "Search Permissions:"
+            },
+            {
+              "@tag": "SEARCH_PERMISS_HELP",
+              "#text": "Allow search to:"
+            },
+            {
+              "@tag": "SERVER_VERSION",
+              "#text": "SQL Server Version:"
+            },
+            {
+              "@tag": "SERVER_VERSION_HELP",
+              "#text": "What version of SQL Server is running."
+            },
+            {
+              "@tag": "SERVERTIME_CORRECT",
+              "#text": "Server Time Zone Correction:"
+            },
+            {
+              "@tag": "SERVERTIME_CORRECT_HELP",
+              "#text": "Enter a positive or a negative value in minutes between -720 and 720, if the server UTC time value is incorrect: "
+            },
+            {
+              "@tag": "SHOW_ACTIVE_DISCUSSION",
+              "#text": "Show Active Discussions:"
+            },
+            {
+              "@tag": "SHOW_ACTIVE_DISCUSSION_HELP",
+              "#text": "Enable or disable display of active discussions list on board index page."
+            },
+            {
+              "@tag": "SHOW_ATOM_LINKS",
+              "#text": "Show Atom Links:"
+            },
+            {
+              "@tag": "SHOW_ATOM_LINKS_HELP",
+              "#text": "Enable or disable display of Atom links throughout the forum."
+            },
+            {
+              "@tag": "SHOW_AVATARS_TOPICLISTS",
+              "#text": "Show Avatars in Topic Listing:"
+            },
+            {
+              "@tag": "SHOW_AVATARS_TOPICLISTS_HELP",
+              "#text": "If this is checked, the topic pages will show avatar graphics."
+            },
+            {
+              "@tag": "SHOW_BOTS_INACTIVE",
+              "#text": "Show Crawlers In Active Lists:"
+            },
+            {
+              "@tag": "SHOW_BOTS_INACTIVE_HELP",
+              "#text": "If checked, Crawlers will be displayed In Active Lists."
+            },
+            {
+              "@tag": "SHOW_CONNECT_MESSAGE",
+              "#text": "Show Guest Connect Message after first Message and in the page Header:"
+            },
+            {
+              "@tag": "SHOW_CONNECT_MESSAGE_HELP",
+              "#text": "Whether or not to show a Connect Message after the first Message in a topic and in the Page Header for Guests. Containing login and registration links."
+            },
+            {
+              "@tag": "SHOW_COOKIECONSET",
+              "#text": "Show Cookie Consent Popup message"
+            },
+            {
+              "@tag": "SHOW_COOKIECONSET_HELP",
+              "#text": "When enabled show the Cookie Accept Popup message."
+            },
+            {
+              "@tag": "SHOW_DEL_MESSAGES",
+              "#text": "Show Deleted Messages:"
+            },
+            {
+              "@tag": "SHOW_DEL_MESSAGES_HELP",
+              "#text": "If this is checked, messages that are deleted will leave with some notes"
+            },
+            {
+              "@tag": "SHOW_DEL_MESSAGES_TOALL",
+              "#text": "Show Deleted Messages to All:"
+            },
+            {
+              "@tag": "SHOW_DEL_MESSAGES_TOALL_HELP",
+              "#text": "If Show Deleted Messages is checked above, checking this will force showing the delete message stub to all users.<br /> If it remains unchecked, the deleted message stub will only show to administrators, moderators, and the owner of the deleted message."
+            },
+            {
+              "@tag": "SHOW_EDIT_MESSAGE",
+              "#text": "Show Edit Message:"
+            },
+            {
+              "@tag": "SHOW_EDIT_MESSAGE_HELP",
+              "#text": "If enabled it shows a Note in the footer of the Message if the Message was edited (incl. the Reason and Time)"
+            },
+            {
+              "@tag": "SHOW_FORUM_JUMP",
+              "#text": "Show Forum Jump Box:"
+            },
+            {
+              "@tag": "SHOW_FORUM_JUMP_HELP",
+              "#text": "Enable or disable display of the Forum Jump Box throughout the forum."
+            },
+            {
+              "@tag": "SHOW_FORUM_STATS",
+              "#text": "Show Forum Statistics:"
+            },
+            {
+              "@tag": "SHOW_FORUM_STATS_HELP",
+              "#text": "Enable or disable display of forum statistics on board index page."
+            },
+            {
+              "@tag": "SHOW_GROUPS",
+              "#text": "Show Groups:"
+            },
+            {
+              "@tag": "SHOW_GROUPS_HELP",
+              "#text": "Should the groups a user is part of be visible on the posts page."
+            },
+            {
+              "@tag": "SHOW_GROUPS_INPROFILE",
+              "#text": "Show Groups in profile:"
+            },
+            {
+              "@tag": "SHOW_GROUPS_INPROFILE_HELP",
+              "#text": "Should the groups a user is part of be visible on the users profile page."
+            },
+            {
+              "@tag": "SHOW_GUESTS_INACTIVE",
+              "#text": "Show Guests In Detailed Active List:"
+            },
+            {
+              "@tag": "SHOW_GUESTS_INACTIVE_HELP",
+              "#text": "If checked, Guests will be displayed In Detailed Active List."
+            },
+            {
+              "@tag": "SHOW_JOINDATE",
+              "#text": "Show Join Date:"
+            },
+            {
+              "@tag": "SHOW_JOINDATE_HELP",
+              "#text": "If checked, join date will be displayed for each user."
+            },
+            {
+              "@tag": "SHOW_LINKS_NEWWINDOW",
+              "#text": "Show Links in New Window:"
+            },
+            {
+              "@tag": "SHOW_LINKS_NEWWINDOW_HELP",
+              "#text": "If this is checked, links in messages will open in a new window."
+            },
+            {
+              "@tag": "SHOW_MEDALS",
+              "#text": "Show Medals:"
+            },
+            {
+              "@tag": "SHOW_MEDALS_HELP",
+              "#text": "Should medals of a user be visible on the posts page."
+            },
+            {
+              "@tag": "SHOW_MODLIST",
+              "#text": "Show Moderator List:"
+            },
+            {
+              "@tag": "SHOW_MODLIST_ASCOLUMN",
+              "#text": "Show Moderator List in column:"
+            },
+            {
+              "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
+              "#text": "Shows moderator list as a separate column in a category list."
+            },
+            {
+              "@tag": "SHOW_MODLIST_HELP",
+              "#text": "If this is checked, the moderator list column is displayed in the forum list."
+            },
+            {
+              "@tag": "SHOW_MOVED_TOPICS",
+              "#text": "Show Moved Topics:"
+            },
+            {
+              "@tag": "SHOW_MOVED_TOPICS_HELP",
+              "#text": "If this is checked, topics that are moved will leave behind a pointer to the new topic."
+            },
+            {
+              "@tag": "SHOW_NOCOUNT_POSTS",
+              "#text": "Show 'no-count' Forum Posts in Active Discussions:"
+            },
+            {
+              "@tag": "SHOW_NOCOUNT_POSTS_HELP",
+              "#text": "If this is checked, posts from 'no-count' forums will be displayed in Active Discussions."
+            },
+            {
+              "@tag": "SHOW_RECENT_USERS",
+              "#text": "Show Recent Users in Forum Info:"
+            },
+            {
+              "@tag": "SHOW_RECENT_USERS_HELP",
+              "#text": "Enable to Show Recent Users within the last 24 hours in the forum info on board index page."
+            },
+            {
+              "@tag": "SHOW_RELATIVE_TIME",
+              "#text": "Show Relative Time:"
+            },
+            {
+              "@tag": "SHOW_RELATIVE_TIME_HELP",
+              "#text": "If checked, client-side \"Time Ago\" library will be used to show \"relative times\" to users instead of UTC and or imperfect server-side times."
+            },
+            {
+              "@tag": "SHOW_RENDERTIME",
+              "#text": "Show Page Generated Time:"
+            },
+            {
+              "@tag": "SHOW_RENDERTIME_HELP",
+              "#text": "Enable or disable display of page generation text at the bottom of the page."
+            },
+            {
+              "@tag": "SHOW_RSS_LINKS",
+              "#text": "Show RSS Links:"
+            },
+            {
+              "@tag": "SHOW_RSS_LINKS_HELP",
+              "#text": "Enable or disable display of RSS links throughout the forum."
+            },
+            {
+              "@tag": "SCROLL_TO_POST",
+              "#text": "Scroll to unread/first post"
+            },
+            {
+              "@tag": "SCROLL_TO_POST_HELP",
+              "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            },
+            {
+              "@tag": "SHOW_SCROLL",
+              "#text": "Show Scroll Back to Top Button"
+            },
+            {
+              "@tag": "SHOW_SCROLL_HELP",
+              "#text": "If enabled automatically show Back to Top Button when scrolling down the page"
+            },
+            {
+              "@tag": "SHOW_SIMILARTOPICS",
+              "#text": "Show Similar Topics:"
+            },
+            {
+              "@tag": "SHOW_SIMILARTOPICS_HELP",
+              "#text": "Should similar topics to be displayed at the bottom of a topic."
+            },
+            {
+              "@tag": "SHOW_THANK_DATE",
+              "#text": "Show The Date on Which Users Have Thanked Posts:"
+            },
+            {
+              "@tag": "SHOW_THANK_DATE_HELP",
+              "#text": "If checked users can see on which date posts have been thanked. (Thanks Mod must be enabled first.)"
+            },
+            {
+              "@tag": "SHOW_UNREAD_LINKS",
+              "#text": "Show Unread Links:"
+            },
+            {
+              "@tag": "SHOW_UNREAD_LINKS_HELP",
+              "#text": "Unread Links will be displayed."
+            },
+            {
+              "@tag": "SHOW_USER_STATUS",
+              "#text": "Show User Online/Offline Status:"
+            },
+            {
+              "@tag": "SHOW_USER_STATUS_HELP",
+              "#text": "If checked, current user status is displayed in the forum. Hidden users are always displayed as offline."
+            },
+            {
+              "@tag": "SHOW_USERSBROWSING",
+              "#text": "Show Users Browsing:"
+            },
+            {
+              "@tag": "SHOW_USERSBROWSING_HELP",
+              "#text": "Should users currently browsing forums/topics be displayed at the bottom."
+            },
+            {
+              "@tag": "SHOW_YAFVERSION",
+              "#text": "Show YetAnotherForum Version:"
+            },
+            {
+              "@tag": "SHOW_YAFVERSION_HELP",
+              "#text": "Enable or disable display of the version/date information the bottom of the page (disable if your concerned about security)."
+            },
+            {
+              "@tag": "SHOWAD_LOGINUSERS",
+              "#text": "Show Ad to \"Signed In\" Users:"
+            },
+            {
+              "@tag": "SHOWAD_LOGINUSERS_HELP",
+              "#text": "If checked, signed in users will see ads."
+            },
+            {
+              "@tag": "SHOWHELP",
+              "#text": "Show Help:"
+            },
+            {
+              "@tag": "SHOWHELP_HELP",
+              "#text": "Enable or disable display the Help Link in the Header that Shows the Help Files Pages"
+            },
+            {
+              "@tag": "SHOWTEAM",
+              "#text": "Show Team Page:"
+            },
+            {
+              "@tag": "SHOWTEAM_HELP",
+              "#text": "Enable or disable display the Team Link in the Header that Shows the Team Page"
+            },
+            {
+              "@tag": "SPAM_MESSAGE_0",
+              "#text": "Do nothing"
+            },
+            {
+              "@tag": "SPAM_MESSAGE_1",
+              "#text": "Flag Message as Unapproved"
+            },
+            {
+              "@tag": "SPAM_MESSAGE_2",
+              "#text": "Reject Message"
+            },
+            {
+              "@tag": "SPAM_MESSAGE_3",
+              "#text": "Delete & Ban user"
+            },
+            {
+              "@tag": "SPAM_MESSAGE_HANDLING",
+              "#text": "Handling of as SPAM Detected Messages"
+            },
+            {
+              "@tag": "SPAM_MESSAGE_HANDLING_HELP",
+              "#text": "Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message."
+            },
+            {
+              "@tag": "SPAM_SERVICE_TYP_1",
+              "#text": "BlogSpam.NET API"
+            },
+            {
+              "@tag": "SPAM_SERVICE_TYP_3",
+              "#text": "Internal Spam Check Words"
+            },
+            {
+              "@tag": "SPAMCHECK_ALLOWED_URLS",
+              "#text": "Allowed Number of URLs before flagged as SPAM:"
+            },
+            {
+              "@tag": "SPAMCHECK_ALLOWED_URLS_HELP",
+              "#text": "If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have."
+            },
+            {
+              "@tag": "SQL_FULLTEXT",
+              "#text": "Use SQL Full Text Search:"
+            },
+            {
+              "@tag": "SQL_FULLTEXT_HELP",
+              "#text": "Toggle use of FULLTEXT SQL Server support on searches."
+            },
+            {
+              "@tag": "SSL_LOGIN_HELP",
+              "#text": "Redirect all non Secure Urls to Secure"
+            },
+            {
+              "@tag": "SSL_REQUIRE",
+              "#text": "Require SSL"
+            },
+            {
+              "@tag": "STATS_CACHE_TIMEOUT",
+              "#text": "Forum Statistics Cache Timeout:"
+            },
+            {
+              "@tag": "STATS_CACHE_TIMEOUT_HELP",
+              "#text": "In minutes"
+            },
+            {
+              "@tag": "STOPFORUMSPAM_KEY",
+              "#text": "StopForumSpam.com API Key:"
+            },
+            {
+              "@tag": "STOPFORUMSPAM_KEY_HELP",
+              "#text": "To Use the StopForumSpam Service you need an API Key"
+            },
+            {
+              "@tag": "STYLED_NICKS",
+              "#text": "Use styled nicks:"
+            },
+            {
+              "@tag": "STYLED_NICKS_HELP",
+              "#text": "If checked, you can use colors, font size change etc. for active users nicks."
+            },
+            {
+              "@tag": "STYLED_TOPIC_TITLES",
+              "#text": "Use styled Topic Titles:"
+            },
+            {
+              "@tag": "STYLED_TOPIC_TITLES_HELP",
+              "#text": "If checked, Mods and Admins can use colors, font size change etc. for topic titles."
+            },
+            {
+              "@tag": "TEMPLATE_TITLE",
+              "#text": "Page title template:"
+            },
+            {
+              "@tag": "TEMPLATE_TITLE_HELP",
+              "#text": "Template for the title meta tag."
+            },
+            {
+              "@tag": "TEMPLATE_TITLE_PAGER",
+              "#text": "Pager page title template:"
+            },
+            {
+              "@tag": "TEMPLATE_TITLE_PAGER_HELP",
+              "#text": "Template for the page title inside the page title."
+            },
+            {
+              "@tag": "TITLE",
+              "#text": "Host Settings"
+            },
+            {
+              "@tag": "TOPIC_FEEDS_ACCESS",
+              "#text": "Topics Feeds Access:"
+            },
+            {
+              "@tag": "TOPIC_FEEDS_ACCESS_HELP",
+              "#text": "Restrict display of topics feeds."
+            },
+            {
+              "@tag": "TOPICFEED_COUNT",
+              "#text": "Max. Topics on the Forum Feed:"
+            },
+            {
+              "@tag": "TOPICFEED_COUNT_HELP",
+              "#text": "The maximum Amount of Topics to show on the Atom/Rss Feed."
+            },
+            {
+              "@tag": "TWOCOLUMN_BOARD",
+              "#text": "Use 2 Column Board layout"
+            },
+            {
+              "@tag": "TWOCOLUMN_BOARD_HELP",
+              "#text": "If enabled show forums in the left column and forum discussions and Stats in the Right Column"
+            },
+            {
+              "@tag": "USE_CUSTOM_CONTEXTMENU",
+              "#text": "Use Custom Context Menus in Posts:"
+            },
+            {
+              "@tag": "USE_CUSTOM_CONTEXTMENU_HELP",
+              "#text": "If enabled use a custom context menu inside a post, otherwise browser default context menu is used"
+            },
+            {
+              "@tag": "USE_FARSI_CALENDER",
+              "#text": "Use Farsi (Shamsi) Persian Calender:"
+            },
+            {
+              "@tag": "USE_FARSI_CALENDER_HELP",
+              "#text": "If enabled the Persian Calender all Date Times are Converted to the Persian Calender."
+            },
+            {
+              "@tag": "USE_READ_TRACKING",
+              "#text": "Use User Read Tracking via Database:"
+            },
+            {
+              "@tag": "USE_READ_TRACKING_HELP",
+              "#text": "If enabled it stores the Last Time a User Visits a Forum and Topic, to find Unread Messages. <br />WARNING: This Can Increase your DB if you have a big amount of users and/or topics"
+            },
+            {
+              "@tag": "USER_CHANGE_LANGUAGE",
+              "#text": "Allow User Change Language:"
+            },
+            {
+              "@tag": "USER_CHANGE_LANGUAGE_HELP",
+              "#text": "Should users be able to choose what language they want to use?"
+            },
+            {
+              "@tag": "USER_CHANGE_THEME",
+              "#text": "Allow User Change Theme:"
+            },
+            {
+              "@tag": "USER_CHANGE_THEME_HELP",
+              "#text": "Should users be able to choose what theme they want to use?"
+            },
+            {
+              "@tag": "USRSTATS_CACHE_TIMEOUT",
+              "#text": "Board User Statistics Cache Timeout:"
+            },
+            {
+              "@tag": "USRSTATS_CACHE_TIMEOUT_HELP",
+              "#text": "In minutes"
+            },
+            {
+              "@tag": "VIEWACTIVE_PERMISSION",
+              "#text": "Active Users Viewing Permissions:"
+            },
+            {
+              "@tag": "VIEWACTIVE_PERMISSION_HELP",
+              "#text": "Allow viewing of active users list to:"
+            },
+            {
+              "@tag": "VIEWMEMBERLIST_PERMISSION",
+              "#text": "Members List Viewing Permissions:"
+            },
+            {
+              "@tag": "VIEWMEMBERLIST_PERMISSION_HELP",
+              "#text": "Allow viewing of members list to:"
+            },
+            {
+              "@tag": "VIEWPROFILE_PERMISSION",
+              "#text": "Profile Viewing Permissions:"
+            },
+            {
+              "@tag": "VIEWPROFILE_PERMISSION_HELP",
+              "#text": "Allow viewing of other users' profiles to:"
+            },
+            {
+              "@tag": "WELCOME_NOTIFICATION",
+              "#text": "Send User Welcome Notification:"
+            },
+            {
+              "@tag": "WELCOME_NOTIFICATION_0",
+              "#text": "Send No Message"
+            },
+            {
+              "@tag": "WELCOME_NOTIFICATION_1",
+              "#text": "Send as e-mail"
+            },
+            {
+              "@tag": "WELCOME_NOTIFICATION_2",
+              "#text": "Send as private message"
+            },
+            {
+              "@tag": "WELCOME_NOTIFICATION_HELP",
+              "#text": "If enabled you it sends a user a Welcome Mail/Private Message after successfully registration."
+            },
+            {
+              "@tag": "WSERVICE_TOKEN",
+              "#text": "Web Service Token:"
+            },
+            {
+              "@tag": "WSERVICE_TOKEN_HELP",
+              "#text": "Token used to make secure web service calls. Constantly changing until you save your host settings."
+            }
+          ]
         },
         {
             "@name": "ADMIN_LANGUAGES",

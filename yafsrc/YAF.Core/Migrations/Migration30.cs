@@ -121,7 +121,7 @@ public class Migration30 : IRepositoryMigration, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Migrates the users from table User table and import them in to Idenitity
+    /// Migrates the users from table User table and import them in to Identity
     /// </summary>
     /// <param name="users">The users.</param>
     private void MigrateUsersFromTable(IList<User> users)
@@ -234,7 +234,6 @@ public class Migration30 : IRepositoryMigration, IHaveServiceLocator
                             group => this.Get<IAspNetRolesHelper>().AddUserToRole(userExist, group.Name));
                     }
                 }
-
             });
     }
 
@@ -278,7 +277,6 @@ public class Migration30 : IRepositoryMigration, IHaveServiceLocator
 /// A class which represents the User table.
 /// </summary>
 [Serializable]
-
 [Alias("User")]
 public class LegacyUser : IEntity, IHaveBoardID, IHaveID
 {

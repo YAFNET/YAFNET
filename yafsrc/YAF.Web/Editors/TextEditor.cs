@@ -44,7 +44,6 @@ public class TextEditor : ForumEditor
     /// <summary>
     ///   Gets the Editor Description.
     /// </summary>
-    
     public override string Description => "Plain Text Editor";
 
     /// <summary>

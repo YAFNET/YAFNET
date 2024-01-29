@@ -24,9 +24,8 @@
 
 namespace YAF.Core.Migrations;
 
-using System;
-
 using ServiceStack.OrmLite;
+
 using System.Data;
 
 using YAF.Core.Context;
@@ -50,7 +49,7 @@ public class Migration85 : IRepositoryMigration, IHaveServiceLocator
         dbAccess.Execute(
             dbCommand =>
             {
-                this.UpgradeTable(this.GetRepository<Category>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<Category>(), dbCommand);
 
                 ///////////////////////////////////////////////////////////
 
@@ -60,10 +59,11 @@ public class Migration85 : IRepositoryMigration, IHaveServiceLocator
 
     /// <summary>Upgrades the Category table.</summary>
     /// <param name="repository">The repository.</param>
-    /// <param name="dbAccess">The database access.</param>
     /// <param name="dbCommand">The database command.</param>
-    private void UpgradeTable(IRepository<Category> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<Category> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<Category>(x => x.Flags))
         {
             dbCommand.Connection.AddColumn<Category>(x => x.Flags);

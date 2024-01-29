@@ -49,9 +49,9 @@ public class Migration81 : IRepositoryMigration, IHaveServiceLocator
         dbAccess.Execute(
             dbCommand =>
             {
-                this.UpgradeTable(this.GetRepository<ProfileDefinition>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<ProfileDefinition>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<User>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<User>(), dbCommand);
 
                 ///////////////////////////////////////////////////////////
 
@@ -59,16 +59,20 @@ public class Migration81 : IRepositoryMigration, IHaveServiceLocator
             });
     }
 
-    private void UpgradeTable(IRepository<User> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<User> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnExists<User>("Password"))
         {
             dbCommand.Connection.DropColumn<User>("Password");
         }
     }
 
-    private void UpgradeTable(IRepository<ProfileDefinition> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<ProfileDefinition> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<ProfileDefinition>(x => x.ShowOnRegisterPage))
         {
             dbCommand.Connection.AddColumn<ProfileDefinition>(x => x.ShowOnRegisterPage);

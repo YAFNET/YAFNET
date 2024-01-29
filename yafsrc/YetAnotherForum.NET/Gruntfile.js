@@ -304,6 +304,25 @@ module.exports = function(grunt) {
                 ],
                 dest: "Scripts/editor/editor.comb.js"
             },
+
+            SCEditor: {
+                options: {
+                    sourceMap: false,
+                    output: { beautify: true },
+                    mangle: false,
+                    compress: false
+                },
+                src: [
+                    "Scripts/sceditor/sceditor.min.js",
+                    "Scripts/sceditor/formats/bbcode.js",
+                    "Scripts/sceditor/icons/fontawesome.js",
+                    "Scripts/sceditor/plugins/dragdrop.js",
+                    "Scripts/sceditor/plugins/undo.js",
+                    "Scripts/editor/mentions.js"
+                ],
+                dest: "Scripts/sceditor/sceditor.comb.min.js"
+            },
+
             forumExtensions: {
                 options: {
                     sourceMap: false,
@@ -418,6 +437,7 @@ module.exports = function(grunt) {
             },
             minify: {
                 files: {
+                    "Scripts/sceditor/sceditor.comb.min.js": "Scripts/sceditor/sceditor.comb.min.js",
                     "Scripts/editor/editor.min.js": "Scripts/editor/editor.comb.js",
                     "Scripts/InstallWizard.comb.min.js": "Scripts/InstallWizard.comb.js",
                     "Scripts/codemirror.min.js": "Scripts/codemirror.min.js",

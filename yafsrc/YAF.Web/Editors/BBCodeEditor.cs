@@ -35,7 +35,7 @@ using YAF.Types.Interfaces;
 using YAF.Web.Controls;
 
 /// <summary>
-/// The (old) YAF BBCode editor.
+/// The YAF BBCode editor.
 /// </summary>
 public class BBCodeEditor : TextEditor
 {
@@ -52,19 +52,17 @@ public class BBCodeEditor : TextEditor
     /// <summary>
     ///   Gets the Description.
     /// </summary>
-    
     public override string Description => "Standard BBCode Editor";
 
     /// <summary>
     ///   Gets SafeID.
     /// </summary>
-    
     protected string SafeId => this.TextAreaControl.ClientID.Replace("$", "_");
 
     /// <summary>
     ///   Gets the Module Id.
     /// </summary>
-    public override string ModuleId => "1";
+    public override string ModuleId => "YAFEditor";
 
     /// <summary>
     ///   Gets a value indicating whether UsesBBCode.
@@ -105,7 +103,8 @@ public class BBCodeEditor : TextEditor
         {
             BoardContext.Current.PageElements.RegisterJsBlock(
                 nameof(JavaScriptBlocks.FileAutoUploadLoadJs),
-                JavaScriptBlocks.FileAutoUploadLoadJs($"{BoardInfo.ForumClientFileRoot}FileUploader.ashx"));
+                JavaScriptBlocks.FileAutoUploadLoadJs($"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
+                    "BBCodeEditor"));
         }
 
         // register custom YafBBCode javascript (if there is any)

@@ -106,6 +106,8 @@ public static class HashHelper
         string hashRemoveChars = null,
         bool standardComp = true)
     {
+        CodeContracts.ThrowIfNull(clearString);
+
         byte[] buffer;
 
         if (salt.IsSet())
@@ -158,6 +160,8 @@ public static class HashHelper
     /// </returns>
     private static byte[] Hash(byte[] clearBytes, HashAlgorithmType hashAlgorithmType)
     {
+        CodeContracts.ThrowIfNull(clearBytes);
+
         return hashAlgorithmType switch {
             HashAlgorithmType.SHA1 => SHA1.Create().ComputeHash(clearBytes),
             HashAlgorithmType.MD5 => MD5.Create().ComputeHash(clearBytes),

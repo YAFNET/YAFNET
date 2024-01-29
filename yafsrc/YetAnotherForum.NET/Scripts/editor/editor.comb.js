@@ -6,11 +6,6 @@ var yafEditor = function(name, urlTitle, urlDescription, urlImageTitle, urlImage
     this.UrlImageDescription = urlImageDescription;
     this.Description = description;
     this.MediaTitle = mediaTitle;
-    if (document.getElementById("PostAlbumsListPlaceholder") != null) {
-        const pageSize = 5;
-        const pageNumber = 0;
-        getAlbumImagesData(pageSize, pageNumber, false);
-    }
     document.querySelector(".BBCodeEditor").addEventListener("keydown", function(e) {
         if (e.ctrlKey && !e.altKey && (e.which == 66 || e.which == 73 || e.which == 85 || e.which == 81 || e.which == 13)) {
             if (e.which == 66) {
@@ -183,7 +178,7 @@ yafEditor.prototype.FormatText = function(command, option) {
         wrapSelection(textObj, `[size=${option}]`, "[/size]");
         break;
 
-      case "AlbumImgId":
+      case "albumimg":
         replaceSelection(textObj, `[albumimg]${option}[/albumimg]`);
         break;
 

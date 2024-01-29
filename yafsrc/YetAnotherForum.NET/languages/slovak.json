@@ -3795,14 +3795,6 @@
             "#text": "Automatické ukončenie relácií používateľov, ktorí sú označení ako \"Nesledovať\", napríklad vyhľadávače a roboty. Zapnite, ak máte problémy s reláciami."
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "Prijaté značky HTML:"
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "Zoznam značiek HTML oddelených čiarkou (bez medzier), ktoré sú povolené v príspevkoch pomocou editorov HTML."
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Čas aktívnych používateľov:"
           },
@@ -4251,22 +4243,6 @@
             "#text": "Ak je začiarknuté, meta tagy popisu a kľúčových slov budú vytvorené dynamicky na stránkach príspevku."
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "Panel s nástrojmi editora používaný pre podpisy a rýchle odpovede."
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "Panel nástrojov Editor Basic:"
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "Panel s nástrojmi Editor Full:"
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "Panel s nástrojmi editora používaný na odosielanie príspevkov a súkromných správ."
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "Vyžadovať overenie e-mailu:"
           },
@@ -4339,6 +4315,14 @@
             "#text": "Nastavenie na zapnutie/vypnutie zabudovaného systému reputácie, ktorý umožňuje používateľom udeliť alebo odstrániť reputáciu."
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "Maximálny počet dní pre protokol udalostí"
           },
@@ -4407,14 +4391,6 @@
             "#text": "Úplná url adresa tohto fóra smerujúca dopredu."
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "Redaktor fóra:"
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "Vyberte globálny typ editora pre vaše fórum. Ak chcete používať HTML editory (FCK a FreeTextBox), súbor .bin musí byť v adresári \\bin a správne podporné súbory musia byť umiestnené v \\editors."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "E-mail fóra:"
           },
@@ -4453,10 +4429,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "Nastavenia displeja"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "Úprava/formátovanie nastavení"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4549,10 +4521,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "Zobrazenie"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "Redakcia"
           },
           {
             "@tag": "HOST_FEATURES",

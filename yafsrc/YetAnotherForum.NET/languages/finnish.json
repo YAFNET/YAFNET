@@ -3795,14 +3795,6 @@
             "#text": "Hylkää automaattisesti istunnot käyttäjille, jotka on merkitty \"Älä seuraa\" -merkinnällä, kuten hakukoneet ja botit. Ota käyttöön, jos sinulla on istunto-ongelmia."
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "Hyväksytyt HTML-tunnisteet:"
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "Pilkulla erotettu luettelo (ei välilyöntejä) HTML-tunnisteista, jotka ovat sallittuja HTML-editorilla kirjoitetuissa viesteissä."
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Aktiiviset käyttäjät Aika:"
           },
@@ -4251,22 +4243,6 @@
             "#text": "Jos valintaruutu on valittuna, metatunnisteet kuvaus ja avainsanat luodaan dynaamisesti postaussivuille."
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "Editor-työkalurivi, jota käytetään allekirjoituksiin ja pikavastauksiin."
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "Editor Toolbar Basic:"
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "Editor-työkalurivi täynnä:"
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "Editor-työkalurivi, jota käytetään viestien lähettämiseen ja yksityisviesteihin."
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "Vaadi sähköpostivarmennus:"
           },
@@ -4339,6 +4315,14 @@
             "#text": "Asetuksella voit ottaa käyttöön tai poistaa käytöstä sisäänrakennetun mainejärjestelmän, jotta käyttäjät voivat antaa tai poistaa mainetta."
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "Tapahtumalokin päivien enimmäismäärä"
           },
@@ -4407,14 +4391,6 @@
             "#text": "Tämän foorumin täydellinen eteenpäin osoittava url-osoite."
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "Foorumin päätoimittaja:"
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "Valitse foorumillesi globaali editorityyppi. HTML-editorien (FCK ja FreeTextBox) käyttämiseksi .bin-tiedoston on oltava \\bin-hakemistossa ja oikeat tukitiedostot on laitettava \\editors-hakemistoon."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Foorumin sähköpostiosoite:"
           },
@@ -4453,10 +4429,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "Näytön asetukset"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "Muokkaus/muotoiluasetukset"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4549,10 +4521,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "Näyttö"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "Toimittajat"
           },
           {
             "@tag": "HOST_FEATURES",

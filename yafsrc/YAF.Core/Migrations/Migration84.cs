@@ -27,6 +27,7 @@ namespace YAF.Core.Migrations;
 using System;
 
 using ServiceStack.OrmLite;
+
 using System.Data;
 
 using YAF.Core.Context;
@@ -50,7 +51,7 @@ public class Migration84 : IRepositoryMigration, IHaveServiceLocator
         dbAccess.Execute(
             dbCommand =>
             {
-                this.UpgradeTable(this.GetRepository<TopicTag>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<TopicTag>(), dbCommand);
 
                 ///////////////////////////////////////////////////////////
 
@@ -60,10 +61,11 @@ public class Migration84 : IRepositoryMigration, IHaveServiceLocator
 
     /// <summary>Upgrades the TopicTag table.</summary>
     /// <param name="repository">The repository.</param>
-    /// <param name="dbAccess">The database access.</param>
     /// <param name="dbCommand">The database command.</param>
-    private void UpgradeTable(IRepository<TopicTag> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<TopicTag> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
         {
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
@@ -71,24 +73,26 @@ public class Migration84 : IRepositoryMigration, IHaveServiceLocator
             var oldTableName = OrmLiteConfig.DialectProvider.GetQuotedTableName($"{nameof(TopicTag)}_old");
 
             dbCommand.Connection.ExecuteSql(
-                $@"BEGIN TRANSACTION;
-                           ALTER TABLE {expression.Table<TopicTag>()} RENAME TO {oldTableName}; 
-                       COMMIT;");
+                $"""
+                 BEGIN TRANSACTION;
+                                            ALTER TABLE {expression.Table<TopicTag>()} RENAME TO {oldTableName};
+                                        COMMIT;
+                 """);
 
             dbCommand.Connection.CreateTable<TopicTag>();
 
             dbCommand.Connection.ExecuteSql(
-                $@"BEGIN TRANSACTION;
-                           INSERT INTO {expression.Table<TopicTag>()} SELECT * FROM {oldTableName}; 
-                       COMMIT;");
+                $"""
+                 BEGIN TRANSACTION;
+                                            INSERT INTO {expression.Table<TopicTag>()} SELECT * FROM {oldTableName};
+                                        COMMIT;
+                 """);
 
             dbCommand.Connection.ExecuteSql(
                 $@"DROP TABLE {oldTableName};");
         }
         else
         {
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
-
             var name = dbCommand.Connection.GetPrimaryKey<TopicTag>();
 
             dbCommand.Connection.DropPrimaryKey<TopicTag>(name, x => x.TagID, x => x.TopicID);

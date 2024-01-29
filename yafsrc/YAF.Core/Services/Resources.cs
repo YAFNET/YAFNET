@@ -177,7 +177,8 @@ public class Resources : IResources, IHaveServiceLocator
                 Constants.Cache.CustomBBCode,
                 () => this.GetRepository<BBCode>().GetByBoardId());
 
-            var list = customBbCode.Where(e => e.Name != "ALBUMIMG" && e.Name != "ATTACH").Select(e => e.Name).ToList();
+            var list = customBbCode.Where(e => e.Name != "ALBUMIMG" && e.Name != "ATTACH")
+                .Select(e => new { name = e.Name, useToolbar = e.UseToolbar }).ToList();
 
             context.Response.Clear();
 
@@ -194,7 +195,7 @@ public class Resources : IResources, IHaveServiceLocator
         }
         catch (Exception x)
         {
-            this.Get<ILoggerService>().Log(BoardContext.Current.PageUserID, this, x);
+            this.Get<ILoggerService>().Log(BoardContext.Current?.PageUserID, this, x);
 
             context.Response.Write(
                 "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -243,7 +244,7 @@ public class Resources : IResources, IHaveServiceLocator
         }
         catch (Exception x)
         {
-            this.Get<ILoggerService>().Log(BoardContext.Current.PageUserID, this, x);
+            this.Get<ILoggerService>().Log(BoardContext.Current?.PageUserID, this, x);
 
             context.Response.Write(
                 "Error: Resource has been moved or is unavailable. Please contact the forum admin.");

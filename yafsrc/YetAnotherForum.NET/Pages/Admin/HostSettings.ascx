@@ -259,6 +259,14 @@
                             </asp:PlaceHolder>
                             <div class="row">
                                 <div class="mb-3 col-md-6">
+                                    <YAF:HelpLabel ID="HelpLabel16" runat="server"
+                                                   AssociatedControlID="EnableWysiwygEditor"
+                                                   LocalizedTag="ENABLE_WYSIWYG" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                    <div class="form-check form-switch">
+                                        <asp:CheckBox Text="&nbsp;" ID="EnableWysiwygEditor" runat="server"></asp:CheckBox>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-6">
                                     <YAF:HelpLabel ID="HelpLabel5" runat="server"
                                                    AssociatedControlID="UseFileTable"
                                                    LocalizedTag="FILE_TABLE" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1174,14 +1182,6 @@
                                LocalizedTag="SHOW_DEL_MESSAGES_TOALL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                 <div class="form-check form-switch">
                     <asp:CheckBox Text="&nbsp;" ID="ShowDeletedMessagesToAll" runat="server"></asp:CheckBox>
-                </div>
-            </div>
-            <div class="mb-3 col-md-6">
-                <YAF:HelpLabel ID="HelpLabel240" runat="server"
-                               AssociatedControlID="ShowEditedMessage"
-                               LocalizedTag="SHOW_EDIT_MESSAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                <div class="form-check form-switch">
-                    <asp:CheckBox Text="&nbsp;" ID="ShowEditedMessage" runat="server"></asp:CheckBox>
                 </div>
             </div>
         </div>

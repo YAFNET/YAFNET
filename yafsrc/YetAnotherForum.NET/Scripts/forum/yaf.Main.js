@@ -170,6 +170,13 @@ document.addEventListener("DOMContentLoaded", function () {
         getPaginationData(pageSize, pageNumber, false);
     }
 
+    // Render Album Images DropDown
+    if (document.getElementById("PostAlbumsListPlaceholder") != null) {
+        const pageSize = 5;
+        const pageNumber = 0;
+        getAlbumImagesData(pageSize, pageNumber, false);
+    }
+
     if (document.getElementById("SearchResultsPlaceholder") != null && document.querySelector(".searchInput") != null) {
         document.querySelector(".searchInput").addEventListener("keypress", (e) => {
             var code = e.which;

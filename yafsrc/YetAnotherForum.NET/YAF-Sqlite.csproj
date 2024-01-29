@@ -2869,6 +2869,44 @@
     <Content Include="Scripts\editor\editor.comb.js" />
     <Content Include="Scripts\editor\editor.js" />
     <Content Include="Scripts\editor\editor.min.js" />
+    <Content Include="Scripts\sceditor\formats\bbcode.js" />
+    <Content Include="Scripts\sceditor\icons\fontawesome.js" />
+    <Content Include="Scripts\sceditor\languages\ar.js" />
+    <Content Include="Scripts\sceditor\languages\ca.js" />
+    <Content Include="Scripts\sceditor\languages\cn.js" />
+    <Content Include="Scripts\sceditor\languages\cs.js" />
+    <Content Include="Scripts\sceditor\languages\de.js" />
+    <Content Include="Scripts\sceditor\languages\el.js" />
+    <Content Include="Scripts\sceditor\languages\en-US.js" />
+    <Content Include="Scripts\sceditor\languages\en.js" />
+    <Content Include="Scripts\sceditor\languages\es.js" />
+    <Content Include="Scripts\sceditor\languages\et.js" />
+    <Content Include="Scripts\sceditor\languages\fa.js" />
+    <Content Include="Scripts\sceditor\languages\fi.js" />
+    <Content Include="Scripts\sceditor\languages\fr.js" />
+    <Content Include="Scripts\sceditor\languages\gl.js" />
+    <Content Include="Scripts\sceditor\languages\hu.js" />
+    <Content Include="Scripts\sceditor\languages\id.js" />
+    <Content Include="Scripts\sceditor\languages\it.js" />
+    <Content Include="Scripts\sceditor\languages\ja.js" />
+    <Content Include="Scripts\sceditor\languages\lt.js" />
+    <Content Include="Scripts\sceditor\languages\nb.js" />
+    <Content Include="Scripts\sceditor\languages\nl.js" />
+    <Content Include="Scripts\sceditor\languages\pl.js" />
+    <Content Include="Scripts\sceditor\languages\pt-BR.js" />
+    <Content Include="Scripts\sceditor\languages\pt.js" />
+    <Content Include="Scripts\sceditor\languages\ru.js" />
+    <Content Include="Scripts\sceditor\languages\sk.js" />
+    <Content Include="Scripts\sceditor\languages\sv.js" />
+    <Content Include="Scripts\sceditor\languages\template.js" />
+    <Content Include="Scripts\sceditor\languages\tr.js" />
+    <Content Include="Scripts\sceditor\languages\tw.js" />
+    <Content Include="Scripts\sceditor\languages\uk.js" />
+    <Content Include="Scripts\sceditor\languages\vi.js" />
+    <Content Include="Scripts\sceditor\plugins\dragdrop.js" />
+    <Content Include="Scripts\sceditor\plugins\undo.js" />
+    <Content Include="Scripts\sceditor\sceditor.comb.min.js" />
+    <Content Include="Scripts\sceditor\sceditor.min.js" />
     <Content Include="UrlRewriter.config" />
     <Content Include="Content\netStack.scss" />
     <Content Include="Content\webfonts\fa-v4compatibility.ttf" />
@@ -3033,7 +3071,7 @@ xcopy "$(SolutionDir)YAF.Data\YAF.Data.Sqlite\bin\Debug\net481\x64\SQLite.Intero
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

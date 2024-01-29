@@ -202,11 +202,6 @@ public class MessagePost : MessageBase
     protected virtual void RenderEditedMessage(
         HtmlTextWriter writer, DateTime edited, string editReason, int? messageId)
     {
-        if (!this.PageBoardContext.BoardSettings.ShowEditedMessage)
-        {
-            return;
-        }
-
         var editedDateTime = new DisplayDateTime { DateTime = edited }.RenderToString();
 
         // reason was specified ?!

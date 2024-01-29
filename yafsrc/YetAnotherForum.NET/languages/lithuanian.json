@@ -3795,14 +3795,6 @@
             "#text": "Automatiškai nutraukite naudotojų, kurie pažymėti kaip \"Nesekti\", pavyzdžiui, paieškos sistemų ir robotų, sesijas. Įjunkite, jei kyla problemų su sesijomis."
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "Priimtos HTML žymos:"
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "Kableliais atskirtų (be tarpų) HTML žymių, kurias leidžiama naudoti pranešimuose naudojant HTML redaktorius, sąrašas."
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Aktyvių naudotojų laikas:"
           },
@@ -4251,22 +4243,6 @@
             "#text": "Jei pažymėta, aprašymo ir raktažodžių metažymės bus sukurtos dinamiškai posto puslapiuose."
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "Redaktoriaus įrankių juosta, naudojama parašams ir greitiems atsakymams."
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "Redaktoriaus įrankių juosta \"Basic\":"
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "Pilna redaktoriaus įrankių juosta:"
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "Redaktoriaus įrankių juosta, skirta skelbti ir rašyti privačias žinutes."
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "Reikalauti el. pašto patvirtinimo:"
           },
@@ -4339,6 +4315,14 @@
             "#text": "Nustatymas Įjungti / išjungti integruotą reputacijos sistemą, kad naudotojai galėtų suteikti arba pašalinti reputaciją."
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "Didžiausias įvykių žurnalo dienų skaičius"
           },
@@ -4407,14 +4391,6 @@
             "#text": "Visas į priekį nukreiptas šio forumo url adresas."
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "Forumo redaktorius:"
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "Pasirinkite visuotinį forumo redaktoriaus tipą. Norint naudoti HTML redaktorius (FCK ir FreeTextBox), .bin failas turi būti \\bin kataloge, o atitinkami pagalbiniai failai turi būti \\editors kataloge."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forumo el. paštas:"
           },
@@ -4453,10 +4429,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "Ekrano nustatymai"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "Nustatymų redagavimas / formatavimas"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4549,10 +4521,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "Ekranas"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "Redaktoriai"
           },
           {
             "@tag": "HOST_FEATURES",

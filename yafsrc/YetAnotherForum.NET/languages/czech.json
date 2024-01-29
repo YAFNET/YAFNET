@@ -3795,14 +3795,6 @@
             "#text": "Automaticky opouštět relace pro uživatele, kteří jsou označeni jako „Nesledovat“, jako jsou vyhledávače a roboti. "
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "Přijímané značky HTML:"
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "Čárkami oddělený seznam (bez mezer) HTML značek, které jsou povoleny v příspěvcích pomocí HTML editorů."
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Čas aktivních uživatelů:"
           },
@@ -4251,22 +4243,6 @@
             "#text": "Pokud je zaškrtnuto, budou se na stránkách příspěvků dynamicky vytvářet meta tagy description a keywords."
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "Panel nástrojů editoru používaný pro podpisy a rychlé odpovědi."
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "Základní lišta editoru:"
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "Úplná lišta editoru:"
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "Panel nástrojů editoru používaný pro odesílání a soukromé zprávy."
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "Vyžadovat ověření e-mailem:"
           },
@@ -4339,6 +4315,14 @@
             "#text": "Nastavení povolit/zakázat vestavěný systém reputace, aby uživatelé mohli dávat nebo odebírat pověst."
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "Maximální počet dní pro protokol událostí"
           },
@@ -4407,14 +4391,6 @@
             "#text": "Úplná dopředná adresa URL tohoto fóra."
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "Editor fóra:"
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "Vyberte globální typ editoru pro vaše fórum. "
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "E-mail fóra:"
           },
@@ -4453,10 +4429,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "Nastavení obrazovky"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "Nastavení úprav/formátování"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4549,10 +4521,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "Zobrazit"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "redaktoři"
           },
           {
             "@tag": "HOST_FEATURES",

@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Helpers;
 
 using YAF.Core.BaseModules;
@@ -38,6 +39,7 @@ public static class ForumEditorHelper
     /// </returns>
     public static ForumEditor GetCurrentForumEditor()
     {
-        return BoardContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("1");
+        return BoardContext.Current.Get<IModuleManager<ForumEditor>>()
+            .GetBy(BoardContext.Current.BoardSettings.EnableWysiwygEditor ? "SCEditor" : "YAFEditor");
     }
 }

@@ -43,11 +43,11 @@ public class Migration87 : IRepositoryMigration, IHaveServiceLocator
     public void MigrateDatabase(IDbAccess dbAccess)
     {
         dbAccess.Execute(
-            dbCommand =>
+            _ =>
             {
-                this.UpgradeTable(this.GetRepository<Forum>());
-                this.UpgradeTable(this.GetRepository<Registry>());
-                this.UpgradeTable(this.GetRepository<User>());
+                UpgradeTable(this.GetRepository<Forum>());
+                UpgradeTable(this.GetRepository<Registry>());
+                UpgradeTable(this.GetRepository<User>());
 
                 ///////////////////////////////////////////////////////////
 
@@ -57,14 +57,14 @@ public class Migration87 : IRepositoryMigration, IHaveServiceLocator
 
     /// <summary>Upgrades the Forum table.</summary>
     /// <param name="repository">The repository.</param>
-    private void UpgradeTable(IRepository<Forum> repository)
+    private static void UpgradeTable(IRepository<Forum> repository)
     {
         repository.UpdateOnly(() => new Forum { RemoteURL = null }, f => f.RemoteURL == "");
     }
 
     /// <summary>Upgrades the Registry table.</summary>
     /// <param name="repository">The repository.</param>
-    private void UpgradeTable(IRepository<Registry> repository)
+    private static void UpgradeTable(IRepository<Registry> repository)
     {
         var entries = repository.Get(x => x.Value.Contains(".xml") && x.Name == "language");
 
@@ -79,7 +79,7 @@ public class Migration87 : IRepositoryMigration, IHaveServiceLocator
 
     /// <summary>Upgrades the Registry table.</summary>
     /// <param name="repository">The repository.</param>
-    private void UpgradeTable(IRepository<User> repository)
+    private static void UpgradeTable(IRepository<User> repository)
     {
         var entries = repository.Get(x => x.LanguageFile.Contains(".xml"));
 

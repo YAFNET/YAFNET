@@ -15435,7 +15435,7 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
         });
         renderAttachPreview(".attachments-preview");
         setPageNumber(pageSize, pageNumber, data.TotalRecords, document.getElementById("AlbumsListPager"), "Album Images", "getAlbumImagesData");
-        if (isPageChange) {
+        if (isPageChange && document.querySelector(".albums-toggle") != null) {
             const toggleBtn = document.querySelector(".albums-toggle"), dropdownEl = new bootstrap.Dropdown(toggleBtn);
             dropdownEl.toggle();
         }
@@ -15479,7 +15479,7 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
         });
         renderAttachPreview(".attachments-preview");
         setPageNumber(pageSize, pageNumber, data.TotalRecords, document.getElementById("AttachmentsListPager"), "Attachments", "getPaginationData");
-        if (isPageChange) {
+        if (isPageChange && document.querySelector(".attachments-toggle") != null) {
             const toggleBtn = document.querySelector(".attachments-toggle"), dropdownEl = new bootstrap.Dropdown(toggleBtn);
             dropdownEl.toggle();
         }
@@ -15949,6 +15949,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const pageSize = 5;
         const pageNumber = 0;
         getPaginationData(pageSize, pageNumber, false);
+    }
+    if (document.getElementById("PostAlbumsListPlaceholder") != null) {
+        const pageSize = 5;
+        const pageNumber = 0;
+        getAlbumImagesData(pageSize, pageNumber, false);
     }
     if (document.getElementById("SearchResultsPlaceholder") != null && document.querySelector(".searchInput") != null) {
         document.querySelector(".searchInput").addEventListener("keypress", e => {

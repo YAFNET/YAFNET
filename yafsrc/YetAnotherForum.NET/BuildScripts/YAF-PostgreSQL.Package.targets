@@ -87,6 +87,10 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\editor\undoManager.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\editor\editor.comb.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\editor\editor.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\sceditor\formats\bbcode.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\sceditor\icons\fontawesome.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\sceditor\plugins\*.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\sceditor\sceditor.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap\**\*.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\dark-editable.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-forum.css" />

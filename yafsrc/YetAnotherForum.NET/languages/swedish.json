@@ -3795,14 +3795,6 @@
             "#text": "Avbryt automatiskt sessioner för användare som är markerade som \"Don't Track\", t.ex. sökmotorer och botar. Aktivera om du har problem med sessioner."
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "Godkända HTML-taggar:"
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "Kommaseparerad lista (utan mellanslag) över HTML-taggar som är tillåtna i inlägg med HTML-redigerare."
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Aktiva användare Tid:"
           },
@@ -4251,22 +4243,6 @@
             "#text": "Om du kryssar för detta skapas meta-taggar för beskrivning och nyckelord dynamiskt på inläggssidorna."
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "Redaktörens verktygsfält som används för signaturer och snabba svar."
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "Editor Toolbar Basic:"
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "Editor Toolbar Full:"
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "Redaktörens verktygsfält som används för inlägg och privata meddelanden."
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "Kräver e-postbekräftelse:"
           },
@@ -4339,6 +4315,14 @@
             "#text": "Inställning för att aktivera/avaktivera det inbyggda ryktessystemet så att användare kan ge eller ta bort rykte."
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "Max antal dagar för händelseloggen"
           },
@@ -4407,14 +4391,6 @@
             "#text": "Den fullständiga webbadressen till detta forum."
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "Forumredaktör:"
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "Välj global redigeringstyp för ditt forum. För att använda HTML-redigerarna (FCK och FreeTextBox) måste .bin-filen finnas i \\bin-katalogen och de rätta stödfilerna måste läggas i \\editors."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "E-post till forumet:"
           },
@@ -4453,10 +4429,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "Inställningar för visning"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "Redigering/formatering av inställningar"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4549,10 +4521,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "Visa"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "Redaktörer"
           },
           {
             "@tag": "HOST_FEATURES",

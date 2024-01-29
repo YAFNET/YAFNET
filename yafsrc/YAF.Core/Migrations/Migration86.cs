@@ -25,6 +25,7 @@
 namespace YAF.Core.Migrations;
 
 using ServiceStack.OrmLite;
+
 using System.Data;
 
 using ServiceStack.Text;
@@ -50,14 +51,14 @@ public class Migration86 : IRepositoryMigration, IHaveServiceLocator
         dbAccess.Execute(
             dbCommand =>
             {
-                this.UpgradeTable(this.GetRepository<BBCode>(), dbAccess, dbCommand);
-                this.UpgradeTable(this.GetRepository<EventLog>(), dbAccess, dbCommand);
-                this.UpgradeTable(this.GetRepository<Medal>(), dbAccess, dbCommand);
-                this.UpgradeTable(this.GetRepository<Message>(), dbAccess, dbCommand);
-                this.UpgradeTable(this.GetRepository<MessageHistory>(), dbAccess, dbCommand);
-                this.UpgradeTable(this.GetRepository<PMessage>(), dbAccess, dbCommand);
-                this.UpgradeTable(this.GetRepository<ProfileCustom>(), dbAccess, dbCommand);
-                this.UpgradeTable(this.GetRepository<User>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<BBCode>(), dbCommand);
+                UpgradeTable(this.GetRepository<EventLog>(), dbCommand);
+                UpgradeTable(this.GetRepository<Medal>(), dbCommand);
+                UpgradeTable(this.GetRepository<Message>(), dbCommand);
+                UpgradeTable(this.GetRepository<MessageHistory>(), dbCommand);
+                UpgradeTable(this.GetRepository<PMessage>(), dbCommand);
+                UpgradeTable(this.GetRepository<ProfileCustom>(), dbCommand);
+                UpgradeTable(this.GetRepository<User>(), dbCommand);
 
                 ///////////////////////////////////////////////////////////
 
@@ -67,10 +68,12 @@ public class Migration86 : IRepositoryMigration, IHaveServiceLocator
 
     /// <summary>Upgrades the BBCode table.</summary>
     /// <param name="repository">The repository.</param>
-    /// <param name="dbAccess">The database access.</param>
     /// <param name="dbCommand">The database command.</param>
-    private void UpgradeTable(IRepository<BBCode> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    /// <param name="dbCommand"></param>
+    private static void UpgradeTable(IRepository<BBCode> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnDataType<BBCode>(x => x.DisplayJS).StartsWithIgnoreCase("varchar"))
         {
             if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
@@ -134,10 +137,11 @@ public class Migration86 : IRepositoryMigration, IHaveServiceLocator
 
     /// <summary>Upgrades the EventLog table.</summary>
     /// <param name="repository">The repository.</param>
-    /// <param name="dbAccess">The database access.</param>
     /// <param name="dbCommand">The database command.</param>
-    private void UpgradeTable(IRepository<EventLog> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<EventLog> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnDataType<EventLog>(x => x.Description).StartsWithIgnoreCase("varchar"))
         {
             if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
@@ -153,10 +157,11 @@ public class Migration86 : IRepositoryMigration, IHaveServiceLocator
 
     /// <summary>Upgrades the Medal table.</summary>
     /// <param name="repository">The repository.</param>
-    /// <param name="dbAccess">The database access.</param>
     /// <param name="dbCommand">The database command.</param>
-    private void UpgradeTable(IRepository<Medal> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<Medal> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnDataType<Medal>(x => x.Description).StartsWithIgnoreCase("varchar"))
         {
             if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
@@ -172,10 +177,11 @@ public class Migration86 : IRepositoryMigration, IHaveServiceLocator
 
     /// <summary>Upgrades the Message table.</summary>
     /// <param name="repository">The repository.</param>
-    /// <param name="dbAccess">The database access.</param>
     /// <param name="dbCommand">The database command.</param>
-    private void UpgradeTable(IRepository<Message> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<Message> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnDataType<Message>(x => x.MessageText).StartsWithIgnoreCase("varchar"))
         {
             if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
@@ -191,10 +197,11 @@ public class Migration86 : IRepositoryMigration, IHaveServiceLocator
 
     /// <summary>Upgrades the MessageHistory table.</summary>
     /// <param name="repository">The repository.</param>
-    /// <param name="dbAccess">The database access.</param>
     /// <param name="dbCommand">The database command.</param>
-    private void UpgradeTable(IRepository<MessageHistory> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<MessageHistory> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnDataType<MessageHistory>(x => x.Message).StartsWithIgnoreCase("varchar"))
         {
             if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
@@ -210,10 +217,11 @@ public class Migration86 : IRepositoryMigration, IHaveServiceLocator
 
     /// <summary>Upgrades the PMessage table.</summary>
     /// <param name="repository">The repository.</param>
-    /// <param name="dbAccess">The database access.</param>
     /// <param name="dbCommand">The database command.</param>
-    private void UpgradeTable(IRepository<PMessage> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<PMessage> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnDataType<PMessage>(x => x.Body).StartsWithIgnoreCase("varchar"))
         {
             if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
@@ -229,10 +237,11 @@ public class Migration86 : IRepositoryMigration, IHaveServiceLocator
 
     /// <summary>Upgrades the ProfileCustom table.</summary>
     /// <param name="repository">The repository.</param>
-    /// <param name="dbAccess">The database access.</param>
     /// <param name="dbCommand">The database command.</param>
-    private void UpgradeTable(IRepository<ProfileCustom> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<ProfileCustom> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnDataType<ProfileCustom>(x => x.Value).StartsWithIgnoreCase("varchar"))
         {
             if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
@@ -248,10 +257,11 @@ public class Migration86 : IRepositoryMigration, IHaveServiceLocator
 
     /// <summary>Upgrades the User table.</summary>
     /// <param name="repository">The repository.</param>
-    /// <param name="dbAccess">The database access.</param>
     /// <param name="dbCommand">The database command.</param>
-    private void UpgradeTable(IRepository<User> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<User> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnDataType<User>(x => x.Signature).StartsWithIgnoreCase("varchar"))
         {
             if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")

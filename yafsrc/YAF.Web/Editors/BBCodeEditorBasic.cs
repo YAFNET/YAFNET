@@ -39,13 +39,11 @@ public class BBCodeEditorBasic : TextEditor
     /// <summary>
     ///   Gets the Description.
     /// </summary>
-    
     public override string Description => "Standard BBCode Editor";
 
     /// <summary>
     ///   Gets SafeID.
     /// </summary>
-    
     protected string SafeId => this.TextAreaControl.ClientID.Replace("$", "_");
 
     /// <summary>

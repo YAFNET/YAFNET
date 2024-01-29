@@ -21,13 +21,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Web.Controls;
 
 using System.Text;
 using System.Web.UI;
 
 using YAF.Core.BaseControls;
-using YAF.Types;
 using YAF.Types.Interfaces;
 using YAF.Web.EventsArgs;
 
@@ -72,15 +72,15 @@ public class AlbumListPopMenu : BaseControl, IPostBackEventHandler
 
         var sb = new StringBuilder();
         sb.AppendFormat(
-            @"<div class=""AlbumsListMenu dropdown-item"" id=""{0}"">",
+            """<div class="AlbumsListMenu dropdown-item" id="{0}">""",
             this.ClientID);
 
         sb.Append("<div id=\"AlbumsListBox\" class=\"content\">");
 
         sb.Append("<div id=\"AlbumsListPager\"></div>");
-        sb.Append("<div id=\"PostAlbumsLoader\">");
+        sb.Append("<div id=\"PostAlbumsLoader\" class=\"text-center\">");
         sb.AppendFormat(
-            "<p style=\"text-align:center\"><span>{0}</span><br /><div class=\"fa-3x\"><i class=\"fas fa-spinner fa-pulse\"></i></div></p>",
+            "<span>{0}</span><br /><div class=\"fa-3x\"><i class=\"fas fa-spinner fa-pulse\"></i></div>",
             this.Get<ILocalization>().GetText("COMMON", "LOADING"));
         sb.Append("</div>");
         sb.Append("<div id=\"AlbumsListBox\" class=\"content\">");

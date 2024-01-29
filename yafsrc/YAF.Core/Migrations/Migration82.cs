@@ -25,6 +25,7 @@
 namespace YAF.Core.Migrations;
 
 using ServiceStack.OrmLite;
+
 using System.Data;
 
 using YAF.Core.Context;
@@ -49,8 +50,8 @@ public class Migration82 : IRepositoryMigration, IHaveServiceLocator
         dbAccess.Execute(
             dbCommand =>
             {
-                this.UpgradeTable(this.GetRepository<ActiveAccess>(), dbAccess, dbCommand);
-                this.UpgradeTable(this.GetRepository<Group>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<ActiveAccess>(), dbCommand);
+                UpgradeTable(this.GetRepository<Group>());
 
                 ///////////////////////////////////////////////////////////
 
@@ -65,10 +66,11 @@ public class Migration82 : IRepositoryMigration, IHaveServiceLocator
 
     /// <summary>Upgrades the Active Access table.</summary>
     /// <param name="repository">The repository.</param>
-    /// <param name="dbAccess">The database access.</param>
     /// <param name="dbCommand">The database command.</param>
-    private void UpgradeTable(IRepository<ActiveAccess> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<ActiveAccess> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnExists<ActiveAccess>("DownloadAccess"))
         {
             dbCommand.Connection.DropColumn<ActiveAccess>("DownloadAccess");
@@ -82,9 +84,7 @@ public class Migration82 : IRepositoryMigration, IHaveServiceLocator
 
     /// <summary>Upgrades the Group table.</summary>
     /// <param name="repository">The repository.</param>
-    /// <param name="dbAccess">The database access.</param>
-    /// <param name="dbCommand">The database command.</param>
-    private void UpgradeTable(IRepository<Group> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<Group> repository)
     {
         repository.Get(g => (g.Flags & 1) == 1).ForEach(
             group =>

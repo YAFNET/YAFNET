@@ -7,13 +7,6 @@
     this.Description = description;
     this.MediaTitle = mediaTitle;
 
-    // Render Album Images DropDown
-    if (document.getElementById("PostAlbumsListPlaceholder") != null) {
-        const pageSize = 5;
-        const pageNumber = 0;
-        getAlbumImagesData(pageSize, pageNumber, false);
-    }
-
     document.querySelector(".BBCodeEditor").addEventListener("keydown", function (e) {
         if (e.ctrlKey &&
             !e.altKey &&
@@ -179,7 +172,7 @@ yafEditor.prototype.FormatText = function (command, option) {
         case "fontsize":
             wrapSelection(textObj, `[size=${option}]`, "[/size]");
             break;
-        case "AlbumImgId":
+        case "albumimg":
             replaceSelection(textObj, `[albumimg]${option}[/albumimg]`);
             break;
         case "attach":

@@ -447,6 +447,24 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox RequireSSL;
 
         /// <summary>
+        /// HelpLabel16 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel16;
+
+        /// <summary>
+        /// EnableWysiwygEditor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox EnableWysiwygEditor;
+
+        /// <summary>
         /// HelpLabel5 control.
         /// </summary>
         /// <remarks>
@@ -2344,24 +2362,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ShowDeletedMessagesToAll;
-
-        /// <summary>
-        /// HelpLabel240 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel240;
-
-        /// <summary>
-        /// ShowEditedMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowEditedMessage;
 
         /// <summary>
         /// BlankLinksHelpLabel control.

@@ -3787,14 +3787,6 @@
             "#text": "Negeer sessies automatisch voor gebruikers die gemarkeerd zijn als \"Don't Track\", zoals zoekmachines en Bots. Alleen aanzetten bij sessie-problemen."
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "Geaccepteerde HTML-tags:"
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "Door komma's gescheiden lijst (geen spaties) van HTML-tags die zijn toegestaan ​​in berichten met HTML-editors."
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Actieve Gebruikers Timeout:"
           },
@@ -4243,22 +4235,6 @@
             "#text": "Als deze is aangevinkt, worden de Description en Keywords meta tags dynamisch gevuld op de berichtenpagina."
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "Editor-werkbalk gebruikt voor handtekeningen en snelle antwoorden."
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "Editor-werkbalk Basis:"
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "Editor-werkbalk volledig:"
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "Editor-werkbalk gebruikt voor het plaatsen van berichten en privéberichten."
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "E-mail verificatie verplichten:"
           },
@@ -4331,6 +4307,14 @@
             "#text": "Instelling om het reputatiesysteem aan of uit te zetten, zodat gebruikers andere gebruikers reputatiepunten kunnen geven."
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "Max aantal dagen voor gebeurtenislogboek"
           },
@@ -4399,14 +4383,6 @@
             "#text": "De volledige naar voren gerichte url naar dit forum."
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "Forum Tekstverwerker:"
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "Selecteer de globale tekstverwerker voor je forum. OM HTML tekstverwerkers (FCK and FreeTextBox) te gebruiken, moet het .bin bestand in de \\bin directory staan en de support bestanden moeten in in \\editors staan."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forum E-mail:"
           },
@@ -4445,10 +4421,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "Weergave instellingen"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "Bewerk/Opmaak instellingen"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4541,10 +4513,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "Weergave"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "Tekstverwerkers"
           },
           {
             "@tag": "HOST_FEATURES",

@@ -48,7 +48,7 @@ public class Migration89 : IRepositoryMigration, IHaveServiceLocator
             dbCommand =>
             {
                 UpgradeTable(this.GetRepository<User>(), dbCommand);
-                UpgradeTable(this.GetRepository<PrivateMessage>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<PrivateMessage>(), dbAccess);
 
                 ///////////////////////////////////////////////////////////
 
@@ -61,6 +61,8 @@ public class Migration89 : IRepositoryMigration, IHaveServiceLocator
     /// <param name="dbCommand">The db command.</param>
     private static void UpgradeTable(IRepository<User> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<User>(x => x.DarkMode))
         {
             dbCommand.Connection.AddColumn<User>(x => x.DarkMode);
@@ -72,12 +74,12 @@ public class Migration89 : IRepositoryMigration, IHaveServiceLocator
     /// <param name="dbAccess">
     /// The Database access.
     /// </param>
-    /// <param name="dbCommand">The db command.</param>
     private static void UpgradeTable(
         IRepository<PrivateMessage> repository,
-        IDbAccess dbAccess,
-        IDbCommand dbCommand)
+        IDbAccess dbAccess)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PrivateMessage>());
     }
 

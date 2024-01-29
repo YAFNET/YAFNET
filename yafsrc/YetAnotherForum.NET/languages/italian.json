@@ -3787,14 +3787,6 @@
             "#text": "Abbandono automatico delle sessioni per gli utenti contrassegnati come \"Don't Track\", come i motori di ricerca e i bot. Attivare se si verificano problemi di sessione."
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "Tag HTML accettati:"
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "Elenco separato da virgole (senza spazi) di tag HTML consentiti nei post che utilizzano editor HTML."
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Utenti attivi Tempo:"
           },
@@ -4243,22 +4235,6 @@
             "#text": "Se è selezionata, i meta tag description e keywords saranno creati dinamicamente sulle pagine dei post."
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "Barra degli strumenti dell'editor utilizzata per le firme e le risposte rapide."
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "Barra degli strumenti dell'editor Basic:"
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "Barra degli strumenti dell'editor completa:"
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "Barra degli strumenti dell'editor utilizzata per la pubblicazione di messaggi e messaggi privati."
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "Require E-mail Verification:"
           },
@@ -4331,6 +4307,14 @@
             "#text": "Impostazione per abilitare/disabilitare il sistema di reputazione incorporato per consentire agli utenti di dare o rimuovere la reputazione."
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "Numero massimo di giorni per il registro eventi"
           },
@@ -4399,14 +4383,6 @@
             "#text": "L'url completo di questo forum."
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "Editor del forum:"
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "Selezionare il tipo di editor globale per il forum. Per utilizzare gli editor HTML (FCK e FreeTextBox), il file .bin deve trovarsi nella cartella \\bin e i file di supporto appropriati devono essere inseriti in \\editors."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forum E-mail:"
           },
@@ -4445,10 +4421,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "Impostazioni del display"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "Impostazioni di modifica/formattazione"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4541,10 +4513,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "Schermo"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "Redazione"
           },
           {
             "@tag": "HOST_FEATURES",

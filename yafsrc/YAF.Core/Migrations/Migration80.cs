@@ -44,6 +44,10 @@ using YAF.Types.Models;
 /// </summary>
 public class Migration80 : IRepositoryMigration, IHaveServiceLocator
 {
+    /// <summary>
+    /// Gets ServiceLocator.
+    /// </summary>
+    /// <value>The service locator.</value>
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
     /// <summary>
@@ -57,68 +61,70 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         dbAccess.Execute(
             dbCommand =>
             {
-                this.UpgradeTable(this.GetRepository<Board>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<Board>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<BBCode>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<BBCode>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<Active>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<Active>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<ActiveAccess>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<ActiveAccess>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<BannedIP>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<TopicTag>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<Category>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<BannedIP>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<EventLog>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<Category>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<ForumReadTracking>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<EventLog>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<UserPMessage>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<ForumReadTracking>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<Topic>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<UserPMessage>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<TopicReadTracking>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<Topic>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<User>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<TopicReadTracking>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<Forum>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<User>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<Group>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<Forum>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<UserMedal>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<Group>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<GroupMedal>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<UserMedal>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<AccessMask>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<GroupMedal>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<Replace_Words>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<AccessMask>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<Registry>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<Replace_Words>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<Medal>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<Registry>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<Message>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<Medal>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<MessageHistory>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<Message>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<MessageReported>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<MessageHistory>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<MessageReportedAudit>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<MessageReported>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<PMessage>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<MessageReportedAudit>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<Rank>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<PMessage>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<CheckEmail>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<Rank>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<Attachment>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<CheckEmail>(), dbCommand);
 
-                this.UpgradeTable(this.GetRepository<PollVote>(), dbAccess, dbCommand);
+                UpgradeTable(this.GetRepository<Attachment>(), dbCommand);
+
+                UpgradeTable(this.GetRepository<PollVote>(), dbCommand);
 
                 ///////////////////////////////////////////////////////////
 
                 // Remove old Stuff
-                this.UpgradeTablesPolls(dbAccess, dbCommand);
+                this.UpgradeTablesPolls(dbCommand);
 
                 if (dbCommand.Connection.TableExists("EventLogGroupAccess"))
                 {
@@ -169,9 +175,9 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         dbAccess.Execute(
             dbCommand =>
             {
-                this.DeleteStoredProcedures(dbCommand);
+                DeleteStoredProcedures(dbCommand);
 
-                this.DeleteTriggers(dbCommand);
+                DeleteTriggers(dbCommand);
 
                 return true;
             });
@@ -180,7 +186,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
             dbCommand =>
             {
                 // display names upgrade routine can run really for ages on large forums
-                this.InitDisplayNames(dbCommand);
+                InitDisplayNames(dbCommand);
 
                 return true;
             });
@@ -188,7 +194,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         dbAccess.Execute(
             dbCommand =>
             {
-                this.RemoveLegacyFullTextSearch(dbCommand);
+                RemoveLegacyFullTextSearch(dbCommand);
 
                 return true;
             });
@@ -197,9 +203,9 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         dbAccess.Execute(
             dbCommand =>
             {
-                this.DropIndexViews(dbCommand);
+                DropIndexViews(dbCommand);
 
-                this.DropViews(dbCommand);
+                DropViews(dbCommand);
 
                 dbAccess.Information.CreateViews(dbAccess, dbCommand);
 
@@ -212,7 +218,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         dbAccess.Execute(
             dbCommand =>
             {
-                this.DropFunctions(dbCommand);
+                DropFunctions(dbCommand);
 
                 return true;
             });
@@ -221,10 +227,11 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
     /// <summary>
     /// The upgrade table active.
     /// </summary>
-    /// <param name="dbAccess">The db access.</param>
     /// <param name="dbCommand">The db command.</param>
-    private void UpgradeTable(IRepository<Active> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<Active> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnMaxLength<Active>(x => x.Location) < 255)
         {
             dbCommand.Connection.AlterColumn<Active>(x => x.Location);
@@ -254,8 +261,6 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
 
         if (dbCommand.Connection.ColumnMaxLength<Active>(x => x.SessionID) < 50)
         {
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
-
             dbCommand.Connection.DropPrimaryKey<Active>(string.Empty);
 
             dbCommand.Connection.AlterColumn<Active>(x => x.SessionID);
@@ -266,8 +271,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         repository.DeleteAll();
     }
 
-    private void UpgradeTable(IRepository<ActiveAccess> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<ActiveAccess> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<ActiveAccess>(x => x.LastActive))
         {
             dbCommand.Connection.AddColumn<ActiveAccess>(x => x.LastActive);
@@ -289,13 +296,17 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         dbCommand.Connection.DropIndex<ActiveAccess>();
     }
 
-    private void UpgradeTable(IRepository<TopicTag> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<TopicTag> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         dbCommand.Connection.DropIndex<TopicTag>($"UC_{Config.DatabaseObjectQualifier}TopicTag_TopicID_TagID");
     }
 
-    private void UpgradeTable(IRepository<User> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<User> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<User>(x => x.NotificationType))
         {
             dbCommand.Connection.AddColumn<User>(x => x.NotificationType);
@@ -414,8 +425,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<Topic> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<Topic> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<Topic>(x => x.AnswerMessageId))
         {
             dbCommand.Connection.AddColumn<Topic>(x => x.AnswerMessageId);
@@ -472,8 +485,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<TopicReadTracking> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<TopicReadTracking> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         dbCommand.Connection.DropPrimaryKey<TopicReadTracking>($"{Config.DatabaseObjectQualifier}TopicTracking");
 
         if (dbCommand.Connection.ColumnExists<TopicReadTracking>("TrackingID"))
@@ -482,8 +497,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<Attachment> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<Attachment> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         dbCommand.Connection.DropForeignKey<Attachment>($"{Config.DatabaseObjectQualifier}Message");
 
         if (dbCommand.Connection.ColumnMaxLength<Attachment>(x => x.ContentType) < 255)
@@ -502,8 +519,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<BannedIP> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<BannedIP> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<BannedIP>(x => x.Reason))
         {
             dbCommand.Connection.AddColumn<BannedIP>(x => x.Reason);
@@ -520,8 +539,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<BBCode> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<BBCode> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<BBCode>(x => x.UseModule))
         {
             dbCommand.Connection.AddColumn<BBCode>(x => x.UseModule);
@@ -559,8 +580,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<Board> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<Board> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnExists<Board>("BoardUID"))
         {
             dbCommand.Connection.DropColumn<Board>("BoardUID");
@@ -582,16 +605,20 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<Category> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<Category> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<Category>(x => x.CategoryImage))
         {
             dbCommand.Connection.AddColumn<Category>(x => x.CategoryImage);
         }
     }
 
-    private void UpgradeTable(IRepository<Rank> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<Rank> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<Rank>(x => x.PMLimit))
         {
             dbCommand.Connection.AddColumn<Rank>(x => x.PMLimit);
@@ -668,8 +695,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<Registry> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<Registry> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<Registry>(x => x.BoardID))
         {
             dbCommand.Connection.AddColumn<Registry>(x => x.BoardID);
@@ -681,8 +710,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<Replace_Words> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<Replace_Words> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnMaxLength<Replace_Words>(x => x.BadWord) < 255)
         {
             dbCommand.Connection.AlterColumn<Replace_Words>(x => x.BadWord);
@@ -699,8 +730,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<CheckEmail> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<CheckEmail> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         dbCommand.Connection.DropIndex<CheckEmail>();
 
         if (dbCommand.Connection.ColumnMaxLength<CheckEmail>(x => x.Email) < 255)
@@ -719,8 +752,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<EventLog> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<EventLog> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnDataType<EventLog>(x => x.Description) == "ntext")
         {
             dbCommand.Connection.AlterColumn<EventLog>(x => x.Description);
@@ -737,7 +772,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    public void UpgradeTablesPolls(IDbAccess dbAccess, IDbCommand dbCommand)
+    public void UpgradeTablesPolls(IDbCommand dbCommand)
     {
         // should drop it else error
         dbCommand.Connection.DropForeignKey<Topic>($"{Config.DatabaseObjectQualifier}Poll");
@@ -819,8 +854,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<Forum> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<Forum> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<Forum>(x => x.RemoteURL))
         {
             dbCommand.Connection.AddColumn<Forum>(x => x.RemoteURL);
@@ -917,14 +954,18 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<ForumReadTracking> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<ForumReadTracking> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         dbCommand.Connection.DropPrimaryKey<ForumReadTracking>(
             $"{Config.DatabaseObjectQualifier}ForumReadTracking");
     }
 
-    private void UpgradeTable(IRepository<UserPMessage> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<UserPMessage> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<UserPMessage>(x => x.Flags))
         {
             dbCommand.Connection.AddColumn<UserPMessage>(x => x.Flags);
@@ -936,8 +977,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<Group> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<Group> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnMaxLength<Group>(x => x.Name) < 255)
         {
             dbCommand.Connection.DropIndex<Group>();
@@ -1036,12 +1079,12 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<UserMedal> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<UserMedal> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnExists<UserMedal>("OnlyRibbon"))
         {
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserMedal>();
-
             dbCommand.Connection.DropConstraint<UserMedal>(
                 $"DF_{Config.DatabaseObjectQualifier}{nameof(UserMedal)}_OnlyRibbon");
 
@@ -1049,8 +1092,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<GroupMedal> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<GroupMedal> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnExists<GroupMedal>("OnlyRibbon"))
         {
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<GroupMedal>();
@@ -1066,8 +1111,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<Medal> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<Medal> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnDataType<Medal>(x => x.Description) == "ntext")
         {
             dbCommand.Connection.AlterColumn<Medal>(x => x.Description);
@@ -1089,8 +1136,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<Message> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<Message> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<Message>(x => x.Flags))
         {
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
@@ -1168,8 +1217,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<MessageHistory> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<MessageHistory> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnDataType<MessageHistory>(x => x.Message) == "ntext")
         {
             dbCommand.Connection.AlterColumn<MessageHistory>(x => x.Message);
@@ -1202,19 +1253,22 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<MessageReported> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<MessageReported> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnDataType<MessageReported>(x => x.Message) == "ntext")
         {
             dbCommand.Connection.AlterColumn<MessageReported>(x => x.Message);
         }
     }
 
-    private void UpgradeTable(
+    private static void UpgradeTable(
         IRepository<MessageReportedAudit> repository,
-        IDbAccess dbAccess,
         IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<MessageReportedAudit>(x => x.ReportedNumber))
         {
             dbCommand.Connection.AddColumn<MessageReportedAudit>(x => x.ReportedNumber);
@@ -1231,8 +1285,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<PMessage> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<PMessage> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (dbCommand.Connection.ColumnDataType<PMessage>(x => x.Body) == "ntext")
         {
             dbCommand.Connection.AlterColumn<PMessage>(x => x.Body);
@@ -1249,16 +1305,20 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private void UpgradeTable(IRepository<PollVote> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<PollVote> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<PollVote>(x => x.ChoiceID))
         {
             dbCommand.Connection.AddColumn<PollVote>(x => x.ChoiceID);
         }
     }
 
-    private void UpgradeTable(IRepository<AccessMask> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<AccessMask> repository, IDbCommand dbCommand)
     {
+        CodeContracts.ThrowIfNull(repository);
+
         if (!dbCommand.Connection.ColumnExists<AccessMask>(x => x.Flags))
         {
             dbCommand.Connection.AddColumn<AccessMask>(x => x.Flags);
@@ -1374,17 +1434,19 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
     /// Deletes all the stored procedures.
     /// </summary>
     /// <param name="dbCommand">The database command.</param>
-    private void DeleteStoredProcedures(IDbCommand dbCommand)
+    private static void DeleteStoredProcedures(IDbCommand dbCommand)
     {
         var list = dbCommand.Connection.SqlList<string>(
-            $@"DECLARE @DropScript varchar(max)
-
-                   set @DropScript = ''
-
-                   SELECT 'DROP PROC '+SCHEMA_NAME(schema_id)+'.' + name +';'
-                   FROM sys.procedures
-                   WHERE TYPE='P'
-                   AND name like '{Config.DatabaseObjectQualifier}%'");
+            $"""
+             DECLARE @DropScript varchar(max)
+             
+                                set @DropScript = ''
+             
+                                SELECT 'DROP PROC '+SCHEMA_NAME(schema_id)+'.' + name +';'
+                                FROM sys.procedures
+                                WHERE TYPE='P'
+                                AND name like '{Config.DatabaseObjectQualifier}%'
+             """);
 
         if (list.Any())
         {
@@ -1396,16 +1458,18 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
     /// Deletes the triggers.
     /// </summary>
     /// <param name="dbCommand">The database command.</param>
-    private void DeleteTriggers(IDbCommand dbCommand)
+    private static void DeleteTriggers(IDbCommand dbCommand)
     {
         var list = dbCommand.Connection.SqlList<string>(
-            $@"DECLARE @DropScript varchar(max)
-
-                   set @DropScript = ''
-
-                   SELECT 'DROP TRIGGER '+ OBJECT_SCHEMA_NAME(object_id) +'.' + name +';'
-                   FROM sys.triggers
-                   where name like '{Config.DatabaseObjectQualifier}%'");
+            $"""
+             DECLARE @DropScript varchar(max)
+             
+                                set @DropScript = ''
+             
+                                SELECT 'DROP TRIGGER '+ OBJECT_SCHEMA_NAME(object_id) +'.' + name +';'
+                                FROM sys.triggers
+                                where name like '{Config.DatabaseObjectQualifier}%'
+             """);
 
         if (list.Any())
         {
@@ -1417,38 +1481,40 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
     /// Initializes the display names.
     /// </summary>
     /// <param name="dbCommand">The database command.</param>
-    private void InitDisplayNames(IDbCommand dbCommand)
+    private static void InitDisplayNames(IDbCommand dbCommand)
     {
         var expression = dbCommand.Connection.From<Message>().Where(x => x.UserDisplayName == null)
             .Select(Sql.Count("*"));
 
         if (dbCommand.Connection.SqlScalar<int>(expression) > 0)
         {
-            var sql = $@"declare @tmpUserName nvarchar(255)
-                             declare @tmpUserDisplayName nvarchar(255)
-                             declare @tmpLastUserName nvarchar(255)
-                             declare @tmpLastUserDisplayName nvarchar(255)
-                             declare @tmp int
-                             declare @tmpUserID int
-                             declare @tmpLastUserID int
-
-                              update d set d.LastUserDisplayName = ISNULL((select top 1 f.LastUserDisplayName FROM {expression.Table<Forum>()} f
-                              join {expression.Table<User>()} u on u.UserID = f.UserID where u.UserID = d.UserID),
-                                    (select top 1 f.LastUserName FROM {expression.Table<Forum>()} f
-                              join {expression.Table<User>()} u on u.UserID = f.UserID where u.UserID = d.UserID ))
-                              from  {expression.Table<Forum>()} d where d.LastUserDisplayName IS NULL OR d.LastUserDisplayName = d.LastUserName;
-
-                              update d set d.UserDisplayName = ISNULL((select top 1 m.UserDisplayName FROM {expression.Table<Message>()} m
-                              join {expression.Table<User>()} u on u.UserID = m.UserID where u.UserID = d.UserID),
-                                   (select top 1 m.UserName FROM {expression.Table<Message>()} m
-                              join {expression.Table<User>()} u on u.UserID = m.UserID where u.UserID = d.UserID ))
-                              from  {expression.Table<Message>()} d where d.UserDisplayName IS NULL OR d.UserDisplayName = d.UserName;
-
-                              update d set d.UserDisplayName = ISNULL((select top 1 t.UserDisplayName FROM {expression.Table<Topic>()} t
-                              join {expression.Table<User>()} u on u.UserID = t.UserID where u.UserID = d.UserID),
-                                   (select top 1 t.UserName FROM {expression.Table<Topic>()} t
-                              join {expression.Table<User>()} u on u.UserID = t.UserID where u.UserID = d.UserID ))
-                              from  {expression.Table<Message>()} d where d.UserDisplayName IS NULL OR d.UserDisplayName = d.UserName;";
+            var sql = $"""
+                       declare @tmpUserName nvarchar(255)
+                                                    declare @tmpUserDisplayName nvarchar(255)
+                                                    declare @tmpLastUserName nvarchar(255)
+                                                    declare @tmpLastUserDisplayName nvarchar(255)
+                                                    declare @tmp int
+                                                    declare @tmpUserID int
+                                                    declare @tmpLastUserID int
+                       
+                                                     update d set d.LastUserDisplayName = ISNULL((select top 1 f.LastUserDisplayName FROM {expression.Table<Forum>()} f
+                                                     join {expression.Table<User>()} u on u.UserID = f.UserID where u.UserID = d.UserID),
+                                                           (select top 1 f.LastUserName FROM {expression.Table<Forum>()} f
+                                                     join {expression.Table<User>()} u on u.UserID = f.UserID where u.UserID = d.UserID ))
+                                                     from  {expression.Table<Forum>()} d where d.LastUserDisplayName IS NULL OR d.LastUserDisplayName = d.LastUserName;
+                       
+                                                     update d set d.UserDisplayName = ISNULL((select top 1 m.UserDisplayName FROM {expression.Table<Message>()} m
+                                                     join {expression.Table<User>()} u on u.UserID = m.UserID where u.UserID = d.UserID),
+                                                          (select top 1 m.UserName FROM {expression.Table<Message>()} m
+                                                     join {expression.Table<User>()} u on u.UserID = m.UserID where u.UserID = d.UserID ))
+                                                     from  {expression.Table<Message>()} d where d.UserDisplayName IS NULL OR d.UserDisplayName = d.UserName;
+                       
+                                                     update d set d.UserDisplayName = ISNULL((select top 1 t.UserDisplayName FROM {expression.Table<Topic>()} t
+                                                     join {expression.Table<User>()} u on u.UserID = t.UserID where u.UserID = d.UserID),
+                                                          (select top 1 t.UserName FROM {expression.Table<Topic>()} t
+                                                     join {expression.Table<User>()} u on u.UserID = t.UserID where u.UserID = d.UserID ))
+                                                     from  {expression.Table<Message>()} d where d.UserDisplayName IS NULL OR d.UserDisplayName = d.UserName;
+                       """;
 
             dbCommand.Connection.ExecuteSql(sql);
         }
@@ -1458,7 +1524,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
     /// Removes the legacy full text search.
     /// </summary>
     /// <param name="dbCommand">The database command.</param>
-    private void RemoveLegacyFullTextSearch(IDbCommand dbCommand)
+    private static void RemoveLegacyFullTextSearch(IDbCommand dbCommand)
     {
         var sb = new StringBuilder();
 
@@ -1481,7 +1547,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
     /// Drop indexes on views here
     /// </summary>
     /// <param name="dbCommand">The database command.</param>
-    private void DropIndexViews(IDbCommand dbCommand)
+    private static void DropIndexViews(IDbCommand dbCommand)
     {
         dbCommand.Connection.DropViewIndex<vaccess_user>("UserForum_PK");
         dbCommand.Connection.DropViewIndex<vaccess_null>("UserForum_PK");
@@ -1492,7 +1558,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
     /// Drops the views.
     /// </summary>
     /// <param name="dbCommand">The database command.</param>
-    private void DropViews(IDbCommand dbCommand)
+    private static void DropViews(IDbCommand dbCommand)
     {
         dbCommand.Connection.DropView<VAccess>();
         dbCommand.Connection.DropView<vaccessfull>();
@@ -1505,7 +1571,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
     /// Drops the scalar functions.
     /// </summary>
     /// <param name="dbCommand">The database command.</param>
-    private void DropFunctions(IDbCommand dbCommand)
+    private static void DropFunctions(IDbCommand dbCommand)
     {
         dbCommand.Connection.DropFunction("registry_value");
         dbCommand.Connection.DropFunction("bitset");
