@@ -19,8 +19,7 @@
                     (profileData.joined ? `<li class="px-2 py-1"><i class="fas fa-user-check me-1"></i>${profileData.joined}</li>` : "") +
                     (profileData.homePage ? `<li class="px-2 py-1"><i class="fas fa-globe me-1"></i><a href="${profileData.homePage}" target="_blank">${profileData.homePage}</a></li>` : "") +
                     '<li class="px-2 py-1"><i class="far fa-comment me-1"></i>' + profileData.posts + "</li>" +
-                    "</ul>";
-
+                "</ul>";
 
             const popover = new bootstrap.Popover(pop,
                 {

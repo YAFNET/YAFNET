@@ -113,7 +113,7 @@ public class AlbumController : ForumBaseController
                     var attachment = new AttachmentItem
                                          {
                                              FileName = image.FileName,
-                                             OnClick = $"setStyle('AlbumImgId', '{image.ID}')",
+                                             OnClick = $"setStyle('albumimg', '{image.ID}')",
                                              IconImage =
                                                  $"""<img src="{url}" alt="{(image.Caption.IsSet() ? image.Caption : image.FileName)}" title="{(image.Caption.IsSet() ? image.Caption : image.FileName)}" class="img-fluid img-thumbnail me-1 attachments-preview" />""",
                                              DataURL = url

@@ -10944,6 +10944,21 @@ readers do not read off random characters that represent icons */
   text-shadow: -0.12ex 0 var(--bs-light-border-subtle), -0.1ex -0.1ex var(--bs-light-border-subtle), 0 -0.12ex var(--bs-light-border-subtle), 0.1ex -0.1ex var(--bs-light-border-subtle), 0.12ex 0 var(--bs-light-border-subtle), 0.1ex 0.1ex var(--bs-light-border-subtle), 0 0.12ex var(--bs-light-border-subtle), -0.1ex 0.1ex var(--bs-light-border-subtle);
 }
 
+.fa-stack-editor-button {
+  display: inline;
+  line-height: inherit;
+}
+
+.fa-badge-editor-button {
+  position: absolute;
+  right: -14px;
+  top: 4px;
+}
+
+.fa-stack-1x-editor-button {
+  top: -4px;
+}
+
 .fib, .fi {
   background-size: contain;
   background-position: 50%;

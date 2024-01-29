@@ -48,33 +48,33 @@ public class CustomBBCodes : ForumBaseController
     /// The <see cref="Task"/>.
     /// </returns>
     [Produces("application/json")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<string>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BBCode))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetList")]
     [OutputCache]
-    public Task<ActionResult<List<string>>> GetList()
+    public Task<ActionResult<List<BBCode>>> GetList()
     {
         try
         {
             // Check if user has access
             if (BoardContext.Current == null)
             {
-                return Task.FromResult<ActionResult<List<string>>>(this.NotFound());
+                return Task.FromResult<ActionResult<List<BBCode>>>(this.NotFound());
             }
 
             var customBbCode = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.CustomBBCode,
                 () => this.GetRepository<BBCode>().GetByBoardId());
 
-            var list = customBbCode.Where(e => e.Name != "ALBUMIMG" && e.Name != "ATTACH").Select(e => e.Name).ToList();
+            var list = customBbCode.Where(e => e.Name != "ALBUMIMG" && e.Name != "ATTACH").Select(x=> new {x.Name, x.UseToolbar}).ToList();
 
-            return Task.FromResult<ActionResult<List<string>>>(this.Ok(list));
+            return Task.FromResult<ActionResult<List<BBCode>>>(this.Ok(list));
         }
         catch (Exception x)
         {
-            this.Get<ILogger<CustomBBCodes>>().Log(BoardContext.Current != null ? BoardContext.Current.PageUserID : null, this, x, EventLogTypes.Information);
+            this.Get<ILogger<CustomBBCodes>>().Log(BoardContext.Current?.PageUserID, this, x, EventLogTypes.Information);
 
-            return Task.FromResult<ActionResult<List<string>>>(this.NotFound());
+            return Task.FromResult<ActionResult<List<BBCode>>>(this.NotFound());
         }
     }
 }

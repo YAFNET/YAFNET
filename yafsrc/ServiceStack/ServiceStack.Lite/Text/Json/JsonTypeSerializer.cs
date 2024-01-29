@@ -17,30 +17,19 @@ namespace ServiceStack.Text.Json;
 /// <summary>
 /// Struct SpanIndex
 /// </summary>
-public readonly ref struct SpanIndex
+public readonly ref struct SpanIndex(ReadOnlySpan<char> value, int index)
 {
     /// <summary>
     /// Gets the span.
     /// </summary>
     /// <value>The span.</value>
-    public ReadOnlySpan<char> Span { get; }
+    public ReadOnlySpan<char> Span { get; } = value;
 
     /// <summary>
     /// Gets the index.
     /// </summary>
     /// <value>The index.</value>
-    public int Index { get; }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="SpanIndex"/> struct.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="index">The index.</param>
-    public SpanIndex(ReadOnlySpan<char> value, int index)
-    {
-        this.Span = value;
-        this.Index = index;
-    }
+    public int Index { get; } = index;
 }
 
 /// <summary>
@@ -220,7 +209,17 @@ public struct JsonTypeSerializer
     public void WriteDateTime(TextWriter writer, object oDateTime)
     {
         var dateTime = (DateTime)oDateTime;
-        switch (JsConfig.DateHandler)
+        var config = JsConfig.GetConfig();
+#if NET7_0_OR_GREATER
+        if (config.SystemJsonCompatible)
+        {
+            var json = System.Text.Json.JsonSerializer.Serialize(dateTime);
+            writer.Write(json);
+            return;
+        }
+#endif
+
+        switch (config.DateHandler)
         {
             case DateHandler.UnixTime:
                 writer.Write(dateTime.ToUnixTime());
@@ -259,8 +258,17 @@ public struct JsonTypeSerializer
     /// <param name="oDateTimeOffset">The o date time offset.</param>
     public void WriteDateTimeOffset(TextWriter writer, object oDateTimeOffset)
     {
+        var dateTimeOffset = (DateTimeOffset)oDateTimeOffset;
+#if NET7_0_OR_GREATER
+        if (JsConfig.SystemJsonCompatible)
+        {
+            var json = System.Text.Json.JsonSerializer.Serialize(dateTimeOffset);
+            writer.Write(json);
+            return;
+        }
+#endif
         writer.Write(JsWriter.QuoteString);
-        DateTimeSerializer.WriteWcfJsonDateTimeOffset(writer, (DateTimeOffset)oDateTimeOffset);
+        DateTimeSerializer.WriteWcfJsonDateTimeOffset(writer, dateTimeOffset);
         writer.Write(JsWriter.QuoteString);
     }
 
@@ -388,7 +396,10 @@ public struct JsonTypeSerializer
     /// <param name="oValue">The o value.</param>
     public void WriteGuid(TextWriter writer, object oValue)
     {
-        this.WriteRawString(writer, ((Guid)oValue).ToString("N"));
+        var formatted = JsConfig.SystemJsonCompatible
+            ? ((Guid)oValue).ToString()
+            : ((Guid)oValue).ToString("N");
+        WriteRawString(writer, formatted);
     }
 
     /// <summary>

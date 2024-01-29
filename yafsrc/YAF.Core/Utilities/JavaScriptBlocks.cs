@@ -584,6 +584,109 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
+    /// Creates the SCEditor js.
+    /// </summary>
+    /// <param name="editorId">The editor identifier.</param>
+    /// <param name="maxLength">The maximum length.</param>
+    /// <param name="locale">The locale.</param>
+    /// <param name="toolbar">The toolbar.</param>
+    /// <param name="styles">The styles.</param>
+    /// <param name="extensionsUrl">The extensions URL.</param>
+    /// <param name="dragDropJs">The drag drop js.</param>
+    public static string CreateSCEditorJs(
+        string editorId,
+        int maxLength,
+        string locale,
+        string toolbar,
+        string styles,
+        string extensionsUrl,
+        string dragDropJs)
+    {
+        return $$$"""
+                     var textarea = document.getElementById('{{{editorId}}}');
+
+                     sceditor.create(textarea, {
+                         autoUpdate: true,
+                         autoExpand: true,
+                         maxLength: {{{maxLength}}},
+                         locale: '{{{locale}}}',
+                         toolbar: '{{{toolbar}}}',
+                         root: '',
+                         styles: [{{{styles}}}],
+                         extensionsUrl: '{{{extensionsUrl}}}'
+                         {{{dragDropJs}}}
+                     });
+                     
+                     function setStyle(style, option) {
+                         sceditor.instance(textarea).insert(`[${style}]${option}[/${style}]`);
+                     }
+                     function insertAttachment(id, url) {
+                         sceditor.instance(textarea).insert(`[attach]${id}[/attach]`);
+                     }
+                                       
+                     mentions({id: '{{{{editorId}}}',
+                              lookup: 'user',
+                              url:'api/User/GetMentionUsers?users={q}',
+                              onclick: function (data) {{{{editorId}}}.FormatText("userlink", data.name);}});
+                     """;
+    }
+
+    /// <summary>
+    /// The SCEditor drag drop js.
+    /// </summary>
+    /// <param name="fileUploaderUrl">The file uploader URL.</param>
+    /// <returns>string.</returns>
+    public static string SCEditorDragDropJs(string fileUploaderUrl)
+    {
+        return $$"""
+                         	 ,dragdrop: {
+                         	 handlePaste: false,
+                         	 handleFile: function (file, createPlaceholder) {
+                 var placeholder = createPlaceholder();
+
+                 const url = "{{fileUploaderUrl}}";
+
+                 const formData = new FormData();
+                          
+                 formData.append("'file" + 0 + "'", file);
+
+                 fetch(url, {
+                     method: "POST",
+                     body: formData,
+                     mode: "cors"
+                  }).then(response => response.json()).then(data => {
+                  if (data.length) {
+                     if (data[0].error) {
+                         const _ = new Notify({
+                                 title: "{{BoardContext.Current.BoardSettings.Name}}",
+                                 message: data[0].error,
+                                 icon: "fa fa-exclamation-triangle"
+                             },
+                             {
+                                 type: "danger",
+                                 element: "body",
+                                 position: null,
+                                 placement: { from: "top", align: "center" },
+                                 delay: {{BoardContext.Current.BoardSettings.MessageNotifcationDuration}} * 1000
+                             });
+                          
+                     } else {
+                         insertAttachment(data[0].fileID, data[0].fileID);
+                         placeholder.cancel();
+                     }
+                 } else {
+                     console.error("error");
+                     placeholder.cancel();
+                 }
+                 }).catch(error => {
+                 console.error("error: ", error);
+                 });
+                 }
+                 }
+                 """;
+    }
+
+    /// <summary>
     /// The CodeMirror SQL Load JS.
     /// </summary>
     /// <param name="editorId">
@@ -622,90 +725,91 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// Gets the Editor File Auto Upload Java Script.
+    /// Gets the Editor File Auto Upload JavaScript.
     /// </summary>
     /// <param name="fileUploaderUrl">
     /// The file uploader URL.
     /// </param>
+    /// <param name="editorHolderCssClass"></param>
     /// <returns>
-    /// Returns the FileUpload Java Script.
+    /// Returns the FileUpload JavaScript.
     /// </returns>
     public static string FileAutoUploadLoadJs(
-        string fileUploaderUrl)
+        string fileUploaderUrl, string editorHolderCssClass)
     {
         return $$"""
-                  (function () {
-                      "use strict";
-                      const eventHandlers = zone => {
-                          ["dragenter", "dragover", "dragleave", "drop"].forEach(event => {
-                              zone.addEventListener(event, (e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                              }, false);
-                              document.body.addEventListener(event, (e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                              }, false);
-                          });
-                  
-                          zone.addEventListener("drop", (e) => {
-                              filesUpload(e.dataTransfer.files);
-                          }, false);
-                      }
-                  
-                      document.addEventListener("DOMContentLoaded",
-                          function() {
-                              const dropZone = document.querySelector(".BBCodeEditor");
-                              eventHandlers(dropZone);
-                          });
-                  
-                      const filesUpload = files => {
-                  
-                          if (!files) return;
-                  
-                          const url = "{{fileUploaderUrl}}";
-                  
-                          const formData = new FormData();
-                  
-                          for (let x = 0; x < files.length; x++) {
-                              formData.append("'file" + x + "'", files[x]);
-                          }
-                  
-                          fetch(url, {
-                              method: "POST",
-                              body: formData,
-                              mode: "cors"
-                          })
-                              .then(response => response.json())
-                              .then(data => {
-                                  if (data.length) {
-                                      if (data[0].error) {
-                                          const _ = new Notify({
-                                                  title: "{{BoardContext.Current.BoardSettings.Name}}",
-                                                  message: data[0].error,
-                                                  icon: "fa fa-exclamation-triangle"
-                                              },
-                                              {
-                                                  type: "danger",
-                                                  element: "body",
-                                                  position: null,
-                                                  placement: { from: "top", align: "center" },
-                                                  delay: {{BoardContext.Current.BoardSettings.MessageNotifcationDuration}} * 1000
-                                              });
-                  
-                                      } else {
-                                          insertAttachment(data[0].fileID, data[0].fileID);
-                                      }
-                                  } else {
-                                      console.error("error");
-                                  }
-                              })
-                              .catch(error => {
-                                  console.error("error: ", error);
-                              });
-                      }
-                  })();
-                  """;
+                 (function () {
+                     "use strict";
+                     const eventHandlers = zone => {
+                         ["dragenter", "dragover", "dragleave", "drop"].forEach(event => {
+                             zone.addEventListener(event, (e) => {
+                                 e.preventDefault();
+                                 e.stopPropagation();
+                             }, false);
+                             document.body.addEventListener(event, (e) => {
+                                 e.preventDefault();
+                                 e.stopPropagation();
+                             }, false);
+                         });
+                 
+                         zone.addEventListener("drop", (e) => {
+                             filesUpload(e.dataTransfer.files);
+                         }, false);
+                     }
+                 
+                     document.addEventListener("DOMContentLoaded",
+                         function() {
+                             const dropZone = document.querySelector(".{{editorHolderCssClass}}");
+                             eventHandlers(dropZone);
+                         });
+                 
+                     const filesUpload = files => {
+                 
+                         if (!files) return;
+                 
+                         const url = "{{fileUploaderUrl}}";
+                 
+                         const formData = new FormData();
+                 
+                         for (let x = 0; x < files.length; x++) {
+                             formData.append("'file" + x + "'", files[x]);
+                         }
+                 
+                         fetch(url, {
+                             method: "POST",
+                             body: formData,
+                             mode: "cors"
+                         })
+                             .then(response => response.json())
+                             .then(data => {
+                                 if (data.length) {
+                                     if (data[0].error) {
+                                         const _ = new Notify({
+                                                 title: "{{BoardContext.Current.BoardSettings.Name}}",
+                                                 message: data[0].error,
+                                                 icon: "fa fa-exclamation-triangle"
+                                             },
+                                             {
+                                                 type: "danger",
+                                                 element: "body",
+                                                 position: null,
+                                                 placement: { from: "top", align: "center" },
+                                                 delay: {{BoardContext.Current.BoardSettings.MessageNotifcationDuration}} * 1000
+                                             });
+                 
+                                     } else {
+                                         insertAttachment(data[0].fileID, data[0].fileID);
+                                     }
+                                 } else {
+                                     console.error("error");
+                                 }
+                             })
+                             .catch(error => {
+                                 console.error("error: ", error);
+                             });
+                     }
+                 })();
+                 """;
     }
 
     /// <summary>

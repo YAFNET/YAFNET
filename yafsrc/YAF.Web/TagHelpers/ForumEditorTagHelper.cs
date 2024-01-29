@@ -94,17 +94,72 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         var containerCardBody = new TagBuilder("div") { Attributes = { ["class"] = "card-body" } };
 
-        this.RenderPreElement(output, containerCardDiv, containerCardHeader, containerCardBody);
+        if (BoardContext.Current.BoardSettings.EnableWysiwygEditor && this.EditorMode is EditorMode.Standard)
+        {
+            this.EditorMode = EditorMode.SCEditor;
+        }
+
+        if (this.EditorMode is not EditorMode.SCEditor)
+        {
+            this.RenderPreElement(output, containerCardDiv, containerCardHeader, containerCardBody);
+        }
 
         if (this.UsersCanUpload && this.EditorMode == EditorMode.Standard && BoardContext.Current.UploadAccess)
         {
             BoardContext.Current.InlineElements.InsertJsBlock(
                 nameof(JavaScriptBlocks.FileAutoUploadLoadJs),
-                JavaScriptBlocks.FileAutoUploadLoadJs(this.Get<IUrlHelper>().Action("Upload", "FileUpload")));
+                JavaScriptBlocks.FileAutoUploadLoadJs(this.Get<IUrlHelper>().Action("Upload", "FileUpload"),
+                    this.EditorMode is EditorMode.SCEditor ? "sceditor-container" : "BBCodeEditor"));
         }
 
         switch (this.EditorMode)
         {
+            case EditorMode.SCEditor:
+                var language = BoardContext.Current.PageUser.Culture.IsSet()
+                    ? BoardContext.Current.PageUser.Culture[..2]
+                    : this.Get<BoardSettings>().Culture[..2];
+
+                if (ValidationHelper.IsNumeric(language))
+                {
+                    language = this.Get<BoardSettings>().Culture;
+                }
+
+                var albums = string.Empty;
+                var attachments = string.Empty;
+
+                if (this.Get<BoardSettings>().EnableAlbum && BoardContext.Current.NumAlbums > 0)
+                {
+                    albums = ",albums";
+                }
+
+                if (BoardContext.Current.UploadAccess)
+                {
+                    attachments = "|attachments";
+                }
+
+                var toolbar =
+                $"bold,italic,underline,strike|font,size,color|mark|email,link,unlink,quote,code,|image{albums}{attachments}|bulletlist,orderedlist,|left,center,right|indent,outdent|cut,copy,pastetext,removeformat|undo,redo|youtube,media,extensions|source";
+
+                var dragDropJs = string.Empty;
+
+                if (this.UsersCanUpload && BoardContext.Current.UploadAccess)
+                {
+                    dragDropJs = JavaScriptBlocks.SCEditorDragDropJs(this.Get<IUrlHelper>().Action("Upload", "FileUpload"));
+                }
+
+
+                BoardContext.Current.InlineElements.InsertJsBlock(
+                    nameof(JavaScriptBlocks.CreateSCEditorJs),
+                    JavaScriptBlocks.CreateSCEditorJs(
+                        this.AspFor.Name.Replace(".", "_"),
+                        this.MaxCharacters,
+                        language,
+                        toolbar,
+                        $"'{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}', '{this.Get<BoardInfo>().GetUrlToCss("forum.min.css")}'",
+                        this.Get<IUrlHelper>().Action(
+                            "GetList",
+                            "CustomBBCodes"), dragDropJs));
+                break;
             case EditorMode.Basic:
                 output.Attributes.SetAttribute("class", "BBCodeEditor form-control");
 
@@ -152,7 +207,10 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 }
         }
 
-        this.RenderPostElement(output, containerCardDiv, containerCardBody);
+        if (this.EditorMode != EditorMode.SCEditor)
+        {
+            this.RenderPostElement(output, containerCardDiv, containerCardBody);
+        }
 
         // register custom BBCode javascript (if there is any)
         // this call is supposed to be after editor load since it may use
@@ -280,134 +338,30 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         RenderButton(content, "setStyle('bold','')", this.GetText("COMMON", "TT_BOLD"), "bold");
         RenderButton(content, "setStyle('italic','')", this.GetText("COMMON", "TT_ITALIC"), "italic");
-
         RenderButton(content, "setStyle('underline','')", this.GetText("COMMON", "TT_UNDERLINE"), "underline");
+        RenderButton(content, "setStyle('strikethrough','')", this.GetText("COMMON", "TT_STRIKE_THROUGH"), "strikethrough");
 
         content.AppendHtml(group1.RenderEndTag());
 
-        // Group 11
-        var group11 = CreateBtnGroupTag();
-        content.AppendHtml(group11.RenderStartTag());
+        this.RenderFontNameButton(content);
 
-        // add drop down for optional "extra" codes...
-        var toggleButton6 = new TagBuilder("button")
-                                {
-                                    Attributes =
-                                        {
-                                            ["type"] = "button",
-                                            ["class"] = "btn btn-primary btn-sm dropdown-toggle",
-                                            ["title"] = this.GetText("COMMON", "FONT_SIZE"),
-                                            ["data-bs-toggle"] = "dropdown",
-                                            ["aria-haspopup"] = "true",
-                                            ["aria-expanded"] = "false"
-                                        }
-                                };
-        content.AppendHtml(toggleButton6.RenderStartTag());
+        this.RenderFontSizeButton(content);
 
-        var icon6 = new TagBuilder("i") { Attributes = { ["class"] = "fa fa-font fa-fw me-2" } };
-        content.AppendHtml(icon6);
-
-        content.Append(this.GetText("COMMON", "FONT_SIZE"));
-
-        content.AppendHtml(toggleButton6.RenderEndTag());
-
-        var dropDownMenu5 = new TagBuilder("div") { Attributes = { ["class"] = "dropdown-menu" } };
-        content.AppendHtml(dropDownMenu5.RenderStartTag());
-
-        for (var index = 1; index < 9; index++)
-        {
-            var item = new TagBuilder("a")
-                           {
-                               Attributes =
-                                   {
-                                       ["class"] = "dropdown-item",
-                                       ["href"] = "#",
-                                       ["onclick"] = $"setStyle('fontsize', {index});"
-                                   }
-                           };
-
-            content.AppendHtml(item.RenderStartTag());
-
-            content.Append(index.Equals(5) ? "Default" : index.ToString());
-
-            content.AppendHtml(item.RenderEndTag());
-        }
-
-        content.AppendHtml(dropDownMenu5.RenderEndTag());
-
-        content.AppendHtml(group11.RenderEndTag());
-
-        // Group 10
-        var group10 = CreateBtnGroupTag();
-        content.AppendHtml(group10.RenderStartTag());
-
-        // add drop down for optional "extra" codes...
-        var toggleButton5 = new TagBuilder("button")
-                                {
-                                    Attributes =
-                                        {
-                                            ["type"] = "button",
-                                            ["class"] = "btn btn-primary btn-sm dropdown-toggle",
-                                            ["title"] = this.GetText("COMMON", "FONT_COLOR"),
-                                            ["data-bs-toggle"] = "dropdown",
-                                            ["aria-haspopup"] = "true",
-                                            ["aria-expanded"] = "false"
-                                        }
-                                };
-        content.AppendHtml(toggleButton5.RenderStartTag());
-
-        var icon5 = new TagBuilder("i") { Attributes = { ["class"] = "fa fa-font fa-fw me-2" } };
-        content.AppendHtml(icon5);
-        content.Append(this.GetText("COMMON", "FONT_COLOR"));
-
-        content.AppendHtml(toggleButton5.RenderEndTag());
-
-        var dropDownMenu4 = new TagBuilder("div") { Attributes = { ["class"] = "dropdown-menu" } };
-        content.AppendHtml(dropDownMenu4.RenderStartTag());
-
-        string[] colors = [
-            "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue", "Dark Blue", "Indigo",
-            "Violet", "White", "Black"
-        ];
-
-        foreach (var color in colors)
-        {
-            var item = new TagBuilder("a")
-                           {
-                               Attributes =
-                                   {
-                                       ["class"] = "dropdown-item",
-                                       ["href"] = "#",
-                                       ["onclick"] =
-                                           $"setStyle('color', '{color.Replace(" ", string.Empty).ToLower()}');",
-                                       ["style"] = color == "White"
-                                                       ? $"color:{color.Replace(" ", string.Empty).ToLower()};background-color:grey"
-                                                       : $"color:{color.Replace(" ", string.Empty).ToLower()}"
-                                   }
-                           };
-
-            content.AppendHtml(item.RenderStartTag());
-
-            content.Append(color);
-
-            content.AppendHtml(item.RenderEndTag());
-        }
-
-        content.AppendHtml(dropDownMenu4.RenderEndTag());
-
-        content.AppendHtml(group10.RenderEndTag());
+        this.RenderFontColorButton(content);
 
         // Group 2
         var group2 = CreateBtnGroupTag();
         content.AppendHtml(group2.RenderStartTag());
 
-        RenderButton(content, "setStyle('highlight','')", this.GetText("COMMON", "TT_HIGHLIGHT"), "pen-square");
+        RenderButton(content, "setStyle('highlight','')", this.GetText("COMMON", "TT_HIGHLIGHT"), "highlighter");
 
         content.AppendHtml(group2.RenderEndTag());
 
         // Group 3
         var group3 = CreateBtnGroupTag();
         content.AppendHtml(group3.RenderStartTag());
+
+        RenderButton(content, "setStyle('email','')", this.GetText("COMMON", "TT_EMAIL"), "envelope");
 
         RenderButton(content, "setStyle('createlink','')", this.GetText("COMMON", "TT_CREATELINK"), "link");
 
@@ -591,7 +545,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         var customBbCodesWithToolbar = customBbCode.Where(code => code.UseToolbar == true).ToList();
         var customBbCodesWithNoToolbar =
-            customBbCode.Where(code => code.UseToolbar == false || !code.UseToolbar.HasValue);
+            customBbCode.Where(code => code.UseToolbar is false or null);
 
         content.AppendHtml(group8.RenderEndTag());
 
@@ -607,47 +561,42 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             {
                 customBbCodesWithToolbar.ForEach(
                     row =>
-                        {
-                            var onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : $"setStyle('{row.Name.Trim()}','')";
+                    {
+                        var onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : $"setStyle('{row.Name.Trim()}','')";
 
-                            var item = new TagBuilder("button")
-                                           {
-                                               Attributes =
-                                                   {
-                                                       ["type"] = "button",
-                                                       ["class"] = "btn btn-primary",
-                                                       ["onclick"] = onclickJs,
-                                                       ["title"] = this.Get<IBBCodeService>()
-                                                           .LocalizeCustomBBCodeElement(row.Description.Trim())
-                                                   }
-                                           };
+                        var item = new TagBuilder("button") {
+                            Attributes = {
+                                ["type"] = "button",
+                                ["class"] = "btn btn-primary",
+                                ["onclick"] = onclickJs,
+                                ["title"] = this.Get<IBBCodeService>()
+                                    .LocalizeCustomBBCodeElement(row.Description.Trim())
+                            }
+                        };
 
-                            content.AppendHtml(item.RenderStartTag());
+                        content.AppendHtml(item.RenderStartTag());
 
-                            var icon = new TagBuilder("i")
-                                           {
-                                               Attributes = { ["class"] = $"fab fa-{row.Name.ToLower()} fa-fw" }
-                                           };
+                        var icon = new TagBuilder("i") {
+                            Attributes = { ["class"] = $"fab fa-{row.Name.ToLower()} fa-fw" }
+                        };
 
-                            content.AppendHtml(icon);
+                        content.AppendHtml(icon);
 
-                            content.AppendHtml(item.RenderEndTag());
-                        });
+                        content.AppendHtml(item.RenderEndTag());
+                    });
             }
 
             // add drop down for optional "extra" codes...
-            var toggleButton4 = new TagBuilder("button")
-                                    {
-                                        Attributes =
-                                            {
-                                                ["type"] = "button",
-                                                ["class"] = "btn btn-primary dropdown-toggle",
-                                                ["title"] = this.GetText("COMMON", "CUSTOM_BBCODE"),
-                                                ["data-bs-toggle"] = "dropdown",
-                                                ["aria-haspopup"] = "true",
-                                                ["aria-expanded"] = "false"
-                                            }
-                                    };
+            var toggleButton4 = new TagBuilder("button") {
+                Attributes = {
+                    ["type"] = "button",
+                    ["class"] = "btn btn-primary dropdown-toggle",
+                    ["title"] = this.GetText("COMMON", "CUSTOM_BBCODE"),
+                    ["data-bs-toggle"] = "dropdown",
+                    ["aria-haspopup"] = "true",
+                    ["aria-expanded"] = "false"
+                }
+            };
             content.AppendHtml(toggleButton4.RenderStartTag());
 
             var icon4 = new TagBuilder("i") { Attributes = { ["class"] = "fa fa-plug fa-fw" } };
@@ -659,36 +608,36 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             content.AppendHtml(dropDownMenu1.RenderStartTag());
 
             customBbCodesWithNoToolbar.Where(
-                    x => x.Name.ToLower() != "attach" && x.Name.ToLower() != "albumimg" && x.Name.ToLower() != "media")
+                    x => !x.Name.Equals("attach", StringComparison.CurrentCultureIgnoreCase) &&
+                         !x.Name.Equals("albumimg", StringComparison.CurrentCultureIgnoreCase) &&
+                         !x.Name.Equals("media", StringComparison.CurrentCultureIgnoreCase))
                 .ForEach(
                     row =>
+                    {
+                        var name = row.Name;
+
+                        if (row.Description.IsSet())
                         {
-                            var name = row.Name;
+                            // use the description as the option "name"
+                            name = this.Get<IBBCodeService>().LocalizeCustomBBCodeElement(row.Description.Trim());
+                        }
 
-                            if (row.Description.IsSet())
-                            {
-                                // use the description as the option "name"
-                                name = this.Get<IBBCodeService>().LocalizeCustomBBCodeElement(row.Description.Trim());
+                        var onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : $"setStyle('{row.Name.Trim()}','')";
+
+                        var item = new TagBuilder("a") {
+                            Attributes = {
+                                ["class"] = "dropdown-item",
+                                ["href"] = "#",
+                                ["onclick"] = onclickJs
                             }
+                        };
 
-                            var onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : $"setStyle('{row.Name.Trim()}','')";
+                        content.AppendHtml(item.RenderStartTag());
 
-                            var item = new TagBuilder("a")
-                                           {
-                                               Attributes =
-                                                   {
-                                                       ["class"] = "dropdown-item",
-                                                       ["href"] = "#",
-                                                       ["onclick"] = onclickJs
-                                                   }
-                                           };
+                        content.Append(name);
 
-                            content.AppendHtml(item.RenderStartTag());
-
-                            content.Append(name);
-
-                            content.AppendHtml(item.RenderEndTag());
-                        });
+                        content.AppendHtml(item.RenderEndTag());
+                    });
 
             content.AppendHtml(dropDownMenu3.RenderEndTag());
 
@@ -726,7 +675,6 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         RenderButton(content, "setStyle('bold','')", this.GetText("COMMON", "TT_BOLD"), "bold");
         RenderButton(content, "setStyle('italic','')", this.GetText("COMMON", "TT_ITALIC"), "italic");
-
         RenderButton(content, "setStyle('underline','')", this.GetText("COMMON", "TT_UNDERLINE"), "underline");
 
         content.AppendHtml(group2.RenderEndTag());
@@ -946,6 +894,222 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     }
 
     /// <summary>
+    /// Renders the font name button.
+    /// </summary>
+    /// <param name="content">The content.</param>
+    private void RenderFontNameButton(HtmlContentBuilder content)
+    {
+        var group = CreateBtnGroupTag();
+        content.AppendHtml(group.RenderStartTag());
+
+        var toggleButtonFontNames = new TagBuilder("button")
+        {
+            Attributes =
+            {
+                ["type"] = "button",
+                ["class"] = "btn btn-primary btn-sm dropdown-toggle",
+                ["title"] = this.GetText("COMMON", "FONT_NAME"),
+                ["data-bs-toggle"] = "dropdown",
+                ["aria-haspopup"] = "true",
+                ["aria-expanded"] = "false"
+            }
+        };
+
+        content.AppendHtml(toggleButtonFontNames.RenderStartTag());
+
+        RenderStackButton(content, "font", "font");
+
+        var dropDownMenuFontName = new TagBuilder("div") { Attributes = { ["class"] = "dropdown-menu" } };
+        content.AppendHtml(dropDownMenuFontName.RenderStartTag());
+
+        string[] fontNames = [
+            "Arial",
+            "Arial Black",
+            "Comic Sans MS",
+            "Courier New",
+            "Georgia,Impact",
+            "Sans-serif",
+            "Serif",
+            "Times New Roman,Trebuchet MS",
+            "Verdana"
+        ];
+
+        foreach (var name in fontNames)
+        {
+            var item = new TagBuilder("a")
+            {
+                Attributes = {
+                    ["class"] = "dropdown-item",
+                    ["href"] = "#",
+                    ["onclick"] =
+                        $"setStyle('font', '{name}');",
+                    ["style"] = $"font-family:{name}"
+                }
+            };
+
+            content.AppendHtml(item.RenderStartTag());
+
+            content.Append(name);
+
+            content.AppendHtml(item.RenderEndTag());
+        }
+
+        content.AppendHtml(dropDownMenuFontName.RenderEndTag());
+
+        content.AppendHtml(group.RenderEndTag());
+    }
+
+    /// <summary>
+    /// Renders the font size button.
+    /// </summary>
+    /// <param name="content">The content.</param>
+    private void RenderFontSizeButton(HtmlContentBuilder content)
+    {
+        var group = CreateBtnGroupTag();
+        content.AppendHtml(group.RenderStartTag());
+
+        var toggleButton6 = new TagBuilder("button")
+        {
+            Attributes =
+            {
+                ["type"] = "button",
+                ["class"] = "btn btn-primary btn-sm dropdown-toggle",
+                ["title"] = this.GetText("COMMON", "FONT_SIZE"),
+                ["data-bs-toggle"] = "dropdown",
+                ["aria-haspopup"] = "true",
+                ["aria-expanded"] = "false"
+            }
+        };
+        content.AppendHtml(toggleButton6.RenderStartTag());
+
+        RenderStackButton(content, "font", "up-down");
+
+        content.AppendHtml(toggleButton6.RenderEndTag());
+
+        var dropDownMenu5 = new TagBuilder("div") { Attributes = { ["class"] = "dropdown-menu" } };
+        content.AppendHtml(dropDownMenu5.RenderStartTag());
+
+        for (var index = 1; index < 9; index++)
+        {
+            var item = new TagBuilder("a")
+            {
+                Attributes =
+                {
+                    ["class"] = "dropdown-item",
+                    ["href"] = "#",
+                    ["onclick"] = $"setStyle('fontsize', {index});"
+                }
+            };
+
+            content.AppendHtml(item.RenderStartTag());
+
+            content.Append(index.Equals(5) ? "Default" : index.ToString());
+
+            content.AppendHtml(item.RenderEndTag());
+        }
+
+        content.AppendHtml(dropDownMenu5.RenderEndTag());
+
+        content.AppendHtml(group.RenderEndTag());
+    }
+
+    /// <summary>
+    /// Renders the font color button.
+    /// </summary>
+    /// <param name="content">The content.</param>
+    private void RenderFontColorButton(HtmlContentBuilder content)
+    {
+        var group = CreateBtnGroupTag();
+        content.AppendHtml(group.RenderStartTag());
+
+        var toggleButton5 = new TagBuilder("button")
+        {
+            Attributes =
+                                        {
+                                            ["type"] = "button",
+                                            ["class"] = "btn btn-primary btn-sm dropdown-toggle",
+                                            ["title"] = this.GetText("COMMON", "FONT_COLOR"),
+                                            ["data-bs-toggle"] = "dropdown",
+                                            ["aria-haspopup"] = "true",
+                                            ["aria-expanded"] = "false"
+                                        }
+        };
+        content.AppendHtml(toggleButton5.RenderStartTag());
+
+        RenderStackButton(content, "font", "palette sce-color");
+
+        content.AppendHtml(toggleButton5.RenderEndTag());
+
+        var dropDownMenu4 = new TagBuilder("div") { Attributes = { ["class"] = "dropdown-menu" } };
+        content.AppendHtml(dropDownMenu4.RenderStartTag());
+
+        string[] colors = [
+            "Dark Red",
+            "Red",
+            "Orange",
+            "Brown",
+            "Yellow",
+            "Green",
+            "Olive",
+            "Cyan",
+            "Blue",
+            "Dark Blue",
+            "Indigo",
+            "Violet",
+            "White",
+            "Black"
+        ];
+
+        foreach (var color in colors)
+        {
+            var item = new TagBuilder("a")
+            {
+                Attributes =
+                                   {
+                                       ["class"] = "dropdown-item",
+                                       ["href"] = "#",
+                                       ["onclick"] =
+                                           $"setStyle('color', '{color.Replace(" ", string.Empty).ToLower()}');",
+                                       ["style"] = color == "White"
+                                                       ? $"color:{color.Replace(" ", string.Empty).ToLower()};background-color:grey"
+                                                       : $"color:{color.Replace(" ", string.Empty).ToLower()}"
+                                   }
+            };
+
+            content.AppendHtml(item.RenderStartTag());
+
+            content.Append(color);
+
+            content.AppendHtml(item.RenderEndTag());
+        }
+
+        content.AppendHtml(dropDownMenu4.RenderEndTag());
+
+        content.AppendHtml(group.RenderEndTag());
+    }
+
+    /// <summary>
+    /// Renders the stack button.
+    /// </summary>
+    /// <param name="content">The content.</param>
+    /// <param name="icon">The icon.</param>
+    /// <param name="stackIcon">The stack icon.</param>
+    private static void RenderStackButton(HtmlContentBuilder content, string icon, string stackIcon)
+    {
+        var stackTag = new TagBuilder("span") { Attributes = { ["class"] = "fa-stack fa-stack-editor-button me-3 pe-2" } };
+
+        content.AppendHtml(stackTag.RenderStartTag());
+
+        var iconTag = new TagBuilder("i") { Attributes = { ["class"] = $"fas fa-{icon} fa-stack-1x fa-stack-1x-editor-button" } };
+        content.AppendHtml(iconTag);
+
+        var stackIconTag = new TagBuilder("i") { Attributes = { ["class"] = $"fa fa-xs fa-{stackIcon} fa-badge-editor-button" } };
+        content.AppendHtml(stackIconTag);
+
+        content.AppendHtml(stackTag.RenderEndTag());
+    }
+
+    /// <summary>
     /// The render button.
     /// </summary>
     /// <param name="content">The Content Builder.</param>
@@ -954,7 +1118,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="icon">The icon.</param>
     /// <param name="id">The identifier.</param>
     private static void RenderButton(
-        IHtmlContentBuilder content,
+        HtmlContentBuilder content,
         string command,
         string title,
         string icon,

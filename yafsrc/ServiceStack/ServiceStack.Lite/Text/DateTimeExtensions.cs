@@ -30,7 +30,7 @@ public static class DateTimeExtensions
     /// <summary>
     /// The unix epoch date time unspecified
     /// </summary>
-    private readonly static DateTime UnixEpochDateTimeUnspecified = new(UnixEpoch, DateTimeKind.Unspecified);
+    public readonly static DateTime UnixEpochDateTimeUnspecified = new(UnixEpoch, DateTimeKind.Unspecified);
     /// <summary>
     /// The minimum date time UTC
     /// </summary>

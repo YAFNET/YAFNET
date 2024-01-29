@@ -344,11 +344,6 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// </param>
     protected virtual void RenderEditedMessage(TagHelperOutput output, DateTime edited, string editReason, int? msgId)
     {
-        if (!this.Get<BoardSettings>().ShowEditedMessage)
-        {
-            return;
-        }
-
         var editedDateTime = this.Get<IHtmlHelper>().DisplayDateTime(DateTimeFormat.Both, edited);
 
         // reason was specified ?!

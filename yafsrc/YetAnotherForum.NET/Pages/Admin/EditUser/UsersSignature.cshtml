@@ -9,6 +9,13 @@
     Layout = "_EditUserLayout";
 }
 
+@section StyleSheets {
+    @if (Model.PageBoardContext.BoardSettings.EnableWysiwygEditor)
+    {
+        @await Html.PartialAsync("_SCEditorStylesSheetsPartial")
+    }
+}
+
 <h2>
     @Html.LocalizedText("EDIT_SIGNATURE", "TITLE")
 </h2>

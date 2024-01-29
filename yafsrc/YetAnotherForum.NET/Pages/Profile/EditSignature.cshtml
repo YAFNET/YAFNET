@@ -6,6 +6,13 @@
 
 @model YAF.Pages.Profile.EditSignatureModel
 
+@section StyleSheets {
+    @if (Model.PageBoardContext.BoardSettings.EnableWysiwygEditor)
+    {
+        @await Html.PartialAsync("_SCEditorStylesSheetsPartial")
+    }
+}
+
 <div class="row">
     <div class="col-sm-auto">
         <profileMenu></profileMenu>

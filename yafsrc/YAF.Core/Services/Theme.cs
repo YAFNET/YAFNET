@@ -20,6 +20,8 @@
  * under the License.
  */
 
+using ServiceStack.Text;
+
 namespace YAF.Core.Services;
 
 using System.IO;
@@ -70,7 +72,7 @@ public class Theme : ITheme
     /// </returns>
     public string BuildThemePath(string filename)
     {
-        return BoardContext.Current.Get<BoardInfo>().GetUrlToContentThemes(Path.Combine(this.ThemeFile, filename));
+        return BoardContext.Current.Get<BoardInfo>().GetUrlToContentThemes(this.ThemeFile.CombineWith(filename));
     }
 
     /// <summary>

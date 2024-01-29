@@ -35,14 +35,7 @@ public sealed class JsConfigScope : Config, IDisposable
     /// </summary>
     private readonly JsConfigScope parent;
 
-#if NET7_0_OR_GREATER        
-        private static AsyncLocal<JsConfigScope> head = new AsyncLocal<JsConfigScope>();
-#else
-    /// <summary>
-    /// The head
-    /// </summary>
-    [ThreadStatic] private static JsConfigScope head;
-#endif
+    private static AsyncLocal<JsConfigScope> head = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JsConfigScope"/> class.
@@ -51,13 +44,8 @@ public sealed class JsConfigScope : Config, IDisposable
     {
         PclExport.Instance.BeginThreadAffinity();
 
-#if NET7_0_OR_GREATER
         this.parent = head.Value;
-            head.Value = this;
-#else
-        parent = head;
-        head = this;
-#endif
+        head.Value = this;
     }
 
     /// <summary>
@@ -325,6 +313,12 @@ public class Config
     /// </summary>
     /// <value>The parse primitive function.</value>
     public Func<string, object> ParsePrimitiveFn { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether [system json compatible].
+    /// </summary>
+    /// <value><c>true</c> if [system json compatible]; otherwise, <c>false</c>.</value>
+    public bool SystemJsonCompatible { get; set; }
     /// <summary>
     /// Gets or sets the date handler.
     /// </summary>

@@ -1094,19 +1094,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether show the edited message.
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if [show edited message]; otherwise, <c>false</c>.
-    /// </value>
-    public bool ShowEditedMessage
-    {
-        get => this.Registry.GetValue("ShowEditedMessage", true);
-
-        set => this.Registry.SetValue("ShowEditedMessage", value);
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether [allow forums with same name].
     /// </summary>
     public bool AllowForumsWithSameName
@@ -1995,6 +1982,15 @@ public class BoardSettings
         get => this.RegistryBoard.GetValue("TwoColumnBoardLayout", false);
 
         set => this.RegistryBoard.SetValue("TwoColumnBoardLayout", value);
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether enable wysiwyg editor.
+    /// </summary>
+    public bool EnableWysiwygEditor {
+        get => this.RegistryBoard.GetValue("EnableWysiwygEditor", false);
+
+        set => this.RegistryBoard.SetValue("EnableWysiwygEditor", value);
     }
 
     /// <summary>

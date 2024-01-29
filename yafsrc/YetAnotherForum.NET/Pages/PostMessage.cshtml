@@ -9,6 +9,13 @@
 @using YAF.Web.HtmlHelpers
 @model PostMessageModel
 
+@section StyleSheets {
+    @if (Model.PageBoardContext.BoardSettings.EnableWysiwygEditor)
+    {
+        @await Html.PartialAsync("_SCEditorStylesSheetsPartial")
+    }
+}
+
 @await Html.PartialAsync("_PollList", Model)
 
 <form method="post">

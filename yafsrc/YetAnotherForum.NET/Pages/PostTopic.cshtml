@@ -7,6 +7,13 @@
 @using YAF.Web.HtmlHelpers
 @model PostTopicModel
 
+@section StyleSheets {
+    @if (Model.PageBoardContext.BoardSettings.EnableWysiwygEditor)
+    {
+        @await Html.PartialAsync("_SCEditorStylesSheetsPartial")
+    }
+}
+
 <form method="post">
         <div class="row">
             <div class="col">

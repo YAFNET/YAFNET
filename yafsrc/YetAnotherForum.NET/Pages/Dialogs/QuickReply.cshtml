@@ -7,6 +7,13 @@
 
 @inject BoardContext Current
 
+@section StyleSheets {
+    @if (Current.BoardSettings.EnableWysiwygEditor)
+    {
+        @await Html.PartialAsync("_SCEditorStylesSheetsPartial")
+    }
+}
+
 <!-- Modal -->
 <div class="modal fade needs-validation" id="QuickReplyDialog" tabindex="-1" role="dialog" aria-labelledby="quickReplyLabel" aria-hidden="true" novalidate>
     <div class="modal-dialog" role="document">

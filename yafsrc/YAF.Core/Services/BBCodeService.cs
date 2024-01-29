@@ -811,7 +811,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 "<hr />",
                 RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-            ruleEngine.AddRule(new SingleRegexReplaceRule(@"\[br\]", "</p>", Options));
+            //ruleEngine.AddRule(new SingleRegexReplaceRule(@"\[br\]", "</p>", Options));
 
             // Multiline, since ^ must match beginning of line
             var breakRule = new SingleRegexReplaceRule(

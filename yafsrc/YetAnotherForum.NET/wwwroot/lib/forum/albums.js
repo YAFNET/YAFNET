@@ -57,7 +57,7 @@
             "Album Images",
             "getAlbumImagesData");
 
-        if (isPageChange) {
+        if (isPageChange && document.querySelector(".albums-toggle") != null) {
             const toggleBtn = document.querySelector(".albums-toggle"),
                 dropdownEl = new bootstrap.Dropdown(toggleBtn);
 

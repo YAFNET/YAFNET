@@ -3,7 +3,7 @@
   "version": "4.0.0",
   "private": true,
   "devDependencies": {
-    "@babel/preset-env": "^7.23.7",
+    "@babel/preset-env": "^7.23.9",
     "@lodder/grunt-postcss": "^3.1.1",
     "@w8tcha/grunt-dev-update": "^2.3.1",
     "autoprefixer": "^10.4.16",
@@ -37,6 +37,7 @@
     "form-serialize": "^0.7.2",
     "long-press-event": "^2.4.6",
     "md.bootstrappersiandatetimepicker": "^4.2.6",
-    "prismjs": "^1.29.0"
+    "prismjs": "^1.29.0",
+    "sceditor": "^3.2.0"
   }
 }

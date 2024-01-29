@@ -431,6 +431,15 @@ public static class JsConfig
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether [system json compatible].
+    /// </summary>
+    /// <value><c>true</c> if [system json compatible]; otherwise, <c>false</c>.</value>
+    public static bool SystemJsonCompatible {
+        get => JsConfigScope.Current != null ? JsConfigScope.Current.SystemJsonCompatible : Config.Instance.SystemJsonCompatible;
+        set => Config.AssertNotInit().SystemJsonCompatible = value;
+    }
+
+    /// <summary>
     /// Gets or sets the date handler.
     /// </summary>
     /// <value>The date handler.</value>
@@ -685,6 +694,7 @@ public static class JsConfig
             "ServiceStack.Auth",
             "ServiceStack.Messaging"
         ];
+        SystemJsonCompatible = false;
         AllowRuntimeTypeInTypes = [];
         PlatformExtensions.ClearRuntimeAttributes();
         ReflectionExtensions.Reset();

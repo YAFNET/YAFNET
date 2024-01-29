@@ -57,7 +57,7 @@
             "Attachments",
             "getPaginationData");
 
-        if (isPageChange) {
+        if (isPageChange && document.querySelector(".attachments-toggle") != null) {
             const toggleBtn = document.querySelector(".attachments-toggle"),
                 dropdownEl = new bootstrap.Dropdown(toggleBtn);
 

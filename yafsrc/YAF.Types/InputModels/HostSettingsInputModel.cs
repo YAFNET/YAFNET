@@ -162,6 +162,12 @@ public class HostSettingsInputModel
     public bool UseFileTable { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether [enable wysiwyg editor].
+    /// </summary>
+    /// <value><c>true</c> if [enable wysiwyg editor]; otherwise, <c>false</c>.</value>
+    public bool EnableWysiwygEditor { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether [show cookie consent].
     /// </summary>
     /// <value><c>true</c> if [show cookie consent]; otherwise, <c>false</c>.</value>
@@ -418,12 +424,6 @@ public class HostSettingsInputModel
     /// </summary>
     /// <value><c>true</c> if [show deleted messages to all]; otherwise, <c>false</c>.</value>
     public bool ShowDeletedMessagesToAll { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether [show edited message].
-    /// </summary>
-    /// <value><c>true</c> if [show edited message]; otherwise, <c>false</c>.</value>
-    public bool ShowEditedMessage { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [blank links].

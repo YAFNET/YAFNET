@@ -30,17 +30,22 @@ namespace YAF.Types.Constants;
 public enum EditorMode
 {
     /// <summary>
-    /// The basic
+    /// basic bbcode editor
     /// </summary>
     Basic,
 
     /// <summary>
-    /// The large.
+    /// standard bbcode editor.
     /// </summary>
     Standard,
 
     /// <summary>
-    /// The SQL
+    /// SCEditor editor.
+    /// </summary>
+    SCEditor,
+
+    /// <summary>
+    /// sql CodeMirror editor
     /// </summary>
     Sql
 }

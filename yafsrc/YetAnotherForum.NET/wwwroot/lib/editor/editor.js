@@ -7,13 +7,6 @@
     this.Description = description;
     this.MediaTitle = mediaTitle;
 
-    // Render Album Images DropDown
-    if (document.getElementById("PostAlbumsListPlaceholder") != null) {
-        const pageSize = 5;
-        const pageNumber = 0;
-        getAlbumImagesData(pageSize, pageNumber, false);
-    }
-
     document.querySelector(".BBCodeEditor").addEventListener("keydown", function (e) {
         if (e.ctrlKey &&
             !e.altKey &&
@@ -47,6 +40,9 @@ yafEditor.prototype.FormatText = function (command, option) {
             break;
         case "underline":
             wrapSelection(textObj, "[u]", "[/u]");
+            break;
+        case "strikethrough":
+            wrapSelection(textObj, "[s]", "[/s]");
             break;
         case "highlight":
             wrapSelection(textObj, "[h]", "[/h]");
@@ -176,14 +172,45 @@ yafEditor.prototype.FormatText = function (command, option) {
         case "color":
             wrapSelection(textObj, `[color=${option}]`, "[/color]");
             break;
+        case "font":
+            wrapSelection(textObj, `[font=${option}]`, "[/font]");
+            break;
         case "fontsize":
             wrapSelection(textObj, `[size=${option}]`, "[/size]");
             break;
-        case "AlbumImgId":
+        case "albumimg":
             replaceSelection(textObj, `[albumimg]${option}[/albumimg]`);
             break;
         case "attach":
             replaceSelection(textObj, `[attach]${option}[/attach]`);
+            break;
+        case "email":
+            bootbox.confirm({
+                title: this.UrlTitle,
+                message: `<form><div class="mb-3">
+                  <label for="url" class="form-label">${this.UrlTitle}</label> 
+                  <input type="text" class="form-control" id="url" placeholder="https://" />
+              </div>
+              <div class="mb-3">
+                  <label for="desc" class="form-label">${this.UrlDescription}</label>
+                  <input type="text" class="form-control" id="desc" placeholder="${this.Description}" />
+              </div></form>
+                  `,
+                callback: function (result) {
+                    console.log("2");
+                    if (result) {
+                        const url = document.getElementById("url").value,
+                            desc = document.getElementById("desc").value;
+
+                        if (desc !== "" && desc != null) {
+                            replaceSelection(textObj, `[email=${url}]${desc}[/email]`);
+                        } else {
+                            replaceSelection(textObj, `[email]${url}[/email]`);
+                        }
+                    }
+
+                }
+            });
             break;
         case "userlink":
             replaceSelection(textObj, `[userlink]${option}[/userlink]`);

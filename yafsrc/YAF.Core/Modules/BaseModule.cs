@@ -56,7 +56,6 @@ public abstract class BaseModule : Autofac.Module, IHaveSortOrder
                         .Concat(
                             AppDomain.CurrentDomain.GetAssemblies().Where(
                                 a => a.FullName.StartsWith("Autofac") && a.FullName.StartsWith("FarsiLibrary")
-                                                                      && a.FullName.StartsWith("YAF.Lucene.NET")
                                                                       && a.FullName.StartsWith("ServiceStack.")))
                         .Except(new[] { Assembly.GetExecutingAssembly() }).Where(a => !a.IsDynamic).Distinct()
                         .OrderByDescending(x => x.GetAssemblySortOrder()),
@@ -89,7 +88,7 @@ public abstract class BaseModule : Autofac.Module, IHaveSortOrder
     /// The assemblies.
     /// </param>
     /// <param name="exclude">
-    /// The exclude.
+    /// The exclude modules.
     /// </param>
     protected virtual void RegisterBaseModules<TModule>(
         ContainerBuilder builder,
