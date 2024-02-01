@@ -66,8 +66,8 @@ public partial class AlbumList : BaseUserControl
         {
             // Register Js Blocks.
             this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                nameof(JavaScriptBlocks.AlbumEditCaptionJs),
-                JavaScriptBlocks.AlbumEditCaptionJs());
+                nameof(JavaScriptBlocks.                AlbumEditCaptionJs),
+                JavaScriptBlocks.                AlbumEditCaptionJs);
         }
 
         base.OnPreRender(e);

@@ -50,8 +50,8 @@ public partial class CookieConsent : BaseUserControl
     override protected void OnPreRender(EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-            nameof(JavaScriptBlocks.CookieConsentJs),
-            JavaScriptBlocks.CookieConsentJs());
+            nameof(JavaScriptBlocks.            CookieConsentJs),
+            JavaScriptBlocks.            CookieConsentJs);
 
         base.OnPreRender(e);
     }

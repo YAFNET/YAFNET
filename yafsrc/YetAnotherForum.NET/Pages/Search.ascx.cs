@@ -136,7 +136,7 @@ public partial class Search : ForumPage
         {
             this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
-                JavaScriptBlocks.DoSearchJs());
+                JavaScriptBlocks.                DoSearchJs);
         }
     }
 
