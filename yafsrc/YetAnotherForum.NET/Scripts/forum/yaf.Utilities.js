@@ -22,12 +22,12 @@
                     ? classNames.highlightedState
                          : classNames.itemSelectable)} badge text-bg-primary fs-6 m-1""
                           data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
-                          ${String(removeItemButton ? "data-deletable" : "")}
-                          ${String(data.active ? 'aria-selected="true"' : "")} ${String(data.disabled
+                          ${String(removeItemButton ? 'data-deletable' : '')}
+                          ${String(data.active ? 'aria-selected="true"' : '')} ${String(data.disabled
                     ? 'aria-disabled="true"'
-                    : "")}>
+                    : '')}>
                         <i class="fas fa-fw fa-tag align-middle me-1"></i>${String(label)}
-                        ${String(removeItemButton ? `<button type="button" class="${String(classNames.button)}" aria-label="Remove item: '${String(data.value)}'" data-button="">Remove item</button>` : "")}
+                        ${String(removeItemButton ? `<button type="button" class="${String(classNames.button)}" aria-label="Remove item: '${String(data.value)}'" data-button="">Remove item</button>` : '')}
                      </div>
                     `
             );
@@ -46,9 +46,9 @@ function createForumSelectTemplates(template) {
                     ? classNames.highlightedState
                     : classNames.itemSelectable)}"
                                       data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
-                                      ${String(data.active ? 'aria-selected="true"' : "")} ${String(data.disabled
+                                      ${String(data.active ? 'aria-selected="true"' : '')} ${String(data.disabled
                         ? 'aria-disabled="true"'
-                        : "")}>
+                        : '')}>
                                     <span><i class="fas fa-fw fa-comments text-secondary me-1"></i>${String(data.label)}</span>
                                  </div>
                                 `
@@ -61,7 +61,7 @@ function createForumSelectTemplates(template) {
                     data.disabled ? classNames.itemDisabled : classNames.itemSelectable)}"
                                       data-select-text="${String(itemSelectText)}" data-choice ${String(data.disabled
                     ? 'data-choice-disabled aria-disabled="true"'
-                    : "data-choice-selectable")}
+                    : 'data-choice-selectable')}
                                       data-id="${String(data.id)}" data-value="${String(data.value)}"
                                       ${String(data.groupId > 0 ? 'role="treeitem"' : 'role="option"')}>
                                       <span><i class="fas fa-comments fa-fw text-secondary me-1"></i>${String(
@@ -75,7 +75,7 @@ function createForumSelectTemplates(template) {
                      <div class="${String(classNames.item)} fw-bold text-secondary"
                           data-select-text="${String(itemSelectText)}" data-choice ${String(data.disabled
                 ? 'data-choice-disabled aria-disabled="true"'
-                : "data-choice-selectable")}
+                : 'data-choice-selectable')}
                           data-id="${String(data.id)}" data-value="${String(data.value)}"
                           ${String(data.groupId > 0 ? 'role="treeitem"' : 'role="option"')}>
                           <span><i class="fas fa-fw fa-folder text-warning me-1"></i>${String(data.value)}</span>
@@ -89,11 +89,11 @@ function loadForumChoiceOptions(params, url, selectedForumId) {
     return fetch(
             url,
             {
-                method: "POST",
+                method: 'POST',
                 body: JSON.stringify(params),
                 headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json;charset=utf-8"
+                    "Accept": 'application/json',
+                    "Content-Type": 'application/json;charset=utf-8'
                 }
             }).then(function (response) {
             return response.json();
@@ -125,11 +125,11 @@ function loadChoiceOptions(params, url) {
     return fetch(
             url,
             {
-                method: "POST",
+                method: 'POST',
                 body: JSON.stringify(params),
                 headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json;charset=utf-8"
+                    "Accept": 'application/json',
+                    "Content-Type": 'application/json;charset=utf-8'
                 }
             }).then(function(response) {
             return response.json();
@@ -150,7 +150,7 @@ function loadChoiceOptions(params, url) {
 }
 
 function errorLog(x) {
-    console.log("An Error has occurred!");
+    console.log('An Error has occurred!');
     console.log(x.responseText);
     console.log(x.status);
 }
@@ -176,11 +176,11 @@ function deepExtend(out, ...arguments_) {
 
         for (const [key, value] of Object.entries(obj)) {
             switch (Object.prototype.toString.call(value)) {
-            case "[object Object]":
+            case '[object Object]':
                 out[key] = out[key] || {};
                 out[key] = deepExtend(out[key], value);
                 break;
-            case "[object Array]":
+            case '[object Array]':
                 out[key] = deepExtend(new Array(value.length), value);
                 break;
             default:
@@ -198,16 +198,16 @@ function renderAttachPreview(previewClass) {
         return new bootstrap.Popover(attach,
             {
                 html: true,
-                trigger: "hover",
-                placement: "bottom",
+                trigger: 'hover',
+                placement: 'bottom',
                 content: function () { return `<img src="${attach.src}" class="img-fluid" />`; }
             });
     });
 }
 
 // Confirm Dialog
-document.addEventListener("click", function (event) {
-    if (event.target.parentElement.matches('a[data-bs-toggle="confirm"]')) {
+document.addEventListener('click', function (event) {
+    if (event.target.parentElement && event.target.parentElement.matches('a[data-bs-toggle="confirm"]')) {
         event.preventDefault();
 
         var button = event.target.parentElement;
@@ -224,11 +224,11 @@ document.addEventListener("click", function (event) {
             buttons: {
                 confirm: {
                     label: `<i class="fa fa-check"></i> ${button.dataset.yes}`,
-                    className: "btn-success"
+                    className: 'btn-success'
                 },
                 cancel: {
                     label: `<i class="fa fa-times"></i> ${button.dataset.no}`,
-                    className: "btn-danger"
+                    className: 'btn-danger'
                 }
             },
             callback: function (confirmed) {
@@ -242,20 +242,20 @@ document.addEventListener("click", function (event) {
     }
 }, false);
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
 
-    if (document.querySelector(".btn-scroll") != null) {
+    if (document.querySelector('.btn-scroll') != null) {
         // Scroll top button
-        var scrollToTopBtn = document.querySelector(".btn-scroll"), rootElement = document.documentElement;
+        var scrollToTopBtn = document.querySelector('.btn-scroll'), rootElement = document.documentElement;
 
         function handleScroll() {
             const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
             if ((rootElement.scrollTop / scrollTotal) > 0.15) {
                 // Show button
-                scrollToTopBtn.classList.add("show-btn-scroll");
+                scrollToTopBtn.classList.add('show-btn-scroll');
             } else {
                 // Hide button
-                scrollToTopBtn.classList.remove("show-btn-scroll");
+                scrollToTopBtn.classList.remove('show-btn-scroll');
             }
         }
 
@@ -265,29 +265,29 @@ document.addEventListener("DOMContentLoaded", function () {
             // Scroll to top logic
             rootElement.scrollTo({
                 top: 0,
-                behavior: "smooth"
+                behavior: 'smooth'
             });
         }
 
-        scrollToTopBtn.addEventListener("click", scrollToTop);
-        document.addEventListener("scroll", handleScroll);
+        scrollToTopBtn.addEventListener('click', scrollToTop);
+        document.addEventListener('scroll', handleScroll);
     }
 
     // Toggle password visibility
-    if (document.body.contains(document.getElementById("PasswordToggle"))) {
-        const passwordToggle = document.getElementById("PasswordToggle");
-        var icon = passwordToggle.querySelector("i"),
+    if (document.body.contains(document.getElementById('PasswordToggle'))) {
+        const passwordToggle = document.getElementById('PasswordToggle');
+        var icon = passwordToggle.querySelector('i'),
         pass = document.querySelector("input[id*='Password']");
-        passwordToggle.addEventListener("click", function (event) {
+        passwordToggle.addEventListener('click', function (event) {
             event.preventDefault();
-            if (pass.getAttribute("type") === "text") {
-                pass.setAttribute("type", "password");
-                icon.classList.add("fa-eye-slash");
-                icon.classList.remove("fa-eye");
-            } else if (pass.getAttribute("type") === "password") {
-                pass.setAttribute("type", "text");
-                icon.classList.remove("fa-eye-slash");
-                icon.classList.add("fa-eye");
+            if (pass.getAttribute('type') === 'text') {
+                pass.setAttribute('type', 'password');
+                icon.classList.add('fa-eye-slash');
+                icon.classList.remove('fa-eye');
+            } else if (pass.getAttribute('type') === 'password') {
+                pass.setAttribute('type', 'text');
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
             }
         });
     }

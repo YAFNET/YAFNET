@@ -227,11 +227,13 @@ public class Resources : IResources, IHaveServiceLocator
                             ? user.DisplayName.StartsWith(searchQuery)
                             : user.Name.StartsWith(searchQuery));
 
-            var users = usersList.AsEnumerable().Where(u => !this.Get<IUserIgnored>().IsIgnored(u.ID)).Select(
+            var users = usersList.AsEnumerable().Where(u =>
+                !this.Get<IUserIgnored>().IsIgnored(u.ID) && u.BoardID == BoardContext.Current.PageBoardID &&
+                !u.UserFlags.IsDeleted && u.UserFlags.IsApproved).Select(
                 u => new {
-                             id = u.ID, name = u.DisplayOrUserName(),
-                             avatar = this.Get<IAvatars>().GetAvatarUrlForUser(u)
-                         });
+                    id = u.ID, name = u.DisplayOrUserName(),
+                    avatar = this.Get<IAvatars>().GetAvatarUrlForUser(u)
+                });
 
             context.Response.Clear();
 

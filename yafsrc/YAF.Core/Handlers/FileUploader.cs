@@ -211,13 +211,21 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
 
                 Stream resized = null;
 
-                // resize image ?!
-                using (var img = Image.FromStream(file.InputStream))
+                try
                 {
-                    if (img.Width > this.Get<BoardSettings>().ImageAttachmentResizeWidth || img.Height > this.Get<BoardSettings>().ImageAttachmentResizeHeight)
+                    // resize image ?!
+                    using var img = Image.FromStream(file.InputStream);
+                    if (img.Width > this.Get<BoardSettings>().ImageAttachmentResizeWidth ||
+                        img.Height > this.Get<BoardSettings>().ImageAttachmentResizeHeight)
                     {
-                        resized = ImageHelper.GetResizedImageStreamFromImage(img, this.Get<BoardSettings>().ImageAttachmentResizeWidth, this.Get<BoardSettings>().ImageAttachmentResizeHeight);
+                        resized = ImageHelper.GetResizedImageStreamFromImage(img,
+                            this.Get<BoardSettings>().ImageAttachmentResizeWidth,
+                            this.Get<BoardSettings>().ImageAttachmentResizeHeight);
                     }
+                }
+                catch (Exception)
+                {
+                    resized = null;
                 }
 
                 int newAttachmentId;

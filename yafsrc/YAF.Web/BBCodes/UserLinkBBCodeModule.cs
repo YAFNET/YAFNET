@@ -21,9 +21,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.BBCodes;
 
-using YAF.Web.Controls;
+namespace YAF.Web.BBCodes;
 
 /// <summary>
 /// The BB Code UserLink Module
@@ -62,20 +61,21 @@ public class UserLinkBBCodeModule : BBCodeControl
                 return;
             }
 
-            var userLink = new UserLink
-                               {
-                                   Suspended = boardUser.Suspended,
-                                   UserID = boardUser.ID,
-                                   Style = boardUser.UserStyle,
-                                   ReplaceName = boardUser.DisplayOrUserName(),
-                                   CssClass = "btn btn-outline-primary",
-                                   BlankTarget = true,
-                                   ID = $"UserLinkBBCodeFor{boardUser.ID}"
-                               };
-
             writer.Write("<!-- BEGIN userlink -->");
-            writer.Write(@"<span>");
-            userLink.RenderControl(writer);
+            writer.Write("""<span class="badge rounded-pill text-bg-secondary fs-6">""");
+
+            writer.WriteBeginTag("a");
+
+            writer.WriteAttribute("href", this.Get<LinkBuilder>().GetUserProfileLink(boardUser.ID, boardUser.DisplayOrUserName()));
+
+            writer.WriteAttribute("class", "link-light");
+
+            writer.Write(HtmlTextWriter.TagRightChar);
+
+            writer.Write(this.HtmlEncode(boardUser.DisplayOrUserName()));
+
+
+            writer.WriteEndTag("a");
 
             writer.Write("</span>");
             writer.Write("<!-- END userlink -->");

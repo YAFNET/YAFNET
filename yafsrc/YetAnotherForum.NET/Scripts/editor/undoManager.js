@@ -1,6 +1,6 @@
 ﻿/* StateMaker created by Jason Raymond Buckley */
 var doc, bod, I, StateMaker; // for use on other loads
-addEventListener("load",
+addEventListener('load',
     function() {
         doc = document;
         bod = doc.body;
@@ -8,7 +8,7 @@ addEventListener("load",
             return doc.getElementById(id);
         }
         StateMaker = function(initialState) {
-            var o = initialState;
+            const o = initialState;
             if (o) {
                 this.initialState = o;
                 this.states = [o];
@@ -68,14 +68,14 @@ addEventListener("load",
                 return true;
             }
         }
-        var text = doc.querySelector(".BBCodeEditor"),
+        var text = doc.querySelector('.BBCodeEditor'),
             val,
             wordCount = 0,
             words = 0,
             stateMaker = new StateMaker,
-            undoButton = I("undo"),
-            redoButton = I("redo"),
-            countField = document.getElementById("editor-Counter"),
+            undoButton = I('undo'),
+            redoButton = I('redo'),
+            countField = document.getElementById('editor-Counter'),
             maxLimit = text.maxLength;
 
         countField.textContent = maxLimit - text.value.length;
@@ -98,7 +98,7 @@ addEventListener("load",
             }
         }
 
-        text.addEventListener("change", function (event) {
+        text.addEventListener('change', function (event) {
             onChange(this);
         });
 
@@ -107,7 +107,7 @@ addEventListener("load",
         }
         undoButton.onclick = function() {
             stateMaker.undo();
-            val = text.value = (stateMaker.states[stateMaker.states.length - 1] || "").trim();
+            val = text.value = (stateMaker.states[stateMaker.states.length - 1] || '').trim();
             text.focus();
 
             undoButton.disabled = !stateMaker.canUndo;
@@ -115,7 +115,7 @@ addEventListener("load",
         }
         redoButton.onclick = function() {
             stateMaker.redo();
-            val = text.value = (stateMaker.states[stateMaker.states.length - 1] || "").trim();
+            val = text.value = (stateMaker.states[stateMaker.states.length - 1] || '').trim();
             text.focus();
 
             undoButton.disabled = !stateMaker.canUndo;

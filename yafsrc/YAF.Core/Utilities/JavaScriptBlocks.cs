@@ -27,7 +27,7 @@ namespace YAF.Core.Utilities;
 using YAF.Core.Context.Start;
 
 /// <summary>
-/// Contains the Java Script Blocks
+/// Contains the JavaScript Blocks
 /// </summary>
 public static class JavaScriptBlocks
 {
@@ -171,9 +171,7 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string CookieConsentJs()
-    {
-        return """
+    public static string CookieConsentJs => """
                function addConsentCookie(name, value, days) {
                        var expires;
                
@@ -187,33 +185,26 @@ public static class JavaScriptBlocks
                        document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
                    }
                """;
-    }
 
     /// <summary>
-    /// Get the album edit caption java script
+    /// Get the album edit caption javascript
     /// </summary>
     /// <returns>The album edit caption JS.</returns>
-    public static string AlbumEditCaptionJs()
-    {
-        return """
+    public static string AlbumEditCaptionJs => """
                document.querySelectorAll(".album-caption").forEach(el => {
                   const popover = new DarkEditable(el);
                });
                """;
-    }
 
     /// <summary>
-    /// Get the album image edit caption java script
+    /// Get the album image edit caption javascript
     /// </summary>
     /// <returns>The album image edit caption JS.</returns>
-    public static string AlbumImageEditCaptionJs()
-    {
-        return """
+    public static string AlbumImageEditCaptionJs => """
                   document.querySelectorAll(".album-image-caption").forEach(el => {
                      const popover = new DarkEditable(el);
                   });
                   """;
-    }
 
     /// <summary>
     /// Blocks the UI JS
@@ -244,7 +235,7 @@ public static class JavaScriptBlocks
     /// <param name="tabId">The tab Id.</param>
     /// <param name="hiddenId">The hidden field id.</param>
     /// <returns>
-    /// Returns the the Bootstrap Tab Load JS string
+    /// Returns the Bootstrap Tab Load JS string
     /// </returns>
     public static string BootstrapTabsLoadJs(string tabId, string hiddenId)
     {
@@ -478,19 +469,21 @@ public static class JavaScriptBlocks
         string extensionsUrl,
         string dragDropJs)
     {
-        return $$$"""
-                   var textarea = document.getElementById('{{{editorId}}}');
+        return $$"""
+                   var textarea = document.getElementById('{{editorId}}');
                    
                    sceditor.create(textarea, {
                      autoUpdate: true,
                      autoExpand: true,
-                     maxLength: {{{maxLength}}},
-                     locale: '{{{locale}}}',
-                     toolbar: '{{{toolbar}}}',
-                     root: '{{{root}}}',
-                   	 styles: [{{{styles}}}],
-                   	 extensionsUrl: '{{{extensionsUrl}}}'
-                   	 {{{dragDropJs}}}
+                     maxLength: {{maxLength}},
+                     locale: '{{locale}}',
+                     toolbar: '{{toolbar}}',
+                     root: '{{root}}',
+                     albumsPreviewUrl: '/resource.ashx?imgprv=',
+                   	 styles: [{{styles}}],
+                   	 extensionsUrl: '{{extensionsUrl}}',
+                     onToggleMode: toggleMode
+                   	 {{dragDropJs}}
                    });
                    
                    function setStyle(style, option) {
@@ -499,11 +492,17 @@ public static class JavaScriptBlocks
                    function insertAttachment(id, url) {
                        sceditor.instance(textarea).insert(`[attach]${id}[/attach]`);
                    }
-                                     
-                   mentions({id: '{{{editorId}}}',
-                            lookup: 'user',
-                            url:'{{{BoardInfo.ForumClientFileRoot}}}resource.ashx?users={q}',
-                            onclick: function (data) { {{{editorId}}}.FormatText("userlink", data.name);}});
+                   
+                   function toggleMode() {
+                       mentions({
+                           element: sceditor.instance(textarea),
+                           lookup: 'user',
+                           url: '{{BoardInfo.ForumClientFileRoot}}resource.ashx?users={q}',
+                           onclick: function(data) { sceditor.instance(textarea).insert(`[userlink]${data.name}[/userlink]`); }
+                       });
+                   }
+                   
+                   toggleMode();
                    """;
     }
 
@@ -686,13 +685,13 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// Gets the FileUpload Java Script.
+    /// Gets the FileUpload JavaScript.
     /// </summary>
     /// <param name="fileUploaderUrl">
     /// The file uploader URL.
     /// </param>
     /// <returns>
-    /// Returns the FileUpload Java Script.
+    /// Returns the FileUpload JavaScript.
     /// </returns>
     public static string FileUploadLoadJs(string fileUploaderUrl)
     {
@@ -722,7 +721,7 @@ public static class JavaScriptBlocks
     /// The forum drop down identifier.
     /// </param>
     /// <param name="placeHolder">
-    /// The select place holder.
+    /// The select placeholder.
     /// </param>
     /// <returns>
     /// Returns the select topics load JS.
@@ -812,7 +811,7 @@ public static class JavaScriptBlocks
     /// The forum drop down identifier.
     /// </param>
     /// <param name="placeHolder">
-    /// The place Holder.
+    /// The placeHolder.
     /// </param>
     /// <param name="forumLink">
     /// Go to Forum on select
@@ -948,7 +947,7 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// Gets the Passwords strength checker Java Script.
+    /// Gets the Passwords strength checker JavaScript.
     /// </summary>
     /// <param name="passwordClientId">The password client identifier.</param>
     /// <param name="confirmPasswordClientId">The confirm password client identifier.</param>
@@ -958,7 +957,7 @@ public static class JavaScriptBlocks
     /// <param name="passwordGoodText">The password good text.</param>
     /// <param name="passwordStrongerText">The password stronger text.</param>
     /// <param name="passwordWeakText">The password weak text.</param>
-    /// <returns>Returns the Passwords strength checker Java Script</returns>
+    /// <returns>Returns the Passwords strength checker JavaScript</returns>
     public static string PasswordStrengthCheckerJs(
         string passwordClientId,
         string confirmPasswordClientId,
@@ -1071,15 +1070,12 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// Gets the Do Search java script.
+    /// Gets the Do Search javascript.
     /// </summary>
     /// <returns>
-    /// Returns the do Search Java script String
+    /// Returns the do Search Javascript String
     /// </returns>
-    public static string DoSearchJs()
-    {
-        return "document.addEventListener(\"DOMContentLoaded\", function() { getSearchResultsData(0);});";
-    }
+    public static string DoSearchJs => "document.addEventListener(\"DOMContentLoaded\", function() { getSearchResultsData(0);});";
 
     /// <summary>
     /// Renders the Forum Icon Legend Popover JS.
@@ -1341,7 +1337,7 @@ public static class JavaScriptBlocks
     /// The hidden id to store the selected user id value
     /// </param>
     /// <param name="placeHolder">
-    /// The place Holder.
+    /// The placeHolder.
     /// </param>
     /// <returns>
     /// Returns the select user load JS.

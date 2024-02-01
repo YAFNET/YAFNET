@@ -327,7 +327,7 @@ addEventListener("load", function() {
         return doc.getElementById(id);
     };
     StateMaker = function(initialState) {
-        var o = initialState;
+        const o = initialState;
         if (o) {
             this.initialState = o;
             this.states = [ o ];
@@ -439,8 +439,8 @@ AutoCloseTags.prototype = {
             const keyCode = event.key;
             if (keyCode === "]") {
                 const position = this.selectionStart;
-                const before = this.value.substr(0, position);
-                const after = this.value.substr(this.selectionEnd, this.value.length);
+                const before = this.value.slice(0, position);
+                const after = this.value.slice(this.selectionEnd, this.value.length);
                 let tagName;
                 try {
                     tagName = before.match(/\[([^\]]+)$/)[1].match(/^([a-z1-6]+)/)[1];

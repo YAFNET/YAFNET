@@ -15331,7 +15331,7 @@ function renderAttachPreview(previewClass) {
 }
 
 document.addEventListener("click", function(event) {
-    if (event.target.parentElement.matches('a[data-bs-toggle="confirm"]')) {
+    if (event.target.parentElement && event.target.parentElement.matches('a[data-bs-toggle="confirm"]')) {
         event.preventDefault();
         var button = event.target.parentElement;
         var link = button.href;
