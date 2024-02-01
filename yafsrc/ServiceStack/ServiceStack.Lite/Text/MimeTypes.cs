@@ -48,6 +48,16 @@ public static class MimeTypes
     public const string Json = "application/json";
 
     /// <summary>
+    /// The json UTF8 suffix
+    /// </summary>
+    public const string JsonUtf8Suffix = Json + Utf8Suffix;
+
+    /// <summary>
+    /// The UTF8 suffix
+    /// </summary>
+    public const string Utf8Suffix = "; charset=utf-8";
+
+    /// <summary>
     /// The json text
     /// </summary>
     public const string JsonText = "text/json";

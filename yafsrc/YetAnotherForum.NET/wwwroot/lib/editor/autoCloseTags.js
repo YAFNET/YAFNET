@@ -10,11 +10,11 @@ var AutoCloseTags = function (textarea) {
 
     // Auto-close tags
     this.autoClosingTags = [
-        "b", "i", "u", "h", "code", "img", "quote", "left", "center", "right",
-        "indent", "list", "color",
-        "size", "albumimg", "attach", "youtube", "vimeo",
-        "instagram", "twitter", "facebook", "googlewidget", "spoiler", "userlink", "googlemaps",
-        "hide", "group-hide", "hide-thanks", "hide-reply-thanks", "hide-reply", "hide-posts", "dailymotion", "audio", "media"
+        'b', 'i', 'u', 'h', 'code', 'img', 'quote', 'left', 'center', 'right',
+        'indent', 'list', 'color',
+        'size', 'albumimg', 'attach', 'youtube', 'vimeo',
+        'instagram', 'twitter', 'facebook', 'googlewidget', 'spoiler', 'userlink', 'googlemaps',
+        'hide', 'group-hide', 'hide-thanks', 'hide-reply-thanks', 'hide-reply', 'hide-posts', 'dailymotion', 'audio', 'media'
     ];
     this.enableAutoCloseTags();
 };
@@ -23,12 +23,12 @@ AutoCloseTags.prototype = {
     enableAutoCloseTags: function () {
         var self = this;
 
-        this.textarea.addEventListener("keydown",
+        this.textarea.addEventListener('keydown',
             function (event) {
                 const keyCode = event.key;
 
                 // Close tag ']'
-                if (keyCode === "]") {
+                if (keyCode === ']') {
                     const position = this.selectionStart;
                     const before = this.value.substr(0, position);
                     const after = this.value.substr(this.selectionEnd, this.value.length);
@@ -55,4 +55,4 @@ AutoCloseTags.prototype = {
     }
 };
 
-const autoCloseTags = new AutoCloseTags(document.querySelector(".BBCodeEditor"));
+const autoCloseTags = new AutoCloseTags(document.querySelector('.BBCodeEditor'));

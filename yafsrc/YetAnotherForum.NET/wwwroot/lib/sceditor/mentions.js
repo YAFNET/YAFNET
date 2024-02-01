@@ -8,15 +8,13 @@
             symbol: '@',
             items: [],
             item_template:
-                '<a class="dropdown-item" href="#"><img src="${item.avatar}" alt="avatar" class="me-2 img-thumbnail" style="max-width:20px;max-height:20px" /> ${item.name}</a>',
+                '<a class="dropdown-item" href="#" style="font-family: var(--bs-body-font-family);"><img src="${item.avatar}" alt="avatar" class="me-2 img-thumbnail" style="max-width:20px;max-height:20px" /> ${item.name}</a>',
             onclick: undefined,
             url: ''
         },
         opts);
 
-    const $e = opts.id && document.getElementById(opts.id) ||
-        opts.selector && document.querySelector(opts.selector) ||
-        opts.element;
+    const $e = opts.element.inSourceMode() ? opts.element.getSourceEditor() : opts.element.getContentAreaContainer().contentWindow.document.body;
     if (!$e)
         return console.error('Invalid element selector', opts);
 
@@ -28,7 +26,7 @@
     $e.addEventListener('keyup', showLookup);
     $e.addEventListener('click', hideLookup);
 
-    var range, start, end, prevWord;
+    var start, end, prevWord;
 
     var isFixed = false;
     var $el = $lookup.parentNode;
@@ -43,13 +41,21 @@
             return hideLookup();
         }
 
-        var sel = window.getSelection();
-        var $parent = $lookup.parentNode.querySelector('textarea');
+        var sel, text, curr;
 
-        //var text = sel.anchorNode && sel.anchorNode.nodeValue || '';
-        var text = sel.anchorNode.querySelector('textarea').value || '';
+        if (opts.element.inSourceMode()) {
+            sel = document.getSelection();
+            var $parent = opts.element.getSourceEditor();
+            text = $parent.value || "";
+            curr = sel.baseOffset;
 
-        var curr = $parent.selectionStart;
+        } else {
+            sel = opts.element.getContentAreaContainer().contentWindow.document.getSelection();
+
+            text = opts.element.val() || "";
+            curr = sel.baseOffset;
+        }
+      
 
         var getLength = arr => arr instanceof Array && arr.length > 0 ? arr[0].length : 0;
 
@@ -70,7 +76,9 @@
 
         var pos = { x: 0, y: 0 };
 
-        var parentRect = $parent.getBoundingClientRect();
+        var parentRect = opts.element.inSourceMode() ? opts.element.getSourceEditor().getBoundingClientRect()
+            : opts.element.getContentAreaContainer().contentWindow.document.body.getBoundingClientRect();
+
         pos.y = parentRect.top + 30;
         pos.x = parentRect.left + 20;
 
@@ -133,9 +141,9 @@
 
         opts.onclick(deleteItem.dataset);
 
-        const $parent = $lookup.parentNode.querySelector('textarea');
+        var value = opts.element.val();
 
-        $parent.value = $parent.value.replace($parent.value.substring(start + 1, end), '');
+        opts.element.val(value.replace(value.substring(start + 1, end), ''));
 
         hideLookup();
     }

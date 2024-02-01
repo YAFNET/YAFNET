@@ -180,12 +180,14 @@ public static class DateTimeSerializer
 
         var config = JsConfig.GetConfig();
 
-#if NET7_0_OR_GREATER
+#if NET8_0_OR_GREATER
         if (config.SystemJsonCompatible)
         {
             try
             {
-                var value = System.Text.Json.JsonSerializer.Deserialize<DateTime>('"' + dateTimeStr + '"');
+                var value = System.Text.Json.JsonSerializer.Deserialize<DateTime>($"""
+                     "{dateTimeStr}"
+                     """, TextConfig.SystemJsonOptions);
                 return value;
             }
             catch (Exception e)
@@ -527,13 +529,15 @@ public static class DateTimeSerializer
             return default;
         }
 
-#if NET7_0_OR_GREATER
+#if NET8_0_OR_GREATER
         var config = JsConfig.GetConfig();
         if (config.SystemJsonCompatible)
         {
             try
             {
-                var value = System.Text.Json.JsonSerializer.Deserialize<DateTimeOffset>('"' + dateTimeOffsetStr + '"');
+                var value = System.Text.Json.JsonSerializer.Deserialize<DateTimeOffset>($"""
+                     "{dateTimeOffsetStr}"
+                     """, TextConfig.SystemJsonOptions);
                 return value;
             }
             catch (Exception e)

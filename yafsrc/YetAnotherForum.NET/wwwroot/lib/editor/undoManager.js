@@ -6,7 +6,7 @@ I = function (id) {
 }
 
 StateMaker = function (initialState) {
-    var o = initialState;
+    const o = initialState;
     if (o) {
         this.initialState = o;
         this.states = [o];
@@ -24,7 +24,7 @@ StateMaker = function (initialState) {
         return this;
     }
     this.undo = function () {
-        var sl = this.states.length;
+        const sl = this.states.length;
         if (this.initialState) {
             if (sl > 1) {
                 this.undoneStates.push(this.states.pop());
@@ -67,14 +67,14 @@ StateMaker = function (initialState) {
     }
 }
 
-var text = doc.querySelector(".BBCodeEditor"),
+var text = doc.querySelector('.BBCodeEditor'),
     val,
     wordCount = 0,
     words = 0,
     stateMaker = new StateMaker,
-    undoButton = I("undo"),
-    redoButton = I("redo"),
-    countField = document.getElementById("editor-Counter"),
+    undoButton = I('undo'),
+    redoButton = I('redo'),
+    countField = document.getElementById('editor-Counter'),
     maxLimit = text.maxLength;
 
 countField.textContent = maxLimit - text.value.length;
@@ -97,7 +97,7 @@ function onChange(editor) {
     }
 }
 
-text.addEventListener("change", function () {
+text.addEventListener('change', function () {
     onChange(this);
 });
 
@@ -106,7 +106,7 @@ text.onkeyup = function () {
 }
 undoButton.onclick = function () {
     stateMaker.undo();
-    val = text.value = (stateMaker.states[stateMaker.states.length - 1] || "").trim();
+    val = text.value = (stateMaker.states[stateMaker.states.length - 1] || '').trim();
     text.focus();
 
     undoButton.disabled = !stateMaker.canUndo;
@@ -114,7 +114,7 @@ undoButton.onclick = function () {
 }
 redoButton.onclick = function () {
     stateMaker.redo();
-    val = text.value = (stateMaker.states[stateMaker.states.length - 1] || "").trim();
+    val = text.value = (stateMaker.states[stateMaker.states.length - 1] || '').trim();
     text.focus();
 
     undoButton.disabled = !stateMaker.canUndo;

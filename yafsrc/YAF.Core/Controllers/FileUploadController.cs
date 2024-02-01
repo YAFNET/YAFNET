@@ -152,17 +152,24 @@ public class FileUpload : ForumBaseController
 
                 Stream resized = null;
 
-                //  resize image ?!
-                using var img = await Image.LoadAsync(file.OpenReadStream());
-
-                if (img.Width > this.Get<BoardSettings>().ImageAttachmentResizeWidth
-                    || img.Height > this.Get<BoardSettings>().ImageAttachmentResizeHeight)
+                try
                 {
-                    resized = ImageHelper.GetResizedImage(
-                        img,
-                        img.Metadata.DecodedImageFormat,
-                        this.Get<BoardSettings>().ImageAttachmentResizeWidth,
-                        this.Get<BoardSettings>().ImageAttachmentResizeHeight);
+                    //  resize image ?!
+                    using var img = await Image.LoadAsync(file.OpenReadStream());
+
+                    if (img.Width > this.Get<BoardSettings>().ImageAttachmentResizeWidth
+                        || img.Height > this.Get<BoardSettings>().ImageAttachmentResizeHeight)
+                    {
+                        resized = ImageHelper.GetResizedImage(
+                            img,
+                            img.Metadata.DecodedImageFormat,
+                            this.Get<BoardSettings>().ImageAttachmentResizeWidth,
+                            this.Get<BoardSettings>().ImageAttachmentResizeHeight);
+                    }
+                }
+                catch (Exception)
+                {
+                    resized = null;
                 }
 
                 int newAttachmentId;

@@ -364,7 +364,7 @@ module.exports = function(grunt) {
                     'wwwroot/lib/sceditor/icons/fontawesome.js',
                     'wwwroot/lib/sceditor/plugins/dragdrop.js',
                     'wwwroot/lib/sceditor/plugins/undo.js',
-                    'wwwroot/lib/editor/mentions.js'
+                    'wwwroot/lib/sceditor/mentions.js'
                 ],
                 dest: 'wwwroot/js/sceditor/sceditor.min.js'
             },

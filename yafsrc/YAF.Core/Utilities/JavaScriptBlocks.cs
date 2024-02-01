@@ -613,7 +613,9 @@ public static class JavaScriptBlocks
                          toolbar: '{{{toolbar}}}',
                          root: '',
                          styles: [{{{styles}}}],
-                         extensionsUrl: '{{{extensionsUrl}}}'
+                         extensionsUrl: '{{{extensionsUrl}}}',
+                         albumsPreviewUrl: '/api/Albums/GetImagePreview?imageId=',
+                         onToggleMode: toggleMode
                          {{{dragDropJs}}}
                      });
                      
@@ -623,11 +625,18 @@ public static class JavaScriptBlocks
                      function insertAttachment(id, url) {
                          sceditor.instance(textarea).insert(`[attach]${id}[/attach]`);
                      }
-                                       
-                     mentions({id: '{{{{editorId}}}',
-                              lookup: 'user',
-                              url:'api/User/GetMentionUsers?users={q}',
-                              onclick: function (data) {{{{editorId}}}.FormatText("userlink", data.name);}});
+                     
+                     function toggleMode() {
+                         mentions({
+                             element: sceditor.instance(textarea),
+                             lookup: 'user',
+                             url: 'api/User/GetMentionUsers?users={q}',
+                             onclick: function (data) { sceditor.instance(textarea).insert(`[userlink]${data.name}[/userlink]`); }
+                         });
+                     }
+                     
+                     toggleMode();        
+                    
                      """;
     }
 

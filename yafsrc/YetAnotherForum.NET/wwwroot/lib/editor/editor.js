@@ -7,20 +7,20 @@
     this.Description = description;
     this.MediaTitle = mediaTitle;
 
-    document.querySelector(".BBCodeEditor").addEventListener("keydown", function (e) {
+    document.querySelector('.BBCodeEditor').addEventListener('keydown', function (e) {
         if (e.ctrlKey &&
             !e.altKey &&
             (e.which == 66 || e.which == 73 || e.which == 85 || e.which == 81 || e.which == 13)) {
             if (e.which == 66) {
-                wrapSelection(this, "[b]", "[/b]");
+                wrapSelection(this, '[b]', '[/b]');
             } else if (e.which == 73) {
-                wrapSelection(this, "[i]", "[/i]");
+                wrapSelection(this, '[i]', '[/i]');
             } else if (e.which == 85) {
-                wrapSelection(this, "[u]", "[/u]");
+                wrapSelection(this, '[u]', '[/u]');
             } else if (e.which == 81) {
-                wrapSelection(this, "[quote]", "[/quote]");
+                wrapSelection(this, '[quote]', '[/quote]');
             } else if (e.which == 13) {
-                if (document.getElementById("QuickReplyDialog") != null) {
+                if (document.getElementById('QuickReplyDialog') != null) {
                     document.querySelector('[data-bs-save*="modal"]').click();
                 } else if (document.querySelector('[formaction*="PostReply"]') != null) {
                     document.querySelector('[formaction*="PostReply"]').click();
@@ -32,37 +32,37 @@
 yafEditor.prototype.FormatText = function (command, option) {
     var textObj = document.getElementById(this.Name);
     switch (command) {
-        case "bold":
-            wrapSelection(textObj, "[b]", "[/b]");
+        case 'bold':
+            wrapSelection(textObj, '[b]', '[/b]');
             break;
-        case "italic":
-            wrapSelection(textObj, "[i]", "[/i]");
+        case 'italic':
+            wrapSelection(textObj, '[i]', '[/i]');
             break;
-        case "underline":
-            wrapSelection(textObj, "[u]", "[/u]");
+        case 'underline':
+            wrapSelection(textObj, '[u]', '[/u]');
             break;
-        case "strikethrough":
-            wrapSelection(textObj, "[s]", "[/s]");
+        case 'strikethrough':
+            wrapSelection(textObj, '[s]', '[/s]');
             break;
-        case "highlight":
-            wrapSelection(textObj, "[h]", "[/h]");
+        case 'highlight':
+            wrapSelection(textObj, '[h]', '[/h]');
             break;
-        case "code":
-            wrapSelection(textObj, "[code]", "[/code]");
+        case 'code':
+            wrapSelection(textObj, '[code]', '[/code]');
             break;
-        case "codelang":
-            wrapSelection(textObj, `[code=${option}]`, "[/code]");
+        case 'codelang':
+            wrapSelection(textObj, `[code=${option}]`, '[/code]');
             break;
-        case "media":
+        case 'media':
             {
 
                 if (getCurrentSelection(textObj)) {
-                    wrapSelection(textObj, "[media]", "[/media]");
+                    wrapSelection(textObj, '[media]', '[/media]');
                 }
                 else {
                     bootbox.prompt({
                         title: this.MediaTitle,
-                        placeholder: "https://",
+                        placeholder: 'https://',
                         callback: function (url) {
                             replaceSelection(textObj, `[media]${url}[/media]`);
                         }
@@ -71,10 +71,10 @@ yafEditor.prototype.FormatText = function (command, option) {
             }
 
             break;
-        case "img":
+        case 'img':
             {
                 if (getCurrentSelection(textObj)) {
-                    wrapSelection(textObj, "[img]", "[/img]");
+                    wrapSelection(textObj, '[img]', '[/img]');
                 }
                 else {
                     bootbox.confirm({
@@ -89,12 +89,12 @@ yafEditor.prototype.FormatText = function (command, option) {
                              </div></form>
                                  `,
                         callback: function (result) {
-                            console.log("1");
+                            console.log('1');
                             if (result) {
-                                const url = document.getElementById("url").value,
-                                    desc = document.getElementById("desc").value;
+                                const url = document.getElementById('url').value,
+                                    desc = document.getElementById('desc').value;
 
-                                if (desc !== "" && desc !== null) {
+                                if (desc !== '' && desc !== null) {
                                     replaceSelection(textObj, `[img=${url}]${desc}[/img]`);
                                 } else {
                                     replaceSelection(textObj, `[img]${url}[/img]`);
@@ -107,32 +107,32 @@ yafEditor.prototype.FormatText = function (command, option) {
             }
 
             break;
-        case "quote":
-            wrapSelection(textObj, "[quote]", "[/quote]");
+        case 'quote':
+            wrapSelection(textObj, '[quote]', '[/quote]');
             break;
-        case "justifyleft":
-            wrapSelection(textObj, "[left]", "[/left]");
+        case 'justifyleft':
+            wrapSelection(textObj, '[left]', '[/left]');
             break;
-        case "justifycenter":
-            wrapSelection(textObj, "[center]", "[/center]");
+        case 'justifycenter':
+            wrapSelection(textObj, '[center]', '[/center]');
             break;
-        case "justifyright":
-            wrapSelection(textObj, "[right]", "[/right]");
+        case 'justifyright':
+            wrapSelection(textObj, '[right]', '[/right]');
             break;
-        case "indent":
-            wrapSelection(textObj, "[indent]", "[/indent]");
+        case 'indent':
+            wrapSelection(textObj, '[indent]', '[/indent]');
             break;
-        case "outdent":
+        case 'outdent':
             if (getCurrentSelection(textObj)) {
-                removeFromSelection(textObj, "[indent]", "[/indent]");
+                removeFromSelection(textObj, '[indent]', '[/indent]');
             }
             break;
-        case "removeFormat":
+        case 'removeFormat':
             if (getCurrentSelection(textObj)) {
                 removeFormat(textObj);
             }
             break;
-        case "createlink":
+        case 'createlink':
             {
                 bootbox.confirm({
                     title: this.UrlTitle,
@@ -146,12 +146,12 @@ yafEditor.prototype.FormatText = function (command, option) {
                              </div></form>
                                  `,
                     callback: function (result) {
-                        console.log("2");
+                        console.log('2');
                         if (result) {
-                            const url = document.getElementById("url").value,
-                                desc = document.getElementById("desc").value;
+                            const url = document.getElementById('url').value,
+                                desc = document.getElementById('desc').value;
 
-                            if (desc !== "" && desc != null) {
+                            if (desc !== '' && desc != null) {
                                 replaceSelection(textObj, `[url=${url}]${desc}[/url]`);
                             } else {
                                 replaceSelection(textObj, `[url]${url}[/url]`);
@@ -163,28 +163,28 @@ yafEditor.prototype.FormatText = function (command, option) {
             }
 
             break;
-        case "unorderedlist":
-            wrapSelection(textObj, "[list][*]", "[/list]");
+        case 'unorderedlist':
+            wrapSelection(textObj, '[list][*]', '[/list]');
             break;
-        case "orderedlist":
-            wrapSelection(textObj, "[list=1][*]", "[/list]");
+        case 'orderedlist':
+            wrapSelection(textObj, '[list=1][*]', '[/list]');
             break;
-        case "color":
-            wrapSelection(textObj, `[color=${option}]`, "[/color]");
+        case 'color':
+            wrapSelection(textObj, `[color=${option}]`, '[/color]');
             break;
-        case "font":
-            wrapSelection(textObj, `[font=${option}]`, "[/font]");
+        case 'font':
+            wrapSelection(textObj, `[font=${option}]`, '[/font]');
             break;
-        case "fontsize":
-            wrapSelection(textObj, `[size=${option}]`, "[/size]");
+        case 'fontsize':
+            wrapSelection(textObj, `[size=${option}]`, '[/size]');
             break;
-        case "albumimg":
+        case 'albumimg':
             replaceSelection(textObj, `[albumimg]${option}[/albumimg]`);
             break;
-        case "attach":
+        case 'attach':
             replaceSelection(textObj, `[attach]${option}[/attach]`);
             break;
-        case "email":
+        case 'email':
             bootbox.confirm({
                 title: this.UrlTitle,
                 message: `<form><div class="mb-3">
@@ -197,12 +197,12 @@ yafEditor.prototype.FormatText = function (command, option) {
               </div></form>
                   `,
                 callback: function (result) {
-                    console.log("2");
+                    console.log('2');
                     if (result) {
-                        const url = document.getElementById("url").value,
-                            desc = document.getElementById("desc").value;
+                        const url = document.getElementById('url').value,
+                            desc = document.getElementById('desc').value;
 
-                        if (desc !== "" && desc != null) {
+                        if (desc !== '' && desc != null) {
                             replaceSelection(textObj, `[email=${url}]${desc}[/email]`);
                         } else {
                             replaceSelection(textObj, `[email]${url}[/email]`);
@@ -212,23 +212,23 @@ yafEditor.prototype.FormatText = function (command, option) {
                 }
             });
             break;
-        case "userlink":
+        case 'userlink':
             replaceSelection(textObj, `[userlink]${option}[/userlink]`);
             break;
-        case "selectAll":
+        case 'selectAll':
             textObj.select();
             break;
-        case "cut":
+        case 'cut':
             if (getCurrentSelection(textObj)) {
-                document.execCommand("cut");
+                document.execCommand('cut');
             }
             break;
-        case "copy":
+        case 'copy':
             if (getCurrentSelection(textObj)) {
-                document.execCommand("copy");
+                document.execCommand('copy');
             }
             break;
-        case "paste":
+        case 'paste':
             navigator.clipboard.readText().then(function(textFromClipboard) {
                 textObj.value += textFromClipboard;
             });
@@ -249,7 +249,7 @@ function removeFormat(input) {
 
         const regex = /\[.*?\]/g;
 
-        const replacedText = selectedText.replace(regex, "");
+        const replacedText = selectedText.replace(regex, '');
 
         const replacedLength = selectedText.length - replacedText.length;
 
@@ -266,8 +266,8 @@ function setSelectionRange(input, selectionStart, selectionEnd) {
     } else if (input.createTextRange) {
         const range = input.createTextRange();
         range.collapse(true);
-        range.moveEnd("character", selectionEnd);
-        range.moveStart("character", selectionStart);
+        range.moveEnd('character', selectionEnd);
+        range.moveStart('character', selectionStart);
         range.select();
     }
 }
@@ -357,7 +357,7 @@ function wrapSelection(input, preString, postString) {
         input.value += postString;
     }
 
-    input.dispatchEvent(new Event("change"));
+    input.dispatchEvent(new Event('change'));
 }
 
 function getCurrentSelection(input) {
@@ -365,7 +365,7 @@ function getCurrentSelection(input) {
         return input.selectionStart != input.selectionEnd;
     } else if (document.selection) {
         const range = document.selection.createRange();
-        return range.parentElement() == input && range.text != "";
+        return range.parentElement() == input && range.text != '';
     } else {
         return false;
     }

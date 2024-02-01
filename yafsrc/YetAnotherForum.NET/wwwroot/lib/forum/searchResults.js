@@ -1,26 +1,26 @@
 ﻿function getSearchResultsData(pageNumber) {
-    var searchInput = document.querySelector(".searchInput").value,
-        searchInputUser = document.querySelector(".searchUserInput").value,
-        searchInputTag = document.querySelector(".searchTagInput").value,
-        placeHolder = document.getElementById("SearchResultsPlaceholder"),
-        ajaxUrl = "api/Search/GetSearchResults",
-        loadModal = new bootstrap.Modal("#loadModal");
+    var searchInput = document.querySelector('.searchInput').value,
+        searchInputUser = document.querySelector('.searchUserInput').value,
+        searchInputTag = document.querySelector('.searchTagInput').value,
+        placeHolder = document.getElementById('SearchResultsPlaceholder'),
+        ajaxUrl = 'api/Search/GetSearchResults',
+        loadModal = new bootstrap.Modal('#loadModal');
 
-    var useDisplayName = document.querySelector(".searchUserInput").dataset.display === "True";
+    var useDisplayName = document.querySelector('.searchUserInput').dataset.display === 'True';
 
     // filter options
-    var pageSize = document.querySelector(".resultsPage").value,
-        titleOnly = document.querySelector(".titleOnly").value,
-        searchWhat = document.querySelector(".searchWhat").value;
+    var pageSize = document.querySelector('.resultsPage').value,
+        titleOnly = document.querySelector('.titleOnly').value,
+        searchWhat = document.querySelector('.searchWhat').value;
 
     var minimumLength = placeHolder.dataset.minimum;
 
     // Forum Filter
-    var searchForum = document.getElementById("Input_ForumListSelected").value === ""
+    var searchForum = document.getElementById('Input_ForumListSelected').value === ''
         ? 0
-        : parseInt(document.getElementById("Input_ForumListSelected").value);
+        : parseInt(document.getElementById('Input_ForumListSelected').value);
 
-    var searchText = "";
+    var searchText = '';
 
     if (searchInput.length && searchInput.length >= minimumLength ||
         searchInputUser.length && searchInputUser.length >= minimumLength ||
@@ -29,28 +29,28 @@
         var replace;
 
         if (searchInput.length && searchInput.length >= minimumLength) {
-            if (titleOnly === "1") {
+            if (titleOnly === '1') {
                 // ADD Topic Filter
-                if (searchWhat === "0") {
+                if (searchWhat === '0') {
                     // Match all words
                     replace = searchInput;
-                    searchText += ` Topic: (${replace.replace(/(^|\s+)/g, "$1+")})`;
-                } else if (searchWhat === "1") {
+                    searchText += ` Topic: (${replace.replace(/(^|\s+)/g, '$1+')})`;
+                } else if (searchWhat === '1') {
                     // Match Any Word
                     searchText += ` Topic: ${searchInput}`;
-                } else if (searchWhat === "2") {
+                } else if (searchWhat === '2') {
                     // Match Exact Phrase
                     searchText += ` Topic:"${searchInput}"`;
                 }
             } else {
-                if (searchWhat === "0") {
+                if (searchWhat === '0') {
                     // Match all words
                     replace = searchInput;
-                    searchText += `(${replace.replace(/(^|\s+)/g, "$1+")})`;
-                } else if (searchWhat === "1") {
+                    searchText += `(${replace.replace(/(^|\s+)/g, '$1+')})`;
+                } else if (searchWhat === '1') {
                     // Match Any Word
                     searchText += `${searchInput}`;
-                } else if (searchWhat === "2") {
+                } else if (searchWhat === '2') {
                     // Match Exact Phrase
                     searchText += `"${searchInput}"`;
                 }
@@ -58,9 +58,9 @@
         }
 
         if (searchInputUser.length && searchInputUser.length >= minimumLength) {
-            var author = useDisplayName ? "AuthorDisplay" : "Author";
+            var author = useDisplayName ? 'AuthorDisplay' : 'Author';
 
-            if (searchText.length) searchText += " ";
+            if (searchText.length) searchText += ' ';
 
             if (searchInput.length) {
                 searchText += `AND ${author}:${searchInputUser}`;
@@ -70,7 +70,7 @@
         }
 
         if (searchInputTag.length && searchInputTag.length >= minimumLength) {
-            if (searchText.length) searchText += " ";
+            if (searchText.length) searchText += ' ';
 
             if (searchInput.length) {
                 searchText += `AND TopicTags:${searchInputTag}`;
@@ -92,15 +92,15 @@
 
         fetch(ajaxUrl,
             {
-                method: "POST",
+                method: 'POST',
                 body: JSON.stringify(searchTopic),
                 headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json;charset=utf-8",
+                    Accept: 'application/json',
+                    "Content-Type": 'application/json;charset=utf-8',
                     "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
                 }
             }).then(res => res.json()).then(data => {
-                document.getElementById("loadModal").addEventListener("shown.bs.modal",
+                document.getElementById('loadModal').addEventListener('shown.bs.modal',
                     () => {
                         loadModal.hide();
                     });
@@ -115,25 +115,25 @@
 
                     const noText = placeHolder.dataset.notext;
 
-                    const div = document.createElement("div");
+                    const div = document.createElement('div');
 
                     div.innerHTML = `<div class="alert alert-warning text-center mt-3" role="alert">${noText}</div>`;
 
                     placeHolder.appendChild(div);
 
-                    empty(document.getElementById("SearchResultsPagerTop"));
-                    empty(document.getElementById("SearchResultsPagerBottom"));
+                    empty(document.getElementById('SearchResultsPagerTop'));
+                    empty(document.getElementById('SearchResultsPagerBottom'));
 
                 } else {
                     loadModal.hide();
 
                     data.searchResults.forEach((dataItem) => {
-                        var item = document.createElement("div");
+                        var item = document.createElement('div');
 
-                        var tags = " ";
+                        var tags = ' ';
 
                         if (dataItem.topicTags) {
-                            const topicTags = dataItem.topicTags.split(",");
+                            const topicTags = dataItem.topicTags.split(',');
 
                             topicTags.forEach((d) => {
                                 tags += `<span class='badge text-bg-secondary me-1'><i class='fas fa-tag me-1'></i>${d
@@ -157,7 +157,7 @@
                 }
             }).catch(function (error) {
                 console.log(error);
-                document.getElementById("SearchResultsPlaceholder").style.display = "none";
+                document.getElementById('SearchResultsPlaceholder').style.display = 'none';
                 placeHolder.textContent = error;
             });
     }
@@ -165,24 +165,24 @@
 
 function setSearchPageNumber(pageSize, pageNumber, total) {
     const pages = Math.ceil(total / pageSize),
-        pagerHolderTop = document.getElementById("SearchResultsPagerTop"),
-        pagerHolderBottom = document.getElementById("SearchResultsPagerBottom"),
-        pagination = document.createElement("ul"),
-        paginationNavTop = document.createElement("nav"),
-        paginationNavBottom = document.createElement("nav");
+        pagerHolderTop = document.getElementById('SearchResultsPagerTop'),
+        pagerHolderBottom = document.getElementById('SearchResultsPagerBottom'),
+        pagination = document.createElement('ul'),
+        paginationNavTop = document.createElement('nav'),
+        paginationNavBottom = document.createElement('nav');
 
-    paginationNavTop.setAttribute("aria-label", "Search Page Results");
-    paginationNavBottom.setAttribute("aria-label", "Search Page Results");
+    paginationNavTop.setAttribute('aria-label', 'Search Page Results');
+    paginationNavBottom.setAttribute('aria-label', 'Search Page Results');
 
-    pagination.classList.add("pagination");
+    pagination.classList.add('pagination');
 
     empty(pagerHolderTop);
     empty(pagerHolderBottom);
 
     if (pageNumber > 0) {
-        const page = document.createElement("li");
+        const page = document.createElement('li');
 
-        page.classList.add("page-item");
+        page.classList.add('page-item');
 
         page.innerHTML =
             `<a href="javascript:getSearchResultsData(${pageNumber - 1
@@ -203,17 +203,17 @@ function setSearchPageNumber(pageSize, pageNumber, total) {
     }
 
     if (start > 0) {
-        let page = document.createElement("li");
+        let page = document.createElement('li');
 
-        page.classList.add("page-item");
+        page.classList.add('page-item');
         page.innerHTML = `<a href="javascript:getSearchResultsData(${0});" class="page-link">1</a>`;
 
         pagination.appendChild(page);
 
-        page = document.createElement("li");
+        page = document.createElement('li');
 
-        page.classList.add("page-item");
-        page.classList.add("disabled");
+        page.classList.add('page-item');
+        page.classList.add('disabled');
 
         page.innerHTML = '<a class="page-link" href="#" tabindex="-1">...</a>';
 
@@ -222,18 +222,18 @@ function setSearchPageNumber(pageSize, pageNumber, total) {
 
     for (var i = start; i < end; i++) {
         if (i === pageNumber) {
-            const page = document.createElement("li");
+            const page = document.createElement('li');
 
-            page.classList.add("page-item");
-            page.classList.add("active");
+            page.classList.add('page-item');
+            page.classList.add('active');
 
             page.innerHTML = `<span class="page-link">${i + 1}</span>`;
 
             pagination.appendChild(page);
         } else {
-            const page = document.createElement("li");
+            const page = document.createElement('li');
 
-            page.classList.add("page-item");
+            page.classList.add('page-item');
             page.innerHTML = `<a href="javascript:getSearchResultsData(${i});" class="page-link">${i + 1}</a>`;
 
             pagination.appendChild(page);
@@ -241,26 +241,26 @@ function setSearchPageNumber(pageSize, pageNumber, total) {
     }
 
     if (end < pages) {
-        let page = document.createElement("li");
+        let page = document.createElement('li');
 
-        page.classList.add("page-item");
-        page.classList.add("disabled");
+        page.classList.add('page-item');
+        page.classList.add('disabled');
         page.innerHTML = '<a class="page-link" href="#" tabindex="-1">...</a>';
 
         pagination.appendChild(page);
 
-        page = document.createElement("li");
+        page = document.createElement('li');
 
-        page.classList.add("page-item");
+        page.classList.add('page-item');
         page.innerHTML = `<a href="javascript:getSearchResultsData(${pages - 1})" class="page-link">${pages}</a>`;
 
         pagination.appendChild(page);
     }
 
     if (pageNumber < pages - 1) {
-        const page = document.createElement("li");
+        const page = document.createElement('li');
 
-        page.classList.add("page-item");
+        page.classList.add('page-item');
         page.innerHTML =
             `<a href="javascript:getSearchResultsData(${pageNumber + 1
             })" class="page-link"><i class="fas fas fa-angle-right" aria-hidden="true"></i></a>`;
