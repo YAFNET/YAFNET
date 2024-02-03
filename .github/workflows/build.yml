@@ -14,11 +14,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Install dependencies
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20.x'
-      - run: npm install
       - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v3
         with:
