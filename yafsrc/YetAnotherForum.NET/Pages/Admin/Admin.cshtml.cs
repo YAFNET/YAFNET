@@ -238,7 +238,7 @@ public class AdminModel : AdminPage
         {
             var version = this.Get<IDataCache>().GetOrSet(
                 "LatestVersion",
-                () => this.Get<ILatestInformationService>().GetLatestVersion(),
+                () => this.Get<ILatestInformationService>().GetLatestVersion().Result,
                 TimeSpan.FromDays(1));
 
             var latestVersion = (DateTime)version.VersionDate;

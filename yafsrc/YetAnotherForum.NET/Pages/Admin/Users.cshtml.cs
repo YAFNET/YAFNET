@@ -34,8 +34,6 @@ using System.Web;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-using ServiceStack.Text;
-
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
@@ -57,12 +55,28 @@ public class UsersModel : AdminPage
     [BindProperty]
     public UsersInputModel Input { get; set; }
 
+    /// <summary>
+    /// Gets or sets the since list.
+    /// </summary>
+    /// <value>The since list.</value>
     public List<SelectListItem> SinceList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the groups.
+    /// </summary>
+    /// <value>The groups.</value>
     public SelectList Groups { get; set; }
 
+    /// <summary>
+    /// Gets or sets the ranks.
+    /// </summary>
+    /// <value>The ranks.</value>
     public SelectList Ranks { get; set; }
 
+    /// <summary>
+    /// Gets or sets the list.
+    /// </summary>
+    /// <value>The list.</value>
     [BindProperty]
     public List<PagedUser> List { get; set; }
 
@@ -86,6 +100,11 @@ public class UsersModel : AdminPage
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), string.Empty);
     }
 
+    /// <summary>
+    /// On post delete as an asynchronous operation.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
         // we are deleting user
@@ -137,19 +156,11 @@ public class UsersModel : AdminPage
     }
 
     /// <summary>
-    /// Export all Users as CSV
-    /// </summary>
-    public IActionResult OnPostExportUsersCsv()
-    {
-        return this.ExportAllUsers("csv");
-    }
-
-    /// <summary>
     /// Export all Users as XML
     /// </summary>
     public IActionResult OnPostExportUsersXml()
     {
-        return this.ExportAllUsers("xml");
+        return this.ExportAllUsers();
     }
 
     /// <summary>
@@ -186,7 +197,7 @@ public class UsersModel : AdminPage
 
         if (flag.IsApproved && flag.IsDeleted)
         {
-            return $@"<span class=""badge text-bg-warning"">{this.GetText("ADMIN_EDITUSER","DISABLED")}</span>";
+            return $"""<span class="badge text-bg-warning">{this.GetText("ADMIN_EDITUSER","DISABLED")}</span>""";
         }
 
         return $"""<span class="badge text-bg-danger">{this.GetText("NOT_APPROVED")}</span>""";
@@ -247,7 +258,7 @@ public class UsersModel : AdminPage
         // get list of user ranks for filtering
         var ranks = this.GetRepository<Rank>().GetByBoardId().OrderBy(r => r.SortOrder).ToList();
 
-        // add empty for for no filtering
+        // add empty for no filtering
         ranks.Insert(0, new Rank { Name = this.GetText("FILTER_NO"), ID = 0 });
 
         this.Ranks = new SelectList(ranks, nameof(Rank.ID), nameof(Rank.Name));
@@ -275,6 +286,10 @@ public class UsersModel : AdminPage
         this.BindData();
     }
 
+    /// <summary>
+    /// Called when [get import].
+    /// </summary>
+    /// <returns>Microsoft.AspNetCore.Mvc.PartialViewResult.</returns>
     public PartialViewResult OnGetImport()
     {
         return new PartialViewResult
@@ -337,30 +352,11 @@ public class UsersModel : AdminPage
     /// <summary>
     /// Export All Users
     /// </summary>
-    /// <param name="type">
-    /// The export format type.
-    /// </param>
-    private FileContentResult ExportAllUsers(string type)
+    private FileContentResult ExportAllUsers()
     {
         var usersList = this.GetRepository<User>().GetByBoardId(this.PageBoardContext.PageBoardID);
 
-        return type == "xml" ? this.ExportAsXml(usersList) : this.ExportAsCsv(usersList);
-    }
-
-    /// <summary>
-    /// Export As CSV
-    /// </summary>
-    /// <param name="usersList">
-    /// The users list.
-    /// </param>
-    private FileContentResult ExportAsCsv(IList<User> usersList)
-    {
-        var stream = new MemoryStream();
-        CsvSerializer.SerializeToStream(usersList, stream);
-
-        var fileName = $"YafUsersExport-{HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))}.csv";
-
-        return this.File(stream.ToArray(), "application/vnd.csv", fileName);
+        return this.ExportAsXml(usersList);
     }
 
     /// <summary>
