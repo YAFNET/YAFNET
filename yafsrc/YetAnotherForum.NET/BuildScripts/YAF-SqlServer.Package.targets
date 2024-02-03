@@ -102,6 +102,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\sceditor\icons\fontawesome.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\sceditor\plugins\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\sceditor\sceditor.min.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\sceditor\mentions.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap\**\*.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\dark-editable.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-forum.css" />

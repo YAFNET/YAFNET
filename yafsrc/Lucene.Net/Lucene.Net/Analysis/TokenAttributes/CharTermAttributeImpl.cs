@@ -190,8 +190,7 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
                 throw new ArgumentOutOfRangeException(nameof(length), $"Index and length must refer to a location within the string. For example {nameof(startIndex)} + {nameof(length)} <= {nameof(Length)}.");
 
             char[] result = new char[length];
-            for (int i = 0, j = startIndex; i < length; i++, j++)
-                result[i] = termBuffer[j];
+            Arrays.Copy(termBuffer, startIndex, result, 0, length);
 
             return new CharArrayCharSequence(result);
         }
@@ -281,7 +280,10 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
                 return this; // No-op
             }
 
-            return Append(value.ToString());
+            int len = value.Length;
+            value.CopyTo(0, InternalResizeBuffer(termLength + len), termLength, len);
+            Length += len;
+            return this;
         }
 
         public CharTermAttribute Append(StringBuilder value, int startIndex, int charCount)
@@ -303,7 +305,9 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
             if (startIndex > value.Length - charCount)
                 throw new ArgumentOutOfRangeException(nameof(startIndex), $"Index and length must refer to a location within the string. For example {nameof(startIndex)} + {nameof(charCount)} <= {nameof(Length)}.");
 
-            return Append(value.ToString(startIndex, charCount));
+            value.CopyTo(startIndex, InternalResizeBuffer(termLength + charCount), termLength, charCount);
+            Length += charCount;
+            return this;
         }
 
         public CharTermAttribute Append(ICharTermAttribute value)

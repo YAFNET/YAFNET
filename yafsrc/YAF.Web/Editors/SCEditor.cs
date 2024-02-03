@@ -28,7 +28,6 @@ using System;
 using System.Web.UI;
 
 using YAF.Configuration;
-using YAF.Core.Services;
 using YAF.Core.Utilities;
 using YAF.Types.Interfaces;
 
@@ -106,7 +105,7 @@ public class SCEditor : TextEditor
         }
 
         var toolbar =
-            $"bold,italic,underline,strike|font,size,color|mark|email,link,unlink,quote,code|image{albums}{attachments}|bulletlist,orderedlist|left,center,right|indent,outdent|cut,copy,pastetext,removeformat|undo,redo|youtube|extensions|source";
+            $"bold,italic,underline,strike|font,size,color|mark|email,link,unlink,quote,code|image{albums}{attachments}|bulletlist,orderedlist|left,center,right|indent,outdent|cut,copy,pastetext,removeformat|undo,redo|youtube,vimeo,instagram,facebook,media|extensions|source";
 
         var dragDropJs = string.Empty;
 

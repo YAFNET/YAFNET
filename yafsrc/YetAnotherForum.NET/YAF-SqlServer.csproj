@@ -2904,6 +2904,7 @@
     <Content Include="Scripts\sceditor\languages\tw.js" />
     <Content Include="Scripts\sceditor\languages\uk.js" />
     <Content Include="Scripts\sceditor\languages\vi.js" />
+    <Content Include="Scripts\sceditor\mentions.js" />
     <Content Include="Scripts\sceditor\plugins\dragdrop.js" />
     <Content Include="Scripts\sceditor\plugins\undo.js" />
     <Content Include="Scripts\sceditor\sceditor.comb.min.js" />
@@ -3070,7 +3071,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
