@@ -27,8 +27,6 @@ namespace YAF.Core.Helpers;
 using System;
 using System.Text.RegularExpressions;
 
-using ServiceStack.Text;
-
 using YAF.Core.Context;
 
 /// <summary>
@@ -216,6 +214,7 @@ public static partial class DateTimeHelper
             case < 12 * Month:
                 {
                     var months = Convert.ToInt32(Math.Floor((double) ts.Days / 30));
+
                     return isFuture
                                ? localizer.GetTextFormatted(
                                    "FUTURE",
@@ -231,6 +230,7 @@ public static partial class DateTimeHelper
             default:
                 {
                     var years = Convert.ToInt32(Math.Floor((double) ts.Days / 365));
+
                     return isFuture
                                ? localizer.GetTextFormatted(
                                    "FUTURE",

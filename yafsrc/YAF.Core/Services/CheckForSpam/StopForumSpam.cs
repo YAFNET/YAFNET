@@ -26,11 +26,10 @@ namespace YAF.Core.Services.CheckForSpam;
 
 using System;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
-
-using ServiceStack.Text;
 
 using YAF.Types.Interfaces.CheckForSpam;
 using YAF.Types.Objects;
@@ -61,11 +60,7 @@ public class StopForumSpam : ICheckForBot
 
             var client = new HttpClient(new HttpClientHandler());
 
-            var response = await client.GetAsync(url);
-
-            responseText = await response.Content.ReadAsStringAsync();
-
-            var stopForumResponse = responseText.FromJson<StopForumSpamResponse>();
+            var stopForumResponse = await client.GetFromJsonAsync<StopForumSpamResponse>(url);
 
             if (!stopForumResponse.Success)
             {
@@ -77,11 +72,11 @@ public class StopForumSpam : ICheckForBot
                 // Match name + email address
                 case true when stopForumResponse.Email.Appears:
                 // Match name + IP address
-                case true when stopForumResponse.IPAddress.Appears:
+                case true when stopForumResponse.IpAddress.Appears:
                     return (responseText, true);
                 default:
                     // Match IP + email address
-                    return (responseText, stopForumResponse.IPAddress.Appears && stopForumResponse.Email.Appears);
+                    return (responseText, stopForumResponse.IpAddress.Appears && stopForumResponse.Email.Appears);
             }
         }
         catch (Exception ex)

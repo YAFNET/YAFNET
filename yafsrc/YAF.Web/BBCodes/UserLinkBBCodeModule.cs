@@ -61,18 +61,18 @@ public class UserLinkBBCodeModule : BBCodeControl
                 return;
             }
 
-            var userLink = this.Get<IHtmlHelper>().UserLink(
-                boardUser.ID,
-                boardUser.DisplayOrUserName(),
-                boardUser.Suspended,
-                boardUser.UserStyle,
-                true,
-                " btn btn-outline-primary");
-
             stringBuilder.Append("<!-- BEGIN user link -->");
-            stringBuilder.Append("<span>");
+            stringBuilder.Append("<span class=\"badge rounded-pill text-bg-secondary fs-6\">");
 
-            stringBuilder.Append(userLink.RenderToString());
+            var link = new TagBuilder("a");
+
+            link.MergeAttribute("href", this.Get<LinkBuilder>().GetUserProfileLink(boardUser.ID, boardUser.DisplayOrUserName()));
+
+            link.AddCssClass("link-light");
+
+            link.InnerHtml.Append(boardUser.DisplayOrUserName());
+
+            stringBuilder.Append(link.RenderToString());
 
             stringBuilder.Append("</span>");
             stringBuilder.Append("<!-- END user link -->");

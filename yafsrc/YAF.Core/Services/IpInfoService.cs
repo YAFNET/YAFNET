@@ -26,11 +26,10 @@ namespace YAF.Core.Services;
 
 using System;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
-
-using ServiceStack.Text;
 
 using YAF.Types.Objects;
 
@@ -121,11 +120,7 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
 
             var client = new HttpClient(new HttpClientHandler());
 
-            var response = await client.GetAsync(path);
-
-            var responseText = await response.Content.ReadAsStringAsync();
-
-            return responseText.FromJson<IpLocator>();
+           return await client.GetFromJsonAsync<IpLocator>(path);
         }
         catch (Exception)
         {

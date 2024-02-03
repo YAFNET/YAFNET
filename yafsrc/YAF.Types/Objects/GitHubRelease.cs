@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2024 Ingo Herbote
@@ -22,18 +22,26 @@
  * under the License.
  */
 
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
-namespace YAF.Types.Interfaces.Services;
+namespace YAF.Types.Objects;
 
 /// <summary>
-/// The LatestInformation interface.
+/// Class GitHubRelease.
 /// </summary>
-public interface ILatestInformationService
+public class GitHubRelease
 {
     /// <summary>
-    /// Gets the latest version information.
+    /// Gets or sets the name of the tag.
     /// </summary>
-    /// <returns>Returns the LatestVersionInformation</returns>
-    Task<dynamic> GetLatestVersion();
+    /// <value>The name of the tag.</value>
+    [JsonPropertyName("tag_name")]
+    public string TagName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the published at.
+    /// </summary>
+    /// <value>The published at.</value>
+    [JsonPropertyName("published_at")]
+    public DateTime PublishedAt { get; set; }
 }

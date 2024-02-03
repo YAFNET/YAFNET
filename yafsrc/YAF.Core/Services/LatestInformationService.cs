@@ -22,16 +22,18 @@
  * under the License.
  */
 
+using YAF.Types.Objects;
+
 namespace YAF.Core.Services;
 
 using System;
 using System.Dynamic;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
-
-using ServiceStack;
-using ServiceStack.Text;
 
 /// <summary>
 /// Latest Information service class
@@ -58,7 +60,7 @@ public class LatestInformationService : IHaveServiceLocator, ILatestInformationS
     /// Gets the latest version information.
     /// </summary>
     /// <returns>Returns the LatestVersionInformation</returns>
-    public dynamic GetLatestVersion()
+    public async Task<dynamic> GetLatestVersion()
     {
         dynamic version = new ExpandoObject();
 
@@ -67,19 +69,19 @@ public class LatestInformationService : IHaveServiceLocator, ILatestInformationS
             ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault |
                                                    SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
 
-            var test = "https://api.github.com/repos/YAFNET/YAFNET/releases/latest".GetJsonFromUrl(
-                x => x.With(c => c.UserAgent = "YAF.NET"));
+            var client = new HttpClient(new HttpClientHandler());
 
-            var json = DynamicJson.Deserialize(test);
+            client.DefaultRequestHeaders.UserAgent.ParseAdd("YAF.NET");
 
-            var tagName = (string)json.tag_name;
-            var date = DateTime.SpecifyKind(
-                DateTime.Parse(json.published_at),
-                DateTimeKind.Unspecified);
+#pragma warning disable S1075
+            const string url = "https://api.github.com/repos/YAFNET/YAFNET/releases/latest";
+#pragma warning restore S1075
+
+            var json = await client.GetFromJsonAsync<GitHubRelease>(url);
 
             version.UpgradeUrl = "https://yetanotherforum.net/download";
-            version.VersionDate = date;
-            version.Version = tagName.Replace("v", string.Empty);
+            version.VersionDate = json.PublishedAt;
+            version.Version = json.TagName.Replace("v", string.Empty);
         }
         catch (Exception x)
         {

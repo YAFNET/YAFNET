@@ -460,7 +460,7 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Startses the with ignore case.
+    /// Starts the with ignore case.
     /// </summary>
     /// <param name="text">The text.</param>
     /// <param name="startsWith">The starts with.</param>
@@ -472,7 +472,7 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Endses the with ignore case.
+    /// Ends the with ignore case.
     /// </summary>
     /// <param name="text">The text.</param>
     /// <param name="endsWith">The ends with.</param>

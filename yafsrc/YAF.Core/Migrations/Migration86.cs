@@ -29,8 +29,6 @@ using ServiceStack.OrmLite;
 using System.Data;
 using System.Threading.Tasks;
 
-using ServiceStack.Text;
-
 using YAF.Core.Context;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;

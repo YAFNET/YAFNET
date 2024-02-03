@@ -36,13 +36,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
-    <Compile Update="BaseControls\BaseUserControl.cs" />
-    <Compile Update="BasePages\AccountPage.cs" />
-    <Compile Update="BasePages\ProfilePage.cs" />
-    <Compile Update="BasePages\ModerateForumPage.cs" />
-    <Compile Update="BasePages\AdminPage.cs" />
-    <Compile Update="BasePages\ForumPage.cs" />
-    <Compile Update="BasePages\ForumPageRegistered.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ServiceStack\ServiceStack.OrmLite\ServiceStack.OrmLite.Core.csproj" />
@@ -58,7 +51,6 @@
     <PackageReference Include="System.Linq.Async" Version="6.0.1" />
     <PackageReference Include="System.Runtime.Caching" Version="8.0.0" />
     <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
-    <PackageReference Include="UAParser" Version="3.1.47" />
     <PackageReference Include="UAParser.Core" Version="4.0.3" />
   </ItemGroup>
 </Project>

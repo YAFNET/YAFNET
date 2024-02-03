@@ -35,7 +35,7 @@ public static class CharMemoryExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ReadOnlyMemory<char> Advance(this ReadOnlyMemory<char> text, int to)
     {
-        return text.Slice(to, text.Length - to);
+        return text[to..];
     }
 
     /// <summary>
@@ -54,7 +54,7 @@ public static class CharMemoryExtensions
         var pos = strVal.IndexOf(needle);
         return pos == -1
                    ? strVal
-                   : strVal.Slice(pos + 1);
+                   : strVal[(pos + 1)..];
     }
 
     /// <summary>
@@ -73,7 +73,7 @@ public static class CharMemoryExtensions
         var pos = strVal.IndexOf(needle);
         return pos == -1
                    ? strVal
-                   : strVal.Slice(pos + needle.Length);
+                   : strVal[(pos + needle.Length)..];
     }
 
     /// <summary>
@@ -92,7 +92,7 @@ public static class CharMemoryExtensions
         var pos = strVal.LastIndexOf(needle);
         return pos == -1
                    ? strVal
-                   : strVal.Slice(pos + 1);
+                   : strVal[(pos + 1)..];
     }
 
     /// <summary>
@@ -111,7 +111,7 @@ public static class CharMemoryExtensions
         var pos = strVal.LastIndexOf(needle);
         return pos == -1
                    ? strVal
-                   : strVal.Slice(pos + needle.Length);
+                   : strVal[(pos + needle.Length)..];
     }
 
     /// <summary>
@@ -129,19 +129,19 @@ public static class CharMemoryExtensions
             return false;
         }
 
-        text = text.Slice(startIndex);
+        text = text[startIndex..];
 
         var nextLinePos = text.Span.IndexOfAny('\r', '\n');
         if (nextLinePos == -1)
         {
-            var nextLine = text.Slice(0, text.Length);
+            var nextLine = text[..text.Length];
             startIndex += text.Length;
             line = nextLine;
             return true;
         }
         else
         {
-            var nextLine = text.Slice(0, nextLinePos);
+            var nextLine = text[..nextLinePos];
 
             startIndex += nextLinePos + 1;
 
@@ -172,18 +172,18 @@ public static class CharMemoryExtensions
             return false;
         }
 
-        text = text.Slice(startIndex);
+        text = text[startIndex..];
         var nextPartPos = text.Span.IndexOf(needle.Span);
         if (nextPartPos == -1)
         {
-            var nextPart = text.Slice(0, text.Length);
+            var nextPart = text[..text.Length];
             startIndex += text.Length;
             part = nextPart;
             return true;
         }
         else
         {
-            var nextPart = text.Slice(0, nextPartPos);
+            var nextPart = text[..nextPartPos];
             startIndex += nextPartPos + needle.Length;
             part = nextPart;
             return true;
@@ -213,8 +213,8 @@ public static class CharMemoryExtensions
         }
         else
         {
-            first = strVal.Slice(0, pos);
-            last = strVal.Slice(pos + 1);
+            first = strVal[..pos];
+            last = strVal[(pos + 1)..];
         }
     }
 
@@ -241,8 +241,8 @@ public static class CharMemoryExtensions
         }
         else
         {
-            first = strVal.Slice(0, pos);
-            last = strVal.Slice(pos + needle.Length);
+            first = strVal[..pos];
+            last = strVal[(pos + needle.Length)..];
         }
     }
 
@@ -269,8 +269,8 @@ public static class CharMemoryExtensions
         }
         else
         {
-            first = strVal.Slice(0, pos);
-            last = strVal.Slice(pos + 1);
+            first = strVal[..pos];
+            last = strVal[(pos + 1)..];
         }
     }
 
@@ -297,8 +297,8 @@ public static class CharMemoryExtensions
         }
         else
         {
-            first = strVal.Slice(0, pos);
-            last = strVal.Slice(pos + needle.Length);
+            first = strVal[..pos];
+            last = strVal[(pos + needle.Length)..];
         }
     }
 
@@ -336,7 +336,7 @@ public static class CharMemoryExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int IndexOf(this ReadOnlyMemory<char> value, char needle, int start)
     {
-        var pos = value.Slice(start).Span.IndexOf(needle);
+        var pos = value[start..].Span.IndexOf(needle);
         return pos == -1 ? -1 : start + pos;
     }
 
@@ -350,7 +350,7 @@ public static class CharMemoryExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int IndexOf(this ReadOnlyMemory<char> value, string needle, int start)
     {
-        var pos = value.Slice(start).Span.IndexOf(needle.AsSpan());
+        var pos = value[start..].Span.IndexOf(needle.AsSpan());
         return pos == -1 ? -1 : start + pos;
     }
 
@@ -388,7 +388,7 @@ public static class CharMemoryExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int LastIndexOf(this ReadOnlyMemory<char> value, char needle, int start)
     {
-        var pos = value.Slice(start).Span.LastIndexOf(needle);
+        var pos = value[start..].Span.LastIndexOf(needle);
         return pos == -1 ? -1 : start + pos;
     }
 
@@ -402,7 +402,7 @@ public static class CharMemoryExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int LastIndexOf(this ReadOnlyMemory<char> value, string needle, int start)
     {
-        var pos = value.Slice(start).Span.LastIndexOf(needle.AsSpan());
+        var pos = value[start..].Span.LastIndexOf(needle.AsSpan());
         return pos == -1 ? -1 : start + pos;
     }
 
@@ -504,6 +504,6 @@ public static class CharMemoryExtensions
             return value.Slice(startIndex, length);
         }
 
-        return value.Length > startIndex ? value.Slice(startIndex) : TypeConstants.NullStringMemory;
+        return value.Length > startIndex ? value[startIndex..] : TypeConstants.NullStringMemory;
     }
 }

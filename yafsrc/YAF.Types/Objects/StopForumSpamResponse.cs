@@ -25,11 +25,11 @@
 namespace YAF.Types.Objects;
 
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 /// <summary>
 /// StopForumSpam.com JSON Response Class
 /// </summary>
-[DataContract]
 public class StopForumSpamResponse
 {
     /// <summary>
@@ -38,8 +38,8 @@ public class StopForumSpamResponse
     /// <value>
     /// The success string.
     /// </value>
-    [DataMember(Name = "success")]
-    public string SuccessString { get; set; }
+    [JsonPropertyName("success")]
+    public int SuccessString { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [success].
@@ -47,11 +47,12 @@ public class StopForumSpamResponse
     /// <value>
     ///   <c>true</c> if [success]; otherwise, <c>false</c>.
     /// </value>
+    [JsonIgnore]
     public bool Success
     {
-        get => this.SuccessString == "1";
+        get => this.SuccessString == 1;
 
-        set => this.SuccessString = value ? "1" : "0";
+        set => this.SuccessString = value ? 1 : 0;
     }
 
     /// <summary>
@@ -60,7 +61,7 @@ public class StopForumSpamResponse
     /// <value>
     /// The name of the user.
     /// </value>
-    [DataMember(Name = "username")]
+    [JsonPropertyName("username")]
     public UserName UserName { get; set; }
 
     /// <summary>
@@ -69,7 +70,7 @@ public class StopForumSpamResponse
     /// <value>
     /// The email.
     /// </value>
-    [DataMember(Name = "email")]
+    [JsonPropertyName("email")]
     public Email Email { get; set; }
 
     /// <summary>
@@ -78,8 +79,8 @@ public class StopForumSpamResponse
     /// <value>
     /// The IP address.
     /// </value>
-    [DataMember(Name = "ip")]
-    public IP IPAddress { get; set; }
+    [JsonPropertyName("ip")]
+    public Ip IpAddress { get; set; }
 }
 
 /// <summary>
@@ -94,7 +95,7 @@ public class UserName
     /// <value>
     /// The frequency.
     /// </value>
-    [DataMember(Name = "frequency")]
+    [JsonPropertyName("frequency")]
     public int Frequency { get; set; }
 
     /// <summary>
@@ -103,8 +104,8 @@ public class UserName
     /// <value>
     /// The appears string.
     /// </value>
-    [DataMember(Name = "appears")]
-    public string AppearsString { get; set; }
+    [JsonPropertyName("appears")]
+    public int AppearsString { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [appears].
@@ -112,11 +113,12 @@ public class UserName
     /// <value>
     ///   <c>true</c> if [appears]; otherwise, <c>false</c>.
     /// </value>
+    [JsonIgnore]
     public bool Appears
     {
-        get => this.AppearsString == "1";
+        get => this.AppearsString == 1;
 
-        set => this.AppearsString = value ? "1" : "0";
+        set => this.AppearsString = value ? 1 : 0;
     }
 }
 
@@ -132,7 +134,7 @@ public class Email
     /// <value>
     /// The frequency.
     /// </value>
-    [DataMember(Name = "frequency")]
+    [JsonPropertyName("frequency")]
     public int Frequency { get; set; }
 
     /// <summary>
@@ -141,8 +143,8 @@ public class Email
     /// <value>
     /// The appears string.
     /// </value>
-    [DataMember(Name = "appears")]
-    public string AppearsString { get; set; }
+    [JsonPropertyName("appears")]
+    public int AppearsString { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [appears].
@@ -150,11 +152,12 @@ public class Email
     /// <value>
     ///   <c>true</c> if [appears]; otherwise, <c>false</c>.
     /// </value>
+    [JsonIgnore]
     public bool Appears
     {
-        get => this.AppearsString == "1";
+        get => this.AppearsString == 1;
 
-        set => this.AppearsString = value ? "1" : "0";
+        set => this.AppearsString = value ? 1 : 0;
     }
 }
 
@@ -162,7 +165,7 @@ public class Email
 /// IP Address Namespace
 /// </summary>
 [DataContract(Namespace = "ip")]
-public class IP
+public class Ip
 {
     /// <summary>
     /// Gets or sets the frequency.
@@ -170,7 +173,7 @@ public class IP
     /// <value>
     /// The frequency.
     /// </value>
-    [DataMember(Name = "frequency")]
+    [JsonPropertyName("frequency")]
     public int Frequency { get; set; }
 
     /// <summary>
@@ -179,8 +182,8 @@ public class IP
     /// <value>
     /// The appears string.
     /// </value>
-    [DataMember(Name = "appears")]
-    public string AppearsString { get; set; }
+    [JsonPropertyName("appears")]
+    public int AppearsString { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [appears].
@@ -188,10 +191,11 @@ public class IP
     /// <value>
     ///   <c>true</c> if [appears]; otherwise, <c>false</c>.
     /// </value>
+    [JsonIgnore]
     public bool Appears
     {
-        get => this.AppearsString == "1";
+        get => this.AppearsString == 1;
 
-        set => this.AppearsString = value ? "1" : "0";
+        set => this.AppearsString = value ? 1 : 0;
     }
 }

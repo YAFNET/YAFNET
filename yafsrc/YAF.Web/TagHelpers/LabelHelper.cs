@@ -26,8 +26,6 @@ namespace YAF.Web.TagHelpers;
 
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-using ServiceStack.Text;
-
 /// <summary>
 /// The label helper.
 /// </summary>

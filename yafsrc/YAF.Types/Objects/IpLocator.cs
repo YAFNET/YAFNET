@@ -22,81 +22,78 @@
  * under the License.
  */
 
-using ServiceStack.DataAnnotations;
-
 namespace YAF.Types.Objects;
 
-using System.Xml.Serialization;
+using System.Text.Json.Serialization;
 
 /// <summary>
 /// The IP locator.
 /// </summary>
-[XmlRoot(ElementName = "Response", IsNullable = false)]
 public class IpLocator
 {
     /// <summary>
     /// Gets or sets Status.
     /// </summary>
-    [Alias("statusCode")]
+    [JsonPropertyName("statusCode")]
     public string StatusCode { get; set; }
 
     /// <summary>
     /// Gets or sets Status.
     /// </summary>
-    [Alias("statusMessage")]
+    [JsonPropertyName("statusMessage")]
     public string StatusMessage { get; set; }
 
     /// <summary>
     /// Gets or sets IP.
     /// </summary>
-    [Alias("ipAddress")]
+    [JsonPropertyName("ipAddress")]
     public string IpAddress { get; set; }
 
     /// <summary>
     /// Gets or sets CountryCode.
     /// </summary>
-    [Alias("countryCode")]
+    [JsonPropertyName("countryCode")]
     public string CountryCode { get; set; }
 
     /// <summary>
     /// Gets or sets CountryName.
     /// </summary>
-    [Alias("countryName")]
+    [JsonPropertyName("countryName")]
     public string CountryName { get; set; }
 
     /// <summary>
     /// Gets or sets RegionName.
     /// </summary>
-    [Alias("RegionName")]
-    public string regionName { get; set; }
+    [JsonPropertyName("RegionName")]
+    public string RegionName { get; set; }
 
     /// <summary>
     /// Gets or sets City.
     /// </summary>
-    [Alias("cityName")]
+    [JsonPropertyName("cityName")]
     public string CityName { get; set; }
 
     /// <summary>
     /// Gets or sets Zip.
     /// </summary>
-    [Alias("zipCode")]
+    [JsonPropertyName("zipCode")]
     public string ZipCode { get; set; }
 
     /// <summary>
     /// Gets or sets Latitude.
     /// </summary>
-    [Alias("latitude")]
+    [JsonPropertyName("latitude")]
     public string Latitude { get; set; }
 
     /// <summary>
     /// Gets or sets Longitude.
     /// </summary>
-    [Alias("longitude")]
+    [JsonPropertyName("longitude")]
     public string Longitude { get; set; }
 
     /// <summary>
     /// Gets or sets Time zone Name.
     /// </summary>
-    [Alias("timeZone")]
+    [JsonPropertyName("timeZone")]
     public string TimeZone { get; set; }
 }

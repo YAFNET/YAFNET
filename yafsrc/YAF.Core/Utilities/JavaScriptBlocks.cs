@@ -25,7 +25,7 @@
 namespace YAF.Core.Utilities;
 
 /// <summary>
-/// Contains the Java Script Blocks
+/// Contains the JavaScript Blocks
 /// </summary>
 public static class JavaScriptBlocks
 {
@@ -72,7 +72,7 @@ public static class JavaScriptBlocks
           """;
 
     /// <summary>
-    /// Get the album edit caption java script
+    /// Get the album edit caption javascript
     /// </summary>
     /// <returns>The album edit caption JS.</returns>
     public static string AlbumEditCaptionJs =>
@@ -83,7 +83,7 @@ public static class JavaScriptBlocks
         """;
 
     /// <summary>
-    /// Get the album image edit caption java script
+    /// Get the album image edit caption javascript
     /// </summary>
     /// <returns>The album image edit caption JS.</returns>
     public static string AlbumImageEditCaptionJs =>
@@ -196,7 +196,7 @@ public static class JavaScriptBlocks
     /// <param name="tabId">The tab Id.</param>
     /// <param name="hiddenId">The hidden field id.</param>
     /// <returns>
-    /// Returns the the Bootstrap Tab Load JS string
+    /// Returns the Bootstrap Tab Load JS string
     /// </returns>
     public static string BootstrapTabsLoadJs(string tabId, string hiddenId)
     {
@@ -822,13 +822,13 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// Gets the Editor File Auto Upload Java Script.
+    /// Gets the Editor File Auto Upload JavaScript.
     /// </summary>
     /// <param name="fileUploaderUrl">
     /// The file uploader URL.
     /// </param>
     /// <returns>
-    /// Returns the FileUpload Java Script.
+    /// Returns the FileUpload JavaScript.
     /// </returns>
     public static string FileUploadLoadJs(
         string fileUploaderUrl)
@@ -1088,7 +1088,7 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// Gets the Passwords strength checker Java Script.
+    /// Gets the Passwords strength checker JavaScript.
     /// </summary>
     /// <param name="passwordClientId">The password client identifier.</param>
     /// <param name="confirmPasswordClientId">The confirm password client identifier.</param>
@@ -1098,7 +1098,7 @@ public static class JavaScriptBlocks
     /// <param name="passwordGoodText">The password good text.</param>
     /// <param name="passwordStrongerText">The password stronger text.</param>
     /// <param name="passwordWeakText">The password weak text.</param>
-    /// <returns>Returns the Passwords strength checker Java Script</returns>
+    /// <returns>Returns the Passwords strength checker JavaScript</returns>
     public static string PasswordStrengthCheckerJs(
         string passwordClientId,
         string confirmPasswordClientId,
@@ -1532,7 +1532,7 @@ public static class JavaScriptBlocks
     /// The hidden id to store the selected user id value
     /// </param>
     /// <param name="placeHolder">
-    /// The place Holder.
+    /// The placeHolder.
     /// </param>
     /// <returns>
     /// Returns the select user load JS.
@@ -1858,10 +1858,10 @@ public static class JavaScriptBlocks
                                         """;
 
     /// <summary>
-    /// Gets the Do Search java script.
+    /// Gets the Do Search javascript.
     /// </summary>
     /// <returns>
-    /// Returns the do Search Java script String
+    /// Returns the do Search Javascript String
     /// </returns>
     public const string DoSearchJs =
         "document.addEventListener(\"DOMContentLoaded\", function() { getSearchResultsData(0);});";
