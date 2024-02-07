@@ -26,7 +26,7 @@
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
 	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Tests.Utils\YAF.Tests.Utils.csproj" />
