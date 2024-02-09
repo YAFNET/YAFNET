@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 using ServiceStack.Data;
 using ServiceStack.Logging;
-using ServiceStack.Text;
+using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite
 {

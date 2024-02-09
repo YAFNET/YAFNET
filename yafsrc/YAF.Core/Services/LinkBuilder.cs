@@ -22,9 +22,9 @@
  * under the License.
  */
 
-namespace YAF.Core.Services;
+using ServiceStack.OrmLite.Base.Text;
 
-using ServiceStack.Text;
+namespace YAF.Core.Services;
 
 using YAF.Types.Constants;
 using YAF.Types.Models;

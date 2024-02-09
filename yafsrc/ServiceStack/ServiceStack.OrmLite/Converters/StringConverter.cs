@@ -7,10 +7,9 @@
 using System;
 using System.Data;
 using ServiceStack.DataAnnotations;
+using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite.Converters;
-
-using ServiceStack.Text;
 
 /// <summary>
 /// Class StringConverter.

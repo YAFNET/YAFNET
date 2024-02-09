@@ -22,9 +22,9 @@
  * under the License.
  */
 
-namespace YAF.Web.Controls;
+using ServiceStack.OrmLite.Base.Text;
 
-using ServiceStack.Text;
+namespace YAF.Web.Controls;
 
 /// <summary>
 /// Icon Header creates a header with Icon and localized header text

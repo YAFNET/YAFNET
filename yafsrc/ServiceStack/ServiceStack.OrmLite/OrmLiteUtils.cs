@@ -15,7 +15,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Text.RegularExpressions;
 using ServiceStack.Logging;
-using ServiceStack.Text;
+using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite;
 

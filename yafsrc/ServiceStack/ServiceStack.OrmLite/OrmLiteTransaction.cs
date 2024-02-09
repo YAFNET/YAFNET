@@ -7,6 +7,7 @@
 using System;
 using System.Data;
 using ServiceStack.Data;
+using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite;
 

@@ -5,6 +5,8 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
+using ServiceStack.OrmLite.Base.Text;
+
 namespace ServiceStack.OrmLite;
 
 using System;
@@ -15,8 +17,6 @@ using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
-using ServiceStack.Text;
 
 /// <summary>
 /// Class UntypedApiExtensions.

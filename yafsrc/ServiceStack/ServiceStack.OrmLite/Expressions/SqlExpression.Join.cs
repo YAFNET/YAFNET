@@ -4,14 +4,15 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
+using ServiceStack.OrmLite.Base.Text;
+
 namespace ServiceStack.OrmLite;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-
-using ServiceStack.Text;
 
 /// <summary>
 /// Delegate JoinFormatDelegate

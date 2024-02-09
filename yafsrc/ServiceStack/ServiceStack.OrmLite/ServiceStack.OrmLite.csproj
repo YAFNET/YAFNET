@@ -17,15 +17,26 @@
   <ItemGroup>
     <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="8.0.0" />
     <PackageReference Include="System.Memory" Version="4.5.5" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System.Net" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
+	  <Reference Include="System.Configuration" />
+	  <Reference Include="System.Net" />
+	  <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ServiceStack.Lite\ServiceStack.Lite.csproj" />
+    <Folder Include="Base\Common\Templates\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Base\Common\MiniProfiler\Data\ProfiledCommand.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Base\Common\MiniProfiler\Data\ProfiledConnection.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

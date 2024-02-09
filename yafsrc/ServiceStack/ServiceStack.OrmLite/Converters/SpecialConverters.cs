@@ -11,14 +11,10 @@ using System.Data;
 using System.Reflection;
 using System.Runtime.Serialization;
 using ServiceStack.DataAnnotations;
-#if NETCORE
-using System.Globalization;
-#endif
+using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite.Converters
 {
-    using ServiceStack.Text;
-
     /// <summary>
     /// Enum EnumKind
     /// </summary>
@@ -285,7 +281,7 @@ namespace ServiceStack.OrmLite.Converters
                 }
                 catch (Exception)
                 {
-                    return Text.TypeSerializer.DeserializeFromString(strVal, fieldType);
+                    return TypeSerializer.DeserializeFromString(strVal, fieldType);
                 }
             }
 

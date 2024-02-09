@@ -38,10 +38,6 @@ public class OrmLiteContext
     [ThreadStatic]
     public static IDictionary ContextItems;
 
-#if NETCORE
-        readonly AsyncLocal<IDictionary> localContextItems = new();
-#endif
-
     /// <summary>
     /// Gets a list of items for this context.
     /// </summary>
@@ -63,10 +59,6 @@ public class OrmLiteContext
     /// <returns>IDictionary.</returns>
     private IDictionary GetItems()
     {
-#if NETCORE
-            return UseThreadStatic ? ContextItems : this.localContextItems.Value;
-
-#else
         try
         {
             if (UseThreadStatic)
@@ -81,7 +73,6 @@ public class OrmLiteContext
             // Fixed in Mono master: https://github.com/mono/mono/pull/817
             return CallContext.GetData(_key) as IDictionary;
         }
-#endif
     }
 
     /// <summary>
@@ -91,17 +82,6 @@ public class OrmLiteContext
     /// <returns>IDictionary.</returns>
     private IDictionary CreateItems(IDictionary items = null)
     {
-#if NETCORE
-            if (UseThreadStatic)
-            {
-                ContextItems = items ??= new Dictionary<object, object>();
-            }
-            else
-            {
-                this.localContextItems.Value = items ??= new ConcurrentDictionary<object, object>();
-            }
-
-#else                
         try
         {
             if (UseThreadStatic)
@@ -118,7 +98,6 @@ public class OrmLiteContext
             // Fixed in Mono master: https://github.com/mono/mono/pull/817
             CallContext.SetData(_key, items ??= new ConcurrentDictionary<object, object>());
         }
-#endif
         return items;
     }
 
@@ -133,11 +112,7 @@ public class OrmLiteContext
         }
         else
         {
-#if NETCORE
-                this.localContextItems.Value = new ConcurrentDictionary<object, object>();                
-#else                
             CallContext.FreeNamedDataSlot(_key);
-#endif
         }
     }
 

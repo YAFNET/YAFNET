@@ -5,6 +5,8 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
+using ServiceStack.OrmLite.Base.Text;
+
 namespace ServiceStack.OrmLite;
 
 using System;
@@ -18,7 +20,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using ServiceStack.Text;
 /// <summary>
 /// Class SqlExpression.
 /// Implements the <see cref="ServiceStack.OrmLite.ISqlExpression" />

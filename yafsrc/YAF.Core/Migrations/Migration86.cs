@@ -22,13 +22,13 @@
  * under the License.
  */
 
+using ServiceStack.OrmLite.Base.Text;
+
 namespace YAF.Core.Migrations;
 
 using ServiceStack.OrmLite;
 
 using System.Data;
-
-using ServiceStack.Text;
 
 using YAF.Core.Context;
 using YAF.Types.Interfaces;

@@ -13,8 +13,8 @@ using System.Linq;
 using ServiceStack.Data;
 using ServiceStack.DataAnnotations;
 using ServiceStack.Logging;
+using ServiceStack.OrmLite.Base.Text;
 using ServiceStack.OrmLite.Converters;
-using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite;
 

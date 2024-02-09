@@ -21,9 +21,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.Controls;
 
-using ServiceStack.Text;
+using ServiceStack.OrmLite.Base.Text;
+
+namespace YAF.Web.Controls;
 
 /// <summary>
 /// Makes a very simple localized label

@@ -4,9 +4,10 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-namespace ServiceStack.OrmLite.SqlServer;
 
-using ServiceStack.Text;
+using ServiceStack.OrmLite.Base.Text;
+
+namespace ServiceStack.OrmLite.SqlServer;
 
 using System;
 using System.Collections.Generic;

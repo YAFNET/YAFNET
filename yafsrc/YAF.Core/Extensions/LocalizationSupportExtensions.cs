@@ -21,11 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+using ServiceStack.OrmLite.Base.Text;
+
 namespace YAF.Core.Extensions;
 
 using System.Web.UI;
-
-using ServiceStack.Text;
 
 using YAF.Core.BaseControls;
 

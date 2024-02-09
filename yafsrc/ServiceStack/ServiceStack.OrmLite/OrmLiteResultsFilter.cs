@@ -12,9 +12,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace ServiceStack.OrmLite;
+using ServiceStack.OrmLite.Base.Text;
 
-using ServiceStack.Text;
+namespace ServiceStack.OrmLite;
 
 /// <summary>
 /// Interface IOrmLiteResultsFilter

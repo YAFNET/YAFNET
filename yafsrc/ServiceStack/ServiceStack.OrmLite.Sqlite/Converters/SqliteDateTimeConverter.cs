@@ -5,6 +5,8 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
+using ServiceStack.OrmLite.Base.Text.Common;
+
 namespace ServiceStack.OrmLite.Sqlite.Converters;
 
 using System;
@@ -12,7 +14,6 @@ using System.Data;
 using System.Globalization;
 
 using ServiceStack.OrmLite.Converters;
-using ServiceStack.Text.Common;
 
 /// <summary>
 /// Class SqliteNativeDateTimeConverter.
@@ -176,12 +177,7 @@ public class SqliteCoreDateTimeConverter : SqliteNativeDateTimeConverter
         switch (DateStyle)
         {
             case DateTimeKind.Utc:
-#if NETCORE
-                //.NET Core returns correct Local time but as Unspecified so change to Local and Convert to UTC
-                dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Local).ToUniversalTime();
-#else
                 dateTime = dateTime.ToUniversalTime();
-#endif
                 break;
             case DateTimeKind.Local when dateTime.Kind != DateTimeKind.Local:
                 dateTime = dateTime.Kind == DateTimeKind.Utc

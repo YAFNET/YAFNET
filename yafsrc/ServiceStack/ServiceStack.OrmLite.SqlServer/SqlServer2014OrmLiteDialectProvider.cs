@@ -4,13 +4,15 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
+using ServiceStack.OrmLite.Base.Text;
+
 namespace ServiceStack.OrmLite.SqlServer;
 
 using System;
 using System.Linq;
 
 using ServiceStack.DataAnnotations;
-using ServiceStack.Text;
 
 /// <summary>
 /// Class SqlServer2014OrmLiteDialectProvider.

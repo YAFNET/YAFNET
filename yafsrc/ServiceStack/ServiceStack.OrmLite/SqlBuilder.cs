@@ -5,9 +5,9 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-namespace ServiceStack.OrmLite;
+using ServiceStack.OrmLite.Base.Text;
 
-using ServiceStack.Text;
+namespace ServiceStack.OrmLite;
 
 using System;
 using System.Collections.Generic;
@@ -142,17 +142,10 @@ public class SqlBuilder
         public object CreateDynamicType()
         {
             var assemblyName = new AssemblyName { Name = "tmpAssembly" };
-#if NETCORE
-                var typeBuilder =
-                    AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run)
-                    .DefineDynamicModule("tmpModule")
-                    .DefineType("SqlBuilderDynamicParameters", TypeAttributes.Public | TypeAttributes.Class);
-#else
             var typeBuilder =
                 Thread.GetDomain().DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run)
                     .DefineDynamicModule("tmpModule")
                     .DefineType("SqlBuilderDynamicParameters", TypeAttributes.Public | TypeAttributes.Class);
-#endif
             var emptyCtor = typeBuilder.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, Type.EmptyTypes);
             var ctorIL = emptyCtor.GetILGenerator();
 
@@ -217,11 +210,7 @@ public class SqlBuilder
 
             ctorIL.Emit(OpCodes.Ret);
 
-#if NETCORE
-                var generetedType = typeBuilder.CreateTypeInfo().AsType();
-#else
             var generetedType = typeBuilder.CreateType();
-#endif
             var instance = Activator.CreateInstance(generetedType);
 
             //Using reflection for less property types. Not caching since it's a generated type.

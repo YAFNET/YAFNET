@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using ServiceStack.OrmLite.Base.Text;
+
 namespace YAF.Core.Services;
 
 using System;
@@ -29,7 +31,6 @@ using System.Dynamic;
 using System.Net;
 
 using ServiceStack;
-using ServiceStack.Text;
 
 /// <summary>
 /// LatestInformation service class

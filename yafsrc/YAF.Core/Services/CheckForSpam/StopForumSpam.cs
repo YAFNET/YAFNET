@@ -22,13 +22,13 @@
  * under the License.
  */
 
+using ServiceStack.OrmLite.Base.Text;
+
 namespace YAF.Core.Services.CheckForSpam;
 
 using System;
 using System.IO;
 using System.Net;
-
-using ServiceStack.Text;
 
 using YAF.Types.Interfaces.CheckForSpam;
 using YAF.Types.Objects;

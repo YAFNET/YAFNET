@@ -6,8 +6,9 @@
 // ***********************************************************************
 using System;
 using System.Data;
+
+using ServiceStack.OrmLite.Base.Text;
 using ServiceStack.OrmLite.SqlServer.Converters;
-using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite.SqlServer;
 

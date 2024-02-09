@@ -11,10 +11,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using ServiceStack.Logging;
+using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite;
-
-using ServiceStack.Text;
 
 /// <summary>
 /// Class OrmLiteResultsFilterExtensions.
