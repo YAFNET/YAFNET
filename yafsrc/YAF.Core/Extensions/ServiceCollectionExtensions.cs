@@ -119,6 +119,15 @@ public static class ServiceCollectionExtensionsExtensions
     /// <returns>IServiceCollection.</returns>
     public static IServiceCollection AddYafCore(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddRazorPages(options =>
+        {
+            options.Conventions.AddPageRoute("/SiteMap", "Sitemap.xml");
+        });
+
+        services.AddControllers();
+
+        services.AddSignalR();
+
         services.AddYafExtensions();
 
         services.AddYafIdentityOptions();

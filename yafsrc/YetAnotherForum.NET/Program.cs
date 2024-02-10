@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using YAF.Core.Context.Start;
-
 namespace YAF;
 
 using System.Threading.Tasks;

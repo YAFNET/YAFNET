@@ -22,15 +22,18 @@
  * under the License.
  */
 
+using Autofac;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using YAF.Core.Middleware;
+using YAF.Core.Context;
+using YAF.Core.Extensions;
 
-namespace YAF.Core.Context.Start;
+namespace YAF;
 
 /// <summary>
 /// The startup.
@@ -64,15 +67,6 @@ public class Startup : IHaveServiceLocator
     /// <param name="services">The services.</param>
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddRazorPages(options =>
-        {
-            options.Conventions.AddPageRoute("/SiteMap", "Sitemap.xml");
-        });
-
-        services.AddControllers();
-
-        services.AddSignalR();
-
         services.AddYafCore(this.Configuration);
     }
 
@@ -105,12 +99,6 @@ public class Startup : IHaveServiceLocator
         }
 
         app.RegisterAutofac();
-
-        app.UseAntiXssMiddleware();
-
-        app.UseStaticFiles();
-
-        app.UseSession();
 
         app.UseYafCore(this.ServiceLocator, env);
 

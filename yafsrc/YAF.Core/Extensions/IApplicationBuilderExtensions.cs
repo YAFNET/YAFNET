@@ -68,6 +68,12 @@ public static class IApplicationBuilderExtensions
     /// <param name="env">The env.</param>
     public static void UseYafCore(this IApplicationBuilder app, IServiceLocator serviceLocator, IWebHostEnvironment env)
     {
+        app.UseAntiXssMiddleware();
+
+        app.UseStaticFiles();
+
+        app.UseSession();
+
         if (serviceLocator.Get<BoardConfiguration>().UseHttpsRedirection)
         {
             app.UseHttpsRedirection();
