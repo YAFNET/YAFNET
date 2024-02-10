@@ -3,7 +3,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 <%@ Import Namespace="YAF.Core.Helpers" %>
-<%@ Import Namespace="ServiceStack.Text" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <div class="row">
@@ -411,7 +411,7 @@
                         <div class="dropdown-menu">
                         <YAF:ThemeButton runat="server"
                                          CommandName="resendEmail"
-                                         CommandArgument='<%# "{0};{1}".Fmt(this.Eval("Email"), this.Eval("Name")) %>'
+                                         CommandArgument='<%# "{0};{1}".FormatWith(this.Eval("Email"), this.Eval("Name")) %>'
                                          Icon="share"
                                          TextLocalizedTag="ADMIN_RESEND_EMAIL"
                                          Type="None"

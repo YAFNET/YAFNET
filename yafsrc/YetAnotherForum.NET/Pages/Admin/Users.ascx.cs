@@ -24,12 +24,9 @@
 
 namespace YAF.Pages.Admin;
 
-using System.IO;
 using System.Xml.Serialization;
 
 using YAF.Types.Models;
-
-using StringExtensions = ServiceStack.Text.StringExtensions;
 
 /// <summary>
 /// Admin Members Page.
@@ -139,23 +136,13 @@ public partial class Users : AdminPage
     }
 
     /// <summary>
-    /// Export all Users as CSV
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void ExportUsersCsvClick(object sender, EventArgs e)
-    {
-        this.ExportAllUsers("csv");
-    }
-
-    /// <summary>
     /// Export all Users as XML
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void ExportUsersXmlClick(object sender, EventArgs e)
     {
-        this.ExportAllUsers("xml");
+        this.ExportAllUsers();
     }
 
     /// <summary>
@@ -418,45 +405,11 @@ public partial class Users : AdminPage
     /// <summary>
     /// Export All Users
     /// </summary>
-    /// <param name="type">
-    /// The export format type.
-    /// </param>
-    private void ExportAllUsers(string type)
+    private void ExportAllUsers()
     {
         var usersList = this.GetRepository<User>().GetByBoardId(this.PageBoardContext.PageBoardID);
 
-        switch (type)
-        {
-            case "xml":
-                this.ExportAsXml(usersList);
-                break;
-            case "csv":
-                this.ExportAsCsv(usersList);
-                break;
-        }
-    }
-
-    /// <summary>
-    /// Export As CSV
-    /// </summary>
-    /// <param name="usersList">
-    /// The users list.
-    /// </param>
-    private void ExportAsCsv(IList<User> usersList)
-    {
-        this.Get<HttpResponseBase>().ContentType = "application/vnd.csv";
-
-        this.Get<HttpResponseBase>().AppendHeader(
-            "Content-Disposition",
-            $"attachment; filename=YafUsersExport-{HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))}.csv");
-
-        var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
-
-        sw.Write(StringExtensions.ToCsv(usersList));
-        sw.Close();
-
-        this.Get<HttpResponseBase>().Flush();
-        this.Get<HttpResponseBase>().End();
+        this.ExportAsXml(usersList);
     }
 
     /// <summary>

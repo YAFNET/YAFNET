@@ -5,7 +5,6 @@
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
-<%@ Import Namespace="ServiceStack.Text" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="row">
@@ -87,7 +86,7 @@
             <ItemTemplate>
                 <li class="list-group-item list-group-item-action list-group-item-menu">
                     <div class="d-flex w-100 justify-content-between text-break"
-                         onclick="javascript:document.querySelector('<%# ".btn-toggle-{0}".Fmt(((PagedEventLog)Container.DataItem).ID) %>').click();">
+                         onclick="javascript:document.querySelector('<%# ".btn-toggle-{0}".FormatWith(((PagedEventLog)Container.DataItem).ID) %>').click();">
                         <h5 class="mb-1">
                             <%# this.EventIcon((PagedEventLog)Container.DataItem) %>
                             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
@@ -103,7 +102,7 @@
                         </small>
                     </div>
                     <p class="mb-1"
-                       onclick="javascript:document.querySelector('<%# ".btn-toggle-{0}".Fmt(((PagedEventLog)Container.DataItem).ID) %>').click();">
+                       onclick="javascript:document.querySelector('<%# ".btn-toggle-{0}".FormatWith(((PagedEventLog)Container.DataItem).ID) %>').click();">
                         <asp:Label runat="server" Visible="<%# ((PagedEventLog)Container.DataItem).UserID != 0 %>" CssClass="fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
                                                 LocalizedTag="NAME"
@@ -119,8 +118,8 @@
                                              TextLocalizedTag="SHOW" TextLocalizedPage="ADMIN_EVENTLOG"
                                              Icon="caret-square-down"
                                              DataToggle="collapse"
-                                             CssClass='<%# "btn-toggle-{0}".Fmt(((PagedEventLog)Container.DataItem).ID) %>'
-                                             DataTarget='<%# "eventDetails{0}".Fmt(((PagedEventLog)Container.DataItem).ID) %>'>
+                                             CssClass='<%# "btn-toggle-{0}".FormatWith(((PagedEventLog)Container.DataItem).ID) %>'
+                                             DataTarget='<%# "eventDetails{0}".FormatWith(((PagedEventLog)Container.DataItem).ID) %>'>
                             </YAF:ThemeButton>
                             <YAF:ThemeButton runat="server"
                                              Type="Danger"
@@ -141,7 +140,7 @@
                                          Icon="trash"
                                          TextLocalizedTag="DELETE">
                         </YAF:ThemeButton>
-                        <a class="dropdown-item" role="button" onclick="<%# "copyToClipBoard($('#eventDetails{0} code').text())".Fmt(((PagedEventLog)Container.DataItem).ID) %>">
+                        <a class="dropdown-item" role="button" onclick="<%# "copyToClipBoard($('#eventDetails{0} code').text())".FormatWith(((PagedEventLog)Container.DataItem).ID) %>">
                             <YAF:Icon runat="server" IconName="clipboard"></YAF:Icon>
                             <YAF:LocalizedLabel runat="server" LocalizedTag="COPY_TO_CLIPBOARD"></YAF:LocalizedLabel>
                         </a>

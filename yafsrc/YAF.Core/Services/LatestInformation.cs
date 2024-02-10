@@ -30,8 +30,6 @@ using System;
 using System.Dynamic;
 using System.Net;
 
-using ServiceStack;
-
 /// <summary>
 /// LatestInformation service class
 /// </summary>

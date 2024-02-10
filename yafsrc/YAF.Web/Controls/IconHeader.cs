@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using ServiceStack.OrmLite.Base.Text;
-
 namespace YAF.Web.Controls;
 
 /// <summary>
@@ -111,7 +109,7 @@ public class IconHeader : BaseControl, ILocalizationSupport
         }
         else
         {
-            var header = this.GetText(this.LocalizedPage, this.LocalizedTag).Fmt(this.Param0, this.Param1, this.Param2);
+            var header = this.GetText(this.LocalizedPage, this.LocalizedTag).FormatWith(this.Param0, this.Param1, this.Param2);
 
             writer.Write(header);
         }

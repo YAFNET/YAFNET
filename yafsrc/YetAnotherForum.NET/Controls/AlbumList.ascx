@@ -6,7 +6,6 @@
 <%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Configuration" %>
-<%@ Import Namespace="ServiceStack.Text" %>
 <%@ Import Namespace="YAF.Core.Context.Start" %>
 
 <section class="text-center container">
@@ -47,7 +46,7 @@
                         <a href='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Album, new { u =  this.Eval("UserID"), a = this.Eval("ID") }) %>'
                            target="_parent" title='<%# this.HtmlEncode(this.Eval("Title"))%>' data-bs-toggle="tooltip">
                             <asp:Image runat="server" ID="coverImage"
-                                       ImageUrl='<%# "{0}resource.ashx?album={1}&cover={2}".Fmt(BoardInfo.ForumClientFileRoot, this.Eval("ID"), this.Eval("CoverImageID").ToType<int?>().HasValue ? this.Eval("CoverImageID") : "0") %>'
+                                       ImageUrl='<%# "{0}resource.ashx?album={1}&cover={2}".FormatWith(BoardInfo.ForumClientFileRoot, this.Eval("ID"), this.Eval("CoverImageID").ToType<int?>().HasValue ? this.Eval("CoverImageID") : "0") %>'
                                        ToolTip='<%# this.HtmlEncode(this.Eval("Title")) %>'
                                        AlternateText='<%# this.Eval("ID") %>'
                                        CssClass="card-img-top"/>
@@ -65,7 +64,7 @@
                                     <YAF:Icon runat="server" IconName="pen" IconType="text-secondary"/>
                                     <a class="album-caption border-bottom border-danger border-3" data-type="text" 
                                        data-id='<%# this.Eval("ID") %>' 
-                                       data-url='<%# "{0}{1}/Album/ChangeAlbumTitle".Fmt(BoardInfo.ForumClientFileRoot, WebApiConfig.UrlPrefix) %>'
+                                       data-url='<%# "{0}{1}/Album/ChangeAlbumTitle".FormatWith(BoardInfo.ForumClientFileRoot, WebApiConfig.UrlPrefix) %>'
                                        data-title='<%#  this.GetText("ALBUM_CHANGE_TITLE") %>'><%# this.Eval("Title").IsNullOrEmptyField() ? this.GetText("ALBUM_CHANGE_TITLE") : this.HtmlEncode(this.Eval("Title"))%></a>
                                 </asp:Label>
                             </p>

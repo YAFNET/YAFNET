@@ -26,6 +26,7 @@ namespace YAF.Types.Extensions;
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 /// <summary>
@@ -354,5 +355,69 @@ public static class StringExtensions
         var bytes = new byte[16];
         BitConverter.GetBytes(value.ToType<int>()).CopyTo(bytes, 0);
         return new Guid(bytes);
+    }
+
+    /// <summary>
+    /// Formats text with arguments.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="args">The arguments.</param>
+    /// <returns>string.</returns>
+    public static string FormatWith(this string text, params object[] args)
+    {
+        return string.Format(text, args);
+    }
+
+    /// <summary>
+    /// Starts the with ignore case.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="startsWith">The starts with.</param>
+    /// <returns>bool.</returns>
+    public static bool StartsWithIgnoreCase(this string text, string startsWith)
+    {
+        return text != null
+               && text.StartsWith(startsWith, StringComparison.OrdinalIgnoreCase);
+    }
+
+    /// <summary>
+    /// The slashes
+    /// </summary>
+    private readonly static char[] Slashes = ['/', '\\'];
+
+    /// <summary>
+    /// Trims the end if.
+    /// </summary>
+    /// <param name="path">The path.</param>
+    /// <param name="chars">The chars.</param>
+    /// <returns>System.String.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)] //only trim/allocate if need to
+    private static string TrimEndIf(this string path, char[] chars)
+    {
+        if (string.IsNullOrEmpty(path) || chars == null || chars.Length == 0)
+        {
+            return path;
+        }
+
+        var lastChar = path[path.Length - 1];
+        return chars.Exists(c => c == lastChar) ? path.TrimEnd(chars) : path;
+    }
+
+    /// <summary>
+    /// Combines path with other path.
+    /// </summary>
+    /// <param name="path">The path.</param>
+    /// <param name="otherPath">The other path.</param>
+    /// <returns>System.String.</returns>
+    public static string CombineWith(this string path, string otherPath)
+    {
+        path ??= "";
+        if (string.IsNullOrEmpty(otherPath))
+        {
+            return path;
+        }
+
+        var startPath = path.TrimEndIf(Slashes);
+        return startPath + (otherPath[0] == '/' ? otherPath : "/" + otherPath);
     }
 }

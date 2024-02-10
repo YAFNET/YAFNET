@@ -176,16 +176,6 @@
     </div>
 </div>
 
-<asp:Label id="lblExportType" runat="server"></asp:Label>
-<div class="form-check form-check-inline">
-    <asp:RadioButtonList runat="server" id="ExportType" 
-                         RepeatLayout="UnorderedList"
-                         CssClass="list-unstyled">
-        <asp:ListItem Text="XML" Selected="True" Value="xml"></asp:ListItem>
-        <asp:ListItem Text="CSV" Value="csv"></asp:ListItem>
-    </asp:RadioButtonList>
-</div>
-
 <YAF:Alert runat="server" ID="NoMessage" Type="info">
     <YAF:Icon runat="server" 
               IconName="info-circle" />

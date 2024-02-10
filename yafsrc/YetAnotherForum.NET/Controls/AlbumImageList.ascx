@@ -5,7 +5,6 @@
 <%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Configuration" %>
-<%@ Import Namespace="ServiceStack.Text" %>
 <%@ Import Namespace="YAF.Core.Context.Start" %>
 
 
@@ -23,10 +22,10 @@
              <ItemTemplate>
                   <div class="col">
                       <div class="card mb-4 shadow-sm">
-                          <a href='<%# "{0}resource.ashx?image={1}".Fmt(BoardInfo.ForumClientFileRoot, this.Eval("ID")) %>'
-                             title='<%#  "{0} - Album IMG Code: [ALBUMIMG]{1}[/ALBUMIMG]".Fmt(this.HtmlEncode(this.Eval("Caption") == null ? this.Eval("FileName") : this.Eval("Caption")), this.UserAlbum.ID) %>'
+                          <a href='<%# "{0}resource.ashx?image={1}".FormatWith(BoardInfo.ForumClientFileRoot, this.Eval("ID")) %>'
+                             title='<%#  "{0} - Album IMG Code: [ALBUMIMG]{1}[/ALBUMIMG]".FormatWith(this.HtmlEncode(this.Eval("Caption") == null ? this.Eval("FileName") : this.Eval("Caption")), this.UserAlbum.ID) %>'
                              data-toggle="lightbox" data-gallery='<%# this.UserAlbum.ID %>' data-caption='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption")).Trim()%>'>
-                              <img src='<%# "{0}resource.ashx?imgprv={1}".Fmt(BoardInfo.ForumClientFileRoot, this.Eval("ID")) %>'
+                              <img src='<%# "{0}resource.ashx?imgprv={1}".FormatWith(BoardInfo.ForumClientFileRoot, this.Eval("ID")) %>'
                                    class="card-img-top"
                                    alt='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>'
                                    title='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>' />
@@ -43,7 +42,7 @@
                                   <YAF:Icon runat="server" IconName="pen" IconType="text-secondary"/>
                                   <a class="album-image-caption border-bottom border-danger border-3" data-type="text" 
                                      data-id='<%# this.Eval("ID") %>' 
-                                     data-url='<%# "{0}{1}/Album/ChangeImageCaption".Fmt(BoardInfo.ForumClientFileRoot, WebApiConfig.UrlPrefix) %>'
+                                     data-url='<%# "{0}{1}/Album/ChangeImageCaption".FormatWith(BoardInfo.ForumClientFileRoot, WebApiConfig.UrlPrefix) %>'
                                      data-title='<%#  this.GetText(this.Eval("Caption") == null ? "ALBUM_IMAGE_CHANGE_CAPTION" : "ALBUM_IMAGE_CHANGE_CAPTION2") %>'><%# this.Eval("Caption").IsNullOrEmptyField() ? this.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : this.HtmlEncode(this.Eval("Caption"))%></a>
                               </asp:Label>
                               <div class="d-flex justify-content-between align-items-center mt-1">

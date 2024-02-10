@@ -177,24 +177,6 @@ namespace YAF.Controls
         protected global::YAF.Web.Controls.Pager PagerTop;
 
         /// <summary>
-        /// lblExportType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblExportType;
-
-        /// <summary>
-        /// ExportType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList ExportType;
-
-        /// <summary>
         /// NoMessage control.
         /// </summary>
         /// <remarks>

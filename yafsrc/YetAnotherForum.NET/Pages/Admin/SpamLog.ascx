@@ -6,7 +6,6 @@
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
-<%@ Import Namespace="ServiceStack.Text" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -81,7 +80,7 @@
             <ItemTemplate>
                 <li class="list-group-item list-group-item-action list-group-item-menu">
                     <div class="d-flex w-100 justify-content-between text-break"
-                         onclick="javascript:document.querySelector('<%# ".btn-toggle-{0}".Fmt(((PagedEventLog)Container.DataItem).ID) %>').click();">
+                         onclick="javascript:document.querySelector('<%# ".btn-toggle-{0}".FormatWith(((PagedEventLog)Container.DataItem).ID) %>').click();">
                         <h5 class="mb-1">
                             <asp:HiddenField ID="EventTypeID" Value="<%# ((PagedEventLog)Container.DataItem).Type%>" runat="server"/>
                             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
@@ -97,7 +96,7 @@
                         </small>
                     </div>
                     <p class="mb-1"
-                       onclick="javascript:document.querySelector('<%# ".btn-toggle-{0}".Fmt(((PagedEventLog)Container.DataItem).ID) %>').click();">
+                       onclick="javascript:document.querySelector('<%# ".btn-toggle-{0}".FormatWith(((PagedEventLog)Container.DataItem).ID) %>').click();">
                         <span class="fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_EVENTLOG" />:
                         </span>
@@ -110,9 +109,9 @@
                                              Size="Small"
                                              TextLocalizedTag="SHOW" TextLocalizedPage="ADMIN_EVENTLOG"
                                              Icon="caret-square-down"
-                                             CssClass='<%# "btn-toggle-{0}".Fmt(((PagedEventLog)Container.DataItem).ID) %>'
+                                             CssClass='<%# "btn-toggle-{0}".FormatWith(((PagedEventLog)Container.DataItem).ID) %>'
                                              DataToggle="collapse"
-                                             DataTarget='<%# "eventDetails{0}".Fmt(((PagedEventLog)Container.DataItem).ID) %>'>
+                                             DataTarget='<%# "eventDetails{0}".FormatWith(((PagedEventLog)Container.DataItem).ID) %>'>
                             </YAF:ThemeButton>
                             <YAF:ThemeButton runat="server"
                                              Type="Danger"

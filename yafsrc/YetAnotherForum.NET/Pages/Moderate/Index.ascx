@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Moderate.Index" Codebehind="Index.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
-<%@ Import Namespace="ServiceStack.Text" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
@@ -28,7 +28,7 @@
                                 <div class="list-group list-group-flush small">
                                     <div class="list-group-item list-group-item-action">
                                         <h5 class="fw-bold">
-                                            <%# "{0}{1}".Fmt(((ModerateForum)Container.DataItem).ParentID.HasValue ? "--" : "-", ((ModerateForum)Container.DataItem).Name) %>
+                                            <%# "{0}{1}".FormatWith(((ModerateForum)Container.DataItem).ParentID.HasValue ? "--" : "-", ((ModerateForum)Container.DataItem).Name) %>
                                         </h5>
                                         <YAF:ThemeButton ID="ViewUnapprovedPostsBtn" runat="server" 
                                                          CommandName="viewunapprovedposts" 

@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Restore" CodeBehind="Restore.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Core.Services" %>
-<%@ Import Namespace="ServiceStack.Text" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -78,7 +78,7 @@
                                                      NavigateUrl="<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = ((PagedTopic)Container.DataItem).TopicID, name = ((PagedTopic)Container.DataItem).Subject }) %>">
                                 </YAF:ThemeButton>
                                 </h5>
-                                <small><%# "{0} {1}".Fmt(((PagedTopic)Container.DataItem).NumPosts, this.GetText("POSTS")) %></small>
+                                <small><%# "{0} {1}".FormatWith(((PagedTopic)Container.DataItem).NumPosts, this.GetText("POSTS")) %></small>
                             </div>
                             <p class="mb-1">
 

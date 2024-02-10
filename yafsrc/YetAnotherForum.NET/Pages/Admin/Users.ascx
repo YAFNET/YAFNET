@@ -332,14 +332,6 @@
                                      TextLocalizedTag="EXPORT_XML"
                                      TextLocalizedPage="ADMIN_USERS">
                     </YAF:ThemeButton>
-                    <YAF:ThemeButton id="ExportUsersCsv" runat="server"
-                                     CssClass="mt-1"
-                                     OnClick="ExportUsersCsvClick"
-                                     Type="Warning"
-                                     Icon="download"
-                                     TextLocalizedTag="EXPORT_CSV"
-                                     TextLocalizedPage="ADMIN_USERS">
-                    </YAF:ThemeButton>
                 </div>
             </div>
         </div>

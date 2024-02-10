@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Topics" Codebehind="Topics.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
-<%@ Import Namespace="ServiceStack.Text" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="../controls/ForumList.ascx" %>
 
 
@@ -21,7 +21,7 @@
                         </div>
                         <div class="col-auto">
                             <YAF:CollapseButton ID="CollapsibleImage" runat="server"
-                                                PanelID='<%# "forumPanel{0}".Fmt(this.PageBoardContext.PageForumID) %>'
+                                                PanelID='<%# "forumPanel{0}".FormatWith(this.PageBoardContext.PageForumID) %>'
                                                 AttachedControlID="body" 
                                                 CssClass="ps-0" />
                         </div>

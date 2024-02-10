@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using ServiceStack.OrmLite.Base.Text;
-
 namespace YAF.Web.Controls;
 
 /// <summary>
@@ -109,7 +107,7 @@ public class HelpLabel : BaseControl, ILocalizationSupport
     {
         writer.BeginRender();
 
-        var text = this.GetText(this.LocalizedPage, this.LocalizedTag).Fmt(this.Param0, this.Param1, this.Param2);
+        var text = this.GetText(this.LocalizedPage, this.LocalizedTag).FormatWith(this.Param0, this.Param1, this.Param2);
 
         if (text.IsSet() && text.EndsWith(":"))
         {
@@ -141,7 +139,7 @@ public class HelpLabel : BaseControl, ILocalizationSupport
             label.Controls.Add(new Literal { Text = this.Suffix });
         }
 
-        var tooltip = this.GetText(this.LocalizedPage, this.LocalizedHelpTag).Fmt(
+        var tooltip = this.GetText(this.LocalizedPage, this.LocalizedHelpTag).FormatWith(
             this.ParamHelp0,
             this.ParamHelp1,
             this.ParamHelp2);

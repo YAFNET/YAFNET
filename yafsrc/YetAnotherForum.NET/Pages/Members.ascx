@@ -3,7 +3,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
-<%@ Import Namespace="ServiceStack.Text" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -207,7 +207,7 @@
                                         </li>
                                         <li class="list-inline-item">
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="POSTS" LocalizedPage="ADMIN_USERS" />:</strong>
-                                            <%# "{0:N0}".Fmt(((PagedUser)Container.DataItem).NumPosts) %>
+                                            <%# "{0:N0}".FormatWith(((PagedUser)Container.DataItem).NumPosts) %>
                                         </li>
                                         <li class="list-inline-item">
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" />:</strong>

@@ -25,10 +25,7 @@
 namespace YAF.Controls;
 
 using System.ComponentModel;
-using System.IO;
 using System.Xml.Linq;
-
-using ServiceStack.Text;
 
 using YAF.Types.Models;
 
@@ -159,15 +156,7 @@ public partial class PMList : BaseUserControl
             return;
         }
 
-        switch (this.ExportType.SelectedItem.Value)
-        {
-            case "xml":
-                this.ExportXmlFile(messageList);
-                break;
-            case "csv":
-                this.ExportCsvFile(messageList);
-                break;
-        }
+        this.ExportXmlFile(messageList);
     }
 
     /// <summary>
@@ -195,15 +184,7 @@ public partial class PMList : BaseUserControl
 
         var messageList = this.GetMessagesForExport(exportPmIds);
 
-        switch (this.ExportType.SelectedItem.Value)
-        {
-            case "xml":
-                this.ExportXmlFile(messageList);
-                break;
-            case "csv":
-                this.ExportCsvFile(messageList);
-                break;
-        }
+        this.ExportXmlFile(messageList);
 
         this.BindData();
     }
@@ -293,8 +274,6 @@ public partial class PMList : BaseUserControl
             // make sure addLoadMessage is empty...
             this.PageBoardContext.LoadMessage.Clear();
         }
-
-        this.lblExportType.Text = this.GetText("EXPORTFORMAT");
 
         this.PageSize.DataSource = StaticDataHelper.PageEntries();
         this.PageSize.DataTextField = "Name";
@@ -446,9 +425,6 @@ public partial class PMList : BaseUserControl
 
         if (messages.Count > 0)
         {
-            this.lblExportType.Visible = true;
-            this.ExportType.Visible = true;
-
             this.NoMessage.Visible = false;
 
             this.Sort.Visible = true;
@@ -456,9 +432,6 @@ public partial class PMList : BaseUserControl
         }
         else
         {
-            this.lblExportType.Visible = false;
-            this.ExportType.Visible = false;
-
             this.NoMessage.Visible = true;
 
             this.Sort.Visible = false;
@@ -476,42 +449,6 @@ public partial class PMList : BaseUserControl
     {
         this.Get<IDataCache>()
             .Remove(string.Format(Constants.Cache.ActiveUserLazyData, this.PageBoardContext.PageUserID));
-    }
-
-    /// <summary>
-    /// Export the Private Messages in message List as CSV File
-    /// </summary>
-    /// <param name="messageList">
-    /// DataView that Contains the Private Messages
-    /// </param>
-    private void ExportCsvFile(IEnumerable<PagedPm> messageList)
-    {
-        this.Get<HttpResponseBase>().Clear();
-        this.Get<HttpResponseBase>().ClearContent();
-        this.Get<HttpResponseBase>().ClearHeaders();
-
-        this.Get<HttpResponseBase>().ContentType = "application/vnd.csv";
-        this.Get<HttpResponseBase>().AppendHeader(
-            "content-disposition",
-            $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.PageBoardContext.PageUser.DisplayOrUserName()}-{DateTime.Now:yyyy'-'MM'-'dd'-'HHmm}.csv")}");
-
-        var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
-
-        var list = messageList.Select(
-            message => new {
-                                   message.FromUser,
-                                   message.ToUser,
-                                   message.Created,
-                                   message.Subject,
-                                   message.Body,
-                                   MessageID = message.PMessageID
-                               });
-
-        sw.Write(list.ToCsv());
-        sw.Close();
-
-        this.Get<HttpResponseBase>().Flush();
-        this.Get<HttpResponseBase>().End();
     }
 
     /// <summary>

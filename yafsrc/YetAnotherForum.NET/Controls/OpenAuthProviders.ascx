@@ -1,7 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OpenAuthProviders.ascx.cs" Inherits="YAF.Controls.OpenAuthProviders" %>
-
-<%@ Import Namespace="ServiceStack.Text" %>
-
+<%@ Import Namespace="YAF.Types.Extensions" %>
 
 <asp:Panel ID="SocialLoginList" runat="server">
     <hr />
@@ -15,7 +13,7 @@
                     <YAF:ThemeButton runat="server" ID="Login" 
                                      Type="None"
                                      Size="Small"
-                                     CssClass='<%#: "btn btn-social btn-{0} me-1 mb-1".Fmt(Item.ToLower()) %>'
+                                     CssClass='<%#: "btn btn-social btn-{0} me-1 mb-1".FormatWith(Item.ToLower()) %>'
                                      Icon="<%#: Item.ToLower() %>"
                                      IconCssClass="fab"
                                      CausesValidation="False" 

@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using ServiceStack.OrmLite.Base.Text;
-
 namespace YAF.Core.Extensions;
 
 using System.Web.UI;
@@ -81,6 +79,6 @@ public static class LocalizationSupportExtensions
             localizedItem = currentControl.Get<IBBCode>().MakeHtml(localizedItem, true, true);
         }
 
-        return localizedItem.Fmt(supportedItem.Param0, supportedItem.Param1, supportedItem.Param2);
+        return localizedItem.FormatWith(supportedItem.Param0, supportedItem.Param1, supportedItem.Param2);
     }
 }

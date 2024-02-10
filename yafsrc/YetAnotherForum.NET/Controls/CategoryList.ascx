@@ -2,8 +2,8 @@
     CodeBehind="CategoryList.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
-<%@ Import Namespace="ServiceStack.Text" %>
 <%@ Import Namespace="YAF.Core.Services" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="ForumList.ascx" %>
 
@@ -26,7 +26,7 @@
                                         </div>
                                         <div class="col-auto">
                                             <YAF:CollapseButton ID="CollapsibleImage" runat="server"
-                                                                PanelID='<%# "categoryPanel{0}".Fmt(((ForumRead)Container.DataItem).CategoryID) %>'
+                                                                PanelID='<%# "categoryPanel{0}".FormatWith(((ForumRead)Container.DataItem).CategoryID) %>'
                                                                 AttachedControlID="body"
                                                                 CssClass="ps-0" />
                                         </div>

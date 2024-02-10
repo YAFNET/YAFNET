@@ -5,7 +5,6 @@
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
-<%@ Import Namespace="ServiceStack.Text" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -45,7 +44,7 @@
                                          <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" 
                                                              LocalizedPage="POSTMESSAGE"
                                                              LocalizedTag="EDITEREASON" />: <%# (Container.DataItem as MessageHistoryTopic).Edited != (Container.DataItem as MessageHistoryTopic).Posted  ? (Container.DataItem as MessageHistoryTopic).EditReason.IsNotSet() ? this.GetText("EDIT_REASON_NA") : (Container.DataItem as MessageHistoryTopic).EditReason: this.GetText("ORIGINALMESSAGE") %>
-                                         <%# Container.ItemIndex.Equals(this.RevisionsCount-1) ? "({0})".Fmt(this.GetText("MESSAGEHISTORY", "CURRENTMESSAGE")) : string.Empty %>
+                                         <%# Container.ItemIndex.Equals(this.RevisionsCount-1) ? "({0})".FormatWith(this.GetText("MESSAGEHISTORY", "CURRENTMESSAGE")) : string.Empty %>
                                      </h5>
                                      <small class="d-none d-md-block">
                                          <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 

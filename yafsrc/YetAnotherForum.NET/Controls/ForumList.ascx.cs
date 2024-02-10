@@ -67,7 +67,7 @@ public partial class ForumList : BaseUserControl
     /// </returns>
     public string GetForumLink(ForumRead item)
     {
-        var forumID = item.ForumID;
+        var forumId = item.ForumID;
 
         // get the Forum Description
         var output = item.Forum;
@@ -80,7 +80,7 @@ public partial class ForumList : BaseUserControl
 
             output = item.RemoteURL.IsSet()
                          ? $"<a href=\"{item.RemoteURL}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" target=\"_blank\">{this.Page.HtmlEncode(output)}&nbsp;<i class=\"fas fa-external-link-alt fa-fw\"></i></a>"
-                         : $"<a href=\"{this.Get<LinkBuilder>().GetForumLink(forumID, output)}\" data-bs-toggle=\"tooltip\" title=\"{title}\">{this.Page.HtmlEncode(output)}</a>";
+                         : $"<a href=\"{this.Get<LinkBuilder>().GetForumLink(forumId, output)}\" data-bs-toggle=\"tooltip\" title=\"{title}\">{this.Page.HtmlEncode(output)}</a>";
         }
         else
         {
