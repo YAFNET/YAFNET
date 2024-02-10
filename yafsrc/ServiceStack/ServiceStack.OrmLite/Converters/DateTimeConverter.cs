@@ -9,7 +9,7 @@ using System;
 using System.Data;
 using System.Globalization;
 
-using ServiceStack.Text.Common;
+using ServiceStack.OrmLite.Base.Text.Common;
 
 namespace ServiceStack.OrmLite.Converters;
 

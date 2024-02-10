@@ -12,7 +12,7 @@ using System.Data;
 using System.Linq;
 
 using ServiceStack.Data;
-using ServiceStack.Text;
+using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite;
 

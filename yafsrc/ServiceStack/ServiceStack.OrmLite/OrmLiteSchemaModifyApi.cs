@@ -8,14 +8,14 @@
 using ServiceStack.DataAnnotations;
 using System.Linq;
 
+using ServiceStack.OrmLite.Base.Text;
+
 namespace ServiceStack.OrmLite;
 
 using System;
 using System.Data;
 using System.Linq.Expressions;
 using System.Text;
-
-using ServiceStack.Text;
 
 /// <summary>
 /// Enum OnFkOption

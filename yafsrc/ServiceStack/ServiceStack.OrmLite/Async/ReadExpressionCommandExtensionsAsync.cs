@@ -15,7 +15,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using ServiceStack.Text;
+
+using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite
 {

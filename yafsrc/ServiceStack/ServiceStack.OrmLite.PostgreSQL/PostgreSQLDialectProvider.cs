@@ -7,6 +7,8 @@
 
 using System.Data.Common;
 
+using ServiceStack.OrmLite.Base.Text;
+
 namespace ServiceStack.OrmLite.PostgreSQL;
 
 using System;
@@ -25,7 +27,6 @@ using Npgsql;
 using NpgsqlTypes;
 
 using ServiceStack.OrmLite.PostgreSQL.Converters;
-using ServiceStack.Text;
 
 /// <summary>
 /// Class PostgreSqlDialectProvider.

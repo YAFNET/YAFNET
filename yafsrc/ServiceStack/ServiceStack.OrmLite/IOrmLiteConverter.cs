@@ -4,13 +4,15 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
+using ServiceStack.OrmLite.Base.Text;
+
 namespace ServiceStack.OrmLite;
 
 using System;
 using System.Data;
 
 using ServiceStack.Logging;
-using ServiceStack.Text;
 
 /// <summary>
 /// Interface IOrmLiteConverter

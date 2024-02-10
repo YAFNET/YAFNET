@@ -13,11 +13,10 @@ using System.Reflection;
 using System.Runtime.Serialization;
 
 using ServiceStack.DataAnnotations;
+using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite.Converters
 {
-    using ServiceStack.Text;
-
     /// <summary>
     /// Enum EnumKind
     /// </summary>
@@ -283,7 +282,7 @@ namespace ServiceStack.OrmLite.Converters
 
                 return Enum.TryParse(fieldType, strVal, ignoreCase: true, out var ret)
                            ? ret
-                           : Text.TypeSerializer.DeserializeFromString(strVal, fieldType);
+                           : TypeSerializer.DeserializeFromString(strVal, fieldType);
             }
 
             return Enum.ToObject(fieldType, value);
@@ -315,7 +314,7 @@ namespace ServiceStack.OrmLite.Converters
         /// <param name="fieldType">Type of the field.</param>
         /// <param name="value">The value.</param>
         /// <returns>System.Object.</returns>
-        /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Rowversion property must be declared as either byte[] or ulong</exception>
+        /// <exception cref="DiagnosticEvent.Exception">Rowversion property must be declared as either byte[] or ulong</exception>
         /// <exception cref="System.Exception">Rowversion property must be declared as either byte[] or ulong</exception>
         public override object FromDbValue(Type fieldType, object value)
         {

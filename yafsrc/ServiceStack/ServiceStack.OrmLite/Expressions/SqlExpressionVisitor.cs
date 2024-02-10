@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 
+using ServiceStack.OrmLite.Base.Text;
+
 namespace ServiceStack.OrmLite;
 
 //http://blogs.msdn.com/b/mattwar/archive/2007/07/31/linq-building-an-iqueryable-provider-part-ii.aspx
@@ -22,7 +24,7 @@ public abstract class SqlExpressionVisitor
     /// </summary>
     /// <param name="exp">The exp.</param>
     /// <returns>Expression.</returns>
-    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Unhandled expression type: '{exp.NodeType}'</exception>
+    /// <exception cref="DiagnosticEvent.Exception">Unhandled expression type: '{exp.NodeType}'</exception>
     /// <exception cref="System.Exception">Unhandled expression type: '{exp.NodeType}'</exception>
     protected virtual Expression Visit(Expression exp)
     {
@@ -101,7 +103,7 @@ public abstract class SqlExpressionVisitor
     /// </summary>
     /// <param name="binding">The binding.</param>
     /// <returns>MemberBinding.</returns>
-    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Unhandled binding type '{binding.BindingType}'</exception>
+    /// <exception cref="DiagnosticEvent.Exception">Unhandled binding type '{binding.BindingType}'</exception>
     /// <exception cref="System.Exception">Unhandled binding type '{binding.BindingType}'</exception>
     protected virtual MemberBinding VisitBinding(MemberBinding binding)
     {

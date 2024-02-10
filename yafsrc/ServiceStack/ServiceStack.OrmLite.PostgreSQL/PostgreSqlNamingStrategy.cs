@@ -5,9 +5,9 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-namespace ServiceStack.OrmLite.PostgreSQL;
+using ServiceStack.OrmLite.Base.Text;
 
-using ServiceStack.Text;
+namespace ServiceStack.OrmLite.PostgreSQL;
 
 /// <summary>
 /// Class PostgreSqlNamingStrategy.

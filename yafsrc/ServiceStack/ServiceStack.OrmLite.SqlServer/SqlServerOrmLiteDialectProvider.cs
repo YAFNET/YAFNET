@@ -19,8 +19,8 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using ServiceStack.DataAnnotations;
+using ServiceStack.OrmLite.Base.Text;
 using ServiceStack.OrmLite.SqlServer.Converters;
-using ServiceStack.Text;
 
 
 namespace ServiceStack.OrmLite.SqlServer

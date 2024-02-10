@@ -27,7 +27,12 @@
   </ItemGroup>
 	
 	<ItemGroup>
-	  <ProjectReference Include="..\ServiceStack.Lite\ServiceStack.Lite.Core.csproj" />
+	  <Compile Update="Base\Common\MiniProfiler\Data\ProfiledCommand.cs">
+	    <SubType>Component</SubType>
+	  </Compile>
+	  <Compile Update="Base\Common\MiniProfiler\Data\ProfiledConnection.cs">
+	    <SubType>Component</SubType>
+	  </Compile>
 	</ItemGroup>
 
 </Project>

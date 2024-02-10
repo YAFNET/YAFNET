@@ -1,17 +1,10 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <Version>8.0.1</Version>
+    <Version>4.0.0</Version>
     <Authors>ServiceStack</Authors>
     <Company>ServiceStack, Inc.</Company>
-    <Copyright>&#169; 2008-2023 ServiceStack, Inc</Copyright>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageProjectUrl>https://github.com/ServiceStack/ServiceStack</PackageProjectUrl>
-    <PackageLicenseUrl>https://servicestack.net/terms</PackageLicenseUrl>
-    <PackageIconUrl>https://servicestack.net/img/logo-128.png</PackageIconUrl>
-    <PackageReleaseNotes>https://docs.servicestack.net/release-notes-history</PackageReleaseNotes>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/ServiceStack/ServiceStack.git</RepositoryUrl>
+    <Copyright>&#169; 2008-2024 ServiceStack, Inc</Copyright>
     <DebugType>embedded</DebugType>
     <LangVersion>latest</LangVersion>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

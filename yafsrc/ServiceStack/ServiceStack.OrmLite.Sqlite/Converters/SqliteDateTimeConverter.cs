@@ -5,6 +5,9 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
+using ServiceStack.OrmLite.Base.Text;
+using ServiceStack.OrmLite.Base.Text.Common;
+
 namespace ServiceStack.OrmLite.Sqlite.Converters;
 
 using System;
@@ -12,7 +15,6 @@ using System.Data;
 using System.Globalization;
 
 using ServiceStack.OrmLite.Converters;
-using ServiceStack.Text.Common;
 
 /// <summary>
 /// Class SqliteNativeDateTimeConverter.
@@ -96,7 +98,7 @@ public class SqliteNativeDateTimeConverter : DateTimeConverter
     /// <param name="columnIndex">Index of the column.</param>
     /// <param name="values">The values.</param>
     /// <returns>System.Object.</returns>
-    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Converting from {value.GetType().Name} to DateTime is not supported</exception>
+    /// <exception cref="DiagnosticEvent.Exception">Converting from {value.GetType().Name} to DateTime is not supported</exception>
     /// <exception cref="System.Exception">Converting from {value.GetType().Name} to DateTime is not supported</exception>
     public override object GetValue(IDataReader reader, int columnIndex, object[] values)
     {

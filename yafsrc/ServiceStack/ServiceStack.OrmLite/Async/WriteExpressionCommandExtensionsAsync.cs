@@ -12,10 +12,10 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
+using ServiceStack.OrmLite.Base.Text;
+
 namespace ServiceStack.OrmLite
 {
-    using ServiceStack.Text;
-
     /// <summary>
     /// Class WriteExpressionCommandExtensionsAsync.
     /// </summary>

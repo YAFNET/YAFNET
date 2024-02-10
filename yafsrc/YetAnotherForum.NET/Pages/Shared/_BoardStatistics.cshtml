@@ -52,7 +52,7 @@
                             <li class="list-group-item">
                                 <label>
                                     @Html.LocalizedText("DEFAULT", "LASTPOST")
-                                    @Html.DisplayDateTime(DateTimeFormat.BothTopic, postsStatistics.LastPost.Value))
+                                    @Html.DisplayDateTime(DateTimeFormat.BothTopic, postsStatistics.LastPost.Value)
                                     @Html.LocalizedText("SEARCH", "BY"):
                                 </label>
                                 @Html.UserLink(postsStatistics.LastUserID.Value, Current.BoardSettings.EnableDisplayName

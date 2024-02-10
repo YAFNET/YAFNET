@@ -5,6 +5,8 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
+using ServiceStack.OrmLite.Base.Text;
+
 namespace ServiceStack.OrmLite.Sqlite;
 
 using System;
@@ -19,7 +21,6 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using ServiceStack.OrmLite.Sqlite.Converters;
-using ServiceStack.Text;
 
 /// <summary>
 /// Class SqliteOrmLiteDialectProviderBase.

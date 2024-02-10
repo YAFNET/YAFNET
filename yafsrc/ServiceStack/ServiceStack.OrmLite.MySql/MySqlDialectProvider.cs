@@ -8,6 +8,8 @@
 using System.IO;
 using System.Linq;
 
+using ServiceStack.OrmLite.Base.Text;
+
 namespace ServiceStack.OrmLite.MySql;
 
 using System;
@@ -17,7 +19,6 @@ using System.Data;
 using global::MySql.Data.MySqlClient;
 
 using ServiceStack.OrmLite.MySql.Converters;
-using ServiceStack.Text;
 
 /// <summary>
 /// Class MySqlDialectProvider.

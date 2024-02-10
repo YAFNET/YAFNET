@@ -12,9 +12,9 @@ using ServiceStack.DataAnnotations;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
-namespace ServiceStack.OrmLite;
+using ServiceStack.OrmLite.Base.Text;
 
-using ServiceStack.Text;
+namespace ServiceStack.OrmLite;
 
 /// <summary>
 /// Class ModelDefinition.

@@ -15,7 +15,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Text.RegularExpressions;
 using ServiceStack.Logging;
-using ServiceStack.Text;
+using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite;
 
@@ -415,7 +415,7 @@ public static class OrmLiteUtils
     /// <param name="onlyFields">The only fields.</param>
     /// <param name="genericArgs">The generic arguments.</param>
     /// <returns>System.Collections.Generic.List&lt;System.Tuple&lt;ServiceStack.OrmLite.FieldDefinition, int, ServiceStack.OrmLite.IOrmLiteConverter&gt;[]&gt;.</returns>
-    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">'{modelType.Name}' is not a table type</exception>
+    /// <exception cref="DiagnosticEvent.Exception">'{modelType.Name}' is not a table type</exception>
     static internal List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]> GetMultiIndexCaches(
         this IDataReader reader,
         IOrmLiteDialectProvider dialectProvider,
@@ -1350,7 +1350,7 @@ public static class OrmLiteUtils
     /// <param name="parents">The parents.</param>
     /// <param name="children">The children.</param>
     /// <returns>System.Collections.Generic.List&lt;Parent&gt;.</returns>
-    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Could not find Child Reference for '{typeof(Child).Name}' on Parent '{typeof(Parent).Name}'</exception>
+    /// <exception cref="DiagnosticEvent.Exception">Could not find Child Reference for '{typeof(Child).Name}' on Parent '{typeof(Parent).Name}'</exception>
     public static List<Parent> Merge<Parent, Child>(this List<Parent> parents, List<Child> children)
     {
         var modelDef = ModelDefinition<Parent>.Definition;

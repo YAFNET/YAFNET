@@ -6,9 +6,9 @@
 // ***********************************************************************
 using System.Collections.Generic;
 
-namespace ServiceStack.OrmLite;
+using ServiceStack.OrmLite.Base.Text;
 
-using ServiceStack.Text;
+namespace ServiceStack.OrmLite;
 
 /// <summary>
 /// Class OrmLiteDefaultNamingStrategy.
