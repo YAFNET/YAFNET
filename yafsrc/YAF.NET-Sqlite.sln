@@ -60,8 +60,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStack.Lite", "ServiceStack\ServiceStack.Lite\ServiceStack.Lite.csproj", "{AA001480-3713-4927-8650-ED1E16AFB791}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YAF.Data.Sqlite", "YAF.Data\YAF.Data.Sqlite\YAF.Data.Sqlite.csproj", "{BDF8CC7B-3BF1-4161-A2BE-A81C4EEF0F8C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStack.OrmLite.Sqlite", "ServiceStack\ServiceStack.OrmLite.Sqlite\ServiceStack.OrmLite.Sqlite.csproj", "{221A4E2A-68C7-452D-BB10-49F5CE6E328A}"

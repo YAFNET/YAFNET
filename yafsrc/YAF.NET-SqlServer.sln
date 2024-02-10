@@ -66,8 +66,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStack.Lite", "ServiceStack\ServiceStack.Lite\ServiceStack.Lite.csproj", "{AA001480-3713-4927-8650-ED1E16AFB791}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YAF.Data.SqlServer", "YAF.Data\YAF.Data.SqlServer\YAF.Data.SqlServer.csproj", "{7C82AFFA-FB8A-4227-BC7F-0697F7ED58F6}"
 EndProject
 Global
