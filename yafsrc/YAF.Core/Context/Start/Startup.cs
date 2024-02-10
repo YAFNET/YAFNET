@@ -22,19 +22,15 @@
  * under the License.
  */
 
-namespace YAF;
-
-using Autofac;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using YAF.Core.Context;
-using YAF.Core.Extensions;
 using YAF.Core.Middleware;
+
+namespace YAF.Core.Context.Start;
 
 /// <summary>
 /// The startup.
