@@ -2979,6 +2979,10 @@
     <Content Include="YetAnotherForum.NET.snk" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ServiceStack\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj">
+      <Project>{815938d4-c2d4-44be-b801-ef4a7299f578}</Project>
+      <Name>ServiceStack.OrmLite</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj">
       <Project>{ef89e4df-d79f-4e83-a703-3be176f9428e}</Project>
       <Name>YAF.Configuration</Name>
