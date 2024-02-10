@@ -57,11 +57,6 @@ public class HtmlDirectionHelper : TagHelper, IHaveServiceLocator
     /// </param>
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
-        if (BoardContext.Current.CurrentForumPage is null)
-        {
-            return;
-        }
-
         if (this.Get<ILocalization>().Culture.TextInfo.IsRightToLeft)
         {
             output.Attributes.SetAttribute("dir", "rtl");
