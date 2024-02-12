@@ -85,7 +85,7 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
                 Constants.Cache.ReplaceWords,
                 () =>
                     {
-                        var replaceWords = this.GetRepository<Replace_Words>().GetByBoardId();
+                        var replaceWords = this.GetRepository<ReplaceWords>().GetByBoardId();
 
                         // move to collection...
                         return replaceWords.Select(

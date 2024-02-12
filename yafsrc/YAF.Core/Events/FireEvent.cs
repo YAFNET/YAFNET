@@ -38,7 +38,7 @@ public class FireEvent<T> : IFireEvent<T>
     /// <summary>
     /// Handle the event with this delegate
     /// </summary>
-    public event EventHandler<EventConverterArgs<T>> HandleEvent;
+    public event EventHandler<ConverterEventArgs<T>> HandleEvent;
 
     /// <summary>
     ///   Gets Order.
@@ -53,6 +53,6 @@ public class FireEvent<T> : IFireEvent<T>
     /// </param>
     public void Handle(T @event)
     {
-        this.HandleEvent?.Invoke(this, new EventConverterArgs<T>(@event));
+        this.HandleEvent?.Invoke(this, new ConverterEventArgs<T>(@event));
     }
 }

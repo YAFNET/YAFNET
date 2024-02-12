@@ -120,7 +120,7 @@ public class MySqlDbInformation : IDbInformation, IHaveServiceLocator
             dbCommand.Connection.Database,
             dbCommand.Connection.GetTableName<Group>());
 
-        dbCommand.Connection.CreateView<vaccess_group>(vaccessGroupSelect);
+        dbCommand.Connection.CreateView<VaccessGroup>(vaccessGroupSelect);
 
         var vaccessNullSelect = new StringBuilder();
 
@@ -143,7 +143,7 @@ public class MySqlDbInformation : IDbInformation, IHaveServiceLocator
 
         vaccessNullSelect.AppendFormat(" {0}.{1} AS a", dbCommand.Connection.Database, dbCommand.Connection.GetTableName<User>());
 
-        dbCommand.Connection.CreateView<vaccess_null>(vaccessNullSelect);
+        dbCommand.Connection.CreateView<VaccessNull>(vaccessNullSelect);
 
         var vaccessUserSelect = new StringBuilder();
 
@@ -173,7 +173,7 @@ public class MySqlDbInformation : IDbInformation, IHaveServiceLocator
             dbCommand.Connection.Database,
             dbCommand.Connection.GetTableName<AccessMask>());
 
-        dbCommand.Connection.CreateView<vaccess_user>(vaccessUserSelect);
+        dbCommand.Connection.CreateView<VaccessUser>(vaccessUserSelect);
 
         var vaccessFullSelect = new StringBuilder();
 

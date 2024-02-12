@@ -85,8 +85,8 @@ public class SpamWordCheck : ISpamWordCheck, IHaveServiceLocator
                 Constants.Cache.SpamWords,
                 () =>
                     {
-                        var spamWords = this.GetRepository<Spam_Words>().Get(
-                            x => x.BoardID == this.GetRepository<Spam_Words>().BoardID);
+                        var spamWords = this.GetRepository<SpamWords>().Get(
+                            x => x.BoardID == this.GetRepository<SpamWords>().BoardID);
 
                         // move to collection...
                         return

@@ -114,7 +114,7 @@ public class SpamWordsController : ForumBaseController
             return this.RedirectToPage(ForumPages.Admin_SpamWords.GetPageName());
         }
 
-        this.GetRepository<Spam_Words>().Save(
+        this.GetRepository<SpamWords>().Save(
             model.Id,
             model.SpamWord);
 

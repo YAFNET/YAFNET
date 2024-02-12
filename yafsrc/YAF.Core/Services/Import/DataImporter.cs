@@ -329,7 +329,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     /// <returns>Returns the Number of Imported Items.</returns>
     public int SpamWordsImport(int boardId, Stream inputStream)
     {
-        var repository = this.GetRepository<Spam_Words>();
+        var repository = this.GetRepository<SpamWords>();
 
         // import spam words...
         var spamWords = new DataSet();
@@ -342,7 +342,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
         var spamWordsList = repository.Get(x => x.BoardID == boardId);
 
-        var imports = new List<Spam_Words>();
+        var imports = new List<SpamWords>();
 
         // import any extensions that don't exist...
         spamWords.Tables["YafSpamWords"].Rows.Cast<DataRow>()
@@ -350,7 +350,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
                 row =>
                     {
                         // add this...
-                        imports.Add(new Spam_Words { BoardID = boardId, SpamWord = row["SpamWord"].ToString() });
+                        imports.Add(new SpamWords { BoardID = boardId, SpamWord = row["SpamWord"].ToString() });
                     });
 
         repository.BulkInsert(imports);

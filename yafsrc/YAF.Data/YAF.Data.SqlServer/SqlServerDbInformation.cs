@@ -119,7 +119,7 @@ public class SqlServerDbInformation : IDbInformation, IHaveServiceLocator
             this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<Group>());
 
-        dbCommand.Connection.CreateView<vaccess_group>(vaccessGroupSelect);
+        dbCommand.Connection.CreateView<VaccessGroup>(vaccessGroupSelect);
 
         var vaccessNullSelect = new StringBuilder();
 
@@ -147,7 +147,7 @@ public class SqlServerDbInformation : IDbInformation, IHaveServiceLocator
             this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<User>());
 
-        dbCommand.Connection.CreateView<vaccess_null>(vaccessNullSelect);
+        dbCommand.Connection.CreateView<VaccessNull>(vaccessNullSelect);
 
         var vaccessUserSelect = new StringBuilder();
 
@@ -179,7 +179,7 @@ public class SqlServerDbInformation : IDbInformation, IHaveServiceLocator
             this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<AccessMask>());
 
-        dbCommand.Connection.CreateView<vaccess_user>(vaccessUserSelect);
+        dbCommand.Connection.CreateView<VaccessUser>(vaccessUserSelect);
 
         var vaccessFullSelect = new StringBuilder();
 
@@ -207,7 +207,7 @@ public class SqlServerDbInformation : IDbInformation, IHaveServiceLocator
         vaccessFullSelect.AppendFormat(
             "[{0}].[{1}] b",
             this.Get<BoardConfiguration>().DatabaseOwner,
-            dbCommand.Connection.GetTableName<vaccess_user>());
+            dbCommand.Connection.GetTableName<VaccessUser>());
 
         vaccessFullSelect.Append(" union all select ");
 
@@ -219,7 +219,7 @@ public class SqlServerDbInformation : IDbInformation, IHaveServiceLocator
         vaccessFullSelect.AppendFormat(
             "[{0}].[{1}] b",
             this.Get<BoardConfiguration>().DatabaseOwner,
-            dbCommand.Connection.GetTableName<vaccess_group>());
+            dbCommand.Connection.GetTableName<VaccessGroup>());
 
         vaccessFullSelect.Append(" union all select ");
 
@@ -231,7 +231,7 @@ public class SqlServerDbInformation : IDbInformation, IHaveServiceLocator
         vaccessFullSelect.AppendFormat(
             "[{0}].[{1}] b",
             this.Get<BoardConfiguration>().DatabaseOwner,
-            dbCommand.Connection.GetTableName<vaccess_null>());
+            dbCommand.Connection.GetTableName<VaccessNull>());
 
         vaccessFullSelect.Append(" ) access GROUP BY UserID,ForumID");
 
@@ -309,9 +309,9 @@ public class SqlServerDbInformation : IDbInformation, IHaveServiceLocator
                         [GroupID] ASC
                         """;
 
-        dbCommand.Connection.CreateViewIndex<vaccess_user>("UserForum_PK", selectSql);
-        dbCommand.Connection.CreateViewIndex<vaccess_null>("UserForum_PK", selectSql);
-        dbCommand.Connection.CreateViewIndex<vaccess_group>("UserForum_PK", selectSql);
+        dbCommand.Connection.CreateViewIndex<VaccessUser>("UserForum_PK", selectSql);
+        dbCommand.Connection.CreateViewIndex<VaccessNull>("UserForum_PK", selectSql);
+        dbCommand.Connection.CreateViewIndex<VaccessGroup>("UserForum_PK", selectSql);
 
         return true;
     }

@@ -30,7 +30,9 @@ namespace YAF.Types.Models;
 ///     A class which represents the yaf_vaccess_null views.
 /// </summary>
 [Serializable]
-public class vaccess_null : IEntity
+
+[Alias("vaccess_null")]
+public class VaccessNull : IEntity
 {
     /// <summary>
     /// Gets or sets the user identifier.

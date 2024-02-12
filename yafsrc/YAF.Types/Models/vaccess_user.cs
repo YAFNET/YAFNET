@@ -27,12 +27,13 @@ using ServiceStack.DataAnnotations;
 namespace YAF.Types.Models;
 
 /// <summary>
-/// Class vaccess_user.
+/// A class which represents the yaf_vaccess_user views.
 /// Implements the <see cref="YAF.Types.Interfaces.Data.IEntity" />
 /// </summary>
 /// <seealso cref="YAF.Types.Interfaces.Data.IEntity" />
 [Serializable]
-public class vaccess_user : IEntity
+[Alias("vaccess_user")]
+public class VaccessUser : IEntity
 {
     /// <summary>
     /// Gets or sets the user identifier.

@@ -49,7 +49,7 @@ public class SpamWordsModel : AdminPage
     /// Gets or sets the list.
     /// </summary>
     /// <value>The list.</value>
-    [BindProperty] public List<Spam_Words> List { get; set; }
+    [BindProperty] public List<SpamWords> List { get; set; }
 
     /// <summary>
     /// Gets or sets the search input.
@@ -107,7 +107,7 @@ public class SpamWordsModel : AdminPage
     public async Task<IActionResult> OnPostExportAsync()
     {
         var spamWordList =
-            await this.GetRepository<Spam_Words>().GetByBoardIdAsync();
+            await this.GetRepository<SpamWords>().GetByBoardIdAsync();
 
         const string fileName = "SpamWordsExport.xml";
 
@@ -159,7 +159,7 @@ public class SpamWordsModel : AdminPage
     public PartialViewResult OnGetEdit(int id)
     {
         // Edit
-        var spamWord = this.GetRepository<Spam_Words>().GetById(id);
+        var spamWord = this.GetRepository<SpamWords>().GetById(id);
 
         return new PartialViewResult {
             ViewName = "Dialogs/SpamWordsEdit",
@@ -179,18 +179,18 @@ public class SpamWordsModel : AdminPage
     {
         var searchText = this.SearchInput;
 
-        List<Spam_Words> bannedList;
+        List<SpamWords> bannedList;
 
         if (searchText.IsSet())
         {
-            bannedList = this.GetRepository<Spam_Words>().GetPaged(
+            bannedList = this.GetRepository<SpamWords>().GetPaged(
                 x => x.BoardID == this.PageBoardContext.PageBoardID && x.SpamWord == searchText,
                 this.PageBoardContext.PageIndex,
                 this.Size);
         }
         else
         {
-            bannedList = this.GetRepository<Spam_Words>().GetPaged(
+            bannedList = this.GetRepository<SpamWords>().GetPaged(
                 x => x.BoardID == this.PageBoardContext.PageBoardID,
                 this.PageBoardContext.PageIndex,
                 this.Size);
@@ -205,7 +205,7 @@ public class SpamWordsModel : AdminPage
     /// <param name="id">The identifier.</param>
     public async Task OnPostDeleteAsync(int id)
     {
-        await this.GetRepository<Spam_Words>().DeleteByIdAsync(id);
+        await this.GetRepository<SpamWords>().DeleteByIdAsync(id);
 
         this.Get<IObjectStore>().Remove(Constants.Cache.SpamWords);
 

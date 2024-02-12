@@ -76,7 +76,7 @@ public class ReplaceWordsController : ForumBaseController
             {
                 var importedCount = 0;
 
-                var replaceWordsList = this.GetRepository<Replace_Words>().GetByBoardId();
+                var replaceWordsList = this.GetRepository<ReplaceWords>().GetByBoardId();
 
                 // import any extensions that don't exist...
                 replaceWords.Tables["YafReplaceWords"].Rows.Cast<DataRow>().ForEach(
@@ -90,7 +90,7 @@ public class ReplaceWordsController : ForumBaseController
                         }
 
                         // add this...
-                        this.GetRepository<Replace_Words>().Save(
+                        this.GetRepository<ReplaceWords>().Save(
                             null,
                             row["badword"].ToString(),
                             row["goodword"].ToString());
@@ -144,7 +144,7 @@ public class ReplaceWordsController : ForumBaseController
                  this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_REGEX_BAD"),
                 MessageTypes.warning));        }
 
-        this.GetRepository<Replace_Words>()
+        this.GetRepository<ReplaceWords>()
             .Save(
                 model.Id,
                 model.BadWord,

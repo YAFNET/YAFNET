@@ -47,7 +47,7 @@ public class ReplaceWordsModel : AdminPage
     /// </summary>
     /// <value>The list.</value>
     [BindProperty]
-    public IList<Replace_Words> List { get; set; }
+    public IList<ReplaceWords> List { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ReplaceWordsModel"/> class.
@@ -80,7 +80,7 @@ public class ReplaceWordsModel : AdminPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostExportAsync()
     {
-        var spamWordList = await this.GetRepository<Replace_Words>().GetByBoardIdAsync();
+        var spamWordList = await this.GetRepository<ReplaceWords>().GetByBoardIdAsync();
 
         const string fileName = "ReplaceWordsExport.xml";
 
@@ -106,7 +106,7 @@ public class ReplaceWordsModel : AdminPage
     /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OnPostDeleteAsync(int id)
     {
-        await this.GetRepository<Replace_Words>().DeleteByIdAsync(id);
+        await this.GetRepository<ReplaceWords>().DeleteByIdAsync(id);
         this.Get<IObjectStore>().Remove(Constants.Cache.ReplaceWords);
         await this.BindDataAsync();
     }
@@ -148,7 +148,7 @@ public class ReplaceWordsModel : AdminPage
     public PartialViewResult OnGetEdit(int id)
     {
         // Edit
-        var replaceWord = this.GetRepository<Replace_Words>().GetById(id);
+        var replaceWord = this.GetRepository<ReplaceWords>().GetById(id);
 
         return new PartialViewResult {
                                          ViewName = "Dialogs/ReplaceWordsEdit",
@@ -167,6 +167,6 @@ public class ReplaceWordsModel : AdminPage
     /// </summary>
     private async Task BindDataAsync()
     {
-        this.List = await this.GetRepository<Replace_Words>().GetByBoardIdAsync();
+        this.List = await this.GetRepository<ReplaceWords>().GetByBoardIdAsync();
     }
 }

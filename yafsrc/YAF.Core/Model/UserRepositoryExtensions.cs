@@ -1462,11 +1462,11 @@ public static class UserRepositoryExtensions
                     var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
                     expression2
-                        .Join<vaccess_group>((usr, access) => access.UserID == usr.ID)
-                        .Join<vaccess_group, Forum>((access, f) => f.ID == access.ForumID)
+                        .Join<VaccessGroup>((usr, access) => access.UserID == usr.ID)
+                        .Join<VaccessGroup, Forum>((access, f) => f.ID == access.ForumID)
                         .Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
-                        .Where<vaccess_group, User>((x, u) => x.ModeratorAccess > 0 && u.BoardID == repository.BoardID)
-                        .Select<User, vaccess_group, Forum, Category>(
+                        .Where<VaccessGroup, User>((x, u) => x.ModeratorAccess > 0 && u.BoardID == repository.BoardID)
+                        .Select<User, VaccessGroup, Forum, Category>(
                             (usr, access, f, c) => new
                                                        {
                                                            CategoryID = c.ID,

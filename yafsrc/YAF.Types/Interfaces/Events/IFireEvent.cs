@@ -35,5 +35,5 @@ public interface IFireEvent<T> : IHandleEvent<T>
     /// <summary>
     ///     The handle event.
     /// </summary>
-    event EventHandler<EventConverterArgs<T>> HandleEvent;
+    event EventHandler<ConverterEventArgs<T>> HandleEvent;
 }

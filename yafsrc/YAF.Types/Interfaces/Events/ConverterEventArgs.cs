@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2024 Ingo Herbote
@@ -22,34 +22,29 @@
  * under the License.
  */
 
-namespace YAF.Core.Model;
-
-using YAF.Types.Models;
+namespace YAF.Types.Interfaces.Events;
 
 /// <summary>
-///     The spam words repository extensions.
+/// The event converter args.
 /// </summary>
-public static class SpamWordsRepositoryExtensions
+/// <typeparam name="T">
+/// The type parameter
+/// </typeparam>
+public class ConverterEventArgs<T> : EventArgs
 {
     /// <summary>
-    /// Saves changes to a word.
+    /// Initializes a new instance of the <see cref="ConverterEventArgs{T}"/> class.
     /// </summary>
-    /// <param name="repository">The repository.</param>
-    /// <param name="spamWordId">The spam word identifier.</param>
-    /// <param name="spamWord">The spam word.</param>
-    /// <param name="boardId">The board identifier.</param>
-    public static void Save(
-        this IRepository<SpamWords> repository,
-        int? spamWordId,
-        string spamWord,
-        int? boardId = null)
+    /// <param name="eventData">
+    /// The event data.
+    /// </param>
+    public ConverterEventArgs(T eventData)
     {
-        repository.Upsert(
-            new SpamWords
-                {
-                    BoardID = boardId ?? repository.BoardID,
-                    ID = spamWordId ?? 0,
-                    SpamWord = spamWord
-                });
+        this.EventData = eventData;
     }
+
+    /// <summary>
+    ///   Gets or sets EventData.
+    /// </summary>
+    public T EventData { get; set; }
 }

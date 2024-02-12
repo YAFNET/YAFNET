@@ -98,7 +98,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
 
                 UpgradeTable(this.GetRepository<AccessMask>(), dbCommand);
 
-                UpgradeTable(this.GetRepository<Replace_Words>(), dbCommand);
+                UpgradeTable(this.GetRepository<ReplaceWords>(), dbCommand);
 
                 UpgradeTable(this.GetRepository<Registry>(), dbCommand);
 
@@ -707,23 +707,23 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    private static void UpgradeTable(IRepository<Replace_Words> repository, IDbCommand dbCommand)
+    private static void UpgradeTable(IRepository<ReplaceWords> repository, IDbCommand dbCommand)
     {
         ArgumentNullException.ThrowIfNull(repository);
 
-        if (dbCommand.Connection.ColumnMaxLength<Replace_Words>(x => x.BadWord) < 255)
+        if (dbCommand.Connection.ColumnMaxLength<ReplaceWords>(x => x.BadWord) < 255)
         {
-            dbCommand.Connection.AlterColumn<Replace_Words>(x => x.BadWord);
+            dbCommand.Connection.AlterColumn<ReplaceWords>(x => x.BadWord);
         }
 
-        if (dbCommand.Connection.ColumnMaxLength<Replace_Words>(x => x.GoodWord) < 255)
+        if (dbCommand.Connection.ColumnMaxLength<ReplaceWords>(x => x.GoodWord) < 255)
         {
-            dbCommand.Connection.AlterColumn<Replace_Words>(x => x.GoodWord);
+            dbCommand.Connection.AlterColumn<ReplaceWords>(x => x.GoodWord);
         }
 
-        if (!dbCommand.Connection.ColumnExists<Replace_Words>(x => x.BoardID))
+        if (!dbCommand.Connection.ColumnExists<ReplaceWords>(x => x.BoardID))
         {
-            dbCommand.Connection.AddColumn<Replace_Words>(x => x.BoardID);
+            dbCommand.Connection.AddColumn<ReplaceWords>(x => x.BoardID);
         }
     }
 
@@ -1505,9 +1505,9 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
     /// <param name="dbCommand">The database command.</param>
     private static void DropIndexViews(IDbCommand dbCommand)
     {
-        dbCommand.Connection.DropViewIndex<vaccess_user>("UserForum_PK");
-        dbCommand.Connection.DropViewIndex<vaccess_null>("UserForum_PK");
-        dbCommand.Connection.DropViewIndex<vaccess_group>("UserForum_PK");
+        dbCommand.Connection.DropViewIndex<VaccessUser>("UserForum_PK");
+        dbCommand.Connection.DropViewIndex<VaccessNull>("UserForum_PK");
+        dbCommand.Connection.DropViewIndex<VaccessGroup>("UserForum_PK");
     }
 
     /// <summary>
@@ -1518,9 +1518,9 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
     {
         dbCommand.Connection.DropView<VAccess>();
         dbCommand.Connection.DropView<VAccessFull>();
-        dbCommand.Connection.DropView<vaccess_group>();
-        dbCommand.Connection.DropView<vaccess_null>();
-        dbCommand.Connection.DropView<vaccess_user>();
+        dbCommand.Connection.DropView<VaccessGroup>();
+        dbCommand.Connection.DropView<VaccessNull>();
+        dbCommand.Connection.DropView<VaccessUser>();
     }
 
     /// <summary>

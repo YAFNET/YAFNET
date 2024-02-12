@@ -161,38 +161,6 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         return workingMessage;
     }
 
-    /*
-    /// <summary>
-    /// Converts a message containing BBCode to HTML appropriate for editing in a rich text editor.
-    /// </summary>
-    /// <remarks>
-    /// BBCode quotes are not converted to HTML.  "[quote]...[/quote]" will remain in the string
-    ///   returned, as to appear in plain text in rich text editors.
-    /// </remarks>
-    /// <param name="message">
-    /// String containing the body of the message to convert
-    /// </param>
-    /// <returns>
-    /// The converted text
-    /// </returns>
-    [Obsolete]
-    public string ConvertBBCodeToHtmlForEdit(string message)
-    {
-        // get the rules engine from the creator...
-        var ruleEngine = this.ProcessReplaceRulesFactory(
-            new[] { false, true, this.Get<BoardSettings>().UseNoFollowLinks, true });
-
-        if (!ruleEngine.HasRules)
-        {
-            // NOTE : Do not convert BBQuotes, BBCodes and Custom BBCodes to HTML when editing -- "[quote]...[/quote]", and [code]..[/code] will remain in plaintext in the rich text editor
-            this.CreateBBCodeRules(ruleEngine, true, this.Get<BoardSettings>().UseNoFollowLinks, false, true);
-        }
-
-        ruleEngine.Process(ref message);
-
-        return message;
-    }*/
-
     /// <summary>
     /// Converts a message containing HTML to YAF BBCode for editing in a rich BBCode editor.
     /// </summary>
@@ -810,8 +778,6 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 "^[-][-][-][-][-]*[\r]?[\n]",
                 "<hr />",
                 RegexOptions.IgnoreCase | RegexOptions.Multiline);
-
-            //ruleEngine.AddRule(new SingleRegexReplaceRule(@"\[br\]", "</p>", Options));
 
             // Multiline, since ^ must match beginning of line
             var breakRule = new SingleRegexReplaceRule(

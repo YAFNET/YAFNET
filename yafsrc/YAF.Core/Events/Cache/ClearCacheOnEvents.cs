@@ -41,8 +41,8 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
                                   IHandleEvent<RepositoryEvent<User>>,
                                   IHandleEvent<RepositoryEvent<BannedIP>>,
                                   IHandleEvent<RepositoryEvent<BannedUserAgent>>,
-                                  IHandleEvent<RepositoryEvent<Replace_Words>>,
-                                  IHandleEvent<RepositoryEvent<Spam_Words>>,
+                                  IHandleEvent<RepositoryEvent<ReplaceWords>>,
+                                  IHandleEvent<RepositoryEvent<SpamWords>>,
                                   IHandleEvent<RepositoryEvent<AccessMask>>,
                                   IHandleEvent<RepositoryEvent<BBCode>>,
                                   IHandleEvent<RepositoryEvent<Group>>,
@@ -177,7 +177,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// <param name="event">
     /// The event.
     /// </param>
-    public void Handle(RepositoryEvent<Replace_Words> @event)
+    public void Handle(RepositoryEvent<ReplaceWords> @event)
     {
         this.DataCache.Remove(Constants.Cache.ReplaceWords);
     }
@@ -188,7 +188,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// <param name="event">
     /// The event.
     /// </param>
-    public void Handle(RepositoryEvent<Spam_Words> @event)
+    public void Handle(RepositoryEvent<SpamWords> @event)
     {
         this.DataCache.Remove(Constants.Cache.SpamWords);
     }

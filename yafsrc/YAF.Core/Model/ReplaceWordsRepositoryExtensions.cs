@@ -40,14 +40,14 @@ public static class ReplaceWordsRepositoryExtensions
     /// <param name="goodWord">The good word.</param>
     /// <param name="boardId">The board identifier.</param>
     public static void Save(
-        this IRepository<Replace_Words> repository,
+        this IRepository<ReplaceWords> repository,
         int? replaceWordId,
         string badWord,
         string goodWord,
         int? boardId = null)
     {
         repository.Upsert(
-            new Replace_Words
+            new ReplaceWords
                 {
                     BoardID = boardId ?? repository.BoardID,
                     ID = replaceWordId ?? 0,

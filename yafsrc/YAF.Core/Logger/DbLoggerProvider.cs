@@ -48,10 +48,10 @@ public class DbLoggerProvider : ILoggerProvider, ISupportExternalScope
     /// <summary>
     /// Sets the scope provider.
     /// </summary>
-    /// <param name="provider">The provider.</param>
-    void ISupportExternalScope.SetScopeProvider(IExternalScopeProvider provider)
+    /// <param name="scopeProvider">The provider.</param>
+    void ISupportExternalScope.SetScopeProvider(IExternalScopeProvider scopeProvider)
     {
-        this.scopeProvider = provider;
+        this.scopeProvider = scopeProvider;
     }
 
     /// <summary>

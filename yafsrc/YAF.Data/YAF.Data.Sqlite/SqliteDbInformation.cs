@@ -109,7 +109,7 @@ public class SqliteDbInformation : IDbInformation, IHaveServiceLocator
         vaccessGroupSelect.Append(
             $" INNER JOIN {dbCommand.Connection.GetTableName<Group>()} AS e on e.GroupID=b.GroupID");
 
-        dbCommand.Connection.CreateView<vaccess_group>(vaccessGroupSelect);
+        dbCommand.Connection.CreateView<VaccessGroup>(vaccessGroupSelect);
 
         var vaccessNullSelect = new StringBuilder();
 
@@ -132,7 +132,7 @@ public class SqliteDbInformation : IDbInformation, IHaveServiceLocator
 
         vaccessNullSelect.Append($" {dbCommand.Connection.GetTableName<User>()} AS a");
 
-        dbCommand.Connection.CreateView<vaccess_null>(vaccessNullSelect);
+        dbCommand.Connection.CreateView<VaccessNull>(vaccessNullSelect);
 
         var vaccessUserSelect = new StringBuilder();
 
@@ -157,7 +157,7 @@ public class SqliteDbInformation : IDbInformation, IHaveServiceLocator
         vaccessUserSelect.Append(
             $" INNER JOIN {dbCommand.Connection.GetTableName<AccessMask>()} AS c on c.AccessMaskID=b.AccessMaskID");
 
-        dbCommand.Connection.CreateView<vaccess_user>(vaccessUserSelect);
+        dbCommand.Connection.CreateView<VaccessUser>(vaccessUserSelect);
 
         var vaccessFullSelect = new StringBuilder();
 

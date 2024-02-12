@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,34 +22,38 @@
  * under the License.
  */
 
-namespace YAF.Core.Model;
+using ServiceStack.DataAnnotations;
 
-using YAF.Types.Models;
+namespace YAF.Types.Models;
 
 /// <summary>
-///     The spam words repository extensions.
+/// A class which represents the Spam_Words table.
 /// </summary>
-public static class SpamWordsRepositoryExtensions
+[Serializable]
+[Alias("Spam_Words")]
+public class SpamWords : IEntity, IHaveBoardID, IHaveID
 {
     /// <summary>
-    /// Saves changes to a word.
+    /// Gets or sets the id.
     /// </summary>
-    /// <param name="repository">The repository.</param>
-    /// <param name="spamWordId">The spam word identifier.</param>
-    /// <param name="spamWord">The spam word.</param>
-    /// <param name="boardId">The board identifier.</param>
-    public static void Save(
-        this IRepository<SpamWords> repository,
-        int? spamWordId,
-        string spamWord,
-        int? boardId = null)
-    {
-        repository.Upsert(
-            new SpamWords
-                {
-                    BoardID = boardId ?? repository.BoardID,
-                    ID = spamWordId ?? 0,
-                    SpamWord = spamWord
-                });
-    }
+    [AutoIncrement]
+    public int ID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the board identifier.
+    /// </summary>
+    /// <value>
+    /// The board identifier.
+    /// </value>
+    [Required]
+    public int BoardID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the spam word.
+    /// </summary>
+    /// <value>
+    /// The spam word.
+    /// </value>
+    [StringLength(255)]
+    public string SpamWord { get; set; }
 }

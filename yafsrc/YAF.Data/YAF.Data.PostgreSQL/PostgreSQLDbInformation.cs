@@ -117,7 +117,7 @@ public class PostgreSQLDbInformation : IDbInformation, IHaveServiceLocator
             OrmLiteConfig.DialectProvider.GetQuotedTableName("Group", Config.DatabaseSchema),
             OrmLiteConfig.DialectProvider.GetQuotedColumnName("GroupID"));
 
-        dbCommand.Connection.CreateView<vaccess_group>(vaccessGroupSelect);
+        dbCommand.Connection.CreateView<VaccessGroup>(vaccessGroupSelect);
 
         var vaccessNullSelect = new StringBuilder();
 
@@ -142,7 +142,7 @@ public class PostgreSQLDbInformation : IDbInformation, IHaveServiceLocator
             " {0} AS a",
             OrmLiteConfig.DialectProvider.GetQuotedTableName("User", Config.DatabaseSchema));
 
-        dbCommand.Connection.CreateView<vaccess_null>(vaccessNullSelect);
+        dbCommand.Connection.CreateView<VaccessNull>(vaccessNullSelect);
 
         var vaccessUserSelect = new StringBuilder();
 
@@ -171,7 +171,7 @@ public class PostgreSQLDbInformation : IDbInformation, IHaveServiceLocator
             OrmLiteConfig.DialectProvider.GetQuotedTableName("AccessMask", Config.DatabaseSchema),
             OrmLiteConfig.DialectProvider.GetQuotedColumnName("AccessMaskID"));
 
-        dbCommand.Connection.CreateView<vaccess_user>(vaccessUserSelect);
+        dbCommand.Connection.CreateView<VaccessUser>(vaccessUserSelect);
 
         var vaccessFullSelect = new StringBuilder();
 

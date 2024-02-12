@@ -69,7 +69,7 @@ public static class DbAccessV2Extensions
             using (var connection = dbAccess.CreateConnectionOpen())
             {
                 // we're connected!
-                var conn = connection;
+                _ = connection;
             }
 
             // success

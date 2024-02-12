@@ -74,8 +74,8 @@ public class Migration01 : MigrationBase
         this.Db.CreateTable<UserGroup>();
         this.Db.CreateTable<UserForum>();
         this.Db.CreateTable<PrivateMessage>();
-        this.Db.CreateTable<Replace_Words>();
-        this.Db.CreateTable<Spam_Words>();
+        this.Db.CreateTable<ReplaceWords>();
+        this.Db.CreateTable<SpamWords>();
         this.Db.CreateTable<Registry>();
         this.Db.CreateTable<EventLog>();
         this.Db.CreateTable<BBCode>();
