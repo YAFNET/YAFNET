@@ -255,10 +255,10 @@
                 <div class="card-footer py-0">
                 <div class="row">
                     <div class="col px-0">
-                        <span id="<%# "dvThanksInfo{0}".Fmt(this.DataSource.MessageID) %>">
+                        <span id="<%# "dvThanksInfo{0}".FormatWith(this.DataSource.MessageID) %>">
                             <asp:Literal runat="server" Visible="false" ID="ThanksDataLiteral"></asp:Literal>
                         </span>
-                        <span id="<%# "dvThankBox{0}".Fmt(this.DataSource.MessageID) %>">
+                        <span id="<%# "dvThankBox{0}".FormatWith(this.DataSource.MessageID) %>">
                             <YAF:ThemeButton ID="Thank" runat="server"
                                              Type="Link"
                                              Icon="thumbs-up"
