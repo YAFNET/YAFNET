@@ -22,6 +22,8 @@ We have a preliminary documentation on the [Github Wiki](https://github.com/YAFN
 * The [netfx branch](https://github.com/YAFNET/YAFNET/tree/netfx) contains the current Stable YAF 3.2.x Release
 * The [master branch](https://github.com/YAFNET/YAFNET) contains the current BETA YAF 4.x.x
 
+[Building the Source](https://github.com/YAFNET/YAFNET/wiki#building-the-source)
+
 ### Installation & Upgrade
 
 1.  [New Installation](https://github.com/YAFNET/YAFNET/wiki/Installation)
