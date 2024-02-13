@@ -10,7 +10,8 @@
 
 ![build status](https://github.com/yafnet/yafnet/actions/workflows/build-netfx.yml/badge.svg)
 
-If you have any questions or would like to get in touch with the project, please see the contact information at the bottom of this document.
+## Documentation
+We have a preliminary documentation on the [Github Wiki](https://github.com/YAFNET/YAFNET/wiki) page
 
 ## Prerequisites:
 * ASP.NET .NET Framework 4.8.1 (YAF v3.2.x)
