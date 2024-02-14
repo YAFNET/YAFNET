@@ -1,12 +1,12 @@
-# YAF.LanguageManager
+# YAFNET.LanguageManager
 Tool for synchronization, packing and automatic translation of YAF.NET language files
 
 ## Prerequisites:
-* .NET v7
+* .NET v8
 
 ## License
 
-*YAF.LanguageManager* is licensed under the Apache 2.0 license. 
+*YAFNET.LanguageManager* is licensed under the Apache 2.0 license. 
 
 
 ### Yet Another Forum Community Support
