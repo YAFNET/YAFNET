@@ -3,8 +3,8 @@
     <ProductVersion />
     <TargetFramework>net8.0</TargetFramework>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <Version>4.0.0</Version>
-    <Copyright>Copyright © YetAnotherForum.NET</Copyright>
+    <RootNamespace>YAF.Tests.UserTests</RootNamespace>
+    <AssemblyName>YAF.Tests.UserTests</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>
@@ -25,7 +25,7 @@
 	  <PackageReference Include="NUnit" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\YAF.Types\YAF.Types.csproj" />
-    <ProjectReference Include="..\YAF.Tests.Utils\YAF.Tests.Utils.csproj" />
+    <ProjectReference Include="..\..\YAFNET.Types\YAFNET.Types.csproj" />
+    <ProjectReference Include="..\YAFNET.Tests.Utils\YAFNET.Tests.Utils.csproj" />
   </ItemGroup>
 </Project>

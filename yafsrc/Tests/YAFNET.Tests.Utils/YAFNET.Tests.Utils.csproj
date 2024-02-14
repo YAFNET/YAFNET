@@ -3,7 +3,9 @@
     <ProductVersion />
     <TargetFramework>net8.0</TargetFramework>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>	  
+    <RootNamespace>YAF.Tests.Utils</RootNamespace>
+    <AssemblyName>YAF.Tests.Utils</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>
@@ -16,7 +18,7 @@
 	  <PackageReference Include="NUnit" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\YAF.Types\YAF.Types.csproj" />
+    <ProjectReference Include="..\..\YAFNET.Types\YAFNET.Types.csproj" />
     <ProjectReference Include="..\..\YetAnotherForum.NET\YAF-SqlServer.csproj" />
   </ItemGroup>
 </Project>
