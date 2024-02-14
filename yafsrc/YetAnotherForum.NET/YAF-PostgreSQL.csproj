@@ -18,10 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\YAF.Core\YAF.Core.csproj" />
-    <ProjectReference Include="..\YAF.Data\YAF.Data.PostgreSQL\YAF.Data.PostgreSQL.csproj" />
-    <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
-    <ProjectReference Include="..\YAF.Web\YAF.Web.csproj" />
+    <ProjectReference Include="..\YAFNET.Core\YAFNET.Core.csproj" />
+    <ProjectReference Include="..\YAFNET.Data\YAFNET.Data.PostgreSQL\YAFNET.Data.PostgreSQL.csproj" />
+    <ProjectReference Include="..\YAFNET.Types\YAFNET.Types.csproj" />
+    <ProjectReference Include="..\YAFNET.Web\YAFNET.Web.csproj" />
   </ItemGroup>
   
   <ItemGroup>

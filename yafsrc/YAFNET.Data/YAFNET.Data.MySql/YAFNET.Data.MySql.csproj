@@ -5,6 +5,9 @@
 	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	<CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	  <NuspecFile>YAFNET.Data.MySql.nuspec</NuspecFile>
+	  <RootNamespace>YAF.Data.MySql</RootNamespace>
+	  <AssemblyName>YAF.Data.MySql</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Package|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>
@@ -27,9 +30,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite.MySql\ServiceStack.OrmLite.MySql.Core.csproj" />
     <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite\ServiceStack.OrmLite.Core.csproj" />
-    <ProjectReference Include="..\..\YAF.Configuration\YAF.Configuration.csproj" />
-    <ProjectReference Include="..\..\YAF.Core\YAF.Core.csproj" />
-    <ProjectReference Include="..\..\YAF.Types\YAF.Types.csproj" />
+    <ProjectReference Include="..\..\YAFNET.Configuration\YAFNET.Configuration.csproj" />
+    <ProjectReference Include="..\..\YAFNET.Core\YAFNET.Core.csproj" />
+    <ProjectReference Include="..\..\YAFNET.Types\YAFNET.Types.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="8.0.0" />

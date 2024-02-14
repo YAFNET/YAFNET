@@ -3,6 +3,9 @@
     <TargetFramework>net8.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>latest</LangVersion>
+	<NuspecFile>YAFNET.Web.nuspec</NuspecFile>
+	  <RootNamespace>YAF.Web</RootNamespace>
+	  <AssemblyName>YAF.Web</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
@@ -15,8 +18,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj" />
-    <ProjectReference Include="..\YAF.Core\YAF.Core.csproj" />
-    <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
+    <ProjectReference Include="..\YAFNET.Configuration\YAFNET.Configuration.csproj" />
+    <ProjectReference Include="..\YAFNET.Core\YAFNET.Core.csproj" />
+    <ProjectReference Include="..\YAFNET.Types\YAFNET.Types.csproj" />
   </ItemGroup>
 </Project>
