@@ -1,3 +1,3 @@
 @ECHO OFF
 
-YAF.LanguageManager "..\\..\\YetAnotherForum.NET\\languages\\" -sync
+YAFNET.LanguageManager "..\\..\\YetAnotherForum.NET\\languages\\" -sync

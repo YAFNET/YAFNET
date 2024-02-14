@@ -6,15 +6,16 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "YAF.LanguageManager/1.0.3": {
+      "YAFNET.LanguageManager/1.0.3": {
         "dependencies": {
           "DeepL.net": "1.8.0",
-          "Google.Cloud.Translate.V3": "3.3.0",
+          "Google.Cloud.Translate.V3": "3.4.0",
           "Newtonsoft.Json": "13.0.3",
-          "Nito.AsyncEx": "5.1.2"
+          "Nito.AsyncEx": "5.1.2",
+          "SonarAnalyzer.CSharp": "9.19.0.84025"
         },
         "runtime": {
-          "YAF.LanguageManager.dll": {}
+          "YAFNET.LanguageManager.dll": {}
         }
       },
       "DeepL.net/1.8.0": {
@@ -107,15 +108,15 @@
           }
         }
       },
-      "Google.Cloud.Translate.V3/3.3.0": {
+      "Google.Cloud.Translate.V3/3.4.0": {
         "dependencies": {
           "Google.Api.Gax.Grpc": "4.4.0",
           "Google.LongRunning": "3.0.0"
         },
         "runtime": {
           "lib/netstandard2.1/Google.Cloud.Translate.V3.dll": {
-            "assemblyVersion": "3.3.0.0",
-            "fileVersion": "3.3.0.0"
+            "assemblyVersion": "3.4.0.0",
+            "fileVersion": "3.4.0.0"
           }
         }
       },
@@ -403,13 +404,14 @@
           }
         }
       },
+      "SonarAnalyzer.CSharp/9.19.0.84025": {},
       "System.Collections.Immutable/1.7.1": {},
       "System.Memory/4.5.3": {},
       "System.Text.Json/5.0.2": {}
     }
   },
   "libraries": {
-    "YAF.LanguageManager/1.0.3": {
+    "YAFNET.LanguageManager/1.0.3": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -463,12 +465,12 @@
       "path": "google.apis.core/1.60.0",
       "hashPath": "google.apis.core.1.60.0.nupkg.sha512"
     },
-    "Google.Cloud.Translate.V3/3.3.0": {
+    "Google.Cloud.Translate.V3/3.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-PM1QfckcizdTWqNOyuiMajeSfmj0cnjXG9w1QqsxWV6R6esTEa9emxp6sO99I81l+PQ7n0XYm007sIL+10JZZw==",
-      "path": "google.cloud.translate.v3/3.3.0",
-      "hashPath": "google.cloud.translate.v3.3.3.0.nupkg.sha512"
+      "sha512": "sha512-FvhHwXk1AwhK68Rof+KlcKX/B6hHGn6+Z39hzOZW8EHd8uVHy9cPp5ZFRMZp2jOCjuVbO9ldLLaWhZIcNBvl7g==",
+      "path": "google.cloud.translate.v3/3.4.0",
+      "hashPath": "google.cloud.translate.v3.3.4.0.nupkg.sha512"
     },
     "Google.LongRunning/3.0.0": {
       "type": "package",
@@ -658,6 +660,13 @@
       "sha512": "sha512-drrG+hB3pYFY7w1c3BD+lSGYvH2oIclH8GRSehgfyP5kjnFnHKQuuBhuHLv+PWyFuaTDyk/vfRpnxOzd11+J8g==",
       "path": "polly.extensions.http/3.0.0",
       "hashPath": "polly.extensions.http.3.0.0.nupkg.sha512"
+    },
+    "SonarAnalyzer.CSharp/9.19.0.84025": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gumqhFh/MHSQBk1aMOmWim+hRSu5FY2H22XI900PyxHOZW+NDmt1c9SgHNMQ141y5FMdoDYy0sHT+xCCzdQeTQ==",
+      "path": "sonaranalyzer.csharp/9.19.0.84025",
+      "hashPath": "sonaranalyzer.csharp.9.19.0.84025.nupkg.sha512"
     },
     "System.Collections.Immutable/1.7.1": {
       "type": "package",
