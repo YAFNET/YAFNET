@@ -1,0 +1,34 @@
+version: '4.0'
+
+networks: 
+  dev: 
+    driver: bridge
+
+services:
+  yafnet:
+    image: ${DOCKER_REGISTRY-}yafnet
+    depends_on:
+      - "sql-server-db"
+    environment:
+      - ConnectionStrings__DefaultConnection=data source=sql-server-db;Initial Catalog=yaf;User Id=sa;Password=MyPass@word;TrustServerCertificate=true
+      - ASPNETCORE_URLS=http://+:89 
+    build:
+      context: .
+      dockerfile: docker/yaf-sqlserver/Dockerfile
+    container_name: yafnet
+    ports:
+      - "8001:89"
+    networks:
+      - dev
+  sql-server-db:
+    container_name: sql-server-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "8002:1433"
+    environment:
+      - MSSQL_SA_PASSWORD=MyPass@word
+      - ACCEPT_EULA=Y
+    volumes:
+      - ~/apps/mssql/data:/var/lib/mssqlql/data
+    networks:
+      - dev
