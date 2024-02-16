@@ -27,8 +27,7 @@
   <ItemGroup>
 	  <Content Remove="wwwroot\lib\**" />
 	  <Content Remove="wwwroot\Search_Data\**" />
-	  <Content Remove="wwwroot\uploads\*.yafalbum" />
-	  <Content Remove="wwwroot\uploads\*.yafupload" />
+	  <Content Remove="wwwroot\uploads\*.*" />
 	  <Content Remove="node_modules\**" />
 	  <Content Remove="package-lock.json" />
 	  <Content Remove="appsettings.Development.json" />
@@ -39,6 +38,16 @@
 		<ActiveDebugProfile>Debug</ActiveDebugProfile>
 		<AssemblyName>YAF</AssemblyName>
 	</PropertyGroup>
+	
+	  <Target Name="MyPreCompileTarget" BeforeTargets="Build">
+	<!-- Ensure Node.js is installed -->
+	<Exec Command="node --version" ContinueOnError="true">
+		<Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+	</Exec>
+	<Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+	<Message Importance="high" Text="WARN Make sure you have restored all dependencies using 'npm' before you build this project." />
+	<Exec WorkingDirectory="$(ProjectDir)" Command="node_modules\.bin\grunt" />
+</Target>
 
 	<ProjectExtensions><VisualStudio><UserProperties mimetypes_1json__JsonSchema="" wwwroot_4languages_4english_1json__JsonSchema="https://gitlab.com/appsemble/appsemble/-/raw/HEAD/packages/cli/assets/appsemblerc.schema.json" /></VisualStudio></ProjectExtensions>
 

@@ -1,6 +1,6 @@
 {
   "name": "yetanotherforum-net",
-  "version": "4.0.0",
+  "version": "4.0.0-beta.3",
   "private": true,
   "devDependencies": {
     "@babel/preset-env": "^7.23.9",
@@ -19,9 +19,9 @@
     "grunt-shell": "^4.0.0",
     "grunt-webpack": "^6.0.0",
     "grunt-zip": "^1.0.0",
-    "postcss": "^8.4.33",
+    "postcss": "^8.4.35",
     "sass": "^1.69.7",
-    "webpack": "^5.89.0",
+    "webpack": "^5.90.1",
     "webpack-merge": "^5.10.0"
   },
   "dependencies": {
