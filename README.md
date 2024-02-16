@@ -26,7 +26,7 @@ We have a preliminary documentation on the [Github Wiki](https://github.com/YAFN
 
 ### Installation & Upgrade
 
-1.  [New Installation](https://github.com/YAFNET/YAFNET/wiki/Installation)
+1.  [New Installation](https://github.com/YAFNET/YAFNET/wiki#installation)
 2.  [Upgrade an Existing YAF.NET Installation](https://github.com/YAFNET/YAFNET/wiki/Upgrade-an-Existing-YAF.NET-Installation)
 
 ### DNN Module
