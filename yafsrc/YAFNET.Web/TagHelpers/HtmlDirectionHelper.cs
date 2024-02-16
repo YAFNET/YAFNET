@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Http;
+
 namespace YAF.Web.TagHelpers;
 
 /// <summary>
@@ -63,6 +65,13 @@ public class HtmlDirectionHelper : TagHelper, IHaveServiceLocator
         }
 
         output.Attributes.SetAttribute("lang", this.Get<ILocalization>().Culture.TwoLetterISOLanguageName);
+
+        var path = this.Get<IHttpContextAccessor>().HttpContext!.Request.Path.ToString();
+
+        if (path.Contains("/Install"))
+        {
+            return;
+        }
 
         if (BoardContext.Current.PageUser.DarkMode)
         {
