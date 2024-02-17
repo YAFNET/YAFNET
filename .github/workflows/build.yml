@@ -23,6 +23,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install Node Packages
+        working-directory: ./yafsrc/YetAnotherForum.NET
+        run: dotnet restore ./yafsrc/YAF.NET-SqlServer.sln
       - name: Install dependencies
         run: dotnet restore ./yafsrc/YAF.NET-SqlServer.sln
       - name: Build
