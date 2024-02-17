@@ -25,10 +25,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install Node Packages
         working-directory: ./yafsrc/YetAnotherForum.NET
-        run: dotnet restore ./yafsrc/YAF.NET-SqlServer.sln
+        run: npm install
       - name: Install dependencies
+        working-directory: ./
         run: dotnet restore ./yafsrc/YAF.NET-SqlServer.sln
       - name: Build
+        working-directory: ./
         run: dotnet build ./yafsrc/YAF.NET-SqlServer.sln
       - name: Test
+        working-directory: ./
         run: dotnet test ./yafsrc/YAF.NET-SqlServer.sln
