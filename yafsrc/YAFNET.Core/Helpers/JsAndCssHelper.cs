@@ -40,13 +40,13 @@ public static class JsAndCssHelper
     /// The Uncompressed Input JS
     /// </param>
     /// <returns>
-    /// The compressed java script.
+    /// The compressed javascript.
     /// </returns>
     public static string CompressJavaScript(string javaScript)
     {
         try
         {
-            return JSMinify.Minify(javaScript);
+            return JsMinify.Minify(javaScript);
         }
         catch (Exception)
         {
@@ -67,7 +67,7 @@ public static class JsAndCssHelper
     {
         try
         {
-            return JSMinify.Minify(css);
+            return JsMinify.Minify(css);
         }
         catch (Exception)
         {

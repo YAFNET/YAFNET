@@ -124,16 +124,18 @@ static internal class NameAndIdProvider
             return;
         }
 
-        if (!tagBuilder.Attributes.ContainsKey("id"))
+        if (tagBuilder.Attributes.ContainsKey("id"))
         {
-            var sanitizedId = CreateSanitizedId(viewContext, fullName, invalidCharReplacement);
+            return;
+        }
 
-            // Duplicate check for null or empty to cover the corner case where fullName contains only invalid
-            // characters and invalidCharReplacement is empty.
-            if (!string.IsNullOrEmpty(sanitizedId))
-            {
-                tagBuilder.Attributes["id"] = sanitizedId;
-            }
+        var sanitizedId = CreateSanitizedId(viewContext, fullName, invalidCharReplacement);
+
+        // Duplicate check for null or empty to cover the corner case where fullName contains only invalid
+        // characters and invalidCharReplacement is empty.
+        if (!string.IsNullOrEmpty(sanitizedId))
+        {
+            tagBuilder.Attributes["id"] = sanitizedId;
         }
     }
 
@@ -189,46 +191,5 @@ static internal class NameAndIdProvider
         }
 
         return previousNameAndId.OutputFullName;
-    }
-
-    private sealed class PreviousNameAndId
-    {
-        // Cached ambient input for NameAndIdProvider.GetFullHtmlFieldName(). TemplateInfo.HtmlFieldPrefix may
-        // change during the lifetime of a ViewContext.
-        /// <summary>
-        /// Gets or sets the HTML field prefix.
-        /// </summary>
-        /// <value>The HTML field prefix.</value>
-        public string HtmlFieldPrefix { get; set; }
-
-        // Cached input for NameAndIdProvider.GetFullHtmlFieldName().
-        /// <summary>
-        /// Gets or sets the expression.
-        /// </summary>
-        /// <value>The expression.</value>
-        public string Expression { get; set; }
-
-        // Cached return value for NameAndIdProvider.GetFullHtmlFieldName().
-        /// <summary>
-        /// Gets or sets the full name of the output.
-        /// </summary>
-        /// <value>The full name of the output.</value>
-        public string OutputFullName { get; set; }
-
-        // Cached input for NameAndIdProvider.CreateSanitizedId(). Since IHtmlHelper.GenerateIdFromName() is
-        // available to all, there is no guarantee this is equal to OutputFullName when CreateSanitizedId() is
-        // called.
-        /// <summary>
-        /// Gets or sets the full name.
-        /// </summary>
-        /// <value>The full name.</value>
-        public string FullName { get; set; }
-
-        // Cached return value for NameAndIdProvider.CreateSanitizedId().
-        /// <summary>
-        /// Gets or sets the sanitized identifier.
-        /// </summary>
-        /// <value>The sanitized identifier.</value>
-        public string SanitizedId { get; set; }
     }
 }

@@ -138,7 +138,7 @@ public class SpamWordCheck : ISpamWordCheck, IHaveServiceLocator
 #if DEBUG
             catch (Exception e)
             {
-                throw new Exception($"Spam Word Regular Expression Failed: {e.Message}", e);
+                throw new FormatException($"Spam Word Regular Expression Failed: {e.Message}", e);
             }
 
 #else

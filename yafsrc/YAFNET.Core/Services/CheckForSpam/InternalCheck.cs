@@ -82,7 +82,7 @@ public class InternalCheck : ICheckForBot
                 BoardContext.Current.Get<ILogger<InternalCheck>>().Error(ex, "Error while Checking for Bot Email");
             }
 
-            if (bannedIpList.Any(i => i.Equals(ipAddress)))
+            if (bannedIpList.Contains(ipAddress))
             {
                 responseText = $"internal detection found ip address {ipAddress}";
                 isBot = true;

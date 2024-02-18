@@ -260,16 +260,9 @@ public class ChoicesTagHelper : TagHelper
         var htmlAttributeDictionary = GetHtmlAttributeDictionaryOrNull(htmlAttributes);
         if (!IsFullNameValid(fullName, htmlAttributeDictionary))
         {
-            throw new ArgumentNullException("FormatHtmlGenerator_FieldNameCannotBeNullOrEmpty", nameof(expression));
-
-            ////throw new ArgumentException(
-            ////    Resources.FormatHtmlGenerator_FieldNameCannotBeNullOrEmpty(
-            ////        typeof(IHtmlHelper).FullName,
-            ////        nameof(IHtmlHelper.Editor),
-            ////        typeof(IHtmlHelper<>).FullName,
-            ////        nameof(IHtmlHelper<object>.EditorFor),
-            ////        "htmlFieldName"),
-            ////    nameof(expression));
+            throw new ArgumentException(
+                $"The name of an HTML field cannot be null or empty. Instead use methods {typeof(IHtmlHelper).FullName}.{nameof(IHtmlHelper.Editor)} or {typeof(IHtmlHelper<>).FullName}.{nameof(IHtmlHelper<object>.EditorFor)} with a non-empty {"htmlFieldName"} argument value.",
+                nameof(expression));
         }
 
         // If we got a null selectList, try to use ViewData to get the list of items.

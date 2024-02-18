@@ -132,7 +132,7 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
 #if DEBUG
                     catch (Exception e)
                     {
-                        throw new Exception($"Bad Word Regular Expression Failed: {e.Message}", e);
+                        throw new FormatException($"Bad Word Regular Expression Failed: {e.Message}", e);
                     }
 #else
                         catch (Exception)

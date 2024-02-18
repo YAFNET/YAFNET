@@ -14,7 +14,7 @@ using System.IO;
 /// <summary>
 /// JS Minify Class
 /// </summary>
-public class JSMinify
+public class JsMinify
 {
     /// <summary>
     /// The eof.
@@ -24,7 +24,7 @@ public class JSMinify
     /// <summary>
     /// The text reader.
     /// </summary>
-    private TextReader textReader;
+    private StringReader textReader;
 
     /// <summary>
     /// The the a.
@@ -44,12 +44,12 @@ public class JSMinify
     /// <summary>
     /// The writer.
     /// </summary>
-    private TextWriter writer;
+    private StringWriter writer;
 
     /// <summary>
-    ///   Prevents a default instance of the <see cref="JSMinify" /> class from being created.
+    ///   Prevents a default instance of the <see cref="JsMinify" /> class from being created.
     /// </summary>
-    private JSMinify()
+    private JsMinify()
     {
     }
 
@@ -64,7 +64,7 @@ public class JSMinify
     /// </returns>
     public static string Minify(string inputCode)
     {
-        var minify = new JSMinify();
+        var minify = new JsMinify();
         var outputCode = new StringBuilder();
 
         using (minify.textReader = new StringReader(inputCode))
@@ -84,9 +84,6 @@ public class JSMinify
     /// <param name="d">
     /// The d.
     /// </param>
-    /// <exception cref="Exception">
-    /// Error: JSMIN unterminated string literal:
-    /// </exception>
     private void Action(int d)
     {
         if (d <= 1)
@@ -94,40 +91,42 @@ public class JSMinify
             this.Put(this.theA);
         }
 
-        if (d <= 2)
+        switch (d)
         {
-            this.theA = this.theB;
-            if (this.theA is '\'' or '"')
+            case <= 2:
             {
-                for (;;)
+                this.theA = this.theB;
+                if (this.theA is '\'' or '"')
                 {
-                    this.Put(this.theA);
-                    this.theA = this.Get();
-
-                    if (this.theA == this.theB)
+                    for (;;)
                     {
-                        break;
-                    }
+                        this.Put(this.theA);
+                        this.theA = this.Get();
 
-                    if (this.theA <= '\n')
-                    {
-                        throw new Exception($"Error: JSMIN unterminated string literal: {this.theA}\n");
-                    }
+                        if (this.theA == this.theB)
+                        {
+                            break;
+                        }
 
-                    if (this.theA != '\\')
-                    {
-                        continue;
-                    }
+                        if (this.theA <= '\n')
+                        {
+                            throw new FormatException($"Error: JSMIN unterminated string literal: {this.theA}\n");
+                        }
 
-                    this.Put(this.theA);
-                    this.theA = this.Get();
+                        if (this.theA != '\\')
+                        {
+                            continue;
+                        }
+
+                        this.Put(this.theA);
+                        this.theA = this.Get();
+                    }
                 }
-            }
-        }
 
-        if (d > 3)
-        {
-            return;
+                break;
+            }
+            case > 3:
+                return;
         }
 
         this.theB = this.Next();
@@ -151,15 +150,15 @@ public class JSMinify
                 break;
             }
 
-            if (this.theA == '\\')
+            switch (this.theA)
             {
-                this.Put(this.theA);
-                this.theA = this.Get();
-            }
-            else if (this.theA <= '\n')
-            {
-                throw new Exception(
-                    $"Error: JSMIN unterminated Regular Expression literal : {this.theA}.\n");
+                case '\\':
+                    this.Put(this.theA);
+                    this.theA = this.Get();
+                    break;
+                case <= '\n':
+                    throw new FormatException(
+                        $"Error: JSMIN unterminated Regular Expression literal : {this.theA}.\n");
             }
 
             this.Put(this.theA);
@@ -256,7 +255,7 @@ public class JSMinify
 
                             case EOF:
                                 {
-                                    throw new Exception("Error: JSMIN Unterminated comment.\n");
+                                    throw new FormatException("Error: JSMIN Unterminated comment.\n");
                                 }
                         }
                     }

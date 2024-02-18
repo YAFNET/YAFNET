@@ -151,7 +151,6 @@ public class ChatHub : Hub, IHaveServiceLocator
         // Save message in db
         var body = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(message));
 
-
         if (body.IsNotSet())
         {
             return;

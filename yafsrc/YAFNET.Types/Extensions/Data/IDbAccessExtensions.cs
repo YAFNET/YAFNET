@@ -481,7 +481,7 @@ public static class IDbAccessExtensions
                     catch (Exception x)
                     {
                         trans.Rollback();
-                        throw new Exception($"FILE:\n{scriptFile}\n\nERROR:\n{x.Message}\n\nSTATEMENT:\n{sql}");
+                        throw new FormatException($"FILE:\n{scriptFile}\n\nERROR:\n{x.Message}\n\nSTATEMENT:\n{sql}");
                     }
                 });
 

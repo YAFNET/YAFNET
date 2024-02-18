@@ -45,10 +45,7 @@ static internal class CultureSwitcherViewComponent
         ViewDataDictionary viewData,
         IModelMetadataProvider metadataProvider)
     {
-        if (viewData is null)
-        {
-            throw new ArgumentNullException(nameof(viewData));
-        }
+        ArgumentNullException.ThrowIfNull(viewData);
 
         var viewDataInfo = ViewDataEvaluator.Eval(viewData, expression);
         if (viewDataInfo is null)
@@ -72,7 +69,7 @@ static internal class CultureSwitcherViewComponent
                 return FromModel(viewData, metadataProvider);
             }
 
-            ModelExplorer containerExplorer = viewData.ModelExplorer;
+            var containerExplorer = viewData.ModelExplorer;
             if (viewDataInfo.Container != null)
             {
                 containerExplorer = metadataProvider.GetModelExplorerForType(
@@ -103,15 +100,12 @@ static internal class CultureSwitcherViewComponent
         var stringMetadata = metadataProvider.GetMetadataForType(typeof(string));
         return viewData.ModelExplorer.GetExplorerForExpression(stringMetadata, modelAccessor: null);
     }
-
+    
     private static ModelExplorer FromModel(
         ViewDataDictionary viewData,
         IModelMetadataProvider metadataProvider)
     {
-        if (viewData is null)
-        {
-            throw new ArgumentNullException(nameof(viewData));
-        }
+        ArgumentNullException.ThrowIfNull(viewData);
 
         if (viewData.ModelMetadata.ModelType != typeof(object))
         {

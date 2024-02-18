@@ -146,7 +146,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
         }
         else
         {
-            throw new Exception("Import stream is not expected format.");
+            throw new FormatException("Import stream is not expected format.");
         }
 
         return importedCount;
@@ -394,7 +394,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             }
             else
             {
-                throw new Exception("Import stream is not expected format.");
+                throw new FormatException("Import stream is not expected format.");
             }
         }
         else

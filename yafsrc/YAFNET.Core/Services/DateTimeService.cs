@@ -101,9 +101,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
 
         return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                    ? PersianDateConverter.ToPersianDate(dateTime).ToString("D")
-                   : BoardContext.Current.IsGuest
-                       ? $"{dateFormat}{this.timeZoneName}"
-                       : dateFormat;
+                   : this.ReturnFormat(dateFormat);
     }
 
     /// <summary>
@@ -133,9 +131,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
 
         return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                    ? PersianDateConverter.ToPersianDate(dateTime).ToString("d")
-                   : BoardContext.Current.IsGuest
-                       ? $"{dateFormat}{this.timeZoneName}"
-                       : dateFormat;
+                   : this.ReturnFormat(dateFormat);
     }
 
     /// <summary>
@@ -168,9 +164,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
 
         return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                    ? PersianDateConverter.ToPersianDate(dateTime).ToString()
-                   : BoardContext.Current.IsGuest
-                       ? $"{dateFormat}{this.timeZoneName}"
-                       : dateFormat;
+                   : this.ReturnFormat(dateFormat);
     }
 
     /// <summary>
@@ -203,9 +197,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
 
         return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                    ? PersianDateConverter.ToPersianDate(dateTime).ToString("G")
-                   : BoardContext.Current.IsGuest
-                       ? $"{dateFormat}{this.timeZoneName}"
-                       : dateFormat;
+                   : this.ReturnFormat(dateFormat);
     }
 
     /// <summary>
@@ -261,9 +253,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
 
         return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                    ? PersianDateConverter.ToPersianDate(dateTime).ToString("G")
-                   : BoardContext.Current.IsGuest
-                       ? $"{dateFormat}{this.timeZoneName}"
-                       : dateFormat;
+                   : this.ReturnFormat(dateFormat);
     }
 
     /// <summary>
@@ -294,9 +284,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
 
         return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                    ? PersianDateConverter.ToPersianDate(dateTime).ToString("T")
-                   : BoardContext.Current.IsGuest
-                       ? $"{dateFormat}{this.timeZoneName}"
-                       : dateFormat;
+                   : this.ReturnFormat(dateFormat);
     }
 
     /// <summary>
@@ -320,5 +308,17 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
     public DateTime GetUserDateTime(DateTime dateTime, TimeZoneInfo timeZone)
     {
         return TimeZoneInfo.ConvertTimeFromUtc(dateTime, timeZone);
+    }
+
+    /// <summary>
+    /// Returns the format.
+    /// </summary>
+    /// <param name="dateFormat">The date format.</param>
+    /// <returns>System.String.</returns>
+    private string ReturnFormat(string dateFormat)
+    {
+        return BoardContext.Current.IsGuest
+            ? $"{dateFormat}{this.timeZoneName}"
+            : dateFormat;
     }
 }
