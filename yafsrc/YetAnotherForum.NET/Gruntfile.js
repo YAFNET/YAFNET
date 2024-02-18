@@ -151,7 +151,7 @@ module.exports = function(grunt) {
             compileLanguages: {
                 command: [
                     '@echo off',
-                    '..\\Tools\\LanguageManager\\YAF.LanguageManager %CD%\\bin\\Release\\net8.0\\publish\\wwwroot\\languages\\ -minify'
+                    '..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\bin\\Release\\net8.0\\publish\\wwwroot\\languages\\ -minify'
                 ].join('&&')
             },
             deletePublish: {
@@ -641,7 +641,12 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default',
         [
-            'devUpdate', 'webpack:lightBox', 'uglify', 'sass', 'postcss', 'cssmin'
+            'webpack:lightBox', 'uglify', 'sass', 'postcss', 'cssmin'
+        ]);
+
+    grunt.registerTask('updatePackages',
+        [
+            'devUpdate'
         ]);
 
     grunt.registerTask('updateBootstrap',
