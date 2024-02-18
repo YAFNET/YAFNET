@@ -17,7 +17,7 @@ You will need the following software installed:
 from inside the ..\yafsrc\YetAnotherForum.NET folder install the node packages
 
 ``` cmd
-> npm install && npm install -g ruby sass
+> npm install
 ```
 
 2. Compile the *JS* and *CSS* files
