@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>YAFNET.Types</id>
+    <version>4.0.0-beta04</version>
+    <authors>Ingo Herbote</authors>
+    <owners>Ingo Herbote, YAFNET</owners>
+	<readme>README.md</readme>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <projectUrl>https://yetanotherforum.net/</projectUrl>
+	<license type="file">LICENSE.md</license>
+	<icon>yaf.png</icon>
+	<description>YAF.NET Types and Definitions.</description>
+    <tags>forums yaf yaf.net YetAnotherForum.net forum</tags>
+    <repository type="git" url="https://github.com/YAFNET/YAFNET" />
+    <dependencies>
+		<group targetFramework="net8.0">
+			<dependency id="GoogleAuthenticator" version="3.2.0" exclude="Build,Analyzers" />
+			<dependency id="MailKit" version="4.3.0" exclude="Build,Analyzers" />
+			<dependency id="Microsoft.CSharp" version="4.7.0" exclude="Build,Analyzers" />
+			<dependency id="Newtonsoft.Json" version="13.0.3" exclude="Build,Analyzers" />
+			<dependency id="System.Runtime.Caching" version="8.0.0" exclude="Build,Analyzers" />
+		</group>
+    </dependencies>
+    <references>
+	    <reference file="ServiceStack.OrmLite.dll" />
+	    <reference file="YAF.Types.dll" />
+    </references>
+    <frameworkReferences>
+	    <group targetFramework="net8.0">
+		    <frameworkReference name="Microsoft.AspNetCore.App" />
+	    </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="bin\Release\net8.0\ServiceStack.OrmLite.dll" target="lib\net8.0\"/>
+    <file src="bin\Release\net8.0\YAF.Types.dll" target="lib\net8.0\"/>
+    <file src="..\..\LICENSE.md" target=""/>
+	<file src="..\..\README.md" target=""/>
+    <file src="..\yaf.png" target=""/>
+  </files>
+</package>

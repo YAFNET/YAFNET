@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>YAFNET.Web</id>
+    <version>4.0.0-beta04</version>
+    <authors>Ingo Herbote</authors>
+    <owners>Ingo Herbote, YAFNET</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+	<readme>README.md</readme>
+	<license type="file">LICENSE.md</license>
+	<icon>yaf.png</icon>
+    <projectUrl>https://yetanotherforum.net/</projectUrl>
+	<description>YAF.NET Web Tag- and Html Helpers and BBCode Extensions.</description>
+    <tags>forums yaf yaf.net YetAnotherForum.net forum</tags>
+    <repository type="git" url="https://github.com/YAFNET/YAFNET" />
+    <dependencies>
+		<group targetFramework="net8.0">
+			<dependency id="GoogleAuthenticator" version="3.2.0" exclude="Build,Analyzers" />
+			<dependency id="MailKit" version="4.3.0" exclude="Build,Analyzers" />
+			<dependency id="Microsoft.CSharp" version="4.7.0" exclude="Build,Analyzers" />
+			<dependency id="Newtonsoft.Json" version="13.0.3" exclude="Build,Analyzers" />
+			<dependency id="System.Runtime.Caching" version="8.0.0" exclude="Build,Analyzers" />
+		</group>
+    </dependencies>
+    <frameworkReferences>
+	    <group targetFramework="net8.0">
+		    <frameworkReference name="Microsoft.AspNetCore.App" />
+	    </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="bin\Release\net8.0\YAF.Web.dll" target="lib\net8.0\"/>
+	<file src="..\..\LICENSE.md" target=""/>
+    <file src="..\..\README.md" target=""/>
+    <file src="..\yaf.png" target=""/>
+  </files>
+</package>
