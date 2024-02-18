@@ -25,7 +25,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install Node Packages
         working-directory: ./yafsrc/YetAnotherForum.NET
-        run: npm install && npm install -g ruby sass
+        run: npm install
       - name: Install dependencies
         working-directory: ./
         run: dotnet restore ./yafsrc/YAF.NET-SqlServer.sln

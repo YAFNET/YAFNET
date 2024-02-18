@@ -2,6 +2,9 @@
   "name": "yetanotherforum-net",
   "version": "4.0.0-beta.4",
   "private": true,
+  "scripts": {
+    "preinstall": "npm install -g ruby sass"
+  }
   "devDependencies": {
     "@babel/preset-env": "^7.23.9",
     "@lodder/grunt-postcss": "^3.1.1",
