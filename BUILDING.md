@@ -16,35 +16,39 @@ You will need the following software installed:
 1. Install Node Packages
 from inside the ..\yafsrc\YetAnotherForum.NET folder install the node packages
 
-```
-> npm install
+``` cmd
+> npm install && npm install -g ruby sass
 ```
 
 2. Compile the *JS* and *CSS* files
 
-```
+``` cmd
 > grunt
 ```
 
 3. Build the YAF.NET Source from the ..\yafsrc folder
 
 for Ms SQL Server
-```
+
+``` cmd
 > dotnet build YAF.NET-SqlServer.sln
 ```
 
 for MySQL
-```
+
+``` cmd
 > dotnet build YAF.NET-MySql.sln
 ```
 
 for PostgreSQL
-```
+
+``` cmd
 > dotnet build YAF.NET-PostgreSQL.sln
 ```
 
 for SQLite
-```
+
+``` cmd
 > dotnet build YAF.NET-Sqlite.sln
 ```
 
