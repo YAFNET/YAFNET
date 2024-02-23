@@ -2,6 +2,9 @@
     "name": "yetanotherforum-net",
     "version": "3.2.2",
     "private": true,
+    "scripts": {
+        "preinstall": "npm install -g ruby sass"
+    },
     "devDependencies": {
         "@babel/preset-env": "^7.23.9",
         "@lodder/grunt-postcss": "^3.1.1",
@@ -18,15 +21,15 @@
         "grunt-replace": "^2.0.2",
         "grunt-shell": "^4.0.0",
         "grunt-webpack": "^6.0.0",
-        "postcss": "^8.4.33",
-        "sass": "^1.69.6",
-        "webpack": "^5.89.0",
+        "postcss": "^8.4.35",
+        "sass": "^1.70.1",
+        "webpack": "^5.90.3",
         "webpack-merge": "^5.10.0"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.5.1",
         "bootbox": "^6.0.0",
-        "bootstrap": "^5.3.2",
+        "bootstrap": "^5.3.3",
         "bootswatch": "^5.3.2",
         "bs5-lightbox": "^1.8.3",
         "choices.js": "^10.2.0",
