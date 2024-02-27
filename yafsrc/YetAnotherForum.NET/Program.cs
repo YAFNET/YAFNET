@@ -22,14 +22,14 @@
  * under the License.
  */
 
-namespace YAF;
-
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
 using YAF.Core.Extensions;
+
+namespace YAF;
 
 /// <summary>
 /// Class Program.
