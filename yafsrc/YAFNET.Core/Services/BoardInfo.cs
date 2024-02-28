@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Hosting;
+
 namespace YAF.Core.Services;
 
 using System;
@@ -56,7 +58,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public DateTime AppVersionDate { get; set; } = new (2024, 02, 16, 09, 51, 00, DateTimeKind.Utc);
+    public DateTime AppVersionDate { get; set; } = new (2024, 02, 28, 06, 56, 00, DateTimeKind.Utc);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value
@@ -72,7 +74,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
             Minor = 0,
             Build = 0,
             ReleaseType = ReleaseType.BETA,
-            ReleaseNumber = 3
+            ReleaseNumber = 5
         };
 
         var versionString = new StringBuilder();
@@ -94,11 +96,11 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     }
 
     /// <summary>
-    /// Helper function that creates the URL to the Content themes folder.
+    /// Helper function that creates the URL to the themes folder.
     /// </summary>
     /// <param name="resourceName">Name of the resource.</param>
     /// <returns>
-    /// Returns the URL including the Content Themes path
+    /// Returns the URL including the themes path
     /// </returns>
     public string GetUrlToContentThemes(string resourceName)
     {
@@ -160,6 +162,12 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
             return baseUrlMask;
         }
     }
+
+    /// <summary>
+    /// Gets the web root path.
+    /// </summary>
+    /// <value>The web root path.</value>
+    public string WebRootPath => Config.WebRootPath.IsSet() ? Config.WebRootPath : this.Get<IWebHostEnvironment>().WebRootPath;
 
     /// <summary>
     /// Treats the base URL.

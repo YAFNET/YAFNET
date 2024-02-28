@@ -282,7 +282,7 @@ public class UsersAvatarModel : AdminPage
         avatars.Add(new SelectListItem(this.GetText("OURAVATAR"), ""));
 
         var dir = new DirectoryInfo(
-            Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Avatars));
+            Path.Combine(this.Get<BoardInfo>().WebRootPath, this.Get<BoardFolders>().Avatars));
 
         var files = dir.GetFiles("*.*").ToList();
 

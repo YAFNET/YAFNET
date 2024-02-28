@@ -81,7 +81,7 @@ public class EditCategoryModel : AdminPage
        var list = new List<SelectListItem> {new(this.GetText("COMMON", "NONE"), "") };
 
        var dir = new DirectoryInfo(
-           Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Categories));
+           Path.Combine(this.Get<BoardInfo>().WebRootPath, this.Get<BoardFolders>().Categories));
 
         if (dir.Exists)
         {

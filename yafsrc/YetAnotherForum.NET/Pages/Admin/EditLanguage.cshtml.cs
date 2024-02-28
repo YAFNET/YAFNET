@@ -140,7 +140,7 @@ public class EditLanguageModel : AdminPage
     /// </summary>
     private void SaveLanguageFile(string x)
     {
-        var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
+        var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
 
         // Get all language files info
         var langPath = Path.Combine(webRootPath, "languages");
@@ -240,7 +240,7 @@ public class EditLanguageModel : AdminPage
 
     private void BindData(string x)
     {
-        var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
+        var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
 
         // Get all language files info
         var langPath = Path.Combine(webRootPath, "languages");

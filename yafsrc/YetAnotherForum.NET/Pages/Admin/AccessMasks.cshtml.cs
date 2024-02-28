@@ -87,8 +87,8 @@ public class AccessMasksModel : AdminPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostDeleteAsync(int maskId)
     {
-        var isInUse = this.GetRepository<ForumAccess>().Exists(x => x.AccessMaskID == maskId)
-                      || this.GetRepository<UserForum>().Exists(x => x.AccessMaskID == maskId);
+        var isInUse = await this.GetRepository<ForumAccess>().ExistsAsync(x => x.AccessMaskID == maskId)
+                      || await this.GetRepository<UserForum>().ExistsAsync(x => x.AccessMaskID == maskId);
 
         // attempt to delete access masks
         if (isInUse)

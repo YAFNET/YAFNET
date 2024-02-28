@@ -96,13 +96,13 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         var prevVersion = this.GetRepository<Registry>().GetDbVersion();
 
         // initialize search index
-        if (this.GetRepository<Registry>().GetSingle(r => r.Name.ToLower() == "lastsearchindexupdated") == null)
+        if (!await this.GetRepository<Registry>().ExistsAsync(r => r.Name == "lastsearchindexupdated"))
         {
             this.GetRepository<Registry>().Save("forceupdatesearchindex", "1");
         }
 
         // Check if BaseUrlMask is set and if not automatically write it
-        if (this.GetRepository<Registry>().GetSingle(r => r.Name.ToLower() == "BaseUrlMask") == null)
+        if (!await this.GetRepository<Registry>().ExistsAsync(r => r.Name == "baseurlmask"))
         {
             this.GetRepository<Registry>().Save(
                 "baseurlmask",
@@ -235,7 +235,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         var loadWrapper = new Action<string, Action<Stream>>(
             (file, streamAction) =>
                 {
-                    var fullFile = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, "Resources", file);
+                    var fullFile = Path.Combine(this.Get<BoardInfo>().WebRootPath, "Resources", file);
 
                     if (!File.Exists(fullFile))
                     {
@@ -275,7 +275,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
     {
         string script;
 
-        var fileName = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, "Resources", scriptFile);
+        var fileName = Path.Combine(this.Get<BoardInfo>().WebRootPath, "Resources", scriptFile);
 
         try
         {

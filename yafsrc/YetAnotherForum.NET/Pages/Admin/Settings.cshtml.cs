@@ -284,7 +284,7 @@ public class SettingsModel : AdminPage
         var list = new List<SelectListItem> {new(this.GetText("BOARD_LOGO_SELECT"), string.Empty)};
 
         var dir = new DirectoryInfo(
-            Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Logos));
+            Path.Combine(this.Get<BoardInfo>().WebRootPath, this.Get<BoardFolders>().Logos));
 
         if (dir.Exists)
         {

@@ -24,7 +24,6 @@
 
 using Autofac.Extensions.DependencyInjection;
 
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace YAF.Core.Extensions;
@@ -42,18 +41,6 @@ public static class HostingHostBuilderExtensions
     public static IHostBuilder UseAutofacServiceProviderFactory(this IHostBuilder hostBuilder)
     {
         return hostBuilder.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-    }
-
-    /// <summary>
-    /// Configure Yaf App Configuration
-    /// </summary>
-    /// <param name="hostBuilder">The <see cref="IHostBuilder"/> to configure.</param>
-    /// <returns>The <see cref="IHostBuilder"/>.</returns>
-    public static IHostBuilder ConfigureYafAppConfiguration(this IHostBuilder hostBuilder)
-    {
-        return hostBuilder.ConfigureAppConfiguration(config => config.AddJsonFile(
-            "helpMenu.json")).ConfigureAppConfiguration(config => config.AddJsonFile(
-            "mimeTypes.json"));
     }
 
     /// <summary>

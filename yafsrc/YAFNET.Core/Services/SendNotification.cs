@@ -93,7 +93,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         }
 
         var cssPath = Path.Combine(
-            this.Get<IWebHostEnvironment>().WebRootPath,
+            this.Get<BoardInfo>().WebRootPath,
             this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"));
 
         var inlineCss = await File.ReadAllTextAsync(cssPath);

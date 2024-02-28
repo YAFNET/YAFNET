@@ -80,7 +80,7 @@ public class Theme : ITheme
     /// <returns>The build theme path.</returns>
     public string BuildMappedThemePath(string filename)
     {
-        var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
+        var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
 
         return Path.Combine(webRootPath, "css", "themes", this.ThemeFile, filename);
     }
@@ -95,7 +95,7 @@ public class Theme : ITheme
     /// </returns>
     private static string GetMappedThemeFile(string theme)
     {
-        var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
+        var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
 
         return Path.Combine(webRootPath, "css","themes", theme.Trim());
     }

@@ -329,7 +329,7 @@ public class EditMedalModel : AdminPage
         var list = new List<SelectListItem> { new(this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE"), "") };
 
         var dir = new DirectoryInfo(
-            Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Medals));
+            Path.Combine(this.Get<BoardInfo>().WebRootPath, this.Get<BoardFolders>().Medals));
 
         if (dir.Exists)
         {

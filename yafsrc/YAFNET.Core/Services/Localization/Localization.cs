@@ -462,7 +462,7 @@ public class Localization : ILocalization
 #endif
 
         this.localizer = new Localizer(
-            Path.Combine(BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath, "languages", fileName),
+            Path.Combine(BoardContext.Current.Get<BoardInfo>().WebRootPath, "languages", fileName),
             !isInstallPage);
 
 #if !DEBUG
@@ -480,7 +480,7 @@ public class Localization : ILocalization
 #endif
 
             this.defaultLocale = new Localizer(
-                Path.Combine(BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath, "languages", "english.json"),
+                Path.Combine(BoardContext.Current.Get<BoardInfo>().WebRootPath, "languages", "english.json"),
                 !isInstallPage);
 #if !DEBUG
             BoardContext.Current.Get<IDataCache>().Set("DefaultLocale", this.defaultLocale);

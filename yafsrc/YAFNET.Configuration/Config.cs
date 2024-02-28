@@ -79,4 +79,10 @@ public static class Config
     /// Gets or sets a value indicating whether legacy membership hash hex.
     /// </summary>
     public static bool LegacyMembershipHashHex { get; set; }
+
+    /// <summary>
+    /// Gets or sets the web root path.
+    /// </summary>
+    /// <value>The web root path.</value>
+    public static string WebRootPath { get; set; }
 }

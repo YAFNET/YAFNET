@@ -106,7 +106,7 @@ public class ThankYouController : ForumBaseController
 
         var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 
-        if (this.GetRepository<Thanks>().Exists(x => x.MessageID == messageId && x.ThanksFromUserID == fromUserId))
+        if (await this.GetRepository<Thanks>().ExistsAsync(x => x.MessageID == messageId && x.ThanksFromUserID == fromUserId))
         {
             return this.NotFound();
         }
