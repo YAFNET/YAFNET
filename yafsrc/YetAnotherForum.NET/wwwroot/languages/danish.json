@@ -2847,14 +2847,6 @@
             "#text": "Kommaseparerede BBC-koder tilladt i en brugersignatur i rollen."
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "Brugersignatur HTML-tags:"
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "Kommaseparerede HTML-tags tilladt i en brugersignatur i gruppen."
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "Maks. antal tegn i en brugersignatur:"
           },

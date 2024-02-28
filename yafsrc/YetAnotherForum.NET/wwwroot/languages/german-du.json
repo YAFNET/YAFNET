@@ -2843,14 +2843,6 @@
             "#text": "Komma getrennte BBCodes erlaubt in einer Signatur des Benutzers in der Gruppe."
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "Benutzer-Signatur HTML-Tags:"
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "Durch Kommata getrennte HTML-Tags, die in einer Benutzersignatur in der Gruppe erlaubt sind."
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "Max. Anzahl von Zeichen in einem Benutzer Signatur:"
           },

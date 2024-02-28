@@ -2843,14 +2843,6 @@
             "#text": "Comma separated BBCodes allowed in a user signature in the role."
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "User signature HTML tags:"
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "Comma separated HTML tags allowed in a user signature in the group."
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "Max number of chars in a user signature:"
           },

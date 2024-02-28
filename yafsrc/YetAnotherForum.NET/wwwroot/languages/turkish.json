@@ -2847,14 +2847,6 @@
             "#text": "Rolde bir kullanıcı imzasında izin verilen virgülle ayrılmış BBCode'lar."
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "Kullanıcı imzası HTML etiketleri:"
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "Gruptaki bir kullanıcı imzasında izin verilen virgülle ayrılmış HTML etiketleri."
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "Kullanıcı imzasındaki maksimum karakter sayısı:"
           },

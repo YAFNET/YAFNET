@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>YAFNET.Data.Sqlite</id>
-    <version>4.0.0-beta04</version>
+    <version>4.0.0-beta05</version>
     <authors>Ingo Herbote</authors>
     <owners>Ingo Herbote, YAFNET</owners>
 	<readme>README.md</readme>
@@ -15,9 +15,9 @@
     <repository type="git" url="https://github.com/YAFNET/YAFNET" />
     <dependencies>
 		<group targetFramework="net8.0">
-			<dependency id="YAFNET.Configuration" version="4.0.0-beta04" exclude="Build,Analyzers" />
-			<dependency id="YAFNET.Core" version="4.0.0-beta04" exclude="Build,Analyzers" />
-			<dependency id="YAFNET.Types" version="4.0.0-beta04" exclude="Build,Analyzers" />
+			<dependency id="YAFNET.Configuration" version="4.0.0-beta05" exclude="Build,Analyzers" />
+			<dependency id="YAFNET.Core" version="4.0.0-beta05" exclude="Build,Analyzers" />
+			<dependency id="YAFNET.Types" version="4.0.0-beta05" exclude="Build,Analyzers" />
 			<dependency id="Autofac" version="8.0.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.Data.SqlClient" version="5.1.5" exclude="Build,Analyzers" />
 			<dependency id="System.ComponentModel.Composition" version="8.0.0" exclude="Build,Analyzers" />

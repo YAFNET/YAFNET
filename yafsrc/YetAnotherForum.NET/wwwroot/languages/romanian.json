@@ -2847,14 +2847,6 @@
             "#text": "Codurile BBCodes separate prin virgulă permise în semnătura unui utilizator în rol."
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "Etichete HTML pentru semnătura utilizatorului:"
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "Tag-uri HTML separate prin virgulă permise în semnătura unui utilizator din grup."
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "Numărul maxim de caractere într-o semnătură de utilizator:"
           },

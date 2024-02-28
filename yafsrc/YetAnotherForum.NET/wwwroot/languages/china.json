@@ -2847,14 +2847,6 @@
             "#text": "角色中的用户签名中允许使用逗号分隔的 BBCode。"
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "用户签名 HTML 标签："
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "组中的用户签名中允许使用逗号分隔的 HTML 标记。"
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "用户签名中的最大字符数："
           },

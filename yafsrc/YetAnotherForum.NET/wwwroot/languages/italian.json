@@ -2843,14 +2843,6 @@
             "#text": "BBCodes separati da virgola consentiti in una firma utente nel ruolo."
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "Tag HTML della firma dell'utente:"
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "Tag HTML separati da virgola consentiti nella firma di un utente del gruppo."
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "Numero massimo di caratteri in una firma utente:"
           },

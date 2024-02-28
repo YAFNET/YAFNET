@@ -2847,14 +2847,6 @@
             "#text": "Os códigos BBC separados por vírgula são permitidos numa assinatura de utilizador na função."
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "Tags HTML de assinatura do utilizador:"
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "As etiquetas HTML separadas por vírgulas são permitidas numa assinatura de utilizador no grupo."
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "Número máximo de caracteres numa assinatura do utilizador:"
           },

@@ -2847,14 +2847,6 @@
             "#text": "Komaga eraldatud BBC-koodid, mis on rollis kasutaja signatuuris lubatud."
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "Kasutaja allkirja HTML-sildid:"
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "Komaga eraldatud HTML-märgendid on rühmas kasutaja signatuuris lubatud."
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "Maksimaalne märkide arv kasutaja allkirjas:"
           },

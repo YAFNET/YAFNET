@@ -2847,14 +2847,6 @@
             "#text": "Kableliais atskirti BBCodai, kuriuos leidžiama naudoti naudotojo paraše vaidmenyje."
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "Vartotojo parašo HTML žymės:"
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "Kableliais atskirtos HTML žymės, leidžiamos grupės naudotojo paraše."
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "Maksimalus simbolių skaičius naudotojo paraše:"
           },
