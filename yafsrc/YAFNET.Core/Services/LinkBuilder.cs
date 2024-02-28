@@ -78,7 +78,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// The user id.
     /// </param>
     /// <param name="userName">
-    /// The user name.
+    /// The username.
     /// </param>
     /// <returns>
     /// The <see cref="string"/>.
@@ -280,9 +280,9 @@ public class LinkBuilder : IHaveServiceLocator
     /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
     public IDictionary<string, string> GetAllRouteData(object values)
     {
-        const BindingFlags BindingFlags = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance;
+        const BindingFlags bindingFlags = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance;
 
-        return values.GetType().GetProperties(BindingFlags).ToDictionary(
+        return values.GetType().GetProperties(bindingFlags).ToDictionary(
             propInfo => propInfo.Name,
             propInfo => propInfo.GetValue(values, null).ToString());
     }

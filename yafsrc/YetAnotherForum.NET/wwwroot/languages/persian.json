@@ -3779,14 +3779,6 @@
             "#text": "Session را به صورت خودکار برای کاربرانی که علامت \"بدون پیگیری\" دارند نظیر موتورهای جستجو و رباتها، حذف می کند."
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "پرچسبهای مجاز HTML"
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "فهرست تگهای مجاز HTML که با کاما (بدون فاصله) از هم جدا شده اند در پست هایی که از ویرایشگرهای HTML استفاده می کنند."
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "زمان کاربران فعال :"
           },
@@ -4227,22 +4219,6 @@
             "#text": "در صورت انتخاب، متاتگ های description و keyword بصورت اتوماتیک در صفحه ی پست‌ها تولید خواهد شد"
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "نوار ابزار ویرایشگر برای امضاها و پاسخ‌های سریع استفاده می‌شود."
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "نوار ابزار ویرایشگر (ساده)"
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "نوار ابزار ویرایشگر (کامل)"
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "نوار ابزار ویرایشگر برای ارسال و پیام های خصوصی استفاده می شود."
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "الزام به تایید ایمیل:"
           },
@@ -4315,6 +4291,14 @@
             "#text": "تنظیمی جهت فعال /غیرفعال کردن سیستم امتیاز برای کسب و یا حذف امتیازات کاربران"
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "بیشترین تعداد روزها برای نگهداری لاگ"
           },
@@ -4383,14 +4367,6 @@
             "#text": "آدرس اینترنتی کامل forward-facing به این انجمن."
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "ویرایشگر انجمن :"
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "یک ویرایشگر متن اصلی برای انجمن خود انتخاب کنید. برای استفاده از ویرایشگر های HTML (FCK و FreeTextBox) می بایست فایل های DLL را در فولدر bin و سایر فایل های مورد نیاز را در فولدر editors قرار دهید."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "ایمیل انجمن:"
           },
@@ -4429,10 +4405,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "تنظیمات نمایش"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "تنظیمات ویرایش/قالب بندی"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4525,10 +4497,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "نمایش"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "ویرایشگر ها"
           },
           {
             "@tag": "HOST_FEATURES",
@@ -7850,6 +7818,10 @@
             "#text": "رنگ فونت"
           },
           {
+            "@tag": "FONT_NAME",
+            "#text": "Font Name"
+          },
+          {
             "@tag": "FONT_SIZE",
             "#text": "اندازه فونت"
           },
@@ -8216,6 +8188,10 @@
           {
             "@tag": "TT_SELECT_ALL",
             "#text": "Select all"
+          },
+          {
+            "@tag": "TT_STRIKE_THROUGH",
+            "#text": "Strikethrough"
           },
           {
             "@tag": "TT_UNDERLINE",

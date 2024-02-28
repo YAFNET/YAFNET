@@ -40,11 +40,6 @@ public enum SpamService
     BlogSpam = 1,
 
     /// <summary>
-    /// Akismet.com Service
-    /// </summary>
-    Akismet = 2,
-
-    /// <summary>
     /// Use Internal Spam Check
     /// </summary>
     Internal = 3

@@ -10,7 +10,7 @@
         <ReplaceRegex />
         <Variables />
         <UseModule>true</UseModule>
-        <UseToolbar>false</UseToolbar>
+        <UseToolbar>true</UseToolbar>
         <ModuleClass>YAF.Web.BBCodes.MediaBBCodeModule, YAF.Web</ModuleClass>
         <ExecOrder>1</ExecOrder>
     </YafBBCode>

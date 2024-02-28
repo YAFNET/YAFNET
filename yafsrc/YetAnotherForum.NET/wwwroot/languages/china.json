@@ -3787,14 +3787,6 @@
             "#text": "自动放弃标记为“不跟踪”的用户的会话，例如搜索引擎和机器人。"
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "接受的 HTML 标签："
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "使用 HTML 编辑器在帖子中允许的 HTML 标记的逗号分隔列表（无空格）。"
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "活跃用户时间："
           },
@@ -4235,22 +4227,6 @@
             "#text": "如果选中，描述和关键字元标记将在帖子页面上动态创建。"
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "用于签名和快速回复的编辑器工具栏。"
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "编辑器工具栏基本："
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "编辑器工具栏完整："
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "用于发布和私人消息的编辑器工具栏。"
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "需要电子邮件验证："
           },
@@ -4323,6 +4299,14 @@
             "#text": "设置启用/禁用内置信誉系统以允许用户给予或删除信誉。"
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "事件日志的最大天数"
           },
@@ -4391,14 +4375,6 @@
             "#text": "此论坛的完整前向 URL。"
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "论坛编辑："
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "为您的论坛选择全局编辑器类型。"
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "论坛邮箱："
           },
@@ -4437,10 +4413,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "显示设置"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "编辑/格式设置"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4533,10 +4505,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "展示"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "编辑"
           },
           {
             "@tag": "HOST_FEATURES",
@@ -7862,6 +7830,10 @@
             "#text": "字体颜色:"
           },
           {
+            "@tag": "FONT_NAME",
+            "#text": "Font Name"
+          },
+          {
             "@tag": "FONT_SIZE",
             "#text": "字体大小:"
           },
@@ -8228,6 +8200,10 @@
           {
             "@tag": "TT_SELECT_ALL",
             "#text": "Select all"
+          },
+          {
+            "@tag": "TT_STRIKE_THROUGH",
+            "#text": "Strikethrough"
           },
           {
             "@tag": "TT_UNDERLINE",

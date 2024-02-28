@@ -3787,14 +3787,6 @@
             "#text": "Abandonner automatiquement les sessions pour les utilisateurs qui sont marqués comme \"Don't Track\" tels que les moteurs de recherche et les robots. Activez cette fonction si vous rencontrez des problèmes de session."
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "Balises HTML acceptées :"
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "Liste, séparée par des virgules (sans espace), des balises HTML autorisées dans les articles utilisant des éditeurs HTML."
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Temps des utilisateurs actifs :"
           },
@@ -4235,22 +4227,6 @@
             "#text": "Si cette case est cochée, les métabalises de description et de mots-clés seront créées dynamiquement sur les pages des articles."
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "Barre d'outils de l'éditeur utilisée pour les signatures et les réponses rapides."
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "Barre d'outils de l'éditeur de base :"
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "Editor Toolbar Full :"
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "Barre d'outils de l'éditeur utilisée pour l'envoi de messages et de messages privés."
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "Exiger une vérification de l'adresse électronique :"
           },
@@ -4323,6 +4299,14 @@
             "#text": "Paramètre permettant d'activer/désactiver le système de réputation intégré pour permettre aux utilisateurs de donner ou de retirer de la réputation."
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "Nombre maximal de jours pour le journal des événements"
           },
@@ -4391,14 +4375,6 @@
             "#text": "L'url complète de ce forum."
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "Éditeur du forum :"
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "Sélectionnez le type d'éditeur global pour votre forum. Pour utiliser les éditeurs HTML (FCK et FreeTextBox), le fichier .bin doit se trouver dans le répertoire \\bin et les fichiers de support appropriés doivent être placés dans \\editors."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Courriel du forum :"
           },
@@ -4437,10 +4413,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "Paramètres d'affichage"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "Paramètres d'édition/de formatage"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4533,10 +4505,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "Afficher"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "Rédacteurs en chef"
           },
           {
             "@tag": "HOST_FEATURES",
@@ -7862,6 +7830,10 @@
             "#text": "Couleur de police :"
           },
           {
+            "@tag": "FONT_NAME",
+            "#text": "Font Name"
+          },
+          {
             "@tag": "FONT_SIZE",
             "#text": "Taille de police :"
           },
@@ -8228,6 +8200,10 @@
           {
             "@tag": "TT_SELECT_ALL",
             "#text": "Select all"
+          },
+          {
+            "@tag": "TT_STRIKE_THROUGH",
+            "#text": "Strikethrough"
           },
           {
             "@tag": "TT_UNDERLINE",

@@ -3787,14 +3787,6 @@
             "#text": "Abandonarea automată a sesiunilor pentru utilizatorii care sunt marcați ca \"Don't Track\", cum ar fi motoarele de căutare și roboții. Activați dacă aveți probleme cu sesiunile."
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "Tag-uri HTML acceptate:"
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "Listă separată prin virgulă (fără spații) de etichete HTML care sunt permise în postările care utilizează editori HTML."
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Utilizatori activi Timp:"
           },
@@ -4235,22 +4227,6 @@
             "#text": "Dacă este bifată, metaetichetele de descriere și de cuvinte cheie vor fi create dinamic pe paginile postărilor."
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "Bara de instrumente a editorului utilizată pentru semnături și răspunsuri rapide."
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "Editor Bara de instrumente de bază:"
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "Bara de instrumente Editor completă:"
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "Bara de instrumente a editorului utilizată pentru mesaje private și mesaje postate."
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "Cereți verificarea e-mailului:"
           },
@@ -4323,6 +4299,14 @@
             "#text": "Setare pentru a activa/dezactiva sistemul de reputație integrat pentru a permite utilizatorilor să acorde sau să elimine reputația."
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "Numărul maxim de zile pentru jurnalul de evenimente"
           },
@@ -4391,14 +4375,6 @@
             "#text": "URL-ul complet al acestui forum."
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "Editorul forumului:"
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "Selectați tipul de editor global pentru forumul dumneavoastră. Pentru a utiliza editorii HTML (FCK și FreeTextBox), fișierul .bin trebuie să se afle în directorul \\bin și fișierele de asistență corespunzătoare trebuie să fie puse în \\editors."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "E-mail forum:"
           },
@@ -4437,10 +4413,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "Setări de afișare"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "Editarea/formatarea setărilor"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4533,10 +4505,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "Afișare"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "Editorii"
           },
           {
             "@tag": "HOST_FEATURES",
@@ -7862,6 +7830,10 @@
             "#text": "Culoare caractere:"
           },
           {
+            "@tag": "FONT_NAME",
+            "#text": "Font Name"
+          },
+          {
             "@tag": "FONT_SIZE",
             "#text": "Dimensiune caractere:"
           },
@@ -8228,6 +8200,10 @@
           {
             "@tag": "TT_SELECT_ALL",
             "#text": "Select all"
+          },
+          {
+            "@tag": "TT_STRIKE_THROUGH",
+            "#text": "Strikethrough"
           },
           {
             "@tag": "TT_UNDERLINE",

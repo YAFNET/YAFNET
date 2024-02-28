@@ -24,8 +24,6 @@
 
 namespace YAF.Web.HtmlHelpers;
 
-using Microsoft.Extensions.Configuration;
-
 /// <summary>
 /// The Help Menu html helper.
 /// </summary>
@@ -44,13 +42,11 @@ public static class HelpMenuHtmlHelper
     {
         var context = BoardContext.Current;
 
-        List<HelpNavigation> helpNavList = [];
-
         var content = new HtmlContentBuilder();
 
-        var config = context.Get<IConfiguration>();
-
-        config.GetSection(nameof(HelpNavigation)).Bind(helpNavList);
+        var helpNavList = BoardContext.Current.Get<IDataCache>().GetOrSet(
+            "HelpNavigation",
+            StaticDataHelper.LoadHelpMenuJson);
 
         var html = new StringBuilder();
         var htmlDropDown = new StringBuilder();

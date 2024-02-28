@@ -28,9 +28,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Microsoft.Extensions.Configuration;
-
 using YAF.Core.Extensions;
+using YAF.Core.Helpers;
 using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Objects;
@@ -150,11 +149,9 @@ public class HelpModel : ForumPage
     /// </summary>
     private void LoadHelpContent()
     {
-        var helpNavigation = new List<HelpNavigation>();
-
-        var config = this.Get<IConfiguration>();
-
-        config.GetSection(nameof(HelpNavigation)).Bind(helpNavigation);
+        var helpNavigation = this.Get<IDataCache>().GetOrSet(
+            "HelpNavigation",
+            StaticDataHelper.LoadHelpMenuJson);
 
         this.helpContents = [];
 

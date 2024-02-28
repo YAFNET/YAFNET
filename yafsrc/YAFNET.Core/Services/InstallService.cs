@@ -224,7 +224,7 @@ public class InstallService : IHaveServiceLocator
         var loadWrapper = new Action<string, Action<Stream>>(
             (file, streamAction) =>
                 {
-                    var fullFile = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, "Resources", file);
+                    var fullFile = Path.Combine(this.Get<BoardInfo>().WebRootPath, "Resources", file);
 
                     if (!File.Exists(fullFile))
                     {

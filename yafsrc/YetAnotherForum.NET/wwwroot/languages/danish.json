@@ -3787,14 +3787,6 @@
             "#text": "Afbryd automatisk sessioner for brugere, der er markeret som \"Spor ikke\", såsom søgemaskiner og bots. "
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "Accepterede HTML-tags:"
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "Kommasepareret liste (ingen mellemrum) over HTML-tags, der er tilladt i indlæg ved hjælp af HTML-editorer."
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Aktive brugere tid:"
           },
@@ -4235,22 +4227,6 @@
             "#text": "Hvis markeret, vil beskrivelse og søgeords-metatags blive oprettet dynamisk på indlægssiderne."
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "Editor Toolbar bruges til signaturer og hurtige svar."
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "Editor Toolbar Basic:"
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "Editor Toolbar fuld:"
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "Redaktørværktøjslinje bruges til opslag og private beskeder."
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "Kræv e-mailbekræftelse:"
           },
@@ -4323,6 +4299,14 @@
             "#text": "Indstilling til at aktivere/deaktivere det indbyggede omdømmesystem for at tillade brugere at give eller fjerne omdømme."
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "Max antal dage for hændelseslog"
           },
@@ -4391,14 +4375,6 @@
             "#text": "Den fulde fremadrettede url til dette forum."
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "Forumredaktør:"
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "Vælg global editor-type til dit forum. "
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forum email:"
           },
@@ -4437,10 +4413,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "Skærmindstillinger"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "Indstillinger for redigering/formatering"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4533,10 +4505,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "Skærm"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "Redaktører"
           },
           {
             "@tag": "HOST_FEATURES",
@@ -7862,6 +7830,10 @@
             "#text": "Skrift farve:"
           },
           {
+            "@tag": "FONT_NAME",
+            "#text": "Font Name"
+          },
+          {
             "@tag": "FONT_SIZE",
             "#text": "Skrift størrelse:"
           },
@@ -8228,6 +8200,10 @@
           {
             "@tag": "TT_SELECT_ALL",
             "#text": "Select all"
+          },
+          {
+            "@tag": "TT_STRIKE_THROUGH",
+            "#text": "Strikethrough"
           },
           {
             "@tag": "TT_UNDERLINE",

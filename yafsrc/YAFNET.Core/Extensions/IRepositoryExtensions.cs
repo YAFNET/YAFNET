@@ -555,6 +555,31 @@ public static class IRepositoryExtensions
     }
 
     /// <summary>
+    /// Returns true if the Query returns any records that match the supplied SqlExpression, E.g:
+    /// <para>
+    /// db.Exists(db.From&lt;Person&gt;().Where(x =&gt; x.Age &lt; 50))
+    /// </para>
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="where">
+    /// The where.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public async static Task<bool> ExistsAsync<T>(
+        this IRepository<T> repository,
+        Expression<Func<T, bool>> where = null)
+        where T : class, IEntity, new()
+    {
+        return await repository.DbAccess.ExistsAsync(where);
+    }
+
+    /// <summary>
     /// Counts the specified criteria.
     /// </summary>
     /// <typeparam name="T">The type parameter.</typeparam>

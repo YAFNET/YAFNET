@@ -3779,14 +3779,6 @@
             "#text": "Automatically abandon sessions for users who are marked as \"Don't Track\" such as Search Engines and Bots. Enable if you're having any session issues."
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "Accepted HTML Tags:"
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "Comma separated list (no spaces) of HTML tags that are allowed in posts using HTML editors."
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Active Users Time:"
           },
@@ -4227,22 +4219,6 @@
             "#text": "If checked, description and keywords meta tags will be created dynamically on the post pages."
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "Editor Toolbar used for Signatures ans Quick Replies."
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "Editor Toolbar Basic:"
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "Editor Toolbar Full:"
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "Editor Toolbar used for Posting and Private Messages."
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "Require Email Verification:"
           },
@@ -4315,6 +4291,14 @@
             "#text": "Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation."
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "Max number of days for event log"
           },
@@ -4383,14 +4367,6 @@
             "#text": "The full forward-facing url to this forum."
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "Forum Editor:"
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "Select global editor type for your forum. To use the HTML editors (FCK and FreeTextBox) the .bin file must be in the \\bin directory and the proper support files must be put in \\editors."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forum Email:"
           },
@@ -4429,10 +4405,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "Display Settings"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "Editing/Formatting Settings"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4525,10 +4497,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "Display"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "Editors"
           },
           {
             "@tag": "HOST_FEATURES",
@@ -7854,6 +7822,10 @@
             "#text": "Font Color"
           },
           {
+            "@tag": "FONT_NAME",
+            "#text": "Font Name"
+          },
+          {
             "@tag": "FONT_SIZE",
             "#text": "Font Size"
           },
@@ -8184,6 +8156,10 @@
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Underline"
+          },
+          {
+            "@tag": "TT_STRIKE_THROUGH",
+            "#text": "Strikethrough"
           },
           {
             "@tag": "TT_CUT",

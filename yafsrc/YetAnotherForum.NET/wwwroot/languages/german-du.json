@@ -3779,14 +3779,6 @@
             "#text": "Automatisch Sessions aufgeben für Benutzer, die als \"Nicht verfolgen\" markiert sind wie z.B.: Suchmaschinen und Bots. Aktivieren Sie, diese Option wenn Sie Probleme mit Sessions haben."
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "Akzeptierte HTML-Tags:"
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "Durch Kommata getrennte Liste (ohne Leerzeichen) von HTML-Tags, die in Beiträgen mit HTML-Editoren zulässig sind."
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Aktive Benutzer Zeit:"
           },
@@ -4227,22 +4219,6 @@
             "#text": "Wenn diese Option aktiviert, Beschreibung und Schlüsselwörter Meta-Tags werden dynamisch für die Beitragsseiten erstellt aus den Daten des aktuellen Themas."
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "Editor-Symbolleiste für Signaturen und Schnellantworten."
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "Editor-Symbolleiste Basic:"
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "Editor-Symbolleiste voll:"
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "Editor-Symbolleiste für Postings und private Nachrichten."
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "Erfordert E-Mail Verifizierung:"
           },
@@ -4315,6 +4291,14 @@
             "#text": "Einstellung um das Reputationssystem zu de-aktivieren, um Benutzern zu erlauben andere Benutzer zu bewerten."
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "Anzahl An Tagen wie lange Ein Eintrag im Ereignis Log bleibt"
           },
@@ -4383,14 +4367,6 @@
             "#text": "Die vollständige, nach vorne gerichtete Url zu diesem Forum."
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "Forum-Editor:"
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "Wählen Sie den Standard Editor für das Forum."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forum E-Mail Adresse:"
           },
@@ -4429,10 +4405,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "Darstellungs-Einstellungen"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "Editoren- / Formatierungseinstellungen"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4525,10 +4497,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "Darstellung"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "Editoren"
           },
           {
             "@tag": "HOST_FEATURES",
@@ -7854,6 +7822,10 @@
             "#text": "Schriftfarbe:"
           },
           {
+            "@tag": "FONT_NAME",
+            "#text": "Font Name"
+          },
+          {
             "@tag": "FONT_SIZE",
             "#text": "Schriftgröße:"
           },
@@ -8220,6 +8192,10 @@
           {
             "@tag": "TT_SELECT_ALL",
             "#text": "Select all"
+          },
+          {
+            "@tag": "TT_STRIKE_THROUGH",
+            "#text": "Strikethrough"
           },
           {
             "@tag": "TT_UNDERLINE",

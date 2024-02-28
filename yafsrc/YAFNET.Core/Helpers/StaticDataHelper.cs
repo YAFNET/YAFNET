@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 using Newtonsoft.Json;
@@ -41,6 +40,17 @@ using YAF.Types.Objects.Language;
 /// </summary>
 public static class StaticDataHelper
 {
+    /// <summary>
+    /// Loads the help menu json.
+    /// </summary>
+    /// <returns>List&lt;HelpNavigation&gt;.</returns>
+    public static List<HelpNavigation> LoadHelpMenuJson()
+    {
+        var json = File.ReadAllText(Path.Combine(BoardContext.Current.Get<BoardInfo>().WebRootPath, "resources", "helpMenu.json"));
+
+        return JsonConvert.DeserializeObject<List<HelpNavigation>>(json);
+    }
+
     /// <summary>
     /// Gets the Friend list modes.
     /// </summary>
@@ -192,7 +202,7 @@ public static class StaticDataHelper
     {
         var list = new List<Culture>();
 
-        var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
+        var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
 
         // Get all language files info
         var dir = new DirectoryInfo(Path.Combine(webRootPath, "languages"));
@@ -267,7 +277,7 @@ public static class StaticDataHelper
     {
         var list = new List<Culture>();
 
-        var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
+        var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
 
         // Get all language files info
         var dir = new DirectoryInfo(Path.Combine(webRootPath, "languages"));
@@ -316,7 +326,7 @@ public static class StaticDataHelper
     {
         var list = new List<SelectListItem>();
 
-        var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
+        var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
 
         // Get all language files info
         var dir = new DirectoryInfo(Path.Combine(webRootPath, "languages"));
@@ -361,7 +371,7 @@ public static class StaticDataHelper
     {
         var list = new List<Culture>();
 
-        var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
+        var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
 
         // Get all language files info
         var dir = new DirectoryInfo(Path.Combine(webRootPath, "languages"));
@@ -420,7 +430,7 @@ public static class StaticDataHelper
 
         string rawTag;
 
-        var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
+        var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
 
         // Get all language files info
         var dir = new DirectoryInfo(Path.Combine(webRootPath, "languages"));
@@ -460,7 +470,7 @@ public static class StaticDataHelper
     /// </returns>
     public static IReadOnlyCollection<SelectListItem> Themes()
     {
-        var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
+        var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
 
         var dir = new DirectoryInfo(Path.Combine(webRootPath, "css", "themes"));
 

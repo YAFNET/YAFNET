@@ -3787,14 +3787,6 @@
             "#text": "Avbryt automatisk økter for brukere som er merket som «Ikke spor», for eksempel søkemotorer og bots. Aktiver hvis du har noen øktproblemer."
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "Godkjente HTML-tagger:"
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "Kommaseparert liste (ingen mellomrom) over HTML-tagger som er tillatt i innlegg med HTML-redigeringsprogram."
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Aktive brukere tid:"
           },
@@ -4235,22 +4227,6 @@
             "#text": "Hvis det er merket av, vil metatagger for beskrivelse og søkeord bli opprettet dynamisk på innleggssidene."
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "Redaktørverktøylinje brukt for signaturer og hurtigsvar."
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "Grunnleggende redigeringsverktøylinje:"
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "Editor Toolbar Full:"
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "Redaktørverktøylinje brukt for innlegg og private meldinger."
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "Krev e-postbekreftelse:"
           },
@@ -4323,6 +4299,14 @@
             "#text": "Innstilling for å aktivere/deaktivere det innebygde omdømmesystemet for å tillate brukere å gi eller fjerne omdømme."
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "Maks antall dager for hendelseslogg"
           },
@@ -4391,14 +4375,6 @@
             "#text": "Hele fremadvendte url til dette forumet."
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "Forumredaktør:"
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "Velg global redigeringstype for forumet ditt. For å bruke HTML-editorene (FCK og FreeTextBox) må .bin-filen være i \\bin-katalogen og de riktige støttefilene må legges inn i \\editors."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forum e-post:"
           },
@@ -4437,10 +4413,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "Skjerminnstillinger"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "Redigerings-/formateringsinnstillinger"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4533,10 +4505,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "Vise"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "Redaktører"
           },
           {
             "@tag": "HOST_FEATURES",
@@ -7862,6 +7830,10 @@
             "#text": "Skriftfarge"
           },
           {
+            "@tag": "FONT_NAME",
+            "#text": "Font Name"
+          },
+          {
             "@tag": "FONT_SIZE",
             "#text": "Skriftstørrelse"
           },
@@ -8228,6 +8200,10 @@
           {
             "@tag": "TT_SELECT_ALL",
             "#text": "Select all"
+          },
+          {
+            "@tag": "TT_STRIKE_THROUGH",
+            "#text": "Strikethrough"
           },
           {
             "@tag": "TT_UNDERLINE",

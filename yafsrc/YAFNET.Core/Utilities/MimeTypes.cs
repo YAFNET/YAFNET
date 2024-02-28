@@ -22,12 +22,13 @@
  * under the License.
  */
 
+using Newtonsoft.Json;
+
 namespace YAF.Core.Utilities;
 
 using System.Collections.Generic;
 using System.IO;
 
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 using YAF.Types.Objects;
@@ -42,7 +43,7 @@ public static class MimeTypes
     /// <summary>
     /// The mime types.
     /// </summary>
-    private static List<MimeType> mimeTypes;
+    private static List<MimeType> _mimeTypes;
 
     /// <summary>
     /// Check if File Content Type is correct
@@ -72,14 +73,14 @@ public static class MimeTypes
     /// </returns>
     public static bool FileMatchContentType(string fileName, string contentType)
     {
-        if (mimeTypes == null)
+        if (_mimeTypes == null)
         {
             InitializeMimeTypeLists();
         }
 
         var extension = Path.GetExtension(fileName).Replace(".", string.Empty).ToLower();
 
-        var isMatch = mimeTypes!.Where(m => m.Extension == extension).ToList().Exists(m => m.Extension == extension && m.Type == contentType);
+        var isMatch = _mimeTypes!.Where(m => m.Extension == extension).ToList().Exists(m => m.Extension == extension && m.Type == contentType);
 
         if (!isMatch)
         {
@@ -94,10 +95,19 @@ public static class MimeTypes
     /// </summary>
     private static void InitializeMimeTypeLists()
     {
-        mimeTypes = [];
+        _mimeTypes = BoardContext.Current.Get<IDataCache>().GetOrSet(
+            "MimeTypes",
+            LoadJson);
+    }
 
-        var config = BoardContext.Current.Get<IConfiguration>();
+    /// <summary>
+    /// Loads the json.
+    /// </summary>
+    /// <returns>List&lt;MimeType&gt;.</returns>
+    private static List<MimeType> LoadJson()
+    {
+        var json = File.ReadAllText(Path.Combine(BoardContext.Current.Get<BoardInfo>().WebRootPath, "resources", "mimeTypes.json"));
 
-        config.GetSection(nameof(MimeType)).Bind(mimeTypes);
+       return JsonConvert.DeserializeObject<List<MimeType>>(json);
     }
 }

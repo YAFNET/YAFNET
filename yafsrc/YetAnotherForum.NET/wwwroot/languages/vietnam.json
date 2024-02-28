@@ -3787,14 +3787,6 @@
             "#text": "Tự động bỏ qua các phiên đối với những người dùng được đánh dấu là &quot;Không theo dõi&quot;, chẳng hạn như Công cụ tìm kiếm và Bots. Bật nếu bạn gặp bất kỳ sự cố nào về phiên."
           },
           {
-            "@tag": "ACCEPT_HTML",
-            "#text": "Thẻ HTML được chấp nhận:"
-          },
-          {
-            "@tag": "ACCEPT_HTML_HELP",
-            "#text": "Danh sách được phân tách bằng dấu phẩy (không có dấu cách) các thẻ HTML được phép trong các bài đăng bằng trình chỉnh sửa HTML."
-          },
-          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Thời gian Người dùng Hoạt động:"
           },
@@ -4235,22 +4227,6 @@
             "#text": "Nếu được chọn, thẻ meta mô tả và từ khóa sẽ được tạo động trên các trang đăng."
           },
           {
-            "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "Trình chỉnh sửa Thanh công cụ được sử dụng cho Chữ ký trả lời Trả lời nhanh."
-          },
-          {
-            "@tag": "EDITOR_BASIC",
-            "#text": "Cơ bản của Thanh công cụ Trình chỉnh sửa:"
-          },
-          {
-            "@tag": "EDITOR_FULL",
-            "#text": "Trình chỉnh sửa Thanh công cụ đầy đủ:"
-          },
-          {
-            "@tag": "EDITOR_FULL_HELP",
-            "#text": "Thanh công cụ Editor được sử dụng để Đăng và Tin nhắn Riêng tư."
-          },
-          {
             "@tag": "EMAIL_VERIFICATION",
             "#text": "Yêu cầu xác minh email:"
           },
@@ -4323,6 +4299,14 @@
             "#text": "Cài đặt Bật / Tắt Hệ thống Danh tiếng Tích hợp để cho phép Người dùng Cung cấp hoặc Xóa Danh tiếng."
           },
           {
+            "@tag": "ENABLE_WYSIWYG",
+            "#text": "Enable WYSIWYG Editor"
+          },
+          {
+            "@tag": "ENABLE_WYSIWYG_HELP",
+            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "Số ngày tối đa cho nhật ký sự kiện"
           },
@@ -4391,14 +4375,6 @@
             "#text": "Toàn bộ url hướng về phía trước cho diễn đàn này."
           },
           {
-            "@tag": "FORUM_EDITOR",
-            "#text": "Biên tập viên diễn đàn:"
-          },
-          {
-            "@tag": "FORUM_EDITOR_HELP",
-            "#text": "Chọn loại biên tập viên toàn cầu cho diễn đàn của bạn. Để sử dụng các trình soạn thảo HTML (FCK và FreeTextBox), tệp .bin phải nằm trong thư mục \\ bin và các tệp hỗ trợ thích hợp phải được đặt trong \\ editors."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Email Diễn đàn:"
           },
@@ -4437,10 +4413,6 @@
           {
             "@tag": "HEADER_DISPLAY",
             "#text": "Thiết lập hiển thị"
-          },
-          {
-            "@tag": "HEADER_EDITORS",
-            "#text": "Cài đặt Chỉnh sửa / Định dạng"
           },
           {
             "@tag": "HEADER_FEATURES",
@@ -4533,10 +4505,6 @@
           {
             "@tag": "HOST_DISPLAY",
             "#text": "Trưng bày"
-          },
-          {
-            "@tag": "HOST_EDITORS",
-            "#text": "Người biên tập"
           },
           {
             "@tag": "HOST_FEATURES",
@@ -7862,6 +7830,10 @@
             "#text": "Màu chữ:"
           },
           {
+            "@tag": "FONT_NAME",
+            "#text": "Font Name"
+          },
+          {
             "@tag": "FONT_SIZE",
             "#text": "Cỡ chữ:"
           },
@@ -8228,6 +8200,10 @@
           {
             "@tag": "TT_SELECT_ALL",
             "#text": "Select all"
+          },
+          {
+            "@tag": "TT_STRIKE_THROUGH",
+            "#text": "Strikethrough"
           },
           {
             "@tag": "TT_UNDERLINE",

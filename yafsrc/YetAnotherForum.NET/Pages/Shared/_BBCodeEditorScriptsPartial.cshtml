@@ -10,7 +10,7 @@
 
 @if (Current.BoardSettings.EnableWysiwygEditor)
 {
-    <script src="@(Current.Get<BoardInfo>().GetUrlToScripts("/sceditor/sceditor.min.js"))"></script>
+    <script src="@(Current.Get<BoardInfo>().GetUrlToScripts("sceditor/sceditor.min.js"))"></script>
 
     var language = BoardContext.Current.PageUser.Culture.IsSet()
         ? BoardContext.Current.PageUser.Culture[..2]
@@ -21,7 +21,7 @@
         language = Current.Get<BoardSettings>().Culture;
     }
 
-    <script src="@(Current.Get<BoardInfo>().GetUrlToScripts($"/sceditor/languages/{language}.js"))"></script>
+    <script src="@(Current.Get<BoardInfo>().GetUrlToScripts($"sceditor/languages/{language}.js"))"></script>
 }
 else
 {
