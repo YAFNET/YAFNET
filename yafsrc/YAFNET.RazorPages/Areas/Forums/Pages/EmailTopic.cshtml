@@ -1,0 +1,71 @@
+﻿@page "{t:int}/{handler?}"
+
+@using YAF.Web.HtmlHelpers
+@model EmailTopicModel
+
+<div class="row">
+    <div class="col-xl-12">
+        <h2>
+            @Html.LocalizedText("EMAILTOPIC", "TITLE")
+        </h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <form method="post" class="needs-validation" novalidate>
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("envelope-open", "EMAILTOPIC", "TITLE")
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label asp-for="Input.Email" class="form-label"
+                               localized-page="EMAILTOPIC"
+                               localized-tag="TO">
+                        </label>
+                        <input asp-for="Input.Email" class="form-control" required />
+                        <div class="invalid-feedback">
+                            <span asp-validation-for="Input.Email">
+                                @Html.LocalizedText("EMAILTOPIC", "NEED_EMAIL")
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Input.Subject" class="form-label"
+                               localized-page="EMAILTOPIC"
+                               localized-tag="SUBJECT">
+                        </label>
+                        <input asp-for="Input.Subject" class="form-control" required />
+                        <div class="invalid-feedback">
+                            <span asp-validation-for="Input.Subject">
+                                @Html.LocalizedText("EMAILTOPIC", "NEED_SUBJECT")
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Input.Body" class="form-label"
+                               localized-page="EMAILTOPIC"
+                               localized-tag="MESSAGE">
+                        </label>
+                        <textarea asp-for="Input.Body" class="form-control" required rows="10"></textarea>
+                        <div class="invalid-feedback">
+                            <span asp-validation-for="Input.Body">
+                                @Html.LocalizedText("EMAILTOPIC", "NEED_MESSAGE")
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button type="submit" button-style="Primary"
+                            icon="paper-plane"
+                            text-localized-tag="SEND"></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+}

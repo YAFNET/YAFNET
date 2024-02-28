@@ -1,0 +1,41 @@
+﻿@using YAF.Core.Context
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+
+@if (BoardContext.Current.PageUser.UserFlags.IsHostAdmin)
+{
+    <li class="nav-item dropdown">
+        <a class="@Html.Raw(BoardContext.Current.CurrentForumPage.PageName is ForumPages.Admin_HostSettings or ForumPages.Admin_Boards or ForumPages.Admin_EditBoard or ForumPages.Admin_PageAccessEdit or ForumPages.Admin_PageAccessList ? "nav-link dropdown-toggle active" : "nav-link dropdown-toggle")"
+           role="button"
+           href="#"
+           data-bs-toggle="dropdown"
+           aria-expanded="false">
+            @Html.LocalizedText("TOOLBAR", "HOST")
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="hostDropdown">
+            <li>
+                <a asp-page="/Admin/HostSettings" 
+                   class="@Html.Raw(BoardContext.Current.CurrentForumPage.PageName == ForumPages.Admin_HostSettings ? "dropdown-item active" : "dropdown-item")"
+                   text-localized-page="ADMINMENU" text-localized-tag="ADMIN_HOSTSETTINGS"
+                   icon="cog">
+                    @Html.Icon("cog")
+                    @Html.LocalizedText("ADMINMENU", "ADMIN_HOSTSETTINGS")
+                </a>
+            </li>
+            <li>
+                <a asp-page="/Admin/Boards"
+                   class="@Html.Raw(BoardContext.Current.CurrentForumPage.PageName is ForumPages.Admin_Boards or ForumPages.Admin_EditBoard ? "dropdown-item active" : "dropdown-item")"
+                   text-localized-page="ADMINMENU" text-localized-tag="ADMIN_BOARDS"
+                   icon="globe">
+                </a>
+            </li>
+            <li>
+                <a asp-page="/Admin/PageAccessList"
+                   class="@Html.Raw(BoardContext.Current.CurrentForumPage.PageName is ForumPages.Admin_PageAccessList or ForumPages.Admin_PageAccessEdit ? "dropdown-item active" : "dropdown-item")"
+                   text-localized-page="ADMINMENU" text-localized-tag="ADMIN_PAGEACCESSLIST"
+                   icon="building">
+                </a>
+            </li>
+        </ul>
+    </li>
+}

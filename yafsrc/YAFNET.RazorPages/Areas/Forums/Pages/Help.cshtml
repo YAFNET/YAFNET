@@ -1,0 +1,88 @@
+﻿@page "{faq=index}/{handler?}"
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Interfaces
+@model HelpModel
+
+@{
+    @if (Request.RouteValues.ContainsKey("faq") && Request.RouteValues["faq"].ToString() != "index")
+    {
+        Model.PageBoardContext.CurrentForumPage.PageTitle = Html.HtmlEncode($"{Model.Get<ILocalization>().GetText("HELP_INDEX", "SUBTITLE")} &#183; {Model.Get<ILocalization>().GetText("HELP_INDEX", $"{Request.RouteValues["faq"]}TITLE")}");
+    }
+    else
+    {
+        Model.PageBoardContext.CurrentForumPage.PageTitle = Html.HtmlEncode($"{Model.Get<ILocalization>().GetText("HELP_INDEX", "SUBTITLE")} &#183; {Model.Get<ILocalization>().GetText("HELP_INDEX", "SEARCHHELPTITLE")}");
+    }
+}
+
+<div class="container-fluid">
+    <div class="row g-0">
+
+        @Html.HelpMenu()
+
+        <div class="col flex-grow-1 ms-lg-3">
+            <h1 class="h2">
+                @Html.LocalizedText("HELP_INDEX", "TITLE")
+            </h1>
+
+            @if (Request.RouteValues.ContainsKey("faq") && Request.RouteValues["faq"].ToString() != "index")
+            {
+                @if (Request.RouteValues["faq"].ToString() == "search")
+                {
+                    @foreach (var content in Model.HelpContents)
+                    {
+                        <div class="card my-3">
+                            <div class="card-header d-flex">
+                                @content.Title
+                            </div>
+                            <div class="card-body">
+                                @Html.Raw(content.Content)
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    @foreach (var content in Model.HelpContents.Where(check => check.HelpPage.ToLower().Equals(Request.RouteValues["faq"])))
+                    {
+                        <div class="card my-3">
+                            <div class="card-header d-flex">
+                                @content.Title
+                            </div>
+                            <div class="card-body">
+                                @Html.Raw(content.Content)
+                            </div>
+                        </div>
+                    }
+                }
+            }
+            else
+            {
+                <form method="post" asp-route-faq="search">
+                    <div class="card my-3">
+                        <div class="card-header">
+                            @Html.LocalizedText("HELP_INDEX", "subtitle")
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                @Html.LocalizedText("HELP_INDEX", "WELCOME")
+                            </p>
+                            <div class="g-3">
+                                <label asp-for="Input.Search" class="form-label"
+                                       localized-page="HELP_INDEX" localized-tag="SEARCHFOR">
+                                </label>
+                                <input asp-for="Input.Search" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="card-footer text-center">
+                            <button type="submit" button-style="Primary"
+                                    icon="search"
+                                    text-localized-page="HELP_INDEX"
+                                    text-localized-tag="BTNSEARCH">
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>

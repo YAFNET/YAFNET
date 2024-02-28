@@ -1,0 +1,70 @@
+﻿@using YAF.Core.Context
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+@model YAF.Types.Modals.QuickReplyModal
+
+@inject BoardContext Current
+
+@section StyleSheets {
+    @if (Current.BoardSettings.EnableWysiwygEditor)
+    {
+        @await Html.PartialAsync("_SCEditorStylesSheetsPartial")
+    }
+}
+
+<!-- Modal -->
+<div class="modal fade needs-validation" id="QuickReplyDialog" tabindex="-1" role="dialog" aria-labelledby="quickReplyLabel" aria-hidden="true" novalidate>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    @Html.LocalizedText("QUICKREPLY")
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="PostsModal" asp-action="Reply" asp-route-t="@Current.PageTopicID" asp-route-f="@Current.PageForumID">
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <textarea asp-for="QuickReplyEditor"
+                      class="form-control"
+                      rows="15"
+                      cols="100"
+                      editor-mode="Basic"
+                      users-can-upload="false"
+                      maxlength="@Current.BoardSettings.MaxPostSize"
+                      max-characters="@Current.BoardSettings.MaxPostSize" required></textarea>
+                    @if (!Current.IsGuest)
+                    {
+                        <div class="form-check form-switch mt-3">
+                            <input class="form-check-input" type="checkbox" role="switch" asp-for="TopicWatch">
+                            <label class="form-check-label" asp-for="TopicWatch" localized-tag="TOPICWATCH"></label>
+                        </div>
+                    }
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button button-style="Primary" data-bs-save="editModal"
+                        text-localized-tag="SAVE" text-localized-page="POSTMESSAGE"
+                        Icon="reply">
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("_BBCodeEditorScriptsPartial")
+
+
+<script>
+    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.CreateEditorJs(
+        "QuickReplyEditor",
+        Current.Get<ILocalization>().GetText("COMMON", "TT_URL_TITLE"),
+        Current.Get<ILocalization>().GetText("COMMON", "TT_URL_DESC"),
+        Current.Get<ILocalization>().GetText("COMMON", "TT_IMAGE_TITLE"),
+        Current.Get<ILocalization>().GetText("COMMON", "TT_IMAGE_DESC"),
+        Current.Get<ILocalization>().GetText("COMMON", "TT_DESCRIPTION"),
+        Current.Get<ILocalization>().GetText("COMMON", "TT_MEDIA"))));
+
+</script>

@@ -1,0 +1,67 @@
+@page "{handler?}"
+@using System.Globalization
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+@model DigestModel
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("envelope","ADMIN_DIGEST","TITLE")
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label"
+                                   localized-tag="DIGEST_ENABLED" localized-page="ADMIN_DIGEST"></label>
+                            <span class="badge text-bg-secondary">
+                                @Html.LocalizedText("COMMON", Model.PageBoardContext.BoardSettings.AllowDigestEmail ? "YES" : "NO")
+                            </span>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" 
+                                   localized-tag="DIGEST_LAST" localized-page="ADMIN_DIGEST"></label>
+                            <span class="badge text-bg-secondary">
+                                @Html.Raw(Model.PageBoardContext.BoardSettings.LastDigestSend.IsNotSet()
+                                              ? Model.GetText("ADMIN_DIGEST", "DIGEST_NEVER")
+                                              : Convert.ToDateTime(
+                                                  Model.PageBoardContext.BoardSettings.LastDigestSend,
+                                                  CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture))
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button asp-page-handler="ForceSend" button-style="Primary"
+                                 Icon="paper-plane" text-localized-tag="FORCE_SEND">
+                </button>
+            </div>
+        </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("envelope","ADMIN_DIGEST","HEADER3")
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label" 
+                                       asp-for="TextSendEmail"
+                                       localized-tag="DIGEST_EMAIL" localized-page="ADMIN_DIGEST"></label>
+                        <input type="email" asp-for="TextSendEmail"  
+                                     class="form-control"/>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button asp-page-handler="TestSend" 
+                            button-style="Primary"
+                            Icon="paper-plane" 
+                            text-localized-tag="SEND_TEST">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

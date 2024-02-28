@@ -1,0 +1,35 @@
+﻿@page
+@using YAF.Web.HtmlHelpers
+@model AuthorizeModel
+
+<div class="row">
+    <div class="col">
+        <div class="card mx-auto" style="max-width:450px">
+            <div class="card-header">
+                @Html.IconHeader("key", "LOGIN", "TWO_FA_VALIDATION")
+            </div>
+            <div class="card-body">
+                <section>
+                    <form method="post" class="needs-validation" novalidate>
+                        <alert type="info" icon="info" localized-page="LOGIN" localized-tag="TWO_FA_INFO"></alert>
+                        <div class="mb-3">
+                            <label asp-for="ValidationCode" class="form-label" localized-page="EDIT_SETTINGS" localized-tag="SETUP_CODE"></label>
+                            <input type="text" class="form-control" asp-for="ValidationCode" placeholder="@Html.LocalizedText("TWO_FA_PLACEHOLDER")" required>
+                        </div>
+                        <div class="mb-3 d-grid gap-2">
+                            <button type="submit" button-style="Primary"
+                                    text-localized-tag="VALIDATE"
+                                    text-localized-page="APPROVE"
+                                    Icon="check-circle">
+                            </button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+}

@@ -1,0 +1,266 @@
+@page "{p:int=1}/{p2:int=1}/{handler?}"
+@model RestoreModel
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+            <div class="card-header">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        @Html.IconHeader("trash-restore","ADMIN_RESTORE","TITLE")
+                    </div>
+                    <div class="col-auto">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="input-group input-group-sm me-2" role="group">
+                                <div class="input-group-text">
+                                    @Html.LocalizedText("SHOW"):
+                                </div>
+                           
+                                <select asp-for="@Model.Size"
+                                        asp-items="Model.PageSizeList"
+                                        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                        class="form-select"
+                                        onchange="this.form.submit();"></select>
+                         
+                            </div>
+                            <button class="dropdown-toggle"
+                                    bs-toggle="dropdown"
+                                    button-size="Small"
+                                    button-style="Secondary"
+                                    Icon="filter"
+                                    text-localized-tag="FILTER_DROPDOWN"
+                                    text-localized-page="ADMIN_USERS"></button>
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                                <div class="px-3 py-1">
+                                    <div class="mb-3">
+                                        <label class="form-label" info-button="true" 
+                                               asp-for="Filter"
+                                               localized-tag="FILTER" localized-page="ADMIN_RESTORE"></label>
+                                        <input type="text" asp-for="Filter"
+                                               class="form-control" />
+                                    </div>
+                                    <div class="mb-3 d-grid gap-2">
+                                        <button Icon="sync-alt"
+                                            button-style="Primary"
+                                            text-localized-tag="SEARCH"
+                                            text-localized-page="ADMIN_RESTORE"
+                                            asp-page-handler="Refresh"
+                                            asp-route-p="@Model.Request.RouteValues["p"]"
+                                            asp-route-p2="@Model.Request.RouteValues["p2"]"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            @if (!Model.DeletedTopics.NullOrEmpty())
+            {
+                <div class="card-body">
+                    <ul class="list-group">
+
+                        @foreach (var topic in Model.DeletedTopics)
+                        {
+                            <li class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">
+                                        @Html.Raw(topic.Subject)
+
+                                        @if (topic.NumPosts > 0)
+                                        {
+                                            <a button-style="Link"
+                                               icon="external-link-alt"
+                                               asp-page="@ForumPages.Posts"
+                                               asp-route-t="@topic.TopicID"
+                                               asp-route-name="@Html.HtmlEncode(topic.Subject)">
+                                            </a>
+                                        }
+                                    </h5>
+                                    <small>
+                                        @Html.Raw($"{topic.NumPosts} {Model.GetText("POSTS")}")
+                                    </small>
+                                </div>
+                                <p class="mb-1">
+
+                                </p>
+                                <small>
+                                    <div class="btn-group">
+
+                                        @if (topic.NumPosts > 0)
+                                        {
+                                            <button text-localized-tag="RESTORE_TOPIC"
+                                                    Icon="trash-restore"
+                                                    button-style="Success"
+                                                    asp-page-handler="RestoreTopic"
+                                                    asp-route-p2="@Model.Request.RouteValues["p2"]"
+                                                    asp-route-topicId="@topic.TopicID"
+                                                    asp-route-forumId="@topic.ForumID"></button>
+                                        }
+                                       
+                                        <button text-localized-tag="DELETE"
+                                                button-style="Danger"
+                                                Icon="trash"
+                                                asp-route-p2="@Model.Request.RouteValues["p2"]"
+                                                asp-route-topicId="@topic.TopicID"
+                                                asp-route-forumId="@topic.ForumID"
+                                                asp-page-handler="DeleteTopic">
+                                        </button>
+                                    </div>
+                                </small>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    <button 
+                        asp-page-handler="DeleteAllTopics"
+                        class="me-2"
+                        button-style="Danger"
+                        Icon="dumpster"
+                        text-localized-tag="DELETE_ALL"
+                        text-localized-page="ADMIN_EVENTLOG"
+                        asp-route-p2="@Model.Request.RouteValues["p2"]">
+                    </button>
+                    <button 
+                        asp-page-handler="DeleteZeroTopics"
+                        button-style="Danger"
+                        Icon="dumpster"
+                        text-localized-tag="DELETE_ALL_ZERO"
+                        text-localized-page="ADMIN_RESTORE"
+                        asp-route-p2="@Model.Request.RouteValues["p2"]">
+                    </button>
+                </div>
+            }
+            else
+            {
+                <div class="card-body">
+                    <alert type="success" icon="check" localized-tag="NO_ENTRY">
+                    </alert>
+                </div>
+            }
+                   
+        </div>
+        </div>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-auto">
+            <pager page-size="@Model.Size"
+                   count="!Model.DeletedTopics.NullOrEmpty() ? Model.DeletedTopics.FirstOrDefault()!.TotalRows : 0"
+                   query-name="p">
+            </pager>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-auto">
+                            @Html.IconHeader("trash-restore", "ADMIN_RESTORE", "TITLE_MESSAGE")
+                        </div>
+                        <div class="col-auto">
+                            <div class="input-group input-group-sm me-2" role="group">
+                                <div class="input-group-text">
+                                    @Html.LocalizedText("SHOW"):
+                                </div>
+
+                                <select asp-for="@Model.MessagesPageSize"
+                                        asp-items="Model.MessagesPageSizeList"
+                                        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                        class="form-select"
+                                        onchange="this.form.submit();"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if (!Model.DeletedMessages.NullOrEmpty())
+                {
+                    <div class="card-body">
+                        <ul class="list-group">
+
+                            @foreach (var message in Model.DeletedMessages)
+                            {
+                                <li class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">
+                                            @Html.Raw(message.Topic)
+
+                                            <a button-style="Link"
+                                               Icon="external-link-alt"
+                                               asp-page="@ForumPages.Posts.GetPageName()"
+                                               asp-route-m="@message.MessageID"
+                                               asp-route-name="@Html.HtmlEncode(message.Topic)">
+                                            </a>
+
+                                        </h5>
+                                    </div>
+                                    <p class="mb-1">
+                                        @Html.Raw(message.Message)
+                                    </p>
+                                    <small>
+                                        <div class="btn-group">
+                                            <button text-localized-tag="RESTORE_MESSAGE"
+                                                    Icon="trash-restore"
+                                                    button-style="Success"
+                                                    asp-page-handler="RestorePost"
+                                                    asp-route-p="@Model.Request.RouteValues["p"]"
+                                                    asp-route-topicId="@message.TopicID"
+                                                    asp-route-forumId="@message.ForumID"
+                                                    asp-route-messageId="@message.MessageID"></button>
+                                            <button asp-page-handler="DeletePost"
+                                                    text-localized-tag="DELETE"
+                                                    button-style="Danger"
+                                                    Icon="trash"
+                                                    asp-route-p="@Model.Request.RouteValues["p"]"
+                                                    asp-route-topicId="@message.TopicID"
+                                                    asp-route-forumId="@message.ForumID"
+                                                    asp-route-messageId="@message.MessageID">
+                                            </button>
+                                        </div>
+                                    </small>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button asp-page-handler="DeleteAllPosts"
+                                asp-route-p="@Model.Request.RouteValues["p"]"
+                                button-style="Danger"
+                                Icon="dumpster"
+                                text-localized-tag="DELETE_ALL"
+                                text-localized-page="ADMIN_EVENTLOG">
+                        </button>
+                    </div>
+                }
+                else
+                {
+                    <div class="card-body">
+                        <alert type="success" icon="check" localized-tag="NO_ENTRY">
+                        </alert>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-auto">
+            <pager page-size="@Model.Size"
+                   count="!Model.DeletedMessages.NullOrEmpty() ? Model.DeletedMessages.FirstOrDefault()!.TotalRows : 0"
+                   query-name="p2">
+            </pager>
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,5 @@
+@using YAF.Core.Context
+
+@inject BoardContext Current
+
+<link rel="stylesheet" href="@(Current.Get<BoardInfo>().GetUrlToCss("mds.datetimepicker.min.css"))" />

@@ -1,0 +1,274 @@
+﻿<YafBBCodeList>
+    <YafBBCode>
+        <Name>MEDIA</Name>
+        <Description>[MEDIA][localization=MEDIA]Put URL Here[/localization][/MEDIA]</Description>
+        <OnClickJS />
+        <DisplayJS />
+        <EditJS />
+        <DisplayCSS />
+        <SearchRegex>\[media\](?&lt;inner&gt;.+?)\[\/media\]</SearchRegex>
+        <ReplaceRegex />
+        <Variables />
+        <UseModule>true</UseModule>
+        <UseToolbar>true</UseToolbar>
+        <ModuleClass>YAF.Web.BBCodes.MediaBBCodeModule, YAF.Web</ModuleClass>
+        <ExecOrder>1</ExecOrder>
+    </YafBBCode>
+	<YafBBCode>
+        <Name>TWITTER</Name>
+        <Description>[TWITTER][localization=TWITTER_DESCRIPTION]Enter the Status URL of the Tweet you want to embed[/localization][/TWITTER]</Description>
+        <OnClickJS></OnClickJS>
+        <DisplayJS></DisplayJS>
+        <EditJS></EditJS>
+        <DisplayCSS></DisplayCSS>
+        <SearchRegex>\[twitter\](?&lt;statusID&gt;\d*)\[/twitter\]|\[twitter\]https://twitter.com/(.*?)/status/(?&lt;statusID&gt;\d*)(.*?)\[/twitter\]</SearchRegex>
+        <ReplaceRegex>&lt;div class="ratio w-50"  style="--bs-aspect-ratio: 56%;" data-oembed-url="https%3A%2F%2Ftwitter.com%2Fx%2Fstatus%2F${statusID}"&gt;&lt;iframe src="https://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2Fx%2Fstatus%2F${statusID}"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
+        <Variables>statusID</Variables>
+        <UseModule>false</UseModule>
+        <UseToolbar>true</UseToolbar>
+        <ModuleClass></ModuleClass>
+        <ExecOrder>100</ExecOrder>
+    </YafBBCode>
+  <YafBBCode>
+    <Name>DAILYMOTION</Name>
+    <Description>[dailymotion][localization=DAILYMOTION_DESCRIPTION]Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)[/localization][/dailymotion]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[dailymotion\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?dailymotion.com/video/(?&lt;id&gt;[^_]*))[^[]*\[/dailymotion\]</SearchRegex>
+    <ReplaceRegex>&lt;div data-oembed-url="https://dailymotion.com/video/${id}" class="ratio ratio-1x1"&gt;&lt;iframe src="https://dailymotion.com/embed/video/${id}?forcedQuality=hd720"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
+    <Variables>id;prefix</Variables>
+    <UseModule>false</UseModule>
+    <UseToolbar>false</UseToolbar>
+    <ModuleClass></ModuleClass>
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>YOUTUBE</Name>
+    <Description>[YOUTUBE][localization=YOUTUBEMOD_DESCRIPTION]Put YouTube URL Here[/localization][/YOUTUBE]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtube.com/watch\?v=(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]|\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtu.be/(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]</SearchRegex>
+	  <ReplaceRegex>
+          &lt;div data-oembed-url="//youtube.com/embed/${id}" class="ratio ratio-16x9"&gt;&lt;iframe src="//youtube.com/embed/${id}?hd=1" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
+      </ReplaceRegex>
+    <Variables>id</Variables>
+    <UseModule>false</UseModule>
+    <UseToolbar>true</UseToolbar>
+    <ModuleClass></ModuleClass>
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>SPOILER</Name>
+    <Description>[SPOILER][localization=SPOILERMOD_DESCRIPTION]Put Spoiler Text Here[/localization][/SPOILER]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[spoiler\](?&lt;inner&gt;.+?)\[\/spoiler\]</SearchRegex>
+    <ReplaceRegex></ReplaceRegex>
+    <Variables></Variables>
+    <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
+    <ModuleClass>YAF.Web.BBCodes.SpoilerBBCodeModule, YAF.Web</ModuleClass>
+    <ExecOrder>50</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>USERLINK</Name>
+    <Description>[USERLINK][localization=USERLINKMOD_DESCRIPTION]Put User Name Here[/localization][/USERLINK]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[userlink\](?&lt;inner&gt;.+?)\[\/userlink\]</SearchRegex>
+    <ReplaceRegex></ReplaceRegex>
+    <Variables></Variables>
+    <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
+    <ModuleClass>YAF.Web.BBCodes.UserLinkBBCodeModule, YAF.Web</ModuleClass>
+    <ExecOrder>75</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>VIMEO</Name>
+    <Description>[VIMEO]https://www.vimeo.com/xxxxxxx[/VIMEO]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[vimeo\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)vimeo.com/(?&lt;vimeoId&gt;[0-9]+))[^[]*\[/vimeo\]</SearchRegex>
+    <ReplaceRegex>&lt;div data-oembed-url="https://vimeo.com/${vimeoId}" class="ratio ratio-16x9"&gt;&lt;iframe src="http://player.vimeo.com/video/${vimeoId}?show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=1&amp;amp;&amp;amp;fullscreen=1"&gt;&lt;/iframe&gt;&lt;/div&gt;</ReplaceRegex>
+    <Variables>prefix;vimeoId</Variables>
+    <UseModule>false</UseModule>
+    <UseToolbar>true</UseToolbar>
+    <ModuleClass></ModuleClass>
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>HIDE</Name>
+    <Description>[HIDE][localization=HIDEMOD_DESCRIPTION]The tag hides content from people until they press the thank you button for the post.[/localization][/HIDE]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[hide\](?&lt;inner&gt;(.|\n)*?)\[\/hide\]</SearchRegex>
+    <ReplaceRegex></ReplaceRegex>
+    <Variables></Variables>
+    <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
+    <ModuleClass>YAF.Web.BBCodes.HideBBCodeModule, YAF.Web</ModuleClass>
+    <ExecOrder>60</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>GROUP-HIDE</Name>
+    <Description>[GROUP-HIDE][localization=HIDEGROUPMOD_DESCRIPTION]The tag hides from Guests[/localization][/GROUP-HIDE]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[group-hide\](?&lt;inner&gt;(.|\n)*?)\[\/group-hide\]|\[group-hide=(?&lt;group&gt;([^""\r\n\]\[]*?))\](?&lt;inner&gt;(.|\n)*?)\[\/group-hide\]</SearchRegex>
+    <ReplaceRegex></ReplaceRegex>
+    <Variables>group</Variables>
+    <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
+    <ModuleClass>YAF.Web.BBCodes.GroupHide, YAF.Web</ModuleClass>
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>HIDE-THANKS</Name>
+    <Description>[HIDE-THANKS=x][localization=HIDETHANKS_DESCRIPTION]The tag hides content from people who have below X thanks received.[/localization][/HIDE-THANKS]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[hide-thanks=(?&lt;thanks&gt;([0-9]*))\](?&lt;inner&gt;(.|\n)*?)\[\/hide-thanks\]</SearchRegex>
+    <ReplaceRegex></ReplaceRegex>
+    <Variables>thanks</Variables>
+    <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
+    <ModuleClass>YAF.Web.BBCodes.HideBBCodeModule, YAF.Web</ModuleClass>
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>HIDE-REPLY-THANKS</Name>
+    <Description>[HIDE-REPLY-THANKS][localization=HIDEREPLYTHANKS_DESCRIPTION]The tag hides content from people until they either reply in the same thread or press the thank you button for the post.[/localization][/HIDE-REPLY-THANKS]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[hide-reply-thanks\](?&lt;inner&gt;(.|\n)*?)\[\/hide-reply-thanks\]</SearchRegex>
+    <ReplaceRegex></ReplaceRegex>
+    <Variables></Variables>
+    <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
+    <ModuleClass>YAF.Web.BBCodes.HideReplyThanksModule, YAF.Web</ModuleClass>
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>HIDE-REPLY</Name>
+    <Description>[HIDE-REPLY][localization=HIDEREPLY_DESCRIPTION]The tag hides content from people until they reply in the same thread.[/localization][/HIDE-REPLY]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[hide-reply\](?&lt;inner&gt;(.|\n)*?)\[\/hide-reply\]</SearchRegex>
+    <ReplaceRegex></ReplaceRegex>
+    <Variables></Variables>
+    <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
+    <ModuleClass>YAF.Web.BBCodes.HideReplyModule, YAF.Web</ModuleClass>
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>HIDE-POSTS</Name>
+    <Description>[HIDE-POSTS=x][localization=HIDEPOSTS_DESCRIPTION]The tag hides content from people who have below X posts.[/localization][/HIDE-POSTS]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[hide-posts=(?&lt;posts&gt;([0-9]*))\](?&lt;inner&gt;(.|\n)*?)\[\/hide-posts\]</SearchRegex>
+    <ReplaceRegex></ReplaceRegex>
+    <Variables>posts</Variables>
+    <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
+    <ModuleClass>YAF.Web.BBCodes.HideBBCodeModule, YAF.Web</ModuleClass>
+    <ExecOrder>2</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>ALBUMIMG</Name>
+    <Description>[ALBUMIMG][localization=ALBUMIMG_DESCRIPTION]Enter a Album Image Number[/localization][/ALBUMIMG]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[albumimg\](?&lt;inner&gt;.+?)\[\/albumimg\]</SearchRegex>
+    <ReplaceRegex></ReplaceRegex>
+    <Variables></Variables>
+    <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
+    <ModuleClass>YAF.Web.BBCodes.AlbumImage, YAF.Web</ModuleClass>
+    <ExecOrder>30</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>ATTACH</Name>
+    <Description>[ATTACH][localization=ATTACH_DESCRIPTION]Enter a Album Image Number[/localization][/ATTACH]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[attach\](?&lt;inner&gt;.+?)\[\/attach\]</SearchRegex>
+    <ReplaceRegex></ReplaceRegex>
+    <Variables></Variables>
+    <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
+    <ModuleClass>YAF.Web.BBCodes.Attach, YAF.Web</ModuleClass>
+    <ExecOrder>31</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>INSTAGRAM</Name>
+    <Description>[INSTAGRAM][localization=INSTAGRAM_DESCRIPTION]Put Instagram URL Here[/localization][/INSTAGRAM]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[instagram\](?&lt;inner&gt;(.*?).instagram.com/p/(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/instagram\]</SearchRegex>
+    <ReplaceRegex>&lt;div class="ratio ratio-1x1" data-oembed-url="https://www.instagram.com/p/${id}"&gt;&lt;iframe src="https://www.instagram.com/p/${id}/embed/captioned/" &gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
+    <Variables>id</Variables>
+    <UseModule>false</UseModule>
+    <UseToolbar>true</UseToolbar>
+    <ModuleClass></ModuleClass>
+    <ExecOrder>32</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>FACEBOOK</Name>
+    <Description>[FACEBOOK][localization=FACEBOOK_DESCRIPTION]Enter the Url of the post or the Embed Code of the Post you want to embed[/localization][/FACEBOOK]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[facebook\](?&lt;url&gt;.*?)\[/facebook\]</SearchRegex>
+    <ReplaceRegex>&lt;div class="ratio ratio-1x1" data-oembed-url="${url}"&gt;&lt;iframe src="https://www.facebook.com/plugins/post.php?href=${url}" /&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
+    <Variables>url</Variables>
+    <UseModule>false</UseModule>
+    <UseToolbar>true</UseToolbar>
+    <ModuleClass></ModuleClass>
+    <ExecOrder>33</ExecOrder>
+  </YafBBCode>
+	<YafBBCode>
+		<Name>AUDIO</Name>
+		<Description>[AUDIO][localization=AUDIOMOD_DESCRIPTION]Enter an URL to an Audio File[/localization][/AUDIO]</Description>
+		<OnClickJS></OnClickJS>
+		<DisplayJS></DisplayJS>
+		<EditJS></EditJS>
+		<DisplayCSS></DisplayCSS>
+		<SearchRegex>\[audio\](?&lt;inner&gt;.+?)\[/audio\]</SearchRegex>
+		<ReplaceRegex>&lt;div&gt;&lt;audio controls autoplay&gt;&lt;source src="${inner}" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/div&gt;</ReplaceRegex>
+		<Variables></Variables>
+		<UseModule>false</UseModule>
+		<UseToolbar>false</UseToolbar>
+		<ModuleClass></ModuleClass>
+		<ExecOrder>1</ExecOrder>
+	</YafBBCode>
+</YafBBCodeList>

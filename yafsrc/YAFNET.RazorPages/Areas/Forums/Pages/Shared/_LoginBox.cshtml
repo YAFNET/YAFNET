@@ -1,0 +1,129 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Context
+@using YAF.Core.Services
+@using YAF.Core.Utilities
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Models.Identity
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+
+@inject SignInManager<AspNetUsers> SignInManager
+
+@model YAF.Types.Modals.LoginModal
+
+@inject BoardContext Current
+
+
+<div id="LoginBox" class="modal fade" role="dialog" aria-labelledby="Login" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    @Html.LocalizedText("LOGIN", "TITLE")
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form asp-controller="LoginBox" asp-action="SignIn" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label asp-for="UserName" class="form-label" localized-tag="username"></label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    @Html.Icon("user", "text-secondary")
+                                </span>
+                                <input asp-for="UserName" class="form-control" autocomplete="username" required />
+                                <div class="invalid-feedback">
+                                    @Html.LocalizedText("NEED_USERNAME")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label" localized-tag="PASSWORD"></label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    @Html.Icon("key", "text-secondary")
+                                </span>
+                                <input asp-for="Password" class="form-control" type="password" 
+                                       autocomplete="current-password" required onkeydown="@Html.Raw(JavaScriptBlocks.ClickOnEnterJs("LoginButton"))" />
+                                <a class="input-group-text link-underline link-underline-opacity-0" id="PasswordToggle" href="#">
+                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                </a>
+                                <div class="invalid-feedback">
+                                    @Html.LocalizedText("NEED_PASSWORD")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" asp-for="RememberMe"/>
+                                    <label class="form-check-label" asp-for="RememberMe" localized-tag="auto"></label>
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-6 text-end">
+                                <a button-style="Secondary"
+                                   button-size="Small"
+                                   Icon="key"
+                                   href="@Html.Raw(Current.Get<LinkBuilder>().GetLink(ForumPages.Account_ForgotPassword))"
+                                   text-localized-tag="LOSTPASSWORD"></a>
+                            </div>
+                        </div>
+                        <div class="mb-3 d-grid gap-2">
+                            <button id="LoginButton" Icon="sign-in-alt"
+                                    type="submit"
+                                    button-style="Primary"
+                                    class="btn-loading"
+                                    text-localized-tag="FORUM_LOGIN"></button>
+                        </div>
+                    </form>
+                    @if (Current.BoardSettings.AllowSingleSignOn)
+                    {
+                        <section>
+                            <form asp-controller="LoginBox" asp-action="Auth">
+                                <div class="d-grid gap-2">
+                                    @{
+                                        var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+                                        if (loginProviders.HasItems())
+                                        {
+                                            @foreach (var provider in loginProviders)
+                                            {
+                                                <button type="submit"
+                                                        asp-route-auth="@provider.Name"
+                                                        button-style="None"
+                                                        button-size="Small"
+                                                        class="@Html.Raw($"btn btn-social btn-{provider.Name} me-1 mb-1")"
+                                                        icon="@provider.Name"
+                                                        icon-css-class="fab"
+                                                        text-localized-tag="AUTH_CONNECT"
+                                                        title-localized-tag="AUTH_CONNECT"
+                                                        text-param0="@provider.DisplayName"
+                                                        title-param0="@provider.DisplayName">
+                                                </button>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </form>
+                        </section>
+                    }
+                </div>
+            </div>
+
+            @if (Current.IsGuest && !Current.BoardSettings.DisableRegistrations)
+            {
+                <div class="modal-footer text-center">
+                    <a button-size="Small"
+                       button-style="OutlineSecondary"
+                       Icon="user-plus"
+                       href="@Html.Raw(Current.Get<LinkBuilder>().GetLink(Current.BoardSettings.ShowRulesForRegistration ? ForumPages.Privacy : ForumPages.Account_Register))"
+                       text-localized-tag="REGISTER_INSTEAD"></a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using YAF.Core.Context
+@using YAF.Types.Constants
+@using YAF.Types.Interfaces
+@using YAF.Types.Models.Identity
+@using YAF.Types.Objects
+@inject SignInManager<AspNetUsers> SignInManager
+@inject BoardContext Current
+
+@if (!SignInManager.IsSignedIn(User))
+{
+    @if (BoardContext.Current.Get<BoardConfiguration>().AllowLoginAndLogoff)
+    {
+        <li class="nav-item">
+            <a class="@Html.Raw(BoardContext.Current.CurrentForumPage.PageName == ForumPages.Account_Login ? "nav-link active" : "nav-link")" role="button"
+               bs-toggle="ajax-modal"
+               bs-target-url="@Url.Action("ShowModal", "LoginBox", null)"
+               text-localized-page="TOOLBAR" text-localized-tag="LOGIN"
+               title-localized-page="TOOLBAR" title-localized-tag="LOGIN_TITLE">
+            </a>
+        </li>
+    }
+
+    @if (!Current.BoardSettings.DisableRegistrations)
+    {
+        if (Current.BoardSettings.ShowRulesForRegistration)
+        {
+            <li class="nav-item">
+                <a class="@Html.Raw(BoardContext.Current.CurrentForumPage.PageName == ForumPages.Account_Register ? "nav-link active" : "nav-link")" role="button"
+                   asp-page="/Privacy"
+                   data-bs-toggle="tooltip"
+                   aria-expanded="false"
+                   text-localized-page="TOOLBAR" text-localized-tag="REGISTER"
+                   title-localized-page="TOOLBAR" title-localized-tag="REGISTER_TITLE">
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="@Html.Raw(BoardContext.Current.CurrentForumPage.PageName == ForumPages.Account_Register ? "nav-link active" : "nav-link")" role="button"
+                   asp-page="/Account/Register"
+                   data-bs-toggle="tooltip"
+                   aria-expanded="false"
+                   text-localized-page="TOOLBAR" text-localized-tag="REGISTER"
+                   title-localized-page="TOOLBAR" title-localized-tag="REGISTER_TITLE">
+                </a>
+            </li>
+        }
+    }
+}

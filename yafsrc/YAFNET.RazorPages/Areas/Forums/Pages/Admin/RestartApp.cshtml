@@ -1,0 +1,21 @@
+﻿@page "{handler?}"
+
+@using YAF.Web.HtmlHelpers
+@model YAF.Pages.Admin.RestartAppModel
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card mb-3">
+            <div class="card-body text-center">
+                <h5 class="card-title">
+                    @Html.LocalizedText("ADMIN_RESTARTAPP", "INFO")
+                </h5>
+                <button type="submit"
+                        button-style="Primary"
+                        text-localized-page="ADMIN_RESTARTAPP"
+                        text-localized-tag="TITLE"
+                        icon="sync"></button>
+            </div>
+        </div>
+    </div>
+</div>

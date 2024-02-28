@@ -1,0 +1,28 @@
+﻿@using YAF.Core.Context
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Services
+@using YAF.Core.Utilities
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Interfaces
+
+@inject BoardContext Current
+
+@if (Current.BoardSettings.ShowQuickSearch && BoardContext.Current.Get<IPermissions>().Check(Current.BoardSettings.SearchPermissions))
+{
+    <script>
+    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.DoQuickSearchJs(Current.Get<LinkBuilder>().GetLink(ForumPages.Search))))
+</script>
+
+    <div class="d-flex">
+
+            <input id="QuickSearch" class="form-control me-2" type="search"
+                   placeholder="@Html.LocalizedText("TOOLBAR", "SEARCHKEYWORD")"/>
+            <button type="submit" 
+                    button-style="OutlineInfo" 
+                    onclick="quickSearch()" 
+                    icon="search">
+            </button>
+    </div>
+}
