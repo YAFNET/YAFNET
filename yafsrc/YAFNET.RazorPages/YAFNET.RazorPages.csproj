@@ -10,6 +10,7 @@
     <PackageId>YAFNET.RazorPages</PackageId>
     <PackageTags>forums yaf yaf.net YetAnotherForum.net forum</PackageTags>
     <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,7 +37,11 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
 		<Authors>Ingo Herbote</Authors>
-	</PropertyGroup>          <ItemGroup>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Remove="package.json" />
+	</ItemGroup>          <ItemGroup>
     <Folder Include="Areas\Forums\Pages\" />
   </ItemGroup>
 
@@ -63,6 +68,7 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <None Include="package.json" />
   </ItemGroup>
 
   <ItemGroup>
