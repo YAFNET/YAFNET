@@ -310,9 +310,6 @@ public static class JavaScriptBlocks
                                        }).then(res => res.text())
                                    .then(response => {
                                        tab.innerHTML = response;
-                                       
-                                       function setStyle(a,b)
-                                       { alert('test');}
                                    });
                            }
                            break;

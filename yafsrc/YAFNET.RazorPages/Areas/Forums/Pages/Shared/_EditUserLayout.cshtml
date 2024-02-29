@@ -19,7 +19,6 @@
 
 @RenderBody()
 
-
 <script src="@(Current.Get<BoardInfo>().GetUrlToScripts($"{ViewBag.ForumJs}.js?v={ViewBag.CdvVersion}")))"></script>
 
 
@@ -34,4 +33,5 @@
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.HoverCardJs()))
     }
 </script>
+
 <scripts></scripts>

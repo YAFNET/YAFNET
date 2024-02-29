@@ -1,17 +1,15 @@
 ﻿@page "{handler?}"
 
+@using YAF.Core.Context
+@using YAF.Core.Services
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
+@using YAF.Types.Interfaces
 @using YAF.Types.Extensions
 
 @model YAF.Pages.Profile.EditSignatureModel
 
-@section StyleSheets {
-    @if (Model.PageBoardContext.BoardSettings.EnableWysiwygEditor)
-    {
-        @await Html.PartialAsync("_SCEditorStylesSheetsPartial")
-    }
-}
+@inject BoardContext Current
 
 <div class="row">
     <div class="col-sm-auto">
@@ -63,5 +61,5 @@
 
 
 @section Scripts {
-    @await Html.PartialAsync("_BBCodeEditorScriptsPartial")
+    <script src="@(Current.Get<BoardInfo>().GetUrlToScripts("editor.min.js"))"></script>
 }

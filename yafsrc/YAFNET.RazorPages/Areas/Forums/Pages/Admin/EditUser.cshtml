@@ -1,6 +1,7 @@
 @page "{u:int=1}/{tab=View1}/{handler?}"
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
+@using YAF.Core.Services
 @using YAF.Core.Utilities
 @using YAF.Types.Interfaces
 @using YAF.Web.HtmlHelpers
@@ -132,4 +133,6 @@
     {
         @await Html.PartialAsync("_DateTimePickerScriptsPartial")
     }
+
+    <script src="@(Model.Get<BoardInfo>().GetUrlToScripts("editor.min.js"))"></script>
 }
