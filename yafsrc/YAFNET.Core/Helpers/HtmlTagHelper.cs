@@ -66,7 +66,7 @@ public static class HtmlTagHelper
     }
 
     /// <summary>
-    /// Validates an html tag against the allowedTags. Also check that
+    /// Validates a html tag against the allowedTags. Also check that
     /// it doesn't have any "extra" features such as javascript in it.
     /// </summary>
     /// <param name="tag">
@@ -78,24 +78,24 @@ public static class HtmlTagHelper
     /// </returns>
     public static bool IsValidTag(string tag, IEnumerable<string> allowedTags)
     {
-        if (tag.IndexOf("javascript", StringComparison.Ordinal) >= 0)
+        if (tag.Contains("javascript"))
         {
             return false;
         }
 
-        if (tag.IndexOf("vbscript", StringComparison.Ordinal) >= 0)
+        if (tag.Contains("vbscript"))
         {
             return false;
         }
 
-        if (tag.IndexOf("onclick", StringComparison.Ordinal) >= 0)
+        if (tag.Contains("onclick"))
         {
             return false;
         }
 
-        var endchars = new[] { ' ', '>', '/', '\t' };
+        var endChars = new[] { ' ', '>', '/', '\t' };
 
-        var pos = tag.IndexOfAny(endchars, 1);
+        var pos = tag.IndexOfAny(endChars, 1);
         if (pos > 0)
         {
             tag = tag[..pos];

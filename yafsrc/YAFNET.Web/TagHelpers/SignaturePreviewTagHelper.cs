@@ -118,7 +118,7 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
         // don't allow any HTML on signatures
         var signatureFlags = new MessageFlags { IsHtml = false };
 
-        var signatureRendered = this.Get<IFormatMessage>().Format(0, this.Signature, signatureFlags);
+        var signatureRendered = this.Get<IFormatMessage>().Format(0, Core.Helpers.HtmlTagHelper.StripHtml(this.Signature), signatureFlags);
 
         cardBody.InnerHtml.AppendHtml(
             this.RenderModulesInBBCode(
