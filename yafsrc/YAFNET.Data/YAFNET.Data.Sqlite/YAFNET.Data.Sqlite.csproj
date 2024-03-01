@@ -21,9 +21,6 @@
     <PackageReference Include="System.ComponentModel.Composition" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite.Sqlite\ServiceStack.OrmLite.Sqlite.Core.csproj" />
     <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite\ServiceStack.OrmLite.Core.csproj" />
     <ProjectReference Include="..\..\YAFNET.Configuration\YAFNET.Configuration.csproj" />

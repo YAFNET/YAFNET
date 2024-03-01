@@ -12,6 +12,8 @@ global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.Filters;
 
+global using SimdLinq;
+
 global using ServiceStack.OrmLite;
 
 global using UAParser.Interfaces;

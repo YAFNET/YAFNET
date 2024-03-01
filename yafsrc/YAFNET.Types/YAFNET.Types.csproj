@@ -27,10 +27,6 @@
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 
-	<ItemGroup>
-    <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\ServiceStack\ServiceStack.OrmLite\ServiceStack.OrmLite.Core.csproj" />
   </ItemGroup>

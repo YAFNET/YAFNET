@@ -2,6 +2,8 @@
 
 global using System;
 
+global using SimdLinq;
+
 global using Microsoft.AspNetCore.Mvc;
 
 global using YAF.Core.BasePages;
