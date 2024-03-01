@@ -17,6 +17,7 @@ using System.Text;
 using ServiceStack.Data;
 using ServiceStack.DataAnnotations;
 using ServiceStack.Logging;
+using ServiceStack.OrmLite.Base.Common;
 using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite;

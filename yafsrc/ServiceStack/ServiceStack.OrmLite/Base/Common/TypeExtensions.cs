@@ -12,6 +12,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
 
+using ServiceStack.OrmLite.Base.Common;
 using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack;

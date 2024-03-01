@@ -6,6 +6,7 @@
 // ***********************************************************************
 
 #nullable enable
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Runtime.CompilerServices;
 
 using ServiceStack.OrmLite.Base.Text;
 
-namespace ServiceStack;
+namespace ServiceStack.OrmLite.Base.Common;
 
 /// <summary>
 /// Class EnumerableExtensions.
@@ -110,17 +111,7 @@ public static class EnumerableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static List<To> Map<To, From>(this IEnumerable<From> items, Func<From, To> converter)
     {
-        if (items == null)
-        {
-            return [];
-        }
-
-        var list = new List<To>();
-        foreach (var item in items)
-        {
-            list.Add(converter(item));
-        }
-        return list;
+        return items == null ? [] : items.Select(converter).ToList();
     }
 
     /// <summary>
@@ -173,31 +164,21 @@ public static class EnumerableExtensions
     /// <param name="expr">The expr.</param>
     /// <returns>Dictionary&lt;TKey, T&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Dictionary<TKey, T> ToSafeDictionary<T, TKey>(this IEnumerable<T> list, Func<T, TKey> expr)
+    public static Dictionary<TKey, T> ToSafeDictionary<T, TKey>(this IEnumerable<T> list, Func<T, TKey> expr) where TKey : notnull
     {
         var map = new Dictionary<TKey, T>();
-        
-        if (list != null)
+
+        if (list == null)
         {
-            foreach (var item in list)
-            {
-                map[expr(item)] = item;
-            }
+            return map;
+        }
+
+        foreach (var item in list)
+        {
+            map[expr(item)] = item;
         }
 
         return map;
-    }
-
-    /// <summary>
-    /// Return T[0] when enumerable is null, safe to use in enumerations like foreach
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="enumerable">The enumerable.</param>
-    /// <returns>IEnumerable&lt;T&gt;.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IEnumerable<T> Safe<T>(this IEnumerable<T> enumerable)
-    {
-        return enumerable ?? TypeConstants<T>.EmptyArray;
     }
 
     /// <summary>
@@ -211,11 +192,25 @@ public static class EnumerableExtensions
         return enumerable ?? TypeConstants.EmptyObjectArray;
     }
 
+    /// <summary>
+    /// Check if match Exists in the Array
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array.</param>
+    /// <param name="match">The match.</param>
+    /// <returns>bool.</returns>
     public static bool Exists<T>(this T[] array, Predicate<T> match)
     {
         return Array.Exists(array, match);
     }
 
+    /// <summary>
+    /// Finds the specified match in the  array.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array.</param>
+    /// <param name="match">The match.</param>
+    /// <returns>T?.</returns>
     public static T? Find<T>(T[] array, Predicate<T> match)
     {
         return Array.Find(array, match);

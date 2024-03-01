@@ -45,14 +45,17 @@ public static class TypeConstants
     /// The zero task
     /// </summary>
     public readonly static Task<int> ZeroTask;
+
     /// <summary>
     /// The true task
     /// </summary>
     public readonly static Task<bool> TrueTask;
+
     /// <summary>
     /// The false task
     /// </summary>
     public readonly static Task<bool> FalseTask;
+
     /// <summary>
     /// The empty task
     /// </summary>
@@ -62,6 +65,7 @@ public static class TypeConstants
     /// The non width white space
     /// </summary>
     public const char NonWidthWhiteSpace = (char)0x200B; //Use zero-width space marker to capture empty string
+
     /// <summary>
     /// The non width white space chars
     /// </summary>
@@ -72,6 +76,7 @@ public static class TypeConstants
     /// </summary>
     /// <value>The null string span.</value>
     public static ReadOnlySpan<char> NullStringSpan => default;
+
     /// <summary>
     /// Gets the empty string span.
     /// </summary>
@@ -83,6 +88,7 @@ public static class TypeConstants
     /// </summary>
     /// <value>The null string memory.</value>
     public static ReadOnlyMemory<char> NullStringMemory => default;
+
     /// <summary>
     /// Gets the empty string memory.
     /// </summary>
@@ -98,18 +104,22 @@ public static class TypeConstants
     /// The empty byte array
     /// </summary>
     public static byte[] EmptyByteArray = [];
+
     /// <summary>
     /// The empty object array
     /// </summary>
     public static object[] EmptyObjectArray = [];
+
     /// <summary>
     /// The empty type array
     /// </summary>
     public static Type[] EmptyTypeArray = Type.EmptyTypes;
+
     /// <summary>
     /// The empty field information array
     /// </summary>
     public static FieldInfo[] EmptyFieldInfoArray = [];
+
     /// <summary>
     /// The empty property information array
     /// </summary>
@@ -126,6 +136,7 @@ public static class TypeConstants<T>
     /// The empty array
     /// </summary>
     public static T[] EmptyArray = [];
+
     /// <summary>
     /// The empty list
     /// </summary>

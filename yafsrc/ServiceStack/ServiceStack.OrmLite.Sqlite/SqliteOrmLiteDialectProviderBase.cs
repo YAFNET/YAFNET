@@ -252,7 +252,6 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         var sql = $"CREATE TRIGGER {triggerName} BEFORE UPDATE ON {tableName} FOR EACH ROW BEGIN {triggerBody} END;";
 
         return sql;
-
     }
 
     /// <summary>
@@ -637,7 +636,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
 
         sb.Append(selectSql);
 
-        sb.Append(";");
+        sb.Append(';');
 
         return StringBuilderCache.ReturnAndFree(sb);
     }
@@ -657,7 +656,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         sb.Append("DROP VIEW IF EXISTS ");
         sb.AppendFormat("{0}", tableName);
 
-        sb.Append(";");
+        sb.Append(';');
 
         return StringBuilderCache.ReturnAndFree(sb);
     }
@@ -807,7 +806,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
                     columnNames.ForEach(
                         n =>
                             {
-                                results.Append(",");
+                                results.Append(',');
                                 results.Append(n);
                             });
 

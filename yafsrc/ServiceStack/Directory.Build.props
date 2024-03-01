@@ -9,7 +9,6 @@
     <Copyright>&#169; 2008-2024 ServiceStack, Inc</Copyright>
     <DebugType>embedded</DebugType>
     <LangVersion>latest</LangVersion>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
   </PropertyGroup>

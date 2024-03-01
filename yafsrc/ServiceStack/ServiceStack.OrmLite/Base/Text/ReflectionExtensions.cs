@@ -13,6 +13,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Threading;
 
+using ServiceStack.OrmLite.Base.Common;
 using ServiceStack.OrmLite.Base.Text.Support;
 
 namespace ServiceStack.OrmLite.Base.Text;

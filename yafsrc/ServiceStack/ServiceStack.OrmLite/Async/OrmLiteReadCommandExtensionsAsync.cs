@@ -17,6 +17,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using ServiceStack.Logging;
+using ServiceStack.OrmLite.Base.Common;
 using ServiceStack.OrmLite.Base.Text;
 using ServiceStack.OrmLite.Support;
 

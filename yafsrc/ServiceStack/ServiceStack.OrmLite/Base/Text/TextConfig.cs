@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 using ServiceStack.OrmLite.Base.Text.SystemJson;
 
@@ -26,25 +25,18 @@ public class TextConfig
     /// <value>The create sha.</value>
     public static Func<SHA1> CreateSha { get; set; } = SHA1.Create;
 
-#if NET8_0_OR_GREATER
     /// <summary>
-    /// Config scope of ServiceStack.Text when System.Text.Json is enabled
+    /// Gets the system json option filters.
     /// </summary>
-    public static Config SystemJsonTextConfig { get; set; } = new() {
-        TextCase = TextCase.CamelCase,
-        SystemJsonCompatible = true
-    };
-
-    public static void ConfigureJsonOptions(Action<JsonSerializerOptions> configure)
-    {
-        SystemJsonOptionFilters.Add(configure);
-        SystemJsonOptions = CreateSystemJsonOptions();
-    }
-
+    /// <value>The system json option filters.</value>
     public static List<Action<JsonSerializerOptions>> SystemJsonOptionFilters { get; } = [
         DefaultConfigureSystemJsonOptions,
     ];
 
+    /// <summary>
+    /// Defaults the configure system json options.
+    /// </summary>
+    /// <param name="options">The options.</param>
     public static void DefaultConfigureSystemJsonOptions(JsonSerializerOptions options)
     {
         options.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
@@ -56,6 +48,10 @@ public class TextConfig
         options.TypeInfoResolver = SystemJson.DataContractResolver.Instance;
     }
 
+    /// <summary>
+    /// Applies the system json options.
+    /// </summary>
+    /// <param name="options">The options.</param>
     public static void ApplySystemJsonOptions(JsonSerializerOptions options)
     {
         foreach (var configure in SystemJsonOptionFilters)
@@ -64,6 +60,10 @@ public class TextConfig
         }
     }
 
+    /// <summary>
+    /// Creates the system json options.
+    /// </summary>
+    /// <returns>System.Text.Json.JsonSerializerOptions.</returns>
     public static JsonSerializerOptions CreateSystemJsonOptions()
     {
         var to = new JsonSerializerOptions();
@@ -71,34 +71,9 @@ public class TextConfig
         return to;
     }
 
+    /// <summary>
+    /// Gets or sets the system json options.
+    /// </summary>
+    /// <value>The system json options.</value>
     public static JsonSerializerOptions SystemJsonOptions { get; set; } = CreateSystemJsonOptions();
-
-    public static JsonSerializerOptions CustomSystemJsonOptions(JsonSerializerOptions systemJsonOptions,
-        JsConfigScope jsScope)
-    {
-        var to = new JsonSerializerOptions(systemJsonOptions) {
-            PropertyNamingPolicy = jsScope.TextCase switch {
-                TextCase.CamelCase => JsonNamingPolicy.CamelCase,
-                TextCase.SnakeCase => JsonNamingPolicy.SnakeCaseLower,
-                _ => null
-            }
-        };
-        if (jsScope.ExcludeDefaultValues)
-        {
-            to.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
-        }
-
-        if (jsScope.IncludeNullValues)
-        {
-            to.DefaultIgnoreCondition = JsonIgnoreCondition.Never;
-        }
-
-        if (jsScope.Indent)
-        {
-            to.WriteIndented = true;
-        }
-
-        return to;
-    }
-#endif
 }

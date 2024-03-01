@@ -1267,7 +1267,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <returns><c>true</c> if [has insert return values] [the specified model definition]; otherwise, <c>false</c>.</returns>
         public override bool HasInsertReturnValues(ModelDefinition modelDef)
         {
-            return modelDef.FieldDefinitions.Any(x => x.ReturnOnInsert || x.AutoId && x.FieldType == typeof(Guid));
+            return modelDef.FieldDefinitions.Exists(x => x.ReturnOnInsert || x.AutoId && x.FieldType == typeof(Guid));
         }
 
         /// <summary>

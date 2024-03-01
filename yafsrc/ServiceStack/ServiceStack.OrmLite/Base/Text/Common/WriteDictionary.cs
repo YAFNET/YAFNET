@@ -49,10 +49,11 @@ static internal class WriteDictionary<TSerializer>
         /// The key type
         /// </summary>
         readonly internal Type KeyType;
+
         /// <summary>
         /// The value type
         /// </summary>
-        internal Type ValueType;
+        readonly internal Type ValueType;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MapKey" /> class.
@@ -66,7 +67,7 @@ static internal class WriteDictionary<TSerializer>
         }
 
         /// <summary>
-        /// Equalses the specified other.
+        /// Equals the specified other.
         /// </summary>
         /// <param name="other">The other.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>

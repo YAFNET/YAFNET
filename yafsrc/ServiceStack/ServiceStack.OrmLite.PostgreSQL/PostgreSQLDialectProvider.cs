@@ -7,6 +7,7 @@
 
 using System.Data.Common;
 
+using ServiceStack.OrmLite.Base.Common;
 using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite.PostgreSQL;
