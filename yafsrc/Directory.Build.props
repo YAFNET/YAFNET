@@ -1,0 +1,12 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <Version>4.0.0</Version>
+    <LangVersion>latest</LangVersion>
+	  <PackageTags>forums;yaf;yaf.net;YetAnotherForum.net;forum</PackageTags>
+	  <PackageProjectUrl>https://yetanotherforum.net/</PackageProjectUrl>
+	  <RepositoryUrl>https://github.com/YAFNET/YAFNET</RepositoryUrl>
+	  <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+</Project>
