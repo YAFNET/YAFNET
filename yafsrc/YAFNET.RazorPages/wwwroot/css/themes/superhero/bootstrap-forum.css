@@ -2119,15 +2119,15 @@ progress {
   --bs-table-bg-type: initial;
   --bs-table-color-state: initial;
   --bs-table-bg-state: initial;
-  --bs-table-color: var(--bs-emphasis-color);
+  --bs-table-color: #fff;
   --bs-table-bg: var(--bs-body-bg);
   --bs-table-border-color: rgba(0, 0, 0, 0.15);
   --bs-table-accent-bg: rgba(255, 255, 255, 0.05);
-  --bs-table-striped-color: var(--bs-emphasis-color);
+  --bs-table-striped-color: #fff;
   --bs-table-striped-bg: rgba(var(--bs-emphasis-color-rgb), 0.05);
-  --bs-table-active-color: var(--bs-emphasis-color);
+  --bs-table-active-color: #fff;
   --bs-table-active-bg: rgba(var(--bs-emphasis-color-rgb), 0.1);
-  --bs-table-hover-color: var(--bs-emphasis-color);
+  --bs-table-hover-color: #fff;
   --bs-table-hover-bg: rgba(255, 255, 255, 0.075);
   width: 100%;
   margin-bottom: 1rem;
@@ -2347,22 +2347,22 @@ progress {
 }
 
 .col-form-label {
-  padding-top: 0.375rem;
-  padding-bottom: 0.375rem;
+  padding-top: calc(0.375rem + var(--bs-border-width));
+  padding-bottom: calc(0.375rem + var(--bs-border-width));
   margin-bottom: 0;
   font-size: inherit;
   line-height: 1.5;
 }
 
 .col-form-label-lg {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: calc(0.5rem + var(--bs-border-width));
+  padding-bottom: calc(0.5rem + var(--bs-border-width));
   font-size: 1.25rem;
 }
 
 .col-form-label-sm {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding-top: calc(0.25rem + var(--bs-border-width));
+  padding-bottom: calc(0.25rem + var(--bs-border-width));
   font-size: 0.875rem;
 }
 
@@ -2385,7 +2385,7 @@ progress {
           appearance: none;
   background-color: #fff;
   background-clip: padding-box;
-  border: 0 solid transparent;
+  border: var(--bs-border-width) solid transparent;
   border-radius: var(--bs-border-radius);
   -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -2457,7 +2457,7 @@ progress {
   border-color: inherit;
   border-style: solid;
   border-width: 0;
-  border-inline-end-width: 0;
+  border-inline-end-width: var(--bs-border-width);
   border-radius: 0;
   -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -2475,7 +2475,7 @@ progress {
   border-color: inherit;
   border-style: solid;
   border-width: 0;
-  border-inline-end-width: 0;
+  border-inline-end-width: var(--bs-border-width);
   border-radius: 0;
   -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -2508,7 +2508,7 @@ progress {
   color: var(--bs-body-color);
   background-color: transparent;
   border: solid transparent;
-  border-width: 0 0;
+  border-width: var(--bs-border-width) 0;
 }
 .form-control-plaintext:focus {
   outline: 0;
@@ -2519,7 +2519,7 @@ progress {
 }
 
 .form-control-sm {
-  min-height: calc(1.5em + 0.5rem + calc(0 * 2));
+  min-height: calc(1.5em + 0.5rem + calc(var(--bs-border-width) * 2));
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   border-radius: var(--bs-border-radius-sm);
@@ -2538,7 +2538,7 @@ progress {
 }
 
 .form-control-lg {
-  min-height: calc(1.5em + 1rem + calc(0 * 2));
+  min-height: calc(1.5em + 1rem + calc(var(--bs-border-width) * 2));
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   border-radius: var(--bs-border-radius-lg);
@@ -2557,18 +2557,18 @@ progress {
 }
 
 textarea.form-control {
-  min-height: calc(1.5em + 0.75rem + calc(0 * 2));
+  min-height: calc(1.5em + 0.75rem + calc(var(--bs-border-width) * 2));
 }
 textarea.form-control-sm {
-  min-height: calc(1.5em + 0.5rem + calc(0 * 2));
+  min-height: calc(1.5em + 0.5rem + calc(var(--bs-border-width) * 2));
 }
 textarea.form-control-lg {
-  min-height: calc(1.5em + 1rem + calc(0 * 2));
+  min-height: calc(1.5em + 1rem + calc(var(--bs-border-width) * 2));
 }
 
 .form-control-color {
   width: 3rem;
-  height: calc(1.5em + 0.75rem + calc(0 * 2));
+  height: calc(1.5em + 0.75rem + calc(var(--bs-border-width) * 2));
   padding: 0.375rem;
 }
 .form-control-color:not(:disabled):not([readonly]) {
@@ -2583,10 +2583,10 @@ textarea.form-control-lg {
   border-radius: var(--bs-border-radius);
 }
 .form-control-color.form-control-sm {
-  height: calc(1.5em + 0.5rem + calc(0 * 2));
+  height: calc(1.5em + 0.5rem + calc(var(--bs-border-width) * 2));
 }
 .form-control-color.form-control-lg {
-  height: calc(1.5em + 1rem + calc(0 * 2));
+  height: calc(1.5em + 1rem + calc(var(--bs-border-width) * 2));
 }
 
 .form-select {
@@ -2606,7 +2606,7 @@ textarea.form-control-lg {
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 16px 12px;
-  border: 0 solid transparent;
+  border: var(--bs-border-width) solid transparent;
   border-radius: var(--bs-border-radius);
   -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -2897,8 +2897,8 @@ textarea.form-control-lg {
 .form-floating > .form-control,
 .form-floating > .form-control-plaintext,
 .form-floating > .form-select {
-  height: calc(3.5rem + calc(0 * 2));
-  min-height: calc(3.5rem + calc(0 * 2));
+  height: calc(3.5rem + calc(var(--bs-border-width) * 2));
+  min-height: calc(3.5rem + calc(var(--bs-border-width) * 2));
   line-height: 1.25;
 }
 .form-floating > label {
@@ -2913,7 +2913,7 @@ textarea.form-control-lg {
   text-overflow: ellipsis;
   white-space: nowrap;
   pointer-events: none;
-  border: 0 solid transparent;
+  border: var(--bs-border-width) solid transparent;
   -webkit-transform-origin: 0 0;
           transform-origin: 0 0;
   -webkit-transition: opacity 0.1s ease-in-out, -webkit-transform 0.1s ease-in-out;
@@ -3022,7 +3022,7 @@ textarea.form-control-lg {
           transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
 }
 .form-floating > .form-control-plaintext ~ label {
-  border-width: 0 0;
+  border-width: var(--bs-border-width) 0;
 }
 .form-floating > :disabled ~ label,
 .form-floating > .form-control:disabled ~ label {
@@ -3083,7 +3083,7 @@ textarea.form-control-lg {
   text-align: center;
   white-space: nowrap;
   background-color: #4e5d6c;
-  border: 0 solid transparent;
+  border: var(--bs-border-width) solid transparent;
   border-radius: var(--bs-border-radius);
 }
 
@@ -3125,7 +3125,7 @@ textarea.form-control-lg {
   border-bottom-right-radius: 0;
 }
 .input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
-  margin-left: calc(0 * -1);
+  margin-left: calc(var(--bs-border-width) * -1);
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
