@@ -1,8 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	  <RootNamespace>YAF.Core</RootNamespace>
 	  <AssemblyName>YAF.Core</AssemblyName>
 	  <NuspecFile>YAFNET.Core.nuspec</NuspecFile>

@@ -1,10 +1,14 @@
 @page "{u:int=1}/{tab=View1}/{handler?}"
+@using YAF.Core.Context
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
 @using YAF.Core.Services
 @using YAF.Core.Utilities
+@using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Web.HtmlHelpers
+
+@inject BoardContext Current
 
 @section StyleSheets {
     @if (Model.PageBoardContext.BoardSettings.UseFarsiCalender && Model.CurrentCultureInfo.IsFarsiCulture())
@@ -125,14 +129,25 @@
 @section Scripts {
     <script>
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.BootstrapTabsLoadJs("EditUserTabs", "LastTab")));
-        
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.EditUserTabsLoadJs(editUser.Item1.ID)))
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.EditUserTabsLoadJs(
+                editUser.Item1.ID,
+                    JavaScriptBlocks.CreateEditorJs(
+                    "Signature",
+                    Current.Get<ILocalization>().GetText("COMMON", "TT_URL_TITLE"),
+                    Current.Get<ILocalization>().GetText("COMMON", "TT_URL_DESC"),
+                    Current.Get<ILocalization>().GetText("COMMON", "TT_IMAGE_TITLE"),
+                    Current.Get<ILocalization>().GetText("COMMON", "TT_IMAGE_DESC"),
+                    Current.Get<ILocalization>().GetText("COMMON", "TT_DESCRIPTION"),
+                    Current.Get<ILocalization>().GetText("COMMON", "TT_MEDIA")).Replace("'", "\"").Replace("\"", "\\\"").Replace("\r", "").Replace("\n", "")
+                )))
     </script>
     
     @if (Model.PageBoardContext.BoardSettings.UseFarsiCalender && Model.CurrentCultureInfo.IsFarsiCulture())
     {
         @await Html.PartialAsync("_DateTimePickerScriptsPartial")
     }
-
-    <script src="@(Model.Get<BoardInfo>().GetUrlToScripts("editor.min.js"))"></script>
+    
+    <script src="@(Current.Get<BoardInfo>().GetUrlToScripts("editor.min.js"))"></script>
 }

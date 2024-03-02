@@ -54,5 +54,3 @@ AutoCloseTags.prototype = {
             });
     }
 };
-
-const autoCloseTags = new AutoCloseTags(document.querySelector('.BBCodeEditor'));

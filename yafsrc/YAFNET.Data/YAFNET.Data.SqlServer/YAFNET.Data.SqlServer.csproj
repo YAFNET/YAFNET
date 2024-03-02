@@ -4,7 +4,6 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
 	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	<CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	  <NuspecFile>YAFNET.Data.SqlServer.nuspec</NuspecFile>
 	  <RootNamespace>YAF.Data.SqlServer</RootNamespace>
 	  <AssemblyName>YAF.Data.SqlServer</AssemblyName>
@@ -19,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.5" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="9.20.0.85982">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

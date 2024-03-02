@@ -67,56 +67,58 @@ StateMaker = function (initialState) {
     }
 }
 
-var text = doc.querySelector('.BBCodeEditor'),
-    val,
-    wordCount = 0,
-    words = 0,
-    stateMaker = new StateMaker,
-    undoButton = I('undo'),
-    redoButton = I('redo'),
-    countField = document.getElementById('editor-Counter'),
-    maxLimit = text.maxLength;
+var EditorUndoManager = function () {
+    var text = doc.querySelector('.BBCodeEditor'),
+        val,
+        wordCount = 0,
+        words = 0,
+        stateMaker = new StateMaker,
+        undoButton = I('undo'),
+        redoButton = I('redo'),
+        countField = document.getElementById('editor-Counter'),
+        maxLimit = text.maxLength;
 
-countField.textContent = maxLimit - text.value.length;
+    countField.textContent = maxLimit - text.value.length;
 
-function onChange(editor) {
-    val = editor.value.trim();
-    wordCount = val.split(/\s+/).length;
-    if (wordCount === words && stateMaker.states.length) {
-        stateMaker.states[stateMaker.states.length - 1] = val;
-    } else {
-        stateMaker.addState(val);
-        words = wordCount;
+    function onChange(editor) {
+        val = editor.value.trim();
+        wordCount = val.split(/\s+/).length;
+        if (wordCount === words && stateMaker.states.length) {
+            stateMaker.states[stateMaker.states.length - 1] = val;
+        } else {
+            stateMaker.addState(val);
+            words = wordCount;
+        }
+
+        // Update counter
+        if (editor.value.length > maxLimit) {
+            editor.value = editor.value.substring(0, maxLimit);
+        } else {
+            countField.textContent = maxLimit - editor.value.length;
+        }
     }
 
-    // Update counter
-    if (editor.value.length > maxLimit) {
-        editor.value = editor.value.substring(0, maxLimit);
-    } else {
-        countField.textContent = maxLimit - editor.value.length;
+    text.addEventListener('change', function () {
+        onChange(this);
+    });
+
+    text.onkeyup = function () {
+        onChange(this);
+    }
+    undoButton.onclick = function () {
+        stateMaker.undo();
+        val = text.value = (stateMaker.states[stateMaker.states.length - 1] || '').trim();
+        text.focus();
+
+        undoButton.disabled = !stateMaker.canUndo;
+        redoButton.disabled = !stateMaker.canRedo;
+    }
+    redoButton.onclick = function () {
+        stateMaker.redo();
+        val = text.value = (stateMaker.states[stateMaker.states.length - 1] || '').trim();
+        text.focus();
+
+        undoButton.disabled = !stateMaker.canUndo;
+        redoButton.disabled = !stateMaker.canRedo;
     }
 }
-
-text.addEventListener('change', function () {
-    onChange(this);
-});
-
-text.onkeyup = function () {
-    onChange(this);
-}
-undoButton.onclick = function () {
-    stateMaker.undo();
-    val = text.value = (stateMaker.states[stateMaker.states.length - 1] || '').trim();
-    text.focus();
-
-    undoButton.disabled = !stateMaker.canUndo;
-    redoButton.disabled = !stateMaker.canRedo;
-}
-redoButton.onclick = function () {
-    stateMaker.redo();
-    val = text.value = (stateMaker.states[stateMaker.states.length - 1] || '').trim();
-    text.focus();
-
-    undoButton.disabled = !stateMaker.canUndo;
-    redoButton.disabled = !stateMaker.canRedo;
-}  

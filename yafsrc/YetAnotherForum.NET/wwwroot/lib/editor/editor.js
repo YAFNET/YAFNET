@@ -7,6 +7,10 @@
     this.Description = description;
     this.MediaTitle = mediaTitle;
 
+    const autoCloseTags = new AutoCloseTags(document.querySelector('.BBCodeEditor'));
+
+    const undoManager = new EditorUndoManager();
+
     document.querySelector('.BBCodeEditor').addEventListener('keydown', function (e) {
         if (e.ctrlKey &&
             !e.altKey &&

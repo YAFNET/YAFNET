@@ -223,10 +223,10 @@ public static class JavaScriptBlocks
     /// <summary>
     /// Gets the Bootstrap Lazy Load Tab EditUser JS.
     /// </summary>
-    /// <returns>
-    /// Returns the Bootstrap Lazy Load Tab EditUser JS.
-    /// </returns>
-    public static string EditUserTabsLoadJs(int userId)
+    /// <param name="userId">The user identifier.</param>
+    /// <param name="editorJs">The editor js file.</param>
+    /// <returns>string.</returns>
+    public static string EditUserTabsLoadJs(int userId, string editorJs)
     {
         return $$"""
                    const currentTab = "#" + document.getElementById("LastTab").value,
@@ -310,6 +310,12 @@ public static class JavaScriptBlocks
                                        }).then(res => res.text())
                                    .then(response => {
                                        tab.innerHTML = response;
+                                       
+                                       let editorScript = document.createElement('script');
+                                      
+                                       editorScript.innerHTML = '{{editorJs}}';
+                                      
+                                       document.body.appendChild(editorScript);
                                    });
                            }
                            break;

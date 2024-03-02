@@ -4,7 +4,6 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	<CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	  <NuspecFile>YAFNET.Data.PostgreSQL.nuspec</NuspecFile>
 	  <RootNamespace>YAF.Data.PostgreSQL</RootNamespace>
 	  <AssemblyName>YAF.Data.PostgreSQL</AssemblyName>
