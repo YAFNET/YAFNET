@@ -2847,14 +2847,6 @@
             "#text": "Kommaseparerade BBC-koder som tillåts i en användarsignatur i rollen."
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "HTML-taggar för användarens signatur:"
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "Kommaseparerade HTML-taggar som tillåts i en användarsignatur i gruppen."
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "Max antal tecken i en användarsignatur:"
           },
@@ -11226,6 +11218,10 @@
           {
             "@tag": "YES",
             "#text": "JA"
+          },
+          {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

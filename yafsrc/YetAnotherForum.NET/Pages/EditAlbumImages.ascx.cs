@@ -120,11 +120,11 @@ public partial class EditAlbumImages : ForumPageRegistered
                     this.DeleteAlbum();
                 }
 
-                // Has the user uploaded maximum number of images?   
+                // Has the user uploaded maximum number of images?
                 // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
                 if (usrAlbumImagesAllowed > 0)
                 {
-                    this.UploadHolder.Visible = !(this.List.Items.Count >= usrAlbumImagesAllowed);
+                    this.UploadHolder.Visible = this.List.Items.Count < usrAlbumImagesAllowed;
 
                     this.imagesInfo.Text = this.GetTextFormatted(
                         "IMAGES_INFO",
@@ -193,11 +193,11 @@ public partial class EditAlbumImages : ForumPageRegistered
 
         var usrAlbumImagesAllowed = (int)data.UserAlbumImages;
 
-        // Has the user uploaded maximum number of images?   
+        // Has the user uploaded maximum number of images?
         // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
         if (usrAlbumImagesAllowed > 0)
         {
-            this.UploadHolder.Visible = !(this.List.Items.Count >= usrAlbumImagesAllowed);
+            this.UploadHolder.Visible = this.List.Items.Count < usrAlbumImagesAllowed;
 
             this.imagesInfo.Text = this.GetTextFormatted(
                 "IMAGES_INFO",
@@ -266,11 +266,10 @@ public partial class EditAlbumImages : ForumPageRegistered
 
             var usrAlbumImagesAllowed = (int)data.UserAlbumImages;
 
-            // Has the user uploaded maximum number of images?   
-            // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
+            // Has the user uploaded maximum number of images?// vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
             if (usrAlbumImagesAllowed > 0)
             {
-                this.UploadHolder.Visible = !(this.List.Items.Count >= usrAlbumImagesAllowed);
+                this.UploadHolder.Visible = this.List.Items.Count < usrAlbumImagesAllowed;
 
                 this.imagesInfo.Text = this.GetTextFormatted(
                     "IMAGES_INFO",
@@ -416,7 +415,6 @@ public partial class EditAlbumImages : ForumPageRegistered
         var usrAlbumsAllowed = (int)data.UserAlbum;
         var usrAlbumImagesAllowed = (int)data.UserAlbumImages;
 
-        // if (!usrAlbums.HasValue || usrAlbums <= 0) return;
         if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == "new")
         {
             var allStats = this.GetRepository<UserAlbum>().CountUserAlbum(this.PageBoardContext.PageUserID);
@@ -434,7 +432,7 @@ public partial class EditAlbumImages : ForumPageRegistered
                 null);
 
             file.PostedFile.SaveAs(
-                $"{path}/{this.PageBoardContext.PageUserID}.{newAlbumId.ToString()}.{filename}.yafalbum");
+                $"{path}/{this.PageBoardContext.PageUserID}.{newAlbumId}.{filename}.yafalbum");
 
             this.GetRepository<UserAlbumImage>().Save(
                 null,

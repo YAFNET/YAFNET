@@ -69,8 +69,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
                                  { OrmLiteVariables.SystemUtc, "CURRENT_TIMESTAMP" },
                                  { OrmLiteVariables.MaxText, "LONGTEXT" },
                                  { OrmLiteVariables.MaxTextUnicode, "LONGTEXT" },
-                                 { OrmLiteVariables.True, SqlBool(true) },
-                                 { OrmLiteVariables.False, SqlBool(false) },
+                                 { OrmLiteVariables.True, this.SqlBool(true) },
+                                 { OrmLiteVariables.False, this.SqlBool(false) },
                              };
     }
 
@@ -358,7 +358,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     {
         if (connectionString.ToLower().Contains("allowloadlocalinfile=true"))
         {
-            AllowLoadLocalInfile = true;
+            this.AllowLoadLocalInfile = true;
         }
     }/// <summary>
      /// Gets the load children sub select.
@@ -386,8 +386,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
             return null;
         }
 
-        var triggerName = RowVersionTriggerFormat.Fmt(GetTableName(modelDef));
-        return "DROP TRIGGER IF EXISTS {0}".Fmt(GetQuotedName(triggerName));
+        var triggerName = RowVersionTriggerFormat.Fmt(this.GetTableName(modelDef));
+        return "DROP TRIGGER IF EXISTS {0}".Fmt(this.GetQuotedName(triggerName));
     }
 
     /// <summary>
@@ -433,10 +433,14 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     public override string GetQuotedValue(object value, Type fieldType)
     {
         if (value == null)
+        {
             return "NULL";
+        }
 
         if (fieldType == typeof(byte[]))
+        {
             return "0x" + BitConverter.ToString((byte[])value).Replace("-", "");
+        }
 
         return base.GetQuotedValue(value, fieldType);
     }
@@ -447,8 +451,10 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="table">The table.</param>
     /// <param name="schema">The schema.</param>
     /// <returns>System.String.</returns>
-    public override string GetTableName(string table, string schema = null) =>
-        GetTableName(table, schema, useStrategy:true);
+    public override string GetTableName(string table, string schema = null)
+    {
+        return this.GetTableName(table, schema, useStrategy: true);
+    }
 
     /// <summary>
     /// Gets the name of the table.
@@ -462,13 +468,13 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         if (useStrategy)
         {
             return schema != null && !table.StartsWithIgnoreCase(schema + "_")
-                       ? QuoteIfRequired(NamingStrategy.GetSchemaName(schema) + "_" + NamingStrategy.GetTableName(table))
-                       : QuoteIfRequired(NamingStrategy.GetTableName(table));
+                       ? this.QuoteIfRequired(this.NamingStrategy.GetSchemaName(schema) + "_" + this.NamingStrategy.GetTableName(table))
+                       : this.QuoteIfRequired(this.NamingStrategy.GetTableName(table));
         }
 
         return schema != null && !table.StartsWithIgnoreCase(schema + "_")
-                   ? QuoteIfRequired(schema + "_" + table)
-                   : QuoteIfRequired(table);
+                   ? this.QuoteIfRequired(schema + "_" + table)
+                   : this.QuoteIfRequired(table);
     }
 
     /// <summary>
@@ -476,16 +482,25 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public override bool ShouldQuote(string name) => name != null &&
-                                                     (ReservedWords.Contains(name) || name.IndexOf(' ') >= 0 || name.IndexOf('.') >= 0);
+    public override bool ShouldQuote(string name)
+    {
+        return name != null &&
+               (ReservedWords.Contains(name) || name.IndexOf(' ') >= 0 || name.IndexOf('.') >= 0);
+    }
 
     /// <summary>
     /// Gets the name of the quoted.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
-    public override string GetQuotedName(string name) => name == null ? null : name.FirstCharEquals('`')
-                                                             ? name : '`' + name + '`';
+    public override string GetQuotedName(string name)
+    {
+        return name == null
+            ? null
+            : name.FirstCharEquals('`')
+                ? name
+                : '`' + name + '`';
+    }
 
     /// <summary>
     /// Gets the name of the quoted table.
@@ -495,7 +510,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>System.String.</returns>
     public override string GetQuotedTableName(string tableName, string schema = null)
     {
-        return GetQuotedName(GetTableName(tableName, schema));
+        return this.GetQuotedName(this.GetTableName(tableName, schema));
     }
 
     /// <summary>
@@ -517,7 +532,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     {
         return schema == null
                    ? "SELECT table_name FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE()"
-                   : "SELECT table_name FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE() AND table_name LIKE {0}".SqlFmt(this, NamingStrategy.GetSchemaName(schema)  + "\\_%");
+                   : "SELECT table_name FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE() AND table_name LIKE {0}".SqlFmt(this, this.NamingStrategy.GetSchemaName(schema)  + "\\_%");
     }
 
     /// <summary>
@@ -529,11 +544,13 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     public override string ToTableNamesWithRowCountsStatement(bool live, string schema)
     {
         if (live)
+        {
             return null;
+        }
 
         return schema == null
                    ? "SELECT table_name, table_rows FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE()"
-                   : "SELECT table_name, table_rows FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE() AND table_name LIKE {0}".SqlFmt(this, NamingStrategy.GetSchemaName(schema)  + "\\_%");
+                   : "SELECT table_name, table_rows FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE() AND table_name LIKE {0}".SqlFmt(this, this.NamingStrategy.GetSchemaName(schema)  + "\\_%");
     }
 
     /// <summary>
@@ -546,7 +563,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     public override bool DoesTableExist(IDbCommand dbCmd, string tableName, string schema = null)
     {
         var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = {0} AND TABLE_SCHEMA = {1}"
-            .SqlFmt(GetTableName(tableName, schema).StripDbQuotes(), dbCmd.Connection.Database);
+            .SqlFmt(this.GetTableName(tableName, schema).StripDbQuotes(), dbCmd.Connection.Database);
 
         var result = dbCmd.ExecLongScalar(sql);
 
@@ -564,7 +581,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     public async override Task<bool> DoesTableExistAsync(IDbCommand dbCmd, string tableName, string schema = null, CancellationToken token=default)
     {
         var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = {0} AND TABLE_SCHEMA = {1}"
-            .SqlFmt(GetTableName(tableName, schema).StripDbQuotes(), dbCmd.Connection.Database);
+            .SqlFmt(this.GetTableName(tableName, schema).StripDbQuotes(), dbCmd.Connection.Database);
 
         var result = await dbCmd.ExecLongScalarAsync(sql, token);
 
@@ -601,10 +618,10 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
     public async override Task<bool> DoesColumnExistAsync(IDbConnection db, string columnName, string tableName, string schema = null, CancellationToken token=default)
     {
-        tableName = GetTableName(tableName, schema).StripQuotes();
+        tableName = this.GetTableName(tableName, schema).StripQuotes();
         var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS"
                   + " WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName AND TABLE_SCHEMA = @schema"
-                      .SqlFmt(GetTableName(tableName, schema).StripDbQuotes(), columnName);
+                      .SqlFmt(this.GetTableName(tableName, schema).StripDbQuotes(), columnName);
 
         var result = await db.SqlScalarAsync<long>(sql, new { tableName, columnName, schema = db.Database }, token);
 
@@ -627,7 +644,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     {
         var sql =
             "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
-                .SqlFmt(this, GetTableName(tableName, schema).StripDbQuotes(), columnName);
+                .SqlFmt(this, this.GetTableName(tableName, schema).StripDbQuotes(), columnName);
 
         if (schema != null)
         {
@@ -648,40 +665,51 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         var sbConstraints = StringBuilderCache.Allocate();
 
         var modelDef = GetModel(tableType);
-        foreach (var fieldDef in CreateTableFieldsStrategy(modelDef))
+        foreach (var fieldDef in this.CreateTableFieldsStrategy(modelDef))
         {
             if (fieldDef.CustomSelect != null || fieldDef.IsComputed && !fieldDef.IsPersisted)
+            {
                 continue;
+            }
 
-            if (sbColumns.Length != 0) sbColumns.Append(", \n  ");
+            if (sbColumns.Length != 0)
+            {
+                sbColumns.Append(", \n  ");
+            }
 
-            sbColumns.Append(GetColumnDefinition(fieldDef, modelDef));
+            sbColumns.Append(this.GetColumnDefinition(fieldDef, modelDef));
 
-            var sqlConstraint = GetCheckConstraint(modelDef, fieldDef);
+            var sqlConstraint = this.GetCheckConstraint(modelDef, fieldDef);
             if (sqlConstraint != null)
             {
                 sbConstraints.Append(",\n" + sqlConstraint);
             }
 
             if (fieldDef.ForeignKey == null || OrmLiteConfig.SkipForeignKeys)
+            {
                 continue;
+            }
 
             var refModelDef = GetModel(fieldDef.ForeignKey.ReferenceType);
             sbConstraints.AppendFormat(
                 ", \n\n  CONSTRAINT {0} FOREIGN KEY ({1}) REFERENCES {2} ({3})",
-                GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, NamingStrategy, fieldDef)),
-                GetQuotedColumnName(fieldDef.FieldName),
-                GetQuotedTableName(refModelDef),
-                GetQuotedColumnName(refModelDef.PrimaryKey.FieldName));
+                this.GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, this.NamingStrategy, fieldDef)),
+                this.GetQuotedColumnName(fieldDef.FieldName),
+                this.GetQuotedTableName(refModelDef),
+                this.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName));
 
             if (!string.IsNullOrEmpty(fieldDef.ForeignKey.OnDelete))
+            {
                 sbConstraints.AppendFormat(" ON DELETE {0}", fieldDef.ForeignKey.OnDelete);
+            }
 
             if (!string.IsNullOrEmpty(fieldDef.ForeignKey.OnUpdate))
+            {
                 sbConstraints.AppendFormat(" ON UPDATE {0}", fieldDef.ForeignKey.OnUpdate);
+            }
         }
 
-        var uniqueConstraints = GetUniqueConstraints(modelDef);
+        var uniqueConstraints = this.GetUniqueConstraints(modelDef);
         if (uniqueConstraints != null)
         {
             sbConstraints.Append(",\n" + uniqueConstraints);
@@ -700,7 +728,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
             sbConstraints.Append(") ");
         }
 
-        var sql = $"CREATE TABLE {GetQuotedTableName(modelDef)} \n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n); \n";
+        var sql = $"CREATE TABLE {this.GetQuotedTableName(modelDef)} \n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n); \n";
 
         return sql;
     }
@@ -739,8 +767,11 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         return "SELECT 1";
     }
 
-    public override string ToDropForeignKeyStatement(string schema, string table, string foreignKeyName) =>
-        $"ALTER TABLE {GetQuotedTableName(table, schema)} DROP FOREIGN KEY {GetQuotedName(foreignKeyName)};";
+    public override string ToDropForeignKeyStatement(string schema, string table, string foreignKeyName)
+    {
+        return
+            $"ALTER TABLE {this.GetQuotedTableName(table, schema)} DROP FOREIGN KEY {this.GetQuotedName(foreignKeyName)};";
+    }
 
     /// <summary>
     /// Gets the column definition.
@@ -752,7 +783,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         if (fieldDef.PropertyInfo?.HasAttributeCached<TextAttribute>() == true)
         {
             var sql = StringBuilderCache.Allocate();
-            sql.AppendFormat("{0} {1}", GetQuotedName(NamingStrategy.GetColumnName(fieldDef.FieldName)), TextColumnDefinition);
+            sql.AppendFormat("{0} {1}", this.GetQuotedName(this.NamingStrategy.GetColumnName(fieldDef.FieldName)), TextColumnDefinition);
             sql.Append(fieldDef.IsNullable ? " NULL" : " NOT NULL");
             return StringBuilderCache.ReturnAndFree(sql);
         }
@@ -801,8 +832,10 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="fieldOrValue">The field or value.</param>
     /// <param name="currencySymbol">The currency symbol.</param>
     /// <returns>System.String.</returns>
-    public override string SqlCurrency(string fieldOrValue, string currencySymbol) =>
-        SqlConcat(new[] {$"'{currencySymbol}'", $"cast({fieldOrValue} as decimal(15,2))"});
+    public override string SqlCurrency(string fieldOrValue, string currencySymbol)
+    {
+        return this.SqlConcat(new[] { $"'{currencySymbol}'", $"cast({fieldOrValue} as decimal(15,2))" });
+    }
 
     /// <summary>
     /// SQLs the cast.
@@ -810,44 +843,62 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="fieldOrValue">The field or value.</param>
     /// <param name="castAs">The cast as.</param>
     /// <returns>System.String.</returns>
-    public override string SqlCast(object fieldOrValue, string castAs) =>
-        castAs == Sql.VARCHAR
+    public override string SqlCast(object fieldOrValue, string castAs)
+    {
+        return castAs == Sql.VARCHAR
             ? $"CAST({fieldOrValue} AS CHAR(1000))"
             : $"CAST({fieldOrValue} AS {castAs})";
+    }
 
     /// <summary>
     /// SQLs the bool.
     /// </summary>
     /// <param name="value">if set to <c>true</c> [value].</param>
     /// <returns>System.String.</returns>
-    public override string SqlBool(bool value) => value ? "1" : "0";
+    public override string SqlBool(bool value)
+    {
+        return value ? "1" : "0";
+    }
 
     /// <summary>
     /// Enables the foreign keys check.
     /// </summary>
     /// <param name="cmd">The command.</param>
-    public override void EnableForeignKeysCheck(IDbCommand cmd) => cmd.ExecNonQuery("SET FOREIGN_KEY_CHECKS=1;");
+    public override void EnableForeignKeysCheck(IDbCommand cmd)
+    {
+        cmd.ExecNonQuery("SET FOREIGN_KEY_CHECKS=1;");
+    }
+
     /// <summary>
     /// Enables the foreign keys check asynchronous.
     /// </summary>
     /// <param name="cmd">The command.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
-    public override Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
-        cmd.ExecNonQueryAsync("SET FOREIGN_KEY_CHECKS=1;", null, token);
+    public override Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default)
+    {
+        return cmd.ExecNonQueryAsync("SET FOREIGN_KEY_CHECKS=1;", null, token);
+    }
+
     /// <summary>
     /// Disables the foreign keys check.
     /// </summary>
     /// <param name="cmd">The command.</param>
-    public override void DisableForeignKeysCheck(IDbCommand cmd) => cmd.ExecNonQuery("SET FOREIGN_KEY_CHECKS=0;");
+    public override void DisableForeignKeysCheck(IDbCommand cmd)
+    {
+        cmd.ExecNonQuery("SET FOREIGN_KEY_CHECKS=0;");
+    }
+
     /// <summary>
     /// Disables the foreign keys check asynchronous.
     /// </summary>
     /// <param name="cmd">The command.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
-    public override Task DisableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
-        cmd.ExecNonQueryAsync("SET FOREIGN_KEY_CHECKS=0;", null, token);
+    public override Task DisableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default)
+    {
+        return cmd.ExecNonQueryAsync("SET FOREIGN_KEY_CHECKS=0;", null, token);
+    }
 
     /// <summary>
     /// Unwraps the specified database.
@@ -888,7 +939,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>Task.</returns>
     public override Task OpenAsync(IDbConnection db, CancellationToken token = default)
     {
-        return Unwrap(db).OpenAsync(token);
+        return this.Unwrap(db).OpenAsync(token);
     }
 
     /// <summary>
@@ -899,7 +950,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>Task&lt;IDataReader&gt;.</returns>
     public override Task<IDataReader> ExecuteReaderAsync(IDbCommand cmd, CancellationToken token = default)
     {
-        return Unwrap(cmd).ExecuteReaderAsync(token).Then(x => (IDataReader)x);
+        return this.Unwrap(cmd).ExecuteReaderAsync(token).Then(x => (IDataReader)x);
     }
 
     /// <summary>
@@ -910,7 +961,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>Task&lt;System.Int32&gt;.</returns>
     public override Task<int> ExecuteNonQueryAsync(IDbCommand cmd, CancellationToken token = default)
     {
-        return Unwrap(cmd).ExecuteNonQueryAsync(token);
+        return this.Unwrap(cmd).ExecuteNonQueryAsync(token);
     }
 
     /// <summary>
@@ -921,7 +972,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>Task&lt;System.Object&gt;.</returns>
     public override Task<object> ExecuteScalarAsync(IDbCommand cmd, CancellationToken token = default)
     {
-        return Unwrap(cmd).ExecuteScalarAsync(token);
+        return this.Unwrap(cmd).ExecuteScalarAsync(token);
     }
 
     /// <summary>
@@ -932,7 +983,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>Task&lt;System.Boolean&gt;.</returns>
     public override Task<bool> ReadAsync(IDataReader reader, CancellationToken token = default)
     {
-        return Unwrap(reader).ReadAsync(token);
+        return this.Unwrap(reader).ReadAsync(token);
     }
 
     /// <summary>
@@ -948,7 +999,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         try
         {
             var to = new List<T>();
-            while (await ReadAsync(reader, token).ConfigureAwait(false))
+            while (await this.ReadAsync(reader, token).ConfigureAwait(false))
             {
                 var row = fn();
                 to.Add(row);
@@ -974,7 +1025,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     {
         try
         {
-            while (await ReadAsync(reader, token).ConfigureAwait(false))
+            while (await this.ReadAsync(reader, token).ConfigureAwait(false))
             {
                 fn();
             }
@@ -998,10 +1049,12 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     {
         try
         {
-            if (await ReadAsync(reader, token).ConfigureAwait(false))
+            if (await this.ReadAsync(reader, token).ConfigureAwait(false))
+            {
                 return fn();
+            }
 
-            return default(T);
+            return default;
         }
         finally
         {

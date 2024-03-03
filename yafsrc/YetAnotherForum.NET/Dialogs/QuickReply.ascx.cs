@@ -354,6 +354,6 @@ public partial class QuickReply : BaseUserControl
 
         var moderatedPostCount = forumInfo.ModeratedPostCount.Value;
 
-        return !(this.PageBoardContext.PageUser.NumPosts >= moderatedPostCount);
+        return this.PageBoardContext.PageUser.NumPosts < moderatedPostCount;
     }
 }

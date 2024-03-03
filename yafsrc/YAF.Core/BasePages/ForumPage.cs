@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.BasePages;
 
 using System;
@@ -155,7 +156,6 @@ public abstract class ForumPage : UserControl,
     /// <summary>
     ///   Gets PageName.
     /// </summary>
-    
     public virtual string PageName => this.GetType().Name.Replace("aspx", string.Empty);
 
     /// <summary>
@@ -236,7 +236,6 @@ public abstract class ForumPage : UserControl,
     /// </summary>
     /// <param name="data">The data.</param>
     /// <returns>Returns the Encoded String</returns>
-    
     public string HtmlEncode(object data)
     {
         return data is not string ? null : this.unicodeEncoder.XSSEncode(data.ToString());
@@ -280,15 +279,6 @@ public abstract class ForumPage : UserControl,
     public virtual void CreatePageLinks()
     {
         // Page link creation goes to this method (overloads in descendant classes)
-    }
-
-    /// <summary>
-    /// Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
-    /// </summary>
-    /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    override protected void OnPreRender(EventArgs e)
-    {
-        base.OnPreRender(e);
     }
 
     /// <summary>

@@ -76,8 +76,6 @@ public class AlphaSort : BaseControl
         // get the localized character set
         var charSet = this.GetText("LANGUAGE", "CHARSET").Split('/');
 
-        //var users = this.Get<IAspNetUsersHelper>().Users;
-
         charSet.ForEach(
             t =>
                 {
@@ -88,11 +86,6 @@ public class AlphaSort : BaseControl
                     t.ForEach(
                         letter =>
                             {
-                                /*if (!users.Any(x => x.UserName.StartsWith(letter.ToString())))
-                                {
-                                    return;
-                                }*/
-
                                 // create a link to this letter
                                 var link = new HyperLink
                                                {

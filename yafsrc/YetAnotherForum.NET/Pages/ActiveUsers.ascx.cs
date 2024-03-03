@@ -126,7 +126,7 @@ public partial class ActiveUsers : ForumPage
         }
 
         // remove non-guest users...
-        activeUsers.RemoveAll(row => row.IsGuest == false);
+        activeUsers.RemoveAll(row => !row.IsGuest);
     }
 
     /// <summary>
@@ -200,7 +200,7 @@ public partial class ActiveUsers : ForumPage
                 break;
         }
 
-        this.PagerTop.Count = activeUsers.Any() ? activeUsers.First().UserCount : 0;
+        this.PagerTop.Count = activeUsers.Any() ? activeUsers[0].UserCount : 0;
 
         if (activeUsers.NullOrEmpty())
         {
@@ -251,7 +251,7 @@ public partial class ActiveUsers : ForumPage
 
         // remove hidden users...
         activeUsers.RemoveAll(
-            row => row.IsActiveExcluded == false && this.PageBoardContext.PageUserID != row.UserID);
+            row => !row.IsActiveExcluded && this.PageBoardContext.PageUserID != row.UserID);
     }
 
     /// <summary>

@@ -2847,14 +2847,6 @@
             "#text": "קודי BBC מופרדים בפסיקים מותרים בחתימת משתמש בתפקיד."
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "תגי HTML חתימת משתמש:"
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "תגי HTML מופרדים בפסיק מותרים בחתימת משתמש בקבוצה."
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "מספר מקסימלי של תווים בחתימת משתמש:"
           },
@@ -11230,6 +11222,10 @@
           {
             "@tag": "YES",
             "#text": "כן"
+          },
+          {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

@@ -514,14 +514,6 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Formats the with.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="args">The arguments.</param>
-    /// <returns>string.</returns>
-    public static string FormatWith(this string text, params object[] args) => string.Format(text, args);
-
-    /// <summary>
     /// FMTs the specified text.
     /// </summary>
     /// <param name="text">The text.</param>

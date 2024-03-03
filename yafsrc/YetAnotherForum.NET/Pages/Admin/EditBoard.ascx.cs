@@ -245,15 +245,12 @@ public partial class EditBoard : AdminPage
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void SaveClick(object sender, EventArgs e)
     {
-        if (this.BoardId == null && this.CreateAdminUser.Checked)
+        if (this.BoardId == null && this.CreateAdminUser.Checked && this.UserPass1.Text != this.UserPass2.Text)
         {
-            if (this.UserPass1.Text != this.UserPass2.Text)
-            {
-                this.PageBoardContext.Notify(
-                    this.GetText("ADMIN_EDITBOARD", "MSG_PASS_MATCH"),
-                    MessageTypes.warning);
-                return;
-            }
+            this.PageBoardContext.Notify(
+                this.GetText("ADMIN_EDITBOARD", "MSG_PASS_MATCH"),
+                MessageTypes.warning);
+            return;
         }
 
         if (this.BoardId != null)

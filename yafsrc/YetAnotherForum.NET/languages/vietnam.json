@@ -2847,14 +2847,6 @@
             "#text": "Các mã BBC được phân tách bằng dấu phẩy được phép trong chữ ký người dùng trong vai trò."
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "Thẻ HTML chữ ký người dùng:"
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "Các thẻ HTML được phân tách bằng dấu phẩy được phép trong chữ ký người dùng trong nhóm."
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "Số ký tự tối đa trong chữ ký người dùng:"
           },
@@ -11226,6 +11218,10 @@
           {
             "@tag": "YES",
             "#text": "VÂNG"
+          },
+          {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

@@ -437,15 +437,15 @@ public partial class install : BasePage, IHaveServiceLocator
     /// </summary>
     /// <param name="theLabel">The label that's gone be updated.</param>
     /// <param name="status">The status.</param>
-    private void UpdateStatusLabel(Label theLabel, int status)
+    private void UpdateStatusLabel(Label theLabel, bool status)
     {
         switch (status)
         {
-            case 0:
+            case false:
                 theLabel.Text = this.Localization.GetText("No");
                 theLabel.CssClass = "badge text-bg-danger float-end";
                 break;
-            case 2:
+            case true:
                 theLabel.Text = this.Localization.GetText("Yes");
                 theLabel.CssClass = "badge text-bg-success float-end";
                 break;
@@ -760,7 +760,7 @@ public partial class install : BasePage, IHaveServiceLocator
             {
                 this.lblConnectionStringName.Text = selectedConnection;
 
-                // failure to write App Settings..
+                // failure to write App Settings ..
                 return UpdateDBFailureType.AppSettingsWrite;
             }
         }
@@ -774,9 +774,14 @@ public partial class install : BasePage, IHaveServiceLocator
 
     private void CheckWritePermission()
     {
-        this.UpdateStatusLabel(this.lblPermissionApp, DirectoryHasWritePermission(this.Server.MapPath("~/")) ? 2 : 0);
+        this.UpdateStatusLabel(this.lblPermissionApp, DirectoryHasWritePermission(this.Server.MapPath("~/")));
+
         this.UpdateStatusLabel(
             this.lblPermissionUpload,
-            DirectoryHasWritePermission(this.Server.MapPath(this.Get<BoardFolders>().Uploads)) ? 2 : 0);
+            DirectoryHasWritePermission(this.Server.MapPath(this.Get<BoardFolders>().Uploads)));
+
+        this.UpdateStatusLabel(
+            this.PermissionAppData,
+            DirectoryHasWritePermission(AppDomain.CurrentDomain.GetData("DataDirectory").ToString()));
     }
 }

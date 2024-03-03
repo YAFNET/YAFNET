@@ -39,7 +39,7 @@ public partial class EventLog : AdminPage
     private readonly StackTraceBeautify beautify;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EventLog"/> class. 
+    /// Initializes a new instance of the <see cref="EventLog"/> class.
     /// </summary>
     public EventLog()
         : base("ADMIN_EVENTLOG", ForumPages.Admin_EventLog)
@@ -89,22 +89,13 @@ public partial class EventLog : AdminPage
                 icon = "radiation";
                 cssClass = "danger";
                 break;
-            case EventLogTypes.Warning:
-                icon = "exclamation-triangle";
-                cssClass = "warning";
-                break;
             case EventLogTypes.Information:
                 icon = "exclamation";
                 cssClass = "info";
                 break;
-            case EventLogTypes.Debug:
-                icon = "exclamation-triangle";
-                cssClass = "warning";
-                break;
+            case EventLogTypes.Warning:
             case EventLogTypes.Trace:
-                icon = "exclamation-triangle";
-                cssClass = "warning";
-                break;
+            case EventLogTypes.Debug:
             case EventLogTypes.SqlError:
                 icon = "exclamation-triangle";
                 cssClass = "warning";
@@ -126,16 +117,13 @@ public partial class EventLog : AdminPage
                 cssClass = "danger";
                 break;
             case EventLogTypes.IpBanSet:
+            case EventLogTypes.IpBanDetected:
                 icon = "hand-paper";
                 cssClass = "warning";
                 break;
             case EventLogTypes.IpBanLifted:
                 icon = "slash";
                 cssClass = "success";
-                break;
-            case EventLogTypes.IpBanDetected:
-                icon = "hand-paper";
-                cssClass = "warning";
                 break;
             case EventLogTypes.SpamBotReported:
                 icon = "user-ninja";
@@ -159,7 +147,7 @@ public partial class EventLog : AdminPage
                 break;
         }
 
-        return $@"<i class=""fas fa-{icon} text-{cssClass}""></i>";
+        return $"""<i class="fas fa-{icon} text-{cssClass}"></i>""";
     }
 
     /// <summary>
@@ -178,23 +166,25 @@ public partial class EventLog : AdminPage
                 var addressLink = string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, json.UserIP);
 
                 var exceptionSource = ((string)json.ExceptionSource).IsSet() ?
-                                          @$"<span class=""badge text-bg-light m-1""><i class=""fa-solid fa-code me-1""></i>{json.ExceptionSource}</span>"
-                                           : "";
+                    $"""<span class="badge text-bg-light m-1"><i class="fa-solid fa-code me-1"></i>{json.ExceptionSource}</span>"""
+                    : "";
 
                 var url = ((string)json.Url).IsSet()
-                              ? @$"<span class=""badge text-bg-secondary m-1""><i class=""fa-solid fa-globe me-1""></i>{json.Url}</span>"
+                              ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-globe me-1"></i>{HtmlTagHelper.StripHtml(json.Url)}</span>"""
                               : "";
 
                 var userIp = ((string)json.UserIP).IsSet()
-                                  ? @$"<span class=""badge text-bg-info m-1""><i class=""fa-solid fa-desktop me-1""></i><a href=""{addressLink}"" target=""_blank"">{json.UserIP}</a></span>"
+                                  ? $"""<span class="badge text-bg-info m-1"><i class="fa-solid fa-desktop me-1"></i><a href="{addressLink}" target="_blank">{json.UserIP}</a></span>"""
                                   : "";
 
                 var userAgent = ((string)json.Url).IsSet()
-                                     ? @$"<span class=""badge text-bg-secondary m-1""><i class=""fa-solid fa-computer me-1""></i>{json.UserAgent}</span>"
+                                     ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-computer me-1"></i>{json.UserAgent}</span>"""
                                      : "";
 
-                return @$"<h6 class=""card-subtitle"">{json.Message}</h6><h5>{userIp}{url}{exceptionSource}{userAgent}</h5><div>{json.ExceptionMessage}</div>
-                         <div>{this.beautify.Beautify(this.HtmlEncode(json.ExceptionStackTrace.ToString()))}</div>";
+                return $"""
+                        <h6 class="card-subtitle">{json.Message}</h6><h5>{userIp}{url}{exceptionSource}{userAgent}</h5><div>{json.ExceptionMessage}</div>
+                                                 <div>{this.beautify.Beautify(this.HtmlEncode(json.ExceptionStackTrace.ToString()))}</div>
+                        """;
             }
             catch (Exception)
             {
@@ -452,7 +442,7 @@ public partial class EventLog : AdminPage
         this.List.DataSource = list;
 
         this.PagerTop.Count = !list.NullOrEmpty()
-                                  ? list.FirstOrDefault().TotalRows
+                                  ? list.FirstOrDefault()!.TotalRows
                                   : 0;
 
         // bind data to controls

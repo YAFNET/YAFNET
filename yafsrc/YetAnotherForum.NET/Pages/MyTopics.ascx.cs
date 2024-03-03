@@ -139,15 +139,6 @@ public partial class MyTopics : ForumPageRegistered
         this.BindData();
     }
 
-    protected void TopicModeSelectedIndexChanged(object sender, EventArgs e)
-    {
-        // Set the controls' pager index to 0.
-        this.PagerTop.CurrentPageIndex = 0;
-
-        // re-bind data
-        this.BindData();
-    }
-
     /// <summary>
     /// The create topic line.
     /// </summary>
@@ -280,7 +271,7 @@ public partial class MyTopics : ForumPageRegistered
         }
 
         // let's page the results
-        this.PagerTop.Count = topicList.FirstOrDefault().TotalRows;
+        this.PagerTop.Count = topicList.FirstOrDefault()!.TotalRows;
 
         this.TopicList.DataSource = topicList;
         this.TopicList.DataBind();
@@ -367,7 +358,6 @@ public partial class MyTopics : ForumPageRegistered
         this.Since.Items.Add(new ListItem(this.GetText("last_week"), "7"));
         this.Since.Items.Add(new ListItem(this.GetText("last_two_weeks"), "14"));
         this.Since.Items.Add(new ListItem(this.GetText("last_month"), "31"));
-            
         this.Since.Items.Add(new ListItem(this.GetText("show_all"), "9999"));
     }
 }

@@ -2847,14 +2847,6 @@
             "#text": "Pilkulla erotetut BBC-koodit, jotka sallitaan käyttäjän allekirjoituksessa roolissa."
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "Käyttäjän allekirjoituksen HTML-tunnisteet:"
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "Pilkulla erotetut HTML-tunnisteet, jotka sallitaan ryhmän käyttäjän allekirjoituksessa."
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "Käyttäjän allekirjoituksen merkkien enimmäismäärä:"
           },
@@ -11226,6 +11218,10 @@
           {
             "@tag": "YES",
             "#text": "JOO"
+          },
+          {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

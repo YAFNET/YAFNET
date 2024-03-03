@@ -4,7 +4,6 @@ global using System;
 global using System.Collections;
 global using System.Runtime.Caching;
 global using System.Text;
-global using System.Threading;
 global using System.Web;
 global using System.Xml.Serialization;
 

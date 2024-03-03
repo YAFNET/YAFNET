@@ -44,7 +44,7 @@
                                     </asp:Label>
                                     <asp:DropDownList ID="TopicMode" runat="server" 
                                                       AutoPostBack="True" 
-                                                      OnSelectedIndexChanged="TopicModeSelectedIndexChanged" 
+                                                      OnSelectedIndexChanged="Since_SelectedIndexChanged" 
                                                       CssClass="form-select" />
                                 </div>
                                 <div class="mb-3">

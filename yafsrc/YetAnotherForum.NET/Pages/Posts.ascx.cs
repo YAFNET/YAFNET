@@ -252,14 +252,11 @@ public partial class Posts : ForumPage
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!this.PageBoardContext.IsGuest)
+        if (!this.PageBoardContext.IsGuest && this.PageBoardContext.PageUser.Activity)
         {
-            if (this.PageBoardContext.PageUser.Activity)
-            {
-                this.GetRepository<Activity>().UpdateTopicNotification(
-                    this.PageBoardContext.PageUserID,
-                    this.PageBoardContext.PageTopicID);
-            }
+            this.GetRepository<Activity>().UpdateTopicNotification(
+                this.PageBoardContext.PageUserID,
+                this.PageBoardContext.PageTopicID);
         }
 
         this.topic = this.PageBoardContext.PageTopic;
@@ -291,12 +288,9 @@ public partial class Posts : ForumPage
         }
 
         // Clear Multi-quotes if topic is different
-        if (this.Get<ISession>().MultiQuoteIds != null)
+        if (this.Get<ISession>().MultiQuoteIds != null && !this.Get<ISession>().MultiQuoteIds.Exists(m => m.TopicID.Equals(this.PageBoardContext.PageTopicID)))
         {
-            if (!this.Get<ISession>().MultiQuoteIds.Exists(m => m.TopicID.Equals(this.PageBoardContext.PageTopicID)))
-            {
-                this.Get<ISession>().MultiQuoteIds = null;
-            }
+            this.Get<ISession>().MultiQuoteIds = null;
         }
 
         this.NewTopic2.NavigateUrl = this.NewTopic1.NavigateUrl = this.Get<LinkBuilder>().GetLink(

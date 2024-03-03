@@ -138,7 +138,7 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
         var values = new JObject {
                                      ["Message"] = message,
                                      ["UserIP"] = userIp,
-                                     ["Url"] = HttpContext.Current != null ? HttpContext.Current.Request.Url : "",
+                                     ["Url"] = HttpContext.Current != null ? HtmlTagHelper.StripHtml(HttpContext.Current.Request.Url.ToString()) : "",
                                      ["UserAgent"] = HttpContext.Current != null ? HttpContext.Current.Request.UserAgent : "",
                                      ["ExceptionMessage"] = exception?.Message,
                                      ["ExceptionStackTrace"] = exception?.StackTrace,

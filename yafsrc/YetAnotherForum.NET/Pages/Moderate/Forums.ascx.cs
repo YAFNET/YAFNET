@@ -111,7 +111,7 @@ public partial class Forums : ModerateForumPage
 
         if (!topicList.NullOrEmpty())
         {
-            this.PagerTop.Count = topicList.FirstOrDefault().TotalRows;
+            this.PagerTop.Count = topicList.FirstOrDefault()!.TotalRows;
         }
 
         this.DataBind();

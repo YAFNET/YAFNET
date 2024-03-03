@@ -2843,14 +2843,6 @@
             "#text": "Kommagescheiden lijst van BBCodes die zijn toegestaan in de Handtekening van de leden van deze rol."
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "HTML-tags voor gebruikershandtekening:"
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "Door komma's gescheiden HTML-tags toegestaan ​​in een gebruikershandtekening in de groep."
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "Maximum tekens in Handtekening:"
           },
@@ -11210,6 +11202,10 @@
           {
             "@tag": "YES",
             "#text": "JA"
+          },
+          {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

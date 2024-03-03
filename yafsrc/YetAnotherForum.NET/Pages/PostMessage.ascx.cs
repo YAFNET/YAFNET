@@ -601,18 +601,6 @@ public partial class PostMessage : ForumPage
         this.forumEditor.Text +=
             $"[quote={this.Get<IUserDisplayName>().GetNameById(message.UserID.ToType<int>())};{message.ID}]{messageContent}[/quote]\r\n"
                 .TrimStart();
-
-        /*if (this.forumEditor.UsesHTML && message.Flags.IsBBCode)
-        {
-            // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
-            this.forumEditor.Text = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(this.forumEditor.Text);
-
-            this.forumEditor.Text = this.Get<IBBCode>().FormatMessageWithCustomBBCode(
-                this.forumEditor.Text,
-                message.Flags,
-                message.UserID,
-                message.MessageID);
-        }*/
     }
 
     /// <summary>

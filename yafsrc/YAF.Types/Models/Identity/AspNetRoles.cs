@@ -75,16 +75,16 @@ public class AspNetRoles : AspNetRoles<string>
 public class AspNetRoles<TKey> : IRole<TKey>, IEntity, IHasId<TKey>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspNetRoles{TKey}"/> class. 
-    /// Default constructor for Role 
+    /// Initializes a new instance of the <see cref="AspNetRoles{TKey}"/> class.
+    /// Default constructor for Role
     /// </summary>
     public AspNetRoles()
     {
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspNetRoles{TKey}"/> class. 
-    /// Constructor that takes names as argument 
+    /// Initializes a new instance of the <see cref="AspNetRoles{TKey}"/> class.
+    /// Constructor that takes names as argument
     /// </summary>
     /// <param name="name">
     /// The name.

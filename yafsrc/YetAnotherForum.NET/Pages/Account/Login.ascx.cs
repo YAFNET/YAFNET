@@ -295,13 +295,6 @@ public partial class Login : AccountPage
                 }
 
                 break;
-            /* case AuthService.github:
-                 {
-                     var gitHubAccountAuth = new GitHub();
-                     gitHubAccountAuth.LoginOrCreateUser(out message);
-                 }
-
-                 break;*/
         }
 
         if (message.IsSet())

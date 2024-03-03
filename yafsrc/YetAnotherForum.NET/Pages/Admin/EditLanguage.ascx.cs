@@ -38,7 +38,7 @@ using ListItem = ListItem;
 public partial class EditLanguage : AdminPage
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="EditLanguage"/> class. 
+    /// Initializes a new instance of the <see cref="EditLanguage"/> class.
     /// </summary>
     public EditLanguage()
         : base("ADMIN_EDITLANGUAGE", ForumPages.Admin_EditLanguage)
@@ -76,20 +76,14 @@ public partial class EditLanguage : AdminPage
             .Select(item => item.FindControlAs<TextBox>("txtLocalized"))
             .FirstOrDefault(tbx => args.Value.Equals(tbx.Text));
 
-        textBox.CssClass = textBox.Text.Equals(textBox.ToolTip, StringComparison.OrdinalIgnoreCase)
-                                ? "form-control is-invalid"
-                                : "form-control is-valid";
+        if (textBox != null)
+        {
+            textBox.CssClass = textBox.Text.Equals(textBox.ToolTip, StringComparison.OrdinalIgnoreCase)
+                ? "form-control is-invalid"
+                : "form-control is-valid";
+        }
 
         args.IsValid = true;
-    }
-
-    /// <summary>
-    /// Registers the needed Java Scripts
-    /// </summary>
-    /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    override protected void OnPreRender(EventArgs e)
-    {
-        base.OnPreRender(e);
     }
 
     /// <summary>
@@ -159,7 +153,6 @@ public partial class EditLanguage : AdminPage
 
         if (txtResource.Text.Length > 30)
         {
-            // int height = 80 * (txtSource.Text.Length / 80);
             txtResource.TextMode = TextBoxMode.MultiLine;
             txtResource.Height = Unit.Pixel(80);
 

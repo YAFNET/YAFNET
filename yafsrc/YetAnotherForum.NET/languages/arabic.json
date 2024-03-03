@@ -2843,14 +2843,6 @@
             "#text": "يسمح BBCodes مفصولة بفاصلة في توقيع المستخدم في الدور."
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "علامات HTML لتوقيع المستخدم:"
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "يُسمح بعلامات HTML المفصولة بفواصل في توقيع المستخدم في المجموعة."
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "أقصى عدد من الأحرف في توقيع المستخدم:"
           },
@@ -11206,6 +11198,10 @@
           {
             "@tag": "YES",
             "#text": "نعم فعلا"
+          },
+          {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

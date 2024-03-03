@@ -205,7 +205,6 @@ public partial class PostPrivateMessage : ForumPage
             this.ToList.DataTextField = this.PageBoardContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name";
             this.ToList.DataBind();
 
-            // ToList.SelectedIndex = 0;
             // hide To text box and show To drop down
             this.ToList.Visible = true;
             this.To.Visible = false;

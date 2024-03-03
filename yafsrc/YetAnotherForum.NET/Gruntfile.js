@@ -136,6 +136,14 @@ module.exports = function(grunt) {
         },
 
         shell: {
+            syncLanguages: {
+                command: [
+                    '@echo off',
+                    'cd ..\\Tools\\LanguageManager\\',
+                    'echo update languages',
+                    'SyncLangtoEnglish'
+                ].join('&&')
+            },
             emailTemplates: {
                 command: [
                     '@echo off',
@@ -618,6 +626,11 @@ module.exports = function(grunt) {
             'devUpdate', 'webpack:lightBox', 'uglify', 'sass', 'postcss', 'cssmin'
         ]);
 
+    grunt.registerTask('syncLanguages',
+        [
+            'shell:syncLanguages'
+        ]);
+
     grunt.registerTask('updateBootstrap',
         [
             'copy:bootstrap', 'file_append:bootstrap'
@@ -640,7 +653,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('emailTemplates',
         [
-            'shell'
+            'shell:emailTemplates', 'shell:emailDigestTemplates'
         ]);
 
     grunt.registerTask('js',

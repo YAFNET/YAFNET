@@ -376,7 +376,7 @@ public partial class Topics : ForumPage
 
         if (topicList != null && topicList.Any())
         {
-            this.Pager.Count = topicList.FirstOrDefault().TotalRows;
+            this.Pager.Count = topicList.FirstOrDefault()!.TotalRows;
         }
 
         if (this.Announcements.Items.Count == 0 && this.TopicList.Items.Count == 0)

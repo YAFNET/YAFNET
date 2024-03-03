@@ -2847,14 +2847,6 @@
             "#text": "Čárkami oddělené BBCodes povolené v uživatelském podpisu v roli."
           },
           {
-            "@tag": "SIG_HTML",
-            "#text": "HTML značky podpisu uživatele:"
-          },
-          {
-            "@tag": "SIG_HTML_HELP",
-            "#text": "Čárkami oddělené HTML značky povolené v uživatelském podpisu ve skupině."
-          },
-          {
             "@tag": "SIGNATURE_LENGTH",
             "#text": "Maximální počet znaků v uživatelském podpisu:"
           },
@@ -11230,6 +11222,10 @@
           {
             "@tag": "YES",
             "#text": "ANO"
+          },
+          {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },
