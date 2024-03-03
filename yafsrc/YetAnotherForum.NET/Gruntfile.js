@@ -148,6 +148,14 @@ module.exports = function(grunt) {
         },
 
         shell: {
+            syncLanguages: {
+                command: [
+                    '@echo off',
+                    'cd ..\\Tools\\LanguageManager\\',
+                    'echo update languages',
+                    'SyncLangtoEnglish'
+                ].join('&&')
+            },
             compileLanguages: {
                 command: [
                     '@echo off',
@@ -647,6 +655,11 @@ module.exports = function(grunt) {
     grunt.registerTask('updatePackages',
         [
             'devUpdate'
+        ]);
+
+    grunt.registerTask('syncLanguages',
+        [
+            'shell:syncLanguages'
         ]);
 
     grunt.registerTask('updateBootstrap',

@@ -6,6 +6,8 @@ var yafEditor = function(name, urlTitle, urlDescription, urlImageTitle, urlImage
     this.UrlImageDescription = urlImageDescription;
     this.Description = description;
     this.MediaTitle = mediaTitle;
+    const autoCloseTags = new AutoCloseTags(document.querySelector(".BBCodeEditor"));
+    const undoManager = new EditorUndoManager();
     document.querySelector(".BBCodeEditor").addEventListener("keydown", function(e) {
         if (e.ctrlKey && !e.altKey && (e.which == 66 || e.which == 73 || e.which == 85 || e.which == 81 || e.which == 13)) {
             if (e.which == 66) {
@@ -421,48 +423,44 @@ StateMaker = function(initialState) {
     };
 };
 
-var text = doc.querySelector(".BBCodeEditor"), val, wordCount = 0, words = 0, stateMaker = new StateMaker(), undoButton = I("undo"), redoButton = I("redo"), countField = document.getElementById("editor-Counter"), maxLimit = text.maxLength;
-
-countField.textContent = maxLimit - text.value.length;
-
-function onChange(editor) {
-    val = editor.value.trim();
-    wordCount = val.split(/\s+/).length;
-    if (wordCount === words && stateMaker.states.length) {
-        stateMaker.states[stateMaker.states.length - 1] = val;
-    } else {
-        stateMaker.addState(val);
-        words = wordCount;
+var EditorUndoManager = function() {
+    var text = doc.querySelector(".BBCodeEditor"), val, wordCount = 0, words = 0, stateMaker = new StateMaker(), undoButton = I("undo"), redoButton = I("redo"), countField = document.getElementById("editor-Counter"), maxLimit = text.maxLength;
+    countField.textContent = maxLimit - text.value.length;
+    function onChange(editor) {
+        val = editor.value.trim();
+        wordCount = val.split(/\s+/).length;
+        if (wordCount === words && stateMaker.states.length) {
+            stateMaker.states[stateMaker.states.length - 1] = val;
+        } else {
+            stateMaker.addState(val);
+            words = wordCount;
+        }
+        if (editor.value.length > maxLimit) {
+            editor.value = editor.value.substring(0, maxLimit);
+        } else {
+            countField.textContent = maxLimit - editor.value.length;
+        }
     }
-    if (editor.value.length > maxLimit) {
-        editor.value = editor.value.substring(0, maxLimit);
-    } else {
-        countField.textContent = maxLimit - editor.value.length;
-    }
-}
-
-text.addEventListener("change", function() {
-    onChange(this);
-});
-
-text.onkeyup = function() {
-    onChange(this);
-};
-
-undoButton.onclick = function() {
-    stateMaker.undo();
-    val = text.value = (stateMaker.states[stateMaker.states.length - 1] || "").trim();
-    text.focus();
-    undoButton.disabled = !stateMaker.canUndo;
-    redoButton.disabled = !stateMaker.canRedo;
-};
-
-redoButton.onclick = function() {
-    stateMaker.redo();
-    val = text.value = (stateMaker.states[stateMaker.states.length - 1] || "").trim();
-    text.focus();
-    undoButton.disabled = !stateMaker.canUndo;
-    redoButton.disabled = !stateMaker.canRedo;
+    text.addEventListener("change", function() {
+        onChange(this);
+    });
+    text.onkeyup = function() {
+        onChange(this);
+    };
+    undoButton.onclick = function() {
+        stateMaker.undo();
+        val = text.value = (stateMaker.states[stateMaker.states.length - 1] || "").trim();
+        text.focus();
+        undoButton.disabled = !stateMaker.canUndo;
+        redoButton.disabled = !stateMaker.canRedo;
+    };
+    redoButton.onclick = function() {
+        stateMaker.redo();
+        val = text.value = (stateMaker.states[stateMaker.states.length - 1] || "").trim();
+        text.focus();
+        undoButton.disabled = !stateMaker.canUndo;
+        redoButton.disabled = !stateMaker.canRedo;
+    };
 };
 
 var AutoCloseTags = function(textarea) {
@@ -495,8 +493,6 @@ AutoCloseTags.prototype = {
         });
     }
 };
-
-const autoCloseTags = new AutoCloseTags(document.querySelector(".BBCodeEditor"));
 
 function mentions(opts = {}) {
     opts = Object.assign({}, {
