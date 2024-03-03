@@ -92,14 +92,16 @@ public class Migration01 : MigrationBase
         this.Db.CreateTable<ProfileDefinition>();
         this.Db.CreateTable<ProfileCustom>();
 
-        if (!Config.IsDotNetNuke)
+        if (Config.IsDotNetNuke)
         {
-            // Create Identity tables
-            this.Db.CreateTable<AspNetUsers>();
-            this.Db.CreateTable<AspNetRoles>();
-            this.Db.CreateTable<AspNetUserClaims>();
-            this.Db.CreateTable<AspNetUserLogins>();
-            this.Db.CreateTable<AspNetUserRoles>();
+            return;
         }
+
+        // Create Identity tables
+        this.Db.CreateTable<AspNetUsers>();
+        this.Db.CreateTable<AspNetRoles>();
+        this.Db.CreateTable<AspNetUserClaims>();
+        this.Db.CreateTable<AspNetUserLogins>();
+        this.Db.CreateTable<AspNetUserRoles>();
     }
 }

@@ -211,6 +211,13 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
             this.Get<Migration87>().MigrateDatabase(this.DbAccess);
         }
 
+        if (prevVersion < 91)
+        {
+            var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration91));
+
+            migrator.Run();
+        }
+
         this.AddOrUpdateExtensions();
 
         try

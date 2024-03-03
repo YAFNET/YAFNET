@@ -406,19 +406,9 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// <returns>
     /// Formatted url
     /// </returns>
-    
     private static string FormatUrlForFeed(string inputUrl)
     {
         var formattedUrl = inputUrl;
-
-        /*if (formattedUrl.Contains(@"http://www."))
-        {
-            formattedUrl = formattedUrl.Replace("http://www.", string.Empty);
-        }
-        else if (formattedUrl.Contains(@"http://"))
-        {
-            formattedUrl = formattedUrl.Replace("http://", string.Empty);
-        }*/
 
         formattedUrl = formattedUrl.Replace(".", "-").Replace("/", "-");
 
