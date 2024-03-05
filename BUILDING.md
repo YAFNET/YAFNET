@@ -64,9 +64,9 @@ for SQLite
 ## Execution
 
 1. Open `YAF.NET-SqlServer.sln` in Visual Studio for the Ms Sql server Version (Or the `YAF.NET-MySql.sln`, `YAF.NET-PostgreSQL.sln`, `YAF.NET-Sqlite.sln` depending on which database you want to use).
-2. Install the node packages from the Task Runner Explorer
+2. Install (Restore) the node packages from the Solution Explorer
 
-![taskrunner](https://github.com/YAFNET/YAFNET/assets/722575/ee732d52-4440-4973-94cc-6b985f51c4cb)
+![RestoreNpmPackages](https://github.com/YAFNET/YAFNET/assets/722575/356f6944-d245-48bb-b0a1-5f847af5094b)
 
 3. Run the Default Grunt Task to Compile the *JS* and *CSS* Files
 
