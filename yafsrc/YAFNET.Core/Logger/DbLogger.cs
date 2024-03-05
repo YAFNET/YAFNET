@@ -221,7 +221,7 @@ public class DbLogger : ILogger, IHaveServiceLocator
                          {
                              ["Message"] = message,
                              ["UserIP"] = userIp,
-                             ["Url"] = httpContext != null ? httpContext.Request.Path.ToString() : "",
+                             ["Url"] = httpContext != null ? HtmlTagHelper.StripHtml(httpContext.Request.Path.ToString()) : "",
                              ["ExceptionMessage"] = exception?.Message,
                              ["ExceptionStackTrace"] = exception?.StackTrace,
                              ["ExceptionSource"] = exception?.Source
