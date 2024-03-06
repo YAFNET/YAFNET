@@ -66,5 +66,8 @@ public class Migration91 : MigrationBase
 
             this.Db.DropColumn<Group>("PMLimit");
         }
+
+        // Reset TwoFactorEnabled User Settings
+        this.Db.UpdateOnly(() => new AspNetUsers { TwoFactorEnabled = false }, a => a.TwoFactorEnabled == true);
     }
 }
