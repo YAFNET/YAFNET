@@ -22,8 +22,11 @@
  * under the License.
  */
 
+using YAF.Types.Models.Identity;
+
 namespace YAF.Core.Migrations;
 
+using System;
 using ServiceStack.DataAnnotations;
 
 using YAF.Types.Models;
@@ -42,5 +45,8 @@ public class Migration91 : MigrationBase
         this.Db.DropTable<NntpTopic>();
         this.Db.DropTable<NntpForum>();
         this.Db.DropTable<NntpServer>();
+
+        // Reset TwoFactorEnabled User Settings
+        this.Db.UpdateOnly(() => new AspNetUsers { TwoFactorEnabled = false }, a => a.TwoFactorEnabled == true);
     }
 }
