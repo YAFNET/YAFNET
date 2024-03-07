@@ -9,9 +9,9 @@
   "author": "Ingo Herbote",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/YAFNET/YAF.SampleWebApplication/issues"
+    "url": "https://github.com/YAFNET/YAFNET/issues"
   },
-  "homepage": "https://github.com/YAFNET/YAF.SampleWebApplication#readme",
+  "homepage": "https://yetanotherforum.net/",
   "scripts": {
     "preinstall": "npm install -g ruby sass"
   },

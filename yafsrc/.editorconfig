@@ -1,5 +1,11 @@
 [*.cs]
 
+dotnet_diagnostic.S3904.severity = none
+
+# CA1711: Identifiers should not have incorrect suffix
+dotnet_diagnostic.CA1711.severity = none
+dotnet_diagnostic.S2344.severity = none
+
 csharp_style_prefer_primary_constructors = false
 dotnet_diagnostic.IDE0042.severity = none
 #Core editorconfig formatting - indentation

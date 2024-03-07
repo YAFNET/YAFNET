@@ -584,7 +584,7 @@ public static class JavaScriptBlocks
                                     
                   mentions({id: '{{{editorId}}}',
                            lookup: 'user',
-                           url:'api/User/GetMentionUsers?users={q}',
+                           url:'/api/User/GetMentionUsers?users={q}',
                            onclick: function (data) {{{{editorId}}}.FormatText("userlink", data.name);}});
                   """;
     }
@@ -636,7 +636,7 @@ public static class JavaScriptBlocks
                          mentions({
                              element: sceditor.instance(textarea),
                              lookup: 'user',
-                             url: 'api/User/GetMentionUsers?users={q}',
+                             url: '/api/User/GetMentionUsers?users={q}',
                              onclick: function (data) { sceditor.instance(textarea).insert(`[userlink]${data.name}[/userlink]`); }
                          });
                      }

@@ -3,7 +3,7 @@
         searchInputUser = document.querySelector('.searchUserInput').value,
         searchInputTag = document.querySelector('.searchTagInput').value,
         placeHolder = document.getElementById('SearchResultsPlaceholder'),
-        ajaxUrl = 'api/Search/GetSearchResults',
+        ajaxUrl = '/api/Search/GetSearchResults',
         loadModal = new bootstrap.Modal('#loadModal');
 
     var useDisplayName = document.querySelector('.searchUserInput').dataset.display === 'True';

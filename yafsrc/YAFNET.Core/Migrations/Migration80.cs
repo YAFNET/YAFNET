@@ -64,6 +64,14 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         dbAccess.Execute(
             dbCommand =>
             {
+                RemoveLegacyFullTextSearch(dbCommand);
+
+                return true;
+            });
+
+        dbAccess.Execute(
+            dbCommand =>
+            {
                 UpgradeTable(this.GetRepository<Board>(), dbCommand);
 
                 UpgradeTable(this.GetRepository<BBCode>(), dbCommand);
@@ -186,14 +194,6 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
             {
                 // display names upgrade routine can run really for ages on large forums
                 InitDisplayNames(dbCommand);
-
-                return true;
-            });
-
-        dbAccess.Execute(
-            dbCommand =>
-            {
-                RemoveLegacyFullTextSearch(dbCommand);
 
                 return true;
             });
@@ -1489,12 +1489,12 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         sb.Append(
             $"if exists (select top 1 1 from sys.columns where object_id = object_id('{expression.Table<Message>()}')");
         sb.Append(
-            $"and name = 'Message' and system_type_id = 99 and exists(select * from sys.sysfulltextcatalogs where name = N'YafSearch'))");
-        sb.AppendLine($"begin");
-        sb.AppendLine($"alter fulltext index on [dbo].[yaf_Message] drop ([Message])");
+            "and exists(select * from sys.sysfulltextcatalogs where name = N'YafSearch'))");
+        sb.AppendLine("begin");
+        sb.AppendLine($"alter fulltext index on [{Config.DatabaseOwner}].[{expression.Table<Message>()}] drop ([Message])");
+        sb.AppendLine("end");
 
-        sb.AppendLine($"alter table {expression.Table<Message>()} alter column [Message] nvarchar(max)");
-        sb.AppendLine($"end");
+        sb.AppendLine("go");
 
         dbCommand.Connection.ExecuteSql(sb.ToString());
     }
