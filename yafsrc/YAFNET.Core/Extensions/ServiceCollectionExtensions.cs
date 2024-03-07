@@ -23,6 +23,7 @@
  */
 
 using System;
+using System.Text.Json;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -124,7 +125,10 @@ public static class ServiceCollectionExtensionsExtensions
             options.Conventions.AddPageRoute("/SiteMap", "Sitemap.xml");
         });
 
-        services.AddControllers();
+        services.AddControllers().AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        });
 
         services.AddSignalR();
 
