@@ -58,7 +58,6 @@ A "sandbox" test forum is available here: https://testforum.yetanotherforum.net/
 ![main](https://github.com/YAFNET/YAFNET/assets/722575/14fd0a8e-190c-49d3-b32b-4535e60a6bd2)
 
 ![forumScreen](https://github.com/YAFNET/YAFNET/assets/722575/bb881ab1-ed65-471e-9666-76ccc4e55c59)
-g/forum.png)
 
 ![topicScreen](https://github.com/YAFNET/YAFNET/assets/722575/7b813f95-6635-4c57-a1d0-6b9b269691b4)
 
