@@ -141,4 +141,10 @@ public class BoardConfiguration
     /// </summary>
     /// <value><c>true</c> if [use HTTPS redirection]; otherwise, <c>false</c>.</value>
     public bool UseHttpsRedirection { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the name of the area.
+    /// </summary>
+    /// <value>The name of the area.</value>
+    public string Area { get; set; }
 }

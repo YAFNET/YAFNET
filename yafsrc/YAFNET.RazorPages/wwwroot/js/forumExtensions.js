@@ -18310,7 +18310,7 @@ function getNotifyData(pageSize, pageNumber, isPageChange) {
 }
 
 function getSearchResultsData(pageNumber) {
-    var searchInput = document.querySelector(".searchInput").value, searchInputUser = document.querySelector(".searchUserInput").value, searchInputTag = document.querySelector(".searchTagInput").value, placeHolder = document.getElementById("SearchResultsPlaceholder"), ajaxUrl = "api/Search/GetSearchResults", loadModal = new bootstrap.Modal("#loadModal");
+    var searchInput = document.querySelector(".searchInput").value, searchInputUser = document.querySelector(".searchUserInput").value, searchInputTag = document.querySelector(".searchTagInput").value, placeHolder = document.getElementById("SearchResultsPlaceholder"), ajaxUrl = "/api/Search/GetSearchResults", loadModal = new bootstrap.Modal("#loadModal");
     var useDisplayName = document.querySelector(".searchUserInput").dataset.display === "True";
     var pageSize = document.querySelector(".resultsPage").value, titleOnly = document.querySelector(".titleOnly").value, searchWhat = document.querySelector(".searchWhat").value;
     var minimumLength = placeHolder.dataset.minimum;

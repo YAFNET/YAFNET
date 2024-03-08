@@ -22,6 +22,10 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Routing;
+
+using YAF.Types.Objects;
+
 namespace YAF.Core.Services;
 
 using System.Collections.Generic;
@@ -187,9 +191,19 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetLink(ForumPages page, object values)
     {
-        var url = this.Get<IUrlHelper>().Page(page.GetPageName(), null, values);
+        if (!this.Get<BoardConfiguration>().Area.IsSet())
+        {
+            return this.Get<IUrlHelper>().Page(page.GetPageName(), null, values);
+        }
 
-        return url;
+        var routeValues = new RouteValueDictionary(values);
+
+        if (!routeValues.ContainsKey("area"))
+        {
+            routeValues.AddOrUpdate("area", this.Get<BoardConfiguration>().Area);
+        }
+
+        return this.Get<IUrlHelper>().Page(page.GetPageName(), null, routeValues);
     }
 
     /// <summary>

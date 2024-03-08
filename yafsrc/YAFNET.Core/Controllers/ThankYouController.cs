@@ -93,7 +93,7 @@ public class ThankYouController : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ThankYouInfo))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpPost("AddThanks/{messageId:int}")]
-    public async Task<ActionResult<ThankYouInfo>> AddThanks(int messageId)
+    public ActionResult<ThankYouInfo> AddThanks(int messageId)
     {
         var fromUserId = BoardContext.Current.PageUserID;
 
@@ -102,11 +102,11 @@ public class ThankYouController : ForumBaseController
             return this.NotFound();
         }
 
-        var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
+        var message = this.GetRepository<Message>().GetById(messageId);
 
         var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 
-        if (await this.GetRepository<Thanks>().ExistsAsync(x => x.MessageID == messageId && x.ThanksFromUserID == fromUserId))
+        if (this.GetRepository<Thanks>().Exists(x => x.MessageID == messageId && x.ThanksFromUserID == fromUserId))
         {
             return this.NotFound();
         }
