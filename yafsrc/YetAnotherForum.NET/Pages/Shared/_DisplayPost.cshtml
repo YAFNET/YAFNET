@@ -616,6 +616,10 @@
                                             </a>
                                         </span>
                                     }
+                                    else
+                                    {
+                                        <span id="@Html.Raw($"dvThanksInfo{Model.MessageID}")">&nbsp;</span>
+                                    }
                                     
                                     <span id="@Html.Raw($"dvThankBox{Model.MessageID}")">
                                         @if (thankVisible)
