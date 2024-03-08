@@ -36,8 +36,8 @@ public class BoardFolders
     /// </summary>
     public string BoardFolder =>
         BoardContext.Current.Get<BoardConfiguration>().MultiBoardFolders
-            ? $"{BoardContext.Current.Get<BoardConfiguration>().BoardRoot}{BoardContext.Current.Get<ControlSettings>().BoardID}/"
-            : BoardContext.Current.Get<BoardConfiguration>().BoardRoot;
+            ? $"{BoardContext.Current.Get<ControlSettings>().BoardID}/"
+            : "";
 
     /// <summary>
     /// Gets Uploads.

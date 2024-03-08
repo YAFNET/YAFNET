@@ -96,12 +96,13 @@ public class EventLogModel : AdminPage
             {
                 var addressLink = string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, json.UserIP);
 
+
                 var exceptionSource = ((string)json.ExceptionSource).IsSet() ?
                                           $"""<span class="badge text-bg-light m-1"><i class="fa-solid fa-code me-1"></i>{json.ExceptionSource}</span>"""
                                           : "";
 
                 var url = ((string)json.Url).IsSet()
-                              ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-globe me-1"></i>{json.Url}</span>"""
+                              ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-globe me-1"></i>{HtmlTagHelper.StripHtml(json.Url)}</span>"""
                               : "";
 
                 var userIp = ((string)json.UserIP).IsSet()

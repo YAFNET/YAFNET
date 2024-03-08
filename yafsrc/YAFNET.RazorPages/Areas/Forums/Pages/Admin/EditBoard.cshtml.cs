@@ -54,6 +54,10 @@ public class EditBoardModel : AdminPage
     [BindProperty]
     public EditBoardInputModel Input { get; set; }
 
+    /// <summary>
+    /// Gets or sets the cultures.
+    /// </summary>
+    /// <value>The cultures.</value>
     public SelectList Cultures { get; set; }
 
     /// <summary>
@@ -144,7 +148,6 @@ public class EditBoardModel : AdminPage
         // Successfully created the new board
         var boardFolder = Path.Combine(
             this.Get<IWebHostEnvironment>().WebRootPath,
-            this.Get<BoardConfiguration>().BoardRoot,
             $"{newBoardId}/");
 
         // Create New Folders.
