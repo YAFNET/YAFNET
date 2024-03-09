@@ -3,23 +3,23 @@
 //
 
 .table {
-  width: 100%;
-  max-width: 100%;
-  background-color: $table-background-color; // Reset for nesting within parents with `background-color`.
+    width: 100%;
+    max-width: 100%;
+    background-color: $table-background-color; // Reset for nesting within parents with `background-color`.
 
-  & > thead > tr > th {
-    text-align: left;
-    vertical-align: bottom;
-    border-bottom: (2 * $table-border-width) solid $table-border-color;
-  }
+    & > thead > tr > th {
+        text-align: left;
+        vertical-align: bottom;
+        border-bottom: (2 * $table-border-width) solid $table-border-color;
+    }
 
-  & > thead > tr > th,
-  & > tbody > tr > td,
-  & > tfoot > tr > td {
-    padding: 0.75 * $font-size-base;
-    vertical-align: top;
-    border-top: $table-border-width solid $table-border-color;
-  }
+    & > thead > tr > th,
+    & > tbody > tr > td,
+    & > tfoot > tr > td {
+        padding: 0.75 * $font-size-base;
+        vertical-align: top;
+        border-top: $table-border-width solid $table-border-color;
+    }
 }
 
 .table-unstyled {
@@ -42,7 +42,7 @@
   & > thead > tr > th,
   & > tbody > tr > td,
   & > tfoot > tr > td {
-    padding: 0.3 * $font-size-base;;
+    padding: 0.3 * $font-size-base;
   }
 }
 

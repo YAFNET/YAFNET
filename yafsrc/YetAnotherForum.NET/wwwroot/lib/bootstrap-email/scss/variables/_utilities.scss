@@ -9,6 +9,15 @@ $headings: (
   6: 1 * $font-size-base
 ) !default;
 
+$display-headings: ( 
+    1: 5rem, 
+    2: 4.5rem, 
+    3: 4rem, 
+    4: 3.5rem, 
+    5: 3rem, 
+    6: 2.5rem 
+) !default;
+
 $font-size: (
   'xs': 0.75 * $font-size-base,
   'sm': 0.875 * $font-size-base,
