@@ -28,7 +28,6 @@
   <ItemGroup>
 	  <Content Remove="wwwroot\lib\**" />
 	  <Content Remove="wwwroot\Search_Data\**" />
-	  <Content Remove="wwwroot\uploads\*.*" />
 	  <Content Remove="node_modules\**" />
 	  <Content Remove="package-lock.json" />
 	  <Content Remove="appsettings.Development.json" />
