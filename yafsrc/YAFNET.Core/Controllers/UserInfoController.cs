@@ -37,10 +37,13 @@ using Types.Models;
 using Types.Objects;
 
 using YAF.Core.BasePages;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The User Info controller.
 /// </summary>
+[CamelCaseOutput]
+[Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 public class UserInfo : ForumBaseController
 {
@@ -54,7 +57,6 @@ public class UserInfo : ForumBaseController
     /// The <see cref="Task"/>.
     /// </returns>
     [ValidateAntiForgeryToken]
-    [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ForumUserInfo))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetUserInfo")]

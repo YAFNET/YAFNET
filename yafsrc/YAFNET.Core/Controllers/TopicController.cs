@@ -28,6 +28,7 @@ using System;
 
 using YAF.Core.BasePages;
 using YAF.Core.Model;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
@@ -35,7 +36,8 @@ using YAF.Types.Objects.Model;
 /// <summary>
 /// The YAF Topic controller.
 /// </summary>
-[Produces("application/json")]
+[CamelCaseOutput]
+[Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
 public class TopicController : ForumBaseController

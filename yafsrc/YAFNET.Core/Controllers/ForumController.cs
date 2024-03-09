@@ -29,13 +29,15 @@ using System.Threading.Tasks;
 
 using YAF.Core.BasePages;
 using YAF.Core.Model;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
 /// <summary>
 /// The YAF Forum controller.
 /// </summary>
-[Produces("application/json")]
+[CamelCaseOutput]
+[Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 public class ForumController : ForumBaseController
 {

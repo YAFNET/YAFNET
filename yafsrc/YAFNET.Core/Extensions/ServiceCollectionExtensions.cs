@@ -125,10 +125,7 @@ public static class ServiceCollectionExtensionsExtensions
             options.Conventions.AddPageRoute("/SiteMap", "Sitemap.xml");
         });
 
-        services.AddControllers().AddJsonOptions(options =>
-        {
-            options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-        });
+        services.AddControllers();
 
         services.AddSignalR();
 

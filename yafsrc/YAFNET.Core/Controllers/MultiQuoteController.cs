@@ -24,15 +24,15 @@
 
 namespace YAF.Core.Controllers;
 
-using System.Collections.Generic;
-
 using YAF.Core.BasePages;
+using YAF.Types.Attributes;
 using YAF.Types.Objects;
 
 /// <summary>
 /// The MultiQuote Button controller.
 /// </summary>
-[Produces("application/json")]
+[CamelCaseOutput]
+[Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
 public class MultiQuoteController : ForumBaseController

@@ -34,6 +34,7 @@ using Microsoft.Extensions.Logging;
 using Types.Models;
 
 using YAF.Core.BasePages;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The CustomBBCodes controller.
@@ -47,7 +48,8 @@ public class CustomBBCodes : ForumBaseController
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    [Produces("application/json")]
+    [CamelCaseOutput]
+    [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BBCode))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetList")]

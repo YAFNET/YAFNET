@@ -30,6 +30,7 @@ using Microsoft.Extensions.Logging;
 
 using YAF.Core.BasePages;
 using YAF.Core.Filters;
+using YAF.Types.Attributes;
 using YAF.Types.Objects;
 
 /// <summary>
@@ -37,7 +38,8 @@ using YAF.Types.Objects;
 /// Implements the <see cref="ForumBaseController" />
 /// </summary>
 /// <seealso cref="ForumBaseController" />
-[Produces("application/json")]
+[CamelCaseOutput]
+[Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
 [AdminAuthorization]

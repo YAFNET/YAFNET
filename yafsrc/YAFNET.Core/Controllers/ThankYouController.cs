@@ -30,13 +30,15 @@ using Microsoft.AspNetCore.Authorization;
 
 using YAF.Core.BasePages;
 using YAF.Core.Model;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
 /// <summary>
 /// The YAF ThankYou controller.
 /// </summary>
-[Produces("application/json")]
+[CamelCaseOutput]
+[Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
 public class ThankYouController : ForumBaseController
@@ -52,7 +54,6 @@ public class ThankYouController : ForumBaseController
     /// </returns>
     [ValidateAntiForgeryToken]
     [Authorize]
-    [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ThankYouInfo))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpPost("GetThanks/{messageId:int}")]
@@ -89,7 +90,6 @@ public class ThankYouController : ForumBaseController
     /// </returns>
     [ValidateAntiForgeryToken]
     [Authorize]
-    [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ThankYouInfo))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpPost("AddThanks/{messageId:int}")]

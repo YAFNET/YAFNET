@@ -27,13 +27,15 @@ namespace YAF.Core.Controllers;
 using System.Collections.Generic;
 
 using YAF.Core.BasePages;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
 /// <summary>
 /// The YAF Attachment controller.
 /// </summary>
-[Produces("application/json")]
+[CamelCaseOutput]
+[Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
 public class AttachmentController : ForumBaseController

@@ -36,11 +36,13 @@ using YAF.Core.BasePages;
 using YAF.Types.Objects.Model;
 
 using Microsoft.AspNetCore.OutputCaching;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The User controller.
 /// </summary>
-[Produces("application/json")]
+[CamelCaseOutput]
+[Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
 public class UserController : ForumBaseController
@@ -102,7 +104,6 @@ public class UserController : ForumBaseController
     /// </returns>
     [ValidateAntiForgeryToken]
     [Authorize]
-    [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetMentionUsers")]
     [OutputCache]

@@ -28,13 +28,15 @@ using System;
 using System.Threading.Tasks;
 
 using YAF.Core.BasePages;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
 /// <summary>
 /// The YAF Tags controller.
 /// </summary>
-[Produces("application/json")]
+[CamelCaseOutput]
+[Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
 public class TagsController : ForumBaseController

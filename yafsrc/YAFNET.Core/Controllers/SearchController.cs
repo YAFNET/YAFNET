@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using YAF.Types.Attributes;
+
 namespace YAF.Core.Controllers;
 
 using System.Threading.Tasks;
@@ -34,7 +36,8 @@ using YAF.Types.Objects;
 /// <summary>
 /// The YAF Search controller.
 /// </summary>
-[Produces("application/json")]
+[CamelCaseOutput]
+[Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
 public class SearchController : ForumBaseController

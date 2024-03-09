@@ -29,13 +29,15 @@ namespace YAF.Core.Controllers;
 using YAF.Core.BasePages;
 using YAF.Core.Filters;
 using YAF.Core.Model;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
 /// <summary>
 /// The YAF Album controller.
 /// </summary>
-[Produces("application/json")]
+[CamelCaseOutput]
+[Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
 [AdminAuthorization]

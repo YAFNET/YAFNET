@@ -36,11 +36,13 @@ using YAF.Core.BasePages;
 using YAF.Core.Model;
 using YAF.Types.Models;
 using YAF.Types.Objects;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The Notifications controller.
 /// </summary>
-[Produces("application/json")]
+[CamelCaseOutput]
+[Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
 public class NotifyController : ForumBaseController

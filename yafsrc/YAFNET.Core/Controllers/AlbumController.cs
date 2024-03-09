@@ -29,13 +29,15 @@ using System.Web;
 
 using YAF.Core.BasePages;
 using YAF.Core.Model;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
 /// <summary>
 /// The YAF Album controller.
 /// </summary>
-[Produces("application/json")]
+[CamelCaseOutput]
+[Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
 public class AlbumController : ForumBaseController
