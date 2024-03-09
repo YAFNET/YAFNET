@@ -18,6 +18,8 @@ If "%Current%" NEQ "15.0" set Current=Current
 
 @set $MSBUILDPATH="%$MSBUILDROOT%\MsBuild\%Current%\Bin\MSBuild.exe"
 
+dotnet restore YAF.NET-SqlServer.sln
+
 %$MSBUILDPATH% YAF.NET-MySql.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Clean,Build /p:WarningLevel=0;CreatePackages=true /flp1:logfile=errors.txt;errorsonly %1 %2 %3 %4 %5 %6 %7 %8 %9
 %$MSBUILDPATH% YAF.NET-PostgreSQL.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Clean,Build /p:WarningLevel=0;CreatePackages=true /flp1:logfile=errors.txt;errorsonly %1 %2 %3 %4 %5 %6 %7 %8 %9
 %$MSBUILDPATH% YAF.NET-Sqlite.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Clean,Build /p:WarningLevel=0;CreatePackages=true /flp1:logfile=errors.txt;errorsonly %1 %2 %3 %4 %5 %6 %7 %8 %9

@@ -10,6 +10,14 @@ h1, h2, h3, h4, h5, h6,
   vertical-align: baseline;
 }
 
+@each $name, $size in $display-headings {
+    .display-#{$name} {
+        font-weight: 300;
+        line-height: 1.2;
+        font-size: $size;
+    }
+}
+
 @each $name, $size in $headings {
   h#{$name}, .h#{$name} {
     font-size: $size;

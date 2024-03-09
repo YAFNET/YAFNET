@@ -9,20 +9,21 @@
       "BootstrapEmail.Cli/1.0.0": {
         "dependencies": {
           "BootstrapEmail.Net": "1.4.1",
-          "CommandLineParser": "2.9.1"
+          "CommandLineParser": "2.9.1",
+          "SonarAnalyzer.CSharp": "9.21.0.86780"
         },
         "runtime": {
           "BootstrapEmail.Cli.dll": {}
         }
       },
-      "AngleSharp/1.0.7": {
+      "AngleSharp/1.1.2": {
         "dependencies": {
           "System.Text.Encoding.CodePages": "8.0.0"
         },
         "runtime": {
           "lib/net8.0/AngleSharp.dll": {
-            "assemblyVersion": "1.0.7.0",
-            "fileVersion": "1.0.7.0"
+            "assemblyVersion": "1.1.2.0",
+            "fileVersion": "1.1.2.0"
           }
         }
       },
@@ -34,11 +35,11 @@
           }
         }
       },
-      "HtmlAgilityPack/1.11.54": {
+      "HtmlAgilityPack/1.11.59": {
         "runtime": {
           "lib/netstandard2.0/HtmlAgilityPack.dll": {
-            "assemblyVersion": "1.11.54.0",
-            "fileVersion": "1.11.54.0"
+            "assemblyVersion": "1.11.59.0",
+            "fileVersion": "1.11.59.0"
           }
         }
       },
@@ -52,7 +53,7 @@
       },
       "PreMailer.Net/2.5.0": {
         "dependencies": {
-          "AngleSharp": "1.0.7"
+          "AngleSharp": "1.1.2"
         },
         "runtime": {
           "lib/netstandard2.0/PreMailer.Net.dll": {
@@ -61,12 +62,13 @@
           }
         }
       },
+      "SonarAnalyzer.CSharp/9.21.0.86780": {},
       "System.Text.Encoding.CodePages/8.0.0": {},
       "BootstrapEmail.Net/1.4.1": {
         "dependencies": {
-          "AngleSharp": "1.0.7",
+          "AngleSharp": "1.1.2",
           "CommandLineParser": "2.9.1",
-          "HtmlAgilityPack": "1.11.54",
+          "HtmlAgilityPack": "1.11.59",
           "PreMailer.Net": "2.5.0",
           "libsassnetstandard": "3.3.8"
         },
@@ -82,12 +84,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AngleSharp/1.0.7": {
+    "AngleSharp/1.1.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-jZg7lDcrXRiIC8VBluuGKOCMR9mc4CIRX5vpQJ8fcgafs6T6plOzKHhAn3lJEwXorrltd9p1WtRxxhFpRBACbg==",
-      "path": "anglesharp/1.0.7",
-      "hashPath": "anglesharp.1.0.7.nupkg.sha512"
+      "sha512": "sha512-aRFpAqixbuj1Vmqy2hsWPF0PJygo1SfjvmpBvVWZv6i+/u+C/L4wDdwFIzyCGUbjqr61NsZdPNPqDE8wlmG2qA==",
+      "path": "anglesharp/1.1.2",
+      "hashPath": "anglesharp.1.1.2.nupkg.sha512"
     },
     "CommandLineParser/2.9.1": {
       "type": "package",
@@ -96,12 +98,12 @@
       "path": "commandlineparser/2.9.1",
       "hashPath": "commandlineparser.2.9.1.nupkg.sha512"
     },
-    "HtmlAgilityPack/1.11.54": {
+    "HtmlAgilityPack/1.11.59": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-bgB79N4urc4D7hrD4R+Qk6CjPiYOfs6vfXNsmw3nCcfQEQvBQGjfAcl5k/tB1ZP1hA0d7xXs0jK8xAXV36IVUg==",
-      "path": "htmlagilitypack/1.11.54",
-      "hashPath": "htmlagilitypack.1.11.54.nupkg.sha512"
+      "sha512": "sha512-0tMaGzTJ5uFFMCYvprZ4hRYg6Dm5E+/WeMFJiD5K83Fe/Y6kyLaRKcfrfUwfb1j428XzB4/2RR7sdxoQX5eaEA==",
+      "path": "htmlagilitypack/1.11.59",
+      "hashPath": "htmlagilitypack.1.11.59.nupkg.sha512"
     },
     "libsassnetstandard/3.3.8": {
       "type": "package",
@@ -116,6 +118,13 @@
       "sha512": "sha512-gBZ6XoNns2AO63CL5Vb4T/hrcdcwBtfSxzDk20+MIUT03F/wN8/LM1QTLCN3vpyTQagYDjjTAnDEV9/9dyV1/g==",
       "path": "premailer.net/2.5.0",
       "hashPath": "premailer.net.2.5.0.nupkg.sha512"
+    },
+    "SonarAnalyzer.CSharp/9.21.0.86780": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-m+0RKlTMGDLKH8zDwGqWtvVVbY7leuDWNjcGDqEtvI12lR0fQtmPV8eooMyaA76QxUxRnbIMmilwqba1lXMvJQ==",
+      "path": "sonaranalyzer.csharp/9.21.0.86780",
+      "hashPath": "sonaranalyzer.csharp.9.21.0.86780.nupkg.sha512"
     },
     "System.Text.Encoding.CodePages/8.0.0": {
       "type": "package",
