@@ -173,6 +173,8 @@ public class InstallService : IHaveServiceLocator
         // reload the board settings...
         BoardContext.Current.BoardSettings = this.Get<BoardSettingsService>().LoadBoardSettings(boardId, null);
 
+        this.CreateUploadsFolder();
+
         this.AddOrUpdateExtensions();
     }
 
@@ -213,6 +215,21 @@ public class InstallService : IHaveServiceLocator
         this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
 
         return true;
+    }
+
+    /// <summary>
+    /// Creates the uploads folder if not exist.
+    /// </summary>
+    private void CreateUploadsFolder()
+    {
+        var uploadFolder = Path.Combine(
+            this.Get<IWebHostEnvironment>().WebRootPath,
+            this.Get<BoardFolders>().Uploads);
+
+        if (!Directory.Exists(uploadFolder))
+        {
+            Directory.CreateDirectory(uploadFolder);
+        }
     }
 
 
