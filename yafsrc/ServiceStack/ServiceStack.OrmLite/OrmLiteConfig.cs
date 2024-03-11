@@ -176,6 +176,19 @@ public static class OrmLiteConfig
     }
 
     /// <summary>
+    /// Sets the last command.
+    /// </summary>
+    /// <param name="db">The database.</param>
+    /// <param name="dbCmd">The database command.</param>
+    public static void SetLastCommand(this IDbConnection db, IDbCommand dbCmd)
+    {
+        if (db is OrmLiteConnection ormLiteConn)
+        {
+            ormLiteConn.LastCommand = dbCmd;
+        }
+    }
+
+    /// <summary>
     /// The requires orm lite connection
     /// </summary>
     private const string RequiresOrmLiteConnection = "{0} can only be set on a OrmLiteConnectionFactory connection, not a plain IDbConnection";

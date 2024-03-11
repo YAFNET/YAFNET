@@ -118,11 +118,6 @@ public class CheckBannedIps : IHaveServiceLocator
                 EventLogTypes.IpBanDetected);
         }
 
-        if (this.Get<BoardConfiguration>().BannedIpRedirectUrl.IsSet())
-        {
-            context.Response.Redirect(this.Get<BoardConfiguration>().BannedIpRedirectUrl);
-
-            await this.requestDelegate(context);
-        }
+        context.Response.StatusCode = 500;
     }
 }

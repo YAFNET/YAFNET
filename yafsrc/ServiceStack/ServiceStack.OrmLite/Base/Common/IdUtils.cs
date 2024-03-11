@@ -315,14 +315,7 @@ public static class IdUtils
     /// <returns>PropertyInfo.</returns>
     public static PropertyInfo GetIdProperty(this Type type)
     {
-        foreach (var pi in type.GetProperties())
-        {
-            if (string.Equals(IdField, pi.Name, StringComparison.OrdinalIgnoreCase))
-            {
-                return pi;
-            }
-        }
-        return null;
+        return Array.Find(type.GetProperties(),pi => string.Equals(IdField, pi.Name, StringComparison.OrdinalIgnoreCase));
     }
 
 }

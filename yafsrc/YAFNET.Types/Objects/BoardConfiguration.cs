@@ -112,11 +112,6 @@ public class BoardConfiguration
     public int SqlCommandTimeout { get; set; }
 
     /// <summary>
-    /// Gets or sets the banned IP redirect URL.
-    /// </summary>
-    public string BannedIpRedirectUrl { get; set; }
-
-    /// <summary>
     /// Gets or sets the legacy membership hash algorithm type.
     /// </summary>
     public HashAlgorithmType LegacyMembershipHashAlgorithmType { get; set; }

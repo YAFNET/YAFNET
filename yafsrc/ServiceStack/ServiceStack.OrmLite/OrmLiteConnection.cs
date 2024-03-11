@@ -4,16 +4,19 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using System.Data;
 using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
+
 using ServiceStack.Data;
 using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite;
 
 using ServiceStack.Logging;
+
 using System;
 
 /// <summary>
@@ -26,16 +29,19 @@ public class OrmLiteConnection
     /// The factory
     /// </summary>
     public readonly OrmLiteConnectionFactory Factory;
+
     /// <summary>
     /// Gets or sets the transaction.
     /// </summary>
     /// <value>The transaction.</value>
     public IDbTransaction Transaction { get; set; }
+
     /// <summary>
     /// Gets the database transaction.
     /// </summary>
     /// <value>The database transaction.</value>
     public IDbTransaction DbTransaction => this.Transaction;
+
     /// <summary>
     /// The database connection
     /// </summary>
@@ -46,6 +52,7 @@ public class OrmLiteConnection
     /// </summary>
     /// <value>The dialect provider.</value>
     public IOrmLiteDialectProvider DialectProvider { get; set; }
+
     /// <summary>
     /// Gets or sets the last command text.
     /// </summary>
@@ -53,9 +60,16 @@ public class OrmLiteConnection
     public string LastCommandText { get; set; }
 
     /// <summary>
+    /// Gets or sets the last command.
+    /// </summary>
+    /// <value>The last command.</value>
+    public IDbCommand LastCommand { get; set; }
+
+    /// <summary>
     /// Gets or sets the wait time before terminating the attempt to execute a command and generating an error(in seconds).
     /// </summary>
     public int? CommandTimeout { get; set; }
+
     /// <summary>
     /// Gets or sets the connection identifier.
     /// </summary>
@@ -76,7 +90,8 @@ public class OrmLiteConnection
     /// Gets the database connection.
     /// </summary>
     /// <value>The database connection.</value>
-    public IDbConnection DbConnection => this.dbConnection ??= this.ConnectionString.ToDbConnection(this.Factory.DialectProvider);
+    public IDbConnection DbConnection =>
+        this.dbConnection ??= this.ConnectionString.ToDbConnection(this.Factory.DialectProvider);
 
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -280,12 +295,12 @@ public class OrmLiteConnection
     /// The connection string
     /// </summary>
     private string connectionString;
+
     /// <summary>
     /// Gets or sets the string used to open a database.
     /// </summary>
     /// <value>The connection string.</value>
-    public string ConnectionString
-    {
+    public string ConnectionString {
         get => this.connectionString ?? this.Factory.ConnectionString;
         set => this.connectionString = value;
     }

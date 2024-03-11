@@ -38,6 +38,31 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Convert to as an asynchronous operation.
         /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
+        public async static Task<object> ConvertToAsync(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, Type type, CancellationToken token)
+        {
+            var modelDef = type.GetModelDefinition();
+            var indexCache = reader.GetIndexFieldsCache(modelDef, dialectProvider);
+            var values = new object[reader.FieldCount];
+
+            using (reader)
+            {
+                return await dialectProvider.ReaderRead(reader, () =>
+                {
+                    var row = type.CreateInstance();
+                    row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
+                    return row;
+                }, token).ConfigAwait();
+            }
+        }
+
+        /// <summary>
+        /// Convert to as an asynchronous operation.
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="reader">The reader.</param>
         /// <param name="dialectProvider">The dialect provider.</param>
@@ -163,31 +188,6 @@ namespace ServiceStack.OrmLite
                         return row;
                     }, token).ConfigAwait();
                 }
-            }
-        }
-
-        /// <summary>
-        /// Convert to as an asynchronous operation.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <param name="dialectProvider">The dialect provider.</param>
-        /// <param name="type">The type.</param>
-        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
-        public async static Task<object> ConvertToAsync(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, Type type, CancellationToken token)
-        {
-            var modelDef = type.GetModelDefinition();
-            var indexCache = reader.GetIndexFieldsCache(modelDef, dialectProvider);
-            var values = new object[reader.FieldCount];
-
-            using (reader)
-            {
-                return await dialectProvider.ReaderRead(reader, () =>
-                {
-                    var row = type.CreateInstance();
-                    row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
-                    return row;
-                }, token).ConfigAwait();
             }
         }
 

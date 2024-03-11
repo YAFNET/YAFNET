@@ -128,6 +128,7 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
                                    ? ormLiteConn.CommandTimeout ?? OrmLiteConfig.CommandTimeout
                                    : OrmLiteConfig.CommandTimeout;
 
+        ormLiteConn.SetLastCommand(dbCmd);
         ormLiteConn.SetLastCommandText(null);
 
         return ormLiteConn != null
@@ -149,6 +150,7 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
 
         OrmLiteConfig.AfterExecFilter?.Invoke(dbCmd);
 
+        dbConn.SetLastCommand(dbCmd);
         dbConn.SetLastCommandText(dbCmd.CommandText);
 
         dbCmd.Dispose();
@@ -206,6 +208,7 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
         var ret = filter(dbCmd);
         if (dbCmd != null)
         {
+            dbConn.SetLastCommand(dbCmd);
             dbConn.SetLastCommandText(dbCmd.CommandText);
         }
 
