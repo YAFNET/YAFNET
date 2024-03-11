@@ -34,7 +34,7 @@ using YAF.Types.Models;
 public partial class Users : AdminPage
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Users"/> class. 
+    /// Initializes a new instance of the <see cref="Users"/> class.
     /// </summary>
     public Users()
         : base("ADMIN_USERS", ForumPages.Admin_Users)
@@ -394,12 +394,18 @@ public partial class Users : AdminPage
         {
             this.PagerTop.Count = users.FirstOrDefault().TotalRows;
         }
-            
+
         // bind list
         this.UserList.DataSource = users;
         this.UserList.DataBind();
 
-        this.NoInfo.Visible = this.UserList.Items.Count == 0;
+        if (this.UserList.Items.Count != 0)
+        {
+            return;
+        }
+
+        this.NoInfo.Visible = true;
+        this.PagerTop.Count = 0;
     }
 
     /// <summary>
