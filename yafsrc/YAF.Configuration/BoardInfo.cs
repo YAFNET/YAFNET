@@ -59,7 +59,7 @@ public static class BoardInfo
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public static DateTime AppVersionDate => new(2024, 02, 02, 08, 44, 00, DateTimeKind.Utc);
+    public static DateTime AppVersionDate => new(2024, 03, 13, 06, 44, 00, DateTimeKind.Utc);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value
@@ -75,7 +75,7 @@ public static class BoardInfo
                               Minor = 2,
                               Build = 3,
                               ReleaseType = ReleaseType.BETA,
-                              ReleaseNumber = 0
+                              ReleaseNumber = 2
                           };
 
         var versionString = new StringBuilder();

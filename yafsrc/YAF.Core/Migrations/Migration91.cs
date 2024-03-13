@@ -26,7 +26,6 @@ using YAF.Types.Models.Identity;
 
 namespace YAF.Core.Migrations;
 
-using System;
 using ServiceStack.DataAnnotations;
 
 using YAF.Types.Models;

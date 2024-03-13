@@ -54,7 +54,6 @@ public partial class EditUsersProfile : BaseUserControl
     /// <value>
     /// The current Culture information.
     /// </value>
-    
     private CultureInfo CurrentCultureInfo
     {
         get
@@ -73,7 +72,6 @@ public partial class EditUsersProfile : BaseUserControl
     /// <summary>
     /// Gets the User Data.
     /// </summary>
-    
     public Tuple<User, AspNetUsers, Rank, VAccess> User { get; set; }
 
     private IEnumerable<ProfileCustom> UserProfileCustom =>
@@ -119,7 +117,7 @@ public partial class EditUsersProfile : BaseUserControl
         var type = profileDef.DataType.ToEnum<DataType>();
 
         if (profileDef.Required)
-        { 
+        {
             requiredMessage.Param0 = profileDef.Name;
         }
 
@@ -242,7 +240,7 @@ public partial class EditUsersProfile : BaseUserControl
             // add http:// by default
             if (!Regex.IsMatch(this.HomePage.Text.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*"))
             {
-                this.HomePage.Text = $@"https://{this.HomePage.Text.Trim()}";
+                this.HomePage.Text = $"https://{this.HomePage.Text.Trim()}";
             }
 
             if (!ValidationHelper.IsValidURL(this.HomePage.Text))
@@ -434,7 +432,7 @@ public partial class EditUsersProfile : BaseUserControl
                     });
         }
 
-        // clear the cache for this user...)
+        // clear the cache for this user...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.User.Item1.ID));
 
         this.Get<IDataCache>().Clear();

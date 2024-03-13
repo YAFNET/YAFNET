@@ -259,7 +259,7 @@ public partial class ForumList : BaseUserControl
     {
         if (!this.HasSubForums(item))
         {
-            return null;
+            return [];
         }
 
         var subForums = this.DataSource;

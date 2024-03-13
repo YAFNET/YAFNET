@@ -1664,6 +1664,14 @@ public static class SqlExpressionExtensions
     public static string Table<T>(this ISqlExpression sqlExpression) => sqlExpression.ToDialectProvider().GetQuotedTableName(typeof(T).GetModelDefinition());
 
     /// <summary>
+    /// Gets the table name
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="sqlExpression">The SQL expression.</param>
+    /// <returns>System.String.</returns>
+    public static string TableName<T>(this ISqlExpression sqlExpression) => sqlExpression.ToDialectProvider().GetTableName(typeof(T).GetModelDefinition());
+
+    /// <summary>
     /// Tables the specified dialect.
     /// </summary>
     /// <typeparam name="T"></typeparam>
