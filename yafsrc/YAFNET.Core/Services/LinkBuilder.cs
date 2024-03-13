@@ -122,7 +122,7 @@ public class LinkBuilder : IHaveServiceLocator
     {
         return this.Get<LinkBuilder>().GetLink(
             ForumPages.Topics,
-            new {f = forumId, name = UrlRewriteHelper.CleanStringForUrl(forumName)});
+            new {f = forumId, name = forumName});
     }
 
     /// <summary>
@@ -141,7 +141,7 @@ public class LinkBuilder : IHaveServiceLocator
     {
         return this.Get<LinkBuilder>().GetLink(
             ForumPages.Index,
-            new {c = categoryId, name = UrlRewriteHelper.CleanStringForUrl(categoryName)});
+            new {c = categoryId, name = categoryName});
     }
 
     /// <summary>
@@ -160,7 +160,7 @@ public class LinkBuilder : IHaveServiceLocator
     {
         return this.Get<LinkBuilder>().GetLink(
             ForumPages.Posts,
-            new {t = topicId, name = UrlRewriteHelper.CleanStringForUrl(topicName)});
+            new {t = topicId, name = topicName});
     }
 
     /// <summary>
@@ -191,12 +191,17 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetLink(ForumPages page, object values)
     {
+        var routeValues = new RouteValueDictionary(values);
+
         if (!this.Get<BoardConfiguration>().Area.IsSet())
         {
-            return this.Get<IUrlHelper>().Page(page.GetPageName(), null, values);
-        }
+            if (routeValues.ContainsKey("name"))
+            {
+                routeValues["name"] = UrlRewriteHelper.CleanStringForUrl(routeValues["name"]!.ToString());
+            }
 
-        var routeValues = new RouteValueDictionary(values);
+            return this.Get<IUrlHelper>().Page(page.GetPageName(), null, routeValues);
+        }
 
         if (!routeValues.ContainsKey("area"))
         {

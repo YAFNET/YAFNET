@@ -535,7 +535,7 @@ public static class TopicContainerHtmlHelper
 
             pageLinkFirst.MergeAttribute(
                 "href",
-                context.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = topicId, name = item.Subject }));
+                context.Get<LinkBuilder>().GetTopicLink(topicId, item.Subject));
 
             pageLinkFirst.InnerHtml.Append("1");
 

@@ -318,8 +318,7 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
                     .GetLink(ForumPages.Topics,
                         new { f = this.PageContext.PageForumID, p = page, name = this.PageContext.PageForum.Name })
                 : this.Get<LinkBuilder>()
-                    .GetLink(ForumPages.Topics,
-                        new { f = this.PageContext.PageForumID, name = this.PageContext.PageForum.Name }),
+                    .GetForumLink(this.PageContext.PageForum),
             ForumPages.Posts => this.Get<LinkBuilder>()
                 .GetLink(ForumPages.Posts,
                     new { t = this.PageContext.PageTopicID, p = page, name = this.PageContext.PageTopic.TopicName }),
