@@ -123,13 +123,13 @@ public class PlaywrightFixture
     /// </summary>
     private static void InstallPlaywright()
     {
-        var exitCode = Program.Main(new[] { "install-deps" });
+        var exitCode = Program.Main(["install-deps"]);
         if (exitCode != 0)
         {
             throw new Exception($"Playwright exited with code {exitCode} on install-deps");
         }
 
-        exitCode = Program.Main(new[] { "install" });
+        exitCode = Program.Main(["install"]);
         if (exitCode != 0)
         {
             throw new Exception($"Playwright exited with code {exitCode} on install");
@@ -166,7 +166,6 @@ public class PlaywrightFixture
         var page = await context.NewPageAsync().ConfigureAwait(false);
 
         Assert.That(page, Is.Not.Null);
-        //page.Should().NotBeNull();
 
         try
         {
@@ -175,11 +174,9 @@ public class PlaywrightFixture
             var gotoResult = await page.GotoAsync(url);
 
             Assert.That(gotoResult, Is.Not.Null);
-            //gotoResult.Should().NotBeNull();
 
             await gotoResult.FinishedAsync();
 
-            //gotoResult.Ok.Should().BeTrue();
             Assert.That(gotoResult.Ok, Is.True);
 
             await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Close" })

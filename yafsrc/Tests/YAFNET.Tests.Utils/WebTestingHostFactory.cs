@@ -55,7 +55,8 @@ public class WebTestingHostFactory<TProgram> : WebApplicationFactory<TProgram>
         builder.ConfigureWebHost(webHostBuilder => webHostBuilder.UseKestrel());
         var host = builder.Build();
         host.Start();
-        // In order to cleanup and properly dispose HTTP server
+
+        // In order to clean up and properly dispose HTTP server
         // resources we return a composite host object that is
         // actually just a way to intercept the StopAsync and Dispose
         // call and relay to our HTTP host.
