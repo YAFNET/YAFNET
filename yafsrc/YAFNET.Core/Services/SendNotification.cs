@@ -30,7 +30,6 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Web;
 
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 
 using MimeKit;

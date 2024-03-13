@@ -503,7 +503,12 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
     {
         ArgumentNullException.ThrowIfNull(repository);
 
-        dbCommand.Connection.DropForeignKey<Attachment>($"{Config.DatabaseObjectQualifier}Message");
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+        var foreignKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Attachment>()}' and CONSTRAINT_NAME like '%Message'");
+
+        dbCommand.Connection.DropForeignKey<Attachment>(foreignKeyName);
 
         if (dbCommand.Connection.ColumnMaxLength<Attachment>(x => x.ContentType) < 255)
         {
@@ -776,7 +781,15 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
     public static void UpgradeTablesPolls(IDbCommand dbCommand)
     {
         // should drop it else error
-        dbCommand.Connection.DropForeignKey<Topic>($"{Config.DatabaseObjectQualifier}Poll");
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+        var foreignKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Topic>()}' and CONSTRAINT_NAME like '%Poll'");
+
+        if (foreignKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<Topic>(foreignKeyName);
+        }
 
         if (!dbCommand.Connection.ColumnExists<Choice>(x => x.ObjectPath))
         {
@@ -818,15 +831,45 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
             dbCommand.Connection.DropColumn<Choice>("MimeType");
         }
 
-        dbCommand.Connection.DropForeignKey<Topic>($"{Config.DatabaseObjectQualifier}PollGroupCluster");
+        var foreignTopicKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Topic>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
 
-        dbCommand.Connection.DropForeignKey<Poll>($"{Config.DatabaseObjectQualifier}PollGroupCluster");
+        if (foreignTopicKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<Topic>(foreignTopicKeyName);
+        }
 
-        dbCommand.Connection.DropForeignKey<Forum>($"{Config.DatabaseObjectQualifier}PollGroupCluster");
+        var foreignPollKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Poll>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
 
-        dbCommand.Connection.DropForeignKey<Category>($"{Config.DatabaseObjectQualifier}PollGroupCluster");
+        if (foreignPollKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<Poll>(foreignPollKeyName);
+        }
 
-        dbCommand.Connection.DropForeignKey<PollGroupCluster>($"{Config.DatabaseObjectQualifier}PollGroupCluster");
+        var foreignForumKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Forum>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
+
+        if (foreignForumKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<Forum>(foreignForumKeyName);
+        }
+
+        var foreignCategoryKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Category>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
+
+        if (foreignCategoryKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<Category>(foreignCategoryKeyName);
+        }
+
+        var foreignClusterKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<PollGroupCluster>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
+
+        if (foreignClusterKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<PollGroupCluster>(foreignClusterKeyName);
+        }
 
         if (dbCommand.Connection.TableExists("PollVoteRefuse"))
         {
@@ -1487,14 +1530,23 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
         sb.Append(
-            $"if exists (select top 1 1 from sys.columns where object_id = object_id('{expression.Table<Message>()}')");
-        sb.Append(
-            "and exists(select * from sys.sysfulltextcatalogs where name = N'YafSearch'))");
+            $"if exists (select top 1 * from sys.fulltext_index_columns where object_id = object_id('{expression.Table<Message>()}'))");
         sb.AppendLine("begin");
-        sb.AppendLine($"alter fulltext index on [{Config.DatabaseOwner}].[{expression.Table<Message>()}] drop ([Message])");
+
+        sb.AppendLine($"EXEC sp_fulltext_column N'{expression.Table<Message>()}', N'Message', N'drop'");
+
         sb.AppendLine("end");
 
-        sb.AppendLine("go");
+        dbCommand.Connection.ExecuteSql(sb.ToString());
+
+        sb.Clear();
+
+        sb.Append($"if exists (select top 1 * from sys.fulltext_index_columns where object_id = object_id('{expression.Table<Topic>()}'))");
+        sb.AppendLine("begin");
+
+        sb.AppendLine($"EXEC sp_fulltext_column N'{expression.Table<Topic>()}', N'Topic', N'drop'");
+
+        sb.AppendLine("end");
 
         dbCommand.Connection.ExecuteSql(sb.ToString());
     }
