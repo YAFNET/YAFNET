@@ -54,10 +54,6 @@ public class EditBoardModel : AdminPage
     [BindProperty]
     public EditBoardInputModel Input { get; set; }
 
-    /// <summary>
-    /// Gets or sets the cultures.
-    /// </summary>
-    /// <value>The cultures.</value>
     public SelectList Cultures { get; set; }
 
     /// <summary>
@@ -157,10 +153,10 @@ public class EditBoardModel : AdminPage
             Directory.CreateDirectory(Path.Combine(boardFolder, "Images"));
 
             // Create Sub Folders
-            Directory.CreateDirectory(Path.Combine(boardFolder, "Images", "Avatars"));
-            Directory.CreateDirectory(Path.Combine(boardFolder, "Images", "Categories"));
-            Directory.CreateDirectory(Path.Combine(boardFolder, "Images", "Forums"));
-            Directory.CreateDirectory(Path.Combine(boardFolder, "Images", "Medals"));
+            Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Avatars"));
+            Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Categories"));
+            Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Forums"));
+            Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Medals"));
         }
 
         if (!Directory.Exists(Path.Combine(boardFolder, "Uploads")))

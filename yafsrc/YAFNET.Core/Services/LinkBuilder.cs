@@ -193,13 +193,13 @@ public class LinkBuilder : IHaveServiceLocator
     {
         var routeValues = new RouteValueDictionary(values);
 
+        if (routeValues.ContainsKey("name"))
+        {
+            routeValues["name"] = UrlRewriteHelper.CleanStringForUrl(routeValues["name"]!.ToString());
+        }
+
         if (!this.Get<BoardConfiguration>().Area.IsSet())
         {
-            if (routeValues.ContainsKey("name"))
-            {
-                routeValues["name"] = UrlRewriteHelper.CleanStringForUrl(routeValues["name"]!.ToString());
-            }
-
             return this.Get<IUrlHelper>().Page(page.GetPageName(), null, routeValues);
         }
 

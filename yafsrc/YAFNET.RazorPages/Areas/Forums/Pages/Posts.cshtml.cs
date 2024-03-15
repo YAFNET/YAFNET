@@ -93,7 +93,7 @@ public class PostsModel : ForumPage
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet(int? p = null, int? m = null)
+    public IActionResult OnGet(string name, int t, int? p = null, int? m = null)
     {
         this.Get<ISessionService>().SetPageData(new List<PagedMessage>());
 
@@ -154,7 +154,8 @@ public class PostsModel : ForumPage
             ForumPages.PostMessage,
             new {
                     t = this.PageBoardContext.PageTopicID,
-                    f = this.PageBoardContext.PageForumID
+                    f = this.PageBoardContext.PageForumID,
+                    name = this.PageBoardContext.PageTopic.TopicName
                 });
     }
 
@@ -278,7 +279,10 @@ public class PostsModel : ForumPage
         {
             if (p != firstPost!.PageIndex)
             {
-                return this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new {m = findMessageId, p = firstPost.PageIndex });
+                return this.Get<LinkBuilder>().Redirect(ForumPages.Posts,
+                    new {
+                        m = findMessageId, p = firstPost.PageIndex, name = this.PageBoardContext.PageTopic.TopicName
+                    });
             }
 
             // move to this message on load...

@@ -42,35 +42,35 @@ public class BoardFolders
     /// <summary>
     /// Gets Uploads.
     /// </summary>
-    public string Uploads => $"{this.BoardFolder}Uploads";
+    public string Uploads => $"{this.BoardFolder}uploads";
 
     /// <summary>
     /// Gets Images.
     /// </summary>
-    public string Images => $"{this.BoardFolder}Images";
+    public string Images => $"{this.BoardFolder}images";
 
     /// <summary>
     /// Gets Avatars.
     /// </summary>
-    public string Avatars => $"{this.BoardFolder}Images/Avatars";
+    public string Avatars => $"{this.BoardFolder}images/Avatars";
 
     /// <summary>
     /// Gets Categories.
     /// </summary>
-    public string Categories => $"{this.BoardFolder}Images/Categories";
+    public string Categories => $"{this.BoardFolder}images/Categories";
 
     /// <summary>
     /// Gets Categories.
     /// </summary>
-    public string Forums => $"{this.BoardFolder}Images/Forums";
+    public string Forums => $"{this.BoardFolder}images/Forums";
 
     /// <summary>
     /// Gets Medals.
     /// </summary>
-    public string Medals => $"{this.BoardFolder}Images/Medals";
+    public string Medals => $"{this.BoardFolder}images/Medals";
 
     /// <summary>
     /// Gets Logos.
     /// </summary>
-    public string Logos => $"{this.BoardFolder}Images/Logos";
+    public string Logos => $"{this.BoardFolder}images/Logos";
 }
