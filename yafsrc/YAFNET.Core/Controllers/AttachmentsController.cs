@@ -85,11 +85,11 @@ public class Attachments : ForumBaseController
                     this.Get<IWebHostEnvironment>().WebRootPath,
                     this.Get<BoardFolders>().Uploads);
 
-                var oldFileName =
-                    $"{uploadFolder}\\{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}";
+                var oldFileName = Path.Combine(uploadFolder,
+                    $"{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}");
 
-                var newFileName =
-                    $"{uploadFolder}\\{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload";
+                var newFileName = Path.Combine(uploadFolder,
+                    $"{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload");
 
                 string fileName;
 
@@ -100,7 +100,8 @@ public class Attachments : ForumBaseController
                 else
                 {
                     oldFileName =
-                        $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}.yafupload";
+                        Path.Combine(uploadFolder,
+                            $"{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}.yafupload");
 
                     // use the new fileName (with extension) if it exists...
                     fileName = System.IO.File.Exists(newFileName) ? newFileName : oldFileName;
@@ -170,11 +171,11 @@ public class Attachments : ForumBaseController
                     this.Get<IWebHostEnvironment>().WebRootPath,
                     this.Get<BoardFolders>().Uploads);
 
-                var oldFileName =
-                    $"{uploadFolder}\\{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}";
+                var oldFileName = Path.Combine(uploadFolder,
+                    $"{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}");
 
-                var newFileName =
-                    $"{uploadFolder}\\{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload";
+                var newFileName = Path.Combine(uploadFolder,
+                    $"{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload");
 
                 string fileName;
 
@@ -184,8 +185,8 @@ public class Attachments : ForumBaseController
                 }
                 else
                 {
-                    oldFileName =
-                        $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}.yafupload";
+                    oldFileName = Path.Combine(uploadFolder,
+                        $"{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}.yafupload");
 
                     // use the new fileName (with extension) if it exists...
                     fileName = System.IO.File.Exists(newFileName) ? newFileName : oldFileName;
