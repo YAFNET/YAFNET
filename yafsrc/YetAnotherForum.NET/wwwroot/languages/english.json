@@ -10813,7 +10813,7 @@
         "Resource": [
           {
             "@tag": "ADMINEMAIL",
-            "#text": "Email Adress"
+            "#text": "Email Address"
           },
           {
             "@tag": "ADMINNAME",
