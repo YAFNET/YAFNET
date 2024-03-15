@@ -88,7 +88,7 @@ public class OptionTagHelper : TagHelper, IHaveServiceLocator
                     "data-custom-properties",
                     this.IconName.IsSet()
                         ? $$"""{ "label": "<i class='fas fa-{{this.IconName}} fa-fw text-secondary me-1'></i>{{this.Item.Text}}" }"""
-                        : $$"""{ "label": "<img src='{{this.Item.Value.ToLower()}}' alt='{{this.Item.Text}}' />&nbsp;{{this.Item.Text}}" }""");
+                        : $$"""{ "label": "<img src='{{this.Item.Value}}' alt='{{this.Item.Text}}' />&nbsp;{{this.Item.Text}}" }""");
             }
         }
 
