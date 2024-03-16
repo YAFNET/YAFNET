@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading;
+
 namespace YAF.Tests.Utils.SetUp;
 
 using System.IO;
@@ -61,7 +63,7 @@ public class InstallBase
     public Task InitializeAsync()
     {
         var configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
+            .SetBasePath($"{Directory.GetCurrentDirectory()}..//..//..//.//..//")
             .AddJsonFile("appSettings.json", false, false)
             .AddEnvironmentVariables()
             .Build();

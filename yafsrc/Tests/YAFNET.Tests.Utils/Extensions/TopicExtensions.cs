@@ -60,7 +60,7 @@ public static class TopicExtensions
         // Create New Topic
         await page.Locator("//input[contains(@id,'_TopicSubject')]").FillAsync($"Auto Created Test Topic - {DateTime.UtcNow}");
 
-        await page.Locator(".BBCodeEditor")
+        await page.FrameLocator(".sceditor-container >> iframe").Locator("body")
             .FillAsync("This is a Test Message Created by an automated Unit Test");
 
         // Post New Topic
@@ -88,7 +88,7 @@ public static class TopicExtensions
     {
         // Go to Post New Topic
         await page.GotoAsync(
-            $"{testSettings.TestForumUrl}Posts?t={testSettings.TestTopicId}&name=test");
+            $"{testSettings.TestForumUrl}Posts/{testSettings.TestTopicId}/test");
 
         var pageSource = await page.ContentAsync();
 
@@ -107,7 +107,7 @@ public static class TopicExtensions
         }
 
         // Create New Reply
-        await page.Locator(".BBCodeEditor").FillAsync(message);
+        await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync(message);
 
         // Post New Reply
         await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();

@@ -68,7 +68,7 @@ public class TopicTests : TestBase
                         await page.Locator("//input[contains(@id,'_TopicDescription')]").FillAsync("Test Description");
                     }
 
-                    await page.Locator(".BBCodeEditor")
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body")
                         .FillAsync("This is a Test Message Created by an automated Unit Test");
 
                     // Post New Topic
@@ -121,7 +121,7 @@ public class TopicTests : TestBase
                     await page.Locator("//input[contains(@id,'_TopicDescription')]").FillAsync("Test Description");
                 }
 
-                await page.Locator(".BBCodeEditor")
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body")
                 .FillAsync("This is a Test Message Created by an automated Unit Test");
 
                 // Post New Topic

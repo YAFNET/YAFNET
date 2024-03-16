@@ -23,6 +23,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
 	  <PackageReference Include="NUnit" Version="4.1.0" />
+	  <PackageReference Include="SonarAnalyzer.CSharp" Version="9.21.0.86780">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\YAFNET.Types\YAFNET.Types.csproj" />

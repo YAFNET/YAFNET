@@ -369,7 +369,7 @@ public class PollTests : TestBase
             await page.Locator("//input[contains(@id,'_TopicDescription')]").FillAsync("Poll Testing");
         }
 
-        await page.Locator(".BBCodeEditor").FillAsync("This is a test topic to test the Poll Creating");
+        await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("This is a test topic to test the Poll Creating");
 
         // Post New Topic
         await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();

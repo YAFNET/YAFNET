@@ -53,7 +53,7 @@ public class MessageTests : TestBase
                     // Do actual test
 
                     // Go to Post New Topic
-                    await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Posts?t={this.Base.TestSettings.TestTopicId}&name=test");
+                    await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Posts/{this.Base.TestSettings.TestTopicId}/test");
 
                     var pageSource = await page.ContentAsync();
 
@@ -73,7 +73,7 @@ public class MessageTests : TestBase
                     Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply
-                    await page.Locator(".BBCodeEditor").FillAsync(
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync(
                         "This is a Test Reply in an Test Topic Created by an automated Unit Test");
 
                     // Post New Topic
@@ -111,7 +111,7 @@ public class MessageTests : TestBase
 
                     // Go to Post New Topic
                     await page.GotoAsync(
-                        $"{this.Base.TestSettings.TestForumUrl}Posts?t={this.Base.TestSettings.TestTopicId}&name=test");
+                        $"{this.Base.TestSettings.TestForumUrl}Posts/{this.Base.TestSettings.TestTopicId}/test");
 
                     var pageSource = await page.ContentAsync();
 
@@ -133,7 +133,7 @@ public class MessageTests : TestBase
                     Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply
-                    await page.Locator(".BBCodeEditor").FillAsync("  Quoting Test");
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("  Quoting Test");
 
                     // Post New Topic
                     await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
@@ -183,7 +183,7 @@ public class MessageTests : TestBase
                     Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply A
-                    await page.Locator(".BBCodeEditor").FillAsync("Test Reply A");
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("Test Reply A");
 
                     // Post New Message
                     await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
@@ -205,7 +205,7 @@ public class MessageTests : TestBase
                     Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply B
-                    await page.Locator(".BBCodeEditor").FillAsync("Test Reply B");
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("Test Reply B");
 
                     // Post New Message
                     await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
@@ -227,7 +227,7 @@ public class MessageTests : TestBase
                     Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply B
-                    await page.Locator(".BBCodeEditor").FillAsync("Test Reply C");
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("Test Reply C");
 
                     // Post New Message
                     await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
@@ -252,7 +252,7 @@ public class MessageTests : TestBase
 
                     Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
-                    var editorContent = await page.Locator(".BBCodeEditor")
+                    var editorContent = await page.FrameLocator(".sceditor-container >> iframe").Locator("body")
                                             .TextContentAsync();
 
                     Assert.That(editorContent, Is.Not.Null, "Content is empty");
@@ -262,7 +262,7 @@ public class MessageTests : TestBase
                     Assert.That(editorContent, Does.Contain("Test Reply C"), "Test Replay C quote not found");
 
                     // Create New Reply
-                    await page.Locator(".BBCodeEditor").FillAsync($"{editorContent}  Multi Quoting Test");
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync($"{editorContent}  Multi Quoting Test");
 
                     // Post New Topic
                     await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();

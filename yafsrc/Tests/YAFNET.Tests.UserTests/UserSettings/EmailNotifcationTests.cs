@@ -53,7 +53,7 @@ public class EmailNotificationTests : TestBase
 
                     // Go to Test Topic
                     await page.GotoAsync(
-                        $"{this.Base.TestSettings.TestForumUrl}Posts?t={this.Base.TestSettings.TestTopicId}&name=test");
+                        $"{this.Base.TestSettings.TestForumUrl}Posts/{this.Base.TestSettings.TestTopicId}/test");
 
                     var pageSource = await page.ContentAsync();
 
@@ -119,7 +119,7 @@ public class EmailNotificationTests : TestBase
 
                     // Go to Test Topic
                     await page.GotoAsync(
-                        $"{this.Base.TestSettings.TestForumUrl}Posts?t={this.Base.TestSettings.TestTopicId}&name=test");
+                        $"{this.Base.TestSettings.TestForumUrl}Posts/{this.Base.TestSettings.TestTopicId}/test");
 
                     var pageSource = await page.ContentAsync();
 
@@ -269,7 +269,7 @@ public class EmailNotificationTests : TestBase
 
                     // Go to Test Topic
                     await page.GotoAsync(
-                        $"{this.Base.TestSettings.TestForumUrl}Posts?t={this.Base.TestSettings.TestTopicId}&name=test");
+                        $"{this.Base.TestSettings.TestForumUrl}Posts/{this.Base.TestSettings.TestTopicId}/test");
 
                     var pageSource = await page.ContentAsync();
 
