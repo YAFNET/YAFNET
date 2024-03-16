@@ -442,7 +442,7 @@ public class PostMessageModel : ForumPage
             // regular redirect...
             return this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
-                new {m = newMessage.ID, name = this.PageBoardContext.PageTopic.TopicName});
+                new {m = newMessage.ID, t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName});
         }
 
         // Not Approved

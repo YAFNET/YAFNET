@@ -40,9 +40,17 @@ using YAF.Types.Models;
 /// </summary>
 public class MyMessagesModel : ForumPageRegistered
 {
+    /// <summary>
+    /// Gets or sets the private messages.
+    /// </summary>
+    /// <value>The private messages.</value>
     [BindProperty]
     public IList<PrivateMessage> PrivateMessages { get; set; }
 
+    /// <summary>
+    /// Gets or sets the users.
+    /// </summary>
+    /// <value>The users.</value>
     [BindProperty]
     public List<User> Users { get; set; }
 
