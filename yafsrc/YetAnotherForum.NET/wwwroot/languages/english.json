@@ -2772,7 +2772,7 @@
           },
           {
             "@tag": "IS_GUEST",
-            "#text": "Is Guest::"
+            "#text": "Is Guest:"
           },
           {
             "@tag": "IS_GUEST_HELP",
@@ -2784,7 +2784,7 @@
           },
           {
             "@tag": "IS_START_HELP",
-            "#text": "If this is checked, all new users will be a member of this role. <br /><span style=\"color:red\">[b]Warning:[/b] at least one Group need to have this Check box enabled or new users wont be able to register.[/b]</span>"
+            "#text": "If this is checked, all new users will be a member of this role. [br][b]Warning:[/b] at least one Group need to have this Check box enabled or new users wont be able to register."
           },
           {
             "@tag": "MSG_ALBUM_NUMBER",
@@ -3123,7 +3123,7 @@
           },
           {
             "@tag": "IS_START_HELP",
-            "#text": "Means that this is the rank that new users belong to. Only one rank should have this checked. <br /><span style=\"color:red\">[b]Warning:[/b] at least one Rank need to have this Check box enabled or new users wont be able to register.</span>"
+            "#text": "Means that this is the rank that new users belong to. Only one rank should have this checked. [br][b]Warning:[/b] at least one Rank need to have this Check box enabled or new users wont be able to register."
           },
           {
             "@tag": "LADDER_GROUP",
@@ -7658,60 +7658,8 @@
             "#text": "Browse"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Click here to choose date"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "You [b]can[/b] delete your posts in this forum."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "You [b]can[/b] edit your posts in this forum."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "You [b]can[/b] create polls in this forum."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "You [b]can[/b] post new topics in this forum."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "You [b]can[/b] reply to topics in this forum."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "You [b]can[/b] vote in polls in this forum."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Cancel"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "You [b]cannot[/b] delete your posts in this forum."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "You [b]cannot[/b] edit your posts in this forum."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "You [b]cannot[/b] create polls in this forum."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "You [b]cannot[/b] post new topics in this forum."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "You [b]cannot[/b] reply to topics in this forum."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "You [b]cannot[/b] vote in polls in this forum."
           },
           {
             "@tag": "CHARACTERS_LEFT",
@@ -12077,10 +12025,6 @@
           {
             "@tag": "FINDUSERS",
             "#text": "Find Users..."
-          },
-          {
-            "@tag": "MAX_RECIPIENT_INFO",
-            "#text": "You can send message to maximum of [b]{0}[/b] users at a time."
           },
           {
             "@tag": "MESSAGE",
