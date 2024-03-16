@@ -99,7 +99,7 @@ public class ForgotPasswordModel : AccountPage
         if (!user.IsApproved)
         {
             // explain they are not approved yet...
-            return this.PageBoardContext.Notify(this.GetText("ACCOUNT_NOT_APPROVED_VERIFICATION"), MessageTypes.warning);
+            return this.PageBoardContext.Notify(this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email), MessageTypes.warning);
         }
 
         var code = HttpUtility.UrlEncode(
