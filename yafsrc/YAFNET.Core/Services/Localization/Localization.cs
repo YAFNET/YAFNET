@@ -30,7 +30,6 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Web;
 
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 
 using Newtonsoft.Json;
@@ -297,6 +296,8 @@ public class Localization : ILocalization
 
         localizedText = BeginNoParseRegex.Replace(localizedText, "<strong>");
         localizedText = EndNoParseRegex.Replace(localizedText, "</strong>");
+
+        localizedText = localizedText.Replace("[br]", "<br />");
 
         localizedText = localizedText.Replace("[noparse]", string.Empty);
         localizedText = localizedText.Replace("[/noparse]", string.Empty);

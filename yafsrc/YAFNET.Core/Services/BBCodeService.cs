@@ -178,9 +178,9 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
 
         // get the rules engine from the creator...
         var ruleEngine = this.ProcessReplaceRulesFactory(
-            new[] {
+            [
                       DoFormatting, TargetBlankOverride, this.Get<BoardSettings>().UseNoFollowLinks, ForBBCodeEditing
-                  });
+                  ]);
 
         if (!ruleEngine.HasRules)
         {
@@ -193,11 +193,9 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Creates the rules that convert HTML to <see cref="BBCode"/>
+    /// Creates the rules that convert HTML to <see cref="BBCode" />
     /// </summary>
-    /// <param name="ruleEngine">
-    /// The rule Engine.
-    /// </param>
+    /// <param name="ruleEngine">The rule Engine.</param>
     public void CreateHtmlRules(IProcessReplaceRules ruleEngine)
     {
         // alignment

@@ -18,6 +18,8 @@
                     <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
                     <!-- Modal Content START !-->
                     <label asp-for="Import" localized-tag="SELECT_IMPORT" localized-page="ADMIN_SPAMWORDS_IMPORT"></label>
+                    <alert type="info" icon="info-circle" localized-page="ADMIN_SPAMWORDS" localized-tag="NOTE">
+                    </alert>
                     <div class="mb-3">
                         <label asp-for="Import" localized-tag="SELECT_IMPORT_HELP" localized-page="ADMIN_SPAMWORDS_IMPORT"></label>
                         <input type="file" asp-for="Import" class="form-control"/>
