@@ -22,7 +22,7 @@
     "grunt-shell": "^4.0.0",
     "grunt-webpack": "^6.0.0",
     "grunt-zip": "^1.0.0",
-    "postcss": "^8.4.3^6",
+    "postcss": "^8.4.36",
     "sass": "^1.72.0",
     "webpack": "^5.90.3",
     "webpack-merge": "^5.10.0"
