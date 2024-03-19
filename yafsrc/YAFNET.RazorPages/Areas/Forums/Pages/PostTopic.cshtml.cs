@@ -179,7 +179,6 @@ public class PostTopicModel : ForumPage
     /// Handles the Load event of the Page control.
     /// </summary>
     public IActionResult OnGet()
-
     {
         this.Input = new PostTopicInputModel();
 
@@ -407,7 +406,7 @@ public class PostTopicModel : ForumPage
                 // regular redirect...
                 return this.Get<LinkBuilder>().Redirect(
                     ForumPages.Posts,
-                    new {m = newMessage.ID, name = newMessage.Topic.TopicName});
+                    new {m = newMessage.ID, t = newMessage.Topic.ID, name = newMessage.Topic.TopicName});
             }
 
             // poll edit redirect...

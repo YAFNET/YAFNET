@@ -107,25 +107,21 @@ public class EditUserModel : AdminPage
     }
 
     /// <summary>
-    /// Handles the Load event of the Page control.
+    /// Called when [get].
     /// </summary>
-    public IActionResult OnGet(int? u = null, string tab = null)
+    /// <param name="u">The user id.</param>
+    /// <param name="tab">The tab.</param>
+    /// <returns>IActionResult.</returns>
+    public IActionResult OnGet(int u, string tab = null)
     {
-        if (!u.HasValue)
-        {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-        }
-
         if (tab.IsSet())
         {
             this.LastTab = tab;
         }
 
-        var currentUserId = u.Value;
+        var editUser = this.Get<IAspNetUsersHelper>().GetBoardUser(u, includeNonApproved: true);
 
-        var editUser = this.Get<IAspNetUsersHelper>().GetBoardUser(currentUserId, includeNonApproved: true);
-
-        this.Get<IDataCache>().Set(string.Format(Constants.Cache.EditUser, currentUserId), editUser);
+        this.Get<IDataCache>().Set(string.Format(Constants.Cache.EditUser, u), editUser);
 
         if (editUser is null)
         {

@@ -52,12 +52,24 @@ public class EditUserModel : AdminPage
     {
     }
 
+    /// <summary>
+    /// Gets or sets the last tab.
+    /// </summary>
+    /// <value>The last tab.</value>
     [BindProperty]
     public string LastTab { get; set; } = "View1";
 
+    /// <summary>
+    /// Gets or sets the edit user.
+    /// </summary>
+    /// <value>The edit user.</value>
     [BindProperty]
     public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
+    /// <summary>
+    /// Gets or sets the edit user rank.
+    /// </summary>
+    /// <value>The edit user rank.</value>
     [BindProperty]
     public Rank EditUserRank { get; set; }
 
@@ -95,25 +107,21 @@ public class EditUserModel : AdminPage
     }
 
     /// <summary>
-    /// Handles the Load event of the Page control.
+    /// Called when [get].
     /// </summary>
-    public IActionResult OnGet(int? u = null, string tab = null)
+    /// <param name="u">The user id.</param>
+    /// <param name="tab">The tab.</param>
+    /// <returns>IActionResult.</returns>
+    public IActionResult OnGet(int u, string tab = null)
     {
-        if (!u.HasValue)
-        {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-        }
-
         if (tab.IsSet())
         {
             this.LastTab = tab;
         }
 
-        var currentUserId = u.Value;
+        var editUser = this.Get<IAspNetUsersHelper>().GetBoardUser(u, includeNonApproved: true);
 
-        var editUser = this.Get<IAspNetUsersHelper>().GetBoardUser(currentUserId, includeNonApproved: true);
-
-        this.Get<IDataCache>().Set(string.Format(Constants.Cache.EditUser, currentUserId), editUser);
+        this.Get<IDataCache>().Set(string.Format(Constants.Cache.EditUser, u), editUser);
 
         if (editUser is null)
         {

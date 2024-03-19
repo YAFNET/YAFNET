@@ -348,7 +348,7 @@ public class EditMessageModel : ForumPage
         {
             return this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
-                new {m = messageId, name = this.PageBoardContext.PageTopic.TopicName});
+                new {m = messageId, t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName});
         }
 
         // Not Approved

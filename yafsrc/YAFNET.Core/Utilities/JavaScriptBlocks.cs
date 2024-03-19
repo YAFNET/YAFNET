@@ -391,6 +391,8 @@ public static class JavaScriptBlocks
                                        }).then(res => res.text())
                                    .then(response => {
                                        tab.innerHTML = response;
+                                       
+                                       loadSelectMenus();
                                    });
                            }
                            break;
