@@ -7666,60 +7666,8 @@
             "#text": "Bla gjennom"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Klikk her for å velge dato"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "Du [b]kan[/b] slette dine innlegg i dette forumet."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "Du [b]kan[/b] endre dine innlegg i dette forumet."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "Du [b]kan[/b] lage avstemminger i dette forumet."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "Du [b]kan[/b] poste nye innlegg i dette forumet."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "Du [b]kan[/b] svare på innlegg i dette forumet."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "Du [b]kan[/b] stemme i dette forumet."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Avbryt"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "Du [b]kan ikke[/b] slette dine innlegg i dette forumet."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "Du [b]kan ikke[/b] endre dine innlegg i dette forumet."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "Du [b]kan ikke[/b] lage avstemminger i dette forumet."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "Du [b]kan ikke[/b] poste nye innlegg i dette forumet."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "Du [b]kan ikke[/b] svare på innlegg i dette forumet."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "Du [b]kan ikke[/b] stemme i dette forumet."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -12089,10 +12037,6 @@
           {
             "@tag": "FINDUSERS",
             "#text": "Finn bruker"
-          },
-          {
-            "@tag": "MAX_RECIPIENT_INFO",
-            "#text": "Du kan sende meldinger til maksimalt [b]{0}[/b] brukere om gangen."
           },
           {
             "@tag": "MESSAGE",

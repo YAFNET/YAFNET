@@ -7658,60 +7658,8 @@
             "#text": "Bladeren"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Klik hier om een datum te kiezen"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "Je [b]kunt[/b] hier je eigen berichten verwijderen."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "Je [b]kunt[/b] hier je eigen berichten bewerken."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "Je [b]kunt[/b] hier Polls creëren."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "Je [b]kunt[/b] hier nieuwe berichten plaatsen."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "Je [b]kunt[/b] hier antwoorden op berichten."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "Je [b]kunt[/b] hier stemmen op Polls."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Annuleren"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "Je kunt hier [b]geen[/b] eigen berichten verwijderen."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "Je kunt hier [b]geen[/b] eigen berichten bewerken."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "Je kunt hier [b]geen[/b] Polls creëren."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "Je kunt hier [b]geen[/b] nieuwe berichten plaatsen."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "Je kunt hier [b]niet[/b] antwoorden op berichten."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "Je kunt hier [b]niet[/b] stemmen op Polls."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -12073,10 +12021,6 @@
           {
             "@tag": "FINDUSERS",
             "#text": "Gebruikers zoeken"
-          },
-          {
-            "@tag": "MAX_RECIPIENT_INFO",
-            "#text": "Je kunt naar maximaal [b]{0}[/b] gebruikers tegelijk een bericht sturen."
           },
           {
             "@tag": "MESSAGE",

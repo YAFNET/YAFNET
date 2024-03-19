@@ -7666,60 +7666,8 @@
             "#text": "Sirvige"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Klikkige kuupäeva muutmiseks"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "Te [b]saate[/b] kustutada postitusi selles foorumis."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "Te [b]saate[/b] muuta postitusi selles foorumis."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "Te [b]saate[/b] luua küsitlusi selles foorumis."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "Te [b]saate[/b] luua uusi teemasid selles foorumis."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "Te [b]saate[/b] vastata teemadele selles foorumis."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "Te [b]saate[/b] hääletada küsitlustes selles foorumis."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Katkesta"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "Te [b]ei saa[/b] kustutada oma postitusi selles foorumis."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "Te [b]ei saa[/b] muuta oma postitusi selles foorumis."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "Te [b]ei saa[/b] luua küsitlusi selles foorumis."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "Te [b]ei saa[/b] postitada uusi teemasid selles foorumis."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "Te [b]ei saa[/b] vastata teemadele selles foorumis."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "Te [b]ei saa[/b] hääletada küsitlustes selles foorumis."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -12089,10 +12037,6 @@
           {
             "@tag": "FINDUSERS",
             "#text": "Otsi kasutajaid..."
-          },
-          {
-            "@tag": "MAX_RECIPIENT_INFO",
-            "#text": "Üheaegselt võib sõnumi saata [b]{0}[/b] kasutajale."
           },
           {
             "@tag": "MESSAGE",

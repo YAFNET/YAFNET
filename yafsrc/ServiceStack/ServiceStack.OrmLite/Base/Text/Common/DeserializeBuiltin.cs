@@ -21,6 +21,7 @@ public static class DeserializeBuiltin<T>
     /// The cached parse function
     /// </summary>
     private readonly static ParseStringSpanDelegate CachedParseFn;
+
     /// <summary>
     /// Initializes static members of the <see cref="DeserializeBuiltin{T}" /> class.
     /// </summary>
@@ -162,7 +163,7 @@ public static class DeserializeBuiltin<T>
             {
                 return value => DateTimeSerializer.ParseNullableDateTimeOffset(value.ToString());
             }
-#if NET7_0_OR_GREATER
+
             if (typeof(T) == typeof(DateOnly?))
             {
                 return value => value.IsNullOrEmpty() ? default : DateOnly.FromDateTime(DateTimeSerializer.ParseShortestXsdDateTime(value.ToString()));
@@ -172,7 +173,6 @@ public static class DeserializeBuiltin<T>
             {
                 return value => value.IsNullOrEmpty() ? default : TimeOnly.FromTimeSpan(DateTimeSerializer.ParseTimeSpan(value.ToString()));
             }
-#endif
         }
 
         return null;

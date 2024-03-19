@@ -53,10 +53,13 @@ public class AdminPage : ForumPage
     /// <returns>
     /// Sets the css class for the badge.
     /// </returns>
+#pragma warning disable CA1822 // Mark members as static
     public string GetItemColor(bool value)
+
     {
         return value ? "badge text-bg-success mb-2" : "badge text-bg-danger mb-2";
     }
+#pragma warning restore CA1822 // Mark members as static
 
     /// <summary>
     /// Get a user friendly item name.

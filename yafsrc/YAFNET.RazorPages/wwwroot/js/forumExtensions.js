@@ -18375,6 +18375,7 @@ function getSearchResultsData(pageNumber) {
             document.getElementById("loadModal").addEventListener("shown.bs.modal", () => {
                 loadModal.hide();
             });
+
             var posted = placeHolder.dataset.posted, by = placeHolder.dataset.by, lastPost = placeHolder.dataset.lastpost, topic = placeHolder.dataset.topic;
             if (data.searchResults.length === 0) {
                 loadModal.hide();

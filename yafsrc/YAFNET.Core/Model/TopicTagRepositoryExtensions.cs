@@ -81,23 +81,34 @@ public static class TopicTagRepositoryExtensions
                 {
                     tag = HtmlTagHelper.StripHtml(tag);
 
-                    if (tag.IsSet())
+                    if (tag.IsNotSet())
                     {
-                        var existTag = boardTags.FirstOrDefault(t => t.TagName == tag);
+                        return;
+                    }
 
-                        if (existTag != null)
-                        {
-                            // add to topic
-                            repository.Add(existTag.ID, topicId);
-                        }
-                        else
-                        {
-                            // save new Tag
-                            var newTagId = BoardContext.Current.GetRepository<Tag>().Add(tag);
+                    // Filter common words
+                    var commonWords = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "COMMON_WORDS")
+                        .StringToList(',');
 
-                            // add to topic
-                            repository.Add(newTagId, topicId);
-                        }
+                    if (commonWords.Contains(tag))
+                    {
+                        return;
+                    }
+
+                    var existTag = boardTags.FirstOrDefault(t => t.TagName == tag);
+
+                    if (existTag != null)
+                    {
+                        // add to topic
+                        repository.Add(existTag.ID, topicId);
+                    }
+                    else
+                    {
+                        // save new Tag
+                        var newTagId = BoardContext.Current.GetRepository<Tag>().Add(tag);
+
+                        // add to topic
+                        repository.Add(newTagId, topicId);
                     }
                 });
     }

@@ -1680,17 +1680,6 @@ public static class SqlExpressionExtensions
     }
 
     /// <summary>
-    /// Gets the table name
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="sqlExpression">The SQL expression.</param>
-    /// <returns>System.String.</returns>
-    public static string TableName<T>(this ISqlExpression sqlExpression)
-    {
-        return sqlExpression.ToDialectProvider().GetTableName(typeof(T).GetModelDefinition());
-    }
-
-    /// <summary>
     /// Tables the specified dialect.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -1699,6 +1688,17 @@ public static class SqlExpressionExtensions
     public static string Table<T>(this IOrmLiteDialectProvider dialect)
     {
         return dialect.GetQuotedTableName(typeof(T).GetModelDefinition());
+    }
+
+    /// <summary>
+    /// Gets the table name
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="sqlExpression">The SQL expression.</param>
+    /// <returns>System.String.</returns>
+    public static string TableName<T>(this ISqlExpression sqlExpression)
+    {
+        return sqlExpression.ToDialectProvider().GetTableName(typeof(T).GetModelDefinition());
     }
 
     /// <summary>

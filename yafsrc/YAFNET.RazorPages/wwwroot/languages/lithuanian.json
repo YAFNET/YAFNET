@@ -7666,60 +7666,8 @@
             "#text": "Naršykite"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Spustelėkite čia, jei norite pasirinkti datą"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "\r\n      Jūs [b] gali [/b] ištrinti savo pranešimų šiame\r\n\r\n      forume.\r\n    "
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "\r\n      Jūs [b] gali [/b] redaguoti savo pranešimų šiame\r\n\r\n      forume.\r\n    "
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "Jūs [b] gali [/b] kurti apklausos šiame forume. "
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "Jūs [b] gali [/b] po naujų temų šiame forume. "
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "Jūs [b] gali [/b] atsakykite į temas šiame forume. "
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "Jūs [b] gali [/b] balsavimui apklausos šiame forume. "
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Atšaukti -- "
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "\r\n      Jūs [b] negalima [/b] ištrinti savo pranešimų šiame\r\n\r\n      forume.\r\n    "
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "\r\n      Jūs [b] negalima [/b] redaguoti savo pranešimų šiame\r\n\r\n      forume.\r\n    "
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "\r\n      Jūs [b] negalima [/b] kurti apklausos šiame\r\n\r\n      forume.\r\n    "
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "Jūs [b] negalima [/b] po naujų temų šiame forume. "
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "\r\n      Jūs [b] negalima [/b] atsakykite į temas šiame\r\n\r\n      forume.\r\n    "
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "\r\n      Jūs [b] negalima [/b] balsavimui apklausos šiame\r\n\r\n      forume.\r\n    "
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -12089,10 +12037,6 @@
           {
             "@tag": "FINDUSERS",
             "#text": "Rasti Vartotojai "
-          },
-          {
-            "@tag": "MAX_RECIPIENT_INFO",
-            "#text": "Vienu metu žinutę galite siųsti ne daugiau kaip [b]{0}[/b] naudotojams."
           },
           {
             "@tag": "MESSAGE",

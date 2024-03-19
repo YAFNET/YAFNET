@@ -106,25 +106,25 @@
                                             </li>
                                             <li class="list-inline-item">
                                                 @Html.LocalizedText( "ADMIN_GROUPS","IS_GUEST"):&nbsp;
-                                                <span class="@Html.Raw(AdminPage.GetItemColor(role.GroupFlags.IsGuest))">
+                                                <span class="@Html.Raw(Model.GetItemColor(role.GroupFlags.IsGuest))">
                                                     @Html.Raw(Model.GetItemName(role.GroupFlags.IsGuest) )
                                                 </span>
                                             </li>
                                             <li class="list-inline-item">
                                                 @Html.LocalizedText("ADMIN_GROUPS","IS_START"):&nbsp;
-                                                <span class="@Html.Raw(AdminPage.GetItemColor(role.GroupFlags.IsStart))">
+                                                <span class="@Html.Raw(Model.GetItemColor(role.GroupFlags.IsStart))">
                                                     @Html.Raw(Model.GetItemName(role.GroupFlags.IsStart) )
                                                 </span>
                                             </li>
                                             <li class="list-inline-item">
                                                 @Html.LocalizedText("ADMIN_GROUPS","IS_MOD"):&nbsp;
-                                                <span class="@Html.Raw(AdminPage.GetItemColor(role.GroupFlags.IsModerator))">
+                                                <span class="@Html.Raw(Model.GetItemColor(role.GroupFlags.IsModerator))">
                                                     @Html.Raw(Model.GetItemName(role.GroupFlags.IsModerator) )
                                                 </span>
                                             </li>
                                             <li class="list-inline-item">
                                                 @Html.LocalizedText("ADMIN_GROUPS","IS_ADMIN"):&nbsp;
-                                                <span class="@Html.Raw(AdminPage.GetItemColor(role.GroupFlags.IsAdmin))">
+                                                <span class="@Html.Raw(Model.GetItemColor(role.GroupFlags.IsAdmin))">
                                                     @Html.Raw(Model.GetItemName(role.GroupFlags.IsAdmin) )
                                                 </span>
                                             </li>

@@ -7658,60 +7658,8 @@
             "#text": "Przeglądaj stronę"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Kliknij tutaj, aby wybrać datę"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "[b]Możesz[/b] usuwać swoje posty w tym forum."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "[b]Możesz[/b] edytować swoje posty w tym forum."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "[b]Możesz[/b] tworzyć ankietę w tym forum."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "[b]Możesz[/b] tworzyć nowe tematy w tym forum."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "[b]Możesz[/b] odpowiadać na tematy w tym forum."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "[b]Możesz[/b] głosować w ankietach w tym forum."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Anuluj"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "[b]Nie możesz[/b] usuwać swoich postów w tym forum."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "[b]Nie możesz[/b] edytować swoich postów w tym forum."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "[b]Nie możesz[/b] tworzyć ankiet w tym forum."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "[b]Nie możesz[/b] tworzyć nowych tematów w tym forum."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "[b]Nie możesz[/b] odpowiadać na tematy w tym forum."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "[b]Nie możesz[/b] głosować w ankietach w tym forum."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -12077,10 +12025,6 @@
           {
             "@tag": "FINDUSERS",
             "#text": "Znajdź użytkowników"
-          },
-          {
-            "@tag": "MAX_RECIPIENT_INFO",
-            "#text": "Możesz wysłać wiadomość do maksymalnie [b]{0}[/b] użytkowników na raz."
           },
           {
             "@tag": "MESSAGE",

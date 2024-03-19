@@ -7658,60 +7658,8 @@
             "#text": "Durchsuchen Sie"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Klicken Sie Um Datum zu wählen"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "Du [b]kannst[/b] deine Beiträge in diesem Forum löschen."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "Du [b]kannst[/b] deine Beiträge in diesem Forum editieren."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "Du [b]kannst[/b] Umfragen in diesem Forum erstellen."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "Du [b]kannst[/b] neue Themen in diesem Forum eröffnen."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "Du [b]kannst[/b] Antworten zu Themen in diesem Forum erstellen."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "Du [b]kannst[/b] bei Umfragen in diesem Forum abstimmen."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Abbrechen"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "Du darfst deine Beiträge [b]nicht[/b] löschen."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "Du darfst deine Beiträge [b]nicht[/b] editieren."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "Du kannst [b]keine[/b] Umfragen in diesem Forum erstellen."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "Du kannst [b]keine[/b] neue Themen in diesem Forum eröffnen."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "Du kannst [b]keine[/b] Antworten zu Themen in diesem Forum erstellen."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "Du kannst [b]nicht[/b] an Umfragen teilnehmen."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -12073,10 +12021,6 @@
           {
             "@tag": "FINDUSERS",
             "#text": "Benutzer finden"
-          },
-          {
-            "@tag": "MAX_RECIPIENT_INFO",
-            "#text": "Man kann eine Nachricht nur an [b]{0}[/b] Nutzer gleichzeitig schicken."
           },
           {
             "@tag": "MESSAGE",
