@@ -77,7 +77,7 @@ public class ProfileTests : TestBase
 
                     // Switch Language Back to English
                     await page.Locator("//select[@id='Language']/following::div[1]").ClickAsync();
-                    await page.Locator("//div[contains(@data-value,'en-US')]").ClickAsync();
+                    await page.Locator("//div[contains(@data-value,'en-US')]").First.ClickAsync();
 
                     // Save the Changes
                     await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
@@ -127,8 +127,10 @@ public class ProfileTests : TestBase
                     // Save the Changes
                     await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
 
+                    pageSource = await page.ContentAsync();
+
                     Assert.That(
-                        await page.Locator("//link[contains(@href,'Themes/flatly/bootstrap')]").IsVisibleAsync(), Is.True,
+                        pageSource.Contains("themes/flatly/bootstrap-forum"), Is.True,
                         "Changing Forum Theme failed");
 
                     await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Profile/EditSettings");
@@ -140,8 +142,10 @@ public class ProfileTests : TestBase
                     // Save the Changes
                     await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
 
+                    pageSource = await page.ContentAsync();
+
                     Assert.That(
-                        await page.Locator("//link[contains(@href,'Themes/yaf/bootstrap')]").IsVisibleAsync(), Is.True,
+                        pageSource.Contains("themes/yaf/bootstrap-forum"), Is.True,
                         "Changing Forum Theme failed");
                 },
             this.BrowserType);

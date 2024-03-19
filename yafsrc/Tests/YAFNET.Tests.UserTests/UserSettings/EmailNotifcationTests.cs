@@ -85,11 +85,11 @@ public class EmailNotificationTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.Multiple(async () =>
+                    await Assert.MultipleAsync(async () =>
                     {
                         Assert.That(
-                                            pageSource, Does.Contain("Email Notification Preferences"),
-                                            "Email Notification Preferences is not available for that User");
+                            pageSource, Does.Contain("Email Notification Preferences"),
+                            "Email Notification Preferences is not available for that User");
 
                         Assert.That(await page.GetByText(topicTitle).IsVisibleAsync(), Is.True);
                     });
@@ -196,11 +196,11 @@ public class EmailNotificationTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.Multiple(async () =>
+                    await Assert.MultipleAsync(async () =>
                     {
                         Assert.That(
-                                            pageSource, Does.Contain("Email Notification Preferences"),
-                                            "Email Notification Preferences is not available for that User");
+                            pageSource, Does.Contain("Email Notification Preferences"),
+                            "Email Notification Preferences is not available for that User");
 
                         Assert.That(await page.GetByText(forumTitle).IsVisibleAsync(), Is.True);
                     });

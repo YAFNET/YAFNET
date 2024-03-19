@@ -58,7 +58,7 @@ public class SignatureTests : TestBase
                         pageSource, Does.Contain("Edit Signature"),
                         "Edit Signature is not available for that User");
 
-                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("This is a Test Signature created by an Unit Test.");
+                    await page.Locator(".BBCodeEditor").FillAsync("This is a Test Signature created by an Unit Test.");
 
                     await page.Locator("//*[contains(@formaction,'Preview')]").ClickAsync();
 
