@@ -52,12 +52,24 @@ public class EditUserModel : AdminPage
     {
     }
 
+    /// <summary>
+    /// Gets or sets the last tab.
+    /// </summary>
+    /// <value>The last tab.</value>
     [BindProperty]
     public string LastTab { get; set; } = "View1";
 
+    /// <summary>
+    /// Gets or sets the edit user.
+    /// </summary>
+    /// <value>The edit user.</value>
     [BindProperty]
     public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
+    /// <summary>
+    /// Gets or sets the edit user rank.
+    /// </summary>
+    /// <value>The edit user rank.</value>
     [BindProperty]
     public Rank EditUserRank { get; set; }
 

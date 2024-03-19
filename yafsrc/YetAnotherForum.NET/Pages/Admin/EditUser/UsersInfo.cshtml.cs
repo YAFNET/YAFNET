@@ -36,14 +36,22 @@ using YAF.Core.Model;
 using YAF.Core.Services;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
-using YAF.Types.Flags;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 
+/// <summary>
+/// Class UsersInfoModel.
+/// Implements the <see cref="YAF.Core.BasePages.AdminPage" />
+/// </summary>
+/// <seealso cref="YAF.Core.BasePages.AdminPage" />
 public class UsersInfoModel : AdminPage
 {
+    /// <summary>
+    /// Gets or sets the ranks.
+    /// </summary>
+    /// <value>The ranks.</value>
     public SelectList Ranks { get; set; }
 
     /// <summary>
@@ -57,11 +65,19 @@ public class UsersInfoModel : AdminPage
     [BindProperty]
     public UsersInfoInputModel Input { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UsersInfoModel"/> class.
+    /// </summary>
     public UsersInfoModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
     {
     }
 
+    /// <summary>
+    /// Called when [get].
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnGet(int userId)
     {
         if (!BoardContext.Current.IsAdmin)
@@ -79,39 +95,18 @@ public class UsersInfoModel : AdminPage
     /// <summary>
     /// Updates the User Info
     /// </summary>
-    public async Task<IActionResult> OnPostSaveAsync(int userId)
+    public IActionResult OnPostSave(int userId)
     {
-        // Update the Membership
-        if (!this.Input.IsGuestX)
-        {
-            var aspNetUser = await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(this.Input.Name);
+        this.EditUser =
+            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
+                Tuple<User, AspNetUsers, Rank, VAccess>;
 
-            // Update IsApproved if user is not already approved
-            aspNetUser.IsApproved = !aspNetUser.IsApproved ? this.Input.IsApproved : aspNetUser.IsApproved;
+        var userFlags = this.EditUser.Item1.UserFlags;
 
-            //set input variable to current value so that flags are properly updated.
-            this.Input.IsApproved = aspNetUser.IsApproved;
-
-            await this.Get<IAspNetUsersHelper>().UpdateUserAsync(aspNetUser);
-        }
-        else
-        {
-            if (!this.Input.IsApproved)
-            {
-                return this.PageBoardContext.Notify(
-                    this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_GUEST_APPROVED"),
-                    MessageTypes.success);
-            }
-        }
-
-        var userFlags = new UserFlags
-        {
-            IsHostAdmin = this.Input.IsHostAdminX,
-            IsGuest = this.Input.IsGuestX,
-            IsActiveExcluded = this.Input.IsExcludedFromActiveUsers,
-            IsApproved = this.Input.IsApproved,
-            Moderated = this.Input.Moderated
-        };
+        userFlags.IsHostAdmin = this.Input.IsHostAdminX;
+        userFlags.IsGuest = this.Input.IsGuestX;
+        userFlags.IsActiveExcluded = this.Input.IsExcludedFromActiveUsers;
+        userFlags.Moderated = this.Input.Moderated;
 
         this.GetRepository<User>().AdminSave(
             this.PageBoardContext.PageBoardID,
@@ -123,7 +118,7 @@ public class UsersInfoModel : AdminPage
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { userId, tab = "View1" });
+        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = userId, tab = "View1" });
     }
 
     /// <summary>
