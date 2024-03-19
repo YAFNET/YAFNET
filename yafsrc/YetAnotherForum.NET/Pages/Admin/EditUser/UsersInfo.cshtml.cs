@@ -86,8 +86,11 @@ public class UsersInfoModel : AdminPage
         {
             var aspNetUser = await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(this.Input.Name);
 
-            // Update IsApproved
-            aspNetUser.IsApproved = this.Input.IsApproved;
+            // Update IsApproved if user is not already approved
+            aspNetUser.IsApproved = !aspNetUser.IsApproved ? this.Input.IsApproved : aspNetUser.IsApproved;
+
+            //set input variable to current value so that flags are properly updated.
+            this.Input.IsApproved = aspNetUser.IsApproved;
 
             await this.Get<IAspNetUsersHelper>().UpdateUserAsync(aspNetUser);
         }
