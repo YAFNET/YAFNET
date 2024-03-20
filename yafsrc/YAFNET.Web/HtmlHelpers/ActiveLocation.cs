@@ -125,13 +125,13 @@ public static class ActiveLocationHtmlHelper
 
                 break;
             default:
-                if (!BoardContext.Current.IsAdmin && forumPage.ToUpper().Contains("MODERATE_"))
+                if (!BoardContext.Current.IsAdmin && forumPage.Contains("MODERATE_", StringComparison.CurrentCultureIgnoreCase))
                 {
                     // We shouldn't show moderators activity to all users but admins
                     content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "MODERATE"));
                 }
                 else if (!BoardContext.Current.PageUser.UserFlags.IsHostAdmin &&
-                         forumPage.ToUpper().Contains("ADMIN_"))
+                         forumPage.Contains("ADMIN_", StringComparison.CurrentCultureIgnoreCase))
                 {
                     // We shouldn't show admin activity to all users
                     content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "ADMINTASK"));
@@ -301,17 +301,17 @@ public static class ActiveLocationHtmlHelper
 
         var userId = GetUserIdFromQueryString(forumPageAttributes);
 
-        var albumID =
+        var albumId =
             forumPageAttributes[(forumPageAttributes.IndexOf("a=", StringComparison.Ordinal) + 2)..];
 
-        albumID = albumID.Contains("&")
-                      ? albumID[..albumID.IndexOf('&')].Trim()
-                      : albumID[..].Trim();
+        albumId = albumId.Contains('&')
+                      ? albumId[..albumId.IndexOf('&')].Trim()
+                      : albumId[..].Trim();
 
-        if (userId.HasValue && ValidationHelper.IsValidInt(albumID))
+        if (userId.HasValue && ValidationHelper.IsValidInt(albumId))
         {
             // The DataRow should not be missing in the case
-            var userAlbum = context.GetRepository<UserAlbum>().GetById(albumID.Trim().ToType<int>());
+            var userAlbum = context.GetRepository<UserAlbum>().GetById(albumId.Trim().ToType<int>());
 
             // If album doesn't have a Title, use his ID.
             var albumName = userAlbum.Title.IsNotSet() ? userAlbum.Title : userAlbum.ID.ToString();
@@ -327,7 +327,7 @@ public static class ActiveLocationHtmlHelper
 
                 link.MergeAttribute(
                     "href",
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Album, new { a = albumID }));
+                    context.Get<LinkBuilder>().GetLink(ForumPages.Album, new { a = albumId }));
 
                 link.InnerHtml.Append(albumName);
 
@@ -355,7 +355,7 @@ public static class ActiveLocationHtmlHelper
 
                 link.MergeAttribute(
                     "href",
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Album, new { a = albumID }));
+                    context.Get<LinkBuilder>().GetLink(ForumPages.Album, new { a = albumId }));
 
                 link.InnerHtml.Append(albumName);
 
@@ -399,6 +399,8 @@ public static class ActiveLocationHtmlHelper
                 var user = context.GetRepository<User>().GetById(userId.Value);
 
                 content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "ALBUMS_OFUSER"));
+
+                content.AppendHtml("&nbsp;");
 
                 var link = new TagBuilder("a");
 
@@ -454,6 +456,8 @@ public static class ActiveLocationHtmlHelper
                 var user = context.GetRepository<User>().GetById(userId.Value);
 
                 content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "PROFILE_OFUSER"));
+
+                content.AppendHtml("&nbsp;");
 
                 var link = new TagBuilder("a");
 

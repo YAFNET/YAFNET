@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using YAF.Types.Models;
+
 namespace YAF.Core.BasePages;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -66,6 +68,8 @@ public abstract class ForumPage : PageModel,
 
         // set the current translation page...
         this.Get<LocalizationProvider>().TranslationPage = transPage;
+
+        this.Size = BoardContext.Current.PageUser.PageSize;
 
         this.PageTitle = this.Localization.GetText(transPage, "TITLE");
 
@@ -116,10 +120,15 @@ public abstract class ForumPage : PageModel,
     public bool IsRegisteredPage { get; protected set; }
 
     /// <summary>
+    ///   Gets or sets the PageName.
+    /// </summary>
+    public ForumPages PageName { get; set; }
+
+    /// <summary>
     /// Gets or sets the Page Size.
     /// </summary>
     [BindProperty]
-    public int Size { get; set; } = BoardContext.Current.PageUser.PageSize;
+    public int Size { get; set; }
 
     /// <summary>
     /// Gets or sets the pageSize List.
@@ -135,11 +144,6 @@ public abstract class ForumPage : PageModel,
     ///   Gets the current forum Context (helper reference)
     /// </summary>
     public BoardContext PageBoardContext => BoardContext.Current;
-
-    /// <summary>
-    ///   Gets or sets the PageName.
-    /// </summary>
-    public ForumPages PageName { get; set; }
 
     /// <summary>
     /// Gets or sets the page title.
