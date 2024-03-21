@@ -89,7 +89,7 @@
     <Content Include="License.txt" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.21.0.86780">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.22.0.87781">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
