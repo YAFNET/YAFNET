@@ -97,7 +97,8 @@ public partial class ForgotPassword : AccountPage
         if (!user.IsApproved)
         {
             // explain they are not approved yet...
-            this.PageBoardContext.LoadMessage.AddSession(this.GetText("ACCOUNT_NOT_APPROVED_VERIFICATION"), MessageTypes.warning);
+            this.PageBoardContext.LoadMessage.AddSession(
+                this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email), MessageTypes.warning);
 
             return;
         }

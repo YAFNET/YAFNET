@@ -539,8 +539,6 @@ public partial class EditUsersProfile : BaseUserControl
             this.Birthday.TextMode = TextBoxMode.Date;
         }
 
-        this.Birthday.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");
-
         this.DisplayName.Text = this.User.Item1.DisplayName;
         this.City.Text = this.User.Item2.Profile_City;
         this.Location.Text = this.User.Item2.Profile_Location;

@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using System;
@@ -47,8 +48,6 @@ public static class TopicTagRepositoryExtensions
     /// </param>
     public static void Add(this IRepository<TopicTag> repository, int tagId, int topicId)
     {
-        
-
         var newId = repository.Insert(new TopicTag { TagID = tagId, TopicID = topicId });
 
         repository.FireNew(newId);
@@ -68,8 +67,6 @@ public static class TopicTagRepositoryExtensions
     /// </param>
     public static void AddTagsToTopic(this IRepository<TopicTag> repository, string tagsString, int topicId)
     {
-        
-
         if (tagsString.IsNotSet())
         {
             return;
@@ -84,23 +81,33 @@ public static class TopicTagRepositoryExtensions
             {
                 tag = HtmlTagHelper.StripHtml(tag);
 
-                if (tag.IsSet())
+                if (tag.IsNotSet())
                 {
-                    var existTag = boardTags.FirstOrDefault(t => t.TagName == tag);
+                    return;
+                }
 
-                    if (existTag != null)
-                    {
-                        // add to topic
-                        repository.Add(existTag.ID, topicId);
-                    }
-                    else
-                    {
-                        // save new Tag
-                        var newTagId = BoardContext.Current.GetRepository<Tag>().Add(tag);
+                // Filter common words
+                var commonWords = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "COMMON_WORDS").StringToList(',');
 
-                        // add to topic
-                        repository.Add(newTagId, topicId);
-                    }
+                if (commonWords.Contains(tag))
+                {
+                    return;
+                }
+
+                var existTag = boardTags.FirstOrDefault(t => t.TagName == tag);
+
+                if (existTag != null)
+                {
+                    // add to topic
+                    repository.Add(existTag.ID, topicId);
+                }
+                else
+                {
+                    // save new Tag
+                    var newTagId = BoardContext.Current.GetRepository<Tag>().Add(tag);
+
+                    // add to topic
+                    repository.Add(newTagId, topicId);
                 }
             });
     }
@@ -119,8 +126,6 @@ public static class TopicTagRepositoryExtensions
     /// </returns>
     public static List<Tuple<TopicTag, Tag>> List(this IRepository<TopicTag> repository, int topicId)
     {
-        
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
 
         expression.Join<Tag>((topicTag, tag) => tag.ID == topicTag.TagID)
@@ -143,8 +148,6 @@ public static class TopicTagRepositoryExtensions
     /// </returns>
     public static string ListAsDelimitedString(this IRepository<TopicTag> repository, int topicId)
     {
-        
-
         return repository.List(topicId).Select(t => t.Item2.TagName).ToDelimitedString(",");
     }
 }

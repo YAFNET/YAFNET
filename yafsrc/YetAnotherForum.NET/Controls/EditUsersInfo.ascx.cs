@@ -37,7 +37,6 @@ public partial class EditUsersInfo : BaseUserControl
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
-    
     public Tuple<User, AspNetUsers, Rank, VAccess> User { get; set; }
 
     /// <summary>
@@ -64,35 +63,12 @@ public partial class EditUsersInfo : BaseUserControl
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Save_Click(object sender, EventArgs e)
     {
-        // Update the Membership
-        if (!this.IsGuestX.Checked)
-        {
-            var aspNetUser = this.Get<IAspNetUsersHelper>().GetUserByName(this.Name.Text.Trim());
+        var userFlags = this.User.Item1.UserFlags;
 
-            // Update IsApproved
-            aspNetUser.IsApproved = this.IsApproved.Checked;
-
-            this.Get<IAspNetUsersHelper>().Update(aspNetUser);
-        }
-        else
-        {
-            if (!this.IsApproved.Checked)
-            {
-                this.PageBoardContext.Notify(
-                    this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_GUEST_APPROVED"),
-                    MessageTypes.success);
-                return;
-            }
-        }
-
-        var userFlags = new UserFlags
-                            {
-                                IsHostAdmin = this.IsHostAdminX.Checked,
-                                IsGuest = this.IsGuestX.Checked,
-                                IsActiveExcluded = this.IsExcludedFromActiveUsers.Checked,
-                                IsApproved = this.IsApproved.Checked,
-                                Moderated = this.Moderated.Checked
-                            };
+        userFlags.IsHostAdmin = this.IsHostAdminX.Checked;
+        userFlags.IsGuest = this.IsGuestX.Checked;
+        userFlags.IsActiveExcluded = this.IsExcludedFromActiveUsers.Checked;
+        userFlags.Moderated = this.Moderated.Checked;
 
         this.GetRepository<User>().AdminSave(
             this.PageBoardContext.PageBoardID,

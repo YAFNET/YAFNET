@@ -48,8 +48,6 @@ public static class ActiveRepositoryExtensions
     /// </returns>
     public static List<ActiveUser> ListForum(this IRepository<Active> repository, int forumId)
     {
-        
-
         return repository.DbAccess.Execute(
             db =>
                 {
@@ -57,8 +55,10 @@ public static class ActiveRepositoryExtensions
 
                     var countExpression = db.Connection.From<Active>(db.Connection.TableAlias("ac"));
                     countExpression.Where(
-                        $@"ac.{countExpression.Column<Active>(ac => ac.UserID)}={expression.Column<Active>(a => a.UserID, true)}
-                                    and ac.{countExpression.Column<Active>(ac => ac.ForumID)}={forumId}");
+                        $"""
+                         ac.{countExpression.Column<Active>(ac => ac.UserID)}={expression.Column<Active>(a => a.UserID, true)}
+                                                             and ac.{countExpression.Column<Active>(ac => ac.ForumID)}={forumId}
+                         """);
                     var countSql = countExpression.Select(Sql.Count($"{countExpression.Column<Active>(x => x.UserID)}"))
                         .ToSelectStatement();
 
@@ -105,8 +105,6 @@ public static class ActiveRepositoryExtensions
     /// </returns>
     public static List<ActiveUser> ListTopic(this IRepository<Active> repository, int topicId)
     {
-        
-
         return repository.DbAccess.Execute(
             db =>
                 {
@@ -114,8 +112,10 @@ public static class ActiveRepositoryExtensions
 
                     var countExpression = db.Connection.From<Active>(db.Connection.TableAlias("ac"));
                     countExpression.Where(
-                        $@"ac.{countExpression.Column<Active>(ac => ac.UserID)}={expression.Column<Active>(a => a.UserID, true)}
-                                    and ac.{countExpression.Column<Active>(ac => ac.TopicID)}={topicId}");
+                        $"""
+                         ac.{countExpression.Column<Active>(ac => ac.UserID)}={expression.Column<Active>(a => a.UserID, true)}
+                                                             and ac.{countExpression.Column<Active>(ac => ac.TopicID)}={topicId}
+                         """);
                     var countSql = countExpression.Select(Sql.Count($"{countExpression.Column<Active>(x => x.UserID)}"))
                         .ToSelectStatement();
 
@@ -172,8 +172,6 @@ public static class ActiveRepositoryExtensions
         int activeTime,
         int? boardId = null)
     {
-        
-
         repository.DeleteActive(activeTime);
 
         // -- we don't delete guest access
@@ -279,8 +277,6 @@ public static class ActiveRepositoryExtensions
         int pageIndex,
         int pageSize)
     {
-        
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
         return repository.DbAccess.Execute(
@@ -382,8 +378,6 @@ public static class ActiveRepositoryExtensions
         this IRepository<Active> repository,
         int boardId)
     {
-        
-
         return repository.DbAccess.Execute(
             db =>
                 {
@@ -447,8 +441,6 @@ public static class ActiveRepositoryExtensions
     /// </param>
     private static void DeleteActive(this IRepository<Active> repository, int activeTime)
     {
-        
-
         repository.DbAccess.Execute(
             db =>
                 {

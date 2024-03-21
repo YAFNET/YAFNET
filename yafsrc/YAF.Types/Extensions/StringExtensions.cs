@@ -420,4 +420,49 @@ public static class StringExtensions
         var startPath = path.TrimEndIf(Slashes);
         return startPath + (otherPath[0] == '/' ? otherPath : "/" + otherPath);
     }
+
+    /// <summary>
+    /// Converts a string to a list using delimiter.
+    /// </summary>
+    /// <param name="str">
+    /// starting string
+    /// </param>
+    /// <param name="delimiter">
+    /// value that delineates the string
+    /// </param>
+    /// <returns>
+    /// list of strings
+    /// </returns>
+    public static List<string> StringToList(this string str, char delimiter)
+    {
+        return str.StringToList(delimiter, []);
+    }
+
+    /// <summary>
+    /// Converts a string to a list using delimiter.
+    /// </summary>
+    /// <param name="str">
+    /// starting string
+    /// </param>
+    /// <param name="delimiter">
+    /// value that delineates the string
+    /// </param>
+    /// <param name="exclude">
+    /// items to exclude from list
+    /// </param>
+    /// <returns>
+    /// list of strings
+    /// </returns>
+    public static List<string> StringToList(this string str, char delimiter, List<string> exclude)
+    {
+        CodeContracts.ThrowIfNull(str);
+        CodeContracts.ThrowIfNull(exclude);
+
+        var list = str.Split(delimiter).ToList();
+
+        list.RemoveAll(exclude.Contains);
+        list.Remove(delimiter.ToString());
+
+        return list;
+    }
 }
