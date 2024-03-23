@@ -3935,7 +3935,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     containerOuter: "choices",
                     containerInner: "choices__inner",
                     input: "choices__input",
-                    inputCloned: "choices__input--cloned",
+                    inputCloned: "choices__input--cloned form-control",
                     list: "choices__list",
                     listItems: "choices__list--multiple",
                     listSingle: "choices__list--single",
@@ -3947,7 +3947,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     placeholder: "choices__placeholder",
                     group: "choices__group",
                     groupHeading: "choices__heading",
-                    button: "choices__button",
+                    button: "choices__button btn-close",
                     activeState: "is-active",
                     focusState: "is-focused",
                     openState: "is-open",
@@ -7028,7 +7028,6 @@ document.addEventListener("DOMContentLoaded", function() {
             this.el = e, this.type = e.dataset.type || "", this.src = this.getSrc(e), 
             this.sources = this.getGalleryItems(), this.createCarousel(), this.createModal();
         }
-        var e, n, a;
         return e = t, n = [ {
             key: "show",
             value: function() {
@@ -7231,7 +7230,8 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         } ], n && s(e.prototype, n), a && s(e, a), Object.defineProperty(e, "prototype", {
             writable: !1
-        }), t;
+        }), e;
+        var e, n, a;
     }();
     u.allowedEmbedTypes = [ "embed", "youtube", "vimeo", "instagram", "url" ], u.allowedMediaTypes = [].concat(o(u.allowedEmbedTypes), [ "image", "html" ]), 
     u.defaultSelector = '[data-toggle="lightbox"]', u.initialize = function(t) {
