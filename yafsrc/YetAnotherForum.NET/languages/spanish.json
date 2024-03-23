@@ -7690,60 +7690,8 @@
             "#text": "Visite"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Haz click aquí para elegir fecha"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "[b]Puedes[/b] eliminar sus temas en este foro."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "[b]Puedes[/b] editar sus temas en este foro."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "[b]Puedes[/b] crear encuestas en este foro."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "[b]Puedes[/b] iniciar nuevos temas en este foro."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "[b]Puedes[/b] responder a temas en este foro."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "[b]Puedes[/b] votar las encuestas en este foro."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Cancelar"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "[b]No puedes[/b] eliminar sus temas en este foro."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "[b]No puedes[/b] editar sus temas en este foro."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "[b]No puedes[/b] crear encuestas en este foro."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "[b]No puedes[/b] iniciar nuevos temas en este foro."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "[b]No puedes[/b] responder a temas en este foro."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "[b]No puedes[/b] votar las encuestas en este foro."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -11088,6 +11036,10 @@
             "#text": "YAF.NET tiene acceso de escritura al directorio de aplicaciones raíz (\"~ /\") ..."
           },
           {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+          },
+          {
             "@tag": "PERMISSIONUPLOAD",
             "#text": "YAF.NET tiene acceso de escritura al directorio \"~ / Upload\" ..."
           },
@@ -11202,10 +11154,6 @@
           {
             "@tag": "YES",
             "#text": "SÍ"
-          },
-          {
-            "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

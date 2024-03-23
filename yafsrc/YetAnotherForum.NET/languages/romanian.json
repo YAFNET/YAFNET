@@ -7698,60 +7698,8 @@
             "#text": "Răsfoiți"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Clic aici pentru a seta data"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "[b] Poti [/b] sterge postari la acest forum."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "[b] Poti [/b] edita postari la acest forum."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "[b] Poti [/b] crea sondaje in acest forum."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "[b] Poti [/b]  posta noi teme in acest forum."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": " [b] Poti [/b] raspunde la teme in acest forum."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "[b] Poti [/b] vota la sondaj in acest forum."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Renunta"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "[b] NU poti [/b] sterge postari la acest forum."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "[b] Nu poti [/b] edita postari la acest forum."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "[b] Nu poti [/b] crea sondaje in acest forum."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "[b] NU poti [/b]  posta noi teme in acest forum."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "[b] NU poti [/b] raspunde la teme in acest forum."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "[b] Nu poti [/b] vota la sondaj in acest forum."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -11104,6 +11052,10 @@
             "#text": "YAF.NET are acces de scriere la directorul de aplicații rădăcină (\"~ /\") ..."
           },
           {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+          },
+          {
             "@tag": "PERMISSIONUPLOAD",
             "#text": "YAF.NET are acces de scriere la directorul „~ / Upload” ..."
           },
@@ -11218,10 +11170,6 @@
           {
             "@tag": "YES",
             "#text": "DA"
-          },
-          {
-            "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

@@ -7686,60 +7686,8 @@
             "#text": "تصفح"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "انقر هنا لاختيار التاريخ"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "[b]يمكنك[/b] حذف مواضيعك في  المنتدى ."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "[b]يمكنك[/b] تعديل مواضيعك في   المنتدى  ."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "[b]يمكنك[/b] إنشاء  إستفتاء في المنتدى ."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "[b]يمكنك[/b] إضافة مشاركات جديدة في المنتدى."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "[b]يمكنك[/b] الرد على المواضيع في المنتدى ."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "[b]يمكنك[/b]  التصويت في المنتدى ."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "الغاء"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "[b]لا يمكنك[/b]  في  المنتدى حذف مواضيع."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": " [b]لا يمكنك[/b] إضافة مشاركة  جديدة في المنتدى "
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "[b]لا يمكنك[/b] إنشاءإستفتاء في المنتدى ."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "[b]لا يمكنك[/b]إضافة مشاركات  جديدة في المنمتدى ."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "[b]لا يمكنك[/b] الرد على المواضيع."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "[b]لا يمكنك[/b] التصويت في  المنتدى ."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -11084,6 +11032,10 @@
             "#text": "YAF.NET له حق الوصول للكتابة إلى دليل تطبيق الجذر (\"~ /\") ..."
           },
           {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+          },
+          {
             "@tag": "PERMISSIONUPLOAD",
             "#text": "YAF.NET لديه حق الوصول للكتابة إلى دليل \"~ / تحميل\" ..."
           },
@@ -11198,10 +11150,6 @@
           {
             "@tag": "YES",
             "#text": "نعم فعلا"
-          },
-          {
-            "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

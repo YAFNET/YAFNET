@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
     Inherits="YAF.Controls.ForumSubForumList" Codebehind="ForumSubForumList.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
+<%@ Import Namespace="YAF.Core.Helpers" %>
 
 
 <asp:Repeater ID="SubforumList" runat="server" OnItemDataBound="SubForumList_ItemCreated" OnPreRender="SubForumList_OnPreRender">
@@ -20,7 +21,7 @@
             <%#  this.GetForumLink((ForumRead)Container.DataItem) %>
             <asp:Label runat="server"
                        Visible="<%# ((ForumRead)Container.DataItem).ReadAccess  %>"
-                       CssClass="badge text-bg-light me-1"
+                       CssClass='<%# StringHelper.GetTextBgColor("badge text-bg-light me-1") %>'
                        ToolTip='<%# this.GetText("TOPICS") %>'
                        data-bs-toggle="tooltip">
                 <YAF:Icon runat="server"
@@ -30,7 +31,7 @@
             </asp:Label>
             <asp:Label runat="server"
                        Visible="<%# ((ForumRead)Container.DataItem).ReadAccess  %>"
-                       CssClass="badge text-bg-light"
+                       CssClass='<%# StringHelper.GetTextBgColor("badge text-bg-light") %>'
                        ToolTip='<%# this.GetText("Posts") %>'
                        data-bs-toggle="tooltip">
             <YAF:Icon runat="server"

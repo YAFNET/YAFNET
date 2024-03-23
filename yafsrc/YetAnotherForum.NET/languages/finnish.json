@@ -7698,60 +7698,8 @@
             "#text": "Selaa"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Klikkaa tästä valitaksesi päivämäärän"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "[b]Voit[/b] poistaa omia viestejä tällä alueella."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "[b]Voit[/b] muokata omia viestejäsi tällä alueella."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "[b]Voit[/b] aloittaa äänestyksen tällä alueella."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "[b]Voit[/b] aloittaa uden aiheen tällä alueella."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "[b]Voit[/b] vastata viesteihin tällä alueella."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "[b]Voit[/b] äänestää äänestyksissä tällä alueella."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Peruuta"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "[b]Et voi[/b] poistaa omia viestejäsi tällä alueella."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "[b]Et voi[/b] muokata omia viestejäsi tällä alueella."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "[b]Et voi[/b] aloittaa äänestystä tällä alueella."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "[b]Et voi[/b] aloittaa uutta aihetta tällä alueella."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "[b]Et voi[/b] voi vastata viesteihin tällä alueella."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "[b]Et voi[/b] äänestää äänestyksissä tällä alueella."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -11104,6 +11052,10 @@
             "#text": "YAF.NET on kirjoittanut pääsyn juurisovellushakemistoon (\"~ /\") ..."
           },
           {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+          },
+          {
             "@tag": "PERMISSIONUPLOAD",
             "#text": "YAF.NETillä on kirjoitusoikeus \"~ / Upload\" -hakemistoon ..."
           },
@@ -11218,10 +11170,6 @@
           {
             "@tag": "YES",
             "#text": "JOO"
-          },
-          {
-            "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

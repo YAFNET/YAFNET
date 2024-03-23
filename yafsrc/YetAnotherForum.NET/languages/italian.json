@@ -7690,60 +7690,8 @@
             "#text": "Sfogliare"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Click per selezionare la data"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "Tu [b]puoi[/b] cancellare messaggi in questo forum."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "Tu [b]puoi[/b] modificare messaggi in questo forum."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "Tu [b]puoi[/b] creare sondaggi in questo forum."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "Tu [b]puoi[/b] creare discussioni in questo forum."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "Tu [b]puoi[/b] rispondere alle discussioni in questo forum."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "Tu [b]puoi[/b] votare nei sondaggi in questo forum."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Annulla"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "Tu [b]NON puoi[/b] cancellare messaggi in questo forum."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "Tu [b]NON puoi[/b] modificare messaggi in questo forum."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "Tu [b]NON puoi[/b] creare sondaggi in questo forum."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "Tu [b]NON puoi[/b] creare discussioni in questo forum."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "Tu [b]NON puoi[/b] rispondere alle discussioni in questo forum."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "Tu [b]NON puoi[/b] votare nei sondaggi in questo forum."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -11088,6 +11036,10 @@
             "#text": "YAF.NET ha accesso in scrittura alla directory dell'applicazione principale (\"~ /\") ..."
           },
           {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+          },
+          {
             "@tag": "PERMISSIONUPLOAD",
             "#text": "YAF.NET ha accesso in scrittura alla directory \"~ / Upload\" ..."
           },
@@ -11202,10 +11154,6 @@
           {
             "@tag": "YES",
             "#text": "SÌ"
-          },
-          {
-            "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

@@ -1,13 +1,14 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="True" EnableViewState="false" CodeBehind="PollList.ascx.cs"
     Inherits="YAF.Controls.PollList" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Core.Helpers" %>
 <%@ Register TagPrefix="YAF" TagName="PollChoiceList" Src="PollChoiceList.ascx" %>
 
 
 <asp:PlaceHolder id="PollListHolder" runat="server" Visible="true">
     <div class="row">
         <div class="col">
-            <div class="card text-bg-light mb-3">
+            <div class="<%# StringHelper.GetTextBgColor("card text-bg-light mb-3") %>">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
                                     IconType="text-secondary"

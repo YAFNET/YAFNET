@@ -2,6 +2,7 @@
 
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Core.Helpers" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
@@ -38,7 +39,7 @@
                                                          Size="Small">
                                             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                                                 LocalizedTag="UNAPPROVED" />
-                                            <span class="badge text-bg-light"><%# ((ModerateForum)Container.DataItem).MessageCount %></span>
+                                            <span class="<%# StringHelper.GetTextBgColor("badge text-bg-light") %>"><%# ((ModerateForum)Container.DataItem).MessageCount %></span>
                                         </YAF:ThemeButton>
                                         <YAF:ThemeButton ID="NoUnapprovedInfo" runat="server"
                                                          TextLocalizedTag="NO_POSTS" TextLocalizedPage="MODERATE" 
@@ -55,7 +56,7 @@
                                                          Size="Small">
                                             <YAF:LocalizedLabel ID="ReportedCountLabel" runat="server" 
                                                                 LocalizedTag="REPORTED" /> 
-                                            <span class="badge text-bg-light"><%# ((ModerateForum)Container.DataItem).ReportedCount %></span>
+                                            <span class="<%# StringHelper.GetTextBgColor("badge text-bg-light") %>"><%# ((ModerateForum)Container.DataItem).ReportedCount %></span>
                                         </YAF:ThemeButton>
                                         <YAF:ThemeButton ID="NoReportedInfo" runat="server"
                                                          TextLocalizedTag="NO_POSTS" TextLocalizedPage="MODERATE"

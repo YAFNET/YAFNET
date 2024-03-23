@@ -7698,60 +7698,8 @@
             "#text": "Gözat"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Tarihi seçmek için tıklayın"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "Bu forumdaki postalarınızı [b]silebilirsiniz[/b]."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "Bu forumdaki postalarınızı [b]düzenleyebilirsiniz[/b]."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "Bu forumda [b]anketler[/b] yaratabilirsiniz."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "Bu foruma yeni bir konu [b]gönderebilirsiniz[/b]"
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "Bu forumdaki konulara cevap [b]yazabilirsiniz[/b]."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "Bu forumdaki anketlere [b]oy[/b] verebilirisiniz."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "İptal"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "Bu forumdaki postalarınızı [b]silemezsiniz[/b]."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "Bu forumdaki postalarınızı [b]düzenleyemezsiniz[/b]."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "Bu forumda [b]anketler[/b] yaratamazsınız."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "Bu foruma yeni konular [b]postalayamazsınız[/b]."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "Bu forumda ki konulara yeni posta [b]gönderemezsiniz[/b]."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "Bu forumdaki anketlere [b]oy[/b] veremezsiniz."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -11104,6 +11052,10 @@
             "#text": "YAF.NET, Kök Uygulama Rehberine Yazma Erişimine Sahiptir (\"~ /\") ..."
           },
           {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+          },
+          {
             "@tag": "PERMISSIONUPLOAD",
             "#text": "YAF.NET \"~ / Upload\" dizinine Yazma Erişimine Sahiptir ..."
           },
@@ -11218,10 +11170,6 @@
           {
             "@tag": "YES",
             "#text": "EVET"
-          },
-          {
-            "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

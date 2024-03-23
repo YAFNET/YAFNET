@@ -7690,60 +7690,8 @@
                     "#text": "Browse"
                 },
                 {
-                    "@tag": "CAL_JQ_TT",
-                    "#text": "Click here to choose date"
-                },
-                {
-                    "@tag": "CAN_DELETE",
-                    "#text": "You [b]can[/b] delete your posts in this forum."
-                },
-                {
-                    "@tag": "CAN_EDIT",
-                    "#text": "You [b]can[/b] edit your posts in this forum."
-                },
-                {
-                    "@tag": "CAN_POLL",
-                    "#text": "You [b]can[/b] create polls in this forum."
-                },
-                {
-                    "@tag": "CAN_POST",
-                    "#text": "You [b]can[/b] post new topics in this forum."
-                },
-                {
-                    "@tag": "CAN_REPLY",
-                    "#text": "You [b]can[/b] reply to topics in this forum."
-                },
-                {
-                    "@tag": "CAN_VOTE",
-                    "#text": "You [b]can[/b] vote in polls in this forum."
-                },
-                {
                     "@tag": "CANCEL",
                     "#text": "Cancel"
-                },
-                {
-                    "@tag": "CANNOT_DELETE",
-                    "#text": "You [b]cannot[/b] delete your posts in this forum."
-                },
-                {
-                    "@tag": "CANNOT_EDIT",
-                    "#text": "You [b]cannot[/b] edit your posts in this forum."
-                },
-                {
-                    "@tag": "CANNOT_POLL",
-                    "#text": "You [b]cannot[/b] create polls in this forum."
-                },
-                {
-                    "@tag": "CANNOT_POST",
-                    "#text": "You [b]cannot[/b] post new topics in this forum."
-                },
-                {
-                    "@tag": "CANNOT_REPLY",
-                    "#text": "You [b]cannot[/b] reply to topics in this forum."
-                },
-                {
-                    "@tag": "CANNOT_VOTE",
-                    "#text": "You [b]cannot[/b] vote in polls in this forum."
                 },
                 {
                     "@tag": "CHARACTERS_LEFT",

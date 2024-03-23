@@ -7698,60 +7698,8 @@
             "#text": "浏览"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "点击选择日期"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "您 [b]可以[/b] 删除自己的发言."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "您 [b]可以[/b] 编辑自己的发言."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "您 [b]可以[/b] 发表投票."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "您 [b]可以[/b] 发表新话题."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "您 [b]可以[/b] 回复话题."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "您 [b]可以[/b] 投票."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "取消"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "您 [b]不可以[/b] 删除自己的发言."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "您 [b]不可以[/b] 编辑自己的发言."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "您 [b]不可以[/b] 发表投票."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "您 [b]不可以[/b] 发表新话题."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "您 [b]不可以[/b] 回复话题."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "您 [b]不可以[/b] 投票."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -11104,6 +11052,10 @@
             "#text": "YAF.NET具有对根应用程序目录的写访问权（“〜/”）..."
           },
           {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+          },
+          {
             "@tag": "PERMISSIONUPLOAD",
             "#text": "YAF.NET具有对“〜/ Upload”目录的写入权限..."
           },
@@ -11218,10 +11170,6 @@
           {
             "@tag": "YES",
             "#text": "是"
-          },
-          {
-            "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

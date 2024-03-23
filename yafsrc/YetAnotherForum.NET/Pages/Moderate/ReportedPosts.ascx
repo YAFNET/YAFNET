@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
+<%@ Import Namespace="YAF.Core.Helpers" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -56,7 +57,7 @@
                                 <h6 class="card-subtitle mb-2 text-body-secondary">
                                     <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="ORIGINALMESSAGE" />
                                 </h6>
-                                <div class="card text-bg-light mb-3">
+                                <div class="<%# StringHelper.GetTextBgColor("card text-bg-light mb-3") %>">
                                     <div class="card-body">
                                         <YAF:MessagePostData ID="MessagePostPrimary" runat="server"
                                                              ShowAttachments="false"

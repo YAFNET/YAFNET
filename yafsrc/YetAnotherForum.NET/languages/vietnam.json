@@ -7698,60 +7698,8 @@
             "#text": "Duyệt qua"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Bấm vào đây để chọn ngày"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "Bạn [b]có thể[/b] xóa bài của bạn trong diễn đàn này."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "Bạn [b]có thể[/b] sửa bài của bạn trong diễn đàn này."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "Bạn [b]có thể[/b] tạo bình chọn trong diễn đàn này."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "Bạn [b]có thể[/b] tạo chủ đề mới trong diễn đàn này."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "Bạn [b]có thể[/b] trả lời chủ đề trong diễn đàn này."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "Bạn [b]có thể[/b] bỏ phiếu bình chọn trong diễn đàn này."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Hủy"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "Bạn [b]không thể[/b] xóa bài của bạn trong diễn đàn này."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "Bạn [b]không thể[/b] sửa bài của bạn trong diễn đàn này."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "Bạn [b]không thể[/b] tạo bình chọn trong diễn đàn này."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "Bạn [b]không thể[/b] tạo chủ đề mới trong diễn đàn này."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "Bạn [b]không thể[/b] trả lời chủ đề trong diễn đàn này."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "Bạn [b]không thể[/b] bỏ phiếu bình chọn trong diễn đàn này."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -11104,6 +11052,10 @@
             "#text": "YAF.NET có quyền truy cập ghi vào thư mục ứng dụng gốc (\"~ /\") ..."
           },
           {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+          },
+          {
             "@tag": "PERMISSIONUPLOAD",
             "#text": "YAF.NET có quyền truy cập ghi vào thư mục \"~ / Tải lên\" ..."
           },
@@ -11218,10 +11170,6 @@
           {
             "@tag": "YES",
             "#text": "VÂNG"
-          },
-          {
-            "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

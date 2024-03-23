@@ -7698,60 +7698,8 @@
             "#text": "Parcourir"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Cliquez ici pour choisir la date"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "Vous [b]pouvez[/b] effacer vos messages dans ce forum."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "Vous [b]pouvez[/b] éditer vos messages dans ce forum."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "Vous [b]pouvez[/b] créer des sondages dans ce forum."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "Vous [b]pouvez[/b] poster de nouveaux sujets dans ce forum."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "Vous [b]pouvez[/b] répondre aux sujets de ce forum."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "Vous [b]pouvez[/b] voter dans les sondages de ce forum."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Annuler"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "Vous [b]ne pouvez pas[/b] effacer vos messages dans ce forum."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "Vous [b]ne pouvez pas[/b] éditer vos messages dans ce forum."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "Vous [b]ne pouvez pas[/b] créer des sondages dans ce forum."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "Vous [b]ne pouvez pas[/b] poster de nouveaux sujets dans ce forum."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "Vous [b]ne pouvez pas[/b] répondre aux sujets de ce forum."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "Vous [b]ne pouvez pas[/b] voter dans les sondages de ce forum."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -11104,6 +11052,10 @@
             "#text": "YAF.NET a un accès en écriture au répertoire de l'application racine (\"~ /\") ..."
           },
           {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+          },
+          {
             "@tag": "PERMISSIONUPLOAD",
             "#text": "YAF.NET a un accès en écriture au répertoire \"~ / Upload\" ..."
           },
@@ -11218,10 +11170,6 @@
           {
             "@tag": "YES",
             "#text": "OUI"
-          },
-          {
-            "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

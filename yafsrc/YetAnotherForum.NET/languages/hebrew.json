@@ -7702,60 +7702,8 @@
             "#text": "לְדַפדֵף"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "לחץ כאן לבחירת תאריך"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "את/ה [b]יכול/ה[/b] למחוק את הודעותיך בפורום זה."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "את/ה [b]יכול/ה[/b] לערוך את הודעותיך."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "את/ה [b]יכול/ה[/b] ליצור סקרים בפורום זה."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "את/ה [b]יכול/ה[/b] לכתוב דיונים חדשים בפורום זה."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "את/ה [b]יכול/ה[/b] להגיב לדיונים בפורום זה."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "את/ה [b]יכול/ה[/b] להצביע לסקרים בפורום זה."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "ביטול"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "[b]אינך[/b] יכול/ה למחוק את הודעותיך בפורום זה."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "[b]אינך[/b] יכול/ה לערוך את הודעותיך."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "[b]אינך[/b] יכול/ה ליצור סקרים בפורום זה."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "[b]אינך[/b] יכול/ה לכתוב דיונים חדשים בפורום זה."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "[b]אינך[/b] יכול/ה להגיב לדיונים בפורום זה."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "[b]אינך[/b] יכול/ה להצביע לסקרים בפורום זה."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -11108,6 +11056,10 @@
             "#text": "ל- YAF.NET גישה לכתיבה לספריית יישומי השורש (\"~ /\") ..."
           },
           {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+          },
+          {
             "@tag": "PERMISSIONUPLOAD",
             "#text": "ל- YAF.NET גישה לכתיבה לספריית \"~ / העלאה\" ..."
           },
@@ -11222,10 +11174,6 @@
           {
             "@tag": "YES",
             "#text": "כן"
-          },
-          {
-            "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

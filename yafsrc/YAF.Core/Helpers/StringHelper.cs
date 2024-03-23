@@ -26,8 +26,16 @@ namespace YAF.Core.Helpers;
 
 using YAF.Core.Utilities.StringUtils;
 
+/// <summary>
+/// Class StringHelper.
+/// </summary>
 public static class StringHelper
 {
+    /// <summary>
+    /// Gets the abbreviation.
+    /// </summary>
+    /// <param name="data">The data.</param>
+    /// <returns>System.String.</returns>
     public static string GetAbbreviation(this string data)
     {
         var trimmedData = data.Unidecode().Trim();
@@ -59,12 +67,38 @@ public static class StringHelper
     /// <returns>Returns if text is Html Encoded or not</returns>
     public static bool IsHtmlEncoded(string text)
     {
-        if (text.Contains('<')) return false;
-        if (text.Contains('>')) return false;
-        if (text.Contains('\"')) return false;
-        if (text.Contains('\'')) return false;
+        if (text.Contains('<'))
+        {
+            return false;
+        }
+
+        if (text.Contains('>'))
+        {
+            return false;
+        }
+
+        if (text.Contains('\"'))
+        {
+            return false;
+        }
+
+        if (text.Contains('\''))
+        {
+            return false;
+        }
 
         // if decoded string == original string, it is already encoded
         return HttpUtility.HtmlDecode(text) != text;
+    }
+
+    /// <summary>
+    /// Replace the text-bg-color based on the theme mode
+    /// </summary>
+    /// <param name="cssClass">The CSS class.</param>
+    /// <returns>System.String.</returns>
+    public static string GetTextBgColor(string cssClass)
+    {
+        return BoardContext.Current.PageUser.DarkMode
+            ? cssClass.Replace("text-bg-light", "text-bg-dark") : cssClass;
     }
 }

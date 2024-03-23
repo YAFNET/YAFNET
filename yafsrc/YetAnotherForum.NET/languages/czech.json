@@ -7698,60 +7698,8 @@
             "#text": "Procházet"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Klikněte zde pro výběr data"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "V tomto fóru [b]můžete[/b] své zprávy mazat."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "V tomto fóru [b]můžete[/b] své zprávy editovat."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "V tomto fóru [b]můžete[/b] iniciovat průzkumy mínění."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "V tomto fóru [b]můžete[/b] iniciovat nová témata."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "V tomto fóru [b]můžete[/b] na témata odpovídat."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "V tomto fóru [b]můžete[/b] hlasovat v průzkumech mínění."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Storno"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "V tomto fóru [b]nemůžete[/b] své zprávy mazat."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "V tomto fóru [b]nemůžete[/b] své zprávy editovat."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "V tomto fóru [b]nemůžete[/b] iniciovat průzkumy mínění."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "V tomto fóru [b]nemůžete[/b] iniciovat nová témata."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "V tomto fóru [b]nemůžete[/b] na témata odpovídat."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "V tomto fóru [b]nemůžete[/b] hlasovat v průzkumech mínění."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -11108,6 +11056,10 @@
             "#text": "YAF.NET má přístup pro zápis do kořenového adresáře aplikací (\"~ /\") ..."
           },
           {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+          },
+          {
             "@tag": "PERMISSIONUPLOAD",
             "#text": "YAF.NET má přístup pro zápis do adresáře \"~ / Upload\" ..."
           },
@@ -11222,10 +11174,6 @@
           {
             "@tag": "YES",
             "#text": "ANO"
-          },
-          {
-            "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

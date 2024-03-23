@@ -7698,60 +7698,8 @@
             "#text": "Bläddra på"
           },
           {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Klicka här för att välja datum"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "Du [b]kan[/b] radera dina meddelanden i detta forum."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "Du [b]kan[/b] ändra dina meddelanden i detta forum."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "Du [b]kan[/b] skapa undersökningar i detta forum."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "Du [b]kan[/b] skapa nya konversationer i detta forum."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "Du [b]kan[/b] svara på konversationer i detta forum."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "Du [b]kan[/b] svara på undersökningar i detta forum."
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Avbryt"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "Du [b]kan inte[/b] radera dina meddelanden i detta forum."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "Du [b]kan inte[/b] ändra dina meddelanden i detta forum."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "Du [b]kan inte[/b] skapa undersökningar i detta forum."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "Du [b]kan inte[/b] skapa nya konversationer i detta forum."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "Du [b]kan inte[/b] svara på konversationer i detta forum."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "Du [b]kan inte[/b] svara på undersökningar i detta forum."
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -11104,6 +11052,10 @@
             "#text": "YAF.NET har skrivåtkomst till root-applikationskatalogen (\"~ /\") ..."
           },
           {
+            "@tag": "PERMISSIONAPPDATA",
+            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+          },
+          {
             "@tag": "PERMISSIONUPLOAD",
             "#text": "YAF.NET har skrivåtkomst till \"~ / Upload\" -katalogen ..."
           },
@@ -11218,10 +11170,6 @@
           {
             "@tag": "YES",
             "#text": "JA"
-          },
-          {
-            "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
           }
         ]
       },

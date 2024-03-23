@@ -163,10 +163,12 @@ public partial class EventLog : AdminPage
 
             try
             {
+                var textBgColor = this.PageBoardContext.PageUser.DarkMode ? "text-bg-dark" : "text-bg-light";
+
                 var addressLink = string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, json.UserIP);
 
                 var exceptionSource = ((string)json.ExceptionSource).IsSet() ?
-                    $"""<span class="badge text-bg-light m-1"><i class="fa-solid fa-code me-1"></i>{json.ExceptionSource}</span>"""
+                    $"""<span class="badge {textBgColor} m-1"><i class="fa-solid fa-code me-1"></i>{json.ExceptionSource}</span>"""
                     : "";
 
                 var url = ((string)json.Url).IsSet()
