@@ -85,7 +85,8 @@
 
                                     @if (forum.Viewing > 0)
                                     {
-                                        <span class="badge text-bg-light">
+
+                                        <span class="@Html.GetTextBgColor("badge text-bg-light")">
                                             @Html.Icon("eye", "", "far")
                                             @forum.Viewing
                                         </span>
@@ -93,13 +94,13 @@
 
                                     @if (forum.RemoteURL.IsNotSet() && forum.ReadAccess)
                                     {
-                                        <span class="badge text-bg-light me-1"
+                                        <span class="@Html.GetTextBgColor("badge text-bg-light me-1")"
                                               title="@Html.LocalizedText("DEFAULT", "TOPICS")"
                                               data-bs-toggle="tooltip">
                                             @Html.Icon("comments", "", "far")
                                             @Html.Raw(forum.RemoteURL.IsNotSet() ? $"{forum.Topics:N0}" : "-")
                                         </span>
-                                        <span class="badge text-bg-light"
+                                        <span class="@Html.GetTextBgColor("badge text-bg-light")"
                                               title="@Html.LocalizedText("DEFAULT", "POSTS")"
                                               data-bs-toggle="tooltip">
                                             @Html.Icon("comment", "", "far")
@@ -157,7 +158,7 @@
                             @if (forum.RemoteURL.IsNotSet())
                             {
                                 <div class="col-md-4 text-secondary">
-                                    <div class="card text-bg-light card-post-last">
+                                    <div class="@Html.GetTextBgColor("card text-bg-light card-post-last")">
                                         <div class="card-body py-1 ps-2">
 
                                             @if (forum.ReadAccess && forum.LastPosted.HasValue)
@@ -177,7 +178,7 @@
                                                    title-localized-page="COMMON"
                                                    title-localized-tag="VIEW_TOPIC"
                                                    asp-page="@ForumPages.Posts.GetPageName()"
-                                                   asp-all-route-data="@(Current.Get<LinkBuilder>().GetAllRouteData(new {t = forum.LastTopicID, name = topicLinkText}))"
+                                                   asp-all-route-data="@(Current.Get<LinkBuilder>().GetAllRouteData(new { t = forum.LastTopicID, name = topicLinkText }))"
                                                    text="@topicLinkText"
                                                    style="@styles"></a>
 
