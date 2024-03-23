@@ -36,7 +36,7 @@
                                          required="required"></asp:TextBox>
                             <div class="invalid-feedback">
                                 <YAF:LocalizedLabel runat="server"
-                                                    LocalizedTag="MSG_VALUE" />
+                                                    LocalizedTag="MSG_DESCRIPTION" />
                             </div>
                         </div>
                     </div>
