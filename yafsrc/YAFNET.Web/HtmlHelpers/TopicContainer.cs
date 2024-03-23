@@ -189,23 +189,31 @@ public static class TopicContainerHtmlHelper
 
         if (topicDescription.IsSet())
         {
-            var descriptionHeader = new TagBuilder("h6");
-
-            descriptionHeader.AddCssClass("card-subtitle text-body-secondary");
-
-            descriptionHeader.InnerHtml.Append(topicDescription);
-
-            titleColumn.InnerHtml.AppendHtml(descriptionHeader);
+            RenderTopicDescription(topicDescription, titleColumn);
         }
 
         mainDiv.InnerHtml.AppendHtml(titleColumn);
 
         // No Last Post
-        if (!topic.LastMessageID.HasValue)
-        {
-            return content.AppendHtml(mainDiv);
-        }
+        return !topic.LastMessageID.HasValue
+            ? content.AppendHtml(mainDiv)
+            : RenderLastPost(htmlHelper, topic, context, dateTimeIcon, span, mainDiv, content);
+    }
 
+    /// <summary>
+    /// Renders the last post.
+    /// </summary>
+    /// <param name="htmlHelper">The HTML helper.</param>
+    /// <param name="topic">The topic.</param>
+    /// <param name="context">The context.</param>
+    /// <param name="dateTimeIcon">The date time icon.</param>
+    /// <param name="span">The span.</param>
+    /// <param name="mainDiv">The main div.</param>
+    /// <param name="content">The content.</param>
+    /// <returns>IHtmlContentBuilder.</returns>
+    private static IHtmlContentBuilder RenderLastPost(IHtmlHelper htmlHelper, PagedTopic topic, BoardContext context,
+        IHtmlContent dateTimeIcon, string span, TagBuilder mainDiv, HtmlContentBuilder content)
+    {
         var lastPostColumn = new TagBuilder("div");
 
         lastPostColumn.AddCssClass("col-md-4 text-secondary");
@@ -215,12 +223,11 @@ public static class TopicContainerHtmlHelper
         var lastPostedDateTime = topic.LastPosted;
 
         var formattedDatetime = context.BoardSettings.ShowRelativeTime
-                                    ? lastPostedDateTime.Value.ToRelativeTime()
+                                    ? lastPostedDateTime!.Value.ToRelativeTime()
                                     : context.Get<IDateTimeService>().Format(DateTimeFormat.BothTopic, lastPostedDateTime);
-
         var userLast = htmlHelper.UserLink(
-            topic.LastUserID.Value,
-            context.BoardSettings.EnableDisplayName ? topic.LastUserDisplayName : topic.LastUserName,
+        topic.LastUserID!.Value,
+        context.BoardSettings.EnableDisplayName ? topic.LastUserDisplayName : topic.LastUserName,
             topic.LastUserSuspended,
             topic.LastUserStyle,
             true);
@@ -228,9 +235,8 @@ public static class TopicContainerHtmlHelper
         var infoLastPost = new TagBuilder("a");
 
         infoLastPost.AddCssClass("btn btn-link btn-sm topic-link-popover");
-
         infoLastPost.MergeAttribute(
-            "data-bs-content",
+        "data-bs-content",
             $"{userLast.RenderToString()}{dateTimeIcon.RenderToString()}{span}{formattedDatetime}</span>");
         infoLastPost.MergeAttribute("href", "#!");
         infoLastPost.MergeAttribute("data-bs-toggle", "popover");
@@ -250,7 +256,7 @@ public static class TopicContainerHtmlHelper
         gotoLastPost.MergeAttribute(
             "href",
             context.Get<LinkBuilder>().GetLink(
-                ForumPages.Posts,
+        ForumPages.Posts,
                 new { t = topic.TopicID, name = topic.Subject }));
 
         gotoLastPost.MergeAttribute("data-bs-toggle", "tooltip");
@@ -263,6 +269,17 @@ public static class TopicContainerHtmlHelper
         mainDiv.InnerHtml.AppendHtml(lastPostColumn);
 
         return content.AppendHtml(mainDiv);
+    }
+
+    private static void RenderTopicDescription(string topicDescription, TagBuilder titleColumn)
+    {
+        var descriptionHeader = new TagBuilder("h6");
+
+        descriptionHeader.AddCssClass("card-subtitle text-body-secondary");
+
+        descriptionHeader.InnerHtml.Append(topicDescription);
+
+        titleColumn.InnerHtml.AppendHtml(descriptionHeader);
     }
 
     /// <summary>

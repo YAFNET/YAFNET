@@ -56,7 +56,7 @@ public static class ForumReadTrackingRepositoryExtensions
         {
             repository.UpdateOnly(
                 () => new ForumReadTracking { LastAccessDate = DateTime.UtcNow },
-                x => x.LastAccessDate == item.LastAccessDate && x.ForumID == userId && x.UserID == userId);
+                x => x.LastAccessDate == item.LastAccessDate && x.ForumID == forumId && x.UserID == userId);
         }
         else
         {
