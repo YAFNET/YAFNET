@@ -14703,12 +14703,10 @@ select.form-control[multiple] {
   display: block;
   width: 100%;
   padding: 10px;
-  border-bottom: 1px solid #dee2e6;
-  background-color: #fff;
+  border-bottom: 1px solid transparent;
   margin: 0;
 }
 .choices[data-type*=select-one] .choices__button {
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMSAyMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjMDAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yLjU5Mi4wNDRsMTguMzY0IDE4LjM2NC0yLjU0OCAyLjU0OEwuMDQ0IDIuNTkyeiIvPjxwYXRoIGQ9Ik0wIDE4LjM2NEwxOC4zNjQgMGwyLjU0OCAyLjU0OEwyLjU0OCAyMC45MTJ6Ii8+PC9nPjwvc3ZnPg==");
   padding: 0;
   background-size: 8px;
   position: absolute;
@@ -14718,15 +14716,6 @@ select.form-control[multiple] {
   margin-right: 25px;
   height: 20px;
   width: 20px;
-  border-radius: 10em;
-  opacity: 0.25;
-}
-.choices[data-type*=select-one] .choices__button:hover, .choices[data-type*=select-one] .choices__button:focus {
-  opacity: 1;
-}
-.choices[data-type*=select-one] .choices__button:focus {
-  -webkit-box-shadow: 0 0 0 2px var(--bs-body-color);
-          box-shadow: 0 0 0 2px var(--bs-body-color);
 }
 .choices[data-type*=select-one] .choices__item[data-value=""] .choices__button {
   display: none;
@@ -14792,14 +14781,16 @@ select.form-control[multiple] {
   width: 100%;
   background-color: transparent;
   padding: 7.5px 7.5px 3.75px;
-  border: 1px solid #dee2e6;
+  border: 1px solid transparent;
   border-radius: 0;
   font-size: 1rem;
   min-height: 44px;
   overflow: hidden;
 }
 .is-focused .choices__inner, .is-open .choices__inner {
-  border-color: #b2bcc5;
+  border-color: #90cbf9;
+  -webkit-box-shadow: 0 0 0 0.25rem rgba(33, 150, 243, 0.25);
+          box-shadow: 0 0 0 0.25rem rgba(33, 150, 243, 0.25);
 }
 .is-open .choices__inner {
   border-radius: 0 0 0 0;
@@ -14852,7 +14843,7 @@ select.form-control[multiple] {
   position: absolute;
   width: 100%;
   background-color: transparent;
-  border: 1px solid #dee2e6;
+  border: 1px solid transparent;
   top: 100%;
   margin-top: -1px;
   border-bottom-left-radius: 0;
@@ -14865,7 +14856,7 @@ select.form-control[multiple] {
   visibility: visible;
 }
 .is-open .choices__list--dropdown, .is-open .choices__list[aria-expanded] {
-  border-color: #b2bcc5;
+  border-color: #90cbf9;
 }
 .is-flipped .choices__list--dropdown, .is-flipped .choices__list[aria-expanded] {
   top: auto;
@@ -14947,7 +14938,7 @@ select.form-control[multiple] {
   font-weight: 600;
   font-size: 0.875rem;
   padding: 10px;
-  border-bottom: 1px solid #fbfcfc;
+  border-bottom: 1px solid #90cbf9;
   color: gray;
 }
 

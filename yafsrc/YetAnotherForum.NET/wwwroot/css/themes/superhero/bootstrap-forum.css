@@ -13617,12 +13617,10 @@ label,
   display: block;
   width: 100%;
   padding: 10px;
-  border-bottom: 1px solid #ced4da;
-  background-color: #fff;
+  border-bottom: 1px solid transparent;
   margin: 0;
 }
 .choices[data-type*=select-one] .choices__button {
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMSAyMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjMDAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yLjU5Mi4wNDRsMTguMzY0IDE4LjM2NC0yLjU0OCAyLjU0OEwuMDQ0IDIuNTkyeiIvPjxwYXRoIGQ9Ik0wIDE4LjM2NEwxOC4zNjQgMGwyLjU0OCAyLjU0OEwyLjU0OCAyMC45MTJ6Ii8+PC9nPjwvc3ZnPg==");
   padding: 0;
   background-size: 8px;
   position: absolute;
@@ -13632,15 +13630,6 @@ label,
   margin-right: 25px;
   height: 20px;
   width: 20px;
-  border-radius: 10em;
-  opacity: 0.25;
-}
-.choices[data-type*=select-one] .choices__button:hover, .choices[data-type*=select-one] .choices__button:focus {
-  opacity: 1;
-}
-.choices[data-type*=select-one] .choices__button:focus {
-  -webkit-box-shadow: 0 0 0 2px #ebebeb;
-          box-shadow: 0 0 0 2px #ebebeb;
 }
 .choices[data-type*=select-one] .choices__item[data-value=""] .choices__button {
   display: none;
@@ -13706,14 +13695,16 @@ label,
   width: 100%;
   background-color: #fff;
   padding: 7.5px 7.5px 3.75px;
-  border: 1px solid #ced4da;
+  border: 1px solid transparent;
   border-radius: var(--bs-border-radius);
   font-size: 1rem;
   min-height: 44px;
   overflow: hidden;
 }
 .is-focused .choices__inner, .is-open .choices__inner {
-  border-color: #a2aeb9;
+  border-color: #efb48c;
+  -webkit-box-shadow: 0 0 0 0.25rem rgba(223, 105, 25, 0.25);
+          box-shadow: 0 0 0 0.25rem rgba(223, 105, 25, 0.25);
 }
 .is-open .choices__inner {
   border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
@@ -13766,7 +13757,7 @@ label,
   position: absolute;
   width: 100%;
   background-color: #fff;
-  border: 1px solid #ced4da;
+  border: 1px solid transparent;
   top: 100%;
   margin-top: -1px;
   border-bottom-left-radius: var(--bs-border-radius);
@@ -13779,7 +13770,7 @@ label,
   visibility: visible;
 }
 .is-open .choices__list--dropdown, .is-open .choices__list[aria-expanded] {
-  border-color: #a2aeb9;
+  border-color: #efb48c;
 }
 .is-flipped .choices__list--dropdown, .is-flipped .choices__list[aria-expanded] {
   top: auto;
@@ -13861,7 +13852,7 @@ label,
   font-weight: 600;
   font-size: 0.875rem;
   padding: 10px;
-  border-bottom: 1px solid #ebeef0;
+  border-bottom: 1px solid #efb48c;
   color: gray;
 }
 

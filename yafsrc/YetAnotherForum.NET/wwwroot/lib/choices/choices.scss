@@ -24,7 +24,7 @@ $choices-bg-color: $input-bg;
 $choices-bg-color-disabled: $form-select-disabled-bg;
 $choices-bg-color-dropdown: $input-bg;
 $choices-text-color: $input-color;
-$choices-keyline-color: $border-color;
+$choices-keyline-color: $input-border-color;
 $choices-primary-color: $primary;
 
 $choices-highlight-color: $dropdown-link-hover-color;
@@ -85,11 +85,9 @@ $choices-z-index: 1 !default;
     width: 100%;
     padding: 10px;
     border-bottom: 1px solid $choices-keyline-color;
-    background-color: #fff;
     margin: 0;
   }
   .#{$choices-selector}__button {
-    background-image: $choices-icon-cross-inverse;
     padding: 0;
     background-size: 8px;
     position: absolute;
@@ -99,17 +97,6 @@ $choices-z-index: 1 !default;
     margin-right: 25px;
     height: 20px;
     width: 20px;
-    border-radius: 10em;
-    opacity: 0.25;
-
-    &:hover,
-    &:focus {
-      opacity: 1;
-    }
-
-    &:focus {
-      box-shadow: 0 0 0 2px $choices-highlight-color;
-    }
   }
   .#{$choices-selector}__item[data-value=''] .#{$choices-selector}__button {
     display: none;
@@ -177,29 +164,37 @@ $choices-z-index: 1 !default;
 }
 
 .#{$choices-selector}__inner {
-  display: inline-block;
-  vertical-align: top;
-  width: 100%;
-  background-color: $choices-bg-color;
-  padding: 7.5px 7.5px 3.75px;
-  border: 1px solid $choices-keyline-color;
-  border-radius: $choices-border-radius;
-  font-size: $choices-font-size-md;
-  min-height: 44px;
-  overflow: hidden;
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    background-color: $choices-bg-color;
+    padding: 7.5px 7.5px 3.75px;
+    border: 1px solid $choices-keyline-color;
+    border-radius: $choices-border-radius;
+    font-size: $choices-font-size-md;
+    min-height: 44px;
+    overflow: hidden;
 
-  .is-focused &,
-  .is-open & {
-    border-color: color.adjust($choices-keyline-color, $lightness: -15%);
-  }
+    .is-focused &,
+    .is-open & {
+        border-color: $form-select-focus-border-color;
 
-  .is-open & {
-    border-radius: $choices-border-radius $choices-border-radius 0 0;
-  }
+        @if $enable-shadows {
+            @include box-shadow($form-select-box-shadow, $form-select-focus-box-shadow);
+        }
+        @else {
+            // Avoid using mixin so we can pass custom focus shadow properly
+            box-shadow: $form-select-focus-box-shadow;
+        }
+    }
 
-  .is-flipped.is-open & {
-    border-radius: 0 0 $choices-border-radius $choices-border-radius;
-  }
+    .is-open & {
+        border-radius: $choices-border-radius $choices-border-radius 0 0;
+    }
+
+    .is-flipped.is-open & {
+        border-radius: 0 0 $choices-border-radius $choices-border-radius;
+    }
 }
 
 .#{$choices-selector}__list {
@@ -272,7 +267,7 @@ $choices-z-index: 1 !default;
     }
 
     .is-open & {
-        border-color: color.adjust($choices-keyline-color, $lightness: -15%);
+        border-color: $form-select-focus-border-color;
     }
 
     .is-flipped & {
@@ -363,11 +358,11 @@ $choices-z-index: 1 !default;
 }
 
 .#{$choices-selector}__heading {
-  font-weight: 600;
-  font-size: $choices-font-size-sm;
-  padding: 10px;
-  border-bottom: 1px solid color.adjust($choices-keyline-color, $lightness: 10%);
-  color: color.adjust(#333, $lightness: 30%);
+    font-weight: 600;
+    font-size: $choices-font-size-sm;
+    padding: 10px;
+    border-bottom: 1px solid $form-select-focus-border-color;
+    color: color.adjust(#333, $lightness: 30%);
 }
 
 .#{$choices-selector}__button {
