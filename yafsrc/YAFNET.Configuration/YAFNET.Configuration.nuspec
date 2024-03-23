@@ -2,6 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>YAFNET.Configuration</id>
+	<title>YAFNET.Configuration</title>
+	<copyright>Copyright © YetAnotherForum.NET and Ingo Herbote. All rights reserved</copyright>
     <version>4.0.0-beta05</version>
     <authors>Ingo Herbote</authors>
 	<readme>README.md</readme>

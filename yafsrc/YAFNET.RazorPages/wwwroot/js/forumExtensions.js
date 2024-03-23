@@ -8897,7 +8897,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     containerOuter: "choices",
                     containerInner: "choices__inner",
                     input: "choices__input",
-                    inputCloned: "choices__input--cloned",
+                    inputCloned: "choices__input--cloned form-control",
                     list: "choices__list",
                     listItems: "choices__list--multiple",
                     listSingle: "choices__list--single",
@@ -8909,7 +8909,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     placeholder: "choices__placeholder",
                     group: "choices__group",
                     groupHeading: "choices__heading",
-                    button: "choices__button",
+                    button: "choices__button btn-close",
                     activeState: "is-active",
                     focusState: "is-focused",
                     openState: "is-open",
@@ -18375,7 +18375,6 @@ function getSearchResultsData(pageNumber) {
             document.getElementById("loadModal").addEventListener("shown.bs.modal", () => {
                 loadModal.hide();
             });
-
             var posted = placeHolder.dataset.posted, by = placeHolder.dataset.by, lastPost = placeHolder.dataset.lastpost, topic = placeHolder.dataset.topic;
             if (data.searchResults.length === 0) {
                 loadModal.hide();

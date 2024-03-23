@@ -43,6 +43,7 @@ public class Migration91 : MigrationBase
         this.Db.DropTable<NntpForum>();
         this.Db.DropTable<NntpServer>();
 
+        /*
         if (this.Db.ColumnExists<User>("PMNotification"))
         {
             this.Db.DropConstraint<User>(
@@ -65,7 +66,7 @@ public class Migration91 : MigrationBase
                 $"DF_{Config.DatabaseObjectQualifier}{nameof(Group)}_PMLimit");
 
             this.Db.DropColumn<Group>("PMLimit");
-        }
+        }*/
 
         // Reset TwoFactorEnabled User Settings
         this.Db.UpdateOnly(() => new AspNetUsers { TwoFactorEnabled = false }, a => a.TwoFactorEnabled == true);

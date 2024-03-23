@@ -24,11 +24,7 @@
 
 using Autofac.Extensions.DependencyInjection;
 
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-
-using YAF.Types.Objects;
 
 namespace YAF.Core.Extensions;
 
@@ -57,28 +53,6 @@ public static class HostingHostBuilderExtensions
         return hostBuilder.ConfigureLogging(logging =>
         {
             logging.AddDbLogger();
-        });
-    }
-
-    /// <summary>
-    /// Configures the yaf reverse proxy.
-    /// </summary>
-    /// <param name="hostBuilder">The <see cref="IHostBuilder"/> to configure.</param>
-    /// <returns>The <see cref="IHostBuilder"/>.</returns>
-    public static IHostBuilder ConfigureYafReverseProxy(this IHostBuilder hostBuilder)
-    {
-        return hostBuilder.ConfigureWebHost(config =>
-        {
-            config.ConfigureKestrel((context, options) =>
-            {
-                var boardConfiguration =
-                    context.Configuration.GetSection("BoardConfiguration").Get<BoardConfiguration>();
-
-                if (boardConfiguration.UseReverseProxy)
-                {
-                    options.ListenLocalhost(boardConfiguration.ReverseProxyPort);
-                }
-            });
         });
     }
 }
