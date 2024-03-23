@@ -155,7 +155,7 @@
                         </button>
                         @if (Model.PageBoardContext.IsGuest && Model.PageBoardContext.Get<BoardConfiguration>().AllowLoginAndLogoff)
                         {
-                            <a asp-page="/Account/Login"
+                            <a asp-page="@ForumPages.Account_Login.GetPageName()"
                                button-style="OutlineSecondary"
                                class="m-2"
                                icon="sign-in-alt"

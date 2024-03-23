@@ -108,7 +108,7 @@ public static class PageLinkExtensions
     {
         ArgumentNullException.ThrowIfNull(pageLinks);
 
-        pageLinks.AddLink(topic.TopicName, BoardContext.Current.Get<LinkBuilder>().GetTopicLink(topic.ID, topic.TopicName));
+        pageLinks.AddLink(topic.TopicName, BoardContext.Current.Get<LinkBuilder>().GetTopicLink(topic));
 
         return pageLinks;
     }

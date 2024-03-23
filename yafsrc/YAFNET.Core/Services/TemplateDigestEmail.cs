@@ -184,7 +184,7 @@ public class TemplateDigestEmail : IHaveServiceLocator
 
         this.TemplateTopicParams["%%topicLink%%"] = this.Get<LinkBuilder>().GetAbsoluteLink(
             ForumPages.Posts,
-            new { m = topic.LastMessageID, name = topic.Subject });
+            new { m = topic.LastMessageID, name = topic.Subject, t = topic.TopicID });
 
         var html = this.TemplateTopicParams.Keys.Aggregate(
             htmlTemplate,

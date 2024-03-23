@@ -255,9 +255,7 @@ public class PostsModalController : ForumBaseController
                 }
 
                 // redirect to newly posted message
-                return this.Ok(this.Get<LinkBuilder>().GetLink(
-                    ForumPages.Posts,
-                    new { m = newMessage.ID, name = this.PageBoardContext.PageTopic.TopicName }));
+                return this.Ok(this.Get<LinkBuilder>().GetMessageLink(this.PageBoardContext.PageTopic, newMessage.ID));
             }
 
             if (this.PageBoardContext.BoardSettings.EmailModeratorsOnModeratedPost)

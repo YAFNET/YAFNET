@@ -1,4 +1,6 @@
 ﻿@page "{info:int}/{message?}"
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Extensions
 @model InfoModel
 
 @{
@@ -13,7 +15,7 @@
         <p class="card-text">
             @Model.InfoLabel
         </p>
-        <a asp-page="/Index" button-style="Danger" 
+        <a asp-page="@ForumPages.Index.GetPageName()" button-style="Danger"
            text-localized-page="INFO" text-localized-tag="CONTINUE">
         </a>
     </div>

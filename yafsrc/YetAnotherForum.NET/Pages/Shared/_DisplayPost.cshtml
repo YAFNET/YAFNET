@@ -448,7 +448,7 @@
                             </div>
                             <div>
                                 <a id="@($"post{Model.MessageID}")"
-                                   href="@Html.Raw(Current.Get<LinkBuilder>().GetLink(ForumPages.Posts, new {m = Model.MessageID, name = Current.PageTopic.TopicName}))">
+                                   href="@Html.Raw(Current.Get<LinkBuilder>().GetMessageLink(Current.PageTopic, Model.MessageID))">
                                     #@Html.Raw(Current.PageIndex * Current.BoardSettings.PostsPerPage + ViewData["index"].ToType<int>() + 1)
                                 </a>
                             </div>

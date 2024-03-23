@@ -37,6 +37,7 @@ using YAF.Core.Model;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Types.Attributes;
+using YAF.Types.Objects.Language;
 
 /// <summary>
 /// The Notifications controller.
@@ -89,7 +90,7 @@ public class NotifyController : ForumBaseController
                     var topicLink = new TagBuilder("a");
 
                     topicLink.MergeAttribute("href", this.Get<LinkBuilder>().GetLink(
-                        ForumPages.Posts,
+                    ForumPages.Post,
                         new { m = activity.MessageID.Value, name = topic.TopicName }));
                     topicLink.InnerHtml.Append($"<i class=\"fas fa-comment fa-fw me-1\"></i>{topic.TopicName}");
 

@@ -57,7 +57,7 @@ public class FriendsController : ForumBaseController
 
             if (source == null)
             {
-                return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m });
+                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
             }
 
             var userName = this.PageBoardContext.BoardSettings.EnableDisplayName ? source.DisplayName : source.UserName;
@@ -71,12 +71,12 @@ public class FriendsController : ForumBaseController
                 MessageTypes.success);
 
             return this.RedirectToPage(
-                ForumPages.Posts.GetPageName(),
+                ForumPages.Post.GetPageName(),
                 new {m, name = source.Topic});
         }
         catch (Exception)
         {
-            return this.RedirectToPage(ForumPages.Posts.GetPageName(), new {m});
+            return this.RedirectToPage(ForumPages.Post.GetPageName(), new {m, name = "Topic" });
         }
     }
 
@@ -139,7 +139,7 @@ public class FriendsController : ForumBaseController
 
             if (source == null)
             {
-                return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m });
+                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
             }
 
             this.Get<IFriends>().Remove(source.UserID);
@@ -151,12 +151,12 @@ public class FriendsController : ForumBaseController
                 MessageTypes.success);
 
             return this.RedirectToPage(
-                ForumPages.Posts.GetPageName(),
+                ForumPages.Post.GetPageName(),
                 new {m, name = source.Topic});
         }
         catch (Exception)
         {
-            return this.RedirectToPage(ForumPages.Posts.GetPageName(), new {m});
+            return this.RedirectToPage(ForumPages.Post.GetPageName(), new {m, name = "Topic" });
         }
     }
 

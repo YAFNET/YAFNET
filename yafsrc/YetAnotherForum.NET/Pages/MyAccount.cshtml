@@ -202,7 +202,7 @@
                                 var title = string.Empty;
 
                                 var url = activity.Item2.ID is not 0 ?
-                                              Model.Get<LinkBuilder>().GetTopicLink(activity.Item2.ID, activity.Item2.TopicName) :
+                                              Model.Get<LinkBuilder>().GetTopicLink(activity.Item2) :
                                               "";
 
                                 if (activity.Item1.ActivityFlags.CreatedTopic)

@@ -55,6 +55,11 @@ public enum ForumPages
     Posts,
 
     /// <summary>
+    /// The post page.
+    /// </summary>
+    Post,
+
+    /// <summary>
     /// The user profile page.
     /// </summary>
     UserProfile,

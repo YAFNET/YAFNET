@@ -1,7 +1,10 @@
-﻿@using YAF.Core.Context
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Context
 @using YAF.Core.Helpers
 @using YAF.Core.Utilities
+@using YAF.Types.Extensions
 @using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
 
 @inject BoardContext Current
 
@@ -17,7 +20,7 @@
     <form method="post">
         <p>
             @Html.LocalizedTextFormatted("COOKIE", Current.BoardSettings.Name)
-            <a asp-page="/Cookies" button-style="Link" 
+            <a asp-page="@ForumPages.Cookies.GetPageName()" button-style="Link"
                text-localized-page="COOKIE" text-localized-tag="COOKIE_DETAILS">
             </a>
             <button type="submit" button-style="Primary" 

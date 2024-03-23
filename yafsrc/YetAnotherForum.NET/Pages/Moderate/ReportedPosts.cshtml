@@ -4,6 +4,7 @@
 @using YAF.Core.Services
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
+@using YAF.Types.Extensions
 @using YAF.Types.Flags
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
@@ -19,7 +20,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         @Html.Icon("comment", "text-secondary")
-                        <a asp-page="/Posts"
+                        <a asp-page="@ForumPages.Posts.GetPageName()"
                            asp-route-t="@report.TopicID"
                            asp-route-name="@report.TopicName">
                             @report.TopicName
@@ -50,7 +51,7 @@
                                    icon="user-cog"
                                    text-localized-page="PROFILE"
                                    text-localized-tag="ADMIN_USER"
-                                   asp-page="/Admin/EditUser"
+                                   asp-page="@ForumPages.Admin_EditUser.GetPageName()"
                                    asp-route-u="@report.UserID"></a>
                             }
                         </div>

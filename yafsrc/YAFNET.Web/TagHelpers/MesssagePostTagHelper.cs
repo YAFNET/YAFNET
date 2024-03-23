@@ -438,9 +438,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         link.MergeAttribute("title", this.GetText("GO_TO_ANSWER"));
         link.MergeAttribute(
             "href",
-            this.Get<LinkBuilder>().GetLink(
-                ForumPages.Posts,
-                new { m = answerMessageId, name = BoardContext.Current.PageTopic.TopicName }));
+            this.Get<LinkBuilder>().GetMessageLink(BoardContext.Current.PageTopic, answerMessageId));
 
         var icon = new TagBuilder("i");
 

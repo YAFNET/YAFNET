@@ -441,8 +441,8 @@ public class PostMessageModel : ForumPage
 
             // regular redirect...
             return this.Get<LinkBuilder>().Redirect(
-                ForumPages.Posts,
-                new {m = newMessage.ID, t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName});
+                ForumPages.Post,
+                new {m = newMessage.ID, name = this.PageBoardContext.PageTopic.TopicName});
         }
 
         // Not Approved
@@ -461,8 +461,7 @@ public class PostMessageModel : ForumPage
         if (this.PageBoardContext.PageTopicID > 0 && this.PageBoardContext.PageTopic.NumPosts > 1)
         {
             url = this.Get<LinkBuilder>().GetTopicLink(
-                this.PageBoardContext.PageTopicID,
-                this.PageBoardContext.PageTopic.TopicName);
+                this.PageBoardContext.PageTopic);
         }
 
         return this.Get<LinkBuilder>().Redirect(ForumPages.Info, new {i = 1, url = HttpUtility.UrlEncode(url)});

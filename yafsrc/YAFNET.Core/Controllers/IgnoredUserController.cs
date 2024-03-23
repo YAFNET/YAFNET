@@ -56,16 +56,16 @@ public class IgnoredUserController : ForumBaseController
 
             if (source == null)
             {
-                return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m });
+                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
             }
 
             this.Get<IUserIgnored>().RemoveIgnored(source.UserID);
 
-            return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m, name = source.Topic });
+            return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = source.Topic });
         }
         catch (Exception)
         {
-            return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m });
+            return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
         }
     }
 
@@ -86,16 +86,16 @@ public class IgnoredUserController : ForumBaseController
 
             if (source == null)
             {
-                return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m });
+                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
             }
 
             this.Get<IUserIgnored>().AddIgnored(source.UserID);
 
-            return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m, name = source.Topic });
+            return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = source.Topic });
         }
         catch (Exception)
         {
-            return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m });
+            return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
         }
     }
 }

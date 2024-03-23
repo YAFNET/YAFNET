@@ -743,33 +743,29 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         }
 
         return new SearchMessage {
-                                     MessageId = doc.Get("MessageId").ToType<int>(),
-                                     Message = message,
-                                     Flags = flags,
-                                     Posted = posted,
-                                     UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
-                                     UserId = doc.Get("UserId").ToType<int>(),
-                                     TopicId = doc.Get("TopicId").ToType<int>(),
-                                     Topic = topic.IsSet() ? topic : doc.Get("Topic"),
-                                     TopicTags = doc.Get("TopicTags"),
-                                     ForumId = doc.Get("ForumId").ToType<int>(),
-                                     Description = doc.Get("Description"),
-                                     TopicUrl = this.Get<LinkBuilder>().GetTopicLink(
-                                         doc.Get("TopicId").ToType<int>(),
-                                         doc.Get("Topic")),
-                                     MessageUrl = this.Get<LinkBuilder>().GetLink(
-                                         ForumPages.Posts,
-                                         new {
-                                                 m = doc.Get("MessageId").ToType<int>(),
-                                                 name = doc.Get("Topic")
-                                             }),
-                                     ForumUrl = this.Get<LinkBuilder>().GetForumLink(
-                                         doc.Get("ForumId").ToType<int>(),
-                                         doc.Get("ForumName")),
-                                     UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),
-                                     ForumName = doc.Get("ForumName"),
-                                     UserStyle = doc.Get("AuthorStyle")
-                                 };
+            MessageId = doc.Get("MessageId").ToType<int>(),
+            Message = message,
+            Flags = flags,
+            Posted = posted,
+            UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
+            UserId = doc.Get("UserId").ToType<int>(),
+            TopicId = doc.Get("TopicId").ToType<int>(),
+            Topic = topic.IsSet() ? topic : doc.Get("Topic"),
+            TopicTags = doc.Get("TopicTags"),
+            ForumId = doc.Get("ForumId").ToType<int>(),
+            Description = doc.Get("Description"),
+            TopicUrl = this.Get<LinkBuilder>().GetTopicLink(
+                doc.Get("TopicId").ToType<int>(),
+                doc.Get("Topic")),
+            MessageUrl = this.Get<LinkBuilder>().GetMessageLink(doc.Get("Topic"),
+                doc.Get("MessageId").ToType<int>()),
+            ForumUrl = this.Get<LinkBuilder>().GetForumLink(
+                doc.Get("ForumId").ToType<int>(),
+                doc.Get("ForumName")),
+            UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),
+            ForumName = doc.Get("ForumName"),
+            UserStyle = doc.Get("AuthorStyle")
+        };
     }
 
     /// <summary>

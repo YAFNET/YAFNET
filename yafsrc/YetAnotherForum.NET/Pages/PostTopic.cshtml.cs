@@ -405,8 +405,8 @@ public class PostTopicModel : ForumPage
             {
                 // regular redirect...
                 return this.Get<LinkBuilder>().Redirect(
-                    ForumPages.Posts,
-                    new {m = newMessage.ID, t = newMessage.Topic.ID, name = newMessage.Topic.TopicName});
+                    ForumPages.Post,
+                    new {m = newMessage.ID, name = newMessage.Topic.TopicName});
             }
 
             // poll edit redirect...

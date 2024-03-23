@@ -54,7 +54,7 @@ public class PostsController : ForumBaseController
 
             if (source == null)
             {
-                return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m });
+                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
             }
 
             if (!source.IsDeleted && !this.PageBoardContext.IsGuest && this.PageBoardContext.MembershipUser != null
@@ -94,11 +94,11 @@ public class PostsController : ForumBaseController
                 }
             }
 
-            return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m, name = source.Topic });
+            return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = source.Topic, t = source.TopicID });
         }
         catch (Exception)
         {
-            return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m });
+            return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
         }
     }
 }

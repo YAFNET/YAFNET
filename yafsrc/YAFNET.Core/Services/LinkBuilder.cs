@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Web;
+
 using Microsoft.AspNetCore.Routing;
 
 using YAF.Types.Objects;
@@ -145,7 +147,21 @@ public class LinkBuilder : IHaveServiceLocator
     }
 
     /// <summary>
-    /// The get topic link.
+    /// Gets the topic link.
+    /// </summary>
+    /// <param name="topic">
+    /// The topic.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public string GetTopicLink(Topic topic)
+    {
+        return this.Get<LinkBuilder>().GetTopicLink(topic.ID, topic.TopicName);
+    }
+
+    /// <summary>
+    /// Gets the topic link.
     /// </summary>
     /// <param name="topicId">
     /// The topic id.
@@ -158,9 +174,53 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetTopicLink(int topicId, string topicName)
     {
+        var topicSubject = HttpUtility.HtmlEncode(this.Get<IBadWordReplace>().Replace(topicName));
+
         return this.Get<LinkBuilder>().GetLink(
             ForumPages.Posts,
-            new {t = topicId, name = topicName});
+            new {t = topicId, name = topicSubject });
+    }
+
+    /// <summary>
+    /// Gets the topic link with post Id.
+    /// </summary>
+    /// <param name="topic">
+    /// The topic.
+    /// </param>
+    /// <param name="messageId">
+    /// The topic name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public string GetMessageLink(Topic topic, int messageId)
+    {
+        var topicSubject = HttpUtility.HtmlEncode(this.Get<IBadWordReplace>().Replace(topic.TopicName));
+
+        return this.Get<LinkBuilder>().GetLink(
+            ForumPages.Post,
+            new { name = topicSubject, m = messageId });
+    }
+
+    /// <summary>
+    /// Gets the message link.
+    /// </summary>
+    /// <param name="topicName">
+    /// The topic name.
+    /// </param>
+    /// <param name="messageId">
+    /// The topic name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public string GetMessageLink(string topicName, int messageId)
+    {
+        var topicSubject = HttpUtility.HtmlEncode(this.Get<IBadWordReplace>().Replace(topicName));
+
+        return this.Get<LinkBuilder>().GetLink(
+            ForumPages.Post,
+            new { name = topicSubject, m = messageId });
     }
 
     /// <summary>

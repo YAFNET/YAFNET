@@ -1,6 +1,7 @@
 ﻿@page "{f:int}/{handler?}"
 
 @using YAF.Core.Extensions
+@using YAF.Types.Extensions
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
@@ -17,7 +18,7 @@
                         @Html.IconHeader("comment", "DEFAULT", "TOPIC")
                         @if (message.Item1.NumPosts > 0)
                         {
-                            <a asp-page="/Posts"
+                            <a asp-page="@ForumPages.Posts.GetPageName()"
                                asp-route-t="@message.Item1.ID"
                                asp-route-name="@message.Item1.TopicName">
                                 @message.Item1.TopicName
@@ -49,7 +50,7 @@
                                    icon="user-cog"
                                    text-localized-page="PROFILE"
                                    text-localized-tag="ADMIN_USER"
-                                   asp-page="/Admin/EditPageUser"
+                                   asp-page="@ForumPages.Admin_EditUser.GetPageName()"
                                    asp-route-u="@message.Item2.UserID"></a>
                             }
                         </div>

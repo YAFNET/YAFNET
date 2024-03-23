@@ -137,4 +137,16 @@ public class BoardConfiguration
     /// </summary>
     /// <value>The name of the area.</value>
     public string Area { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether a reverse proxy is used.
+    /// </summary>
+    /// <value><c>true</c> if [use reverse proxy]; otherwise, <c>false</c>.</value>
+    public bool UseReverseProxy { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating which port to use with reverse proxy.
+    /// </summary>
+    /// <value>default 5000, only change when hosting multiple asp.net applications on one server.</value>
+    public int ReverseProxyPort { get; set; } = 5000;
 }

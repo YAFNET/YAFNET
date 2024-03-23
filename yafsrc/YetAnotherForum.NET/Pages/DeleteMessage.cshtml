@@ -87,7 +87,7 @@
                     }
 
                     <a role="button"
-                       href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Posts, new {m = Model.PageBoardContext.PageMessage.ID, name = Model.PageBoardContext.PageTopic.TopicName}))"
+                       href="@Html.Raw(Model.Get<LinkBuilder>().GetMessageLink(Model.PageBoardContext.PageTopic, Model.PageBoardContext.PageMessage.ID))"
                        button-style="Secondary"
                        icon="reply"
                        text-localized-page="COMMON"

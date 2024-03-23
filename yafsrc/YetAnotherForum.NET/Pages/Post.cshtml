@@ -1,4 +1,4 @@
-﻿@page "{t:int?}/{name}/{handler?}"
+﻿@page "{m:int}/{name}/{handler?}"
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
 @using YAF.Core.Services
@@ -9,7 +9,7 @@
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
 
-@model PostsModel
+@model PostModel
 
 @if (Model.PageBoardContext.PageTopic.PollID.HasValue)
 {

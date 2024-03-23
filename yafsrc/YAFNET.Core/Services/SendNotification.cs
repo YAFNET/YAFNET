@@ -282,7 +282,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                          ["{bodytruncated}"] = bodyText.Truncate(160),
                                          ["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
                                              ForumPages.Posts,
-                                             new {m = message.ID, name = message.Topic.TopicName}),
+                                             new {m = message.ID, name = message.Topic.TopicName, t = message.Topic.ID}),
                                          ["{subscriptionlink}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
                                              ForumPages.Profile_Subscriptions)
                                      }

@@ -195,7 +195,7 @@ public class DeleteMessageModel : ForumPage
             this.PageBoardContext.PageMessage);
 
         return this.Get<LinkBuilder>().Redirect(
-            ForumPages.Posts,
+            ForumPages.Post,
             new {m = this.PageBoardContext.PageMessage.ID, name = this.PageBoardContext.PageTopic.TopicName});
     }
 }

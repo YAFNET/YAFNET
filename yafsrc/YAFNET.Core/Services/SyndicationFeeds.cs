@@ -200,7 +200,7 @@ public class SyndicationFeeds : IHaveServiceLocator
                 null,
                 this.Get<LinkBuilder>().GetAbsoluteLink(
                     ForumPages.Posts,
-                    new { m = row.MessageID, name = row.Topic, find = "lastpost" }),
+                    new { m = row.MessageID, name = row.Topic, t = row.TopicID }),
                 $"urn:{urlAlphaNum}:ft{RssFeeds.Posts}:meid{row.MessageID}:{BoardContext.Current.PageBoardID}"
                     .Unidecode(),
                 posted,
@@ -253,7 +253,7 @@ public class SyndicationFeeds : IHaveServiceLocator
 
             var postLink = this.Get<LinkBuilder>().GetAbsoluteLink(
                 ForumPages.Posts,
-                new { m = topic.LastMessageID.Value, name = topic.Topic });
+                new { m = topic.LastMessageID.Value, name = topic.Topic, t = topic.TopicID });
 
             var content = await this.GetPostLatestContentAsync(
                               topic.LastMessage,

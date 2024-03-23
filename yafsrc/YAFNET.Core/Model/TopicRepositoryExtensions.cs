@@ -79,25 +79,6 @@ public static class TopicRepositoryExtensions
     }
 
     /// <summary>
-    /// Get the Topic Name From Message.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="messageId">
-    /// The message id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static string GetNameFromMessage(this IRepository<Topic> repository, int messageId)
-    {
-        var topic = repository.GetTopicFromMessage(messageId);
-
-        return topic == null ? string.Empty : topic.TopicName;
-    }
-
-    /// <summary>
     /// Sets the answer message.
     /// </summary>
     /// <param name="repository">The repository.</param>
