@@ -50,25 +50,19 @@ public static class ForumReadTrackingRepositoryExtensions
         int userId,
         int forumId)
     {
-        
-
         var item = repository.GetSingle(x => x.ForumID == forumId && x.UserID == userId);
 
         if (item != null)
         {
             repository.UpdateOnly(
                 () => new ForumReadTracking { LastAccessDate = DateTime.UtcNow },
-                x => x.LastAccessDate == item.LastAccessDate && x.ForumID == userId && x.UserID == userId);
+                x => x.LastAccessDate == item.LastAccessDate && x.ForumID == forumId && x.UserID == userId);
         }
         else
         {
             repository.Insert(
                 new ForumReadTracking { UserID = userId, ForumID = forumId, LastAccessDate = DateTime.UtcNow });
         }
-
-        // -- Delete TopicReadTracking for forum... 
-        // Remark : not needed ?!
-        // BoardContext.Current.GetRepository<TopicReadTracking>().Delete(x => x.UserID == userId)
     }
 
     /// <summary>
@@ -85,8 +79,6 @@ public static class ForumReadTrackingRepositoryExtensions
     /// </returns>
     public static bool Delete(this IRepository<ForumReadTracking> repository, int userId)
     {
-        
-
         var success = repository.Delete(x => x.UserID == userId) == 1;
 
         if (success)
@@ -117,8 +109,6 @@ public static class ForumReadTrackingRepositoryExtensions
         int userId,
         int forumId)
     {
-        
-
         var forum = repository.GetSingle(t => t.UserID == userId && t.ForumID == forumId);
 
         return forum?.LastAccessDate;
