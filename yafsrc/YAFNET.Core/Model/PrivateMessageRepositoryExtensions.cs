@@ -49,7 +49,8 @@ public static class PrivateMessageRepositoryExtensions
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
 
         // Get conversations from From user to To User
-        expression.Where(p => p.FromUserId == userId && p.ToUserId == toUserId && (p.Flags & 2) != 2).Select<PrivateMessage>(p => p);
+        expression.Where(p => p.FromUserId == userId && p.ToUserId == toUserId && (p.Flags & 2) != 2)
+            .Select<PrivateMessage>(p => p);
 
         var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
 
@@ -57,15 +58,18 @@ public static class PrivateMessageRepositoryExtensions
         expression2.Where(p => p.ToUserId == userId && p.FromUserId == toUserId && (p.Flags & 4) != 4)
             .Select<PrivateMessage>(p => p);
 
+        // clear lazy data.
+        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(toUserId));
+
         // Mark all to messages as read
         await repository.DbAccess.ExecuteAsync(
             db =>
-                {
-                    var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
+            {
+                var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
 
-                    return db.ExecuteSqlAsync(
-                        $" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 1 where FromUserId = {toUserId} and ToUserId = {userId}");
-                });
+                return db.ExecuteSqlAsync(
+                    $" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 1 where FromUserId = {toUserId} and ToUserId = {userId}");
+            });
 
         var list = await repository.DbAccess.ExecuteAsync(
             db => db.SelectAsync<PrivateMessage>(
@@ -88,12 +92,12 @@ public static class PrivateMessageRepositoryExtensions
         // Delete From UserId
         await repository.DbAccess.ExecuteAsync(
             db =>
-                {
-                    var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
+            {
+                var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
 
-                    return db.ExecuteSqlAsync(
-                        $" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 2 where FromUserId = {userId} and ToUserId = {toUserId}");
-                });
+                return db.ExecuteSqlAsync(
+                    $" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 2 where FromUserId = {userId} and ToUserId = {toUserId}");
+            });
 
         await repository.DeleteAsync(
             x => x.FromUserId == userId && x.ToUserId == toUserId && (x.Flags & 4) == 4 && (x.Flags & 2) == 2);
@@ -101,12 +105,12 @@ public static class PrivateMessageRepositoryExtensions
         // Delete to UserId
         await repository.DbAccess.ExecuteAsync(
             db =>
-                {
-                    var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
+            {
+                var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
 
-                    return db.ExecuteSqlAsync(
-                        $" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 4 where ToUserId = {userId} and FromUserId = {toUserId}");
-                });
+                return db.ExecuteSqlAsync(
+                    $" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 4 where ToUserId = {userId} and FromUserId = {toUserId}");
+            });
 
         await repository.DeleteAsync(
             x => x.ToUserId == userId && x.FromUserId == toUserId && (x.Flags & 4) == 4 && (x.Flags & 2) == 2);
@@ -122,34 +126,34 @@ public static class PrivateMessageRepositoryExtensions
         this IRepository<PrivateMessage> repository,
         int userId)
     {
-       var list = await repository.DbAccess.ExecuteAsync(
-                      db =>
-                          {
-                              var expression = db.From<PrivateMessage>(db.TableAlias("from"));
+        var list = await repository.DbAccess.ExecuteAsync(
+            db =>
+            {
+                var expression = db.From<PrivateMessage>(db.TableAlias("from"));
 
-                              expression.Where(
-                                  from => Sql.TableAlias(from.FromUserId, "from") == userId
-                                          && (Sql.TableAlias(from.Flags, "from") & 2) != 2);
+                expression.Where(
+                    from => Sql.TableAlias(from.FromUserId, "from") == userId
+                            && (Sql.TableAlias(from.Flags, "from") & 2) != 2);
 
-                              // Get from user friends
-                              expression.Join<User>(
-                                      (from, u) => u.ID == Sql.TableAlias(from.ToUserId, "from") && u.ID != userId)
-                                  .Select<User>(u => u);
+                // Get from user friends
+                expression.Join<User>(
+                        (from, u) => u.ID == Sql.TableAlias(from.ToUserId, "from") && u.ID != userId)
+                    .Select<User>(u => u);
 
-                              var expression2 = db.From<PrivateMessage>(db.TableAlias("to"));
+                var expression2 = db.From<PrivateMessage>(db.TableAlias("to"));
 
-                              expression2.Where(
-                                  to => Sql.TableAlias(to.ToUserId, "to") == userId
-                                        && (Sql.TableAlias(to.Flags, "to") & 4) != 4);
+                expression2.Where(
+                    to => Sql.TableAlias(to.ToUserId, "to") == userId
+                          && (Sql.TableAlias(to.Flags, "to") & 4) != 4);
 
-                              // Get from user friends
-                              expression2.Join<User>(
-                                      (to, u) => u.ID == Sql.TableAlias(to.FromUserId, "to") && u.ID != userId)
-                                  .Select<User>(u => u);
+                // Get from user friends
+                expression2.Join<User>(
+                        (to, u) => u.ID == Sql.TableAlias(to.FromUserId, "to") && u.ID != userId)
+                    .Select<User>(u => u);
 
-                              return db.SelectAsync<User>(
-                                  $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}");
-                          });
+                return db.SelectAsync<User>(
+                    $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}");
+            });
 
         return [.. list.DistinctBy(x => x.ID).OrderBy(x => x.Name)];
     }
@@ -165,17 +169,19 @@ public static class PrivateMessageRepositoryExtensions
         int userId)
     {
         var list = await repository.DbAccess.ExecuteAsync(db =>
-            {
-                var expression = db.From<PrivateMessage>(db.TableAlias("from"));
+        {
+            var expression = db.From<PrivateMessage>(db.TableAlias("from"));
 
-                expression.Where(from => Sql.TableAlias(from.ToUserId, "from") == userId && (Sql.TableAlias(from.Flags, "from") & 4) != 4 && (Sql.TableAlias(from.Flags, "from") & 1) != 1);
+            expression.Where(from =>
+                Sql.TableAlias(from.ToUserId, "from") == userId && (Sql.TableAlias(from.Flags, "from") & 4) != 4 &&
+                (Sql.TableAlias(from.Flags, "from") & 1) != 1);
 
-                expression.Join<User>((from, u) => u.ID == Sql.TableAlias(from.FromUserId, "from"));
+            expression.Join<User>((from, u) => u.ID == Sql.TableAlias(from.FromUserId, "from"));
 
-                expression.Select<User>(u => u);
+            expression.Select<User>(u => u);
 
-                return db.SelectAsync<User>(expression);
-            });
+            return db.SelectAsync<User>(expression);
+        });
 
         return list.LastOrDefault();
     }
@@ -194,13 +200,13 @@ public static class PrivateMessageRepositoryExtensions
         // Delete Read Messages
         return repository.DbAccess.ExecuteAsync(
             db =>
-                {
-                    var q = db.From<PrivateMessage>();
+            {
+                var q = db.From<PrivateMessage>();
 
-                    q.Where(
-                        $"{OrmLiteConfig.DialectProvider.DateDiffFunction("dd", q.Column<PrivateMessage>(b1 => b1.Created, true), OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {days}");
+                q.Where(
+                    $"{OrmLiteConfig.DialectProvider.DateDiffFunction("dd", q.Column<PrivateMessage>(b1 => b1.Created, true), OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {days}");
 
-                    return db.DeleteAsync(q);
-                });
+                return db.DeleteAsync(q);
+            });
     }
 }

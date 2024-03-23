@@ -52,7 +52,7 @@ public class ReplaceBlocksCollection : IReplaceBlocks
     /// </summary>
     public ReplaceBlocksCollection()
     {
-        this.ReplacementDictionary = new Dictionary<int, string>();
+        this.ReplacementDictionary = [];
         this.RandomizeInstance();
     }
 

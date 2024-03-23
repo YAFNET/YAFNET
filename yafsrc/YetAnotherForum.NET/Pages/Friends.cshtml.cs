@@ -51,17 +51,37 @@ public class FriendsModel : ForumPageRegistered
     {
     }
 
+    /// <summary>
+    /// Gets or sets the mode.
+    /// </summary>
+    /// <value>The mode.</value>
     [BindProperty]
     public int Mode { get; set; }
 
+    /// <summary>
+    /// Gets or sets the list count.
+    /// </summary>
+    /// <value>The list count.</value>
     [BindProperty]
     public int ListCount { get; set; }
 
+    /// <summary>
+    /// Gets or sets the ListView.
+    /// </summary>
+    /// <value>The ListView.</value>
     [BindProperty]
     public List<BuddyUser> ListView { get; set; }
 
+    /// <summary>
+    /// Gets or sets the friend list modes.
+    /// </summary>
+    /// <value>The friend list modes.</value>
     public SelectList FriendListModes { get; set; }
 
+    /// <summary>
+    /// Gets or sets the header.
+    /// </summary>
+    /// <value>The header.</value>
     public string Header { get; set; }
 
     /// <summary>
@@ -156,6 +176,11 @@ public class FriendsModel : ForumPageRegistered
         return this.Get<LinkBuilder>().Redirect(ForumPages.Friends);
     }
 
+    /// <summary>
+    /// Deny friend request.
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostDeny(int userId)
     {
         this.Get<IFriends>().DenyRequest(userId);
@@ -165,6 +190,10 @@ public class FriendsModel : ForumPageRegistered
         return this.Get<LinkBuilder>().Redirect(ForumPages.Friends);
     }
 
+    /// <summary>
+    /// Deny all friend requests.
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostDenyAll()
     {
         this.Get<IFriends>().DenyAllRequests();

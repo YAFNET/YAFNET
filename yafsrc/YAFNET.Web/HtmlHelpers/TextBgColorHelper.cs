@@ -46,7 +46,7 @@ public static class TextBgColorHelpers
         var content = new HtmlContentBuilder();
 
         content.Append(BoardContext.Current.PageUser.DarkMode
-            ? cssClass.Replace("text-bg-light", "text-bg-dark")
+            ? cssClass.Replace("-light", "-dark")
             : cssClass);
 
         return content;

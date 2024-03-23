@@ -114,7 +114,8 @@ public class Friends : IFriends, IHaveServiceLocator
     /// </summary>
     public void DenyAllRequests()
     {
-        var users = this.GetRepository<Buddy>().GetReceivedRequests(BoardContext.Current.PageUserID).Where(x => Convert.ToDateTime(x.Requested).AddDays(14) < DateTime.UtcNow);
+        var users = this.GetRepository<Buddy>().GetReceivedRequests(BoardContext.Current.PageUserID)
+            .Where(x => Convert.ToDateTime(x.Requested).AddDays(14) < DateTime.UtcNow);
 
         users.ForEach(user => this.DenyRequest(user.UserID));
     }

@@ -105,7 +105,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     ///   Gets or sets the Words to highlight in this message
     /// </summary>
     public virtual IList<string> HighlightWords {
-        get => this.highlightWords ?? new List<string>();
+        get => this.highlightWords ?? [];
         set => this.highlightWords = value;
     }
 
@@ -177,7 +177,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// </returns>
     public async override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
     {
-        this.HighlightWords = new List<string>();
+        this.HighlightWords = [];
 
         if (this.Message.IsSet())
         {

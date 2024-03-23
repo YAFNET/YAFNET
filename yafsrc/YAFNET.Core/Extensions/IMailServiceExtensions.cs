@@ -154,7 +154,7 @@ public static class IMailServiceExtensions
 
         mailMessage.Populate(fromAddress, toAddress, senderAddress, subject, bodyText, bodyHtml);
 
-        return sendMail.SendAllAsync(new List<MimeMessage> { mailMessage });
+        return sendMail.SendAllAsync([mailMessage]);
     }
 
     /// <summary>
