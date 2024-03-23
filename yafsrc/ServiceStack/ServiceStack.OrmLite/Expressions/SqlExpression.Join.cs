@@ -742,7 +742,7 @@ public abstract partial class SqlExpression<T> : ISqlExpression
 
                 if (this.UseJoinTypeAsAliases)
                 {
-                    this.joinAliases ??= new Dictionary<ModelDefinition, TableOptions>();
+                    this.joinAliases ??= [];
                     //If join multiple times and set different TableOptions, only the last setting will be used
                     this.joinAliases[targetDef] = options;
                 }

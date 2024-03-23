@@ -1,9 +1,12 @@
-﻿@using YAF.Core.Context
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Context
 @using YAF.Core.Extensions
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
+@using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
+@using YAF.Web.TagHelpers
 
 @inject BoardContext Current
 
@@ -17,7 +20,7 @@
 {
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle nav-link-user-dropdown" role="button" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="badge text-bg-light text-dark p-0 border border-light me-1">
+            <span class="@Html.GetTextBgColor("badge text-bg-light p-0 border border-light me-1")">
                 <img class="img-navbar-avatar rounded"
                      alt="avatar"
                      src="@Html.Raw(Current.Get<IAvatars>().GetAvatarUrlForCurrentUser())">
@@ -35,7 +38,7 @@
 
     <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.MyAccount ? "dropdown-item active" : "dropdown-item")"
        bs-toggle="tooltip"
-       asp-page="/MyAccount"
+       asp-page="@ForumPages.MyAccount.GetPageName()"
        role="button"
        text-localized-page="TOOLBAR"
        text-localized-tag="MYPROFILE"
@@ -55,7 +58,7 @@
     <div class="dropdown-menu">
         <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_EditProfile ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
-           asp-page="/Profile/EditProfile"
+           asp-page="@ForumPages.Profile_EditProfile.GetPageName()"
            role="button"
            text-localized-page="TOOLBAR"
            text-localized-tag="EDIT_PROFILE"
@@ -65,7 +68,7 @@
         </a>
         <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_EditSettings ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
-           asp-page="/Profile/EditSettings"
+           asp-page="@ForumPages.Profile_EditSettings.GetPageName()"
            role="button"
            text-localized-page="ACCOUNT"
            text-localized-tag="EDIT_SETTINGS"
@@ -75,7 +78,7 @@
         </a>
         <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_Attachments ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
-           asp-page="/Profile/Attachments"
+           asp-page="@ForumPages.Profile_Attachments.GetPageName()"
            role="button"
            text-localized-page="ATTACHMENTS"
            text-localized-tag="TITLE"
@@ -88,7 +91,7 @@
         {
             <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_EditAvatar ? "dropdown-item active" : "dropdown-item")"
                bs-toggle="tooltip"
-               asp-page="/Profile/EditAvatar"
+               asp-page="@ForumPages.Profile_EditAvatar.GetPageName()"
                role="button"
                text-localized-page="ACCOUNT"
                text-localized-tag="EDIT_AVATAR"
@@ -102,7 +105,7 @@
         {
             <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_EditSignature ? "dropdown-item active" : "dropdown-item")"
                bs-toggle="tooltip"
-               asp-page="/Profile/EditSignature"
+               asp-page="@ForumPages.Profile_EditSignature.GetPageName()"
                role="button"
                text-localized-page="ACCOUNT"
                text-localized-tag="SIGNATURE"
@@ -114,7 +117,7 @@
 
         <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_Subscriptions ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
-           asp-page="/Profile/Subscriptions"
+           asp-page="@ForumPages.Profile_Subscriptions.GetPageName()"
            role="button"
            text-localized-page="ACCOUNT"
            text-localized-tag="SUBSCRIPTIONS"
@@ -125,7 +128,7 @@
 
         <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_BlockOptions ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
-           asp-page="/Profile/BlockOptions"
+           asp-page="@ForumPages.Profile_BlockOptions.GetPageName()"
            role="button"
            text-localized-page="BLOCK_OPTIONS"
            text-localized-tag="TITLE"
@@ -136,7 +139,7 @@
 
         <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_ChangePassword ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
-           asp-page="/Profile/ChangePassword"
+           asp-page="@ForumPages.Profile_ChangePassword.GetPageName()"
            role="button"
            text-localized-page="ACCOUNT"
            text-localized-tag="CHANGE_PASSWORD"
@@ -149,7 +152,7 @@
         {
             <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_DeleteAccount ? "dropdown-item active" : "dropdown-item")"
                bs-toggle="tooltip"
-               asp-page="/Profile/DeleteAccount"
+               asp-page="@ForumPages.Profile_DeleteAccount.GetPageName()"
                role="button"
                text-localized-page="ACCOUNT"
                text-localized-tag="DELETE_ACCOUNT"
@@ -166,7 +169,7 @@
     {
         <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.MyMessages ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
-           asp-page="/MyMessages"
+           asp-page="@ForumPages.MyMessages.GetPageName()"
            role="button"
            title-localized-page="TOOLBAR"
            title-localized-tag="INBOX_TITLE">
@@ -187,7 +190,7 @@
     {
         <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Friends ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
-           asp-page="/Friends"
+           asp-page="@ForumPages.Friends.GetPageName()"
            role="button"
            title-localized-page="TOOLBAR"6
            title-localized-tag="BUDDIES_TITLE">
@@ -208,7 +211,7 @@
     {
         <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Albums ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
-           asp-page="/Albums"
+           asp-page="@ForumPages.Albums.GetPageName()"
            asp-route-u="@Current.PageUserID"
            role="button"
            text-localized-page="TOOLBAR"
@@ -221,7 +224,7 @@
 
     <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.MyTopics ? "dropdown-item active" : "dropdown-item")"
        bs-toggle="tooltip"
-       asp-page="/MyTopics"
+       asp-page="@ForumPages.MyTopics.GetPageName()"
        role="button"
        text-localized-page="TOOLBAR"
        text-localized-tag="MYTOPICS"
@@ -253,7 +256,7 @@
                class="nav-link"
                bs-toggle="tooltip"
                role="button"
-               asp-page="/Notification"
+               asp-page="@ForumPages.Notification.GetPageName()"
                title-localized-page="TOOLBAR"
                title-localized-tag="MYNOTIFY_TITLE">
                 @Html.Icon("bell")

@@ -188,7 +188,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// Gets the variables.
     /// </summary>
     /// <value>The variables.</value>
-    public Dictionary<string, string> Variables { get; set; } = new();
+    public Dictionary<string, string> Variables { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the execute filter.
@@ -199,7 +199,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <summary>
     /// The converters
     /// </summary>
-    public Dictionary<Type, IOrmLiteConverter> Converters = new();
+    public Dictionary<Type, IOrmLiteConverter> Converters = [];
 
     /// <summary>
     /// The automatic increment definition
@@ -2689,7 +2689,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>System.Collections.Generic.Dictionary&lt;string, System.Collections.Generic.List&lt;string&gt;&gt;.</returns>
     public virtual Dictionary<string, List<string>> GetSchemaTables(IDbCommand dbCmd)
     {
-        return new Dictionary<string, List<string>>();
+        return [];
     }
 
     /// <summary>

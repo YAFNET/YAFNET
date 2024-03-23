@@ -94,11 +94,8 @@ public class SqliteDataGuidConverter : GuidConverter
         var bytes = guid.ToByteArray();
         SwapEndian(bytes);
         var p = BitConverter.ToString(bytes).Replace("-","");
-        var fmt = "'" + p.Substring(0,8) + "-" 
-                  + p.Substring(8,4) + "-" 
-                  + p.Substring(12,4) + "-" 
-                  + p.Substring(16,4) + "-"
-                  + p.Substring(20) + "'";
+        var fmt =
+            $"'{p.Substring(0, 8)}-{p.Substring(8, 4)}-{p.Substring(12, 4)}-{p.Substring(16, 4)}-{p.Substring(20)}'";
         return fmt;
     }
 

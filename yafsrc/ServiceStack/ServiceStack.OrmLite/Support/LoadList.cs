@@ -197,7 +197,7 @@ internal abstract class LoadList<Into, From>
     {
         return OrmLiteConfig.IsCaseInsensitive
                    ? new Dictionary<object, object>(CaseInsensitiveObjectComparer.Instance)
-                   : new Dictionary<object, object>();
+                   : [];
     }
 
     /// <summary>

@@ -282,7 +282,7 @@ namespace ServiceStack.OrmLite
             var hasReferences = modelDef.HasAnyReferences(updateFields.Keys);
             if (hasReferences)
             {
-                dbFields = new Dictionary<string, object>();
+                dbFields = [];
                 foreach (var entry in updateFields)
                 {
                     if (!modelDef.IsReference(entry.Key))

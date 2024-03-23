@@ -32,11 +32,11 @@ public class DbTypes<TDialect>
     /// <summary>
     /// The column type map
     /// </summary>
-    public Dictionary<Type, string> ColumnTypeMap = new Dictionary<Type, string>();
+    public Dictionary<Type, string> ColumnTypeMap = [];
     /// <summary>
     /// The column database type map
     /// </summary>
-    public Dictionary<Type, DbType> ColumnDbTypeMap = new Dictionary<Type, DbType>();
+    public Dictionary<Type, DbType> ColumnDbTypeMap = [];
 
     /// <summary>
     /// Sets the specified database type.

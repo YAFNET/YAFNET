@@ -51,7 +51,7 @@
     @Html.CanonicalMetaTag()
 </head>
 <body id="YafBody">
-<a title="@Html.Raw(Current.Get<ILocalization>().GetText("TOOLBAR", "FORUM_TITLE"))" asp-page="/Index">
+    <a title="@Html.Raw(Current.Get<ILocalization>().GetText("TOOLBAR", "FORUM_TITLE"))" asp-page="@ForumPages.Index.GetPageName()">
     <img alt="board logo" src="@Html.Raw($"/{Current.Get<BoardFolders>().Logos}/{Current.BoardSettings.ForumLogo}")" class="my-3" />
 </a>
 <div class="yafnet">
@@ -60,7 +60,7 @@
         <header class="mb-2">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand mb-1" asp-area="" asp-page="/Index">
+                    <a class="navbar-brand mb-1" asp-area="" asp-page="@ForumPages.Index.GetPageName()">
                         @Html.Raw(Current.BoardSettings.Name)
                     </a>
 
@@ -79,7 +79,7 @@
                             {
                                 <li class="nav-item">
                                     <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Search ? "nav-link active" : "nav-link")" role="button"
-                                       asp-page="/Search"
+                                       asp-page="@ForumPages.Search.GetPageName()"
                                        bs-toggle="tooltip"
                                        text-localized-page="TOOLBAR" text-localized-tag="SEARCH"
                                        title-localized-page="TOOLBAR" title-localized-tag="SEARCH_TITLE">
@@ -91,7 +91,7 @@
                             {
                                 <li class="nav-item">
                                     <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Members ? "nav-link active" : "nav-link")" role="button"
-                                       asp-page="/Members"
+                                       asp-page="@ForumPages.Members.GetPageName()"
                                        bs-toggle="tooltip"
                                        text-localized-page="TOOLBAR" text-localized-tag="MEMBERS"
                                        title-localized-page="TOOLBAR" title-localized-tag="MEMBERS_TITLE">
@@ -103,7 +103,7 @@
                             {
                                 <li class="nav-item">
                                     <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Team ? "nav-link active" : "nav-link")" role="button"
-                                       asp-page="/Team"
+                                       asp-page="@ForumPages.Team.GetPageName()"
                                        bs-toggle="tooltip"
                                        text-localized-page="TOOLBAR" text-localized-tag="TEAM"
                                        title-localized-page="TOOLBAR" title-localized-tag="TEAM_TITLE">
@@ -115,7 +115,7 @@
                             {
                                 <li class="nav-item">
                                     <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Help ? "nav-link active" : "nav-link")" role="button"
-                                       asp-page="/Help"
+                                       asp-page="@ForumPages.Help.GetPageName()"
                                        bs-toggle="tooltip"
                                        text-localized-page="TOOLBAR" text-localized-tag="HELP"
                                        title-localized-page="TOOLBAR" title-localized-tag="HELP_TITLE">
@@ -129,7 +129,7 @@
                             {
                                 <li class="nav-item">
                                     <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Moderate_Moderate ? "nav-link active" : "nav-link")" role="button"
-                                       asp-page="/Moderate/Moderate"
+                                       asp-page="@ForumPages.Moderate_Moderate.GetPageName()"
                                        bs-toggle="tooltip"
                                        title-localized-page="TOOLBAR" title-localized-tag="MODERATE_TITLE">
                                         @Html.LocalizedText("TOOLBAR", "MODERATE")

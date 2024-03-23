@@ -30,7 +30,7 @@ public class SqlBuilder
     /// <summary>
     /// The data
     /// </summary>
-    private readonly Dictionary<string, Clauses> data = new();
+    private readonly Dictionary<string, Clauses> data = [];
     /// <summary>
     /// The seq
     /// </summary>

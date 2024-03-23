@@ -27,7 +27,7 @@ static internal class OrmLiteConfigExtensions
     /// <summary>
     /// The type model definition map
     /// </summary>
-    private static Dictionary<Type, ModelDefinition> typeModelDefinitionMap = new ();
+    private static Dictionary<Type, ModelDefinition> typeModelDefinitionMap = [];
 
     /// <summary>
     /// Checks for identifier field.
@@ -54,7 +54,7 @@ static internal class OrmLiteConfigExtensions
     /// </summary>
     static internal void ClearCache()
     {
-        typeModelDefinitionMap = new Dictionary<Type, ModelDefinition>();
+        typeModelDefinitionMap = [];
     }
 
     /// <summary>

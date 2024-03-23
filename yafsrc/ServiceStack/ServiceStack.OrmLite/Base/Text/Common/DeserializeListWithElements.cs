@@ -213,7 +213,7 @@ public static class DeserializeListWithElements<T, TSerializer>
     {
         var isReadOnly = createListType is { IsGenericType: true } && createListType.GetGenericTypeDefinition() == typeof(ReadOnlyCollection<>);
         var to = createListType == null || isReadOnly
-                     ? new List<T>()
+                     ? []
                      : (ICollection<T>)createListType.CreateInstance();
 
         var objSerializer = Json.JsonTypeSerializer.Instance.ObjectDeserializer;

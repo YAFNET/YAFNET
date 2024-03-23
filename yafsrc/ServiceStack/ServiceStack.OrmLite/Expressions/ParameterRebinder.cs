@@ -28,7 +28,7 @@ public class ParameterRebinder : SqlExpressionVisitor
     /// <param name="map">The map.</param>
     public ParameterRebinder(Dictionary<ParameterExpression, ParameterExpression> map)
     {
-        this.map = map ?? new Dictionary<ParameterExpression, ParameterExpression>();
+        this.map = map ?? [];
     }
 
     /// <summary>

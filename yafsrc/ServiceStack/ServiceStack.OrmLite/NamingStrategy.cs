@@ -26,11 +26,11 @@ public class AliasNamingStrategy : OrmLiteNamingStrategyBase
     /// <summary>
     /// The table aliases
     /// </summary>
-    public Dictionary<string, string> TableAliases = new();
+    public Dictionary<string, string> TableAliases = [];
     /// <summary>
     /// The column aliases
     /// </summary>
-    public Dictionary<string, string> ColumnAliases = new();
+    public Dictionary<string, string> ColumnAliases = [];
     /// <summary>
     /// Gets or sets the use naming strategy.
     /// </summary>

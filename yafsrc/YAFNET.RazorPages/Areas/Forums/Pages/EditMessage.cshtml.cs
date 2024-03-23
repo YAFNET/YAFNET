@@ -347,8 +347,8 @@ public class EditMessageModel : ForumPage
         if (isApproved)
         {
             return this.Get<LinkBuilder>().Redirect(
-                ForumPages.Posts,
-                new {m = messageId, t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName});
+                ForumPages.Post,
+                new {m = messageId, name = this.PageBoardContext.PageTopic.TopicName});
         }
 
         // Not Approved
@@ -367,8 +367,7 @@ public class EditMessageModel : ForumPage
         if (this.PageBoardContext.PageTopicID > 0 && this.PageBoardContext.PageTopic.NumPosts > 1)
         {
             url = this.Get<LinkBuilder>().GetTopicLink(
-                this.PageBoardContext.PageTopicID,
-                this.PageBoardContext.PageTopic.TopicName);
+                this.PageBoardContext.PageTopic);
         }
 
         return this.Get<LinkBuilder>().Redirect(ForumPages.Info, new {i = 1, url = HttpUtility.UrlEncode(url)});

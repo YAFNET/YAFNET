@@ -759,7 +759,7 @@ public class SqlCommandDetails
             return;
         }
 
-        this.Parameters = new Dictionary<string, object>();
+        this.Parameters = [];
 
         foreach (IDataParameter parameter in command.Parameters)
         {

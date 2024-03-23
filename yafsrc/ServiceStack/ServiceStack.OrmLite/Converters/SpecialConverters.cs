@@ -58,7 +58,7 @@ namespace ServiceStack.OrmLite.Converters
         /// <summary>
         /// The enum type cache
         /// </summary>
-        static Dictionary<Type, EnumKind> enumTypeCache = new Dictionary<Type, EnumKind>();
+        static Dictionary<Type, EnumKind> enumTypeCache = [];
 
         /// <summary>
         /// Gets the kind of the enum.

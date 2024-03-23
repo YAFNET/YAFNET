@@ -441,7 +441,7 @@
                                    title-localized-page="COMMON"
                                    title-localized-tag="VIEW_TOPIC"
                                    bs-toggle="tooltip"
-                                   href="@Html.Raw(Model.Get<LinkBuilder>().GetTopicLink(message.Item2.ID, message.Item2.TopicName))"
+                                   href="@Html.Raw(Model.Get<LinkBuilder>().GetTopicLink(message.Item2))"
                                    text="@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(message.Item2.TopicName))">
                                 </a>
                             </div>

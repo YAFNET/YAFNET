@@ -198,6 +198,7 @@
                                                Icon="external-link-alt"
                                                asp-page="@ForumPages.Posts.GetPageName()"
                                                asp-route-m="@message.MessageID"
+                                               asp-route-T="@message.TopicID"
                                                asp-route-name="@Html.HtmlEncode(message.Topic)">
                                             </a>
 

@@ -620,7 +620,7 @@ public static class PlatformExtensions
     {
         return typeAttributesMap.TryGetValue(type, out var attrs)
             ? attrs.OfType<T>()
-            : new List<T>();
+            : [];
     }
 
     /// <summary>
@@ -634,7 +634,7 @@ public static class PlatformExtensions
     {
         return typeAttributesMap.TryGetValue(type, out var attrs)
             ? attrs.Where(x => attrType == null || attrType.IsInstanceOf(x.GetType()))
-            : new List<Attribute>();
+            : [];
     }
 
     /// <summary>

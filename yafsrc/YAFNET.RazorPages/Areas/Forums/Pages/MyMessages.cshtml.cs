@@ -90,7 +90,7 @@ public class MyMessagesModel : ForumPageRegistered
     /// </summary>
     private async Task<IActionResult> BindDataAsync(int? u = null)
     {
-        this.PrivateMessages = new List<PrivateMessage>();
+        this.PrivateMessages = [];
 
         this.Users = [];
 

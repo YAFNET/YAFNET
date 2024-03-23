@@ -89,7 +89,7 @@ public class ReportPostModel : ForumPage
 
         // Redirect to reported post
         return this.Get<LinkBuilder>().Redirect(
-            ForumPages.Posts,
+            ForumPages.Post,
             new {m = this.PageBoardContext.PageMessage.ID, name = this.PageBoardContext.PageTopic.TopicName});
     }
 

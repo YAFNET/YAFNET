@@ -152,9 +152,11 @@ public class ReportedPostsModel : ModerateForumPage
     /// </returns>
     public Task<RedirectToPageResult> OnPostViewAsync(int messageId)
     {
+        var topic = this.GetRepository<Topic>().GetTopicFromMessage(messageId);
+
         return Task.FromResult(this.RedirectToPage(
-           ForumPages.Posts.GetPageName(),
-            new { m = messageId, name = this.GetRepository<Topic>().GetNameFromMessage(messageId) }));
+           ForumPages.Post.GetPageName(),
+            new { m = messageId, name = topic.TopicName }));
     }
 
     /// <summary>

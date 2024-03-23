@@ -69,7 +69,7 @@ public class SiteMapModel : ForumPage
             forum => siteMap.Add(
                 new UrlLocation {
                                     Url =
-                                        $"{this.Request.BaseUrl()}{BoardContext.Current.Get<LinkBuilder>().GetTopicLink(
+                                        $"{this.Request.BaseUrl()}{BoardContext.Current.Get<LinkBuilder>().GetForumLink(
                                             forum.Item1.ID,
                                             forum.Item1.Name)}",
                                     Priority = 0.8D,

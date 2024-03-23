@@ -109,7 +109,7 @@ public class MoveMessageModel : ForumPageRegistered
         var topic = this.GetRepository<Topic>().GetById(moveTopicId);
 
         return this.Get<LinkBuilder>().Redirect(
-            ForumPages.Posts,
+            ForumPages.Post,
             new {m = this.PageBoardContext.PageMessage.ID, name = topic.TopicName});
     }
 

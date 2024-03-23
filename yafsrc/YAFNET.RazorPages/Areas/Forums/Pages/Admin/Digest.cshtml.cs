@@ -94,7 +94,7 @@ public class DigestModel : AdminPage
                 this.TextSendEmail.Trim(),
                 string.Empty);
 
-            await this.Get<IMailService>().SendAllAsync(new List<MimeMessage> { digestMail });
+            await this.Get<IMailService>().SendAllAsync([digestMail]);
 
             return this.PageBoardContext.Notify(
                 this.GetTextFormatted("MSG_SEND_SUC", "Direct"),

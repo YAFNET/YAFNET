@@ -44,12 +44,12 @@ using YAF.Types.Objects.Model;
 /// <summary>
 /// The Posts list page
 /// </summary>
-public class PostsModel : ForumPage
+public class PostModel : ForumPage
 {
     /// <summary>
     ///   Initializes a new instance of the <see cref = "PostsModel" /> class.
     /// </summary>
-    public PostsModel()
+    public PostModel()
         : base("POSTS", ForumPages.Posts)
     {
     }
@@ -93,7 +93,7 @@ public class PostsModel : ForumPage
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet(string name, int t, int? p = null, int? m = null)
+    public IActionResult OnGet(string name, int m, int? p = null)
     {
         this.Get<ISessionService>().SetPageData(new List<PagedMessage>());
 
@@ -132,7 +132,7 @@ public class PostsModel : ForumPage
                                 ? $"{topicSubject} - <em>{this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.PageBoardContext.PageTopic.Description))}</em>"
                                 : this.Get<IBadWordReplace>().Replace(topicSubject);
 
-        return this.BindData(p, m);
+        return this.BindData(m, p);
     }
 
     /// <summary>
@@ -233,7 +233,7 @@ public class PostsModel : ForumPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private IActionResult BindData(int? p = null, int? m = null)
+    private IActionResult BindData(int m, int? p = null)
     {
         var showDeleted = this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess ||
                           this.PageBoardContext.BoardSettings.ShowDeletedMessagesToAll;

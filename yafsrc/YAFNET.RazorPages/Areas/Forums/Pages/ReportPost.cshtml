@@ -20,7 +20,7 @@
     >
         <div class="row">
             <div class="col">
-            <div class="card text-bg-light mb-3">
+            <div class="@Html.GetTextBgColor("card text-bg-light mb-3")">
                     <div class="card-header">
                         @Html.IconHeader("comment","REPORTPOST","REPORTPOST_TITLE")
                     </div>
@@ -70,7 +70,7 @@
                             title-localized-tag="SEND_TITLE"
                             bs-toggle="tooltip"></button>
                         <a role="button"
-                           href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Posts, new {m = Model.PageBoardContext.PageMessage.ID, name = Model.PageBoardContext.PageTopic.TopicName}))"
+                       href="@Html.Raw(Model.Get<LinkBuilder>().GetMessageLink(Model.PageBoardContext.PageTopic, Model.PageBoardContext.PageMessage.ID))"
                            button-style="Secondary"
                            icon="reply"
                            text-localized-page="COMMON"

@@ -84,9 +84,7 @@ public class EmailTopicModel : ForumPage
 
         this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
 
-        this.PageBoardContext.PageLinks.AddLink(
-            this.PageBoardContext.PageTopic.TopicName,
-            this.Get<LinkBuilder>().GetTopicLink(this.PageBoardContext.PageTopicID, this.PageBoardContext.PageTopic.TopicName));
+        this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic);
 
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("EMAILTOPIC", "TITLE"),
