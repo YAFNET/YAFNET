@@ -136,7 +136,7 @@ public static class MessageReportedRepositoryExtensions
                         MessageID = message.ID,
                         UserID = userId,
                         Reported = reportedDateTime,
-                        ReportText = $"{DateTime.UtcNow}??{reportText}"
+                        ReportText = $"{DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)}??{reportText}"
                     });
         }
         else
@@ -146,7 +146,7 @@ public static class MessageReportedRepositoryExtensions
                           {
                               ReportedNumber = reportAudit.ReportedNumber < 2147483647 ? reportAudit.ReportedNumber + 1 : reportAudit.ReportedNumber,
                               Reported = reportedDateTime,
-                              ReportText = $"{reportAudit.ReportText}|{DateTime.UtcNow}??{reportText}"
+                              ReportText = $"{reportAudit.ReportText}|{DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)}??{reportText}"
                           },
                 m => m.MessageID == message.ID && m.UserID == userId);
         }
