@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using System;
@@ -46,52 +47,49 @@ public static class MessageReportedRepositoryExtensions
     public static
         List<ReportedMessage> ListReported(this IRepository<MessageReported> repository, int forumId)
     {
-        
-
         return repository.DbAccess.Execute(
             db =>
-                {
-                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageReported>();
+            {
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageReported>();
 
-                    expression
-                        .Join<Message>((a, m) => m.ID == a.ID)
-                        .Join<Message, Topic>((m, t) => t.ID == m.TopicID)
-                        .Join<Message, User>((m, u) => u.ID == m.UserID)
-                        .Where<Message, Topic>(
-                            (m, t) => t.ForumID == forumId && (m.Flags & 8) != 8 && (t.Flags & 8) != 8 &&
-                                      (m.Flags & 128) == 128);
+                expression
+                    .Join<Message>((a, m) => m.ID == a.ID)
+                    .Join<Message, Topic>((m, t) => t.ID == m.TopicID)
+                    .Join<Message, User>((m, u) => u.ID == m.UserID)
+                    .Where<Message, Topic>(
+                        (m, t) => t.ForumID == forumId && (m.Flags & 8) != 8 && (t.Flags & 8) != 8 &&
+                                  (m.Flags & 128) == 128);
 
-                    var q = db.Connection.From<MessageReportedAudit>(db.Connection.TableAlias("x"));
-                    q.Where(
-                        $"x.{q.Column<MessageReportedAudit>(a => a.MessageID)}={expression.Column<MessageReported>(a => a.ID, true)}");
-                    var subSql = q.Select(Sql.Count($"{q.Column<MessageReportedAudit>(a => a.LogID)}"))
-                        .ToSelectStatement();
+                var q = db.Connection.From<MessageReportedAudit>(db.Connection.TableAlias("x"));
+                q.Where(
+                    $"x.{q.Column<MessageReportedAudit>(a => a.MessageID)}={expression.Column<MessageReported>(a => a.ID, true)}");
+                var subSql = q.Select(Sql.Count($"{q.Column<MessageReportedAudit>(a => a.LogID)}"))
+                    .ToSelectStatement();
 
-                    expression.Select<MessageReported, MessageReportedAudit, Message, Topic, User>(
-                        (a, b, m, t, u) => new
-                                               {
-                                                   MessageID = a.ID,
-                                                   a.Message,
-                                                   a.ResolvedBy,
-                                                   a.ResolvedDate,
-                                                   a.Resolved,
-                                                   OriginalMessage = m.MessageText,
-                                                   m.Flags,
-                                                   m.IsModeratorChanged,
-                                                   UserName = m.UserName == null ? u.Name : m.UserName,
-                                                   UserDisplayName = m.UserDisplayName == null ? u.DisplayName : m.UserDisplayName,
-                                                   m.UserID,
-                                                   u.Suspended,
-                                                   u.UserStyle,
-                                                   m.Posted,
-                                                   m.TopicID,
-                                                   t.TopicName,
-                                                   NumberOfReports = Sql.Custom($"({subSql})")
-                                               });
+                expression.Select<MessageReported, MessageReportedAudit, Message, Topic, User>(
+                    (a, b, m, t, u) => new {
+                        MessageID = a.ID,
+                        a.Message,
+                        a.ResolvedBy,
+                        a.ResolvedDate,
+                        a.Resolved,
+                        OriginalMessage = m.MessageText,
+                        m.Flags,
+                        m.IsModeratorChanged,
+                        UserName = m.UserName == null ? u.Name : m.UserName,
+                        UserDisplayName = m.UserDisplayName == null ? u.DisplayName : m.UserDisplayName,
+                        m.UserID,
+                        u.Suspended,
+                        u.UserStyle,
+                        m.Posted,
+                        m.TopicID,
+                        t.TopicName,
+                        NumberOfReports = Sql.Custom($"({subSql})")
+                    });
 
-                    return db.Connection
-                        .Select<ReportedMessage>(expression);
-                });
+                return db.Connection
+                    .Select<ReportedMessage>(expression);
+            });
     }
 
     /// <summary>
@@ -119,8 +117,6 @@ public static class MessageReportedRepositoryExtensions
         DateTime reportedDateTime,
         string reportText)
     {
-        
-
         reportText ??= string.Empty;
 
         if (!repository.Exists(m => m.ID == message.Item2.ID))
@@ -134,23 +130,23 @@ public static class MessageReportedRepositoryExtensions
         if (reportAudit == null)
         {
             BoardContext.Current.GetRepository<MessageReportedAudit>().Insert(
-                new MessageReportedAudit
-                    {
-                        MessageID = message.Item2.ID,
-                        UserID = userId,
-                        Reported = reportedDateTime,
-                        ReportText = $"{DateTime.UtcNow}??{reportText}"
-                    });
+                new MessageReportedAudit {
+                    MessageID = message.Item2.ID,
+                    UserID = userId,
+                    Reported = reportedDateTime,
+                    ReportText = $"{DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)}??{reportText}"
+                });
         }
         else
         {
             BoardContext.Current.GetRepository<MessageReportedAudit>().UpdateOnly(
-                () => new MessageReportedAudit
-                          {
-                              ReportedNumber = reportAudit.ReportedNumber < 2147483647 ? reportAudit.ReportedNumber + 1 : reportAudit.ReportedNumber,
-                              Reported = reportedDateTime,
-                              ReportText = $"{reportAudit.ReportText}|{DateTime.UtcNow}??{reportText}"
-                          },
+                () => new MessageReportedAudit {
+                    ReportedNumber = reportAudit.ReportedNumber < 2147483647
+                        ? reportAudit.ReportedNumber + 1
+                        : reportAudit.ReportedNumber,
+                    Reported = reportedDateTime,
+                    ReportText = $"{reportAudit.ReportText}|{DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)}??{reportText}"
+                },
                 m => m.MessageID == message.Item2.ID && m.UserID == userId);
         }
 
@@ -172,8 +168,6 @@ public static class MessageReportedRepositoryExtensions
     /// </param>
     public static void ReportCopyOver(this IRepository<MessageReported> repository, Message message)
     {
-        
-
         repository.UpdateOnly(() => new MessageReported { Message = message.MessageText }, m => m.ID == message.ID);
     }
 }
