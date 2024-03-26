@@ -73,7 +73,7 @@ public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHave
 
         var routeData = context.GetRouteData();
 
-        if (queryString.Count == 0 && routeData.Values.Count > 0)
+        /*if (queryString.Count == 0 && routeData.Values.Count > 0)
         {
             @event.PageQueryData.CategoryID = routeData.Values["c"].ToTypeOrDefault(0);
             @event.PageQueryData.ForumID = routeData.Values["f"].ToTypeOrDefault(0);
@@ -88,7 +88,14 @@ public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHave
             @event.PageQueryData.TopicID = queryString["t"].FirstOrDefault().ToTypeOrDefault(0);
             @event.PageQueryData.MessageID = queryString["m"].FirstOrDefault().ToTypeOrDefault(0);
             @event.PageQueryData.PageIndex = queryString["p"].FirstOrDefault().ToTypeOrDefault(0);
-        }
+        }*/
+
+        @event.PageQueryData.CategoryID = context.Request.GetQueryOrRouteValue<int>("c").ToTypeOrDefault(0);
+        @event.PageQueryData.ForumID = context.Request.GetQueryOrRouteValue<int>("f").ToTypeOrDefault(0);
+        @event.PageQueryData.TopicID = context.Request.GetQueryOrRouteValue<int>("t").ToTypeOrDefault(0);
+        @event.PageQueryData.MessageID = context.Request.GetQueryOrRouteValue<int>("m").ToTypeOrDefault(0);
+        @event.PageQueryData.PageIndex = context.Request.GetQueryOrRouteValue<int>("p").ToTypeOrDefault(0);
+
 
         var topicId = this.Get<IDataCache>().Get("TopicID");
 
