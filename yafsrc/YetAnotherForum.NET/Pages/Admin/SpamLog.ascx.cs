@@ -39,7 +39,7 @@ public partial class SpamLog : AdminPage
     private readonly StackTraceBeautify beautify;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SpamLog"/> class. 
+    /// Initializes a new instance of the <see cref="SpamLog"/> class.
     /// </summary>
     public SpamLog()
         : base("ADMIN_EVENTLOG", ForumPages.Admin_SpamLog)
@@ -228,23 +228,25 @@ public partial class SpamLog : AdminPage
                 var addressLink = string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, json.UserIP);
 
                 var exceptionSource = ((string)json.ExceptionSource).IsSet() ?
-                                          @$"<span class=""badge {textBgColor} m-1""><i class=""fa-solid fa-code me-1""></i>{json.ExceptionSource}</span>"
-                                           : "";
+                    $"""<span class="badge {textBgColor} m-1"><i class="fa-solid fa-code me-1"></i>{json.ExceptionSource}</span>"""
+                    : "";
 
                 var url = ((string)json.Url).IsSet()
-                              ? @$"<span class=""badge text-bg-secondary m-1""><i class=""fa-solid fa-globe me-1""></i>{json.Url}</span>"
+                              ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-globe me-1"></i>{json.Url}</span>"""
                               : "";
 
                 var userIp = ((string)json.UserIP).IsSet()
-                                  ? @$"<span class=""badge text-bg-info m-1""><i class=""fa-solid fa-desktop me-1""></i><a href=""{addressLink}"" target=""_blank"">{json.UserIP}</a></span>"
+                                  ? $"""<span class="badge text-bg-info m-1"><i class="fa-solid fa-desktop me-1"></i><a href="{addressLink}" target="_blank">{json.UserIP}</a></span>"""
                                   : "";
 
                 var userAgent = ((string)json.Url).IsSet()
-                                     ? @$"<span class=""badge text-bg-secondary m-1""><i class=""fa-solid fa-computer me-1""></i>{json.UserAgent}</span>"
+                                     ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-computer me-1"></i>{json.UserAgent}</span>"""
                                      : "";
 
-                return @$"<h6 class=""card-subtitle"">{json.Message}</h6><h5>{userIp}{url}{exceptionSource}{userAgent}</h5><div>{json.ExceptionMessage}</div>
-                         <div>{this.beautify.Beautify(this.HtmlEncode(json.ExceptionStackTrace.ToString()))}</div>";
+                return $"""
+                        <h6 class="card-subtitle">{json.Message}</h6><h5>{userIp}{url}{exceptionSource}{userAgent}</h5><div>{json.ExceptionMessage}</div>
+                                                 <div>{this.beautify.Beautify(this.HtmlEncode(json.ExceptionStackTrace.ToString()))}</div>
+                        """;
             }
             catch (Exception)
             {
