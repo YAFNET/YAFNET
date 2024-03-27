@@ -36,19 +36,16 @@ public class BaseReportedPosts : BaseUserControl
     /// <summary>
     ///   Gets or sets Resolved.
     /// </summary>
-    
     public virtual string Resolved { get; set; }
 
     /// <summary>
     ///   Gets or sets ResolvedBy. It returns UserID as string value
     /// </summary>
-    
     public virtual int? ResolvedBy { get; set; }
 
     /// <summary>
     ///   Gets or sets ResolvedDate.
     /// </summary>
-    
     public virtual string ResolvedDate { get; set; }
 
     /// <summary>
@@ -71,7 +68,7 @@ public class BaseReportedPosts : BaseUserControl
         reportersList.ForEach(
             reporter =>
                 {
-                    writer.WriteLine(@"<div class=""alert alert-secondary"" role=""alert"">");
+                    writer.WriteLine("""<div class="alert alert-secondary" role="alert">""");
 
                     string howMany = null;
                     if (reporter.Item1.ReportedNumber > 1)
@@ -91,7 +88,7 @@ public class BaseReportedPosts : BaseUserControl
                         var resolvedByName = resolvedBy.DisplayOrUserName();
 
                         writer.Write(
-                            @"<span class=""fw-bold me-2"">{0}</span><a href=""{1}"">{2}</a> : {3}",
+                            """<span class="fw-bold me-2">{0}</span><a href="{1}">{2}</a> : {3}""",
                             this.GetText("RESOLVEDBY"),
                             this.Get<LinkBuilder>().GetUserProfileLink(this.ResolvedBy.ToType<int>(), resolvedByName),
                             resolvedByName,

@@ -1,6 +1,6 @@
 {
     "name": "yetanotherforum-net",
-    "version": "3.2.2",
+    "version": "3.2.3",
     "private": true,
     "scripts": {
         "preinstall": "npm install -g ruby sass"
