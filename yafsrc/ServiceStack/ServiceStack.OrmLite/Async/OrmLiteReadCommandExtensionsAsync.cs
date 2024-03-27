@@ -786,7 +786,7 @@ namespace ServiceStack.OrmLite
         {
             var modelType = typeof(TOutputModel);
 
-            string sql = dbCmd.GetDialectProvider().ToSelectFromProcedureStatement(
+            var sql = dbCmd.GetDialectProvider().ToSelectFromProcedureStatement(
                 fromObjWithProperties, modelType, sqlFilter, filterParams);
 
             return dbCmd.ConvertToListAsync<TOutputModel>(sql, token);

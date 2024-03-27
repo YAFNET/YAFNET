@@ -90,7 +90,7 @@ namespace YAF.Lucene.Net.Store
                 UninterruptableMonitor.Exit(this);
             }
 
-            directory?.m_sizeInBytes.AddAndGet(size);
+            directory?.m_sizeInBytes.GetAndAdd(size);
             return buffer;
         }
 
