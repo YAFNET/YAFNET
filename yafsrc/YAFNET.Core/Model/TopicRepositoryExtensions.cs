@@ -22,7 +22,6 @@
  * under the License.
  */
 
-// ReSharper disable MergeConditionalExpression
 namespace YAF.Core.Model;
 
 using System;
@@ -1597,7 +1596,7 @@ public static class TopicRepositoryExtensions
                 ForumName = forum.Name,
                 TopicID = topic.ID,
                 topic.Posted,
-                LinkTopicID = topic.TopicMovedID != null ? topic.TopicMovedID : topic.ID,
+                LinkTopicID = topic.TopicMovedID ?? topic.ID,
                 topic.TopicMovedID,
                 Subject = topic.TopicName,
                 topic.Description,

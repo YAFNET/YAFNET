@@ -69,7 +69,7 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
     }
 
     /// <summary>
-    /// Get an instance of a module (based on it's id).
+    /// Get an instance of a module (based on its id).
     /// </summary>
     /// <param name="id">
     /// The id.
@@ -90,7 +90,7 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
     }
 
     /// <summary>
-    /// Get an instance of a module (based on it's id).
+    /// Get an instance of a module (based on its id).
     /// </summary>
     /// <param name="id">
     /// The id.

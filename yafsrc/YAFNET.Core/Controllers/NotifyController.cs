@@ -37,7 +37,6 @@ using YAF.Core.Model;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Types.Attributes;
-using YAF.Types.Objects.Language;
 
 /// <summary>
 /// The Notifications controller.

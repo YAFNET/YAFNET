@@ -26,8 +26,6 @@ namespace YAF.Core.BasePages;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-using System.Threading;
-
 /// <summary>
 /// The base page.
 /// </summary>

@@ -322,7 +322,8 @@ public static class ForumRepositoryExtensions
             () => repository.ListAllWithAccess(boardId, userId),
             TimeSpan.FromMinutes(5));
 
-        return repository.SortList(list.Where(x => x.Item1.Name.ToLower().Contains(searchTerm)));
+        return repository.SortList(list.Where(x =>
+            x.Item1.Name.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase)));
     }
 
     /// <summary>

@@ -23,7 +23,6 @@
  */
 
 using System;
-using System.Text.Json;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;

@@ -53,7 +53,7 @@ public static class GroupRepositoryExtensions
     {
         return groupId.HasValue
                    ? repository.Get(g => g.BoardID == boardId && g.ID == groupId.Value)
-                   : repository.Get(g => g.BoardID == boardId).OrderBy(o => o.SortOrder).ToList();
+                   : [.. repository.Get(g => g.BoardID == boardId).OrderBy(o => o.SortOrder)];
     }
 
     /// <summary>

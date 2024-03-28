@@ -46,7 +46,7 @@ public static class UserAlbumRepositoryExtensions
     /// </param>
     public static List<UserAlbum> ListByUser(this IRepository<UserAlbum> repository, int userId)
     {
-        return repository.Get(userAlbum => userAlbum.UserID == userId).OrderByDescending(u => u.Updated).ToList();
+        return [.. repository.Get(userAlbum => userAlbum.UserID == userId).OrderByDescending(u => u.Updated)];
     }
 
     /// <summary>
@@ -67,8 +67,7 @@ public static class UserAlbumRepositoryExtensions
     /// </param>
     public static List<UserAlbum> ListByUserPaged(this IRepository<UserAlbum> repository, int userId, int pageIndex, int pageSize)
     {
-        return repository.GetPaged(userAlbum => userAlbum.UserID == userId, pageIndex, pageSize)
-            .OrderByDescending(u => u.Updated).ToList();
+        return [.. repository.GetPaged(userAlbum => userAlbum.UserID == userId, pageIndex, pageSize).OrderByDescending(u => u.Updated)];
     }
 
     /// <summary>

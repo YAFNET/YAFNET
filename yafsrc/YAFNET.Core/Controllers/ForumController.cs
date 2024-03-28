@@ -24,7 +24,6 @@
 
 namespace YAF.Core.Controllers;
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using YAF.Core.BasePages;

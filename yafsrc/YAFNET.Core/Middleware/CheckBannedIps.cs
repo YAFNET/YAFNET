@@ -31,7 +31,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
 using YAF.Types.Models;
-using YAF.Types.Objects;
 
 /// <summary>
 /// Middleware to Check For Banned IP

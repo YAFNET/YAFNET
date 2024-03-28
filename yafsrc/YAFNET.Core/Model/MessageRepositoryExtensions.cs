@@ -22,9 +22,6 @@
  * under the License.
  */
 
-// ReSharper disable MergeConditionalExpression
-#pragma warning disable S1125
-// ReSharper disable RedundantTernaryExpression
 namespace YAF.Core.Model;
 
 using System;
@@ -229,7 +226,7 @@ public static class MessageRepositoryExtensions
                 m.ExternalMessageId,
                 d.Views,
                 d.ForumID,
-                Edited = m.Edited != null ? m.Edited : m.Posted,
+                Edited = m.Edited ?? m.Posted,
                 TotalRows = Sql.Custom($"({countTotalSql})")
             });
 

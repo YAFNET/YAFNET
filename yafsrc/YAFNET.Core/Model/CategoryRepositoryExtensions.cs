@@ -67,9 +67,9 @@ public static class CategoryRepositoryExtensions
         int? boardId = null)
     {
         return categoryId.HasValue
-                   ? repository.Get(
+                   ? [.. repository.Get(
                        category => category.BoardID == (boardId ?? repository.BoardID)
-                                   && category.ID == categoryId.Value).OrderBy(o => o.SortOrder).ToList()
+                                   && category.ID == categoryId.Value).OrderBy(o => o.SortOrder)]
                    : repository.Get(category => category.BoardID == (boardId ?? repository.BoardID));
     }
 

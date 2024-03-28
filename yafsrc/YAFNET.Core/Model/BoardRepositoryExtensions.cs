@@ -575,6 +575,6 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
         BoardContext.Current.GetRepository<BannedName>().Delete(x => x.BoardID == boardId);
         BoardContext.Current.GetRepository<BannedEmail>().Delete(x => x.BoardID == boardId);
         BoardContext.Current.GetRepository<Registry>().Delete(x => x.BoardID == boardId);
-        BoardContext.Current.GetRepository<Board>().Delete(x => x.ID == boardId);
+        repository.Delete(x => x.ID == boardId);
     }
 }

@@ -89,7 +89,7 @@ public static class IReplaceBlocksExtensions
 
             // insert the replaced value back in...
             sb.Insert(m.Groups[0].Index, replace);
-            
+
             m = _regExHtml.Match(sb.ToString());
         }
     }

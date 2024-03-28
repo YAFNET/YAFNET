@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using YAF.Types.Models;
-
 namespace YAF.Core.BasePages;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;

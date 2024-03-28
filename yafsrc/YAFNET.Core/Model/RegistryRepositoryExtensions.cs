@@ -179,7 +179,7 @@ public static class RegistryRepositoryExtensions
 
         try
         {
-            var registry = repository.GetSingle(r => r.Name.ToLower() == "version");
+            var registry = repository.GetSingle(r => r.Name == "version");
 
             if (registry == null)
             {
@@ -239,7 +239,7 @@ public static class RegistryRepositoryExtensions
     {
         return BoardContext.Current.Get<IDataCache>().GetOrSet(
             Constants.Cache.Version,
-            () => repository.GetSingle(r => r.Name.ToLower() == "version").Value.ToType<int>());
+            () => repository.GetSingle(r => r.Name == "version").Value.ToType<int>());
     }
 
     /// <summary>
@@ -254,9 +254,9 @@ public static class RegistryRepositoryExtensions
         repository.Delete(x => x.Name == "avatarremote");
         repository.Delete(x => x.Name == "enablethanksmod");
         repository.Delete(x => x.Name == "topicsperpage");
-        repository.Delete(x => x.Name == "MemberListPageSize".ToLower());
-        repository.Delete(x => x.Name == "MyTopicsListPageSize".ToLower());
-        repository.Delete(x => x.Name == "EnableTopicDescription".ToLower());
-        repository.Delete(x => x.Name == "MaxWordLength".ToLower());
+        repository.Delete(x => x.Name == "memberlistpagesize");
+        repository.Delete(x => x.Name == "mytopicslistpagesize");
+        repository.Delete(x => x.Name == "enableTopicdescription");
+        repository.Delete(x => x.Name == "maxwordlength");
     }
 }

@@ -24,8 +24,6 @@ namespace YAF.Core.Services;
 
 using System.IO;
 
-using Microsoft.AspNetCore.Hosting;
-
 /// <summary>
 /// The YAF theme.
 /// </summary>

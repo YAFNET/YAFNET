@@ -64,8 +64,7 @@ public static class UserAlbumImageRepositoryExtensions
         this IRepository<UserAlbumImage> repository,
         int albumId)
     {
-        return repository.Get(albumImage => albumImage.AlbumID == albumId).OrderByDescending(a => a.Uploaded)
-            .ToList();
+        return [.. repository.Get(albumImage => albumImage.AlbumID == albumId).OrderByDescending(a => a.Uploaded)];
     }
 
     /// <summary>
@@ -92,8 +91,7 @@ public static class UserAlbumImageRepositoryExtensions
         int pageIndex,
         int pageSize)
     {
-        return repository.GetPaged(albumImage => albumImage.AlbumID == albumId, pageIndex, pageSize)
-            .OrderByDescending(a => a.Uploaded).ToList();
+        return [.. repository.GetPaged(albumImage => albumImage.AlbumID == albumId, pageIndex, pageSize).OrderByDescending(a => a.Uploaded)];
     }
 
     /// <summary>

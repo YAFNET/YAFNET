@@ -30,13 +30,13 @@ using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Core.BasePages;
 using YAF.Types.Objects.Model;
 
 using Microsoft.AspNetCore.OutputCaching;
-using YAF.Types.Attributes;
 
 /// <summary>
 /// The User controller.
@@ -79,19 +79,17 @@ public class UserController : ForumBaseController
             false);
 
         var usersList = (from PagedUser user in users
-                         select new SelectOptions
-                                    {
-                                        text = this.PageBoardContext.BoardSettings.EnableDisplayName
-                                                   ? user.DisplayName
-                                                   : user.Name,
-                                        id = user.UserID.ToString()
-                                    }).ToList();
+            select new SelectOptions {
+                text = this.PageBoardContext.BoardSettings.EnableDisplayName
+                    ? user.DisplayName
+                    : user.Name,
+                id = user.UserID.ToString()
+            }).ToList();
 
-        var pagedUsers = new SelectPagedOptions
-                              {
-                                  Total = !users.NullOrEmpty() ? users.FirstOrDefault()!.TotalRows : 0,
-                                  Results = usersList
-                              };
+        var pagedUsers = new SelectPagedOptions {
+            Total = !users.NullOrEmpty() ? users.FirstOrDefault()!.TotalRows : 0,
+            Results = usersList
+        };
 
         return this.Ok(pagedUsers);
     }
@@ -121,8 +119,8 @@ public class UserController : ForumBaseController
 
             var usersList = this.GetRepository<User>().Get(
                 user => this.PageBoardContext.BoardSettings.EnableDisplayName
-                            ? user.DisplayName.StartsWith(searchQuery)
-                            : user.Name.StartsWith(searchQuery));
+                    ? user.DisplayName.StartsWith(searchQuery)
+                    : user.Name.StartsWith(searchQuery));
 
             var userList = usersList.AsEnumerable().Where(u =>
                 !this.Get<IUserIgnored>().IsIgnored(u.ID) && u.BoardID == BoardContext.Current.PageBoardID &&
@@ -137,7 +135,9 @@ public class UserController : ForumBaseController
         }
         catch (Exception x)
         {
-            this.Get<ILogger<UserController>>().Log(BoardContext.Current != null ? this.PageBoardContext.PageUserID : null, this, x, EventLogTypes.Information);
+            this.Get<ILogger<UserController>>()
+                .Log(BoardContext.Current != null ? this.PageBoardContext.PageUserID : null, this, x,
+                    EventLogTypes.Information);
 
             return Task.FromResult<ActionResult>(this.NotFound());
         }

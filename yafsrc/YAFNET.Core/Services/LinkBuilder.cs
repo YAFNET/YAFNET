@@ -334,9 +334,16 @@ public class LinkBuilder : IHaveServiceLocator
     /// </param>
     public IActionResult Redirect(ForumPages page, object values)
     {
+        var routeValues = new RouteValueDictionary(values);
+
+        if (routeValues.ContainsKey("name"))
+        {
+            routeValues["name"] = UrlRewriteHelper.CleanStringForUrl(routeValues["name"]!.ToString());
+        }
+
         return BoardContext.Current.CurrentForumPage != null
-                   ? BoardContext.Current.CurrentForumPage.RedirectToPage(page.GetPageName(), null, values)
-                   : BoardContext.Current.CurrentForumController.RedirectToPage(page.GetPageName(), null, values);
+                   ? BoardContext.Current.CurrentForumPage.RedirectToPage(page.GetPageName(), null, routeValues)
+                   : BoardContext.Current.CurrentForumController.RedirectToPage(page.GetPageName(), null, routeValues);
     }
 
     /// <summary>

@@ -26,7 +26,6 @@ using System;
 
 namespace YAF.Core.Extensions;
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using MimeKit;
