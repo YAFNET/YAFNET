@@ -237,7 +237,7 @@ public static class JavaScriptBlocks
                        switch (tabName) {
                        case "#View1":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersInfo?userId=" + editUserId,
+                               fetch("/Admin/EditUser/UsersInfo?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -255,7 +255,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View2":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersGroups?userId=" + editUserId,
+                               fetch("/Admin/EditUser/UsersGroups?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -270,7 +270,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View3":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersProfile?userId=" + editUserId,
+                               fetch("/Admin/EditUser/UsersProfile?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -285,7 +285,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View4":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersAvatar?userId=" + editUserId,
+                               fetch("/Admin/EditUser/UsersAvatar?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -300,7 +300,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View5":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersSignature?userId=" + editUserId,
+                               fetch("/Admin/EditUser/UsersSignature?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -321,7 +321,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View6":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersPoints?userId=" + editUserId,
+                               fetch("/Admin/EditUser/UsersPoints?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -336,7 +336,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View7":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersChangePass?userId=" + editUserId,
+                               fetch("/Admin/EditUser/UsersChangePass?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -351,7 +351,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View8":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersSuspend?userId=" + editUserId,
+                               fetch("/Admin/EditUser/UsersSuspend?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -366,7 +366,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View9":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersKill?userId=" + editUserId,
+                               fetch("/Admin/EditUser/UsersKill?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -381,7 +381,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View10":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersSettings?userId=" + editUserId,
+                               fetch("/Admin/EditUser/UsersSettings?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -398,7 +398,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View11":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersAttachments?userId=" + editUserId,
+                               fetch("/Admin/EditUser/UsersAttachments?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
