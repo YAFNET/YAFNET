@@ -115,3 +115,4 @@ node_modules/
 *.yafalbum
 yafsrc/YetAnotherForum.NET/package-lock.json
 yafsrc/YAFNET.RazorPages/yarn.lock
+yafsrc/YAFNET.UI/YAFNET.RazorPages/yarn.lock

@@ -1,0 +1,74 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Context
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Web.TagHelpers
+@model YAF.UI.Chat.Areas.Chat.Pages.ChatModel
+@{
+    ViewData["Title"] = "Chat";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card direct-chat">
+                <div class="card-header">
+                    <h3 class="card-title">Chat</h3>
+                </div>
+                <div class="card-body">
+                    <div id="divMessage" class="direct-chat-messages">
+                        @foreach (var message in Model.Messages)
+                        {
+                            var side = "start";
+                            var msgClass = "text-bg-light";
+                            var timeSide = "end";
+
+                            var avatarUrl = BoardContext.Current.Get<IAvatars>().GetAvatarUrlForUser(message.Item2);
+
+                            var backgroundColor = ValidationHelper.IsNumeric(message.Item2.ProviderUserKey)
+                            ? $"#{message.Item2.ProviderUserKey.ToGuid().ToString()[..6]}"
+                            : $"#{message.Item2.ProviderUserKey[..6]}";
+
+                            if (message.Item2.ID == BoardContext.Current.PageUserID) {
+                                side = "end";
+                                msgClass = "text-bg-primary";
+                                timeSide = "start";
+                            }
+
+                            <div class="@($"direct-chat-msg {side}")">
+                                <div class="fs-6 mb-1 clearfix">
+                                    <span class="text-body-secondary float-@timeSide">@message.Item1.DateTime</span>
+                                </div>
+                                <img class="direct-chat-img img-thumbnail rounded" src="@avatarUrl" alt="@message.Item2.DisplayOrUserName()">
+                                
+                                @if (message.Item2.ID == BoardContext.Current.PageUserID) {
+                                    <div class="direct-chat-text @msgClass">@message.Item1.Message</div>
+                                }
+                                else
+                                {
+                                    <div class="direct-chat-text" style="background-color:@backgroundColor">@message.Item1.Message</div>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <input type="hidden" id="userAvatar" value="@Model.AvatarUrl"/>
+                </div>
+                <div class="card-footer">
+                    <div class="input-group mb-0">
+                        <input type="text" class="form-control" id="messageInput" />
+                        <button type="button" id="sendButton" class="btn btn-primary">Send Message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/chat.js" asp-append-version="true"></script>
+}

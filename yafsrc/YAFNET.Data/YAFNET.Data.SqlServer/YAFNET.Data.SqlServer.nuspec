@@ -4,7 +4,7 @@
     <id>YAFNET.Data.SqlServer</id>
 	<title>YAFNET Data SqlServer</title>
 	<copyright>Copyright © YetAnotherForum.NET and Ingo Herbote. All rights reserved</copyright>
-    <version>4.0.0-beta05</version>
+    <version>4.0.0-beta07</version>
     <authors>Ingo Herbote</authors>
     <owners>Ingo Herbote, YAFNET</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -17,9 +17,9 @@
     <repository type="git" url="https://github.com/YAFNET/YAFNET" />
     <dependencies>
 		<group targetFramework="net8.0">
-			<dependency id="YAFNET.Configuration" version="4.0.0-beta05" exclude="Build,Analyzers" />
-			<dependency id="YAFNET.Core" version="4.0.0-beta05" exclude="Build,Analyzers" />
-			<dependency id="YAFNET.Types" version="4.0.0-beta05" exclude="Build,Analyzers" />
+			<dependency id="YAFNET.Configuration" version="4.0.0-beta07" exclude="Build,Analyzers" />
+			<dependency id="YAFNET.Core" version="4.0.0-beta07" exclude="Build,Analyzers" />
+			<dependency id="YAFNET.Types" version="4.0.0-beta07" exclude="Build,Analyzers" />
 			<dependency id="Autofac" version="8.0.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.Data.SqlClient" version="5.1.5" exclude="Build,Analyzers" />
 			<dependency id="System.ComponentModel.Composition" version="8.0.0" exclude="Build,Analyzers" />

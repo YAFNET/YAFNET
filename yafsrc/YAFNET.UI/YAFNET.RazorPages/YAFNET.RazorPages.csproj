@@ -1,0 +1,88 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+	<Version>4.0.0-beta07</Version>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <RootNamespace>YAF.RazorPages</RootNamespace>
+    <Description>YAF.NET UI using ASP.NET Core MVC Razor Pages.</Description>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageId>YAFNET.RazorPages</PackageId>
+    <PackageTags>forums yaf yaf.net YetAnotherForum.net forum</PackageTags>
+    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<EmbeddedResource Include="wwwroot\css\*.*" />
+	<EmbeddedResource Include="wwwroot\css\themes\**\*.*" />      
+	<EmbeddedResource Include="wwwroot\**\favicons\*" />
+    <EmbeddedResource Include="wwwroot\**\images\*" />
+    <EmbeddedResource Include="wwwroot\js\*.*" />
+	<EmbeddedResource Include="wwwroot\js\sceditor\*.*" />
+    <EmbeddedResource Include="wwwroot\**\languages\*" />
+    <EmbeddedResource Include="wwwroot\**\resources\*" />
+    <EmbeddedResource Include="wwwroot\**\webfonts\*" />
+  </ItemGroup>
+
+	<PropertyGroup>
+		<StaticWebAssetBasePath Condition="$(StaticWebAssetBasePath) == ''">/</StaticWebAssetBasePath>
+		<Title>YAF.NET Razor Pages UI</Title>
+		<Company>Ingo Herbote</Company>
+		<PackageIcon>yaf.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+		<Authors>Ingo Herbote</Authors>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Remove="package.json" />
+	</ItemGroup>          <ItemGroup>
+    <Folder Include="Areas\Forums\Pages\" />
+  </ItemGroup>
+
+	<Target Name="MyPreCompileTarget" BeforeTargets="Build">
+		<!-- Ensure Node.js is installed -->
+		<Exec Command="node --version" ContinueOnError="true">
+			<Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+		</Exec>
+		<Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+		<Message Importance="high" Text="WARN Make sure you have restored all dependencies using 'npm' before you build this project." />
+		<Exec WorkingDirectory="$(ProjectDir)" Command="node_modules\.bin\grunt" />
+	</Target>
+
+  <ItemGroup>
+    <None Include="..\..\..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\yaf.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="package.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="8.0.3" />
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.3" />
+	<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.3" />
+	<PackageReference Include="SonarAnalyzer.CSharp" Version="9.23.0.88079">
+	  <PrivateAssets>all</PrivateAssets>
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+	<PackageReference Include="YAFNET.Core" Version="4.0.0-beta07" />
+	<PackageReference Include="YAFNET.Types" Version="4.0.0-beta07" />
+	<PackageReference Include="YAFNET.Web" Version="4.0.0-beta07" />
+	<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.3" />
+  </ItemGroup>
+
+</Project>
