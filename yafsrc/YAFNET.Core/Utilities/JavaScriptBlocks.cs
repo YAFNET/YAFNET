@@ -223,11 +223,14 @@ public static class JavaScriptBlocks
     /// <summary>
     /// Gets the Bootstrap Lazy Load Tab EditUser JS.
     /// </summary>
+    /// <param name="area">The area.</param>
     /// <param name="userId">The user identifier.</param>
     /// <param name="editorJs">The editor js file.</param>
     /// <returns>string.</returns>
-    public static string EditUserTabsLoadJs(int userId, string editorJs)
+    public static string EditUserTabsLoadJs(string area, int userId, string editorJs)
     {
+        var areaPath = area.IsSet() ? $"/{area}" : string.Empty;
+
         return $$"""
                    const currentTab = "#" + document.getElementById("LastTab").value,
                    editUserId = {{userId}};
@@ -237,7 +240,7 @@ public static class JavaScriptBlocks
                        switch (tabName) {
                        case "#View1":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersInfo?userId=" + editUserId,
+                               fetch("{{areaPath}}/Admin/EditUser/UsersInfo?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -255,7 +258,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View2":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersGroups?userId=" + editUserId,
+                               fetch("{{areaPath}}/Admin/EditUser/UsersGroups?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -270,7 +273,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View3":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersProfile?userId=" + editUserId,
+                               fetch("{{areaPath}}/Admin/EditUser/UsersProfile?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -285,7 +288,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View4":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersAvatar?userId=" + editUserId,
+                               fetch("{{areaPath}}/Admin/EditUser/UsersAvatar?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -300,7 +303,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View5":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersSignature?userId=" + editUserId,
+                               fetch("{{areaPath}}/Admin/EditUser/UsersSignature?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -321,7 +324,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View6":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersPoints?userId=" + editUserId,
+                               fetch("{{areaPath}}/Admin/EditUser/UsersPoints?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -336,7 +339,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View7":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersChangePass?userId=" + editUserId,
+                               fetch("{{areaPath}}/Admin/EditUser/UsersChangePass?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -351,7 +354,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View8":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersSuspend?userId=" + editUserId,
+                               fetch("{{areaPath}}/Admin/EditUser/UsersSuspend?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -366,7 +369,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View9":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersKill?userId=" + editUserId,
+                               fetch("{{areaPath}}/Admin/EditUser/UsersKill?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -381,7 +384,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View10":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersSettings?userId=" + editUserId,
+                               fetch("{{areaPath}}/Admin/EditUser/UsersSettings?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
@@ -398,7 +401,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View11":
                            if (tab.innerHTML.length === 0) {
-                               fetch("UsersAttachments?userId=" + editUserId,
+                               fetch("{{areaPath}}/Admin/EditUser/UsersAttachments?userId=" + editUserId,
                                        {
                                            method: "GET",
                                            headers: {
