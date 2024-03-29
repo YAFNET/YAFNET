@@ -33,7 +33,7 @@
 
         plusButton.innerHTML = '<i class="fa-solid fa-plus"></i>';
 
-        input.parentNode.insertBefore(plusButton, input.nextSibling);
+        input.parentNode.append(plusButton);
     });
 
     function touchSpinDown() {
