@@ -33,7 +33,6 @@ using Microsoft.AspNetCore.Authorization;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
@@ -86,19 +85,15 @@ public class ApproveModel : AccountPage
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task OnGetAsync(string code = null)
+    public async Task<IActionResult> OnGetAsync(string code)
     {
         this.Input = new ApproveInputModel();
 
-        if (code.IsSet())
-        {
-            this.Input.Key = code;
-            await this.ValidateKeyAsync();
-        }
-        else
-        {
-            this.ErrorMessage = this.GetText("email_verify_failed");
-        }
+        this.ErrorMessage = string.Empty;
+
+        this.Input.Key = code;
+
+        return await this.ValidateKeyAsync();
     }
 
     /// <summary>
@@ -107,7 +102,7 @@ public class ApproveModel : AccountPage
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public Task OnPostAsync()
+    public Task<IActionResult> OnPostAsync()
     {
         return this.ValidateKeyAsync();
     }
@@ -148,7 +143,7 @@ public class ApproveModel : AccountPage
 
             this.PageBoardContext.SessionNotify(this.GetText("EMAIL_VERIFIED"), MessageTypes.info);
 
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+            return this.RedirectToPage(ForumPages.Index.GetPageName());
         }
 
         this.ErrorMessage = result.Errors.FirstOrDefault()?.Description;

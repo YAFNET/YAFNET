@@ -6415,7 +6415,7 @@ document.addEventListener("DOMContentLoaded", function() {
         plusButton.type = "button";
         plusButton.addEventListener("click", touchSpinUp);
         plusButton.innerHTML = '<i class="fa-solid fa-plus"></i>';
-        input.parentNode.insertBefore(plusButton, input.nextSibling);
+        input.parentNode.append(plusButton);
     });
     function touchSpinDown() {
         const btn = this, input = btn.nextSibling, oldValue = input.value.trim();
