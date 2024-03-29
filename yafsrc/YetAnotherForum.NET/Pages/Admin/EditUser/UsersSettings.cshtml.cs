@@ -98,8 +98,8 @@ public class UsersSettingsModel : AdminPage
 
         this.Input = new UsersSettingsInputModel
         {
-                         UserId = userId
-                     };
+            UserId = userId,
+        };
 
         this.BindData(userId);
 
@@ -267,7 +267,7 @@ public class UsersSettingsModel : AdminPage
         }
 
         this.Input.HideMe = user.Item1.UserFlags.IsActiveExcluded
-                            && this.PageBoardContext.BoardSettings.AllowUserHideHimself;
+                            && (this.PageBoardContext.BoardSettings.AllowUserHideHimself || this.PageBoardContext.IsAdmin);
 
         this.Input.Activity = user.Item1.Activity;
 
