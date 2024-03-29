@@ -25,6 +25,8 @@
 
 using System.Threading.Tasks;
 
+using YAF.Types.Extensions;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -99,7 +101,7 @@ public class TagsModel : AdminPage
 
         await this.GetRepository<Tag>().DeleteByIdAsync(id);
 
-        return this.RedirectToPage(ForumPages.Admin_Tags);
+        return this.RedirectToPage(ForumPages.Admin_Tags.GetPageName());
     }
 
     /// <summary>
