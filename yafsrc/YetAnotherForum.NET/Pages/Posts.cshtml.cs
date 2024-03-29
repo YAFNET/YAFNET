@@ -279,7 +279,7 @@ public class PostsModel : ForumPage
         {
             if (p != firstPost!.PageIndex)
             {
-                return this.Get<LinkBuilder>().Redirect(ForumPages.Posts,
+                return this.Get<LinkBuilder>().Redirect(ForumPages.Post,
                     new {
                         m = findMessageId, p = firstPost.PageIndex, name = this.PageBoardContext.PageTopic.TopicName,
                         t = this.PageBoardContext.PageTopic.ID

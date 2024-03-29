@@ -50,7 +50,7 @@ public class LogoutModel : AccountPage
     /// <summary>
     /// The logger.
     /// </summary>
-    private readonly ILogger<LoginModel> logger;
+    private readonly ILogger<LogoutModel> logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LogoutModel"/> class.
@@ -61,7 +61,7 @@ public class LogoutModel : AccountPage
     /// <param name="logger">
     /// The logger.
     /// </param>
-    public LogoutModel(SignInManager<AspNetUsers> signInManager, ILogger<LoginModel> logger)
+    public LogoutModel(SignInManager<AspNetUsers> signInManager, ILogger<LogoutModel> logger)
         : base("LOGOUT", ForumPages.Account_Logout)
     {
         this.signInManager = signInManager;

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
 namespace YAF.Pages.Profile;
 
 using System.Collections.Generic;
@@ -74,9 +76,7 @@ public class AttachmentsModel : ProfilePage
     /// </summary>
     public IActionResult OnGet()
     {
-       this.BindData();
-
-       return this.Page();
+        return this.BindData();
     }
 
     /// <summary>
@@ -91,16 +91,16 @@ public class AttachmentsModel : ProfilePage
 
         var items = this.Attachments.Where(x => x.Selected).Select(x => x.ID).ToList();
 
-        if (items.Count != 0)
+        if (items.Count == 0)
         {
-            await this.GetRepository<Attachment>().DeleteByIdsAsync(items);
-
-            this.PageBoardContext.Notify(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
+            return this.BindData();
         }
 
-        this.BindData();
+        await this.GetRepository<Attachment>().DeleteByIdsAsync(items);
 
-        return this.Page();
+        this.PageBoardContext.Notify(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
+
+        return this.BindData();
     }
 
     /// <summary>
@@ -109,9 +109,7 @@ public class AttachmentsModel : ProfilePage
     /// <returns>IActionResult.</returns>
     public IActionResult OnPost()
     {
-        this.BindData();
-
-        return this.Page();
+        return this.BindData();
     }
 
     /// <summary>
@@ -150,7 +148,7 @@ public class AttachmentsModel : ProfilePage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData()
+    private PageResult BindData()
     {
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 
@@ -160,5 +158,7 @@ public class AttachmentsModel : ProfilePage
             this.Size);
 
         this.Attachments = list;
+
+        return this.Page();
     }
 }
