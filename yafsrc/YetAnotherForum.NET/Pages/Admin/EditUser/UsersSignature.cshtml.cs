@@ -37,6 +37,11 @@ using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 
+/// <summary>
+/// Class UsersSignatureModel.
+/// Implements the <see cref="YAF.Core.BasePages.AdminPage" />
+/// </summary>
+/// <seealso cref="YAF.Core.BasePages.AdminPage" />
 public class UsersSignatureModel : AdminPage
 {
     /// <summary>
@@ -63,11 +68,19 @@ public class UsersSignatureModel : AdminPage
     [BindProperty]
     public UsersSignatureInputModel Input { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UsersSignatureModel"/> class.
+    /// </summary>
     public UsersSignatureModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
     {
     }
 
+    /// <summary>
+    /// Called when [get].
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnGet(int userId)
     {
         if (!BoardContext.Current.IsAdmin)
@@ -75,14 +88,11 @@ public class UsersSignatureModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new UsersSignatureInputModel
-        {
-                         UserId = userId
-                     };
+        this.Input = new UsersSignatureInputModel {
+            UserId = userId
+        };
 
-        this.BindData(userId, true);
-
-        return this.Page();
+        return this.BindData(userId, true);
     }
 
     /// <summary>
@@ -100,8 +110,15 @@ public class UsersSignatureModel : AdminPage
     /// </summary>
     public IActionResult OnPostSave()
     {
-        var user = this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
-                       Tuple<User, AspNetUsers, Rank, VAccess>;
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
+            Tuple<User, AspNetUsers, Rank, VAccess> user)
+        {
+            return this.Get<LinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new {
+                    u = this.Input.UserId
+                });
+        }
 
         if (this.Signature.Length > 0)
         {
@@ -127,10 +144,8 @@ public class UsersSignatureModel : AdminPage
                                 this.Get<ILogger<EditSignatureModel>>().SpamBotDetected(
                                     this.Input.UserId,
                                     $"""
-                                     Internal Spam Word Check detected a SPAM BOT: (
-                                                                                           user name : '{user.Item1.Name}',
-                                                                                           user id : '{this.Input.UserId}')
-                                                                                      after the user included a spam word in his/her signature: {result}
+                                     Internal Spam Word Check detected a SPAM BOT: (user name : '{user.Item1.Name}', user id : '{this.Input.UserId}') 
+                                     after the user included a spam word in his/her signature: {result}
                                      """);
                                 break;
                             case 2:
@@ -177,10 +192,16 @@ public class UsersSignatureModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData(int userId, bool loadSignature)
+    private IActionResult BindData(int userId, bool loadSignature)
     {
-        var user = this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                       Tuple<User, AspNetUsers, Rank, VAccess>;
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
+        {
+            return this.Get<LinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new {
+                    u = userId
+                });
+        }
 
         if (loadSignature)
         {
@@ -193,12 +214,14 @@ public class UsersSignatureModel : AdminPage
 
         if (data is null)
         {
-            return;
+            return this.Page();
         }
 
         this.AllowedBbcodes = (string)data.UsrSigBBCodes.Trim().Trim(',').Trim();
 
         this.AllowedNumberOfCharacters = (int)data.UsrSigChars;
+
+        return this.Page();
     }
 
     /// <summary>

@@ -49,6 +49,11 @@ using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 
+/// <summary>
+/// Class UsersAvatarModel.
+/// Implements the <see cref="YAF.Core.BasePages.AdminPage" />
+/// </summary>
+/// <seealso cref="YAF.Core.BasePages.AdminPage" />
 public class UsersAvatarModel : AdminPage
 {
     /// <summary>
@@ -56,14 +61,30 @@ public class UsersAvatarModel : AdminPage
     /// </summary>
     public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
+    /// <summary>
+    /// Gets or sets the gallery.
+    /// </summary>
+    /// <value>The gallery.</value>
     public List<SelectListItem> Gallery { get; set; }
 
+    /// <summary>
+    /// Gets or sets the upload.
+    /// </summary>
+    /// <value>The upload.</value>
     [BindProperty]
     public IFormFile Upload { get; set; }
 
+    /// <summary>
+    /// Gets or sets the avatar gallery.
+    /// </summary>
+    /// <value>The avatar gallery.</value>
     [BindProperty]
     public string AvatarGallery { get; set; }
 
+    /// <summary>
+    /// Gets or sets the avatar URL.
+    /// </summary>
+    /// <value>The avatar URL.</value>
     [BindProperty]
     public string AvatarUrl { get; set; } = string.Empty;
 
@@ -73,6 +94,9 @@ public class UsersAvatarModel : AdminPage
     [BindProperty]
     public UsersSignatureInputModel Input { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UsersAvatarModel"/> class.
+    /// </summary>
     public UsersAvatarModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
     {
@@ -88,14 +112,11 @@ public class UsersAvatarModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new UsersSignatureInputModel
-        {
-                         UserId = userId
-                     };
+        this.Input = new UsersSignatureInputModel {
+            UserId = userId
+        };
 
-        this.BindData(userId);
-
-        return this.Page();
+        return this.BindData(userId);
     }
 
     /// <summary>
@@ -206,11 +227,18 @@ public class UsersAvatarModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData(int userId)
+    private IActionResult BindData(int userId)
     {
-        this.EditUser =
-            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                Tuple<User, AspNetUsers, Rank, VAccess>;
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
+        {
+            return this.Get<LinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new {
+                    u = userId
+                });
+        }
+
+        this.EditUser = user;
 
         var currentUser = this.EditUser.Item1;
 
@@ -264,6 +292,8 @@ public class UsersAvatarModel : AdminPage
                 "Avatar",
                 new {userId = this.Input.UserId, v = DateTime.Now.Ticks.ToString()});
         }
+
+        return this.Page();
     }
 
     /// <summary>

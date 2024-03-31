@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
 namespace YAF.Pages.Admin.EditUser;
 
 using System.Collections.Generic;
@@ -41,8 +43,17 @@ using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 using YAF.Types.Objects;
 
+/// <summary>
+/// Class UsersGroupsModel.
+/// Implements the <see cref="YAF.Core.BasePages.AdminPage" />
+/// </summary>
+/// <seealso cref="YAF.Core.BasePages.AdminPage" />
 public class UsersGroupsModel : AdminPage
 {
+    /// <summary>
+    /// Gets or sets the user groups.
+    /// </summary>
+    /// <value>The user groups.</value>
     [BindProperty]
     public List<GroupMember> UserGroups { get; set; }
 
@@ -60,6 +71,11 @@ public class UsersGroupsModel : AdminPage
     {
     }
 
+    /// <summary>
+    /// Called when [get].
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnGet(int userId)
     {
         if (!BoardContext.Current.IsAdmin)
@@ -69,17 +85,27 @@ public class UsersGroupsModel : AdminPage
 
         this.Input = new UsersGroupsInputModel();
 
-        this.BindData(userId);
-
-        return this.Page();
+        return this.BindData(userId);
     }
 
+    /// <summary>
+    /// On post save as an asynchronous operation.
+    /// </summary>
+    /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostSaveAsync()
     {
         var addedRoles = new List<string>();
         var removedRoles = new List<string>();
 
-        var user = this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as Tuple<User, AspNetUsers, Rank, VAccess>;
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
+            Tuple<User, AspNetUsers, Rank, VAccess> user)
+        {
+            return this.Get<LinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new {
+                    u = this.Input.UserId
+                });
+        }
 
         // go through all roles displayed on page
         foreach (var item in this.UserGroups)
@@ -102,18 +128,19 @@ public class UsersGroupsModel : AdminPage
                 continue;
             }
 
-            // add/remove user from roles in membership provider
-            if (isChecked && !await this.Get<IAspNetUsersHelper>().IsUserInRoleAsync(user.Item2, roleName))
+            switch (isChecked)
             {
-                this.Get<IAspNetRolesHelper>().AddUserToRole(user.Item2, roleName);
+                // add/remove user from roles in membership provider
+                case true when !await this.Get<IAspNetUsersHelper>().IsUserInRoleAsync(user.Item2, roleName):
+                    this.Get<IAspNetRolesHelper>().AddUserToRole(user.Item2, roleName);
 
-                addedRoles.Add(roleName);
-            }
-            else if (!isChecked && await this.Get<IAspNetUsersHelper>().IsUserInRoleAsync(user.Item2, roleName))
-            {
-                await this.Get<IAspNetUsersHelper>().RemoveUserFromRoleAsync(user.Item2, roleName);
+                    addedRoles.Add(roleName);
+                    break;
+                case false when await this.Get<IAspNetUsersHelper>().IsUserInRoleAsync(user.Item2, roleName):
+                    await this.Get<IAspNetUsersHelper>().RemoveUserFromRoleAsync(user.Item2, roleName);
 
-                removedRoles.Add(roleName);
+                    removedRoles.Add(roleName);
+                    break;
             }
         }
 
@@ -142,12 +169,11 @@ public class UsersGroupsModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData(int userId)
+    private PageResult BindData(int userId)
     {
-        this.Input = new UsersGroupsInputModel
-        {
-                                        UserId = userId
-                                    };
+        this.Input = new UsersGroupsInputModel {
+            UserId = userId
+        };
 
         // get user roles
         var roles = this.GetRepository<Group>().Member(this.PageBoardContext.PageBoardID, userId);
@@ -158,5 +184,7 @@ public class UsersGroupsModel : AdminPage
         }
 
         this.UserGroups = roles;
+
+        return this.Page();
     }
 }

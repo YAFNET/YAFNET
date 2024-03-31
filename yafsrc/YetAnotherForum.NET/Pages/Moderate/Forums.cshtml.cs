@@ -101,7 +101,7 @@ public class ForumsModel : ModerateForumPage
                        this.ViewData,
                        new ModForumUserModal
                        {
-                           ForumId = f,
+                           ForumId = f
                        })
                };
     }
