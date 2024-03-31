@@ -1449,7 +1449,7 @@ document.addEventListener("DOMContentLoaded", function() {
         plusButton.type = "button";
         plusButton.addEventListener("click", touchSpinUp);
         plusButton.innerHTML = '<i class="fa-solid fa-plus"></i>';
-        input.parentNode.insertBefore(plusButton, input.nextSibling);
+        input.parentNode.append(plusButton);
     });
     function wrap(el, wrapper) {
         el.parentNode.insertBefore(wrapper, el);

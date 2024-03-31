@@ -476,14 +476,12 @@
                                                              CssClass="me-1 mb-1"/>
                                         </div>
                                         <div>
-                                            <div class="input-group">
-                                                <asp:TextBox ID="DaysOld" runat="server"
-                                                             MaxLength="5"
-                                                             Text="14"
-                                                             CssClass="form-control"
-                                                             TextMode="Number">
-                                                </asp:TextBox>
-                                            </div>
+                                            <asp:TextBox ID="DaysOld" runat="server"
+                                                         MaxLength="5"
+                                                         Text="14"
+                                                         CssClass="form-control"
+                                                         TextMode="Number">
+                                            </asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
