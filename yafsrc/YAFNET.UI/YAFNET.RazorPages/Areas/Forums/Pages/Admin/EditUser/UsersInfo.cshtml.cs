@@ -87,9 +87,7 @@ public class UsersInfoModel : AdminPage
 
         this.Input = new UsersInfoInputModel();
 
-        this.BindData(userId);
-
-        return this.Page();
+        return this.BindData(userId);
     }
 
     /// <summary>
@@ -97,9 +95,17 @@ public class UsersInfoModel : AdminPage
     /// </summary>
     public IActionResult OnPostSave(int userId)
     {
-        this.EditUser =
-            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                Tuple<User, AspNetUsers, Rank, VAccess>;
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not
+            Tuple<User, AspNetUsers, Rank, VAccess> user)
+        {
+            return this.Get<LinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new {
+                    u = userId
+                });
+        }
+
+        this.EditUser = user;
 
         var userFlags = this.EditUser.Item1.UserFlags;
 
@@ -134,17 +140,18 @@ public class UsersInfoModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData(int userId)
+    private IActionResult BindData(int userId)
     {
-        this.EditUser =
-            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                Tuple<User, AspNetUsers, Rank, VAccess>;
-
-        if (this.EditUser is null)
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-            return;
+            return this.Get<LinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new {
+                    u = userId
+                });
         }
+
+        this.EditUser = user;
 
         this.Ranks = new SelectList(this.GetRepository<Rank>().GetByBoardId(), nameof(Rank.ID), nameof(Rank.Name));
 
@@ -161,5 +168,7 @@ public class UsersInfoModel : AdminPage
         this.Input.IsGoogleUser = this.EditUser.Item2.Profile_GoogleId.IsSet();
         this.Input.LastVisit = this.EditUser.Item1.LastVisit.ToString(CultureInfo.InvariantCulture);
         this.Input.RankID = this.EditUser.Item1.RankID;
+
+        return this.Page();
     }
 }

@@ -111,7 +111,7 @@ public class MedalFlags : FlagsBase
         /// <summary>
         /// The allow re ordering.
         /// </summary>
-        AllowReOrdering = 8,
+        AllowReOrdering = 8
 
         /* for future use
               xxxxxxxx = 16,

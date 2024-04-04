@@ -42,5 +42,5 @@ public enum MembershipPasswordFormat
     /// <summary>
     /// Not secure, do not use. Passwords are encrypted using the encryption settings determined by the machineKey Element (ASP.NET Settings Schema) element configuration.
     /// </summary>
-    Encrypted,
+    Encrypted
 }

@@ -171,7 +171,7 @@ public class ChoicesTagHelper : TagHelper
         {
             htmlAttributes = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
                                  {
-                                     { "name", this.Name },
+                                     { "name", this.Name }
                                  };
         }
 
@@ -345,7 +345,7 @@ public class ChoicesTagHelper : TagHelper
                     {
                         Text = optionLabel,
                         Value = string.Empty,
-                        Selected = false,
+                        Selected = false
                     },
                 currentValues: null));
         }

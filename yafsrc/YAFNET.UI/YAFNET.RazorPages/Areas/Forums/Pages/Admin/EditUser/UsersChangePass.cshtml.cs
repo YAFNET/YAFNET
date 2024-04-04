@@ -66,6 +66,11 @@ public class UsersChangePassModel : AdminPage
     {
     }
 
+    /// <summary>
+    /// Called when [get].
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnGet(int userId)
     {
         if (!BoardContext.Current.IsAdmin)
@@ -73,14 +78,11 @@ public class UsersChangePassModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new UsersChangePassInputModel
-        {
-                         UserId = userId
-                     };
+        this.Input = new UsersChangePassInputModel {
+            UserId = userId
+        };
 
-        this.BindData(userId);
-
-        return this.Page();
+        return this.BindData(userId);
     }
 
     /// <summary>
@@ -89,9 +91,17 @@ public class UsersChangePassModel : AdminPage
     /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostChangePasswordAsync()
     {
-        this.EditUser =
-            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
-                Tuple<User, AspNetUsers, Rank, VAccess>;
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
+            Tuple<User, AspNetUsers, Rank, VAccess> user)
+        {
+            return this.Get<LinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new {
+                    u = this.Input.UserId
+                });
+        }
+
+        this.EditUser = user;
 
         // change password...
         try
@@ -152,10 +162,19 @@ public class UsersChangePassModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData(int userId)
+    private IActionResult BindData(int userId)
     {
-       this.EditUser =
-            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                Tuple<User, AspNetUsers, Rank, VAccess>;
+       if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
+       {
+           return this.Get<LinkBuilder>().Redirect(
+               ForumPages.Admin_EditUser,
+               new {
+                   u = this.Input.UserId
+               });
+       }
+
+       this.EditUser = user;
+
+       return this.Page();
     }
 }

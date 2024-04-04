@@ -32,6 +32,11 @@ using YAF.Core.Services;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 
+/// <summary>
+/// Class UsersPointsModel.
+/// Implements the <see cref="YAF.Core.BasePages.AdminPage" />
+/// </summary>
+/// <seealso cref="YAF.Core.BasePages.AdminPage" />
 public class UsersPointsModel : AdminPage
 {
     /// <summary>
@@ -53,6 +58,11 @@ public class UsersPointsModel : AdminPage
     {
     }
 
+    /// <summary>
+    /// Called when [get].
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnGet(int userId)
     {
         if (!BoardContext.Current.IsAdmin)
@@ -60,14 +70,11 @@ public class UsersPointsModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new UsersPointsInputModel
-        {
-                         UserId = userId
-                     };
+        this.Input = new UsersPointsInputModel {
+            UserId = userId
+        };
 
-        this.BindData(userId);
-
-        return this.Page();
+        return this.BindData(userId);
     }
 
     /// <summary>
@@ -103,14 +110,21 @@ public class UsersPointsModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData(int userId)
+    private IActionResult BindData(int userId)
     {
-        var user =
-            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                Tuple<User, AspNetUsers, Rank, VAccess>;
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
+        {
+            return this.Get<LinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new {
+                    u = userId
+                });
+        }
 
         this.EditUser = user.Item1;
 
         this.Input.UserPoints = this.EditUser.Points;
+
+        return this.Page();
     }
 }

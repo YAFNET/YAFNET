@@ -58,7 +58,7 @@ public abstract class BaseModule : Autofac.Module, IHaveSortOrder
                                 a => a.FullName.StartsWith("Autofac") && a.FullName.StartsWith("FarsiLibrary")
                                                                       && a.FullName.StartsWith("ServiceStack.")))
                         .Except(new[] { Assembly.GetExecutingAssembly() }).Where(a => !a.IsDynamic).Distinct()
-                        .OrderByDescending(x => x.GetAssemblySortOrder()),
+                        .OrderByDescending(x => x.GetAssemblySortOrder())
         ];
 #if DEBUG
 

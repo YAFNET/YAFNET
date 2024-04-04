@@ -257,7 +257,7 @@ public static class BuddyRepositoryExtensions
             .. repository.DbAccess.Execute(
                             db => db.Connection.Select<BuddyUser>(
                                 $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}"))
-                        .DistinctBy(x => x.UserID).OrderBy(x => x.Name),
+                        .DistinctBy(x => x.UserID).OrderBy(x => x.Name)
         ];
     }
 
@@ -294,7 +294,7 @@ public static class BuddyRepositoryExtensions
         return
         [
             .. repository.DbAccess.Execute(db => db.Connection.Select<BuddyUser>(expression)).DistinctBy(x => x.UserID)
-                        .OrderBy(x => x.Name),
+                        .OrderBy(x => x.Name)
         ];
     }
 
@@ -330,7 +330,7 @@ public static class BuddyRepositoryExtensions
         return
         [
             .. repository.DbAccess.Execute(db => db.Connection.Select<BuddyUser>(expression)).DistinctBy(x => x.UserID)
-                        .OrderBy(x => x.Name),
+                        .OrderBy(x => x.Name)
         ];
     }
 }

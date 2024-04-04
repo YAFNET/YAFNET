@@ -51,6 +51,11 @@ using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 
+/// <summary>
+/// Class UsersProfileModel.
+/// Implements the <see cref="YAF.Core.BasePages.AdminPage" />
+/// </summary>
+/// <seealso cref="YAF.Core.BasePages.AdminPage" />
 public class UsersProfileModel : AdminPage
 {
     /// <summary>
@@ -112,11 +117,19 @@ public class UsersProfileModel : AdminPage
     [BindProperty]
     public UsersProfileInputModel Input { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UsersProfileModel"/> class.
+    /// </summary>
     public UsersProfileModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
     {
     }
 
+    /// <summary>
+    /// Called when [get].
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnGet(int userId)
     {
         if (!BoardContext.Current.IsAdmin)
@@ -132,9 +145,7 @@ public class UsersProfileModel : AdminPage
         this.UserProfileCustom = this.GetRepository<ProfileCustom>()
             .Get(p => p.UserID == userId);
 
-        this.BindData(userId);
-
-        return this.Page();
+        return this.BindData(userId);
     }
 
     /// <summary>
@@ -142,9 +153,17 @@ public class UsersProfileModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostSaveAsync(int userId)
     {
-        this.EditUser =
-            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                Tuple<User, AspNetUsers, Rank, VAccess>;
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
+            Tuple<User, AspNetUsers, Rank, VAccess> user)
+        {
+            return this.Get<LinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new {
+                    u = this.Input.UserId
+                });
+        }
+
+        this.EditUser = user;
 
         var userName = this.EditUser.Item1.DisplayOrUserName();
 
@@ -283,11 +302,19 @@ public class UsersProfileModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData(int userId)
+    private IActionResult BindData(int userId)
     {
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
+        {
+            return this.Get<LinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new {
+                    u = userId
+                });
+        }
+
         this.EditUser =
-            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                Tuple<User, AspNetUsers, Rank, VAccess>;
+            user;
 
         this.Input.Birthday =
             this.EditUser.Item2.Profile_Birthday.HasValue && this.EditUser.Item2.Profile_Birthday.Value >
@@ -316,6 +343,8 @@ public class UsersProfileModel : AdminPage
         this.LoadGenders(this.EditUser.Item2.Profile_Gender);
 
         this.LoadCustomProfile();
+
+        return this.Page();
     }
 
     /// <summary>

@@ -89,6 +89,11 @@ public class UsersSettingsModel : AdminPage
     /// </summary>
     public IReadOnlyCollection<SelectListItem> PageSizes { get; set; }
 
+    /// <summary>
+    /// Called when [get].
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnGet(int userId)
     {
         if (!BoardContext.Current.IsAdmin)
@@ -96,14 +101,11 @@ public class UsersSettingsModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new UsersSettingsInputModel
-        {
-                         UserId = userId
-                     };
+        this.Input = new UsersSettingsInputModel {
+            UserId = userId
+        };
 
-        this.BindData(userId);
-
-        return this.Page();
+        return this.BindData(userId);
     }
 
     /// <summary>
@@ -111,9 +113,15 @@ public class UsersSettingsModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostSaveAsync()
     {
-        var user =
-            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
-                Tuple<User, AspNetUsers, Rank, VAccess>;
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
+            Tuple<User, AspNetUsers, Rank, VAccess> user)
+        {
+            return this.Get<LinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new {
+                    u = this.Input.UserId
+                });
+        }
 
         if (this.Input.Email != user.Item1.Email)
         {
@@ -186,7 +194,7 @@ public class UsersSettingsModel : AdminPage
             this.Input.Size
         );
 
-        if (this.PageBoardContext.PageUser.UserFlags.IsGuest)
+        if (user.Item1.UserFlags.IsGuest)
         {
             this.GetRepository<Registry>().Save(
                 "timezone",
@@ -194,7 +202,7 @@ public class UsersSettingsModel : AdminPage
                 this.PageBoardContext.PageBoardID);
         }
 
-        // clear the cache for this user...)
+        // clear the cache for this user...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.Input.UserId));
 
         this.Get<IDataCache>().Clear();
@@ -207,11 +215,16 @@ public class UsersSettingsModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData(int userId)
+    private IActionResult BindData(int userId)
     {
-        var user =
-            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                Tuple<User, AspNetUsers, Rank, VAccess>;
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
+        {
+            return this.Get<LinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new {
+                    u = this.Input.UserId
+                });
+        }
 
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 
@@ -240,7 +253,7 @@ public class UsersSettingsModel : AdminPage
         if (this.PageBoardContext.BoardSettings.AllowUserTheme && this.Themes.Count != 0)
         {
             // Allows to use different per-forum themes,
-            // While "Allow PageUser Change Theme" option in the host settings is true
+            // While "Allow User Change Theme" option in the host settings is true
             var themeFile = this.PageBoardContext.BoardSettings.Theme;
 
             if (user.Item1.ThemeFile.IsSet())
@@ -262,12 +275,12 @@ public class UsersSettingsModel : AdminPage
 
             if (this.ThemeModes.Any(x => x.Value == user.Item1.DarkMode.ToType<int>().ToString()))
             {
-                this.Input.ThemeMode = this.PageBoardContext.PageUser.DarkMode.ToType<int>();
+                this.Input.ThemeMode = user.Item1.DarkMode.ToType<int>();
             }
         }
 
         this.Input.HideMe = user.Item1.UserFlags.IsActiveExcluded
-                            && this.PageBoardContext.BoardSettings.AllowUserHideHimself;
+                            && (this.PageBoardContext.BoardSettings.AllowUserHideHimself || this.PageBoardContext.IsAdmin);
 
         this.Input.Activity = user.Item1.Activity;
 
@@ -275,33 +288,38 @@ public class UsersSettingsModel : AdminPage
 
         if (!this.PageBoardContext.BoardSettings.AllowUserLanguage || this.Languages.Count == 0)
         {
-            return;
+            return this.Page();
         }
 
         // If 2-letter language code is the same we return Culture, else we return a default full culture from language file
-        this.Input.Language = this.GetCulture();
+        this.Input.Language = this.GetCulture(user.Item1);
+
+        return this.Page();
     }
 
     /// <summary>
     /// Gets the culture.
     /// </summary>
+    /// <param name="user">
+    /// The user.
+    /// </param>
     /// <returns>
     /// The get culture.
     /// </returns>
-    private string GetCulture()
+    private string GetCulture(User user)
     {
         // Language and culture
         var languageFile = this.PageBoardContext.BoardSettings.Language;
         var culture4Tag = this.PageBoardContext.BoardSettings.Culture;
 
-        if (this.PageBoardContext.PageUser.LanguageFile.IsSet())
+        if (user.LanguageFile.IsSet())
         {
-            languageFile = this.PageBoardContext.PageUser.LanguageFile;
+            languageFile = user.LanguageFile;
         }
 
-        if (this.PageBoardContext.PageUser.Culture.IsSet())
+        if (user.Culture.IsSet())
         {
-            culture4Tag = this.PageBoardContext.PageUser.Culture;
+            culture4Tag = user.Culture;
         }
 
         // Get first default full culture from a language file tag.

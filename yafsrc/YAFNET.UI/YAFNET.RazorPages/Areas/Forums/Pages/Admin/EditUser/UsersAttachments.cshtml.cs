@@ -86,14 +86,11 @@ public class UsersAttachmentsModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new UsersSignatureInputModel
-        {
-                         UserId = userId
-                     };
+        this.Input = new UsersSignatureInputModel {
+            UserId = userId
+        };
 
-        this.BindData(userId);
-
-        return this.Page();
+        return this.BindData(userId);
     }
 
     /// <summary>
@@ -149,7 +146,7 @@ public class UsersAttachmentsModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData(int userId)
+    private IActionResult BindData(int userId)
     {
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 
@@ -159,5 +156,7 @@ public class UsersAttachmentsModel : AdminPage
             this.Size);
 
         this.Attachments = list;
+
+        return this.Page();
     }
 }

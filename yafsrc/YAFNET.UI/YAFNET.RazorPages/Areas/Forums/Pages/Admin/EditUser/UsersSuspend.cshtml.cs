@@ -41,6 +41,11 @@ using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 
+/// <summary>
+/// Class UsersSuspendModel.
+/// Implements the <see cref="YAF.Core.BasePages.AdminPage" />
+/// </summary>
+/// <seealso cref="YAF.Core.BasePages.AdminPage" />
 public class UsersSuspendModel : AdminPage
 {
     /// <summary>
@@ -49,6 +54,10 @@ public class UsersSuspendModel : AdminPage
     [BindProperty]
     public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
+    /// <summary>
+    /// Gets or sets the suspend units.
+    /// </summary>
+    /// <value>The suspend units.</value>
     [BindProperty]
     public List<SelectListItem> SuspendUnits { get; set; }
 
@@ -58,11 +67,19 @@ public class UsersSuspendModel : AdminPage
     [BindProperty]
     public UsersSuspendInputModel Input { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UsersSuspendModel"/> class.
+    /// </summary>
     public UsersSuspendModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
     {
     }
 
+    /// <summary>
+    /// Called when [get].
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnGet(int userId)
     {
         if (!BoardContext.Current.IsAdmin)
@@ -70,14 +87,11 @@ public class UsersSuspendModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new UsersSuspendInputModel
-        {
-                         UserId = userId
-                     };
+        this.Input = new UsersSuspendInputModel {
+            UserId = userId
+        };
 
-        this.BindData(userId);
-
-        return this.Page();
+        return this.BindData(userId);
     }
 
     /// <summary>
@@ -85,9 +99,17 @@ public class UsersSuspendModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostRemoveSuspensionAsync()
     {
-        this.EditUser =
-            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
-                Tuple<User, AspNetUsers, Rank, VAccess>;
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
+            Tuple<User, AspNetUsers, Rank, VAccess> user)
+        {
+            return this.Get<LinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new {
+                    u = this.Input.UserId
+                });
+        }
+
+        this.EditUser = user;
 
         // un-suspend user
         this.GetRepository<User>().Suspend(this.Input.UserId);
@@ -119,9 +141,17 @@ public class UsersSuspendModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostSuspendAsync()
     {
-        this.EditUser =
-            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
-                Tuple<User, AspNetUsers, Rank, VAccess>;
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
+            Tuple<User, AspNetUsers, Rank, VAccess> user)
+        {
+            return this.Get<LinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new {
+                    u = this.Input.UserId
+                });
+        }
+
+        this.EditUser = user;
 
         // is user to be suspended admin?
         if (this.EditUser.Item4.IsAdmin > 0)
@@ -209,8 +239,17 @@ public class UsersSuspendModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData(int userId)
+    private IActionResult BindData(int userId)
     {
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
+        {
+            return this.Get<LinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new {
+                    u = userId
+                });
+        }
+
         this.SuspendUnits = [
             new SelectListItem(this.GetText("PROFILE", "DAYS"), "1"),
             new SelectListItem(this.GetText("PROFILE", "HOURS"), "2"),
@@ -218,7 +257,8 @@ public class UsersSuspendModel : AdminPage
         ];
 
         this.EditUser =
-            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                Tuple<User, AspNetUsers, Rank, VAccess>;
+            user;
+
+        return this.Page();
     }
 }

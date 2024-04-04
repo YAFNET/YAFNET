@@ -99,8 +99,8 @@ public class EditMedalModel : AdminPage
                                              this.ViewData,
                                              new UserMedalEditModal {
                                                                         MedalId = medal.ID,
-                                                                        MedalName = medal.Name,
-                                                                    })
+                                                                        MedalName = medal.Name
+                                             })
                                      };
     }
 
