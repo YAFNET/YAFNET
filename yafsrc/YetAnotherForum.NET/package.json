@@ -28,7 +28,7 @@
     "webpack-merge": "^5.10.0"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.5.1",
+    "@fortawesome/fontawesome-free": "^6.5.2",
     "@microsoft/signalr": "^8.0.0",
     "bootbox": "^6.0.0",
     "bootstrap": "^5.3.3",
