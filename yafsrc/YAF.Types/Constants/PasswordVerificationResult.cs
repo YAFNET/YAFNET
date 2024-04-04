@@ -40,5 +40,5 @@ public enum PasswordVerificationResult
     /// <summary>
     /// Success but should update and rehash the password
     /// </summary>
-    SuccessRehashNeeded,
+    SuccessRehashNeeded
 }

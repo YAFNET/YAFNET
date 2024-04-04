@@ -367,7 +367,7 @@ public class DataBroker : IHaveServiceLocator
             expression.Join<Forum>((t, f) => f.ID == t.ForumID)
                 .Join<Forum, Category>((f, c) => c.ID == f.CategoryID)
                 .Where<Topic, Category>((t, c) => t.ID == id.Value && c.BoardID == boardId && (c.Flags & 1) == 1)
-                .Select<Topic, Forum, Message>((t, f, m) => new { f.CategoryID, t.ForumID, });
+                .Select<Topic, Forum, Message>((t, f, m) => new { f.CategoryID, t.ForumID });
 
             var result = this.GetRepository<ActiveAccess>().DbAccess
                 .Execute(db => db.Connection.SelectMulti<Topic, Forum, Category>(expression)).FirstOrDefault();

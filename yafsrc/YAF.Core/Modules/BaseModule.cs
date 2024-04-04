@@ -62,7 +62,7 @@ public abstract class BaseModule : Module, IHaveSortOrder
                                                                       && a.FullName.StartsWith("YAF.Lucene.NET")
                                                                       && a.FullName.StartsWith("ServiceStack.")))
                         .Except(new[] { Assembly.GetExecutingAssembly() }).Where(a => !a.IsDynamic).Distinct()
-                        .OrderByDescending(x => x.GetAssemblySortOrder()),
+                        .OrderByDescending(x => x.GetAssemblySortOrder())
         ];
 #if DEBUG
 

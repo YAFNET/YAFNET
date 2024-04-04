@@ -197,7 +197,7 @@ public class TopicContainer : BaseControl
                                           {
                                               IconName = "comment", IconType = " ", IconStyle = "far", Text = this.FormatReplies()
                                           }.RenderToString(),
-                                   ToolTip = this.GetText("MODERATE", "REPLIES"),
+                                   ToolTip = this.GetText("MODERATE", "REPLIES")
                                };
 
             repliesLabel.Attributes.Add("data-bs-toggle", "tooltip");
@@ -211,7 +211,7 @@ public class TopicContainer : BaseControl
                                         {
                                             IconName = "eye", IconType = " ", IconStyle = "far", Text = this.FormatViews()
                                         }.RenderToString(),
-                                 ToolTip = this.GetText("MODERATE", "VIEWS"),
+                                 ToolTip = this.GetText("MODERATE", "VIEWS")
                              };
 
             viewsLabel.Attributes.Add("data-bs-toggle", "tooltip");

@@ -69,7 +69,7 @@ public static class BannedIpRepositoryExtensions
         if (id.HasValue)
         {
             repository.UpdateOnly(
-                () => new BannedIP {Mask = mask, Reason = reason, UserID = userId,},
+                () => new BannedIP {Mask = mask, Reason = reason, UserID = userId },
                 b => b.ID == id.Value && b.BoardID == repository.BoardID);
 
             return true;

@@ -83,6 +83,31 @@
                                  Icon="search">
                 </YAF:ThemeButton>
             </asp:Panel>
+            <asp:PlaceHolder runat="server" ID="ThemeModeSelector">
+	            <div class="py-2 py-lg-1 col-12 col-lg-auto">
+		            <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+		            <hr class="d-lg-none my-2 text-white-50">
+	            </div>
+                        
+	            <div class="d-flex">
+		            <a class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center" role="button" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+			            <YAF:Icon runat="server" IconName="moon"></YAF:Icon>
+		            </a>
+		            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+
+			            <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.MyAccount ? "dropdown-item active" : "dropdown-item")"
+			               bs-toggle="tooltip"
+			               asp-page="@ForumPages.MyAccount.GetPageName()"
+			               role="button"
+			               text-localized-page="TOOLBAR"
+			               text-localized-tag="MYPROFILE"
+			               title-localized-page="TOOLBAR"
+			               title-localized-tag="MYPROFILE_TITLE"
+			               icon="address-card">
+			            </a>
+		            </div>
+	            </div>
+            </asp:PlaceHolder>
         </div>
         </div>
     </nav>

@@ -60,7 +60,7 @@ public class CategoryFlags : FlagsBase
         /// <summary>
         /// The is active.
         /// </summary>
-        IsActive = 1,
+        IsActive = 1
 
         /* for future use
           XXXXXXXX = 2,

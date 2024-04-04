@@ -111,7 +111,7 @@ public static class ThanksRepositoryExtensions
                     ThanksFromUserID = fromUserId,
                     ThanksToUserID = toUserId,
                     MessageID = messageId,
-                    ThanksDate = DateTime.UtcNow,
+                    ThanksDate = DateTime.UtcNow
                 });
 
         repository.FireNew(newIdentity);

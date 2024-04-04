@@ -134,7 +134,7 @@ public class AccessFlags : FlagsBase
         /// <summary>
         /// The delete access.
         /// </summary>
-        DeleteAccess = 256,
+        DeleteAccess = 256
 
         /* for future use
           xxxxxxxx =  512,

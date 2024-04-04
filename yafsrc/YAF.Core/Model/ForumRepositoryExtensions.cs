@@ -776,7 +776,7 @@ public static class ForumRepositoryExtensions
             .Where<Topic, Forum>((t, f) =>
                 (f.ID == forumId || f.ParentID == forumId) && (t.Flags & 8) != 8 && t.NumPosts > 0).Take(1)
             .Select<Topic, Forum>(
-                (t, f) => new { PostsCount = Sql.Sum(t.NumPosts), TopicsCount = Sql.Count(t.ID), });
+                (t, f) => new { PostsCount = Sql.Sum(t.NumPosts), TopicsCount = Sql.Count(t.ID) });
 
         var (postsCount, topicsCount) = repository.DbAccess
             .Execute(db => db.Connection.Single<(int postsCount, int topicsCount)>(expression));

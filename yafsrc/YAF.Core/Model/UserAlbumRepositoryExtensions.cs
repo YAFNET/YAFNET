@@ -80,7 +80,7 @@ public static class UserAlbumRepositoryExtensions
         return
         [
             .. repository.GetPaged(userAlbum => userAlbum.UserID == userId, pageIndex, pageSize)
-                        .OrderByDescending(u => u.Updated),
+                        .OrderByDescending(u => u.Updated)
         ];
     }
 

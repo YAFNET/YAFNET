@@ -105,7 +105,7 @@ public class TopicFlags : FlagsBase
         /// <summary>
         /// The is persistent.
         /// </summary>
-        IsPersistent = 512,
+        IsPersistent = 512
 
         /// <summary>
         /// The is question.

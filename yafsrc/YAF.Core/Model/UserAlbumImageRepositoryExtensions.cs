@@ -98,7 +98,7 @@ public static class UserAlbumImageRepositoryExtensions
        return
        [
            .. repository.GetPaged(albumImage => albumImage.AlbumID == albumId, pageIndex, pageSize)
-                       .OrderByDescending(a => a.Uploaded),
+                       .OrderByDescending(a => a.Uploaded)
        ];
     }
 
