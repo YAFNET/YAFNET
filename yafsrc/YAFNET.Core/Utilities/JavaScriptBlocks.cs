@@ -1716,7 +1716,17 @@ public static class JavaScriptBlocks
                    
                    window.addEventListener("scroll", () => {
                        const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-                       if ((scrollTop + clientHeight) >= scrollHeight) {
+                       
+                       const discussions = document.querySelector(".row-discussions"),
+                       stats =  document.querySelector(".row-stats");
+                       
+                       var height = scrollTop + clientHeight + stats.clientHeight;
+                       
+                       if (discussions) {
+                          height += discussions.clientHeight;
+                       }
+                       
+                       if (height >= scrollHeight) {
                            const btn = document.getElementById("category-info-more");
                            if (btn != null) {
                                GetCategories();
