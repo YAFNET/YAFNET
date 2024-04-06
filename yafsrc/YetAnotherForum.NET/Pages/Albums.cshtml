@@ -15,7 +15,7 @@
 <section class="text-center container">
     <div class="row">
         <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">
+            <h1 class="@Html.GetTextBgColor("fw-light")">
                     @Html.LocalizedTextFormatted("ALBUMS_HEADER_TEXT", Model.AlbumUser.DisplayOrUserName())
             </h1>
             
@@ -42,7 +42,7 @@
     </div>
 </section>
 
-<div class="bg-light">
+<div class="@Html.GetTextBgColor("bg-light")">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             @foreach (var album in Model.Albums)
