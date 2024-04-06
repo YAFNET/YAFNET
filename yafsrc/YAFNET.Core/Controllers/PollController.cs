@@ -32,6 +32,7 @@ using YAF.Types.Models;
 /// <summary>
 /// The Poll controller.
 /// </summary>
+[Route("[controller]")]
 public class PollController : ForumBaseController
 {
     /// <summary>

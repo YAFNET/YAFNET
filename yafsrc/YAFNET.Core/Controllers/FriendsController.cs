@@ -38,6 +38,7 @@ using YAF.Types.Objects.Model;
 /// The Friends controller.
 /// </summary>
 [Authorize]
+[Route("[controller]")]
 public class FriendsController : ForumBaseController
 {
     /// <summary>

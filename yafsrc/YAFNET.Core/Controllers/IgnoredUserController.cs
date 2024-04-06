@@ -37,6 +37,7 @@ using YAF.Types.Objects.Model;
 /// The IgnoredUser controller.
 /// </summary>
 [Authorize]
+[Route("[controller]")]
 public class IgnoredUserController : ForumBaseController
 {
     /// <summary>
@@ -50,6 +51,11 @@ public class IgnoredUserController : ForumBaseController
     {
         try
         {
+            if (this.PageBoardContext.IsGuest)
+            {
+                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+            }
+
             var messages = this.Get<ISessionService>().GetPageData<List<PagedMessage>>();
 
             var source = messages.Find(message => message.MessageID == m);
@@ -80,6 +86,11 @@ public class IgnoredUserController : ForumBaseController
     {
         try
         {
+            if (this.PageBoardContext.IsGuest)
+            {
+                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+            }
+
             var messages = this.Get<ISessionService>().GetPageData<List<PagedMessage>>();
 
             var source = messages.Find(message => message.MessageID == m);

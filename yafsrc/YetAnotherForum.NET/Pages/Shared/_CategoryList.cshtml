@@ -146,9 +146,17 @@
 
                                                 @if (Html.GetSubForums(forum).Count() >= Current.BoardSettings.SubForumsInForumList)
                                                 {
-                                                    <li class="list-inline-item">
-                                                        <label>...</label>
-                                                    </li>
+	                                                <li class="list-inline-item">
+                                                        @if (forum.ReadAccess)
+                                                        {
+                                                            <a href="@(BoardContext.Current.Get<LinkBuilder>().GetForumLink(forum.ForumID, forum.Forum))">...</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <label>...</label>
+                                                        }
+		                                                
+	                                                </li>
                                                 }
                                             </ul>
                                         </div>

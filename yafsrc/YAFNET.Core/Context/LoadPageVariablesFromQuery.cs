@@ -69,27 +69,6 @@ public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHave
 
         ArgumentNullException.ThrowIfNull(context);
 
-        var queryString = context.Request.Query;
-
-        var routeData = context.GetRouteData();
-
-        /*if (queryString.Count == 0 && routeData.Values.Count > 0)
-        {
-            @event.PageQueryData.CategoryID = routeData.Values["c"].ToTypeOrDefault(0);
-            @event.PageQueryData.ForumID = routeData.Values["f"].ToTypeOrDefault(0);
-            @event.PageQueryData.TopicID = routeData.Values["t"].ToTypeOrDefault(0);
-            @event.PageQueryData.MessageID = routeData.Values["m"].ToTypeOrDefault(0);
-            @event.PageQueryData.PageIndex = routeData.Values["p"].ToTypeOrDefault(0);
-        }
-        else
-        {
-            @event.PageQueryData.CategoryID = queryString["c"].FirstOrDefault().ToTypeOrDefault(0);
-            @event.PageQueryData.ForumID = queryString["f"].FirstOrDefault().ToTypeOrDefault(0);
-            @event.PageQueryData.TopicID = queryString["t"].FirstOrDefault().ToTypeOrDefault(0);
-            @event.PageQueryData.MessageID = queryString["m"].FirstOrDefault().ToTypeOrDefault(0);
-            @event.PageQueryData.PageIndex = queryString["p"].FirstOrDefault().ToTypeOrDefault(0);
-        }*/
-
         @event.PageQueryData.CategoryID = context.Request.GetQueryOrRouteValue<int>("c").ToTypeOrDefault(0);
         @event.PageQueryData.ForumID = context.Request.GetQueryOrRouteValue<int>("f").ToTypeOrDefault(0);
         @event.PageQueryData.TopicID = context.Request.GetQueryOrRouteValue<int>("t").ToTypeOrDefault(0);

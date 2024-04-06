@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Authorization;
+
 namespace YAF.Core.Controllers;
 
 using System;
@@ -37,18 +39,24 @@ using YAF.Types.Objects.Model;
 /// <summary>
 /// The Reputation controller.
 /// </summary>
+[Authorize]
+[Route("[controller]")]
 public class ReputationController : ForumBaseController
 {
     /// <summary>
     /// Adds the user reputation.
     /// </summary>
-    //[ValidateAntiForgeryToken]
     [HttpGet]
     [Route("AddReputation/{m:int}")]
     public IActionResult AddReputation(int m)
     {
         try
         {
+            if (this.PageBoardContext.IsGuest)
+            {
+                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+            }
+
             var messages = this.Get<ISessionService>().GetPageData<List<PagedMessage>>();
 
             var source = messages.Find(message => message.MessageID == m);
@@ -83,13 +91,17 @@ public class ReputationController : ForumBaseController
     /// <summary>
     /// Removes the user reputation.
     /// </summary>
-    //[ValidateAntiForgeryToken]
     [HttpGet]
     [Route("RemoveReputation/{m:int}")]
     public IActionResult RemoveReputation(int m)
     {
         try
         {
+            if (this.PageBoardContext.IsGuest)
+            {
+                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+            }
+            
             var messages = this.Get<ISessionService>().GetPageData<List<PagedMessage>>();
 
             var source = messages.Find(message => message.MessageID == m);

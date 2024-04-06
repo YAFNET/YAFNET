@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Authorization;
+
 namespace YAF.Core.Controllers;
 
 using System;
@@ -36,12 +38,13 @@ using YAF.Types.Objects.Model;
 /// <summary>
 /// The Posts controller.
 /// </summary>
+[Authorize]
+[Route("[controller]")]
 public class PostsController : ForumBaseController
 {
     /// <summary>
     /// Remove or Mark Post as Answer
     /// </summary>
-    //[ValidateAntiForgeryToken]
     [HttpGet]
     [Route("MarkAsAnswer/{m:int}")]
     public IActionResult MarkAsAnswer(int m)
@@ -57,44 +60,49 @@ public class PostsController : ForumBaseController
                 return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
             }
 
-            if (!source.IsDeleted && !this.PageBoardContext.IsGuest && this.PageBoardContext.MembershipUser != null
-                && this.PageBoardContext.PageUserID.Equals(source.TopicOwnerID)
-                && !source.UserID.Equals(this.PageBoardContext.PageUserID))
+            if (source.IsDeleted || this.PageBoardContext.IsGuest || this.PageBoardContext.MembershipUser == null
+                || !this.PageBoardContext.PageUserID.Equals(source.TopicOwnerID)
+                || source.UserID.Equals(this.PageBoardContext.PageUserID))
             {
-                var messageFlags = new MessageFlags(source.Flags);
-
-                if (messageFlags.IsAnswer)
-                {
-                    // Remove Current Message
-                    messageFlags.IsAnswer = false;
-
-                    this.GetRepository<Message>().UpdateFlags(source.MessageID, messageFlags.BitValue);
-
-                    this.GetRepository<Topic>().RemoveAnswerMessage(source.TopicID);
-                }
-                else
-                {
-                    // Check for duplicates
-                    var answerMessageId = this.GetRepository<Topic>().GetAnswerMessage(source.TopicID);
-
-                    if (answerMessageId != null)
-                    {
-                        var message = this.GetRepository<Message>().GetById(answerMessageId.Value);
-
-                        var oldMessageFlags = new MessageFlags(message.Flags) { IsAnswer = false };
-
-                        this.GetRepository<Message>().UpdateFlags(message.ID, oldMessageFlags.BitValue);
-                    }
-
-                    messageFlags.IsAnswer = true;
-
-                    this.GetRepository<Topic>().SetAnswerMessage(source.TopicID, source.MessageID);
-
-                    this.GetRepository<Message>().UpdateFlags(source.MessageID, messageFlags.BitValue);
-                }
+                return this.RedirectToPage(ForumPages.Post.GetPageName(),
+                    new { m, name = source.Topic, t = source.TopicID });
             }
 
-            return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = source.Topic, t = source.TopicID });
+
+            var messageFlags = new MessageFlags(source.Flags);
+
+            if (messageFlags.IsAnswer)
+            {
+                // Remove Current Message
+                messageFlags.IsAnswer = false;
+
+                this.GetRepository<Message>().UpdateFlags(source.MessageID, messageFlags.BitValue);
+
+                this.GetRepository<Topic>().RemoveAnswerMessage(source.TopicID);
+            }
+            else
+            {
+                // Check for duplicates
+                var answerMessageId = this.GetRepository<Topic>().GetAnswerMessage(source.TopicID);
+
+                if (answerMessageId != null)
+                {
+                    var message = this.GetRepository<Message>().GetById(answerMessageId.Value);
+
+                    var oldMessageFlags = new MessageFlags(message.Flags) { IsAnswer = false };
+
+                    this.GetRepository<Message>().UpdateFlags(message.ID, oldMessageFlags.BitValue);
+                }
+
+                messageFlags.IsAnswer = true;
+
+                this.GetRepository<Topic>().SetAnswerMessage(source.TopicID, source.MessageID);
+
+                this.GetRepository<Message>().UpdateFlags(source.MessageID, messageFlags.BitValue);
+            }
+
+            return this.RedirectToPage(ForumPages.Post.GetPageName(),
+                new { m, name = source.Topic, t = source.TopicID });
         }
         catch (Exception)
         {
