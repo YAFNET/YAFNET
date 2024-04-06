@@ -262,7 +262,7 @@ public static class TopicContainerHtmlHelper
         gotoLastPost.MergeAttribute("data-bs-toggle", "tooltip");
         gotoLastPost.MergeAttribute("title", context.Get<ILocalization>().GetText("GO_LAST_POST"));
 
-        gotoLastPost.InnerHtml.AppendHtml(htmlHelper.Icon("share-square"));
+        gotoLastPost.InnerHtml.AppendHtml(htmlHelper.Icon("share-square", marginEnd: false));
 
         lastPostColumn.InnerHtml.AppendHtml(gotoLastPost);
 

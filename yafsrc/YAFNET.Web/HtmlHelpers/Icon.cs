@@ -47,6 +47,9 @@ public static class IconHtmlHelper
     /// <param name="iconSize">
     /// The icon Size.
     /// </param>
+    /// <param name="marginEnd">
+    /// Add margin end to icon
+    /// </param>
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
@@ -55,15 +58,23 @@ public static class IconHtmlHelper
         string iconName,
         string iconType = "",
         string iconStyle = "fas",
-        string iconSize = "")
+        string iconSize = "",
+        bool marginEnd = true)
     {
         var content = new HtmlContentBuilder();
 
-        var className = iconType.IsSet() ? $"fa-fw {iconType} me-1" : "fa-fw me-1";
+        var className = new StringBuilder();
+
+        className.Append(iconType.IsSet() ? $"fa-fw {iconType}" : "fa-fw");
+
+        if (marginEnd)
+        {
+            className.Append(" me-1");
+        }
 
         if (iconSize.IsSet())
         {
-            className += $" {iconSize}";
+            className.Append($" {iconSize}");
         }
 
         var iconTag = new TagBuilder("i");
