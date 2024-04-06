@@ -68,7 +68,7 @@
 
 @if (!this.Model.PageBoardContext.BoardSettings.TwoColumnBoardLayout)
 {
-    @Html.Raw("</div><div class=\"\"row\"\">")
+    @Html.Raw("</div><div class=\"\"row row-discussions\"\">")
 }
 
 <div class="@Html.Raw(Model.PageBoardContext.BoardSettings.TwoColumnBoardLayout ? "col-md-4" : "col")">
@@ -79,7 +79,7 @@
 
 @if (Model.PageBoardContext.BoardSettings.ShowForumStatistics)
 {
-    <div class="row">
+    <div class="row row-stats">
         <div class="col">
             @await Html.PartialAsync("_BoardStatistics")
         </div>
