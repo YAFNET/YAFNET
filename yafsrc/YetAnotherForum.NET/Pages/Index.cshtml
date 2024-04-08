@@ -24,57 +24,57 @@
 
 <div class="row">
 
-<div class="@Html.Raw(Model.PageBoardContext.BoardSettings.TwoColumnBoardLayout ? "col-md-8" : "col")">
-    
-    <div id="category-list">
-        @await Html.PartialAsync("_CategoryList", Model.Categories)
-    </div>
-    <input type="hidden" value="0" id="category-index" />
+    <div class="@Html.Raw(Model.PageBoardContext.BoardSettings.TwoColumnBoardLayout ? "col-md-8" : "col")">
 
-    <div class="d-flex flex-row-reverse mb-3">
-        <div>
-            <form method="post">
-                <div class="btn-group" role="group" aria-label="Tools">
-                    @if (!Model.PageBoardContext.IsGuest)
-                    {
-                        <button asp-page-handler="WatchAll"
-                                button-style="Secondary"
-                                button-size="Small"
-                                icon="eye"
-                                bs-toggle="tooltip"
-                                text-localized-page="COMMON"
-                                text-localized-tag="WATCHFORUM_ALL"
-                                title-localized-page="COMMON"
-                                title-localized-tag="WATCHFORUM_ALL">
-                        </button>
-
-                        <button asp-page-handler="MarkAll"
-                                button-style="Secondary"
-                                button-size="Small"
-                                icon="glasses"
-                                bs-toggle="tooltip"
-                                text-localized-page="COMMON"
-                                text-localized-tag="MARKALL"
-                                title-localized-page="COMMON"
-                                title-localized-tag="MARKALL">
-                        </button>
-                    }
-                </div>
-            </form>
+        <div id="category-list">
+            @await Html.PartialAsync("_CategoryList", Model.Categories)
         </div>
+        <input type="hidden" value="0" id="category-index" />
+
+        <div class="d-flex flex-row-reverse mb-3">
+            <div>
+                <form method="post">
+                    <div class="btn-group" role="group" aria-label="Tools">
+                        @if (!Model.PageBoardContext.IsGuest)
+                        {
+                            <button asp-page-handler="WatchAll"
+                                    button-style="Secondary"
+                                    button-size="Small"
+                                    icon="eye"
+                                    bs-toggle="tooltip"
+                                    text-localized-page="COMMON"
+                                    text-localized-tag="WATCHFORUM_ALL"
+                                    title-localized-page="COMMON"
+                                    title-localized-tag="WATCHFORUM_ALL">
+                            </button>
+
+                            <button asp-page-handler="MarkAll"
+                                    button-style="Secondary"
+                                    button-size="Small"
+                                    icon="glasses"
+                                    bs-toggle="tooltip"
+                                    text-localized-page="COMMON"
+                                    text-localized-tag="MARKALL"
+                                    title-localized-page="COMMON"
+                                    title-localized-tag="MARKALL">
+                            </button>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </div>
 
-</div>
+    @if (!this.Model.PageBoardContext.BoardSettings.TwoColumnBoardLayout)
+    {
+        @Html.Raw("</div><div class=\"row row-discussions\">")
+    }
 
-@if (!this.Model.PageBoardContext.BoardSettings.TwoColumnBoardLayout)
-{
-    @Html.Raw("</div><div class=\"\"row row-discussions\"\">")
-}
-
-<div class="@Html.Raw(Model.PageBoardContext.BoardSettings.TwoColumnBoardLayout ? "col-md-4" : "col")">
-    @await Html.PartialAsync("_ActiveDiscussions")
-    @await Html.PartialAsync("_ForumStatsUsers")
-</div>
+    <div class="@Html.Raw(Model.PageBoardContext.BoardSettings.TwoColumnBoardLayout ? "col-md-4" : "col")">
+        @await Html.PartialAsync("_ActiveDiscussions")
+        @await Html.PartialAsync("_ForumStatsUsers")
+    </div>
 </div>
 
 @if (Model.PageBoardContext.BoardSettings.ShowForumStatistics)
@@ -97,12 +97,12 @@
         }
 
         @Html.Raw(
-            JsAndCssHelper.CompressJavaScript(
-            JavaScriptBlocks.ForumIconLegendPopoverJs((await Html.PartialAsync("_ForumIconLegend")).RenderToString().ToJsString(),
-                "forum-icon-legend-popvover")))
+                 JsAndCssHelper.CompressJavaScript(
+                 JavaScriptBlocks.ForumIconLegendPopoverJs((await Html.PartialAsync("_ForumIconLegend")).RenderToString().ToJsString(),
+                 "forum-icon-legend-popvover")))
 
 
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.LoadMoreOnScrolling(Url.Page("", "ShowMore"))))
-    
+
     </script>
 }
