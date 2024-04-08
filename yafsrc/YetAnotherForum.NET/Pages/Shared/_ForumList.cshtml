@@ -13,10 +13,14 @@
 @{
     var forumList = Current.PageForumID > 0 ?
         Model.SubForums.Item2 : Model.SubForums.Item2.Where(x => !x.ParentID.HasValue);
+
+    var forumsCount = 0;
 }
 
 @foreach (var forum in forumList)
 {
+    forumsCount++;
+
     var mods = Model.SubForums.Item1.Where(x => x.ForumID == forum.ForumID).DistinctBy(x => x.ModeratorID).ToList();
 
     var subForums = Model.SubForums.Item2.Where(item => item.ParentID == forum.ForumID)
@@ -72,7 +76,7 @@ forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
                 @if (imageUrl.IsSet())
                 {
-                    <img src="@imageUrl" alt="@imageToolTip" title="@imageToolTip" class="@imageClass"/>
+                    <img src="@imageUrl" alt="@imageToolTip" title="@imageToolTip" class="@imageClass" />
                 }
                 else
                 {
@@ -80,21 +84,21 @@ forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
                     {
                         <a tabindex="0" class="btn btn-link m-0 p-0 forum-icon-legend-popvover" role="button" data-bs-toggle="popover" href="#" aria-label="icon-legend">
                             @Html.IconStack(
-                                "comments",
-                                "text-secondary",
-                                "lock",
-                                "text-warning",
-                                "fa-1x");
+                                     "comments",
+                                     "text-secondary",
+                                     "lock",
+                                     "text-warning",
+                                     "fa-1x")
                         </a>
                     }
                     else if (lastPosted > lastRead && forum.ReadAccess)
                     {
                         <a tabindex="0" class="btn btn-link m-0 p-0 forum-icon-legend-popvover" role="button" data-bs-toggle="popover" href="#" aria-label="icon-legend">
                             @Html.Icon(
-                                "comments",
-                                "text-success",
-                                "fas",
-                                "fa-2x");
+                                     "comments",
+                                     "text-success",
+                                     "fas",
+                                     "fa-2x")
                         </a>
                     }
                     else
@@ -102,10 +106,10 @@ forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
                         <a tabindex="0" class="btn btn-link m-0 p-0 forum-icon-legend-popvover" role="button" data-bs-toggle="popover" href="#" aria-label="icon-legend">
                             <span class="fa-stack">
                                 @Html.Icon(
-                                    "comments",
-                                    "text-secondary",
-                                    "fas",
-                                    "fa-2x");
+                                         "comments",
+                                         "text-secondary",
+                                         "fas",
+                                         "fa-2x")
                             </span>
                         </a>
                     }
@@ -159,7 +163,7 @@ forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
                         @Html.Raw($"{forum.Posts:N0}")
                     </span>
                 }
-                
+
                 @if (!mods.NullOrEmpty())
                 {
                     @await Html.PartialAsync("_ForumModeratorList", mods)
@@ -191,6 +195,15 @@ forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
         <div class="row">
             <div class="col">
                 @await Html.PartialAsync("_ForumSubForumList", subForums)
+            </div>
+        </div>
+    }
+
+    @if (forumsCount < forumList.Count())
+    {
+        <div class="row">
+            <div class="col">
+                <hr />
             </div>
         </div>
     }
