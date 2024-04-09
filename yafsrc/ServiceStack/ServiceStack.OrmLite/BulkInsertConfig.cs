@@ -17,7 +17,7 @@ public enum BulkInsertMode
 
     Csv,
 
-    Sql,
+    Sql
 }
 
 public class BulkInsertConfig

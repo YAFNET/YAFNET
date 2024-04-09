@@ -146,17 +146,11 @@ public partial class EditUsersSettings : BaseUserControl
         string language = null;
         var culture = this.Culture.SelectedValue;
         var theme = this.Theme.SelectedValue;
-        var themeMode = Types.Constants.ThemeMode.Light;
         var pageSize = this.PageSize.SelectedValue.ToType<int>();
 
         if (this.Theme.SelectedValue.IsNotSet())
         {
             theme = null;
-        }
-
-        if (this.ThemeMode.SelectedValue.IsSet())
-        {
-            themeMode = this.ThemeMode.SelectedValue.ToEnum<ThemeMode>();
         }
 
         if (this.Culture.SelectedValue.IsNotSet())
@@ -177,7 +171,6 @@ public partial class EditUsersSettings : BaseUserControl
             language,
             culture,
             theme,
-            themeMode,
             this.HideMe.Checked,
             this.Activity.Checked,
             pageSize);
@@ -215,8 +208,6 @@ public partial class EditUsersSettings : BaseUserControl
         if (this.PageBoardContext.BoardSettings.AllowUserTheme)
         {
             this.Theme.DataSource = StaticDataHelper.Themes();
-
-            this.ThemeMode.AddThemeModes();
         }
 
         if (this.PageBoardContext.BoardSettings.AllowUserLanguage)
@@ -275,13 +266,6 @@ public partial class EditUsersSettings : BaseUserControl
                 {
                     themeItem.Selected = true;
                 }
-            }
-
-            var themeModeItem = this.ThemeMode.Items.FindByValue(this.User.DarkMode.ToType<int>().ToString());
-
-            if (themeModeItem != null)
-            {
-                themeModeItem.Selected = true;
             }
         }
 

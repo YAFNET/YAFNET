@@ -142,15 +142,4 @@ public class ForumPageBase : Page, IHaveServiceLocator, IRequireStartupServices
                    ? $@"lang=""{this.Get<ILocalization>().Culture.TwoLetterISOLanguageName}"" dir=""rtl"""
                    : $@"lang=""{this.Get<ILocalization>().Culture.TwoLetterISOLanguageName}""";
     }
-
-    /// <summary>
-    /// Gets the Theme Mode (dark or light) for the root html Tag
-    /// </summary>
-    /// <returns>System.String.</returns>
-    protected string GetThemeMode()
-    {
-        return this.PageBoardContext.PageUser.DarkMode
-                   ? @" data-bs-theme=""dark"""
-                   : string.Empty;
-    }
 }

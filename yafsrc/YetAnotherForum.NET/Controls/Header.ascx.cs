@@ -44,6 +44,8 @@ public partial class Header : BaseUserControl
     {
         this.RenderQuickSearch();
 
+        this.RenderThemeModeSelector();
+
         base.OnPreRender(e);
     }
 
@@ -208,6 +210,16 @@ public partial class Header : BaseUserControl
             $"if (this.value == '') {{this.value = '{this.GetText("TOOLBAR", "SEARCHKEYWORD")}';}}";
 
         this.searchInput.Text = this.GetText("TOOLBAR", "SEARCHKEYWORD");
+    }
+
+    private void RenderThemeModeSelector()
+    {
+        if (!this.PageBoardContext.BoardSettings.AllowUserTheme)
+        {
+            return;
+        }
+
+        this.ThemeModeSelector.Visible = true;
     }
 
     /// <summary>

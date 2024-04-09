@@ -73,7 +73,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 { OrmLiteVariables.MaxText, "VARCHAR(MAX)" },
                 { OrmLiteVariables.MaxTextUnicode, "NVARCHAR(MAX)" },
                 { OrmLiteVariables.True, this.SqlBool(true) },
-                { OrmLiteVariables.False, this.SqlBool(false) },
+                { OrmLiteVariables.False, this.SqlBool(false) }
             };
         }
 

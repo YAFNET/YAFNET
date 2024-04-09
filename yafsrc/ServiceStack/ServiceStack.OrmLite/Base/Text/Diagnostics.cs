@@ -101,7 +101,7 @@ public enum ProfileSource
     ServiceStack = 1 << 0,
     Redis = 1 << 1,
     OrmLite = 1 << 2,
-    All = ServiceStack | OrmLite | Redis,
+    All = ServiceStack | OrmLite | Redis
 }
 
 public abstract class DiagnosticEvent

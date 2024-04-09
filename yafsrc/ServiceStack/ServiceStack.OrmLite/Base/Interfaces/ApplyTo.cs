@@ -129,5 +129,5 @@ public enum ApplyTo
     /// <summary>
     /// The base line control
     /// </summary>
-    BaseLineControl = 1 << 29,
+    BaseLineControl = 1 << 29
 }

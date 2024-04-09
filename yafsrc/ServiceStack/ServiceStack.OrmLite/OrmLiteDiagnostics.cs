@@ -107,8 +107,8 @@ static internal class OrmLiteDiagnostics
                                            OperationId = operationId,
                                            Operation = operation,
                                            IsolationLevel = isolationLevel,
-                                           Connection = dbConn,
-                                       }.Init(Activity.Current));
+                                           Connection = dbConn
+            }.Init(Activity.Current));
         return operationId;
     }
 

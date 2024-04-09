@@ -106,7 +106,7 @@ public enum EventLevel
     /// <summary>
     /// The verbose
     /// </summary>
-    Verbose,
+    Verbose
 }
 
 /// <summary>
@@ -117,7 +117,7 @@ public enum EventKeywords : long
     /// <summary>
     /// The none
     /// </summary>
-    None = 0x0,
+    None = 0x0
 }
 
 /// <summary>

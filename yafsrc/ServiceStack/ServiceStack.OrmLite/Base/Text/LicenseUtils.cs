@@ -114,7 +114,7 @@ public enum LicenseType
     /// <summary>
     /// The orm lite site
     /// </summary>
-    OrmLiteSite,
+    OrmLiteSite
 }
 
 /// <summary>
@@ -190,7 +190,7 @@ public enum LicenseFeature : long
     /// <summary>
     /// The aws
     /// </summary>
-    Aws = 1 << 10,
+    Aws = 1 << 10
 }
 
 /// <summary>
@@ -210,7 +210,7 @@ public enum LicenseMeta : long
     /// <summary>
     /// The cores
     /// </summary>
-    Cores = 1 << 1,
+    Cores = 1 << 1
 }
 
 /// <summary>
@@ -241,7 +241,7 @@ public enum QuotaType
     /// <summary>
     /// The premium feature
     /// </summary>
-    PremiumFeature,  //AdminUI, Advanced Redis APIs, etc
+    PremiumFeature //AdminUI, Advanced Redis APIs, etc
 }
 
 /// <summary>
@@ -634,7 +634,7 @@ public static class LicenseUtils
                                                LicenseType.TextSite => "TS",
                                                LicenseType.RedisSite => "RS",
                                                LicenseType.OrmLiteSite => "OS",
-                                               _ => "UN",
+                                               _ => "UN"
                                            };
 
     private static LicenseKey VerifyIndividualLicense(string licenseKey)
@@ -674,7 +674,7 @@ public static class LicenseUtils
                                    Expiry = new DateTime(year + 1, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                                    Hash = keySign,
                                    Name = keyText,
-                                   Type = LicenseType.FreeIndividual,
+                                   Type = LicenseType.FreeIndividual
                                };
                 }
             }
@@ -721,7 +721,7 @@ public static class LicenseUtils
                                    Expiry = new DateTime(year + 1, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                                    Hash = keySign,
                                    Name = keyText,
-                                   Type = LicenseType.FreeOpenSource,
+                                   Type = LicenseType.FreeOpenSource
                                };
                 }
             }
@@ -944,7 +944,7 @@ public static class LicenseUtils
                           Name = map.Get("Name"),
                           Type = (LicenseType)Enum.Parse(typeof(LicenseType), map.Get("Type"), ignoreCase: true),
                           Hash = map.Get("Hash"),
-                          Expiry = DateTimeSerializer.ParseManual(map.Get("Expiry"), DateTimeKind.Utc).GetValueOrDefault(),
+                          Expiry = DateTimeSerializer.ParseManual(map.Get("Expiry"), DateTimeKind.Utc).GetValueOrDefault()
                       };
 
         if (key.Ref != refId)

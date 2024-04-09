@@ -45,7 +45,7 @@ public enum Lang
     /// <summary>
     /// The kotlin
     /// </summary>
-    Kotlin = 1 << 7,
+    Kotlin = 1 << 7
 }
 
 /// <summary>

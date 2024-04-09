@@ -357,7 +357,8 @@ module.exports = function(grunt) {
                     'Scripts/forum/yaf.SimilarTitles.js',
                     'Scripts/forum/yaf.Paging.js',
                     'Scripts/forum/yaf.Main.js',
-                    'Scripts/forum/yaf.contextMenu.js'
+                    'Scripts/forum/yaf.contextMenu.js',
+                    'Scripts/forum/color-modes.js'
                 ],
                 dest: 'Scripts/forumExtensions.js'
             },
@@ -386,7 +387,8 @@ module.exports = function(grunt) {
                     'Scripts/forum/yaf.SimilarTitles.js',
                     'Scripts/forum/yaf.Paging.js',
                     'Scripts/forum/yaf.Main.js',
-                    'Scripts/forum/yaf.contextMenu.js'
+                    'Scripts/forum/yaf.contextMenu.js',
+                    'Scripts/forum/color-modes.js'
                 ],
                 dest: 'Scripts/forumExtensionsDnn.js'
             },
@@ -413,7 +415,8 @@ module.exports = function(grunt) {
                     'Scripts/forum/yaf.Notify.js',
                     'Scripts/forum/yaf.Paging.js',
                     'Scripts/forum/yaf.Main.js',
-                    'Scripts/forum/yaf.contextMenu.js'
+                    'Scripts/forum/yaf.contextMenu.js',
+                    'Scripts/forum/color-modes.js'
                 ],
                 dest: 'Scripts/ForumAdminExtensions.js'
             },
@@ -439,7 +442,8 @@ module.exports = function(grunt) {
                     'Scripts/forum/yaf.Notify.js',
                     'Scripts/forum/yaf.Paging.js',
                     'Scripts/forum/yaf.Main.js',
-                    'Scripts/forum/yaf.contextMenu.js'
+                    'Scripts/forum/yaf.contextMenu.js',
+                    'Scripts/forum/color-modes.js'
                 ],
                 dest: 'Scripts/ForumAdminExtensionsDnn.js'
             },

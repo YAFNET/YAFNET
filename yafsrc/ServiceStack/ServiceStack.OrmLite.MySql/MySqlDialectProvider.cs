@@ -104,7 +104,7 @@ public class MySqlDialectProvider : MySqlDialectProviderBase<MySqlDialectProvide
             FieldQuotationCharacter = '"',
             FieldQuotationOptional = true,
             EscapeCharacter = '\\',
-            LineTerminator = Environment.NewLine,
+            LineTerminator = Environment.NewLine
         };
 
         var columns = CsvSerializer.PropertiesFor<T>()

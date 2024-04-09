@@ -22,70 +22,23 @@
  * under the License.
  */
 
+using ServiceStack.DataAnnotations;
+
 namespace YAF.Core.Migrations;
 
-using System.Data;
-
-using YAF.Core.Context;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Data;
 using YAF.Types.Models;
 
 /// <summary>
-/// Version 89 Migrations
+/// Version 92 Migrations
 /// </summary>
-public class Migration89 : IRepositoryMigration, IHaveServiceLocator
+[Description("create private message table")]
+public class Migration89 : MigrationBase
 {
     /// <summary>
-    /// Migrate Repositories (Database).
+    /// Migrations
     /// </summary>
-    /// <param name="dbAccess">
-    /// The Database access.
-    /// </param>
-    public void MigrateDatabase(IDbAccess dbAccess)
+    public override void Up()
     {
-        dbAccess.Execute(
-            dbCommand =>
-            {
-                UpgradeTable(this.GetRepository<User>(), dbCommand);
-                UpgradeTable(this.GetRepository<PrivateMessage>(), dbAccess);
-
-                ///////////////////////////////////////////////////////////
-
-                return true;
-            });
+        this.Db.CreateTableIfNotExists<PrivateMessage>();
     }
-
-    /// <summary>Upgrades the User table.</summary>
-    /// <param name="repository">The repository.</param>
-    /// <param name="dbCommand">The db command.</param>
-    private static void UpgradeTable(IRepository<User> repository, IDbCommand dbCommand)
-    {
-        CodeContracts.ThrowIfNull(repository);
-
-        if (!dbCommand.Connection.ColumnExists<User>(x => x.DarkMode))
-        {
-            dbCommand.Connection.AddColumn<User>(x => x.DarkMode);
-        }
-    }
-
-    /// <summary>Upgrades the PrivateMessage table.</summary>
-    /// <param name="repository">The repository.</param>
-    /// <param name="dbAccess">
-    /// The Database access.
-    /// </param>
-    private static void UpgradeTable(
-        IRepository<PrivateMessage> repository,
-        IDbAccess dbAccess)
-    {
-        CodeContracts.ThrowIfNull(repository);
-
-        dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PrivateMessage>());
-    }
-
-    /// <summary>
-    /// Gets the ServiceLocator.
-    /// </summary>
-    /// <value>The service locator.</value>
-    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 }

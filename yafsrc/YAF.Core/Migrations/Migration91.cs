@@ -33,7 +33,7 @@ using YAF.Types.Models;
 /// <summary>
 /// Version 89 Migrations
 /// </summary>
-[Description("Remove Nntp Tables and Pm Limit Column from Group and Rank")]
+[Description("Remove Nntp tables and reset 2fa for all accounts to false")]
 public class Migration91 : MigrationBase
 {
     /// <summary>

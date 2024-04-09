@@ -423,7 +423,7 @@ public class FieldDefinition
                                IsReference = IsReference,
                                FieldReference = FieldReference,
                                CustomFieldDefinition = CustomFieldDefinition,
-                               IsRefType = IsRefType,
+                               IsRefType = IsRefType
                            };
 
         modifier?.Invoke(fieldDef);

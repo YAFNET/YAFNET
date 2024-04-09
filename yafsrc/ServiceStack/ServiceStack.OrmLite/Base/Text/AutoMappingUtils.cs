@@ -492,7 +492,7 @@ public static class AutoMappingUtils
                 var definition = new AssignmentDefinition
                                      {
                                          ToType = toType,
-                                         FromType = fromType,
+                                         FromType = fromType
                                      };
 
                 var readMap = GetMembers(fromType, true);

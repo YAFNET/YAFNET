@@ -31,7 +31,6 @@ using YAF.Types.Extensions;
 /// A class which represents the User table.
 /// </summary>
 [Serializable]
-
 [UniqueConstraint(nameof(BoardID), nameof(Name))]
 public class User : IEntity, IHaveBoardID, IHaveID
 {
@@ -333,7 +332,6 @@ public class User : IEntity, IHaveBoardID, IHaveID
     /// <summary>
     /// Gets or sets a value indicating whether use Dark Mode or not.
     /// </summary>
-    [Required]
-    [Default(typeof(bool), "0")]
+    [Ignore]
     public bool DarkMode { get; set; }
 }

@@ -248,7 +248,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                                                               "USING",
                                                               "VERBOSE",
                                                               "WHEN",
-                                                              "WHERE",
+                                                              "WHERE"
                                                           }, StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
@@ -1237,8 +1237,8 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                                                                            [typeof(TimeSpan)] = NpgsqlDbType.Time,
                                                                            [typeof(byte[])] = NpgsqlDbType.Bytea,
                                                                            [typeof(uint)] = NpgsqlDbType.Oid,
-                                                                           [typeof(uint[])] = NpgsqlDbType.Oidvector,
-                                                                       };
+                                                                           [typeof(uint[])] = NpgsqlDbType.Oidvector
+    };
 
     /// <summary>
     /// Gets the type of the database.
@@ -1281,8 +1281,8 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                                                                         { "timestamp[]", NpgsqlDbType.Array | NpgsqlDbType.Timestamp },
                                                                         { "timestamp with time zone[]", NpgsqlDbType.Array | NpgsqlDbType.TimestampTz },
                                                                         { "bool[]", NpgsqlDbType.Array | NpgsqlDbType.Boolean },
-                                                                        { "boolean[]", NpgsqlDbType.Array | NpgsqlDbType.Boolean },
-                                                                    };
+                                                                        { "boolean[]", NpgsqlDbType.Array | NpgsqlDbType.Boolean }
+    };
 
     /// <summary>
     /// Sets the parameter.

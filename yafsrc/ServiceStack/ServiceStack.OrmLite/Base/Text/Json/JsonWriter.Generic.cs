@@ -253,7 +253,7 @@ public static class JsonWriter<T>
         var isNumeric = typeof(T).IsNumericType();
         TypeInfo = new TypeInfo
                        {
-                           EncodeMapKey = typeof(T) == typeof(bool) || isNumeric,
+                           EncodeMapKey = typeof(T) == typeof(bool) || isNumeric
                        };
 
         CacheFn = typeof(T) == typeof(object)

@@ -331,8 +331,8 @@ public class Config
                                              ModelFactory = ReflectionExtensions.GetConstructorMethodToCache,
                                              ExcludeTypes = new HashSet<Type> {
                                                                                       typeof(System.IO.Stream),
-                                                                                      typeof(System.Reflection.MethodBase),
-                                                                                  },
+                                                                                      typeof(System.Reflection.MethodBase)
+                                             },
                                              ExcludeTypeNames = new HashSet<string>()
                                          };
 

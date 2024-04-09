@@ -596,7 +596,7 @@ public static class JsConfig
                                                   {
                                                       nameof(SerializableAttribute),
                                                       nameof(DataContractAttribute),
-                                                      nameof(RuntimeSerializableAttribute),
+                                                      nameof(RuntimeSerializableAttribute)
                                                   };
         AllowRuntimeTypeWithInterfacesNamed = new HashSet<string>
                                                   {
@@ -997,7 +997,7 @@ public enum DateHandler
     /// <summary>
     /// 
     /// </summary>
-    UnixTimeMs,
+    UnixTimeMs
 }
 
 /// <summary>
@@ -1039,5 +1039,5 @@ public enum TextCase
     /// <summary>
     /// snake_case
     /// </summary>
-    SnakeCase,
+    SnakeCase
 }

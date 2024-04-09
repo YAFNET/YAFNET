@@ -3421,7 +3421,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                 OnFkOption.NoAction => "NO ACTION",
                 OnFkOption.SetNull => "SET NULL",
                 OnFkOption.SetDefault => "SET DEFAULT",
-                _ => "RESTRICT",
+                _ => "RESTRICT"
             };
     }
 

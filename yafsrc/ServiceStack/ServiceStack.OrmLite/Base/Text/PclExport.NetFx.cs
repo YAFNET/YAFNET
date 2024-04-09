@@ -586,7 +586,7 @@ namespace ServiceStack.OrmLite.Base.Text
                 return new DataContractAttribute
                 {
                     Name = (string)accessor.GetPublicGetter("Name")(attr),
-                    Namespace = (string)accessor.GetPublicGetter("Namespace")(attr),
+                    Namespace = (string)accessor.GetPublicGetter("Namespace")(attr)
                 };
             }
             return null;
@@ -610,7 +610,7 @@ namespace ServiceStack.OrmLite.Base.Text
                 {
                     Name = (string)accessor.GetPublicGetter("Name")(attr),
                     EmitDefaultValue = (bool)accessor.GetPublicGetter("EmitDefaultValue")(attr),
-                    IsRequired = (bool)accessor.GetPublicGetter("IsRequired")(attr),
+                    IsRequired = (bool)accessor.GetPublicGetter("IsRequired")(attr)
                 };
 
                 var order = (int)accessor.GetPublicGetter("Order")(attr);
@@ -640,7 +640,7 @@ namespace ServiceStack.OrmLite.Base.Text
                 {
                     Name = (string)accessor.GetPublicGetter("Name")(attr),
                     EmitDefaultValue = (bool)accessor.GetPublicGetter("EmitDefaultValue")(attr),
-                    IsRequired = (bool)accessor.GetPublicGetter("IsRequired")(attr),
+                    IsRequired = (bool)accessor.GetPublicGetter("IsRequired")(attr)
                 };
 
                 var order = (int)accessor.GetPublicGetter("Order")(attr);

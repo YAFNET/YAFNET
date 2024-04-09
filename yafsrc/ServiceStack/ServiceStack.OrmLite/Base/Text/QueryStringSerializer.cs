@@ -305,7 +305,7 @@ internal class PropertyTypeConfig<T>
         Config = new PropertyTypeConfig
                      {
                          TypeConfig = TypeConfig<T>.GetState(),
-                         WriteFn = WriteType<T, JsvTypeSerializer>.WriteComplexQueryStringProperties,
+                         WriteFn = WriteType<T, JsvTypeSerializer>.WriteComplexQueryStringProperties
                      };
     }
 }
