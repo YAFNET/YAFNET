@@ -407,7 +407,8 @@ module.exports = function(grunt) {
                     'wwwroot/lib/forum/signalR.js',
                     'wwwroot/lib/forum/contextMenu.js',
                     'wwwroot/lib/forum/chatHub.js',
-                    'wwwroot/lib/form-serialize/index.js'
+                    'wwwroot/lib/form-serialize/index.js',
+                    'wwwroot/lib/bootstrap/color-modes.js'
                 ],
                 dest: 'wwwroot/js/forumExtensions.js'
             },
@@ -438,7 +439,8 @@ module.exports = function(grunt) {
                     'wwwroot/lib/forum/modals.js',
                     'wwwroot/lib/forum/notificationHub.js',
                     'wwwroot/lib/forum/contextMenu.js',
-                    'wwwroot/lib/form-serialize/index.js'
+                    'wwwroot/lib/form-serialize/index.js',
+                    'wwwroot/lib/bootstrap/color-modes.js'
                 ],
                 dest: 'wwwroot/js/forumAdminExtensions.js'
             },

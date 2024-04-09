@@ -74,90 +74,96 @@
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto">
-                            @if (Current.Get<IPermissions>().Check(Current.BoardSettings.SearchPermissions))
-                            {
-                                <li class="nav-item">
-                                    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Search ? "nav-link active" : "nav-link")" role="button"
-                                       asp-page="@ForumPages.Search.GetPageName()"
-                                       bs-toggle="tooltip"
-                                       text-localized-page="TOOLBAR" text-localized-tag="SEARCH"
-                                       title-localized-page="TOOLBAR" title-localized-tag="SEARCH_TITLE">
-                                    </a>
-                                </li>
-                            }
+	                    <ul class="navbar-nav me-auto">
+		                    @if (Current.Get<IPermissions>().Check(Current.BoardSettings.SearchPermissions))
+		                    {
+			                    <li class="nav-item">
+				                    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Search ? "nav-link active" : "nav-link")" role="button"
+				                       asp-page="@ForumPages.Search.GetPageName()"
+				                       bs-toggle="tooltip"
+				                       text-localized-page="TOOLBAR" text-localized-tag="SEARCH"
+				                       title-localized-page="TOOLBAR" title-localized-tag="SEARCH_TITLE">
+				                    </a>
+			                    </li>
+		                    }
 
-                            @if (Current.Get<IPermissions>().Check(Current.BoardSettings.MembersListViewPermissions))
-                            {
-                                <li class="nav-item">
-                                    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Members ? "nav-link active" : "nav-link")" role="button"
-                                       asp-page="@ForumPages.Members.GetPageName()"
-                                       bs-toggle="tooltip"
-                                       text-localized-page="TOOLBAR" text-localized-tag="MEMBERS"
-                                       title-localized-page="TOOLBAR" title-localized-tag="MEMBERS_TITLE">
-                                    </a>
-                                </li>
-                            }
+		                    @if (Current.Get<IPermissions>().Check(Current.BoardSettings.MembersListViewPermissions))
+		                    {
+			                    <li class="nav-item">
+				                    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Members ? "nav-link active" : "nav-link")" role="button"
+				                       asp-page="@ForumPages.Members.GetPageName()"
+				                       bs-toggle="tooltip"
+				                       text-localized-page="TOOLBAR" text-localized-tag="MEMBERS"
+				                       title-localized-page="TOOLBAR" title-localized-tag="MEMBERS_TITLE">
+				                    </a>
+			                    </li>
+		                    }
 
-                            @if (Current.Get<IPermissions>().Check(Current.BoardSettings.ShowTeamTo))
-                            {
-                                <li class="nav-item">
-                                    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Team ? "nav-link active" : "nav-link")" role="button"
-                                       asp-page="@ForumPages.Team.GetPageName()"
-                                       bs-toggle="tooltip"
-                                       text-localized-page="TOOLBAR" text-localized-tag="TEAM"
-                                       title-localized-page="TOOLBAR" title-localized-tag="TEAM_TITLE">
-                                    </a>
-                                </li>
-                            }
+		                    @if (Current.Get<IPermissions>().Check(Current.BoardSettings.ShowTeamTo))
+		                    {
+			                    <li class="nav-item">
+				                    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Team ? "nav-link active" : "nav-link")" role="button"
+				                       asp-page="@ForumPages.Team.GetPageName()"
+				                       bs-toggle="tooltip"
+				                       text-localized-page="TOOLBAR" text-localized-tag="TEAM"
+				                       title-localized-page="TOOLBAR" title-localized-tag="TEAM_TITLE">
+				                    </a>
+			                    </li>
+		                    }
 
-                            @if (Current.Get<IPermissions>().Check(Current.BoardSettings.ShowHelpTo))
-                            {
-                                <li class="nav-item">
-                                    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Help ? "nav-link active" : "nav-link")" role="button"
-                                       asp-page="@ForumPages.Help.GetPageName()"
-                                       bs-toggle="tooltip"
-                                       text-localized-page="TOOLBAR" text-localized-tag="HELP"
-                                       title-localized-page="TOOLBAR" title-localized-tag="HELP_TITLE">
-                                    </a>
-                                </li>
-                            }
+		                    @if (Current.Get<IPermissions>().Check(Current.BoardSettings.ShowHelpTo))
+		                    {
+			                    <li class="nav-item">
+				                    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Help ? "nav-link active" : "nav-link")" role="button"
+				                       asp-page="@ForumPages.Help.GetPageName()"
+				                       bs-toggle="tooltip"
+				                       text-localized-page="TOOLBAR" text-localized-tag="HELP"
+				                       title-localized-page="TOOLBAR" title-localized-tag="HELP_TITLE">
+				                    </a>
+			                    </li>
+		                    }
 
-                            @await Html.PartialAsync("_LoginPartial")
+		                    @await Html.PartialAsync("_LoginPartial")
 
-                            @if (Current.IsModeratorInAnyForum || Current.IsAdmin)
-                            {
-                                <li class="nav-item">
-                                    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Moderate_Moderate ? "nav-link active" : "nav-link")" role="button"
-                                       asp-page="@ForumPages.Moderate_Moderate.GetPageName()"
-                                       bs-toggle="tooltip"
-                                       title-localized-page="TOOLBAR" title-localized-tag="MODERATE_TITLE">
-                                        @Html.LocalizedText("TOOLBAR", "MODERATE")
-                                        @if (Current.ModeratePosts > 0)
-                                        {
-                                            var title = Html.LocalizedTextFormatted("MODERATE_NEW", Current.ModeratePosts.ToString());
+		                    @if (Current.IsModeratorInAnyForum || Current.IsAdmin)
+		                    {
+			                    <li class="nav-item">
+				                    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Moderate_Moderate ? "nav-link active" : "nav-link")" role="button"
+				                       asp-page="@ForumPages.Moderate_Moderate.GetPageName()"
+				                       bs-toggle="tooltip"
+				                       title-localized-page="TOOLBAR" title-localized-tag="MODERATE_TITLE">
+					                    @Html.LocalizedText("TOOLBAR", "MODERATE")
+					                    @if (Current.ModeratePosts > 0)
+					                    {
+						                    var title = Html.LocalizedTextFormatted("MODERATE_NEW", Current.ModeratePosts.ToString());
 
-                                                <span class="badge text-bg-danger ms-1" title="@title">
-                                                @Current.ModeratePosts.ToString()
-                                                <span class="visually-hidden">
-                                                    @title
-                                                </span>
-                                            </span>
-                                            // this.GetTextFormatted("MODERATE_NEW", this.PageContext.ModeratePosts)
-                                        }
-                                    </a>
-                                </li>
-                            }
+						                    <span class="badge text-bg-danger ms-1" title="@title">
+							                    @Current.ModeratePosts.ToString()
+							                    <span class="visually-hidden">
+								                    @title
+							                    </span>
+						                    </span>
+						                    // this.GetTextFormatted("MODERATE_NEW", this.PageContext.ModeratePosts)
+					                    }
+				                    </a>
+			                    </li>
+		                    }
 
-                            @await Html.PartialAsync("_AdminMenu")
+		                    @await Html.PartialAsync("_AdminMenu")
 
-                            @await Html.PartialAsync("_HostMenu")
+		                    @await Html.PartialAsync("_HostMenu")
 
-                            @await Html.PartialAsync("_UserMenu")
+		                    @await Html.PartialAsync("_UserMenu")
 
 
-                        </ul>
+	                    </ul>
+
                         @await Html.PartialAsync("_QuickSearch")
+                        
+                        @if (Current.BoardSettings.AllowUserTheme)
+	                    {
+		                    @await Html.PartialAsync("_ThemeModeSelector")
+	                    }
                     </div>
                 </div>
             </nav>

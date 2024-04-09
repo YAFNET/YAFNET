@@ -161,15 +161,15 @@ class Lightbox {
                 ? ""
                 : `
 			<button id="#lightboxCarousel-${this.hash
-                }-prev" class="carousel-control carousel-control-prev h-75 m-auto" style="left:-110px" type="button" data-bs-target="#lightboxCarousel-${
+                }-prev" class="carousel-control-prev" type="button" data-bs-target="#lightboxCarousel-${
                 this.hash}" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="btn btn-secondary carousel-control-prev-icon" aria-hidden="true"></span>
 				<span class="visually-hidden">Previous</span>
 			</button>
 			<button id="#lightboxCarousel-${this.hash
-                }-next" class="carousel-control carousel-control-next h-75 m-auto" style="right:-110px" type="button" data-bs-target="#lightboxCarousel-${
+                }-next" class="carousel-control-next" type="button" data-bs-target="#lightboxCarousel-${
                 this.hash}" data-bs-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="btn btn-secondary carousel-control-next-icon" aria-hidden="true"></span>
 				<span class="visually-hidden">Next</span>
 			</button>`;
     
@@ -229,14 +229,12 @@ class Lightbox {
 	}
 	createModal() {
 		const template = document.createElement("template");
-		const btnInner =
-			'<svg xmlns="http://www.w3.org/2000/svg" style="position: relative; top: -15px;right:-40px" viewBox="0 0 16 16" fill="#fff"><path d="M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z"/></svg>';
 		const html = `
 			<div class="modal lightbox fade" id="lightboxModal-${this.hash}" tabindex="-1" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered modal-${this.settings.size}">
 					<div class="modal-content border-0 bg-transparent">
 						<div class="modal-body p-0">
-							<button type="button" class="btn-close position-absolute top-0 end-0 p-3" data-bs-dismiss="modal" aria-label="Close" style="z-index: 2; background: none;">${btnInner}</button>
+							<button type="button" class="btn-close position-absolute p-3" data-bs-dismiss="modal" aria-label="Close" style="top: -15px;right:-40px"></button>
 						</div>
 					</div>
 				</div>

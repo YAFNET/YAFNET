@@ -65,17 +65,5 @@ public class HtmlDirectionHelper : TagHelper, IHaveServiceLocator
         }
 
         output.Attributes.SetAttribute("lang", this.Get<ILocalization>().Culture.TwoLetterISOLanguageName);
-
-        var path = this.Get<IHttpContextAccessor>().HttpContext!.Request.Path.ToString();
-
-        if (path.Contains("/Install"))
-        {
-            return;
-        }
-
-        if (BoardContext.Current.PageUser.DarkMode)
-        {
-            output.Attributes.SetAttribute("data-bs-theme", "dark");
-        }
     }
 }

@@ -483,45 +483,6 @@ public static class StaticDataHelper
     }
 
     /// <summary>
-    /// Get All Themes
-    /// </summary>
-    /// <returns>
-    /// Returns a List with all Themes
-    /// </returns>
-    public static IReadOnlyCollection<SelectListItem> ThemeModes()
-    {
-        var list = new List<SelectListItem>();
-
-        var localization = BoardContext.Current.Get<ILocalization>();
-
-        var modes = EnumExtensions.GetAllItems<ThemeMode>();
-
-        var optionGroupLight = new SelectListGroup { Name = "sun" };
-        var optionGroupDark = new SelectListGroup { Name = "moon" };
-
-        modes.ForEach(
-            mode =>
-                {
-                    var text = localization.GetText("THEME_MODE", mode.ToString());
-                    var value = mode.ToInt();
-
-                    switch (mode)
-                    {
-                        case ThemeMode.Dark:
-                            list.Add(new SelectListItem { Value = value.ToString(), Text = text, Group = optionGroupDark });
-                            break;
-                        case ThemeMode.Light:
-                            list.Add(new SelectListItem { Value = value.ToString(), Text = text, Group = optionGroupLight });
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
-                    }
-                });
-
-        return list;
-    }
-
-    /// <summary>
     /// Get all time zones.
     /// </summary>
     /// <returns>

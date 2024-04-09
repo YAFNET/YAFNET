@@ -14494,6 +14494,10 @@
           {
             "@tag": "LIGHT",
             "#text": "Light"
+          },
+          {
+            "@tag": "AUTO",
+            "#text": "Auto"
           }
         ]
       },

@@ -191,7 +191,9 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         // Execute before 87
         if (prevVersion < 89)
         {
-           await this.Get<Migration89>().MigrateDatabaseAsync(this.DbAccess);
+            var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration89));
+
+            migrator.Run();
         }
 
         if (prevVersion < 87)
@@ -202,6 +204,13 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         if (prevVersion < 91)
         {
             var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration91));
+
+            migrator.Run();
+        }
+
+        if (prevVersion < 92)
+        {
+            var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration92));
 
             migrator.Run();
         }

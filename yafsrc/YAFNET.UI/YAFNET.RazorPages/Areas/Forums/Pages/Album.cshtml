@@ -15,11 +15,11 @@
 <section class="text-center container mb-3">
     <div class="row">
         <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">
-                @Model.GetTextFormatted("ALBUMS_TITLE",
-                    Html.HtmlEncode(Model.AlbumUser.DisplayOrUserName()),
-                    Html.HtmlEncode(Model.Album.Title))
-            </h1>
+	        <h1 class="@Html.GetTextBgColor("fw-light")">
+		        @Model.GetTextFormatted("ALBUMS_TITLE",
+			             Html.HtmlEncode(Model.AlbumUser.DisplayOrUserName()),
+			             Html.HtmlEncode(Model.Album.Title))
+	        </h1>
             <p>
                 @if (Model.PageBoardContext.PageUserID == Model.AlbumUser.ID)
                 {
@@ -44,93 +44,93 @@
     </div>
 </section>
 
-<div class="bg-light">
-    <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+<div class="@Html.GetTextBgColor("bg-light")">
+	<div class="container">
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-            @foreach (var image in Model.Images)
-            {
-                <div class="col">
-                    <div class="card mb-4 shadow-sm">
-                        <a href="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImage", "Albums" , new { imageId=image.ID}))"
-                           title="@Html.Raw($"{(image.Caption.IsSet() ? Html.HtmlEncode(image.Caption) : Html.HtmlEncode(image.FileName))} - Album IMG Code: [ALBUMIMG]{image.ID}[/ALBUMIMG]")"
-                           data-toggle="lightbox"
-                           data-gallery="@Model.Album.ID"
-                           data-caption="@Html.Raw($"{(image.Caption.IsSet() ? Html.HtmlEncode(image.Caption) : Html.HtmlEncode(image.FileName))} - Album IMG Code: [ALBUMIMG]{image.ID}[/ALBUMIMG]")">
-                            <img src="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImagePreview", "Albums" , new { imageId=image.ID}))"
-                                 class="card-img-top"
-                                 alt="@Html.HtmlEncode(image.Caption.IsSet() ?  image.Caption : image.FileName)"
-                                 title="@Html.HtmlEncode(image.Caption.IsSet() ?  image.Caption : image.FileName)" />
-                        </a>
-                        <div class="card-body">
-                            @if (Model.AlbumUser.ID != Model.PageBoardContext.PageUserID)
-                            {
-                                <p class="card-text">
-                                    @Html.HtmlEncode(image.Caption)
-                                </p>
-                            }
-                            else
-                            {
-                                var caption = image.Caption.IsNotSet() ? Model.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION") : Html.HtmlEncode(image.Caption);
+			@foreach (var image in Model.Images)
+			{
+				<div class="col">
+					<div class="card mb-4 shadow-sm">
+						<a href="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImage", "Albums", new { imageId = image.ID }))"
+						   title="@Html.Raw($"{(image.Caption.IsSet() ? Html.HtmlEncode(image.Caption) : Html.HtmlEncode(image.FileName))} - Album IMG Code: [ALBUMIMG]{image.ID}[/ALBUMIMG]")"
+						   data-toggle="lightbox"
+						   data-gallery="@Model.Album.ID"
+						   data-caption="@Html.Raw($"{(image.Caption.IsSet() ? Html.HtmlEncode(image.Caption) : Html.HtmlEncode(image.FileName))} - Album IMG Code: [ALBUMIMG]{image.ID}[/ALBUMIMG]")">
+							<img src="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImagePreview", "Albums", new { imageId = image.ID }))"
+							     class="card-img-top"
+							     alt="@Html.HtmlEncode(image.Caption.IsSet() ? image.Caption : image.FileName)"
+							     title="@Html.HtmlEncode(image.Caption.IsSet() ? image.Caption : image.FileName)"/>
+						</a>
+						<div class="card-body">
+							@if (Model.AlbumUser.ID != Model.PageBoardContext.PageUserID)
+							{
+								<p class="card-text">
+									@Html.HtmlEncode(image.Caption)
+								</p>
+							}
+							else
+							{
+								var caption = image.Caption.IsNotSet() ? Model.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION") : Html.HtmlEncode(image.Caption);
 
-                                <p class="card-text mb-3">
-                                    @Html.Icon("pen", "text-secondary")
-                                    <a class="album-image-caption border-bottom border-danger border-3" data-type="text"
-                                       data-id="@Html.Raw(image.ID)"
-                                        data-url="/api/Album/ChangeImageCaption"
-                                        data-title="@Html.LocalizedText(image.Caption.IsNotSet() ? "ALBUM_IMAGE_CHANGE_CAPTION" : "ALBUM_IMAGE_CHANGE_CAPTION2")">@caption</a>
-                                </p>
-                            }
-                            
-                            @if (Model.AlbumUser.ID == Model.PageBoardContext.PageUserID)
-                            {
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <form method="post">
-                                            @if (Model.Album.CoverImageID == image.ID)
-                                            {
-                                                <button type="submit"
-                                                        asp-page-handler="RemoveCover"
-                                                        asp-route-u="@Model.AlbumUser.ID"
-                                                        asp-route-a="@image.AlbumID"
-                                                        button-style="OutlineSecondary"
-                                                        button-size="Small"
-                                                        text-localized-tag="BUTTON_RESETCOVER"
-                                                        class="btn-cover"
-                                                        icon="trash"></button>
-                                            }
-                                            else
-                                            {
-                                                <button type="submit"
-                                                        asp-page-handler="SetCover"
-                                                        asp-route-u="@Model.AlbumUser.ID"
-                                                        asp-route-a="@image.AlbumID"
-                                                        asp-route-id="@image.ID"
-                                                        button-style="OutlineSecondary"
-                                                        button-size="Small"
-                                                        text-localized-tag="BUTTON_SETCOVER"
-                                                        class="btn-cover"
-                                                        icon="tag"></button>
-                                            }
+								<p class="card-text mb-3">
+									@Html.Icon("pen", "text-secondary")
+									<a class="album-image-caption border-bottom border-danger border-3" data-type="text"
+									   data-id="@Html.Raw(image.ID)"
+									   data-url="/api/Album/ChangeImageCaption"
+									   data-title="@Html.LocalizedText(image.Caption.IsNotSet() ? "ALBUM_IMAGE_CHANGE_CAPTION" : "ALBUM_IMAGE_CHANGE_CAPTION2")">@caption</a>
+								</p>
+							}
 
-                                        </form>
-                                    </div>
-                                </div>
-                            }
+							@if (Model.AlbumUser.ID == Model.PageBoardContext.PageUserID)
+							{
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group">
+										<form method="post">
+											@if (Model.Album.CoverImageID == image.ID)
+											{
+												<button type="submit"
+												        asp-page-handler="RemoveCover"
+												        asp-route-u="@Model.AlbumUser.ID"
+												        asp-route-a="@image.AlbumID"
+												        button-style="OutlineSecondary"
+												        button-size="Small"
+												        text-localized-tag="BUTTON_RESETCOVER"
+												        class="btn-cover"
+												        icon="trash"></button>
+											}
+											else
+											{
+												<button type="submit"
+												        asp-page-handler="SetCover"
+												        asp-route-u="@Model.AlbumUser.ID"
+												        asp-route-a="@image.AlbumID"
+												        asp-route-id="@image.ID"
+												        button-style="OutlineSecondary"
+												        button-size="Small"
+												        text-localized-tag="BUTTON_SETCOVER"
+												        class="btn-cover"
+												        icon="tag"></button>
+											}
 
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-        <div class="row justify-content-end">
-            <div class="col-auto">
-                <pager page-size="@Model.PageBoardContext.BoardSettings.AlbumImagesPerPage"
-                       count="!Model.Images.NullOrEmpty() ? Model.GetRepository<UserAlbumImage>().List(Model.Images[0].AlbumID).Count.ToType<int>() : 0">
-                </pager>
-            </div>
-        </div>
-    </div>
+										</form>
+									</div>
+								</div>
+							}
+
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+		<div class="row justify-content-end">
+			<div class="col-auto">
+				<pager page-size="@Model.PageBoardContext.BoardSettings.AlbumImagesPerPage"
+				       count="!Model.Images.NullOrEmpty() ? Model.GetRepository<UserAlbumImage>().List(Model.Images[0].AlbumID).Count.ToType<int>() : 0">
+				</pager>
+			</div>
+		</div>
+	</div>
 </div>
 
 @section Scripts {

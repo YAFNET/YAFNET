@@ -186,6 +186,19 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
                 @event.PageQueryData.TopicID = pageRow.Item5.ID;
             }
 
+            // Set theme mode
+            if (context.Request.Cookies["YAF-Theme"] != null &&
+                context.Request.Cookies["YAF-Theme"].IsSet() &&
+                (context.Request.Cookies["YAF-Theme"] == "dark" ||
+                 context.Request.Cookies["YAF-Theme"] == "auto"))
+            {
+                pageRow.Item2.DarkMode = true;
+            }
+            else
+            {
+                pageRow.Item2.DarkMode = false;
+            }
+
             // clear active users list
             if (@event.PageLoadData.Item1.ActiveUpdate)
             {

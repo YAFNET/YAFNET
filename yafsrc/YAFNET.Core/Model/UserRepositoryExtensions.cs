@@ -1074,9 +1074,6 @@ public static class UserRepositoryExtensions
     /// <param name="themeFile">
     /// The theme File.
     /// </param>
-    /// <param name="themeMode">
-    /// The Theme Mode.
-    /// </param>
     /// <param name="hideUser">
     /// The hide User.
     /// </param>
@@ -1093,7 +1090,6 @@ public static class UserRepositoryExtensions
         string languageFile,
         string culture,
         string themeFile,
-        ThemeMode themeMode,
         bool hideUser,
         bool activity,
         int pageSize)
@@ -1113,7 +1109,6 @@ public static class UserRepositoryExtensions
                           TimeZone = timeZone,
                           LanguageFile = languageFile,
                           ThemeFile = themeFile,
-                          DarkMode = themeMode == ThemeMode.Dark,
                           Culture = culture,
                           Flags = flags.BitValue,
                           PageSize = pageSize

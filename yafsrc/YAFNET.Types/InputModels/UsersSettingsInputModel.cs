@@ -60,12 +60,6 @@ public class UsersSettingsInputModel
     public string Theme { get; set; }
 
     /// <summary>
-    /// Gets or sets the theme.
-    /// </summary>
-    /// <value>The theme mode.</value>
-    public int ThemeMode { get; set; }
-
-    /// <summary>
     /// Gets or sets the language.
     /// </summary>
     /// <value>The language.</value>

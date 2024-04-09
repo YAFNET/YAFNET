@@ -129,46 +129,24 @@
 
                     @if (Model.PageBoardContext.BoardSettings.AllowUserTheme)
                     {
-                        <div class="row">
-                            <div class="mb-3 col-md-4">
-                                <label asp-for="Theme" localized-page="EDIT_PROFILE" localized-tag="SELECT_THEME" class="form-label">
-                                </label>
-                                <select asp-for="Theme" class="select2-select">
-                                    @foreach (var item in Model.Themes)
-                                    {
-                                        if (item.Selected)
-                                        {
-                                            <option value="@item.Value" selected="selected">@item.Text</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@item.Value">@item.Text</option>
-                                        }
+	                    <div class="mb-3">
+		                    <label asp-for="Theme" localized-page="EDIT_PROFILE" localized-tag="SELECT_THEME" class="form-label">
+		                    </label>
+		                    <select asp-for="Theme" class="select2-select">
+			                    @foreach (var item in Model.Themes)
+			                    {
+				                    if (item.Selected)
+				                    {
+					                    <option value="@item.Value" selected="selected">@item.Text</option>
+				                    }
+				                    else
+				                    {
+					                    <option value="@item.Value">@item.Text</option>
+				                    }
 
-                                    }
-                                </select>
-                            </div>
-                            <div class="mb-3 col-md-4">
-                                <label asp-for="ThemeMode" localized-page="EDIT_PROFILE" localized-tag="SELECT_THEME_MODE" class="form-label">
-                                </label>
-                                <select asp-for="ThemeMode" class="select2-image-select">
-                                    @foreach (var item in Model.ThemeModes)
-                                    {
-                                        var customProperty = $@"{{ ""label"": ""<i class='far fa-{item.Group.Name} fa-fw text-secondary me-1'></i>{item.Text}"" }}";
-
-                                        if (item.Selected)
-                                        {
-                                            <option value="@item.Value" selected="selected" data-custom-properties="@(customProperty)">@item.Text</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@item.Value" data-custom-properties="@(customProperty)">@item.Text</option>
-                                        }
-
-                                    }
-                                </select>
-                            </div>
-                        </div>
+			                    }
+		                    </select>
+	                    </div>
                     }
 
                     @if (Model.PageBoardContext.BoardSettings.AllowUserLanguage)

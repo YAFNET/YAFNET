@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,20 +22,26 @@
  * under the License.
  */
 
-namespace YAF.Types.Constants;
+namespace YAF.Core.Migrations;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Models;
 
 /// <summary>
-/// Enum ThemeMode
+/// Version 92 Migrations
 /// </summary>
-public enum ThemeMode
+[Description("Remove darkmode column from user table.")]
+public class Migration92 : MigrationBase
 {
     /// <summary>
-    ///   Light Mode
+    /// Migrations
     /// </summary>
-    Light = 0,
-
-    /// <summary>
-    ///   Dark Mode
-    /// </summary>
-    Dark = 1
+    public override void Up()
+    {
+        if (this.Db.ColumnExists<User>("DarkMode"))
+        {
+            this.Db.DropColumn<User>("DarkMode");
+        }
+    }
 }

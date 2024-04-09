@@ -331,8 +331,7 @@ public class User : IEntity, IHaveBoardID, IHaveID
     /// <summary>
     /// Gets or sets a value indicating whether to use Dark Mode or not.
     /// </summary>
-    [Required]
-    [Default(typeof(bool), "0")]
+    [Ignore]
     public bool DarkMode { get; set; }
 
     /// <summary>

@@ -11991,6 +11991,10 @@
           {
             "@tag": "DARK",
             "#text": "Dark"
+          },
+          {
+	          "@tag": "AUTO",
+	          "#text": "Auto"
           }
         ]
       },

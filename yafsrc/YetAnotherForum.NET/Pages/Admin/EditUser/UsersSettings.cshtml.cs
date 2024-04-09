@@ -75,11 +75,6 @@ public class UsersSettingsModel : AdminPage
     public IReadOnlyCollection<SelectListItem> Themes { get; set; }
 
     /// <summary>
-    /// Gets or sets the theme modes.
-    /// </summary>
-    public IReadOnlyCollection<SelectListItem> ThemeModes { get; set; }
-
-    /// <summary>
     /// Gets or sets the languages.
     /// </summary>
     public IReadOnlyCollection<SelectListItem> Languages { get; set; }
@@ -163,7 +158,6 @@ public class UsersSettingsModel : AdminPage
         string language = null;
         var culture = this.Input.Language;
         var theme = this.Input.Theme;
-        var themeMode = this.Input.ThemeMode.ToEnum<ThemeMode>();
 
         if (this.Input.Theme.IsNotSet())
         {
@@ -188,7 +182,6 @@ public class UsersSettingsModel : AdminPage
             language,
             culture,
             theme,
-            themeMode,
             this.Input.HideMe,
             this.Input.Activity,
             this.Input.Size
@@ -233,7 +226,6 @@ public class UsersSettingsModel : AdminPage
         if (this.PageBoardContext.BoardSettings.AllowUserTheme)
         {
             this.Themes = StaticDataHelper.Themes();
-            this.ThemeModes = StaticDataHelper.ThemeModes();
         }
 
         if (this.PageBoardContext.BoardSettings.AllowUserLanguage)
@@ -271,11 +263,6 @@ public class UsersSettingsModel : AdminPage
                 {
                     this.Input.Theme = themeFile;
                 }
-            }
-
-            if (this.ThemeModes.Any(x => x.Value == user.Item1.DarkMode.ToType<int>().ToString()))
-            {
-                this.Input.ThemeMode = user.Item1.DarkMode.ToType<int>();
             }
         }
 
