@@ -5197,7 +5197,7 @@ public enum QueryType
     /// <summary>
     /// The scalar
     /// </summary>
-    Scalar,
+    Scalar
 }
 
 /// <summary>

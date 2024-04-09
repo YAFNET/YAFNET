@@ -514,7 +514,7 @@ internal class TypeAccessor
                    {
                        PropertyType = propertyInfo.PropertyType,
                        GetProperty = GetPropertyMethod(serializer, propertyInfo),
-                       SetProperty = GetSetPropertyMethod(typeConfig, propertyInfo),
+                       SetProperty = GetSetPropertyMethod(typeConfig, propertyInfo)
                    };
     }
 
@@ -608,7 +608,7 @@ internal class TypeAccessor
                    {
                        PropertyType = fieldInfo.FieldType,
                        GetProperty = serializer.GetParseStringSpanFn(fieldInfo.FieldType),
-                       SetProperty = GetSetFieldMethod(typeConfig, fieldInfo),
+                       SetProperty = GetSetFieldMethod(typeConfig, fieldInfo)
                    };
     }
 

@@ -34,7 +34,7 @@ public class Migration : IMeta
     /// </summary>
     /// <value>The identifier.</value>
     [AutoIncrement]
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     /// <summary>
     /// Gets or sets the name.
@@ -402,7 +402,7 @@ public class Migrator
                     CreatedDate = DateTime.UtcNow,
                     ConnectionString =
                         OrmLiteUtils.MaskPassword(((OrmLiteConnectionFactory)this.DbFactory).ConnectionString),
-                    NamedConnection = namedConnection,
+                    NamedConnection = namedConnection
                 };
                 var id = db.Insert(migration, selectIdentity: true);
 
@@ -419,7 +419,7 @@ public class Migrator
                     // Record completed migration run in DB
                     db.UpdateOnly(() => new Migration {
                         Log = instance.Log,
-                        CompletedDate = DateTime.UtcNow,
+                        CompletedDate = DateTime.UtcNow
                     }, where: x => x.Id == id);
                     remainingMigrations.Remove(nextRun);
                 }
@@ -433,7 +433,7 @@ public class Migrator
                         Log = instance.Log,
                         ErrorCode = e.GetType().Name,
                         ErrorMessage = e.Message,
-                        ErrorStackTrace = e.StackTrace,
+                        ErrorStackTrace = e.StackTrace
                     }, where: x => x.Id == id);
 
                     if (throwIfError)

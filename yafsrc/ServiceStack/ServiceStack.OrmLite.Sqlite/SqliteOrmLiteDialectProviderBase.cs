@@ -57,7 +57,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
                                  { OrmLiteVariables.MaxText, "VARCHAR(1000000)" },
                                  { OrmLiteVariables.MaxTextUnicode, "NVARCHAR(1000000)" },
                                  { OrmLiteVariables.True, this.SqlBool(true) },
-                                 { OrmLiteVariables.False, this.SqlBool(false) },
+                                 { OrmLiteVariables.False, this.SqlBool(false) }
                              };
     }
 

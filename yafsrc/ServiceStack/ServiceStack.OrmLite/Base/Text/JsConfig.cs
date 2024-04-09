@@ -1154,7 +1154,7 @@ public enum DateHandler
     /// <summary>
     /// The unix time ms
     /// </summary>
-    UnixTimeMs,
+    UnixTimeMs
 }
 
 /// <summary>
@@ -1196,5 +1196,5 @@ public enum TextCase
     /// <summary>
     /// snake_case
     /// </summary>
-    SnakeCase,
+    SnakeCase
 }

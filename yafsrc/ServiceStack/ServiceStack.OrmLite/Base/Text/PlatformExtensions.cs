@@ -1480,7 +1480,7 @@ public static class PlatformExtensions
     {
         var def = new ObjectDictionaryDefinition
                       {
-                          Type = type,
+                          Type = type
                       };
 
         foreach (var pi in type.GetSerializableProperties())
@@ -1490,7 +1490,7 @@ public static class PlatformExtensions
                                      Name = pi.Name,
                                      Type = pi.PropertyType,
                                      GetValueFn = pi.CreateGetter(),
-                                     SetValueFn = pi.CreateSetter(),
+                                     SetValueFn = pi.CreateSetter()
                                  });
         }
 
@@ -1503,7 +1503,7 @@ public static class PlatformExtensions
                                          Name = fi.Name,
                                          Type = fi.FieldType,
                                          GetValueFn = fi.CreateGetter(),
-                                         SetValueFn = fi.CreateSetter(),
+                                         SetValueFn = fi.CreateSetter()
                                      });
             }
         }

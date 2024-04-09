@@ -29,7 +29,7 @@ public enum BulkInsertMode
     /// <summary>
     /// The SQL
     /// </summary>
-    Sql,
+    Sql
 }
 
 /// <summary>

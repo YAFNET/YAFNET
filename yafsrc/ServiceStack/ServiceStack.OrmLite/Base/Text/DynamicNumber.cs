@@ -2820,8 +2820,8 @@ public static class DynamicNumber
                                                                                 {8, DynamicULong.Instance},
                                                                                 {9, DynamicFloat.Instance},
                                                                                 {10, DynamicDouble.Instance},
-                                                                                {11, DynamicDecimal.Instance},
-                                                                            };
+                                                                                {11, DynamicDecimal.Instance}
+    };
 
     /// <summary>
     /// Determines whether the specified type is number.

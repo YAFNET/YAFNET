@@ -43,7 +43,7 @@ public class DataContractResolver : DefaultJsonTypeInfoResolver
         [JsonNamingPolicy.SnakeCaseLower] = s => s.ToLowercaseUnderscore(),
         [JsonNamingPolicy.SnakeCaseUpper] = s => s.ToUppercaseUnderscore(),
         [JsonNamingPolicy.KebabCaseLower] = s => s.ToKebabCase(),
-        [JsonNamingPolicy.KebabCaseUpper] = s => s.ToKebabCase().ToUpper(),
+        [JsonNamingPolicy.KebabCaseUpper] = s => s.ToKebabCase().ToUpper()
     };
 
     /// <summary>

@@ -70,7 +70,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
             { OrmLiteVariables.MaxText, "LONGTEXT" },
             { OrmLiteVariables.MaxTextUnicode, "LONGTEXT" },
             { OrmLiteVariables.True, this.SqlBool(true) },
-            { OrmLiteVariables.False, this.SqlBool(false) },
+            { OrmLiteVariables.False, this.SqlBool(false) }
         };
     }
 
@@ -350,7 +350,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         "WRITE",
         "XOR",
         "YEAR_MONTH",
-        "ZEROFILL",
+        "ZEROFILL"
     }, StringComparer.OrdinalIgnoreCase);
 
     /// <summary>

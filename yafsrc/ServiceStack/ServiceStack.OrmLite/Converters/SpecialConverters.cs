@@ -40,7 +40,7 @@ namespace ServiceStack.OrmLite.Converters
         /// <summary>
         /// The enum member
         /// </summary>
-        EnumMember,
+        EnumMember
     }
 
     /// <summary>

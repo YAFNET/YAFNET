@@ -269,7 +269,7 @@ public static class ReflectionExtensions
         {
             TypeCode.Byte or TypeCode.Int16 or TypeCode.Int32 or TypeCode.Int64 or TypeCode.SByte or TypeCode.UInt16 or TypeCode.UInt32 or TypeCode.UInt64 => true,
             TypeCode.Object => type.IsNullableType() && IsNumericType(Nullable.GetUnderlyingType(type)),
-            _ => false,
+            _ => false
         };
     }
 

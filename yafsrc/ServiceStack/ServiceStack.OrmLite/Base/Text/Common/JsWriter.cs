@@ -343,7 +343,7 @@ public class JsWriter<TSerializer>
                                 {
                                     { typeof(Uri), Serializer.WriteObjectString },
                                     { typeof(Type), this.WriteType },
-                                    { typeof(Exception), Serializer.WriteException },
+                                    { typeof(Exception), Serializer.WriteException }
                                 };
     }
 

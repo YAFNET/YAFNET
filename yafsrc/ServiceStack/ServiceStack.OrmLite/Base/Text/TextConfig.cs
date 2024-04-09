@@ -30,7 +30,7 @@ public class TextConfig
     /// </summary>
     /// <value>The system json option filters.</value>
     public static List<Action<JsonSerializerOptions>> SystemJsonOptionFilters { get; } = [
-        DefaultConfigureSystemJsonOptions,
+        DefaultConfigureSystemJsonOptions
     ];
 
     /// <summary>

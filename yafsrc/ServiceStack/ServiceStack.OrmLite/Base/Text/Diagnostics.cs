@@ -302,7 +302,7 @@ public enum ProfileSource
     /// <summary>
     /// All
     /// </summary>
-    All = ServiceStack | OrmLite | Redis,
+    All = ServiceStack | OrmLite | Redis
 }
 
 /// <summary>

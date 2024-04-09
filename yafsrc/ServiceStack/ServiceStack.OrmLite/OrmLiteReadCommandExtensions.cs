@@ -669,10 +669,7 @@ public static class OrmLiteReadCommandExtensions
     /// <exception cref="System.ArgumentNullException">value</exception>
     static internal T SingleById<T>(this IDbCommand dbCmd, object value)
     {
-        if (value == null)
-        {
-            throw new ArgumentNullException(nameof(value));
-        }
+        ArgumentNullException.ThrowIfNull(value);
 
         SetFilter<T>(dbCmd, ModelDefinition<T>.PrimaryKeyName, value);
         return dbCmd.ConvertTo<T>();
@@ -1211,7 +1208,7 @@ public static class OrmLiteReadCommandExtensions
             var value = dialectProvider.FromDbValue(reader, 0, typeof(T));
             if (value == DBNull.Value)
             {
-                yield return default(T);
+                yield return default;
             }
             else
             {
@@ -1296,7 +1293,7 @@ public static class OrmLiteReadCommandExtensions
             return ToScalar<T>(dialectProvider, reader);
         }
 
-        return default(T);
+        return default;
     }
 
     /// <summary>
@@ -1315,7 +1312,7 @@ public static class OrmLiteReadCommandExtensions
             var oValue = reader.GetValue(columnIndex);
             if (oValue == DBNull.Value)
             {
-                return default(T);
+                return default;
             }
         }
 
@@ -1331,11 +1328,11 @@ public static class OrmLiteReadCommandExtensions
             var oValue = converter.GetValue(reader, columnIndex, null);
             if (oValue == null)
             {
-                return default(T);
+                return default;
             }
 
             var convertedValue = converter.FromDbValue(underlyingType, oValue);
-            return convertedValue == null ? default(T) : (T)convertedValue;
+            return convertedValue == null ? default : (T)convertedValue;
         }
 
         return (T)reader.GetValue(0);
@@ -1698,27 +1695,13 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>System.Int64.</returns>
     static internal long ToLong(object result)
     {
-        if (result is DBNull)
-        {
-            return default(long);
-        }
-
-        if (result is int)
-        {
-            return (int)result;
-        }
-
-        if (result is decimal)
-        {
-            return Convert.ToInt64((decimal)result);
-        }
-
-        if (result is ulong)
-        {
-            return (long)Convert.ToUInt64(result);
-        }
-
-        return (long)result;
+        return result switch {
+            DBNull => default,
+            int i => i,
+            decimal result1 => Convert.ToInt64(result1),
+            ulong => (long)Convert.ToUInt64(result),
+            _ => (long)result
+        };
     }
 
     /// <summary>
@@ -1734,7 +1717,7 @@ public static class OrmLiteReadCommandExtensions
         var row = dbCmd.SingleById<T>(value);
         if (row == null)
         {
-            return default(T);
+            return default;
         }
 
         dbCmd.LoadReferences(row, include);
@@ -1838,13 +1821,9 @@ public static class OrmLiteReadCommandExtensions
         Type refType)
     {
         var refField = GetRefFieldDefIfExists(modelDef, refModelDef);
-        if (refField == null)
-        {
-            throw new ArgumentException(
-                $"Cant find '{modelDef.ModelName + "Id"}' Property on Type '{refType.Name}'");
-        }
 
-        return refField;
+        return refField ?? throw new ArgumentException(
+            $"Cant find '{modelDef.ModelName + "Id"}' Property on Type '{refType.Name}'");
     }
 
     /// <summary>

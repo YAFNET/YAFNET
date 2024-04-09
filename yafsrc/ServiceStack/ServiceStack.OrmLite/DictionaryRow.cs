@@ -124,7 +124,7 @@ public static class DynamicRowUtils
                 ? row
                 : row switch {
                     Dictionary<string, object> obj => new DictionaryRow(type, obj),
-                    _ => new ObjectRow(type, row),
+                    _ => new ObjectRow(type, row)
                 };
     }
 }

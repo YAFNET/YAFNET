@@ -121,7 +121,7 @@ static internal class OrmLiteConfigExtensions
                            PreCreateTableSql = JoinSql(preCreates.Map(x => x.Sql)),
                            PostCreateTableSql = JoinSql(postCreates.Map(x => x.Sql)),
                            PreDropTableSql = JoinSql(preDrops.Map(x => x.Sql)),
-                           PostDropTableSql = JoinSql(postDrops.Map(x => x.Sql)),
+                           PostDropTableSql = JoinSql(postDrops.Map(x => x.Sql))
                        };
 
         modelDef.CompositePrimaryKeys.AddRange(modelType.AllAttributes<CompositePrimaryKeyAttribute>().ToList());
@@ -288,7 +288,7 @@ static internal class OrmLiteConfigExtensions
                                                      {
                                                          RefModel = referenceFieldAttr.Model,
                                                          RefId = referenceFieldAttr.Id,
-                                                         RefField = referenceFieldAttr.Field ?? propertyInfo.Name,
+                                                         RefField = referenceFieldAttr.Field ?? propertyInfo.Name
                                                      };
             }
 

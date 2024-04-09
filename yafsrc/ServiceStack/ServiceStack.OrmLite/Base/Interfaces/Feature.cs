@@ -87,5 +87,5 @@ public enum Feature
     /// <summary>
     /// The wire
     /// </summary>
-    Wire = 1 << 15,
+    Wire = 1 << 15
 }
