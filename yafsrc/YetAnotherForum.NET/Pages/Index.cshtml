@@ -89,11 +89,15 @@
 @section Scripts
 {
     <script>
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.TopicLinkPopoverJs($"{Model.Get<ILocalization>().GetText("LASTPOST")}&nbsp;{Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...", ".topic-link-popover", "focus hover")))
+        @Html.Raw(
+	        JsAndCssHelper.CompressJavaScript(
+		        JavaScriptBlocks.TopicLinkPopoverJs($"{Model.Get<ILocalization>().GetText("LASTPOST")}&nbsp;{Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...", ".topic-link-popover", "focus hover")))
 
         @if (Model.PageBoardContext.BoardSettings.ShowModeratorList)
         {
-            @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ForumModsPopoverJs($"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
+            @Html.Raw(
+	            JsAndCssHelper.CompressJavaScript(
+		            JavaScriptBlocks.ForumModsPopoverJs($"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
         }
 
         @Html.Raw(

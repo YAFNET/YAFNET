@@ -12,11 +12,15 @@
 
 @{
     var forumList = Current.PageForumID > 0 ?
-        Model.SubForums.Item2 : Model.SubForums.Item2.Where(x => !x.ParentID.HasValue);
+        Model.SubForums.Item2 : Model.SubForums.Item2.Where(x => !x.ParentID.HasValue).ToList();
+
+    var forumsCount = 0;
 }
 
 @foreach (var forum in forumList)
 {
+	forumsCount++;
+
     var mods = Model.SubForums.Item1.Where(x => x.ForumID == forum.ForumID).DistinctBy(x => x.ModeratorID).ToList();
 
     var subForums = Model.SubForums.Item2.Where(item => item.ParentID == forum.ForumID)
@@ -193,5 +197,14 @@ forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
                 @await Html.PartialAsync("_ForumSubForumList", subForums)
             </div>
         </div>
+    }
+
+    @if (forumsCount < forumList.Count)
+    {
+	    <div class="row">
+		    <div class="col">
+			    <hr/>
+		    </div>
+	    </div>
     }
 }
