@@ -508,7 +508,10 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         var foreignKeyName = dbCommand.Connection.SqlScalar<string>(
             $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Attachment>()}' and CONSTRAINT_NAME like '%Message'");
 
-        dbCommand.Connection.DropForeignKey<Attachment>(foreignKeyName);
+        if (foreignKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<Attachment>(foreignKeyName);
+        }
 
         if (dbCommand.Connection.ColumnMaxLength<Attachment>(x => x.ContentType) < 255)
         {

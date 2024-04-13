@@ -39,9 +39,21 @@ public class Migration92 : MigrationBase
     /// </summary>
     public override void Up()
     {
-        if (this.Db.ColumnExists<User>("DarkMode"))
+        if (!this.Db.ColumnExists<User>("DarkMode"))
         {
-            this.Db.DropColumn<User>("DarkMode");
+            return;
         }
+
+        var constraintName = this.Db.SqlScalar<string>(
+            $"SELECT name FROM sys.default_constraints WHERE parent_object_id = OBJECT_ID('{this.Db.GetTableName<User>()}') and name like '%DarkMo%'");
+
+        if (!constraintName.IsSet())
+        {
+            return;
+        }
+
+        this.Db.DropConstraint<User>(constraintName);
+
+        this.Db.DropColumn<User>("DarkMode");
     }
 }
