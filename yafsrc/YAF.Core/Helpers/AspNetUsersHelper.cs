@@ -431,7 +431,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     public AspNetUsers GetUser()
     {
         return this.Get<HttpContextBase>().User != null && this.Get<HttpContextBase>().User.Identity.IsAuthenticated
-                   ? this.Get<IAspNetUsersHelper>().GetUserByName(HttpContext.Current.User.Identity.Name)
+                   ? this.Get<IAspNetUsersHelper>().GetUserByName(this.Get<HttpContextBase>().User.Identity.Name)
                    : null;
     }
 

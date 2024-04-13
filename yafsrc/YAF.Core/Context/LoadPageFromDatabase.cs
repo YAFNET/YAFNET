@@ -184,11 +184,13 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
             @event.PageQueryData.TopicID = pageRow.Item5.ID;
         }
 
+        const string cookieName = "YAF-Theme";
+
         // Set dark mode
-        if (this.Get<HttpRequestBase>().Cookies["YAF-Theme"] != null &&
-            this.Get<HttpRequestBase>().Cookies["YAF-Theme"].Value.IsSet() &&
-            (this.Get<HttpRequestBase>().Cookies["YAF-Theme"].Value == "dark" ||
-             this.Get<HttpRequestBase>().Cookies["YAF-Theme"].Value == "auto"))
+        if (this.Get<HttpRequestBase>().Cookies[cookieName] != null &&
+            this.Get<HttpRequestBase>().Cookies[cookieName].Value.IsSet() &&
+            (this.Get<HttpRequestBase>().Cookies[cookieName].Value == "dark" ||
+             this.Get<HttpRequestBase>().Cookies[cookieName].Value == "auto"))
         {
             pageRow.Item2.DarkMode = true;
         }
