@@ -1,6 +1,21 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.2.4
+* [NEW] Set theme mode via browser or via dropdown
+* [FIXED] Load hovercard data only on show
+* bug fixes
+
+# YetAnotherForum.NET v3.2.3
+* [NEW] New WYSIWYG SCEdtitor
+* [CHANGES] updated help menu
+* [CHANGES] improved saving of registry
+* [CHANGES] removed legacy nntp support
+* [FIXED] topics post stats
+* [FIXED] send notifications only to approved and not deleted users
+* [FIXED] Migrations from older versions
+* bug fixes
+
 # YetAnotherForum.NET v3.2.2
 * [FIXED] Install wizard
 * [FIXED] crawler detection
