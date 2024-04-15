@@ -25,7 +25,6 @@
 namespace YAF.Core.Services;
 
 using System;
-using System.Data.Common;
 using System.IO;
 using System.Text;
 using System.Web.Configuration;
@@ -227,6 +226,8 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
             migrator.Run();
         }
+
+        this.AddOrUpdateExtensions();
 
         try
         {
