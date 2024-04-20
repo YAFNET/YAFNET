@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using System;
 
 namespace ServiceStack.DataAnnotations;
@@ -39,6 +40,12 @@ public class DefaultAttribute : AttributeBase
     /// </summary>
     /// <value>The default value.</value>
     public string DefaultValue { get; set; }
+
+    /// <summary>
+    /// Gets or sets the with constraint.
+    /// </summary>
+    /// <value>The with constraint.</value>
+    public string WithConstraint { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [on update].

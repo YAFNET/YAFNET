@@ -15,6 +15,7 @@ using System.Data;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
+
 using System.Threading.Tasks;
 
 /// <summary>
@@ -982,6 +983,8 @@ public interface IOrmLiteDialectProvider
     string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn);
     string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn);
     string ToDropColumnStatement(string schema, string table, string column);
+
+    string ToDropConstraintStatement(string schema, string table, string constraint);
 
     /// <summary>
     /// Converts to addforeignkeystatement.

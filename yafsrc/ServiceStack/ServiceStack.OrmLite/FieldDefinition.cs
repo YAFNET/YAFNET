@@ -150,6 +150,12 @@ public class FieldDefinition
     public string DefaultValue { get; set; }
 
     /// <summary>
+    /// Gets or sets the default value constraint.
+    /// </summary>
+    /// <value>The default value constraint.</value>
+    public string DefaultValueConstraint { get; set; }
+
+    /// <summary>
     /// Gets or sets the check constraint.
     /// </summary>
     /// <value>The check constraint.</value>
@@ -389,42 +395,42 @@ public class FieldDefinition
     /// <returns>FieldDefinition.</returns>
     public FieldDefinition Clone(Action<FieldDefinition> modifier = null)
     {
-        var fieldDef = new FieldDefinition
-                           {
-                               Name = Name,
-                               Alias = Alias,
-                               FieldType = FieldType,
-                               FieldTypeDefaultValue = FieldTypeDefaultValue,
-                               TreatAsType = TreatAsType,
-                               PropertyInfo = PropertyInfo,
-                               IsPrimaryKey = IsPrimaryKey,
-                               AutoIncrement = AutoIncrement,
-                               AutoId = AutoId,
-                               IsNullable = IsNullable,
-                               IsIndexed = IsIndexed,
-                               IsUniqueIndex = IsUniqueIndex,
-                               IsClustered = IsClustered,
-                               IsNonClustered = IsNonClustered,
-                               IsRowVersion = IsRowVersion,
-                               FieldLength = FieldLength,
-                               Scale = Scale,
-                               DefaultValue = DefaultValue,
-                               CheckConstraint = CheckConstraint,
-                               IsUniqueConstraint = IsUniqueConstraint,
-                               ForeignKey = ForeignKey,
-                               GetValueFn = GetValueFn,
-                               SetValueFn = SetValueFn,
-                               Sequence = Sequence,
-                               IsComputed = IsComputed,
-                               IsPersisted = IsPersisted,
-                               ComputeExpression = ComputeExpression,
-                               CustomSelect = CustomSelect,
-                               BelongToModelName = BelongToModelName,
-                               IsReference = IsReference,
-                               FieldReference = FieldReference,
-                               CustomFieldDefinition = CustomFieldDefinition,
-                               IsRefType = IsRefType
-                           };
+        var fieldDef = new FieldDefinition {
+            Name = Name,
+            Alias = Alias,
+            FieldType = FieldType,
+            FieldTypeDefaultValue = FieldTypeDefaultValue,
+            TreatAsType = TreatAsType,
+            PropertyInfo = PropertyInfo,
+            IsPrimaryKey = IsPrimaryKey,
+            AutoIncrement = AutoIncrement,
+            AutoId = AutoId,
+            IsNullable = IsNullable,
+            IsIndexed = IsIndexed,
+            IsUniqueIndex = IsUniqueIndex,
+            IsClustered = IsClustered,
+            IsNonClustered = IsNonClustered,
+            IsRowVersion = IsRowVersion,
+            FieldLength = FieldLength,
+            Scale = Scale,
+            DefaultValue = DefaultValue,
+            DefaultValueConstraint = DefaultValueConstraint,
+            CheckConstraint = CheckConstraint,
+            IsUniqueConstraint = IsUniqueConstraint,
+            ForeignKey = ForeignKey,
+            GetValueFn = GetValueFn,
+            SetValueFn = SetValueFn,
+            Sequence = Sequence,
+            IsComputed = IsComputed,
+            IsPersisted = IsPersisted,
+            ComputeExpression = ComputeExpression,
+            CustomSelect = CustomSelect,
+            BelongToModelName = BelongToModelName,
+            IsReference = IsReference,
+            FieldReference = FieldReference,
+            CustomFieldDefinition = CustomFieldDefinition,
+            IsRefType = IsRefType
+        };
 
         modifier?.Invoke(fieldDef);
         return fieldDef;
