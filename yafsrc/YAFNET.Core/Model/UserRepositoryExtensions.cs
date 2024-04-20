@@ -642,7 +642,7 @@ public static class UserRepositoryExtensions
                                 && !user.Avatar.Contains(BoardContext.Current.Get<BoardFolders>().Avatars))
         {
             var filePath =
-                $"{BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath}{user.Avatar.Replace("/", "\\")}";
+                $"{BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath}{user.Avatar.Replace("/", Path.DirectorySeparatorChar.ToString())}";
 
             if (File.Exists(filePath))
             {

@@ -153,10 +153,10 @@ public class EditBoardModel : AdminPage
             Directory.CreateDirectory(Path.Combine(boardFolder, "Images"));
 
             // Create Sub Folders
-            Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Avatars"));
-            Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Categories"));
-            Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Forums"));
-            Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Medals"));
+            Directory.CreateDirectory(Path.Combine(boardFolder, "Images", "Avatars"));
+            Directory.CreateDirectory(Path.Combine(boardFolder, "Images", "Categories"));
+            Directory.CreateDirectory(Path.Combine(boardFolder, "Images", "Forums"));
+            Directory.CreateDirectory(Path.Combine(boardFolder, "Images", "Medals"));
         }
 
         if (!Directory.Exists(Path.Combine(boardFolder, "Uploads")))

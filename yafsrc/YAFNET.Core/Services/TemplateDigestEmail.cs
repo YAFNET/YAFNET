@@ -129,7 +129,7 @@ public class TemplateDigestEmail : IHaveServiceLocator
     public string ProcessHtml(string subject)
     {
         var path =
-            $"{this.Get<BoardInfo>().WebRootPath}{this.Get<ITheme>().BuildThemePath(this.HtmlTemplateFileName).Replace("/", "\\")}";
+            $"{this.Get<BoardInfo>().WebRootPath}{this.Get<ITheme>().BuildThemePath(this.HtmlTemplateFileName).Replace("/", Path.DirectorySeparatorChar.ToString())}";
 
         var htmlTemplate = File.ReadAllText(path);
 
@@ -159,7 +159,7 @@ public class TemplateDigestEmail : IHaveServiceLocator
     private string ProcessTopic(PagedTopic topic)
     {
         var path =
-            $"{this.Get<BoardInfo>().WebRootPath}{this.Get<ITheme>().BuildThemePath(this.HtmlDigestTopicTemplateFileName).Replace("/", "\\")}";
+            $"{this.Get<BoardInfo>().WebRootPath}{this.Get<ITheme>().BuildThemePath(this.HtmlDigestTopicTemplateFileName).Replace("/", Path.DirectorySeparatorChar.ToString())}";
 
         var htmlTemplate = File.ReadAllText(path);
 
