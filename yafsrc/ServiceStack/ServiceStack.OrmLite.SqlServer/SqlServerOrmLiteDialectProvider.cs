@@ -990,6 +990,10 @@ namespace ServiceStack.OrmLite.SqlServer
             var defaultValue = this.GetDefaultValue(fieldDef);
             if (!string.IsNullOrEmpty(defaultValue))
             {
+                if (fieldDef.DefaultValueConstraint != null)
+                {
+                    sql.Append(" CONSTRAINT ").Append(GetQuotedName(fieldDef.DefaultValueConstraint));
+                }
                 sql.AppendFormat(this.DefaultValueFormat, defaultValue);
             }
 
@@ -1059,6 +1063,18 @@ namespace ServiceStack.OrmLite.SqlServer
             }
 
             return StringBuilderCache.ReturnAndFree(sql);
+        }
+
+        /// <summary>
+        /// Converts to dropconstraintstatement.
+        /// </summary>
+        /// <param name="schema">The schema.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="constraintName">Name of the constraint.</param>
+        /// <returns>string.</returns>
+        public override string ToDropConstraintStatement(string schema, string table, string constraintName)
+        {
+            return $"ALTER TABLE {GetQuotedTableName(table, schema)} DROP CONSTRAINT {GetQuotedName(constraintName)};";
         }
 
         /// <summary>

@@ -1058,6 +1058,15 @@ public interface IOrmLiteDialectProvider
     string ToDropColumnStatement(string schema, string table, string column);
 
     /// <summary>
+    /// Converts to dropconstraintstatement.
+    /// </summary>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
+    /// <param name="constraint">The constraint.</param>
+    /// <returns>System.String.</returns>
+    string ToDropConstraintStatement(string schema, string table, string constraint);
+
+    /// <summary>
     /// Converts to addforeignkeystatement.
     /// </summary>
     /// <typeparam name="T"></typeparam>

@@ -351,4 +351,17 @@ public static class OrmLiteDialectProviderExtensions
         return X.Map(modelType.GetModelDefinition(),
             x => dialect.ToDropColumnStatement(x.Schema, x.ModelName, columnName));
     }
+
+    /// <summary>
+    /// Converts to dropconstraintstatement.
+    /// </summary>
+    /// <param name="dialect">The dialect.</param>
+    /// <param name="modelType">Type of the model.</param>
+    /// <param name="constraintName">Name of the constraint.</param>
+    /// <returns>System.String.</returns>
+    public static string ToDropConstraintStatement(this IOrmLiteDialectProvider dialect, Type modelType, string constraintName)
+    {
+        return X.Map(modelType.GetModelDefinition(),
+            x => dialect.ToDropConstraintStatement(x.Schema, x.ModelName, constraintName));
+    }
 }

@@ -258,6 +258,10 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
         var defaultValue = this.GetDefaultValue(fieldDef);
         if (!string.IsNullOrEmpty(defaultValue))
         {
+            if (fieldDef.DefaultValueConstraint != null)
+            {
+                sql.Append(" CONSTRAINT ").Append(GetQuotedName(fieldDef.DefaultValueConstraint));
+            }
             sql.AppendFormat(this.DefaultValueFormat, defaultValue);
         }
 

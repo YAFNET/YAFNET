@@ -231,56 +231,56 @@ static internal class OrmLiteConfigExtensions
                 order = customFieldAttr.Order;
             }
 
-            var fieldDefinition = new FieldDefinition
-                                      {
-                                          ModelDef = modelDef,
-                                          Name = propertyInfo.Name,
-                                          Alias = aliasAttr?.Name,
-                                          FieldType = propertyType,
-                                          FieldTypeDefaultValue = isNullable ? null : propertyType.GetDefaultValue(),
-                                          TreatAsType = treatAsType,
-                                          PropertyInfo = propertyInfo,
-                                          IsNullable = isNullable,
-                                          IsPrimaryKey = isPrimaryKey,
-                                          AutoIncrement = isPrimaryKey && isAutoIncrement,
-                                          AutoId = isAutoId,
-                                          IsIndexed = !isPrimaryKey && isIndex,
-                                          IsUniqueIndex = isUnique,
-                                          IsClustered = indexAttr?.Clustered == true,
-                                          IsNonClustered = indexAttr?.NonClustered == true,
-                                          IndexName = indexAttr?.Name,
-                                          IsRowVersion = isRowVersion,
-                                          IgnoreOnInsert = propertyInfo.HasAttributeCached<IgnoreOnInsertAttribute>(),
-                                          IgnoreOnUpdate = propertyInfo.HasAttributeCached<IgnoreOnUpdateAttribute>(),
-                                          ReturnOnInsert = propertyInfo.HasAttributeCached<ReturnOnInsertAttribute>(),
-                                          FieldLength = stringLengthAttr?.MaximumLength,
-                                          DefaultValue = defaultValueAttr?.DefaultValue,
-                                          CheckConstraint = chkConstraintAttr?.Constraint,
-                                          IsUniqueConstraint = propertyInfo.HasAttributeCached<UniqueAttribute>(),
-                                          ForeignKey =
-                                              fkAttr == null
-                                                  ? referencesAttr != null ? new ForeignKeyConstraint(referencesAttr.Type) : null
-                                                  : new ForeignKeyConstraint(
-                                                      fkAttr.Type,
-                                                      fkAttr.OnDelete,
-                                                      fkAttr.OnUpdate,
-                                                      fkAttr.ForeignKeyName),
-                                          IsReference = isReference,
-                                          GetValueFn = propertyInfo.CreateGetter(),
-                                          SetValueFn = propertyInfo.CreateSetter(),
-                                          Sequence = sequenceAttr?.Name,
-                                          IsComputed = computeAttr != null || computedAttr != null || customSelectAttr != null,
-                                          IsPersisted = persistedAttr != null,
-                                          ComputeExpression = computeAttr != null ? computeAttr.Expression : string.Empty,
-                                          CustomSelect = customSelectAttr?.Sql,
-                                          CustomInsert = propertyInfo.FirstAttribute<CustomInsertAttribute>()?.Sql,
-                                          CustomUpdate = propertyInfo.FirstAttribute<CustomUpdateAttribute>()?.Sql,
-                                          Scale = decimalAttribute?.Scale,
-                                          BelongToModelName = belongToAttribute?.BelongToTableType.GetModelDefinition().ModelName,
-                                          CustomFieldDefinition = customFieldAttr?.Sql,
-                                          IsRefType = propertyType.IsRefType(),
-                                          Order = order
-                                      };
+            var fieldDefinition = new FieldDefinition {
+                ModelDef = modelDef,
+                Name = propertyInfo.Name,
+                Alias = aliasAttr?.Name,
+                FieldType = propertyType,
+                FieldTypeDefaultValue = isNullable ? null : propertyType.GetDefaultValue(),
+                TreatAsType = treatAsType,
+                PropertyInfo = propertyInfo,
+                IsNullable = isNullable,
+                IsPrimaryKey = isPrimaryKey,
+                AutoIncrement = isPrimaryKey && isAutoIncrement,
+                AutoId = isAutoId,
+                IsIndexed = !isPrimaryKey && isIndex,
+                IsUniqueIndex = isUnique,
+                IsClustered = indexAttr?.Clustered == true,
+                IsNonClustered = indexAttr?.NonClustered == true,
+                IndexName = indexAttr?.Name,
+                IsRowVersion = isRowVersion,
+                IgnoreOnInsert = propertyInfo.HasAttributeCached<IgnoreOnInsertAttribute>(),
+                IgnoreOnUpdate = propertyInfo.HasAttributeCached<IgnoreOnUpdateAttribute>(),
+                ReturnOnInsert = propertyInfo.HasAttributeCached<ReturnOnInsertAttribute>(),
+                FieldLength = stringLengthAttr?.MaximumLength,
+                DefaultValue = defaultValueAttr?.DefaultValue,
+                DefaultValueConstraint = defaultValueAttr?.WithConstraint,
+                CheckConstraint = chkConstraintAttr?.Constraint,
+                IsUniqueConstraint = propertyInfo.HasAttributeCached<UniqueAttribute>(),
+                ForeignKey =
+                    fkAttr == null
+                        ? referencesAttr != null ? new ForeignKeyConstraint(referencesAttr.Type) : null
+                        : new ForeignKeyConstraint(
+                            fkAttr.Type,
+                            fkAttr.OnDelete,
+                            fkAttr.OnUpdate,
+                            fkAttr.ForeignKeyName),
+                IsReference = isReference,
+                GetValueFn = propertyInfo.CreateGetter(),
+                SetValueFn = propertyInfo.CreateSetter(),
+                Sequence = sequenceAttr?.Name,
+                IsComputed = computeAttr != null || computedAttr != null || customSelectAttr != null,
+                IsPersisted = persistedAttr != null,
+                ComputeExpression = computeAttr != null ? computeAttr.Expression : string.Empty,
+                CustomSelect = customSelectAttr?.Sql,
+                CustomInsert = propertyInfo.FirstAttribute<CustomInsertAttribute>()?.Sql,
+                CustomUpdate = propertyInfo.FirstAttribute<CustomUpdateAttribute>()?.Sql,
+                Scale = decimalAttribute?.Scale,
+                BelongToModelName = belongToAttribute?.BelongToTableType.GetModelDefinition().ModelName,
+                CustomFieldDefinition = customFieldAttr?.Sql,
+                IsRefType = propertyType.IsRefType(),
+                Order = order
+            };
 
             if (referenceFieldAttr != null)
             {

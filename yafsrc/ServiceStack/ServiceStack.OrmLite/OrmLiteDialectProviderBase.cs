@@ -3601,6 +3601,18 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     }
 
     /// <summary>
+    /// Converts to dropconstraintstatement.
+    /// </summary>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
+    /// <param name="constraintName">Name of the constraint.</param>
+    /// <returns>System.String.</returns>
+    public virtual string ToDropConstraintStatement(string schema, string table, string constraintName)
+    {
+        return null;
+    }
+
+    /// <summary>
     /// Converts to create index statement.
     /// </summary>
     /// <typeparam name="T"></typeparam>

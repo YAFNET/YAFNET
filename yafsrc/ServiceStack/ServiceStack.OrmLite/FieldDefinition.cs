@@ -151,6 +151,12 @@ public class FieldDefinition
     public string DefaultValue { get; set; }
 
     /// <summary>
+    /// Gets or sets the default value constraint.
+    /// </summary>
+    /// <value>The default value constraint.</value>
+    public string DefaultValueConstraint { get; set; }
+
+    /// <summary>
     /// Gets or sets the check constraint.
     /// </summary>
     /// <value>The check constraint.</value>
