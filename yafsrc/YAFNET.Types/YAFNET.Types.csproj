@@ -16,7 +16,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.23.2.88755">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.24.0.89429">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
