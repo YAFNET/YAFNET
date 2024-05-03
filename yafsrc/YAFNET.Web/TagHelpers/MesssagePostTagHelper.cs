@@ -255,7 +255,9 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         var card = new TagBuilder("div");
 
-        card.AddCssClass("card border-light card-message-signature");
+        var borderColor = BoardContext.Current.PageUser.DarkMode ? "border-dark" : "border-light";
+
+        card.AddCssClass($"card {borderColor} card-message-signature");
 
         var cardBody = new TagBuilder("div");
 

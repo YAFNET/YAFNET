@@ -177,5 +177,12 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
                 this.RenderAnswerMessage(output, this.CurrentMessage.AnswerMessageId.Value);
             }
         }
+
+        if (this.ShowSignature && this.Get<BoardSettings>().AllowSignatures && this.CurrentMessage.Signature.IsSet()
+            && !this.CurrentMessage.Signature.Equals("<p>&nbsp;</p>", StringComparison.CurrentCultureIgnoreCase)
+            && this.DisplayUserId.HasValue)
+        {
+            await this.RenderSignatureAsync(output);
+        }
     }
 }
