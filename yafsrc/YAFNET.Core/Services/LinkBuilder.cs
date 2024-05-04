@@ -341,6 +341,11 @@ public class LinkBuilder : IHaveServiceLocator
             routeValues["name"] = UrlRewriteHelper.CleanStringForUrl(routeValues["name"]!.ToString());
         }
 
+        if (this.Get<BoardConfiguration>().Area.IsSet())
+        {
+            routeValues.AddOrUpdate("area", this.Get<BoardConfiguration>().Area);
+        }
+
         return BoardContext.Current.CurrentForumPage != null
                    ? BoardContext.Current.CurrentForumPage.RedirectToPage(page.GetPageName(), null, routeValues)
                    : BoardContext.Current.CurrentForumController.RedirectToPage(page.GetPageName(), null, routeValues);
