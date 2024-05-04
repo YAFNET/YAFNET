@@ -29,7 +29,6 @@ public class CollapseButton : LinkButton
     /// <summary>
     ///   Gets or sets AttachedControlID.
     /// </summary>
-    
     public string AttachedControlID
     {
         get => this.ViewState["AttachedControlID"]?.ToString();
@@ -65,7 +64,6 @@ public class CollapseButton : LinkButton
     /// <summary>
     ///   Gets or sets PanelID.
     /// </summary>
-    
     public string PanelID
     {
         get => this.ViewState["PanelID"]?.ToString();

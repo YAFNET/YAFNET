@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Web.Controls;
 
 /// <summary>
@@ -70,7 +71,10 @@ public class MessageSignature : MessageBase
         writer.Write("<hr />");
 
         writer.WriteBeginTag("div");
-        writer.WriteAttribute("class", "card border-light card-message-signature");
+
+        var borderColor = this.PageBoardContext.PageUser.DarkMode ? "border-dark" : "border-light";
+
+        writer.WriteAttribute("class", $"card {borderColor} card-message-signature");
         writer.Write(HtmlTextWriter.TagRightChar);
 
         writer.WriteBeginTag("div");

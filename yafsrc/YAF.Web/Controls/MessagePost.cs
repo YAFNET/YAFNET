@@ -51,10 +51,9 @@ public class MessagePost : MessageBase
     /// <summary>
     ///   Gets or sets the Words to highlight in this message
     /// </summary>
-    
     public virtual IList<string> HighlightWords
     {
-        get => this.ViewState["HighlightWords"] as IList<string> ?? new List<string>();
+        get => this.ViewState["HighlightWords"] as IList<string> ?? [];
 
         set => this.ViewState["HighlightWords"] = value;
     }
