@@ -30,6 +30,7 @@ using System.Threading.Tasks;
 
 using YAF.Core.Model;
 using YAF.Types.Models;
+using YAF.Types.Objects;
 
 /// <summary>
 /// The startup initialize Database.
@@ -90,7 +91,8 @@ public class InitializeDb : IHaveServiceLocator
             if (this.Get<IConfiguration>().GetConnectionString("DefaultConnection") == null)
             {
                 // attempt to create a connection string...
-                response.Redirect("/Install/Install");
+                response.Redirect(this.Get<BoardConfiguration>().Area.IsSet() ? $"/{this.Get<BoardConfiguration>().Area}/Install/Install"
+                    : "/Install/Install");
 
                 return;
             }
@@ -117,7 +119,9 @@ public class InitializeDb : IHaveServiceLocator
                 case DbVersionType.NewInstall:
                     // fake the board settings
                     BoardContext.Current.BoardSettings = new BoardSettings();
-                    response.Redirect("/Install/Install");
+                    response.Redirect(this.Get<BoardConfiguration>().Area.IsSet()
+                        ? $"/{this.Get<BoardConfiguration>().Area}/Install/Install"
+                        : "/Install/Install");
                     return;
             }
         }
