@@ -11929,16 +11929,16 @@ document.addEventListener("DOMContentLoaded", function() {
             return t && "function" == typeof Symbol && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t;
         }, a(t);
     }
-    function o(t) {
+    function r(t) {
         return function(t) {
             if (Array.isArray(t)) return i(t);
         }(t) || function(t) {
             if ("undefined" != typeof Symbol && null != t[Symbol.iterator] || null != t["@@iterator"]) return Array.from(t);
-        }(t) || r(t) || function() {
+        }(t) || o(t) || function() {
             throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
         }();
     }
-    function r(t, e) {
+    function o(t, e) {
         if (t) {
             if ("string" == typeof t) return i(t, e);
             var n = Object.prototype.toString.call(t).slice(8, -1);
@@ -11963,8 +11963,8 @@ document.addEventListener("DOMContentLoaded", function() {
             if ("object" !== a(t) || null === t) return t;
             var n = t[Symbol.toPrimitive];
             if (void 0 !== n) {
-                var o = n.call(t, e || "default");
-                if ("object" !== a(o)) return o;
+                var r = n.call(t, e || "default");
+                if ("object" !== a(r)) return r;
                 throw new TypeError("@@toPrimitive must return a primitive value.");
             }
             return ("string" === e ? String : Number)(t);
@@ -12034,7 +12034,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (Array.isArray(this.settings.gallery)) return this.settings.gallery;
                     t = this.settings.gallery;
                 } else this.el.dataset.gallery && (t = this.el.dataset.gallery);
-                return t ? o(new Set(Array.from(document.querySelectorAll('[data-gallery="'.concat(t, '"]')), function(t) {
+                return t ? r(new Set(Array.from(document.querySelectorAll('[data-gallery="'.concat(t, '"]')), function(t) {
                     return "".concat(t.dataset.type ? t.dataset.type : "").concat(e.getSrc(t));
                 }))) : [ "".concat(this.type ? this.type : "").concat(this.src) ];
             }
@@ -12068,10 +12068,10 @@ document.addEventListener("DOMContentLoaded", function() {
         }, {
             key: "createCarousel",
             value: function() {
-                var e = this, n = document.createElement("template"), a = t.allowedMediaTypes.join("|"), o = this.sources.map(function(t, n) {
+                var e = this, n = document.createElement("template"), a = t.allowedMediaTypes.join("|"), r = this.sources.map(function(t, n) {
                     t = t.replace(/\/$/, "");
-                    var o = new RegExp("^(".concat(a, ")"), "i"), r = /^html/.test(t), i = /^image/.test(t);
-                    o.test(t) && (t = t.replace(o, ""));
+                    var r = new RegExp("^(".concat(a, ")"), "i"), o = /^html/.test(t), i = /^image/.test(t);
+                    r.test(t) && (t = t.replace(r, ""));
                     var s = e.settings.constrain ? "mw-100 mh-100 h-auto w-auto m-auto top-0 end-0 bottom-0 start-0" : "h-100 w-100", l = new URLSearchParams(t.split("?")[1]), c = "", u = t;
                     if (l.get("caption")) {
                         try {
@@ -12081,15 +12081,15 @@ document.addEventListener("DOMContentLoaded", function() {
                         }
                         c = '<div class="carousel-caption d-none d-md-block" style="z-index:2"><p class="bg-secondary rounded">'.concat(l.get("caption"), "</p></div>");
                     }
-                    var d = '<img src="'.concat(u, '" class="d-block ').concat(s, ' img-fluid" style="z-index: 1; object-fit: contain;" />'), h = "", m = e.getInstagramEmbed(t), f = e.getYoutubeLink(t);
-                    return e.isEmbed(t) && !i && (f && (t = f, h = 'title="YouTube video player" frameborder="0" allow="accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture"'), 
+                    var d = '<img src="'.concat(u, '" class="d-block ').concat(s, ' img-fluid" style="z-index: 1; object-fit: contain;" />'), h = "", m = e.getInstagramEmbed(t), b = e.getYoutubeLink(t);
+                    return e.isEmbed(t) && !i && (b && (t = b, h = 'title="YouTube video player" frameborder="0" allow="accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture"'), 
                     d = m || '<img src="'.concat(t, '" ').concat(h, ' class="d-block w-100" style="object-fit-cover;height:auto" />')), 
-                    r && (d = t), '\n\t\t\t\t<div class="carousel-item '.concat(n ? "" : "active", '" style="min-height: 100px">\n\t\t\t\t\t').concat('<div class="position-absolute top-50 start-50 translate-middle text-white"><div class="spinner-border" style="width: 3rem height: 3rem" role="status"></div></div>', '\n\t\t\t\t\t<div class="ratio ratio-16x9" style="background-color: #000;">').concat(d, "</div>\n\t\t\t\t\t").concat(c, "\n\t\t\t\t</div>");
-                }).join(""), r = this.sources.length < 2 ? "" : '\n\t\t\t<button id="#lightboxCarousel-'.concat(this.hash, '-prev" class="carousel-control carousel-control-prev h-75 m-auto" style="left:-110px" type="button" data-bs-target="#lightboxCarousel-').concat(this.hash, '" data-bs-slide="prev">\n\t\t\t\t<span class="carousel-control-prev-icon" aria-hidden="true"></span>\n\t\t\t\t<span class="visually-hidden">Previous</span>\n\t\t\t</button>\n\t\t\t<button id="#lightboxCarousel-').concat(this.hash, '-next" class="carousel-control carousel-control-next h-75 m-auto" style="right:-110px" type="button" data-bs-target="#lightboxCarousel-').concat(this.hash, '" data-bs-slide="next">\n\t\t\t\t<span class="carousel-control-next-icon" aria-hidden="true"></span>\n\t\t\t\t<span class="visually-hidden">Next</span>\n\t\t\t</button>'), i = "lightbox-carousel carousel slide";
+                    o && (d = t), '\n\t\t\t\t<div class="carousel-item '.concat(n ? "" : "active", '" style="min-height: 100px">\n\t\t\t\t\t').concat('<div class="position-absolute top-50 start-50 translate-middle text-white"><div class="spinner-border" style="width: 3rem height: 3rem" role="status"></div></div>', '\n\t\t\t\t\t<div class="ratio ratio-16x9" style="background-color: #000;">').concat(d, "</div>\n\t\t\t\t\t").concat(c, "\n\t\t\t\t</div>");
+                }).join(""), o = this.sources.length < 2 ? "" : '\n\t\t\t<button id="#lightboxCarousel-'.concat(this.hash, '-prev" class="carousel-control-prev" type="button" data-bs-target="#lightboxCarousel-').concat(this.hash, '" data-bs-slide="prev">\n\t\t\t\t<span class="btn btn-secondary carousel-control-prev-icon" aria-hidden="true"></span>\n\t\t\t\t<span class="visually-hidden">Previous</span>\n\t\t\t</button>\n\t\t\t<button id="#lightboxCarousel-').concat(this.hash, '-next" class="carousel-control-next" type="button" data-bs-target="#lightboxCarousel-').concat(this.hash, '" data-bs-slide="next">\n\t\t\t\t<span class="btn btn-secondary carousel-control-next-icon" aria-hidden="true"></span>\n\t\t\t\t<span class="visually-hidden">Next</span>\n\t\t\t</button>'), i = "lightbox-carousel carousel slide";
                 "fullscreen" === this.settings.size && (i += " position-absolute w-100 translate-middle top-50 start-50");
                 var s = '\n\t\t\t<div class="carousel-indicators" style="bottom: -40px">\n\t\t\t\t'.concat(this.sources.map(function(t, n) {
                     return '\n\t\t\t\t\t<button type="button" data-bs-target="#lightboxCarousel-'.concat(e.hash, '" data-bs-slide-to="').concat(n, '" class="').concat(0 === n ? "active" : "", '" aria-current="').concat(0 === n ? "true" : "false", '" aria-label="Slide ').concat(n + 1, '"></button>\n\t\t\t\t');
-                }).join(""), "\n\t\t\t</div>"), l = '\n\t\t\t<div id="lightboxCarousel-'.concat(this.hash, '" class="').concat(i, '" data-bs-ride="carousel" data-bs-interval="').concat(this.carouselOptions.interval, '">\n\t\t\t    <div class="carousel-inner">\n\t\t\t\t\t').concat(o, "\n\t\t\t\t</div>\n\t\t\t    ").concat(s, "\n\t\t\t\t").concat(r, "\n\t\t\t</div>");
+                }).join(""), "\n\t\t\t</div>"), l = '\n\t\t\t<div id="lightboxCarousel-'.concat(this.hash, '" class="').concat(i, '" data-bs-ride="carousel" data-bs-interval="').concat(this.carouselOptions.interval, '">\n\t\t\t    <div class="carousel-inner">\n\t\t\t\t\t').concat(r, "\n\t\t\t\t</div>\n\t\t\t    ").concat(s, "\n\t\t\t\t").concat(o, "\n\t\t\t</div>");
                 n.innerHTML = l.trim(), this.carouselElement = n.content.firstChild;
                 var u = Object.assign(Object.assign({}, this.carouselOptions), {
                     keyboard: !1
@@ -12111,14 +12111,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }, {
             key: "findGalleryItemIndex",
             value: function(t, e) {
-                var n, a = 0, o = function(t, e) {
+                var n, a = 0, r = function(t, e) {
                     var n = "undefined" != typeof Symbol && t[Symbol.iterator] || t["@@iterator"];
                     if (!n) {
-                        if (Array.isArray(t) || (n = r(t)) || e && t && "number" == typeof t.length) {
+                        if (Array.isArray(t) || (n = o(t)) || e && t && "number" == typeof t.length) {
                             n && (t = n);
-                            var a = 0, o = function() {};
+                            var a = 0, r = function() {};
                             return {
-                                s: o,
+                                s: r,
                                 n: function() {
                                     return a >= t.length ? {
                                         done: !0
@@ -12130,7 +12130,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 e: function(t) {
                                     throw t;
                                 },
-                                f: o
+                                f: r
                             };
                         }
                         throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
@@ -12157,21 +12157,21 @@ document.addEventListener("DOMContentLoaded", function() {
                     };
                 }(t);
                 try {
-                    for (o.s(); !(n = o.n()).done; ) {
+                    for (r.s(); !(n = r.n()).done; ) {
                         if (n.value.includes(e)) return a;
                         a++;
                     }
                 } catch (t) {
-                    o.e(t);
+                    r.e(t);
                 } finally {
-                    o.f();
+                    r.f();
                 }
                 return 0;
             }
         }, {
             key: "createModal",
             value: function() {
-                var t = this, e = document.createElement("template"), n = '\n\t\t\t<div class="modal lightbox fade" id="lightboxModal-'.concat(this.hash, '" tabindex="-1" aria-hidden="true">\n\t\t\t\t<div class="modal-dialog modal-dialog-centered modal-').concat(this.settings.size, '">\n\t\t\t\t\t<div class="modal-content border-0 bg-transparent">\n\t\t\t\t\t\t<div class="modal-body p-0">\n\t\t\t\t\t\t\t<button type="button" class="btn-close position-absolute top-0 end-0 p-3" data-bs-dismiss="modal" aria-label="Close" style="z-index: 2; background: none;">').concat('<svg xmlns="http://www.w3.org/2000/svg" style="position: relative; top: -15px;right:-40px" viewBox="0 0 16 16" fill="#fff"><path d="M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z"/></svg>', "</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>");
+                var t = this, e = document.createElement("template"), n = '\n\t\t\t<div class="modal lightbox fade" id="lightboxModal-'.concat(this.hash, '" tabindex="-1" aria-hidden="true">\n\t\t\t\t<div class="modal-dialog modal-dialog-centered modal-').concat(this.settings.size, '">\n\t\t\t\t\t<div class="modal-content border-0 bg-transparent">\n\t\t\t\t\t\t<div class="modal-body p-0">\n\t\t\t\t\t\t\t<button type="button" class="btn-close position-absolute p-3" data-bs-dismiss="modal" aria-label="Close" style="top: -15px;right:-40px"></button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>');
                 return e.innerHTML = n.trim(), this.modalElement = e.content.firstChild, 
                 this.modalElement.querySelector(".modal-body").appendChild(this.carouselElement), 
                 this.modalElement.addEventListener("hidden.bs.modal", function() {
@@ -12196,7 +12196,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }), e;
         var e, n, a;
     }();
-    u.allowedEmbedTypes = [ "embed", "youtube", "vimeo", "instagram", "url" ], u.allowedMediaTypes = [].concat(o(u.allowedEmbedTypes), [ "image", "html" ]), 
+    u.allowedEmbedTypes = [ "embed", "youtube", "vimeo", "instagram", "url" ], u.allowedMediaTypes = [].concat(r(u.allowedEmbedTypes), [ "image", "html" ]), 
     u.defaultSelector = '[data-toggle="lightbox"]', u.initialize = function(t) {
         t.preventDefault(), new u(this).show();
     }, document.querySelectorAll(u.defaultSelector).forEach(function(t) {
@@ -15156,6 +15156,7 @@ Prism.languages.vba = Prism.languages["visual-basic"];
     document.addEventListener(mouseMove, mouseMoveHandler, true);
     document.addEventListener("wheel", clearLongPressTimer, true);
     document.addEventListener("scroll", clearLongPressTimer, true);
+    document.addEventListener("contextmenu", clearLongPressTimer, true);
     document.addEventListener(mouseDown, mouseDownHandler, true);
 })(window, document);
 
@@ -15761,6 +15762,32 @@ document.addEventListener("DOMContentLoaded", function() {
         var messageId = imageLink.parentNode.id;
         imageLink.setAttribute("data-gallery", `gallery-${messageId}`);
     });
+    const quickReplyDialog = document.getElementById("QuickReplyDialog");
+    if (quickReplyDialog) {
+        const quickReply = document.getElementById("quickReply");
+        moveDialogToCard(quickReplyDialog, quickReply);
+        quickReplyDialog.addEventListener("show.bs.modal", _ => {
+            const body = quickReply.querySelector(".modal-body"), footer = quickReply.querySelector(".quick-reply-footer");
+            footer.classList.add("modal-footer");
+            footer.classList.remove("quick-reply-footer");
+            footer.classList.remove("mt-3");
+            const copy = quickReplyDialog.querySelector(".modal-content");
+            copy.append(body);
+            copy.append(footer);
+        });
+        quickReplyDialog.addEventListener("hide.bs.modal", _ => {
+            moveDialogToCard(quickReplyDialog, quickReply);
+        });
+    }
+    function moveDialogToCard(quickReplyDialog, quickReply) {
+        const body = quickReplyDialog.querySelector(".modal-body"), footer = quickReplyDialog.querySelector(".modal-footer");
+        footer.classList.add("mt-3");
+        footer.classList.add("quick-reply-footer");
+        footer.classList.remove("modal-footer");
+        const copy = quickReply.querySelector(".card-body");
+        copy.append(body);
+        copy.append(footer);
+    }
 });
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -16019,7 +16046,7 @@ function getSelectedMessageText() {
         btnToActive.classList.add("active");
         btnToActive.setAttribute("aria-pressed", "true");
         checkOfActiveBtn.classList.remove("d-none");
-        activeThemeIcon.setAttribute("class", iconOfActiveBtn + " theme-icon-active");
+        activeThemeIcon.setAttribute("class", `${iconOfActiveBtn} theme-icon-active`);
         const themeSwitcherLabel = `${themeSwitcherText.textContent} (${btnToActive.dataset.bsThemeValue})`;
         themeSwitcher.setAttribute("aria-label", themeSwitcherLabel);
     };

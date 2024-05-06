@@ -310,6 +310,10 @@ public abstract class UserPageBase
     /// </summary>
     public bool UserHasBuddies => this.PageData.Item3.UserHasBuddies;
 
+    /// <summary>
+    /// Gets or sets the page links.
+    /// </summary>
+    /// <value>The page links.</value>
     public List<PageLink> PageLinks { get; set; }
 
     /// <summary>

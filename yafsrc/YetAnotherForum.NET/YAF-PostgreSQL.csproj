@@ -542,6 +542,7 @@
     <Compile Include="Install\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\AntiXsrfModule.cs" />
     <Compile Include="Modules\CanonicalMetaTagModule.cs" />
     <Compile Include="Modules\FaviconModule.cs" />
     <Compile Include="Modules\PageBBCodeRegistration.cs" />
@@ -1772,6 +1773,7 @@
     </Content>
     <Content Include="Content\images\InstallBackground.jpg" />
     <Content Include="Content\prism.css" />
+    <Content Include="Content\sceditor.min.css" />
     <Content Include="Content\Themes\cerulean\bootstrap-email.scss" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
@@ -2415,8 +2417,6 @@
     <Content Include="Scripts\bootstrap.bundle.min.js">
       <DependentUpon>bootstrap.bundle.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\bs5-lightbox\dist\index.bundle.min.js" />
     <Content Include="Scripts\bs5-lightbox\index.js" />
     <Content Include="Scripts\bs5-lightbox\webpack.cdn.js" />
@@ -3075,7 +3075,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

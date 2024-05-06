@@ -101,7 +101,7 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
 #if DEBUG
         var diagnosticsLib =
             Assembly.Load(
-                "System.Diagnostics.DiagnosticSource, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51");
+                "System.Diagnostics.DiagnosticSource, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51");
         var diagnosticSourceEventSourceType = diagnosticsLib.GetType("System.Diagnostics.DiagnosticSourceEventSource");
         var diagnosticSourceEventSource = diagnosticSourceEventSourceType.InvokeMember("Log",
             BindingFlags.Static | BindingFlags.GetField | BindingFlags.Public, null, null, null);

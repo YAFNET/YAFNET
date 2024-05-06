@@ -317,9 +317,7 @@ public partial class Posts : ForumPage
             new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
 
         this.QuickReplyDialog.Visible = yafBoardSettings.ShowQuickAnswer;
-        this.QuickReplyLink1.Visible = yafBoardSettings.ShowQuickAnswer;
-        this.QuickReplyLink2.Visible = yafBoardSettings.ShowQuickAnswer;
-        
+
         if (!this.PageBoardContext.ForumPostAccess || this.PageBoardContext.PageForum.ForumFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
         {
             this.NewTopic1.Visible = false;
@@ -332,8 +330,6 @@ public partial class Posts : ForumPage
         {
             this.PostReplyLink1.Visible = this.PostReplyLink2.Visible = false;
             this.QuickReplyDialog.Visible = false;
-            this.QuickReplyLink1.Visible = false;
-            this.QuickReplyLink2.Visible = false;
         }
 
         if (this.PageBoardContext.ForumModeratorAccess)

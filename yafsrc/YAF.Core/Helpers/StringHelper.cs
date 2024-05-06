@@ -99,6 +99,6 @@ public static class StringHelper
     public static string GetTextBgColor(string cssClass)
     {
         return BoardContext.Current.PageUser.DarkMode
-            ? cssClass.Replace("text-bg-light", "text-bg-dark") : cssClass;
+            ? cssClass.Replace("light", "dark") : cssClass;
     }
 }

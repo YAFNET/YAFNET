@@ -122,12 +122,18 @@ public partial class DisplayPost : BaseUserControl
                                         new { m = this.PostData.MessageId, action = "undelete" });
 
         this.Quote.Visible = this.Quote2.Visible = this.Reply.Visible = this.ReplyFooter.Visible =
-                                                                            this.QuickReplyLink.Visible = this.Separator1.Visible =
+                                                                            this.QuickReplyLink.Visible = this.QuickReplyLink1.Visible = this.Separator1.Visible =
                                                                                 !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
 
         if (this.Edit2.Visible || this.Move.Visible || this.Delete2.Visible || this.UnDelete2.Visible)
         {
             this.Separator2.Visible = true;
+        }
+
+        if (!this.PageBoardContext.BoardSettings.ShowQuickAnswer)
+        {
+            this.QuickReplyLink.Visible = false;
+            this.QuickReplyLink1.Visible = false;
         }
 
         if (this.PageBoardContext.BoardSettings.UseCustomContextMenu)

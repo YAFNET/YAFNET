@@ -15,7 +15,6 @@
 <%@ Register TagPrefix="modal" TagName="MoveTopic" Src="../Dialogs/MoveTopic.ascx" %>
 <%@ Register TagPrefix="modal" TagName="QuickReply" Src="../Dialogs/QuickReply.ascx" %>
 
-
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
 <YAF:PollList ID="PollList" runat="server"
@@ -70,13 +69,6 @@
                              OnClick="PostReplyLink_Click"
                              TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                              Icon="reply" />
-            <YAF:ThemeButton ID="QuickReplyLink1" runat="server"
-                             Type="Primary"
-                             CssClass="mb-1"
-                             TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
-                             Icon="reply"
-                             DataToggle="modal"
-                             DataTarget="QuickReplyDialog" />
         </div>
 </div>
 <div class="row mb-3">
@@ -150,6 +142,22 @@
     </ItemTemplate>
 </asp:Repeater>
 
+<asp:PlaceHolder runat="server" id="QuickReply"
+                 Visible="<%# this.PageBoardContext.BoardSettings.ShowQuickAnswer %>">
+	<div class="row mb-3">
+		<div class="col">
+			<hr class="border border-secondary border-2 opacity-50">
+			<div class="card" id="quickReply">
+				<div class="card-header">
+					<YAF:LocalizedLabel runat="server" LocalizedTag="QUICKREPLY"></YAF:LocalizedLabel>
+				</div>
+				<div class="card-body">
+				</div>
+			</div>
+		</div>
+	</div>
+</asp:PlaceHolder>
+
 <asp:PlaceHolder runat="server"
                  Visible="<%# this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.PostsFeedAccess) %>">
     <div class="row mb-3">
@@ -211,16 +219,10 @@
                              OnClick="PostReplyLink_Click"
                              TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                              Icon="reply" />
-            <YAF:ThemeButton ID="QuickReplyLink2" runat="server"
-                             Type="Primary"
-                             CssClass="ms-1 mb-1"
-                             TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
-                             Icon="reply"
-                             DataToggle="modal"
-                             DataTarget="QuickReplyDialog" />
         </div>
     </div>
 </div>
+
 <YAF:TopicTags ID="TopicTags" runat="server" />
 <div class="row mb-3">
     <YAF:SimilarTopics ID="SimilarTopics" runat="server"></YAF:SimilarTopics>
