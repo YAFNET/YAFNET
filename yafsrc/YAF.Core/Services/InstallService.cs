@@ -42,12 +42,12 @@ public class InstallService : IHaveServiceLocator
     /// <summary>
     ///     The BBCode extensions import xml file.
     /// </summary>
-    private const string BbcodeImport = "BBCodeExtensions.xml";
+    private readonly string bbcodeImport = $"{Config.InstallPath()}BBCodeExtensions.xml";
 
     /// <summary>
     ///     The Spam Words list import xml file.
     /// </summary>
-    private const string SpamWordsImport = "SpamWords.xml";
+    private readonly string spamWordsImport = $"{Config.InstallPath()}SpamWords.xml";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="InstallService"/> class.
@@ -245,10 +245,10 @@ public class InstallService : IHaveServiceLocator
                     this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(boardId));
 
                     // load default bbcode if available...
-                    loadWrapper(BbcodeImport, s => DataImport.BBCodeExtensionImport(boardId, s));
+                    loadWrapper(this.bbcodeImport, s => DataImport.BBCodeExtensionImport(boardId, s));
 
                     // load default spam word if available...
-                    loadWrapper(SpamWordsImport, s => DataImport.SpamWordsImport(boardId, s));
+                    loadWrapper(this.spamWordsImport, s => DataImport.SpamWordsImport(boardId, s));
                 });
     }
 }

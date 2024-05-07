@@ -41,13 +41,11 @@ public static class Config
     /// <summary>
     ///     Gets AppRoot.
     /// </summary>
-    
     public static string AppRoot => GetConfigValueAsString("YAF.AppRoot") ?? string.Empty;
 
     /// <summary>
     ///     Gets the Used for Url Rewriting -- default is "default.\.(.+)$\.(.+)$"
     /// </summary>
-    
     public static string BaseScriptFile => GetConfigValueAsString("YAF.BaseScriptFile") ?? "default.aspx";
 
     /// <summary>
@@ -58,7 +56,6 @@ public static class Config
     /// <summary>
     ///     Gets the Folder to use for board specific uploads, images Example : /Boards/
     /// </summary>
-    
     public static string BoardRoot => GetConfigValueAsString("YAF.BoardRoot") ?? string.Empty;
 
     /// <summary>
@@ -69,7 +66,6 @@ public static class Config
     /// <summary>
     ///     Gets ClientFileRoot.
     /// </summary>
-    
     public static string ClientFileRoot => GetConfigValueAsString("YAF.ClientFileRoot") ?? string.Empty;
 
     /// <summary>
@@ -139,18 +135,16 @@ public static class Config
     /// <summary>
     ///    Gets the Database Schema.
     /// </summary>
-    
     public static string DatabaseSchema => GetConfigValueAsString("YAF.DatabaseSchema") ?? "public";
 
     /// <summary>
     ///    Gets the Database Owner.
     /// </summary>
-    
     public static string DatabaseOwner => GetConfigValueAsString("YAF.DatabaseOwner") ?? "dbo";
 
     /// <summary>
     ///     Gets a value indicating whether Is Url Rewriting enabled? -- default is "true".
-    /// </summary> 
+    /// </summary>
     public static bool EnableURLRewriting => GetConfigValueAsBool("YAF.EnableUrlRewriting", true);
 
     /// <summary>
@@ -238,7 +232,6 @@ public static class Config
     /// <summary>
     ///     Gets ServerFileRoot.
     /// </summary>
-    
     public static string ServerFileRoot => GetConfigValueAsString("YAF.FileRoot")
                                            ?? GetConfigValueAsString("YAF.ServerFileRoot") ?? string.Empty;
 
@@ -260,7 +253,6 @@ public static class Config
     /// <summary>
     ///     Gets the Url Rewriting URLRewritingMode? -- default is Unicode.
     /// </summary>
-    
     public static string UrlRewritingMode => GetConfigValueAsString("YAF.URLRewritingMode") ?? string.Empty;
 
     /// <summary>
@@ -342,5 +334,10 @@ public static class Config
         return (from key in WebConfigurationManager.AppSettings.AllKeys
                 where key.Equals(configKey, StringComparison.CurrentCultureIgnoreCase)
                 select WebConfigurationManager.AppSettings[key]).FirstOrDefault();
+    }
+
+    public static string InstallPath()
+    {
+        return $"{(ServerFileRoot.IsSet() ? ServerFileRoot : "~/")}/Install/";
     }
 }

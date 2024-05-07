@@ -61,12 +61,12 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
     /// <summary>
     ///     The BBCode extensions import xml file.
     /// </summary>
-    private const string BbcodeImport = "Install/BBCodeExtensions.xml";
+    private readonly string bbcodeImport = $"{Config.InstallPath()}BBCodeExtensions.xml";
 
     /// <summary>
     ///     The Spam Words list import xml file.
     /// </summary>
-    private const string SpamWordsImport = "Install/SpamWords.xml";
+    private readonly string spamWordsImport = $"{Config.InstallPath()}SpamWords.xml";
 
     /// <summary>
     ///     Gets or sets the raise event.
@@ -285,10 +285,10 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
                     this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(boardId));
 
                     // load default bbcode if available...
-                    loadWrapper(BbcodeImport, s => DataImport.BBCodeExtensionImport(boardId, s));
+                    loadWrapper(this.bbcodeImport, s => DataImport.BBCodeExtensionImport(boardId, s));
 
                     // load default spam word if available...
-                    loadWrapper(SpamWordsImport, s => DataImport.SpamWordsImport(boardId, s));
+                    loadWrapper(this.spamWordsImport, s => DataImport.SpamWordsImport(boardId, s));
                 });
     }
 
@@ -301,7 +301,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
     private void ExecuteScript(string scriptFile)
     {
         string script;
-        var fileName = this.Get<HttpRequestBase>().MapPath(scriptFile);
+        var fileName = this.Get<HttpRequestBase>().MapPath($"{Config.InstallPath()}{scriptFile}");
 
         try
         {

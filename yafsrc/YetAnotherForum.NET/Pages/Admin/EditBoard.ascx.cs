@@ -357,10 +357,10 @@ public partial class EditBoard : AdminPage
                 });
 
         // load default bbcode if available...
-        loadWrapper("install/bbCodeExtensions.xml", s => DataImport.BBCodeExtensionImport(newBoardId, s));
+        loadWrapper($"{Config.InstallPath()}bbCodeExtensions.xml", s => DataImport.BBCodeExtensionImport(newBoardId, s));
 
         // load default spam word if available...
-        loadWrapper("install/SpamWords.xml", s => DataImport.SpamWordsImport(newBoardId, s));
+        loadWrapper("SpamWords.xml", s => DataImport.SpamWordsImport(newBoardId, s));
 
         return newBoardId;
     }
