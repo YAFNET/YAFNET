@@ -23,7 +23,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
 	  <PackageReference Include="NUnit" Version="4.1.0" />
-	  <PackageReference Include="SonarAnalyzer.CSharp" Version="9.24.0.89429">
+	  <PackageReference Include="SonarAnalyzer.CSharp" Version="9.25.0.90414">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
