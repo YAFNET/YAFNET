@@ -65,13 +65,20 @@
                             <select asp-for="Input.Priority" class="select2-image-select">
                                 @foreach (var item in Model.Priorities)
                                 {
+	                                var icon = item.Value switch
+	                                {
+		                                "1" => "thumbtack",
+		                                "2" => "bullhorn",
+		                                _ => "comment"
+	                                };
+
                                     if (item.Selected)
                                     {
-                                        <option value="@item.Value" selected="selected">@item.Text</option>
+                                        <option value="@item.Value" item="@item" icon-name="@icon" selected="selected">@item.Text</option>
                                     }
                                     else
                                     {
-                                        <option value="@item.Value">@item.Text</option>
+                                        <option value="@item.Value" item="@item" icon-name="@icon">@item.Text</option>
                                     }
 
                                 }
