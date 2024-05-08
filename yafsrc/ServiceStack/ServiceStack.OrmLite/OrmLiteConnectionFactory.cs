@@ -557,7 +557,7 @@ public static class OrmLiteConnectionFactoryExtensions
         {
             return OrmLiteConnectionFactory.DialectProviders.TryGetValue(providerName, out var provider)
                 ? provider
-                : throw new NotSupportedException($"Dialect provider is not registered '{provider}'");
+                : throw new NotSupportedException($"Dialect provider is not registered '{providerName}'");
         }
 
         if (!string.IsNullOrEmpty(namedConnection))

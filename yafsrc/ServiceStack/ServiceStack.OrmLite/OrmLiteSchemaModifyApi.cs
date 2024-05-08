@@ -462,6 +462,34 @@ public static class OrmLiteSchemaModifyApi
     /// </summary>
     /// <typeparam name="T">The Table Model</typeparam>
     /// <param name="dbConn">The database connection.</param>
+    /// <param name="field">The field.</param>
+    public static string GetConstraint<T>(this IDbConnection dbConn, string field)
+    {
+        var provider = dbConn.GetDialectProvider();
+        var modelDef = ModelDefinition<T>.Definition;
+
+        //var fieldDef = modelDef.GetFieldDefinition(field);
+        //var fieldName = provider.NamingStrategy.GetColumnName(fieldDef.FieldName);
+
+        var fieldName = provider.NamingStrategy.GetColumnName(field);
+
+        var command = provider.GetConstraintName(dbConn.Database, modelDef, fieldName);
+
+        try
+        {
+            return dbConn.SqlScalar<string>(command);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Drops the constraint.
+    /// </summary>
+    /// <typeparam name="T">The Table Model</typeparam>
+    /// <param name="dbConn">The database connection.</param>
     /// <param name="name">The name.</param>
     public static void DropConstraint<T>(this IDbConnection dbConn, string name)
     {

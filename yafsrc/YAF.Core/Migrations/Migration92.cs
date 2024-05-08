@@ -31,7 +31,7 @@ using YAF.Types.Models;
 /// <summary>
 /// Version 92 Migrations
 /// </summary>
-[Description("Remove darkmode column from user table.")]
+[Description("Remove DarkMode column from user table.")]
 public class Migration92 : MigrationBase
 {
     /// <summary>
@@ -39,13 +39,14 @@ public class Migration92 : MigrationBase
     /// </summary>
     public override void Up()
     {
-        if (!this.Db.ColumnExists<User>("DarkMode"))
+        const string columnName = "DarkMode";
+
+        if (!this.Db.ColumnExists<User>(columnName))
         {
             return;
         }
 
-        var constraintName = this.Db.SqlScalar<string>(
-            $"SELECT name FROM sys.default_constraints WHERE parent_object_id = OBJECT_ID('{this.Db.GetTableName<User>()}') and name like '%DarkMo%'");
+        var constraintName = this.Db.GetConstraint<User>(columnName);
 
         if (!constraintName.IsSet())
         {
@@ -53,6 +54,6 @@ public class Migration92 : MigrationBase
         }
 
         this.Db.DropConstraint<User>(constraintName);
-        this.Db.DropColumn<User>("DarkMode");
+        this.Db.DropColumn<User>(columnName);
     }
 }

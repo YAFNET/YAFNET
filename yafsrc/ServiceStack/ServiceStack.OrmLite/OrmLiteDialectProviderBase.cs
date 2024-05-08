@@ -3306,6 +3306,18 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     }
 
     /// <summary>
+    /// Gets the name of the constraint.
+    /// </summary>
+    /// <param name="database">The database.</param>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="fieldName">Name of the field.</param>
+    /// <returns>string.</returns>
+    public virtual string GetConstraintName(string database, ModelDefinition modelDef, string fieldName)
+    {
+        return null;
+    }
+
+    /// <summary>
     /// Gets the drop constraint.
     /// </summary>
     /// <param name="modelDef">The model definition.</param>

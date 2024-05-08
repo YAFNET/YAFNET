@@ -336,6 +336,10 @@ public static class Config
                 select WebConfigurationManager.AppSettings[key]).FirstOrDefault();
     }
 
+    /// <summary>
+    /// Gets the 'Install' root path.
+    /// </summary>
+    /// <returns>The 'Install' root path</returns>
     public static string InstallPath()
     {
         return $"{(ServerFileRoot.IsSet() ? ServerFileRoot : "~/")}/Install/";
