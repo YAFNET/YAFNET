@@ -999,6 +999,15 @@ public interface IOrmLiteDialectProvider
     string GetDropForeignKeyConstraint(ModelDefinition modelDef, string name);
 
     /// <summary>
+    /// Gets the name of the constraint.
+    /// </summary>
+    /// <param name="database">The database.</param>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="fieldName">Name of the field.</param>
+    /// <returns>System.String.</returns>
+    string GetConstraintName(string database, ModelDefinition modelDef, string fieldName);
+
+    /// <summary>
     /// Gets the drop constraint.
     /// </summary>
     /// <param name="modelDef">The model definition.</param>

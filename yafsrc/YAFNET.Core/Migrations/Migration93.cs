@@ -39,43 +39,45 @@ public class Migration93 : MigrationBase
     /// </summary>
     public override void Up()
     {
-        if (this.Db.ColumnExists<User>("PMNotification"))
+        const string pmNotificationColumnName = "PMNotification";
+        const string pmLimitColumnName = "PMLimit";
+
+        if (this.Db.ColumnExists<User>(pmNotificationColumnName))
         {
-            var constraintName = this.Db.SqlScalar<string>(
-                $"SELECT name FROM sys.default_constraints WHERE parent_object_id = OBJECT_ID('{this.Db.GetTableName<User>()}') and name like '%PMNoti%'");
+            var constraintName = this.Db.GetConstraint<User>(pmNotificationColumnName);
 
             if (constraintName.IsSet())
             {
                 this.Db.DropConstraint<User>(constraintName);
 
-                this.Db.DropColumn<User>("PMNotification");
+                this.Db.DropColumn<User>(pmNotificationColumnName);
             }
         }
 
-        if (this.Db.ColumnExists<Rank>("PMLimit"))
+        if (this.Db.ColumnExists<Rank>(pmLimitColumnName))
         {
-            var constraintName = this.Db.SqlScalar<string>(
-                $"SELECT name FROM sys.default_constraints WHERE parent_object_id = OBJECT_ID('{this.Db.GetTableName<Rank>()}') and name like '%PMLim%'");
+            var constraintName = this.Db.GetConstraint<User>(pmLimitColumnName);
 
             if (constraintName.IsSet())
             {
                 this.Db.DropConstraint<Rank>(constraintName);
 
-                this.Db.DropColumn<Rank>("PMLimit");
+                this.Db.DropColumn<Rank>(pmLimitColumnName);
             }
         }
 
-        if (this.Db.ColumnExists<Group>("PMLimit"))
+        if (this.Db.ColumnExists<Group>(pmLimitColumnName))
         {
-            var constraintName = this.Db.SqlScalar<string>(
-                $"SELECT name FROM sys.default_constraints WHERE parent_object_id = OBJECT_ID('{this.Db.GetTableName<Group>()}') and name like '%PMLim%'");
+            var constraintName = this.Db.GetConstraint<User>(pmLimitColumnName);
 
-            if (constraintName.IsSet())
+            if (!constraintName.IsSet())
             {
-                this.Db.DropConstraint<Group>(constraintName);
-
-                this.Db.DropColumn<Group>("PMLimit");
+                return;
             }
+
+            this.Db.DropConstraint<Group>(constraintName);
+
+            this.Db.DropColumn<Group>(pmLimitColumnName);
         }
     }
 }

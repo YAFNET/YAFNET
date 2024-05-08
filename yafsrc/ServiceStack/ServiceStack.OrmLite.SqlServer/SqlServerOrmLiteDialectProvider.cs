@@ -804,6 +804,28 @@ namespace ServiceStack.OrmLite.SqlServer
         }
 
         /// <summary>
+        /// Gets the name of the constraint.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <returns>string.</returns>
+        public override string GetConstraintName(string database, ModelDefinition modelDef, string fieldName)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            sb.Append("SELECT NAME FROM ");
+            sb.Append("sys.default_constraints WHERE ");
+            sb.AppendFormat(
+                "parent_object_id = OBJECT_ID(N'[{0}].[{1}]') and col_name(parent_object_id, parent_column_id) = '{2}'",
+                this.NamingStrategy.GetSchemaName(modelDef),
+                this.NamingStrategy.GetTableName(modelDef),
+                fieldName);
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
+        /// <summary>
         /// Gets the drop constraint.
         /// </summary>
         /// <param name="modelDef">The model definition.</param>

@@ -287,8 +287,8 @@ public static class IDbAccessExtensions
     public async static Task<bool> ExistsAsync<T>(this IDbAccess dbAccess, Expression<Func<T, bool>> where = null)
         where T : class, IEntity, new()
     {
-        return await dbAccess.Execute(
-            db => db.Connection.ExistsAsync(OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where)));
+        return await dbAccess.ExecuteAsync(
+            db => db.ExistsAsync(OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where)));
     }
 
     /// <summary>
