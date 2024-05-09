@@ -239,7 +239,7 @@ public class Migrator
     /// Gets or sets the timeout.
     /// </summary>
     /// <value>The timeout.</value>
-    public TimeSpan Timeout { get; set; } = TimeSpan.FromMinutes(10);
+    public TimeSpan Timeout { get; set; } = TimeSpan.FromMinutes(5);
 
     /// <summary>
     /// Gets or sets the log.

@@ -24,6 +24,8 @@
 
 namespace YAF.Web.HtmlHelpers;
 
+using System.Reflection;
+
 using YAF.Core.Services;
 
 /// <summary>
@@ -142,11 +144,6 @@ public static class FooterHtmlHelper
         }
 
 #if DEBUG
-        if (!BoardContext.Current.IsAdmin)
-        {
-            return;
-        }
-
         var debugTextTag = new TagBuilder("p");
 
         debugTextTag.AddCssClass("text-danger small");
@@ -173,6 +170,20 @@ public static class FooterHtmlHelper
             " to remove this information");
 
         content.AppendHtml(debugTextTag);
+
+        var extensions = BoardContext.Current.Get<IList<Assembly>>("ExtensionAssemblies").Select(a => a.FullName)
+            .ToList();
+
+        content.AppendHtml(
+            $"""<div style="margin:auto;padding:5px;text-align:right;font-size:7pt;"><span style="color: green">{BoardContext.Current.Get<BoardConfiguration>().ConnectionProviderName}</span></div>"""
+        );
+
+        if (extensions.Exists(x => x.Contains(".Module")))
+        {
+            content.AppendHtml(
+                $"""<br /><br />Extensions Loaded: <span style="color: green">{extensions.Where(x => x.Contains(".Module")).ToDelimitedString("<br />")}</span>"""
+            );
+        }
 
         content.AppendHtml("</div>");
 #endif
