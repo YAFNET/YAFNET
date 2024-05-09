@@ -97,11 +97,6 @@ public class Footer : BaseControl
         writer.Write(@"</div></footer>");
 
 #if DEBUG
-        if (!this.PageBoardContext.IsAdmin)
-        {
-            return;
-        }
-
         writer.Write(
             """
             <br /><br /><div style="margin:auto;padding:5px;text-align:right;font-size:7pt;">
