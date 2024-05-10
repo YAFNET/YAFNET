@@ -747,7 +747,7 @@ namespace YAF.Lucene.Net.Analysis.En
             "loathsome","loaves","lob","lobby","lobed",
             "lobotomy","lobster","lobsterpot","local","locale",
             "localise","localism","locality","localize","locally",
-            "locate","located","location","loch","loci",
+            "locate","located","location","loch","loci"
         };
     }
 }

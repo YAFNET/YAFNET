@@ -137,7 +137,7 @@
             "\"]\"",
             "\"}\"",
             "<RANGE_QUOTED>",
-            "<RANGE_GOOP>",
+            "<RANGE_GOOP>"
         };
     }
 }

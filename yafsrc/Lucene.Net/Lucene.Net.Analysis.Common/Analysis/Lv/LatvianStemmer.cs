@@ -75,7 +75,7 @@ namespace YAF.Lucene.Net.Analysis.Lv
             new Affix("e",     1, false), new Affix("ā",     1, false),
             new Affix("ē",     1, false), new Affix("ī",     1, false),
             new Affix("ū",     1, false), new Affix("o",     1, false),
-            new Affix("s",     0, false), new Affix("š",     0, false),
+            new Affix("s",     0, false), new Affix("š",     0, false)
         };
 
         internal class Affix

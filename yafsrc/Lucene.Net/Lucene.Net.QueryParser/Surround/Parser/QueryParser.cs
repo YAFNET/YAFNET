@@ -603,7 +603,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
         private int jj_gen;
         private readonly int[] jj_la1 = new int[10];
         private readonly static int[] jj_la1_0 = new int[] { // LUCENENET: marked readonly // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
-            0x100, 0x200, 0x400, 0x1000, 0x800, 0x7c3b00, 0x1b00, 0x8000, 0x7c0000, 0x20000, };
+            0x100, 0x200, 0x400, 0x1000, 0x800, 0x7c3b00, 0x1b00, 0x8000, 0x7c0000, 0x20000 };
 
         // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         //static QueryParser()

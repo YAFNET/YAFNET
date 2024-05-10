@@ -3695,7 +3695,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         internal enum CharReturnType
         {
             String = 0,
-            CharArray = 1,
+            CharArray = 1
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

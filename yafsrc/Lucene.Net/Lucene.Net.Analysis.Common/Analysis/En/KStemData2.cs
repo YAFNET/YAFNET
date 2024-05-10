@@ -747,7 +747,7 @@ namespace YAF.Lucene.Net.Analysis.En
             "dissimilar","dissimilarity","dissimulate","dissipate","dissipated",
             "dissipation","dissociate","dissoluble","dissolute","dissolution",
             "dissolve","dissonance","dissonant","dissuade","distaff",
-            "distal","distance","distant","distantly","distaste",
+            "distal","distance","distant","distantly","distaste"
         };
     }
 }

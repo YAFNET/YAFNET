@@ -747,7 +747,7 @@ namespace YAF.Lucene.Net.Analysis.En
             "tenancy","tenant","tenantry","tench","tend",
             "tendency","tendentious","tender","tenderfoot","tenderhearted",
             "tenderise","tenderize","tenderloin","tendon","tendril",
-            "tenement","tenet","tenner","tennis","tenon",
+            "tenement","tenet","tenner","tennis","tenon"
         };
     }
 }

@@ -12,7 +12,7 @@ function Notify(content, options) {
         const string = arguments[0];
         return string.replace(/(\{\{\d\}\}|\{\d\})/g,
             function (str) {
-                if (str.substring(0, 2) === "{{") return str;
+                if (str.substring(0, 2) === '{{') return str;
                 const num = parseInt(str.match(/\d/)[0]);
                 return args[num + 1];
             });
@@ -45,52 +45,52 @@ function Notify(content, options) {
 
     // Create the defaults once
     const defaults = {
-        element: "body",
-        type: "info",
+        element: 'body',
+        type: 'info',
         allow_dismiss: true,
         allow_duplicates: true,
         newest_on_top: true,
         showProgressbar: false,
         placement: {
-            from: "top",
-            align: "right"
+            from: 'top',
+            align: 'right'
         },
         delay: 5000,
         timer: 1000,
-        mouse_over: "pause",
+        mouse_over: 'pause',
         animate: {
-            enter: "animated fadeInDown",
-            exit: "animated fadeOutUp"
+            enter: 'animated fadeInDown',
+            exit: 'animated fadeOutUp'
         },
         onShow: null,
         onShown: null,
         onClose: null,
         onClosed: null,
         onClick: null,
-        icon_type: "class",
+        icon_type: 'class',
         template: [
             '<div data-notify="container" class="toast fade m-3" role="alert" aria-live="assertive" aria-atomic="true">',
             '<div class="toast-header">',
             '<span data-notify="icon" class="me-2 text-{0}"></span>',
             '<strong class="me-auto fw-bold" data-notify="title">{1}</strong>',
             '<button type="button" class="ms-2 mb-1 btn-close" data-bs-dismiss="toast" data-notify="dismiss" aria-label="Close">',
-            "</button>",
-            "</div>",
+            '</button>',
+            '</div>',
             '<div class="toast-body" data-notify="message">',
-            "{2}",
+            '{2}',
             '<div class="progress" role="progressbar" data-notify="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">',
             '<div class="progress-bar bg-{0}" style="width: 0%;"></div>',
-            "</div>",
-            "</div>"
-        ].join("")
+            '</div>',
+            '</div>'
+        ].join('')
     };
 
     // Setup Content of Notify
     const contentObj = {
         content: {
-            message: typeof content === "object" ? content.message : content,
-            title: content.title ? content.title : "",
-            icon: content.icon ? content.icon : ""
+            message: typeof content === 'object' ? content.message : content,
+            title: content.title ? content.title : '',
+            icon: content.icon ? content.icon : ''
         }
     };
 
@@ -99,11 +99,11 @@ function Notify(content, options) {
     this._defaults = defaults;
 
     this.animations = {
-        start: "webkitAnimationStart oanimationstart MSAnimationStart animationstart",
-        end: "webkitAnimationEnd oanimationend MSAnimationEnd animationend"
+        start: 'webkitAnimationStart oanimationstart MSAnimationStart animationstart',
+        end: 'webkitAnimationEnd oanimationend MSAnimationEnd animationend'
     };
 
-    if (typeof this.settings.offset === "number") {
+    if (typeof this.settings.offset === 'number') {
         this.settings.offset = {
             x: this.settings.offset,
             y: this.settings.offset
@@ -138,7 +138,7 @@ extend(Notify.prototype,
         },
         update: function (command, update) {
             var commands = {};
-            if (typeof command === "string") {
+            if (typeof command === 'string') {
                 commands[command] = update;
             } else {
                 commands = command;
@@ -185,7 +185,7 @@ extend(Notify.prototype,
         buildNotify: function () {
             const content = this.settings.content;
 			
-			const div = document.createElement("div");
+			const div = document.createElement('div');
 			
             div.innerHTML = String.format(this.settings.template,
                 this.settings.type,
@@ -196,12 +196,12 @@ extend(Notify.prototype,
 
             this.$ele = div.firstChild;
 
-            this.$ele.dataset.notifyPosition = this.settings.placement.from + "-" + this.settings.placement.align;
+            this.$ele.dataset.notifyPosition = this.settings.placement.from + '-' + this.settings.placement.align;
 
             this.$ele.dataset.bsDelay = this.settings.delay;
 
             if (!this.settings.allow_dismiss) {
-                this.$ele.querySelector('[data-notify="dismiss"]').style.display = "none";
+                this.$ele.querySelector('[data-notify="dismiss"]').style.display = 'none';
             }
 
             if ((this.settings.delay <= 0 && !this.settings.showProgressbar) || !this.settings.showProgressbar) {
@@ -211,21 +211,21 @@ extend(Notify.prototype,
             }
         },
         setIcon: function () {
-            if (this.settings.icon_type.toLowerCase() === "class") {
+            if (this.settings.icon_type.toLowerCase() === 'class') {
                 this.$ele.querySelector('[data-notify="icon"]').className += ` ${this.settings.content.icon}`;
             } else {
-                if (this.$ele.querySelector('[data-notify="icon"]').nodeName === "IMG") {
+                if (this.$ele.querySelector('[data-notify="icon"]').nodeName === 'IMG') {
                     const image = this.$ele.querySelector('[data-notify="icon"]');
 
                     image.src = this.settings.content.icon;
-                    image.className = "me-2";
+                    image.className = 'me-2';
 
                 } else {
-                    const image = document.createElement("img");
+                    const image = document.createElement('img');
 
                     image.src = `${this.settings.content.icon}`;
-                    image.alt = "Notify Icon";
-                    image.className = "me-2";
+                    image.alt = 'Notify Icon';
+                    image.className = 'me-2';
 
                     this.$ele.querySelector('[data-notify="icon"]').append(image);
                 }
@@ -240,35 +240,35 @@ extend(Notify.prototype,
 
             toast.show();
 
-            const pre = ["webkit-", "moz-", "o-", "ms-", ""];
+            const pre = ['webkit-', 'moz-', 'o-', 'ms-', ''];
             pre.forEach((prefix) => {
-                self.cssText += prefix + "AnimationIterationCount: " + 1;
+                self.cssText += prefix + 'AnimationIterationCount: ' + 1;
             });
 
             // Create Wrapper Container
-            if (document.querySelector(".toast-container") == null) {
-                const container = document.createElement("div");
+            if (document.querySelector('.toast-container') == null) {
+                const container = document.createElement('div');
 
-                container.className = "toast-container position-fixed";
+                container.className = 'toast-container position-fixed';
 
                 switch (this.settings.placement.from) {
-                case "top":
-                    container.className += " top-0";
+                case 'top':
+                    container.className += ' top-0';
                     break;
-                case "bottom":
-                    container.className += " bottom-0";
+                case 'bottom':
+                    container.className += ' bottom-0';
                     break;
                 }
 
                 switch (this.settings.placement.align) {
-                case "left":
-                    container.className += " start-0";
+                case 'left':
+                    container.className += ' start-0';
                     break;
-                case "right":
-                    container.className += " end-0";
+                case 'right':
+                    container.className += ' end-0';
                     break;
-                case "center":
-                    container.className += " start-50 translate-middle-x";
+                case 'center':
+                    container.className += ' start-50 translate-middle-x';
                     break;
                 }
 
@@ -276,12 +276,12 @@ extend(Notify.prototype,
             }
 
             if (this.settings.newest_on_top === true) {
-                document.querySelector(".toast-container").prepend(this.$ele);
+                document.querySelector('.toast-container').prepend(this.$ele);
             } else {
-                document.querySelector(".toast-container").append(this.$ele);
+                document.querySelector('.toast-container').append(this.$ele);
             }
 
-            if (typeof self.settings.onShow === "function") {
+            if (typeof self.settings.onShow === 'function') {
                 self.settings.onShow.call(this.$ele);
             }
         },
@@ -289,13 +289,13 @@ extend(Notify.prototype,
             var self = this;
 
             if (this.$ele.querySelector('[data-notify="dismiss"]') != null) {
-                this.$ele.querySelector('[data-notify="dismiss"]').addEventListener("click", () => {
+                this.$ele.querySelector('[data-notify="dismiss"]').addEventListener('click', () => {
                     self.close();
                 });
             }
 
-            if (typeof self.settings.onClick === "function") {
-                this.$ele.addEventListener("click",
+            if (typeof self.settings.onClick === 'function') {
+                this.$ele.addEventListener('click',
                     (event) => {
                         if (event.target !== self.$ele.querySelector('[data-notify="dismiss"]')) {
                             self.settings.onClick.call(this, event);
@@ -303,24 +303,24 @@ extend(Notify.prototype,
                     });
             }
 
-            this.$ele.addEventListener("mouseover", () => {
-                this.$ele.dataset.hover = "true";
+            this.$ele.addEventListener('mouseover', () => {
+                this.$ele.dataset.hover = 'true';
             });
 
 
-            this.$ele.addEventListener("mouseout", () => {
-                this.$ele.dataset.hover = "false";
+            this.$ele.addEventListener('mouseout', () => {
+                this.$ele.dataset.hover = 'false';
             });
           
-            this.$ele.dataset.hover = "false";
+            this.$ele.dataset.hover = 'false';
 
             if (this.settings.delay > 0) {
                 self.$ele.dataset.notifyDelay = self.settings.delay;
 
                 var timer = setInterval(function () {
                     const delay = parseInt(self.$ele.dataset.notifyDelay) - self.settings.timer;
-                    if ((self.$ele.dataset.hover === "false" && self.settings.mouse_over === "pause") ||
-                        self.settings.mouse_over !== "pause") {
+                    if ((self.$ele.dataset.hover === 'false' && self.settings.mouse_over === 'pause') ||
+                        self.settings.mouse_over !== 'pause') {
                         const percent = ((self.settings.delay - delay) / self.settings.delay) * 100;
                         self.$ele.dataset.notifyDelay = delay;
 
@@ -328,9 +328,9 @@ extend(Notify.prototype,
                           
                             const div = self.$ele.querySelector('[data-notify="progressbar"] > div');
 
-                            self.$ele.querySelector('[data-notify="progressbar"]').setAttribute("aria-valuenow", percent);
+                            self.$ele.querySelector('[data-notify="progressbar"]').setAttribute('aria-valuenow', percent);
 
-                            div.style.width = percent + "%";
+                            div.style.width = percent + '%';
                         }
                     }
                     if (delay <= -(self.settings.timer)) {
@@ -344,11 +344,11 @@ extend(Notify.prototype,
         close: function () {
             const self = this;
 
-            this.$ele.dataset.closing = "true";
+            this.$ele.dataset.closing = 'true';
 
             this.$ele.className = `toast ${this.settings.animate.exit}`;
 
-            if (typeof self.settings.onClose === "function") {
+            if (typeof self.settings.onClose === 'function') {
                 self.settings.onClose.call(this.$ele);
             }
 
@@ -375,11 +375,11 @@ function deepExtend(out, ...arguments_) {
 
         for (const [key, value] of Object.entries(obj)) {
             switch (Object.prototype.toString.call(value)) {
-            case "[object Object]":
+            case '[object Object]':
                 out[key] = out[key] || {};
                 out[key] = deepExtend(out[key], value);
                 break;
-            case "[object Array]":
+            case '[object Array]':
                 out[key] = deepExtend(new Array(value.length), value);
                 break;
             default:

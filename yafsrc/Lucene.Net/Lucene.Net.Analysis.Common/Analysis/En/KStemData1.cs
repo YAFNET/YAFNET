@@ -749,7 +749,7 @@ namespace YAF.Lucene.Net.Analysis.En
             "carter","carthorse","cartilage","cartilaginous","cartographer",
             "cartography","carton","cartoon","cartridge","cartwheel",
             "carve","carver","carving","caryatid","cascade",
-            "cascara","case","casebook","casein","casework",
+            "cascara","case","casebook","casein","casework"
         };
     }
 }

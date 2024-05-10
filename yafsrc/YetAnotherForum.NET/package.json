@@ -1,6 +1,6 @@
 {
     "name": "yetanotherforum-net",
-    "version": "3.2.4",
+    "version": "3.2.5",
     "private": true,
     "scripts": {
         "preinstall": "npm install -g ruby sass"
@@ -21,7 +21,7 @@
         "grunt-shell": "^4.0.0",
         "grunt-webpack": "^6.0.0",
         "postcss": "^8.4.38",
-        "sass": "^1.76.0",
+        "sass": "^1.77.0",
         "webpack": "^5.91.0",
         "webpack-merge": "^5.10.0"
     },

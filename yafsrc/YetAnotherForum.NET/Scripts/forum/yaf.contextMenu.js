@@ -1,23 +1,23 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+﻿document.addEventListener('DOMContentLoaded', function () {
 
-    document.querySelectorAll(".list-group-item-menu, .message").forEach(element => {
+    document.querySelectorAll('.list-group-item-menu, .message').forEach(element => {
 
-        var isMessageContext = !!element.classList.contains("message");
+        var isMessageContext = !!element.classList.contains('message');
 
-        var contextMenu = element.querySelector(".context-menu");
+        var contextMenu = element.querySelector('.context-menu');
 
         var messageId = 0;
 
-        if (element.querySelector(".selectionQuoteable") != null) {
-            messageId = element.querySelector(".selectionQuoteable").id;
+        if (element.querySelector('.selectionQuoteable') != null) {
+            messageId = element.querySelector('.selectionQuoteable').id;
         }
 
-        if (window.matchMedia("only screen and (max-width: 760px)").matches) {
+        if (window.matchMedia('only screen and (max-width: 760px)').matches) {
             
             const el = element;
 
             // listen for the long-press event
-            el.addEventListener("long-press",
+            el.addEventListener('long-press',
                 function(e) {
 
                     // stop the event from bubbling up
@@ -27,12 +27,12 @@
                         const selectedText = getSelectedMessageText();
 
                         if (selectedText.length) {
-                            const searchItem = contextMenu.querySelector(".item-search"),
-                            selectedItem = contextMenu.querySelector(".item-selected-quoting"),
-                            selectedDivider = contextMenu.querySelector(".selected-divider");
+                            const searchItem = contextMenu.querySelector('.item-search'),
+                            selectedItem = contextMenu.querySelector('.item-selected-quoting'),
+                            selectedDivider = contextMenu.querySelector('.selected-divider');
 
                             if (searchItem != null) {
-                                document.querySelectorAll(".item-search").forEach(item => {
+                                document.querySelectorAll('.item-search').forEach(item => {
                                     item.remove();
                                 });
                             }
@@ -46,10 +46,10 @@
                             }
 
                             if (contextMenu.dataset.url) {
-                                const link = document.createElement("a");
+                                const link = document.createElement('a');
 
-                                link.classList.add("dropdown-item");
-                                link.classList.add("item-selected-quoting");
+                                link.classList.add('dropdown-item');
+                                link.classList.add('item-selected-quoting');
 
                                 link.href = `javascript:goToURL('${messageId}','${selectedText}','${contextMenu.dataset.url} ')`;
 
@@ -58,10 +58,10 @@
                                 contextMenu.appendChild(link);
                             }
 
-                            const linkSearch = document.createElement("a");
+                            const linkSearch = document.createElement('a');
 
-                            linkSearch.classList.add("dropdown-item");
-                            linkSearch.classList.add("item-search");
+                            linkSearch.classList.add('dropdown-item');
+                            linkSearch.classList.add('item-search');
 
                             linkSearch.href = `javascript:copyToClipBoard('${selectedText}')`;
 
@@ -69,17 +69,17 @@
 
                             contextMenu.appendChild(linkSearch);
 
-                            const divider = document.createElement("div");
+                            const divider = document.createElement('div');
 
-                            divider.classList.add("dropdown-divider");
-                            divider.classList.add("selected-divider");
+                            divider.classList.add('dropdown-divider');
+                            divider.classList.add('selected-divider');
 
                             contextMenu.appendChild(linkSearch);
 
-                            const linkSelected = document.createElement("a");
+                            const linkSelected = document.createElement('a');
 
-                            linkSelected.classList.add("dropdown-item");
-                            linkSelected.classList.add("item-search");
+                            linkSelected.classList.add('dropdown-item');
+                            linkSelected.classList.add('item-search');
 
                             linkSelected.href = `javascript:searchText('${selectedText}')`;
 
@@ -92,32 +92,32 @@
 
                     contextMenu.style.left = e.detail.pageX;
                     contextMenu.style.top = e.detail.pageY;
-                    contextMenu.style.display = "block";
+                    contextMenu.style.display = 'block';
 
-                    contextMenu.classList.add("show");
+                    contextMenu.classList.add('show');
                 });
         }
 
-        element.addEventListener("contextmenu",
+        element.addEventListener('contextmenu',
             (e) => {
                 e.preventDefault();
 
                 // close other
-                document.querySelectorAll(".context-menu").forEach(menu => {
-                    menu.style.display = "none";
-                    menu.classList.remove("show");
+                document.querySelectorAll('.context-menu').forEach(menu => {
+                    menu.style.display = 'none';
+                    menu.classList.remove('show');
                 });
 
                 if (isMessageContext) {
                     const selectedText = getSelectedMessageText();
 
                     if (selectedText.length) {
-                        const searchItem = contextMenu.querySelector(".item-search"),
-                            selectedItem = contextMenu.querySelector(".item-selected-quoting"),
-                            selectedDivider = contextMenu.querySelector(".selected-divider");
+                        const searchItem = contextMenu.querySelector('.item-search'),
+                            selectedItem = contextMenu.querySelector('.item-selected-quoting'),
+                            selectedDivider = contextMenu.querySelector('.selected-divider');
 
                         if (searchItem != null) {
-                            document.querySelectorAll(".item-search").forEach(item => {
+                            document.querySelectorAll('.item-search').forEach(item => {
                                 item.remove();
                             });
                         }
@@ -132,10 +132,10 @@
                         }
 
                         if (contextMenu.dataset.url) {
-                            const link = document.createElement("a");
+                            const link = document.createElement('a');
 
-                            link.classList.add("dropdown-item");
-                            link.classList.add("item-selected-quoting");
+                            link.classList.add('dropdown-item');
+                            link.classList.add('item-selected-quoting');
 
                             link.href = `javascript:goToURL('${messageId}','${selectedText}','${contextMenu.dataset.url} ')`;
 
@@ -144,10 +144,10 @@
                             contextMenu.appendChild(link);
                         }
 
-                        const linkSearch = document.createElement("a");
+                        const linkSearch = document.createElement('a');
 
-                        linkSearch.classList.add("dropdown-item");
-                        linkSearch.classList.add("item-search");
+                        linkSearch.classList.add('dropdown-item');
+                        linkSearch.classList.add('item-search');
 
                         linkSearch.href = `javascript:copyToClipBoard('${selectedText}')`;
 
@@ -155,17 +155,17 @@
 
                         contextMenu.appendChild(linkSearch);
 
-                        const divider = document.createElement("div");
+                        const divider = document.createElement('div');
 
-                        divider.classList.add("dropdown-divider");
-                        divider.classList.add("selected-divider");
+                        divider.classList.add('dropdown-divider');
+                        divider.classList.add('selected-divider');
 
                         contextMenu.appendChild(linkSearch);
 
-                        const linkSelected = document.createElement("a");
+                        const linkSelected = document.createElement('a');
 
-                        linkSelected.classList.add("dropdown-item");
-                        linkSelected.classList.add("item-search");
+                        linkSelected.classList.add('dropdown-item');
+                        linkSelected.classList.add('item-search');
 
                         linkSelected.href = `javascript:searchText('${selectedText}')`;
 
@@ -175,24 +175,24 @@
                     }
                 }
 
-                contextMenu.style.display = "block";
-                contextMenu.style.left = e.offsetX + "px";
-                contextMenu.style.top = e.offsetY + "px";
+                contextMenu.style.display = 'block';
+                contextMenu.style.left = e.offsetX + 'px';
+                contextMenu.style.top = e.offsetY + 'px';
 
-                contextMenu.classList.add("show");
+                contextMenu.classList.add('show');
 
                 return false;
             });
 
-        element.addEventListener("click",
+        element.addEventListener('click',
             () => {
-                contextMenu.classList.remove("show");
-                contextMenu.style.display = "none";
+                contextMenu.classList.remove('show');
+                contextMenu.style.display = 'none';
             });
 
-        element.querySelector(".context-menu a").addEventListener("click", (e) => {
+        element.querySelector('.context-menu a').addEventListener('click', (e) => {
             var a = e.target;
-            if (a.dataset.toggle !== undefined && a.dataset.toggle === "confirm") {
+            if (a.dataset.toggle !== undefined && a.dataset.toggle === 'confirm') {
                 e.preventDefault();
 
                 var link = a.href;
@@ -207,11 +207,11 @@
                         buttons: {
                             confirm: {
                                 label: `<i class="fa fa-check"></i> ${a.dataset.yes}`,
-                                className: "btn-success"
+                                className: 'btn-success'
                             },
                             cancel: {
                                 label: `<i class="fa fa-times"></i> ${a.dataset.no}`,
-                                className: "btn-danger"
+                                className: 'btn-danger'
                             }
                         },
                         callback: function(confirmed) {
@@ -223,11 +223,11 @@
                 );
             }
 
-            contextMenu.classList.remove("show");
-            contextMenu.style.display = "none";
+            contextMenu.classList.remove('show');
+            contextMenu.style.display = 'none';
         });
 
-        contextMenu.addEventListener("click", function (event) {
+        contextMenu.addEventListener('click', function (event) {
             if (event.target.parentElement.matches('[data-bs-toggle="confirm"]')) {
                 event.preventDefault();
                 const button = event.target.parentElement,
@@ -241,11 +241,11 @@
                         buttons: {
                             confirm: {
                                 label: `<i class="fa fa-check"></i> ${button.dataset.yes}`,
-                                className: "btn-success"
+                                className: 'btn-success'
                             },
                             cancel: {
                                 label: `<i class="fa fa-times"></i> ${button.dataset.no}`,
-                                className: "btn-danger"
+                                className: 'btn-danger'
                             }
                         },
                         callback: function (confirmed) {
@@ -257,20 +257,20 @@
                 );
             }
 
-            contextMenu.classList.remove("show");
-            contextMenu.style.display = "none";
+            contextMenu.classList.remove('show');
+            contextMenu.style.display = 'none';
         }, false);
 
-        document.querySelector("body").addEventListener("click", () => {
-            contextMenu.classList.remove("show");
-            contextMenu.style.display = "none";
+        document.querySelector('body').addEventListener('click', () => {
+            contextMenu.classList.remove('show');
+            contextMenu.style.display = 'none';
         });
 
     });
 });
 
 function goToURL(messageId, input, url) {
-    window.location.href = url + "&q=" + messageId + "&text=" + encodeURIComponent(input);
+    window.location.href = url + '&q=' + messageId + '&text=' + encodeURIComponent(input);
 }
 
 function copyToClipBoard(input)
@@ -279,23 +279,23 @@ function copyToClipBoard(input)
 }
 
 function searchText(input) {
-    const a = document.createElement("a");
-    a.target = "_blank";
+    const a = document.createElement('a');
+    a.target = '_blank';
     a.href = `https://www.google.com/search?q=${encodeURIComponent(input)}`;
     a.click();
 }
 
 function getSelectedMessageText() {
-    var text = "";
+    var text = '';
     const sel = window.getSelection();
     if (sel.rangeCount) {
-        const container = document.createElement("div");
+        const container = document.createElement('div');
         for (var i = 0, len = sel.rangeCount; i < len; ++i) {
             container.appendChild(sel.getRangeAt(i).cloneContents());
         }
         text = container.textContent || container.innerText;
     }
 
-    return text.replace(/<p[^>]*>/ig, "\n").replace(/<\/p>| {2}/ig, "").replace("(", "").replace(")", "")
-        .replace("\"", "").replace("'", "").replace("'", "").replace(";", "").trim();
+    return text.replace(/<p[^>]*>/ig, '\n').replace(/<\/p>| {2}/ig, '').replace('(', '').replace(')', '')
+        .replace('"', '').replace("'", '').replace("'", '').replace(';', '').trim();
 }

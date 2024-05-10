@@ -290,7 +290,7 @@ namespace YAF.Lucene.Net.Util.Fst
                 0 => FST.INPUT_TYPE.BYTE1,
                 1 => FST.INPUT_TYPE.BYTE2,
                 2 => FST.INPUT_TYPE.BYTE4,
-                _ => throw IllegalStateException.Create("invalid input type " + t),
+                _ => throw IllegalStateException.Create("invalid input type " + t)
             };
             if (packed)
             {

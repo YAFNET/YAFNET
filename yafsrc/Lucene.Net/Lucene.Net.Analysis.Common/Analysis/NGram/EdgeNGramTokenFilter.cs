@@ -51,7 +51,7 @@ namespace YAF.Lucene.Net.Analysis.NGram
             /// <summary>
             /// Get the n-gram from the end of the input </summary>
             [System.Obsolete]
-            BACK,
+            BACK
         }
 
         /// <summary>

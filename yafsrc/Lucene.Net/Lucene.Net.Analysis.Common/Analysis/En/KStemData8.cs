@@ -646,7 +646,7 @@ namespace YAF.Lucene.Net.Analysis.En
             "zip","zipper","zippy","zither","zizz",
             "zodiac","zombi","zombie","zonal","zone",
             "zoning","zonked","zoo","zoologist","zoology",
-            "zoom","zoophyte","zouave","zucchini","zulu",
+            "zoom","zoophyte","zouave","zucchini","zulu"
         };
     }
 }

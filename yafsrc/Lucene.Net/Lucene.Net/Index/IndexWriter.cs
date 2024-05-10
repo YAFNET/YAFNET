@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -126,9 +126,9 @@ namespace YAF.Lucene.Net.Index
     /// the <see cref="mergePolicy"/> and the <see cref="mergeScheduler"/>.
     /// The <see cref="mergePolicy"/> is invoked whenever there are
     /// changes to the segments in the index.  Its role is to
-    /// select which merges to do, if any, and return a 
+    /// select which merges to do, if any, and return a
     /// <see cref="MergePolicy.MergeSpecification"/> describing the merges.
-    /// The default is <see cref="LogByteSizeMergePolicy"/>.  Then, the 
+    /// The default is <see cref="LogByteSizeMergePolicy"/>.  Then, the
     /// <see cref="MergeScheduler"/> is invoked with the requested merges and
     /// it decides when and how to run the merges.  The default is
     /// <see cref="ConcurrentMergeScheduler"/>. </para>
@@ -145,7 +145,7 @@ namespace YAF.Lucene.Net.Index
     /// last commit.  You can also just call <see cref="Rollback()"/>
     /// directly.</para>
     ///
-    /// <a name="thread-safety"></a><para><b>NOTE</b>: 
+    /// <a name="thread-safety"></a><para><b>NOTE</b>:
     /// <see cref="IndexWriter"/> instances are completely thread
     /// safe, meaning multiple threads can call any of its
     /// methods, concurrently.  If your application requires
@@ -195,23 +195,23 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// Name of the write lock in the index.
         /// </summary>
-        public readonly static string WRITE_LOCK_NAME = "write.lock";
+        public static readonly string WRITE_LOCK_NAME = "write.lock";
 
         /// <summary>
         /// Key for the source of a segment in the <see cref="SegmentInfo.Diagnostics"/>. </summary>
-        public readonly static string SOURCE = "source";
+        public static readonly string SOURCE = "source";
 
         /// <summary>
         /// Source of a segment which results from a merge of other segments. </summary>
-        public readonly static string SOURCE_MERGE = "merge";
+        public static readonly string SOURCE_MERGE = "merge";
 
         /// <summary>
         /// Source of a segment which results from a flush. </summary>
-        public readonly static string SOURCE_FLUSH = "flush";
+        public static readonly string SOURCE_FLUSH = "flush";
 
         /// <summary>
         /// Source of a segment which results from a call to <see cref="AddIndexes(IndexReader[])"/>. </summary>
-        public readonly static string SOURCE_ADDINDEXES_READERS = "AddIndexes(params IndexReader[] readers)";
+        public static readonly string SOURCE_ADDINDEXES_READERS = "AddIndexes(params IndexReader[] readers)";
 
         /// <summary>
         /// Absolute hard maximum length for a term, in bytes once
@@ -221,7 +221,7 @@ namespace YAF.Lucene.Net.Index
         /// and a message is printed to <see cref="infoStream"/>, if set (see
         /// <see cref="IndexWriterConfig.SetInfoStream(InfoStream)"/>).
         /// </summary>
-        public readonly static int MAX_TERM_LENGTH = DocumentsWriterPerThread.MAX_TERM_LENGTH_UTF8;
+        public static readonly int MAX_TERM_LENGTH = DocumentsWriterPerThread.MAX_TERM_LENGTH_UTF8;
 
         private volatile bool hitOOM;
 
@@ -238,12 +238,12 @@ namespace YAF.Lucene.Net.Index
 
         private ICollection<string> filesToCommit;
 
-        readonly internal SegmentInfos segmentInfos; // the segments
-        readonly internal FieldNumbers globalFieldNumberMap;
+        internal readonly SegmentInfos segmentInfos; // the segments
+        internal readonly FieldNumbers globalFieldNumberMap;
 
         private readonly DocumentsWriter docWriter;
         private readonly ConcurrentQueue<IEvent> eventQueue;
-        readonly internal IndexFileDeleter deleter;
+        internal readonly IndexFileDeleter deleter;
 
         // used by forceMerge to note those needing merging
         private readonly IDictionary<SegmentCommitInfo, bool> segmentsToMerge = new Dictionary<SegmentCommitInfo, bool>();
@@ -267,11 +267,11 @@ namespace YAF.Lucene.Net.Index
         private long mergeGen;
         private bool stopMerges;
 
-        readonly internal AtomicInt32 flushCount = new AtomicInt32();
-        readonly internal AtomicInt32 flushDeletesCount = new AtomicInt32();
+        internal readonly AtomicInt32 flushCount = new AtomicInt32();
+        internal readonly AtomicInt32 flushDeletesCount = new AtomicInt32();
 
         internal ReaderPool readerPool;
-        readonly internal BufferedUpdatesStream bufferedUpdatesStream;
+        internal readonly BufferedUpdatesStream bufferedUpdatesStream;
 
         // this is a "write once" variable (like the organic dye
         // on a DVD-R that may or may not be heated by a laser and
@@ -831,7 +831,7 @@ namespace YAF.Lucene.Net.Index
             EnsureOpen(true);
         }
 
-        readonly internal Codec codec; // for writing new segments
+        internal readonly Codec codec; // for writing new segments
 
         /// <summary>
         /// Constructs a new <see cref="IndexWriter"/> per the settings given in <paramref name="conf"/>.
@@ -1074,24 +1074,24 @@ namespace YAF.Lucene.Net.Index
         /// something like this:</para>
         ///
         /// <code>
-        /// try 
+        /// try
         /// {
         ///     writer.Dispose();
-        /// } 
-        /// finally 
+        /// }
+        /// finally
         /// {
-        ///     if (IndexWriter.IsLocked(directory)) 
+        ///     if (IndexWriter.IsLocked(directory))
         ///     {
         ///         IndexWriter.Unlock(directory);
         ///     }
         /// }
         /// </code>
-        /// 
+        ///
         /// after which, you must be certain not to use the writer
         /// instance anymore.
         ///
         /// <para><b>NOTE</b>: if this method hits an <see cref="OutOfMemoryException"/>
-        /// you should immediately dispose the writer, again.  See 
+        /// you should immediately dispose the writer, again.  See
         /// <see cref="IndexWriter"/> for details.</para>
         /// </summary>
         /// <exception cref="IOException"> if there is a low-level IO error </exception>
@@ -1109,7 +1109,7 @@ namespace YAF.Lucene.Net.Index
         /// threads.
         ///
         /// <para><b>NOTE</b>: If this method hits an <see cref="OutOfMemoryException"/>
-        /// you should immediately dispose the writer, again.  See 
+        /// you should immediately dispose the writer, again.  See
         /// <see cref="IndexWriter"/> for details.</para>
         ///
         /// <para><b>NOTE</b>: It is dangerous to always call
@@ -1160,7 +1160,7 @@ namespace YAF.Lucene.Net.Index
         /// set to <c>true</c>.</para>
         ///
         /// <para><b>NOTE</b>: If this method hits an <see cref="OutOfMemoryException"/>
-        /// you should immediately dispose the writer, again.  See 
+        /// you should immediately dispose the writer, again.  See
         /// <see cref="IndexWriter"/> for details.</para>
         ///
         /// <para><b>NOTE</b>: It is dangerous to always call
@@ -1594,7 +1594,7 @@ namespace YAF.Lucene.Net.Index
         /// U+FFFD.</para>
         ///
         /// <para><b>NOTE</b>: if this method hits an <see cref="OutOfMemoryException"/>
-        /// you should immediately dispose the writer.  See 
+        /// you should immediately dispose the writer.  See
         /// <see cref="IndexWriter"/> for details.</para>
         /// </summary>
         /// <exception cref="CorruptIndexException"> if the index is corrupt </exception>
@@ -1658,8 +1658,8 @@ namespace YAF.Lucene.Net.Index
         /// <para><b>NOTE</b>: if this method hits an <see cref="OutOfMemoryException"/>
         /// you should immediately dispose the writer.  See
         /// <see cref="IndexWriter"/> for details.</para>
-        /// 
-        /// @lucene.experimental 
+        ///
+        /// @lucene.experimental
         /// </summary>
         /// <exception cref="CorruptIndexException"> if the index is corrupt </exception>
         /// <exception cref="IOException"> if there is a low-level IO error </exception>
@@ -1746,7 +1746,7 @@ namespace YAF.Lucene.Net.Index
         /// Deletes the document(s) containing <paramref name="term"/>.
         ///
         /// <para><b>NOTE</b>: if this method hits an <see cref="OutOfMemoryException"/>
-        /// you should immediately dispose the writer.  See 
+        /// you should immediately dispose the writer.  See
         /// <see cref="IndexWriter"/> for details.</para>
         /// </summary>
         /// <param name="term"> the term to identify the documents to be deleted </param>
@@ -1770,7 +1770,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Expert: attempts to delete by document ID, as long as
-        /// the provided <paramref name="readerIn"/> is a near-real-time reader (from 
+        /// the provided <paramref name="readerIn"/> is a near-real-time reader (from
         /// <see cref="DirectoryReader.Open(IndexWriter, bool)"/>.  If the
         /// provided <paramref name="readerIn"/> is an NRT reader obtained from this
         /// writer, and its segment has not been merged away, then
@@ -2215,7 +2215,7 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// If non-null, information about merges will be printed to this.
         /// </summary>
-        readonly internal InfoStream infoStream;
+        internal readonly InfoStream infoStream;
 
         /// <summary>
         /// Forces merge policy to merge segments until there are &lt;=
@@ -2604,7 +2604,7 @@ namespace YAF.Lucene.Net.Index
             try
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(maxNumSegments == -1 || maxNumSegments > 0);
-                //if (Debugging.AssertsEnabled) Debugging.Assert(trigger != null); // LUCENENET NOTE: Enum cannot be null in .NET
+                if (Debugging.AssertsEnabled) Debugging.Assert(trigger != MergeTrigger.NONE); // LUCENENET specific: using NONE instead of null
                 if (stopMerges)
                 {
                     return false;
@@ -2912,7 +2912,7 @@ namespace YAF.Lucene.Net.Index
         ///    documents as deleted.</para>
         ///
         /// <para>NOTE: this method will forcefully abort all merges
-        ///    in progress.  If other threads are running 
+        ///    in progress.  If other threads are running
         ///    <see cref="ForceMerge(int)"/>, <see cref="AddIndexes(IndexReader[])"/> or
         ///    <see cref="ForceMergeDeletes()"/> methods, they may receive
         ///    <see cref="MergePolicy.MergeAbortedException"/>s.</para>
@@ -3852,8 +3852,8 @@ namespace YAF.Lucene.Net.Index
         /// steps necessary to commit changes since this writer
         /// was opened: flushes pending added and deleted docs,
         /// syncs the index files, writes most of next segments_N
-        /// file.  After calling this you must call either 
-        /// <see cref="Commit()"/> to finish the commit, or 
+        /// file.  After calling this you must call either
+        /// <see cref="Commit()"/> to finish the commit, or
         /// <see cref="Rollback()"/> to revert the commit and undo all changes
         /// done since the writer was opened.</para>
         ///
@@ -5284,7 +5284,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        static internal void SetDiagnostics(SegmentInfo info, string source)
+        internal static void SetDiagnostics(SegmentInfo info, string source)
         {
             SetDiagnostics(info, source, null);
         }
@@ -6136,7 +6136,7 @@ namespace YAF.Lucene.Net.Index
         /// after a merge completes.
         /// <para/>
         /// @lucene.experimental
-        /// 
+        ///
         /// <para/><b>NOTE</b>: <see cref="Warm(AtomicReader)"/> is called before any deletes have
         /// been carried over to the merged segment.
         /// </summary>
@@ -6273,7 +6273,7 @@ namespace YAF.Lucene.Net.Index
         /// deletion files, this <see cref="SegmentInfo"/> must not reference such files when this
         /// method is called, because they are not allowed within a compound file.
         /// </summary>
-        static internal ICollection<string> CreateCompoundFile(InfoStream infoStream, Directory directory, CheckAbort checkAbort, SegmentInfo info, IOContext context)
+        internal static ICollection<string> CreateCompoundFile(InfoStream infoStream, Directory directory, CheckAbort checkAbort, SegmentInfo info, IOContext context)
         {
             string fileName = Index.IndexFileNames.SegmentFileName(info.Name, "", Lucene.Net.Index.IndexFileNames.COMPOUND_FILE_EXTENSION);
             if (infoStream.IsEnabled("IW"))

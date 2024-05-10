@@ -295,7 +295,7 @@ namespace YAF.Lucene.Net.Util.Automaton
                 AUTOMATON_TYPE.PREFIX => new PrefixTermsEnum(terms.GetEnumerator(), Term),// TODO: this is very likely faster than .intersect,
                                                                                             // but we should test and maybe cutover
                 AUTOMATON_TYPE.NORMAL => terms.Intersect(this, null),
-                _ => throw RuntimeException.Create("unhandled case"),// unreachable
+                _ => throw RuntimeException.Create("unhandled case") // unreachable
             };
         }
 

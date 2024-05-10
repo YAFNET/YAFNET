@@ -747,7 +747,7 @@ namespace YAF.Lucene.Net.Analysis.En
             "pebble","pebbledash","pebbly","pecan","peccadillo",
             "peccary","peck","pecker","peckish","pectic",
             "pectin","pectoral","peculate","peculiar","peculiarity",
-            "peculiarly","pecuniary","pedagogue","pedagogy","pedal",
+            "peculiarly","pecuniary","pedagogue","pedagogy","pedal"
         };
     }
 }

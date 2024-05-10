@@ -1,19 +1,19 @@
 ﻿function setPageNumber(pageSize, pageNumber, total, pagerHolder, label, javascriptFunction) {
     const pages = Math.ceil(total / pageSize),
-        pagination = document.createElement("ul"),
-        paginationNav = document.createElement("nav");
+        pagination = document.createElement('ul'),
+        paginationNav = document.createElement('nav');
 
-    paginationNav.setAttribute("aria-label", label + " Page Results");
+    paginationNav.setAttribute('aria-label', label + ' Page Results');
 
-    pagination.classList.add("pagination");
-    pagination.classList.add("pagination-sm");
+    pagination.classList.add('pagination');
+    pagination.classList.add('pagination-sm');
 
     empty(pagerHolder);
 
     if (pageNumber > 0) {
-        const page = document.createElement("li");
+        const page = document.createElement('li');
 
-        page.classList.add("page-item");
+        page.classList.add('page-item');
 
         page.innerHTML = `<a href="javascript:${javascriptFunction}(${pageSize},${pageNumber - 1},${total},true)" class="page-link"><i class="fas fa-angle-left"></i></a>`;
 
@@ -28,17 +28,17 @@
         end = pages;
     }
     if (start > 0) {
-        let page = document.createElement("li");
+        let page = document.createElement('li');
 
-        page.classList.add("page-item");
+        page.classList.add('page-item');
         page.innerHTML = `<a href="javascript:${javascriptFunction}(${pageSize},${0},${total}, true);" class="page-link">1</a>`;
 
         pagination.appendChild(page);
 
-        page = document.createElement("li");
+        page = document.createElement('li');
 
-        page.classList.add("page-item");
-        page.classList.add("disabled");
+        page.classList.add('page-item');
+        page.classList.add('disabled');
 
         page.innerHTML = '<a class="page-link" href="#" tabindex="-1">...</a>';
 
@@ -47,43 +47,43 @@
     for (var i = start; i < end; i++) {
 
         if (i === pageNumber) {
-            const page = document.createElement("li");
+            const page = document.createElement('li');
 
-            page.classList.add("page-item");
-            page.classList.add("active");
+            page.classList.add('page-item');
+            page.classList.add('active');
 
             page.innerHTML = `<span class="page-link">${i + 1}</span>`;
 
             pagination.appendChild(page);
         } else {
-            const page = document.createElement("li");
+            const page = document.createElement('li');
 
-            page.classList.add("page-item");
+            page.classList.add('page-item');
             page.innerHTML = `<a href="javascript:${javascriptFunction}(${pageSize},${i},${total},true);" class="page-link">${i + 1}</a>`;
 
             pagination.appendChild(page);
         }
     }
     if (end < pages) {
-        let page = document.createElement("li");
+        let page = document.createElement('li');
 
-        page.classList.add("page-item");
-        page.classList.add("disabled");
+        page.classList.add('page-item');
+        page.classList.add('disabled');
         page.innerHTML = '<a class="page-link" href="#" tabindex="-1">...</a>';
 
         pagination.appendChild(page);
 
-        page = document.createElement("li");
+        page = document.createElement('li');
 
-        page.classList.add("page-item");
+        page.classList.add('page-item');
         page.innerHTML = `<a href="javascript:${javascriptFunction}(${pageSize},${pages - 1},${total},true)" class="page-link">${pages}</a>`;
 
         pagination.appendChild(page);
     }
     if (pageNumber < pages - 1) {
-        const page = document.createElement("li");
+        const page = document.createElement('li');
 
-        page.classList.add("page-item");
+        page.classList.add('page-item');
         page.innerHTML = `<a href="javascript:${javascriptFunction}(${pageSize},${pageNumber + 1},${total},true)" class="page-link"><i class="fas fa-angle-right"></i></a>`;
 
         pagination.appendChild(page);

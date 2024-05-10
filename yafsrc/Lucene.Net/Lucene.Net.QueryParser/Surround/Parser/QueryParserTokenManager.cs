@@ -525,7 +525,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
         }
         readonly static internal int[] jjnextStates = {
             32, 33, 34, 35, 37, 24, 27, 28, 20, 17, 21, 18, 27, 28, 30, 24,
-            25, 0, 1,
+            25, 0, 1
         };
         private static bool JjCanMove_0(int hiByte, int i1, int i2, ulong l1, ulong l2)
         {
@@ -560,13 +560,13 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
 
         /// <summary>Lex State array.</summary>
         public readonly static int[] jjnewLexState = {
-           -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, -1, -1, 1,
+           -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, -1, -1, 1
         };
         readonly static internal long[] jjtoToken = {
-           0xffff01L,
+           0xffff01L
         };
         readonly static internal long[] jjtoSkip = {
-           0x80L,
+           0x80L
         };
         protected ICharStream m_input_stream;
         private readonly uint[] jjrounds = new uint[38];

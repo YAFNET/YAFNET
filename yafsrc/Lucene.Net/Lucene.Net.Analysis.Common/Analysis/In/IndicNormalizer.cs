@@ -248,7 +248,7 @@ namespace YAF.Lucene.Net.Analysis.In
                 new ScriptData(new Regex(@"\p{IsTamil}",       RegexOptions.Compiled),  UnicodeBlock.TAMIL,       0x0B80),
                 new ScriptData(new Regex(@"\p{IsTelugu}",      RegexOptions.Compiled),  UnicodeBlock.TELUGU,      0x0C00),
                 new ScriptData(new Regex(@"\p{IsKannada}",     RegexOptions.Compiled),  UnicodeBlock.KANNADA,     0x0C80),
-                new ScriptData(new Regex(@"\p{IsMalayalam}",   RegexOptions.Compiled),  UnicodeBlock.MALAYALAM,   0x0D00),
+                new ScriptData(new Regex(@"\p{IsMalayalam}",   RegexOptions.Compiled),  UnicodeBlock.MALAYALAM,   0x0D00)
             };
 
             foreach (ScriptData sd in result)

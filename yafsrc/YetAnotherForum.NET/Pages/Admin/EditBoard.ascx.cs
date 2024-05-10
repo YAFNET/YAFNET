@@ -37,7 +37,7 @@ using YAF.Types.Models;
 public partial class EditBoard : AdminPage
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="EditBoard"/> class. 
+    /// Initializes a new instance of the <see cref="EditBoard"/> class.
     /// </summary>
     public EditBoard()
         : base("ADMIN_EDITBOARD", ForumPages.Admin_EditBoard)
@@ -360,7 +360,7 @@ public partial class EditBoard : AdminPage
         loadWrapper($"{Config.InstallPath()}bbCodeExtensions.xml", s => DataImport.BBCodeExtensionImport(newBoardId, s));
 
         // load default spam word if available...
-        loadWrapper("SpamWords.xml", s => DataImport.SpamWordsImport(newBoardId, s));
+        loadWrapper($"{Config.InstallPath()}SpamWords.xml", s => DataImport.SpamWordsImport(newBoardId, s));
 
         return newBoardId;
     }

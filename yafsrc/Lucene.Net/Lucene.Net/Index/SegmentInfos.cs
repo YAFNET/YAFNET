@@ -277,7 +277,7 @@ namespace YAF.Lucene.Net.Index
                     97 => "2p",
                     98 => "2q",
                     99 => "2r",
-                    _ => segment.ToString(Character.MaxRadix),
+                    _ => segment.ToString(Character.MaxRadix)
                 };
             }
 

@@ -46,13 +46,13 @@
         if (opts.element.inSourceMode()) {
             sel = document.getSelection();
             var $parent = opts.element.getSourceEditor();
-            text = $parent.value || "";
+            text = $parent.value || '';
             curr = sel.baseOffset;
 
         } else {
             sel = opts.element.getContentAreaContainer().contentWindow.document.getSelection();
 
-            text = opts.element.val() || "";
+            text = opts.element.val() || '';
             curr = sel.baseOffset;
         }
       

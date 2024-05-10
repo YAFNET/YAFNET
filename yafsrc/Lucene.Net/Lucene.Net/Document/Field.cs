@@ -1031,7 +1031,7 @@ namespace YAF.Lucene.Net.Documents
             /// <see cref="NOT_ANALYZED_NO_NORMS" /> for what norms are
             /// and why you may want to disable them.
             /// </summary>
-            ANALYZED_NO_NORMS,
+            ANALYZED_NO_NORMS
         }
 
         /// <summary>
@@ -1069,7 +1069,7 @@ namespace YAF.Lucene.Net.Documents
             /// <seealso cref="YES"/>
             /// <seealso cref="WITH_POSITIONS"/>
             /// <seealso cref="WITH_OFFSETS"/>
-            WITH_POSITIONS_OFFSETS,
+            WITH_POSITIONS_OFFSETS
         }
 
         /// <summary>

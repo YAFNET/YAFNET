@@ -5,38 +5,38 @@ var FileUploader = (function () {
         var self = this;
 
         if (!(this instanceof fileUploader)) {
-            throw "FileUploader must be instantiated with `new`.";
+            throw 'FileUploader must be instantiated with `new`.';
         }
 
         this.config = {
-            dropZone: "js-file-uploader",
+            dropZone: 'js-file-uploader',
             url: undefined,
             fileInput: undefined,
             errorDelay: 1000,
-            errorTitle: ""
+            errorTitle: ''
         };
 
         for (let p in args) {
             this.config[p] = args[p];
         }
 
-        const dropArea = typeof (this.config.dropZone) == "string" ? document.getElementById(this.config.dropZone) : this.config.dropZone;
+        const dropArea = typeof (this.config.dropZone) == 'string' ? document.getElementById(this.config.dropZone) : this.config.dropZone;
 
         if (!dropArea) {
-            throw "the drop zone element is undefined.";
+            throw 'the drop zone element is undefined.';
         }
 
-        this.progressBar = document.getElementById("progress-bar");
+        this.progressBar = document.getElementById('progress-bar');
         this.dropArea = dropArea;
         this.uploadProgress = [];
 
         // Prevent default drag behaviors
-        ["dragenter", "dragover", "dragleave", "drop"].forEach(eventName => {
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
                 dropArea.addEventListener(eventName, self.preventDefaults, false);
             document.body.addEventListener(eventName, self.preventDefaults, false);
         });
 
-        document.querySelector(this.config.fileInput).addEventListener("onchange",
+        document.querySelector(this.config.fileInput).addEventListener('onchange',
             (e) => {
                 self.handleDrop(e, self);
             }); 
@@ -58,18 +58,18 @@ var FileUploader = (function () {
         };
 
         // Handle dropped files
-        dropArea.addEventListener("drop", (e) => {
+        dropArea.addEventListener('drop', (e) => {
             self.handleDrop(e, self);
         }, false);
     }
 
     fileUploader.prototype.unhighlight = function (self) {
-        self.dropArea.classList.remove("border-danger");
+        self.dropArea.classList.remove('border-danger');
     };
 
     fileUploader.prototype.highlight = function (self) {
-        self.dropArea.classList.add("border-danger");
-        self.dropArea.classList.add("border-2");
+        self.dropArea.classList.add('border-danger');
+        self.dropArea.classList.add('border-2');
     };
 
     fileUploader.prototype.preventDefaults = function (e) {
@@ -77,9 +77,9 @@ var FileUploader = (function () {
         e.stopPropagation();
     };
 
-    fileUploader.prototype.bytesToSize = function (bytes, separator = " ") {
-        const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
-        if (bytes === 0) return "n/a";
+    fileUploader.prototype.bytesToSize = function (bytes, separator = ' ') {
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        if (bytes === 0) return 'n/a';
         const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
         if (i === 0) return `${bytes}${separator}${sizes[i]}`;
         return `${(bytes / (1024 * i)).toFixed(1)}${separator}${sizes[i]}`;
@@ -94,8 +94,8 @@ var FileUploader = (function () {
 
     fileUploader.prototype.initializeProgress = function (self, numFiles) {
         
-        self.progressBar.setAttribute("aria-valuenow", 0);
-        self.progressBar.querySelector(".progress-bar").style.width = "0%";
+        self.progressBar.setAttribute('aria-valuenow', 0);
+        self.progressBar.querySelector('.progress-bar').style.width = '0%';
 
         self.uploadProgress = [];
 
@@ -109,8 +109,8 @@ var FileUploader = (function () {
         self.uploadProgress[fileNumber] = percent;
         const total = self.uploadProgress.reduce((tot, curr) => tot + curr, 0) / self.uploadProgress.length;
 
-        self.progressBar.setAttribute("aria-valuenow", total);
-        self.progressBar.querySelector(".progress-bar").style.width = total + "%";
+        self.progressBar.setAttribute('aria-valuenow', total);
+        self.progressBar.querySelector('.progress-bar').style.width = total + '%';
     };
 
     fileUploader.prototype.handleFiles = function (self, files) {
@@ -128,12 +128,12 @@ var FileUploader = (function () {
 
         // close dialog
         files = null;
-        document.getElementById("gallery").replaceChildren();
+        document.getElementById('gallery').replaceChildren();
 
-        bootstrap.Modal.getInstance("#UploadDialog").hide();
+        bootstrap.Modal.getInstance('#UploadDialog').hide();
 
-        if (document.querySelector("#fileupload .alert-danger") != null) {
-            bootstrap.Alert.getInstance("#fileupload .alert-danger").close();
+        if (document.querySelector('#fileupload .alert-danger') != null) {
+            bootstrap.Alert.getInstance('#fileupload .alert-danger').close();
         }
 
         const pageSize = 5, pageNumber = 0;
@@ -142,9 +142,9 @@ var FileUploader = (function () {
 
     fileUploader.prototype.previewFile = function (self, file) {
 
-        const listItem = document.createElement("li");
+        const listItem = document.createElement('li');
 
-        listItem.className = "list-group-item list-group-item-action";
+        listItem.className = 'list-group-item list-group-item-action';
 
         listItem.innerHTML = `<div class="d-flex w-100 justify-content-between">
                                  <h5 class="mb-1">
@@ -159,27 +159,27 @@ var FileUploader = (function () {
                              <div class="btn-group" role="group">
                              </div></small>`;
 
-        if (file.type.match("image.*")) {
-            const img = document.createElement("img"),
+        if (file.type.match('image.*')) {
+            const img = document.createElement('img'),
                 reader = new FileReader();
 
-            img.classList.add("img-thumbnail");
+            img.classList.add('img-thumbnail');
 
             reader.readAsDataURL(file);
             reader.onloadend = function () {
                 img.src = reader.result;
             };
 
-            listItem.querySelector(".preview").appendChild(img);
+            listItem.querySelector('.preview').appendChild(img);
         } else {
-            const icon = document.createElement("i");
+            const icon = document.createElement('i');
 
-            icon.className = "fa-regular fa-file";
+            icon.className = 'fa-regular fa-file';
 
-            listItem.querySelector(".preview").appendChild(icon);
+            listItem.querySelector('.preview').appendChild(icon);
         }
 
-        document.getElementById("gallery").appendChild(listItem);
+        document.getElementById('gallery').appendChild(listItem);
     };
 
     fileUploader.prototype.uploadFile = function (self, file, i) {
@@ -187,15 +187,15 @@ var FileUploader = (function () {
         const url = self.config.url;
         var xhr = new XMLHttpRequest();
         const formData = new FormData();
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
         // Update progress (can be used to show progress indicator)
-        xhr.upload.addEventListener("progress", function (e) {
+        xhr.upload.addEventListener('progress', function (e) {
             self.updateProgress(self, i, (e.loaded * 100.0 / e.total) || 100);
         });
 
-        xhr.addEventListener("readystatechange", function () {
+        xhr.addEventListener('readystatechange', function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
 
                 self.updateProgress(self, i, 100);
@@ -206,13 +206,13 @@ var FileUploader = (function () {
                     const _ = new Notify({
                             title: self.config.errorTitle,
                             message: response[0].error,
-                            icon: "fa fa-exclamation-triangle"
+                            icon: 'fa fa-exclamation-triangle'
                         },
                         {
-                            type: "danger",
-                            element: "body",
+                            type: 'danger',
+                            element: 'body',
                             position: null,
-                            placement: { from: "top", align: "center" },
+                            placement: { from: 'top', align: 'center' },
                             delay: self.config.errorDelay * 1000
                         });
                 } else {
@@ -224,7 +224,7 @@ var FileUploader = (function () {
             }
         });
 
-        formData.append("file", file);
+        formData.append('file', file);
         xhr.send(formData);
     };
 

@@ -747,7 +747,7 @@ namespace YAF.Lucene.Net.Analysis.En
             "grandad","grandchild","granddad","granddaughter","grandee",
             "grandeur","grandfather","grandiloquent","grandiose","grandma",
             "grandmother","grandpa","grandparent","grandson","grandstand",
-            "grange","granite","grannie","granny","grant",
+            "grange","granite","grannie","granny","grant"
         };
     }
 }

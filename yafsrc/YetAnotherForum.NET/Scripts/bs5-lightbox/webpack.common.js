@@ -1,10 +1,10 @@
-﻿const path = require("path");
-const webpack = require("webpack");
-const TerserPlugin = require("terser-webpack-plugin");
+﻿const path = require('path');
+const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-	entry: "./Scripts/bs5-lightbox/index.js",
-	devtool: "source-map",
+	entry: './Scripts/bs5-lightbox/index.js',
+	devtool: 'source-map',
 	plugins: [
 		new webpack.BannerPlugin({
 			raw: true,
@@ -17,10 +17,10 @@ module.exports = {
 		})
 	],
 	output: {
-		path: path.resolve(__dirname, "./dist")
+		path: path.resolve(__dirname, './dist')
 	},
 	externals: {
-		bootstrap: "bootstrap"
+		bootstrap: 'bootstrap'
 	},
 	optimization: {
 		minimizer: [new TerserPlugin({ extractComments: false })]

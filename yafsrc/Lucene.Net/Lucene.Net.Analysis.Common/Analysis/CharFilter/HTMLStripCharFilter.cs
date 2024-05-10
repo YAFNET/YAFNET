@@ -30686,7 +30686,7 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
                 { "gt", "GT"},
                 {"lt", "LT" },
                 {"reg", "REG" },
-                {"amp", "AMP" },
+                {"amp", "AMP" }
             };
 
         private readonly static CharArrayDictionary<char> entityValues = LoadEntityValues();

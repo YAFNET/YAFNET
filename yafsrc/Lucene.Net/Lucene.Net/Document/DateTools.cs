@@ -59,7 +59,7 @@ namespace YAF.Lucene.Net.Documents
             DateResolution.MINUTE =>      "yyyyMMddHHmm",
             DateResolution.SECOND =>      "yyyyMMddHHmmss",
             DateResolution.MILLISECOND => "yyyyMMddHHmmssfff",
-            _ => null, // Invalid option
+            _ => null // Invalid option
         };
 
         /// <summary>
@@ -433,6 +433,6 @@ namespace YAF.Lucene.Net.Documents
         /// This option is provided for compatibility with Lucene.NET 3.0.3 and Lucene.NET 4.8.0-beta00001 through 4.8.0-beta00015,
         /// since it was the only option for input representation.
         /// </summary>
-        TICKS_AS_MILLISECONDS = 2,
+        TICKS_AS_MILLISECONDS = 2
     }
 }
