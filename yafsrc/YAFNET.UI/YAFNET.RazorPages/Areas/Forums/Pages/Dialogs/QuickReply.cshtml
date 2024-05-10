@@ -1,18 +1,13 @@
 ﻿@using YAF.Core.Context
 @using YAF.Core.Helpers
 @using YAF.Core.Utilities
+@using YAF.Core.Services
 @using YAF.Types.Interfaces
 @using YAF.Web.HtmlHelpers
 @model YAF.Types.Modals.QuickReplyModal
 
 @inject BoardContext Current
 
-@section StyleSheets {
-    @if (Current.BoardSettings.EnableWysiwygEditor)
-    {
-        @await Html.PartialAsync("_SCEditorStylesSheetsPartial")
-    }
-}
 
 <!-- Modal -->
 <div class="modal fade needs-validation" id="QuickReplyDialog" tabindex="-1" role="dialog" aria-labelledby="quickReplyLabel" aria-hidden="true" novalidate>
@@ -54,7 +49,7 @@
     </div>
 </div>
 
-@await Html.PartialAsync("_BBCodeEditorScriptsPartial")
+<script src="@(Current.Get<BoardInfo>().GetUrlToScripts("editor.min.js"))"></script>
 
 <script>
     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.CreateEditorJs(

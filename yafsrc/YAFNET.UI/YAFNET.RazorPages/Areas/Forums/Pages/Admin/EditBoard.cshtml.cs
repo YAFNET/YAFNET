@@ -54,6 +54,10 @@ public class EditBoardModel : AdminPage
     [BindProperty]
     public EditBoardInputModel Input { get; set; }
 
+    /// <summary>
+    /// Gets or sets the cultures.
+    /// </summary>
+    /// <value>The cultures.</value>
     public SelectList Cultures { get; set; }
 
     /// <summary>

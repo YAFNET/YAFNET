@@ -1,4 +1,5 @@
 ﻿@page "{m:int}/{name}/{handler?}"
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
 @using YAF.Core.Services
@@ -8,6 +9,8 @@
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
+@using YAF.Types.Modals
+@using YAF.Web.TagHelpers
 
 @model PostModel
 
@@ -98,16 +101,6 @@
                     asp-route-m="@Request.Query["m"]"
                     text-localized-tag="BUTTON_POSTREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
                     icon="reply"></button>
-
-            @if (Model.PageBoardContext.BoardSettings.ShowQuickAnswer)
-            {
-                <button button-style="Primary"
-                        class="mb-1"
-                        text-localized-tag="QUICKREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
-                        icon="reply"
-                        bs-toggle="ajax-modal"
-                        bs-target-url="@Url.Page("Posts", "QuickReply", new { name = Request.GetQueryOrRouteValue<string>("name"), t = Request.GetQueryOrRouteValue<int>("t"), p =  Request.Query["p"], m = Request.Query["m"]})"></button>
-            }
         }
     </div>
 </div>
@@ -282,6 +275,16 @@
     }
 }
 
+@if (Model.PageBoardContext.BoardSettings.ShowQuickAnswer)
+{
+    <div class="row mb-3">
+        <div class="col">
+            <hr class="border border-secondary border-2 opacity-50">
+            @await Html.PartialAsync("_QuickReply", new QuickReplyModal())
+        </div>
+    </div>
+}
+
 @if (Model.Get<IPermissions>().Check(Model.PageBoardContext.BoardSettings.PostsFeedAccess))
 {
     <div class="row mb-3">
@@ -378,16 +381,6 @@
                         asp-route-m="@Request.Query["m"]"
                         text-localized-tag="BUTTON_POSTREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
                         icon="reply"></button>
-
-                @if (Model.PageBoardContext.BoardSettings.ShowQuickAnswer)
-                {
-                    <button button-style="Primary"
-                            class="mb-1"
-                            text-localized-tag="QUICKREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
-                            icon="reply"
-                            bs-toggle="ajax-modal"
-                            bs-target-url="@Url.Page(ForumPages.Posts.GetPageName(), "QuickReply", new { name = Request.GetQueryOrRouteValue<string>("name"), t = Request.GetQueryOrRouteValue<int>("t"), p =  Request.Query["p"], m = Request.Query["m"]})"></button>
-                }
             }
         </div>
     </div>

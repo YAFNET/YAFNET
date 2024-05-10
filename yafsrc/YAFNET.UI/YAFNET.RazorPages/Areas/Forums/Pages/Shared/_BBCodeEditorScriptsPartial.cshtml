@@ -7,7 +7,6 @@
 
 @inject BoardContext Current
 
-
 @if (Current.BoardSettings.EnableWysiwygEditor)
 {
     <script src="@(Current.Get<BoardInfo>().GetUrlToScripts("sceditor/sceditor.min.js"))"></script>

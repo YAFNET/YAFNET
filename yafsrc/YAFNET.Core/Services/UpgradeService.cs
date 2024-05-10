@@ -148,13 +148,13 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
         if (prevVersion is 80 or 81 or 82 or 84)
         {
-            var registeredRole = this.GetRepository<AspNetRoles>().GetSingle(x => x.Name == "Registered");
+            var registeredRole = await this.GetRepository<AspNetRoles>().GetSingleAsync(x => x.Name == "Registered");
 
             if (registeredRole != null)
             {
                 registeredRole.Name = "Registered Users";
 
-                this.GetRepository<AspNetRoles>().Update(registeredRole);
+                await this.GetRepository<AspNetRoles>().UpdateAsync(registeredRole);
             }
 
             var users = this.Get<IAspNetUsersHelper>().GetAllUsers();

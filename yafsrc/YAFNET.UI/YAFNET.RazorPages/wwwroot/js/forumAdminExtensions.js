@@ -18402,32 +18402,6 @@ document.addEventListener("DOMContentLoaded", function() {
         var messageId = imageLink.parentNode.id;
         imageLink.setAttribute("data-gallery", `gallery-${messageId}`);
     });
-    const quickReplyDialog = document.getElementById("QuickReplyDialog");
-    if (quickReplyDialog) {
-        const quickReply = document.getElementById("quickReply");
-        moveDialogToCard(quickReplyDialog, quickReply);
-        quickReplyDialog.addEventListener("show.bs.modal", _ => {
-            const body = quickReply.querySelector(".modal-body"), footer = quickReply.querySelector(".quick-reply-footer");
-            footer.classList.add("modal-footer");
-            footer.classList.remove("quick-reply-footer");
-            footer.classList.remove("mt-3");
-            const copy = quickReplyDialog.querySelector(".modal-content");
-            copy.append(body);
-            copy.append(footer);
-        });
-        quickReplyDialog.addEventListener("hide.bs.modal", _ => {
-            moveDialogToCard(quickReplyDialog, quickReply);
-        });
-    }
-    function moveDialogToCard(quickReplyDialog, quickReply) {
-        const body = quickReplyDialog.querySelector(".modal-body"), footer = quickReplyDialog.querySelector(".modal-footer");
-        footer.classList.add("mt-3");
-        footer.classList.add("quick-reply-footer");
-        footer.classList.remove("modal-footer");
-        const copy = quickReply.querySelector(".card-body");
-        copy.append(body);
-        copy.append(footer);
-    }
 });
 
 function loadSelectMenus() {
@@ -18570,6 +18544,35 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+if (document.querySelector('[data-bs-save="quickReply"]') != null) {
+    document.querySelector('[data-bs-save="quickReply"]').addEventListener("click", event => {
+        event.preventDefault();
+        var form = document.getElementById("quickReply").querySelector("form");
+        const actionUrl = form.action;
+        fetch(actionUrl, {
+            method: "POST",
+            body: serialize(form, {
+                hash: true
+            }),
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json;charset=utf-8",
+                RequestVerificationToken: document.querySelector('input[name="__RequestVerificationToken"]').value
+            }
+        }).then(res => res.json()).then(response => {
+            if (response) {
+                if (response.messageType) {
+                    showModalNotify(response.messageType, response.message, "#quickReply form");
+                } else {
+                    window.location.href = response;
+                }
+            } else {
+                window.location.href = window.location.pathname + window.location.search;
+            }
+        });
+    });
+}
 
 function loadModal(modal, placeholderElement) {
     modal.show();

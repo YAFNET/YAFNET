@@ -1,0 +1,54 @@
+﻿@using YAF.Core.Context
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Core.Services
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+@model YAF.Types.Modals.QuickReplyModal
+
+@inject BoardContext Current
+
+<div class="card">
+	<div class="card-header">
+		@Html.LocalizedText("QUICKREPLY")
+	</div>
+	<div class="card-body" id="quickReply">
+		<form asp-controller="PostsModal" asp-action="Reply" asp-route-t="@Current.PageTopicID" asp-route-f="@Current.PageForumID">
+			<input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+			<textarea asp-for="QuickReplyEditor"
+                      class="form-control"
+                      rows="15"
+                      cols="100"
+                      editor-mode="Basic"
+                      users-can-upload="false"
+                      maxlength="@Current.BoardSettings.MaxPostSize"
+                      max-characters="@Current.BoardSettings.MaxPostSize" required></textarea>
+			@if (!Current.IsGuest)
+			{
+				<div class="form-check form-switch mt-3">
+					<input class="form-check-input" type="checkbox" role="switch" asp-for="TopicWatch">
+					<label class="form-check-label" asp-for="TopicWatch" localized-tag="TOPICWATCH"></label>
+				</div>
+			}
+		</form>
+		
+		<button button-style="Primary" data-bs-save="quickReply"
+		        text-localized-tag="SAVE" text-localized-page="POSTMESSAGE"
+		        Icon="reply">
+		</button>
+	</div>
+</div>
+
+<script src="@(Current.Get<BoardInfo>().GetUrlToScripts("editor.min.js"))"></script>
+
+<script>
+    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.CreateEditorJs(
+        "QuickReplyEditor",
+        Current.Get<ILocalization>().GetText("COMMON", "TT_URL_TITLE"),
+        Current.Get<ILocalization>().GetText("COMMON", "TT_URL_DESC"),
+        Current.Get<ILocalization>().GetText("COMMON", "TT_IMAGE_TITLE"),
+        Current.Get<ILocalization>().GetText("COMMON", "TT_IMAGE_DESC"),
+        Current.Get<ILocalization>().GetText("COMMON", "TT_DESCRIPTION"),
+        Current.Get<ILocalization>().GetText("COMMON", "TT_MEDIA"))));
+
+</script>
