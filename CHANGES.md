@@ -1,6 +1,10 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.2.5
+* [CHANGES] changed quick reply button
+* bug fixes
+
 # YetAnotherForum.NET v3.2.4
 * [NEW] Set theme mode via browser or via dropdown
 * [FIXED] Load hovercard data only on show
