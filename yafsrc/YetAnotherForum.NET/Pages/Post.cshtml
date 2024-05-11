@@ -275,7 +275,8 @@
     }
 }
 
-@if (Model.PageBoardContext.BoardSettings.ShowQuickAnswer)
+@if (Model.PageBoardContext.BoardSettings.ShowQuickAnswer && Model.PageBoardContext.ForumReplyAccess && ((!Model.PageBoardContext.PageTopic.TopicFlags.IsLocked && !Model.PageBoardContext.PageForum.ForumFlags.IsLocked)
+                                                                                                         || Model.PageBoardContext.ForumModeratorAccess))
 {
     <div class="row mb-3">
         <div class="col">
