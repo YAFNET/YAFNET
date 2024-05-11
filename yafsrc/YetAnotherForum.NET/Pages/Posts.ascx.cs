@@ -330,6 +330,7 @@ public partial class Posts : ForumPage
         {
             this.PostReplyLink1.Visible = this.PostReplyLink2.Visible = false;
             this.QuickReplyDialog.Visible = false;
+            this.QuickReplyHolder.Visible = false;
         }
 
         if (this.PageBoardContext.ForumModeratorAccess)

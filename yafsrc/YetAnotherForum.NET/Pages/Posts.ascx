@@ -142,8 +142,7 @@
     </ItemTemplate>
 </asp:Repeater>
 
-<asp:PlaceHolder runat="server" id="QuickReply"
-                 Visible="<%# this.PageBoardContext.BoardSettings.ShowQuickAnswer %>">
+<asp:PlaceHolder runat="server" id="QuickReplyHolder">
 	<div class="row mb-3">
 		<div class="col">
 			<hr class="border border-secondary border-2 opacity-50">
