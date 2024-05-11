@@ -771,7 +771,12 @@ public partial class DisplayPost : BaseUserControl
                                       thanksNumber,
                                       username);
 
-        this.ThanksDataLiteral.Text = $@"<a class=""btn btn-link thanks-popover""
+        var thanksLiteralGuest = $"<i class=\"fa fa-heart m-2\" style=\"color:#e74c3c\"></i>+{thanksNumber}";
+
+
+        this.ThanksDataLiteral.Text = this.PageBoardContext.IsGuest
+            ? thanksLiteralGuest
+            : $@"<a class=""btn btn-link thanks-popover""
                            data-bs-toggle=""popover""
                            data-bs-trigger=""click hover""
                            data-bs-html=""true""

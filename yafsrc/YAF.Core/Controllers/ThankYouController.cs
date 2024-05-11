@@ -54,9 +54,7 @@ public class ThankYouController : ApiController, IHaveServiceLocator
     [HttpPost]
     public IHttpActionResult GetThanks(int messageId)
     {
-        var membershipUser = BoardContext.Current.MembershipUser;
-
-        if (membershipUser is null)
+        if (BoardContext.Current.IsGuest)
         {
             return this.NotFound();
         }

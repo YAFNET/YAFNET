@@ -27,8 +27,6 @@ namespace YAF.Core.Controllers;
 using System.Collections.Generic;
 using System.Web.Http;
 
-using Newtonsoft.Json.Linq;
-
 using YAF.Core.Model;
 using YAF.Types.Models;
 using YAF.Types.Objects;
