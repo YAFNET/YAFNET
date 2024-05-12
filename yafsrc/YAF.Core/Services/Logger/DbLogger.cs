@@ -165,6 +165,13 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
                 source = string.Empty;
             }
         }
+        else
+        {
+            if (source!.Length > 50)
+            {
+                source = source.Truncate(47);
+            }
+        }
 
         switch (eventType)
         {
