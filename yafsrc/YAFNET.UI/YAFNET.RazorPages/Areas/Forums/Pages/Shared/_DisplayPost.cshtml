@@ -97,11 +97,11 @@
     if (!postData.PostDeleted && !postData.IsLocked)
     {
         // Register Javascript
-        const string AddThankBoxHtml = "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.messageID + ');\" onclick=\"this.blur();\" title=' + response.title + '><i class=\"fas fa-heart text-danger fa-fw\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.text + '</span></a>'";
+        const string addThankBoxHtml = "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.messageID + ');\" onclick=\"this.blur();\" title=' + response.title + '><i class=\"fas fa-heart text-danger fa-fw\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.text + '</span></a>'";
 
-        const string RemoveThankBoxHtml = "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.messageID + ');\" onclick=\"this.blur();\" title=' + response.title + '><i class=\"far fa-heart fa-fw\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.text + '</span></a>'";
+        const string removeThankBoxHtml = "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.messageID + ');\" onclick=\"this.blur();\" title=' + response.title + '><i class=\"far fa-heart fa-fw\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.text + '</span></a>'";
 
-        var thanksJs = $"{JavaScriptBlocks.AddThanksJs(RemoveThankBoxHtml)}{Environment.NewLine}{JavaScriptBlocks.RemoveThanksJs(AddThankBoxHtml)}";
+        var thanksJs = $"{JavaScriptBlocks.AddThanksJs(removeThankBoxHtml)}{Environment.NewLine}{JavaScriptBlocks.RemoveThanksJs(addThankBoxHtml)}";
 
         Current.InlineElements.InsertJsBlock("ThanksJs", thanksJs);
     }
@@ -488,13 +488,16 @@
 
                                     @if (replyVisible)
                                     {
-                                        <button button-style="None"
-                                                text-localized-tag="QUICKREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
-                                                type="button"
-                                                Icon="reply"
-                                                bs-toggle="modal"
-                                                bs-target="QuickReplyDialog"
-                                                class="dropdown-item"></button>
+                                        @if (Current.BoardSettings.ShowQuickAnswer)
+                                        {
+	                                        <button button-style="None"
+	                                                text-localized-tag="QUICKREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
+	                                                type="button"
+	                                                Icon="reply"
+	                                                bs-toggle="modal"
+	                                                bs-target="QuickReplyDialog"
+	                                                class="dropdown-item"></button>
+                                        }
 
                                         <a button-style="None"
                                            text-localized-tag="REPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
@@ -607,17 +610,27 @@
                                 <div class="col px-0">
                                     @if (Model.ThanksNumber > 0)
                                     {
-                                        <span id="@Html.Raw($"dvThanksInfo{Model.MessageID}")">
-                                            <a class="btn btn-link thanks-popover"
-                                               data-bs-toggle="popover"
-                                               data-bs-trigger="click hover"
-                                               data-bs-html="true"
-                                               data-messageid="@postData.MessageId"
-                                               title="@thanksLabelText"
-                                               data-bs-content="@formatThanksInfo.ToJsString()">
-                                                <i class="fa fa-heart me-1" style="color: #e74c3c"></i>+@Model.ThanksNumber
-                                            </a>
-                                        </span>
+
+                                        @if (Current.IsGuest)
+                                        {
+	                                        <span id="@Html.Raw($"dvThanksInfo{Model.MessageID}")">
+		                                        <i class="fa fa-heart me-2" style="color: #e74c3c"></i>@Html.Raw($"+{Model.ThanksNumber}")
+	                                        </span>
+                                        }
+                                        else
+                                        {
+	                                        <span id="@Html.Raw($"dvThanksInfo{Model.MessageID}")">
+		                                        <a class="btn btn-link thanks-popover"
+		                                           data-bs-toggle="popover"
+		                                           data-bs-trigger="click hover"
+		                                           data-bs-html="true"
+		                                           data-messageid="@postData.MessageId"
+		                                           title="@thanksLabelText"
+		                                           data-bs-content="@formatThanksInfo.ToJsString()">
+			                                        <i class="fa fa-heart me-1" style="color: #e74c3c"></i>+@Model.ThanksNumber
+		                                        </a>
+	                                        </span>
+                                        }
                                     }
                                     else
                                     {

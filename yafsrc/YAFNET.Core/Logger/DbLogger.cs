@@ -241,6 +241,11 @@ public class DbLogger : ILogger, IHaveServiceLocator
             source = this.Type.IsSet() ? this.Type : string.Empty;
         }
 
+        if (source.IsSet() && source!.Length > 50)
+        {
+            source = source.Truncate(47);
+        }
+
         switch (eventType)
         {
             case EventLogTypes.Debug:
