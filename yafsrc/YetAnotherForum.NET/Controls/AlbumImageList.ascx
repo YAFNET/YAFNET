@@ -6,10 +6,9 @@
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Configuration" %>
 <%@ Import Namespace="YAF.Core.Context.Start" %>
-<%@ Import Namespace="YAF.Core.Helpers" %>
 
 
-<div class='<%# StringHelper.GetTextBgColor("bg-light") %>'>
+<div class="bg-light-subtle">
     <div class="container">
         <asp:Repeater runat="server" ID="AlbumImages"
                   OnItemDataBound="AlbumImages_ItemDataBound"

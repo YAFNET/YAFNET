@@ -7,12 +7,11 @@
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Configuration" %>
 <%@ Import Namespace="YAF.Core.Context.Start" %>
-<%@ Import Namespace="YAF.Core.Helpers" %>
 
 <section class="text-center container">
     <div class="row">
         <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class='<%# StringHelper.GetTextBgColor("fw-light") %>'>
+            <h1 class="fw-light-subtle">
                 <YAF:LocalizedLabel runat="server" ID="Header"
                                     LocalizedTag="ALBUMS_HEADER_TEXT"
                 />
@@ -31,7 +30,7 @@
     </div>
 </section>
 
-<div class='<%# StringHelper.GetTextBgColor("bg-light") %>'>
+<div class="text-light-emphasis bg-light-subtle">
     <div class="container">
         <asp:Repeater runat="server" ID="Albums"
                       OnItemCommand="Albums_ItemCommand">

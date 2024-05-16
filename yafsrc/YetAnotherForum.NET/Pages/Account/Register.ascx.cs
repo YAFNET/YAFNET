@@ -162,8 +162,9 @@ public partial class Register : AccountPage
                            Id = Guid.NewGuid().ToString(),
                            ApplicationId = this.PageBoardContext.BoardSettings.ApplicationId,
                            UserName = this.UserName.Text,
-                           LoweredUserName = this.UserName.Text,
+                           LoweredUserName = this.UserName.Text.ToLower(),
                            Email = this.Email.Text,
+                           LoweredEmail = this.Email.Text.ToLower(),
                            IsApproved = false,
                            EmailConfirmed = false,
                            Profile_Birthday = null

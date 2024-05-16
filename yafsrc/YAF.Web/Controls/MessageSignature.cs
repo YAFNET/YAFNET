@@ -72,9 +72,7 @@ public class MessageSignature : MessageBase
 
         writer.WriteBeginTag("div");
 
-        var borderColor = this.PageBoardContext.PageUser.DarkMode ? "border-dark" : "border-light";
-
-        writer.WriteAttribute("class", $"card {borderColor} card-message-signature");
+        writer.WriteAttribute("class", "card border-light-subtle card-message-signature");
         writer.Write(HtmlTextWriter.TagRightChar);
 
         writer.WriteBeginTag("div");

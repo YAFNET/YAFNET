@@ -2,7 +2,6 @@
     EnableViewState="false" Codebehind="ForumList.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
-<%@ Import Namespace="YAF.Core.Helpers" %>
 <%@ Register TagPrefix="YAF" TagName="ForumLastPost" Src="ForumLastPost.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumModeratorList" Src="ForumModeratorList.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumSubForumList" Src="ForumSubForumList.ascx" %>
@@ -24,13 +23,13 @@
 
                     <%# this.GetForumLink((ForumRead)Container.DataItem) %>
 
-                    <asp:Label CssClass='<%# StringHelper.GetTextBgColor("badge text-bg-light") %>' runat="server"
+                    <asp:Label CssClass="badge text-light-emphasis bg-light-subtle" runat="server"
                                Visible="<%# ((ForumRead)Container.DataItem).Viewing > 0 %>">
                         <%# this.GetViewing((ForumRead)Container.DataItem) %>
                     </asp:Label>
                     <asp:PlaceHolder runat="server" Visible="<%# ((ForumRead)Container.DataItem).RemoteURL.IsNotSet() && ((ForumRead)Container.DataItem).ReadAccess  %>">
                         <asp:Label runat="server"
-                                   CssClass='<%# StringHelper.GetTextBgColor("badge text-bg-light me-1") %>'
+                                   CssClass="badge text-light-emphasis bg-light-subtle me-1"
                                    ToolTip='<%# this.GetText("TOPICS") %>'
                                    data-bs-toggle="tooltip">
                             <YAF:Icon runat="server"
@@ -39,7 +38,7 @@
                             <%# this.Topics((ForumRead)Container.DataItem) %>
                         </asp:Label>
                         <asp:Label runat="server"
-                                   CssClass='<%# StringHelper.GetTextBgColor("badge text-bg-light") %>'
+                                   CssClass="badge text-light-emphasis bg-light-subtle"
                                    ToolTip='<%# this.GetText("Posts") %>'
                                    data-bs-toggle="tooltip">
                             <YAF:Icon runat="server"
@@ -57,7 +56,7 @@
             </div>
             <asp:PlaceHolder runat="server" Visible="<%# ((ForumRead)Container.DataItem).RemoteURL.IsNotSet() %>">
                 <div class="col-md-4 text-secondary">
-                    <div class="<%# StringHelper.GetTextBgColor("card text-bg-light card-post-last") %>">
+                    <div class="card bg-light-subtle card-post-last">
                         <div class="card-body py-1 ps-2">
                             <YAF:ForumLastPost ID="lastPost" runat="server"
                                                DataSource="<%# (ForumRead)Container.DataItem %>"/>

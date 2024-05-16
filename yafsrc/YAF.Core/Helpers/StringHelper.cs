@@ -90,15 +90,4 @@ public static class StringHelper
         // if decoded string == original string, it is already encoded
         return HttpUtility.HtmlDecode(text) != text;
     }
-
-    /// <summary>
-    /// Replace the text-bg-color based on the theme mode
-    /// </summary>
-    /// <param name="cssClass">The CSS class.</param>
-    /// <returns>System.String.</returns>
-    public static string GetTextBgColor(string cssClass)
-    {
-        return BoardContext.Current.PageUser.DarkMode
-            ? cssClass.Replace("light", "dark") : cssClass;
-    }
 }

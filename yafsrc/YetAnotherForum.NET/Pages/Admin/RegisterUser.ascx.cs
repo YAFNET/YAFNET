@@ -75,8 +75,9 @@ public partial class RegisterUser : AdminPage
                            Id = Guid.NewGuid().ToString(),
                            ApplicationId = this.PageBoardContext.BoardSettings.ApplicationId,
                            UserName = newUsername,
-                           LoweredUserName = newUsername,
+                           LoweredUserName = newUsername.ToLower(),
                            Email = newEmail,
+                           LoweredEmail = newEmail.ToLower(),
                            IsApproved = false,
                            EmailConfirmed = false
                        };

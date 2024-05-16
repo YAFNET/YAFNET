@@ -12,7 +12,7 @@
    </head>
    <body>
    <div class="container">
-       <div class="bg-light p-5 rounded mt-3">
+       <div class="bg-light-subtle p-5 rounded mt-3">
            <h1 class="display-3">Forum Error</h1>
            <p class="lead">
                <asp:Label ID="ErrorMessage" Enabled="true" runat="server" />

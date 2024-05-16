@@ -185,14 +185,12 @@ public class TopicContainer : BaseControl
 
         writer.Write(topicLink.RenderToString());
 
-        var textBgColor = this.PageBoardContext.PageUser.DarkMode ? "text-bg-dark" : "text-bg-light";
-
         // Render Replies & Views
         if (!this.TopicItem.TopicMovedID.HasValue)
         {
             var repliesLabel = new Label
                                {
-                                   CssClass = $"badge {textBgColor} ms-1 me-1",
+                                   CssClass = "badge text-light-emphasis bg-light-subtle ms-1 me-1",
                                    Text = new IconHeader
                                           {
                                               IconName = "comment", IconType = " ", IconStyle = "far", Text = this.FormatReplies()
@@ -206,7 +204,7 @@ public class TopicContainer : BaseControl
 
             var viewsLabel = new Label
                              {
-                                 CssClass = $"badge {textBgColor}",
+                                 CssClass = "badge text-light-emphasis bg-light-subtle",
                                  Text = new IconHeader
                                         {
                                             IconName = "eye", IconType = " ", IconStyle = "far", Text = this.FormatViews()

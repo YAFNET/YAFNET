@@ -102,8 +102,9 @@ public partial class EditBoard : AdminPage
                                Id = Guid.NewGuid().ToString(),
                                ApplicationId = this.PageBoardContext.BoardSettings.ApplicationId,
                                UserName = adminName,
-                               LoweredUserName = adminName,
+                               LoweredUserName = adminName.ToLower(),
                                Email = adminEmail,
+                               LoweredEmail = adminEmail.ToLower(),
                                IsApproved = true
                            };
 

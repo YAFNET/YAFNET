@@ -4,7 +4,6 @@
 <%@ Import Namespace="YAF.Types.Models" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
-<%@ Import Namespace="YAF.Core.Helpers" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
@@ -32,7 +31,7 @@
                         <asp:Label runat="server">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" />
                         </asp:Label>
-                        <div class="<%# StringHelper.GetTextBgColor("card text-bg-light") %>">
+                        <div class="card bg-light-subtle">
                             <div class="card-body">
                                 <YAF:MessagePost ID="MessagePreview" runat="server">
                                 </YAF:MessagePost>

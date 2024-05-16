@@ -3,7 +3,6 @@
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
-<%@ Import Namespace="YAF.Core.Helpers" %>
 
 <%@ Register TagPrefix="YAF" TagName="DisplayPost" Src="../controls/DisplayPost.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayConnect" Src="../controls/DisplayConnect.ascx" %>
@@ -73,7 +72,7 @@
 </div>
 <div class="row mb-3">
     <div class="col">
-        <nav class="<%# StringHelper.GetTextBgColor("navbar navbar-expand-lg bg-light") %>">
+        <nav class="navbar navbar-expand-lg bg-light-subtle">
             <div class="container-fluid">
                 <asp:HyperLink ID="TopicLink" runat="server"
                            CssClass="navbar-brand pt-0">

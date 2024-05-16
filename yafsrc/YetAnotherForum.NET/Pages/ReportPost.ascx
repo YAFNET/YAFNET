@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.ReportPost" CodeBehind="ReportPost.ascx.cs" %>
-<%@ Import Namespace="YAF.Core.Helpers" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
@@ -10,7 +9,7 @@
 
 <div class="row">
     <div class="col">
-        <div class="<%# StringHelper.GetTextBgColor("card text-bg-light mb-3") %>">
+        <div class="card bg-light-subtle mb-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
                                 IconType="text-secondary"

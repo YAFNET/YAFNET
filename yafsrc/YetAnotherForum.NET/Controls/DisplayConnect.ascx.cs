@@ -62,8 +62,7 @@ public partial class DisplayConnect : BaseUserControl
                                     ParamText0 = this.PageBoardContext.BoardSettings.Name,
                                     TitleLocalizedTag = "LOGIN",
                                     TitleLocalizedPage = "TOOLBAR",
-                                    Type = ButtonStyle.Link,
-                                    Icon = "sign-in-alt",
+                                    Type = ButtonStyle.None,
                                     NavigateUrl = "javascript:void(0);",
                                     CssClass = "LoginLink alert-link"
                                 };
@@ -82,8 +81,7 @@ public partial class DisplayConnect : BaseUserControl
                                        TextLocalizedPage = "TOOLBAR",
                                        TitleLocalizedTag = "REGISTER",
                                        TitleLocalizedPage = "TOOLBAR",
-                                       Type = ButtonStyle.Link,
-                                       Icon = "user-plus",
+                                       Type = ButtonStyle.None,
                                        NavigateUrl = this.PageBoardContext.BoardSettings.ShowRulesForRegistration
                                                          ?
                                                          this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)

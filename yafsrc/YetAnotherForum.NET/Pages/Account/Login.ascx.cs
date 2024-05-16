@@ -206,6 +206,7 @@ public partial class Login : AccountPage
                         $"Login Failure: {this.UserName.Text.Trim()}");
 
                     this.PageBoardContext.Notify(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
+
                     break;
                 }
         }

@@ -11099,7 +11099,6 @@ function getSelectedMessageText() {
             toggle.addEventListener("click", () => {
                 const theme = toggle.getAttribute("data-bs-theme-value");
                 setStoredTheme(theme);
-                location.reload();
             });
         });
     });

@@ -1,11 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UserMenu.ascx.cs" Inherits="YAF.Controls.UserMenu" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
-<%@ Import Namespace="YAF.Core.Helpers" %>
 
 <li class="nav-item dropdown">
     <YAF:Themebutton runat="server" ID="UserDropDown">
-        <span class="<%# StringHelper.GetTextBgColor("badge text-bg-light p-0 border border-light me-1") %>">
+        <span class="badge text-light-emphasis bg-light-subtle p-0 border border-light me-1">
             <asp:Image runat="server" ID="UserAvatar"
                        AlternateText="avatar"
                        CssClass="img-navbar-avatar rounded"/>

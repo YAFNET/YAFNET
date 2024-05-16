@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Album" Codebehind="Album.ascx.cs" %>
-<%@ Import Namespace="YAF.Core.Helpers" %>
 <%@ Register TagPrefix="YAF" TagName="AlbumImageList" Src="../controls/AlbumImageList.ascx" %>
 
 
@@ -8,7 +7,7 @@
 <section class="text-center container mb-3">
     <div class="row">
         <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class='<%# StringHelper.GetTextBgColor("fw-light") %>'>
+            <h1 class="fw-light-subtle">
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server"
                                     LocalizedTag="Albums_Title" />
             </h1>

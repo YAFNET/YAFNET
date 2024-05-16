@@ -1,9 +1,8 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayAd" EnableViewState="false" Codebehind="DisplayAd.ascx.cs" %>
-<%@ Import Namespace="YAF.Core.Helpers" %>
 
 <div class="row">
     <div class="col-xl-12">
-        <div class="<%# StringHelper.GetTextBgColor("card text-bg-light mb-3") %>">
+        <div class="card text-light-emphasis bg-light-subtle mb-3">
             <div class="card-body">
                 <div class="row">
                     <div class="col">
