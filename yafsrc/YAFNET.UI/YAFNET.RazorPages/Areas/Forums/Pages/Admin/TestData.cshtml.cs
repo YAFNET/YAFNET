@@ -761,14 +761,15 @@ public class TestDataModel : AdminPage
             }
 
             var user = new AspNetUsers {
-                                           Id = Guid.NewGuid().ToString(),
-                                           ApplicationId = this.Get<BoardSettings>().ApplicationId,
-                                           UserName = newUsername,
-                                           LoweredUserName = newUsername.ToLower(),
-                                           Email = newEmail,
-                                           IsApproved = true,
-                                           EmailConfirmed = true
-                                       };
+                Id = Guid.NewGuid().ToString(),
+                ApplicationId = this.Get<BoardSettings>().ApplicationId,
+                UserName = newUsername,
+                LoweredUserName = newUsername.ToLower(),
+                Email = newEmail,
+                LoweredEmail = newEmail.ToLower(),
+                IsApproved = true,
+                EmailConfirmed = true
+            };
 
             var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, this.Input.Password);
 

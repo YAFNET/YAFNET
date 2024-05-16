@@ -78,7 +78,7 @@ public class Migration30 : IRepositoryMigration, IHaveServiceLocator
     /// <param name="dbAccess">The database access.</param>
     private async Task MigrateLegacyUsersAsync(IDbAccess dbAccess)
     {
-        var guests = this.GetRepository<User>().Get(u => (u.Flags & 4) == 4);
+        var guests = await this.GetRepository<User>().GetAsync(u => (u.Flags & 4) == 4);
 
         if (guests.NullOrEmpty())
         {
@@ -148,7 +148,7 @@ public class Migration30 : IRepositoryMigration, IHaveServiceLocator
             {
                 var userExist = await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(row.Email);
 
-                var legacyUserProfile = this.GetRepository<LegacyUser>().GetById(row.ID);
+                var legacyUserProfile = await this.GetRepository<LegacyUser>().GetByIdAsync(row.ID);
 
                 if (userExist == null)
                 {

@@ -825,7 +825,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         }
 
         // Insert forum access here
-        var userAccessList = this.GetRepository<VAccess>().Get(v => v.UserID == BoardContext.Current.PageUserID);
+        var userAccessList = await this.GetRepository<VAccess>().GetAsync(v => v.UserID == BoardContext.Current.PageUserID);
 
         // filter forum
         if (forumId > 0)

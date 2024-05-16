@@ -105,13 +105,14 @@ public class EditBoardModel : AdminPage
         if (createUserAndRoles)
         {
             var user = new AspNetUsers {
-                                           Id = Guid.NewGuid().ToString(),
-                                           ApplicationId = this.PageBoardContext.BoardSettings.ApplicationId,
-                                           UserName = adminName,
-                                           LoweredUserName = adminName,
-                                           Email = adminEmail,
-                                           IsApproved = true
-                                       };
+                Id = Guid.NewGuid().ToString(),
+                ApplicationId = this.PageBoardContext.BoardSettings.ApplicationId,
+                UserName = adminName,
+                LoweredUserName = adminName.ToLower(),
+                Email = adminEmail,
+                LoweredEmail = adminEmail.ToLower(),
+                IsApproved = true
+            };
 
             // Create new admin users
             var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, adminPassword);

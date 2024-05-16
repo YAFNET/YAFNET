@@ -53,7 +53,7 @@ public class UserLinkBBCodeModule : BBCodeControl
 
         if (user is not null)
         {
-            var boardUser = this.GetRepository<User>().GetSingle(u => u.ProviderUserKey == user.Id);
+            var boardUser = await this.GetRepository<User>().GetSingleAsync(u => u.ProviderUserKey == user.Id);
 
             if (boardUser is null)
             {

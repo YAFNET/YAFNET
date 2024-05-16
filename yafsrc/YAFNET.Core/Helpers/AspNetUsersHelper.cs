@@ -162,7 +162,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
             this.GetRepository<User>().Approve(checkUser);
 
-            var checkEmail = this.GetRepository<CheckEmail>().GetSingle(m => m.UserID == id);
+            var checkEmail = await this.GetRepository<CheckEmail>().GetSingleAsync(m => m.UserID == id);
 
             if (checkEmail != null)
             {
@@ -180,7 +180,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// </returns>
     public async Task<bool> ApproveUserAsync(int userId)
     {
-        var yafUser = this.GetRepository<User>().GetById(userId);
+        var yafUser = await this.GetRepository<User>().GetByIdAsync(userId);
 
         if (yafUser?.ProviderUserKey == null)
         {
@@ -198,7 +198,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         this.GetRepository<User>().Approve(yafUser);
 
-        var checkEmail = this.GetRepository<CheckEmail>().GetSingle(m => m.UserID == userId);
+        var checkEmail = await this.GetRepository<CheckEmail>().GetSingleAsync(m => m.UserID == userId);
 
         if (checkEmail != null)
         {
@@ -281,7 +281,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// </returns>
     public async Task<bool> DeleteUserAsync(int userId, bool isBotAutoDelete = false)
     {
-        var user = this.GetRepository<User>().GetById(userId);
+        var user = await this.GetRepository<User>().GetByIdAsync(userId);
 
         if (user == null)
         {
@@ -937,7 +937,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         }
 
         // Display name login
-        var realUsername = this.GetRepository<User>().GetSingle(u => u.DisplayName == userName && (u.Flags & 4) != 4);
+        var realUsername = await this.GetRepository<User>().GetSingleAsync(u => u.DisplayName == userName && (u.Flags & 4) != 4);
 
         if (realUsername == null)
         {

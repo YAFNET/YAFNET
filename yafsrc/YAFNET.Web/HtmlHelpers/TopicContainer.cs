@@ -138,12 +138,10 @@ public static class TopicContainerHtmlHelper
 
         if (!topic.TopicMovedID.HasValue)
         {
-            var textBgColor = BoardContext.Current.PageUser.DarkMode ? "text-bg-dark" : "text-bg-light";
-
             // Render Replies & Views
             var repliesLabel = new TagBuilder("span");
 
-            repliesLabel.AddCssClass($"badge {textBgColor} ms-1 me-1");
+            repliesLabel.AddCssClass($"badge text-light-emphasis bg-light-subtle ms-1 me-1");
 
             repliesLabel.MergeAttribute("title", context.Get<ILocalization>().GetText("MODERATE", "REPLIES"));
 
@@ -156,7 +154,7 @@ public static class TopicContainerHtmlHelper
 
             var viewsLabel = new TagBuilder("span");
 
-            viewsLabel.AddCssClass($"badge {textBgColor}");
+            viewsLabel.AddCssClass($"badge text-light-emphasis bg-light-subtle");
 
             viewsLabel.MergeAttribute("title", context.Get<ILocalization>().GetText("MODERATE", "VIEWS"));
             viewsLabel.MergeAttribute("data-bs-toggle", "tooltip");

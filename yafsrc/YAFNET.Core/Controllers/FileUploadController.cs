@@ -229,7 +229,7 @@ public class FileUpload : ForumBaseController
 
                         await using var fs = new FileStream($"{uploadFolder}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload", FileMode.Create, FileAccess.ReadWrite);
                         var bytes = resized.ToArray();
-                        fs.Write(bytes, 0, bytes.Length);
+                        await fs.WriteAsync(bytes, 0, bytes.Length);
                     }
                 }
 

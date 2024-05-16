@@ -121,18 +121,18 @@ public class Google : IAuthBase, IHaveServiceLocator
 
         var pass = PasswordGenerator.GeneratePassword(true, true, true, true, false, 16);
 
-        var user = new AspNetUsers
-                       {
-                           Id = Guid.NewGuid().ToString(),
-                           ApplicationId = this.Get<BoardSettings>().ApplicationId,
-                           UserName = userName,
-                           LoweredUserName = userName.ToLower(),
-                           Email = email,
-                           IsApproved = true,
-                           EmailConfirmed = true,
-                           Profile_RealName = name,
-                           Profile_GoogleId = googleUserId
-                       };
+        var user = new AspNetUsers {
+            Id = Guid.NewGuid().ToString(),
+            ApplicationId = this.Get<BoardSettings>().ApplicationId,
+            UserName = userName,
+            LoweredUserName = userName.ToLower(),
+            Email = email,
+            LoweredEmail = email.ToLower(),
+            IsApproved = true,
+            EmailConfirmed = true,
+            Profile_RealName = name,
+            Profile_GoogleId = googleUserId
+        };
 
         var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, pass);
 

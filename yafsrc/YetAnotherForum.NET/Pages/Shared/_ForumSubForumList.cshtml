@@ -31,13 +31,13 @@
                                title="@Html.Raw(Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM"))">
                                 @forum.Forum
                             </a>
-                            <span class="@Html.GetTextBgColor("badge text-bg-light me-1")"
+                            <span class="badge text-light-emphasis bg-light-subtle me-1"
                                   title="@Html.LocalizedText("TOPICS")"
                                   data-bs-toggle="tooltip">
                                 @Html.Icon("comments", "", "far")
                                 @Html.Raw($"{forum.Topics:N0}")
                             </span>
-                            <span class="@Html.GetTextBgColor("badge text-bg-light")"
+                            <span class="badge text-light-emphasis bg-light-subtle"
                                   title="@Html.LocalizedText("POSTS")"
                                   data-bs-toggle="tooltip">
                                 @Html.Icon("comment", "", "far")

@@ -296,8 +296,10 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <param name="pageBoardId">The page board ID.</param>
     public async Task SyncRolesAsync(int pageBoardId)
     {
-        var groupsNames = this.GetRepository<Group>().Get(g => g.BoardID == pageBoardId && (g.Flags & 2) != 2)
-            .Select(g => g.Name);
+        var groups = await this.GetRepository<Group>().GetAsync(g => g.BoardID == pageBoardId && (g.Flags & 2) != 2);
+
+        var groupsNames =
+            groups.Select(g => g.Name);
 
         // get all the groups in YAF DB and create them if they do not exist as a role in membership
         foreach (var roleName in groupsNames.ToList())

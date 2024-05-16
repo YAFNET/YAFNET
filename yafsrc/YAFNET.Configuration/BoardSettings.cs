@@ -118,7 +118,7 @@ public class BoardSettings
     /// <summary>
     /// The application id.
     /// </summary>
-    public Guid ApplicationId => this.RegistryBoard.GetValue("ApplicationId", string.Empty).ToType<Guid>();
+    public Guid ApplicationId => new(this.Registry.GetValue("ApplicationId", string.Empty));
 
     /// <summary>
     /// Gets or sets the min required password length.

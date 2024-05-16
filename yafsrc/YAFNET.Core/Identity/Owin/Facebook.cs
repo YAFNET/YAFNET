@@ -128,6 +128,7 @@ public class Facebook : IAuthBase, IHaveServiceLocator
                            UserName = userName,
                            LoweredUserName = userName.ToLower(),
                            Email = email,
+                           LoweredEmail = email.ToLower(),
                            IsApproved = true,
                            EmailConfirmed = true,
                            Profile_RealName = name,

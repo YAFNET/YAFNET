@@ -19450,7 +19450,6 @@ function str_serialize(result, key, value) {
             toggle.addEventListener("click", () => {
                 const theme = toggle.getAttribute("data-bs-theme-value");
                 setStoredTheme(theme);
-                location.reload();
             });
         });
     });

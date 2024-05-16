@@ -86,7 +86,7 @@
                                     @if (forum.Viewing > 0)
                                     {
 
-                                        <span class="@Html.GetTextBgColor("badge text-bg-light")">
+                                        <span class="badge text-light-emphasis bg-light-subtl">
                                             @Html.Icon("eye", "", "far")
                                             @forum.Viewing
                                         </span>
@@ -94,13 +94,13 @@
 
                                     @if (forum.RemoteURL.IsNotSet() && forum.ReadAccess)
                                     {
-                                        <span class="@Html.GetTextBgColor("badge text-bg-light me-1")"
+                                        <span class="badge text-light-emphasis bg-light-subtl me-1"
                                               title="@Html.LocalizedText("DEFAULT", "TOPICS")"
                                               data-bs-toggle="tooltip">
                                             @Html.Icon("comments", "", "far")
                                             @Html.Raw(forum.RemoteURL.IsNotSet() ? $"{forum.Topics:N0}" : "-")
                                         </span>
-                                        <span class="@Html.GetTextBgColor("badge text-bg-light")"
+                                        <span class="badge text-light-emphasis bg-light-subtl"
                                               title="@Html.LocalizedText("DEFAULT", "POSTS")"
                                               data-bs-toggle="tooltip">
                                             @Html.Icon("comment", "", "far")
@@ -165,7 +165,7 @@
                             @if (forum.RemoteURL.IsNotSet())
                             {
                                 <div class="col-md-4 text-secondary">
-                                    <div class="@Html.GetTextBgColor("card text-bg-light card-post-last")">
+                                    <div class="card bg-light-subtle card-post-last">
                                         <div class="card-body py-1 ps-2">
 
                                             @if (forum.ReadAccess && forum.LastPosted.HasValue)

@@ -281,13 +281,14 @@ public class InstallModel : InstallPage
 
         // create the admin user...
         AspNetUsers user = new() {
-                                     Id = Guid.NewGuid().ToString(),
-                                     ApplicationId = applicationId,
-                                     UserName = userName,
-                                     LoweredUserName = userName,
-                                     Email = adminEmail,
-                                     IsApproved = true
-                                 };
+            Id = Guid.NewGuid().ToString(),
+            ApplicationId = applicationId,
+            UserName = userName,
+            LoweredUserName = userName.ToLower(),
+            Email = adminEmail,
+            LoweredEmail = adminEmail.ToLower(),
+            IsApproved = true
+        };
 
         var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, password);
 

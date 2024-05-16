@@ -382,7 +382,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="medalName">Name of the medal.</param>
     public async Task ToUserWithNewMedalAsync(int toUserId, string medalName)
     {
-        var toUser = this.GetRepository<User>().GetById(toUserId);
+        var toUser = await this.GetRepository<User>().GetByIdAsync(toUserId);
 
         if (toUser == null)
         {
@@ -573,7 +573,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
 
                 if (hostUser != null)
                 {
-                    this.GetRepository<PrivateMessage>().Insert(
+                    await this.GetRepository<PrivateMessage>().InsertAsync(
                         new PrivateMessage
                             {
                                 Created = DateTime.UtcNow,

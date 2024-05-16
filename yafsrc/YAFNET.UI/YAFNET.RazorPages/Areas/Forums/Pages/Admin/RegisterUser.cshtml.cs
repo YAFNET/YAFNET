@@ -93,16 +93,16 @@ public class RegisterUserModel : AdminPage
             return this.PageBoardContext.Notify(this.GetText("ADMIN_REGUSER", "MSG_NAME_EXISTS"), MessageTypes.danger);
         }
 
-        var user = new AspNetUsers
-                       {
-                           Id = Guid.NewGuid().ToString(),
-                           ApplicationId = this.PageBoardContext.BoardSettings.ApplicationId,
-                           UserName = newUsername,
-                           LoweredUserName = newUsername,
-                           Email = newEmail,
-                           IsApproved = false,
-                           EmailConfirmed = false
-                       };
+        var user = new AspNetUsers {
+            Id = Guid.NewGuid().ToString(),
+            ApplicationId = this.PageBoardContext.BoardSettings.ApplicationId,
+            UserName = newUsername,
+            LoweredUserName = newUsername.ToLower(),
+            Email = newEmail,
+            LoweredEmail = newEmail.ToLower(),
+            IsApproved = false,
+            EmailConfirmed = false
+        };
 
         var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, this.Input.Password);
 

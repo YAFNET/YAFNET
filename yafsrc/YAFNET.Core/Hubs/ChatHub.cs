@@ -171,7 +171,7 @@ public class ChatHub : Hub, IHaveServiceLocator
                 dateTimeFormatted);
         }
 
-        this.GetRepository<PrivateMessage>().Insert(
+        await this.GetRepository<PrivateMessage>().InsertAsync(
             new PrivateMessage
                 {
                     Body = body,

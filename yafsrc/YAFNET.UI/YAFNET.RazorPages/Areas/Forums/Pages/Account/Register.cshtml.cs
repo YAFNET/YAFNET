@@ -128,17 +128,17 @@ public class RegisterModel : AccountPage
             return this.Page();
         }
 
-        var user = new AspNetUsers
-                   {
-                       Id = Guid.NewGuid().ToString(),
-                       ApplicationId = this.PageBoardContext.BoardSettings.ApplicationId,
-                       UserName = this.Input.UserName,
-                       LoweredUserName = this.Input.UserName,
-                       Email = this.Input.Email,
-                       IsApproved = false,
-                       EmailConfirmed = false,
-                       Profile_Birthday = null
-                   };
+        var user = new AspNetUsers {
+            Id = Guid.NewGuid().ToString(),
+            ApplicationId = this.PageBoardContext.BoardSettings.ApplicationId,
+            UserName = this.Input.UserName,
+            LoweredUserName = this.Input.UserName.ToLower(),
+            Email = this.Input.Email,
+            LoweredEmail = this.Input.Email.ToLower(),
+            IsApproved = false,
+            EmailConfirmed = false,
+            Profile_Birthday = null
+        };
 
         var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, this.Input.Password.Trim());
 

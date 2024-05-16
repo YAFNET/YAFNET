@@ -325,7 +325,7 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         var icon = new TagBuilder("i");
 
         icon.AddCssClass(
-            $"fas fa-{iconName} me-1 {(BoardContext.Current.CurrentForumPage.PageName == page ? "text-light" : "text - secondary")}");
+            $"fas fa-{iconName} me-1 {(BoardContext.Current.CurrentForumPage.PageName == page ? "text-light" : "text-secondary")}");
 
         link.InnerHtml.AppendHtml(icon);
 
