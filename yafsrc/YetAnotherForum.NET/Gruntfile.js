@@ -314,6 +314,18 @@ module.exports = function(grunt) {
 
         // Minimize JS
         uglify: {
+	        themeSelector: {
+	            options: {
+		            sourceMap: false,
+		            output: { beautify: true },
+		            mangle: false,
+		            compress: false
+	            },
+	            src: [
+		            'wwwroot/lib/bootstrap/color-modes.js'
+	            ],
+                dest: 'wwwroot/js/themeSelector.min.js'
+            },
             installWizard: {
                 options: {
                     sourceMap: false,
@@ -407,8 +419,7 @@ module.exports = function(grunt) {
                     'wwwroot/lib/forum/signalR.js',
                     'wwwroot/lib/forum/contextMenu.js',
                     'wwwroot/lib/forum/chatHub.js',
-                    'wwwroot/lib/form-serialize/index.js',
-                    'wwwroot/lib/bootstrap/color-modes.js'
+                    'wwwroot/lib/form-serialize/index.js'
                 ],
                 dest: 'wwwroot/js/forumExtensions.js'
             },
@@ -439,13 +450,13 @@ module.exports = function(grunt) {
                     'wwwroot/lib/forum/modals.js',
                     'wwwroot/lib/forum/notificationHub.js',
                     'wwwroot/lib/forum/contextMenu.js',
-                    'wwwroot/lib/form-serialize/index.js',
-                    'wwwroot/lib/bootstrap/color-modes.js'
+                    'wwwroot/lib/form-serialize/index.js'
                 ],
                 dest: 'wwwroot/js/forumAdminExtensions.js'
             },
             minify: {
                 files: {
+                    "wwwroot/js/themeSelector.min.js": 'wwwroot/js/themeSelector.min.js',
                     "wwwroot/js/editor.min.js": 'wwwroot/js/editor.comb.js',
                     "wwwroot/js/InstallWizard.comb.min.js": 'wwwroot/js/InstallWizard.comb.js',
                     "wwwroot/js/codemirror.min.js": 'wwwroot/js/codemirror.min.js',
