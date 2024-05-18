@@ -534,15 +534,15 @@ public static class MessageRepositoryExtensions
     /// <param name="forumId">
     /// The forum Id.
     /// </param>
+    /// <param name="topicTags">
+    /// The topic tags.
+    /// </param>
     /// <returns>
     /// Returns all Messages as Typed Search Message List
     /// </returns>
-    public static IEnumerable<SearchMessage> GetAllSearchMessagesByForum(
-        this IRepository<Message> repository,
-        int forumId)
+    public static IEnumerable<SearchMessage> GetAllSearchMessagesByForum(this IRepository<Message> repository,
+        int forumId, List<Tag> topicTags)
     {
-        
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
         expression.Join<Topic>((forum, topic) => topic.ForumID == forum.ID)
@@ -553,7 +553,7 @@ public static class MessageRepositoryExtensions
                                            topic.TopicMovedID == null).OrderByDescending<Message>(x => x.Posted);
 
         return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Topic, Message, User>(expression))
-            .ConvertAll(x => new SearchMessage(x));
+            .ConvertAll(x => new SearchMessage(x, topicTags));
     }
 
     /// <summary>

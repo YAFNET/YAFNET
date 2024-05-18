@@ -135,19 +135,29 @@ public static class TopicTagRepositoryExtensions
     }
 
     /// <summary>
-    /// List all Topic Tags
+    /// Lists all topic tags by topic.
     /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic Id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
-    public static string ListAsDelimitedString(this IRepository<TopicTag> repository, int topicId)
+    /// <param name="repository">The repository.</param>
+    /// <returns>List with all tags as delimited string.</returns>
+    public static List<Tag> ListAll(
+        this IRepository<TopicTag> repository)
     {
-        return repository.List(topicId).Select(t => t.Item2.TagName).ToDelimitedString(",");
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
+
+        expression.Join<Tag>((topicTag, tag) => tag.ID == topicTag.TagID);
+
+        expression.Select<TopicTag, Tag>(
+            (topicTag, tag) => new {
+                topicTag.TopicID,
+                tag.TagName
+            });
+
+        var tags = repository.DbAccess.Execute(
+            db => db.Connection.Select<(int TopicID, string TagName)>(expression)).GroupBy(x => x.TopicID);
+
+        var topicTags = tags.ToList();
+
+        return topicTags.Select(topicTag => new Tag
+            { ID = topicTag.Key, TagName = topicTag.Select(t => t.TagName).ToDelimitedString(",") }).ToList();
     }
 }

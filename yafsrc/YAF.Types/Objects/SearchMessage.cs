@@ -21,8 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+using System.Linq;
+
 namespace YAF.Types.Objects;
 
+using System.Collections.Generic;
 using System.Globalization;
 
 using YAF.Types.Extensions;
@@ -38,16 +42,19 @@ public class SearchMessage
     /// <param name="tupleSearchItem">
     /// The tuple Search Item.
     /// </param>
-    public SearchMessage(Tuple<Forum, Topic, Message, User> tupleSearchItem)
+    /// <param name="topicTags"></param>
+    public SearchMessage(Tuple<Forum, Topic, Message, User> tupleSearchItem, List<Tag> topicTags)
     {
         this.MessageId = tupleSearchItem.Item3.ID;
         this.Message = tupleSearchItem.Item3.MessageText;
         this.Flags = tupleSearchItem.Item3.Flags;
         this.Posted = tupleSearchItem.Item3.Posted.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture);
         this.UserName = tupleSearchItem.Item3.UserName.IsSet()
-                            ? tupleSearchItem.Item3.UserName
-                            : tupleSearchItem.Item4.Name;
-        this.UserDisplayName = tupleSearchItem.Item3.UserDisplayName.IsSet() ? tupleSearchItem.Item3.UserDisplayName : tupleSearchItem.Item4.DisplayName;
+            ? tupleSearchItem.Item3.UserName
+            : tupleSearchItem.Item4.Name;
+        this.UserDisplayName = tupleSearchItem.Item3.UserDisplayName.IsSet()
+            ? tupleSearchItem.Item3.UserDisplayName
+            : tupleSearchItem.Item4.DisplayName;
         this.UserStyle = tupleSearchItem.Item4.UserStyle;
         this.UserId = tupleSearchItem.Item3.UserID;
         this.Suspended = tupleSearchItem.Item4.Suspended;
@@ -57,6 +64,11 @@ public class SearchMessage
         this.ForumId = tupleSearchItem.Item1.ID;
         this.ForumName = tupleSearchItem.Item1.Name;
         this.Description = tupleSearchItem.Item2.Description;
+
+        if (topicTags.Exists(x => x.ID == tupleSearchItem.Item2.ID))
+        {
+            this.TopicTags = topicTags.First(x => x.ID == tupleSearchItem.Item2.ID).TagName;
+        }
     }
 
     /// <summary>

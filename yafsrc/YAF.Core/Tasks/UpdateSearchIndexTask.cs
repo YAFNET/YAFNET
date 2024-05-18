@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Tasks;
 
 using System;
@@ -63,21 +64,22 @@ public class UpdateSearchIndexTask : LongBackgroundTask
                 return;
             }
 
-            if (!IsTimeToUpdateSearchIndex())
+            var lastSend = GetLastSend();
+
+            if (!IsTimeToUpdateSearchIndex(lastSend))
             {
                 return;
             }
 
             var forums = this.GetRepository<Forum>().ListAll(BoardContext.Current.PageBoardID);
+            var topicTags = this.GetRepository<TopicTag>().ListAll();
 
-            forums.ForEach(
-                forum =>
-                    {
-                        var messages =
-                            this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.Item2.ID);
-
-                        this.Get<ISearch>().AddSearchIndexAsync(messages).Wait();
-                    });
+            foreach (var messages in from forum in forums.Select(forum => forum.Item2)
+                     where forum.LastPosted.HasValue && forum.LastPosted.Value > lastSend
+                     select this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.ID, topicTags))
+            {
+                this.Get<ISearch>().AddSearchIndexAsync(messages).Wait();
+            }
 
             this.Get<ILoggerService>().Log(
                 "search index updated",
@@ -96,15 +98,42 @@ public class UpdateSearchIndexTask : LongBackgroundTask
     }
 
     /// <summary>
+    /// Gets the last send.
+    /// </summary>
+    /// <returns>DateTime.</returns>
+    private static DateTime GetLastSend()
+    {
+        var lastSend = DateTime.MinValue;
+
+        var boardSettings = BoardContext.Current.BoardSettings;
+
+        if (!boardSettings.LastSearchIndexUpdated.IsSet())
+        {
+            return lastSend;
+        }
+
+        try
+        {
+            lastSend = Convert.ToDateTime(boardSettings.LastSearchIndexUpdated, CultureInfo.InvariantCulture);
+        }
+        catch (Exception)
+        {
+            lastSend = DateTime.MinValue;
+        }
+
+        return lastSend;
+    }
+
+    /// <summary>
     /// The is time to update search index.
     /// </summary>
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    private static bool IsTimeToUpdateSearchIndex()
+    private static bool IsTimeToUpdateSearchIndex(DateTime lastSend)
     {
         var boardSettings = BoardContext.Current.BoardSettings;
-        var lastSend = DateTime.MinValue;
+
         var sendEveryXHours = boardSettings.UpdateSearchIndexEveryXHours;
 
         if (boardSettings.ForceUpdateSearchIndex)
@@ -115,20 +144,6 @@ public class UpdateSearchIndexTask : LongBackgroundTask
             BoardContext.Current.Get<BoardSettingsService>().SaveRegistry(boardSettings);
 
             return true;
-        }
-
-        if (boardSettings.LastSearchIndexUpdated.IsSet())
-        {
-            try
-            {
-                lastSend = Convert.ToDateTime(
-                    boardSettings.LastSearchIndexUpdated,
-                    CultureInfo.InvariantCulture);
-            }
-            catch (Exception)
-            {
-                lastSend = DateTime.MinValue;
-            }
         }
 
         var updateIndex = lastSend < DateTime.Now.AddHours(-sendEveryXHours)

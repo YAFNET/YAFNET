@@ -266,6 +266,19 @@ module.exports = function(grunt) {
 
         // Minimize JS
         uglify: {
+            themeSelector: {
+	            options: {
+		            sourceMap: false,
+		            output: { beautify: true },
+		            mangle: false,
+		            compress: false
+	            },
+	            src: [
+		            'Scripts/forum/color-modes.js'
+	            ],
+	            dest: 'Scripts/themeSelector.min.js'
+	           
+            },
             installWizard: {
                 options: {
                     sourceMap: false,
@@ -357,8 +370,7 @@ module.exports = function(grunt) {
                     'Scripts/forum/yaf.SimilarTitles.js',
                     'Scripts/forum/yaf.Paging.js',
                     'Scripts/forum/yaf.Main.js',
-                    'Scripts/forum/yaf.contextMenu.js',
-                    'Scripts/forum/color-modes.js'
+                    'Scripts/forum/yaf.contextMenu.js'
                 ],
                 dest: 'Scripts/forumExtensions.js'
             },
@@ -387,8 +399,7 @@ module.exports = function(grunt) {
                     'Scripts/forum/yaf.SimilarTitles.js',
                     'Scripts/forum/yaf.Paging.js',
                     'Scripts/forum/yaf.Main.js',
-                    'Scripts/forum/yaf.contextMenu.js',
-                    'Scripts/forum/color-modes.js'
+                    'Scripts/forum/yaf.contextMenu.js'
                 ],
                 dest: 'Scripts/forumExtensionsDnn.js'
             },
@@ -449,6 +460,7 @@ module.exports = function(grunt) {
             },
             minify: {
                 files: {
+                    "Scripts/themeSelector.min.js": 'Scripts/themeSelector.min.js',
                     "Scripts/sceditor/sceditor.comb.min.js": 'Scripts/sceditor/sceditor.comb.min.js',
                     "Scripts/editor/editor.min.js": 'Scripts/editor/editor.comb.js',
                     "Scripts/InstallWizard.comb.min.js": 'Scripts/InstallWizard.comb.js',

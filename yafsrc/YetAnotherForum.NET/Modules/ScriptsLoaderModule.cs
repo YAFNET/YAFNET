@@ -25,6 +25,7 @@
 namespace YAF.Modules;
 
 using System.Web.UI;
+using YAF.Configuration;
 
 /// <summary>
 /// Automatic JavaScript Loading Module
@@ -120,5 +121,10 @@ public class ScriptsLoaderModule : SimpleBaseForumModule
                     this.PageBoardContext.CurrentForumPage.IsAdminPage
                         ? $"forum-admin.min.css?v={version}"
                         : $"forum.min.css?v={version}")));
+
+        var themeSelectorJs = BoardInfo.GetURLToScripts($"themeSelector.min.js?v={version}");
+
+        element.Controls.Add(
+            new LiteralControl($"<script src={themeSelectorJs}></script>"));
     }
 }

@@ -259,10 +259,10 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         try
         {
-            var name = message.UserName ?? (message.UserDisplayName ?? string.Empty);
+            var name = message.UserName ?? message.UserDisplayName ?? string.Empty;
             var userDisplayName = message.UserDisplayName ?? string.Empty;
             var userStyle = message.UserStyle ?? string.Empty;
-            var description = message.Description ?? (message.Topic ?? string.Empty);
+            var description = message.Description ?? message.Topic ?? string.Empty;
 
             var doc = new Document
                           {
@@ -601,7 +601,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                               new TextField("Description", description, Field.Store.YES),
                               new TextField(
                                   "TopicTags",
-                                  this.GetRepository<TopicTag>().ListAsDelimitedString(message.TopicId.Value),
+                                  message.TopicTags,
                                   Field.Store.YES)
                           };
 
