@@ -1750,7 +1750,7 @@ public static class JavaScriptBlocks
     {
         return $$"""
                  function toggleSelection(source) {
-                     if (document.querySelector("input[id*='Compare']:checked").length > 2) {
+                     if (document.querySelectorAll(".form-check-input:checked").length > 2) {
                      source.checked = false;
                      bootbox.alert("{{message}}");
                      }
