@@ -22,6 +22,9 @@
  * under the License.
  */
 
+using System.Collections.Generic;
+using System.Linq;
+
 namespace YAF.Types.Objects;
 
 using System.Globalization;
@@ -38,9 +41,10 @@ public class SearchMessage
     /// Initializes a new instance of the <see cref="SearchMessage"/> class.
     /// </summary>
     /// <param name="tupleSearchItem">
-    /// The tuple Search Item.
+    ///     The tuple Search Item.
     /// </param>
-    public SearchMessage(Tuple<Forum, Topic, Message, User> tupleSearchItem)
+    /// <param name="topicTags"></param>
+    public SearchMessage(Tuple<Forum, Topic, Message, User> tupleSearchItem, List<Tag> topicTags)
     {
         this.MessageId = tupleSearchItem.Item3.ID;
         this.Message = tupleSearchItem.Item3.MessageText;
@@ -59,6 +63,11 @@ public class SearchMessage
         this.ForumId = tupleSearchItem.Item1.ID;
         this.ForumName = tupleSearchItem.Item1.Name;
         this.Description = tupleSearchItem.Item2.Description;
+
+        if (topicTags.Exists(x => x.ID == tupleSearchItem.Item2.ID))
+        {
+            this.TopicTags = topicTags.First(x => x.ID == tupleSearchItem.Item2.ID).TagName;
+        }
     }
 
     /// <summary>

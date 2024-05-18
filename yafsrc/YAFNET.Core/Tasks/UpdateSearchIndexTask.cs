@@ -66,15 +66,20 @@ public class UpdateSearchIndexTask : LongBackgroundTask
                 return;
             }
 
-            if (!IsTimeToUpdateSearchIndex())
+            var lastSend = GetLastSend();
+
+            if (!IsTimeToUpdateSearchIndex(lastSend))
             {
                 return;
             }
 
             var forums = this.GetRepository<Forum>().ListAll(BoardContext.Current.PageBoardID);
 
-            foreach (var messages in forums.Select(
-                         forum => this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.Item2.ID)))
+            var topicTags = this.GetRepository<TopicTag>().ListAll();
+
+            foreach (var messages in from forum in forums.Select(forum => forum.Item2)
+                     where forum.LastPosted.HasValue && forum.LastPosted.Value > lastSend
+                     select this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.ID, topicTags))
             {
                 await this.Get<ISearch>().AddSearchIndexAsync(messages);
             }
@@ -91,16 +96,39 @@ public class UpdateSearchIndexTask : LongBackgroundTask
         }
     }
 
+    private static DateTime GetLastSend()
+    {
+        var lastSend = DateTime.MinValue;
+
+        var boardSettings = BoardContext.Current.BoardSettings;
+
+        if (!boardSettings.LastSearchIndexUpdated.IsSet())
+        {
+            return lastSend;
+        }
+
+        try
+        {
+            lastSend = Convert.ToDateTime(boardSettings.LastSearchIndexUpdated, CultureInfo.InvariantCulture);
+        }
+        catch (Exception)
+        {
+            lastSend = DateTime.MinValue;
+        }
+
+        return lastSend;
+    }
+
     /// <summary>
     /// The is time to update search index.
     /// </summary>
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    private static bool IsTimeToUpdateSearchIndex()
+    private static bool IsTimeToUpdateSearchIndex(DateTime lastSend)
     {
         var boardSettings = BoardContext.Current.BoardSettings;
-        var lastSend = DateTime.MinValue;
+
         var sendEveryXHours = boardSettings.UpdateSearchIndexEveryXHours;
 
         if (boardSettings.ForceUpdateSearchIndex)
@@ -111,18 +139,6 @@ public class UpdateSearchIndexTask : LongBackgroundTask
             BoardContext.Current.Get<BoardSettingsService>().SaveRegistry(boardSettings);
 
             return true;
-        }
-
-        if (boardSettings.LastSearchIndexUpdated.IsSet())
-        {
-            try
-            {
-                lastSend = Convert.ToDateTime(boardSettings.LastSearchIndexUpdated, CultureInfo.InvariantCulture);
-            }
-            catch (Exception)
-            {
-                lastSend = DateTime.MinValue;
-            }
         }
 
         var updateIndex = lastSend < DateTime.Now.AddHours(-sendEveryXHours)

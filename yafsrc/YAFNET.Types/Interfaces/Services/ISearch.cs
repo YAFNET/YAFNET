@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using YAF.Types.Models;
+
 namespace YAF.Types.Interfaces.Services;
 
 using System.Collections.Generic;
@@ -65,7 +67,7 @@ public interface ISearch
     /// Adds the search index
     /// </summary>
     /// <param name="messageList">
-    /// The message list.
+    ///     The message list.
     /// </param>
     /// <returns>
     /// The <see cref="Task"/>.
