@@ -180,7 +180,9 @@ public class PostTopicModel : ForumPage
     /// </summary>
     public IActionResult OnGet()
     {
-        this.Input = new PostTopicInputModel();
+        this.Input = new PostTopicInputModel {
+            Persistent = true
+        };
 
         if (this.PageBoardContext.PageForumID == 0)
         {

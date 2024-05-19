@@ -107,10 +107,10 @@
                        icon="comment"
                        icon-css-class="far"
                        icon-color="text-secondary"
-                       class=" fw-bold p-0"
+                       class=" fw-bold p-0 text-start"
                        style="@styles"
                        bs-toggle="tooltip"
-                       text="@topicSubject"
+                       text="@Html.Raw(topicSubject)"
                        title-non-localized="@Html.Raw($"{startedByText} {inForumText}")"
                        href="@Html.Raw(Current.Get<LinkBuilder>().GetTopicLink(topic.TopicID, topicSubject))">
                     </a>
@@ -122,7 +122,7 @@
                               class="badge text-bg-success"></span>
                     }
 
-                    <a class=" p-0"
+                    <a class=" p-0 text-start"
                        role="button"
                        button-style="@ButtonStyle.Link"
                        text="@Html.Raw($"({topic.Forum})")"
@@ -135,7 +135,7 @@
                        text-localized-tag="BY"
                        text-param0="@Html.Raw(Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName)"
                        bs-content="@infoData"
-                       class=" topic-link-popover p-0"
+                       class=" topic-link-popover p-0 text-start"
                        bs-toggle="popover"></a>
 
                 </li>

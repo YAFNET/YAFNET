@@ -4,7 +4,7 @@
     <id>YAFNET.Web</id>
 	<title>YAFNET.Web</title>
 	<copyright>Copyright © YetAnotherForum.NET and Ingo Herbote. All rights reserved</copyright>
-    <version>4.0.0-beta07</version>
+    <version>4.0.0-beta09</version>
     <authors>Ingo Herbote</authors>
     <owners>Ingo Herbote, YAFNET</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -18,7 +18,7 @@
     <dependencies>
 		<group targetFramework="net8.0">
 			<dependency id="GoogleAuthenticator" version="3.2.0" exclude="Build,Analyzers" />
-			<dependency id="MailKit" version="4.3.0" exclude="Build,Analyzers" />
+			<dependency id="MailKit" version="4.6.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.CSharp" version="4.7.0" exclude="Build,Analyzers" />
 			<dependency id="Newtonsoft.Json" version="13.0.3" exclude="Build,Analyzers" />
 			<dependency id="OEmbed.Core" version="2.0.2" exclude="Build,Analyzers" />

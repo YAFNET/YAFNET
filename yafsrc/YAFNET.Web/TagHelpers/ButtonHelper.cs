@@ -340,7 +340,7 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
         // Render normal Text
         if (this.Text.IsSet())
         {
-            spanTextTag.InnerHtml.Append(this.Text);
+            spanTextTag.InnerHtml.AppendHtml(this.Text);
         }
 
         if (this.TextLocalizedTag.IsSet() || this.Text.IsSet())
