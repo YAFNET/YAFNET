@@ -42,5 +42,5 @@ public enum Browser
     /// <summary>
     /// The firefox browser.
     /// </summary>
-    Webkit,
+    Webkit
 }

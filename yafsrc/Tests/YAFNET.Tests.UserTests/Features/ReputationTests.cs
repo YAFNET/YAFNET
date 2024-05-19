@@ -43,7 +43,7 @@ public class ReputationTests : TestBase
             this.Base.TestSettings.TestForumUrl,
             async page =>
                 {
-                    Assert.Multiple(async () =>
+                    await Assert.MultipleAsync(async () =>
                     {
                         // Log user in first!
                         Assert.That(
@@ -98,7 +98,7 @@ public class ReputationTests : TestBase
             this.Base.TestSettings.TestForumUrl,
             async page =>
                 {
-                    Assert.Multiple(async () =>
+                    await Assert.MultipleAsync(async () =>
                     {
                         // Log user in first!
                         Assert.That(

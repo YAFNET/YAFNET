@@ -66,7 +66,7 @@ public class ManageUserTests : TestBase
                     "//a[contains(@href,'EditUser')]",
                     new PageLocatorOptions { HasText = "TestUser" });
 
-                Assert.Multiple(
+                await Assert.MultipleAsync(
                     async () =>
                     {
                         Assert.That(

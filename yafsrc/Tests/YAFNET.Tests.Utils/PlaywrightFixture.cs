@@ -61,7 +61,7 @@ public class PlaywrightFixture
     /// </summary>
     public async Task InitializeAsync(string url)
     {
-        var launchOptions = new BrowserTypeLaunchOptions { Headless = true, };
+        var launchOptions = new BrowserTypeLaunchOptions { Headless = true };
 
         // Install Playwright and its dependencies.
         InstallPlaywright();
@@ -74,7 +74,8 @@ public class PlaywrightFixture
 
         // Create the host factory with the App class as parameter and the
         // url we are going to use.
-        var hostFactory = new WebTestingHostFactory<AssemblyClassLocator>();
+        var hostFactory = new WebTestingHostFactory<Startup>();
+
         hostFactory
             // Override host configuration to mock stuff if required.
             .WithWebHostBuilder(
@@ -210,7 +211,7 @@ public class PlaywrightFixture
                 Browser.Chromium => this.ChromiumBrowser.Value,
                 Browser.Firefox => this.FirefoxBrowser.Value,
                 Browser.Webkit => this.WebkitBrowser.Value,
-                _ => throw new NotImplementedException(),
+                _ => throw new NotImplementedException()
             };
     }
 

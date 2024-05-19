@@ -86,7 +86,7 @@ public class TestConfig
     /// <summary>
     /// Gets Test Forum Url.
     /// </summary>
-    public string TestForumUrl { get; set; } = $"https://localhost:{PlaywrightFixture.GetRandomUnusedPort()}";
+    public string TestForumUrl { get; set; } = $"https://localhost:{PlaywrightFixture.GetRandomUnusedPort()}/";
 
     /// <summary>
     /// Gets the test forum mail.

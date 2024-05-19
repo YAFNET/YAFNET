@@ -72,7 +72,7 @@ public class PollTests : TestBase
             this.Base.TestSettings.TestForumUrl,
             async page =>
                 {
-                    Assert.Multiple(async () =>
+                    await Assert.MultipleAsync(async () =>
                     {
                         // Log user in first!
                         Assert.That(

@@ -156,7 +156,7 @@ public class MessageTests : TestBase
             this.Base.TestSettings.TestForumUrl,
             async page =>
                 {
-                    Assert.Multiple(async () =>
+                    await Assert.MultipleAsync(async () =>
                     {
                         // Log user in first!
                         Assert.That(
@@ -246,7 +246,7 @@ public class MessageTests : TestBase
                     await page.Locator("//input[contains(@id,'multiQuote')]").Nth(2).CheckAsync();
                     await page.Locator("//input[contains(@id,'multiQuote')]").Nth(3).CheckAsync();
 
-                    await page.GetByRole(AriaRole.Button, new() { Name = " Reply" }).Last.ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Reply" }).Last.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 

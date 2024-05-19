@@ -87,7 +87,9 @@ public class AlbumTests : TestBase
                         "New Album Creating Failed");
                 },
             this.BrowserType);
-    }/// <summary>
+    }
+    
+    /// <summary>
     /// Add an additional image test.
     /// </summary>
     [Test, Order(2)]
@@ -116,7 +118,7 @@ public class AlbumTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.Multiple(async () =>
+                    await Assert.MultipleAsync(async () =>
                     {
                         Assert.That(pageSource, Does.Contain("albums"), "Albums Feature is not available for that User");
 
@@ -124,7 +126,7 @@ public class AlbumTests : TestBase
                     });
 
                     // Edit Album
-                    await page.GetByRole(AriaRole.Button, new() { Name = "Edit" }).First.ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Edit" }).First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
@@ -172,7 +174,7 @@ public class AlbumTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.Multiple(async () =>
+                    await Assert.MultipleAsync(async () =>
                     {
                         Assert.That(pageSource, Does.Contain("albums"), "Albums Feature is not available for that User");
 
@@ -229,7 +231,7 @@ public class AlbumTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.Multiple(async () =>
+                    await Assert.MultipleAsync(async () =>
                     {
                         Assert.That(pageSource, Does.Contain("albums"), "Albums Feature is not available for that User");
 
@@ -288,7 +290,7 @@ public class AlbumTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.Multiple(async () =>
+                    await Assert.MultipleAsync(async () =>
                     {
                         Assert.That(pageSource, Does.Contain("albums"), "Albums Feature is not available for that User");
 
@@ -352,7 +354,7 @@ public class AlbumTests : TestBase
 
                 pageSource = await page.ContentAsync();
 
-                Assert.Multiple(async () =>
+                await Assert.MultipleAsync(async () =>
                 {
                     Assert.That(pageSource, Does.Contain("albums"), "Albums Feature is not available for that User");
 
@@ -409,7 +411,7 @@ public class AlbumTests : TestBase
 
                 pageSource = await page.ContentAsync();
 
-                Assert.Multiple(async () =>
+                await Assert.MultipleAsync(async () =>
                 {
                     Assert.That(pageSource, Does.Contain("albums"), "Albums Feature is not available for that User");
 
