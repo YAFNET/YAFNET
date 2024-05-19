@@ -15,6 +15,7 @@
                             @Html.LocalizedText("AD_USERNAME")
                         </span>
                         <message message="@Current.BoardSettings.AdPost" 
+                                 is-ad="true"
                                  signature="@(Current.Get<ILocalization>().GetText("AD_SIGNATURE"))"
                                  message-flags="@(new MessageFlags { IsLocked = true, NotFormatted = true })"></message>
                     </div>

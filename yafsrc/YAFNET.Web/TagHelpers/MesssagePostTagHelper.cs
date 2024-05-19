@@ -97,6 +97,12 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     public bool ShowSignature { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets a value indicating whether this instance is ad.
+    /// </summary>
+    /// <value><c>true</c> if this instance is ad; otherwise, <c>false</c>.</value>
+    public bool IsAd { get; set; }
+
+    /// <summary>
     /// Gets or sets the display user id.
     /// </summary>
     public int? DisplayUserId { get; set; }
@@ -149,8 +155,8 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// Gets CustomBBCode.
     /// </summary>
     protected IDictionary<BBCode, Regex> CustomBBCode {
-        get =>
-            this.Get<IObjectStore>().GetOrSet(
+        get {
+            return this.Get<IObjectStore>().GetOrSet(
                 "CustomBBCodeRegExDictionary",
                 () =>
                 {
@@ -161,6 +167,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                             codeRow => codeRow,
                             codeRow => new Regex(codeRow.SearchRegex, Options, TimeSpan.FromMilliseconds(100)));
                 });
+        }
     }
 
     /// <summary>
@@ -469,14 +476,22 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// </param>
     async protected virtual Task RenderSimpleMessageAsync(TagHelperOutput output)
     {
-        var formattedMessage = this.Get<IFormatMessage>().Format(
-            0,
-            this.HighlightMessage(this.Message, true),
-            this.MessageFlags);
+        if (this.IsAd)
+        {
+            // just write out the message with no formatting...
+            output.Content.AppendHtml(this.Message);
+        }
+        else
+        {
+            var formattedMessage = this.Get<IFormatMessage>().Format(
+                0,
+                this.HighlightMessage(this.Message, true),
+                this.MessageFlags);
 
-        // tha_watcha : Since HTML message and BBCode can be mixed now, message should be always replace BBCode
-        output.Content.AppendHtml(
-            await this.RenderModulesInBBCodeAsync(formattedMessage, this.MessageFlags, this.DisplayUserId, 0));
+            // tha_watcha : Since HTML message and BBCode can be mixed now, message should be always replace BBCode
+            output.Content.AppendHtml(
+                await this.RenderModulesInBBCodeAsync(formattedMessage, this.MessageFlags, this.DisplayUserId, 0));
+        }
     }
 
     /// <summary>
