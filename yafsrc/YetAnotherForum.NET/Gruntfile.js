@@ -426,8 +426,7 @@ module.exports = function(grunt) {
                     'Scripts/forum/yaf.Notify.js',
                     'Scripts/forum/yaf.Paging.js',
                     'Scripts/forum/yaf.Main.js',
-                    'Scripts/forum/yaf.contextMenu.js',
-                    'Scripts/forum/color-modes.js'
+                    'Scripts/forum/yaf.contextMenu.js'
                 ],
                 dest: 'Scripts/ForumAdminExtensions.js'
             },
@@ -453,8 +452,7 @@ module.exports = function(grunt) {
                     'Scripts/forum/yaf.Notify.js',
                     'Scripts/forum/yaf.Paging.js',
                     'Scripts/forum/yaf.Main.js',
-                    'Scripts/forum/yaf.contextMenu.js',
-                    'Scripts/forum/color-modes.js'
+                    'Scripts/forum/yaf.contextMenu.js'
                 ],
                 dest: 'Scripts/ForumAdminExtensionsDnn.js'
             },

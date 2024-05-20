@@ -33,10 +33,6 @@ We have a preliminary documentation on the [Github Wiki](https://github.com/YAFN
 
 YAF v3.x.x is also available as a DNN Module, you can download it on the [GitHub Project Page](https://github.com/YAFNET/YAFNET-DNN)
 
-### Demo Forum
-
-A "sandbox" test forum is available here: https://testforum.yetanotherforum.net/.
-
 ### Screen Shots
 
 ![mainscreen](https://yetanotherforum.net/assets/img/main.png)

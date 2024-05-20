@@ -46,6 +46,9 @@ public class Migration91 : MigrationBase
         this.Db.DropTable<NntpServer>();
 
         // Reset TwoFactorEnabled User Settings
-        this.Db.UpdateOnly(() => new AspNetUsers { TwoFactorEnabled = false }, a => a.TwoFactorEnabled == true);
+        if (!Config.IsDotNetNuke)
+        {
+            this.Db.UpdateOnly(() => new AspNetUsers { TwoFactorEnabled = false }, a => a.TwoFactorEnabled == true);
+        }
     }
 }
