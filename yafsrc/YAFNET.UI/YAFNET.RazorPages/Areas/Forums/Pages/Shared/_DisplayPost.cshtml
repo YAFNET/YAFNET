@@ -20,6 +20,8 @@
 
 @inject BoardContext Current
 
+@inject IHttpContextAccessor Context
+
 @{
     var postData = new PostDataHelperWrapper(Model);
     var messageRowCssClass = string.Empty;
@@ -29,6 +31,8 @@
     var addReputationVisible = false;
     var removeReputationVisible = false;
     var toolsVisible = true;
+
+    var request = Context.HttpContext.Request;
 
     if (Current.IsGuest)
     {
@@ -478,7 +482,8 @@
                                     @if (quoteVisible)
                                     {
                                         <a button-style="None"
-                                           Icon="quote-left"
+                                           icon="reply"
+                                           icon-bade="quote-left"
                                            text-localized-tag="BUTTON_QUOTE_TT"
                                            bs-toggle="tooltip"
                                            title-localized-tag="BUTTON_QUOTE_TT"
@@ -494,8 +499,11 @@
 	                                                text-localized-tag="QUICKREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
 	                                                type="button"
 	                                                Icon="reply"
-	                                                bs-toggle="modal"
-	                                                bs-target="QuickReplyDialog"
+	                                                icon-bade="window-maximize"
+                                                    icon-mobile-only="true"
+                                                    bs-toggle="ajax-modal"
+                                                    bs-target="QuickReplyDialog"
+	                                                bs-target-url="@Url.Page("Posts", "QuickReply", new { name = request.GetQueryOrRouteValue<string>("name"), t = request.GetQueryOrRouteValue<int>("t"), p =  request.Query["p"], m = request.Query["m"]})"
 	                                                class="dropdown-item"></button>
                                         }
 
@@ -673,16 +681,17 @@
                                             {
                                                 @if (Current.BoardSettings.ShowQuickAnswer)
                                                 {
-	                                                var request = Current.Get<IHttpContextAccessor>().HttpContext.Request;
-
 	                                                <a button-style="Link"
-                                                       title-localized-tag="BUTTON_POSTREPLY_TT"
-                                                       Icon="reply"
-                                                       bs-target="QuickReplyDialog"
+	                                                   title-localized-tag="BUTTON_POSTREPLY_TT"
+	                                                   Icon="reply"
+                                                       icon-bade="window-maximize"
+	                                                   icon-mobile-only="true"
 	                                                   icon-color="text-primary"
 	                                                   text-localized-tag="QUICKREPLY"
 	                                                   bs-toggle="ajax-modal"
-                                                       bs-target-url="@Url.Page("Posts", "QuickReply", new { name = request.GetQueryOrRouteValue<string>("name"), t = request.GetQueryOrRouteValue<int>("t"), p =  request.Query["p"], m = request.Query["m"]})"></a>
+	                                                   bs-target="QuickReplyDialog"
+	                                                   bs-target-url="@Url.Page("Posts", "QuickReply", new { name = request.GetQueryOrRouteValue<string>("name"), t = request.GetQueryOrRouteValue<int>("t"), p = request.Query["p"], m = request.Query["m"] })">
+	                                                </a>
                                                 }
 
                                                 <a button-style="Link"
@@ -698,7 +707,8 @@
                                             @if (quoteVisible)
                                             {
                                                 <a button-style="Link"
-                                                   icon="quote-left"
+                                                   icon="reply"
+                                                   icon-bade="quote-left"
                                                    icon-color="text-primary"
                                                    icon-mobile-only="true"
                                                    bs-toggle="tooltip"

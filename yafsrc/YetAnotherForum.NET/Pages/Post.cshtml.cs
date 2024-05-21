@@ -136,6 +136,19 @@ public class PostModel : ForumPage
     }
 
     /// <summary>
+    /// Called when [get quick reply dialog].
+    /// </summary>
+    /// <returns>PartialViewResult.</returns>
+    public PartialViewResult OnGetQuickReply()
+    {
+        this.Get<IDataCache>().Set("TopicID", this.PageBoardContext.PageTopicID, TimeSpan.FromMinutes(5));
+        return new PartialViewResult
+        {
+            ViewName = "Dialogs/QuickReply", ViewData = new ViewDataDictionary<QuickReplyModal>(this.ViewData, new QuickReplyModal())
+        };
+    }
+
+    /// <summary>
     /// The post reply link_ click.
     /// </summary>
     public IActionResult OnPostReplyLink()

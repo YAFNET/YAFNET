@@ -23,7 +23,7 @@
     }
 
     const getStoredTheme = () => getCookie('YAF-Theme');
-    const setStoredTheme = theme => document.cookie = encodeURIComponent('YAF-Theme') + '=' + encodeURIComponent(theme) + '; path=/';
+    const setStoredTheme = theme => document.cookie = `${encodeURIComponent('YAF-Theme')}=${encodeURIComponent(theme)}; path=/`;
 
     const getPreferredTheme = () => {
         const storedTheme = getStoredTheme();
@@ -88,6 +88,8 @@
                 toggle.addEventListener('click', () => {
                     const theme = toggle.getAttribute('data-bs-theme-value');
                     setStoredTheme(theme);
+                    setTheme(theme);
+                    showActiveTheme(theme, true);
                 });
             });
     });

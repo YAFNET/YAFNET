@@ -25,16 +25,16 @@
 namespace YAF.Web.TagHelpers;
 
 using System.ComponentModel;
-
-using YAF.Types.Attributes;
+using Lucene.Net.Util.Fst;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 /// <summary>
 /// Class ButtonHelper.
-/// Implements the <see cref="Microsoft.AspNetCore.Razor.TagHelpers.TagHelper" />
-/// Implements the <see cref="YAF.Types.Interfaces.IHaveServiceLocator" />
+/// Implements the <see cref="TagHelper" />
+/// Implements the <see cref="IHaveServiceLocator" />
 /// </summary>
-/// <seealso cref="Microsoft.AspNetCore.Razor.TagHelpers.TagHelper" />
-/// <seealso cref="YAF.Types.Interfaces.IHaveServiceLocator" />
+/// <seealso cref="TagHelper" />
+/// <seealso cref="IHaveServiceLocator" />
 [HtmlTargetElement("button")]
 [HtmlTargetElement("a")]
 public class ButtonHelper : TagHelper, IHaveServiceLocator
@@ -71,6 +71,12 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
     /// The icon.
     /// </value>
     public string Icon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon bade.
+    /// </summary>
+    /// <value>The icon bade.</value>
+    public string IconBade { get; set; }
 
     /// <summary>
     /// Gets or sets the icon CSS Class.
@@ -180,7 +186,22 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
     /// <summary>
     ///   Gets or sets ServiceLocator.
     /// </summary>
+    /// 
     public IServiceLocator ServiceLocator { get; set; }
+
+
+    /// <summary>
+    /// The HTML
+    /// </summary>
+    private readonly IHtmlHelper html;
+
+    /// <summary>
+    /// Gets or sets the view context.
+    /// </summary>
+    /// <value>The view context.</value>
+    [HtmlAttributeNotBound]
+    [ViewContext]
+    public ViewContext ViewContext { get; set; }
 
     /// <summary>
     /// The process.
@@ -193,6 +214,8 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
     /// </param>
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
+        (this.html as IViewContextAware)?.Contextualize(this.ViewContext);
+
         var actionClass = GetAttributeValue(this.ButtonStyle);
 
         var cssClass = new StringBuilder();
@@ -287,25 +310,14 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
         // Render Icon
         if (this.Icon.IsSet())
         {
-            var iconColorClass = this.IconColor.IsSet() ? $" {this.IconColor}" : this.IconColor;
-
-            var iconCssClass = this.IconCssClass.IsSet() ? this.IconCssClass : "fa";
-
-            var iconTag = new TagBuilder("i");
-
-            // space separator only for icon + text
-            if (this.TextLocalizedTag.IsSet() || this.Text.IsSet())
+            if (this.IconBade.IsSet())
             {
-                iconTag.AddCssClass($"{iconCssClass} fa-{this.Icon} fa-fw {iconColorClass} me-1");
+                output.Content.AppendHtml(html.IconBadge(this.Icon, this.IconBade));
             }
             else
             {
-                iconTag.AddCssClass($"{iconCssClass} fa-{this.Icon} fa-fw {iconColorClass}");
+                output.Content.AppendHtml(RenderIcon());
             }
-
-            iconTag.TagRenderMode = TagRenderMode.Normal;
-
-            output.Content.AppendHtml(iconTag);
         }
 
         // Render span
@@ -374,6 +386,33 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
 
             output.Attributes.SetAttribute("title", title);
         }
+    }
+
+    /// <summary>
+    /// Renders the icon.
+    /// </summary>
+    /// <returns>TagBuilder.</returns>
+    public TagBuilder RenderIcon()
+    {
+        var iconColorClass = this.IconColor.IsSet() ? $" {this.IconColor}" : this.IconColor;
+
+        var iconCssClass = this.IconCssClass.IsSet() ? this.IconCssClass : "fa";
+
+        var iconTag = new TagBuilder("i");
+
+        // space separator only for icon + text
+        if (this.TextLocalizedTag.IsSet() || this.Text.IsSet())
+        {
+            iconTag.AddCssClass($"{iconCssClass} fa-{this.Icon} fa-fw {iconColorClass} me-1");
+        }
+        else
+        {
+            iconTag.AddCssClass($"{iconCssClass} fa-{this.Icon} fa-fw {iconColorClass}");
+        }
+
+        iconTag.TagRenderMode = TagRenderMode.Normal;
+
+        return iconTag;
     }
 
     /// <summary>
