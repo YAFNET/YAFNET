@@ -47,7 +47,6 @@ using Microsoft.Extensions.Logging;
 
 using YAF.Configuration;
 using YAF.Core.Context;
-using YAF.Core.Model;
 using YAF.Types.Constants;
 using YAF.Types.Extensions;
 using YAF.Types.Models;
@@ -316,10 +315,10 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         try
         {
-            var name = message.UserName ?? (message.UserDisplayName ?? string.Empty);
+            var name = message.UserName ?? message.UserDisplayName ?? string.Empty;
             var userDisplayName = message.UserDisplayName ?? string.Empty;
             var userStyle = message.UserStyle ?? string.Empty;
-            var description = message.Description ?? (message.Topic ?? string.Empty);
+            var description = message.Description ?? message.Topic ?? string.Empty;
 
             var doc = new Document
                           {
@@ -588,6 +587,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             var userDisplayName = message.UserDisplayName ?? string.Empty;
             var userStyle = message.UserStyle ?? string.Empty;
             var description = message.Description ?? message.Topic ?? string.Empty;
+            var topicTags = message.TopicTags.IsNotSet() ? string.Empty : message.TopicTags;
 
             var doc = new Document
                           {
@@ -606,7 +606,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                               new TextField("Description", description, Field.Store.YES),
                               new TextField(
                                   "TopicTags",
-                                  message.TopicTags,
+                                  topicTags,
                                   Field.Store.YES)
                           };
 
