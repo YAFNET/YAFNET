@@ -88,6 +88,8 @@
                 toggle.addEventListener('click', () => {
                     const theme = toggle.getAttribute('data-bs-theme-value');
                     setStoredTheme(theme);
+                    setTheme(theme);
+                    showActiveTheme(theme, true);
                 });
             });
     });

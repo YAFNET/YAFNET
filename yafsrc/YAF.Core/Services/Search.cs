@@ -310,10 +310,10 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         try
         {
-            var name = message.UserName ?? (message.UserDisplayName ?? string.Empty);
+            var name = message.UserName ?? message.UserDisplayName ?? string.Empty;
             var userDisplayName = message.UserDisplayName ?? string.Empty;
             var userStyle = message.UserStyle ?? string.Empty;
-            var description = message.Description ?? (message.Topic ?? string.Empty);
+            var description = message.Description ?? message.Topic ?? string.Empty;
 
             var doc = new Document
                           {
@@ -579,10 +579,11 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         try
         {
-            var name = message.UserName ?? (message.UserDisplayName ?? string.Empty);
+            var name = message.UserName ?? message.UserDisplayName ?? string.Empty;
             var userDisplayName = message.UserDisplayName ?? string.Empty;
             var userStyle = message.UserStyle ?? string.Empty;
-            var description = message.Description ?? (message.Topic ?? string.Empty);
+            var description = message.Description ?? message.Topic ?? string.Empty;
+            var topicTags = message.TopicTags.IsNotSet() ? string.Empty : message.TopicTags;
 
             var doc = new Document
                           {
@@ -599,9 +600,10 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                               new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
                               new StoredField("AuthorStyle", userStyle),
                               new TextField("Description", description, Field.Store.YES),
+
                               new TextField(
                                   "TopicTags",
-                                  message.TopicTags,
+                                  topicTags,
                                   Field.Store.YES)
                           };
 

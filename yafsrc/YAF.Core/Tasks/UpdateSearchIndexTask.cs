@@ -75,7 +75,6 @@ public class UpdateSearchIndexTask : LongBackgroundTask
             var topicTags = this.GetRepository<TopicTag>().ListAll();
 
             foreach (var messages in from forum in forums.Select(forum => forum.Item2)
-                     where forum.LastPosted.HasValue && forum.LastPosted.Value > lastSend
                      select this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.ID, topicTags))
             {
                 this.Get<ISearch>().AddSearchIndexAsync(messages).Wait();
