@@ -16,14 +16,14 @@
 @{
     // Latest forum posts
     // Shows the latest n number of posts on the main forum list page
-    const string CacheKey = Constants.Cache.ActiveDiscussions;
+    const string cacheKey = Constants.Cache.ActiveDiscussions;
 
     List<LatestTopic> activeTopics = null;
 
     if (Current.IsGuest)
     {
         // allow caching since this is a guest...
-        activeTopics = Current.Get<IDataCache>()[CacheKey] as List<LatestTopic>;
+        activeTopics = Current.Get<IDataCache>()[cacheKey] as List<LatestTopic>;
     }
 
     if (activeTopics is null)
@@ -40,7 +40,7 @@
 
         if (Current.IsGuest)
         {
-            Current.Get<IDataCache>().Set(CacheKey, activeTopics, TimeSpan.FromMinutes(Current.BoardSettings.ActiveDiscussionsCacheTimeout));
+            Current.Get<IDataCache>().Set(cacheKey, activeTopics, TimeSpan.FromMinutes(Current.BoardSettings.ActiveDiscussionsCacheTimeout));
         }
     }
 }
@@ -133,7 +133,7 @@
                        icon-color="text-secondary"
                        text-localized-page="DEFAULT"
                        text-localized-tag="BY"
-                       text-param0="@Html.Raw(Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName)"
+                       text-param0="@Html.Raw(Current.BoardSettings.EnableDisplayName ? topic.LastUserDisplayName : topic.LastUserName)"
                        bs-content="@infoData"
                        class=" topic-link-popover p-0 text-start"
                        bs-toggle="popover"></a>
