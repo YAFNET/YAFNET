@@ -10988,7 +10988,7 @@ readers do not read off random characters that represent icons */
 /* Extensions */
 .fa-badge {
   position: absolute;
-  left: 35%;
+  left: 20%;
   bottom: 5%;
   font-size: 70%;
   text-shadow: -0.12ex 0 var(--bs-light-border-subtle), -0.1ex -0.1ex var(--bs-light-border-subtle), 0 -0.12ex var(--bs-light-border-subtle), 0.1ex -0.1ex var(--bs-light-border-subtle), 0.12ex 0 var(--bs-light-border-subtle), 0.1ex 0.1ex var(--bs-light-border-subtle), 0 0.12ex var(--bs-light-border-subtle), -0.1ex 0.1ex var(--bs-light-border-subtle);
