@@ -13911,8 +13911,8 @@ textarea.form-control-lg {
 
 .fa-stack {
   display: inline-block;
-  height: 2em;
-  line-height: 2em;
+  height: 1.5em;
+  line-height: 1.5em;
   position: relative;
   vertical-align: middle;
   width: 2.5em;
@@ -13922,7 +13922,7 @@ textarea.form-control-lg {
 .fa-stack-2x {
   left: 0;
   position: absolute;
-  text-align: center;
+  text-align: left;
   width: 100%;
   z-index: var(--fa-stack-z-index, auto);
 }
@@ -23944,8 +23944,8 @@ readers do not read off random characters that represent icons */
 /* Extensions */
 .fa-badge {
   position: absolute;
-  right: 16%;
-  bottom: 15%;
+  left: 20%;
+  bottom: 5%;
   font-size: 70%;
   text-shadow: -0.12ex 0 var(--bs-light-border-subtle), -0.1ex -0.1ex var(--bs-light-border-subtle), 0 -0.12ex var(--bs-light-border-subtle), 0.1ex -0.1ex var(--bs-light-border-subtle), 0.12ex 0 var(--bs-light-border-subtle), 0.1ex 0.1ex var(--bs-light-border-subtle), 0 0.12ex var(--bs-light-border-subtle), -0.1ex 0.1ex var(--bs-light-border-subtle);
 }

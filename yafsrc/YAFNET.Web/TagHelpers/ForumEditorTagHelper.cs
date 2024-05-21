@@ -138,7 +138,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 }
 
                 var toolbar =
-                $"bold,italic,underline,strike|font,size,color|mark|email,link,unlink,quote,code,|image{albums}{attachments}|bulletlist,orderedlist,|left,center,right|indent,outdent|cut,copy,pastetext,removeformat|undo,redo|youtube,vimeo,instagram,facebook,media|extensions|source";
+                $"bold,italic,underline,strike|font,size,color|mark|email,link,unlink,quote,code,|image{albums}{attachments}|bulletlist,orderedlist,|left,center,right|indent,outdent|cut,copy,pastetext,removeformat|undo,redo|youtube,vimeo,instagram,facebook,media|extensions|source|reply";
 
                 var dragDropJs = string.Empty;
 
