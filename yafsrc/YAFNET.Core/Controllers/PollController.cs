@@ -83,7 +83,7 @@ public class PollController : ForumBaseController
         var userPollVotes = this.GetRepository<PollVote>().VoteCheck(poll.ID, this.PageBoardContext.PageUserID);
 
         var isClosed = this.Get<PollService>().IsPollClosed(poll);
-        var canVote = forumAccess.VoteAccess && !userPollVotes.HasItems() && userPollVotes.TrueForAll(v => choiceId != v.ChoiceID)
+        var canVote = forumAccess.VoteAccess && (userPollVotes.NullOrEmpty() || userPollVotes.TrueForAll(v => choiceId != v.ChoiceID))
                       || poll.PollFlags.AllowMultipleChoice && forumAccess.VoteAccess
                                                             && userPollVotes.TrueForAll(v => choiceId != v.ChoiceID);
 

@@ -83,7 +83,7 @@ public static class EnumerableExtensions
     /// <returns> </returns>
     public static IEnumerable<T> IfNullEmpty<T>(this IEnumerable<T> currentEnumerable)
     {
-        return currentEnumerable ?? Enumerable.Empty<T>();
+        return currentEnumerable ?? [];
     }
 
     /// <summary>
