@@ -21,7 +21,7 @@
         "grunt-shell": "^4.0.0",
         "grunt-webpack": "^6.0.0",
         "postcss": "^8.4.38",
-        "sass": "^1.77.0",
+        "sass": "^1.77.2",
         "webpack": "^5.91.0",
         "webpack-merge": "^5.10.0"
     },
@@ -33,7 +33,7 @@
         "bs5-lightbox": "^1.8.3",
         "choices.js": "^10.2.0",
         "codemirror": "^5.65.16",
-        "flag-icons": "^7.2.1",
+        "flag-icons": "^7.2.2",
         "long-press-event": "^2.5.0",
         "prismjs": "^1.29.0",
         "sceditor": "^3.2.0"
