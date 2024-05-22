@@ -142,6 +142,7 @@ public class PostModel : ForumPage
     public PartialViewResult OnGetQuickReply()
     {
         this.Get<IDataCache>().Set("TopicID", this.PageBoardContext.PageTopicID, TimeSpan.FromMinutes(5));
+
         return new PartialViewResult
         {
             ViewName = "Dialogs/QuickReply", ViewData = new ViewDataDictionary<QuickReplyModal>(this.ViewData, new QuickReplyModal())

@@ -19,9 +19,9 @@ namespace ServiceStack.OrmLite.Base.Text;
 
 /// <summary>
 /// Class LicenseException.
-/// Implements the <see cref="System.Exception" />
+/// Implements the <see cref="Exception" />
 /// </summary>
-/// <seealso cref="System.Exception" />
+/// <seealso cref="Exception" />
 public class LicenseException : Exception
 {
     /// <summary>
@@ -314,26 +314,37 @@ public class LicenseKey
     /// </summary>
     /// <value>The reference.</value>
     public string Ref { get; set; }
+
     /// <summary>
     /// Gets or sets the name.
     /// </summary>
     /// <value>The name.</value>
     public string Name { get; set; }
+
     /// <summary>
     /// Gets or sets the type.
     /// </summary>
     /// <value>The type.</value>
     public LicenseType Type { get; set; }
+
     /// <summary>
     /// Gets or sets the meta.
     /// </summary>
     /// <value>The meta.</value>
     public long Meta { get; set; }
+
     /// <summary>
     /// Gets or sets the hash.
     /// </summary>
     /// <value>The hash.</value>
     public string Hash { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Hash Algorithm.
+    /// </summary>
+    /// <value>The Hash Algorithm.</value>
+    public string Halg { get; set; }
+
     /// <summary>
     /// Gets or sets the expiry.
     /// </summary>
@@ -710,11 +721,10 @@ public static class LicenseUtils
         if (envKey == licenseText)
         {
             throw new LicenseException(
-                "Cannot use SERVICESTACK_LICENSE Environment variable with free License Keys, "
-                + "please use Licensing.RegisterLicense() in source code.");
+                "Cannot use SERVICESTACK_LICENSE Environment variable with free License Keys, please use Licensing.RegisterLicense() in source code.");
         }
 
-        LicenseKey key = null;
+        LicenseKey key;
         if (licenseText.StartsWith(IndividualPrefix))
         {
             key = VerifyIndividualLicense(licenseText);
@@ -809,7 +819,7 @@ public static class LicenseUtils
 
         try
         {
-            var rsa = System.Security.Cryptography.RSA.Create();
+            var rsa = RSA.Create();
             rsa.FromXml(LicensePublicKey);
 
 #if !NET7_0_OR_GREATER
@@ -839,6 +849,7 @@ public static class LicenseUtils
         }
         catch
         {
+            //
         }
 
         return null;
@@ -875,18 +886,18 @@ public static class LicenseUtils
 
         try
         {
-            var rsa = System.Security.Cryptography.RSA.Create();
+            var rsa = RSA.Create();
             rsa.FromXml(LicensePublicKey);
 
 #if !NET7_0_OR_GREATER
-            var verified = ((System.Security.Cryptography.RSACryptoServiceProvider)rsa)
-                .VerifyData(keyText.ToUtf8Bytes(), "SHA256", Convert.FromBase64String(keySign));
+            var verified = ((RSACryptoServiceProvider)rsa)
+                    .VerifyData(keyText.ToUtf8Bytes(), "SHA256", Convert.FromBase64String(keySign));
 #else
             var verified = rsa.VerifyData(
                 keyText.ToUtf8Bytes(),
                 Convert.FromBase64String(keySign),
-                System.Security.Cryptography.HashAlgorithmName.SHA256,
-                System.Security.Cryptography.RSASignaturePadding.Pkcs1);
+                HashAlgorithmName.SHA256,
+                RSASignaturePadding.Pkcs1);
 #endif
             if (verified)
             {
@@ -905,6 +916,7 @@ public static class LicenseUtils
         }
         catch
         {
+            //
         }
 
         return null;
@@ -1083,7 +1095,7 @@ public static class LicenseUtils
     /// <param name="key">The key.</param>
     /// <returns>LicenseFeature.</returns>
     /// <exception cref="ArgumentException">Unknown License Type: " + key.Type</exception>
-    /// <exception cref="System.ArgumentException">Unknown License Type: " + key.Type</exception>
+    /// <exception cref="ArgumentException">Unknown License Type: " + key.Type</exception>
     public static LicenseFeature GetLicensedFeatures(this LicenseKey key)
     {
         switch (key.Type)
@@ -1207,22 +1219,34 @@ public static class LicenseUtils
         return $"{key.Ref}:{key.Name}:{key.Expiry:yyyy-MM-dd}:{key.Type}";
     }
 
-    //License Utils
     /// <summary>
     /// Verifies the signed hash.
     /// </summary>
-    /// <param name="DataToVerify">The data to verify.</param>
-    /// <param name="SignedData">The signed data.</param>
-    /// <param name="Key">The key.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool VerifySignedHash(byte[] DataToVerify, byte[] SignedData, RSAParameters Key)
+    /// <param name="dataToVerify">The data to verify.</param>
+    /// <param name="signedData">The signed data.</param>
+    /// <param name="key">The key.</param>
+    /// <returns>bool.</returns>
+    public static bool VerifySignedHash(byte[] dataToVerify, byte[] signedData, RSAParameters key)
+    {
+        using var sha = TextConfig.CreateSha();
+        return VerifySignedHash(dataToVerify, signedData, key, sha);
+    }
+
+    /// <summary>
+    /// Verifies the signed hash.
+    /// </summary>
+    /// <param name="dataToVerify">The data to verify.</param>
+    /// <param name="signedData">The signed data.</param>
+    /// <param name="key">The key.</param>
+    /// <param name="halg">The halg.</param>
+    /// <returns>bool.</returns>
+    public static bool VerifySignedHash(byte[] dataToVerify, byte[] signedData, RSAParameters key, object halg)
     {
         try
         {
-            var RSAalg = new RSACryptoServiceProvider(2048);
-            RSAalg.ImportParameters(Key);
-            return RSAalg.VerifySha1Data(DataToVerify, SignedData);
-
+            var rsAlg = new RSACryptoServiceProvider();
+            rsAlg.ImportParameters(key);
+            return rsAlg.VerifyData(dataToVerify, halg, signedData);
         }
         catch (CryptographicException ex)
         {
@@ -1237,7 +1261,7 @@ public static class LicenseUtils
     /// <param name="licenseKeyText">The license key text.</param>
     /// <returns>LicenseKey.</returns>
     /// <exception cref="ArgumentException">licenseKeyText</exception>
-    /// <exception cref="System.ArgumentException">licenseKeyText</exception>
+    /// <exception cref="ArgumentException">licenseKeyText</exception>
     public static LicenseKey VerifyLicenseKeyText(string licenseKeyText)
     {
 #if NETFX || NET7_0_OR_GREATER
@@ -1268,7 +1292,7 @@ public static class LicenseUtils
     /// </summary>
     /// <param name="rsa">The RSA.</param>
     /// <param name="xml">The XML.</param>
-    private static void FromXml(this System.Security.Cryptography.RSA rsa, string xml)
+    private static void FromXml(this RSA rsa, string xml)
     {
 #if NETFX
         rsa.FromXmlString(xml);
@@ -1356,15 +1380,35 @@ public static class LicenseUtils
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public static bool VerifyLicenseKeyText(this string licenseKeyText, out LicenseKey key)
     {
-        var publicRsaProvider = new System.Security.Cryptography.RSACryptoServiceProvider(2048);
-        publicRsaProvider.FromXml(LicenseUtils.LicensePublicKey);
+        var publicRsaProvider = new RSACryptoServiceProvider(2048);
+        publicRsaProvider.FromXml(LicensePublicKey);
         var publicKeyParams = publicRsaProvider.ExportParameters(false);
 
         key = licenseKeyText.ToLicenseKey();
         var originalData = key.GetHashKeyToSign().ToUtf8Bytes();
         var signedData = Convert.FromBase64String(key.Hash);
 
-        return VerifySignedHash(originalData, signedData, publicKeyParams);
+        var halg = CreateHashAlgorithm(key.Halg);
+        using (halg as IDisposable)
+        {
+            return VerifySignedHash(originalData, signedData, publicKeyParams, halg);
+        }
+    }
+
+    private static object CreateHashAlgorithm(string name)
+    {
+        object halg = name switch
+        {
+            nameof(SHA256) => SHA256.Create(),
+            nameof(SHA384) => SHA384.Create(),
+            nameof(SHA512) => SHA512.Create(),
+#if NET8_0_OR_GREATER
+            nameof(SHA3_256) => SHA3_256.Create(),
+            nameof(SHA3_512) => SHA3_512.Create(),
+#endif
+            _ => SHA1.Create()
+        };
+        return halg;
     }
 
     /// <summary>
@@ -1378,18 +1422,18 @@ public static class LicenseUtils
     /// <exception cref="Exception">Could not convert HashKey to UTF-8, ex</exception>
     /// <exception cref="Exception">Could not convert key.Hash from Base64, ex</exception>
     /// <exception cref="Exception">$"Could not Verify License Key ({originalData.Length}, {signedData.Length}), ex</exception>
-    /// <exception cref="System.Exception">Could not import LicensePublicKey</exception>
-    /// <exception cref="System.Exception">Could not deserialize LicenseKeyText Manually</exception>
-    /// <exception cref="System.Exception">Could not convert HashKey to UTF-8</exception>
-    /// <exception cref="System.Exception">Could not convert key.Hash from Base64</exception>
-    /// <exception cref="System.Exception">Could not Verify License Key ({originalData.Length}, {signedData.Length})</exception>
+    /// <exception cref="Exception">Could not import LicensePublicKey</exception>
+    /// <exception cref="Exception">Could not deserialize LicenseKeyText Manually</exception>
+    /// <exception cref="Exception">Could not convert HashKey to UTF-8</exception>
+    /// <exception cref="Exception">Could not convert key.Hash from Base64</exception>
+    /// <exception cref="Exception">Could not Verify License Key ({originalData.Length}, {signedData.Length})</exception>
     public static bool VerifyLicenseKeyTextFallback(this string licenseKeyText, out LicenseKey key)
     {
-        System.Security.Cryptography.RSAParameters publicKeyParams;
+        RSAParameters publicKeyParams;
         try
         {
-            var publicRsaProvider = new System.Security.Cryptography.RSACryptoServiceProvider(2048);
-            publicRsaProvider.FromXml(LicenseUtils.LicensePublicKey);
+            var publicRsaProvider = new RSACryptoServiceProvider(2048);
+            publicRsaProvider.FromXml(LicensePublicKey);
             publicKeyParams = publicRsaProvider.ExportParameters(false);
         }
         catch (Exception ex)
@@ -1429,25 +1473,15 @@ public static class LicenseUtils
 
         try
         {
-            return VerifySignedHash(originalData, signedData, publicKeyParams);
+            var halg = CreateHashAlgorithm(key.Halg);
+            using (halg as IDisposable)
+            {
+                return VerifySignedHash(originalData, signedData, publicKeyParams, halg);
+            }
         }
         catch (Exception ex)
         {
             throw new Exception($"Could not Verify License Key ({originalData.Length}, {signedData.Length})", ex);
         }
-    }
-
-    /// <summary>
-    /// Verifies the sha1 data.
-    /// </summary>
-    /// <param name="rsAalg">The rs aalg.</param>
-    /// <param name="unsignedData">The unsigned data.</param>
-    /// <param name="encryptedData">The encrypted data.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool VerifySha1Data(this RSACryptoServiceProvider rsAalg, byte[] unsignedData, byte[] encryptedData)
-    {
-        using var sha = TextConfig.CreateSha();
-
-        return rsAalg.VerifyData(unsignedData, sha, encryptedData);
     }
 }

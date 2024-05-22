@@ -44,7 +44,7 @@ public class SqlServerJsonStringConverter : SqlServerStringConverter
     /// <returns>System.Object.</returns>
     public override object ToDbValue(Type fieldType, object value)
     {
-        return value.GetType().HasAttributeCached<SqlJsonAttribute>()
+        return value?.GetType().HasAttributeCached<SqlJsonAttribute>() == true
                    ? JsonSerializer.SerializeToString(value, value.GetType())
                    : base.ToDbValue(fieldType, value);
     }
