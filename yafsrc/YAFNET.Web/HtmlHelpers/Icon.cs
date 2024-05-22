@@ -114,11 +114,11 @@ public static class IconHtmlHelper
 
         var span = new TagBuilder("span");
 
-        span.AddCssClass($"fa-stack me-1 {iconBadgeType}");
+        span.AddCssClass($"fa-stack-badge me-1 {iconBadgeType}");
 
         var iconTag = new TagBuilder("i");
 
-        iconTag.AddCssClass($"fas fa-{iconName} fa-stack-1x");
+        iconTag.AddCssClass($"fas fa-{iconName} fa-stack-badge-1x");
 
         iconTag.TagRenderMode = TagRenderMode.Normal;
 

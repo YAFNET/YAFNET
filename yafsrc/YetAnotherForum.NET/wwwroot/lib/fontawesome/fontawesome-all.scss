@@ -12,7 +12,24 @@
 @import "regular";
 
 /* Extensions */
-.fa-badge {
+.#{$fa-css-prefix}-stack-badge {
+    display: inline-block;
+    height: 1.5em;
+    line-height: 1.5em;
+    position: relative;
+    vertical-align: $fa-stack-vertical-align;
+    width: 1.25em;
+}
+.#{$fa-css-prefix}-stack-badge-1x,
+.#{$fa-css-prefix}-stack-badge-2x {
+    left: 0;
+    position: absolute;
+    text-align: left;
+    width: 100%;
+    z-index: var(--#{$fa-css-prefix}-stack-z-index, #{$fa-stack-z-index});
+}
+
+.#{$fa-css-prefix}-badge {
     position: absolute;
     left: 20%;
     bottom: 5%;
@@ -20,17 +37,17 @@
     text-shadow: -0.12ex 0 var(--bs-light-border-subtle), -0.1ex -0.1ex var(--bs-light-border-subtle), 0 -0.12ex var(--bs-light-border-subtle), 0.1ex -0.1ex var(--bs-light-border-subtle), 0.12ex 0 var(--bs-light-border-subtle), 0.1ex 0.1ex var(--bs-light-border-subtle), 0 0.12ex var(--bs-light-border-subtle), -0.1ex 0.1ex var(--bs-light-border-subtle);
 }
 
-.fa-stack-editor-button {
+.#{$fa-css-prefix}-stack-editor-button {
     display: inline;
     line-height: inherit;
 }
 
-.fa-badge-editor-button {
+.#{$fa-css-prefix}-badge-editor-button {
     position: absolute;
     right: -14px;
     top: 4px;
 }
 
-.fa-stack-1x-editor-button {
+.#{$fa-css-prefix}-stack-1x-editor-button {
     top: -4px;
 }
