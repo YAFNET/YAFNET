@@ -93,7 +93,7 @@ public static class IDateTimeServiceExtensions
     {
         try
         {
-            var dateTime = Convert.ToDateTime(objectDateTime);
+            var dateTime = Convert.ToDateTime(objectDateTime, CultureInfo.InvariantCulture);
             return dateTimeInstance.FormatDateTimeTopic(dateTime);
         }
         catch
