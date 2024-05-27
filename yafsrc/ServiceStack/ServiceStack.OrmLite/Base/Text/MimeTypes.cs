@@ -190,7 +190,7 @@ public static class MimeTypes
             return "." + parts[1].LeftPart('+').LeftPart(';');
         }
 
-        throw new NotSupportedException("Unknown mimeType: " + mimeType);
+        throw new NotSupportedException("Unknown mimeType");
     }
 
     //Lower cases and trims left part of content-type prior ';'

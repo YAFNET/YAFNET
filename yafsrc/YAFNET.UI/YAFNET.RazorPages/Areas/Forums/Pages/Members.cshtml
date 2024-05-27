@@ -152,7 +152,7 @@
             </div>
             <div class="card-body">
                 
-                @Html.AlphaSort(Model.CurrentLetter)
+                @Html.AlphaSort(Model.UserList, Model.CurrentLetter)
 
                 @if (!Model.UserList.NullOrEmpty())
                 {

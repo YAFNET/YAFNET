@@ -30,16 +30,21 @@ namespace YAF.Web.HtmlHelpers;
 public static class AlphaSortHtmlHelper
 {
     /// <summary>
-    /// Render Normal Icon
+    /// Render Member list alpha sort
     /// </summary>
     /// <param name="htmlHelper">
-    /// The html helper.
+    ///     The html helper.
     /// </param>
-    /// <param name="currentLetter"></param>
+    /// <param name="userList">
+    /// The user list.
+    ///  </param>
+    /// <param name="currentLetter">
+    /// The current selected letter.
+    /// </param>
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    public static IHtmlContent AlphaSort(this IHtmlHelper htmlHelper, char currentLetter)
+    public static IHtmlContent AlphaSort(this IHtmlHelper htmlHelper, List<PagedUser> userList, char currentLetter)
     {
         var content = new HtmlContentBuilder();
 
@@ -60,36 +65,36 @@ public static class AlphaSortHtmlHelper
                     // go through all letters in a set
                     t.ForEach(
                         letter =>
+                        {
+                            // create a link to this letter
+                            var link = new TagBuilder("a");
+
+                            link.MergeAttribute(
+                                "title",
+                                context.Get<ILocalization>().GetTextFormatted(
+                                    "ALPHABET_FILTER_BY",
+                                    letter.ToString()));
+
+                            link.MergeAttribute(
+                                "href",
+                                context.Get<LinkBuilder>().GetLink(
+                                    ForumPages.Members,
+                                    new { letter = letter == '#' ? '_' : letter }));
+
+                            link.InnerHtml.Append(letter.ToString());
+
+                            if (selectedLetter != char.MinValue && selectedLetter == letter)
                             {
-                                // create a link to this letter
-                                var link = new TagBuilder("a");
+                                // current letter is selected, use specified style
+                                link.AddCssClass("btn btn-secondary active");
+                            }
+                            else
+                            {
+                                link.AddCssClass("btn btn-secondary");
+                            }
 
-                                link.MergeAttribute(
-                                    "title",
-                                    context.Get<ILocalization>().GetTextFormatted(
-                                        "ALPHABET_FILTER_BY",
-                                        letter.ToString()));
-
-                                link.MergeAttribute(
-                                    "href",
-                                    context.Get<LinkBuilder>().GetLink(
-                                        ForumPages.Members,
-                                        new {letter = letter == '#' ? '_' : letter}));
-
-                                link.InnerHtml.Append(letter.ToString());
-
-                                if (selectedLetter != char.MinValue && selectedLetter == letter)
-                                {
-                                    // current letter is selected, use specified style
-                                    link.AddCssClass("btn btn-secondary active");
-                                }
-                                else
-                                {
-                                    link.AddCssClass("btn btn-secondary");
-                                }
-
-                                buttonGroup.InnerHtml.AppendHtml(link);
-                            });
+                            buttonGroup.InnerHtml.AppendHtml(link);
+                        });
                 });
 
         return content.AppendHtml(buttonGroup);

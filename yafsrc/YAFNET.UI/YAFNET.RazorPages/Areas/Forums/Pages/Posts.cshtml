@@ -110,7 +110,7 @@
 	<div class="col">
             <nav class="navbar navbar-expand-lg bg-light-subtle">
 			<div class="container-fluid">
-				<a href="@Html.Raw(Model.Get<LinkBuilder>().GetTopicLink(Model.PageBoardContext.PageTopic))" class="navbar-brand pt-0"
+				<a href="@Html.Raw(Model.Get<LinkBuilder>().GetTopicLink(Model.PageBoardContext.PageTopic))" class="navbar-brand pt-0 text-wrap"
 				   title="@Html.Raw(Model.Get<IBadWordReplace>().Replace(Html.HtmlEncode(Model.PageBoardContext.PageTopic.Description)))">
 					@Html.Raw(Model.TopicSubject)
 				</a>

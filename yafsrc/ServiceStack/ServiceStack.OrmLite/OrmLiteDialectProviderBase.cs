@@ -2081,7 +2081,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
 
                 if (fieldDef == null)
                 {
-                    throw new ArgumentException($"Field Definition '{fieldName}' was not found");
+                    throw new ArgumentException("Field Definition was not found", fieldName);
                 }
             }
 

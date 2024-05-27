@@ -182,9 +182,9 @@ forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
         {
             <div class="col-md-4 text-secondary">
                 <div class="card bg-light-subtle card-post-last">
-                    <div class="card-body py-1 ps-2">
-                        @await Html.PartialAsync("_ForumLastPost", forum)
-                    </div>
+	                <div class="card-body py-1 ps-2">
+		                @await Html.PartialAsync("_ForumLastPost", forum)
+	                </div>
                 </div>
             </div>
         }
