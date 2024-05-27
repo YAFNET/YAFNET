@@ -716,22 +716,8 @@ namespace ServiceStack.OrmLite.Base.Text
         /// Implements the <see cref="ObjectAccessor" />
         /// </summary>
         /// <seealso cref="ObjectAccessor" />
-        private sealed class TypeAccessorWrapper : ObjectAccessor
+        sealed class TypeAccessorWrapper(object target, TypeAccessor accessor) : ObjectAccessor
         {
-            /// <summary>
-            /// The accessor
-            /// </summary>
-            private readonly TypeAccessor accessor;
-            /// <summary>
-            /// Initializes a new instance of the <see cref="TypeAccessorWrapper"/> class.
-            /// </summary>
-            /// <param name="target">The target.</param>
-            /// <param name="accessor">The accessor.</param>
-            public TypeAccessorWrapper(object target, TypeAccessor accessor)
-            {
-                this.Target = target;
-                this.accessor = accessor;
-            }
             /// <summary>
             /// Get or Set the value of a named member for the underlying object
             /// </summary>
@@ -739,14 +725,10 @@ namespace ServiceStack.OrmLite.Base.Text
             /// <returns>object.</returns>
             public override object this[string name]
             {
-                get => this.accessor[this.Target, name.ToUpperInvariant()];
-                set => this.accessor[this.Target, name.ToUpperInvariant()] = value;
+                get => accessor[target, name.ToUpperInvariant()];
+                set => accessor[target, name.ToUpperInvariant()] = value;
             }
-            /// <summary>
-            /// The object represented by this instance
-            /// </summary>
-            /// <value>The target.</value>
-            public override object Target { get; }
+            public override object Target => target;
         }
 
         //sealed class DynamicWrapper : ObjectAccessor

@@ -75,7 +75,7 @@
         <nav class="navbar navbar-expand-lg bg-light-subtle">
             <div class="container-fluid">
                 <asp:HyperLink ID="TopicLink" runat="server"
-                           CssClass="navbar-brand pt-0">
+                           CssClass="navbar-brand pt-0 text-wrap">
                 <asp:Label ID="TopicTitle" runat="server"
                            CssClass="topic-title" />
             </asp:HyperLink>

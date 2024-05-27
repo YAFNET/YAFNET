@@ -4,8 +4,8 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
-    <div class="col flex-grow-1 ms-md-3 d-md-none">
-        <div class="nav d-grid gap-2" id="v-pills-tab-dropdown" role="tablist" aria-orientation="vertical">
+    <div class="col flex-grow-1 ms-md-2 d-md-none">
+        <div class="nav d-grid gap-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
              <div class="dropdown d-grid gap-2">
             <YAF:ThemeButton runat="server"
                              CssClass="dropdown-toggle"
@@ -14,42 +14,42 @@
                              TextLocalizedTag="TITLE"
                              TextLocalizedPage="ADMIN_HOSTSETTINGS"></YAF:ThemeButton>
             <div class="dropdown-menu scrollable-dropdown w-100" aria-labelledby="dropdownMenuButton">
-               <a href="#View0" class="nav-link" data-bs-toggle="pill" role="tab">
+               <a href="#View0" class="dropdown-item" data-bs-toggle="pill" role="tab">
                             <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="HEADER_SERVER_INFO" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </a>
-                <a href="#View1" class="nav-link" data-bs-toggle="pill" role="tab">
+                <a href="#View1" class="dropdown-item" data-bs-toggle="pill" role="tab">
                     <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server"
                                         LocalizedTag="HEADER_SETUP" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-        <a href="#View2" class="nav-link" data-bs-toggle="pill" role="tab">
+        <a href="#View2" class="dropdown-item" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server"
                                 LocalizedTag="HOST_FEATURES" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-        <a href="#View3" class="nav-link" data-bs-toggle="pill" role="tab">
+        <a href="#View3" class="dropdown-item" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server"
                                 LocalizedTag="HOST_DISPLAY" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-        <a href="#View4" class="nav-link" data-bs-toggle="pill" role="tab">
+        <a href="#View4" class="dropdown-item" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server"
                                 LocalizedTag="HOST_ADVERTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-                <a href="#View6" class="nav-link" data-bs-toggle="pill" role="tab">
+                <a href="#View6" class="dropdown-item" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel18" runat="server"
                                 LocalizedTag="HOST_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-                <a href="#View8" class="nav-link" data-bs-toggle="pill" role="tab">
+                <a href="#View8" class="dropdown-item" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server"
                                 LocalizedTag="HOST_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-        <a href="#View9" class="nav-link" data-bs-toggle="pill" role="tab">
+        <a href="#View9" class="dropdown-item" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel23" runat="server"
                                 LocalizedTag="HOST_CACHE" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-        <a href="#View10" class="nav-link" data-bs-toggle="pill" role="tab">
+        <a href="#View10" class="dropdown-item" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel24" runat="server"
                                 LocalizedTag="HOST_SEARCH" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-        <a href="#View11" class="nav-link" data-bs-toggle="pill" role="tab">
+        <a href="#View11" class="dropdown-item" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel26" runat="server"
                                 LocalizedTag="HOST_LOG" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
@@ -101,7 +101,7 @@
         </a>
         </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-10">
     <asp:Panel runat="server" ID="HostSettingsTabs" CssClass="tab-content">
 
             <div class="tab-pane fade" id="View0" role="tabpanel">

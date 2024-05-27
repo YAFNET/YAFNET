@@ -12999,7 +12999,9 @@ div#UploadDialog {
 
 /* Select Drop downs */
 .choices-forum {
-  min-width: 450px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
 }
 
 .dropdown-submenu {
