@@ -66,6 +66,8 @@ public class UpdateSearchIndexTask : LongBackgroundTask
                 return;
             }
 
+            var forceUpdate = BoardContext.Current.BoardSettings.ForceUpdateSearchIndex;
+
             var lastSend = GetLastSend();
 
             if (!IsTimeToUpdateSearchIndex(lastSend))
@@ -73,11 +75,18 @@ public class UpdateSearchIndexTask : LongBackgroundTask
                 return;
             }
 
+            // reload all
+            if (forceUpdate)
+            {
+                lastSend = DateTime.MinValue;
+            }
+
             var forums = this.GetRepository<Forum>().ListAll(BoardContext.Current.PageBoardID);
 
             var topicTags = this.GetRepository<TopicTag>().ListAll();
 
             foreach (var messages in from forum in forums.Select(forum => forum.Item2)
+                     where forum.LastPosted.HasValue && forum.LastPosted.Value > lastSend
                      select this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.ID, topicTags))
             {
                 await this.Get<ISearch>().AddSearchIndexAsync(messages);

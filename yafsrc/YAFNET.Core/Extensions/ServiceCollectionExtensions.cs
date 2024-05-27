@@ -119,9 +119,12 @@ public static class ServiceCollectionExtensionsExtensions
     /// <returns>IServiceCollection.</returns>
     public static IServiceCollection AddYafCore(this IServiceCollection services, IConfiguration configuration)
     {
+        var boardConfig = configuration.GetSection("BoardConfiguration").Get<BoardConfiguration>();
+
         services.AddRazorPages(options =>
         {
-            options.Conventions.AddPageRoute("/SiteMap", "Sitemap.xml");
+            options.Conventions.AddPageRoute(boardConfig.Area.IsSet() ? $"/{boardConfig.Area}/SiteMap" : "/SiteMap",
+                "Sitemap.xml");
         });
 
         services.AddControllers();
@@ -135,12 +138,6 @@ public static class ServiceCollectionExtensionsExtensions
         services.AddYafAuthentication(configuration);
 
         services.AddYafInstallLanguages();
-
-        // Mail Configuration
-        services.Configure<MailConfiguration>(configuration.GetSection("MailConfiguration"));
-
-        // Board Configuration
-        services.Configure<BoardConfiguration>(configuration.GetSection("BoardConfiguration"));
 
         services.AddSingleton<IActionContextAccessor, ActionContextAccessor>().AddScoped(
             x => x.GetRequiredService<IUrlHelperFactory>()
