@@ -139,6 +139,12 @@ public static class ServiceCollectionExtensionsExtensions
 
         services.AddYafInstallLanguages();
 
+        // Mail Configuration
+        services.Configure<MailConfiguration>(configuration.GetSection("MailConfiguration"));
+
+        // Board Configuration
+        services.Configure<BoardConfiguration>(configuration.GetSection("BoardConfiguration"));
+
         services.AddSingleton<IActionContextAccessor, ActionContextAccessor>().AddScoped(
             x => x.GetRequiredService<IUrlHelperFactory>()
                 .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));

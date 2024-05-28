@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
 namespace YAF.Pages;
 
 using Microsoft.AspNetCore.Diagnostics;
@@ -33,6 +35,7 @@ using YAF.Types.Extensions;
 /// The error model.
 /// </summary>
 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+[IgnoreAntiforgeryToken]
 public class ErrorModel : ForumPage
 {
     /// <summary>
@@ -46,6 +49,10 @@ public class ErrorModel : ForumPage
     {
     }
 
+    /// <summary>
+    /// Gets or sets the error message.
+    /// </summary>
+    /// <value>The error message.</value>
     public string ErrorMessage { get; set; }
 
     /// <summary>
@@ -57,6 +64,24 @@ public class ErrorModel : ForumPage
     /// The on get.
     /// </summary>
     public IActionResult OnGet()
+    {
+        return this.ShowError();
+    }
+
+    /// <summary>
+    /// Called when [post].
+    /// </summary>
+    /// <returns>IActionResult.</returns>
+    public IActionResult OnPost()
+    {
+        return this.ShowError();
+    }
+
+    /// <summary>
+    /// Shows the error.
+    /// </summary>
+    /// <returns>IActionResult.</returns>
+    private PageResult ShowError()
     {
         var exceptionHandlerPathFeature =
             this.HttpContext.Features.Get<IExceptionHandlerPathFeature>();
