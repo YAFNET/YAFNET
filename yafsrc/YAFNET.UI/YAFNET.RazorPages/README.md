@@ -70,15 +70,6 @@ You add the YAF.NET services and the YAF.NET UI in the Startup.cs of your applic
 public void ConfigureServices(IServiceCollection services)
 {
     ...
-    services.AddRazorPages(options =>
-    {
-      options.Conventions.AddPageRoute("/SiteMap", "Sitemap.xml");
-    }).AddYafRazorPages(this.Environment);
-
-    services.AddControllers();
-
-    services.AddSignalR();
-
     services.AddYafCore(this.Configuration);
     ...
 }

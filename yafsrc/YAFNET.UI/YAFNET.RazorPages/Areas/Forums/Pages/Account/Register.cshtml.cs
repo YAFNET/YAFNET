@@ -327,8 +327,8 @@ public class RegisterModel : AccountPage
         }
 
         if (!(from item in this.Input.CustomProfile
-              let type = item.DataType.ToEnum<Types.Constants.DataType>()
-              where item.Required && type is Types.Constants.DataType.Number or Types.Constants.DataType.Text
+              let type = item.DataType.ToEnum<DataType>()
+              where item.Required && type is DataType.Number or DataType.Text
               select item).Any(item => item.Value.IsNotSet()))
         {
             return true;

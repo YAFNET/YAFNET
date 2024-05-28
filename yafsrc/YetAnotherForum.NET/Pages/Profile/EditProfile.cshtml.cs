@@ -549,11 +549,11 @@ public class EditProfileModel : ProfilePage
         this.Input.CustomProfile.ForEach(
             item =>
             {
-                var type = item.DataType.ToEnum<Types.Constants.DataType>();
+                var type = item.DataType.ToEnum<DataType>();
 
                 switch (type)
                 {
-                    case Types.Constants.DataType.Text:
+                    case DataType.Text:
                     {
                         if (item.Value.IsSet())
                         {
@@ -569,7 +569,7 @@ public class EditProfileModel : ProfilePage
                         break;
                     }
 
-                    case Types.Constants.DataType.Number:
+                    case DataType.Number:
                     {
                         if (item.Value.IsSet())
                         {
@@ -585,7 +585,7 @@ public class EditProfileModel : ProfilePage
                         break;
                     }
 
-                    case Types.Constants.DataType.Check:
+                    case DataType.Check:
                     {
                         this.GetRepository<ProfileCustom>().Insert(
                             new ProfileCustom

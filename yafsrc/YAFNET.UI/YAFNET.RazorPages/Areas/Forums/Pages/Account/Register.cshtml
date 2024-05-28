@@ -97,46 +97,49 @@
                             {
                                 if (Model.Input.CustomProfile[i].Required)
                                 {
-                                    <div class="mb-3">
-                                        @switch (Model.Input.CustomProfile[i].DataType.ToEnum<DataType>())
-                                        {
-                                            case DataType.Text:
-                                                {
-                                                    <label asp-for="Input.CustomProfile[i].Value" class="form-label">@Model.Input.CustomProfile[i].Name</label>
+	                                <div class="mb-3">
+		                                <input type="hidden" asp-for="Input.CustomProfile[i].ID" />
+		                                <input type="hidden" asp-for="Input.CustomProfile[i].DataType" />
 
-                                                    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" required="required"/>
-                                                    <div class="invalid-feedback">
-                                                        @Html.LocalizedTextFormatted("NEED_USERNAME", Model.Input.CustomProfile[i].Name)
-                                                    </div>
+		                                @switch (Model.Input.CustomProfile[i].DataType.ToEnum<DataType>())
+		                                {
+			                                case DataType.Text:
+			                                {
+				                                <label asp-for="Input.CustomProfile[i].Value" class="form-label">@Model.Input.CustomProfile[i].Name</label>
 
-                                                    break;
-                                                }
-                                            case DataType.Number:
-                                                {
-                                                    <label asp-for="Input.CustomProfile[i].Value" class="form-label">@Model.Input.CustomProfile[i].Name</label>
+				                                <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" required="required"/>
+				                                <div class="invalid-feedback">
+					                                @Html.LocalizedTextFormatted("NEED_USERNAME", Model.Input.CustomProfile[i].Name)
+				                                </div>
 
-                                                    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" required="required" type="number"/>
-                                                    <div class="invalid-feedback">
-                                                        @Html.LocalizedTextFormatted("NEED_USERNAME", Model.Input.CustomProfile[i].Name)
-                                                    </div>
+				                                break;
+			                                }
+			                                case DataType.Number:
+			                                {
+				                                <label asp-for="Input.CustomProfile[i].Value" class="form-label">@Model.Input.CustomProfile[i].Name</label>
 
-                                                }
-                                                break;
-                                            case DataType.Check:
-                                                {
-                                                    <div class="form-check form-switch">
-                                                        <input asp-for="Input.CustomProfile[i].Value" class="form-check-input" required="required" type="checkbox" role="switch"/>
-                                                        <label class="form-check-label" asp-for="Input.CustomProfile[i].Value">@Model.Input.CustomProfile[i].Name</label>
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        @Html.LocalizedTextFormatted("NEED_USERNAME", Model.Input.CustomProfile[i].Name)
-                                                    </div>
+				                                <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" required="required" type="number"/>
+				                                <div class="invalid-feedback">
+					                                @Html.LocalizedTextFormatted("NEED_USERNAME", Model.Input.CustomProfile[i].Name)
+				                                </div>
 
-                                                }
-                                                break;
+			                                }
+				                                break;
+			                                case DataType.Check:
+			                                {
+				                                <div class="form-check form-switch">
+					                                <input asp-for="Input.CustomProfile[i].Value" class="form-check-input" required="required" type="checkbox" role="switch"/>
+					                                <label class="form-check-label" asp-for="Input.CustomProfile[i].Value">@Model.Input.CustomProfile[i].Name</label>
+				                                </div>
+				                                <div class="invalid-feedback">
+					                                @Html.LocalizedTextFormatted("NEED_USERNAME", Model.Input.CustomProfile[i].Name)
+				                                </div>
 
-                                        }
-                                    </div>
+			                                }
+				                                break;
+
+		                                }
+	                                </div>
                                 }
                             }
                         }

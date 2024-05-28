@@ -1,28 +1,50 @@
 ﻿@page
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Context
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
 @using YAF.Web.TagHelpers
 @model ErrorModel
 
-<div class="container">
-    <div class="bg-light-subtle p-5 rounded mt-3">
-        <h1 class="display-3">Forum Error</h1>
-        <p class="lead">
-            @Html.Raw(Model.ErrorMessage)
-        </p>
-        <p><button class="btn btn-outline-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseError" aria-expanded="false" aria-controls="collapseError">
-            Show Full Error
-        </button></p>
-        <div class="collapse" id="collapseError">
-            <div class="card card-body">
-                <pre class="stacktrace"><code>@Html.Raw(Model.ErrorDescription)</code></pre>
-            </div>
-        </div>
+@{
+	Layout = null;
+}
 
-        <hr class="my-4"/>
-        <p>
-            Please contact the administrator if this message persists.
-        </p>
-        <p class="lead">
-        <a asp-page="Index" class="btn btn-primary btn-lg" role="button"><i class="fa fa-home"></i> Try Again</a>
-    </div>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="@Html.Raw($"{BoardContext.Current.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}")" />
+	
+	<script src="~/js/themeSelector.min.js"></script>
+</head>
+<body>
+
+
+<div class="container">
+	<div class="bg-light-subtle p-5 rounded mt-3">
+		<h1 class="display-3">Forum Error</h1>
+		<p class="lead">
+			@Html.Raw(Model.ErrorMessage)
+		</p>
+		<p><button class="btn btn-outline-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseError" aria-expanded="false" aria-controls="collapseError">
+			Show Full Error
+		</button></p>
+		<div class="collapse" id="collapseError">
+			<div class="card card-body">
+				<pre class="stacktrace"><code>@Html.Raw(Model.ErrorDescription)</code></pre>
+			</div>
+		</div>
+
+		<hr class="my-4"/>
+		<p>
+			Please contact the administrator if this message persists.
+		</p>
+		<p class="lead">
+		<a asp-page="Index" class="btn btn-primary btn-lg" role="button"><i class="fa fa-home"></i> Try Again</a>
+	</div>
 </div>
+
+</body>
+</html>
