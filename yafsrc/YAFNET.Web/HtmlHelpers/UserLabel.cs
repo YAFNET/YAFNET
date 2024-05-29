@@ -55,7 +55,7 @@ public static class UserLabelHtmlHelper
             span.MergeAttribute("style", HttpUtility.HtmlEncode(styleFormatted));
         }
 
-        span.InnerHtml.AppendHtml(user.DisplayOrUserName());
+        span.InnerHtml.AppendHtml(HttpUtility.HtmlEncode(user.DisplayOrUserName()));
 
         return content.AppendHtml(span);
     }
@@ -86,7 +86,7 @@ public static class UserLabelHtmlHelper
             span.MergeAttribute("style", HttpUtility.HtmlEncode(styleFormatted));
         }
 
-        span.InnerHtml.AppendHtml(crawlerName.IsNotSet() ? userName : crawlerName);
+        span.InnerHtml.AppendHtml(HttpUtility.HtmlEncode(crawlerName.IsNotSet() ? userName : crawlerName));
 
         return content.AppendHtml(span);
     }
