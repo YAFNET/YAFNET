@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-	<Version>4.0.0-rc01</Version>
+	<Version>4.0.0-rc02</Version>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <RootNamespace>YAF.UI.Chat</RootNamespace>
     <Description>Chat UI for YAF.NET.</Description>
@@ -54,9 +54,9 @@
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
-	<PackageReference Include="YAFNET.Core" Version="4.0.0-rc01" />
-	<PackageReference Include="YAFNET.Types" Version="4.0.0-rc01" />
-	<PackageReference Include="YAFNET.Web" Version="4.0.0-rc01" />
+	<PackageReference Include="YAFNET.Core" Version="4.0.0-rc02" />
+	<PackageReference Include="YAFNET.Types" Version="4.0.0-rc02" />
+	<PackageReference Include="YAFNET.Web" Version="4.0.0-rc02" />
   </ItemGroup>
 
 </Project>
