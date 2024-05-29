@@ -4,7 +4,7 @@
     <id>YAFNET.Web</id>
 	<title>YAFNET.Web</title>
 	<copyright>Copyright © YetAnotherForum.NET and Ingo Herbote. All rights reserved</copyright>
-    <version>4.0.0-rc01</version>
+    <version>4.0.0-rc02</version>
     <authors>Ingo Herbote</authors>
     <owners>Ingo Herbote, YAFNET</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
