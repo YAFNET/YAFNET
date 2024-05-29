@@ -1406,7 +1406,7 @@ public static class LicenseUtils
             nameof(SHA3_256) => SHA3_256.Create(),
             nameof(SHA3_512) => SHA3_512.Create(),
 #endif
-            _ => SHA256.Create()
+            _ => SHA1.Create()
         };
         return halg;
     }
