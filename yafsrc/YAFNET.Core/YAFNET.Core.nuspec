@@ -4,7 +4,7 @@
     <id>YAFNET.Core</id>
 	<title>YAFNET.Core</title>
 	<copyright>Copyright © YetAnotherForum.NET and Ingo Herbote. All rights reserved</copyright>
-	<version>4.0.0-beta09</version>
+	<version>4.0.0-rc01</version>
     <authors>Ingo Herbote</authors>
     <owners>Ingo Herbote, YAFNET</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -17,8 +17,8 @@
     <repository type="git" url="https://github.com/YAFNET/YAFNET" />
     <dependencies>
 		<group targetFramework="net8.0">
-			<dependency id="YAFNET.Configuration" version="4.0.0-beta09" exclude="Build,Analyzers" />
-			<dependency id="YAFNET.Types" version="4.0.0-beta09" exclude="Build,Analyzers" />
+			<dependency id="YAFNET.Configuration" version="4.0.0-rc01" exclude="Build,Analyzers" />
+			<dependency id="YAFNET.Types" version="4.0.0-rc01" exclude="Build,Analyzers" />
 			<dependency id="Autofac" version="8.0.0" exclude="Build,Analyzers" />
 			<dependency id="Autofac.Extensions.DependencyInjection" version="9.0.0" exclude="Build,Analyzers" />
 			<dependency id="FarsiLibrary.Core" version="2.8.0" exclude="Build,Analyzers" />
