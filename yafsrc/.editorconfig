@@ -1,6 +1,7 @@
 [*.cs]
 
 dotnet_diagnostic.S3904.severity = none
+dotnet_diagnostic.S6967.severity = none
 
 # CA1711: Identifiers should not have incorrect suffix
 dotnet_diagnostic.CA1711.severity = none
