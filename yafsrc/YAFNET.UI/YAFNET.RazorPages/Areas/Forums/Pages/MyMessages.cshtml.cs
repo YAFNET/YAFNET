@@ -100,7 +100,7 @@ public class MyMessagesModel : ForumPageRegistered
 
         if (u.HasValue)
         {
-            conversationUser = this.GetRepository<User>().GetById(u.Value);
+            conversationUser = await this.GetRepository<User>().GetByIdAsync(u.Value);
 
             if (conversationUser != null && conversationUser.ID != this.PageBoardContext.PageUserID && !conversationUser.Block.BlockPMs)
             {

@@ -195,7 +195,7 @@ public class SettingsModel : AdminPage
     {
         this.CreateLogosList();
 
-        var board = this.GetRepository<Board>().GetById(this.PageBoardContext.PageBoardID);
+        var board = await this.GetRepository<Board>().GetByIdAsync(this.PageBoardContext.PageBoardID);
 
         var boardSettings = this.PageBoardContext.BoardSettings;
 

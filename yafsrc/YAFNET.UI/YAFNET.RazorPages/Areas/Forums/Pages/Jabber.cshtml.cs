@@ -81,7 +81,7 @@ public class JabberModel : ForumPage
         }
 
         // get user data...
-        this.CurrentUser = this.GetRepository<User>().GetById(u.Value);
+        this.CurrentUser = await this.GetRepository<User>().GetByIdAsync(u.Value);
 
         if (this.CurrentUser is null)
         {

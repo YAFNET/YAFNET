@@ -413,7 +413,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
                 var regex = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))",
                     RegexOptions.None,
                     TimeSpan.FromMilliseconds(100));
-                dr.ItemArray = regex.Split(streamReader.ReadLine());
+                dr.ItemArray = regex.Split(await streamReader.ReadLineAsync());
 
                 usersTable.Rows.Add(dr);
             }

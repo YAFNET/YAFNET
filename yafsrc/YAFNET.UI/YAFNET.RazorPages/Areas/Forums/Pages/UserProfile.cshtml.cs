@@ -154,11 +154,16 @@ public class UserProfileModel : ForumPage
             this.CombinedUser.Item1.DisplayOrUserName());
     }
 
+    /// <summary>
+    /// Called when [post suspend asynchronous].
+    /// </summary>
+    /// <param name="u">The u.</param>
+    /// <returns>System.Threading.Tasks.Task.</returns>
     public async Task OnPostSuspendAsync(int u)
     {
         this.BindData(u);
 
-        var access = this.GetRepository<VAccess>().GetSingle(v => v.UserID == u);
+        var access = await this.GetRepository<VAccess>().GetSingleAsync(v => v.UserID == u);
 
         // is user to be suspended admin?
         if (access.IsAdmin > 0)
@@ -193,7 +198,8 @@ public class UserProfileModel : ForumPage
         var count = this.SuspendCount;
 
         // what time units are used for suspending
-        suspend = this.SuspendUnit switch {
+        suspend = this.SuspendUnit switch
+        {
             // days
             "1" =>
                 // add user inserted suspension time to current time

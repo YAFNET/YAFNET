@@ -310,7 +310,7 @@ public class EditForumModel : AdminPage
         // duplicate name checking...
         if (!forumId.HasValue && !this.Input.Copy)
         {
-            var forumList = this.GetRepository<Forum>().Get(f => f.Name == this.Input.Name.Trim());
+            var forumList = await this.GetRepository<Forum>().GetAsync(f => f.Name == this.Input.Name.Trim());
 
             if (forumList.Count != 0 && !this.PageBoardContext.BoardSettings.AllowForumsWithSameName)
             {

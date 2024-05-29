@@ -119,14 +119,6 @@ public static class ServiceCollectionExtensionsExtensions
     /// <returns>IServiceCollection.</returns>
     public static IServiceCollection AddYafCore(this IServiceCollection services, IConfiguration configuration)
     {
-        var boardConfig = configuration.GetSection("BoardConfiguration").Get<BoardConfiguration>();
-
-        services.AddRazorPages(options =>
-        {
-            options.Conventions.AddPageRoute(boardConfig.Area.IsSet() ? $"/{boardConfig.Area}/SiteMap" : "/SiteMap",
-                "Sitemap.xml");
-        });
-
         services.AddControllers();
 
         services.AddSignalR();
@@ -172,6 +164,7 @@ public static class ServiceCollectionExtensionsExtensions
         authenticationBuilder.AddCookie(
             options =>
             {
+                options.Cookie.Expiration = TimeSpan.FromDays(7);
                 options.ExpireTimeSpan = TimeSpan.FromDays(7);
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/Logout";

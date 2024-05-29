@@ -164,7 +164,7 @@ public class EditGroupModel : AdminPage
         if (roleId.HasValue)
         {
             // get the current role name in the DB
-            var group = this.GetRepository<Group>().GetById(roleId.Value);
+            var group = await this.GetRepository<Group>().GetByIdAsync(roleId.Value);
 
             oldRoleName = group.Name;
         }
