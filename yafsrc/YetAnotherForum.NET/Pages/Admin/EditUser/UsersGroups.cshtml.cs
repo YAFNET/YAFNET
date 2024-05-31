@@ -114,7 +114,8 @@ public class UsersGroupsModel : AdminPage
             var roleId = item.GroupID;
 
             // get role name
-            var roleName = this.GetRepository<Group>().GetById(roleId).Name;
+            var role = await this.GetRepository<Group>().GetByIdAsync(roleId);
+            var roleName = role.Name;
 
             // is user supposed to be in that role?
             var isChecked = item.Selected;

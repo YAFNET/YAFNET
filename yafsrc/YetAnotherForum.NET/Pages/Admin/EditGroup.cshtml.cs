@@ -85,7 +85,7 @@ public class EditGroupModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public void OnGet(int? i)
+    public IActionResult OnGet(int? i)
     {
         this.Input = new EditGroupInputModel();
 
@@ -95,7 +95,7 @@ public class EditGroupModel : AdminPage
         // is this editing of existing role or creation of new one?
         if (!i.HasValue)
         {
-            return;
+            return this.Page();
         }
 
         this.Input.Id = i.Value;
@@ -105,8 +105,7 @@ public class EditGroupModel : AdminPage
 
         if (this.Group is null)
         {
-            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-            return;
+            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         // get role flags
@@ -140,6 +139,8 @@ public class EditGroupModel : AdminPage
         this.Input.Description = this.Group.Description;
 
         this.Input.IsGuestX = flags.IsGuest;
+
+        return this.Page();
     }
 
     /// <summary>
@@ -164,7 +165,7 @@ public class EditGroupModel : AdminPage
         if (roleId.HasValue)
         {
             // get the current role name in the DB
-            var group = this.GetRepository<Group>().GetById(roleId.Value);
+            var group = await this.GetRepository<Group>().GetByIdAsync(roleId.Value);
 
             oldRoleName = group.Name;
         }

@@ -41,9 +41,17 @@ using YAF.Types.Objects.Model;
 /// </summary>
 public class MessageHistoryModel : ForumPageRegistered
 {
+    /// <summary>
+    /// Gets or sets the revisions list.
+    /// </summary>
+    /// <value>The revisions list.</value>
     [BindProperty]
     public List<MessageHistoryTopic> RevisionsList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the difference text.
+    /// </summary>
+    /// <value>The difference text.</value>
     [BindProperty]
     public string DiffText { get; set; }
 
@@ -72,9 +80,7 @@ public class MessageHistoryModel : ForumPageRegistered
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
-        this.BindData();
-
-        return this.Page();
+        return this.BindData();
     }
 
     /// <summary>
@@ -206,7 +212,7 @@ public class MessageHistoryModel : ForumPageRegistered
     /// <summary>
     /// Binds data to data source
     /// </summary>
-    private void BindData()
+    private IActionResult BindData()
     {
         // Fill revisions list repeater.
         this.RevisionsList = this.GetRepository<MessageHistory>().List(
@@ -217,16 +223,13 @@ public class MessageHistoryModel : ForumPageRegistered
 
         if (this.RevisionsList.NullOrEmpty())
         {
-            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         var originalMessage = this.GetRepository<Message>().GetMessageWithAccess(
             this.PageBoardContext.PageMessage.ID,
             this.PageBoardContext.PageUserID);
 
-        if (originalMessage is null)
-        {
-            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-        }
+        return originalMessage is null ? this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid) : this.Page();
     }
 }

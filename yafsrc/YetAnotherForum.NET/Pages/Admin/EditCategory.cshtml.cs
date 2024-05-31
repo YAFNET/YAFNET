@@ -96,14 +96,14 @@ public class EditCategoryModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public void OnGet(int? c)
+    public IActionResult OnGet(int? c)
     {
         this.Input = new EditCategoryInputModel();
 
         // Populate Categories
         this.CreateImagesList();
 
-        this.BindData(c);
+        return this.BindData(c);
     }
 
     /// <summary>
@@ -149,19 +149,12 @@ public class EditCategoryModel : AdminPage
     /// <summary>
     /// The bind data.
     /// </summary>
-    private void BindData(int? c)
+    private IActionResult BindData(int? c)
     {
-        if (c.HasValue)
-        {
-            this.BindExisting();
-        }
-        else
-        {
-            this.BindNew();
-        }
+        return c.HasValue ? this.BindExisting() : this.BindNew();
     }
 
-    private void BindNew()
+    private IActionResult BindNew()
     {
         // Currently creating a New Category, and auto fill the Category Sort Order + 1
         var sortOrder = 1;
@@ -176,16 +169,17 @@ public class EditCategoryModel : AdminPage
         }
 
         this.Input.SortOrder = sortOrder;
+
+        return this.Page();
     }
 
-    private void BindExisting()
+    private IActionResult BindExisting()
     {
         var category = this.PageBoardContext.PageCategory;
 
         if (category is null)
         {
-            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-            return;
+            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.Input.Name = category.Name;
@@ -194,5 +188,7 @@ public class EditCategoryModel : AdminPage
         this.Input.Active = category.CategoryFlags.IsActive;
 
         this.Input.CategoryImage = category.CategoryImage;
+
+        return this.Page();
     }
 }

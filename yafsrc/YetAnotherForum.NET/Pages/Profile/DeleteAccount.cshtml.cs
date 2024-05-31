@@ -103,7 +103,7 @@ public class DeleteAccountModel : ProfilePage
                     "User Suspended his own account",
                     this.PageBoardContext.PageUserID);
 
-                var user = this.GetRepository<User>().GetById(
+                var user = await this.GetRepository<User>().GetByIdAsync(
                     this.PageBoardContext.PageUserID);
 
                 if (user != null)

@@ -143,7 +143,7 @@ public class TestDataModel : AdminPage
                 this.Input.TopicsNumber,
                 this.Input.TopicsMessagesNumber));
 
-        var topic = this.GetRepository<Topic>().GetById(this.Input.PostsTopic);
+        var topic = await this.GetRepository<Topic>().GetByIdAsync(this.Input.PostsTopic);
 
         sb.AppendFormat(
             "{0} Messages, ",
@@ -164,7 +164,7 @@ public class TestDataModel : AdminPage
     public IActionResult OnGet()
     {
 #if RELEASE
-        this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+        return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
 #endif
         this.Input = new TestDataInputModel {
                                         UsersBoardsList = this.PageBoardContext.PageBoardID,

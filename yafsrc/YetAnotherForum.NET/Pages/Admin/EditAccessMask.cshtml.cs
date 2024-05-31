@@ -69,10 +69,11 @@ public class EditAccessMaskModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public  void OnGet(int? i)
+    public IActionResult OnGet(int? i)
     {
         this.Input = new EditAccessMaskInputModel();
-        this.BindData(i);
+
+        return this.BindData(i);
     }
 
     /// <summary>
@@ -103,7 +104,7 @@ public class EditAccessMaskModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData(int? i)
+    private IActionResult BindData(int? i)
     {
         if (i.HasValue)
         {
@@ -131,7 +132,7 @@ public class EditAccessMaskModel : AdminPage
             }
             else
             {
-                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+                return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
         }
         else
@@ -140,5 +141,7 @@ public class EditAccessMaskModel : AdminPage
                 (this.GetRepository<AccessMask>().Count(x => x.BoardID == this.PageBoardContext.PageBoardID) + 1)
                 .ToType<short>();
         }
+
+        return this.Page();
     }
 }
