@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Diagnostics;
+
 namespace YAF.Core.Logger;
 
 using System;
@@ -204,24 +206,44 @@ public class DbLogger : ILogger, IHaveServiceLocator
             return;
         }
 
-        string userIp;
+        var url = string.Empty;
+        var userIp = string.Empty;
 
         var httpContext = this.Get<IHttpContextAccessor>().HttpContext;
 
-        try
+        if (httpContext is not null)
         {
-            userIp = httpContext != null ? httpContext.Request.GetUserRealIPAddress() : string.Empty;
-        }
-        catch (Exception)
-        {
-            userIp = string.Empty;
+            try
+            {
+                userIp = httpContext.Request.GetUserRealIPAddress();
+            }
+            catch (Exception)
+            {
+                userIp = string.Empty;
+            }
+
+            var exceptionHandlerPathFeature =
+                httpContext.Features.Get<IExceptionHandlerPathFeature>();
+
+            if (exceptionHandlerPathFeature is not null)
+            {
+                url = HtmlTagHelper.StripHtml(
+                    $"{httpContext.Request.Host}{exceptionHandlerPathFeature.Path}{httpContext.Request.QueryString}");
+
+                source = exceptionHandlerPathFeature.Path;
+            }
+            else
+            {
+                url = HtmlTagHelper.StripHtml(
+                    $"{httpContext.Request.Host}{httpContext.Request.Path}{httpContext.Request.QueryString}");
+            }
         }
 
         var values = new JObject
                          {
                              ["Message"] = message,
                              ["UserIP"] = userIp,
-                             ["Url"] = httpContext != null ? HtmlTagHelper.StripHtml(httpContext.Request.Path.ToString()) : "",
+                             ["Url"] = url,
                              ["ExceptionMessage"] = exception?.Message,
                              ["ExceptionStackTrace"] = exception?.StackTrace,
                              ["ExceptionSource"] = exception?.Source
