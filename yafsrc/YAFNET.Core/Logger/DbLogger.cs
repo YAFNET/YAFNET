@@ -208,7 +208,7 @@ public class DbLogger : ILogger, IHaveServiceLocator
 
         var url = string.Empty;
         var userIp = string.Empty;
-
+        var userAgent = string.Empty;
         var httpContext = this.Get<IHttpContextAccessor>().HttpContext;
 
         if (httpContext is not null)
@@ -237,6 +237,8 @@ public class DbLogger : ILogger, IHaveServiceLocator
                 url = HtmlTagHelper.StripHtml(
                     $"{httpContext.Request.Host}{httpContext.Request.Path}{httpContext.Request.QueryString}");
             }
+
+            userAgent = httpContext.Request.Headers.UserAgent.ToString();
         }
 
         var values = new JObject
@@ -244,6 +246,7 @@ public class DbLogger : ILogger, IHaveServiceLocator
                              ["Message"] = message,
                              ["UserIP"] = userIp,
                              ["Url"] = url,
+                             ["UserAgent"] = userAgent,
                              ["ExceptionMessage"] = exception?.Message,
                              ["ExceptionStackTrace"] = exception?.StackTrace,
                              ["ExceptionSource"] = exception?.Source
