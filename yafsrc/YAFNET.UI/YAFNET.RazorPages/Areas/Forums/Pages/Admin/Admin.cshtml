@@ -292,8 +292,10 @@
                                             <a href="@Html.Raw(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, IPHelper.GetIpAddressAsString(activeUser.IP)))"
                                                target="_blank" title-localized-tag="TT_IPDETAILS" title-localized-page="COMMON"
                                                rel="noopener">
-                                                @Html.Raw(IPHelper.GetIpAddressAsString(activeUser.IP))
+	                                            @Html.Raw(IPHelper.GetIpAddressAsString(activeUser.IP))
                                             </a>
+                                            
+                                            
                                         </div>
                                         <div>
                                             <span class="fw-bold">

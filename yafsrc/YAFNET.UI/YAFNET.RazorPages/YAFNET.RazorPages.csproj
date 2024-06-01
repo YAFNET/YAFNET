@@ -74,7 +74,7 @@
   <ItemGroup>
 	<PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="8.0.6" />
 	<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.6" />
-	<PackageReference Include="SonarAnalyzer.CSharp" Version="9.25.1.91650">
+	<PackageReference Include="SonarAnalyzer.CSharp" Version="9.26.0.92422">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>

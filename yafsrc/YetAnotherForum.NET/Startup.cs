@@ -67,6 +67,11 @@ public class Startup : IHaveServiceLocator
     /// <param name="services">The services.</param>
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddRazorPages(options =>
+        {
+            options.Conventions.AddPageRoute("/SiteMap", "Sitemap.xml");
+        });
+
         services.AddYafCore(this.Configuration);
     }
 
@@ -92,7 +97,7 @@ public class Startup : IHaveServiceLocator
         }
         else
         {
-            //app.UseExceptionHandler("/Error");
+            app.UseExceptionHandler("/Error");
             app.UseDeveloperExceptionPage();
 
             app.UseHsts();
@@ -101,6 +106,8 @@ public class Startup : IHaveServiceLocator
         app.RegisterAutofac();
 
         app.UseYafCore(this.ServiceLocator, env);
+
+        app.UseRobotsTxt(env);
 
         app.UseEndpoints(endpoints =>
         {

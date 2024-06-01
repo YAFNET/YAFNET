@@ -88,7 +88,8 @@ public static class IApplicationBuilderExtensions
         Config.UrlRewritingMode = serviceLocator.Get<BoardConfiguration>().UrlRewritingMode;
 
         // Legacy Settings
-        Config.LegacyMembershipHashAlgorithmType = serviceLocator.Get<BoardConfiguration>().LegacyMembershipHashAlgorithmType;
+        Config.LegacyMembershipHashAlgorithmType =
+            serviceLocator.Get<BoardConfiguration>().LegacyMembershipHashAlgorithmType;
         Config.LegacyMembershipHashCase = serviceLocator.Get<BoardConfiguration>().LegacyMembershipHashCase;
         Config.LegacyMembershipHashHex = serviceLocator.Get<BoardConfiguration>().LegacyMembershipHashHex;
 
@@ -119,5 +120,20 @@ public static class IApplicationBuilderExtensions
 
         app.UseAuthentication();
         app.UseAuthorization();
+    }
+
+    /// <summary>
+    /// Uses the robots text.
+    /// </summary>
+    /// <param name="builder">The builder.</param>
+    /// <param name="env">The env.</param>
+    /// <returns>IApplicationBuilder.</returns>
+    public static IApplicationBuilder UseRobotsTxt(
+        this IApplicationBuilder builder,
+        IWebHostEnvironment env
+    )
+    {
+        return builder.MapWhen(ctx => ctx.Request.Path.StartsWithSegments("/robots.txt"), b =>
+            b.UseMiddleware<RobotsTxtMiddleware>(env.EnvironmentName));
     }
 }

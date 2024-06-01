@@ -1,0 +1,8 @@
+# Begin robots.txt file
+Sitemap: http://www.mydomain.com/Sitemap.xml
+
+User-agent: *
+Disallow: /resources/
+Disallow: /UserProfile/	# Do not index user profiles
+
+# End of robots.txt file
