@@ -65,13 +65,13 @@ public class EditRankModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public void OnGet(int? r = null)
+    public IActionResult OnGet(int? r = null)
     {
         this.Input = new EditRankInputModel();
 
         if (!r.HasValue)
         {
-            return;
+            return this.Page();
         }
 
         var rankId = r.Value;
@@ -79,8 +79,7 @@ public class EditRankModel : AdminPage
 
         if (rank is null)
         {
-            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-            return;
+            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.Input.Id = rankId;
@@ -95,6 +94,8 @@ public class EditRankModel : AdminPage
         this.Input.UsrSigChars = rank.UsrSigChars;
         this.Input.UsrSigBBCodes = rank.UsrSigBBCodes;
         this.Input.Description = rank.Description;
+
+        return this.Page();
     }
 
     /// <summary>

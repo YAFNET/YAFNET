@@ -104,6 +104,11 @@ public class IndexModel : ForumPage
     /// </summary>
     public IActionResult OnGetShowMore(int index)
     {
+        if (!this.Get<ISessionService>().Forums.HasItems())
+        {
+            return this.Partial("_CategoryList", this.Categories);
+        }
+
         this.Get<ISessionService>().BoardForumsIndex = index;
 
         this.BindData(true);

@@ -74,14 +74,6 @@ public class PostsModel : ForumPage
     /// </summary>
     public override void CreatePageLinks()
     {
-        // in case topic is deleted or not existent
-        if (this.PageBoardContext.PageTopic is null)
-        {
-           this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-
-           return;
-        }
-
         this.PageBoardContext.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
 
         this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
@@ -95,6 +87,12 @@ public class PostsModel : ForumPage
     /// </summary>
     public IActionResult OnGet(string name, int t, int? p = null, int? m = null)
     {
+        // in case topic is deleted or not existent
+        if (this.PageBoardContext.PageTopic is null)
+        {
+            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
         this.Get<ISessionService>().SetPageData(new List<PagedMessage>());
 
         if (!this.PageBoardContext.IsGuest && this.PageBoardContext.PageUser.Activity)

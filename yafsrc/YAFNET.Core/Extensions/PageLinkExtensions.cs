@@ -56,7 +56,9 @@ public static class PageLinkExtensions
     /// Adds the index of the admin.
     /// </summary>
     /// <param name="pageLinks">The page links.</param>
-    /// <returns>List&lt;PageLink&gt;.</returns>
+    /// <returns>
+    /// Returns the page links.
+    /// </returns>
     public static List<PageLink> AddAdminIndex(this List<PageLink> pageLinks)
     {
         ArgumentNullException.ThrowIfNull(pageLinks);
@@ -69,7 +71,7 @@ public static class PageLinkExtensions
     }
 
     /// <summary>
-    /// The add user.
+    /// Adds the user link to the page links.
     /// </summary>
     /// <param name="pageLinks">
     /// The page links.
@@ -81,7 +83,7 @@ public static class PageLinkExtensions
     /// The name.
     /// </param>
     /// <returns>
-    /// The <see cref="PageLinks"/>.
+    /// Returns the page links.
     /// </returns>
     public static List<PageLink> AddUser(this List<PageLink> pageLinks, int userId, string name)
     {
@@ -93,7 +95,7 @@ public static class PageLinkExtensions
     }
 
     /// <summary>
-    /// The add topic.
+    /// Adds the topic link to the page links.
     /// </summary>
     /// <param name="pageLinks">
     /// The page links.
@@ -102,11 +104,16 @@ public static class PageLinkExtensions
     /// The topic.
     /// </param>
     /// <returns>
-    /// The <see cref="PageLinks"/>.
+    /// Returns the page links.
     /// </returns>
     public static List<PageLink> AddTopic(this List<PageLink> pageLinks, Topic topic)
     {
         ArgumentNullException.ThrowIfNull(pageLinks);
+
+        if (topic is null)
+        {
+            return pageLinks;
+        }
 
         pageLinks.AddLink(topic.TopicName, BoardContext.Current.Get<LinkBuilder>().GetTopicLink(topic));
 
@@ -114,7 +121,7 @@ public static class PageLinkExtensions
     }
 
     /// <summary>
-    /// Adds the category.
+    /// Adds the category link to the page links.
     /// </summary>
     /// <param name="pageLinks">
     /// The page links.
@@ -131,6 +138,11 @@ public static class PageLinkExtensions
     {
         ArgumentNullException.ThrowIfNull(pageLinks);
 
+        if (category is null)
+        {
+            return pageLinks;
+        }
+
         pageLinks.AddLink(
             category.Name,
             BoardContext.Current.Get<LinkBuilder>().GetCategoryLink(category.ID, category.Name));
@@ -139,7 +151,7 @@ public static class PageLinkExtensions
     }
 
     /// <summary>
-    /// Adds the forum links.
+    /// Adds the forum link to the page links.
     /// </summary>
     /// <param name="pageLinks">
     /// The page links.
@@ -156,6 +168,11 @@ public static class PageLinkExtensions
     public static List<PageLink> AddForum(this List<PageLink> pageLinks, Forum forum, bool noForumLink = false)
     {
         ArgumentNullException.ThrowIfNull(pageLinks);
+
+        if (forum is null)
+        {
+            return pageLinks;
+        }
 
         if (forum.ParentID.HasValue)
         {
@@ -184,7 +201,7 @@ public static class PageLinkExtensions
     }
 
     /// <summary>
-    /// Adds the link.
+    /// Adds new page link.
     /// </summary>
     /// <param name="pageLinks">The page links.</param>
     /// <param name="title">The title.</param>

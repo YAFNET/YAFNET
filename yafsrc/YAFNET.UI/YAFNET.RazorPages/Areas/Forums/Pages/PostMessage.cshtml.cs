@@ -170,8 +170,13 @@ public class PostMessageModel : ForumPage
     /// Handles the Load event of the Page control.
     /// </summary>
     public IActionResult OnGet(int? q = null, string text = null)
-
     {
+        // in case topic is deleted or not existent
+        if (this.PageBoardContext.PageTopic is null)
+        {
+            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
         this.Input = new PostMessageInputModel();
 
         if (this.PageBoardContext.PageForumID == 0)

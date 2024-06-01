@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Authentication;
+
 namespace YAF.Core.Helpers;
 
 using System;
@@ -650,7 +652,14 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     {
         await this.Get<SignInManager<AspNetUsers>>().SignOutAsync();
 
-        await this.Get<SignInManager<AspNetUsers>>().SignInAsync(user, isPersistent);
+        var authenticationProperties = new AuthenticationProperties() { IsPersistent = isPersistent };
+
+        if (isPersistent)
+        {
+            authenticationProperties.ExpiresUtc = DateTimeOffset.UtcNow.AddMonths(1);
+        }
+
+        await this.Get<SignInManager<AspNetUsers>>().SignInAsync(user, authenticationProperties);
 
         user.AccessFailedCount = 0;
         user.LockoutEndDateUtc = null;
