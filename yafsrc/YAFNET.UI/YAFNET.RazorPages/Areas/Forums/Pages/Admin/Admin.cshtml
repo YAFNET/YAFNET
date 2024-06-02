@@ -285,10 +285,8 @@
                                     activeUser.UserStyle,
                                     activeUser.ActiveFlags.IsCrawler ? activeUser.Browser : string.Empty)
                                         </div>
-                                        <div class="me-2">
-                                            <span class="fw-bold">
-                                                @Html.LocalizedText("ADMIN_ADMIN", "ADMIN_IPADRESS")
-                                            </span>
+                                        <span data-bs-toggle="tooltip" data-bs-title="@Html.LocalizedText("ADMIN_ADMIN", "ADMIN_IPADRESS")">
+	                                        @Html.Icon("computer")
                                             <a href="@Html.Raw(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, IPHelper.GetIpAddressAsString(activeUser.IP)))"
                                                target="_blank" title-localized-tag="TT_IPDETAILS" title-localized-page="COMMON"
                                                rel="noopener">
@@ -296,21 +294,24 @@
                                             </a>
                                             
                                             
-                                        </div>
-                                        <div>
-                                            <span class="fw-bold">
-                                                @Html.LocalizedText("ADMIN_ADMIN", "BOARD_LOCATION")
-                                            </span>
-                                            @Html.ActiveLocation(activeUser.UserID,
-                                                false,
-                                                activeUser.ForumPage,
-                                                activeUser.Location,
-                                                activeUser.ForumID ?? 0,
-                                                activeUser.ForumName,
-                                                activeUser.TopicID ?? 0,
-                                                activeUser.TopicName,
-                                                false)
-                                        </div>
+                                        </span>
+                                        <span data-bs-toggle="tooltip" data-bs-title="@Html.LocalizedText("ADMIN_ADMIN", "BOARD_LOCATION")">
+	                                        @Html.Icon("file-lines")
+	                                        @Html.ActiveLocation(activeUser.UserID,
+		                                        false,
+		                                        activeUser.ForumPage,
+		                                        activeUser.Location,
+		                                        activeUser.ForumID ?? 0,
+		                                        activeUser.ForumName,
+		                                        activeUser.TopicID ?? 0,
+		                                        activeUser.TopicName,
+		                                        false)
+                                        </span>
+                                        <span>
+	                                        @Html.Icon("user-secret")
+	                                        @activeUser.UserAgent
+                                        </span>
+                                        
                                     </div>
                                 </li>
                             }
