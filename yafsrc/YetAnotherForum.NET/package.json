@@ -22,7 +22,7 @@
     "grunt-webpack": "^6.0.0",
     "grunt-zip": "^1.0.0",
     "postcss": "^8.4.38",
-    "sass": "^1.77.1",
+    "sass": "^1.77.4",
     "webpack": "^5.91.0",
     "webpack-merge": "^5.10.0"
   },
@@ -35,7 +35,7 @@
     "bs5-lightbox": "^1.8.3",
     "choices.js": "^10.2.0",
     "codemirror": "^5.65.16",
-    "flag-icons": "^7.2.2",
+    "flag-icons": "^7.2.3",
     "form-serialize": "^0.7.2",
     "long-press-event": "^2.5.0",
     "md.bootstrappersiandatetimepicker": "^4.2.6",
