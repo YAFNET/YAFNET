@@ -141,7 +141,7 @@ public static class JavaScriptBlocks
 
                   tagsSelect.passedElement.element.addEventListener("search", function (event) {
                   
-                      if (event.detail.value > 2) {
+                      if (event.detail.value.length > 2) {
                           var query = {
                               ForumId: 0,
                               TopicId: 0,
@@ -906,7 +906,7 @@ public static class JavaScriptBlocks
 
                  topicsSelect.passedElement.element.addEventListener("search", function (event) {
                  
-                     if (event.detail.value > 2) {
+                     if (event.detail.value.length > 2) {
                          var query = {
                              ForumId: document.getElementById('{{forumDropDownId}}').value,
                              TopicId: {{BoardContext.Current.PageTopicID}},
@@ -987,8 +987,6 @@ public static class JavaScriptBlocks
                               ? """
                                 forumsSelect.passedElement.element.addEventListener("choice", function (event) {
                                     var json;
-                                    
-                                    console.log(event);
                                 
                                     if (event.detail.choice.customProperties) {
                                         try {
@@ -1048,7 +1046,7 @@ public static class JavaScriptBlocks
 
                  forumsSelect.passedElement.element.addEventListener("search", function (event) {
                  
-                     if (event.detail.value > 2) {
+                     if (event.detail.value.length > 2) {
                          var query = {
                              {{allForumsOptionJs}}
                              PageSize: 15,
@@ -1578,8 +1576,7 @@ public static class JavaScriptBlocks
                  });
 
                  userSelect.passedElement.element.addEventListener("search", function (event) {
-                 
-                     if (event.detail.value > 2) {
+                     if (event.detail.value.length > 2) {
                          var query = {
                              ForumId: 0,
                              TopicId: 0,

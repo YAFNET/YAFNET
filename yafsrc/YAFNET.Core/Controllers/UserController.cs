@@ -68,7 +68,7 @@ public class UserController : ForumBaseController
 
         var users = this.Get<IAspNetUsersHelper>().GetUsersPaged(
             this.PageBoardContext.PageBoardID,
-            this.PageBoardContext.PageIndex,
+            searchTopic.Page,
             15,
             searchTopic.SearchTerm,
             null,
