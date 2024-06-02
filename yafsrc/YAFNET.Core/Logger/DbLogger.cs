@@ -32,6 +32,7 @@ using System.Diagnostics;
 using System.Linq;
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
 
 using Newtonsoft.Json;
@@ -235,7 +236,7 @@ public class DbLogger : ILogger, IHaveServiceLocator
             else
             {
                 url = HtmlTagHelper.StripHtml(
-                    $"{httpContext.Request.Host}{httpContext.Request.Path}{httpContext.Request.QueryString}");
+                    httpContext.Request.GetDisplayUrl());
             }
 
             userAgent = httpContext.Request.Headers.UserAgent.ToString();

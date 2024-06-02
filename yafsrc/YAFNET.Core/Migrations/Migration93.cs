@@ -31,7 +31,7 @@ using YAF.Types.Models;
 /// <summary>
 /// Version 93 Migrations
 /// </summary>
-[Description("Remove pm limit columns from Group and Rank table")]
+[Description("Add UserAgent column to Active table.")]
 public class Migration93 : MigrationBase
 {
     /// <summary>
@@ -39,45 +39,9 @@ public class Migration93 : MigrationBase
     /// </summary>
     public override void Up()
     {
-        const string pmNotificationColumnName = "PMNotification";
-        const string pmLimitColumnName = "PMLimit";
-
-        if (this.Db.ColumnExists<User>(pmNotificationColumnName))
+        if (!this.Db.ColumnExists<Active>(x => x.UserAgent))
         {
-            var constraintName = this.Db.GetConstraint<User>(pmNotificationColumnName);
-
-            if (constraintName.IsSet())
-            {
-                this.Db.DropConstraint<User>(constraintName);
-
-                this.Db.DropColumn<User>(pmNotificationColumnName);
-            }
-        }
-
-        if (this.Db.ColumnExists<Rank>(pmLimitColumnName))
-        {
-            var constraintName = this.Db.GetConstraint<User>(pmLimitColumnName);
-
-            if (constraintName.IsSet())
-            {
-                this.Db.DropConstraint<Rank>(constraintName);
-
-                this.Db.DropColumn<Rank>(pmLimitColumnName);
-            }
-        }
-
-        if (this.Db.ColumnExists<Group>(pmLimitColumnName))
-        {
-            var constraintName = this.Db.GetConstraint<User>(pmLimitColumnName);
-
-            if (!constraintName.IsSet())
-            {
-                return;
-            }
-
-            this.Db.DropConstraint<Group>(constraintName);
-
-            this.Db.DropColumn<Group>(pmLimitColumnName);
+            this.Db.AddColumn<Active>(x => x.UserAgent);
         }
     }
 }

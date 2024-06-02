@@ -24,7 +24,6 @@
 
 namespace YAF.Web.TagHelpers;
 
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 
@@ -32,15 +31,15 @@ using RouteData = Microsoft.AspNetCore.Routing.RouteData;
 
 /// <summary>
 /// Class PagerTagHelper.
-/// Implements the <see cref="Microsoft.AspNetCore.Razor.TagHelpers.TagHelper" />
-/// Implements the <see cref="YAF.Types.Interfaces.IPager" />
-/// Implements the <see cref="YAF.Types.Interfaces.IHaveServiceLocator" />
-/// Implements the <see cref="YAF.Types.Interfaces.IHaveLocalization" />
+/// Implements the <see cref="TagHelper" />
+/// Implements the <see cref="IPager" />
+/// Implements the <see cref="IHaveServiceLocator" />
+/// Implements the <see cref="IHaveLocalization" />
 /// </summary>
-/// <seealso cref="Microsoft.AspNetCore.Razor.TagHelpers.TagHelper" />
-/// <seealso cref="YAF.Types.Interfaces.IPager" />
-/// <seealso cref="YAF.Types.Interfaces.IHaveServiceLocator" />
-/// <seealso cref="YAF.Types.Interfaces.IHaveLocalization" />
+/// <seealso cref="TagHelper" />
+/// <seealso cref="IPager" />
+/// <seealso cref="IHaveServiceLocator" />
+/// <seealso cref="IHaveLocalization" />
 [HtmlTargetElement("pager", TagStructure = TagStructure.NormalOrSelfClosing)]
 public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocalization
 {
@@ -154,9 +153,11 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
         item.MergeAttribute("href", "#");
         item.MergeAttribute("tabindex", "-1");
         item.MergeAttribute("aria-disabled", "true");
+        item.MergeAttribute("title", $"{this.PageCount():N0} {this.GetText("COMMON", "PAGES")}");
 
-        item.InnerHtml.AppendHtml(this.Get<IHtmlHelper>().Icon("copy"));
-        item.InnerHtml.Append($"{this.PageCount():N0} {this.GetText("COMMON", "PAGES")}");
+        item.InnerHtml.AppendHtml(this.Get<IHtmlHelper>().Icon("file"));
+
+        item.InnerHtml.AppendHtml($"""{this.PageCount():N0}<span class="d-none d-md-inline-block ms-1">{this.GetText("COMMON", "PAGES")}</span>""");
 
         listItem.InnerHtml.AppendHtml(item);
 

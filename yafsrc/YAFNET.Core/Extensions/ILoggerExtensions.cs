@@ -27,6 +27,7 @@ namespace YAF.Core.Extensions;
 using System;
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
 
 using YAF.Core.Context;
@@ -83,7 +84,7 @@ public static class ILoggerExtensions
         try
         {
             message =
-                $"Exception at URL: {BoardContext.Current.Get<IHttpContextAccessor>().HttpContext.Request.Path}";
+                $"Exception at URL: {BoardContext.Current.Get<IHttpContextAccessor>().HttpContext.Request.GetDisplayUrl()}";
         }
         catch (Exception)
         {

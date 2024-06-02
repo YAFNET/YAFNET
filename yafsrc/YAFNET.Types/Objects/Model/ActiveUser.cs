@@ -171,6 +171,12 @@ public class ActiveUser
     public string Platform { get; set; }
 
     /// <summary>
+    /// Gets or sets the user agent.
+    /// </summary>
+    /// <value>The user agent.</value>
+    public string UserAgent { get; set; }
+
+    /// <summary>
     /// Gets or sets the ip.
     /// </summary>
     /// <value>The ip.</value>

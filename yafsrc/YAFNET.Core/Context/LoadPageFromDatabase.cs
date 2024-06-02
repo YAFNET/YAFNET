@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Http.Extensions;
+
 namespace YAF.Core.Context;
 
 using System;
@@ -119,6 +121,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
                     forumPage,
                     @event.UserRequestData.Browser,
                     @event.UserRequestData.Platform,
+                    @event.UserRequestData.UserAgent,
                     @event.PageQueryData.CategoryID,
                     @event.PageQueryData.ForumID,
                     @event.PageQueryData.TopicID,
@@ -215,7 +218,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
             // log the exception...
             this.Logger.Error(
                 x,
-                $"Failure Initializing User/Page (URL: {this.Get<IHttpContextAccessor>().HttpContext.Request.Path}).");
+                $"Failure Initializing User/Page (URL: {this.Get<IHttpContextAccessor>().HttpContext.Request.GetDisplayUrl()}).");
 
             // log the user out...
             // FormsAuthentication.SignOut();
