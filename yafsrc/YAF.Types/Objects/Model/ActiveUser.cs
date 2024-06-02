@@ -73,6 +73,8 @@ public class ActiveUser
 
     public string Platform { get; set; }
 
+    public string UserAgent { get; set; }
+
     public string IP { get; set; }
 
     public string SessionID { get; set; }

@@ -22,40 +22,26 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects;
+namespace YAF.Core.Migrations;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Models;
 
 /// <summary>
-/// Class UserRequestData.
+/// Version 93 Migrations
 /// </summary>
-public class UserRequestData
+[Description("Add UserAgent column to Active table.")]
+public class Migration93 : MigrationBase
 {
     /// <summary>
-    /// Gets or sets a value indicating whether [dont track].
+    /// Migrations
     /// </summary>
-    /// <value><c>true</c> if [dont track]; otherwise, <c>false</c>.</value>
-    public bool DontTrack { get; set; }
-
-    /// <summary>
-    /// Gets or sets the user agent.
-    /// </summary>
-    /// <value>The user agent.</value>
-    public string UserAgent { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether this instance is search engine.
-    /// </summary>
-    /// <value><c>true</c> if this instance is search engine; otherwise, <c>false</c>.</value>
-    public bool IsSearchEngine { get; set; }
-
-    /// <summary>
-    /// Gets or sets the browser.
-    /// </summary>
-    /// <value>The browser.</value>
-    public string Browser { get; set; }
-
-    /// <summary>
-    /// Gets or sets the platform.
-    /// </summary>
-    /// <value>The platform.</value>
-    public string Platform { get; set; }
+    public override void Up()
+    {
+        if (!this.Db.ColumnExists<Active>(x => x.UserAgent))
+        {
+            this.Db.AddColumn<Active>(x => x.UserAgent);
+        }
+    }
 }

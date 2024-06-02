@@ -103,6 +103,13 @@ public class Active : IEntity, IHaveBoardID
     public string Platform { get; set; }
 
     /// <summary>
+    /// Gets or sets the user agent.
+    /// </summary>
+    /// <value>The user agent.</value>
+    [StringLength(500)]
+    public string UserAgent { get; set; }
+
+    /// <summary>
     /// Gets or sets the session id.
     /// </summary>
     [Required]

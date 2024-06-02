@@ -4,7 +4,7 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
-    <div class="col flex-grow-1 ms-md-2 d-md-none">
+    <div class="col flex-grow-1 ms-md-3 d-md-none">
         <div class="nav d-grid gap-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
              <div class="dropdown d-grid gap-2">
             <YAF:ThemeButton runat="server"
@@ -101,7 +101,7 @@
         </a>
         </div>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-9">
     <asp:Panel runat="server" ID="HostSettingsTabs" CssClass="tab-content">
 
             <div class="tab-pane fade" id="View0" role="tabpanel">

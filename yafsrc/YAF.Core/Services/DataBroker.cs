@@ -184,6 +184,9 @@ public class DataBroker : IHaveServiceLocator
     /// <param name="platform">
     /// The platform.
     /// </param>
+    /// <param name="userAgent">
+    /// The user agent.
+    /// </param>
     /// <param name="categoryId">
     /// The category Id.
     /// </param>
@@ -214,6 +217,7 @@ public class DataBroker : IHaveServiceLocator
         string forumPage,
         string browser,
         string platform,
+        string userAgent,
         int? categoryId,
         int? forumId,
         int? topicId,
@@ -442,6 +446,7 @@ public class DataBroker : IHaveServiceLocator
                             TopicID = topicId,
                             Browser = browser,
                             Platform = platform,
+                            UserAgent = userAgent,
                             ForumPage = forumPage,
                             Flags = activeFlags.BitValue
                         },
@@ -460,6 +465,7 @@ public class DataBroker : IHaveServiceLocator
                             TopicID = topicId,
                             Browser = browser,
                             Platform = platform,
+                            UserAgent = userAgent,
                             ForumPage = forumPage,
                             Flags = activeFlags.BitValue
                         },
@@ -482,6 +488,7 @@ public class DataBroker : IHaveServiceLocator
                         TopicID = topicId,
                         Browser = browser,
                         Platform = platform,
+                        UserAgent = userAgent,
                         Flags = activeFlags.BitValue
                     });
 

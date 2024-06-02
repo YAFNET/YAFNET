@@ -238,6 +238,7 @@ public static class ActiveRepositoryExtensions
                                                  $"{OrmLiteConfig.DialectProvider.DateDiffFunction("minute", expression.Column<Active>(x => x.Login, true), expression.Column<Active>(x => x.LastActive, true))}"),
                                              a.Browser,
                                              a.Platform,
+                                             a.UserAgent,
                                              a.ForumPage
                                          });
 
@@ -355,6 +356,7 @@ public static class ActiveRepositoryExtensions
                                                     $"{OrmLiteConfig.DialectProvider.DateDiffFunction("minute", expression.Column<Active>(ac => ac.Login, true), expression.Column<Active>(ac => ac.LastActive, true))}"),
                                                 a.Browser,
                                                 a.Platform,
+                                                a.UserAgent,
                                                 a.ForumPage
                                             });
 

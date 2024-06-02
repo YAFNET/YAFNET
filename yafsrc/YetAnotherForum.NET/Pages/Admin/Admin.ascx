@@ -303,20 +303,14 @@
                                                CrawlerName="<%# (Container.DataItem as ActiveUser).ActiveFlags.IsCrawler ? (Container.DataItem as ActiveUser).Browser : string.Empty %>"
                                                Style="<%# (Container.DataItem as ActiveUser).UserStyle %>" runat="server" />
                             </div>
-                            <div class="me-2">
-                                <span class="fw-bold">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
-                                                        LocalizedTag="ADMIN_IPADRESS" LocalizedPage="ADMIN_ADMIN" />
-                                </span>
+                            <span data-bs-toggle="tooltip" data-bs-title="<%# this.GetText("ADMIN_ADMIN", "ADMIN_IPADRESS")%>">
+	                            <YAF:Icon runat="server" IconName="computer"></YAF:Icon>
                                 <a id="A1" href="<%# string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, IPHelper.GetIpAddressAsString((Container.DataItem as ActiveUser).IP)) %>"
                                    title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
                                     <%# IPHelper.GetIpAddressAsString((Container.DataItem as ActiveUser).IP)%></a>
-                            </div>
-                            <div>
-                                <span class="fw-bold">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
-                                                        LocalizedTag="BOARD_LOCATION" LocalizedPage="ADMI<N_ADMIN" />
-                                </span>
+                            </span>
+                            <span data-bs-toggle="tooltip" data-bs-title="<%# this.GetText("ADMIN_ADMIN", "BOARD_LOCATION")%>">
+	                            <YAF:Icon runat="server" IconName="file-lines"></YAF:Icon>
                                 <YAF:ActiveLocation ID="ActiveLocation2"
                                                     UserID="<%# (Container.DataItem as ActiveUser).UserID %>"
                                                     Location="<%#(Container.DataItem as ActiveUser).Location %>"
@@ -326,7 +320,11 @@
                                                     TopicID="<%# (Container.DataItem as ActiveUser).TopicID ?? 0 %>"
                                                     TopicName="<%# (Container.DataItem as ActiveUser).TopicName %>" LastLinkOnly="false" runat="server">
                                 </YAF:ActiveLocation>
-                            </div>
+                            </span>
+                            <span>
+	                            <YAF:Icon runat="server" IconName="user-secret"></YAF:Icon>
+	                            <%# (Container.DataItem as ActiveUser).UserAgent %>
+                            </span>
                         </div>
                         </li>
                     </ItemTemplate>
