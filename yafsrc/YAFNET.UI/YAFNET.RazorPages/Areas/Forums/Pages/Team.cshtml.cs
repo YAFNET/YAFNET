@@ -91,7 +91,10 @@ public class TeamModel : ForumPage
 
         if (item != null && item.SelectedForumId != "intro" && item.SelectedForumId != "break")
         {
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Topics, new { f = item.SelectedForumId.ToType<int>() });
+            var forumId = item.SelectedForumId.ToType<int>();
+            var forum = this.GetRepository<Forum>().GetById(forumId);
+
+            return this.Get<LinkBuilder>().Redirect(ForumPages.Topics, new { f = forumId, name = forum.Name });
         }
 
         this.BindData();
