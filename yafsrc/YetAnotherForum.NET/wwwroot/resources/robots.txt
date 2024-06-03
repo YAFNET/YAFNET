@@ -1,5 +1,5 @@
 # Begin robots.txt file
-Sitemap: http://www.mydomain.com/Sitemap.xml
+Sitemap: https://www.mydomain.com/Sitemap.xml
 
 User-agent: *
 Disallow: /resources/

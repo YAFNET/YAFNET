@@ -100,9 +100,9 @@ public class RobotsTxtMiddleware : IHaveServiceLocator
             }
 
             // replace default sitemap url
-            if (output.Contains("http://www.mydomain.com/", StringComparison.CurrentCultureIgnoreCase))
+            if (output.Contains("https://www.mydomain.com/", StringComparison.CurrentCultureIgnoreCase))
             {
-                output = output.Replace("http://www.mydomain.com/", $"{this.Get<BoardSettings>().BaseUrlMask}/");
+                output = output.Replace("https://www.mydomain.com/", $"{this.Get<BoardSettings>().BaseUrlMask}/");
             }
 
             context.Response.ContentType = "text/plain";
