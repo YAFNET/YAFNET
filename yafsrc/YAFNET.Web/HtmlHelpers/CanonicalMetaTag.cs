@@ -57,12 +57,12 @@ public static class CanonicalMetaTagHtmlHelper
             var link = new TagBuilder("link");
 
             link.MergeAttribute(
-                "href",
+                TagBuilderAttributes.Attributes.Href,
                 context.Get<LinkBuilder>().GetAbsoluteLink(
                     ForumPages.Posts,
                     new { t = context.PageTopicID, name = context.PageTopic.TopicName }));
 
-            link.MergeAttribute("rel", "canonical");
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Rel, "canonical");
 
             link.TagRenderMode = TagRenderMode.SelfClosing;
 

@@ -101,9 +101,9 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
 
         output.TagName = "div";
 
-        output.Attributes.Add("id", this.CurrentMessage.ID.ToString());
+        output.Attributes.Add(TagBuilderAttributes.Attributes.Id, this.CurrentMessage.ID.ToString());
 
-        output.Attributes.Add("class", "selectionQuoteable");
+        output.Attributes.Add(TagBuilderAttributes.Attributes.Class, "selectionQuoteable");
 
         if (!this.MessageFlags.IsDeleted && !this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentMessage.UserID))
         {

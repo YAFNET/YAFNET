@@ -70,13 +70,13 @@ public static class AlphaSortHtmlHelper
                             var link = new TagBuilder("a");
 
                             link.MergeAttribute(
-                                "title",
+                                TagBuilderAttributes.Attributes.Title,
                                 context.Get<ILocalization>().GetTextFormatted(
                                     "ALPHABET_FILTER_BY",
                                     letter.ToString()));
 
                             link.MergeAttribute(
-                                "href",
+                                TagBuilderAttributes.Attributes.Href,
                                 context.Get<LinkBuilder>().GetLink(
                                     ForumPages.Members,
                                     new { letter = letter == '#' ? '_' : letter }));

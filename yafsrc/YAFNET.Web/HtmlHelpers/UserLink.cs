@@ -191,7 +191,7 @@ public static class UserLinkHtmlHelper
         {
             var link = new TagBuilder("a");
 
-            link.MergeAttribute("href", context.Get<LinkBuilder>().GetUserProfileLink(userId, displayName));
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Href, context.Get<LinkBuilder>().GetUserProfileLink(userId, displayName));
 
             cssClass.Append("btn-sm");
 
@@ -209,7 +209,7 @@ public static class UserLinkHtmlHelper
             }
             else
             {
-                link.MergeAttribute("title", context.Get<ILocalization>().GetText("COMMON", "VIEW_USRPROFILE"));
+                link.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_USRPROFILE"));
             }
 
             if (cssClassAppend.IsSet())
@@ -221,19 +221,19 @@ public static class UserLinkHtmlHelper
 
             if (context.BoardSettings.UseNoFollowLinks)
             {
-                link.MergeAttribute("rel", "nofollow");
+                link.MergeAttribute(TagBuilderAttributes.Attributes.Rel, "nofollow");
             }
 
             if (style.IsSet() && context.BoardSettings.UseStyledNicks)
             {
                 var styleFormatted = context.Get<IStyleTransform>().Decode(style);
 
-                link.MergeAttribute("style", HttpUtility.HtmlEncode(styleFormatted));
+                link.MergeAttribute(TagBuilderAttributes.Attributes.Style, HttpUtility.HtmlEncode(styleFormatted));
             }
 
             if (blankTarget)
             {
-                link.MergeAttribute("target", "_blank");
+                link.MergeAttribute(TagBuilderAttributes.Attributes.Target, "_blank");
             }
 
             if (context.BoardSettings.ShowUserOnlineStatus)
@@ -296,7 +296,7 @@ public static class UserLinkHtmlHelper
             // suspended
             status.AddCssClass("align-middle text-warning user-suspended me-1");
             status.MergeAttribute(
-                "title",
+                TagBuilderAttributes.Attributes.Title,
                 context.Get<ILocalization>().GetTextFormatted("USERSUSPENDED", suspended.Value));
             status.MergeAttribute("data-bs-toggle", "tooltip");
         }
@@ -321,7 +321,7 @@ public static class UserLinkHtmlHelper
         var icon = new TagBuilder("i");
 
         icon.AddCssClass("fas fa-user-circle");
-        icon.MergeAttribute("style", "font-size: 1.5em");
+        icon.MergeAttribute(TagBuilderAttributes.Attributes.Style, "font-size: 1.5em");
 
         status.InnerHtml.AppendHtml(icon);
 

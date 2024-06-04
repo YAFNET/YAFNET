@@ -70,11 +70,11 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         dropDownButton.AddCssClass("btn btn-secondary dropdown-toggle");
 
-        dropDownButton.MergeAttribute("id", "dropdownMenuButton");
-        dropDownButton.MergeAttribute("type", "button");
+        dropDownButton.MergeAttribute(TagBuilderAttributes.Attributes.Id, "dropdownMenuButton");
+        dropDownButton.MergeAttribute(TagBuilderAttributes.Attributes.Type, "button");
         dropDownButton.MergeAttribute("data-bs-toggle", "dropdown");
         dropDownButton.MergeAttribute("aria-haspopup", "true");
-        dropDownButton.MergeAttribute("aria-expanded", "false");
+        dropDownButton.MergeAttribute(TagBuilderAttributes.Attributes.AriaExpanded, "false");
 
         var icon = new TagBuilder("i");
         icon.AddCssClass("fa fa-cogs fa-fw me-1");
@@ -314,13 +314,13 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         link.AddCssClass(BoardContext.Current.CurrentForumPage.PageName == page ? $"{cssClass} active" : cssClass);
 
         link.MergeAttribute(
-            "href",
+            TagBuilderAttributes.Attributes.Href,
             parameter is not null
                 ? this.Get<LinkBuilder>().GetLink(page, parameter)
                 : this.Get<LinkBuilder>().GetLink(page));
 
         link.MergeAttribute("data-bs-toggle", "tooltip");
-        link.MergeAttribute("title", getText);
+        link.MergeAttribute(TagBuilderAttributes.Attributes.Title, getText);
 
         var icon = new TagBuilder("i");
 

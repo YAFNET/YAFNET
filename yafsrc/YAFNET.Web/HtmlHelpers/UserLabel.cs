@@ -52,7 +52,7 @@ public static class UserLabelHtmlHelper
         {
             var styleFormatted = context.Get<IStyleTransform>().Decode(user.UserStyle);
 
-            span.MergeAttribute("style", HttpUtility.HtmlEncode(styleFormatted));
+            span.MergeAttribute(TagBuilderAttributes.Attributes.Style, HttpUtility.HtmlEncode(styleFormatted));
         }
 
         span.InnerHtml.AppendHtml(HttpUtility.HtmlEncode(user.DisplayOrUserName()));
@@ -83,7 +83,7 @@ public static class UserLabelHtmlHelper
         {
             var styleFormatted = context.Get<IStyleTransform>().Decode(userStyle);
 
-            span.MergeAttribute("style", HttpUtility.HtmlEncode(styleFormatted));
+            span.MergeAttribute(TagBuilderAttributes.Attributes.Style, HttpUtility.HtmlEncode(styleFormatted));
         }
 
         span.InnerHtml.AppendHtml(HttpUtility.HtmlEncode(crawlerName.IsNotSet() ? userName : crawlerName));

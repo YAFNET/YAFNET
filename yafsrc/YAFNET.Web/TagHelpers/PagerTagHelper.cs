@@ -150,10 +150,10 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
         var item = new TagBuilder("a");
 
         item.AddCssClass("page-link");
-        item.MergeAttribute("href", "#");
-        item.MergeAttribute("tabindex", "-1");
+        item.MergeAttribute(TagBuilderAttributes.Attributes.Href, "#");
+        item.MergeAttribute(TagBuilderAttributes.Attributes.Tabindex, "-1");
         item.MergeAttribute("aria-disabled", "true");
-        item.MergeAttribute("title", $"{this.PageCount():N0} {this.GetText("COMMON", "PAGES")}");
+        item.MergeAttribute(TagBuilderAttributes.Attributes.Title, $"{this.PageCount():N0} {this.GetText("COMMON", "PAGES")}");
 
         item.InnerHtml.AppendHtml(this.Get<IHtmlHelper>().Icon("file"));
 
@@ -200,10 +200,10 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
 
             link.AddCssClass("page-link");
 
-            link.MergeAttribute("role", "button");
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Role, "button");
             link.MergeAttribute("data-bs-toggle", "tooltip");
-            link.MergeAttribute("title", this.GetText("GOTOFIRSTPAGE_TT"));
-            link.MergeAttribute("href", this.GetLinkUrl(query, 1));
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Title, this.GetText("GOTOFIRSTPAGE_TT"));
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Href, this.GetLinkUrl(query, 1));
 
             link.InnerHtml.AppendHtml(this.Get<IHtmlHelper>().Icon("angle-double-left"));
 
@@ -221,10 +221,10 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
 
             link.AddCssClass("page-link");
 
-            link.MergeAttribute("role", "button");
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Role, "button");
             link.MergeAttribute("data-bs-toggle", "tooltip");
-            link.MergeAttribute("title", this.GetText("GOTOPREVPAGE_TT"));
-            link.MergeAttribute("href", this.GetLinkUrl(query, this.CurrentPageIndex));
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Title, this.GetText("GOTOPREVPAGE_TT"));
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Href, this.GetLinkUrl(query, this.CurrentPageIndex));
 
             link.InnerHtml.AppendHtml(this.Get<IHtmlHelper>().Icon("angle-left"));
 
@@ -244,10 +244,10 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
 
             link.AddCssClass("page-link");
 
-            link.MergeAttribute("role", "button");
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Role, "button");
             link.MergeAttribute("data-bs-toggle", "tooltip");
-            link.MergeAttribute("title", $"{this.GetText("GOTOPAGE_HEADER")}{page}");
-            link.MergeAttribute("href", this.GetLinkUrl(query, i + 1));
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Title, $"{this.GetText("GOTOPAGE_HEADER")}{page}");
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Href, this.GetLinkUrl(query, i + 1));
 
             link.InnerHtml.Append(page);
 
@@ -265,10 +265,10 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
 
             link.AddCssClass("page-link");
 
-            link.MergeAttribute("role", "button");
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Role, "button");
             link.MergeAttribute("data-bs-toggle", "tooltip");
-            link.MergeAttribute("title", this.GetText("GOTONEXTPAGE_TT"));
-            link.MergeAttribute("href", this.GetLinkUrl(query, this.CurrentPageIndex + 2));
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Title, this.GetText("GOTONEXTPAGE_TT"));
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Href, this.GetLinkUrl(query, this.CurrentPageIndex + 2));
 
             link.InnerHtml.AppendHtml(this.Get<IHtmlHelper>().Icon("angle-right"));
 
@@ -289,10 +289,10 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
 
         linkGoToNext.AddCssClass("page-link");
 
-        linkGoToNext.MergeAttribute("role", "button");
+        linkGoToNext.MergeAttribute(TagBuilderAttributes.Attributes.Role, "button");
         linkGoToNext.MergeAttribute("data-bs-toggle", "tooltip");
-        linkGoToNext.MergeAttribute("title", this.GetText("GOTONEXTPAGE_TT"));
-        linkGoToNext.MergeAttribute("href", this.GetLinkUrl(query, this.PageCount()));
+        linkGoToNext.MergeAttribute(TagBuilderAttributes.Attributes.Title, this.GetText("GOTONEXTPAGE_TT"));
+        linkGoToNext.MergeAttribute(TagBuilderAttributes.Attributes.Href, this.GetLinkUrl(query, this.PageCount()));
 
         linkGoToNext.InnerHtml.AppendHtml(this.Get<IHtmlHelper>().Icon("angle-double-right"));
 

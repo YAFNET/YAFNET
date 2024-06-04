@@ -210,9 +210,9 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
             output.TagName = "div";
 
-            output.Attributes.Add("id", this.CurrentMessage.ID.ToString());
+            output.Attributes.Add(TagBuilderAttributes.Attributes.Id, this.CurrentMessage.ID.ToString());
 
-            output.Attributes.Add("class", "selectionQuoteable");
+            output.Attributes.Add(TagBuilderAttributes.Attributes.Class, "selectionQuoteable");
 
             await this.RenderMessageAsync(output);
 
@@ -311,7 +311,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         alert.AddCssClass("alert alert-danger");
 
-        alert.MergeAttribute("role", "alert");
+        alert.MergeAttribute(TagBuilderAttributes.Attributes.Role, "alert");
 
         var strong = new TagBuilder("strong");
 
@@ -367,7 +367,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         alert.AddCssClass("alert alert-secondary mt-1");
 
-        alert.MergeAttribute("role", "alert");
+        alert.MergeAttribute(TagBuilderAttributes.Attributes.Role, "alert");
 
         var icon = new TagBuilder("i");
 
@@ -404,7 +404,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             link.AddCssClass("btn btn-secondary btn-sm me-1");
 
             link.MergeAttribute(
-                "href",
+                TagBuilderAttributes.Attributes.Href,
                 this.Get<LinkBuilder>().GetLink(ForumPages.MessageHistory, new { m = msgId.ToType<int>() }));
 
             var iconHistory = new TagBuilder("i");
@@ -438,13 +438,13 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         alert.AddCssClass("alert alert-success alert-dismissible fade show");
 
-        alert.MergeAttribute("role", "alert");
+        alert.MergeAttribute(TagBuilderAttributes.Attributes.Role, "alert");
 
         var link = new TagBuilder("a");
 
-        link.MergeAttribute("title", this.GetText("GO_TO_ANSWER"));
+        link.MergeAttribute(TagBuilderAttributes.Attributes.Title, this.GetText("GO_TO_ANSWER"));
         link.MergeAttribute(
-            "href",
+            TagBuilderAttributes.Attributes.Href,
             this.Get<LinkBuilder>().GetMessageLink(BoardContext.Current.PageTopic, answerMessageId));
 
         var icon = new TagBuilder("i");
@@ -459,9 +459,9 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         var button = new TagBuilder("button");
 
         button.AddCssClass("btn-close");
-        button.MergeAttribute("type", "button");
+        button.MergeAttribute(TagBuilderAttributes.Attributes.Type, "button");
         button.MergeAttribute("data-bs-dismiss", "alert");
-        button.MergeAttribute("aria-label", "close");
+        button.MergeAttribute(TagBuilderAttributes.Attributes.AriaLabel, "close");
 
         alert.InnerHtml.AppendHtml(button);
 

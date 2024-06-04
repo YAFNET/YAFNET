@@ -64,8 +64,8 @@ public static class FooterHtmlHelper
 
         var privacyText = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "PRIVACY_POLICY");
 
-        rulesTag.MergeAttribute("title", privacyText);
-        rulesTag.MergeAttribute("href", "/Privacy");
+        rulesTag.MergeAttribute(TagBuilderAttributes.Attributes.Title, privacyText);
+        rulesTag.MergeAttribute(TagBuilderAttributes.Attributes.Href, "/Privacy");
 
         rulesTag.InnerHtml.Append(privacyText);
 
@@ -91,9 +91,9 @@ public static class FooterHtmlHelper
 
         var yafUrlTag = new TagBuilder("a");
 
-        yafUrlTag.MergeAttribute("target", "_blank");
-        yafUrlTag.MergeAttribute("title", "YetAnotherForum.NET");
-        yafUrlTag.MergeAttribute("href", "https://www.yetanotherforum.net");
+        yafUrlTag.MergeAttribute(TagBuilderAttributes.Attributes.Target, "_blank");
+        yafUrlTag.MergeAttribute(TagBuilderAttributes.Attributes.Title, "YetAnotherForum.NET");
+        yafUrlTag.MergeAttribute(TagBuilderAttributes.Attributes.Href, "https://www.yetanotherforum.net");
 
         yafUrlTag.InnerHtml.Append(
             $"{BoardContext.Current.Get<ILocalization>().GetText("COMMON", "POWERED_BY")} YAF.NET");
@@ -111,9 +111,9 @@ public static class FooterHtmlHelper
 
         var yafCopyrightTag = new TagBuilder("a");
 
-        yafCopyrightTag.MergeAttribute("target", "_blank");
-        yafCopyrightTag.MergeAttribute("title", "YetAnotherForum.NET");
-        yafCopyrightTag.MergeAttribute("href", "https://www.yetanotherforum.net");
+        yafCopyrightTag.MergeAttribute(TagBuilderAttributes.Attributes.Target, "_blank");
+        yafCopyrightTag.MergeAttribute(TagBuilderAttributes.Attributes.Title, "YetAnotherForum.NET");
+        yafCopyrightTag.MergeAttribute(TagBuilderAttributes.Attributes.Href, "https://www.yetanotherforum.net");
 
         yafCopyrightTag.InnerHtml.Append($"YAF.NET © 2003-{DateTime.UtcNow.Year} Yet Another Forum.NET");
 

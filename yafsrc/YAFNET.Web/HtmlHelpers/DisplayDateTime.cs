@@ -59,7 +59,7 @@ public static class DisplayDateTimeHtmlHelper
 
         timeTag.AddCssClass("timeago");
 
-        timeTag.MergeAttribute("title", formattedDatetime);
+        timeTag.MergeAttribute(TagBuilderAttributes.Attributes.Title, formattedDatetime);
         timeTag.MergeAttribute("data-bs-toggle", "tooltip");
         timeTag.MergeAttribute("data-bs-html", "true");
 

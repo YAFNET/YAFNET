@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using YAF.Types.Constants;
+
 namespace YAF.Web.TagHelpers;
 
 /// <summary>
@@ -122,14 +124,13 @@ public class AlertTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
 
         var cssClassAttribute = this.CssClass.IsSet() ? $" {this.CssClass}" :
                                     string.Empty;
-
         output.Attributes.Add(
-            "class",
+            TagBuilderAttributes.Attributes.Class,
             this.Dismissible
                 ? $"text-break alert alert-{this.Type} alert-dismissible fade show{cssClassAttribute}"
                 : $"text-break alert alert-{this.Type}{cssClassAttribute}");
 
-        output.Attributes.Add("role", "alert");
+        output.Attributes.Add(TagBuilderAttributes.Attributes.Role, "alert");
 
         if (this.Icon.IsSet())
         {
@@ -169,10 +170,10 @@ public class AlertTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
 
         var closeButton = new TagBuilder("button");
 
-        closeButton.MergeAttribute("type", "button");
+        closeButton.MergeAttribute(TagBuilderAttributes.Attributes.Type, "button");
         closeButton.AddCssClass("btn-close");
         closeButton.MergeAttribute("data-bs-dismiss", "alert");
-        closeButton.MergeAttribute("aria-label", "close");
+        closeButton.MergeAttribute(TagBuilderAttributes.Attributes.AriaLabel, "close");
 
         output.Content.AppendHtml(closeButton);
     }

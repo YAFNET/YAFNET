@@ -109,7 +109,7 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
     {
         output.TagName = "div";
 
-        output.Attributes.Add("class", "card card-message-signature mb-3");
+        output.Attributes.Add(TagBuilderAttributes.Attributes.Class, "card card-message-signature mb-3");
 
         var cardBody = new TagBuilder("div");
 

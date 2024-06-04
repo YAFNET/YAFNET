@@ -95,7 +95,7 @@ public class EmptyTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
     {
         output.TagName = "div";
 
-        output.Attributes.Add("class", "px-3 py-4 my-4 text-center");
+        output.Attributes.Add(TagBuilderAttributes.Attributes.Class, "px-3 py-4 my-4 text-center");
 
         // Render Icon
         var iconTag = new TagBuilder("i");

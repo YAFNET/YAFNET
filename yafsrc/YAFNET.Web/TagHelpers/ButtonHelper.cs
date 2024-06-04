@@ -27,6 +27,7 @@ namespace YAF.Web.TagHelpers;
 using System.ComponentModel;
 using Lucene.Net.Util.Fst;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using YAF.Types.Constants;
 
 /// <summary>
 /// Class ButtonHelper.
@@ -224,12 +225,12 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
 
         if (output.Attributes.ContainsName("class"))
         {
-            cssClass.Append($" {output.Attributes["class"].Value}");
+            cssClass.Append($" {output.Attributes[TagBuilderAttributes.Attributes.Class].Value}");
         }
 
         if (output.TagName == "a" && !output.Attributes.ContainsName("role"))
         {
-            output.Attributes.SetAttribute("role", "button");
+            output.Attributes.SetAttribute(TagBuilderAttributes.Attributes.Role, "button");
         }
 
         if (this.ButtonSize != ButtonSize.Normal)
@@ -239,7 +240,7 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
 
         if (cssClass.Length > 0)
         {
-            output.Attributes.SetAttribute("class", cssClass.ToString());
+            output.Attributes.SetAttribute(TagBuilderAttributes.Attributes.Class, cssClass.ToString());
         }
 
         // Write Confirm Dialog
@@ -261,7 +262,7 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
         if (this.BsContent.IsSet())
         {
             output.Attributes.SetAttribute("data-bs-content", this.BsContent.Replace("\"", "'"));
-            output.Attributes.SetAttribute("tabindex", "0");
+            output.Attributes.SetAttribute(TagBuilderAttributes.Attributes.Tabindex, "0");
         }
 
         if (this.BsDismiss.IsSet())
@@ -277,21 +278,21 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
             switch (this.BsToggle)
             {
                 case "ajax-modal":
-                    output.Attributes.SetAttribute("type", "button");
+                    output.Attributes.SetAttribute(TagBuilderAttributes.Attributes.Type, "button");
                     break;
                 case "dropdown":
-                    output.Attributes.SetAttribute("aria-expanded", "false");
-                    output.Attributes.SetAttribute("type", "button");
+                    output.Attributes.SetAttribute(TagBuilderAttributes.Attributes.AriaExpanded, "false");
+                    output.Attributes.SetAttribute(TagBuilderAttributes.Attributes.Type, "button");
                     output.Attributes.SetAttribute("data-bs-auto-close", "outside");
                     break;
                 case "collapse":
                     output.Attributes.SetAttribute("data-bs-target", this.BsTarget);
-                    output.Attributes.SetAttribute("aria-expanded", "false");
+                    output.Attributes.SetAttribute(TagBuilderAttributes.Attributes.AriaExpanded, "false");
                     break;
                 case "confirm":
-                    if (!output.Attributes.ContainsName("type"))
+                    if (!output.Attributes.ContainsName(TagBuilderAttributes.Attributes.Type))
                     {
-                        output.Attributes.SetAttribute("type", output.Attributes.ContainsName("formaction") ? "submit" : "button");
+                        output.Attributes.SetAttribute(TagBuilderAttributes.Attributes.Type, output.Attributes.ContainsName("formaction") ? "submit" : "button");
                     }
 
                     break;
@@ -299,10 +300,10 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
         }
         else
         {
-            if (!output.Attributes.ContainsName("type"))
+            if (!output.Attributes.ContainsName(TagBuilderAttributes.Attributes.Type))
             {
                 output.Attributes.SetAttribute(
-                    "type",
+                    TagBuilderAttributes.Attributes.Type,
                     output.Attributes.ContainsName("formaction") ? "submit" : "button");
             }
         }
@@ -362,7 +363,7 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
 
         if (this.TitleNonLocalized.IsSet())
         {
-            output.Attributes.SetAttribute("title", this.TitleNonLocalized);
+            output.Attributes.SetAttribute(TagBuilderAttributes.Attributes.Title, this.TitleNonLocalized);
         }
 
         // Render Title
@@ -376,7 +377,7 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
             var title =
                 this.Get<ILocalization>().GetTextFormatted(this.TitleLocalizedTag, this.TitleParam0);
 
-            output.Attributes.SetAttribute("title", title);
+            output.Attributes.SetAttribute(TagBuilderAttributes.Attributes.Title, title);
         }
         else
         {
@@ -384,7 +385,7 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
                             ? this.Get<ILocalization>().GetText(this.TitleLocalizedPage, this.TitleLocalizedTag)
                             : this.Get<ILocalization>().GetText(this.TitleLocalizedTag);
 
-            output.Attributes.SetAttribute("title", title);
+            output.Attributes.SetAttribute(TagBuilderAttributes.Attributes.Title, title);
         }
     }
 

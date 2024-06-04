@@ -66,7 +66,7 @@ public class BreadCrumbTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliza
 
         output.TagName = "nav";
 
-        output.Attributes.Add("aria-label", "breadcrumb");
+        output.Attributes.Add(TagBuilderAttributes.Attributes.AriaLabel, "breadcrumb");
 
         var ol = new TagBuilder("ol");
 
@@ -90,7 +90,7 @@ public class BreadCrumbTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliza
                     {
                         var linkAnchor = new TagBuilder("a");
 
-                        linkAnchor.MergeAttribute("href", url);
+                        linkAnchor.MergeAttribute(TagBuilderAttributes.Attributes.Href, url);
 
                         linkAnchor.InnerHtml.AppendHtml(encodedTitle);
 

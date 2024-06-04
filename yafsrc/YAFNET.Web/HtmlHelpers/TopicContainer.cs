@@ -73,11 +73,11 @@ public static class TopicContainerHtmlHelper
 
         topicIcon.AddCssClass("topic-icon-legend-popvover");
 
-        topicIcon.MergeAttribute("tabindex", "0");
-        topicIcon.MergeAttribute("role", "button");
-        topicIcon.MergeAttribute("aria-label", "topic indicator icon");
+        topicIcon.MergeAttribute(TagBuilderAttributes.Attributes.Tabindex, "0");
+        topicIcon.MergeAttribute(TagBuilderAttributes.Attributes.Role, "button");
+        topicIcon.MergeAttribute(TagBuilderAttributes.Attributes.AriaLabel, "topic indicator icon");
         topicIcon.MergeAttribute("data-bs-toggle", "popover");
-        topicIcon.MergeAttribute("href", "#!");
+        topicIcon.MergeAttribute(TagBuilderAttributes.Attributes.Href, "#!");
 
         topicIcon.InnerHtml.AppendHtml(GetTopicIcon(topic, lastRead, htmlHelper));
 
@@ -94,7 +94,7 @@ public static class TopicContainerHtmlHelper
 
         topicLink.AddCssClass("topic-starter-popover");
 
-        topicLink.MergeAttribute("href", context.Get<LinkBuilder>().GetTopicLink(topic.LinkTopicID, topic.Subject));
+        topicLink.MergeAttribute(TagBuilderAttributes.Attributes.Href, context.Get<LinkBuilder>().GetTopicLink(topic.LinkTopicID, topic.Subject));
         topicLink.MergeAttribute("data-bs-toggle", "popover");
 
         topicLink.InnerHtml.AppendHtml(FormatTopicName(topic, htmlHelper));
@@ -143,7 +143,7 @@ public static class TopicContainerHtmlHelper
 
             repliesLabel.AddCssClass($"badge text-light-emphasis bg-light-subtle ms-1 me-1");
 
-            repliesLabel.MergeAttribute("title", context.Get<ILocalization>().GetText("MODERATE", "REPLIES"));
+            repliesLabel.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("MODERATE", "REPLIES"));
 
             repliesLabel.MergeAttribute("data-bs-toggle", "tooltip");
 
@@ -156,7 +156,7 @@ public static class TopicContainerHtmlHelper
 
             viewsLabel.AddCssClass($"badge text-light-emphasis bg-light-subtle");
 
-            viewsLabel.MergeAttribute("title", context.Get<ILocalization>().GetText("MODERATE", "VIEWS"));
+            viewsLabel.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("MODERATE", "VIEWS"));
             viewsLabel.MergeAttribute("data-bs-toggle", "tooltip");
 
             viewsLabel.InnerHtml.AppendHtml(htmlHelper.Icon("eye", " ", "far"));
@@ -236,7 +236,7 @@ public static class TopicContainerHtmlHelper
         infoLastPost.MergeAttribute(
         "data-bs-content",
             $"{userLast.RenderToString()}{dateTimeIcon.RenderToString()}{span}{formattedDatetime}</span>");
-        infoLastPost.MergeAttribute("href", "#!");
+        infoLastPost.MergeAttribute(TagBuilderAttributes.Attributes.Href, "#!");
         infoLastPost.MergeAttribute("data-bs-toggle", "popover");
 
         infoLastPost.InnerHtml.AppendHtml(htmlHelper.Icon("info-circle", "text-secondary"));
@@ -252,13 +252,13 @@ public static class TopicContainerHtmlHelper
         gotoLastPost.AddCssClass("btn btn-outline-secondary btn-sm");
 
         gotoLastPost.MergeAttribute(
-            "href",
+            TagBuilderAttributes.Attributes.Href,
             context.Get<LinkBuilder>().GetLink(
         ForumPages.Posts,
                 new { t = topic.TopicID, name = topic.Subject }));
 
         gotoLastPost.MergeAttribute("data-bs-toggle", "tooltip");
-        gotoLastPost.MergeAttribute("title", context.Get<ILocalization>().GetText("GO_LAST_POST"));
+        gotoLastPost.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("GO_LAST_POST"));
 
         gotoLastPost.InnerHtml.AppendHtml(htmlHelper.Icon("share-square", marginEnd: false));
 
@@ -455,7 +455,7 @@ public static class TopicContainerHtmlHelper
             return topicLabel;
         }
 
-        topicLabel.MergeAttribute("style", htmlHelper.HtmlEncode(styles));
+        topicLabel.MergeAttribute(TagBuilderAttributes.Attributes.Style, htmlHelper.HtmlEncode(styles));
 
         return topicLabel;
     }
@@ -551,7 +551,7 @@ public static class TopicContainerHtmlHelper
             pageLinkFirst.AddCssClass("page-link");
 
             pageLinkFirst.MergeAttribute(
-                "href",
+                TagBuilderAttributes.Attributes.Href,
                 context.Get<LinkBuilder>().GetTopicLink(topicId, item.Subject));
 
             pageLinkFirst.InnerHtml.Append("1");
@@ -573,7 +573,7 @@ public static class TopicContainerHtmlHelper
                 pageLink.AddCssClass("page-link");
 
                 pageLink.MergeAttribute(
-                    "href",
+                    TagBuilderAttributes.Attributes.Href,
                     context.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = topicId, name = item.Subject, p = post }));
 
                 pageLink.InnerHtml.Append(post.ToString());
@@ -597,7 +597,7 @@ public static class TopicContainerHtmlHelper
                 pageLink.AddCssClass("page-link");
 
                 pageLink.MergeAttribute(
-                    "href",
+                    TagBuilderAttributes.Attributes.Href,
                     context.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = topicId, name = item.Subject, p = post }));
 
                 pageLink.InnerHtml.Append(post.ToString());

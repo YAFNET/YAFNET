@@ -163,11 +163,11 @@ public static class AdminMenuHtmlHelper
 
         link.AddCssClass(isActive ? $"{cssClass} active" : cssClass);
 
-        link.MergeAttribute("rel", "nofollow");
-        link.MergeAttribute("role", "button");
+        link.MergeAttribute(TagBuilderAttributes.Attributes.Rel, "nofollow");
+        link.MergeAttribute(TagBuilderAttributes.Attributes.Role, "button");
         link.MergeAttribute("data-bs-toggle", isDropDownToggle ? "dropdown" : "tooltip");
-        link.MergeAttribute("href", linkUrl);
-        link.MergeAttribute("title", linkText);
+        link.MergeAttribute(TagBuilderAttributes.Attributes.Href, linkUrl);
+        link.MergeAttribute(TagBuilderAttributes.Attributes.Title, linkText);
 
         // Icon
         var iconTag = new TagBuilder("i");

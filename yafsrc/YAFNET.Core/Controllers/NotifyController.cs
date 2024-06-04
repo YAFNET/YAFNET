@@ -88,7 +88,7 @@ public class NotifyController : ForumBaseController
 
                     var topicLink = new TagBuilder("a");
 
-                    topicLink.MergeAttribute("href", this.Get<LinkBuilder>().GetLink(
+                    topicLink.MergeAttribute(TagBuilderAttributes.Attributes.Href, this.Get<LinkBuilder>().GetLink(
                     ForumPages.Post,
                         new { m = activity.MessageID.Value, name = topic.TopicName }));
                     topicLink.InnerHtml.Append($"<i class=\"fas fa-comment fa-fw me-1\"></i>{topic.TopicName}");

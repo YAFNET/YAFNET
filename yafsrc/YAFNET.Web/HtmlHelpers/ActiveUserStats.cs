@@ -75,13 +75,13 @@ public static class ActiveUserStatsHtmlHelper
             // always show active users...
             var link = new TagBuilder("a");
 
-            link.MergeAttribute("href", context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 0 }));
-            link.MergeAttribute("title", context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Href, context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 0 }));
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
             link.MergeAttribute("data-bs-toggle", "tooltip");
 
             if (context.IsCrawler)
             {
-                link.MergeAttribute("rel", "nofollow");
+                link.MergeAttribute(TagBuilderAttributes.Attributes.Rel, "nofollow");
             }
 
             link.InnerHtml.Append(
@@ -109,14 +109,14 @@ public static class ActiveUserStatsHtmlHelper
                 var link = new TagBuilder("a");
 
                 link.MergeAttribute(
-                    "href",
+                    TagBuilderAttributes.Attributes.Href,
                     context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 1 }));
-                link.MergeAttribute("title", context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
+                link.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
                 link.MergeAttribute("data-bs-toggle", "tooltip");
 
                 if (context.IsCrawler)
                 {
-                    link.MergeAttribute("rel", "nofollow");
+                    link.MergeAttribute(TagBuilderAttributes.Attributes.Rel, "nofollow");
                 }
 
                 link.InnerHtml.Append(
@@ -145,14 +145,14 @@ public static class ActiveUserStatsHtmlHelper
                 var link = new TagBuilder("a");
 
                 link.MergeAttribute(
-                    "href",
+                    TagBuilderAttributes.Attributes.Href,
                     context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 2 }));
-                link.MergeAttribute("title", context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
+                link.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
                 link.MergeAttribute("data-bs-toggle", "tooltip");
 
                 if (context.IsCrawler)
                 {
-                    link.MergeAttribute("rel", "nofollow");
+                    link.MergeAttribute(TagBuilderAttributes.Attributes.Rel, "nofollow");
                 }
 
                 link.InnerHtml.Append(
@@ -175,8 +175,8 @@ public static class ActiveUserStatsHtmlHelper
 
             var link = new TagBuilder("a");
 
-            link.MergeAttribute("href", context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 3 }));
-            link.MergeAttribute("title", context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Href, context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 3 }));
+            link.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
             link.MergeAttribute("data-bs-toggle", "tooltip");
 
             link.InnerHtml.Append(
