@@ -416,7 +416,7 @@ module.exports = function(grunt) {
                     'wwwroot/lib/forum/paging.js',
                     'wwwroot/lib/forum/main.js',
                     'wwwroot/lib/forum/modals.js',
-                    'wwwroot/lib/forum/signalR.js',
+                    'wwwroot/lib/forum/notificationHub.js',
                     'wwwroot/lib/forum/contextMenu.js',
                     'wwwroot/lib/forum/chatHub.js',
                     'wwwroot/lib/form-serialize/index.js'
