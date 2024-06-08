@@ -2,9 +2,6 @@
     "name": "yetanotherforum-net",
     "version": "3.2.5",
     "private": true,
-    "scripts": {
-        "preinstall": "npm install -g ruby sass"
-    },
     "devDependencies": {
         "@babel/preset-env": "^7.24.5",
         "@lodder/grunt-postcss": "^3.1.1",
@@ -14,10 +11,10 @@
         "grunt": "^1.6.1",
         "grunt-contrib-copy": "^1.0.0",
         "grunt-contrib-cssmin": "^5.0.0",
-        "grunt-contrib-sass": "^2.0.0",
         "grunt-contrib-uglify": "^5.2.2",
         "grunt-file-append": "^0.0.7",
         "grunt-replace": "^2.0.2",
+        "grunt-sass": "^3.1.0",
         "grunt-shell": "^4.0.0",
         "grunt-webpack": "^6.0.0",
         "postcss": "^8.4.38",

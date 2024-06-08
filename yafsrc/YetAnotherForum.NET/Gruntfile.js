@@ -6,6 +6,8 @@
  */
 
 const lightBoxWebpackConfig = require('./Scripts/bs5-lightbox/webpack.cdn.js');
+const sass = require('sass');
+
 module.exports = function(grunt) {
     // CONFIGURATION
     grunt.initConfig({
@@ -474,6 +476,10 @@ module.exports = function(grunt) {
         },
 
         sass: {
+	        options: {
+		        implementation: sass,
+		        sourceMap: false
+	        },
             installWizard: {
                 files: {
                     "Content/InstallWizard.css": 'Content/InstallWizard.scss'
@@ -624,12 +630,12 @@ module.exports = function(grunt) {
     });
 
     // PLUGINS
-    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('@lodder/grunt-postcss');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('@w8tcha/grunt-dev-update');
+    grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-file-append');
