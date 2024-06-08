@@ -127,7 +127,7 @@ public class LoginBox : ForumBaseController
                     this.Get<ILogger<LoginBox>>().Log(
                         null,
                         $"Login Failure: {model.UserName}",
-                        $"Login Failure for User: {model.UserName} with the IP Address: {this.Request.HttpContext.Connection.LocalIpAddress}",
+                        $"Login Failure for User: {model.UserName} with the IP Address: {this.Request.GetUserRealIPAddress()}",
                         EventLogTypes.LoginFailure);
 
                     this.PageBoardContext.SessionNotify(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);

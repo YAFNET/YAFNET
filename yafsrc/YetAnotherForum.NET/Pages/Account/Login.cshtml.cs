@@ -35,6 +35,7 @@ using Microsoft.Extensions.Logging;
 using MimeKit;
 
 using YAF.Core.Extensions;
+using YAF.Core.Helpers;
 using YAF.Core.Identity.Owin;
 using YAF.Core.Services;
 using YAF.Types.Extensions;
@@ -209,7 +210,7 @@ public class LoginModel : AccountPage
                 this.Get<ILogger<LoginModel>>().Log(
                     null,
                     $"Login Failure: {this.Input.UserName.Trim()}",
-                    $"Login Failure for User: {this.Input.UserName.Trim()} with the IP Address: {this.Request.HttpContext.Connection.LocalIpAddress}",
+                    $"Login Failure for User: {this.Input.UserName.Trim()} with the IP Address: {this.Request.GetUserRealIPAddress()}",
                     EventLogTypes.LoginFailure);
 
                 return this.PageBoardContext.Notify(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
