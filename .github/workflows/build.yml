@@ -25,7 +25,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install Node Packages
         working-directory: ./yafsrc/YetAnotherForum.NET
-        run: npm install --loglevel=error
+        run: |
+          npm install --loglevel=error
       - name: Install dependencies
         working-directory: ./
         run: dotnet restore ./yafsrc/YAF.NET-SqlServer.sln
