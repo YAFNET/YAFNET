@@ -56,5 +56,5 @@ Yet Another Forum.NET is licensed under the Apache 2.0 license.
 
 ### Yet Another Forum Community Support
 
-If you have any questions, please visit the YAF Community Support forum: [https://forum.yetanotherforum.net](https://forum.yetanotherforum.net), or visit the Wiki for More Informations.
+If you have any questions, please visit the YAF Community Support forum: [https://yetanotherforum.net/Forums](https://yetanotherforum.net/Forums), or visit the Wiki for More Informations.
 
