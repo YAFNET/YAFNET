@@ -47,7 +47,7 @@ Admin Control Panel
 
 ## Community Support Forum
 
-See a real live YAF Forum by visiting the YetAnotherForum.NET community support forum: https://forum.yetanotherforum.net. Also, get your questions answered by the YAF community.
+See a real live YAF Forum by visiting the YetAnotherForum.NET community support forum: [https://yetanotherforum.net/Forums](https://yetanotherforum.net/Forums). Also, get your questions answered by the YAF community.
 
 ## License
 
