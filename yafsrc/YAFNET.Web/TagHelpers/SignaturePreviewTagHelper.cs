@@ -107,11 +107,11 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
     /// </param>
     protected virtual void RenderSignature(TagHelperOutput output)
     {
-        output.TagName = "div";
+        output.TagName = HtmlTag.Div;
 
-        output.Attributes.Add(TagBuilderAttributes.Attributes.Class, "card card-message-signature mb-3");
+        output.Attributes.Add(HtmlAttribute.Class, "card card-message-signature mb-3");
 
-        var cardBody = new TagBuilder("div");
+        var cardBody = new TagBuilder(HtmlTag.Div);
 
         cardBody.AddCssClass("card-body");
 

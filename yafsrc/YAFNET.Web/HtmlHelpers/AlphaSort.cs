@@ -50,7 +50,7 @@ public static class AlphaSortHtmlHelper
 
         var context = BoardContext.Current;
 
-        var buttonGroup = new TagBuilder("div");
+        var buttonGroup = new TagBuilder(HtmlTag.Div);
         buttonGroup.AddCssClass("btn-group mb-3 d-none d-md-block");
 
         // get the localized character set
@@ -67,16 +67,16 @@ public static class AlphaSortHtmlHelper
                         letter =>
                         {
                             // create a link to this letter
-                            var link = new TagBuilder("a");
+                            var link = new TagBuilder(HtmlTag.A);
 
                             link.MergeAttribute(
-                                TagBuilderAttributes.Attributes.Title,
+                                HtmlAttribute.Title,
                                 context.Get<ILocalization>().GetTextFormatted(
                                     "ALPHABET_FILTER_BY",
                                     letter.ToString()));
 
                             link.MergeAttribute(
-                                TagBuilderAttributes.Attributes.Href,
+                                HtmlAttribute.Href,
                                 context.Get<LinkBuilder>().GetLink(
                                     ForumPages.Members,
                                     new { letter = letter == '#' ? '_' : letter }));

@@ -59,25 +59,25 @@ public static class TopicContainerHtmlHelper
             topic.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
             topic.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
-        var mainDiv = new TagBuilder("div");
+        var mainDiv = new TagBuilder(HtmlTag.Div);
 
         mainDiv.AddCssClass(isLastItem ? "row" : "row border-bottom mb-3 pb-3");
 
-        var titleColumn = new TagBuilder("div");
+        var titleColumn = new TagBuilder(HtmlTag.Div);
 
         titleColumn.AddCssClass("col-md-8");
 
-        var header = new TagBuilder("h5");
+        var header = new TagBuilder(HtmlTag.H5);
 
-        var topicIcon = new TagBuilder("a");
+        var topicIcon = new TagBuilder(HtmlTag.A);
 
         topicIcon.AddCssClass("topic-icon-legend-popvover");
 
-        topicIcon.MergeAttribute(TagBuilderAttributes.Attributes.Tabindex, "0");
-        topicIcon.MergeAttribute(TagBuilderAttributes.Attributes.Role, "button");
-        topicIcon.MergeAttribute(TagBuilderAttributes.Attributes.AriaLabel, "topic indicator icon");
+        topicIcon.MergeAttribute(HtmlAttribute.Tabindex, "0");
+        topicIcon.MergeAttribute(HtmlAttribute.Role, HtmlTag.Button);
+        topicIcon.MergeAttribute(HtmlAttribute.AriaLabel, "topic indicator icon");
         topicIcon.MergeAttribute("data-bs-toggle", "popover");
-        topicIcon.MergeAttribute(TagBuilderAttributes.Attributes.Href, "#!");
+        topicIcon.MergeAttribute(HtmlAttribute.Href, "#!");
 
         topicIcon.InnerHtml.AppendHtml(GetTopicIcon(topic, lastRead, htmlHelper));
 
@@ -90,11 +90,11 @@ public static class TopicContainerHtmlHelper
             header.InnerHtml.AppendHtml(priorityMessage);
         }
 
-        var topicLink = new TagBuilder("a");
+        var topicLink = new TagBuilder(HtmlTag.A);
 
         topicLink.AddCssClass("topic-starter-popover");
 
-        topicLink.MergeAttribute(TagBuilderAttributes.Attributes.Href, context.Get<LinkBuilder>().GetTopicLink(topic.LinkTopicID, topic.Subject));
+        topicLink.MergeAttribute(HtmlAttribute.Href, context.Get<LinkBuilder>().GetTopicLink(topic.LinkTopicID, topic.Subject));
         topicLink.MergeAttribute("data-bs-toggle", "popover");
 
         topicLink.InnerHtml.AppendHtml(FormatTopicName(topic, htmlHelper));
@@ -125,7 +125,7 @@ public static class TopicContainerHtmlHelper
 
         if (topic.LastMessageID.HasValue && topic.LastPosted > lastRead)
         {
-            var success = new TagBuilder("span");
+            var success = new TagBuilder(HtmlTag.Span);
 
             success.AddCssClass("badge text-bg-success me-1");
 
@@ -139,11 +139,11 @@ public static class TopicContainerHtmlHelper
         if (!topic.TopicMovedID.HasValue)
         {
             // Render Replies & Views
-            var repliesLabel = new TagBuilder("span");
+            var repliesLabel = new TagBuilder(HtmlTag.Span);
 
-            repliesLabel.AddCssClass($"badge text-light-emphasis bg-light-subtle ms-1 me-1");
+            repliesLabel.AddCssClass("badge text-light-emphasis bg-light-subtle ms-1 me-1");
 
-            repliesLabel.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("MODERATE", "REPLIES"));
+            repliesLabel.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("MODERATE", "REPLIES"));
 
             repliesLabel.MergeAttribute("data-bs-toggle", "tooltip");
 
@@ -152,11 +152,11 @@ public static class TopicContainerHtmlHelper
 
             header.InnerHtml.AppendHtml(repliesLabel);
 
-            var viewsLabel = new TagBuilder("span");
+            var viewsLabel = new TagBuilder(HtmlTag.Span);
 
             viewsLabel.AddCssClass($"badge text-light-emphasis bg-light-subtle");
 
-            viewsLabel.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("MODERATE", "VIEWS"));
+            viewsLabel.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("MODERATE", "VIEWS"));
             viewsLabel.MergeAttribute("data-bs-toggle", "tooltip");
 
             viewsLabel.InnerHtml.AppendHtml(htmlHelper.Icon("eye", " ", "far"));
@@ -212,7 +212,7 @@ public static class TopicContainerHtmlHelper
     private static IHtmlContentBuilder RenderLastPost(IHtmlHelper htmlHelper, PagedTopic topic, BoardContext context,
         IHtmlContent dateTimeIcon, string span, TagBuilder mainDiv, HtmlContentBuilder content)
     {
-        var lastPostColumn = new TagBuilder("div");
+        var lastPostColumn = new TagBuilder(HtmlTag.Div);
 
         lastPostColumn.AddCssClass("col-md-4 text-secondary");
 
@@ -230,13 +230,13 @@ public static class TopicContainerHtmlHelper
             topic.LastUserStyle,
             true);
 
-        var infoLastPost = new TagBuilder("a");
+        var infoLastPost = new TagBuilder(HtmlTag.A);
 
         infoLastPost.AddCssClass("btn btn-link btn-sm topic-link-popover");
         infoLastPost.MergeAttribute(
         "data-bs-content",
             $"{userLast.RenderToString()}{dateTimeIcon.RenderToString()}{span}{formattedDatetime}</span>");
-        infoLastPost.MergeAttribute(TagBuilderAttributes.Attributes.Href, "#!");
+        infoLastPost.MergeAttribute(HtmlAttribute.Href, "#!");
         infoLastPost.MergeAttribute("data-bs-toggle", "popover");
 
         infoLastPost.InnerHtml.AppendHtml(htmlHelper.Icon("info-circle", "text-secondary"));
@@ -247,18 +247,18 @@ public static class TopicContainerHtmlHelper
 
         lastPostColumn.InnerHtml.AppendHtml(infoLastPost);
 
-        var gotoLastPost = new TagBuilder("a");
+        var gotoLastPost = new TagBuilder(HtmlTag.A);
 
         gotoLastPost.AddCssClass("btn btn-outline-secondary btn-sm");
 
         gotoLastPost.MergeAttribute(
-            TagBuilderAttributes.Attributes.Href,
+            HtmlAttribute.Href,
             context.Get<LinkBuilder>().GetLink(
         ForumPages.Posts,
                 new { t = topic.TopicID, name = topic.Subject }));
 
         gotoLastPost.MergeAttribute("data-bs-toggle", "tooltip");
-        gotoLastPost.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("GO_LAST_POST"));
+        gotoLastPost.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("GO_LAST_POST"));
 
         gotoLastPost.InnerHtml.AppendHtml(htmlHelper.Icon("share-square", marginEnd: false));
 
@@ -271,7 +271,7 @@ public static class TopicContainerHtmlHelper
 
     private static void RenderTopicDescription(string topicDescription, TagBuilder titleColumn)
     {
-        var descriptionHeader = new TagBuilder("h6");
+        var descriptionHeader = new TagBuilder(HtmlTag.H6);
 
         descriptionHeader.AddCssClass("card-subtitle text-body-secondary");
 
@@ -388,7 +388,7 @@ public static class TopicContainerHtmlHelper
     /// <param name="htmlHelper"></param>
     private static TagBuilder RenderPriorityMessage(PagedTopic item, IHtmlHelper htmlHelper)
     {
-        var priorityLabel = new TagBuilder("span");
+        var priorityLabel = new TagBuilder(HtmlTag.Span);
 
         if (item.TopicMovedID.HasValue)
         {
@@ -440,7 +440,7 @@ public static class TopicContainerHtmlHelper
     {
         var context = BoardContext.Current;
 
-        var topicLabel = new TagBuilder("span");
+        var topicLabel = new TagBuilder(HtmlTag.Span);
 
         var topicSubject = context.Get<IBadWordReplace>().Replace(htmlHelper.HtmlEncode(item.Subject));
 
@@ -455,7 +455,7 @@ public static class TopicContainerHtmlHelper
             return topicLabel;
         }
 
-        topicLabel.MergeAttribute(TagBuilderAttributes.Attributes.Style, htmlHelper.HtmlEncode(styles));
+        topicLabel.MergeAttribute(HtmlAttribute.Style, htmlHelper.HtmlEncode(styles));
 
         return topicLabel;
     }
@@ -532,26 +532,26 @@ public static class TopicContainerHtmlHelper
             return content;
         }
 
-        var buttonGroup = new TagBuilder("nav");
+        var buttonGroup = new TagBuilder(HtmlTag.Nav);
 
         buttonGroup.AddCssClass("ms-2 d-inline-flex");
 
-        var pagination = new TagBuilder("ul");
+        var pagination = new TagBuilder(HtmlTag.Ul);
 
         pagination.AddCssClass("pagination pagination-sm");
 
         if (pageCount > numToDisplay)
         {
-            var pageItemFirst = new TagBuilder("li");
+            var pageItemFirst = new TagBuilder(HtmlTag.Li);
 
             pageItemFirst.AddCssClass("page-item");
 
-            var pageLinkFirst = new TagBuilder("a");
+            var pageLinkFirst = new TagBuilder(HtmlTag.A);
 
             pageLinkFirst.AddCssClass("page-link");
 
             pageLinkFirst.MergeAttribute(
-                TagBuilderAttributes.Attributes.Href,
+                HtmlAttribute.Href,
                 context.Get<LinkBuilder>().GetTopicLink(topicId, item.Subject));
 
             pageLinkFirst.InnerHtml.Append("1");
@@ -564,16 +564,16 @@ public static class TopicContainerHtmlHelper
             {
                 var post = i + 1;
 
-                var pageItem = new TagBuilder("li");
+                var pageItem = new TagBuilder(HtmlTag.Li);
 
                 pageItem.AddCssClass("page-item");
 
-                var pageLink = new TagBuilder("a");
+                var pageLink = new TagBuilder(HtmlTag.A);
 
                 pageLink.AddCssClass("page-link");
 
                 pageLink.MergeAttribute(
-                    TagBuilderAttributes.Attributes.Href,
+                    HtmlAttribute.Href,
                     context.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = topicId, name = item.Subject, p = post }));
 
                 pageLink.InnerHtml.Append(post.ToString());
@@ -588,16 +588,16 @@ public static class TopicContainerHtmlHelper
             {
                 var post = i + 1;
 
-                var pageItem = new TagBuilder("li");
+                var pageItem = new TagBuilder(HtmlTag.Li);
 
                 pageItem.AddCssClass("page-item");
 
-                var pageLink = new TagBuilder("a");
+                var pageLink = new TagBuilder(HtmlTag.A);
 
                 pageLink.AddCssClass("page-link");
 
                 pageLink.MergeAttribute(
-                    TagBuilderAttributes.Attributes.Href,
+                    HtmlAttribute.Href,
                     context.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = topicId, name = item.Subject, p = post }));
 
                 pageLink.InnerHtml.Append(post.ToString());

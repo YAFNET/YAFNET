@@ -9,6 +9,8 @@ global using System.Text.RegularExpressions;
 global using System.Threading.Tasks;
 global using System.Web;
 
+global using HtmlProperties;
+
 global using Microsoft.AspNetCore.Html;
 global using Microsoft.AspNetCore.Mvc.ModelBinding;
 global using Microsoft.AspNetCore.Mvc.Rendering;

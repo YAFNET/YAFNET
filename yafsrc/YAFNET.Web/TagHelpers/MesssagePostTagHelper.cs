@@ -188,7 +188,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         if (this.Message.IsSet())
         {
-            output.TagName = "div";
+            output.TagName = HtmlTag.Div;
 
             await this.RenderSimpleMessageAsync(output);
 
@@ -208,11 +208,11 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 this.DisplayUserId = this.CurrentMessage.UserID;
             }
 
-            output.TagName = "div";
+            output.TagName = HtmlTag.Div;
 
-            output.Attributes.Add(TagBuilderAttributes.Attributes.Id, this.CurrentMessage.ID.ToString());
+            output.Attributes.Add(HtmlAttribute.Id, this.CurrentMessage.ID.ToString());
 
-            output.Attributes.Add(TagBuilderAttributes.Attributes.Class, "selectionQuoteable");
+            output.Attributes.Add(HtmlAttribute.Class, "selectionQuoteable");
 
             await this.RenderMessageAsync(output);
 
@@ -256,15 +256,15 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// </param>
     async protected virtual Task RenderSignatureAsync(TagHelperOutput output)
     {
-        var hr = new TagBuilder("hr") { TagRenderMode = TagRenderMode.SelfClosing };
+        var hr = new TagBuilder(HtmlTag.Hr) { TagRenderMode = TagRenderMode.SelfClosing };
 
         output.Content.AppendHtml(hr);
 
-        var card = new TagBuilder("div");
+        var card = new TagBuilder(HtmlTag.Div);
 
         card.AddCssClass("card border-light-subtle card-message-signature");
 
-        var cardBody = new TagBuilder("div");
+        var cardBody = new TagBuilder(HtmlTag.Div);
 
         cardBody.AddCssClass("card-body py-0");
 
@@ -307,13 +307,13 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             return;
         }
 
-        var alert = new TagBuilder("div");
+        var alert = new TagBuilder(HtmlTag.Div);
 
         alert.AddCssClass("alert alert-danger");
 
-        alert.MergeAttribute(TagBuilderAttributes.Attributes.Role, "alert");
+        alert.MergeAttribute(HtmlAttribute.Role, "alert");
 
-        var strong = new TagBuilder("strong");
+        var strong = new TagBuilder(HtmlTag.Strong);
 
         strong.InnerHtml.Append(
             this.GetText("POSTS", this.IsModeratorChanged ? "MESSAGEDELETED_MOD" : "MESSAGEDELETED_USER"));
@@ -322,7 +322,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         if (deleteText.IsSet())
         {
-            var span = new TagBuilder("span");
+            var span = new TagBuilder(HtmlTag.Span);
 
             span.AddCssClass("ms-1");
 
@@ -363,13 +363,13 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                              ? this.GetText("POSTS", "EDITED_BY_MOD")
                              : this.GetText("POSTS", "EDITED_BY_USER");
 
-        var alert = new TagBuilder("div");
+        var alert = new TagBuilder(HtmlTag.Div);
 
         alert.AddCssClass("alert alert-secondary mt-1");
 
-        alert.MergeAttribute(TagBuilderAttributes.Attributes.Role, "alert");
+        alert.MergeAttribute(HtmlAttribute.Role, "alert");
 
-        var icon = new TagBuilder("i");
+        var icon = new TagBuilder(HtmlTag.I);
 
         icon.AddCssClass("fa fa-edit fa-fw text-secondary");
 
@@ -381,7 +381,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         alert.InnerHtml.Append(" | ");
 
-        var em = new TagBuilder("em");
+        var em = new TagBuilder(HtmlTag.Em);
 
         em.AddCssClass("me-1");
 
@@ -391,23 +391,23 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         if (!BoardContext.Current.IsGuest)
         {
-            var hr = new TagBuilder("hr") { TagRenderMode = TagRenderMode.SelfClosing };
+            var hr = new TagBuilder(HtmlTag.Hr) { TagRenderMode = TagRenderMode.SelfClosing };
 
             alert.InnerHtml.AppendHtml(hr);
 
-            var p = new TagBuilder("p");
+            var p = new TagBuilder(HtmlTag.P);
 
             p.AddCssClass("mb-0");
 
-            var link = new TagBuilder("a");
+            var link = new TagBuilder(HtmlTag.A);
 
             link.AddCssClass("btn btn-secondary btn-sm me-1");
 
             link.MergeAttribute(
-                TagBuilderAttributes.Attributes.Href,
+                HtmlAttribute.Href,
                 this.Get<LinkBuilder>().GetLink(ForumPages.MessageHistory, new { m = msgId.ToType<int>() }));
 
-            var iconHistory = new TagBuilder("i");
+            var iconHistory = new TagBuilder(HtmlTag.I);
 
             iconHistory.AddCssClass("fa fa-history fa-fw me-1");
 
@@ -434,20 +434,20 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// </param>
     protected virtual void RenderAnswerMessage(TagHelperOutput output, int answerMessageId)
     {
-        var alert = new TagBuilder("div");
+        var alert = new TagBuilder(HtmlTag.Div);
 
         alert.AddCssClass("alert alert-success alert-dismissible fade show");
 
-        alert.MergeAttribute(TagBuilderAttributes.Attributes.Role, "alert");
+        alert.MergeAttribute(HtmlAttribute.Role, "alert");
 
-        var link = new TagBuilder("a");
+        var link = new TagBuilder(HtmlTag.A);
 
-        link.MergeAttribute(TagBuilderAttributes.Attributes.Title, this.GetText("GO_TO_ANSWER"));
+        link.MergeAttribute(HtmlAttribute.Title, this.GetText("GO_TO_ANSWER"));
         link.MergeAttribute(
-            TagBuilderAttributes.Attributes.Href,
+            HtmlAttribute.Href,
             this.Get<LinkBuilder>().GetMessageLink(BoardContext.Current.PageTopic, answerMessageId));
 
-        var icon = new TagBuilder("i");
+        var icon = new TagBuilder(HtmlTag.I);
 
         icon.AddCssClass("fa fa-check fa-fw me-1");
 
@@ -456,12 +456,12 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         alert.InnerHtml.AppendHtml(link);
 
-        var button = new TagBuilder("button");
+        var button = new TagBuilder(HtmlTag.Button);
 
         button.AddCssClass("btn-close");
-        button.MergeAttribute(TagBuilderAttributes.Attributes.Type, "button");
+        button.MergeAttribute(HtmlAttribute.Type, HtmlTag.Button);
         button.MergeAttribute("data-bs-dismiss", "alert");
-        button.MergeAttribute(TagBuilderAttributes.Attributes.AriaLabel, "close");
+        button.MergeAttribute(HtmlAttribute.AriaLabel, "close");
 
         alert.InnerHtml.AppendHtml(button);
 

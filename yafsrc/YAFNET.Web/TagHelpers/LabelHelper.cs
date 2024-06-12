@@ -136,11 +136,11 @@ public class LabelHelper : TagHelper, IHaveServiceLocator, ILocalizationSupport
             return;
         }
 
-        var button = new TagBuilder("button");
+        var button = new TagBuilder(HtmlTag.Button);
 
         button.AddCssClass("btn btn-sm");
-        button.MergeAttribute(TagBuilderAttributes.Attributes.Type, "button");
-        button.MergeAttribute(TagBuilderAttributes.Attributes.Title, tooltip);
+        button.MergeAttribute(HtmlAttribute.Type, HtmlTag.Button);
+        button.MergeAttribute(HtmlAttribute.Title, tooltip);
         button.MergeAttribute("data-bs-html", "true");
         button.MergeAttribute("data-bs-toggle", "tooltip");
         button.MergeAttribute("data-bs-placement", "right");

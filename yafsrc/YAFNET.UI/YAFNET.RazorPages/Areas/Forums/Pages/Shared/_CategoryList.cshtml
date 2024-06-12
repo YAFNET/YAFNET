@@ -1,4 +1,5 @@
-﻿@using YAF.Core.Context
+﻿@using HtmlProperties
+@using YAF.Core.Context
 @using YAF.Core.Helpers
 @using YAF.Core.Services
 @using YAF.Types.Constants
@@ -27,12 +28,12 @@
 
     var hasCategoryImage = category.CategoryImage.IsSet();
 
-    var image = new TagBuilder("img") { TagRenderMode = TagRenderMode.SelfClosing };
+    var image = new TagBuilder(HtmlTag.Img) { TagRenderMode = TagRenderMode.SelfClosing };
 
     image.MergeAttribute("alt", category.Category);
     image.MergeAttribute("src", $"/{Current.Get<BoardFolders>().Categories}/{category.CategoryImage}");
 
-    var icon = new TagBuilder("i");
+    var icon = new TagBuilder(HtmlTag.I);
 
     icon.AddCssClass("fas fa-folder fa-fw text-warning me-1");
 

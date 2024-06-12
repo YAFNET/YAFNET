@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using YAF.Types.Constants;
-
 namespace YAF.Web.HtmlHelpers;
 
 /// <summary>
@@ -64,13 +62,13 @@ public static class CategoryListHelpers
                 "text-warning",
                 "fa-1x");
 
-            var iconLink = new TagBuilder("a");
+            var iconLink = new TagBuilder(HtmlTag.A);
 
-            iconLink.MergeAttribute(TagBuilderAttributes.Attributes.Tabindex, "0");
-            iconLink.MergeAttribute(TagBuilderAttributes.Attributes.Role, "button");
+            iconLink.MergeAttribute(HtmlAttribute.Tabindex, "0");
+            iconLink.MergeAttribute(HtmlAttribute.Role, HtmlTag.Button);
             iconLink.MergeAttribute("data-bs-toggle", "popover");
-            iconLink.MergeAttribute(TagBuilderAttributes.Attributes.Href, "#");
-            iconLink.MergeAttribute(TagBuilderAttributes.Attributes.AriaLabel, "icon-legend");
+            iconLink.MergeAttribute(HtmlAttribute.Href, "#");
+            iconLink.MergeAttribute(HtmlAttribute.AriaLabel, "icon-legend");
 
             iconLink.AddCssClass("btn btn-link m-0 p-0 forum-icon-legend-popvover");
 
@@ -91,7 +89,7 @@ public static class CategoryListHelpers
         }
         else
         {
-            var forumImage = new TagBuilder("img");
+            var forumImage = new TagBuilder(HtmlTag.Img);
 
             forumImage.MergeAttribute("src", $"/{BoardContext.Current.Get<BoardFolders>().Forums}/{item.ImageURL}");
             forumImage.MergeAttribute("data-bs-toggle", "tooltip");
@@ -104,7 +102,7 @@ public static class CategoryListHelpers
                     "alt",
                     BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "FORUM_LOCKED"));
                 forumImage.MergeAttribute(
-                    TagBuilderAttributes.Attributes.Title,
+                    HtmlAttribute.Title,
                     BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "FORUM_LOCKED"));
             }
             else if (lastPosted > lastRead)
@@ -114,7 +112,7 @@ public static class CategoryListHelpers
                     "alt",
                     BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "NEW_POSTS"));
                 forumImage.MergeAttribute(
-                    TagBuilderAttributes.Attributes.Title,
+                    HtmlAttribute.Title,
                     BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "NEW_POSTS"));
             }
             else
@@ -124,7 +122,7 @@ public static class CategoryListHelpers
                     "alt",
                     BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "NO_NEW_POSTS"));
                 forumImage.MergeAttribute(
-                    TagBuilderAttributes.Attributes.Title,
+                    HtmlAttribute.Title,
                     BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "NO_NEW_POSTS"));
             }
 
@@ -156,7 +154,7 @@ public static class CategoryListHelpers
                             ? item.Description
                             : BoardContext.Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM");
 
-            var link = new TagBuilder("a");
+            var link = new TagBuilder(HtmlTag.A);
 
             link.MergeAttribute("data-bs-toggle", "tooltip");
 
@@ -165,10 +163,10 @@ public static class CategoryListHelpers
             if (item.RemoteURL.IsSet())
             {
                 link.MergeAttribute("href", item.RemoteURL);
-                link.MergeAttribute(TagBuilderAttributes.Attributes.Title, BoardContext.Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM"));
-                link.MergeAttribute(TagBuilderAttributes.Attributes.Target, "_blank");
+                link.MergeAttribute(HtmlAttribute.Title, BoardContext.Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM"));
+                link.MergeAttribute(HtmlAttribute.Target, "_blank");
 
-                var icon = new TagBuilder("i");
+                var icon = new TagBuilder(HtmlTag.I);
 
                 icon.AddCssClass("fas fa-external-link-alt fa-fw ms-1");
 
@@ -177,13 +175,13 @@ public static class CategoryListHelpers
             else
             {
                 link.MergeAttribute(
-                    TagBuilderAttributes.Attributes.Href,
+                    HtmlAttribute.Href,
                     BoardContext.Current.Get<LinkBuilder>().GetForumLink(item.ForumID, item.Forum));
-                link.MergeAttribute(TagBuilderAttributes.Attributes.Title, title);
+                link.MergeAttribute(HtmlAttribute.Title, title);
             }
 
             link.MergeAttribute(
-                TagBuilderAttributes.Attributes.Href,
+                HtmlAttribute.Href,
                 item.RemoteURL.IsSet()
                     ? item.RemoteURL
                     : BoardContext.Current.Get<LinkBuilder>().GetForumLink(item.ForumID, item.Forum));
@@ -217,14 +215,14 @@ public static class CategoryListHelpers
 
         var content = new HtmlContentBuilder();
 
-        var list = new TagBuilder("ol");
+        var list = new TagBuilder(HtmlTag.Ol);
 
         list.AddCssClass("list-unstyled");
 
         mods.DistinctBy(x => x.ModeratorID).ForEach(
             row =>
                 {
-                    var listItem = new TagBuilder("li");
+                    var listItem = new TagBuilder(HtmlTag.Li);
 
                     if (row.IsGroup)
                     {
@@ -276,7 +274,7 @@ public static class CategoryListHelpers
                             ? item.Description
                             : BoardContext.Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM");
 
-            var link = new TagBuilder("a");
+            var link = new TagBuilder(HtmlTag.A);
 
             link.AddCssClass("card-link small");
 
@@ -284,11 +282,11 @@ public static class CategoryListHelpers
 
             link.InnerHtml.AppendHtml(BoardContext.Current.CurrentForumPage.HtmlEncode(item.Forum));
 
-            link.MergeAttribute(TagBuilderAttributes.Attributes.Href, BoardContext.Current.Get<LinkBuilder>().GetForumLink(item.ForumID, item.Forum));
-            link.MergeAttribute(TagBuilderAttributes.Attributes.Title, title);
+            link.MergeAttribute(HtmlAttribute.Href, BoardContext.Current.Get<LinkBuilder>().GetForumLink(item.ForumID, item.Forum));
+            link.MergeAttribute(HtmlAttribute.Title, title);
 
             link.MergeAttribute(
-                TagBuilderAttributes.Attributes.Href,
+                HtmlAttribute.Href,
                 item.RemoteURL.IsSet()
                     ? item.RemoteURL
                     : BoardContext.Current.Get<LinkBuilder>().GetForumLink(item.ForumID, item.Forum));

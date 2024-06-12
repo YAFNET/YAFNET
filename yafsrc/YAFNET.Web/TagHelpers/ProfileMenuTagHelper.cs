@@ -61,22 +61,22 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// </param>
     public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
     {
-        var html = new TagBuilder("div");
-        var htmlDropDown = new TagBuilder("div");
+        var html = new TagBuilder(HtmlTag.Div);
+        var htmlDropDown = new TagBuilder(HtmlTag.Div);
 
         htmlDropDown.AddCssClass("dropdown d-md-none d-grid gap-2 mb-3");
 
-        var dropDownButton = new TagBuilder("button");
+        var dropDownButton = new TagBuilder(HtmlTag.Button);
 
         dropDownButton.AddCssClass("btn btn-secondary dropdown-toggle");
 
-        dropDownButton.MergeAttribute(TagBuilderAttributes.Attributes.Id, "dropdownMenuButton");
-        dropDownButton.MergeAttribute(TagBuilderAttributes.Attributes.Type, "button");
+        dropDownButton.MergeAttribute(HtmlAttribute.Id, "dropdownMenuButton");
+        dropDownButton.MergeAttribute(HtmlAttribute.Type, HtmlTag.Button);
         dropDownButton.MergeAttribute("data-bs-toggle", "dropdown");
         dropDownButton.MergeAttribute("aria-haspopup", "true");
-        dropDownButton.MergeAttribute(TagBuilderAttributes.Attributes.AriaExpanded, "false");
+        dropDownButton.MergeAttribute(HtmlAttribute.AriaExpanded, "false");
 
-        var icon = new TagBuilder("i");
+        var icon = new TagBuilder(HtmlTag.I);
         icon.AddCssClass("fa fa-cogs fa-fw me-1");
 
         dropDownButton.InnerHtml.AppendHtml(icon);
@@ -84,7 +84,7 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         htmlDropDown.InnerHtml.AppendHtml(dropDownButton);
 
-        var htmlDropDownMenu = new TagBuilder("div");
+        var htmlDropDownMenu = new TagBuilder(HtmlTag.Div);
         htmlDropDownMenu.AddCssClass("dropdown-menu scrollable-dropdown");
         htmlDropDownMenu.MergeAttribute("aria-labelledby", "dropdownMenuButton");
 
@@ -105,7 +105,7 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             "user",
             new { u = this.PageContext.PageUserID, name = this.PageContext.MembershipUser.UserName }));
 
-        var headerProfile = new TagBuilder("h6");
+        var headerProfile = new TagBuilder(HtmlTag.H6);
         headerProfile.AddCssClass("dropdown-header");
         headerProfile.InnerHtml.Append(this.GetText("PERSONAL_PROFILE"));
 
@@ -309,20 +309,20 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         string iconName,
         object parameter = null)
     {
-        var link = new TagBuilder("a");
+        var link = new TagBuilder(HtmlTag.A);
 
         link.AddCssClass(BoardContext.Current.CurrentForumPage.PageName == page ? $"{cssClass} active" : cssClass);
 
         link.MergeAttribute(
-            TagBuilderAttributes.Attributes.Href,
+            HtmlAttribute.Href,
             parameter is not null
                 ? this.Get<LinkBuilder>().GetLink(page, parameter)
                 : this.Get<LinkBuilder>().GetLink(page));
 
         link.MergeAttribute("data-bs-toggle", "tooltip");
-        link.MergeAttribute(TagBuilderAttributes.Attributes.Title, getText);
+        link.MergeAttribute(HtmlAttribute.Title, getText);
 
-        var icon = new TagBuilder("i");
+        var icon = new TagBuilder(HtmlTag.I);
 
         icon.AddCssClass(
             $"fas fa-{iconName} me-1 {(BoardContext.Current.CurrentForumPage.PageName == page ? "text-light" : "text-secondary")}");

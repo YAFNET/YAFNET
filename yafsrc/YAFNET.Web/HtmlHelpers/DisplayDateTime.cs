@@ -55,11 +55,11 @@ public static class DisplayDateTimeHtmlHelper
 
         var formattedDatetime = context.Get<IDateTimeService>().Format(format, dateTime);
 
-        var timeTag = new TagBuilder("abbr");
+        var timeTag = new TagBuilder(HtmlTag.Abbr);
 
         timeTag.AddCssClass("timeago");
 
-        timeTag.MergeAttribute(TagBuilderAttributes.Attributes.Title, formattedDatetime);
+        timeTag.MergeAttribute(HtmlAttribute.Title, formattedDatetime);
         timeTag.MergeAttribute("data-bs-toggle", "tooltip");
         timeTag.MergeAttribute("data-bs-html", "true");
 

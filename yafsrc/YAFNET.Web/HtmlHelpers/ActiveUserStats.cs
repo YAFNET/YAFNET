@@ -73,15 +73,15 @@ public static class ActiveUserStatsHtmlHelper
         if (canViewActive && (showGuestTotal || activeMembers > 0 && activeGuests <= 0))
         {
             // always show active users...
-            var link = new TagBuilder("a");
+            var link = new TagBuilder(HtmlTag.A);
 
-            link.MergeAttribute(TagBuilderAttributes.Attributes.Href, context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 0 }));
-            link.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
+            link.MergeAttribute(HtmlAttribute.Href, context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 0 }));
+            link.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
             link.MergeAttribute("data-bs-toggle", "tooltip");
 
             if (context.IsCrawler)
             {
-                link.MergeAttribute(TagBuilderAttributes.Attributes.Rel, "nofollow");
+                link.MergeAttribute(HtmlAttribute.Rel, "nofollow");
             }
 
             link.InnerHtml.Append(
@@ -106,17 +106,17 @@ public static class ActiveUserStatsHtmlHelper
 
             if (canViewActive)
             {
-                var link = new TagBuilder("a");
+                var link = new TagBuilder(HtmlTag.A);
 
                 link.MergeAttribute(
-                    TagBuilderAttributes.Attributes.Href,
+                    HtmlAttribute.Href,
                     context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 1 }));
-                link.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
+                link.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
                 link.MergeAttribute("data-bs-toggle", "tooltip");
 
                 if (context.IsCrawler)
                 {
-                    link.MergeAttribute(TagBuilderAttributes.Attributes.Rel, "nofollow");
+                    link.MergeAttribute(HtmlAttribute.Rel, "nofollow");
                 }
 
                 link.InnerHtml.Append(
@@ -142,17 +142,17 @@ public static class ActiveUserStatsHtmlHelper
             {
                 content.Append(", ");
 
-                var link = new TagBuilder("a");
+                var link = new TagBuilder(HtmlTag.A);
 
                 link.MergeAttribute(
-                    TagBuilderAttributes.Attributes.Href,
+                    HtmlAttribute.Href,
                     context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 2 }));
-                link.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
+                link.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
                 link.MergeAttribute("data-bs-toggle", "tooltip");
 
                 if (context.IsCrawler)
                 {
-                    link.MergeAttribute(TagBuilderAttributes.Attributes.Rel, "nofollow");
+                    link.MergeAttribute(HtmlAttribute.Rel, "nofollow");
                 }
 
                 link.InnerHtml.Append(
@@ -173,10 +173,10 @@ public static class ActiveUserStatsHtmlHelper
         {
             content.Append(", ");
 
-            var link = new TagBuilder("a");
+            var link = new TagBuilder(HtmlTag.A);
 
-            link.MergeAttribute(TagBuilderAttributes.Attributes.Href, context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 3 }));
-            link.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
+            link.MergeAttribute(HtmlAttribute.Href, context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 3 }));
+            link.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
             link.MergeAttribute("data-bs-toggle", "tooltip");
 
             link.InnerHtml.Append(

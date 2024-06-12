@@ -34,7 +34,7 @@ namespace YAF;
 /// <summary>
 /// Class Program.
 /// </summary>
-public class Program
+public static class Program
 {
     /// <summary>
     /// Defines the entry point of the application.
@@ -47,14 +47,10 @@ public class Program
     /// </returns>
     public static Task Main(string[] args)
     {
-        var host = Host.CreateDefaultBuilder(args).UseAutofacServiceProviderFactory().ConfigureYafLogging()
+        var host = Host.CreateDefaultBuilder(args).UseAutofacServiceProviderFactory()
+            .ConfigureYafLogging()
             .ConfigureWebHostDefaults(webHostBuilder => webHostBuilder.UseStartup<Startup>()).Build();
 
         return host.RunAsync();
     }
 }
-
-/// <summary>
-/// Helper Class for testing
-/// </summary>
-public class AssemblyClassLocator;

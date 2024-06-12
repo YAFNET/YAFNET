@@ -64,11 +64,11 @@ public class BreadCrumbTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliza
             return Task.CompletedTask;
         }
 
-        output.TagName = "nav";
+        output.TagName = HtmlTag.Nav;
 
-        output.Attributes.Add(TagBuilderAttributes.Attributes.AriaLabel, "breadcrumb");
+        output.Attributes.Add(HtmlAttribute.AriaLabel, "breadcrumb");
 
-        var ol = new TagBuilder("ol");
+        var ol = new TagBuilder(HtmlTag.Ol);
 
         ol.AddCssClass("breadcrumb");
 
@@ -78,7 +78,7 @@ public class BreadCrumbTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliza
                     var encodedTitle = BoardContext.Current.CurrentForumPage.HtmlEncode(link.Title);
                     var url = link.URL;
 
-                    var listElement = new TagBuilder("li");
+                    var listElement = new TagBuilder(HtmlTag.Li);
 
                     listElement.AddCssClass(url.IsNotSet() ? "breadcrumb-item active" : "breadcrumb-item");
 
@@ -88,9 +88,9 @@ public class BreadCrumbTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliza
                     }
                     else
                     {
-                        var linkAnchor = new TagBuilder("a");
+                        var linkAnchor = new TagBuilder(HtmlTag.A);
 
-                        linkAnchor.MergeAttribute(TagBuilderAttributes.Attributes.Href, url);
+                        linkAnchor.MergeAttribute(HtmlAttribute.Href, url);
 
                         linkAnchor.InnerHtml.AppendHtml(encodedTitle);
 

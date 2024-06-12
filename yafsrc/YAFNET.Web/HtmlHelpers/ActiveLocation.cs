@@ -113,11 +113,11 @@ public static class ActiveLocationHtmlHelper
                     return content;
                 }
 
-                var lastLink = new TagBuilder("a");
+                var lastLink = new TagBuilder(HtmlTag.A);
 
                 lastLink.MergeAttribute("data-bs-toggle", "tooltip");
-                lastLink.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM"));
-                lastLink.MergeAttribute(TagBuilderAttributes.Attributes.Href, context.Get<LinkBuilder>().GetForumLink(forumId, forumName));
+                lastLink.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM"));
+                lastLink.MergeAttribute(HtmlAttribute.Href, context.Get<LinkBuilder>().GetForumLink(forumId, forumName));
 
                 lastLink.InnerHtml.Append(forumName);
 
@@ -249,11 +249,11 @@ public static class ActiveLocationHtmlHelper
             return content;
         }
 
-        var link = new TagBuilder("a");
+        var link = new TagBuilder(HtmlTag.A);
 
         link.MergeAttribute("data-bs-toggle", "tooltip");
-        link.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_TOPIC"));
-        link.MergeAttribute(TagBuilderAttributes.Attributes.Href, context.Get<LinkBuilder>().GetTopicLink(topicId, topicName));
+        link.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_TOPIC"));
+        link.MergeAttribute(HtmlAttribute.Href, context.Get<LinkBuilder>().GetTopicLink(topicId, topicName));
 
         link.InnerHtml.Append(topicName);
 
@@ -266,11 +266,11 @@ public static class ActiveLocationHtmlHelper
 
         content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "TOPICINFORUM"));
 
-        var lastLink = new TagBuilder("a");
+        var lastLink = new TagBuilder(HtmlTag.A);
 
         lastLink.MergeAttribute("data-bs-toggle", "tooltip");
-        lastLink.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM"));
-        lastLink.MergeAttribute(TagBuilderAttributes.Attributes.Href, context.Get<LinkBuilder>().GetForumLink(forumId, forumName));
+        lastLink.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM"));
+        lastLink.MergeAttribute(HtmlAttribute.Href, context.Get<LinkBuilder>().GetForumLink(forumId, forumName));
 
         lastLink.InnerHtml.Append(forumName);
 
@@ -323,10 +323,10 @@ public static class ActiveLocationHtmlHelper
 
                 content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "ALBUM"));
 
-                var link = new TagBuilder("a");
+                var link = new TagBuilder(HtmlTag.A);
 
                 link.MergeAttribute(
-                    TagBuilderAttributes.Attributes.Href,
+                    HtmlAttribute.Href,
                     context.Get<LinkBuilder>().GetLink(ForumPages.Album, new { a = albumId }));
 
                 link.InnerHtml.Append(albumName);
@@ -335,13 +335,13 @@ public static class ActiveLocationHtmlHelper
 
                 content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "ALBUM_OFUSER"));
 
-                var linkProfile = new TagBuilder("a");
+                var linkProfile = new TagBuilder(HtmlTag.A);
 
                 linkProfile.MergeAttribute(
-                    TagBuilderAttributes.Attributes.Href,
+                    HtmlAttribute.Href,
                     context.Get<LinkBuilder>().GetUserProfileLink(userId.Value, user.DisplayOrUserName()));
                 link.MergeAttribute("data-bs-toggle", "tooltip");
-                link.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_USRPROFILE"));
+                link.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_USRPROFILE"));
 
                 linkProfile.InnerHtml.Append(user.DisplayOrUserName());
 
@@ -351,10 +351,10 @@ public static class ActiveLocationHtmlHelper
             {
                 content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "ALBUM_OWN"));
 
-                var link = new TagBuilder("a");
+                var link = new TagBuilder(HtmlTag.A);
 
                 link.MergeAttribute(
-                    TagBuilderAttributes.Attributes.Href,
+                    HtmlAttribute.Href,
                     context.Get<LinkBuilder>().GetLink(ForumPages.Album, new { a = albumId }));
 
                 link.InnerHtml.Append(albumName);
@@ -402,13 +402,13 @@ public static class ActiveLocationHtmlHelper
 
                 content.AppendHtml("&nbsp;");
 
-                var link = new TagBuilder("a");
+                var link = new TagBuilder(HtmlTag.A);
 
                 link.MergeAttribute(
-                    TagBuilderAttributes.Attributes.Href,
+                    HtmlAttribute.Href,
                     context.Get<LinkBuilder>().GetUserProfileLink(userId.Value, user.DisplayOrUserName()));
                 link.MergeAttribute("data-bs-toggle", "tooltip");
-                link.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_USRPROFILE"));
+                link.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_USRPROFILE"));
 
                 link.InnerHtml.Append(user.DisplayOrUserName());
 
@@ -459,13 +459,13 @@ public static class ActiveLocationHtmlHelper
 
                 content.AppendHtml("&nbsp;");
 
-                var link = new TagBuilder("a");
+                var link = new TagBuilder(HtmlTag.A);
 
                 link.MergeAttribute(
-                    TagBuilderAttributes.Attributes.Href,
+                    HtmlAttribute.Href,
                     context.Get<LinkBuilder>().GetUserProfileLink(userId.Value, user.DisplayOrUserName()));
                 link.MergeAttribute("data-bs-toggle", "tooltip");
-                link.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_USRPROFILE"));
+                link.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_USRPROFILE"));
 
                 link.InnerHtml.Append(user.DisplayOrUserName());
 

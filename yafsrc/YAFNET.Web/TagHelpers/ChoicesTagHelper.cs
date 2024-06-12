@@ -271,7 +271,7 @@ public class ChoicesTagHelper : TagHelper
         // Convert each ListItem to an <option> tag and wrap them with <optgroup> if requested.
         var listItemBuilder = this.GenerateGroupsAndOptions(optionLabel, selectList, currentValues);
 
-        var tagBuilder = new TagBuilder("select");
+        var tagBuilder = new TagBuilder(HtmlTag.Select);
         tagBuilder.InnerHtml.SetHtmlContent(listItemBuilder);
         tagBuilder.MergeAttributes(htmlAttributeDictionary);
         NameAndIdProvider.GenerateId(viewContext, tagBuilder, fullName, IdAttributeDotReplacement);
@@ -362,7 +362,7 @@ public class ChoicesTagHelper : TagHelper
                 var optGroup = item.Group;
                 if (optGroup != null)
                 {
-                    var groupBuilder = new TagBuilder("optgroup");
+                    var groupBuilder = new TagBuilder(HtmlTag.OptionGroup);
                     if (optGroup.Name != null)
                     {
                         groupBuilder.MergeAttribute("label", optGroup.Name);
@@ -410,7 +410,7 @@ public class ChoicesTagHelper : TagHelper
     /// <returns>TagBuilder.</returns>
     private static TagBuilder GenerateOption(SelectListItem item, string text, bool selected, string iconItem)
     {
-        var tagBuilder = new TagBuilder("option");
+        var tagBuilder = new TagBuilder(HtmlTag.Option);
         tagBuilder.InnerHtml.AppendHtml(text);
 
         if (item.Value != null)

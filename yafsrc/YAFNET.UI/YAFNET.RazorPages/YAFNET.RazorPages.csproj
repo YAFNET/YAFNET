@@ -72,6 +72,7 @@
   </ItemGroup>
 
   <ItemGroup>
+	<PackageReference Include="HtmlProperties" Version="1.0.0" />
 	<PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="8.0.6" />
 	<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.6" />
 	<PackageReference Include="SonarAnalyzer.CSharp" Version="9.26.0.92422">

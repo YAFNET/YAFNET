@@ -77,7 +77,7 @@ public static class IconHtmlHelper
             className.Append($" {iconSize}");
         }
 
-        var iconTag = new TagBuilder("i");
+        var iconTag = new TagBuilder(HtmlTag.I);
 
         iconTag.AddCssClass($"{iconStyle} fa-{iconName} {className}");
 
@@ -112,11 +112,11 @@ public static class IconHtmlHelper
     {
         var content = new HtmlContentBuilder();
 
-        var span = new TagBuilder("span");
+        var span = new TagBuilder(HtmlTag.Span);
 
         span.AddCssClass($"fa-stack-badge me-1 {iconBadgeType}");
 
-        var iconTag = new TagBuilder("i");
+        var iconTag = new TagBuilder(HtmlTag.I);
 
         iconTag.AddCssClass($"fas fa-{iconName} fa-stack-badge-1x");
 
@@ -124,7 +124,7 @@ public static class IconHtmlHelper
 
         span.InnerHtml.AppendHtml(iconTag);
 
-        var iconBadgeTag = new TagBuilder("i");
+        var iconBadgeTag = new TagBuilder(HtmlTag.I);
 
         iconBadgeTag.AddCssClass(
             iconBadgeType.IsSet() ? $"fa fa-{iconBadgeName} fa-badge {iconBadgeType}" : $"fa fa-{iconBadgeName} fa-badge");
@@ -173,13 +173,13 @@ public static class IconHtmlHelper
             iconStackSize = "fa-2x";
         }
 
-        var span = new TagBuilder("span");
+        var span = new TagBuilder(HtmlTag.Span);
 
         span.AddCssClass($"fa-stack {iconStackSize} me-1");
 
         var className = iconType.IsSet() ? $"fas fa-stack-2x {iconType}" : "fas fa-stack-2x";
 
-        var iconTag = new TagBuilder("i");
+        var iconTag = new TagBuilder(HtmlTag.I);
 
         iconTag.AddCssClass($"fa-{iconName} {className}");
 
@@ -187,7 +187,7 @@ public static class IconHtmlHelper
 
         span.InnerHtml.AppendHtml(iconTag);
 
-        var iconStackTag = new TagBuilder("i");
+        var iconStackTag = new TagBuilder(HtmlTag.I);
 
         iconStackTag.AddCssClass($"fa fa-{iconStackName} fa-stack-1x {iconStackType}");
 

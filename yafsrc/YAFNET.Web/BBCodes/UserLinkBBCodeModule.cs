@@ -64,9 +64,9 @@ public class UserLinkBBCodeModule : BBCodeControl
             stringBuilder.Append("<!-- BEGIN user link -->");
             stringBuilder.Append("<span class=\"badge rounded-pill text-bg-secondary fs-6\">");
 
-            var link = new TagBuilder("a");
+            var link = new TagBuilder(HtmlTag.A);
 
-            link.MergeAttribute(TagBuilderAttributes.Attributes.Href, this.Get<LinkBuilder>().GetUserProfileLink(boardUser.ID, boardUser.DisplayOrUserName()));
+            link.MergeAttribute(HtmlAttribute.Href, this.Get<LinkBuilder>().GetUserProfileLink(boardUser.ID, boardUser.DisplayOrUserName()));
 
             link.AddCssClass("link-light");
 

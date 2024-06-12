@@ -54,15 +54,15 @@ public static class CanonicalMetaTagHtmlHelper
                 return content.AppendHtml(GetNoIndexMetaBuilder());
             }
 
-            var link = new TagBuilder("link");
+            var link = new TagBuilder(HtmlTag.Link);
 
             link.MergeAttribute(
-                TagBuilderAttributes.Attributes.Href,
+                HtmlAttribute.Href,
                 context.Get<LinkBuilder>().GetAbsoluteLink(
                     ForumPages.Posts,
                     new { t = context.PageTopicID, name = context.PageTopic.TopicName }));
 
-            link.MergeAttribute(TagBuilderAttributes.Attributes.Rel, "canonical");
+            link.MergeAttribute(HtmlAttribute.Rel, "canonical");
 
             link.TagRenderMode = TagRenderMode.SelfClosing;
 
@@ -91,7 +91,7 @@ public static class CanonicalMetaTagHtmlHelper
     private static TagBuilder GetNoIndexMetaBuilder()
     {
         // setup no index meta tag
-        var noIndexMeta = new TagBuilder("meta");
+        var noIndexMeta = new TagBuilder(HtmlTag.Meta);
 
         noIndexMeta.MergeAttribute("name", "robots");
         noIndexMeta.MergeAttribute("content", "noindex,follow");

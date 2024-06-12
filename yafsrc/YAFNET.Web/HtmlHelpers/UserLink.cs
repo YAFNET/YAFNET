@@ -189,9 +189,9 @@ public static class UserLinkHtmlHelper
 
         if (!isGuest)
         {
-            var link = new TagBuilder("a");
+            var link = new TagBuilder(HtmlTag.A);
 
-            link.MergeAttribute(TagBuilderAttributes.Attributes.Href, context.Get<LinkBuilder>().GetUserProfileLink(userId, displayName));
+            link.MergeAttribute(HtmlAttribute.Href, context.Get<LinkBuilder>().GetUserProfileLink(userId, displayName));
 
             cssClass.Append("btn-sm");
 
@@ -209,7 +209,7 @@ public static class UserLinkHtmlHelper
             }
             else
             {
-                link.MergeAttribute(TagBuilderAttributes.Attributes.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_USRPROFILE"));
+                link.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_USRPROFILE"));
             }
 
             if (cssClassAppend.IsSet())
@@ -221,19 +221,19 @@ public static class UserLinkHtmlHelper
 
             if (context.BoardSettings.UseNoFollowLinks)
             {
-                link.MergeAttribute(TagBuilderAttributes.Attributes.Rel, "nofollow");
+                link.MergeAttribute(HtmlAttribute.Rel, "nofollow");
             }
 
             if (style.IsSet() && context.BoardSettings.UseStyledNicks)
             {
                 var styleFormatted = context.Get<IStyleTransform>().Decode(style);
 
-                link.MergeAttribute(TagBuilderAttributes.Attributes.Style, HttpUtility.HtmlEncode(styleFormatted));
+                link.MergeAttribute(HtmlAttribute.Style, HttpUtility.HtmlEncode(styleFormatted));
             }
 
             if (blankTarget)
             {
-                link.MergeAttribute(TagBuilderAttributes.Attributes.Target, "_blank");
+                link.MergeAttribute(HtmlAttribute.Target, "_blank");
             }
 
             if (context.BoardSettings.ShowUserOnlineStatus)
@@ -252,7 +252,7 @@ public static class UserLinkHtmlHelper
         }
         else
         {
-            var link = new TagBuilder("span");
+            var link = new TagBuilder(HtmlTag.Span);
 
             if (context.BoardSettings.ShowUserOnlineStatus)
             {
@@ -289,14 +289,14 @@ public static class UserLinkHtmlHelper
                 context.BoardSettings.ActiveListTime),
             TimeSpan.FromMilliseconds(BoardContext.Current.BoardSettings.OnlineStatusCacheTimeout));
 
-        var status = new TagBuilder("span");
+        var status = new TagBuilder(HtmlTag.Span);
 
         if (suspended.HasValue)
         {
             // suspended
             status.AddCssClass("align-middle text-warning user-suspended me-1");
             status.MergeAttribute(
-                TagBuilderAttributes.Attributes.Title,
+                HtmlAttribute.Title,
                 context.Get<ILocalization>().GetTextFormatted("USERSUSPENDED", suspended.Value));
             status.MergeAttribute("data-bs-toggle", "tooltip");
         }
@@ -318,10 +318,10 @@ public static class UserLinkHtmlHelper
             }
         }
 
-        var icon = new TagBuilder("i");
+        var icon = new TagBuilder(HtmlTag.I);
 
         icon.AddCssClass("fas fa-user-circle");
-        icon.MergeAttribute(TagBuilderAttributes.Attributes.Style, "font-size: 1.5em");
+        icon.MergeAttribute(HtmlAttribute.Style, "font-size: 1.5em");
 
         status.InnerHtml.AppendHtml(icon);
 

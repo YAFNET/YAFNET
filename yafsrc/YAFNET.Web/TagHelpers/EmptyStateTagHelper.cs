@@ -93,19 +93,19 @@ public class EmptyTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
     /// </param>
     public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
     {
-        output.TagName = "div";
+        output.TagName = HtmlTag.Div;
 
-        output.Attributes.Add(TagBuilderAttributes.Attributes.Class, "px-3 py-4 my-4 text-center");
+        output.Attributes.Add(HtmlAttribute.Class, "px-3 py-4 my-4 text-center");
 
         // Render Icon
-        var iconTag = new TagBuilder("i");
+        var iconTag = new TagBuilder(HtmlTag.I);
 
         iconTag.AddCssClass($"fa fa-{this.Icon} fa-5x");
 
         output.Content.AppendHtml(iconTag);
 
         // Render Header
-        var headerTag = new TagBuilder("h1");
+        var headerTag = new TagBuilder(HtmlTag.H1);
 
         headerTag.AddCssClass("display-5 fw-bold");
 
@@ -114,11 +114,11 @@ public class EmptyTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
         output.Content.AppendHtml(headerTag);
 
         // Render Message
-        var messageDivTag = new TagBuilder("div");
+        var messageDivTag = new TagBuilder(HtmlTag.Div);
 
         messageDivTag.AddCssClass("col-lg-12 mx-auto");
 
-        var messageContentTag = new TagBuilder("p");
+        var messageContentTag = new TagBuilder(HtmlTag.P);
 
         messageContentTag.AddCssClass("lead mb-3");
 

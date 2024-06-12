@@ -88,11 +88,11 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// </param>
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
-        var containerCardDiv = new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "card" } };
+        var containerCardDiv = new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "card" } };
 
-        var containerCardHeader = new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "card-header pb-0" } };
+        var containerCardHeader = new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "card-header pb-0" } };
 
-        var containerCardBody = new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "card-body" } };
+        var containerCardBody = new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "card-body" } };
 
         if (BoardContext.Current.BoardSettings.EnableWysiwygEditor && this.EditorMode is EditorMode.Standard)
         {
@@ -161,7 +161,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                             "CustomBBCodes"), dragDropJs));
                 break;
             case EditorMode.Basic:
-                output.Attributes.SetAttribute(TagBuilderAttributes.Attributes.Class, "BBCodeEditor form-control");
+                output.Attributes.SetAttribute(HtmlAttribute.Class, "BBCodeEditor form-control");
 
                 BoardContext.Current.InlineElements.InsertJsBlock(
                     nameof(JavaScriptBlocks.CreateEditorJs),
@@ -175,7 +175,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                         this.GetText("COMMON", "TT_MEDIA")));
                 break;
             case EditorMode.Standard:
-                output.Attributes.SetAttribute(TagBuilderAttributes.Attributes.Class, "BBCodeEditor form-control");
+                output.Attributes.SetAttribute(HtmlAttribute.Class, "BBCodeEditor form-control");
 
                 BoardContext.Current.InlineElements.InsertJsBlock(
                     nameof(JavaScriptBlocks.CreateEditorJs),
@@ -368,21 +368,21 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         RenderButton(content, "setStyle('quote','')", this.GetText("COMMON", "TT_QUOTE"), "quote-left");
 
         // add drop down for optional "extra" codes...
-        var toggleButton1 = new TagBuilder("button")
+        var toggleButton1 = new TagBuilder(HtmlTag.Button)
                                 {
                                     Attributes =
                                         {
-                                            [TagBuilderAttributes.Attributes.Type] = "button",
-                                            [TagBuilderAttributes.Attributes.Class] = "btn btn-primary dropdown-toggle",
-                                            [TagBuilderAttributes.Attributes.Title] = this.GetText("COMMON", "TT_CODE"),
+                                            [HtmlAttribute.Type] = HtmlTag.Button,
+                                            [HtmlAttribute.Class] = "btn btn-primary dropdown-toggle",
+                                            [HtmlAttribute.Title] = this.GetText("COMMON", "TT_CODE"),
                                             ["data-bs-toggle"] = "dropdown",
                                             ["aria-haspopup"] = "true",
-                                            [TagBuilderAttributes.Attributes.AriaExpanded] = "false"
+                                            [HtmlAttribute.AriaExpanded] = "false"
                                         }
                                 };
         content.AppendHtml(toggleButton1.RenderStartTag());
 
-        var icon1 = new TagBuilder("i") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "fa fa-code fa-fw" } };
+        var icon1 = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = "fa fa-code fa-fw" } };
         content.AppendHtml(icon1);
 
         content.AppendHtml(toggleButton1.RenderEndTag());
@@ -407,18 +407,18 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                                     new() { Value = "vb", Text = "Visual Basic" }
                                 };
 
-        var dropDownMenu1 = new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "dropdown-menu" } };
+        var dropDownMenu1 = new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "dropdown-menu" } };
         content.AppendHtml(dropDownMenu1.RenderStartTag());
 
         highLightList.ForEach(
             item =>
                 {
-                    var tag = new TagBuilder("a")
+                    var tag = new TagBuilder(HtmlTag.A)
                                   {
                                       Attributes =
                                           {
-                                              [TagBuilderAttributes.Attributes.Class] = "dropdown-item",
-                                              [TagBuilderAttributes.Attributes.Href] = "#",
+                                              [HtmlAttribute.Class] = "dropdown-item",
+                                              [HtmlAttribute.Href] = "#",
                                               ["onclick"] = $"setStyle('codelang','{item.Value}')"
                                           }
                                   };
@@ -444,26 +444,26 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                                                   && !BoardContext.Current.CurrentForumPage.IsAdminPage)
         {
             // add drop down for optional "extra" codes...
-            var toggleButton2 = new TagBuilder("button")
+            var toggleButton2 = new TagBuilder(HtmlTag.Button)
                                     {
                                         Attributes =
                                             {
-                                                [TagBuilderAttributes.Attributes.Type] = "button",
-                                                [TagBuilderAttributes.Attributes.Class] = "btn btn-primary dropdown-toggle albums-toggle",
-                                                [TagBuilderAttributes.Attributes.Title] = this.GetText("COMMON", "ALBUMIMG_CODE"),
+                                                [HtmlAttribute.Type] = HtmlTag.Button,
+                                                [HtmlAttribute.Class] = "btn btn-primary dropdown-toggle albums-toggle",
+                                                [HtmlAttribute.Title] = this.GetText("COMMON", "ALBUMIMG_CODE"),
                                                 ["data-bs-toggle"] = "dropdown",
                                                 ["aria-haspopup"] = "true",
-                                                [TagBuilderAttributes.Attributes.AriaExpanded] = "false"
+                                                [HtmlAttribute.AriaExpanded] = "false"
                                             }
                                     };
             content.AppendHtml(toggleButton2.RenderStartTag());
 
-            var icon2 = new TagBuilder("i") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "fa fa-images fa-fw" } };
+            var icon2 = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = "fa fa-images fa-fw" } };
             content.AppendHtml(icon2);
 
             content.AppendHtml(toggleButton2.RenderEndTag());
 
-            var dropDownMenu2 = new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "dropdown-menu" } };
+            var dropDownMenu2 = new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "dropdown-menu" } };
             content.AppendHtml(dropDownMenu2.RenderStartTag());
 
             this.RenderAlbumsDropDown(content);
@@ -480,26 +480,26 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             content.AppendHtml(group5.RenderStartTag());
 
             // add drop down for optional "extra" codes...
-            var toggleButton3 = new TagBuilder("button")
+            var toggleButton3 = new TagBuilder(HtmlTag.Button)
                                     {
                                         Attributes =
                                             {
-                                                [TagBuilderAttributes.Attributes.Type] = "button",
-                                                [TagBuilderAttributes.Attributes.Class] = "btn btn-primary dropdown-toggle attachments-toggle",
-                                                [TagBuilderAttributes.Attributes.Title] = this.GetText("COMMON", "ATTACH_BBCODE"),
+                                                [HtmlAttribute.Type] = HtmlTag.Button,
+                                                [HtmlAttribute.Class] = "btn btn-primary dropdown-toggle attachments-toggle",
+                                                [HtmlAttribute.Title] = this.GetText("COMMON", "ATTACH_BBCODE"),
                                                 ["data-bs-toggle"] = "dropdown",
                                                 ["aria-haspopup"] = "true",
-                                                [TagBuilderAttributes.Attributes.AriaExpanded] = "false"
+                                                [HtmlAttribute.AriaExpanded] = "false"
                                             }
                                     };
             content.AppendHtml(toggleButton3.RenderStartTag());
 
-            var icon3 = new TagBuilder("i") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "fa fa-paperclip fa-fw" } };
+            var icon3 = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = "fa fa-paperclip fa-fw" } };
             content.AppendHtml(icon3);
 
             content.AppendHtml(toggleButton3.RenderEndTag());
 
-            var dropDownMenu2 = new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "dropdown-menu" } };
+            var dropDownMenu2 = new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "dropdown-menu" } };
             content.AppendHtml(dropDownMenu2.RenderStartTag());
 
             this.RenderAttachmentsDropDown(content);
@@ -564,20 +564,20 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                     {
                         var onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : $"setStyle('{row.Name.Trim()}','')";
 
-                        var item = new TagBuilder("button") {
+                        var item = new TagBuilder(HtmlTag.Button) {
                             Attributes = {
-                                [TagBuilderAttributes.Attributes.Type] = "button",
-                                [TagBuilderAttributes.Attributes.Class] = "btn btn-primary",
+                                [HtmlAttribute.Type] = HtmlTag.Button,
+                                [HtmlAttribute.Class] = "btn btn-primary",
                                 ["onclick"] = onclickJs,
-                                [TagBuilderAttributes.Attributes.Title] = this.Get<IBBCodeService>()
+                                [HtmlAttribute.Title] = this.Get<IBBCodeService>()
                                     .LocalizeCustomBBCodeElement(row.Description.Trim())
                             }
                         };
 
                         content.AppendHtml(item.RenderStartTag());
 
-                        var icon = new TagBuilder("i") {
-                            Attributes = { [TagBuilderAttributes.Attributes.Class] = $"fab fa-{row.Name.ToLower()} fa-fw" }
+                        var icon = new TagBuilder(HtmlTag.I) {
+                            Attributes = { [HtmlAttribute.Class] = $"fab fa-{row.Name.ToLower()} fa-fw" }
                         };
 
                         content.AppendHtml(icon);
@@ -587,24 +587,24 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             }
 
             // add drop down for optional "extra" codes...
-            var toggleButton4 = new TagBuilder("button") {
+            var toggleButton4 = new TagBuilder(HtmlTag.Button) {
                 Attributes = {
-                    [TagBuilderAttributes.Attributes.Type] = "button",
-                    [TagBuilderAttributes.Attributes.Class] = "btn btn-primary dropdown-toggle",
-                    [TagBuilderAttributes.Attributes.Title] = this.GetText("COMMON", "CUSTOM_BBCODE"),
+                    [HtmlAttribute.Type] = HtmlTag.Button,
+                    [HtmlAttribute.Class] = "btn btn-primary dropdown-toggle",
+                    [HtmlAttribute.Title] = this.GetText("COMMON", "CUSTOM_BBCODE"),
                     ["data-bs-toggle"] = "dropdown",
                     ["aria-haspopup"] = "true",
-                    [TagBuilderAttributes.Attributes.AriaExpanded] = "false"
+                    [HtmlAttribute.AriaExpanded] = "false"
                 }
             };
             content.AppendHtml(toggleButton4.RenderStartTag());
 
-            var icon4 = new TagBuilder("i") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "fa fa-plug fa-fw" } };
+            var icon4 = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = "fa fa-plug fa-fw" } };
             content.AppendHtml(icon4);
 
             content.AppendHtml(toggleButton4.RenderEndTag());
 
-            var dropDownMenu3 = new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "dropdown-menu fill-width" } };
+            var dropDownMenu3 = new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "dropdown-menu fill-width" } };
             content.AppendHtml(dropDownMenu1.RenderStartTag());
 
             customBbCodesWithNoToolbar.Where(
@@ -624,10 +624,10 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
                         var onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : $"setStyle('{row.Name.Trim()}','')";
 
-                        var item = new TagBuilder("a") {
+                        var item = new TagBuilder(HtmlTag.A) {
                             Attributes = {
-                                [TagBuilderAttributes.Attributes.Class] = "dropdown-item",
-                                [TagBuilderAttributes.Attributes.Href] = "#",
+                                [HtmlAttribute.Class] = "dropdown-item",
+                                [HtmlAttribute.Href] = "#",
                                 ["onclick"] = onclickJs
                             }
                         };
@@ -720,16 +720,16 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     private void RenderFooter(HtmlContentBuilder content)
     {
         var containerCardFooter =
-            new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "card-footer text-body-secondary text-end" } };
+            new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "card-footer text-body-secondary text-end" } };
 
         content.AppendHtml(containerCardFooter.RenderStartTag());
 
         content.Append(this.GetText("COMMON", "CHARACTERS_LEFT"));
 
-        var spanTag = new TagBuilder("span") {
+        var spanTag = new TagBuilder(HtmlTag.Span) {
             Attributes = {
-                [TagBuilderAttributes.Attributes.Id] = "editor-Counter",
-                [TagBuilderAttributes.Attributes.Class] = "badge bg-secondary ms-1"
+                [HtmlAttribute.Id] = "editor-Counter",
+                [HtmlAttribute.Class] = "badge bg-secondary ms-1"
             }
         };
 
@@ -745,15 +745,15 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     private void RenderAlbumsDropDown(HtmlContentBuilder content)
     {
         var menuTag =
-            new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "AlbumsListMenu dropdown-item" } };
+            new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "AlbumsListMenu dropdown-item" } };
 
         content.AppendHtml(menuTag.RenderStartTag());
 
         var listBoxTag =
-            new TagBuilder("div") {
+            new TagBuilder(HtmlTag.Div) {
                 Attributes = {
-                    [TagBuilderAttributes.Attributes.Class] = "content",
-                    [TagBuilderAttributes.Attributes.Id] = "AlbumsListBox"
+                    [HtmlAttribute.Class] = "content",
+                    [HtmlAttribute.Id] = "AlbumsListBox"
                 }
             };
 
@@ -761,45 +761,45 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         // Pager
         var pagerTag =
-            new TagBuilder("div") { Attributes = {  [TagBuilderAttributes.Attributes.Id] = "AlbumsListPager" } };
+            new TagBuilder(HtmlTag.Div) { Attributes = {  [HtmlAttribute.Id] = "AlbumsListPager" } };
         content.AppendHtml(pagerTag);
 
         // Loading box
         var loaderTag =
-            new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Id] = "PostAlbumsLoader", [TagBuilderAttributes.Attributes.Class] = "text-center" } };
+            new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Id] = "PostAlbumsLoader", [HtmlAttribute.Class] = "text-center" } };
         content.AppendHtml(loaderTag.RenderStartTag());
 
         var spanTag =
-            new TagBuilder("span");
+            new TagBuilder(HtmlTag.Span);
         content.AppendHtml(spanTag.RenderStartTag());
         content.Append(this.Get<ILocalization>().GetText("COMMON", "LOADING"));
         content.AppendHtml(spanTag.RenderEndTag());
 
         var divTag =
-            new TagBuilder("div"){ Attributes = { [TagBuilderAttributes.Attributes.Class] = "fa-3x" } };
+            new TagBuilder(HtmlTag.Div){ Attributes = { [HtmlAttribute.Class] = "fa-3x" } };
         content.AppendHtml(divTag.RenderStartTag());
         var iconLoadTag =
-            new TagBuilder("i") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "fas fa-spinner fa-pulse" } };
+            new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = "fas fa-spinner fa-pulse" } };
         content.AppendHtml(iconLoadTag);
         content.AppendHtml(divTag.RenderEndTag());
 
         content.AppendHtml(loaderTag.RenderEndTag());
 
         // PlaceHolder
-        var placeHolderTag = new TagBuilder("div")
+        var placeHolderTag = new TagBuilder(HtmlTag.Div)
                                  {
                                      Attributes =
                                          {
-                                             [TagBuilderAttributes.Attributes.Id] = "PostAlbumsListPlaceholder",
+                                             [HtmlAttribute.Id] = "PostAlbumsListPlaceholder",
                                              ["data-notext"] =
                                                  this.Get<ILocalization>().GetText("ATTACHMENTS", "NO_ATTACHMENTS"),
-                                             [TagBuilderAttributes.Attributes.Style] = "clear: both;"
+                                             [HtmlAttribute.Style] = "clear: both;"
                                          }
                                  };
         content.AppendHtml(placeHolderTag.RenderStartTag());
 
         // List
-        var listTag = new TagBuilder("ul") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "AttachmentList list-group" } };
+        var listTag = new TagBuilder(HtmlTag.Ul) { Attributes = { [HtmlAttribute.Class] = "AttachmentList list-group" } };
         content.AppendHtml(listTag);
 
         content.AppendHtml(placeHolderTag.RenderEndTag());
@@ -816,75 +816,75 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     private void RenderAttachmentsDropDown(HtmlContentBuilder content)
     {
         var menuTag =
-            new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "AttachmentListMenu dropdown-item" } };
+            new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "AttachmentListMenu dropdown-item" } };
 
         content.AppendHtml(menuTag.RenderStartTag());
 
         var listBoxTag =
-            new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "content", [TagBuilderAttributes.Attributes.Id] = "AttachmentsListBox" } };
+            new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "content", [HtmlAttribute.Id] = "AttachmentsListBox" } };
 
         content.AppendHtml(listBoxTag.RenderStartTag());
 
         // Pager
         var pagerTag =
-            new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Id] = "AttachmentsListPager" } };
+            new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Id] = "AttachmentsListPager" } };
         content.AppendHtml(pagerTag);
 
         // Loading box
         var loaderTag =
-            new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Id] = "PostAttachmentLoader", [TagBuilderAttributes.Attributes.Class] = "text-center" } };
+            new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Id] = "PostAttachmentLoader", [HtmlAttribute.Class] = "text-center" } };
         content.AppendHtml(loaderTag.RenderStartTag());
 
         var spanTag =
-            new TagBuilder("span");
+            new TagBuilder(HtmlTag.Span);
         content.AppendHtml(spanTag.RenderStartTag());
         content.Append(this.Get<ILocalization>().GetText("COMMON", "LOADING"));
         content.AppendHtml(spanTag.RenderEndTag());
 
         var divTag =
-            new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "fa-3x" } };
+            new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "fa-3x" } };
         content.AppendHtml(divTag.RenderStartTag());
         var iconLoadTag =
-            new TagBuilder("i") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "fas fa-spinner fa-pulse" } };
+            new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = "fas fa-spinner fa-pulse" } };
         content.AppendHtml(iconLoadTag);
         content.AppendHtml(divTag.RenderEndTag());
 
         content.AppendHtml(loaderTag.RenderEndTag());
 
-        var placeHolderTag = new TagBuilder("div")
+        var placeHolderTag = new TagBuilder(HtmlTag.Div)
                                  {
                                      Attributes =
                                          {
-                                             [TagBuilderAttributes.Attributes.Id] = "PostAttachmentListPlaceholder",
+                                             [HtmlAttribute.Id] = "PostAttachmentListPlaceholder",
                                              ["data-notext"] =
                                                  this.Get<ILocalization>().GetText("ATTACHMENTS", "NO_ATTACHMENTS"),
-                                             [TagBuilderAttributes.Attributes.Style] = "clear: both;"
+                                             [HtmlAttribute.Style] = "clear: both;"
                                          }
                                  };
         content.AppendHtml(placeHolderTag.RenderStartTag());
 
         // List
-        var listTag = new TagBuilder("ul") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "AttachmentList list-group" } };
+        var listTag = new TagBuilder(HtmlTag.Ul) { Attributes = { [HtmlAttribute.Class] = "AttachmentList list-group" } };
         content.AppendHtml(listTag);
 
         content.AppendHtml(placeHolderTag.RenderEndTag());
 
         // Upload Button
-        var uploadDivTag = new TagBuilder("div")
+        var uploadDivTag = new TagBuilder(HtmlTag.Div)
                                  {
                                      Attributes =
                                          {
-                                             [TagBuilderAttributes.Attributes.Class] = "OpenUploadDialog mt-1 d-grid gap-2"
+                                             [HtmlAttribute.Class] = "OpenUploadDialog mt-1 d-grid gap-2"
                                          }
                                  };
         content.AppendHtml(uploadDivTag.RenderStartTag());
 
-        var uploadButtonTag = new TagBuilder("button")
+        var uploadButtonTag = new TagBuilder(HtmlTag.Button)
                                   {
                                       Attributes =
                                           {
-                                              [TagBuilderAttributes.Attributes.Type] = "button",
-                                              [TagBuilderAttributes.Attributes.Class] = "btn btn-primary btn-sm",
+                                              [HtmlAttribute.Type] = HtmlTag.Button,
+                                              [HtmlAttribute.Class] = "btn btn-primary btn-sm",
                                               ["data-bs-toggle"] = "modal",
                                               ["data-bs-target"] = "#UploadDialog"
                                           }
@@ -909,16 +909,16 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         var group = CreateBtnGroupTag();
         content.AppendHtml(group.RenderStartTag());
 
-        var toggleButtonFontNames = new TagBuilder("button")
+        var toggleButtonFontNames = new TagBuilder(HtmlTag.Button)
         {
             Attributes =
             {
-                [TagBuilderAttributes.Attributes.Type] = "button",
-                [TagBuilderAttributes.Attributes.Class] = "btn btn-primary btn-sm dropdown-toggle",
-                [TagBuilderAttributes.Attributes.Title] = this.GetText("COMMON", "FONT_NAME"),
+                [HtmlAttribute.Type] = HtmlTag.Button,
+                [HtmlAttribute.Class] = "btn btn-primary btn-sm dropdown-toggle",
+                [HtmlAttribute.Title] = this.GetText("COMMON", "FONT_NAME"),
                 ["data-bs-toggle"] = "dropdown",
                 ["aria-haspopup"] = "true",
-                [TagBuilderAttributes.Attributes.AriaExpanded] = "false"
+                [HtmlAttribute.AriaExpanded] = "false"
             }
         };
 
@@ -926,7 +926,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         RenderStackButton(content, "font", "font");
 
-        var dropDownMenuFontName = new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "dropdown-menu" } };
+        var dropDownMenuFontName = new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "dropdown-menu" } };
         content.AppendHtml(dropDownMenuFontName.RenderStartTag());
 
         string[] fontNames = [
@@ -943,14 +943,14 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         foreach (var name in fontNames)
         {
-            var item = new TagBuilder("a")
+            var item = new TagBuilder(HtmlTag.A)
             {
                 Attributes = {
-                    [TagBuilderAttributes.Attributes.Class] = "dropdown-item",
-                    [TagBuilderAttributes.Attributes.Href] = "#",
+                    [HtmlAttribute.Class] = "dropdown-item",
+                    [HtmlAttribute.Href] = "#",
                     ["onclick"] =
                         $"setStyle('font', '{name}');",
-                    [TagBuilderAttributes.Attributes.Style] = $"font-family:{name}"
+                    [HtmlAttribute.Style] = $"font-family:{name}"
                 }
             };
 
@@ -975,16 +975,16 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         var group = CreateBtnGroupTag();
         content.AppendHtml(group.RenderStartTag());
 
-        var toggleButton6 = new TagBuilder("button")
+        var toggleButton6 = new TagBuilder(HtmlTag.Button)
         {
             Attributes =
             {
-                [TagBuilderAttributes.Attributes.Type] = "button",
-                [TagBuilderAttributes.Attributes.Class] = "btn btn-primary btn-sm dropdown-toggle",
-                [TagBuilderAttributes.Attributes.Title] = this.GetText("COMMON", "FONT_SIZE"),
+                [HtmlAttribute.Type] = HtmlTag.Button,
+                [HtmlAttribute.Class] = "btn btn-primary btn-sm dropdown-toggle",
+                [HtmlAttribute.Title] = this.GetText("COMMON", "FONT_SIZE"),
                 ["data-bs-toggle"] = "dropdown",
                 ["aria-haspopup"] = "true",
-                [TagBuilderAttributes.Attributes.AriaExpanded] = "false"
+                [HtmlAttribute.AriaExpanded] = "false"
             }
         };
         content.AppendHtml(toggleButton6.RenderStartTag());
@@ -993,17 +993,17 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         content.AppendHtml(toggleButton6.RenderEndTag());
 
-        var dropDownMenu5 = new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "dropdown-menu" } };
+        var dropDownMenu5 = new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "dropdown-menu" } };
         content.AppendHtml(dropDownMenu5.RenderStartTag());
 
         for (var index = 1; index < 9; index++)
         {
-            var item = new TagBuilder("a")
+            var item = new TagBuilder(HtmlTag.A)
             {
                 Attributes =
                 {
-                    [TagBuilderAttributes.Attributes.Class] = "dropdown-item",
-                    [TagBuilderAttributes.Attributes.Href] = "#",
+                    [HtmlAttribute.Class] = "dropdown-item",
+                    [HtmlAttribute.Href] = "#",
                     ["onclick"] = $"setStyle('fontsize', {index});"
                 }
             };
@@ -1029,16 +1029,16 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         var group = CreateBtnGroupTag();
         content.AppendHtml(group.RenderStartTag());
 
-        var toggleButton5 = new TagBuilder("button")
+        var toggleButton5 = new TagBuilder(HtmlTag.Button)
         {
             Attributes =
                                         {
-                                            [TagBuilderAttributes.Attributes.Type] = "button",
-                                            [TagBuilderAttributes.Attributes.Class] = "btn btn-primary btn-sm dropdown-toggle",
-                                            [TagBuilderAttributes.Attributes.Title] = this.GetText("COMMON", "FONT_COLOR"),
+                                            [HtmlAttribute.Type] = HtmlTag.Button,
+                                            [HtmlAttribute.Class] = "btn btn-primary btn-sm dropdown-toggle",
+                                            [HtmlAttribute.Title] = this.GetText("COMMON", "FONT_COLOR"),
                                             ["data-bs-toggle"] = "dropdown",
                                             ["aria-haspopup"] = "true",
-                                            [TagBuilderAttributes.Attributes.AriaExpanded] = "false"
+                                            [HtmlAttribute.AriaExpanded] = "false"
                                         }
         };
         content.AppendHtml(toggleButton5.RenderStartTag());
@@ -1047,7 +1047,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         content.AppendHtml(toggleButton5.RenderEndTag());
 
-        var dropDownMenu4 = new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "dropdown-menu" } };
+        var dropDownMenu4 = new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "dropdown-menu" } };
         content.AppendHtml(dropDownMenu4.RenderStartTag());
 
         string[] colors = [
@@ -1069,15 +1069,15 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         foreach (var color in colors)
         {
-            var item = new TagBuilder("a")
+            var item = new TagBuilder(HtmlTag.A)
             {
                 Attributes =
                                    {
-                                       [TagBuilderAttributes.Attributes.Class] = "dropdown-item",
-                                       [TagBuilderAttributes.Attributes.Href] = "#",
+                                       [HtmlAttribute.Class] = "dropdown-item",
+                                       [HtmlAttribute.Href] = "#",
                                        ["onclick"] =
                                            $"setStyle('color', '{color.Replace(" ", string.Empty).ToLower()}');",
-                                       [TagBuilderAttributes.Attributes.Style] = color == "White"
+                                       [HtmlAttribute.Style] = color == "White"
                                                        ? $"color:{color.Replace(" ", string.Empty).ToLower()};background-color:grey"
                                                        : $"color:{color.Replace(" ", string.Empty).ToLower()}"
                                    }
@@ -1103,14 +1103,14 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="stackIcon">The stack icon.</param>
     private static void RenderStackButton(HtmlContentBuilder content, string icon, string stackIcon)
     {
-        var stackTag = new TagBuilder("span") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "fa-stack fa-stack-editor-button me-3 pe-2" } };
+        var stackTag = new TagBuilder(HtmlTag.Span) { Attributes = { [HtmlAttribute.Class] = "fa-stack fa-stack-editor-button me-3 pe-2" } };
 
         content.AppendHtml(stackTag.RenderStartTag());
 
-        var iconTag = new TagBuilder("i") { Attributes = { [TagBuilderAttributes.Attributes.Class] = $"fas fa-{icon} fa-stack-1x fa-stack-1x-editor-button" } };
+        var iconTag = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = $"fas fa-{icon} fa-stack-1x fa-stack-1x-editor-button" } };
         content.AppendHtml(iconTag);
 
-        var stackIconTag = new TagBuilder("i") { Attributes = { [TagBuilderAttributes.Attributes.Class] = $"fa fa-xs fa-{stackIcon} fa-badge-editor-button" } };
+        var stackIconTag = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = $"fa fa-xs fa-{stackIcon} fa-badge-editor-button" } };
         content.AppendHtml(stackIconTag);
 
         content.AppendHtml(stackTag.RenderEndTag());
@@ -1131,22 +1131,22 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         string icon,
         string id = null)
     {
-        var iconTag = new TagBuilder("i") { Attributes = { [TagBuilderAttributes.Attributes.Class] = $"fa fa-{icon} fa-fw" } };
+        var iconTag = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = $"fa fa-{icon} fa-fw" } };
 
-        var button = new TagBuilder("button")
+        var button = new TagBuilder(HtmlTag.Button)
                          {
                              Attributes =
                                  {
-                                     [TagBuilderAttributes.Attributes.Class] = "btn btn-primary btn-sm",
+                                     [HtmlAttribute.Class] = "btn btn-primary btn-sm",
                                      ["onclick"] = command,
-                                     [TagBuilderAttributes.Attributes.Type] = "button",
-                                     [TagBuilderAttributes.Attributes.Title] = title
+                                     [HtmlAttribute.Type] = HtmlTag.Button,
+                                     [HtmlAttribute.Title] = title
                                  }
                          };
 
         if (id.IsSet())
         {
-            button.Attributes.Add(TagBuilderAttributes.Attributes.Id, id);
+            button.Attributes.Add(HtmlAttribute.Id, id);
         }
 
         content.AppendHtml(button.RenderStartTag());
@@ -1162,7 +1162,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <returns>TagBuilder.</returns>
     private static TagBuilder CreateToolbarTag()
     {
-        return new TagBuilder("div") { Attributes = { [TagBuilderAttributes.Attributes.Class] = "btn-toolbar", [TagBuilderAttributes.Attributes.Role] = "toolbar" } };
+        return new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "btn-toolbar", [HtmlAttribute.Role] = "toolbar" } };
     }
 
     /// <summary>
@@ -1171,9 +1171,9 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <returns>TagBuilder.</returns>
     private static TagBuilder CreateBtnGroupTag()
     {
-        return new TagBuilder("div")
+        return new TagBuilder(HtmlTag.Div)
                    {
-                       Attributes = { [TagBuilderAttributes.Attributes.Class] = "btn-group btn-group-sm me-2 mb-2", [TagBuilderAttributes.Attributes.Role] = "group" }
+                       Attributes = { [HtmlAttribute.Class] = "btn-group btn-group-sm me-2 mb-2", [HtmlAttribute.Role] = "group" }
                    };
     }
 }

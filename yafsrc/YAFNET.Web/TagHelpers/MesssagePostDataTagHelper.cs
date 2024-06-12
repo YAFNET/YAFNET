@@ -99,11 +99,11 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
             this.MessageFlags = this.CurrentMessage.MessageFlags;
         }
 
-        output.TagName = "div";
+        output.TagName = HtmlTag.Div;
 
-        output.Attributes.Add(TagBuilderAttributes.Attributes.Id, this.CurrentMessage.ID.ToString());
+        output.Attributes.Add(HtmlAttribute.Id, this.CurrentMessage.ID.ToString());
 
-        output.Attributes.Add(TagBuilderAttributes.Attributes.Class, "selectionQuoteable");
+        output.Attributes.Add(HtmlAttribute.Class, "selectionQuoteable");
 
         if (!this.MessageFlags.IsDeleted && !this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentMessage.UserID))
         {

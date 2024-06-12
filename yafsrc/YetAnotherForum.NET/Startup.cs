@@ -43,12 +43,12 @@ public class Startup : IHaveServiceLocator
     /// <summary>
     /// Initializes a new instance of the <see cref="Startup"/> class.
     /// </summary>
-    /// <param name="configuration">
-    /// The configuration.
-    /// </param>
-    public Startup(IConfiguration configuration)
+    /// <param name="configuration">The configuration.</param>
+    /// <param name="environment">The environment.</param>
+    public Startup(IConfiguration configuration, IWebHostEnvironment environment)
     {
         this.Configuration = configuration;
+        this.Environment = environment;
     }
 
     /// <summary>
@@ -62,6 +62,11 @@ public class Startup : IHaveServiceLocator
     public IConfiguration Configuration { get; }
 
     /// <summary>
+    /// The environment
+    /// </summary>
+    public readonly IWebHostEnvironment Environment;
+
+    /// <summary>
     /// Configures the services.
     /// </summary>
     /// <param name="services">The services.</param>
@@ -72,7 +77,7 @@ public class Startup : IHaveServiceLocator
             options.Conventions.AddPageRoute("/SiteMap", "Sitemap.xml");
         });
 
-        services.AddYafCore(this.Configuration);
+        services.AddYafCore(this.Configuration , this.Environment);
     }
 
     /// <summary>

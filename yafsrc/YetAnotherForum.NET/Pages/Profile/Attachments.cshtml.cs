@@ -129,10 +129,10 @@ public class AttachmentsModel : ProfilePage
         var url =
             this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attach.ID, editor = true });
 
-        var icon = new TagBuilder("i");
+        var icon = new TagBuilder(HtmlTag.I);
         icon.AddCssClass("far fa-file-alt attachment-icon me-2");
 
-        var image = new TagBuilder("img") { TagRenderMode = TagRenderMode.SelfClosing };
+        var image = new TagBuilder(HtmlTag.Img) { TagRenderMode = TagRenderMode.SelfClosing };
 
         image.AddCssClass("me-2 img-thumbnail attachments-preview");
 

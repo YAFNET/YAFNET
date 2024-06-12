@@ -60,12 +60,12 @@ public static class FooterHtmlHelper
     /// </param>
     private static void RenderRulesLink(HtmlContentBuilder content)
     {
-        var rulesTag = new TagBuilder("a");
+        var rulesTag = new TagBuilder(HtmlTag.A);
 
         var privacyText = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "PRIVACY_POLICY");
 
-        rulesTag.MergeAttribute(TagBuilderAttributes.Attributes.Title, privacyText);
-        rulesTag.MergeAttribute(TagBuilderAttributes.Attributes.Href, "/Privacy");
+        rulesTag.MergeAttribute(HtmlAttribute.Title, privacyText);
+        rulesTag.MergeAttribute(HtmlAttribute.Href, "/Privacy");
 
         rulesTag.InnerHtml.Append(privacyText);
 
@@ -89,11 +89,11 @@ public static class FooterHtmlHelper
 
         content.AppendHtml(" | ");
 
-        var yafUrlTag = new TagBuilder("a");
+        var yafUrlTag = new TagBuilder(HtmlTag.A);
 
-        yafUrlTag.MergeAttribute(TagBuilderAttributes.Attributes.Target, "_blank");
-        yafUrlTag.MergeAttribute(TagBuilderAttributes.Attributes.Title, "YetAnotherForum.NET");
-        yafUrlTag.MergeAttribute(TagBuilderAttributes.Attributes.Href, "https://www.yetanotherforum.net");
+        yafUrlTag.MergeAttribute(HtmlAttribute.Target, "_blank");
+        yafUrlTag.MergeAttribute(HtmlAttribute.Title, "YetAnotherForum.NET");
+        yafUrlTag.MergeAttribute(HtmlAttribute.Href, "https://www.yetanotherforum.net");
 
         yafUrlTag.InnerHtml.Append(
             $"{BoardContext.Current.Get<ILocalization>().GetText("COMMON", "POWERED_BY")} YAF.NET");
@@ -109,11 +109,11 @@ public static class FooterHtmlHelper
 
         content.AppendHtml(" | ");
 
-        var yafCopyrightTag = new TagBuilder("a");
+        var yafCopyrightTag = new TagBuilder(HtmlTag.A);
 
-        yafCopyrightTag.MergeAttribute(TagBuilderAttributes.Attributes.Target, "_blank");
-        yafCopyrightTag.MergeAttribute(TagBuilderAttributes.Attributes.Title, "YetAnotherForum.NET");
-        yafCopyrightTag.MergeAttribute(TagBuilderAttributes.Attributes.Href, "https://www.yetanotherforum.net");
+        yafCopyrightTag.MergeAttribute(HtmlAttribute.Target, "_blank");
+        yafCopyrightTag.MergeAttribute(HtmlAttribute.Title, "YetAnotherForum.NET");
+        yafCopyrightTag.MergeAttribute(HtmlAttribute.Href, "https://www.yetanotherforum.net");
 
         yafCopyrightTag.InnerHtml.Append($"YAF.NET © 2003-{DateTime.UtcNow.Year} Yet Another Forum.NET");
 
@@ -132,7 +132,7 @@ public static class FooterHtmlHelper
     {
         if (BoardContext.Current.BoardSettings.ShowPageGenerationTime)
         {
-            var generatedTag = new TagBuilder("p");
+            var generatedTag = new TagBuilder(HtmlTag.P);
 
             generatedTag.AddCssClass("text-body-secondary small");
 
@@ -144,14 +144,14 @@ public static class FooterHtmlHelper
         }
 
 #if DEBUG
-        var debugTextTag = new TagBuilder("p");
+        var debugTextTag = new TagBuilder(HtmlTag.P);
 
         debugTextTag.AddCssClass("text-danger small");
 
         debugTextTag.InnerHtml.Append(
             "YAF Compiled in ");
 
-        var strongDebugTag = new TagBuilder("strong");
+        var strongDebugTag = new TagBuilder(HtmlTag.Strong);
 
         strongDebugTag.InnerHtml.AppendHtml("DEBUG MODE");
 
@@ -160,7 +160,7 @@ public static class FooterHtmlHelper
         debugTextTag.InnerHtml.Append(
             " Recompile in ");
 
-        var strongReleaseTag = new TagBuilder("strong");
+        var strongReleaseTag = new TagBuilder(HtmlTag.Strong);
 
         strongReleaseTag.InnerHtml.AppendHtml("RELEASE MODE");
 

@@ -56,7 +56,7 @@ public static class ActiveUsersHtmlHelper
         }
 
         // writes starting tag
-        var list = new TagBuilder("ul");
+        var list = new TagBuilder(HtmlTag.Ul);
 
         list.AddCssClass("list-inline");
 
@@ -66,7 +66,7 @@ public static class ActiveUsersHtmlHelper
         activeUsersList.ForEach(
             user =>
                 {
-                    var listItem = new TagBuilder("li");
+                    var listItem = new TagBuilder(HtmlTag.Li);
                     listItem.AddCssClass("list-inline-item");
 
                     IHtmlContent userLink;
@@ -110,7 +110,7 @@ public static class ActiveUsersHtmlHelper
                         // hidden user are always visible to admin and himself
                         if (context.IsAdmin || user.UserID == context.PageUserID)
                         {
-                            var icon = new TagBuilder("i");
+                            var icon = new TagBuilder(HtmlTag.I);
                             icon.AddCssClass("fas fa-user-secret ms-1");
 
                             postFixContent = icon;

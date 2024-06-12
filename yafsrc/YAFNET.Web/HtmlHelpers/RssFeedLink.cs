@@ -61,7 +61,7 @@ public static class RssFeedLinkHtmlHelper
         }
 
         // setup the rss link...
-        var link = renderAsButton ? new TagBuilder("a") : new TagBuilder("link");
+        var link = renderAsButton ? new TagBuilder(HtmlTag.A) : new TagBuilder(HtmlTag.Link);
 
         var url = context.CurrentForumPage.PageName switch
             {
@@ -72,21 +72,21 @@ public static class RssFeedLinkHtmlHelper
                 _ => context.Get<IUrlHelper>().Action("GetLatestPosts", "Feed")
             };
 
-        link.MergeAttribute(TagBuilderAttributes.Attributes.Href, url);
+        link.MergeAttribute(HtmlAttribute.Href, url);
 
-        link.MergeAttribute(TagBuilderAttributes.Attributes.Rel, "alternate");
-        link.MergeAttribute(TagBuilderAttributes.Attributes.Type, "application/atom+xml");
-        link.MergeAttribute(TagBuilderAttributes.Attributes.Title, $"{context.Get<ILocalization>().GetText("ATOMFEED")} &#183; {context.BoardSettings.Name}");
+        link.MergeAttribute(HtmlAttribute.Rel, "alternate");
+        link.MergeAttribute(HtmlAttribute.Type, "application/atom+xml");
+        link.MergeAttribute(HtmlAttribute.Title, $"{context.Get<ILocalization>().GetText("ATOMFEED")} &#183; {context.BoardSettings.Name}");
 
         if (renderAsButton)
         {
             link.AddCssClass("btn btn-warning btn-sm");
 
-            link.MergeAttribute(TagBuilderAttributes.Attributes.Role, "button");
+            link.MergeAttribute(HtmlAttribute.Role, HtmlTag.Button);
             link.MergeAttribute("data-bs-html", "true");
             link.MergeAttribute("data-bs-toggle", "tooltip");
 
-            var icon = new TagBuilder("i");
+            var icon = new TagBuilder(HtmlTag.I);
 
             icon.AddCssClass("fa fa-rss-square fa-fw");
 

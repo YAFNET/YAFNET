@@ -120,21 +120,21 @@ public class AlertTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
     /// </param>
     public async override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
     {
-        output.TagName = "div";
+        output.TagName = HtmlTag.Div;
 
         var cssClassAttribute = this.CssClass.IsSet() ? $" {this.CssClass}" :
                                     string.Empty;
         output.Attributes.Add(
-            TagBuilderAttributes.Attributes.Class,
+            HtmlAttribute.Class,
             this.Dismissible
                 ? $"text-break alert alert-{this.Type} alert-dismissible fade show{cssClassAttribute}"
                 : $"text-break alert alert-{this.Type}{cssClassAttribute}");
 
-        output.Attributes.Add(TagBuilderAttributes.Attributes.Role, "alert");
+        output.Attributes.Add(HtmlAttribute.Role, "alert");
 
         if (this.Icon.IsSet())
         {
-            var iconTag = new TagBuilder("i");
+            var iconTag = new TagBuilder(HtmlTag.I);
 
             iconTag.AddCssClass($"fa fa-{this.Icon} fa-fw {this.IconTextColor} me-1");
 
@@ -168,12 +168,12 @@ public class AlertTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
             return;
         }
 
-        var closeButton = new TagBuilder("button");
+        var closeButton = new TagBuilder(HtmlTag.Button);
 
-        closeButton.MergeAttribute(TagBuilderAttributes.Attributes.Type, "button");
+        closeButton.MergeAttribute(HtmlAttribute.Type, HtmlTag.Button);
         closeButton.AddCssClass("btn-close");
         closeButton.MergeAttribute("data-bs-dismiss", "alert");
-        closeButton.MergeAttribute(TagBuilderAttributes.Attributes.AriaLabel, "close");
+        closeButton.MergeAttribute(HtmlAttribute.AriaLabel, "close");
 
         output.Content.AppendHtml(closeButton);
     }

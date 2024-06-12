@@ -46,13 +46,13 @@ public static class UserLabelHtmlHelper
         var content = new HtmlContentBuilder();
         var context = BoardContext.Current;
 
-        var span = new TagBuilder("span");
+        var span = new TagBuilder(HtmlTag.Span);
 
         if (user.UserStyle.IsSet() && context.BoardSettings.UseStyledNicks)
         {
             var styleFormatted = context.Get<IStyleTransform>().Decode(user.UserStyle);
 
-            span.MergeAttribute(TagBuilderAttributes.Attributes.Style, HttpUtility.HtmlEncode(styleFormatted));
+            span.MergeAttribute(HtmlAttribute.Style, HttpUtility.HtmlEncode(styleFormatted));
         }
 
         span.InnerHtml.AppendHtml(HttpUtility.HtmlEncode(user.DisplayOrUserName()));
@@ -77,13 +77,13 @@ public static class UserLabelHtmlHelper
         var content = new HtmlContentBuilder();
         var context = BoardContext.Current;
 
-        var span = new TagBuilder("span");
+        var span = new TagBuilder(HtmlTag.Span);
 
         if (userStyle.IsSet() && context.BoardSettings.UseStyledNicks)
         {
             var styleFormatted = context.Get<IStyleTransform>().Decode(userStyle);
 
-            span.MergeAttribute(TagBuilderAttributes.Attributes.Style, HttpUtility.HtmlEncode(styleFormatted));
+            span.MergeAttribute(HtmlAttribute.Style, HttpUtility.HtmlEncode(styleFormatted));
         }
 
         span.InnerHtml.AppendHtml(HttpUtility.HtmlEncode(crawlerName.IsNotSet() ? userName : crawlerName));

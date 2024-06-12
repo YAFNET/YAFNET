@@ -159,18 +159,18 @@ public static class AdminMenuHtmlHelper
         bool isDropDownToggle,
         string iconName)
     {
-        var link = new TagBuilder("a");
+        var link = new TagBuilder(HtmlTag.A);
 
         link.AddCssClass(isActive ? $"{cssClass} active" : cssClass);
 
-        link.MergeAttribute(TagBuilderAttributes.Attributes.Rel, "nofollow");
-        link.MergeAttribute(TagBuilderAttributes.Attributes.Role, "button");
+        link.MergeAttribute(HtmlAttribute.Rel, "nofollow");
+        link.MergeAttribute(HtmlAttribute.Role, HtmlTag.Button);
         link.MergeAttribute("data-bs-toggle", isDropDownToggle ? "dropdown" : "tooltip");
-        link.MergeAttribute(TagBuilderAttributes.Attributes.Href, linkUrl);
-        link.MergeAttribute(TagBuilderAttributes.Attributes.Title, linkText);
+        link.MergeAttribute(HtmlAttribute.Href, linkUrl);
+        link.MergeAttribute(HtmlAttribute.Title, linkText);
 
         // Icon
-        var iconTag = new TagBuilder("i");
+        var iconTag = new TagBuilder(HtmlTag.I);
 
         iconTag.AddCssClass($"fas fa-{iconName} fa-fw me-1");
 
@@ -186,7 +186,7 @@ public static class AdminMenuHtmlHelper
             return link;
         }
 
-        var listItem = new TagBuilder("li");
+        var listItem = new TagBuilder(HtmlTag.Li);
         listItem.InnerHtml.AppendHtml(link);
 
         return listItem;
@@ -208,7 +208,7 @@ public static class AdminMenuHtmlHelper
         IReadOnlyCollection<AdminPageUserAccess> pagesAccess,
         BoardContext context)
     {
-        var listItem = new TagBuilder("li");
+        var listItem = new TagBuilder(HtmlTag.Li);
 
         listItem.AddCssClass("dropdown dropend");
 
@@ -224,7 +224,7 @@ public static class AdminMenuHtmlHelper
                 true,
                 "cogs"));
 
-        var list = new TagBuilder("ul");
+        var list = new TagBuilder(HtmlTag.Ul);
 
         list.AddCssClass("dropdown-menu dropdown-submenu");
 
@@ -327,7 +327,7 @@ public static class AdminMenuHtmlHelper
         IReadOnlyCollection<AdminPageUserAccess> pagesAccess,
         BoardContext context)
     {
-        var listItem = new TagBuilder("li");
+        var listItem = new TagBuilder(HtmlTag.Li);
 
         listItem.AddCssClass("dropdown dropend");
 
@@ -342,7 +342,7 @@ public static class AdminMenuHtmlHelper
                 true,
                 "shield-alt"));
 
-        var list = new TagBuilder("ul");
+        var list = new TagBuilder(HtmlTag.Ul);
 
         list.AddCssClass("dropdown-menu dropdown-submenu");
 
@@ -445,7 +445,7 @@ public static class AdminMenuHtmlHelper
         IReadOnlyCollection<AdminPageUserAccess> pagesAccess,
         BoardContext context)
     {
-        var listItem = new TagBuilder("li");
+        var listItem = new TagBuilder(HtmlTag.Li);
 
         listItem.AddCssClass("dropdown dropend");
 
@@ -458,7 +458,7 @@ public static class AdminMenuHtmlHelper
                 true,
                 "users"));
 
-        var list = new TagBuilder("ul");
+        var list = new TagBuilder(HtmlTag.Ul);
 
         list.AddCssClass("dropdown-menu dropdown-submenu");
 
@@ -587,7 +587,7 @@ public static class AdminMenuHtmlHelper
         IReadOnlyCollection<AdminPageUserAccess> pagesAccess,
         BoardContext context)
     {
-        var listItem = new TagBuilder("li");
+        var listItem = new TagBuilder(HtmlTag.Li);
 
         listItem.AddCssClass("dropdown dropend");
 
@@ -602,7 +602,7 @@ public static class AdminMenuHtmlHelper
                 true,
                 "toolbox"));
 
-        var list = new TagBuilder("ul");
+        var list = new TagBuilder(HtmlTag.Ul);
 
         list.AddCssClass("dropdown-menu dropdown-submenu");
 
@@ -731,7 +731,7 @@ public static class AdminMenuHtmlHelper
         IReadOnlyCollection<AdminPageUserAccess> pagesAccess,
         BoardContext context)
     {
-        var listItem = new TagBuilder("li");
+        var listItem = new TagBuilder(HtmlTag.Li);
 
         listItem.AddCssClass("dropdown dropend");
 
@@ -744,7 +744,7 @@ public static class AdminMenuHtmlHelper
                 true,
                 "database"));
 
-        var list = new TagBuilder("ul");
+        var list = new TagBuilder(HtmlTag.Ul);
 
         list.AddCssClass("dropdown-menu dropdown-submenu");
 
@@ -795,7 +795,7 @@ public static class AdminMenuHtmlHelper
         IEnumerable<AdminPageUserAccess> pagesAccess,
         BoardContext context)
     {
-        var listItem = new TagBuilder("li");
+        var listItem = new TagBuilder(HtmlTag.Li);
 
         listItem.AddCssClass("dropdown dropend");
 
@@ -808,7 +808,7 @@ public static class AdminMenuHtmlHelper
                 true,
                 "download"));
 
-        var list = new TagBuilder("ul");
+        var list = new TagBuilder(HtmlTag.Ul);
 
         list.AddCssClass("dropdown-menu dropdown-submenu");
 

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using HtmlProperties;
+
 namespace YAF.Core.Controllers;
 
 using Microsoft.AspNetCore.Html;
@@ -77,7 +79,7 @@ public class NotifyController : ForumBaseController
                 {
                     var messageHolder = new HtmlContentBuilder();
 
-                    var iconLabel = new TagBuilder("span");
+                    var iconLabel = new TagBuilder(HtmlTag.Span);
 
                     iconLabel.AddCssClass("fa-stack");
 
@@ -86,9 +88,9 @@ public class NotifyController : ForumBaseController
 
                     var topic = this.GetRepository<Topic>().GetById(activity.TopicID.Value);
 
-                    var topicLink = new TagBuilder("a");
+                    var topicLink = new TagBuilder(HtmlTag.A);
 
-                    topicLink.MergeAttribute(TagBuilderAttributes.Attributes.Href, this.Get<LinkBuilder>().GetLink(
+                    topicLink.MergeAttribute(HtmlAttribute.Href, this.Get<LinkBuilder>().GetLink(
                     ForumPages.Post,
                         new { m = activity.MessageID.Value, name = topic.TopicName }));
                     topicLink.InnerHtml.Append($"<i class=\"fas fa-comment fa-fw me-1\"></i>{topic.TopicName}");

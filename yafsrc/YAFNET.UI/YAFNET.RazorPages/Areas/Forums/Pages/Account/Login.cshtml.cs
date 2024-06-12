@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using YAF.Core.Helpers;
-
 namespace YAF.Pages.Account;
 
 using System;
@@ -37,6 +35,7 @@ using Microsoft.Extensions.Logging;
 using MimeKit;
 
 using YAF.Core.Extensions;
+using YAF.Core.Helpers;
 using YAF.Core.Identity.Owin;
 using YAF.Core.Services;
 using YAF.Types.Extensions;
