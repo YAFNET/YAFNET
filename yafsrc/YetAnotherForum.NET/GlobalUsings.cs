@@ -2,6 +2,8 @@
 
 global using System;
 
+global using HtmlProperties;
+
 global using SimdLinq;
 
 global using Microsoft.AspNetCore.Mvc;
