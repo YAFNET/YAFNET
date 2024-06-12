@@ -28,8 +28,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-using Microsoft.AspNetCore.Hosting;
-
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
@@ -151,7 +149,7 @@ public class EditCategoryModel : AdminPage
     /// </summary>
     private IActionResult BindData(int? c)
     {
-        return c.HasValue ? this.BindExisting() : this.BindNew();
+        return c is > 0 ? this.BindExisting() : this.BindNew();
     }
 
     private IActionResult BindNew()

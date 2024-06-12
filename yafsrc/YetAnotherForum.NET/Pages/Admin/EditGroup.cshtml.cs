@@ -93,7 +93,7 @@ public class EditGroupModel : AdminPage
         this.BindData(i);
 
         // is this editing of existing role or creation of new one?
-        if (!i.HasValue)
+        if (i is null or 0)
         {
             return this.Page();
         }
