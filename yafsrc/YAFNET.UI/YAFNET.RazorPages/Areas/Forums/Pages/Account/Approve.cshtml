@@ -1,4 +1,4 @@
-﻿@page "{code}"
+﻿@page
 
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Extensions
@@ -21,7 +21,7 @@
                 </h5>
 
                 @if (Model.ErrorMessage.IsSet())
-                { 
+                {
                     <alert type="danger"
                            icon="info-circle"
                            icon-text-color="text-danger"
