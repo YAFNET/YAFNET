@@ -1,75 +1,84 @@
 {
   "runtimeTarget": {
-    "name": ".NETCoreApp,Version=v7.0",
+    "name": ".NETCoreApp,Version=v8.0",
     "signature": ""
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v7.0": {
-      "GitHubReleaser/1.0.2": {
+    ".NETCoreApp,Version=v8.0": {
+      "GitHubReleaser/1.0.0.0": {
         "dependencies": {
-          "Octokit": "9.0.0",
-          "Serilog.Sinks.Console": "4.1.0"
+          "Octokit": "12.0.0",
+          "Serilog.Sinks.Console": "6.0.0",
+          "SonarAnalyzer.CSharp": "9.27.0.93347"
         },
         "runtime": {
           "GitHubReleaser.dll": {}
         }
       },
-      "Octokit/9.0.0": {
+      "Octokit/12.0.0": {
         "runtime": {
           "lib/netstandard2.0/Octokit.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.0.0"
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.0.0"
           }
         }
       },
-      "Serilog/2.10.0": {
+      "Serilog/4.0.0": {
         "runtime": {
-          "lib/netstandard2.1/Serilog.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.10.0.0"
+          "lib/net8.0/Serilog.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
           }
         }
       },
-      "Serilog.Sinks.Console/4.1.0": {
+      "Serilog.Sinks.Console/6.0.0": {
         "dependencies": {
-          "Serilog": "2.10.0"
+          "Serilog": "4.0.0"
         },
         "runtime": {
-          "lib/net5.0/Serilog.Sinks.Console.dll": {
-            "assemblyVersion": "4.1.0.0",
-            "fileVersion": "4.1.0.0"
+          "lib/net8.0/Serilog.Sinks.Console.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.0.0"
           }
         }
-      }
+      },
+      "SonarAnalyzer.CSharp/9.27.0.93347": {}
     }
   },
   "libraries": {
-    "GitHubReleaser/1.0.2": {
+    "GitHubReleaser/1.0.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Octokit/9.0.0": {
+    "Octokit/12.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-mQZMCTZavxd9IzTkRaRLxJtFE5uTOJ2Uia5KDwnHiBBFjvnG4BJf56RV1aPZsVdqiKlqRmxbLrkU8DVlmRDrSA==",
-      "path": "octokit/9.0.0",
-      "hashPath": "octokit.9.0.0.nupkg.sha512"
+      "sha512": "sha512-7LAFFcirR/IaC84Uy+L1L+yqlYHxaMjHPt5GeLkB/GG0ujl7IgWWcL3VHMwMB3Y76Spsz0lMnPKub4EeosSljg==",
+      "path": "octokit/12.0.0",
+      "hashPath": "octokit.12.0.0.nupkg.sha512"
     },
-    "Serilog/2.10.0": {
+    "Serilog/4.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-+QX0hmf37a0/OZLxM3wL7V6/ADvC1XihXN4Kq/p6d8lCPfgkRdiuhbWlMaFjR9Av0dy5F0+MBeDmDdRZN/YwQA==",
-      "path": "serilog/2.10.0",
-      "hashPath": "serilog.2.10.0.nupkg.sha512"
+      "sha512": "sha512-2jDkUrSh5EofOp7Lx5Zgy0EB+7hXjjxE2ktTb1WVQmU00lDACR2TdROGKU0K1pDTBSJBN1PqgYpgOZF8mL7NJw==",
+      "path": "serilog/4.0.0",
+      "hashPath": "serilog.4.0.0.nupkg.sha512"
     },
-    "Serilog.Sinks.Console/4.1.0": {
+    "Serilog.Sinks.Console/6.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-K6N5q+5fetjnJPvCmkWOpJ/V8IEIoMIB1s86OzBrbxwTyHxdx3pmz4H+8+O/Dc/ftUX12DM1aynx/dDowkwzqg==",
-      "path": "serilog.sinks.console/4.1.0",
-      "hashPath": "serilog.sinks.console.4.1.0.nupkg.sha512"
+      "sha512": "sha512-fQGWqVMClCP2yEyTXPIinSr5c+CBGUvBybPxjAGcf7ctDhadFhrQw03Mv8rJ07/wR5PDfFjewf2LimvXCDzpbA==",
+      "path": "serilog.sinks.console/6.0.0",
+      "hashPath": "serilog.sinks.console.6.0.0.nupkg.sha512"
+    },
+    "SonarAnalyzer.CSharp/9.27.0.93347": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NinyCe6I1D+b8anA7RaTg1wkdGglMeW+qsp+z0tMQ4vm616oLAn47XU9DK3NclE5r3UhAoXyrUZVzcBVHe6dDA==",
+      "path": "sonaranalyzer.csharp/9.27.0.93347",
+      "hashPath": "sonaranalyzer.csharp.9.27.0.93347.nupkg.sha512"
     }
   }
 }
