@@ -1,6 +1,15 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.2.6
+* [NEW] log user agent strings for Active users
+* [NEW] added support for twitch bbcode embed
+* [NEW #1187] reply via ctrl+enter
+* [FIXED #1179] switching darkmode
+* [FIXED] thanks info for guest
+* [FIXED] search in dropdowns
+* bug fixes
+
 # YetAnotherForum.NET v3.2.5
 * [CHANGES] changed quick reply button
 * bug fixes

@@ -18,8 +18,8 @@
         "grunt-shell": "^4.0.0",
         "grunt-webpack": "^6.0.0",
         "postcss": "^8.4.38",
-        "sass": "^1.77.4",
-        "webpack": "^5.91.0",
+        "sass": "^1.77.5",
+        "webpack": "^5.92.0",
         "webpack-merge": "^5.10.0"
     },
     "dependencies": {
