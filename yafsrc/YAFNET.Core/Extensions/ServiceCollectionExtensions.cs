@@ -23,12 +23,9 @@
  */
 
 using System;
-using System.IO;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -119,10 +116,8 @@ public static class ServiceCollectionExtensionsExtensions
     /// </summary>
     /// <param name="services">The services.</param>
     /// <param name="configuration"></param>
-    /// <param name="environment"></param>
     /// <returns>IServiceCollection.</returns>
-    public static IServiceCollection AddYafCore(this IServiceCollection services, IConfiguration configuration,
-        IWebHostEnvironment environment)
+    public static IServiceCollection AddYafCore(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddControllers();
 
@@ -141,8 +136,6 @@ public static class ServiceCollectionExtensionsExtensions
 
         // Board Configuration
         services.Configure<BoardConfiguration>(configuration.GetSection("BoardConfiguration"));
-
-        services.ConfigureDataProtection(environment);
 
         services.AddSingleton<IActionContextAccessor, ActionContextAccessor>().AddScoped(
             x => x.GetRequiredService<IUrlHelperFactory>()
@@ -262,30 +255,6 @@ public static class ServiceCollectionExtensionsExtensions
             options.SupportedUICultures = supportedCultures;
         });
 
-
-        return services;
-    }
-
-    /// <summary>
-    /// Configures the data protection.
-    /// </summary>
-    /// <param name="services">The services.</param>
-    /// <param name="environment">The environment.</param>
-    /// <returns>Microsoft.Extensions.DependencyInjection.IServiceCollection.</returns>
-    public static IServiceCollection ConfigureDataProtection(this IServiceCollection services,
-            IWebHostEnvironment environment)
-    {
-        const string keysDirectoryName = "Keys";
-        var keysDirectoryPath = Path.Combine(environment.ContentRootPath, keysDirectoryName);
-
-        if (!Directory.Exists(keysDirectoryPath))
-        {
-            Directory.CreateDirectory(keysDirectoryPath);
-        }
-
-        services.AddDataProtection()
-            .PersistKeysToFileSystem(new DirectoryInfo(keysDirectoryPath))
-            .SetApplicationName("YAF.NET");
 
         return services;
     }
