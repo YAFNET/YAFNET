@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Http;
+
 namespace YAF.Web.BBCodes;
 
 using OEmbed.Core.Interfaces;
@@ -41,7 +43,7 @@ public class MediaBBCodeModule : BBCodeControl
     {
         var url = this.Parameters["inner"];
 
-        var result = await this.Get<IOEmbed>().EmbedAsync(url);
+        var result = await this.Get<IOEmbed>().EmbedAsync(url, this.Get<IHttpContextAccessor>().HttpContext.Request.Host.Host);
 
         if (result is null)
         {
