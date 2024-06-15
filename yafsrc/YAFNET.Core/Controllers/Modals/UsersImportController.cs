@@ -52,20 +52,18 @@ public class UsersImportController : ForumBaseController
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("Import")]
-    public async Task<IActionResult> ImportAsync()
+    public async Task<IActionResult> ImportAsync([FromForm] IFormFile file)
     {
         try
         {
             int importedCount;
 
-            var import = this.Request.Form.Files[0];
-
             // import selected file (if it's the proper format)...
-            switch (import.ContentType)
+            switch (file.ContentType)
             {
                 case "text/xml":
                     {
-                        importedCount = await this.Get<IDataImporter>().ImportingUsersAsync(import.OpenReadStream(), true);
+                        importedCount = await this.Get<IDataImporter>().ImportingUsersAsync(file.OpenReadStream(), true);
                     }
 
                     break;
@@ -75,7 +73,7 @@ public class UsersImportController : ForumBaseController
                 case "application/csv":
                 case "text/comma-separated-values":
                     {
-                        importedCount = await this.Get<IDataImporter>().ImportingUsersAsync(import.OpenReadStream(), false);
+                        importedCount = await this.Get<IDataImporter>().ImportingUsersAsync(file.OpenReadStream(), false);
                     }
 
                     break;

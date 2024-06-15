@@ -14,7 +14,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-controller="BannedIp" asp-action="Import" enctype="multipart/form-data" id="formImport">
+                <form asp-controller="BannedIp" asp-action="Import" id="formImport" enctype="multipart/form-data">
                     <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
                     <!-- Modal Content START !-->
                     <label asp-for="Import" localized-tag="IMPORT_FILE" localized-page="ADMIN_BANNEDIP_IMPORT"></label>

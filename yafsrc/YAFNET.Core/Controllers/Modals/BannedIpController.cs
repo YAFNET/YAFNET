@@ -54,14 +54,13 @@ public class BannedIpController : ForumBaseController
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("Import")]
-    public IActionResult Import()
+    public IActionResult Import([FromForm]IFormFile file)
     {
-        var import = this.Request.Form.Files[0];
-        if (!import.ContentType.StartsWith("text"))
+        if (!file.ContentType.StartsWith("text"))
         {
             return this.Ok(
                 new MessageModalNotification(
-                 this.GetTextFormatted("IMPORT_FAILED", import.ContentType),
+                 this.GetTextFormatted("IMPORT_FAILED", file.ContentType),
                 MessageTypes.danger));
         }
 
@@ -70,7 +69,7 @@ public class BannedIpController : ForumBaseController
             var importedCount = this.Get<IDataImporter>().BannedIpAddressesImport(
                 this.PageBoardContext.PageBoardID,
                 this.PageBoardContext.PageUserID,
-                import.OpenReadStream());
+                file.OpenReadStream());
 
             return this.Ok(
                 new MessageModalNotification(

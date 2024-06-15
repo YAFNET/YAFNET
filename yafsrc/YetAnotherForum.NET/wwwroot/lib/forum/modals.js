@@ -168,8 +168,6 @@ function loadModal(modal, placeholderElement) {
                         method: 'POST',
                     body: formData,
                         headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json;charset=utf-8',
                             'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
                         }
                     }).then(res => res.json())

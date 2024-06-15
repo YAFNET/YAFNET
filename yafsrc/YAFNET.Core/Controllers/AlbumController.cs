@@ -47,17 +47,16 @@ public class AlbumController : ForumBaseController
     /// </summary>
     [ValidateAntiForgeryToken]
     [HttpPost("ChangeAlbumTitle")]
-    public IActionResult ChangeAlbumTitle()
+    public IActionResult ChangeAlbumTitle([FromForm] int id, [FromForm] string value)
     {
-        var imageId = this.Request.Form["id"].ToString().ToType<int>();
-        var newCaption = HttpUtility.HtmlEncode(this.Request.Form["value"].ToString()).Trim();
+        var newCaption = HttpUtility.HtmlEncode(value).Trim();
 
         if (newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE")))
         {
             return this.Ok();
         }
 
-        this.Get<IAlbum>().ChangeAlbumTitle(imageId, newCaption);
+        this.Get<IAlbum>().ChangeAlbumTitle(id, newCaption);
         return this.Ok();
     }
 
@@ -66,10 +65,9 @@ public class AlbumController : ForumBaseController
     /// </summary>
     [ValidateAntiForgeryToken]
     [HttpPost("ChangeImageCaption")]
-    public IActionResult ChangeImageCaption()
+    public IActionResult ChangeImageCaption([FromForm] int id, [FromForm] string value)
     {
-        var imageId = this.Request.Form["id"].ToString().ToType<int>();
-        var newCaption = HttpUtility.HtmlEncode(this.Request.Form["value"].ToString()).Trim();
+        var newCaption = HttpUtility.HtmlEncode(value).Trim();
 
         if (newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION"))
             || newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION2")))
@@ -77,7 +75,7 @@ public class AlbumController : ForumBaseController
             return this.Ok();
         }
 
-        this.Get<IAlbum>().ChangeImageCaption(imageId, newCaption);
+        this.Get<IAlbum>().ChangeImageCaption(id, newCaption);
 
         return this.Ok();
     }

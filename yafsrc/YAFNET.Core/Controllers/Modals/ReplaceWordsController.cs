@@ -55,15 +55,13 @@ public class ReplaceWordsController : ForumBaseController
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("Import")]
-    public IActionResult Import()
+    public IActionResult Import([FromForm] IFormFile file)
     {
-        var import = this.Request.Form.Files[0];
-
-        if (!import.ContentType.StartsWith("text"))
+        if (!file.ContentType.StartsWith("text"))
         {
             return this.Ok(
                 new MessageModalNotification(
-                    this.GetTextFormatted("MSG_IMPORTED_FAILEDX", import.ContentType),
+                    this.GetTextFormatted("MSG_IMPORTED_FAILEDX", file.ContentType),
                     MessageTypes.danger));
         }
 
@@ -71,7 +69,7 @@ public class ReplaceWordsController : ForumBaseController
         {
             // import replace words...
             var replaceWords = new DataSet();
-            replaceWords.ReadXml(import.OpenReadStream());
+            replaceWords.ReadXml(file.OpenReadStream());
 
             if (replaceWords.Tables["YafReplaceWords"]?.Columns["badword"] != null
                 && replaceWords.Tables["YafReplaceWords"].Columns["goodword"] != null)
