@@ -91,7 +91,7 @@ public class ServicesModule : BaseModule
             builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
         }
-            
+
         builder.RegisterType<BBCode>().As<IBBCode>().InstancePerLifetimeScope().PreserveExistingDefaults();
         builder.RegisterType<FormatMessage>().As<IFormatMessage>().InstancePerLifetimeScope()
             .PreserveExistingDefaults();
