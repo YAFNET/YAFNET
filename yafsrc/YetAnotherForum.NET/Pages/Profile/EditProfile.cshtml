@@ -188,9 +188,9 @@
 
 				    if (Model.Input.CustomProfile[i].Required)
 				    {
-					    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" required="required"/>
+					    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" required="required" pattern="\S(.*\S)?" />
 					    <div class="invalid-feedback">
-						    @Html.LocalizedTextFormatted("NEED_USERNAME", Model.Input.CustomProfile[i].Name)
+						    @Html.LocalizedTextFormatted("NEED_CUSTOM", Model.Input.CustomProfile[i].Name)
 					    </div>
 				    }
 				    else
@@ -208,7 +208,7 @@
 				    {
 					    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" required="required" type="number"/>
 					    <div class="invalid-feedback">
-						    @Html.LocalizedTextFormatted("NEED_USERNAME", Model.Input.CustomProfile[i].Name)
+						    @Html.LocalizedTextFormatted("NEED_CUSTOM", Model.Input.CustomProfile[i].Name)
 					    </div>
 				    }
 				    else
@@ -220,25 +220,10 @@
 				    break;
 			    case DataType.Check:
 			    {
-				    if (Model.Input.CustomProfile[i].Required)
-				    {
-					    <div class="form-check form-switch">
-						    <input asp-for="Input.CustomProfile[i].Value" class="form-check-input" required="required" type="checkbox"/>
-						    <label class="form-check-label" asp-for="Input.CustomProfile[i].Value">@Model.Input.CustomProfile[i].Name</label>
-					    </div>
-					    <div class="invalid-feedback">
-						    @Html.LocalizedTextFormatted("NEED_USERNAME", Model.Input.CustomProfile[i].Name)
-					    </div>
-
-				    }
-				    else
-				    {
-					    <div class="form-check form-switch">
-						    <input asp-for="Input.CustomProfile[i].Value" class="form-check-input" type="checkbox"/>
-						    <label class="form-check-label" asp-for="Input.CustomProfile[i].Value">@Model.Input.CustomProfile[i].Name</label>
-					    </div>
-
-				    }
+				    <div class="form-check form-switch">
+					    <input asp-for="Input.CustomProfile[i].Value" class="form-check-input" type="checkbox"/>
+					    <label class="form-check-label" asp-for="Input.CustomProfile[i].Value">@Model.Input.CustomProfile[i].Name</label>
+				    </div>
 
 			    }
 				    break;
