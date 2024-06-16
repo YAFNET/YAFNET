@@ -668,12 +668,11 @@ public static class JavaScriptBlocks
 
                  const formData = new FormData();
                           
-                 formData.append("'file" + 0 + "'", file);
+                 formData.append('file', file);
 
                  fetch(url, {
                      method: "POST",
-                     body: formData,
-                     mode: "cors"
+                     body: formData
                   }).then(response => response.json()).then(data => {
                   if (data.length) {
                      if (data[0].error) {
@@ -792,13 +791,12 @@ public static class JavaScriptBlocks
                          const formData = new FormData();
                  
                          for (let x = 0; x < files.length; x++) {
-                             formData.append("'file" + x + "'", files[x]);
+                             formData.append('files', files[x]);
                          }
                  
                          fetch(url, {
                              method: "POST",
-                             body: formData,
-                             mode: "cors"
+                             body: formData
                          })
                              .then(response => response.json())
                              .then(data => {
