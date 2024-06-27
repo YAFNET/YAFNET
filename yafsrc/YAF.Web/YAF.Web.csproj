@@ -34,7 +34,7 @@
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
     <PackageReference Include="OEmbed.Core" Version="2.0.3" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.27.0.93347">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.28.0.94264">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
