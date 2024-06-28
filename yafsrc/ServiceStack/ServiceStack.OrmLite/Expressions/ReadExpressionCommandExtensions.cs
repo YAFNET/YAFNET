@@ -389,7 +389,7 @@ static internal class ReadExpressionCommandExtensions
     /// <returns>T.</returns>
     static internal T Single<T>(this IDbCommand dbCmd, SqlExpression<T> q)
     {
-        var sql = q.Limit(1).SelectInto<T>(QueryType.Select);
+        var sql = q.SelectInto<T>(QueryType.Single);
 
         return dbCmd.ExprConvertTo<T>(sql, q.Params, onlyFields: q.OnlyFields);
     }
