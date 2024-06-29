@@ -116,5 +116,4 @@ node_modules/
 yafsrc/YetAnotherForum.NET/package-lock.json
 yafsrc/YAFNET.RazorPages/yarn.lock
 yafsrc/YAFNET.UI/YAFNET.RazorPages/yarn.lock
-secret.json
 yafsrc/Tools/GitHubReleaser/YAFNET.json
