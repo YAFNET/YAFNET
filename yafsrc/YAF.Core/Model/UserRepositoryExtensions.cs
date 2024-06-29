@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
 
-using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
@@ -722,15 +721,15 @@ public static class UserRepositoryExtensions
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchTopic>();
 
         expression.Join<User>((a, b) => b.ID == a.UserID).Where<WatchTopic, User>(
-            (a, b) => b.ID != userId && b.NotificationType != 10 && b.NotificationType != 20 &&
-                      a.TopicID == topicId && (b.Flags & 2) != 2 && (b.Flags & 32) != 32).Select<User>(x => x);
+            (a, b) => b.ID != userId && b.NotificationType != 10 &&
+                      a.TopicID == topicId && (b.Flags & 2) == 2 && (b.Flags & 4) != 4 && (b.Flags & 32) != 32).Select<User>(x => x);
 
         var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<WatchForum>();
 
         expression2.Join<User>((a, b) => b.ID == a.UserID).Join<Topic>((a, c) => c.ForumID == a.ForumID)
             .Where<WatchForum, User, Topic>(
-                (a, b, c) => b.ID != userId && b.NotificationType != 10 && b.NotificationType != 20 &&
-                             c.ID == topicId && (b.Flags & 2) != 2 && (b.Flags & 32) != 32).Select<User>(x => x);
+                (a, b, c) => b.ID != userId && b.NotificationType != 10  &&
+                             c.ID == topicId && (b.Flags & 2) == 2 && (b.Flags & 4) != 4 && (b.Flags & 32) != 32).Select<User>(x => x);
 
         return repository.DbAccess.Execute(
                 db => db.Connection.Select<User>(
