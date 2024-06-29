@@ -7,11 +7,13 @@
 
 const lightBoxWebpackConfig = require('./wwwroot/lib/bs5-lightbox/webpack.cdn.js');
 const sass = require('sass');
+const nodeResolve = require('@rollup/plugin-node-resolve').default;
 
 module.exports = function(grunt) {
     // CONFIGURATION
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
+	    secret: grunt.file.readJSON('../secret.json'),
+	    pkg: grunt.file.readJSON('package.json'),
 
         webpack: {
             lightBox: lightBoxWebpackConfig
@@ -163,6 +165,77 @@ module.exports = function(grunt) {
                     '..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\bin\\Release\\net8.0\\publish\\wwwroot\\languages\\ -minify'
                 ].join('&&')
             },
+            deleteOldNuGetPackages: {
+	            command: [
+                    '@echo off',
+
+                    'cd ..\\deploy\\ ',
+
+                    'if exist *.nupkg (del *.nupkg) ',
+
+                    'cd ..\\ ',
+                    'del YAFNET.Types\\bin\\Release\\*.nupkg ',
+                    'del YAFNET.Configuration\\bin\\Release\\*.nupkg ',
+                    'del YAFNET.Core\\bin\\Release\\*.nupkg ',
+                    'del YAFNET.Web\\bin\\Release\\*.nupkg ',
+                    'del YAFNET.Data\\YAFNET.Data.SqlServer\\bin\\Release\\*.nupkg ',
+                    'del YAFNET.Data\\YAFNET.Data.MySql\\bin\\Release\\*.nupkg ',
+                    'del YAFNET.Data\\YAFNET.Data.PostgreSQL\\bin\\Release\\*.nupkg ',
+                    'del YAFNET.Data\\YAFNET.Data.Sqlite\\bin\\Release\\*.nupkg ',
+                    'del YAFNET.UI\\YAFNET.RazorPages\\bin\\Release\\*.nupkg ',
+                    'del YAFNET.UI\\YAFNET.UI.Chat\\bin\\Release\\*.nupkg '
+
+	            ].join('&&')
+            },
+            createNuGetPackages: {
+	            command: [
+		            'cd ..\\ ',
+
+		            'dotnet pack YAFNET.Types/YAFNET.Types.csproj /p:Configuration=Release ',
+		            'dotnet pack YAFNET.Configuration/YAFNET.Configuration.csproj /p:Configuration=Release ',
+		            'dotnet pack YAFNET.Core/YAFNET.Core.csproj /p:Configuration=Release ',
+		            'dotnet pack YAFNET.Web/YAFNET.Web.csproj /p:Configuration=Release ',
+
+		            'dotnet pack YAFNET.Data/YAFNET.Data.SqlServer/YAFNET.Data.SqlServer.csproj /p:Configuration=Release ',
+		            'dotnet pack YAFNET.Data/YAFNET.Data.MySql/YAFNET.Data.MySql.csproj /p:Configuration=Release ',
+		            'dotnet pack YAFNET.Data/YAFNET.Data.PostgreSQL/YAFNET.Data.PostgreSQL.csproj /p:Configuration=Release ',
+		            'dotnet pack YAFNET.Data/YAFNET.Data.Sqlite/YAFNET.Data.Sqlite.csproj /p:Configuration=Release '
+
+	            ].join('&&')
+            }, createNuGetUIPackages: {
+	            command: [
+		            'cd ..\\ ',
+		            'dotnet pack YAFNET.UI/YAFNET.RazorPages/YAFNET.RazorPages.csproj /p:Configuration=Release ',
+		            'dotnet pack YAFNET.UI/YAFNET.UI.Chat/YAFNET.UI.Chat.csproj /p:Configuration=Release '
+
+	            ].join('&&')
+            },
+            copyNuGetPackages: {
+	            command: [
+		            'cd ..\\ ',
+
+		            'COPY YAFNET.Types\\bin\\Release\\*.nupkg deploy\\ ',
+		            'COPY YAFNET.Configuration\\bin\\Release\\*.nupkg deploy\\ ',
+		            'COPY YAFNET.Core\\bin\\Release\\*.nupkg deploy\\ ',
+		            'COPY YAFNET.Web\\bin\\Release\\*.nupkg deploy\\ ',
+
+		            'COPY YAFNET.Data\\YAFNET.Data.SqlServer\\bin\\Release\\*.nupkg deploy\\ ',
+		            'COPY YAFNET.Data\\YAFNET.Data.MySql\\bin\\Release\\*.nupkg deploy\\ ',
+		            'COPY YAFNET.Data\\YAFNET.Data.PostgreSQL\\bin\\Release\\*.nupkg deploy\\ ',
+		            'COPY YAFNET.Data\\YAFNET.Data.Sqlite\\bin\\Release\\*.nupkg deploy\\ '
+
+	            ].join('&&')
+            },
+            copyNuGetUIPackages: {
+	            command: [
+		            'cd ..\\ ',
+		            'COPY YAFNET.Types\\bin\\Release\\*.nupkg deploy\\ ',
+
+		            'COPY YAFNET.UI\\YAFNET.RazorPages\\bin\Release\\*.nupkg deploy\\ ',
+		            'COPY YAFNET.UI\\YAFNET.UI.Chat\\bin\\Release\\*.nupkg deploy\\ '
+
+	            ].join('&&')
+            },
             deletePublish: {
                 command: [
                     '@echo off',
@@ -310,11 +383,100 @@ module.exports = function(grunt) {
                     'BootstrapEmail.Cli -f ../../YetAnotherForum.NET/wwwroot/Resources/DigestTopicTemplate.html -d ../../YetAnotherForum.NET/wwwroot/css/themes/zephyr/DigestTopicTemplate.html -c ../../YetAnotherForum.NET/wwwroot/lib/themes/zephyr/bootstrap_email-digest.json',
                     'rmdir .sass-cache /s /q'
                 ].join('&&')
+            },
+            publishNuGetPackages: {
+	            command: [
+		            '@echo off',
+		            'cd ..\\deploy\\',
+		            'echo publish Package YAFNET.Types to NuGet',
+                    'dotnet nuget push "YAFNET.Types.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"',
+		            'echo publish Package YAFNET.Configuration to NuGet',
+                    'dotnet nuget push "YAFNET.Configuration.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"',
+		            'echo publish Package YAFNET.Web to NuGet',
+                    'dotnet nuget push "YAFNET.Web.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"',
+		            'echo publish Package YAFNET.Core to NuGet',
+                    'dotnet nuget push "YAFNET.Core.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"',
+		            'echo publish Package YAFNET.Data.MySql to NuGet',
+                    'dotnet nuget push "YAFNET.Data.MySql.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"',
+		            'echo publish Package YAFNET.Data.PostgreSQL to NuGet',
+                    'dotnet nuget push "YAFNET.Data.PostgreSQL.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"',
+		            'echo publish Package YAFNET.Data.Sqlite to NuGet',
+                    'dotnet nuget push "YAFNET.Data.Sqlite.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"',
+		            'echo publish Package YAFNET.Data.SqlServer to NuGet',
+		            'dotnet nuget push "YAFNET.Data.SqlServer.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"'
+	            ].join('&&')
+            },
+            publishNuGetUIPackages: {
+	            command: [
+		            '@echo off',
+		            'cd ..\\deploy\\',
+		            'echo publish Package YAFNET.RazorPages to NuGet',
+		            'dotnet nuget push "YAFNET.RazorPages.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"',
+		            'echo publish Package YAFNET.UI.Chat to NuGet',
+		            'dotnet nuget push "YAFNET.UI.Chat.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"'
+	            ].join('&&')
+            },
+            publishToGitHub: {
+	            command: [
+		            '@echo off',
+		            'cd ..\\Tools\\GitHubReleaser\\bin\\Release\\net8.0',
+		            'echo publish Packages to GitHub.com',
+		            'GitHubReleaser YAFNET.json'
+	            ].join('&&')
             }
+        },
+
+        rollup: {
+	        options: {
+		        format: 'iife',
+		        plugins: function () {
+			        return [
+				        nodeResolve({
+					        module: true
+				        })
+			        ];
+		        }
+	        },
+	        buildSCEditor: {
+		        files: {
+			        './wwwroot/lib/sceditor/sceditor.min.js': [
+				        './wwwroot/lib/sceditor/src/sceditor.js'
+			        ]
+		        }
+	        }
         },
 
         // Minimize JS
         uglify: {
+	        buildSCEditor: {
+		        options: {
+			        warnings: true,
+			        compress: true,
+			        mangle: true,
+			        banner: '/* SCEditor for YAF.NET v<%= pkg.version %> | ' +
+				        '(C) 2024, Sam Clarke | sceditor.com/license */\n'
+		        },
+		        files: [
+			        {
+				        src: 'wwwroot/lib/sceditor/sceditor.min.js',
+                        dest: 'wwwroot/lib/sceditor/sceditor.min.js'
+			        },
+			        {
+				        expand: true,
+				        filter: 'isFile',
+                        cwd: 'wwwroot/lib/sceditor/src/',
+				        src: ['plugins/**.js', 'formats/**.js', 'icons/**.js'],
+                        dest: 'wwwroot/lib/sceditor/'
+			        },
+			        {
+				        expand: true,
+				        filter: 'isFile',
+				        cwd: 'wwwroot/lib/sceditor/src/',
+				        src: ['languages/**.js'],
+				        dest: 'wwwroot/js/sceditor/'
+			        }
+		        ]
+	        },
 	        themeSelector: {
 	            options: {
 		            sourceMap: false,
@@ -473,7 +635,7 @@ module.exports = function(grunt) {
 	        options: {
 		        implementation: sass,
 		        sourceMap: false
-	        },
+            },
             installWizard: {
                 files: {
                     "wwwroot/css/InstallWizard.css": 'wwwroot/lib/InstallWizard.scss'
@@ -658,6 +820,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('@w8tcha/grunt-dev-update');
+    grunt.loadNpmTasks('grunt-rollup');
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-replace');
@@ -742,4 +905,25 @@ module.exports = function(grunt) {
             'shell:deletePublish', 'shell:deployMySql',      'shell:compileLanguages', 'zip:YAF-MySql-Deploy',
             'shell:deletePublish', 'shell:deployPostgreSQL', 'shell:compileLanguages', 'zip:YAF-PostgreSQL-Deploy'
         ]);
+
+    grunt.registerTask('publishGitHub',
+	    [
+		    'shell:publishToGitHub'
+	    ]);
+
+    grunt.registerTask('publishNuget',
+	    [
+            'shell:deleteOldNuGetPackages', 'shell:createNuGetPackages', 'shell:copyNuGetPackages', 'shell:publishNuGetPackages'
+        ]);
+
+    grunt.registerTask('publishNugetUI',
+	    [
+            'shell:deleteOldNuGetPackages', 'shell:createNuGetUIPackages', 'shell:copyNuGetUIPackages', 'shell:publishNuGetUIPackages'
+        ]);
+
+    grunt.registerTask('buildSCEditor',
+        [
+	        'rollup:buildSCEditor',
+		    'uglify:buildSCEditor'
+	    ]);
 };

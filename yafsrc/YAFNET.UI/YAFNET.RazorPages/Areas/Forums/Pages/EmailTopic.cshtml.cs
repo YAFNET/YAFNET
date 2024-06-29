@@ -24,7 +24,6 @@
 
 namespace YAF.Pages;
 
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
@@ -34,8 +33,6 @@ using MimeKit;
 using YAF.Core.Extensions;
 using YAF.Core.Services;
 using YAF.Types.Models;
-
-using DataType = System.ComponentModel.DataAnnotations.DataType;
 
 /// <summary>
 /// The Share Topic via email
