@@ -41,6 +41,7 @@ using YAF.Core.BasePages;
 /// <summary>
 /// The Albums controller.
 /// </summary>
+[EnableRateLimiting("fixed")]
 [Route("api/[controller]")]
 public class LoginBox : ForumBaseController
 {

@@ -49,6 +49,7 @@ using YAF.Core.BasePages;
 /// The File Upload controller.
 /// </summary>
 [Route("api/[controller]")]
+[EnableRateLimiting("fixed")]
 public class FileUpload : ForumBaseController
 {
     /// <summary>

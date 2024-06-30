@@ -137,4 +137,10 @@ public class BoardConfiguration
     /// </summary>
     /// <value>The name of the area.</value>
     public string Area { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether /[use rate limiter].
+    /// </summary>
+    /// <value><c>true</c> if [use rate limiter]; otherwise, <c>false</c>.</value>
+    public bool UseRateLimiter { get; set; }
 }

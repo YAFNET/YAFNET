@@ -34,6 +34,7 @@ using YAF.Types.Attributes;
 /// <summary>
 /// The class that all YAF forum pages are derived from.
 /// </summary>
+[EnableRateLimiting("fixed")]
 [PageSecurityCheck]
 [UserSuspendCheck]
 public abstract class ForumPage : PageModel,

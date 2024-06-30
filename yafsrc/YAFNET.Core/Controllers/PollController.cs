@@ -32,6 +32,7 @@ using YAF.Types.Models;
 /// <summary>
 /// The Poll controller.
 /// </summary>
+[EnableRateLimiting("fixed")]
 [Route("[controller]")]
 public class PollController : ForumBaseController
 {

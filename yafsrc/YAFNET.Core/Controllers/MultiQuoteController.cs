@@ -31,6 +31,7 @@ using YAF.Types.Objects;
 /// <summary>
 /// The MultiQuote Button controller.
 /// </summary>
+[EnableRateLimiting("fixed")]
 [CamelCaseOutput]
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]

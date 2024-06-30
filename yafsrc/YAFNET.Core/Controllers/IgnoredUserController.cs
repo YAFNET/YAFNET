@@ -36,6 +36,7 @@ using YAF.Types.Objects.Model;
 /// <summary>
 /// The IgnoredUser controller.
 /// </summary>
+[EnableRateLimiting("fixed")]
 [Authorize]
 [Route("[controller]")]
 public class IgnoredUserController : ForumBaseController

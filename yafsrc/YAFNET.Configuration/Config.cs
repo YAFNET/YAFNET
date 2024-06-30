@@ -85,4 +85,10 @@ public static class Config
     /// </summary>
     /// <value>The web root path.</value>
     public static string WebRootPath { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether [use rate limiter].
+    /// </summary>
+    /// <value><c>true</c> if [use rate limiter]; otherwise, <c>false</c>.</value>
+    public static bool UseRateLimiter { get; set; }
 }

@@ -38,6 +38,7 @@ using YAF.Types.Objects.Model;
 /// <summary>
 /// The Posts controller.
 /// </summary>
+[EnableRateLimiting("fixed")]
 [Authorize]
 [Route("[controller]")]
 public class PostsController : ForumBaseController

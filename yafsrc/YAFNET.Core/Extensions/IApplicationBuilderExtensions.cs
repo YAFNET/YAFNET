@@ -92,6 +92,7 @@ public static class IApplicationBuilderExtensions
             serviceLocator.Get<BoardConfiguration>().LegacyMembershipHashAlgorithmType;
         Config.LegacyMembershipHashCase = serviceLocator.Get<BoardConfiguration>().LegacyMembershipHashCase;
         Config.LegacyMembershipHashHex = serviceLocator.Get<BoardConfiguration>().LegacyMembershipHashHex;
+        Config.UseRateLimiter = serviceLocator.Get<BoardConfiguration>().UseRateLimiter;
 
         app.UseMiddleware<InitializeDb>();
 
@@ -120,6 +121,12 @@ public static class IApplicationBuilderExtensions
 
         app.UseAuthentication();
         app.UseAuthorization();
+
+
+        if (Config.UseRateLimiter)
+        {
+            app.UseRateLimiter();
+        }
     }
 
     /// <summary>

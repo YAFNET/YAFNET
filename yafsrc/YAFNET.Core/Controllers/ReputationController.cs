@@ -39,6 +39,7 @@ using YAF.Types.Objects.Model;
 /// <summary>
 /// The Reputation controller.
 /// </summary>
+[EnableRateLimiting("fixed")]
 [Authorize]
 [Route("[controller]")]
 public class ReputationController : ForumBaseController

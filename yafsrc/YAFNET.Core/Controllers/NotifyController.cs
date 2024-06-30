@@ -43,6 +43,7 @@ using YAF.Types.Attributes;
 /// <summary>
 /// The Notifications controller.
 /// </summary>
+[EnableRateLimiting("fixed")]
 [CamelCaseOutput]
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]

@@ -23,6 +23,7 @@
  */
 
 using System;
+using System.Threading.RateLimiting;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -119,6 +120,8 @@ public static class ServiceCollectionExtensionsExtensions
     /// <returns>IServiceCollection.</returns>
     public static IServiceCollection AddYafCore(this IServiceCollection services, IConfiguration configuration)
     {
+        var boardConfig = configuration.GetSection("BoardConfiguration").Get<BoardConfiguration>();
+
         services.AddControllers();
 
         services.AddSignalR();
@@ -142,6 +145,24 @@ public static class ServiceCollectionExtensionsExtensions
                 .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));
 
         services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
+
+        if (boardConfig.UseRateLimiter)
+        {
+            services.AddRateLimiter(rateOptions =>
+            {
+                rateOptions
+                    .AddFixedWindowLimiter(policyName: "fixed", options =>
+                        {
+                            options.PermitLimit = 5;
+                            options.Window = TimeSpan.FromSeconds(60);
+                            options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+                            options.QueueLimit = 2;
+                        }
+                    );
+
+                rateOptions.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+            });
+        }
 
         services.AddOptions();
 

@@ -36,6 +36,7 @@ using YAF.Types.Objects;
 /// <summary>
 /// The YAF Album controller.
 /// </summary>
+[EnableRateLimiting("fixed")]
 [CamelCaseOutput]
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]

@@ -37,6 +37,7 @@ using YAF.Types.Objects.Model;
 /// <summary>
 /// The Friends controller.
 /// </summary>
+[EnableRateLimiting("fixed")]
 [Authorize]
 [Route("[controller]")]
 public class FriendsController : ForumBaseController

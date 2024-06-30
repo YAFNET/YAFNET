@@ -38,6 +38,7 @@ using YAF.Types.Objects;
 /// Implements the <see cref="ForumBaseController" />
 /// </summary>
 /// <seealso cref="ForumBaseController" />
+[EnableRateLimiting("fixed")]
 [CamelCaseOutput]
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]

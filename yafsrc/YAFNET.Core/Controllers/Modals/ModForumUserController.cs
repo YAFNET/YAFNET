@@ -34,6 +34,7 @@ using YAF.Types.Objects;
 /// <summary>
 /// The Medal controller.
 /// </summary>
+[EnableRateLimiting("fixed")]
 [Produces("application/json")]
 [Route("api/[controller]")]
 [ApiController]

@@ -41,6 +41,7 @@ using Microsoft.AspNetCore.OutputCaching;
 /// <summary>
 /// The User controller.
 /// </summary>
+[EnableRateLimiting("fixed")]
 [CamelCaseOutput]
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]

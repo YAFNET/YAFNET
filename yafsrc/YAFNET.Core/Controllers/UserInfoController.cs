@@ -42,6 +42,7 @@ using YAF.Types.Attributes;
 /// <summary>
 /// The User Info controller.
 /// </summary>
+[EnableRateLimiting("fixed")]
 [CamelCaseOutput]
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]

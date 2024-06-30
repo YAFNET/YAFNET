@@ -36,6 +36,7 @@ using YAF.Types.Objects.Model;
 /// <summary>
 /// The YAF Topic controller.
 /// </summary>
+[EnableRateLimiting("fixed")]
 [CamelCaseOutput]
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]

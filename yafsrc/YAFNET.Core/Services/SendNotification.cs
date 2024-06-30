@@ -420,7 +420,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                     TemplateParams =
                                         {
                                             ["{user}"] = user.UserName,
-                                            ["{roles}"] = string.Join(", ", removedRoles.ToArray()),
+                                            ["{roles}"] = string.Join(", ", [.. removedRoles]),
                                             ["{forumname}"] = this.BoardSettings.Name
                                         }
                                 };
@@ -444,7 +444,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                     TemplateParams =
                                         {
                                             ["{user}"] = user.UserName,
-                                            ["{roles}"] = string.Join(", ", addedRoles.ToArray()),
+                                            ["{roles}"] = string.Join(", ", [.. addedRoles]),
                                             ["{forumname}"] = this.BoardSettings.Name
                                         }
                                 };
