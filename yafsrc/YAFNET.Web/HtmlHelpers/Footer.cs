@@ -65,7 +65,8 @@ public static class FooterHtmlHelper
         var privacyText = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "PRIVACY_POLICY");
 
         rulesTag.MergeAttribute(HtmlAttribute.Title, privacyText);
-        rulesTag.MergeAttribute(HtmlAttribute.Href, "/Privacy");
+        rulesTag.MergeAttribute(HtmlAttribute.Href,
+            BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Privacy));
 
         rulesTag.InnerHtml.Append(privacyText);
 
