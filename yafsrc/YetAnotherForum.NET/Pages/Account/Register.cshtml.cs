@@ -377,23 +377,8 @@ public class RegisterModel : AccountPage
 
                 switch (type)
                 {
-                    case DataType.Text:
-                    {
-                        if (item.Value.IsSet())
-                        {
-                            this.GetRepository<ProfileCustom>().Insert(
-                                new ProfileCustom
-                                {
-                                    UserID = userId,
-                                    ProfileDefinitionID = item.ID,
-                                    Value = item.Value
-                                });
-                        }
-
-                        break;
-                    }
-
                     case DataType.Number:
+                    case DataType.Text:
                     {
                         if (item.Value.IsSet())
                         {

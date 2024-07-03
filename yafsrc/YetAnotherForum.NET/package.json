@@ -20,10 +20,10 @@
     "grunt-shell": "^4.0.0",
     "grunt-webpack": "^6.0.0",
     "grunt-zip": "^1.0.0",
-    "postcss": "^8.4.38",
+    "postcss": "^8.4.39",
     "sass": "^1.77.6",
     "webpack": "^5.91.1",
-    "webpack-merge": "^5.10.0"
+    "webpack-merge": "^6.0.1"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.2",
