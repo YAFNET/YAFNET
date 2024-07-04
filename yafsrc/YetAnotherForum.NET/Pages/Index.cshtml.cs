@@ -175,10 +175,18 @@ public class IndexModel : ForumPage
                 null);
 
             var mods = this.Get<ISessionService>().Mods;
-            mods.AddRange(newData.Item1);
+
+            foreach (var mod in newData.Item1.Where(mod => mods.TrueForAll(x => x.ForumID != mod.ForumID)))
+            {
+                mods.Add(mod);
+            }
 
             var forums = this.Get<ISessionService>().Forums;
-            forums.AddRange(newData.Item2);
+
+            foreach (var forum in newData.Item2.Where(mod => forums.TrueForAll(x => x.ForumID != mod.ForumID)))
+            {
+                forums.Add(forum);
+            }
 
             this.Get<ISessionService>().Mods = mods;
             this.Get<ISessionService>().Forums = forums;
