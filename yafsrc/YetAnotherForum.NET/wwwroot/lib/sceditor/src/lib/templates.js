@@ -100,7 +100,7 @@ var _templates = {
 
     mediaMenu:
         '<form class="m-3"><div class="mb-3"><label for="link" class="form-label">{label}</label> ' +
-            '<input type="text" id="link" dir="ltr" placeholder="https://" class="form-control" /></div>' +
+            '<input type="url" id="link" dir="ltr" placeholder="https://" class="form-control" /></div>' +
             '<input type="button" class="btn btn-sm btn-primary button" value="{insert}" />' +
             '</form>',
 

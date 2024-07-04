@@ -1,2 +1,223 @@
-/* SCEditor v4.0.0-rc.2 | (C) 2024, Sam Clarke | sceditor.com/license */
-!function(n){"use strict";var v=void 0!==window.FileReader,u=/data:[^;]+;base64,/i;n.plugins.dragdrop=function(){var a,r,i,A,o,s;function d(){o.style.display="none",A.className=A.className.replace(/(^| )dnd( |$)/g,"")}function l(){return 1}function f(e){var n=document.createElement("img");function t(e){var t=r.getBody().ownerDocument.getElementById(n.id);t&&("string"==typeof e&&t.insertAdjacentHTML("afterend",e),t.parentNode.removeChild(t))}return n.src="data:image/gif;base64,R0lGODlhlgBkAPABAH19ffb29iH5BAAKAAAAIf4aQ3JlYXRlZCB3aXRoIGFqYXhsb2FkLmluZm8AIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAlgBkAAAC1YyPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3n+s73/g8MCofEovGITCqXzKbzCY1Kp9Sq9YrNarfcrvcLDovH5LL5jE6r1+y2+w2Py+f0uv2OvwD2fP6iD/gH6Pc2GIhg2JeQSNjGuLf4GMlYKIloefAIUEl52ZmJyaY5mUhqyFnqmQr6KRoaMKp66hbLumpQ69oK+5qrOyg4a6qYV2x8jJysvMzc7PwMHS09TV1tfY2drb3N3e39DR4uPk5ebn6Onq6+zt7u/g4fL99UAAAh+QQACgAAACwAAAAAlgBkAIEAAAB9fX329vYAAAAC3JSPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3n+s73/g8MCofEovGITCqXzKbzCY1Kp9Sq9YrNarfcrvcLDovH5LL5jE6r1+y2+w2Py+f0uv2OvwD2fP4iABgY+CcoCNeHuJdQyLjIaOiWiOj4CEhZ+SbZd/nI2RipqYhQOThKGpAZCuBZyArZprpqSupaCqtaazmLCRqai7rb2av5W5wqSShcm8fc7PwMHS09TV1tfY2drb3N3e39DR4uPk5ebn6Onq6+zt7u/g4fLz9PX29/j5/vVAAAIfkEAAoAAAAsAAAAAJYAZACBAAAAfX199vb2AAAAAuCUj6nL7Q+jnLTai7PevPsPhuJIluaJpurKtu4Lx/JM1/aN5/rO9/4PDAqHxKLxiEwql8ym8wmNSqfUqvWKzWq33K73Cw6Lx+Sy+YxOq9fstvsNj8vn9Lr9jr8E9nz+AgAYGLjQVwhXiJgguAiYgGjo9tinyCjoKLn3hpmJUGmJsBmguUnpCXCJOZraaXoKShoJe9DqehCqKlnqiZobuzrbyvuIO8xqKpxIPKlwrPCbBx0tPU1dbX2Nna29zd3t/Q0eLj5OXm5+jp6uvs7e7v4OHy8/T19vf4+fr7/P379UAAAh+QQACgAAACwAAAAAlgBkAIEAAAB9fX329vYAAAAC4JSPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3n+s73/g8MCofEovGITCqXzKbzCY1Kp9Sq9YrNarfcrvcLDovH5LL5jE6r1+y2+w2Py+f0uv2OvwT2fP6iD7gAMEhICAeImIAYiFDoOPi22KcouZfw6BhZGUBZeYlp6LbJiTD6CQqg6Vm6eQqqKtkZ24iaKtrKunpQa9tmmju7Wwu7KFtMi3oYDMzompkHHS09TV1tfY2drb3N3e39DR4uPk5ebn6Onq6+zt7u/g4fLz9PX29/j5+vv8/f31QAADs=",n.className="sceditor-ignore",n.id="sce-dragdrop-"+s++,function(){return e?e.parentNode.replaceChild(n,e):r.wysiwygEditorInsertHtml(n.outerHTML),{insert:function(e){t(e)},cancel:t}}}function e(e){var t=e.dataTransfer,n=t.files.length||!t.items?t.files:t.items;for(let e=0;e<n.length;e++)if("string"===n[e].kind)return;"none"===o.style.display&&(o.style.display="block",A.className+=" dnd"),e.preventDefault()}function t(e){var t=e.dataTransfer,n=t.files.length||!t.items?t.files:t.items;d();for(let e=0;e<n.length;e++){if("string"===n[e].kind)return;l(n[e]),i(n[e],f())}e.preventDefault()}v&&(s=0,this.signalReady=function(){a=(r=this).opts.dragdrop||{},i=a.handleFile,A=r.getContentAreaContainer().parentNode,o=A.appendChild(n.dom.parseHTML('<div class="sceditor-dnd-cover" style="display: none"></div>').firstChild),A.addEventListener("dragover",e),A.addEventListener("dragleave",d),A.addEventListener("dragend",d),A.addEventListener("drop",t),r.getBody().addEventListener("dragover",e),r.getBody().addEventListener("drop",d)},this.signalPasteHtml=function(e){if(!("handlePaste"in a)||a.handlePaste){var t=document.createElement("div"),n=(t.innerHTML=e.val,t.querySelectorAll("img"));for(let e=0;e<n.length;e++){var r,A=n[e];u.test(A.src)&&((r=function(e){var t=e.substr(5,e.indexOf(";")-5),n=atob(e.substr(e.indexOf(",")+1)),r=new Uint8Array(n.length);for(let e=0;e<n.length;e++)r[e]=n[e].charCodeAt(0);try{return new Blob([r],{type:t})}catch(e){return null}}(A.src))?i(r,f(A)):A.parentNode.removeChild(A))}e.val=t.innerHTML}})}}(sceditor);
+/**
+ * SCEditor Drag and Drop Plugin
+ * http://www.sceditor.com/
+ *
+ * Copyright (C) 2017, Sam Clarke (samclarke.com)
+ *
+ * SCEditor is licensed under the MIT license:
+ *	http://www.opensource.org/licenses/mit-license.php
+ *
+ * @author Sam Clarke
+ */
+(function (sceditor) {
+	'use strict';
+
+	/**
+	 * Place holder GIF shown while image is loading.
+	 * @type {string}
+	 * @private
+	 */
+	var loadingGif = 'data:image/gif;base64,R0lGODlhlgBkAPABAH19ffb29iH5BAAK' +
+		'AAAAIf4aQ3JlYXRlZCB3aXRoIGFqYXhsb2FkLmluZm8AIf8LTkVUU0NBUEUyLjADAQA' +
+		'AACwAAAAAlgBkAAAC1YyPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3n+s' +
+		'73/g8MCofEovGITCqXzKbzCY1Kp9Sq9YrNarfcrvcLDovH5LL5jE6r1+y2+w2Py+f0u' +
+		'v2OvwD2fP6iD/gH6Pc2GIhg2JeQSNjGuLf4GMlYKIloefAIUEl52ZmJyaY5mUhqyFnq' +
+		'mQr6KRoaMKp66hbLumpQ69oK+5qrOyg4a6qYV2x8jJysvMzc7PwMHS09TV1tfY2drb3' +
+		'N3e39DR4uPk5ebn6Onq6+zt7u/g4fL99UAAAh+QQACgAAACwAAAAAlgBkAIEAAAB9fX' +
+		'329vYAAAAC3JSPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3n+s73/g8MC' +
+		'ofEovGITCqXzKbzCY1Kp9Sq9YrNarfcrvcLDovH5LL5jE6r1+y2+w2Py+f0uv2OvwD2' +
+		'fP4iABgY+CcoCNeHuJdQyLjIaOiWiOj4CEhZ+SbZd/nI2RipqYhQOThKGpAZCuBZyAr' +
+		'ZprpqSupaCqtaazmLCRqai7rb2av5W5wqSShcm8fc7PwMHS09TV1tfY2drb3N3e39DR' +
+		'4uPk5ebn6Onq6+zt7u/g4fLz9PX29/j5/vVAAAIfkEAAoAAAAsAAAAAJYAZACBAAAAf' +
+		'X199vb2AAAAAuCUj6nL7Q+jnLTai7PevPsPhuJIluaJpurKtu4Lx/JM1/aN5/rO9/4P' +
+		'DAqHxKLxiEwql8ym8wmNSqfUqvWKzWq33K73Cw6Lx+Sy+YxOq9fstvsNj8vn9Lr9jr8' +
+		'E9nz+AgAYGLjQVwhXiJgguAiYgGjo9tinyCjoKLn3hpmJUGmJsBmguUnpCXCJOZraaX' +
+		'oKShoJe9DqehCqKlnqiZobuzrbyvuIO8xqKpxIPKlwrPCbBx0tPU1dbX2Nna29zd3t/' +
+		'Q0eLj5OXm5+jp6uvs7e7v4OHy8/T19vf4+fr7/P379UAAAh+QQACgAAACwAAAAAlgBk' +
+		'AIEAAAB9fX329vYAAAAC4JSPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3' +
+		'n+s73/g8MCofEovGITCqXzKbzCY1Kp9Sq9YrNarfcrvcLDovH5LL5jE6r1+y2+w2Py+' +
+		'f0uv2OvwT2fP6iD7gAMEhICAeImIAYiFDoOPi22KcouZfw6BhZGUBZeYlp6LbJiTD6C' +
+		'Qqg6Vm6eQqqKtkZ24iaKtrKunpQa9tmmju7Wwu7KFtMi3oYDMzompkHHS09TV1tfY2d' +
+		'rb3N3e39DR4uPk5ebn6Onq6+zt7u/g4fLz9PX29/j5+vv8/f31QAADs=';
+
+	/**
+	 * Basic check for browser support
+	 * @type {boolean}
+	 * @private
+	 */
+	var isSupported = typeof window.FileReader !== 'undefined';
+	var base64DataUri = /data:[^;]+;base64,/i;
+
+	function base64DataUriToBlob(url) {
+		// 5 is length of "data:" prefix
+		const mime = url.substr(5, url.indexOf(';') - 5);
+		const data = atob(url.substr(url.indexOf(',') + 1));
+		/* global Uint8Array */
+		const binary = new Uint8Array(data.length);
+
+		for (let i = 0; i < data.length; i++) {
+			binary[i] = data[i].charCodeAt(0);
+		}
+
+		try {
+			return new Blob([binary], { type: mime });
+		} catch (e) {
+			return null;
+		}
+	}
+
+	sceditor.plugins.dragdrop = function () {
+		if (!isSupported) {
+			return;
+		}
+
+		const base = this;
+		var	opts;
+		var editor;
+		var handleFile;
+		var container;
+		var cover;
+		var placeholderId = 0;
+
+
+		function hideCover() {
+			cover.style.display = 'none';
+			container.className = container.className.replace(/(^| )dnd( |$)/g, '');
+		}
+
+		function showCover() {
+			if (cover.style.display === 'none') {
+				cover.style.display = 'block';
+				container.className += ' dnd';
+			}
+		}
+
+		function isAllowed() {
+			// FF sets type to application/x-moz-file until it has been dropped
+			/*if (file.type !== 'application/x-moz-file' && opts.allowedTypes &&
+				opts.allowedTypes.indexOf(file.type) < 0) {
+				return false;
+			}
+
+			return opts.isAllowed ? opts.isAllowed(file) : true;*/
+
+            return true;
+        };
+
+		function createHolder(toReplace) {
+			var placeholder = document.createElement('img');
+			placeholder.src = loadingGif;
+			placeholder.className = 'sceditor-ignore';
+			placeholder.id = `sce-dragdrop-${placeholderId++}`;
+
+			function replace(html) {
+                const node = editor
+                    .getBody()
+                    .ownerDocument
+                    .getElementById(placeholder.id);
+
+                if (node) {
+					if (typeof html === 'string') {
+						node.insertAdjacentHTML('afterend', html);
+					}
+
+					node.parentNode.removeChild(node);
+				}
+            }
+
+            return function () {
+				if (toReplace) {
+					toReplace.parentNode.replaceChild(placeholder, toReplace);
+				} else {
+					editor.wysiwygEditorInsertHtml(placeholder.outerHTML);
+				}
+
+				return {
+					insert: function (html) {
+						replace(html);
+					},
+					cancel: replace
+				};
+			};
+		}
+
+		function handleDragOver(e) {
+			const dt = e.dataTransfer;
+			const files = dt.files.length || !dt.items ? dt.files : dt.items;
+
+			for (let i = 0; i < files.length; i++) {
+				// Dragging a string should be left to default
+				if (files[i].kind === 'string') {
+					return;
+				}
+			}
+
+			showCover();
+			e.preventDefault();
+		}
+
+		function handleDrop(e) {
+			const dt = e.dataTransfer;
+			const files = dt.files.length || !dt.items ? dt.files : dt.items;
+
+			hideCover();
+
+			for (let i = 0; i < files.length; i++) {
+				// Dragging a string should be left to default
+				if (files[i].kind === 'string') {
+					return;
+				}
+
+				if (isAllowed(files[i])) {
+					handleFile(files[i], createHolder());
+				}
+			}
+
+			e.preventDefault();
+		}
+
+		base.signalReady = function () {
+			editor = this;
+			opts = editor.opts.dragdrop || {};
+			handleFile = opts.handleFile;
+
+			container = editor.getContentAreaContainer().parentNode;
+
+			cover = container.appendChild(sceditor.dom.parseHTML(
+				// eslint-disable-next-line quotes
+				`<div class="sceditor-dnd-cover" style="display: none"></div>`
+			).firstChild);
+
+			container.addEventListener('dragover', handleDragOver);
+			container.addEventListener('dragleave', hideCover);
+			container.addEventListener('dragend', hideCover);
+			container.addEventListener('drop', handleDrop);
+
+			editor.getBody().addEventListener('dragover', handleDragOver);
+			editor.getBody().addEventListener('drop', hideCover);
+		};
+
+		base.signalPasteHtml = function (paste) {
+			if (!('handlePaste' in opts) || opts.handlePaste) {
+				const div = document.createElement('div');
+				div.innerHTML = paste.val;
+
+				const images = div.querySelectorAll('img');
+				for (let i = 0; i < images.length; i++) {
+                    const image = images[i];
+
+                    if (base64DataUri.test(image.src)) {
+                        const file = base64DataUriToBlob(image.src);
+                        if (file && isAllowed(file)) {
+							handleFile(file, createHolder(image));
+						} else {
+							image.parentNode.removeChild(image);
+						}
+                    }
+                }
+
+                paste.val = div.innerHTML;
+			}
+		};
+	};
+})(sceditor);
