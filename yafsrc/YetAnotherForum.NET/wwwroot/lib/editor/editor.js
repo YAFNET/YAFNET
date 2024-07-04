@@ -7,30 +7,31 @@
     this.Description = description;
     this.MediaTitle = mediaTitle;
 
-    const autoCloseTags = new AutoCloseTags(document.querySelector('.BBCodeEditor'));
+    document.querySelectorAll('.BBCodeEditor').forEach(editor => {
+	    const autoCloseTags = new AutoCloseTags(editor);
+	    const undoManager = new EditorUndoManager(editor);
 
-    const undoManager = new EditorUndoManager();
-
-    document.querySelector('.BBCodeEditor').addEventListener('keydown', function (e) {
-        if (e.ctrlKey &&
-            !e.altKey &&
-            (e.which == 66 || e.which == 73 || e.which == 85 || e.which == 81 || e.which == 13)) {
-            if (e.which == 66) {
-                wrapSelection(this, '[b]', '[/b]');
-            } else if (e.which == 73) {
-                wrapSelection(this, '[i]', '[/i]');
-            } else if (e.which == 85) {
-                wrapSelection(this, '[u]', '[/u]');
-            } else if (e.which == 81) {
-                wrapSelection(this, '[quote]', '[/quote]');
-            } else if (e.which == 13) {
-                if (document.getElementById('QuickReplyDialog') != null) {
-                    document.querySelector('[data-bs-save*="modal"]').click();
-                } else if (document.querySelector('[formaction*="PostReply"]') != null) {
-                    document.querySelector('[formaction*="PostReply"]').click();
-                }
-            }
-        }
+	    editor.addEventListener('keydown', function (e) {
+		    if (e.ctrlKey &&
+			    !e.altKey &&
+			    (e.which == 66 || e.which == 73 || e.which == 85 || e.which == 81 || e.which == 13)) {
+			    if (e.which == 66) {
+				    wrapSelection(this, '[b]', '[/b]');
+			    } else if (e.which == 73) {
+				    wrapSelection(this, '[i]', '[/i]');
+			    } else if (e.which == 85) {
+				    wrapSelection(this, '[u]', '[/u]');
+			    } else if (e.which == 81) {
+				    wrapSelection(this, '[quote]', '[/quote]');
+			    } else if (e.which == 13) {
+				    if (document.getElementById('QuickReplyDialog') != null) {
+					    document.querySelector('[data-bs-save*="modal"]').click();
+				    } else if (document.querySelector('[formaction*="PostReply"]') != null) {
+					    document.querySelector('[formaction*="PostReply"]').click();
+				    }
+			    }
+		    }
+	    });
     });
 };
 yafEditor.prototype.FormatText = function (command, option) {

@@ -6,26 +6,28 @@ var yafEditor = function(name, urlTitle, urlDescription, urlImageTitle, urlImage
     this.UrlImageDescription = urlImageDescription;
     this.Description = description;
     this.MediaTitle = mediaTitle;
-    const autoCloseTags = new AutoCloseTags(document.querySelector(".BBCodeEditor"));
-    const undoManager = new EditorUndoManager();
-    document.querySelector(".BBCodeEditor").addEventListener("keydown", function(e) {
-        if (e.ctrlKey && !e.altKey && (e.which == 66 || e.which == 73 || e.which == 85 || e.which == 81 || e.which == 13)) {
-            if (e.which == 66) {
-                wrapSelection(this, "[b]", "[/b]");
-            } else if (e.which == 73) {
-                wrapSelection(this, "[i]", "[/i]");
-            } else if (e.which == 85) {
-                wrapSelection(this, "[u]", "[/u]");
-            } else if (e.which == 81) {
-                wrapSelection(this, "[quote]", "[/quote]");
-            } else if (e.which == 13) {
-                if (document.getElementById("QuickReplyDialog") != null) {
-                    document.querySelector('[data-bs-save*="modal"]').click();
-                } else if (document.querySelector('[formaction*="PostReply"]') != null) {
-                    document.querySelector('[formaction*="PostReply"]').click();
+    document.querySelectorAll(".BBCodeEditor").forEach(editor => {
+        const autoCloseTags = new AutoCloseTags(editor);
+        const undoManager = new EditorUndoManager(editor);
+        editor.addEventListener("keydown", function(e) {
+            if (e.ctrlKey && !e.altKey && (e.which == 66 || e.which == 73 || e.which == 85 || e.which == 81 || e.which == 13)) {
+                if (e.which == 66) {
+                    wrapSelection(this, "[b]", "[/b]");
+                } else if (e.which == 73) {
+                    wrapSelection(this, "[i]", "[/i]");
+                } else if (e.which == 85) {
+                    wrapSelection(this, "[u]", "[/u]");
+                } else if (e.which == 81) {
+                    wrapSelection(this, "[quote]", "[/quote]");
+                } else if (e.which == 13) {
+                    if (document.getElementById("QuickReplyDialog") != null) {
+                        document.querySelector('[data-bs-save*="modal"]').click();
+                    } else if (document.querySelector('[formaction*="PostReply"]') != null) {
+                        document.querySelector('[formaction*="PostReply"]').click();
+                    }
                 }
             }
-        }
+        });
     });
 };
 
@@ -423,8 +425,8 @@ StateMaker = function(initialState) {
     };
 };
 
-var EditorUndoManager = function() {
-    var text = doc.querySelector(".BBCodeEditor"), val, wordCount = 0, words = 0, stateMaker = new StateMaker(), undoButton = I("undo"), redoButton = I("redo"), countField = document.getElementById("editor-Counter"), maxLimit = text.maxLength;
+var EditorUndoManager = function(editor) {
+    var text = editor, val, wordCount = 0, words = 0, stateMaker = new StateMaker(), undoButton = I("undo"), redoButton = I("redo"), countField = text.parentElement.parentElement.querySelector("#editor-Counter"), maxLimit = text.maxLength;
     countField.textContent = maxLimit - text.value.length;
     function onChange(editor) {
         val = editor.value.trim();

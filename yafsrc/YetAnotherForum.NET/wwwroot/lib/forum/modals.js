@@ -6,13 +6,13 @@
                 button.addEventListener('click',
                     (event) => {
                         event.preventDefault();
-                        const url = button.dataset.url;
+						const url = button.dataset.url;
 
                         fetch(url).then(res => res.text()).then(data => {
                             placeholderElement.innerHTML = data;
 
                             loadModal(window.dialog = new bootstrap.Modal(placeholderElement.querySelector('.modal')),
-                                placeholderElement);
+								placeholderElement);
                         }).catch(error => {
                             console.log(error);
                         });

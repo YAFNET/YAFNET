@@ -67,15 +67,15 @@ StateMaker = function (initialState) {
     }
 }
 
-var EditorUndoManager = function () {
-    var text = doc.querySelector('.BBCodeEditor'),
+var EditorUndoManager = function (editor) {
+    var text = editor,
         val,
         wordCount = 0,
         words = 0,
         stateMaker = new StateMaker,
         undoButton = I('undo'),
         redoButton = I('redo'),
-        countField = document.getElementById('editor-Counter'),
+        countField = text.parentElement.parentElement.querySelector('#editor-Counter'),
         maxLimit = text.maxLength;
 
     countField.textContent = maxLimit - text.value.length;

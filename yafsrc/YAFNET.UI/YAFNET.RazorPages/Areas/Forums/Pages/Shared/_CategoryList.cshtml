@@ -154,7 +154,7 @@
                                                         }
                                                         else
                                                         {
-                                                            <label>...</label>
+                                                            @Html.Raw("...")
                                                         }
 	                                                </li>
                                                 }
@@ -173,22 +173,37 @@
                                             {
                                                 var topicLinkText = Current.Get<IBadWordReplace>().Replace(Html.HtmlEncode(forum.LastTopicName)).Truncate(50);
 
-                                                var styles = Current.BoardSettings.UseStyledTopicTitles ? Current.Get<IStyleTransform>().Decode(forum.LastTopicStyles) : string.Empty;
-
-
-                                                <a icon="comment"
-                                                   icon-color="text-secondary"
-                                                   icon-css-class="far"
-                                                   button-style="Link"
-                                                   class=" fw-bold p-0 text-start"
-                                                   bs-toggle="tooltip"
-                                                   role="button"
-                                                   title-localized-page="COMMON"
-                                                   title-localized-tag="VIEW_TOPIC"
-                                                   asp-page="@ForumPages.Posts.GetPageName()"
-                                                   asp-all-route-data="@(Current.Get<LinkBuilder>().GetAllRouteData(new { t = forum.LastTopicID, name = topicLinkText }))"
-                                                   text="@topicLinkText"
-                                                   style="@styles"></a>
+                                                @if (Current.BoardSettings.UseStyledTopicTitles)
+                                                {
+	                                                <a icon="comment"
+	                                                   icon-color="text-secondary"
+	                                                   icon-css-class="far"
+	                                                   button-style="Link"
+	                                                   class=" fw-bold p-0 text-start"
+	                                                   bs-toggle="tooltip"
+	                                                   role="button"
+	                                                   title-localized-page="COMMON"
+	                                                   title-localized-tag="VIEW_TOPIC"
+	                                                   asp-page="@ForumPages.Posts.GetPageName()"
+	                                                   asp-all-route-data="@(Current.Get<LinkBuilder>().GetAllRouteData(new { t = forum.LastTopicID, name = topicLinkText }))"
+	                                                   text="@topicLinkText"
+                                                       style="@Html.Raw(Current.Get<IStyleTransform>().Decode(forum.LastTopicStyles))"></a>
+                                                }
+                                                else
+                                                {
+	                                                <a icon="comment"
+	                                                   icon-color="text-secondary"
+	                                                   icon-css-class="far"
+	                                                   button-style="Link"
+	                                                   class=" fw-bold p-0 text-start"
+	                                                   bs-toggle="tooltip"
+	                                                   role="button"
+	                                                   title-localized-page="COMMON"
+	                                                   title-localized-tag="VIEW_TOPIC"
+	                                                   asp-page="@ForumPages.Posts.GetPageName()"
+	                                                   asp-all-route-data="@(Current.Get<LinkBuilder>().GetAllRouteData(new { t = forum.LastTopicID, name = topicLinkText }))"
+	                                                   text="@topicLinkText"></a>
+                                                }
 
                                                 @if (forum.LastPosted.Value > lastRead)
                                                 {

@@ -64,7 +64,9 @@
                             @statsMembersCount
                         </li>
                         <li class="list-group-item">
-	                        @Html.LocalizedText("COMMON", "STATS_LASTMEMBER")
+                            <label>
+                                @Html.LocalizedText("COMMON", "STATS_LASTMEMBER")
+                            </label>
                             @Html.UserLink(latestUser.ID, latestUser.DisplayOrUserName(), latestUser.Suspended,
                                 latestUser.UserStyle)
                         </li>
