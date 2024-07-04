@@ -143,4 +143,10 @@ public class BoardConfiguration
     /// </summary>
     /// <value><c>true</c> if [use rate limiter]; otherwise, <c>false</c>.</value>
     public bool UseRateLimiter { get; set; }
+
+    /// <summary>
+    /// Maximum number of permit counters that can be allowed in a window.
+    /// Must be set to a value > 0.
+    /// </summary>
+    public int RateLimiterPermitLimit { get; set; } = 30;
 }

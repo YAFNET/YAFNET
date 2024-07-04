@@ -153,7 +153,7 @@ public static class ServiceCollectionExtensionsExtensions
                 rateOptions
                     .AddFixedWindowLimiter(policyName: "fixed", options =>
                         {
-                            options.PermitLimit = 5;
+                            options.PermitLimit = boardConfig.RateLimiterPermitLimit;
                             options.Window = TimeSpan.FromSeconds(60);
                             options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
                             options.QueueLimit = 2;
