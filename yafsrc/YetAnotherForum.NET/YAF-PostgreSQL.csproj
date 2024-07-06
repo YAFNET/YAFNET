@@ -33,6 +33,24 @@
 	  <Content Remove="appsettings.Development.json" />
 	  <Content Remove="project.json" />
   </ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="appsettings-MySql.json">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="appsettings-PostgreSQL.json">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="appsettings-Sqlite.json">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="appsettings-SqlServer.json">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
   
   <Target Name="MyPreCompileTarget" BeforeTargets="Build">
 	<!-- Ensure Node.js is installed -->
