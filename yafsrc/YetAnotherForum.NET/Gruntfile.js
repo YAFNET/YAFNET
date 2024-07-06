@@ -271,8 +271,7 @@ module.exports = function(grunt) {
 			copyNuGetUIPackages: {
 				command: [
 					'cd ..\\ ',
-					'COPY YAFNET.Types\\bin\\Release\\*.nupkg deploy\\ ',
-					'COPY YAFNET.UI\\YAFNET.RazorPages\\bin\Release\\*.nupkg deploy\\ ',
+					'COPY YAFNET.UI\\YAFNET.RazorPages\\bin\\Release\\*.nupkg deploy\\ ',
 					'COPY YAFNET.UI\\YAFNET.UI.Chat\\bin\\Release\\*.nupkg deploy\\ '
 				].join('&&')
 			},
@@ -438,21 +437,21 @@ module.exports = function(grunt) {
 					'@echo off',
 					'cd ..\\deploy\\',
 					'echo publish Package YAFNET.Types to NuGet',
-					'dotnet nuget push "YAFNET.Types.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"',
+					'dotnet nuget push "YAFNET.Types.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"',
 					'echo publish Package YAFNET.Configuration to NuGet',
-					'dotnet nuget push "YAFNET.Configuration.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"',
+					'dotnet nuget push "YAFNET.Configuration.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"',
 					'echo publish Package YAFNET.Web to NuGet',
-					'dotnet nuget push "YAFNET.Web.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"',
+					'dotnet nuget push "YAFNET.Web.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"',
 					'echo publish Package YAFNET.Core to NuGet',
-					'dotnet nuget push "YAFNET.Core.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"',
+					'dotnet nuget push "YAFNET.Core.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"',
 					'echo publish Package YAFNET.Data.MySql to NuGet',
-					'dotnet nuget push "YAFNET.Data.MySql.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"',
+					'dotnet nuget push "YAFNET.Data.MySql.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"',
 					'echo publish Package YAFNET.Data.PostgreSQL to NuGet',
-					'dotnet nuget push "YAFNET.Data.PostgreSQL.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"',
+					'dotnet nuget push "YAFNET.Data.PostgreSQL.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"',
 					'echo publish Package YAFNET.Data.Sqlite to NuGet',
-					'dotnet nuget push "YAFNET.Data.Sqlite.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"',
+					'dotnet nuget push "YAFNET.Data.Sqlite.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"',
 					'echo publish Package YAFNET.Data.SqlServer to NuGet',
-					'dotnet nuget push "YAFNET.Data.SqlServer.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"'
+					'dotnet nuget push "YAFNET.Data.SqlServer.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"'
 				].join('&&')
 			},
 			publishNuGetUIPackages: {
@@ -460,9 +459,9 @@ module.exports = function(grunt) {
 					'@echo off',
 					'cd ..\\deploy\\',
 					'echo publish Package YAFNET.RazorPages to NuGet',
-					'dotnet nuget push "YAFNET.RazorPages.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"',
+					'dotnet nuget push "YAFNET.RazorPages.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"',
 					'echo publish Package YAFNET.UI.Chat to NuGet',
-					'dotnet nuget push "YAFNET.UI.Chat.<%= pkg.version %>.nupkg" --source "https://api.nuget.org/v3/index.json"--api-key "<%= secret.api %>"'
+					'dotnet nuget push "YAFNET.UI.Chat.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"'
 				].join('&&')
 			},
 			publishToGitHub: {
