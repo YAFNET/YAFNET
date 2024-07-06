@@ -6978,14 +6978,14 @@ document.addEventListener("DOMContentLoaded", function() {
     function o(t, e) {
         if (t) {
             if ("string" == typeof t) return i(t, e);
-            var n = Object.prototype.toString.call(t).slice(8, -1);
+            var n = {}.toString.call(t).slice(8, -1);
             return "Object" === n && t.constructor && (n = t.constructor.name), 
             "Map" === n || "Set" === n ? Array.from(t) : "Arguments" === n || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n) ? i(t, e) : void 0;
         }
     }
     function i(t, e) {
         (null == e || e > t.length) && (e = t.length);
-        for (var n = 0, a = new Array(e); n < e; n++) a[n] = t[n];
+        for (var n = 0, a = Array(e); n < e; n++) a[n] = t[n];
         return a;
     }
     function s(t, e) {
@@ -6997,16 +6997,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     function l(t) {
         var e = function(t, e) {
-            if ("object" !== a(t) || null === t) return t;
+            if ("object" != a(t) || !t) return t;
             var n = t[Symbol.toPrimitive];
             if (void 0 !== n) {
                 var r = n.call(t, e || "default");
-                if ("object" !== a(r)) return r;
+                if ("object" != a(r)) return r;
                 throw new TypeError("@@toPrimitive must return a primitive value.");
             }
             return ("string" === e ? String : Number)(t);
         }(t, "string");
-        return "symbol" === a(e) ? e : String(e);
+        return "symbol" == a(e) ? e : e + "";
     }
     var c = {
         Modal: n.Modal,
@@ -7043,14 +7043,13 @@ document.addEventListener("DOMContentLoaded", function() {
             value: function(t) {
                 var e = this;
                 return Object.keys(t).reduce(function(t, n) {
-                    return Object.assign(t, function(t, e, n) {
-                        return (e = l(e)) in t ? Object.defineProperty(t, e, {
-                            value: n,
-                            enumerable: !0,
-                            configurable: !0,
-                            writable: !0
-                        }) : t[e] = n, t;
-                    }({}, n, e.settings[n]));
+                    return Object.assign(t, (a = {}, r = n, o = e.settings[n], (r = l(r)) in a ? Object.defineProperty(a, r, {
+                        value: o,
+                        enumerable: !0,
+                        configurable: !0,
+                        writable: !0
+                    }) : a[r] = o, a));
+                    var a, r, o;
                 }, {});
             }
         }, {
