@@ -129,14 +129,14 @@
 		bulletlist: {
 			txtExec: function (caller, selected) {
 				this.insertText(
-					`[ul]\n[li]${selected.split(/\r?\n/).join('[/li]\n[li]')}[/li]\n[/ul]`
+					`[list]\n[list]${selected.split(/\r?\n/).join('[/li]\n[li]')}[/li]\n[/ul]`
 				);
 			}
 		},
 		orderedlist: {
 			txtExec: function (caller, selected) {
 				this.insertText(
-					`[ol]\n[li]${selected.split(/\r?\n/).join('[/li]\n[li]')}[/li]\n[/ol]`
+					`[list=I]\n[li]${selected.split(/\r?\n/).join('[/li]\n[li]')}[/li]\n[/list]`
 				);
 			}
 		},
@@ -527,13 +527,14 @@
 			breakStart: true,
 			isInline: false,
 			skipLastLineBreak: true,
-			format: '[ul]{0}[/ul]',
+			format: '[list]{0}[/list]',
 			html: '<ul>{0}</ul>'
 		},
 		list: {
 			breakStart: true,
 			isInline: false,
 			skipLastLineBreak: true,
+			format: '[list]{0}[/list]',
 			html: '<ul>{0}</ul>'
 		},
 		ol: {
@@ -543,7 +544,7 @@
 			breakStart: true,
 			isInline: false,
 			skipLastLineBreak: true,
-			format: '[ol]{0}[/ol]',
+			format: '[list=I]{0}[/list]',
 			html: '<ol>{0}</ol>'
 		},
 		li: {

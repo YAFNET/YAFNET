@@ -629,42 +629,42 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             // lists
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(@"\[list\]\r\n(?<inner>(.*?))\[/list\]", "<ul>${inner}</ul>", Options) {
-                    RuleRank = 15
+                    RuleRank = 17
                 });
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
                     @"\[list=1\]\r\n(?<inner>(.*?))\[/list\]",
                     "<ol style=\"list-style-type:number\">${inner}</ol>",
                     RegexOptions.Singleline) {
-                                                 RuleRank = 16
+                                                 RuleRank = 18
                                              });
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
                     @"\[list=i\]\r\n(?<inner>(.*?))\[/list\]",
                     "<ol style=\"list-style-type:lower-roman\">${inner}</ol>",
                     RegexOptions.Singleline) {
-                                                 RuleRank = 17
+                                                 RuleRank = 19
                                              });
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
                     @"\[list=I\]\r\n(?<inner>(.*?))\[/list\]",
                     "<ol style=\"list-style-type:upper-roman\">${inner}</ol>",
                     RegexOptions.Singleline) {
-                                                 RuleRank = 18
+                                                 RuleRank = 20
                                              });
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
                     @"\[list=a\]\r\n(?<inner>(.*?))\[/list\]",
                     "<ol style=\"list-style-type:lower-alpha\">${inner}</ol>",
                     RegexOptions.Singleline) {
-                                                 RuleRank = 19
+                                                 RuleRank = 21
                                              });
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
                     @"\[list=A\]\r\n(?<inner>(.*?))\[/list\]",
                     "<ol style=\"list-style-type:upper-alpha\">${inner}</ol>",
                     RegexOptions.Singleline) {
-                                                 RuleRank = 20
+                                                 RuleRank = 22
                                              });
 
             // bullets
@@ -672,6 +672,9 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 new SimpleRegexReplaceRule(@"\[\*\](?<inner>(.*?))\r\n", "<li>${inner}</li>", Options) {
                     RuleRank = 14
                 });
+
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(@"\[li\]", "<li>", Options) { RuleRank = 15 });
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(@"\[/li\]", "</li>", Options) { RuleRank = 16 });
 
             // alignment
             ruleEngine.AddRule(
