@@ -31,13 +31,15 @@
 
             if (!Current.BoardSettings.DisableRegistrations)
             {
-                if (Current.Get<BoardConfiguration>().AllowLoginAndLogoff)
+	            var registerPage = Current.BoardSettings.ShowRulesForRegistration ? ForumPages.Privacy.GetPageName() : ForumPages.Account_Register.GetPageName();
+
+	            if (Current.Get<BoardConfiguration>().AllowLoginAndLogoff)
                 {
                     @Html.Raw($"&nbsp;{Current.Get<ILocalization>().GetText("COMMON", "OR")}&nbsp;")
                 }
 
                 <a class="alert-link" role="button"
-                   asp-page="@ForumPages.Account_Register.GetPageName()"
+                   asp-page="@registerPage"
                    data-bs-toggle="tooltip"
                    title="@Html.LocalizedText("TOOLBAR", "REGISTER_TITLE")">
                     @Html.LocalizedText("TOOLBAR", "REGISTER")

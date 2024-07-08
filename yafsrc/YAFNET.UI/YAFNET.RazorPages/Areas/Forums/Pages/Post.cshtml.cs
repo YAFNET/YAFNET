@@ -74,9 +74,15 @@ public class PostModel : ForumPage
     /// </summary>
     public override void CreatePageLinks()
     {
+        if (this.PageBoardContext.PageTopic is null)
+        {
+            return;
+        }
+
         this.PageBoardContext.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
 
         this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
+
         this.PageBoardContext.PageLinks.AddLink(
             this.Get<IBadWordReplace>().Replace(HttpUtility.HtmlDecode(this.PageBoardContext.PageTopic.TopicName)),
             string.Empty);

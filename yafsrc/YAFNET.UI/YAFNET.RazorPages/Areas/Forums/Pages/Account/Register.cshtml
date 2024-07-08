@@ -99,7 +99,8 @@
                                 {
 	                                <div class="mb-3">
 		                                <input type="hidden" asp-for="Input.CustomProfile[i].ID" />
-		                                <input type="hidden" asp-for="Input.CustomProfile[i].DataType" />
+                                        <input type="hidden" asp-for="Input.CustomProfile[i].DataType" />
+                                        <input type="hidden" asp-for="Input.CustomProfile[i].Required" />
 
 		                                @switch (Model.Input.CustomProfile[i].DataType.ToEnum<DataType>())
 		                                {
