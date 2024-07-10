@@ -73,8 +73,8 @@
 
   <ItemGroup>
 	<PackageReference Include="HtmlProperties" Version="1.0.0" />
-	<PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="8.0.6" />
-	<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.6" />
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="8.0.7" />
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.7" />
 	<PackageReference Include="SonarAnalyzer.CSharp" Version="9.28.0.94264">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -82,7 +82,7 @@
 	<PackageReference Include="YAFNET.Core" Version="4.0.0-rc03" />
 	<PackageReference Include="YAFNET.Types" Version="4.0.0-rc03" />
 	<PackageReference Include="YAFNET.Web" Version="4.0.0-rc03" />
-	<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.6" />
+	<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.7" />
   </ItemGroup>
 
 </Project>

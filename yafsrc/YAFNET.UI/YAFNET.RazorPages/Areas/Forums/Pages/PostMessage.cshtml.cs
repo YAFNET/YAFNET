@@ -130,7 +130,7 @@ public class PostMessageModel : ForumPage
     }
 
     /// <summary>
-    /// Handles verification of the PostReply. Adds java script message if there is a problem.
+    /// Handles verification of the PostReply. Adds javascript message if there is a problem.
     /// </summary>
     /// <returns>
     /// true if everything is verified
@@ -138,7 +138,7 @@ public class PostMessageModel : ForumPage
     protected bool IsPostReplyVerified()
     {
         // To avoid posting whitespace(s) or empty messages
-        var postedMessage = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Input.Editor));
+        var postedMessage = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Input.Editor ?? string.Empty));
 
         if (postedMessage.IsNotSet())
         {
