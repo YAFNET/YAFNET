@@ -26,13 +26,13 @@ namespace YAF.Pages.Admin;
 
 using YAF.Types.Models;
 
-/// <summary>
+/// <summary>>
 /// The Admin Restore Topics Page
 /// </summary>
 public partial class Restore : AdminPage
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Restore"/> class. 
+    /// Initializes a new instance of the <see cref="Restore"/> class.
     /// </summary>
     public Restore()
         : base("ADMIN_RESTORE", ForumPages.Admin_Restore)
@@ -171,7 +171,7 @@ public partial class Restore : AdminPage
 
                     this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
-                    this.PagerTop.CurrentPageIndex--;
+                    this.PagerTop.CurrentPageIndex = 0;
 
                     this.BindData();
                 }
@@ -218,7 +218,7 @@ public partial class Restore : AdminPage
 
             message = this.GetRepository<Message>().GetById(messageId.Value);
         }
-        
+
         switch (e.CommandName)
         {
             case "delete":
@@ -269,7 +269,7 @@ public partial class Restore : AdminPage
 
                     this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
-                    this.PagerTop.CurrentPageIndex--;
+                    this.PagerTop.CurrentPageIndex = 0;
 
                     this.BindData();
                 }

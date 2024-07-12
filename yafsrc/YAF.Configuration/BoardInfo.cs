@@ -42,7 +42,7 @@ public static class BoardInfo
     public static string ForumServerFileRoot => BaseUrlBuilder.ServerFileRoot;
 
     /// <summary>
-    /// Gets complete application external (client-side) URL of the forum. (e.g. http://domain.com/forum
+    /// Gets complete application external (client-side) URL of the forum. (e.g. https://domain.com/forum
     /// </summary>
     public static string ForumBaseUrl => $"{BaseUrlBuilder.BaseUrl}{BaseUrlBuilder.AppPath}";
 
@@ -59,7 +59,7 @@ public static class BoardInfo
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public static DateTime AppVersionDate => new(2024, 07, 06, 04, 37, 00, DateTimeKind.Utc);
+    public static DateTime AppVersionDate => new(2024, 07, 12, 07, 27, 00, DateTimeKind.Utc);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value
@@ -73,8 +73,8 @@ public static class BoardInfo
                           {
                               Major = 3,
                               Minor = 2,
-                              Build = 6,
-                              ReleaseType = ReleaseType.Regular,
+                              Build = 7,
+                              ReleaseType = ReleaseType.BETA,
                               ReleaseNumber = 0
                           };
 
