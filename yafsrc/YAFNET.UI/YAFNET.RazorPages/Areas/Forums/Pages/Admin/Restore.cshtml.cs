@@ -40,15 +40,31 @@ using YAF.Types.Models;
 /// </summary>
 public class RestoreModel : AdminPage
 {
+    /// <summary>
+    /// Gets or sets the filter.
+    /// </summary>
+    /// <value>The filter.</value>
     [BindProperty]
     public string Filter { get; set; }
 
+    /// <summary>
+    /// Gets or sets the deleted topics.
+    /// </summary>
+    /// <value>The deleted topics.</value>
     [BindProperty]
     public List<PagedTopic> DeletedTopics { get; set; }
 
+    /// <summary>
+    /// Gets or sets the deleted messages.
+    /// </summary>
+    /// <value>The deleted messages.</value>
     [BindProperty]
     public List<PagedMessage> DeletedMessages { get; set; }
 
+    /// <summary>
+    /// Gets or sets the size of the messages page.
+    /// </summary>
+    /// <value>The size of the messages page.</value>
     [BindProperty]
     public int MessagesPageSize { get; set; }
 
@@ -77,6 +93,8 @@ public class RestoreModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
+    /// <param name="p">The topics page index.</param>
+    /// <param name="p2">The messages page index.</param>
     public void OnGet(int p, int p2)
     {
         this.BindData(p, p2);
@@ -85,6 +103,8 @@ public class RestoreModel : AdminPage
     /// <summary>
     /// The page size on selected index changed.
     /// </summary>
+    /// <param name="p">The topics page index.</param>
+    /// <param name="p2">The messages page index.</param>
     public void OnPost(int p, int p2)
     {
         this.BindData(p, p2);
@@ -93,11 +113,21 @@ public class RestoreModel : AdminPage
     /// <summary>
     /// The refresh click.
     /// </summary>
+    /// <param name="p">The topics page index.</param>
+    /// <param name="p2">The messages page index.</param>
     public void OnPostRefresh(int p, int p2)
     {
         this.BindData(p, p2);
     }
 
+    /// <summary>
+    /// Restore topic.
+    /// </summary>
+    /// <param name="p">The topics page index.</param>
+    /// <param name="p2">The messages page index.</param>
+    /// <param name="topicId">The topic identifier.</param>
+    /// <param name="forumId">The forum identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostRestoreTopic(int p, int p2, int topicId, int forumId)
     {
         var getFirstMessage = this.GetRepository<Message>()
@@ -126,6 +156,14 @@ public class RestoreModel : AdminPage
         return this.PageBoardContext.Notify(this.GetText("MSG_RESTORED"), MessageTypes.success);
     }
 
+    /// <summary>
+    /// Delete topic.
+    /// </summary>
+    /// <param name="p">The topics page index.</param>
+    /// <param name="p2">The messages page index.</param>
+    /// <param name="topicId">The topic identifier.</param>
+    /// <param name="forumId">The forum identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostDeleteTopic(int p, int p2, int topicId, int forumId)
     {
         this.GetRepository<Topic>().Delete(forumId, topicId, true);
@@ -135,6 +173,12 @@ public class RestoreModel : AdminPage
         return this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
     }
 
+    /// <summary>
+    /// Delete all topics.
+    /// </summary>
+    /// <param name="p">The topics page index.</param>
+    /// <param name="p2">The messages page index.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostDeleteAllTopics(int p, int p2)
     {
         var deletedTopics = this.GetRepository<Topic>()
@@ -143,11 +187,17 @@ public class RestoreModel : AdminPage
         deletedTopics.ForEach(
             x => this.GetRepository<Topic>().Delete(x.Item2.ForumID, x.Item2.ID, true));
 
-        this.BindData(p, p2);
+        this.BindData(0, p2);
 
         return this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
     }
 
+    /// <summary>
+    /// Delete all topics with no posts.
+    /// </summary>
+    /// <param name="p">The topics page index.</param>
+    /// <param name="p2">The messages page index.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostDeleteZeroTopics(int p, int p2)
     {
         var deletedTopics = this.GetRepository<Topic>().Get(t => (t.Flags & 8) == 8 && t.NumPosts.Equals(0));
@@ -160,6 +210,15 @@ public class RestoreModel : AdminPage
         return this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
     }
 
+    /// <summary>
+    /// Restore post.
+    /// </summary>
+    /// <param name="p">The topics page index.</param>
+    /// <param name="p2">The messages page index.</param>
+    /// <param name="topicId">The topic identifier.</param>
+    /// <param name="forumId">The forum identifier.</param>
+    /// <param name="messageId">The message identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostRestorePost(int p, int p2, int topicId, int forumId, int messageId)
     {
         var message = this.GetRepository<Message>().GetById(messageId);
@@ -174,6 +233,15 @@ public class RestoreModel : AdminPage
         return this.PageBoardContext.Notify(this.GetText("MSG_RESTORED"), MessageTypes.success);
     }
 
+    /// <summary>
+    /// Delete post.
+    /// </summary>
+    /// <param name="p">The topics page index.</param>
+    /// <param name="p2">The messages page index.</param>
+    /// <param name="topicId">The topic identifier.</param>
+    /// <param name="forumId">The forum identifier.</param>
+    /// <param name="messageId">The message identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostDeletePost(int p, int p2, int topicId, int forumId, int messageId)
     {
         var message = this.GetRepository<Message>().GetById(messageId);
@@ -193,6 +261,12 @@ public class RestoreModel : AdminPage
         return this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
     }
 
+    /// <summary>
+    /// Delete all posts.
+    /// </summary>
+    /// <param name="p">The topics page index.</param>
+    /// <param name="p2">The messages page index.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostDeleteAllPosts(int p, int p2)
     {
         var messages = this.GetRepository<Message>()
@@ -208,14 +282,16 @@ public class RestoreModel : AdminPage
                 true,
                 true));
 
-        this.BindData(p, p2);
+        this.BindData(p, 0);
 
         return this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
     }
 
     /// <summary>
-    /// The bind data.
+    /// Binds the data.
     /// </summary>
+    /// <param name="p">The topics page index.</param>
+    /// <param name="p2">The messages page index.</param>
     private void BindData(int p, int p2)
     {
         this.PageSizeList = new SelectList(
