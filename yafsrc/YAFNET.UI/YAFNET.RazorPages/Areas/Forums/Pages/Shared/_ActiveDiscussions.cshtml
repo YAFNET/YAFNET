@@ -115,11 +115,9 @@
                        href="@Html.Raw(Current.Get<LinkBuilder>().GetTopicLink(topic.TopicID, topicSubject))">
                     </a>
 
-                    @if ((DateTime)topic.LastPosted > lastRead)
+                    @if (topic.LastPosted > lastRead)
                     {
-                        <span localized-page="COMMON"
-                              localized-tag="NEW_MESSAGE"
-                              class="badge text-bg-success"></span>
+	                    <span class="badge text-bg-success">@Html.LocalizedText("COMMON", "NEW_MESSAGE")</span>
                     }
 
                     <a class=" p-0 text-start"

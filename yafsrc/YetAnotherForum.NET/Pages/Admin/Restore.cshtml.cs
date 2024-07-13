@@ -93,6 +93,8 @@ public class RestoreModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
+    /// <param name="p">The topics page index.</param>
+    /// <param name="p2">The messages page index.</param>
     public void OnGet(int p, int p2)
     {
         this.BindData(p, p2);
