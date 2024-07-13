@@ -341,6 +341,7 @@ module.exports = function(grunt) {
                     'Scripts/sceditor/icons/fontawesome.js',
                     'Scripts/sceditor/plugins/dragdrop.js',
                     'Scripts/sceditor/plugins/undo.js',
+                    'Scripts/sceditor/plugins/plaintext.js',
                     'Scripts/sceditor/mentions.js'
                 ],
                 dest: 'Scripts/sceditor/sceditor.comb.min.js'
