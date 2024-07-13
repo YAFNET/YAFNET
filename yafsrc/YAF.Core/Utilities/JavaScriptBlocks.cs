@@ -479,6 +479,7 @@ public static class JavaScriptBlocks
                      locale: '{{locale}}',
                      toolbar: '{{toolbar}}',
                      root: '{{root}}',
+                     plugins: 'plaintext',
                      albumsPreviewUrl: '/resource.ashx?imgprv=',
                    	 styles: [{{styles}}],
                    	 extensionsUrl: '{{extensionsUrl}}',

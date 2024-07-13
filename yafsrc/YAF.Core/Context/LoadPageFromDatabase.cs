@@ -114,7 +114,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
                 forumPage,
                 @event.UserRequestData.Browser,
                 @event.UserRequestData.Platform,
-                @event.UserRequestData.UserAgent,
+                @event.UserRequestData.UserAgent.Truncate(300),
                 @event.PageQueryData.CategoryID,
                 @event.PageQueryData.ForumID,
                 @event.PageQueryData.TopicID,
