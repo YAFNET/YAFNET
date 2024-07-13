@@ -1592,7 +1592,7 @@ export default function SCEditor(original, userOptions) {
 
 		if (data.html) {
 			// Sanitize again in case plugins modified the HTML
-			pasteArea.innerHTML = sanitize(data.text);
+			pasteArea.innerHTML = sanitize(data.html);
 
 			// fix any invalid nesting
 			dom.fixNesting(pasteArea);

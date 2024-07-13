@@ -300,7 +300,7 @@ public static class ActiveRepositoryExtensions
                     var countSql = countExpression.Select(Sql.Count($"{countExpression.Column<Active>(x => x.UserID, true)}"))
                         .ToSelectStatement();
 
-                    expression.OrderByDescending<Active>(a => a.LastActive).Page(pageIndex + 1, pageSize);
+                    expression.OrderByDescending<Active>(a => a.LastActive).Page(pageIndex, pageSize);
 
                     var forumExpression = db.Connection.From<Forum>(db.Connection.TableAlias("f"));
                     forumExpression.Where(

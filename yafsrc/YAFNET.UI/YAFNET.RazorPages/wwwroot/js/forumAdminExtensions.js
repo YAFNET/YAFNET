@@ -15336,7 +15336,7 @@ Prism.languages.vba = Prism.languages["visual-basic"];
             log(_logLevel, _message) {}
         }
         NullLogger.instance = new NullLogger();
-        const VERSION = "8.0.0";
+        const VERSION = "8.0.7";
         class Arg {
             static isRequired(val, name) {
                 if (val === null || val === undefined) {
@@ -15550,38 +15550,27 @@ Prism.languages.vba = Prism.languages["visual-basic"];
             }
             throw new Error("could not find global");
         }
-        function configureFetch() {
-            return false;
-        }
-        function configureAbortController() {
-            return false;
-        }
-        function getWS() {
-            throw new Error("Trying to import 'ws' in the browser.");
-        }
-        function getEventSource() {
-            throw new Error("Trying to import 'eventsource' in the browser.");
-        }
         class FetchHttpClient extends HttpClient {
             constructor(logger) {
                 super();
                 this._logger = logger;
-                const fetchObj = {
-                    _fetchType: undefined,
-                    _jar: undefined
-                };
-                if (configureFetch(fetchObj)) {
-                    this._fetchType = fetchObj._fetchType;
-                    this._jar = fetchObj._jar;
+                if (typeof fetch === "undefined" || Platform.isNode) {
+                    const requireFunc = true ? require : 0;
+                    this._jar = new (requireFunc("tough-cookie").CookieJar)();
+                    if (typeof fetch === "undefined") {
+                        this._fetchType = requireFunc("node-fetch");
+                    } else {
+                        this._fetchType = fetch;
+                    }
+                    this._fetchType = requireFunc("fetch-cookie")(this._fetchType, this._jar);
                 } else {
                     this._fetchType = fetch.bind(getGlobalThis());
                 }
-                this._abortControllerType = AbortController;
-                const abortObj = {
-                    _abortControllerType: this._abortControllerType
-                };
-                if (configureAbortController(abortObj)) {
-                    this._abortControllerType = abortObj._abortControllerType;
+                if (typeof AbortController === "undefined") {
+                    const requireFunc = true ? require : 0;
+                    this._abortControllerType = requireFunc("abort-controller");
+                } else {
+                    this._abortControllerType = AbortController;
                 }
             }
             async send(request) {
@@ -16355,7 +16344,9 @@ Prism.languages.vba = Prism.languages["visual-basic"];
                         }
                         switch (message.type) {
                           case MessageType.Invocation:
-                            this._invokeClientMethod(message);
+                            this._invokeClientMethod(message).catch(e => {
+                                this._logger.log(LogLevel.Error, `Invoke client method threw error: ${getErrorString(e)}`);
+                            });
                             break;
 
                           case MessageType.StreamItem:
@@ -17258,8 +17249,9 @@ Prism.languages.vba = Prism.languages["visual-basic"];
                 let webSocketModule = null;
                 let eventSourceModule = null;
                 if (Platform.isNode && "function" !== "undefined") {
-                    webSocketModule = getWS();
-                    eventSourceModule = getEventSource();
+                    const requireFunc = true ? require : 0;
+                    webSocketModule = requireFunc("ws");
+                    eventSourceModule = requireFunc("eventsource");
                 }
                 if (!Platform.isNode && typeof WebSocket !== "undefined" && !options.WebSocket) {
                     options.WebSocket = WebSocket;

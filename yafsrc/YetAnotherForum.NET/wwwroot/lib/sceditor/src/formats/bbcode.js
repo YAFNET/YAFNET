@@ -766,7 +766,6 @@
 				return `[quote${author}]${content}[/quote]`;
 			},
 			html: function (token, attrs, content) {
-				console.log(content);
 				if (attrs.defaultattr) {
 					content = content +
 						'<cite class="card-text text-end d-block text-body-secondary small">' +
