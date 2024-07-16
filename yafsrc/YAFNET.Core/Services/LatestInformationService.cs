@@ -28,7 +28,6 @@ namespace YAF.Core.Services;
 
 using System;
 using System.Dynamic;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;

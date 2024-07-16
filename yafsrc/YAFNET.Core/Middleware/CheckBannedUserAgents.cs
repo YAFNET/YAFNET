@@ -92,7 +92,7 @@ public class CheckBannedUserAgents : IHaveServiceLocator
 
         if (userAgent.IsNotSet())
         {
-            context.Response.StatusCode = 500;
+            context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
             return;
         }
 
@@ -104,7 +104,7 @@ public class CheckBannedUserAgents : IHaveServiceLocator
             return;
         }
 
-        context.Response.StatusCode = 500;
+        context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
     }
 
     /// <summary>

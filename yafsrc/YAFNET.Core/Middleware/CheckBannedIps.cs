@@ -117,6 +117,6 @@ public class CheckBannedIps : IHaveServiceLocator
                 EventLogTypes.IpBanDetected);
         }
 
-        context.Response.StatusCode = 500;
+        context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
     }
 }

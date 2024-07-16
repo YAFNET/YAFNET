@@ -29,7 +29,6 @@ namespace YAF.Core.Services.Import;
 using System;
 using System.Data;
 using System.IO;
-using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 

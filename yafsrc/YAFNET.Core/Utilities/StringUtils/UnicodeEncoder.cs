@@ -25,7 +25,6 @@
 namespace YAF.Core.Utilities.StringUtils;
 
 using System.Collections.Generic;
-using System.Net;
 
 /// <summary>
 /// Special Encoding class to handle Unicode Chars

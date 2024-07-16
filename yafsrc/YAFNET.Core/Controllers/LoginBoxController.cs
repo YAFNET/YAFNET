@@ -25,7 +25,6 @@
 namespace YAF.Core.Controllers;
 
 using System;
-using System.Net;
 
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
