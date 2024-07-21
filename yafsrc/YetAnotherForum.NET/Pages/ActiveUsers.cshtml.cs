@@ -215,7 +215,7 @@ public class ActiveUsersModel : ForumPage
             this.PageBoardContext.PageUserID,
             showGuests,
             showCrawlers,
-            this.PageBoardContext.PageIndex, this.Size);
+            this.PageBoardContext.PageIndex == 0 ? 1 : this.PageBoardContext.PageIndex, this.Size);
 
         return activeUsers;
     }
