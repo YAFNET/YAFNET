@@ -238,7 +238,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
             {
                 this.Get<ILogger<AspNetUsersHelper>>().UserDeleted(
                     BoardContext.Current.PageUser.ID,
-                    $"PageUser {user.UserName} was deleted by user id {BoardContext.Current.PageUserID} as unapproved.");
+                    $"User {user.UserName} was deleted by user id {BoardContext.Current.PageUserID} as unapproved.");
             }
         }
     }
@@ -327,7 +327,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         {
             this.Get<ILogger<AspNetUsersHelper>>().UserDeleted(
                 BoardContext.Current.PageUser.ID,
-                $"PageUser {user.DisplayOrUserName()} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : BoardContext.Current.PageUser.DisplayOrUserName())}.");
+                $"User {user.DisplayOrUserName()} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : BoardContext.Current.PageUser.DisplayOrUserName())}.");
         }
 
         return true;
@@ -383,7 +383,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         {
             this.Get<ILogger<AspNetUsersHelper>>().UserDeleted(
                 BoardContext.Current.PageUser.ID,
-                $"PageUser {aspNetUser.UserName} was deleted by the automatic spam check system.");
+                $"User {aspNetUser.UserName} was deleted by the automatic spam check system.");
         }
 
         return true;
