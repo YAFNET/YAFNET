@@ -53,19 +53,20 @@ export function isEmptyObject(obj) {
  */
 export function extend(targetArg, sourceArg) {
 	const isTargetBoolean = targetArg === !!targetArg;
-	var i      = isTargetBoolean ? 2 : 1;
+	var i = isTargetBoolean ? 2 : 1;
 	const target = isTargetBoolean ? sourceArg : targetArg;
 	const isDeep = isTargetBoolean ? targetArg : false;
 
 	function isObject(value) {
-		return value !== null && typeof value === 'object' &&
+		return value !== null &&
+			typeof value === 'object' &&
 			Object.getPrototypeOf(value) === Object.prototype;
 	}
 
 	for (; i < arguments.length; i++) {
-        const source = arguments[i];
+		const source = arguments[i];
 
-        // Copy all properties for jQuery compatibility
+		// Copy all properties for jQuery compatibility
 		/* eslint guard-for-in: off */
 		for (let key in source) {
 			const targetValue = target[key];
@@ -85,23 +86,23 @@ export function extend(targetArg, sourceArg) {
 			const isValueArray = Array.isArray(value);
 
 			if (isDeep && (isValueObject || isValueArray)) {
-                // Can only merge if target type matches otherwise create
+				// Can only merge if target type matches otherwise create
 				// new target to merge into
-                const isSameType = isObject(targetValue) === isValueObject &&
-                    Array.isArray(targetValue) === isValueArray;
+				const isSameType = isObject(targetValue) === isValueObject &&
+					Array.isArray(targetValue) === isValueArray;
 
-                target[key] = extend(
+				target[key] = extend(
 					true,
 					isSameType ? targetValue : (isValueArray ? [] : {}),
 					value
 				);
-            } else {
+			} else {
 				target[key] = value;
 			}
 		}
-    }
+	}
 
-    return target;
+	return target;
 }
 
 /**
@@ -111,9 +112,9 @@ export function extend(targetArg, sourceArg) {
  * @param {*} item
  */
 export function arrayRemove(arr, item) {
-    const i = arr.indexOf(item);
+	const i = arr.indexOf(item);
 
-    if (i > -1) {
+	if (i > -1) {
 		arr.splice(i, 1);
 	}
 }
@@ -130,7 +131,7 @@ export function each(obj, fn) {
 			fn(i, obj[i]);
 		}
 	} else {
-		Object.keys(obj).forEach(function (key) {
+		Object.keys(obj).forEach(function(key) {
 			fn(key, obj[key]);
 		});
 	}

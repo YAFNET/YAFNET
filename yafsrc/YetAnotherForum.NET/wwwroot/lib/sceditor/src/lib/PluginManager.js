@@ -48,9 +48,9 @@ export default function PluginManager(thisObj) {
 		args = [].slice.call(args);
 
 		var	idx, ret;
-        const signal = formatSignalName(args.shift());
+		const signal = formatSignalName(args.shift());
 
-        for (idx = 0; idx < registeredPlugins.length; idx++) {
+		for (idx = 0; idx < registeredPlugins.length; idx++) {
 			if (signal in registeredPlugins[idx]) {
 				ret = registeredPlugins[idx][signal].apply(thisObj, args);
 
@@ -141,16 +141,16 @@ export default function PluginManager(thisObj) {
 	 */
 	base.isRegistered = function (plugin) {
 		if (base.exists(plugin)) {
-            let idx = registeredPlugins.length;
+			let idx = registeredPlugins.length;
 
-            while (idx--) {
+			while (idx--) {
 				if (registeredPlugins[idx] instanceof plugins[plugin]) {
 					return true;
 				}
 			}
-        }
+		}
 
-        return false;
+		return false;
 	};
 
 	/**

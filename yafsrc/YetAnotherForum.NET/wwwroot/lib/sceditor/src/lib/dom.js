@@ -64,6 +64,7 @@ export function createElement(tag, attributes, context) {
 	utils.each(attributes || {}, function (key, value) {
 		if (key === 'style') {
 			node.style.cssText = value;
+
 		} else if (key in node) {
 			node[key] = value;
 		} else {
@@ -323,15 +324,16 @@ export function css(node, rule, value) {
 			return node.nodeType === 1 ? getComputedStyle(node)[rule] : null;
 		}
 
-		utils.each(rule, function (key, value) {
-			css(node, key, value);
-		});
+		utils.each(rule,
+			function(key, value) {
+				css(node, key, value);
+			});
 	} else {
-        // isNaN returns false for null, false and empty strings
+		// isNaN returns false for null, false and empty strings
 		// so need to check it's truthy or 0
-        const isNumeric = (value || value === 0) && !isNaN(value);
-        node.style[rule] = isNumeric ? value + 'px' : value;
-    }
+		const isNumeric = (value || value === 0) && !isNaN(value);
+		node.style[rule] = isNumeric ? value + 'px' : value;
+	}
 }
 
 
@@ -353,11 +355,12 @@ export function data(node, key, value) {
 
 	if (node.nodeType === ELEMENT_NODE) {
 		if (argsLength === 1) {
-			utils.each(node.attributes, function (_, attr) {
-				if (/^data\-/i.test(attr.name)) {
-					data[attr.name.substr(5)] = attr.value;
-				}
-			});
+			utils.each(node.attributes,
+				function(_, attr) {
+					if (/^data\-/i.test(attr.name)) {
+						data[attr.name.substr(5)] = attr.value;
+					}
+				});
 
 			return data;
 		}
@@ -381,7 +384,8 @@ export function is(node, selector) {
 	var result = false;
 
 	if (node && node.nodeType === ELEMENT_NODE) {
-		result = (node.matches || node.msMatchesSelector ||
+		result = (node.matches ||
+			node.msMatchesSelector ||
 			node.webkitMatchesSelector).call(node, selector);
 	}
 
@@ -735,9 +739,9 @@ export function canHaveChildren(node) {
  */
 export function isInline(elm, includeCodeAsBlock) {
 	var tagName;
-    const nodeType = (elm || {}).nodeType || TEXT_NODE;
+	const nodeType = (elm || {}).nodeType || TEXT_NODE;
 
-    if (nodeType !== ELEMENT_NODE) {
+	if (nodeType !== ELEMENT_NODE) {
 		return nodeType === TEXT_NODE;
 	}
 
@@ -790,9 +794,9 @@ export function isEmpty(node) {
  */
 export function fixNesting(node) {
 	traverse(node, function (node) {
-        const list = 'ul,ol';
-        const isBlock = !isInline(node, true) && node.nodeType !== COMMENT_NODE;
-        var parent = node.parentNode;
+		const list = 'ul,ol';
+		const isBlock = !isInline(node, true) && node.nodeType !== COMMENT_NODE;
+		var parent = node.parentNode;
 
 		// Any blocklevel element inside an inline element needs fixing.
 		// Also <p> tags that contain blocks should be fixed
@@ -883,11 +887,11 @@ export function removeWhiteSpace(root) {
 		nextNode, trimStart
         // Preserve newlines if is pre-line
         ;
-    const cssWhiteSpace = css(root, 'whiteSpace');
-    const preserveNewLines = /line$/i.test(cssWhiteSpace);
-    var node = root.firstChild;
+	const cssWhiteSpace = css(root, 'whiteSpace');
+	const preserveNewLines = /line$/i.test(cssWhiteSpace);
+	var node = root.firstChild;
 
-    // Skip pre & pre-wrap with any vendor prefix
+	// Skip pre & pre-wrap with any vendor prefix
 	if (/pre(\-wrap)?$/i.test(cssWhiteSpace)) {
 		return;
 	}
@@ -1010,9 +1014,9 @@ export function getOffset(node) {
  */
 export function getStyle(elm, property) {
 	var	styleValue;
-    const elmStyle = elm.style;
+	const elmStyle = elm.style;
 
-    if (!cssPropertyNameCache[property]) {
+	if (!cssPropertyNameCache[property]) {
 		cssPropertyNameCache[property] = camelCase(property);
 	}
 
@@ -1069,13 +1073,13 @@ function stylesMatch(nodeA, nodeB) {
 	}
 
 	while (i--) {
-        const prop = nodeA.style[i];
-        if (nodeA.style[prop] !== nodeB.style[prop]) {
+		const prop = nodeA.style[i];
+		if (nodeA.style[prop] !== nodeB.style[prop]) {
 			return false;
 		}
-    }
+	}
 
-    return true;
+	return true;
 }
 
 /**
@@ -1095,8 +1099,8 @@ function attributesMatch(nodeA, nodeB) {
 	while (i--) {
 		const prop = nodeA.attributes[i];
 		const notMatches = prop.name === 'style' ?
-            !stylesMatch(nodeA, nodeB) :
-            prop.value !== attr(nodeB, prop.name);
+			!stylesMatch(nodeA, nodeB) :
+			prop.value !== attr(nodeB, prop.name);
 
 		if (notMatches) {
 			return false;
@@ -1183,13 +1187,14 @@ export function merge(node) {
 			var isBold = /B|STRONG/.test(tagName);
 			var isItalic = tagName === 'EM';
 
-			while (parent && isInline(parent) &&
+			while (parent &&
+				isInline(parent) &&
 				(!isBold || /bold|700/i.test(css(parent, 'fontWeight'))) &&
 				(!isItalic || css(parent, 'fontStyle') === 'italic')) {
 
 				// Remove if parent match
 				if ((parent.tagName === tagName ||
-					(isBold && /B|STRONG/.test(parent.tagName))) &&
+						(isBold && /B|STRONG/.test(parent.tagName))) &&
 					attributesMatch(parent, node)) {
 					removeKeepChildren(node);
 					break;

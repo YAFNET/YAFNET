@@ -199,6 +199,8 @@ export default function SCEditor(original, userOptions) {
 	 */
 	var currentBlockNode;
 
+	var backSpaceHandled;
+
 	/**
 	 * The current node selection/caret
 	 *
@@ -364,9 +366,9 @@ export default function SCEditor(original, userOptions) {
 	// Allow iframes for things like YouTube, see:
 	// https://github.com/cure53/DOMPurify/issues/340#issuecomment-670758980
 	domPurify.addHook('uponSanitizeElement', function (node, data) {
-        const allowedUrls = options.allowedIframeUrls;
+		const allowedUrls = options.allowedIframeUrls;
 
-        if (data.tagName === 'iframe') {
+		if (data.tagName === 'iframe') {
 			const src = dom.attr(node, 'src') || '';
 
 			for (let i = 0; i < allowedUrls.length; i++) {
@@ -385,7 +387,7 @@ export default function SCEditor(original, userOptions) {
 			// No match so remove
 			dom.remove(node);
 		}
-    });
+	});
 
 	// Convert target attribute into data-sce-target attributes so XHTML format
 	// can allow them
@@ -650,8 +652,8 @@ export default function SCEditor(original, userOptions) {
 		const compositionEvents = 'compositionstart compositionend';
 		const eventsToForward = 'keydown keyup keypress focus blur contextmenu input';
 		const checkSelectionEvents = 'onselectionchange' in wysiwygDocument ?
-            'selectionchange' :
-            'keyup focus blur contextmenu mouseup touchend click';
+			'selectionchange' :
+			'keyup focus blur contextmenu mouseup touchend click';
 
 		dom.on(globalDoc, 'click', handleDocumentClick);
 
@@ -712,9 +714,9 @@ export default function SCEditor(original, userOptions) {
 		var	group,
 			commands = base.commands,
 			exclude  = (options.toolbarExclude || '').split(',');
-        const groups = options.toolbar.split('|');
+		const groups = options.toolbar.split('|');
 
-        toolbar = dom.createElement('div', {
+		toolbar = dom.createElement('div', {
 			className: 'card-header btn-toolbar',
 			unselectable: 'on'
 		});
@@ -742,21 +744,21 @@ export default function SCEditor(original, userOptions) {
 					name: commandName
 				}, true).firstChild;
 
-                if (commandName === 'source') {
-                    button.classList.add('btn-secondary');
-                } else {
-                    button.classList.add('btn-primary');
-                }
+				if (commandName === 'source') {
+					button.classList.add('btn-secondary');
+				} else {
+					button.classList.add('btn-primary');
+				}
 
-                if (icons && icons.create) {
-                    const icon = icons.create(commandName);
-                    if (icon) {
+				if (icons && icons.create) {
+					const icon = icons.create(commandName);
+					if (icon) {
 						dom.insertBefore(icons.create(commandName),
 							button.firstChild);
 					}
-                }
+				}
 
-                button._sceTxtMode = !!command.txtExec;
+				button._sceTxtMode = !!command.txtExec;
 				button._sceWysiwygMode = !!command.exec;
 
 				dom.toggleClass(button, 'disabled', !command.exec);
@@ -819,23 +821,23 @@ export default function SCEditor(original, userOptions) {
 	initResize = function () {
 		var	minHeight, maxHeight, minWidth, maxWidth,
 			mouseMoveFunc, mouseUpFunc;
-        const grip = dom.createElement('div', {
-            className: 'sceditor-grip'
-        });
-        var moveEvents  = 'touchmove mousemove',
-            endEvents   = 'touchcancel touchend mouseup',
-            startX      = 0,
-            startY      = 0,
-            newX        = 0,
-            newY        = 0,
-            startWidth  = 0,
-            startHeight = 0;
-        const origWidth = dom.width(editorContainer);
-        const origHeight = dom.height(editorContainer);
-        var isDragging  = false,
-            rtl         = base.rtl();
+		const grip = dom.createElement('div', {
+			className: 'sceditor-grip'
+		});
+		var moveEvents  = 'touchmove mousemove',
+			endEvents   = 'touchcancel touchend mouseup',
+			startX      = 0,
+			startY      = 0,
+			newX        = 0,
+			newY        = 0,
+			startWidth  = 0,
+			startHeight = 0;
+		const origWidth = dom.width(editorContainer);
+		const origHeight = dom.height(editorContainer);
+		var isDragging  = false,
+			rtl         = base.rtl();
 
-        minHeight = options.resizeMinHeight || origHeight / 1.5;
+		minHeight = options.resizeMinHeight || origHeight / 1.5;
 		maxHeight = options.resizeMaxHeight || origHeight * 2.5;
 		minWidth  = options.resizeMinWidth  || origWidth  / 1.25;
 		maxWidth  = options.resizeMaxWidth  || origWidth  * 1.25;
@@ -898,13 +900,13 @@ export default function SCEditor(original, userOptions) {
 		};
 
 		if (icons && icons.create) {
-            const icon = icons.create('grip');
-            if (icon) {
+			const icon = icons.create('grip');
+			if (icon) {
 				dom.appendChild(grip, icon);
 			}
-        }
+		}
 
-        dom.appendChild(editorContainer, footer);
+		dom.appendChild(editorContainer, footer);
 		dom.appendChild(editorContainer, grip);
 
 		dom.on(grip, 'touchstart mousedown', function (e) {
@@ -1308,16 +1310,16 @@ export default function SCEditor(original, userOptions) {
 		autoExpandThrottle = false;
 
 		if (!autoExpandBounds) {
-            const height = options.resizeMinHeight || options.height ||
+			const height = options.resizeMinHeight || options.height ||
                 dom.height(original);
 
-            autoExpandBounds = {
+			autoExpandBounds = {
 				min: height,
 				max: options.resizeMaxHeight || (height * 2)
 			};
-        }
+		}
 
-        const range = globalDoc.createRange();
+		const range = globalDoc.createRange();
 		range.selectNodeContents(wysiwygBody);
 
 		const rect = range.getBoundingClientRect();
@@ -1392,21 +1394,21 @@ export default function SCEditor(original, userOptions) {
 	base.createDropDown = function (menuItem, name, content) {
 		// first click for create second click for close
 		var	dropDownCss;
-        const dropDownClass = 'sceditor-' + name;
+		const dropDownClass = 'sceditor-' + name;
 
-        base.closeDropDown();
+		base.closeDropDown();
 
 		// Only close the dropdown if it was already open
 		if (dropdown && dom.hasClass(dropdown, dropDownClass)) {
 			return;
 		}
 
-        dropDownCss = utils.extend({
-                top: menuItem.offsetTop,
-                left: menuItem.parentElement.offsetLeft + menuItem.offsetLeft,
-                marginTop: menuItem.clientHeight
-            },
-            options.dropDownCss);
+		dropDownCss = utils.extend({
+			top: menuItem.offsetTop,
+			left: menuItem.parentElement.offsetLeft + menuItem.offsetLeft,
+			marginTop: menuItem.clientHeight
+		},
+		options.dropDownCss);
 
 		dropdown = dom.createElement('div', {
 			className: 'dropdown-menu show sceditor-dropdown ' + dropDownClass
@@ -1421,12 +1423,12 @@ export default function SCEditor(original, userOptions) {
 		});
 
 		if (dropdown) {
-            const first = dom.find(dropdown, 'input,textarea')[0];
-            if (first) {
+			const first = dom.find(dropdown, 'input,textarea')[0];
+			if (first) {
 				first.focus();
 			}
-        }
-    };
+		}
+	};
 
 	/**
 	 * Handles any document click and closes the dropdown if open
@@ -1451,8 +1453,8 @@ export default function SCEditor(original, userOptions) {
 	 * @private
 	 */
 	handleCutCopyEvt = function (e) {
-        const range = rangeHelper.selectedRange();
-        if (range) {
+		const range = rangeHelper.selectedRange();
+		if (range) {
 			const container = dom.createElement('div', {}, wysiwygDocument);
 			let firstParent;
 
@@ -1503,7 +1505,7 @@ export default function SCEditor(original, userOptions) {
 
 			e.preventDefault();
 		}
-    };
+	};
 
 	/**
 	 * Handles the WYSIWYG editors paste event
@@ -1513,14 +1515,14 @@ export default function SCEditor(original, userOptions) {
 		var editable = wysiwygBody;
 		const clipboard = e.clipboardData;
 		const loadImage = function (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                handlePasteData({
-                    html: '<img src="' + e.target.result + '" />'
-                });
-            };
-            reader.readAsDataURL(file);
-        };
+			const reader = new FileReader();
+			reader.onload = function (e) {
+				handlePasteData({
+					html: '<img src="' + e.target.result + '" />'
+				});
+			};
+			reader.readAsDataURL(file);
+		};
 
 		// Modern browsers with clipboard API - everything other than _very_
 		// old android web views and UC browser which doesn't support the
@@ -1601,8 +1603,8 @@ export default function SCEditor(original, userOptions) {
 		}
 
 		const paste = {
-            val: pasteArea.innerHTML
-        };
+			val: pasteArea.innerHTML
+		};
 
 		if ('fragmentToSource' in format) {
 			paste.val = format
@@ -1666,9 +1668,9 @@ export default function SCEditor(original, userOptions) {
 		html, endHtml, overrideCodeBlocking
 	) {
 		var	marker, scrollTop, scrollTo;
-        const editorHeight = dom.height(wysiwygEditor);
+		const editorHeight = dom.height(wysiwygEditor);
 
-        base.focus();
+		base.focus();
 
 		// TODO: This code tag should be configurable and
 		// should maybe convert the HTML into text instead
@@ -1777,10 +1779,10 @@ export default function SCEditor(original, userOptions) {
 	 */
 	base.sourceEditorInsertText = function (text, endText) {
 		var scrollTop, currentValue;
-        const startPos = sourceEditor.selectionStart;
-        const endPos = sourceEditor.selectionEnd;
+		const startPos = sourceEditor.selectionStart;
+		const endPos = sourceEditor.selectionEnd;
 
-        scrollTop = sourceEditor.scrollTop;
+		scrollTop = sourceEditor.scrollTop;
 		sourceEditor.focus();
 		currentValue = sourceEditor.value;
 
@@ -2254,9 +2256,9 @@ export default function SCEditor(original, userOptions) {
 	 */
 	base.execCommand = function (command, param) {
 		var	executed    = false;
-        const commandObj = base.commands[command];
+		const commandObj = base.commands[command];
 
-        base.focus();
+		base.focus();
 
 		// TODO: make configurable
 		// don't apply any commands to code elements
@@ -2347,9 +2349,9 @@ export default function SCEditor(original, userOptions) {
 	checkNodeChanged = function () {
 		// check if node has changed
 		var	oldNode;
-        const node = rangeHelper.parentNode();
+		const node = rangeHelper.parentNode();
 
-        if (currentNode !== node) {
+		if (currentNode !== node) {
 			oldNode          = currentNode;
 			currentNode      = node;
 			currentBlockNode = rangeHelper.getFirstBlockParent(node);
@@ -2359,6 +2361,17 @@ export default function SCEditor(original, userOptions) {
 				newNode: currentNode
 			});
 		}
+
+		if (backSpaceHandled) {
+			const spanNode = currentBlockNode.querySelector('span[style]');
+
+			if (spanNode) {
+				dom.removeAttr(spanNode, 'style');
+			}
+
+			backSpaceHandled = false;
+		}
+
 	};
 
 	/**
@@ -2436,7 +2449,7 @@ export default function SCEditor(original, userOptions) {
 				state = stateFn.call(base, parent, firstBlock);
 			}
 
-            dom.toggleClass(btn, 'disabled', isDisabled || state < 0);
+			dom.toggleClass(btn, 'disabled', isDisabled || state < 0);
 			dom.toggleClass(btn, activeClass, state > 0);
 		}
 
@@ -2460,9 +2473,9 @@ export default function SCEditor(original, userOptions) {
 
 		// 13 = enter key
 		if (e.which === 13) {
-            const LIST_TAGS = 'li,ul,ol';
+			const LIST_TAGS = 'li,ul,ol';
 
-            // "Fix" (cludge) for blocklevel elements being duplicated in some
+			// "Fix" (cludge) for blocklevel elements being duplicated in some
 			// browsers when enter is pressed instead of inserting a newline
 			if (!dom.is(currentBlockNode, LIST_TAGS) &&
 				dom.hasStyling(currentBlockNode)) {
@@ -2493,8 +2506,8 @@ export default function SCEditor(original, userOptions) {
 
 				e.preventDefault();
 			}
-        }
-    };
+		}
+	};
 
 	/**
 	 * Makes sure that if there is a code or quote tag at the
@@ -2572,7 +2585,7 @@ export default function SCEditor(original, userOptions) {
 		return args[0].replace(/\{(\d+)\}/g, function (str, p1) {
 			return args[p1 - 0 + 1] !== undef ?
 				args[p1 - 0 + 1] :
-				'{' + p1 + '}';
+				`{${p1}}`;
 		});
 	};
 
@@ -2769,7 +2782,7 @@ export default function SCEditor(original, userOptions) {
 				return;
 			}
 
-            const rng = rangeHelper.selectedRange();
+			const rng = rangeHelper.selectedRange();
 
 			// Fix FF bug where it shows the cursor in the wrong place
 			// if the editor hasn't had focus before. See issue #393
@@ -2781,8 +2794,8 @@ export default function SCEditor(original, userOptions) {
 			// child of the parent. In Firefox this causes a line break
 			// to occur when something is typed. See issue #321
 			if (rng && rng.endOffset === 1 && rng.collapsed) {
-                let container;
-                container = rng.endContainer;
+				let container;
+				container = rng.endContainer;
 
 				if (container && container.childNodes.length === 1 &&
 					dom.is(container.firstChild, 'br')) {
@@ -3175,7 +3188,9 @@ export default function SCEditor(original, userOptions) {
 	 * @private
 	 */
 	handleBackSpace = function (e) {
-		var	node, offset, range, parent;
+		var node, offset, range, parent;
+
+		backSpaceHandled = true;
 
 		// 8 is the backspace key
 		if (options.disableBlockRemove || e.which !== 8 ||
@@ -3223,6 +3238,7 @@ export default function SCEditor(original, userOptions) {
 		while (!dom.hasStyling(block) || dom.isInline(block, true)) {
 			if (!(block = block.parentNode) || dom.is(block, 'body')) {
 				return;
+				
 			}
 		}
 
@@ -3278,10 +3294,10 @@ export default function SCEditor(original, userOptions) {
 		}
 
 		var	currentHtml;
-        const sourceMode = base.sourceMode();
-        const hasSelection = !sourceMode && rangeHelper.hasSelection();
+		const sourceMode = base.sourceMode();
+		const hasSelection = !sourceMode && rangeHelper.hasSelection();
 
-        // Composition end isn't guaranteed to fire but must have
+		// Composition end isn't guaranteed to fire but must have
 		// ended when triggerValueChanged() is called so reset it
 		isComposing = false;
 
@@ -3332,10 +3348,10 @@ export default function SCEditor(original, userOptions) {
 	 * @private
 	 */
 	valueChangedKeyUp = function (e) {
-        const which = e.which;
-        const lastChar = valueChangedKeyUp.lastChar;
-        const lastWasSpace = (lastChar === 13 || lastChar === 32);
-        const lastWasDelete = (lastChar === 8 || lastChar === 46);
+		const which = e.which;
+		const lastChar = valueChangedKeyUp.lastChar;
+		const lastWasSpace = (lastChar === 13 || lastChar === 32);
+		const lastWasDelete = (lastChar === 8 || lastChar === 46);
 
 		valueChangedKeyUp.lastChar = which;
 

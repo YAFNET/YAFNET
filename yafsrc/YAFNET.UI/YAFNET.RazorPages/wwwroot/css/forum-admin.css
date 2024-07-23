@@ -13117,3 +13117,12 @@ div#UploadDialog {
 .tab-content {
   padding-top: 10px;
 }
+
+@media (min-width: 768px) {
+  .nav-settings {
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+        -ms-flex-direction: column !important;
+            flex-direction: column !important;
+  }
+}

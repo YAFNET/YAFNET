@@ -95,9 +95,9 @@ export default function RangeHelper(win, d, sanitize) {
 	 * @memberOf RangeHelper.prototype
 	 */
 	base.insertHTML = function (html, endHTML) {
-        const range = base.selectedRange();
+		const range = base.selectedRange();
 
-        if (!range) {
+		if (!range) {
 			return false;
 		}
 
@@ -199,12 +199,12 @@ export default function RangeHelper(win, d, sanitize) {
 	 */
 	base.insertNode = function (node, endNode) {
 		var	first, last;
-        const input = _prepareInput(node, endNode);
-        const range = base.selectedRange();
-        const parent = range.commonAncestorContainer;
-        var emptyNodes = [];
+		const input = _prepareInput(node, endNode);
+		const range = base.selectedRange();
+		const parent = range.commonAncestorContainer;
+		var emptyNodes = [];
 
-        if (!input) {
+		if (!input) {
 			return false;
 		}
 
@@ -259,12 +259,12 @@ export default function RangeHelper(win, d, sanitize) {
 	 * @memberOf RangeHelper.prototype
 	 */
 	base.cloneSelected = function () {
-        const range = base.selectedRange();
+		const range = base.selectedRange();
 
-        if (range) {
+		if (range) {
 			return range.cloneRange();
 		}
-    };
+	};
 
 	/**
 	 * Gets the selected Range
@@ -276,9 +276,9 @@ export default function RangeHelper(win, d, sanitize) {
 	 */
 	base.selectedRange = function () {
 		var	range, firstChild;
-        const sel = win.getSelection();
+		const sel = win.getSelection();
 
-        if (!sel) {
+		if (!sel) {
 			return;
 		}
 
@@ -315,10 +315,10 @@ export default function RangeHelper(win, d, sanitize) {
 	 * @memberOf RangeHelper.prototype
 	 */
 	base.hasSelection = function () {
-        const sel = win.getSelection();
+		const sel = win.getSelection();
 
-        return sel && sel.rangeCount > 0;
-    };
+		return sel && sel.rangeCount > 0;
+	};
 
 	/**
 	 * Gets the currently selected HTML
@@ -330,9 +330,9 @@ export default function RangeHelper(win, d, sanitize) {
 	 */
 	base.selectedHtml = function () {
 		var	div;
-        const range = base.selectedRange();
+		const range = base.selectedRange();
 
-        if (range) {
+		if (range) {
 			div = dom.createElement('p', {}, doc);
 			dom.appendChild(div, range.cloneContents());
 
@@ -351,12 +351,12 @@ export default function RangeHelper(win, d, sanitize) {
 	 * @memberOf RangeHelper.prototype
 	 */
 	base.parentNode = function () {
-        const range = base.selectedRange();
+		const range = base.selectedRange();
 
-        if (range) {
+		if (range) {
 			return range.commonAncestorContainer;
 		}
-    };
+	};
 
 	/**
 	 * Gets the first block level parent of the selected
@@ -402,8 +402,8 @@ export default function RangeHelper(win, d, sanitize) {
 	 * @memberOf RangeHelper.prototype
 	 */
 	base.insertNodeAt = function (start, node) {
-        const currentRange = base.selectedRange();
-        const range = base.cloneSelected();
+		const currentRange = base.selectedRange();
+		const range = base.cloneSelected();
 
 		if (!range) {
 			return false;
@@ -428,10 +428,10 @@ export default function RangeHelper(win, d, sanitize) {
 		base.removeMarker(id);
 
 		const marker = dom.createElement('span', {
-            id: id,
-            className: 'sceditor-selection sceditor-ignore',
-            style: 'display:none;line-height:0'
-        }, doc);
+			id: id,
+			className: 'sceditor-selection sceditor-ignore',
+			style: 'display:none;line-height:0'
+		}, doc);
 
 		marker.innerHTML = ' ';
 
@@ -486,12 +486,12 @@ export default function RangeHelper(win, d, sanitize) {
 	 * @memberOf RangeHelper.prototype
 	 */
 	base.removeMarker = function (id) {
-        const marker = base.getMarker(id);
+		const marker = base.getMarker(id);
 
-        if (marker) {
+		if (marker) {
 			dom.remove(marker);
 		}
-    };
+	};
 
 	/**
 	 * Removes the start/end markers
@@ -568,10 +568,10 @@ export default function RangeHelper(win, d, sanitize) {
 	base.restoreRange = function () {
 		var	isCollapsed,
 			range = base.selectedRange();
-        const start = base.getMarker(startMarker);
-        const end = base.getMarker(endMarker);
+		const start = base.getMarker(startMarker);
+		const end = base.getMarker(endMarker);
 
-        if (!start || !end || !range) {
+		if (!start || !end || !range) {
 			return false;
 		}
 
@@ -601,9 +601,9 @@ export default function RangeHelper(win, d, sanitize) {
 	 */
 	base.selectOuterText = function (left, right) {
 		var start, end;
-        const range = base.cloneSelected();
+		const range = base.cloneSelected();
 
-        if (!range) {
+		if (!range) {
 			return false;
 		}
 
@@ -678,13 +678,13 @@ export default function RangeHelper(win, d, sanitize) {
 
 		var outerText, match, matchPos, startIndex,
 			leftLen, charsLeft, keyword, keywordLen;
-        const whitespaceRegex = '(^|[\\s\xA0\u2002\u2003\u2009])';
-        var keywordIdx      = keywords.length;
-        const whitespaceLen = requireWhitespace ? 1 : 0;
-        var maxKeyLen       = longestKeyword ||
+		const whitespaceRegex = '(^|[\\s\xA0\u2002\u2003\u2009])';
+		var keywordIdx      = keywords.length;
+		const whitespaceLen = requireWhitespace ? 1 : 0;
+		var maxKeyLen       = longestKeyword ||
             keywords[keywordIdx - 1][0].length;
 
-        if (requireWhitespace) {
+		if (requireWhitespace) {
 			maxKeyLen++;
 		}
 
@@ -778,14 +778,14 @@ export default function RangeHelper(win, d, sanitize) {
 	 * @memberOf RangeHelper.prototype
 	 */
 	base.clear = function () {
-        const sel = win.getSelection();
+		const sel = win.getSelection();
 
-        if (sel) {
+		if (sel) {
 			if (sel.removeAllRanges) {
 				sel.removeAllRanges();
 			} else if (sel.empty) {
 				sel.empty();
 			}
 		}
-    };
+	};
 };
