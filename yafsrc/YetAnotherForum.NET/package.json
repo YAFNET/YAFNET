@@ -34,7 +34,7 @@
     "bootswatch": "^5.3.3",
     "bs5-lightbox": "^1.8.3",
     "choices.js": "^10.2.0",
-    "codemirror": "^5.65.16",
+    "codemirror": "^5.65.17",
     "flag-icons": "^7.2.3",
     "form-serialize": "^0.7.2",
     "long-press-event": "^2.5.0",
