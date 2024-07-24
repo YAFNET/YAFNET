@@ -571,11 +571,14 @@ public partial class EditMessage : ForumPage
             this.TagsValue.Value = topicTags.Select(t => t.Item2.TagName).ToDelimitedString(",");
         }
 
-        this.PageBoardContext.PageElements.RegisterJsBlock(
-            nameof(JavaScriptBlocks.GetBoardTagsJs),
-            JavaScriptBlocks.GetBoardTagsJs(
-                "Tags",
-                this.TagsValue.ClientID));
+        if (this.TagsRow.Visible)
+        {
+            this.PageBoardContext.PageElements.RegisterJsBlock(
+                nameof(JavaScriptBlocks.GetBoardTagsJs),
+                JavaScriptBlocks.GetBoardTagsJs(
+                    "Tags",
+                    this.TagsValue.ClientID));
+        }
 
         // Ederon : 9/9/2007 - moderators can reply in locked topics
         if (this.PageBoardContext.PageTopic.TopicFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
