@@ -428,6 +428,8 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileDefinition>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileCustom>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PrivateMessage>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserPMessage>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PMessage>());
     }
 
     /// <summary>
