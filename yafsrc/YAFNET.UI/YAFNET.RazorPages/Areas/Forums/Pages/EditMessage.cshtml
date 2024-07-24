@@ -174,9 +174,13 @@
 </form>
 
 @section Scripts {
-    <script>
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.GetBoardTagsJs("Tags", "Input_TagsValue")))
-    </script>
+    
+	@if (Model.PageBoardContext.PageTopic.UserID == Model.PageBoardContext.PageMessage.UserID || Model.PageBoardContext.ForumModeratorAccess)
+	{
+		<script>
+			@Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.GetBoardTagsJs("Tags", "Input_TagsValue")))
+		</script>
+	}
     
     @await Html.PartialAsync("_BBCodeEditorScriptsPartial")
 
