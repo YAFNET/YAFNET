@@ -1,2 +1,12 @@
-/* SCEditor v4.0.0-rc.2 | (C) 2024, Sam Clarke | sceditor.com/license */
-!function(){"use strict";sceditor.locale["en-GB"]={"Font Color":"Font Colour",Center:"Centre",dateFormat:"day/month/year"},sceditor.locale.en=sceditor.locale["en-GB"]}();
+(function () {
+	'use strict';
+
+	sceditor.locale['en-GB'] = {
+		'Font Color': 'Font Colour',
+		'Center': 'Centre',
+		dateFormat: 'day/month/year'
+	};
+
+	// set this as the default English locale
+	sceditor.locale['en'] = sceditor.locale['en-GB'];
+})();

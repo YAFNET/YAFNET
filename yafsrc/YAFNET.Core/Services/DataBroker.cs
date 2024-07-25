@@ -547,6 +547,13 @@ public class DataBroker : IHaveServiceLocator
                     .Where<UserGroup>(a => a.UserID == userId).Select(Sql.Count("1"))
                     .ToMergedParamsSelectStatement();
 
+                // -- Last Posted
+                var lastPostedExpression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+                var lastPostedExpressionSql = lastPostedExpression
+                    .Where(a => a.UserID == userId).Select(x => x.Posted).OrderByDescending(x => x.Posted).Take(1)
+                    .ToMergedParamsSelectStatement();
+
                 expression.Take(1).Select<ActiveAccess>(
                     x => new {
                         ActiveUpdate = activeUpdate,
@@ -576,7 +583,8 @@ public class DataBroker : IHaveServiceLocator
                             Sql.Custom(
                                 $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(uploadAccessSql, 0)})"),
                         DownloadAccess = Sql.Custom(
-                            $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(downloadAccessSql, 0)})")
+                            $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(downloadAccessSql, 0)})"),
+                        LastPosted = Sql.Custom($"({lastPostedExpressionSql})")
                     });
 
                 return db.Connection.Single<PageLoad>(expression);

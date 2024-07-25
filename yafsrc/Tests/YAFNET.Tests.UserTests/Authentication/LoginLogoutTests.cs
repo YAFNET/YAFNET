@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using HtmlProperties;
+
 namespace YAF.Tests.UserTests.Authentication;
 
 /// <summary>
@@ -74,12 +76,12 @@ public class LoginLogoutUser : TestBase
                         await page.GotoAsync(this.Base.TestSettings.TestForumUrl);
                     }
 
-                    if (await page.Locator("button").Filter(new() { HasText = "Close" }).IsVisibleAsync())
+                    if (await page.Locator(HtmlTag.Button).Filter(new LocatorFilterOptions { HasText = "Close" }).IsVisibleAsync())
                     {
-                        await page.Locator("button").Filter(new() { HasText = "Close" }).ClickAsync();
+                        await page.Locator(HtmlTag.Button).Filter(new LocatorFilterOptions { HasText = "Close" }).ClickAsync();
                     }
 
-                    await page.Locator("#navbarSupportedContent").GetByRole(AriaRole.Button, new() { Name = "Login" })
+                    await page.Locator("#navbarSupportedContent").GetByRole(AriaRole.Button, new LocatorGetByRoleOptions { Name = "Login" })
                         .ClickAsync();
 
                     await page.Locator("//*[contains(@id, 'UserName')]").WaitForAsync();

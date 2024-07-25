@@ -72,11 +72,6 @@ public interface ISessionService
     DateTime LastPendingBuddies { get; set; }
 
     /// <summary>
-    ///   Gets or sets LastPost.
-    /// </summary>
-    DateTime LastPost { get; set; }
-
-    /// <summary>
     ///   Gets or sets LastVisit.
     /// </summary>
     DateTime? LastVisit { get; set; }

@@ -9,7 +9,7 @@
  *
  * @author Sam Clarke
  */
-(function (sceditor) {
+(function(sceditor) {
 	'use strict';
 
 	/**
@@ -66,13 +66,13 @@
 		}
 	}
 
-	sceditor.plugins.dragdrop = function () {
+	sceditor.plugins.dragdrop = function() {
 		if (!isSupported) {
 			return;
 		}
 
 		const base = this;
-		var	opts;
+		var opts;
 		var editor;
 		var handleFile;
 		var container;
@@ -101,8 +101,8 @@
 
 			return opts.isAllowed ? opts.isAllowed(file) : true;*/
 
-            return true;
-        };
+			return true;
+		};
 
 		function createHolder(toReplace) {
 			var placeholder = document.createElement('img');
@@ -111,21 +111,21 @@
 			placeholder.id = `sce-dragdrop-${placeholderId++}`;
 
 			function replace(html) {
-                const node = editor
-                    .getBody()
-                    .ownerDocument
-                    .getElementById(placeholder.id);
+				const node = editor
+					.getBody()
+					.ownerDocument
+					.getElementById(placeholder.id);
 
-                if (node) {
+				if (node) {
 					if (typeof html === 'string') {
 						node.insertAdjacentHTML('afterend', html);
 					}
 
 					node.parentNode.removeChild(node);
 				}
-            }
+			}
 
-            return function () {
+			return function() {
 				if (toReplace) {
 					toReplace.parentNode.replaceChild(placeholder, toReplace);
 				} else {
@@ -133,7 +133,7 @@
 				}
 
 				return {
-					insert: function (html) {
+					insert: function(html) {
 						replace(html);
 					},
 					cancel: replace
@@ -176,7 +176,7 @@
 			e.preventDefault();
 		}
 
-		base.signalReady = function () {
+		base.signalReady = function() {
 			editor = this;
 			opts = editor.opts.dragdrop || {};
 			handleFile = opts.handleFile;
@@ -197,26 +197,26 @@
 			editor.getBody().addEventListener('drop', hideCover);
 		};
 
-		base.signalPasteHtml = function (paste) {
+		base.signalPasteHtml = function(paste) {
 			if (!('handlePaste' in opts) || opts.handlePaste) {
 				const div = document.createElement('div');
 				div.innerHTML = paste.val;
 
 				const images = div.querySelectorAll('img');
 				for (let i = 0; i < images.length; i++) {
-                    const image = images[i];
+					const image = images[i];
 
-                    if (base64DataUri.test(image.src)) {
-                        const file = base64DataUriToBlob(image.src);
-                        if (file && isAllowed(file)) {
+					if (base64DataUri.test(image.src)) {
+						const file = base64DataUriToBlob(image.src);
+						if (file && isAllowed(file)) {
 							handleFile(file, createHolder(image));
 						} else {
 							image.parentNode.removeChild(image);
 						}
-                    }
-                }
+					}
+				}
 
-                paste.val = div.innerHTML;
+				paste.val = div.innerHTML;
 			}
 		};
 	};

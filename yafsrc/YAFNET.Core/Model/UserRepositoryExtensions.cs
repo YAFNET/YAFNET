@@ -590,8 +590,11 @@ public static class UserRepositoryExtensions
         BoardContext.Current.GetRepository<PrivateMessage>().Delete(x => x.ToUserId == user.ID);
 
         // legacy private messages
-        BoardContext.Current.GetRepository<UserPMessage>().Delete(x => x.UserID == user.ID);
-        BoardContext.Current.GetRepository<PMessage>().Delete(x => x.FromUserID == user.ID);
+        if (BoardContext.Current.GetRepository<UserPMessage>().TableExists())
+        {
+            BoardContext.Current.GetRepository<UserPMessage>().Delete(x => x.UserID == user.ID);
+            BoardContext.Current.GetRepository<PMessage>().Delete(x => x.FromUserID == user.ID);
+        }
 
         BoardContext.Current.GetRepository<Thanks>().Delete(x => x.ThanksFromUserID == user.ID || x.ThanksToUserID == user.ID);
         BoardContext.Current.GetRepository<Buddy>().Delete(x => x.FromUserID == user.ID);

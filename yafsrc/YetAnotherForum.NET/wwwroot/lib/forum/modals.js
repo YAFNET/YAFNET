@@ -22,8 +22,13 @@
     });
 
 if (document.querySelector('[data-bs-save="quickReply"]') != null) {
-	document.querySelector('[data-bs-save="quickReply"]').addEventListener('click',
+	var replyButton = document.querySelector('[data-bs-save="quickReply"]');
+	replyButton.addEventListener('click',
 		(event) => {
+			replyButton.innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
+			replyButton.classList.add('disabled');
+
+
 			event.preventDefault();
 
             var form = document.getElementById('quickReply').querySelector('form');

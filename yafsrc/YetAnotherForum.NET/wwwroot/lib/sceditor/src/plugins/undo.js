@@ -109,7 +109,9 @@
 				getRangePositions(editor.getRangeHelper().selectedRange());
 			lastState.sourceMode = sourceMode;
 
-			const value = sourceMode ? editor.getSourceEditorValue(false) : editor.getBody().innerHTML;
+			const value = sourceMode ?
+				editor.getSourceEditorValue(false) :
+				editor.getBody().innerHTML;
 
 			const countField = document.getElementById('editor-Counter'),
 				maxLimit = editor.opts.maxLength;

@@ -108,23 +108,19 @@ public class PostsModalController : ForumBaseController
             }
 
             if (!(this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess)
-                && this.PageBoardContext.BoardSettings.PostFloodDelay > 0)
+                && this.PageBoardContext.BoardSettings.PostFloodDelay > 0
+                && this.PageBoardContext.LastPosted.HasValue && this.PageBoardContext.LastPosted
+                > DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
             {
-                if (this.PageBoardContext.Get<ISessionService>().LastPost
-                    > DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
-                {
-                    return this.Ok(
-                        new MessageModalNotification(
-                            this.GetTextFormatted(
-                                "wait",
-                                (this.PageBoardContext.Get<ISessionService>().LastPost
-                                 - DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
-                                .Seconds),
-                            MessageTypes.warning));
-                }
+                return this.Ok(
+                    new MessageModalNotification(
+                        this.GetTextFormatted(
+                            "wait",
+                            (this.PageBoardContext.LastPosted.Value
+                             - DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
+                            .Seconds),
+                        MessageTypes.warning));
             }
-
-            this.PageBoardContext.Get<ISessionService>().LastPost = DateTime.UtcNow;
 
             // post message...
             var message = model.QuickReplyEditor;

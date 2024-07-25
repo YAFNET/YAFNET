@@ -60,3 +60,10 @@
 .tab-content {
     padding-top: 10px;
 }
+
+// host settings tabs
+@media (min-width: 768px) {
+    .nav-settings {
+        flex-direction: column !important
+    }
+}

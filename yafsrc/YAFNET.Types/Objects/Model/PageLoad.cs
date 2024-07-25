@@ -138,4 +138,10 @@ public class PageLoad
     /// Gets or sets the guest user id.
     /// </summary>
     public int GuestUserID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the last posted.
+    /// </summary>
+    /// <value>The last posted.</value>
+    public DateTime? LastPosted { get; set; }
 }

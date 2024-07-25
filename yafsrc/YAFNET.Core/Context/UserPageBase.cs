@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using MimeKit.Cryptography;
+
 namespace YAF.Core.Context;
 
 using System;
@@ -142,6 +144,8 @@ public abstract class UserPageBase
     ///   Gets the number of albums which a user already has
     /// </summary>
     public int NumAlbums => this.PageData.Item3.NumAlbums;
+
+    public DateTime? LastPosted => this.PageData.Item2.Item1.LastPosted;
 
     /// <summary>
     ///   Gets or sets Page.

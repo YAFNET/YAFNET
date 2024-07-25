@@ -114,16 +114,6 @@ public class SessionService : ISessionService
     }
 
     /// <summary>
-    ///   Gets or sets LastPost.
-    /// </summary>
-    public DateTime LastPost
-    {
-        get => this.SessionState.GetString("lastpost").IsSet() ? this.SessionState.GetData<DateTime>("lastpost") : DateTimeHelper.SqlDbMinTime();
-
-        set => this.SessionState.SetData("lastpost", value);
-    }
-
-    /// <summary>
     ///   Gets or sets LastVisit.
     /// </summary>
     public DateTime? LastVisit
