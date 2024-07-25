@@ -87,7 +87,7 @@ public class EditMessageModel : ForumPage
     private bool IsPostReplyVerified()
     {
         // To avoid posting whitespace(s) or empty messages
-        var postedMessage = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Input.Editor));
+        var postedMessage = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Input.Editor ?? string.Empty));
 
         if (postedMessage.IsNotSet())
         {
@@ -331,9 +331,6 @@ public class EditMessageModel : ForumPage
                 }
             }
         }
-
-        // update the last post time...
-        this.Get<ISessionService>().LastPost = DateTime.UtcNow.AddSeconds(30);
 
         // Edit existing post
         var editMessage = this.PostReplyHandleEditPost();

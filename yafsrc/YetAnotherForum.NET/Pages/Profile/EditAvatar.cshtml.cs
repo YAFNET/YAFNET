@@ -57,14 +57,30 @@ public class EditAvatarModel : ProfilePage
     {
     }
 
+    /// <summary>a
+    /// Gets or sets the gallery.
+    /// </summary>
+    /// <value>The gallery.</value>
     public List<SelectListItem> Gallery { get; set; }
 
+    /// <summary>
+    /// Gets or sets the upload.
+    /// </summary>
+    /// <value>The upload.</value>
     [BindProperty]
     public IFormFile Upload { get; set; }
 
+    /// <summary>
+    /// Gets or sets the avatar gallery.
+    /// </summary>
+    /// <value>The avatar gallery.</value>
     [BindProperty]
     public string AvatarGallery { get; set; }
 
+    /// <summary>
+    /// Gets or sets the avatar URL.
+    /// </summary>
+    /// <value>The avatar URL.</value>
     [BindProperty]
     public string AvatarUrl { get; set; } = string.Empty;
 
@@ -85,9 +101,7 @@ public class EditAvatarModel : ProfilePage
     /// <returns>IActionResult.</returns>
     public IActionResult OnGet()
     {
-        this.BindData();
-
-        return this.Page();
+       return this.LoadPage();
     }
 
     /// <summary>
@@ -110,9 +124,9 @@ public class EditAvatarModel : ProfilePage
     /// <returns>IActionResult.</returns>
     public IActionResult OnPostGallery()
     {
-        if (this.AvatarGallery.Equals(this.GetText("OURAVATAR")))
+        if (this.AvatarGallery is null)
         {
-            return this.Page();
+            return this.LoadPage();
         }
 
         // save the avatar right now...
@@ -130,9 +144,14 @@ public class EditAvatarModel : ProfilePage
     /// <returns>IActionResult.</returns>
     public IActionResult OnPostUploadUpdate()
     {
+        if (this.Upload is null)
+        {
+            return this.LoadPage();
+        }
+
         if (this.Upload.FileName.Trim().Length <= 0 || !this.Upload.FileName.Trim().IsImageName())
         {
-            return this.Page();
+            return this.LoadPage();
         }
 
         long x = this.PageBoardContext.BoardSettings.AvatarWidth;
@@ -185,6 +204,13 @@ public class EditAvatarModel : ProfilePage
             // image is probably invalid...
             return this.PageBoardContext.Notify(this.GetText("EDIT_AVATAR", "INVALID_FILE"), MessageTypes.danger);
         }
+    }
+
+    private IActionResult LoadPage()
+    {
+        this.BindData();
+
+        return this.Page();
     }
 
     /// <summary>
@@ -249,7 +275,7 @@ public class EditAvatarModel : ProfilePage
     /// <summary>
     /// Loads the avatar gallery.
     /// </summary>
-    /// <returns>List&lt;SelectListItem&gt;.</returns>
+    /// <returns>The avatar gallery list.</returns>
     private List<SelectListItem> LoadAvatarGallery()
     {
         var avatars = new List<SelectListItem>();

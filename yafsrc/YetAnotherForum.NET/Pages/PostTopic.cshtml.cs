@@ -109,8 +109,13 @@ public class PostTopicModel : ForumPage
             return false;
         }
 
+        if (!this.PageBoardContext.LastPosted.HasValue)
+        {
+            return false;
+        }
+
         // see if they've past that delay point
-        if (this.Get<ISessionService>().LastPost
+        if (this.PageBoardContext.LastPosted
             <= DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
         {
             return false;
@@ -119,7 +124,7 @@ public class PostTopicModel : ForumPage
         this.PageBoardContext.Notify(
             this.GetTextFormatted(
                 "wait",
-                (this.Get<ISessionService>().LastPost
+                (this.PageBoardContext.LastPosted.Value
                  - DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay)).Seconds),
             MessageTypes.warning);
         return true;
@@ -134,7 +139,7 @@ public class PostTopicModel : ForumPage
     protected bool IsPostReplyVerified()
     {
         // To avoid posting whitespace(s) or empty messages
-        var postedMessage = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Input.Editor));
+        var postedMessage = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Input.Editor ?? string.Empty));
 
         if (postedMessage.IsNotSet())
         {
@@ -337,9 +342,6 @@ public class PostTopicModel : ForumPage
                 }
             }
         }
-
-        // update the last post time...
-        this.Get<ISessionService>().LastPost = DateTime.UtcNow.AddSeconds(30);
 
         // New Topic
         var newMessage = this.PostReplyHandleNewTopic();

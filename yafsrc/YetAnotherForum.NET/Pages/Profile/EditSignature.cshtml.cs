@@ -210,7 +210,7 @@ public class EditSignatureModel : ProfilePage
     {
         this.BindData(false);
 
-        var body = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Signature));
+        var body = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Signature ?? string.Empty));
 
         // find forbidden BBCodes in signature
         var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this.AllowedBbcodes, ',');
