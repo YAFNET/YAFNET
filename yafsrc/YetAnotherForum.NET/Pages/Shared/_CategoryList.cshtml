@@ -184,8 +184,7 @@
 	                                                   role="button"
 	                                                   title-localized-page="COMMON"
 	                                                   title-localized-tag="VIEW_TOPIC"
-	                                                   asp-page="@ForumPages.Posts.GetPageName()"
-	                                                   asp-all-route-data="@(Current.Get<LinkBuilder>().GetAllRouteData(new { t = forum.LastTopicID, name = topicLinkText }))"
+                                                       href="@(Current.Get<LinkBuilder>().GetTopicLink(forum.LastTopicID, forum.LastTopicName))"
 	                                                   text="@topicLinkText"
                                                        style="@Html.Raw(Current.Get<IStyleTransform>().Decode(forum.LastTopicStyles))"></a>
                                                 }
@@ -200,8 +199,7 @@
 	                                                   role="button"
 	                                                   title-localized-page="COMMON"
 	                                                   title-localized-tag="VIEW_TOPIC"
-	                                                   asp-page="@ForumPages.Posts.GetPageName()"
-	                                                   asp-all-route-data="@(Current.Get<LinkBuilder>().GetAllRouteData(new { t = forum.LastTopicID, name = topicLinkText }))"
+                                                       href="@(Current.Get<LinkBuilder>().GetTopicLink(forum.LastTopicID, forum.LastTopicName))"
 	                                                   text="@topicLinkText"></a>
                                                 }
 

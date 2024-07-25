@@ -251,11 +251,13 @@ public static class TopicContainerHtmlHelper
 
         gotoLastPost.AddCssClass("btn btn-outline-secondary btn-sm");
 
+        var topicName = context.Get<IBadWordReplace>()
+            .Replace(context.HtmlEncode(Model.LastTopicName)).Truncate(50);
+
+
         gotoLastPost.MergeAttribute(
             HtmlAttribute.Href,
-            context.Get<LinkBuilder>().GetLink(
-        ForumPages.Posts,
-                new { t = topic.TopicID, name = topic.Subject }));
+            context.Get<LinkBuilder>().GetTopicLink(topic.TopicID, topic.));
 
         gotoLastPost.MergeAttribute("data-bs-toggle", "tooltip");
         gotoLastPost.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("GO_LAST_POST"));
