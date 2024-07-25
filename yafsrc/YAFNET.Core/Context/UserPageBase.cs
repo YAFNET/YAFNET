@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using MimeKit.Cryptography;
-
 namespace YAF.Core.Context;
 
 using System;
