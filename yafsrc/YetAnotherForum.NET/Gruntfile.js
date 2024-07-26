@@ -7,7 +7,6 @@
 
 const lightBoxWebpackConfig = require('./wwwroot/lib/bs5-lightbox/webpack.cdn.js');
 const sass = require('sass');
-const nodeResolve = require('@rollup/plugin-node-resolve').default;
 
 module.exports = function(grunt) {
 	// CONFIGURATION
@@ -101,6 +100,21 @@ module.exports = function(grunt) {
 						src: '**/*.svg',
 						cwd: 'node_modules/flag-icons/flags',
 						dest: 'wwwroot/css/flags/'
+					}
+				]
+			},
+			SCEditor: {
+				files: [
+					{
+						expand: true,
+						src: '**/*.css',
+						cwd: 'node_modules/@yafnet/sceditor/minified/themes',
+						dest: 'wwwroot/css/'
+					}, {
+						expand: true,
+						src: '**/*.js',
+						cwd: 'node_modules/@yafnet/sceditor/languages',
+						dest: 'wwwroot/js/sceditor/languages/'
 					}
 				]
 			},
@@ -280,7 +294,8 @@ module.exports = function(grunt) {
 					'@echo off',
 					'if exist bin\\Release\\net8.0\\publish\\ (rmdir bin\\Release\\net8.0\\publish\\ /s /q)'
 				].join('&&')
-			}, deleteAppSettings: {
+			},
+			deleteAppSettings: {
 				command: [
 					'@echo off',
 					'del bin\\Release\\net8.0\\publish\\appsettings-MySql.json ',
@@ -474,57 +489,8 @@ module.exports = function(grunt) {
 			}
 		},
 
-		rollup: {
-			options: {
-				format: 'iife',
-				plugins: function() {
-					return [
-						nodeResolve({
-							module: true
-						})
-					];
-				}
-			},
-			buildSCEditor: {
-				files: {
-					'./wwwroot/lib/sceditor/sceditor.min.js': [
-						'./wwwroot/lib/sceditor/src/sceditor.js'
-					]
-				}
-			}
-		},
-
 		// Minimize JS
 		uglify: {
-			buildSCEditor: {
-				options: {
-					warnings: true,
-					compress: true,
-					mangle: true,
-					banner: '/* SCEditor for YAF.NET v<%= pkg.version %> | ' +
-						'(C) 2024, Sam Clarke | sceditor.com/license */\n'
-				},
-				files: [
-					{
-						src: 'wwwroot/lib/sceditor/sceditor.min.js',
-						dest: 'wwwroot/lib/sceditor/sceditor.min.js'
-					},
-					{
-						expand: true,
-						filter: 'isFile',
-						cwd: 'wwwroot/lib/sceditor/src/',
-						src: ['plugins/**.js', 'formats/**.js', 'icons/**.js'],
-						dest: 'wwwroot/lib/sceditor/'
-					},
-					{
-						expand: true,
-						filter: 'isFile',
-						cwd: 'wwwroot/lib/sceditor/src/',
-						src: ['languages/**.js'],
-						dest: 'wwwroot/js/sceditor/'
-					}
-				]
-			},
 			themeSelector: {
 				options: {
 					sourceMap: false,
@@ -590,15 +556,31 @@ module.exports = function(grunt) {
 					compress: false
 				},
 				src: [
-					'wwwroot/lib/sceditor/sceditor.min.js',
-					'wwwroot/lib/sceditor/formats/bbcode.js',
-					'wwwroot/lib/sceditor/icons/fontawesome.js',
-					'wwwroot/lib/sceditor/plugins/dragdrop.js',
-					'wwwroot/lib/sceditor/plugins/undo.js',
-					'wwwroot/lib/sceditor/plugins/plaintext.js',
+					'node_modules/@yafnet/sceditor/minified/sceditor.min.js',
+					'node_modules/@yafnet/sceditor/minified/formats/bbcode.js',
+					'node_modules/@yafnet/sceditor/minified/icons/fontawesome.js',
+					'node_modules/@yafnet/sceditor/minified/plugins/dragdrop.js',
+					'node_modules/@yafnet/sceditor/minified/plugins/undo.js',
+					'node_modules/@yafnet/sceditor/minified/plugins/plaintext.js',
 					'wwwroot/lib/sceditor/mentions.js'
 				],
 				dest: 'wwwroot/js/sceditor/sceditor.min.js'
+			},
+			SCEditorLanguages: {
+				options: {
+					warnings: true,
+					compress: true,
+					mangle: true
+				},
+				files: [
+					{
+						expand: true,
+						filter: 'isFile',
+						cwd: 'wwwroot/js/sceditor/',
+						src: 'languages/**.js',
+						dest: 'wwwroot/js/sceditor'
+					}
+				]
 			},
 			forumExtensions: {
 				options: {
@@ -869,7 +851,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('@w8tcha/grunt-dev-update');
-	grunt.loadNpmTasks('grunt-rollup');
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-shell');
 	grunt.loadNpmTasks('grunt-replace');
@@ -912,6 +893,11 @@ module.exports = function(grunt) {
 			'copy:flagIcons', 'replace:flagIcons'
 		]);
 
+	grunt.registerTask('updateSCEditor',
+		[
+			'copy:SCEditor'
+		]);
+
 	grunt.registerTask('emailTemplates',
 		[
 			'shell:emailTemplates', 'shell:emailDigestTemplates'
@@ -929,34 +915,42 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('deploy-SqlServer',
 		[
-			'shell:deletePublish', 'shell:deploySqlServer', 'shell:compileLanguages', 'copy:appSettingsSqlServer', 'shell:deleteAppSettings',
+			'shell:deletePublish', 'shell:deploySqlServer', 'shell:compileLanguages', 'copy:appSettingsSqlServer',
+			'shell:deleteAppSettings',
 			'zip:YAF-SqlServer-Deploy'
 		]);
 
 	grunt.registerTask('deploy-MySql',
 		[
-			'shell:deletePublish', 'shell:deployMySql', 'shell:compileLanguages', 'copy:appSettingsMySql', 'shell:deleteAppSettings',
+			'shell:deletePublish', 'shell:deployMySql', 'shell:compileLanguages', 'copy:appSettingsMySql',
+			'shell:deleteAppSettings',
 			'zip:YAF-MySql-Deploy'
 		]);
 
 	grunt.registerTask('deploy-PostgreSQL',
 		[
-			'shell:deletePublish', 'shell:deployPostgreSQL', 'shell:compileLanguages', 'copy:appSettingsPostgreSQL', 'shell:deleteAppSettings',
+			'shell:deletePublish', 'shell:deployPostgreSQL', 'shell:compileLanguages', 'copy:appSettingsPostgreSQL',
+			'shell:deleteAppSettings',
 			'zip:YAF-PostgreSQL-Deploy'
 		]);
 
 	grunt.registerTask('deploy-Sqlite',
 		[
-			'shell:deletePublish', 'shell:deploySqlite', 'shell:compileLanguages', 'copy:appSettingsSqlite', 'shell:deleteAppSettings',
+			'shell:deletePublish', 'shell:deploySqlite', 'shell:compileLanguages', 'copy:appSettingsSqlite',
+			'shell:deleteAppSettings',
 			'zip:YAF-Sqlite-Deploy'
 		]);
 
 	grunt.registerTask('deploy',
 		[
-			'shell:deletePublish', 'shell:deploySqlite',    'shell:compileLanguages', 'copy:appSettingsSqlite',    'shell:deleteAppSettings', 'zip:YAF-Sqlite-Deploy',
-			'shell:deletePublish', 'shell:deploySqlServer', 'shell:compileLanguages', 'copy:appSettingsSqlServer', 'shell:deleteAppSettings', 'zip:YAF-SqlServer-Deploy',
-			'shell:deletePublish', 'shell:deployMySql',     'shell:compileLanguages', 'copy:appSettingsMySql',     'shell:deleteAppSettings', 'zip:YAF-MySql-Deploy',
-			'shell:deletePublish', 'shell:deployPostgreSQL','shell:compileLanguages', 'copy:appSettingsPostgreSQL','shell:deleteAppSettings', 'zip:YAF-PostgreSQL-Deploy'
+			'shell:deletePublish', 'shell:deploySqlite', 'shell:compileLanguages', 'copy:appSettingsSqlite',
+			'shell:deleteAppSettings', 'zip:YAF-Sqlite-Deploy',
+			'shell:deletePublish', 'shell:deploySqlServer', 'shell:compileLanguages', 'copy:appSettingsSqlServer',
+			'shell:deleteAppSettings', 'zip:YAF-SqlServer-Deploy',
+			'shell:deletePublish', 'shell:deployMySql', 'shell:compileLanguages', 'copy:appSettingsMySql',
+			'shell:deleteAppSettings', 'zip:YAF-MySql-Deploy',
+			'shell:deletePublish', 'shell:deployPostgreSQL', 'shell:compileLanguages', 'copy:appSettingsPostgreSQL',
+			'shell:deleteAppSettings', 'zip:YAF-PostgreSQL-Deploy'
 		]);
 
 	grunt.registerTask('publishGitHub',
@@ -974,11 +968,5 @@ module.exports = function(grunt) {
 		[
 			'shell:deleteOldNuGetPackages', 'shell:createNuGetUIPackages', 'shell:copyNuGetUIPackages',
 			'shell:publishNuGetUIPackages'
-		]);
-
-	grunt.registerTask('buildSCEditor',
-		[
-			'rollup:buildSCEditor',
-			'uglify:buildSCEditor'
 		]);
 };
