@@ -72,6 +72,21 @@ module.exports = function(grunt) {
                         dest: 'Content/flags/'
                     }
                 ]
+            },
+            SCEditor: {
+	            files: [
+		            {
+			            expand: true,
+			            src: '**/*.css',
+			            cwd: 'node_modules/@yafnet/sceditor/minified/themes',
+			            dest: 'Content/'
+		            }, {
+			            expand: true,
+			            src: '**/*.js',
+			            cwd: 'node_modules/@yafnet/sceditor/languages',
+			            dest: 'Scripts/sceditor/languages/'
+		            }
+	            ]
             }
         },
 
@@ -336,15 +351,32 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    'Scripts/sceditor/sceditor.min.js',
-                    'Scripts/sceditor/formats/bbcode.js',
-                    'Scripts/sceditor/icons/fontawesome.js',
-                    'Scripts/sceditor/plugins/dragdrop.js',
-                    'Scripts/sceditor/plugins/undo.js',
-                    'Scripts/sceditor/plugins/plaintext.js',
+                    'node_modules/@yafnet/sceditor/minified/sceditor.min.js',
+                    'node_modules/@yafnet/sceditor/minified/formats/bbcode.js',
+                    'node_modules/@yafnet/sceditor/minified/icons/fontawesome.js',
+                    'node_modules/@yafnet/sceditor/minified/plugins/dragdrop.js',
+                    'node_modules/@yafnet/sceditor/minified/plugins/undo.js',
+                    'node_modules/@yafnet/sceditor/minified/plugins/plaintext.js',
                     'Scripts/sceditor/mentions.js'
                 ],
                 dest: 'Scripts/sceditor/sceditor.comb.min.js'
+            },
+
+            SCEditorLanguages: {
+	            options: {
+		            warnings: true,
+		            compress: true,
+		            mangle: true
+	            },
+	            files: [
+		            {
+			            expand: true,
+			            filter: 'isFile',
+                        cwd: 'Scripts/sceditor/',
+			            src: 'languages/**.js',
+                        dest: 'Scripts/sceditor'
+		            }
+	            ]
             },
 
             forumExtensions: {
@@ -671,6 +703,11 @@ module.exports = function(grunt) {
         [
             'copy:flagIcons', 'replace:flagIcons'
         ]);
+
+    grunt.registerTask('updateSCEditor',
+	    [
+		    'copy:SCEditor'
+	    ]);
 
     grunt.registerTask('emailTemplates',
         [
