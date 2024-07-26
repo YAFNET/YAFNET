@@ -114,7 +114,7 @@
                                             <label class="form-check-label" asp-for="TopicList[index].Selected">
                                                 <a asp-page="@ForumPages.Posts.GetPageName()"
                                                    asp-route-t="@Model.TopicList[index].TopicID"
-                                                   asp-route-name="@Model.TopicList[index].Subject">@Model.TopicList[index].Subject</a>
+                                                   asp-route-name="UrlRewriteHelper.CleanStringForUrl(@Model.TopicList[index].Subject)">@Model.TopicList[index].Subject</a>
                                             </label>
                                         </div>
                                    

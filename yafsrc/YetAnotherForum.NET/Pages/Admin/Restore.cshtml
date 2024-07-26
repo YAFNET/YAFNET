@@ -1,9 +1,12 @@
 @page "{p:int=1}/{p2:int=1}/{handler?}"
 @model RestoreModel
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Helpers
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
 
 <form method="post">
     <div class="row">
@@ -75,12 +78,12 @@
 
                                         @if (topic.NumPosts > 0)
                                         {
-                                            <a button-style="Link"
-                                               icon="external-link-alt"
-                                               asp-page="@ForumPages.Posts"
-                                               asp-route-t="@topic.TopicID"
-                                               asp-route-name="@Html.HtmlEncode(topic.Subject)">
-                                            </a>
+	                                        <a button-style="Link"
+	                                           icon="external-link-alt"
+	                                           asp-page="@ForumPages.Posts"
+	                                           asp-route-t="@topic.TopicID"
+	                                           asp-route-name="@Html.HtmlEncode(UrlRewriteHelper.CleanStringForUrl(topic.Subject))">
+	                                        </a>
                                         }
                                     </h5>
                                     <small>
@@ -199,7 +202,7 @@
                                                asp-page="@ForumPages.Posts.GetPageName()"
                                                asp-route-m="@message.MessageID"
                                                asp-route-T="@message.TopicID"
-                                               asp-route-name="@Html.HtmlEncode(message.Topic)">
+                                               asp-route-name="@Html.HtmlEncode(UrlRewriteHelper.CleanStringForUrl(message.Topic))">
                                             </a>
 
                                         </h5>
