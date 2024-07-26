@@ -1,10 +1,13 @@
 ﻿@page "{f:int}/{handler?}"
 
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using YAF.Core.Extensions
+@using YAF.Core.Helpers
 @using YAF.Types.Extensions
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
+@using YAF.Web.TagHelpers
 
 @model YAF.Pages.Moderate.UnapprovedPostsModel
 
@@ -20,7 +23,7 @@
                         {
                             <a asp-page="@ForumPages.Posts.GetPageName()"
                                asp-route-t="@message.Item1.ID"
-                               asp-route-name="@message.Item1.TopicName">
+                               asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(message.Item1.TopicName))">
                                 @message.Item1.TopicName
                             </a>
                         }

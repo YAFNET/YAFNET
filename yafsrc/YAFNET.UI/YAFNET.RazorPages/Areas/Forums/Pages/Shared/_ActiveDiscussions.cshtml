@@ -112,7 +112,7 @@
                        bs-toggle="tooltip"
                        text="@Html.Raw(topicSubject)"
                        title-non-localized="@Html.Raw($"{startedByText} {inForumText}")"
-                       href="@Html.Raw(Current.Get<LinkBuilder>().GetTopicLink(topic.TopicID, topicSubject))">
+                       href="@Html.Raw(Current.Get<LinkBuilder>().GetTopicLink(topic.TopicID, topic.Topic))">
                     </a>
 
                     @if (topic.LastPosted > lastRead)

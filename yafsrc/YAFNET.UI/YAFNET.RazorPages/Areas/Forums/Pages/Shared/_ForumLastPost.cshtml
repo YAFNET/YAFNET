@@ -22,8 +22,7 @@
 
     if (Model.LastPosted.HasValue)
     {
-        topicName = Current.Get<IBadWordReplace>()
-            .Replace(Html.HtmlEncode(Model.LastTopicName)).Truncate(50);
+        topicName = Model.LastTopicName.Truncate(50);
 
         // Last Post Date
         var lastPostedDateTime = Model.LastPosted.Value;
@@ -40,7 +39,7 @@
                 lastPostedDateTime);
 
         // Topic Link
-        topicLink = Current.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = Model.LastTopicID, name = topicName });
+        topicLink = Current.Get<LinkBuilder>().GetTopicLink(Model.LastTopicID, topicName);
 
         var styles = Current.BoardSettings.UseStyledTopicTitles
             ? Current.Get<IStyleTransform>().Decode(

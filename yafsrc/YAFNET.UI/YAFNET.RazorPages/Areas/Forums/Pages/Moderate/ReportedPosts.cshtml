@@ -1,5 +1,7 @@
 ﻿@page "{f:int}/{handler?}"
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using YAF.Core.Extensions
+@using YAF.Core.Helpers
 @using YAF.Core.Model
 @using YAF.Core.Services
 @using YAF.Web.HtmlHelpers
@@ -9,6 +11,7 @@
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
 @using YAF.Types.Models
+@using YAF.Web.TagHelpers
 
 @model YAF.Pages.Moderate.ReportedPostsModel
 
@@ -22,7 +25,7 @@
                         @Html.Icon("comment", "text-secondary")
                         <a asp-page="@ForumPages.Posts.GetPageName()"
                            asp-route-t="@report.TopicID"
-                           asp-route-name="@report.TopicName">
+                           asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(report.TopicName))">
                             @report.TopicName
                         </a>
                         <div class="float-end">
