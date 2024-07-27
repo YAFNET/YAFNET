@@ -542,6 +542,7 @@
     <Compile Include="Install\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\AntiXsrfModule.cs" />
     <Compile Include="Modules\CanonicalMetaTagModule.cs" />
     <Compile Include="Modules\FaviconModule.cs" />
     <Compile Include="Modules\PageBBCodeRegistration.cs" />
@@ -1771,6 +1772,7 @@
     </Content>
     <Content Include="Content\images\InstallBackground.jpg" />
     <Content Include="Content\prism.css" />
+    <Content Include="Content\sceditor.min.css" />
     <Content Include="Content\Themes\cerulean\bootstrap-email.scss" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
@@ -2871,8 +2873,6 @@
     <Content Include="Scripts\editor\editor.comb.js" />
     <Content Include="Scripts\editor\editor.js" />
     <Content Include="Scripts\editor\editor.min.js" />
-    <Content Include="Scripts\sceditor\formats\bbcode.js" />
-    <Content Include="Scripts\sceditor\icons\fontawesome.js" />
     <Content Include="Scripts\sceditor\languages\ar.js" />
     <Content Include="Scripts\sceditor\languages\ca.js" />
     <Content Include="Scripts\sceditor\languages\cn.js" />
@@ -2906,10 +2906,8 @@
     <Content Include="Scripts\sceditor\languages\uk.js" />
     <Content Include="Scripts\sceditor\languages\vi.js" />
     <Content Include="Scripts\sceditor\mentions.js" />
-    <Content Include="Scripts\sceditor\plugins\dragdrop.js" />
-    <Content Include="Scripts\sceditor\plugins\undo.js" />
     <Content Include="Scripts\sceditor\sceditor.comb.min.js" />
-    <Content Include="Scripts\sceditor\sceditor.min.js" />
+    <Content Include="Scripts\themeSelector.min.js" />
     <Content Include="UrlRewriter.config" />
     <Content Include="Content\netStack.scss" />
     <Content Include="Content\webfonts\fa-v4compatibility.ttf" />

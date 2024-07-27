@@ -2872,8 +2872,6 @@
     <Content Include="Scripts\editor\editor.comb.js" />
     <Content Include="Scripts\editor\editor.js" />
     <Content Include="Scripts\editor\editor.min.js" />
-    <Content Include="Scripts\sceditor\formats\bbcode.js" />
-    <Content Include="Scripts\sceditor\icons\fontawesome.js" />
     <Content Include="Scripts\sceditor\languages\ar.js" />
     <Content Include="Scripts\sceditor\languages\ca.js" />
     <Content Include="Scripts\sceditor\languages\cn.js" />
@@ -2907,10 +2905,8 @@
     <Content Include="Scripts\sceditor\languages\uk.js" />
     <Content Include="Scripts\sceditor\languages\vi.js" />
     <Content Include="Scripts\sceditor\mentions.js" />
-    <Content Include="Scripts\sceditor\plugins\dragdrop.js" />
-    <Content Include="Scripts\sceditor\plugins\undo.js" />
     <Content Include="Scripts\sceditor\sceditor.comb.min.js" />
-    <Content Include="Scripts\sceditor\sceditor.min.js" />
+    <Content Include="Scripts\themeSelector.min.js" />
     <Content Include="UrlRewriter.config" />
     <Content Include="Content\netStack.scss" />
     <Content Include="Content\webfonts\fa-v4compatibility.ttf" />
@@ -3075,7 +3071,7 @@ xcopy "$(SolutionDir)YAF.Data\YAF.Data.Sqlite\bin\Debug\net481\x64\SQLite.Intero
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
