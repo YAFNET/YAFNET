@@ -1017,5 +1017,5 @@ public class HostSettingsInputModel
     /// Gets or sets the last tab identifier.
     /// </summary>
     /// <value>The last tab identifier.</value>
-    public string LastTabId { get; set; } = "View1";
+    public string LastTabId { get; set; } = "Setup";
 }

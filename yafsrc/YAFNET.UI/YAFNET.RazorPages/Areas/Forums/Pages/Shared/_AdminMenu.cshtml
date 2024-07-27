@@ -1,13 +1,21 @@
 ﻿@using YAF.Core.Context
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
+@using YAF.Types.Extensions
 
 @inject BoardContext Current
 
 @if (BoardContext.Current.IsAdmin)
 {
-    var isAdminPage = Current.CurrentForumPage.IsAdminPage
+	var currentPageName = Enum.GetName(Current.CurrentForumPage.PageName);
+
+	var isAdminPage = Current.CurrentForumPage.IsAdminPage
                       && Current.CurrentForumPage.PageName is not (ForumPages.Admin_HostSettings or ForumPages.Admin_Boards or ForumPages.Admin_EditBoard or ForumPages.Admin_PageAccessEdit or ForumPages.Admin_PageAccessList);
+
+    if (currentPageName != null && currentPageName.StartsWith("Host_"))
+    {
+	    isAdminPage = false;
+    }
 
     <li class="nav-item dropdown">
         <a class="@Html.Raw(isAdminPage ? " nav-link dropdown-toggle active" : "nav-link dropdown-toggle")"

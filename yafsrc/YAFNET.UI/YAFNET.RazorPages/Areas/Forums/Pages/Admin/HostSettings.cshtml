@@ -11,43 +11,43 @@
 <div class="row">
 		<div class="col-md-auto mt-3">
 			<div class="nav nav-pills nav-settings" id="v-pills-tab" role="tablist">
-				<button data-bs-target="#View0" class="nav-link" data-bs-toggle="pill" role="tab" icon="server" icon-mobile-only="true"
+				<button data-bs-target="#ServerInfo" class="nav-link" data-bs-toggle="pill" role="tab" icon="server" icon-mobile-only="true"
 				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HEADER_SERVER_INFO"
 						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HEADER_SERVER_INFO">
 				</button>
-				<button data-bs-target="#View1" class="nav-link" data-bs-toggle="pill" role="tab" icon="gears" icon-mobile-only="true"
+				<button data-bs-target="#Setup" class="nav-link" data-bs-toggle="pill" role="tab" icon="gears" icon-mobile-only="true"
 				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HEADER_SETUP"
 						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HEADER_SETUP">
 				</button>
-				<button data-bs-target="#View2" class="nav-link" data-bs-toggle="pill" role="tab" icon="wand-sparkles" icon-mobile-only="true"
+				<button data-bs-target="#Features" class="nav-link" data-bs-toggle="pill" role="tab" icon="wand-sparkles" icon-mobile-only="true"
 				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_FEATURES"
 						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_FEATURES">
 				</button>
-				<button data-bs-target="#View3" class="nav-link" data-bs-toggle="pill" role="tab" icon="display" icon-mobile-only="true"
+				<button data-bs-target="#Display" class="nav-link" data-bs-toggle="pill" role="tab" icon="display" icon-mobile-only="true"
 				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_DISPLAY"
 						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_DISPLAY">
 				</button>
-				<button data-bs-target="#View4" class="nav-link" data-bs-toggle="pill" role="tab" icon="rectangle-ad" icon-mobile-only="true"
+				<button data-bs-target="#Adverts" class="nav-link" data-bs-toggle="pill" role="tab" icon="rectangle-ad" icon-mobile-only="true"
 				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_ADVERTS"
 						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_ADVERTS">
 				</button>
-				<button data-bs-target="#View6" class="nav-link" data-bs-toggle="pill" role="tab" icon="user-lock" icon-mobile-only="true"
+				<button data-bs-target="#Permission" class="nav-link" data-bs-toggle="pill" role="tab" icon="user-lock" icon-mobile-only="true"
 				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_PERMISSION"
 						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_PERMISSION">
 				</button>
-				<button data-bs-target="#View8" class="nav-link" data-bs-toggle="pill" role="tab" icon="user-tie" icon-mobile-only="true"
+				<button data-bs-target="#Avatars" class="nav-link" data-bs-toggle="pill" role="tab" icon="user-tie" icon-mobile-only="true"
 				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_AVATARS"
 						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_AVATARS">
 				</button>
-				<button data-bs-target="#View9" class="nav-link" data-bs-toggle="pill" role="tab" icon="memory" icon-mobile-only="true"
+				<button data-bs-target="#Cache" class="nav-link" data-bs-toggle="pill" role="tab" icon="memory" icon-mobile-only="true"
 				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_CACHE"
 						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_CACHE">
 				</button>
-				<button data-bs-target="#View10" class="nav-link" data-bs-toggle="pill" role="tab" icon="magnifying-glass" icon-mobile-only="true"
+				<button data-bs-target="#Search" class="nav-link" data-bs-toggle="pill" role="tab" icon="magnifying-glass" icon-mobile-only="true"
 				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_SEARCH"
 						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_SEARCH">
 				</button>
-				<button data-bs-target="#View11" class="nav-link" data-bs-toggle="pill" role="tab" icon="book" icon-mobile-only="true"
+				<button data-bs-target="#Log" class="nav-link" data-bs-toggle="pill" role="tab" icon="book" icon-mobile-only="true"
 				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_LOG"
 						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_LOG">
 				</button>
@@ -56,7 +56,7 @@
 <div class="col">
 <div id="HostSettingsTabs" class="tab-content">
 
-<div class="tab-pane fade" id="View0" role="tabpanel">
+<div class="tab-pane fade" id="ServerInfo" role="tabpanel">
 	<div class="card mb-3">
 		<div class="card-header">
 			@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
@@ -105,7 +105,7 @@
 		</div>
 	</div>
 </div>
-<div class="tab-pane fade" id="View1" role="tabpanel">
+<div class="tab-pane fade" id="Setup" role="tabpanel">
 <div class="card mb-3">
 <div class="card-header">
 	@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
@@ -503,7 +503,7 @@
 </div>
 </div>
 </div>
-<div class="tab-pane fade" id="View2" role="tabpanel">
+<div class="tab-pane fade" id="Features" role="tabpanel">
 <div class="card mb-3">
 <div class="card-header">
 	@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
@@ -951,7 +951,7 @@
 </div>
 </div>
 </div>
-<div class="tab-pane fade" id="View3" role="tabpanel">
+<div class="tab-pane fade" id="Display" role="tabpanel">
 <div class="card mb-3">
 <div class="card-header">
 	@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
@@ -1237,7 +1237,7 @@
 </div>
 </div>
 </div>
-<div class="tab-pane fade" id="View4" role="tabpanel">
+<div class="tab-pane fade" id="Adverts" role="tabpanel">
 	<div class="card mb-3">
 		<div class="card-header">
 			@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
@@ -1269,7 +1269,7 @@
 		</div>
 	</div>
 </div>
-<div class="tab-pane fade" id="View6" role="tabpanel">
+<div class="tab-pane fade" id="Permission" role="tabpanel">
 	<div class="card mb-3">
 		<div class="card-header">
 			@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
@@ -1386,7 +1386,7 @@
 		</div>
 	</div>
 </div>
-<div class="tab-pane fade" id="View8" role="tabpanel">
+<div class="tab-pane fade" id="Avatars" role="tabpanel">
 	<div class="card mb-3">
 		<div class="card-header">
 			@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
@@ -1439,7 +1439,7 @@
 		</div>
 	</div>
 </div>
-<div class="tab-pane fade" id="View9" role="tabpanel">
+<div class="tab-pane fade" id="Cache" role="tabpanel">
 	<div class="card mb-3">
 		<div class="card-header">
 			@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
@@ -1519,7 +1519,7 @@
 		</div>
 	</div>
 </div>
-<div class="tab-pane fade" id="View10" role="tabpanel">
+<div class="tab-pane fade" id="Search" role="tabpanel">
 	<div class="card mb-3">
 		<div class="card-header">
 			@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
@@ -1568,7 +1568,7 @@
 		</div>
 	</div>
 </div>
-<div class="tab-pane fade" id="View11" role="tabpanel">
+<div class="tab-pane fade" id="Log" role="tabpanel">
 	<div class="card mb-3">
 		<div class="card-header">
 			@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
