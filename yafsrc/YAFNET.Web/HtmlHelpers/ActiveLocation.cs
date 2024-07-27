@@ -131,7 +131,7 @@ public static class ActiveLocationHtmlHelper
                     content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "MODERATE"));
                 }
                 else if (!BoardContext.Current.PageUser.UserFlags.IsHostAdmin &&
-                         forumPage.Contains("ADMIN_", StringComparison.CurrentCultureIgnoreCase))
+                         forumPage.Contains("ADMIN_", StringComparison.CurrentCultureIgnoreCase) || forumPage.Contains("HOST_", StringComparison.CurrentCultureIgnoreCase))
                 {
                     // We shouldn't show admin activity to all users
                     content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "ADMINTASK"));

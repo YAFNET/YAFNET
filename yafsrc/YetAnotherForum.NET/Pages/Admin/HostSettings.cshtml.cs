@@ -192,7 +192,7 @@ public class HostSettingsModel : AdminPage
 
         this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
 
-        this.BindData();
+        this.BindData(this.Input.LastTabId);
 
         return this.PageBoardContext.Notify(this.GetText("FORCE_SEARCHINDED"), MessageTypes.info);
     }
@@ -263,8 +263,9 @@ public class HostSettingsModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
+    /// <param name="tab">The current tab.</param>
     /// <returns>Microsoft.AspNetCore.Mvc.IActionResult.</returns>
-    public IActionResult OnGet()
+    public IActionResult OnGet(string tab = null)
     {
         this.Input = new HostSettingsInputModel();
 
@@ -275,7 +276,7 @@ public class HostSettingsModel : AdminPage
 
         this.RenderListItems();
 
-        this.BindData();
+        this.BindData(tab);
 
         return this.Page();
     }
@@ -484,11 +485,21 @@ public class HostSettingsModel : AdminPage
         ];
     }
 
+
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData()
+    /// <param name="tab">The current tab.</param>
+    private void BindData(string tab = null)
     {
+        // set tab id
+        if (tab.IsSet())
+        {
+            this.Input.LastTabId = tab;
+        }
+
+        this.SetHostPage();
+
         // load Board Setting collection information...
         var settingCollection = new BoardSettingCollection(this.PageBoardContext.BoardSettings);
 
@@ -582,6 +593,18 @@ public class HostSettingsModel : AdminPage
             $"{SystemInfo.AllocatedMemory.ToType<long>() / 1000000} MB of {SystemInfo.MappedMemory.ToType<long>() / 1000000} MB";
         this.Input.AppOsName = SystemInfo.VersionString;
         this.Input.AppRuntime = $".NET {Environment.Version}";
+    }
+
+    private void SetHostPage()
+    {
+        try
+        {
+            this.PageName = (ForumPages)Enum.Parse(typeof(ForumPages), $"Host_{this.Input.LastTabId}");
+        }
+        catch (Exception)
+        {
+            this.PageName = ForumPages.Host_Setup;
+        }
     }
 
     /// <summary>

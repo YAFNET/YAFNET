@@ -495,6 +495,56 @@ public enum ForumPages
     Admin_Tags,
 
     /// <summary>
+    /// The host information page.
+    /// </summary>
+    Host_ServerInfo,
+
+    /// <summary>
+    /// The header setup page.
+    /// </summary>
+    Host_Setup,
+
+    /// <summary>
+    /// The host features page.
+    /// </summary>
+    Host_Features,
+
+    /// <summary>
+    /// The host display page.
+    /// </summary>
+    Host_Display,
+
+    /// <summary>
+    /// The host adverts page.
+    /// </summary>
+    Host_Adverts,
+
+    /// <summary>
+    /// The host permission page.
+    /// </summary>
+    Host_Permission,
+
+    /// <summary>
+    /// The host avatars page.
+    /// </summary>
+    Host_Avatars,
+
+    /// <summary>
+    /// The host cache page.
+    /// </summary>
+    Host_Cache,
+
+    /// <summary>
+    /// The host search page.
+    /// </summary>
+    Host_Search,
+
+    /// <summary>
+    /// The host log page.
+    /// </summary>
+    Host_Log,
+
+    /// <summary>
     /// The attachments.
     /// </summary>
     Profile_Attachments,

@@ -173,6 +173,54 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
             }
         }
 
+        await this.MigratePre40Async(prevVersion);
+
+        this.Migrate(prevVersion);
+
+        this.AddOrUpdateExtensions();
+
+        try
+        {
+            this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
+        }
+        catch (Exception)
+        {
+            this.GetRepository<Registry>().Save("cdvversion", 1);
+        }
+
+        this.Get<IDataCache>().Remove(Constants.Cache.Version);
+
+        this.GetRepository<Registry>().Save("version", this.Get<BoardInfo>().AppVersion.ToString());
+        this.GetRepository<Registry>().Save("versionname", this.Get<BoardInfo>().AppVersionName);
+
+        this.Get<ILogger<UpgradeService>>().Info($"YAF.NET Upgraded to Version {this.Get<BoardInfo>().AppVersionName}");
+
+        return true;
+    }
+
+    /// <summary>
+    /// Migrate DB to latest Version.
+    /// </summary>
+    /// <param name="prevVersion">The previous version.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
+    /// <exception cref="NotImplementedException"></exception>
+    private void Migrate(int prevVersion)
+    {
+        if (prevVersion < 1000)
+        {
+            var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration1000));
+
+            migrator.Run();
+        }
+    }
+
+    /// <summary>
+    /// Run all pre YAF.NET 4.0.0 DB Migrations
+    /// </summary>
+    /// <param name="prevVersion">The previous version.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
+    private async Task MigratePre40Async(int prevVersion)
+    {
         if (prevVersion < 84)
         {
             await this.Get<Migration84>().MigrateDatabaseAsync(this.DbAccess);
@@ -221,26 +269,6 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
             migrator.Run();
         }
-
-        this.AddOrUpdateExtensions();
-
-        try
-        {
-            this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
-        }
-        catch (Exception)
-        {
-            this.GetRepository<Registry>().Save("cdvversion", 1);
-        }
-
-        this.Get<IDataCache>().Remove(Constants.Cache.Version);
-
-        this.GetRepository<Registry>().Save("version", this.Get<BoardInfo>().AppVersion.ToString());
-        this.GetRepository<Registry>().Save("versionname", this.Get<BoardInfo>().AppVersionName);
-
-        this.Get<ILogger<UpgradeService>>().Info($"YAF.NET Upgraded to Version {this.Get<BoardInfo>().AppVersionName}");
-
-        return true;
     }
 
     /// <summary>

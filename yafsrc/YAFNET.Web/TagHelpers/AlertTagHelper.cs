@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using YAF.Types.Constants;
-
 namespace YAF.Web.TagHelpers;
 
 /// <summary>
@@ -155,11 +153,14 @@ public class AlertTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
             }
             else
             {
-                var text = this.LocalizedPage.IsSet()
-                               ? this.GetText(this.LocalizedPage, this.LocalizedTag).FormatWith(this.LocalizedParam0)
-                               : this.GetText(this.LocalizedTag).FormatWith(this.LocalizedParam0);
+                if (this.LocalizedTag.IsSet())
+                {
+                    var text = this.LocalizedPage.IsSet()
+                        ? this.GetText(this.LocalizedPage, this.LocalizedTag).FormatWith(this.LocalizedParam0)
+                        : this.GetText(this.LocalizedTag).FormatWith(this.LocalizedParam0);
 
-                output.Content.AppendHtml(text);
+                    output.Content.AppendHtml(text);
+                }
             }
         }
 

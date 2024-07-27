@@ -90,7 +90,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('@w8tcha/grunt-dev-update');
 
     grunt.registerTask('default',
-        [
-            'copy'
-        ]);
+	    [
+		    'copy'
+	    ]);
 };
