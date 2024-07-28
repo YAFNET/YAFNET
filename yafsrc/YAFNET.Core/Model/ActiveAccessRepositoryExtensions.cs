@@ -64,35 +64,39 @@ public static class ActiveAccessRepositoryExtensions
         }
 
         var accessList = BoardContext.Current.GetRepository<VAccess>().Get(x => x.UserID == userId)
-            .DistinctBy(a => new {a.UserID, a.ForumID});
+            .DistinctBy(a => new { a.UserID, a.ForumID });
 
         var activeList = new List<ActiveAccess>();
 
         // -- update active access
         // -- ensure that access right are in place
-        accessList.ForEach(
-            access => activeList.Add(
-                new ActiveAccess {
-                                     UserID = userId,
-                                     BoardID = boardId,
-                                     ForumID = access.ForumID,
-                                     IsAdmin = access.IsAdmin > 0,
-                                     IsForumModerator = access.IsForumModerator > 0,
-                                     IsModerator = access.IsModerator > 0,
-                                     IsGuestX = isGuest,
-                                     LastActive = DateTime.UtcNow,
-                                     ReadAccess = access.ReadAccess > 0,
-                                     PostAccess = access.PostAccess > 0,
-                                     ReplyAccess = access.ReplyAccess > 0,
-                                     PriorityAccess = access.PriorityAccess > 0,
-                                     PollAccess = access.PollAccess > 0,
-                                     VoteAccess = access.VoteAccess > 0,
-                                     ModeratorAccess = access.ModeratorAccess > 0,
-                                     EditAccess = access.EditAccess > 0,
-                                     DeleteAccess = access.DeleteAccess > 0
-                                 }));
+        foreach (var access in accessList.Where(access =>
+                     !activeList.Exists(x => x.UserID == access.UserID && x.ForumID == access.ForumID)))
+        {
+            activeList.Add(
+                new ActiveAccess
+                {
+                    UserID = userId,
+                    BoardID = boardId,
+                    ForumID = access.ForumID,
+                    IsAdmin = access.IsAdmin > 0,
+                    IsForumModerator = access.IsForumModerator > 0,
+                    IsModerator = access.IsModerator > 0,
+                    IsGuestX = isGuest,
+                    LastActive = DateTime.UtcNow,
+                    ReadAccess = access.ReadAccess > 0,
+                    PostAccess = access.PostAccess > 0,
+                    ReplyAccess = access.ReplyAccess > 0,
+                    PriorityAccess = access.PriorityAccess > 0,
+                    PollAccess = access.PollAccess > 0,
+                    VoteAccess = access.VoteAccess > 0,
+                    ModeratorAccess = access.ModeratorAccess > 0,
+                    EditAccess = access.EditAccess > 0,
+                    DeleteAccess = access.DeleteAccess > 0
+                });
+        }
 
-        repository.BulkInsert(activeList.DistinctBy(a => new { a.UserID, a.ForumID }));
+        repository.BulkInsert(activeList /*.DistinctBy(a => new { a.UserID, a.ForumID })*/);
     }
 
     /// <summary>

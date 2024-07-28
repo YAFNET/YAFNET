@@ -151,10 +151,13 @@ public static class HostMenuHtmlHelper
 
         var isActive = currentPageName != null && currentPageName.StartsWith("Host_");
 
-        listItem.InnerHtml.AppendHtml(
+        const string cssClassItem = "dropdown-item";
+        const string page = "ADMIN_HOSTSETTINGS";
+
+		listItem.InnerHtml.AppendHtml(
             RenderMenuItem(
                 "dropdown-item dropdown-toggle subdropdown-toggle",
-                context.Get<ILocalization>().GetText("ADMINMENU", "ADMIN_HOSTSETTINGS"),
+                context.Get<ILocalization>().GetText("ADMINMENU", page),
                 "#",
                 isActive,
                 true,
@@ -164,11 +167,12 @@ public static class HostMenuHtmlHelper
 
         list.AddCssClass("dropdown-menu dropdown-submenu");
 
-        // Host - Server Info
-        list.InnerHtml.AppendHtml(
+
+		// Host - Server Info
+		list.InnerHtml.AppendHtml(
             RenderMenuItem(
-                "dropdown-item",
-                context.Get<ILocalization>().GetText("ADMIN_HOSTSETTINGS", "HEADER_SERVER_INFO"),
+                cssClassItem,
+                context.Get<ILocalization>().GetText(page, "HEADER_SERVER_INFO"),
                 context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "ServerInfo" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_ServerInfo,
                 false,
@@ -177,8 +181,8 @@ public static class HostMenuHtmlHelper
         // Host - Setup
         list.InnerHtml.AppendHtml(
             RenderMenuItem(
-                "dropdown-item",
-                context.Get<ILocalization>().GetText("ADMIN_HOSTSETTINGS", "HEADER_SETUP"),
+                cssClassItem,
+                context.Get<ILocalization>().GetText(page, "HEADER_SETUP"),
                 context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Setup" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Setup,
                 false,
@@ -187,8 +191,8 @@ public static class HostMenuHtmlHelper
         // Host - Features
         list.InnerHtml.AppendHtml(
             RenderMenuItem(
-                "dropdown-item",
-                context.Get<ILocalization>().GetText("ADMIN_HOSTSETTINGS", "HOST_FEATURES"),
+                cssClassItem,
+                context.Get<ILocalization>().GetText(page, "HOST_FEATURES"),
                 context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Features" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Features,
                 false,
@@ -197,8 +201,8 @@ public static class HostMenuHtmlHelper
         // Host - Display
         list.InnerHtml.AppendHtml(
             RenderMenuItem(
-                "dropdown-item",
-                context.Get<ILocalization>().GetText("ADMIN_HOSTSETTINGS", "HOST_DISPLAY"),
+                cssClassItem,
+                context.Get<ILocalization>().GetText(page, "HOST_DISPLAY"),
                 context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Display" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Display,
                 false,
@@ -207,8 +211,8 @@ public static class HostMenuHtmlHelper
         // Host - Adverts
         list.InnerHtml.AppendHtml(
             RenderMenuItem(
-                "dropdown-item",
-                context.Get<ILocalization>().GetText("ADMIN_HOSTSETTINGS", "HOST_ADVERTS"),
+                cssClassItem,
+                context.Get<ILocalization>().GetText(page, "HOST_ADVERTS"),
                 context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Adverts" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Adverts,
                 false,
@@ -217,8 +221,8 @@ public static class HostMenuHtmlHelper
         // Host - Permissions
         list.InnerHtml.AppendHtml(
             RenderMenuItem(
-                "dropdown-item",
-                context.Get<ILocalization>().GetText("ADMIN_HOSTSETTINGS", "HOST_PERMISSION"),
+                cssClassItem,
+                context.Get<ILocalization>().GetText(page, "HOST_PERMISSION"),
                 context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Permission" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Permission,
                 false,
@@ -227,8 +231,8 @@ public static class HostMenuHtmlHelper
         // Host - Avatars
         list.InnerHtml.AppendHtml(
             RenderMenuItem(
-                "dropdown-item",
-                context.Get<ILocalization>().GetText("ADMIN_HOSTSETTINGS", "HOST_AVATARS"),
+                cssClassItem,
+                context.Get<ILocalization>().GetText(page, "HOST_AVATARS"),
                 context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Avatars" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Avatars,
                 false,
@@ -237,8 +241,8 @@ public static class HostMenuHtmlHelper
         // Host - Cache
         list.InnerHtml.AppendHtml(
             RenderMenuItem(
-                "dropdown-item",
-                context.Get<ILocalization>().GetText("ADMIN_HOSTSETTINGS", "HOST_CACHE"),
+                cssClassItem,
+                context.Get<ILocalization>().GetText(page, "HOST_CACHE"),
                 context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Cache" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Cache,
                 false,
@@ -247,8 +251,8 @@ public static class HostMenuHtmlHelper
         // Host - Search
         list.InnerHtml.AppendHtml(
             RenderMenuItem(
-                "dropdown-item",
-                context.Get<ILocalization>().GetText("ADMIN_HOSTSETTINGS", "HOST_SEARCH"),
+                cssClassItem,
+                context.Get<ILocalization>().GetText(page, "HOST_SEARCH"),
                 context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Search" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Search,
                 false,
@@ -257,8 +261,8 @@ public static class HostMenuHtmlHelper
         // Host - Logs
         list.InnerHtml.AppendHtml(
             RenderMenuItem(
-                "dropdown-item",
-                context.Get<ILocalization>().GetText("ADMIN_HOSTSETTINGS", "HOST_LOG"),
+                cssClassItem,
+                context.Get<ILocalization>().GetText(page, "HOST_LOG"),
                 context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Log" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Log,
                 false,
