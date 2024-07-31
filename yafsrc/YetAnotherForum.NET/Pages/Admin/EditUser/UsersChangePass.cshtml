@@ -27,12 +27,18 @@
         <div class="mb-3 col-md-4">
             <label asp-for="Input.NewPassword" localized-page="ADMIN_EDITUSER" localized-tag="CHANGE_NEW_PASS" class="form-label">
             </label>
-            <input asp-for="Input.NewPassword" class="form-control" />
+            <input asp-for="Input.NewPassword" class="form-control" required />
+            <div class="invalid-feedback">
+	            @Html.LocalizedText("REGISTER", "NEED_PASSWORD")
+            </div>
         </div>
         <div class="mb-3 col-md-4">
             <label asp-for="Input.NewPasswordConfirm" localized-page="ADMIN_EDITUSER" localized-tag="CHANGE_NEW_PASS" class="form-label">
             </label>
-            <input asp-for="Input.NewPasswordConfirm" class="form-control" />
+            <input asp-for="Input.NewPasswordConfirm" class="form-control" required />
+            <div class="invalid-feedback">
+	            @Html.LocalizedText("REGISTER", "RETYPE_PASSWORD")
+            </div>
         </div>
     </div>
 

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using YAF.Types.Extensions;
+
 namespace YAF.Pages.Admin.EditUser;
 
 using System.Linq;
@@ -49,7 +51,6 @@ public class UsersChangePassModel : AdminPage
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
-    [BindProperty]
     public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
     /// <summary>
@@ -78,7 +79,8 @@ public class UsersChangePassModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new UsersChangePassInputModel {
+        this.Input = new UsersChangePassInputModel
+        {
             UserId = userId
         };
 
@@ -106,6 +108,13 @@ public class UsersChangePassModel : AdminPage
         // change password...
         try
         {
+            if(this.Input.NewPassword.IsNotSet())
+            {
+                return this.PageBoardContext.Notify(
+                    this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_PASS_NOTMATCH"),
+                    MessageTypes.danger);
+            }
+
             if (this.Input.NewPassword != this.Input.NewPasswordConfirm)
             {
                 return this.PageBoardContext.Notify(
