@@ -93,8 +93,6 @@ public class TopicsModel : ForumPage
     /// </summary>
     public IActionResult OnGet()
     {
-        this.Get<IReadTrackCurrentUser>().SetForumRead(this.PageBoardContext.PageForumID);
-
         this.ShowTopicListSelected = this.ShowTopicListSelected == -1
                                          ? this.PageBoardContext.BoardSettings.ShowTopicsDefault
                                          : this.ShowTopicListSelected;
