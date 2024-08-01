@@ -4591,14 +4591,6 @@
             "#text": "Povolit službu IP Info Service:"
           },
           {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING",
-            "#text": "Řetězec mapování argumentů webové služby IP Info Geolocation:"
-          },
-          {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING_HELP",
-            "#text": "Mapuje pole řetězců nebo deserializované vrátí data do vlastností."
-          },
-          {
             "@tag": "IP_INFOSERVICE_HELP",
             "#text": "If checked, we will get info about a registering user from a web service."
           },
@@ -14480,16 +14472,16 @@
         "@name": "THEME_MODE",
         "Resource": [
           {
+            "@tag": "AUTO",
+            "#text": "Auto"
+          },
+          {
             "@tag": "DARK",
             "#text": "Dark"
           },
           {
             "@tag": "LIGHT",
             "#text": "Light"
-          },
-          {
-            "@tag": "AUTO",
-            "#text": "Auto"
           }
         ]
       },

@@ -113,10 +113,13 @@ public class EditMessageModel : ForumPage
             return false;
         }
 
-        if (this.Input.TopicSubject.IsNotSet())
+        if (this.PageBoardContext.PageTopic.UserID == this.PageBoardContext.PageMessage.UserID || this.PageBoardContext.ForumModeratorAccess)
         {
-            this.PageBoardContext.Notify(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
-            return false;
+            if (this.Input.TopicSubject.IsNotSet())
+            {
+                this.PageBoardContext.Notify(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
+                return false;
+            }
         }
 
         if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.AllowCreateTopicsSameName)

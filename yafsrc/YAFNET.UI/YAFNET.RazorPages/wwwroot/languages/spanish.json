@@ -4583,14 +4583,6 @@
             "#text": "Activar servicio de información de IP:"
           },
           {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING",
-            "#text": "Cadena de mapeado de argumentos para el servicio web de geolocalización e información de IP."
-          },
-          {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING_HELP",
-            "#text": "Array de cadenas de mapas o datos de retorno para propiedades no serializados."
-          },
-          {
             "@tag": "IP_INFOSERVICE_HELP",
             "#text": "Si está activado, obtendrá a través de un servicio web, información como ciudad y país sobre un usuario que se está registrando."
           },
@@ -14460,16 +14452,16 @@
         "@name": "THEME_MODE",
         "Resource": [
           {
+            "@tag": "AUTO",
+            "#text": "Auto"
+          },
+          {
             "@tag": "DARK",
             "#text": "Dark"
           },
           {
             "@tag": "LIGHT",
             "#text": "Light"
-          },
-          {
-            "@tag": "AUTO",
-            "#text": "Auto"
           }
         ]
       },

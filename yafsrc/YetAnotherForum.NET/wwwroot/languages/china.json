@@ -4591,14 +4591,6 @@
             "#text": "启用 IP 信息服务："
           },
           {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING",
-            "#text": "IP 信息地理位置 Web 服务参数映射字符串："
-          },
-          {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING_HELP",
-            "#text": "将字符串数组或反序列化的返回数据映射到属性。"
-          },
-          {
             "@tag": "IP_INFOSERVICE_HELP",
             "#text": "If checked, we will get info about a registering user from a web service."
           },
@@ -14476,16 +14468,16 @@
         "@name": "THEME_MODE",
         "Resource": [
           {
+            "@tag": "AUTO",
+            "#text": "Auto"
+          },
+          {
             "@tag": "DARK",
             "#text": "Dark"
           },
           {
             "@tag": "LIGHT",
             "#text": "Light"
-          },
-          {
-            "@tag": "AUTO",
-            "#text": "Auto"
           }
         ]
       },

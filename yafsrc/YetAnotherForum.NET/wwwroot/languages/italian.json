@@ -4583,14 +4583,6 @@
             "#text": "Abilitare il servizio informazioni IP:"
           },
           {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING",
-            "#text": "Stringa di mappatura degli argomenti del servizio Web di geolocalizzazione IP Info:"
-          },
-          {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING_HELP",
-            "#text": "Mappa l'array di stringhe o i dati di ritorno deserializzati alle proprietà."
-          },
-          {
             "@tag": "IP_INFOSERVICE_HELP",
             "#text": "If checked, we will get info about a registering user from a web service, like his DST and Location field is filled in."
           },
@@ -14460,16 +14452,16 @@
         "@name": "THEME_MODE",
         "Resource": [
           {
+            "@tag": "AUTO",
+            "#text": "Auto"
+          },
+          {
             "@tag": "DARK",
             "#text": "Dark"
           },
           {
             "@tag": "LIGHT",
             "#text": "Light"
-          },
-          {
-            "@tag": "AUTO",
-            "#text": "Auto"
           }
         ]
       },

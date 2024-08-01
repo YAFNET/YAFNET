@@ -4591,14 +4591,6 @@
             "#text": "Ota IP-infopalvelu käyttöön:"
           },
           {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING",
-            "#text": "IP Info Geopaikannus Web Service -argumenttien kartoitusmerkkijono:"
-          },
-          {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING_HELP",
-            "#text": "Kartoittaa merkkijonomassan tai deserialisoidun palautusdatan ominaisuuksiksi."
-          },
-          {
             "@tag": "IP_INFOSERVICE_HELP",
             "#text": "If checked, we will get info about a registering user from a web service."
           },
@@ -14476,16 +14468,16 @@
         "@name": "THEME_MODE",
         "Resource": [
           {
+            "@tag": "AUTO",
+            "#text": "Auto"
+          },
+          {
             "@tag": "DARK",
             "#text": "Dark"
           },
           {
             "@tag": "LIGHT",
             "#text": "Light"
-          },
-          {
-            "@tag": "AUTO",
-            "#text": "Auto"
           }
         ]
       },

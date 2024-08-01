@@ -4583,14 +4583,6 @@
             "#text": "Enable IP Info Service:"
           },
           {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING",
-            "#text": "IP Info Geolocation Web Service arguments mapping string:"
-          },
-          {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING_HELP",
-            "#text": "Maps string array or deserialized return data to properties."
-          },
-          {
             "@tag": "IP_INFOSERVICE_HELP",
             "#text": "If checked, we will get info about a registering user from a web service like country and city."
           },

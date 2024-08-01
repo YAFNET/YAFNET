@@ -66,7 +66,8 @@ public class DeleteAccountModel : ProfilePage
     /// </summary>
     public override void CreatePageLinks()
     {
-        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(),
+            this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
 
         this.PageBoardContext.PageLinks.AddLink(
             string.Format(this.GetText("DELETE_ACCOUNT", "TITLE"), this.PageBoardContext.BoardSettings.Name),
@@ -78,7 +79,9 @@ public class DeleteAccountModel : ProfilePage
     /// </summary>
     public IActionResult OnGet()
     {
-        return this.PageBoardContext.PageUser.UserFlags.IsHostAdmin ? this.Get<LinkBuilder>().AccessDenied() : this.Page();
+        return this.PageBoardContext.PageUser.UserFlags.IsHostAdmin
+            ? this.Get<LinkBuilder>().AccessDenied()
+            : this.Page();
     }
 
     /// <summary>
