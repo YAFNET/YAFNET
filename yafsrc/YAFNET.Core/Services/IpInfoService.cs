@@ -102,8 +102,7 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
     /// </returns>
     private async Task<IpLocator> GetDataAsync(string ip)
     {
-        if (this.Get<BoardSettings>().IPLocatorResultsMapping.IsNotSet() ||
-            this.Get<BoardSettings>().IPLocatorUrlPath.IsNotSet())
+        if (this.Get<BoardSettings>().IPLocatorUrlPath.IsNotSet())
         {
             return null;
         }

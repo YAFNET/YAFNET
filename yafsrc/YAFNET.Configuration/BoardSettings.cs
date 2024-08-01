@@ -1710,16 +1710,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets IP Locator Results Mapping.
-    /// </summary>
-    public string IPLocatorResultsMapping
-    {
-        get => this.Registry.GetValue("IPLocatorResultsMapping", "StatusCode,StatusMessage, IpAddress,CountryCode,CountryName,RegionName,CityName,ZipCode,Latitude,Longitude,TimeZone");
-
-        set => this.Registry.SetValue("IPLocatorResultsMapping", value);
-    }
-
-    /// <summary>
     /// Gets or sets Forum Logo.
     /// </summary>
     public string ForumLogo

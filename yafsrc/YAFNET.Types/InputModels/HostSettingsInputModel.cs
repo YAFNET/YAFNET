@@ -72,12 +72,6 @@ public class HostSettingsInputModel
     public string IPLocatorUrlPath { get; set; }
 
     /// <summary>
-    /// Gets or sets the ip locator results mapping.
-    /// </summary>
-    /// <value>The ip locator results mapping.</value>
-    public string IPLocatorResultsMapping { get; set; }
-
-    /// <summary>
     /// Gets or sets the ip information page URL.
     /// </summary>
     /// <value>The ip information page URL.</value>
