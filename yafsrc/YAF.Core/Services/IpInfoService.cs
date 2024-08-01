@@ -114,8 +114,7 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
     /// </returns>
     private IpLocator GetData(string ip)
     {
-        if (this.Get<BoardSettings>().IPLocatorResultsMapping.IsNotSet() ||
-            this.Get<BoardSettings>().IPLocatorUrlPath.IsNotSet())
+        if (this.Get<BoardSettings>().IPLocatorUrlPath.IsNotSet())
         {
             return null;
         }

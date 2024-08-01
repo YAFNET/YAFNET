@@ -1046,12 +1046,6 @@
                             <asp:TextBox CssClass="form-control" ID="IPLocatorUrlPath" runat="server"></asp:TextBox>
                         </div>
                         <div class="mb-3">
-                            <YAF:HelpLabel ID="HelpLabel195" runat="server"
-                                           AssociatedControlID="IPLocatorResultsMapping"
-                                           LocalizedTag="IP_INFOSERVICE_DATAMAPPING" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                            <asp:TextBox CssClass="form-control" ID="IPLocatorResultsMapping" runat="server"></asp:TextBox>
-                        </div>
-                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel110" runat="server"
                                            AssociatedControlID="IPInfoPageURL"
                                            LocalizedTag="IPINFO_ULRL" LocalizedPage="ADMIN_HOSTSETTINGS" />
