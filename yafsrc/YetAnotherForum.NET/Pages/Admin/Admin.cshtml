@@ -276,7 +276,9 @@
 
                             @foreach (var activeUser in Model.ActiveUserList)
                             {
-                                <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-start">
+	                            var ipAddress = IPHelper.GetIpAddressAsString(activeUser.IP);
+
+	                            <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-start">
                                     <div class="align-items-baseline">
                                         <div class="me-2">
                                             @Html.UserLabel(
@@ -287,14 +289,13 @@
                                         </div>
                                         <span data-bs-toggle="tooltip" data-bs-title="@Html.LocalizedText("ADMIN_ADMIN", "ADMIN_IPADRESS")">
 	                                        @Html.Icon("computer")
-                                            <a href="@Html.Raw(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, IPHelper.GetIpAddressAsString(activeUser.IP)))"
-                                               target="_blank" title-localized-tag="TT_IPDETAILS" title-localized-page="COMMON"
-                                               rel="noopener">
-	                                            @Html.Raw(IPHelper.GetIpAddressAsString(activeUser.IP))
-                                            </a>
-                                            
-                                            
+                                            <a href="@Html.Raw(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, ipAddress))"
+	                                           target="_blank" title-localized-tag="TT_IPDETAILS" title-localized-page="COMMON"
+	                                           rel="noopener">
+                                                @Html.Raw(ipAddress)
+	                                        </a>
                                         </span>
+
                                         <span data-bs-toggle="tooltip" data-bs-title="@Html.LocalizedText("ADMIN_ADMIN", "BOARD_LOCATION")">
 	                                        @Html.Icon("file-lines")
 	                                        @Html.ActiveLocation(activeUser.UserID,

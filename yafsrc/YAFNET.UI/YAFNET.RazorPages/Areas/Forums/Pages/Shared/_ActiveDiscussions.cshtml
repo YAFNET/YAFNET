@@ -28,8 +28,6 @@
 
     if (activeTopics is null)
     {
-        Current.Get<ISessionService>().UnreadTopics = 0;
-
         activeTopics = Current.GetRepository<Topic>().Latest(
             Current.PageBoardID,
             Current.PageCategoryID,

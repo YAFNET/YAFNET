@@ -79,7 +79,7 @@ public class EditMessageModel : ForumPage
     }
 
     /// <summary>
-    /// Handles verification of the PostReply. Adds java script message if there is a problem.
+    /// Handles verification of the PostReply. Adds javascript message if there is a problem.
     /// </summary>
     /// <returns>
     /// true if everything is verified
