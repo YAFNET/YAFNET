@@ -4599,14 +4599,6 @@
             "#text": "Zet de IP Info Service aan:"
           },
           {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING",
-            "#text": "IP Info Geolocation Web Service argumenten om tekenreeks te mappen:"
-          },
-          {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING_HELP",
-            "#text": "Mapt een tekenreeks array of gedeserialiseerde return data naar eigenschappen."
-          },
-          {
             "@tag": "IP_INFOSERVICE_HELP",
             "#text": "Als deze is aangevinkt, kunnen informatie krijgen over de gebruiker, zoals de DST en het lokatieveld wordt gevuld."
           },
@@ -14639,16 +14631,16 @@
         "@name": "THEME_MODE",
         "Resource": [
           {
+            "@tag": "AUTO",
+            "#text": "Auto"
+          },
+          {
             "@tag": "DARK",
             "#text": "Dark"
           },
           {
             "@tag": "LIGHT",
             "#text": "Light"
-          },
-          {
-            "@tag": "AUTO",
-            "#text": "Auto"
           }
         ]
       },

@@ -4599,14 +4599,6 @@
             "#text": "تمكين خدمة معلومات IP:"
           },
           {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING",
-            "#text": "سلسلة تعيين وسيطات خدمة الويب للموقع الجغرافي لمعلومات IP:"
-          },
-          {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING_HELP",
-            "#text": "مصفوفة سلسلة الخرائط أو بيانات إرجاع غير متسلسلة إلى الخصائص."
-          },
-          {
             "@tag": "IP_INFOSERVICE_HELP",
             "#text": "If checked, we will get info about a registering user from a web service, like his DST and Location field is filled in."
           },
@@ -14635,16 +14627,16 @@
         "@name": "THEME_MODE",
         "Resource": [
           {
+            "@tag": "AUTO",
+            "#text": "Auto"
+          },
+          {
             "@tag": "DARK",
             "#text": "Dark"
           },
           {
             "@tag": "LIGHT",
             "#text": "Light"
-          },
-          {
-            "@tag": "AUTO",
-            "#text": "Auto"
           }
         ]
       },

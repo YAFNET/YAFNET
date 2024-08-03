@@ -4599,14 +4599,6 @@
             "#text": "IP Info-Service aktivieren:"
           },
           {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING",
-            "#text": "IP Info Geolocation Web Service Argumente:"
-          },
-          {
-            "@tag": "IP_INFOSERVICE_DATAMAPPING_HELP",
-            "#text": "String Array für das Deserialisieren der Daten."
-          },
-          {
             "@tag": "IP_INFOSERVICE_HELP",
             "#text": "Wenn diese Option aktiviert, erhalten wir Informationen über den Benutzer von einem Webservice."
           },
@@ -14639,16 +14631,16 @@
         "@name": "THEME_MODE",
         "Resource": [
           {
+            "@tag": "AUTO",
+            "#text": "Auto"
+          },
+          {
             "@tag": "DARK",
             "#text": "Dark"
           },
           {
             "@tag": "LIGHT",
             "#text": "Light"
-          },
-          {
-            "@tag": "AUTO",
-            "#text": "Auto"
           }
         ]
       },
