@@ -41,6 +41,11 @@ using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 
+/// <summary>
+/// Class UsersKillModel.
+/// Implements the <see cref="YAF.Core.BasePages.AdminPage" />
+/// </summary>
+/// <seealso cref="YAF.Core.BasePages.AdminPage" />
 public class UsersKillModel : AdminPage
 {
     /// <summary>
@@ -53,6 +58,10 @@ public class UsersKillModel : AdminPage
     /// </summary>
     public User EditUser { get; set; }
 
+    /// <summary>
+    /// Gets or sets the suspend or delete list.
+    /// </summary>
+    /// <value>The suspend or delete list.</value>
     [BindProperty]
     public List<SelectListItem> SuspendOrDeleteList { get; set; }
 
@@ -84,11 +93,19 @@ public class UsersKillModel : AdminPage
     [BindProperty]
     public UsersKillInputModel Input { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UsersKillModel"/> class.
+    /// </summary>
     public UsersKillModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
     {
     }
 
+    /// <summary>
+    /// Called when [get].
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnGet(int userId)
     {
         if (!BoardContext.Current.IsAdmin)
@@ -114,6 +131,8 @@ public class UsersKillModel : AdminPage
         var user =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
                 Tuple<User, AspNetUsers, Rank, VAccess>;
+
+        this.EditUser = user.Item1;
 
         // Ban User Email?
         if (this.Input.BanEmail)

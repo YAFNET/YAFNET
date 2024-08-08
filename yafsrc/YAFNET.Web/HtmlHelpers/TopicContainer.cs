@@ -293,8 +293,6 @@ public static class TopicContainerHtmlHelper
     /// </returns>
     private static IHtmlContent GetTopicIcon(PagedTopic item, DateTime lastRead, IHtmlHelper htmlHelper)
     {
-        var context = BoardContext.Current;
-
         var lastPosted = item.LastPosted ?? DateTimeHelper.SqlDbMinTime();
 
         var topicFlags = new TopicFlags(item.TopicFlags);
@@ -316,8 +314,6 @@ public static class TopicContainerHtmlHelper
 
         if (lastPosted > lastRead)
         {
-            context.Get<ISessionService>().UnreadTopics++;
-
             if (topicFlags.IsLocked || forumFlags.IsLocked)
             {
                 return htmlHelper.IconStack(
