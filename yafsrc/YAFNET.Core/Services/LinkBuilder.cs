@@ -299,7 +299,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetAbsoluteLink(ForumPages page, object values)
     {
-        var url = this.Get<IUrlHelper>().Page(page.GetPageName(), null, values);
+        var url = this.Get<LinkBuilder>().GetLink(page, values);
 
         return $"{this.Get<BoardInfo>().ForumBaseUrl}{url}";
     }
