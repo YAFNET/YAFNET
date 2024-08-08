@@ -25,14 +25,14 @@
                 
                 @foreach (var topic in topicsList)
                 {
-                    <li class="list-group-item">
+	                <li class="list-group-item">
                         <a href="@(topic.TopicUrl)">
                             <strong>@Html.HtmlEncode(Current.Get<IBadWordReplace>().Replace(topic.Topic))</strong>
                         </a> (<a href="@(topic.ForumUrl)">@(topic.ForumName)</a>)
                         @Html.LocalizedText("SEARCH", "BY")
                         @Html.UserLink(topic.UserId.Value, Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName, topic.Suspended, topic.UserStyle)
                         @Html.IconBadge("calendar-day", "clock")
-                        @Html.DisplayDateTime(DateTimeFormat.Both, topic.Posted)
+                        @Html.DisplayDateTime(DateTimeFormat.Both, topic.Posted.ToType<DateTime>().ToUniversalTime())
                     </li>
                 }
             
