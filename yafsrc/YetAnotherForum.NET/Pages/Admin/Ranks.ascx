@@ -83,7 +83,7 @@
                         <li class="list-inline-item">
                             <YAF:LocalizedLabel  ID="HelpLabel13" runat="server"
                                                  LocalizedTag="STYLE" LocalizedPage="ADMIN_EDITGROUP" />&nbsp;
-                            <asp:Label ID="Label12" runat="server"
+                            <asp:Label ID="Label12" runat="server" Visible="<%# ((YAF.Types.Models.Group)Container.DataItem).Style.IsNotSet() %>"
                                        CssClass="<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).Style) %>">
                                 <%# ((YAF.Types.Models.Rank)Container.DataItem).Style.IsSet() && ((YAF.Types.Models.Rank)Container.DataItem).Style.Trim().Length > 0 ? "" : this.GetItemName(false)%>
                             </asp:Label>

@@ -189,8 +189,6 @@ public partial class ActiveDiscussion : BaseUserControl
 
         if (activeTopics == null)
         {
-            this.Get<ISession>().UnreadTopics = 0;
-
             activeTopics = this.GetRepository<Topic>().Latest(
                 this.PageBoardContext.PageBoardID,
                 this.PageBoardContext.PageCategoryID,

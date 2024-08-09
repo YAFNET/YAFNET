@@ -80,11 +80,6 @@ public interface ISession
     Hashtable TopicRead { get; set; }
 
     /// <summary>
-    ///   Gets or sets UnreadTopics.
-    /// </summary>
-    int UnreadTopics { get; set; }
-
-    /// <summary>
     /// Gets the last time the forum was read.
     /// </summary>
     /// <param name="forumId">

@@ -127,8 +127,6 @@ public partial class Topics : ForumPage
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
-        this.Unload += this.Topics_Unload;
-
         this.ShowList.SelectedIndexChanged += this.ShowList_SelectedIndexChanged;
         this.MarkRead.Click += this.MarkRead_Click;
         this.Pager.PageChange += this.Pager_PageChange;
@@ -144,8 +142,6 @@ public partial class Topics : ForumPage
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
-        this.Get<ISession>().UnreadTopics = 0;
-
         this.ForumJumpHolder.Visible = this.PageBoardContext.BoardSettings.ShowForumJump;
 
         this.ForumSearchHolder.Visible =
@@ -447,18 +443,5 @@ public partial class Topics : ForumPage
     {
         this.showTopicListSelected = this.ShowList.SelectedIndex;
         this.BindData();
-    }
-
-    /// <summary>
-    /// The Topics unload.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void Topics_Unload(object sender, EventArgs e)
-    {
-        if (this.Get<ISession>().UnreadTopics == 0)
-        {
-            this.Get<IReadTrackCurrentUser>().SetForumRead(this.PageBoardContext.PageForumID);
-        }
     }
 }

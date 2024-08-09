@@ -349,8 +349,17 @@ public class Resources : IResources, IHaveServiceLocator
     {
         try
         {
-            var user = BoardContext.Current.GetRepository<User>()
-                .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("u"));
+            User user;
+
+            try
+            {
+                user = BoardContext.Current.GetRepository<User>()
+                    .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("u"));
+            }
+            catch (Exception)
+            {
+                return;
+            }
 
             if (user == null)
             {

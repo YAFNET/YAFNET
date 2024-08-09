@@ -326,7 +326,7 @@ public class TopicContainer : BaseControl
     /// </param>
     protected void CreatePostPager(HtmlTextWriter writer, int count, int pageSize, int topicID)
     {
-        const int NumToDisplay = 4;
+        const int numToDisplay = 4;
         var pageCount = IPagerExtensions.PageCount(count, pageSize);
 
         if (pageCount <= 1)
@@ -345,7 +345,7 @@ public class TopicContainer : BaseControl
 
         writer.Write(HtmlTextWriter.TagRightChar);
 
-        if (pageCount > NumToDisplay)
+        if (pageCount > numToDisplay)
         {
             this.MakeLink(
                 "1",
@@ -353,7 +353,7 @@ public class TopicContainer : BaseControl
                 1).RenderControl(writer);
 
             // show links from the end
-            for (var i = pageCount - (NumToDisplay - 1); i < pageCount; i++)
+            for (var i = pageCount - (numToDisplay - 1); i < pageCount; i++)
             {
                 var post = i + 1;
 
@@ -555,8 +555,6 @@ public class TopicContainer : BaseControl
 
         if (lastPosted > lastRead)
         {
-            this.Get<ISession>().UnreadTopics++;
-
             if (topicFlags.IsLocked || forumFlags.IsLocked)
             {
                 iconNew.IconStackName = "lock";

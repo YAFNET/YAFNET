@@ -194,24 +194,6 @@ public class Session : ISession
     }
 
     /// <summary>
-    /// Gets or sets UnreadTopics.
-    /// </summary>
-    public int UnreadTopics
-    {
-        get
-        {
-            if (this.SessionState["unreadtopics"] != null)
-            {
-                return (int)this.SessionState["unreadtopics"];
-            }
-
-            return 0;
-        }
-
-        set => this.SessionState["unreadtopics"] = value;
-    }
-
-    /// <summary>
     /// Gets the last time the forum was read.
     /// </summary>
     /// <param name="forumId">
