@@ -67,10 +67,16 @@
                                             </li>
                                             <li class="list-inline-item">
                                                 @Html.LocalizedText("ADMIN_EDITGROUP", "STYLE")&nbsp;
-                                                <span class="@Html.Raw(Model.GetItemColorString(rank.Style))">
-                                                    @Html.Raw(rank.Style.IsSet() && rank.Style.Trim().Length > 0 ? "" : Model.GetItemName(false))
-                                                </span>
-                                                <code>@Html.Raw(rank.Style)</code>
+                                                @if (rank.Style.IsSet() && rank.Style.Trim().Length > 0)
+                                                {
+                                                    <code>@Html.Raw(rank.Style)</code>
+                                                }
+                                                else
+                                                {
+                                                    <span class="@Html.Raw(Model.GetItemColorString(rank.Style))">
+		                                                @Html.Raw(Model.GetItemName(false))
+	                                                </span>
+                                                }
                                             </li>
                                             <li class="list-inline-item">
                                                 @Html.LocalizedText("ADMIN_EDITGROUP","SIGNATURE_LENGTH")

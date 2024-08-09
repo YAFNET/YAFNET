@@ -106,11 +106,6 @@ public interface ISessionService
     Hashtable TopicRead { get; set; }
 
     /// <summary>
-    ///   Gets or sets UnreadTopics.
-    /// </summary>
-    int UnreadTopics { get; set; }
-
-    /// <summary>
     /// Gets or sets the info message.
     /// </summary>
     string InfoMessage { get; set; }

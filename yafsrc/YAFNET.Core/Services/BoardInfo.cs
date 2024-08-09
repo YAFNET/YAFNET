@@ -151,7 +151,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
                 }
 
                 baseUrlMask = boardSettings.BaseUrlMask.IsSet()
-                                  ? TreatBaseUrl(boardSettings.BaseUrlMask)
+                                  ? boardSettings.BaseUrlMask
                                   : this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
             }
             catch (Exception)
@@ -159,7 +159,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
                 baseUrlMask = this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
             }
 
-            return baseUrlMask;
+            return TreatBaseUrl(baseUrlMask);
         }
     }
 

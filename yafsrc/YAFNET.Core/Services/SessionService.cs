@@ -192,16 +192,6 @@ public class SessionService : ISessionService
     }
 
     /// <summary>
-    /// Gets or sets UnreadTopics.
-    /// </summary>
-    public int UnreadTopics
-    {
-        get => this.SessionState.GetInt32("unreadtopics") ?? 0;
-
-        set => this.SessionState.SetData("unreadtopics", value);
-    }
-
-    /// <summary>
     /// Gets the last time the forum was read.
     /// </summary>
     /// <param name="forumId">
