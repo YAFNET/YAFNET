@@ -1,6 +1,10 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.2.7
+* [FIXED] New Install
+* bug fixes
+
 # YetAnotherForum.NET v3.2.6
 * [NEW] log user agent strings for Active users
 * [NEW] added support for twitch bbcode embed
