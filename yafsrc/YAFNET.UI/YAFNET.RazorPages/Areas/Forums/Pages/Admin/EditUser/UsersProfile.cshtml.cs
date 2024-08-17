@@ -550,11 +550,12 @@ public class UsersProfileModel : AdminPage
         this.Input.CustomProfile.ForEach(
             item =>
             {
-                var type = item.DataType.ToEnum<Types.Constants.DataType>();
+                var type = item.DataType.ToEnum<DataType>();
 
                 switch (type)
                 {
-                    case Types.Constants.DataType.Text:
+                    case DataType.Text:
+                    case DataType.Number:
                     {
                         if (item.Value.IsSet())
                         {
@@ -570,23 +571,7 @@ public class UsersProfileModel : AdminPage
                         break;
                     }
 
-                    case Types.Constants.DataType.Number:
-                    {
-                        if (item.Value.IsSet())
-                        {
-                            this.GetRepository<ProfileCustom>().Insert(
-                                new ProfileCustom
-                                {
-                                    UserID = userId,
-                                    ProfileDefinitionID = item.ID,
-                                    Value = item.Value
-                                });
-                        }
-
-                        break;
-                    }
-
-                    case Types.Constants.DataType.Check:
+                    case DataType.Check:
                     {
                         this.GetRepository<ProfileCustom>().Insert(
                             new ProfileCustom

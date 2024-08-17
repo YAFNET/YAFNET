@@ -520,9 +520,9 @@ public class TestDataModel : AdminPage
             return 0;
         }
 
-        var fromUser = this.GetRepository<User>().GetSingle(u => u.Name == this.Input.From);
+        var fromUser = await this.GetRepository<User>().GetSingleAsync(u => u.Name == this.Input.From);
 
-        var toUser = this.GetRepository<User>().GetSingle(u => u.Name == this.Input.To);
+        var toUser = await this.GetRepository<User>().GetSingleAsync(u => u.Name == this.Input.To);
 
         if (fromUser is null)
         {
@@ -547,7 +547,7 @@ public class TestDataModel : AdminPage
         {
             this.randomGuid = Guid.NewGuid().ToString();
 
-            _ = this.GetRepository<PrivateMessage>().Insert(
+            _ = await this.GetRepository<PrivateMessage>().InsertAsync(
                 new PrivateMessage
                 {
                     Created = DateTime.UtcNow,

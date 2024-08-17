@@ -553,23 +553,8 @@ public class EditProfileModel : ProfilePage
 
                 switch (type)
                 {
-                    case DataType.Text:
-                    {
-                        if (item.Value.IsSet())
-                        {
-                            this.GetRepository<ProfileCustom>().Insert(
-                                new ProfileCustom
-                                {
-                                    UserID = this.PageBoardContext.PageUserID,
-                                    ProfileDefinitionID = item.ID,
-                                    Value = item.Value
-                                });
-                        }
-
-                        break;
-                    }
-
                     case DataType.Number:
+                    case DataType.Text:
                     {
                         if (item.Value.IsSet())
                         {
