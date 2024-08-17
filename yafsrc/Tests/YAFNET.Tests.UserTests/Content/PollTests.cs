@@ -91,14 +91,14 @@ public class PollTests : TestBase
                     });
 
                     // Go to edit Page
-                    await page.GetByRole(AriaRole.Button, new() { Name = "" }).First.ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "" }).First.ClickAsync();
                     await page.Locator("//a[contains(@href,'EditMessage')]").First.ClickAsync();
 
                     Assert.That(
-                        await page.GetByRole(AriaRole.Button, new() { Name = " Create Poll" }).IsVisibleAsync(), Is.True,
+                        await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Create Poll" }).IsVisibleAsync(), Is.True,
                         "Editing not allowed for that user. Or the user is not allowed to create Polls");
 
-                    await page.GetByRole(AriaRole.Button, new() { Name = " Create Poll" }).ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Create Poll" }).ClickAsync();
 
                     var pageSource = await page.ContentAsync();
 

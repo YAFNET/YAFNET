@@ -59,7 +59,7 @@ public class FriendTests : TestBase
 
                     Assert.That(pageSource, Does.Contain("Filter"), "Members List View Permissions needs to be enabled");
 
-                    await page.GetByRole(AriaRole.Button, new() { Name = " Filter" }).ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Filter" }).ClickAsync();
 
                     await page.Locator("//input[contains(@id,'_UserSearchName')]")
                         .FillAsync(this.Base.TestSettings.TestUserName);
@@ -123,7 +123,7 @@ public class FriendTests : TestBase
                         pageSource, Does.Contain("Friend List"),
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
-                    await page.GetByRole(AriaRole.Combobox, new() { Name = "friend mode" })
+                    await page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
                         .SelectOptionAsync(new[] { "3" });
 
                     // Select the First Request
@@ -172,7 +172,7 @@ public class FriendTests : TestBase
                         pageSource, Does.Contain("Friend List"),
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
-                    await page.GetByRole(AriaRole.Combobox, new() { Name = "friend mode" })
+                    await page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
                         .SelectOptionAsync(new[] { "3" });
 
                     // Select the First Request
@@ -223,7 +223,7 @@ public class FriendTests : TestBase
                         pageSource, Does.Contain("Friend List"),
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
-                    await page.GetByRole(AriaRole.Combobox, new() { Name = "friend mode" })
+                    await page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
                         .SelectOptionAsync(new[] { "3" });
 
                     // Select the First Request

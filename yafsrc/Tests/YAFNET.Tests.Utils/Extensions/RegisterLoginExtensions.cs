@@ -51,7 +51,7 @@ public static class RegisterLoginExtensions
 
         await page.Locator(".bootbox-accept").ClickAsync();
 
-        return await page.Locator("#navbarSupportedContent").GetByRole(AriaRole.Button, new() { Name = "Login" }).IsVisibleAsync();
+        return await page.Locator("#navbarSupportedContent").GetByRole(AriaRole.Button, new LocatorGetByRoleOptions { Name = "Login" }).IsVisibleAsync();
     }
 
     /// <summary>
@@ -211,7 +211,7 @@ public static class RegisterLoginExtensions
         await page.Locator("//input[contains(@id, '_Email')]").FillAsync(email);
 
         // Create User
-        await page.GetByRole(AriaRole.Button, new() { Name = " Register" }).ClickAsync();
+        await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Register" }).ClickAsync();
 
         var confirmEmail = simpleSmtpServer.ReceivedEmail.FirstOrDefault();
 

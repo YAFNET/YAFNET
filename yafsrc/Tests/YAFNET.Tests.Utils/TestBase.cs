@@ -24,8 +24,6 @@
 
 using YAF.Tests.Utils.SetUp;
 
-
-
 namespace YAF.Tests.Utils;
 
 /// <summary>

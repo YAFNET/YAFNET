@@ -41,7 +41,7 @@ public class EmojiOneTests
         // single smiley
         const string text = ":D";
         const string expected = "😃";
-        var actual = EmojiOne.AsciiToUnicode(EmojiOne.ShortNameToUnicode(text));
+        var actual = EmojiOne.AsciiToUnicode(EmojiOne.ShortNameToUnicode(text, true));
 
         Assert.Equal(expected, actual);
     }

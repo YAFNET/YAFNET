@@ -126,7 +126,7 @@ public class MessageTests : TestBase
                         await Task.Delay(60000);
                     }
 
-                    await page.GetByRole(AriaRole.Button, new() { Name = " Reply with Quote" }).First.ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Reply with Quote" }).First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 

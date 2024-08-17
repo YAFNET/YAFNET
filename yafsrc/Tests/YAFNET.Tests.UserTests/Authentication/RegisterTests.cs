@@ -99,7 +99,7 @@ public class RegisterUser : TestBase
                     await page.Locator("//input[contains(@id, '_Email')]").FillAsync(email);
 
                     // Create User
-                    await page.GetByRole(AriaRole.Button, new() { Name = " Register" }).ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Register" }).ClickAsync();
 
                     pageSource = await page.ContentAsync();
 

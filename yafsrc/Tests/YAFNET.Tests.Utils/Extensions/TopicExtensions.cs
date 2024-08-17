@@ -43,8 +43,8 @@ public static class TopicExtensions
     /// The test Settings
     /// </param>
     /// <returns>
-    /// Returns if Creating of the 
-    /// New Topic was successfully or not
+    /// Returns if Creating of the New Topic was
+    /// successfully or not.
     /// </returns>
     public async static Task<bool> CreateNewTestTopicAsync(this IPage page, TestConfig testSettings)
     {

@@ -67,7 +67,7 @@ public class EmailNotificationTests : TestBase
                     Assert.That(topicTitle, Is.Not.Null);
 
                     // Open Topic Options Menu
-                    await page.GetByRole(AriaRole.Button, new() { Name = " Tools" }).ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Tools" }).ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
@@ -128,7 +128,7 @@ public class EmailNotificationTests : TestBase
                         "Test Topic Doesn't Exists");
 
                     // Open Topic Options Menu
-                    await page.GetByRole(AriaRole.Button, new() { Name = " Tools" }).ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Tools" }).ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
@@ -278,7 +278,7 @@ public class EmailNotificationTests : TestBase
                         "Test Topic Doesn't Exists");
 
                     // Open Topic Options Menu
-                    await page.GetByRole(AriaRole.Button, new() { Name = " Tools" }).ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Tools" }).ClickAsync();
 
                     pageSource = await page.ContentAsync();
 

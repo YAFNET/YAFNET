@@ -182,7 +182,7 @@ public class AlbumTests : TestBase
                     });
 
                     // View Album
-                    await page.GetByRole(AriaRole.Button, new() { Name = "View" }).First.ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "View" }).First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
@@ -239,7 +239,7 @@ public class AlbumTests : TestBase
                     });
 
                     // View Album
-                    await page.GetByRole(AriaRole.Button, new() { Name = "View" }).First.ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "View" }).First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
@@ -298,7 +298,7 @@ public class AlbumTests : TestBase
                     });
 
                     // View Album
-                    await page.GetByRole(AriaRole.Button, new() { Name = "View" }).First.ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "View" }).First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
@@ -419,22 +419,22 @@ public class AlbumTests : TestBase
                 });
 
                 // Edit Album
-                await page.GetByRole(AriaRole.Button, new() { Name = "Edit" }).First.ClickAsync();
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Edit" }).First.ClickAsync();
 
                 pageSource = await page.ContentAsync();
 
                 Assert.That(pageSource, Does.Contain("Add/Edit Album"));
 
                 // Get The Images Count
-                var textOld = await page.GetByText("Delete", new() { Exact = true }).CountAsync();
+                var textOld = await page.GetByText("Delete", new PageGetByTextOptions { Exact = true }).CountAsync();
 
-                await page.GetByText("Delete", new() { Exact = true }).First.ClickAsync();
+                await page.GetByText("Delete", new PageGetByTextOptions { Exact = true }).First.ClickAsync();
 
                 await page.Locator(".btn-success").ClickAsync();
 
                 await page.ReloadAsync();
 
-                var textNew = await page.GetByText("Delete", new() { Exact = true }).CountAsync();
+                var textNew = await page.GetByText("Delete", new PageGetByTextOptions { Exact = true }).CountAsync();
 
                 Assert.That(textOld, Is.Not.EqualTo(textNew), "Image deleting failed");
             },
@@ -468,7 +468,7 @@ public class AlbumTests : TestBase
 
                 await page.GetByText("Edit Albums").First.ClickAsync();
 
-                await page.GetByRole(AriaRole.Button, new() { Name = "Edit" }).First.ClickAsync();
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Edit" }).First.ClickAsync();
 
                 pageSource = await page.ContentAsync();
 

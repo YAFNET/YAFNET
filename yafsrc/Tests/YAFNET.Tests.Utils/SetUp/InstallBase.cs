@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using System.Threading;
-
 namespace YAF.Tests.Utils.SetUp;
 
 using System.IO;

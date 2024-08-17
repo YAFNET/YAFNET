@@ -67,10 +67,10 @@ public class AvatarTests : TestBase
 
                     await page.Locator(".choices__list").First.ClickAsync();
 
-                    await page.GetByRole(AriaRole.Option, new() { Name = "SampleAvatar.gif SampleAvatar.gif" })
+                    await page.GetByRole(AriaRole.Option, new PageGetByRoleOptions { Name = "SampleAvatar.gif SampleAvatar.gif" })
                         .ClickAsync();
 
-                    await page.GetByRole(AriaRole.Button, new() { Name = " Update" }).ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Update" }).ClickAsync();
 
                     // Check new avatar
                     var image = page.Locator(".img-thumbnail");
