@@ -232,20 +232,38 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
 
                 if (this.Get<BoardSettings>().UseFileTable)
                 {
-                    var image = Image.FromStream(resized ?? file.InputStream);
+                    if (resized is null)
+                    {
+                        byte[] fileData;
+                        using (var binaryReader = new BinaryReader(file.InputStream))
+                        {
+                            fileData = binaryReader.ReadBytes(file.ContentLength);
+                        }
 
-                    var memoryStream = new MemoryStream();
-                    image.Save(memoryStream, image.RawFormat);
-                    memoryStream.Position = 0;
+                        newAttachmentId = this.GetRepository<Attachment>().Save(
+                            yafUserId,
+                            fileName,
+                            fileData.Length.ToType<int>(),
+                            file.ContentType,
+                            fileData.ToArray());
+                    }
+                    else
+                    {
+                        var image = Image.FromStream(resized);
 
-                    newAttachmentId = this.GetRepository<Attachment>().Save(
-                        yafUserId,
-                        fileName,
-                        memoryStream.Length.ToType<int>(),
-                        file.ContentType,
-                        memoryStream.ToArray());
+                        var memoryStream = new MemoryStream();
+                        image.Save(memoryStream, image.RawFormat);
+                        memoryStream.Position = 0;
 
-                    image.Dispose();
+                        newAttachmentId = this.GetRepository<Attachment>().Save(
+                            yafUserId,
+                            fileName,
+                            resized.Length.ToType<int>(),
+                            file.ContentType,
+                            resized.ToArray());
+
+                        image.Dispose();
+                    }
                 }
                 else
                 {
@@ -258,21 +276,41 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
                         Directory.CreateDirectory(previousDirectory);
                     }
 
-                    newAttachmentId = this.GetRepository<Attachment>().Save(
-                        yafUserId,
-                        fileName,
-                        file.ContentLength,
-                        file.ContentType);
+                    if (resized is null)
+                    {
+                        newAttachmentId = this.GetRepository<Attachment>().Save(
+                            yafUserId,
+                            fileName,
+                            file.ContentLength,
+                            file.ContentType);
 
-                    var newFile = Image.FromStream(resized ?? file.InputStream);
+                        using var fs = new FileStream($"{previousDirectory}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload", FileMode.Create, FileAccess.ReadWrite);
+                        byte[] fileData;
+                        using (var binaryReader = new BinaryReader(file.InputStream))
+                        {
+                            fileData = binaryReader.ReadBytes(file.ContentLength);
+                        }
 
-                    using var memory = new MemoryStream();
-                    using var fs = new FileStream($"{previousDirectory}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload", FileMode.Create, FileAccess.ReadWrite);
-                    newFile.Save(memory, newFile.RawFormat);
-                    var bytes = memory.ToArray();
-                    fs.Write(bytes, 0, bytes.Length);
+                        fs.Write(fileData, 0, fileData.Length);
+                    }
+                    else
+                    {
+                        var newFile = Image.FromStream(resized);
 
-                    newFile.Dispose();
+                        newAttachmentId = this.GetRepository<Attachment>().Save(
+                            yafUserId,
+                            fileName,
+                            resized.Length.ToType<int>(),
+                            file.ContentType);
+
+                        using var memory = new MemoryStream();
+                        using var fs = new FileStream($"{previousDirectory}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload", FileMode.Create, FileAccess.ReadWrite);
+                        newFile.Save(memory, newFile.RawFormat);
+                        var bytes = memory.ToArray();
+                        fs.Write(bytes, 0, bytes.Length);
+
+                        newFile.Dispose();
+                    }
                 }
 
                 var fullName = Path.GetFileName(fileName);
