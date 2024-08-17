@@ -102,7 +102,7 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpContex
 
         var injectServices = this.Get<IInjectServices>();
 
-        taskManager.AddOrUpdate(
+        TaskManager.AddOrUpdate(
             instanceName,
             _ =>
                 {

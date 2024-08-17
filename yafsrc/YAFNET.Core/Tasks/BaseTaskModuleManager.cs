@@ -36,22 +36,22 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// <summary>
     /// The task manager.
     /// </summary>
-    static protected ConcurrentDictionary<string, IBackgroundTask> taskManager = new();
+    static protected ConcurrentDictionary<string, IBackgroundTask> TaskManager = new();
 
     /// <summary>
     ///     Gets TaskCount.
     /// </summary>
-    public virtual int TaskCount => taskManager.Count;
+    public virtual int TaskCount => TaskManager.Count;
 
     /// <summary>
     ///     All the names of tasks running.
     /// </summary>
-    public virtual IList<string> TaskManagerInstances => taskManager.Keys.ToList();
+    public virtual IList<string> TaskManagerInstances => [.. TaskManager.Keys];
 
     /// <summary>
     ///     Gets TaskManagerSnapshot.
     /// </summary>
-    public virtual IDictionary<string, IBackgroundTask> TaskManagerSnapshot => taskManager.ToDictionary(k => k.Key, v => v.Value);
+    public virtual IDictionary<string, IBackgroundTask> TaskManagerSnapshot => TaskManager.ToDictionary(k => k.Key, v => v.Value);
 
     /// <summary>
     /// Check if Tasks are Running.
@@ -117,7 +117,7 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// </returns>
     public virtual bool TaskExists(string instanceName)
     {
-        return taskManager.ContainsKey(instanceName);
+        return TaskManager.ContainsKey(instanceName);
     }
 
     /// <summary>
@@ -134,7 +134,7 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// </returns>
     public virtual bool TryGetTask(string instanceName, out IBackgroundTask task)
     {
-        return taskManager.TryGetValue(instanceName, out task);
+        return TaskManager.TryGetValue(instanceName, out task);
     }
 
     /// <summary>
@@ -148,6 +148,6 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// </returns>
     public virtual bool TryRemoveTask(string instanceName)
     {
-        return taskManager.TryRemove(instanceName, out _);
+        return TaskManager.TryRemove(instanceName, out _);
     }
 }
