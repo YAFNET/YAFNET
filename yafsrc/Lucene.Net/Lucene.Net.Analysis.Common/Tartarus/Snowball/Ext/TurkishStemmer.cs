@@ -232,21 +232,21 @@ namespace YAF.Lucene.Net.Tartarus.Snowball.Ext
                     new Among ( "\u011F", -1, 4 )
                 };
 
-        private readonly static char[] g_vowel = { (char)17, (char)65, (char)16, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)32, (char)8, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)1 };
+        private static readonly char[] g_vowel = { (char)17, (char)65, (char)16, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)32, (char)8, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)1 };
 
-        private readonly static char[] g_U = { (char)1, (char)16, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)8, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)1 };
+        private static readonly char[] g_U = { (char)1, (char)16, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)8, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)1 };
 
-        private readonly static char[] g_vowel1 = { (char)1, (char)64, (char)16, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)1 };
+        private static readonly char[] g_vowel1 = { (char)1, (char)64, (char)16, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)1 };
 
-        private readonly static char[] g_vowel2 = { (char)17, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)130 };
+        private static readonly char[] g_vowel2 = { (char)17, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)130 };
 
-        private readonly static char[] g_vowel3 = { (char)1, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)1 };
+        private static readonly char[] g_vowel3 = { (char)1, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)1 };
 
-        private readonly static char[] g_vowel4 = { (char)17 };
+        private static readonly char[] g_vowel4 = { (char)17 };
 
-        private readonly static char[] g_vowel5 = { (char)65 };
+        private static readonly char[] g_vowel5 = { (char)65 };
 
-        private readonly static char[] g_vowel6 = { (char)65 };
+        private static readonly char[] g_vowel6 = { (char)65 };
 
         private bool B_continue_stemming_noun_suffixes;
         private int I_strlen;

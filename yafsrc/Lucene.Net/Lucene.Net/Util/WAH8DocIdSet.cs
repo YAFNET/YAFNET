@@ -89,9 +89,9 @@ namespace YAF.Lucene.Net.Util
         /// Default index interval. </summary>
         public const int DEFAULT_INDEX_INTERVAL = 24;
 
-        private readonly static MonotonicAppendingInt64Buffer SINGLE_ZERO_BUFFER = LoadSingleZeroBuffer();
+        private static readonly MonotonicAppendingInt64Buffer SINGLE_ZERO_BUFFER = LoadSingleZeroBuffer();
         // LUCENENET specific - optimized empty array creation
-        private readonly static WAH8DocIdSet EMPTY = new WAH8DocIdSet(Arrays.Empty<byte>(), 0, 1, SINGLE_ZERO_BUFFER, SINGLE_ZERO_BUFFER);
+        private static readonly WAH8DocIdSet EMPTY = new WAH8DocIdSet(Array.Empty<byte>(), 0, 1, SINGLE_ZERO_BUFFER, SINGLE_ZERO_BUFFER);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static MonotonicAppendingInt64Buffer LoadSingleZeroBuffer() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
@@ -101,7 +101,7 @@ namespace YAF.Lucene.Net.Util
             return buffer;
         }
 
-        private readonly static IComparer<Iterator> SERIALIZED_LENGTH_COMPARER = Comparer<Iterator>.Create((wi1, wi2) => wi1.@in.Length - wi2.@in.Length);
+        private static readonly IComparer<Iterator> SERIALIZED_LENGTH_COMPARER = Comparer<Iterator>.Create((wi1, wi2) => wi1.@in.Length - wi2.@in.Length);
 
         /// <summary>
         /// Same as <see cref="Intersect(ICollection{WAH8DocIdSet}, int)"/> with the default index interval. </summary>
@@ -261,7 +261,7 @@ namespace YAF.Lucene.Net.Util
 #nullable restore
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            override protected internal bool LessThan(Iterator a, Iterator b)
+            protected internal override bool LessThan(Iterator a, Iterator b)
             {
                 // LUCENENET specific - added guard clauses
                 if (a is null)
@@ -274,7 +274,7 @@ namespace YAF.Lucene.Net.Util
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal int WordNum(int docID)
+        internal static int WordNum(int docID)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(docID >= 0);
             return docID.TripleShift(3);
@@ -284,8 +284,8 @@ namespace YAF.Lucene.Net.Util
         /// Word-based builder. </summary>
         public class WordBuilder
         {
-            readonly internal GrowableByteArrayDataOutput @out;
-            readonly internal GrowableByteArrayDataOutput dirtyWords;
+            internal readonly GrowableByteArrayDataOutput @out;
+            internal readonly GrowableByteArrayDataOutput dirtyWords;
             internal int clean;
             internal int lastWordNum;
             internal int numSequences;
@@ -629,7 +629,7 @@ namespace YAF.Lucene.Net.Util
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal int ReadCleanLength(ByteArrayDataInput @in, int token)
+        internal static int ReadCleanLength(ByteArrayDataInput @in, int token)
         {
             int len = (token.TripleShift(4)) & 0x07;
             int startPosition = @in.Position;
@@ -645,7 +645,7 @@ namespace YAF.Lucene.Net.Util
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal int ReadDirtyLength(ByteArrayDataInput @in, int token)
+        internal static int ReadDirtyLength(ByteArrayDataInput @in, int token)
         {
             int len = token & 0x0F;
             if ((len & 0x08) != 0)
@@ -659,7 +659,7 @@ namespace YAF.Lucene.Net.Util
         {
             /* Using the index can be costly for close targets. */
 
-            static internal int IndexThreshold(/*int cardinality, */int indexInterval) // LUCENENET specific - removed unused parameter
+            internal static int IndexThreshold(/*int cardinality, */int indexInterval) // LUCENENET specific - removed unused parameter
             {
                 // Short sequences encode for 3 words (2 clean words and 1 dirty byte),
                 // don't advance if we are going to read less than 3 x indexInterval
@@ -668,11 +668,11 @@ namespace YAF.Lucene.Net.Util
                 return (int)Math.Min(int.MaxValue, indexThreshold);
             }
 
-            readonly internal ByteArrayDataInput @in;
-            readonly internal int cardinality;
-            readonly internal int indexInterval;
-            readonly internal MonotonicAppendingInt64Buffer positions, wordNums;
-            readonly internal int indexThreshold;
+            internal readonly ByteArrayDataInput @in;
+            internal readonly int cardinality;
+            internal readonly int indexInterval;
+            internal readonly MonotonicAppendingInt64Buffer positions, wordNums;
+            internal readonly int indexThreshold;
             internal int allOnesLength;
             internal int dirtyLength;
 

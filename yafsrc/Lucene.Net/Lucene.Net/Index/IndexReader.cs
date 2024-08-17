@@ -3,9 +3,11 @@ using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
+
 #if !FEATURE_CONDITIONALWEAKTABLE_ENUMERATOR
 using YAF.Lucene.Net.Util.Events;
 #endif
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,7 +25,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,10 +34,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = Lucene.Net.Store.Directory;
+    using Directory = YAF.Lucene.Net.Store.Directory;
     using Document = Documents.Document;
     using DocumentStoredFieldVisitor = DocumentStoredFieldVisitor;
-    using IOUtils = Lucene.Net.Util.IOUtils;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// <see cref="IndexReader"/> is an abstract class, providing an interface for accessing an
@@ -653,12 +655,6 @@ namespace YAF.Lucene.Net.Index
                 throw new ArgumentNullException(nameof(getCacheKeysEvent));
             if (getCacheKeysEvents.Add(getCacheKeysEvent))
                 getCacheKeysEvent.Subscribe(OnGetCacheKeys);
-        }
-
-        // LUCENENET specific: Clean up the weak event handler if this class goes out of scope
-        ~IndexReader()
-        {
-            Dispose(false);
         }
 
         // LUCENENET specific: Add weak event handler for .NET Standard 2.0 and .NET Framework, since we don't have an enumerator to use

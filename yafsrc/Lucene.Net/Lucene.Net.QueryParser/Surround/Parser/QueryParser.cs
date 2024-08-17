@@ -60,18 +60,18 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
     [SuppressMessage("Style", "IDE0028:Collection initialization can be simplified", Justification = "This class is based on generated code")]
     public class QueryParser
     {
-        readonly internal int minimumPrefixLength = 3;
-        readonly internal int minimumCharsInTrunc = 3;
-        readonly internal string truncationErrorMessage = "Too unrestrictive truncation: ";
-        readonly internal string boostErrorMessage = "Cannot handle boost value: ";
+        internal readonly int minimumPrefixLength = 3;
+        internal readonly int minimumCharsInTrunc = 3;
+        internal readonly string truncationErrorMessage = "Too unrestrictive truncation: ";
+        internal readonly string boostErrorMessage = "Cannot handle boost value: ";
 
         /* CHECKME: These should be the same as for the tokenizer. How? */
-        readonly internal char truncator = '*';
-        readonly internal char anyChar = '?';
-        readonly internal char quote = '"';
-        readonly internal char fieldOperator = ':';
-        readonly internal char comma = ','; /* prefix list separator */
-        readonly internal char carat = '^'; /* weight operator */
+        internal readonly char truncator = '*';
+        internal readonly char anyChar = '?';
+        internal readonly char quote = '"';
+        internal readonly char fieldOperator = ':';
+        internal readonly char comma = ','; /* prefix list separator */
+        internal readonly char carat = '^'; /* weight operator */
 
         public static SrndQuery Parse(string query)
         {
@@ -121,7 +121,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
             return new NotQuery(queries, notToken.Image);
         }
 
-        static protected int GetOpDistance(string distanceOp)
+        protected static int GetOpDistance(string distanceOp)
         {
             /* W, 2W, 3W etc -> 1, 2 3, etc. Same for N, 2N ... */
             return distanceOp.Length == 1
@@ -129,7 +129,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
               : int.Parse(distanceOp.Substring(0, distanceOp.Length - 1)); // LUCENENET TODO: Culture from current thread?
         }
 
-        static protected void CheckDistanceSubQueries(DistanceQuery distq, string opName)
+        protected static void CheckDistanceSubQueries(DistanceQuery distq, string opName)
         {
             string m = distq.DistanceSubQueryNotAllowed();
             if (m != null)
@@ -602,8 +602,8 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
         private int jj_la;
         private int jj_gen;
         private readonly int[] jj_la1 = new int[10];
-        private readonly static int[] jj_la1_0 = new int[] { // LUCENENET: marked readonly // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
-            0x100, 0x200, 0x400, 0x1000, 0x800, 0x7c3b00, 0x1b00, 0x8000, 0x7c0000, 0x20000 };
+        private static readonly int[] jj_la1_0 = new int[] { // LUCENENET: marked readonly // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+            0x100, 0x200, 0x400, 0x1000, 0x800, 0x7c3b00, 0x1b00, 0x8000, 0x7c0000, 0x20000, };
 
         // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         //static QueryParser()

@@ -45,11 +45,11 @@ namespace YAF.Lucene.Net.Analysis.Standard
     {
         /// <summary>
         /// This character denotes the end of file </summary>
-        public readonly static int YYEOF = -1;
+        public static readonly int YYEOF = -1;
 
         /// <summary>
         /// initial size of the lookahead buffer </summary>
-        private readonly static int ZZ_BUFFERSIZE = 4096;
+        private static readonly int ZZ_BUFFERSIZE = 4096;
 
         /// <summary>
         /// lexical states </summary>
@@ -61,7 +61,7 @@ namespace YAF.Lucene.Net.Analysis.Standard
         ///                  at the beginning of a line
         /// l is of the form l = 2*k, k a non negative integer
         /// </summary>
-        private readonly static int[] ZZ_LEXSTATE = { 0, 0 };
+        private static readonly int[] ZZ_LEXSTATE = { 0, 0 };
 
         /// <summary>
         /// Translates characters to character classes
@@ -214,12 +214,12 @@ namespace YAF.Lucene.Net.Analysis.Standard
         /// <summary>
         /// Translates characters to character classes
         /// </summary>
-        private readonly static char[] ZZ_CMAP = ZzUnpackCMap(ZZ_CMAP_PACKED);
+        private static readonly char[] ZZ_CMAP = ZzUnpackCMap(ZZ_CMAP_PACKED);
 
         /// <summary>
         /// Translates DFA states to action switch labels.
         /// </summary>
-        private readonly static int[] ZZ_ACTION = ZzUnpackAction();
+        private static readonly int[] ZZ_ACTION = ZzUnpackAction();
 
         private const string ZZ_ACTION_PACKED_0 =
             "\x0001\x0000\x0016\x0001\x0001\x0002\x0001\x0003\x0001\x0004\x0001\x0001\x0001\x0005\x0001\x0006" +
@@ -256,7 +256,7 @@ namespace YAF.Lucene.Net.Analysis.Standard
         /// <summary>
         /// Translates a state to a row index in the transition table
         /// </summary>
-        private readonly static int[] ZZ_ROWMAP = ZzUnpackRowMap();
+        private static readonly int[] ZZ_ROWMAP = ZzUnpackRowMap();
 
         private const string ZZ_ROWMAP_PACKED_0 =
             "\x0000\x0000\x0000\x008E\x0000\u011c\x0000\u01aa\x0000\u0238\x0000\u02c6\x0000\u0354\x0000\u03e2" +
@@ -310,7 +310,7 @@ namespace YAF.Lucene.Net.Analysis.Standard
         /// <summary>
         /// The transition table of the DFA
         /// </summary>
-        private readonly static int[] ZZ_TRANS = ZzUnpackTrans();
+        private static readonly int[] ZZ_TRANS = ZzUnpackTrans();
 
 
         private const string ZZ_TRANS_PACKED_0 =
@@ -863,7 +863,7 @@ namespace YAF.Lucene.Net.Analysis.Standard
         private const int ZZ_PUSHBACK_2BIG = 2;
 
         /* error messages for the codes above */
-        private readonly static string[] ZZ_ERROR_MSG = {
+        private static readonly string[] ZZ_ERROR_MSG = {
             "Unkown internal scanner error",
             "Error: could not match input",
             "Error: pushback value was too large"
@@ -872,7 +872,7 @@ namespace YAF.Lucene.Net.Analysis.Standard
         /// <summary>
         /// ZZ_ATTRIBUTE[aState] contains the attributes of state <code>aState</code>
         /// </summary>
-        private readonly static int[] ZZ_ATTRIBUTE = ZzUnpackAttribute();
+        private static readonly int[] ZZ_ATTRIBUTE = ZzUnpackAttribute();
 
         private const string ZZ_ATTRIBUTE_PACKED_0 =
             "\x0001\x0000\x0001\x0009\x001E\x0001\x0011\x0000\x0001\x0001\x0001\x0000\x0001\x0001\x000A\x0000" +
@@ -971,11 +971,11 @@ namespace YAF.Lucene.Net.Analysis.Standard
         /* user code: */
         /// <summary>
         /// Alphanumeric sequences </summary>
-        public readonly static int WORD_TYPE = StandardTokenizer.ALPHANUM;
+        public static readonly int WORD_TYPE = StandardTokenizer.ALPHANUM;
 
         /// <summary>
         /// Numbers </summary>
-        public readonly static int NUMERIC_TYPE = StandardTokenizer.NUM;
+        public static readonly int NUMERIC_TYPE = StandardTokenizer.NUM;
 
         /// <summary>
         /// Chars in class \p{Line_Break = Complex_Context} are from South East Asian
@@ -986,15 +986,15 @@ namespace YAF.Lucene.Net.Analysis.Standard
         /// See Unicode Line Breaking Algorithm: http://www.unicode.org/reports/tr14/#SA
         /// </para>
         /// </summary>
-        public readonly static int SOUTH_EAST_ASIAN_TYPE = StandardTokenizer.SOUTHEAST_ASIAN;
+        public static readonly int SOUTH_EAST_ASIAN_TYPE = StandardTokenizer.SOUTHEAST_ASIAN;
 
-        public readonly static int IDEOGRAPHIC_TYPE = StandardTokenizer.IDEOGRAPHIC;
+        public static readonly int IDEOGRAPHIC_TYPE = StandardTokenizer.IDEOGRAPHIC;
 
-        public readonly static int HIRAGANA_TYPE = StandardTokenizer.HIRAGANA;
+        public static readonly int HIRAGANA_TYPE = StandardTokenizer.HIRAGANA;
 
-        public readonly static int KATAKANA_TYPE = StandardTokenizer.KATAKANA;
+        public static readonly int KATAKANA_TYPE = StandardTokenizer.KATAKANA;
 
-        public readonly static int HANGUL_TYPE = StandardTokenizer.HANGUL;
+        public static readonly int HANGUL_TYPE = StandardTokenizer.HANGUL;
 
         public int YyChar => yyChar;
 

@@ -48,7 +48,7 @@ namespace YAF.Lucene.Net.Analysis.NGram
 
             /// <summary>
             /// Get the n-gram from the end of the input </summary>
-            BACK
+            BACK,
         }
 
         // Get the appropriate Side from a string
@@ -294,10 +294,10 @@ namespace YAF.Lucene.Net.Analysis.NGram
     }
 
     // LUCENENET: added this to avoid the Enum.IsDefined() method, which requires boxing
-    static internal partial class SideExtensions
+    internal static partial class SideExtensions
     {
 #pragma warning disable CS0612 // Type or member is obsolete
-        static internal bool IsDefined(this Lucene43EdgeNGramTokenizer.Side side)
+        internal static bool IsDefined(this Lucene43EdgeNGramTokenizer.Side side)
         {
             return side >= Lucene43EdgeNGramTokenizer.Side.FRONT &&
                 side <= Lucene43EdgeNGramTokenizer.Side.BACK;

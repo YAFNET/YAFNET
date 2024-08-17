@@ -28,7 +28,7 @@ namespace YAF.Lucene.Net.Support.Threading
     /// LUCENENET specific
     /// </summary>
     [Obsolete("Using these extensions will allocte memory. New code should call EnterReadLock(), ExitReadLock(), EnterWriteLock() or ExitWriteLock() directly in a try/finally block. This class will be removed in 4.8.0 release candidate.")]
-    static internal class ReaderWriterLockSlimExtensions
+    internal static class ReaderWriterLockSlimExtensions
     {
         private sealed class ReadLockToken : IDisposable
         {

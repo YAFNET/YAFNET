@@ -197,7 +197,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config
                 DateFormat.MEDIUM => dateTimeFormat.LongTimePattern,
                 DateFormat.LONG => dateTimeFormat.LongTimePattern.Replace("z", "").Trim() + " z",
                 DateFormat.FULL => dateTimeFormat.LongTimePattern.Replace("z", "").Trim() + " zzz",
-                _ => throw new ArgumentException($"'{timeStyle}' is not a valid {nameof(DateFormat)}.")
+                _ => throw new ArgumentException($"'{timeStyle}' is not a valid {nameof(DateFormat)}."),
             };
 
             return string.Concat(datePattern, " ", timePattern);
@@ -222,7 +222,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config
                 DateFormat.LONG => dateTimeFormat.LongDatePattern
                     .Replace("dddd, ", "").Replace(", dddd", ""), // Remove the day of the week
                 DateFormat.FULL => dateTimeFormat.LongDatePattern,
-                _ => throw new ArgumentException($"'{dateStyle}' is not a valid {nameof(DateFormat)}.")
+                _ => throw new ArgumentException($"'{dateStyle}' is not a valid {nameof(DateFormat)}."),
             };
         }
     }

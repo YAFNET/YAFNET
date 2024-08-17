@@ -75,7 +75,7 @@ namespace YAF.Lucene.Net.Index
         /* only acquired to update the global deletes */
         private readonly ReentrantLock globalBufferLock = new ReentrantLock();
 
-        readonly internal long generation;
+        internal readonly long generation;
 
         internal DocumentsWriterDeleteQueue()
             : this(0)
@@ -361,7 +361,7 @@ namespace YAF.Lucene.Net.Index
         internal class Node // LUCENENET specific - made internal instead of private because it is used in internal APIs
         {
             internal /*volatile*/ Node next;
-            readonly internal object item;
+            internal readonly object item;
 
             internal Node(object item)
             {
@@ -391,7 +391,7 @@ namespace YAF.Lucene.Net.Index
             {
             }
 
-            override internal void Apply(BufferedUpdates bufferedDeletes, int docIDUpto)
+            internal override void Apply(BufferedUpdates bufferedDeletes, int docIDUpto)
             {
                 bufferedDeletes.AddTerm((Term)item, docIDUpto);
             }
@@ -409,7 +409,7 @@ namespace YAF.Lucene.Net.Index
             {
             }
 
-            override internal void Apply(BufferedUpdates bufferedUpdates, int docIDUpto)
+            internal override void Apply(BufferedUpdates bufferedUpdates, int docIDUpto)
             {
                 foreach (Query query in (Query[])item)
                 {
@@ -425,7 +425,7 @@ namespace YAF.Lucene.Net.Index
             {
             }
 
-            override internal void Apply(BufferedUpdates bufferedUpdates, int docIDUpto)
+            internal override void Apply(BufferedUpdates bufferedUpdates, int docIDUpto)
             {
                 foreach (Term term in (Term[])item)
                 {
@@ -446,7 +446,7 @@ namespace YAF.Lucene.Net.Index
             {
             }
 
-            override internal void Apply(BufferedUpdates bufferedUpdates, int docIDUpto)
+            internal override void Apply(BufferedUpdates bufferedUpdates, int docIDUpto)
             {
                 bufferedUpdates.AddNumericUpdate((NumericDocValuesUpdate)item, docIDUpto);
             }
@@ -464,7 +464,7 @@ namespace YAF.Lucene.Net.Index
             {
             }
 
-            override internal void Apply(BufferedUpdates bufferedUpdates, int docIDUpto)
+            internal override void Apply(BufferedUpdates bufferedUpdates, int docIDUpto)
             {
                 bufferedUpdates.AddBinaryUpdate((BinaryDocValuesUpdate)item, docIDUpto);
             }

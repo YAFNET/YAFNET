@@ -28,8 +28,8 @@ namespace YAF.Lucene.Net.Search
      */
 
     /// <summary>
-    /// Represents hits returned by 
-    /// <see cref="IndexSearcher.Search(Query,Filter,int)"/> and 
+    /// Represents hits returned by
+    /// <see cref="IndexSearcher.Search(Query,Filter,int)"/> and
     /// <see cref="IndexSearcher.Search(Query,int)"/>.
     /// </summary>
     public class TopDocs
@@ -74,7 +74,7 @@ namespace YAF.Lucene.Net.Search
 
 #nullable enable
 
-        private readonly static int ShardByteSize = Marshal.SizeOf(typeof(Shard)); // LUCENENET specific so we can calculate stack size
+        private static readonly int ShardByteSize = Marshal.SizeOf(typeof(Shard)); // LUCENENET specific so we can calculate stack size
 
         // LUCENENET specific - Renamed ShardRef to Shard and made it into a struct
         // so we can allocate arrays of them on the stack.
@@ -139,7 +139,7 @@ namespace YAF.Lucene.Net.Search
         // relevance score, descending:
         private sealed class ScoreMergeSortComparer : PriorityComparer<Shard> // LUCENENET specific - marked sealed
         {
-            readonly internal ScoreDoc[][] shardHits;
+            internal readonly ScoreDoc[][] shardHits;
 
             public ScoreMergeSortComparer(TopDocs[] shardHits)
             {
@@ -154,7 +154,7 @@ namespace YAF.Lucene.Net.Search
             }
 
             // Returns true if first is < second
-            override protected internal bool LessThan(Shard first, Shard second)
+            protected internal override bool LessThan(Shard first, Shard second)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(first != second);
                 float firstScore = shardHits[first.ShardIndex][first.HitIndex].Score;
@@ -195,10 +195,10 @@ namespace YAF.Lucene.Net.Search
         private sealed class MergeSortComparer : PriorityComparer<Shard> // LUCENENET specific - marked sealed
         {
             // These are really FieldDoc instances:
-            readonly internal ScoreDoc[][] shardHits;
+            internal readonly ScoreDoc[][] shardHits;
 
-            readonly internal FieldComparer[] comparers;
-            readonly internal int[] reverseMul;
+            internal readonly FieldComparer[] comparers;
+            internal readonly int[] reverseMul;
 
             public MergeSortComparer(Sort sort, TopDocs[] shardHits)
             {
@@ -242,7 +242,7 @@ namespace YAF.Lucene.Net.Search
             }
 
             // Returns true if first is < second
-            override protected internal bool LessThan(Shard first, Shard second)
+            protected internal override bool LessThan(Shard first, Shard second)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(first != second);
                 FieldDoc firstFD = (FieldDoc)shardHits[first.ShardIndex][first.HitIndex];
@@ -287,7 +287,7 @@ namespace YAF.Lucene.Net.Search
 
         /// <summary>
         /// Returns a new <see cref="TopDocs"/>, containing <paramref name="topN"/> results across
-        /// the provided <see cref="TopDocs"/>, sorting by the specified 
+        /// the provided <see cref="TopDocs"/>, sorting by the specified
         /// <see cref="Sort"/>.  Each of the <see cref="TopDocs"/> must have been sorted by
         /// the same <see cref="Sort"/>, and sort field values must have been
         /// filled (ie, <c>fillFields=true</c> must be
@@ -307,7 +307,7 @@ namespace YAF.Lucene.Net.Search
 
         /// <summary>
         /// Same as <see cref="Merge(Sort, int, TopDocs[])"/> but also slices the result at the same time based
-        /// on the provided start and size. The return <c>TopDocs</c> will always have a scoreDocs with length of 
+        /// on the provided start and size. The return <c>TopDocs</c> will always have a scoreDocs with length of
         /// at most <see cref="Util.PriorityQueue{T}.Count"/>.
         /// </summary>
         /// <exception cref="ArgumentNullException"><paramref name="shardHits"/> is <c>null</c>.</exception>
@@ -365,7 +365,7 @@ namespace YAF.Lucene.Net.Search
                 ScoreDoc[] hits;
                 if (availHitCount <= start)
                 {
-                    hits = Arrays.Empty<ScoreDoc>();
+                    hits = Array.Empty<ScoreDoc>();
                 }
                 else
                 {

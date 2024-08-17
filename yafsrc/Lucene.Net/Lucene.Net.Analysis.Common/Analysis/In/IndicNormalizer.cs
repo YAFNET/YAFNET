@@ -42,9 +42,9 @@ namespace YAF.Lucene.Net.Analysis.In
 
         private class ScriptData
         {
-            readonly internal Regex block;
-            readonly internal UnicodeBlock flag;
-            readonly internal int @base;
+            internal readonly Regex block;
+            internal readonly UnicodeBlock flag;
+            internal readonly int @base;
             internal OpenBitSet decompMask;
 
             internal ScriptData(Regex block, UnicodeBlock flag, int @base)
@@ -86,7 +86,7 @@ namespace YAF.Lucene.Net.Analysis.In
         /// ch1, ch2, and ch3 are the decomposition
         /// res is the composition, and flags are the scripts to which it applies.
         /// </summary>
-        private readonly static int[][] decompositions = new int[][] // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        private static readonly int[][] decompositions = new int[][] // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
             /* devanagari, gujarati vowel candra O */
             new int[] { 0x05, 0x3E, 0x45, 0x11, (int)UnicodeBlock.DEVANAGARI | (int)UnicodeBlock.GUJARATI },
@@ -234,7 +234,7 @@ namespace YAF.Lucene.Net.Analysis.In
             new int[] { 0x73, 0x4B,   -1, 0x13, (int)UnicodeBlock.GURMUKHI }
         };
 
-        private readonly static IList<ScriptData> scripts = LoadScripts(); // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        private static readonly IList<ScriptData> scripts = LoadScripts(); // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
 
         private static IList<ScriptData> LoadScripts()
         {
@@ -248,7 +248,7 @@ namespace YAF.Lucene.Net.Analysis.In
                 new ScriptData(new Regex(@"\p{IsTamil}",       RegexOptions.Compiled),  UnicodeBlock.TAMIL,       0x0B80),
                 new ScriptData(new Regex(@"\p{IsTelugu}",      RegexOptions.Compiled),  UnicodeBlock.TELUGU,      0x0C00),
                 new ScriptData(new Regex(@"\p{IsKannada}",     RegexOptions.Compiled),  UnicodeBlock.KANNADA,     0x0C80),
-                new ScriptData(new Regex(@"\p{IsMalayalam}",   RegexOptions.Compiled),  UnicodeBlock.MALAYALAM,   0x0D00)
+                new ScriptData(new Regex(@"\p{IsMalayalam}",   RegexOptions.Compiled),  UnicodeBlock.MALAYALAM,   0x0D00),
             };
 
             foreach (ScriptData sd in result)
@@ -346,7 +346,7 @@ namespace YAF.Lucene.Net.Analysis.In
         }
 
         // LUCENENET: Never matches - we just use this as a placeholder
-        private readonly static Regex unknownScript = new Regex(@"[^\S\s]", RegexOptions.Compiled);
+        private static readonly Regex unknownScript = new Regex(@"[^\S\s]", RegexOptions.Compiled);
         [ThreadStatic]
         private static ScriptData previousScriptData;
 

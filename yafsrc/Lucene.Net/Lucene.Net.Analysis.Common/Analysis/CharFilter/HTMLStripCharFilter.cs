@@ -74,7 +74,7 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
         ///     at the beginning of a line
         /// l is of the form l = 2*k, k a non negative integer
         /// </summary>
-        private readonly static int[] ZZ_LEXSTATE = {
+        private static readonly int[] ZZ_LEXSTATE = {
             0,  0,  1,  1,  2,  2,  3,  3,  4,  4,  5,  5,  6,  6,  7,  7,
             8,  8,  9,  9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15,
             16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22
@@ -227,12 +227,12 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
         /** 
          * Translates characters to character classes
          */
-        private readonly static char[] ZZ_CMAP = ZzUnpackCMap(ZZ_CMAP_PACKED);
+        private static readonly char[] ZZ_CMAP = ZzUnpackCMap(ZZ_CMAP_PACKED);
 
         /** 
          * Translates DFA states to action switch labels.
          */
-        private readonly static int[] ZZ_ACTION = ZzUnpackAction();
+        private static readonly int[] ZZ_ACTION = ZzUnpackAction();
 
         private const string ZZ_ACTION_PACKED_0 =
             "\x0017\x0000\x0001\x0001\x0001\x0002\x0001\x0003\x0013\x0004\x0001\x0005\x0019\x0004\x0001\x0006" +
@@ -351,7 +351,7 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
         /** 
          * Translates a state to a row index in the transition table
          */
-        private readonly static int[] ZZ_ROWMAP = ZzUnpackRowMap();
+        private static readonly int[] ZZ_ROWMAP = ZzUnpackRowMap();
 
         private const string ZZ_ROWMAP_PACKED_0 =
             "\x0000\x0000\x0000\x00C2\x0000\u0184\x0000\u0246\x0000\u0308\x0000\u03ca\x0000\u048c\x0000\u054e" +
@@ -2239,7 +2239,7 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
         /// <summary>
         /// The transition table of the DFA
         /// </summary>
-        private readonly static int[] ZZ_TRANS = ZzUnpackTrans();
+        private static readonly int[] ZZ_TRANS = ZzUnpackTrans();
 
         private const string ZZ_TRANS_PACKED_0 =
             "\x001C\x0018\x0001\x0019\x0099\x0018\x0001\x001A\x000B\x0018\x0003\x001B\x0001\x001C\x0001\x001D" +
@@ -30499,12 +30499,12 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
 
 
         /// <summary>error codes</summary>
-        private readonly static int ZZ_UNKNOWN_ERROR = 0;
-        private readonly static int ZZ_NO_MATCH = 1;
-        private readonly static int ZZ_PUSHBACK_2BIG = 2;
+        private static readonly int ZZ_UNKNOWN_ERROR = 0;
+        private static readonly int ZZ_NO_MATCH = 1;
+        private static readonly int ZZ_PUSHBACK_2BIG = 2;
 
         /// <summary>error messages for the codes above</summary>
-        private readonly static string[] ZZ_ERROR_MSG = {
+        private static readonly string[] ZZ_ERROR_MSG = {
             "Unkown internal scanner error",
             "Error: could not match input",
             "Error: pushback value was too large"
@@ -30513,7 +30513,7 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
         /// <summary>
         /// ZZ_ATTRIBUTE[aState] contains the attributes of state <c>aState</c>
         /// </summary>
-        private readonly static int[] ZZ_ATTRIBUTE = ZzUnpackAttribute();
+        private static readonly int[] ZZ_ATTRIBUTE = ZzUnpackAttribute();
 
         private const string ZZ_ATTRIBUTE_PACKED_0 =
             "\x0017\x0000\x0004\x0009\x002D\x0001\x0001\x0009\x000E\x0001\x0001\x0009\x0014\x0001\x0001\x0009" +
@@ -30678,7 +30678,7 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
         /// <summary>
         /// user code:
         /// </summary>
-        private readonly static IDictionary<string, string> upperCaseVariantsAccepted
+        private static readonly IDictionary<string, string> upperCaseVariantsAccepted
             = new Dictionary<string, string>()
             {
                 {"quot", "QUOT"},
@@ -30686,10 +30686,10 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
                 { "gt", "GT"},
                 {"lt", "LT" },
                 {"reg", "REG" },
-                {"amp", "AMP" }
+                {"amp", "AMP" },
             };
 
-        private readonly static CharArrayDictionary<char> entityValues = LoadEntityValues();
+        private static readonly CharArrayDictionary<char> entityValues = LoadEntityValues();
 
         private static CharArrayDictionary<char> LoadEntityValues() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
@@ -30783,14 +30783,14 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
             }
             return entityValues;
         }
-        private readonly static int INITIAL_INPUT_SEGMENT_SIZE = 1024;
-        private readonly static char BLOCK_LEVEL_START_TAG_REPLACEMENT = '\n';
-        private readonly static char BLOCK_LEVEL_END_TAG_REPLACEMENT = '\n';
-        private readonly static char BR_START_TAG_REPLACEMENT = '\n';
-        private readonly static char BR_END_TAG_REPLACEMENT = '\n';
-        private readonly static char SCRIPT_REPLACEMENT = '\n';
-        private readonly static char STYLE_REPLACEMENT = '\n';
-        private readonly static char REPLACEMENT_CHARACTER = '\uFFFD';
+        private static readonly int INITIAL_INPUT_SEGMENT_SIZE = 1024;
+        private static readonly char BLOCK_LEVEL_START_TAG_REPLACEMENT = '\n';
+        private static readonly char BLOCK_LEVEL_END_TAG_REPLACEMENT = '\n';
+        private static readonly char BR_START_TAG_REPLACEMENT = '\n';
+        private static readonly char BR_END_TAG_REPLACEMENT = '\n';
+        private static readonly char SCRIPT_REPLACEMENT = '\n';
+        private static readonly char STYLE_REPLACEMENT = '\n';
+        private static readonly char REPLACEMENT_CHARACTER = '\uFFFD';
 
         private CharArraySet escapedTags = null;
         private int inputStart;
@@ -30900,7 +30900,7 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
             return i > 0 ? i : (len == 0 ? 0 : -1);
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -30910,7 +30910,7 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
             base.Dispose(disposing);
         }
 
-        static internal int InitialBufferSize =>
+        internal static int InitialBufferSize =>
             // Package private, for testing purposes
             ZZ_BUFFERSIZE;
 

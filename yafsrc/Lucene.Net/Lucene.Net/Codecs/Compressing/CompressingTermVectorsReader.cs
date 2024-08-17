@@ -36,9 +36,9 @@ namespace YAF.Lucene.Net.Codecs.Compressing
     public sealed class CompressingTermVectorsReader : TermVectorsReader // LUCENENET specific - removed IDisposable, it is already implemented in base class
     {
         private readonly FieldInfos fieldInfos;
-        readonly internal CompressingStoredFieldsIndexReader indexReader;
+        internal readonly CompressingStoredFieldsIndexReader indexReader;
 #pragma warning disable CA2213 // Disposable fields should be disposed
-        readonly internal IndexInput vectorsStream;
+        internal readonly IndexInput vectorsStream;
 #pragma warning restore CA2213 // Disposable fields should be disposed
         private readonly int version;
         private readonly int packedIntsVersion;
@@ -152,7 +152,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (!closed)
             {
@@ -664,9 +664,9 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         {
             private readonly CompressingTermVectorsReader outerInstance;
 
-            readonly internal int[] fieldNums, fieldFlags, fieldNumOffs, numTerms, fieldLengths;
-            readonly internal int[][] prefixLengths, suffixLengths, termFreqs, positionIndex, positions, startOffsets, lengths, payloadIndex;
-            readonly internal BytesRef suffixBytes, payloadBytes;
+            internal readonly int[] fieldNums, fieldFlags, fieldNumOffs, numTerms, fieldLengths;
+            internal readonly int[][] prefixLengths, suffixLengths, termFreqs, positionIndex, positions, startOffsets, lengths, payloadIndex;
+            internal readonly BytesRef suffixBytes, payloadBytes;
 
             public TVFields(CompressingTermVectorsReader outerInstance, int[] fieldNums, int[] fieldFlags, int[] fieldNumOffs, int[] numTerms, int[] fieldLengths, int[][] prefixLengths, int[][] suffixLengths, int[][] termFreqs, int[][] positionIndex, int[][] positions, int[][] startOffsets, int[][] lengths, BytesRef payloadBytes, int[][] payloadIndex, BytesRef suffixBytes)
             {

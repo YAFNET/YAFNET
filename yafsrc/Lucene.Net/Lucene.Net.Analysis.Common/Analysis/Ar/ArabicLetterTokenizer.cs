@@ -77,7 +77,7 @@ namespace YAF.Lucene.Net.Analysis.Ar
         /// <summary>
         /// Allows for Letter category or NonspacingMark category </summary>
         /// <see cref="LetterTokenizer.IsTokenChar(int)"/>
-        override protected bool IsTokenChar(int c)
+        protected override bool IsTokenChar(int c)
         {
             return base.IsTokenChar(c) || Character.GetType(c) == UnicodeCategory.NonSpacingMark;
         }

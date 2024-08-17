@@ -475,7 +475,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
                 this.outerInstance = outerInstance;
             }
 
-            readonly internal StringBuilder buffer = new StringBuilder();
+            internal readonly StringBuilder buffer = new StringBuilder();
             internal int startOffset;
             internal int endOffset;
             internal int type;

@@ -36,8 +36,8 @@ namespace YAF.Lucene.Net.Analysis.Standard
             termAtt = AddAttribute<ICharTermAttribute>();
         }
 
-        private readonly static string APOSTROPHE_TYPE = ClassicTokenizer.TOKEN_TYPES[ClassicTokenizer.APOSTROPHE];
-        private readonly static string ACRONYM_TYPE = ClassicTokenizer.TOKEN_TYPES[ClassicTokenizer.ACRONYM];
+        private static readonly string APOSTROPHE_TYPE = ClassicTokenizer.TOKEN_TYPES[ClassicTokenizer.APOSTROPHE];
+        private static readonly string ACRONYM_TYPE = ClassicTokenizer.TOKEN_TYPES[ClassicTokenizer.ACRONYM];
 
         // this filters uses attribute type
         private readonly ITypeAttribute typeAtt;

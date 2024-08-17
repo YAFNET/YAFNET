@@ -65,7 +65,7 @@ namespace YAF.Lucene.Net.Analysis.Core
         /// Collects only characters which do not satisfy
         /// <see cref="char.IsWhiteSpace(char)"/>.
         /// </summary>
-        override protected bool IsTokenChar(int c)
+        protected override bool IsTokenChar(int c)
         {
             return !Character.IsWhiteSpace(c);
         }

@@ -80,7 +80,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             return suffixToken;
         }
 
-        public override sealed bool IncrementToken()
+        public sealed override bool IncrementToken()
         {
             return suffix.IncrementToken();
         }
@@ -90,7 +90,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             suffix.Reset();
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

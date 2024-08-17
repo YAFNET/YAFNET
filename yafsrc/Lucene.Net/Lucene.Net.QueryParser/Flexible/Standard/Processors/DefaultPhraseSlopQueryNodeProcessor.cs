@@ -62,7 +62,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
             return queryTree;
         }
 
-        override protected IQueryNode PostProcessNode(IQueryNode node)
+        protected override IQueryNode PostProcessNode(IQueryNode node)
         {
             if (node is TokenizedPhraseQueryNode
                 || node is MultiPhraseQueryNode)
@@ -73,7 +73,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
             return node;
         }
 
-        override protected IQueryNode PreProcessNode(IQueryNode node)
+        protected override IQueryNode PreProcessNode(IQueryNode node)
         {
             if (node is SlopQueryNode)
             {
@@ -83,7 +83,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
             return node;
         }
 
-        override protected void ProcessChildren(IQueryNode queryTree)
+        protected override void ProcessChildren(IQueryNode queryTree)
         {
             if (this.processChildren)
             {
@@ -95,7 +95,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
             }
         }
 
-        override protected IList<IQueryNode> SetChildrenOrder(IList<IQueryNode> children)
+        protected override IList<IQueryNode> SetChildrenOrder(IList<IQueryNode> children)
         {
             return children;
         }

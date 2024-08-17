@@ -11,7 +11,7 @@ namespace ServiceStack.DataAnnotations;
 /// <summary>
 /// Mark types that are to be excluded from specified features
 /// </summary>
-[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+[AttributeUsage(AttributeTargets.Class)]
 public class ExcludeAttribute : AttributeBase
 {
     /// <summary>

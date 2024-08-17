@@ -42,7 +42,7 @@ namespace YAF.Lucene.Net.Analysis.Cjk
         HANGUL = 8,
         /// <summary>
         /// bigram flag for all scripts </summary>
-        ALL = 0xffff
+        ALL = 0xffff,
     }
 
     /// <summary>
@@ -78,13 +78,13 @@ namespace YAF.Lucene.Net.Analysis.Cjk
         public const string SINGLE_TYPE = "<SINGLE>";
 
         // the types from standardtokenizer
-        private readonly static string HAN_TYPE = StandardTokenizer.TOKEN_TYPES[StandardTokenizer.IDEOGRAPHIC];
-        private readonly static string HIRAGANA_TYPE = StandardTokenizer.TOKEN_TYPES[StandardTokenizer.HIRAGANA];
-        private readonly static string KATAKANA_TYPE = StandardTokenizer.TOKEN_TYPES[StandardTokenizer.KATAKANA];
-        private readonly static string HANGUL_TYPE = StandardTokenizer.TOKEN_TYPES[StandardTokenizer.HANGUL];
+        private static readonly string HAN_TYPE = StandardTokenizer.TOKEN_TYPES[StandardTokenizer.IDEOGRAPHIC];
+        private static readonly string HIRAGANA_TYPE = StandardTokenizer.TOKEN_TYPES[StandardTokenizer.HIRAGANA];
+        private static readonly string KATAKANA_TYPE = StandardTokenizer.TOKEN_TYPES[StandardTokenizer.KATAKANA];
+        private static readonly string HANGUL_TYPE = StandardTokenizer.TOKEN_TYPES[StandardTokenizer.HANGUL];
 
         // sentinel value for ignoring a script 
-        private readonly static string NO = "<NO>";
+        private static readonly string NO = "<NO>";
 
         // these are set to either their type or NO if we want to pass them thru
         private readonly string doHan;

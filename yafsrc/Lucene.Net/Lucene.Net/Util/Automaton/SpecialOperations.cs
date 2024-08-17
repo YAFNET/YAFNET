@@ -52,7 +52,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         /// there is no such entry.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal int FindIndex(int c, int[] points)
+        internal static int FindIndex(int c, int[] points)
         {
             int a = 0;
             int b = points.Length;

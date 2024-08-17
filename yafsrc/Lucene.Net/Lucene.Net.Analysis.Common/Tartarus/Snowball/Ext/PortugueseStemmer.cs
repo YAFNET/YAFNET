@@ -259,7 +259,7 @@ namespace YAF.Lucene.Net.Tartarus.Snowball.Ext
                     new Among ( "\u00EA", -1, 1 )
                 };
 
-        private readonly static char[] g_v = { (char)17, (char)65, (char)16, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)3, (char)19, (char)12, (char)2 };
+        private static readonly char[] g_v = { (char)17, (char)65, (char)16, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)3, (char)19, (char)12, (char)2 };
 
         private int I_p2;
         private int I_p1;

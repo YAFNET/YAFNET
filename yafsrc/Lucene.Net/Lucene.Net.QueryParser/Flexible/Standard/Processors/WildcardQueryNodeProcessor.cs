@@ -40,7 +40,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
             // empty constructor
         }
 
-        override protected IQueryNode PostProcessNode(IQueryNode node)
+        protected override IQueryNode PostProcessNode(IQueryNode node)
         {
             // the old Lucene Parser ignores FuzzyQueryNode that are also PrefixWildcardQueryNode or WildcardQueryNode
             // we do the same here, also ignore empty terms
@@ -120,12 +120,12 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
             return false;
         }
 
-        override protected IQueryNode PreProcessNode(IQueryNode node)
+        protected override IQueryNode PreProcessNode(IQueryNode node)
         {
             return node;
         }
 
-        override protected IList<IQueryNode> SetChildrenOrder(IList<IQueryNode> children)
+        protected override IList<IQueryNode> SetChildrenOrder(IList<IQueryNode> children)
         {
             return children;
         }

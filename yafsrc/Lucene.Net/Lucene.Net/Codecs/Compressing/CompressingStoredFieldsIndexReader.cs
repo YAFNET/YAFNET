@@ -23,11 +23,11 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using CorruptIndexException = Lucene.Net.Index.CorruptIndexException;
+    using IndexInput = Lucene.Net.Store.IndexInput;
+    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
+    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
+    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Random-access reader for <see cref="CompressingStoredFieldsIndexWriter"/>.
@@ -36,18 +36,18 @@ namespace YAF.Lucene.Net.Codecs.Compressing
     /// </summary>
     public sealed class CompressingStoredFieldsIndexReader // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
-        static internal long MoveLowOrderBitToSign(long n)
+        internal static long MoveLowOrderBitToSign(long n)
         {
             return ((n.TripleShift(1)) ^ -(n & 1));
         }
 
-        readonly internal int maxDoc;
-        readonly internal int[] docBases;
-        readonly internal long[] startPointers;
-        readonly internal int[] avgChunkDocs;
-        readonly internal long[] avgChunkSizes;
-        readonly internal PackedInt32s.Reader[] docBasesDeltas; // delta from the avg
-        readonly internal PackedInt32s.Reader[] startPointersDeltas; // delta from the avg
+        internal readonly int maxDoc;
+        internal readonly int[] docBases;
+        internal readonly long[] startPointers;
+        internal readonly int[] avgChunkDocs;
+        internal readonly long[] avgChunkSizes;
+        internal readonly PackedInt32s.Reader[] docBasesDeltas; // delta from the avg
+        internal readonly PackedInt32s.Reader[] startPointersDeltas; // delta from the avg
 
         // It is the responsibility of the caller to close fieldsIndexIn after this constructor
         // has been called

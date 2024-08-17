@@ -644,8 +644,8 @@ namespace YAF.Lucene.Net.Util.Automaton
         private sealed class PointTransitions : IComparable<PointTransitions>
         {
             internal int point;
-            readonly internal TransitionList ends = new TransitionList();
-            readonly internal TransitionList starts = new TransitionList();
+            internal readonly TransitionList ends = new TransitionList();
+            internal readonly TransitionList starts = new TransitionList();
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public int CompareTo(PointTransitions other)

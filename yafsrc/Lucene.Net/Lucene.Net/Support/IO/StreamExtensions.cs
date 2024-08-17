@@ -34,9 +34,9 @@ namespace YAF.Lucene.Net.Support.IO
     /// <para/>
     /// Byte order is little-endian (same as <see cref="BinaryReader"/> and <see cref="BinaryWriter"/>).
     /// </summary>
-    static internal class StreamExtensions
+    internal static class StreamExtensions
     {
-        private readonly static ConditionalWeakTable<Stream, object> lockCache = new ConditionalWeakTable<Stream, object>();
+        private static readonly ConditionalWeakTable<Stream, object> lockCache = new ConditionalWeakTable<Stream, object>();
 
         /// <summary>
         /// Reads a sequence of bytes from a <see cref="Stream"/> to the given <see cref="ByteBuffer"/>, starting at the given position.

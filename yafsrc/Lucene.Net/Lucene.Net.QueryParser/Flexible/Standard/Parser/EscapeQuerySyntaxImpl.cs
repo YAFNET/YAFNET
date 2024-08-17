@@ -32,18 +32,18 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
     /// </summary>
     public class EscapeQuerySyntax : IEscapeQuerySyntax
     {
-        private readonly static char[] wildcardChars = { '*', '?' };
+        private static readonly char[] wildcardChars = { '*', '?' };
 
-        private readonly static string[] escapableTermExtraFirstChars = { "+", "-", "@" };
+        private static readonly string[] escapableTermExtraFirstChars = { "+", "-", "@" };
 
-        private readonly static string[] escapableTermChars = { "\"", "<", ">", "=",
+        private static readonly string[] escapableTermChars = { "\"", "<", ">", "=",
             "!", "(", ")", "^", "[", "{", ":", "]", "}", "~", "/" };
 
         // TODO: check what to do with these "*", "?", "\\"
-        private readonly static string[] escapableQuotedChars = { "\"" };
-        private readonly static string[] escapableWhiteChars = { " ", "\t", "\n", "\r",
+        private static readonly string[] escapableQuotedChars = { "\"" };
+        private static readonly string[] escapableWhiteChars = { " ", "\t", "\n", "\r",
             "\f", "\b", "\u3000" };
-        private readonly static string[] escapableWordTokens = { "AND", "OR", "NOT",
+        private static readonly string[] escapableWordTokens = { "AND", "OR", "NOT",
             "TO", "WITHIN", "SENTENCE", "PARAGRAPH", "INORDER" };
 
         private static ICharSequence EscapeChar(ICharSequence str, CultureInfo locale)

@@ -88,7 +88,7 @@ namespace YAF.Lucene.Net.Analysis.Standard
 
         /// <summary>
         /// String token types that correspond to token type int constants </summary>
-        public readonly static string[] TOKEN_TYPES = {
+        public static readonly string[] TOKEN_TYPES = {
             "<ALPHANUM>",
             "<APOSTROPHE>",
             "<ACRONYM>",
@@ -248,7 +248,7 @@ namespace YAF.Lucene.Net.Analysis.Standard
             posIncrAtt.PositionIncrement = posIncrAtt.PositionIncrement + skippedPositions;
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
             if (disposing)

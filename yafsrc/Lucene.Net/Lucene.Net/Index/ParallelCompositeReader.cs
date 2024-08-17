@@ -106,7 +106,7 @@ namespace YAF.Lucene.Net.Index
                     throw new ArgumentException("There must be at least one main reader if storedFieldsReaders are used.");
                 }
                 // LUCENENET: Optimized empty string array creation
-                return Arrays.Empty<IndexReader>();
+                return Array.Empty<IndexReader>();
             }
             else
             {
@@ -174,7 +174,7 @@ namespace YAF.Lucene.Net.Index
             {
             }
 
-            override protected internal void DoClose()
+            protected internal override void DoClose()
             {
                 // LUCENENET: Intentionally blank
             }
@@ -187,7 +187,7 @@ namespace YAF.Lucene.Net.Index
             {
             }
 
-            override protected internal void DoClose()
+            protected internal override void DoClose()
             {
                 // LUCENENET: Intentionally blank
             }
@@ -223,7 +223,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        override protected internal void DoClose()
+        protected internal override void DoClose()
         {
             UninterruptableMonitor.Enter(this);
             try

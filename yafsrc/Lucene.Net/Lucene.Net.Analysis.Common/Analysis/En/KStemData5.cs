@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Analysis.En
         private KStemData5()
         {
         }
-        static internal string[] data = new string[] {
+        internal static string[] data = new string[] {
             "lock","locker","locket","lockjaw","locknut",
             "lockout","locks","locksmith","lockstitch","lockup",
             "loco","locomotion","locomotive","locum","locus",
@@ -747,7 +747,7 @@ namespace YAF.Lucene.Net.Analysis.En
             "pebble","pebbledash","pebbly","pecan","peccadillo",
             "peccary","peck","pecker","peckish","pectic",
             "pectin","pectoral","peculate","peculiar","peculiarity",
-            "peculiarly","pecuniary","pedagogue","pedagogy","pedal"
+            "peculiarly","pecuniary","pedagogue","pedagogy","pedal",
         };
     }
 }

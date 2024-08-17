@@ -51,7 +51,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
             return Prefix;
         }
 
-        override protected void SuffixToString(StringBuilder r)
+        protected override void SuffixToString(StringBuilder r)
         {
             r.Append(SuffixOperator);
         }

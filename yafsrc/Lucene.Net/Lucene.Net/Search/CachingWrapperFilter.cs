@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,11 +28,11 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReader = Lucene.Net.Index.AtomicReader;
-    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
-    using IBits = Lucene.Net.Util.IBits;
-    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
-    using WAH8DocIdSet = Lucene.Net.Util.WAH8DocIdSet;
+    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using WAH8DocIdSet = YAF.Lucene.Net.Util.WAH8DocIdSet;
 
     /// <summary>
     /// Wraps another <see cref="Search.Filter"/>'s result and caches it.  The purpose is to allow

@@ -110,7 +110,7 @@ namespace YAF.Lucene.Net.Util.Fst
         /// <seealso cref= #shouldExpand(UnCompiledNode) </seealso>
         internal const int FIXED_ARRAY_NUM_ARCS_DEEP = 10;*/
 
-        private int[] bytesPerArc = Arrays.Empty<int>();
+        private int[] bytesPerArc = Array.Empty<int>();
 
         /*// Increment version to change it
         private const string FILE_FORMAT_NAME = "FST";
@@ -148,7 +148,7 @@ namespace YAF.Lucene.Net.Util.Fst
         // produces this output
         internal T emptyOutput;
 
-        readonly internal BytesStore bytes;
+        internal readonly BytesStore bytes;
 
         private long startNode = -1;
 
@@ -184,7 +184,7 @@ namespace YAF.Lucene.Net.Util.Fst
 
         // LUCENENET NOTE: Arc<T> moved into FST class
 
-        static internal bool Flag(int flags, int bit)
+        internal static bool Flag(int flags, int bit)
         {
             return (flags & bit) != 0;
         }
@@ -227,7 +227,7 @@ namespace YAF.Lucene.Net.Util.Fst
             nodeRefToAddress = null;
         }
 
-        
+
 
         /// <summary>
         /// Load a previously saved FST. </summary>
@@ -290,7 +290,7 @@ namespace YAF.Lucene.Net.Util.Fst
                 0 => FST.INPUT_TYPE.BYTE1,
                 1 => FST.INPUT_TYPE.BYTE2,
                 2 => FST.INPUT_TYPE.BYTE4,
-                _ => throw IllegalStateException.Create("invalid input type " + t)
+                _ => throw IllegalStateException.Create("invalid input type " + t),
             };
             if (packed)
             {
@@ -447,7 +447,7 @@ namespace YAF.Lucene.Net.Util.Fst
                     // LUCENENET NOTE: In .NET, IEnumerable will not equal another identical IEnumerable
                     // because it checks for reference equality, not that the list contents
                     // are the same. StructuralEqualityComparer.Default.Equals() will make that check.
-                    Debugging.Assert(typeof(T).IsValueType 
+                    Debugging.Assert(typeof(T).IsValueType
                         ? JCG.EqualityComparer<T>.Default.Equals(root.NextFinalOutput, asserting.NextFinalOutput)
                         : StructuralEqualityComparer.Default.Equals(root.NextFinalOutput, asserting.NextFinalOutput));
                     Debugging.Assert(root.Node == asserting.Node);
@@ -2086,7 +2086,7 @@ namespace YAF.Lucene.Net.Util.Fst
     /// </summary>
     public sealed class FST
     {
-        public readonly static int DEFAULT_MAX_BLOCK_BITS = Constants.RUNTIME_IS_64BIT ? 30 : 28;
+        public static readonly int DEFAULT_MAX_BLOCK_BITS = Constants.RUNTIME_IS_64BIT ? 30 : 28;
 
         public FST()
         { }
@@ -2175,7 +2175,7 @@ namespace YAF.Lucene.Net.Util.Fst
 
         /// <summary>
         /// If arc has this label then that arc is final/accepted </summary>
-        public readonly static int END_LABEL = -1;
+        public static readonly int END_LABEL = -1;
 
         /// <summary>
         /// returns <c>true</c> if the node at this address has any
@@ -2394,7 +2394,7 @@ namespace YAF.Lucene.Net.Util.Fst
         {
             public static NodeComparer Default { get; } = new NodeComparer();
 
-            override protected internal bool LessThan(NodeAndInCount? a, NodeAndInCount? b)
+            protected internal override bool LessThan(NodeAndInCount? a, NodeAndInCount? b)
             {
                     // LUCENENET specific - added guard clauses
                     if (a is null)

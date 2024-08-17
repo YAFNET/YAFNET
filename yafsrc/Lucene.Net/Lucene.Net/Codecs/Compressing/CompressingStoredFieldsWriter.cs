@@ -59,8 +59,8 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         internal const int NUMERIC_INT64 = 0x04;
         internal const int NUMERIC_DOUBLE = 0x05;
 
-        readonly static internal int TYPE_BITS = PackedInt32s.BitsRequired(NUMERIC_DOUBLE);
-        readonly static internal int TYPE_MASK = (int)PackedInt32s.MaxValue(TYPE_BITS);
+        internal static readonly int TYPE_BITS = PackedInt32s.BitsRequired(NUMERIC_DOUBLE);
+        internal static readonly int TYPE_MASK = (int)PackedInt32s.MaxValue(TYPE_BITS);
 
         internal const string CODEC_SFX_IDX = "Index";
         internal const string CODEC_SFX_DAT = "Data";
@@ -138,7 +138,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             }
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -282,7 +282,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
             // LUCENENET specific - To avoid boxing/unboxing, we don't
             // call GetNumericValue(). Instead, we check the field.NumericType and then
-            // call the appropriate conversion method. 
+            // call the appropriate conversion method.
             if (field.NumericType != NumericFieldType.NONE)
             {
                 switch (field.NumericType)
@@ -430,7 +430,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                     {
                         // not all docs were deleted
                         CompressingStoredFieldsReader.ChunkIterator it = matchingFieldsReader.GetChunkIterator(docID);
-                        int[] startOffsets = Arrays.Empty<int>();
+                        int[] startOffsets = Array.Empty<int>();
                         do
                         {
                             // go to the next chunk that contains docID

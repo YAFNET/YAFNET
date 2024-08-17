@@ -51,12 +51,12 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             this.consumeAllTokens = consumeAllTokens;
         }
 
-        override protected Analyzer GetWrappedAnalyzer(string fieldName)
+        protected override Analyzer GetWrappedAnalyzer(string fieldName)
         {
             return @delegate;
         }
 
-        override protected TokenStreamComponents WrapComponents(string fieldName, TokenStreamComponents components)
+        protected override TokenStreamComponents WrapComponents(string fieldName, TokenStreamComponents components)
         {
             return new TokenStreamComponents(components.Tokenizer, new LimitTokenCountFilter(components.TokenStream, maxTokenCount, consumeAllTokens));
         }

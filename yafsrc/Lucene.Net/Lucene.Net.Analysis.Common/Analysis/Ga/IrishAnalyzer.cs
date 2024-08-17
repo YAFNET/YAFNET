@@ -39,7 +39,7 @@ namespace YAF.Lucene.Net.Analysis.Ga
         /// File containing default Irish stopwords. </summary>
         public const string DEFAULT_STOPWORD_FILE = "stopwords.txt";
 
-        private readonly static CharArraySet DEFAULT_ARTICLES = new CharArraySet(
+        private static readonly CharArraySet DEFAULT_ARTICLES = new CharArraySet(
 #pragma warning disable 612, 618
             LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618
@@ -50,7 +50,7 @@ namespace YAF.Lucene.Net.Analysis.Ga
         /// want to cause a position increment, otherwise there will be problems
         /// with phrase queries versus tAthair (which would not have a gap).
         /// </summary>
-        private readonly static CharArraySet HYPHENATIONS = new CharArraySet(
+        private static readonly CharArraySet HYPHENATIONS = new CharArraySet(
 #pragma warning disable 612, 618
             LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618
@@ -67,7 +67,7 @@ namespace YAF.Lucene.Net.Analysis.Ga
         /// </summary>
         private static class DefaultSetHolder
         {
-            readonly static internal CharArraySet DEFAULT_STOP_SET = LoadDefaultStopSet();
+            internal static readonly CharArraySet DEFAULT_STOP_SET = LoadDefaultStopSet();
 
             private static CharArraySet LoadDefaultStopSet() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
             {
@@ -127,7 +127,7 @@ namespace YAF.Lucene.Net.Analysis.Ga
         ///         <see cref="StandardFilter"/>, <see cref="IrishLowerCaseFilter"/>, <see cref="StopFilter"/>,
         ///         <see cref="SetKeywordMarkerFilter"/> if a stem exclusion set is
         ///         provided and <see cref="SnowballFilter"/>. </returns>
-        override protected internal TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+        protected internal override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
             Tokenizer source = new StandardTokenizer(m_matchVersion, reader);
             TokenStream result = new StandardFilter(m_matchVersion, source);

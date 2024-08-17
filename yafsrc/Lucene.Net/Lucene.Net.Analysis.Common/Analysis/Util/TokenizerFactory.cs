@@ -29,7 +29,7 @@ namespace YAF.Lucene.Net.Analysis.Util
     /// </summary>
     public abstract class TokenizerFactory : AbstractAnalysisFactory
     {
-        private readonly static AnalysisSPILoader<TokenizerFactory> loader = new AnalysisSPILoader<TokenizerFactory>();
+        private static readonly AnalysisSPILoader<TokenizerFactory> loader = new AnalysisSPILoader<TokenizerFactory>();
 
         /// <summary>
         /// looks up a tokenizer by name from the host project's referenced assemblies </summary>

@@ -21,8 +21,8 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using IndexOutput = Lucene.Net.Store.IndexOutput;
+    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
 
     /// <summary>
     /// Efficient index format for block-based <see cref="Codec"/>s.
@@ -74,19 +74,19 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         internal const int BLOCK_SIZE = 1024; // number of chunks to serialize at once
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal long MoveSignToLowOrderBit(long n)
+        internal static long MoveSignToLowOrderBit(long n)
         {
             return (n >> 63) ^ (n << 1);
         }
 
-        readonly internal IndexOutput fieldsIndexOut;
+        internal readonly IndexOutput fieldsIndexOut;
         internal int totalDocs;
         internal int blockDocs;
         internal int blockChunks;
         internal long firstStartPointer;
         internal long maxStartPointer;
-        readonly internal int[] docBaseDeltas;
-        readonly internal long[] startPointerDeltas;
+        internal readonly int[] docBaseDeltas;
+        internal readonly long[] startPointerDeltas;
 
         internal CompressingStoredFieldsIndexWriter(IndexOutput indexOutput)
         {

@@ -17,7 +17,7 @@
      * limitations under the License.
      */
 
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using DataOutput = Lucene.Net.Store.DataOutput;
 
     /// <summary>
     /// A data compressor.

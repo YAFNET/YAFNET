@@ -274,9 +274,9 @@ namespace YAF.Lucene.Net.Analysis.Compound.Hyphenation
             return null;
         }
 
-        static protected string GetPattern(string word)
+        protected static string GetPattern(string word)
         {
-            StringBuilder pat = new();
+            StringBuilder pat = new StringBuilder();
             int len = word.Length;
             for (int i = 0; i < len; i++)
             {
@@ -297,7 +297,7 @@ namespace YAF.Lucene.Net.Analysis.Compound.Hyphenation
                 if (item is string)
                 {
                     string str = (string)item;
-                    StringBuilder buf = new();
+                    StringBuilder buf = new StringBuilder();
                     for (int j = 0; j < str.Length; j++)
                     {
                         char c = str[j];
@@ -331,12 +331,13 @@ namespace YAF.Lucene.Net.Analysis.Compound.Hyphenation
 
         protected virtual string GetExceptionWord<T1>(IList<T1> ex)
         {
-            StringBuilder res = new();
-            foreach (object item in ex)
+            StringBuilder res = new StringBuilder();
+            for (int i = 0; i < ex.Count; i++)
             {
-                if (item is string s)
+                object item = ex[i];
+                if (item is string)
                 {
-                    res.Append(s);
+                    res.Append((string)item);
                 }
                 else
                 {
@@ -349,7 +350,7 @@ namespace YAF.Lucene.Net.Analysis.Compound.Hyphenation
             return res.ToString();
         }
 
-        static protected string GetInterletterValues(string pat)
+        protected static string GetInterletterValues(string pat)
         {
             StringBuilder il = new StringBuilder();
             string word = pat + "a"; // add dummy letter to serve as sentinel

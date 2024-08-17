@@ -30,22 +30,22 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
     internal class WikipediaTokenizerImpl
     {
         /// <summary>This character denotes the end of file</summary>
-        public readonly static int YYEOF = -1;
+        public static readonly int YYEOF = -1;
 
         /// <summary>initial size of the lookahead buffer</summary>
-        private readonly static int ZZ_BUFFERSIZE = 4096;
+        private static readonly int ZZ_BUFFERSIZE = 4096;
 
         /// <summary>lexical states</summary>
-        public readonly static int YYINITIAL = 0;
-        public readonly static int CATEGORY_STATE = 2;
-        public readonly static int INTERNAL_LINK_STATE = 4;
-        public readonly static int EXTERNAL_LINK_STATE = 6;
-        public readonly static int TWO_SINGLE_QUOTES_STATE = 8;
-        public readonly static int THREE_SINGLE_QUOTES_STATE = 10;
-        public readonly static int FIVE_SINGLE_QUOTES_STATE = 12;
-        public readonly static int DOUBLE_EQUALS_STATE = 14;
-        public readonly static int DOUBLE_BRACE_STATE = 16;
-        public readonly static int STRING = 18;
+        public static readonly int YYINITIAL = 0;
+        public static readonly int CATEGORY_STATE = 2;
+        public static readonly int INTERNAL_LINK_STATE = 4;
+        public static readonly int EXTERNAL_LINK_STATE = 6;
+        public static readonly int TWO_SINGLE_QUOTES_STATE = 8;
+        public static readonly int THREE_SINGLE_QUOTES_STATE = 10;
+        public static readonly int FIVE_SINGLE_QUOTES_STATE = 12;
+        public static readonly int DOUBLE_EQUALS_STATE = 14;
+        public static readonly int DOUBLE_BRACE_STATE = 16;
+        public static readonly int STRING = 18;
 
         /// <summary>
         /// ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l
@@ -53,7 +53,7 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
         ///     at the beginning of a line
         /// l is of the form l = 2*k, k a non negative integer
         /// </summary>
-        private readonly static int[] ZZ_LEXSTATE = {
+        private static readonly int[] ZZ_LEXSTATE = {
             0,  0,  1,  1,  2,  2,  3,  3,  4,  4,  5,  5,  6,  6,  7,  7,
             8,  8,  9, 9
         };
@@ -78,12 +78,12 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
         /// <summary>
         /// Translates characters to character classes
         /// </summary>
-        private readonly static char[] ZZ_CMAP = ZzUnpackCMap(ZZ_CMAP_PACKED);
+        private static readonly char[] ZZ_CMAP = ZzUnpackCMap(ZZ_CMAP_PACKED);
 
         /// <summary>
         /// Translates DFA states to action switch labels.
         /// </summary>
-        private readonly static int[] ZZ_ACTION = ZzUnpackAction();
+        private static readonly int[] ZZ_ACTION = ZzUnpackAction();
 
         private const string ZZ_ACTION_PACKED_0 =
             "\x000A\x0000\x0004\x0001\x0004\x0002\x0001\x0003\x0001\x0004\x0001\x0001\x0002\x0005\x0001\x0006" +
@@ -124,7 +124,7 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
         /// <summary>
         /// Translates a state to a row index in the transition table
         /// </summary>
-        private readonly static int[] ZZ_ROWMAP = ZzUnpackRowMap();
+        private static readonly int[] ZZ_ROWMAP = ZzUnpackRowMap();
 
         private const string ZZ_ROWMAP_PACKED_0 =
             "\x0000\x0000\x0000\x002C\x0000\x0058\x0000\x0084\x0000\x00B0\x0000\x00DC\x0000\u0108\x0000\u0134" +
@@ -175,7 +175,7 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
         /// <summary>
         /// The transition table of the DFA
         /// </summary>
-        private readonly static int[] ZZ_TRANS = ZzUnpackTrans();
+        private static readonly int[] ZZ_TRANS = ZzUnpackTrans();
 
         private const string ZZ_TRANS_PACKED_0 =
             "\x0001\x000B\x0001\x000C\x0005\x000B\x0001\x000D\x0001\x000B\x0001\x000E\x0003\x000B\x0001\x000F" +
@@ -345,12 +345,12 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
 
 
         /* error codes */
-        private readonly static int ZZ_UNKNOWN_ERROR = 0;
-        private readonly static int ZZ_NO_MATCH = 1;
-        private readonly static int ZZ_PUSHBACK_2BIG = 2;
+        private static readonly int ZZ_UNKNOWN_ERROR = 0;
+        private static readonly int ZZ_NO_MATCH = 1;
+        private static readonly int ZZ_PUSHBACK_2BIG = 2;
 
         /* error messages for the codes above */
-        private readonly static string[] ZZ_ERROR_MSG = {
+        private static readonly string[] ZZ_ERROR_MSG = {
             "Unkown internal scanner error",
             "Error: could not match input",
             "Error: pushback value was too large"
@@ -359,7 +359,7 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
         /// <summary>
         /// ZZ_ATTRIBUTE[aState] contains the attributes of state <c>aState</c>
         /// </summary>
-        private readonly static int[] ZZ_ATTRIBUTE = ZzUnpackAttribute();
+        private static readonly int[] ZZ_ATTRIBUTE = ZzUnpackAttribute();
 
         private const string ZZ_ATTRIBUTE_PACKED_0 =
             "\x000A\x0000\x0001\x0009\x0007\x0001\x0001\x0009\x0002\x0001\x0001\x0009\x0005\x0001\x0001\x0009" +
@@ -449,24 +449,24 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
 
         /* user code: */
 
-        public readonly static int ALPHANUM = WikipediaTokenizer.ALPHANUM_ID;
-        public readonly static int APOSTROPHE = WikipediaTokenizer.APOSTROPHE_ID;
-        public readonly static int ACRONYM = WikipediaTokenizer.ACRONYM_ID;
-        public readonly static int COMPANY = WikipediaTokenizer.COMPANY_ID;
-        public readonly static int EMAIL = WikipediaTokenizer.EMAIL_ID;
-        public readonly static int HOST = WikipediaTokenizer.HOST_ID;
-        public readonly static int NUM = WikipediaTokenizer.NUM_ID;
-        public readonly static int CJ = WikipediaTokenizer.CJ_ID;
-        public readonly static int INTERNAL_LINK = WikipediaTokenizer.INTERNAL_LINK_ID;
-        public readonly static int EXTERNAL_LINK = WikipediaTokenizer.EXTERNAL_LINK_ID;
-        public readonly static int CITATION = WikipediaTokenizer.CITATION_ID;
-        public readonly static int CATEGORY = WikipediaTokenizer.CATEGORY_ID;
-        public readonly static int BOLD = WikipediaTokenizer.BOLD_ID;
-        public readonly static int ITALICS = WikipediaTokenizer.ITALICS_ID;
-        public readonly static int BOLD_ITALICS = WikipediaTokenizer.BOLD_ITALICS_ID;
-        public readonly static int HEADING = WikipediaTokenizer.HEADING_ID;
-        public readonly static int SUB_HEADING = WikipediaTokenizer.SUB_HEADING_ID;
-        public readonly static int EXTERNAL_LINK_URL = WikipediaTokenizer.EXTERNAL_LINK_URL_ID;
+        public static readonly int ALPHANUM = WikipediaTokenizer.ALPHANUM_ID;
+        public static readonly int APOSTROPHE = WikipediaTokenizer.APOSTROPHE_ID;
+        public static readonly int ACRONYM = WikipediaTokenizer.ACRONYM_ID;
+        public static readonly int COMPANY = WikipediaTokenizer.COMPANY_ID;
+        public static readonly int EMAIL = WikipediaTokenizer.EMAIL_ID;
+        public static readonly int HOST = WikipediaTokenizer.HOST_ID;
+        public static readonly int NUM = WikipediaTokenizer.NUM_ID;
+        public static readonly int CJ = WikipediaTokenizer.CJ_ID;
+        public static readonly int INTERNAL_LINK = WikipediaTokenizer.INTERNAL_LINK_ID;
+        public static readonly int EXTERNAL_LINK = WikipediaTokenizer.EXTERNAL_LINK_ID;
+        public static readonly int CITATION = WikipediaTokenizer.CITATION_ID;
+        public static readonly int CATEGORY = WikipediaTokenizer.CATEGORY_ID;
+        public static readonly int BOLD = WikipediaTokenizer.BOLD_ID;
+        public static readonly int ITALICS = WikipediaTokenizer.ITALICS_ID;
+        public static readonly int BOLD_ITALICS = WikipediaTokenizer.BOLD_ITALICS_ID;
+        public static readonly int HEADING = WikipediaTokenizer.HEADING_ID;
+        public static readonly int SUB_HEADING = WikipediaTokenizer.SUB_HEADING_ID;
+        public static readonly int EXTERNAL_LINK_URL = WikipediaTokenizer.EXTERNAL_LINK_URL_ID;
 
 
         private int currentTokType;
@@ -478,7 +478,7 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
         //see https://issues.apache.org/jira/browse/LUCENE-1133
         private int numWikiTokensSeen = 0;
 
-        public readonly static string[] TOKEN_TYPES = WikipediaTokenizer.TOKEN_TYPES;
+        public static readonly string[] TOKEN_TYPES = WikipediaTokenizer.TOKEN_TYPES;
 
         /// <summary>
         /// Returns the number of tokens seen inside a category or link, etc.

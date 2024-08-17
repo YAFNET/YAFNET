@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Analysis.En
         private KStemData4()
         {
         }
-        static internal string[] data = new string[] {
+        internal static string[] data = new string[] {
             "granular","granulate","granule","grape","grapefruit",
             "grapeshot","grapevine","graph","graphic","graphical",
             "graphically","graphite","graphology","grapnel","grapple",
@@ -747,7 +747,7 @@ namespace YAF.Lucene.Net.Analysis.En
             "loathsome","loaves","lob","lobby","lobed",
             "lobotomy","lobster","lobsterpot","local","locale",
             "localise","localism","locality","localize","locally",
-            "locate","located","location","loch","loci"
+            "locate","located","location","loch","loci",
         };
     }
 }

@@ -22,9 +22,9 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
 
     internal abstract class RewriteQuery<SQ> : Search.Query
     {
-        readonly protected SQ m_srndQuery;
-        readonly protected string m_fieldName;
-        readonly protected BasicQueryFactory m_qf;
+        protected readonly SQ m_srndQuery;
+        protected readonly string m_fieldName;
+        protected readonly BasicQueryFactory m_qf;
 
         protected RewriteQuery(
             SQ srndQuery,
@@ -36,7 +36,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
             this.m_qf = qf;
         }
 
-        public override abstract Search.Query Rewrite(IndexReader reader);
+        public abstract override Search.Query Rewrite(IndexReader reader);
 
         public override string ToString()
         {

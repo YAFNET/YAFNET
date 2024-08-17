@@ -1,7 +1,6 @@
 ﻿// Lucene version compatibility level 4.8.1
 using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System.Diagnostics;
 using System.IO;
@@ -45,7 +44,7 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
 
         /// <summary>
         /// Retrieve the corrected offset. </summary>
-        override protected int Correct(int currentOff)
+        protected override int Correct(int currentOff)
         {
             if (offsets is null || currentOff < offsets[0])
             {

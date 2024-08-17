@@ -51,7 +51,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             this.pattern = pattern;
         }
 
-        override protected bool IsKeyword()
+        protected override bool IsKeyword()
         {
             matcher = pattern.Match(termAtt.ToString()); 
             return matcher.Success;

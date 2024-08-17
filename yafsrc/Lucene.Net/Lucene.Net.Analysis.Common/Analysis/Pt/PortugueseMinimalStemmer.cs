@@ -32,7 +32,7 @@ namespace YAF.Lucene.Net.Analysis.Pt
     /// <seealso cref="RSLPStemmerBase"/>
     public class PortugueseMinimalStemmer : RSLPStemmerBase
     {
-        private readonly static Step pluralStep = Parse(typeof(PortugueseMinimalStemmer), "portuguese.rslp")["Plural"];
+        private static readonly Step pluralStep = Parse(typeof(PortugueseMinimalStemmer), "portuguese.rslp")["Plural"];
 
         public virtual int Stem(char[] s, int len)
         {

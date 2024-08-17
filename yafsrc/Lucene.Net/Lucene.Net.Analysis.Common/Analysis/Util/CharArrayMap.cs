@@ -46,7 +46,7 @@ namespace YAF.Lucene.Net.Analysis.Util
     /// etc.  It is designed to be quick to retrieve items
     /// by <see cref="T:char[]"/> keys without the necessity of converting
     /// to a <see cref="string"/> first.
-    /// 
+    ///
     /// <a name="version"></a>
     /// <para>You must specify the required <see cref="LuceneVersion"/>
     /// compatibility when creating <see cref="CharArrayDictionary{TValue}"/>:
@@ -73,7 +73,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         [SuppressMessage("Performance", "IDE0079:Remove unnecessary suppression", Justification = "This is a SonarCloud issue")]
         [SuppressMessage("Performance", "S3887:Use an immutable collection or reduce the accessibility of the non-private readonly field", Justification = "Collection is immutable")]
         [SuppressMessage("Performance", "S2386:Use an immutable collection or reduce the accessibility of the public static field", Justification = "Collection is immutable")]
-        public readonly static CharArrayDictionary<TValue> Empty = new CharArrayDictionary.EmptyCharArrayDictionary<TValue>();
+        public static readonly CharArrayDictionary<TValue> Empty = new CharArrayDictionary.EmptyCharArrayDictionary<TValue>();
 
         private const int INIT_SIZE = 8;
         private readonly CharacterUtils charUtils;
@@ -88,7 +88,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// <summary>
         /// LUCENENET: Moved this from CharArraySet so it doesn't need to know the generic type of CharArrayDictionary
         /// </summary>
-        readonly static internal MapValue PLACEHOLDER = new MapValue();
+        internal static readonly MapValue PLACEHOLDER = new MapValue();
 
         bool ICharArrayDictionary.IgnoreCase => ignoreCase;
 
@@ -99,10 +99,10 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// we could constrain it with the new() constraint, which isn't possible because
         /// some types such as <see cref="string"/> don't have a default constructor.
         /// So, this is a workaround that allows any type regardless of the type of constructor.
-        /// 
+        ///
         /// <para>
         /// Note also that we gain the ability to use value types for <typeparamref name="TValue"/>, but
-        /// also create a difference in behavior from Java Lucene where the actual values 
+        /// also create a difference in behavior from Java Lucene where the actual values
         /// returned could be <c>null</c>.
         /// </para>
         /// </summary>
@@ -260,7 +260,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// Adds the <see cref="T:KeyValuePair{string, V}.Value"/> for the passed in <see cref="T:KeyValuePair{string, V}.Key"/>.
         /// Note that the <see cref="T:KeyValuePair{string, V}"/> instance is not added to the dictionary.
         /// </summary>
-        /// <param name="item">A <see cref="T:KeyValuePair{string, V}"/> whose <see cref="T:KeyValuePair{string, V}.Value"/> 
+        /// <param name="item">A <see cref="T:KeyValuePair{string, V}"/> whose <see cref="T:KeyValuePair{string, V}.Value"/>
         /// will be added for the corresponding <see cref="T:KeyValuePair{string, V}.Key"/>. </param>
         void ICollection<KeyValuePair<string, TValue>>.Add(KeyValuePair<string, TValue> item)
         {
@@ -351,8 +351,8 @@ namespace YAF.Lucene.Net.Analysis.Util
         }
 
         /// <summary>
-        /// Clears all entries in this dictionary. This method is supported for reusing, but not 
-        /// <see cref="IDictionary{TKey, TValue}.Remove(TKey)"/>. 
+        /// Clears all entries in this dictionary. This method is supported for reusing, but not
+        /// <see cref="IDictionary{TKey, TValue}.Remove(TKey)"/>.
         /// </summary>
         public virtual void Clear()
         {
@@ -458,7 +458,7 @@ namespace YAF.Lucene.Net.Analysis.Util
 
         /// <summary>
         /// <c>true</c> if the <paramref name="length"/> chars of <paramref name="text"/> starting at <paramref name="startIndex"/>
-        /// are in the <see cref="Keys"/> 
+        /// are in the <see cref="Keys"/>
         /// </summary>
         /// <exception cref="ArgumentNullException"><paramref name="text"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="startIndex"/> or <paramref name="length"/> is less than zero.</exception>
@@ -469,8 +469,8 @@ namespace YAF.Lucene.Net.Analysis.Util
         }
 
         /// <summary>
-        /// <c>true</c> if the entire <see cref="Keys"/> is the same as the 
-        /// <paramref name="text"/> <see cref="T:char[]"/> being passed in; 
+        /// <c>true</c> if the entire <see cref="Keys"/> is the same as the
+        /// <paramref name="text"/> <see cref="T:char[]"/> being passed in;
         /// otherwise <c>false</c>.
         /// </summary>
         /// <exception cref="ArgumentNullException"><paramref name="text"/> is <c>null</c>.</exception>
@@ -483,7 +483,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         }
 
         /// <summary>
-        /// <c>true</c> if the <paramref name="text"/> <see cref="string"/> is in the <see cref="Keys"/>; 
+        /// <c>true</c> if the <paramref name="text"/> <see cref="string"/> is in the <see cref="Keys"/>;
         /// otherwise <c>false</c>
         /// </summary>
         /// <exception cref="ArgumentNullException"><paramref name="text"/> is <c>null</c>.</exception>
@@ -493,7 +493,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         }
 
         /// <summary>
-        /// <c>true</c> if the <paramref name="text"/> <see cref="ICharSequence"/> is in the <see cref="Keys"/>; 
+        /// <c>true</c> if the <paramref name="text"/> <see cref="ICharSequence"/> is in the <see cref="Keys"/>;
         /// otherwise <c>false</c>
         /// </summary>
         /// <exception cref="ArgumentNullException">
@@ -897,7 +897,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 throw new ArgumentNullException(nameof(text));
 
             if (text is CharArrayCharSequence charArrayCs)
-                return PutImpl(charArrayCs.Value ?? Arrays.Empty<char>(), value);
+                return PutImpl(charArrayCs.Value ?? Array.Empty<char>(), value);
             if (text is StringBuilderCharSequence stringBuilderCs) // LUCENENET: Indexing into a StringBuilder is slow, so materialize
             {
                 var sb = stringBuilderCs.Value!;
@@ -928,7 +928,7 @@ namespace YAF.Lucene.Net.Analysis.Util
 
             // LUCENENET NOTE: Testing for *is* is at least 10x faster
             // than casting using *as* and then checking for null.
-            // http://stackoverflow.com/q/1583050/181087 
+            // http://stackoverflow.com/q/1583050/181087
             if (text is string str)
                 return PutImpl(str, value);
             if (text is char[] charArray)
@@ -1291,7 +1291,7 @@ namespace YAF.Lucene.Net.Analysis.Util
 
             if (text is CharArrayCharSequence charArrayCs)
             {
-                SetImpl(charArrayCs.Value ?? Arrays.Empty<char>(), value);
+                SetImpl(charArrayCs.Value ?? Array.Empty<char>(), value);
                 return;
             }
             if (text is StringBuilderCharSequence stringBuilderCs) // LUCENENET: Indexing into a StringBuilder is slow, so materialize
@@ -1904,7 +1904,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         #region For .NET Support LUCENENET
 
         /// <summary>
-        /// The Lucene version corresponding to the compatibility behavior 
+        /// The Lucene version corresponding to the compatibility behavior
         /// that this instance emulates
         /// </summary>
         public virtual LuceneVersion MatchVersion => matchVersion;
@@ -2031,8 +2031,8 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// <param name="text">The text of the value to get.</param>
         /// <param name="startIndex">The position of the <paramref name="text"/> where the target text begins.</param>
         /// <param name="length">The total length of the <paramref name="text"/>.</param>
-        /// <param name="value">When this method returns, contains the value associated with the specified text, 
-        /// if the text is found; otherwise, the default value for the type of the value parameter. 
+        /// <param name="value">When this method returns, contains the value associated with the specified text,
+        /// if the text is found; otherwise, the default value for the type of the value parameter.
         /// This parameter is passed uninitialized.</param>
         /// <returns><c>true</c> if the <see cref="CharArrayDictionary{TValue}"/> contains an element with the specified text; otherwise, <c>false</c>.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="text"/> is <c>null</c>.</exception>
@@ -2054,8 +2054,8 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// Gets the value associated with the specified text.
         /// </summary>
         /// <param name="text">The text of the value to get.</param>
-        /// <param name="value">When this method returns, contains the value associated with the specified text, 
-        /// if the text is found; otherwise, the default value for the type of the value parameter. 
+        /// <param name="value">When this method returns, contains the value associated with the specified text,
+        /// if the text is found; otherwise, the default value for the type of the value parameter.
         /// This parameter is passed uninitialized.</param>
         /// <returns><c>true</c> if the <see cref="CharArrayDictionary{TValue}"/> contains an element with the specified text; otherwise, <c>false</c>.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="text"/> is <c>null</c>.</exception>
@@ -2078,8 +2078,8 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// Gets the value associated with the specified text.
         /// </summary>
         /// <param name="text">The text of the value to get.</param>
-        /// <param name="value">When this method returns, contains the value associated with the specified text, 
-        /// if the text is found; otherwise, the default value for the type of the value parameter. 
+        /// <param name="value">When this method returns, contains the value associated with the specified text,
+        /// if the text is found; otherwise, the default value for the type of the value parameter.
         /// This parameter is passed uninitialized.</param>
         /// <returns><c>true</c> if the <see cref="CharArrayDictionary{TValue}"/> contains an element with the specified text; otherwise, <c>false</c>.</returns>
         /// <exception cref="ArgumentNullException">
@@ -2115,8 +2115,8 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// Gets the value associated with the specified text.
         /// </summary>
         /// <param name="text">The text of the value to get.</param>
-        /// <param name="value">When this method returns, contains the value associated with the specified text, 
-        /// if the text is found; otherwise, the default value for the type of the value parameter. 
+        /// <param name="value">When this method returns, contains the value associated with the specified text,
+        /// if the text is found; otherwise, the default value for the type of the value parameter.
         /// This parameter is passed uninitialized.</param>
         /// <returns><c>true</c> if the <see cref="CharArrayDictionary{TValue}"/> contains an element with the specified text; otherwise, <c>false</c>.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="text"/> is <c>null</c>.</exception>
@@ -2136,8 +2136,8 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// Gets the value associated with the specified text.
         /// </summary>
         /// <param name="text">The text of the value to get.</param>
-        /// <param name="value">When this method returns, contains the value associated with the specified text, 
-        /// if the text is found; otherwise, the default value for the type of the value parameter. 
+        /// <param name="value">When this method returns, contains the value associated with the specified text,
+        /// if the text is found; otherwise, the default value for the type of the value parameter.
         /// This parameter is passed uninitialized.</param>
         /// <returns><c>true</c> if the <see cref="CharArrayDictionary{TValue}"/> contains an element with the specified text; otherwise, <c>false</c>.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="text"/> is <c>null</c>.</exception>
@@ -2247,8 +2247,8 @@ namespace YAF.Lucene.Net.Analysis.Util
 
         /// <summary>
         /// Gets a collection containing the values in the <see cref="CharArrayDictionary{TValue}"/>.
-        /// This specialized collection can be enumerated in order to read its values and 
-        /// overrides <see cref="object.ToString()"/> in order to display a string 
+        /// This specialized collection can be enumerated in order to read its values and
+        /// overrides <see cref="object.ToString()"/> in order to display a string
         /// representation of the values.
         /// </summary>
         public ValueCollection Values
@@ -2812,7 +2812,7 @@ namespace YAF.Lucene.Net.Analysis.Util
             return sb.Append('}').ToString();
         }
 
-   
+
 
         // LUCENENET: Removed entrySet because in .NET we use the collection itself as the IEnumerable
         private CharArraySet? keySet = null;
@@ -2824,7 +2824,7 @@ namespace YAF.Lucene.Net.Analysis.Util
 
         /// <summary>
         /// Returns an <see cref="CharArraySet"/> view on the dictionary's keys.
-        /// The set will use the same <see cref="matchVersion"/> as this dictionary. 
+        /// The set will use the same <see cref="matchVersion"/> as this dictionary.
         /// </summary>
         private CharArraySet KeySet
         {
@@ -2925,7 +2925,7 @@ namespace YAF.Lucene.Net.Analysis.Util
 
             internal int pos = -1;
             internal int lastPos;
-            readonly internal bool allowModify;
+            internal readonly bool allowModify;
 
             private int version; // LUCENENET specific - track when the enumerator is broken by mutating the state of the original collection
             private bool notStartedOrEnded; // LUCENENET specific
@@ -3213,7 +3213,7 @@ namespace YAF.Lucene.Net.Analysis.Util
 
         #endregion Nested Class: Enumerator
 
-        // LUCENENET NOTE: The Java Lucene type MapEntry was removed here because it is not possible 
+        // LUCENENET NOTE: The Java Lucene type MapEntry was removed here because it is not possible
         // to inherit the value type KeyValuePair{TKey, TValue} in .NET.
 
         // LUCENENET: EntrySet class removed because in .NET we get the entries by calling GetEnumerator() on the dictionary.
@@ -3318,10 +3318,10 @@ namespace YAF.Lucene.Net.Analysis.Util
         }
 
         /// <summary>
-        /// Used by <see cref="CharArraySet"/> to copy <see cref="CharArrayDictionary{TValue}"/> without knowing 
+        /// Used by <see cref="CharArraySet"/> to copy <see cref="CharArrayDictionary{TValue}"/> without knowing
         /// its generic type.
         /// </summary>
-        static internal CharArrayDictionary<TValue> Copy<TValue>(LuceneVersion matchVersion, [DisallowNull] ICharArrayDictionary map)
+        internal static CharArrayDictionary<TValue> Copy<TValue>(LuceneVersion matchVersion, [DisallowNull] ICharArrayDictionary map)
         {
             return Copy(matchVersion, (IDictionary<string, TValue>)map);
         }
@@ -3357,7 +3357,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// Used by <see cref="CharArraySet"/> to create an <see cref="ReadOnlyCharArrayDictionary{TValue}"/> instance
         /// without knowing the type of <typeparamref name="TValue"/>.
         /// </summary>
-        static internal ICharArrayDictionary UnmodifiableMap<TValue>(ICharArrayDictionary map)
+        internal static ICharArrayDictionary UnmodifiableMap<TValue>(ICharArrayDictionary map)
         {
             if (map is null)
             {
@@ -3387,7 +3387,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 : base((CharArrayDictionary<TValue>)map)
             { }
 
-            private override protected CharArrayDictionary<TValue> AsReadOnlyImpl() => this;
+            private protected override CharArrayDictionary<TValue> AsReadOnlyImpl() => this;
 
             public override void Clear()
             {
@@ -3419,27 +3419,27 @@ namespace YAF.Lucene.Net.Analysis.Util
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            override internal bool Put(char[] text, int startIndex, int length)
+            internal override bool Put(char[] text, int startIndex, int length)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            override internal bool Put(char[] text)
+            internal override bool Put(char[] text)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            override internal bool Put(ICharSequence text)
+            internal override bool Put(ICharSequence text)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            override internal bool Put(string text)
+            internal override bool Put(string text)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            override internal bool Put<T>(T text)
+            internal override bool Put<T>(T text)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
@@ -3540,52 +3540,52 @@ namespace YAF.Lucene.Net.Analysis.Util
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            override internal void Set(char[] text)
+            internal override void Set(char[] text)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            override internal void Set(char[] text, TValue? value)
+            internal override void Set(char[] text, TValue? value)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            override internal void Set(char[] text, int startIndex, int length)
+            internal override void Set(char[] text, int startIndex, int length)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            override internal void Set(char[] text, int startIndex, int length, TValue? value)
+            internal override void Set(char[] text, int startIndex, int length, TValue? value)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            override internal void Set(ICharSequence text)
+            internal override void Set(ICharSequence text)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            override internal void Set(ICharSequence text, TValue? value)
+            internal override void Set(ICharSequence text, TValue? value)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            override internal void Set(string text)
+            internal override void Set(string text)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            override internal void Set(string text, TValue? value)
+            internal override void Set(string text, TValue? value)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            override internal void Set<T>(T text)
+            internal override void Set<T>(T text)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            override internal void Set<T>(T text, TValue? value)
+            internal override void Set<T>(T text, TValue? value)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
@@ -3644,7 +3644,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 return false;
             }
 
-            override internal V Get(char[] text, int startIndex, int length, bool throwIfNotFound = true)
+            internal override V Get(char[] text, int startIndex, int length, bool throwIfNotFound = true)
             {
                 if (text is null)
                     throw new ArgumentNullException(nameof(text));
@@ -3654,7 +3654,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 return default!;
             }
 
-            override internal V Get(char[] text, bool throwIfNotFound = true)
+            internal override V Get(char[] text, bool throwIfNotFound = true)
             {
                 if (text is null)
                     throw new ArgumentNullException(nameof(text));
@@ -3664,7 +3664,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 return default!;
             }
 
-            override internal V Get(ICharSequence text, bool throwIfNotFound = true)
+            internal override V Get(ICharSequence text, bool throwIfNotFound = true)
             {
                 if (text is null)
                     throw new ArgumentNullException(nameof(text));
@@ -3674,7 +3674,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 return default!;
             }
 
-            override internal V Get<T>(T text, bool throwIfNotFound = true)
+            internal override V Get<T>(T text, bool throwIfNotFound = true)
             {
                 if (text is null)
                     throw new ArgumentNullException(nameof(text));
@@ -3695,11 +3695,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         internal enum CharReturnType
         {
             String = 0,
-            CharArray = 1
+            CharArray = 1,
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal CharReturnType ConvertObjectToChars<T>(T key, out char[] chars, out string str)
+        internal static CharReturnType ConvertObjectToChars<T>(T key, out char[] chars, out string str)
         {
 #if FEATURE_SPANFORMATTABLE
             Span<char> buffer = stackalloc char[256];
@@ -3713,9 +3713,9 @@ namespace YAF.Lucene.Net.Analysis.Util
         // LUCENENET: We need value types to be represented using the invariant
         // culture, so it is consistent regardless of the current culture.
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal CharReturnType ConvertObjectToChars<T>(T key, out char[] chars, out string str, Span<char> reuse)
+        internal static CharReturnType ConvertObjectToChars<T>(T key, out char[] chars, out string str, Span<char> reuse)
         {
-            chars = Arrays.Empty<char>();
+            chars = Array.Empty<char>();
             str = string.Empty;
 
             if (key is null)
@@ -3757,7 +3757,7 @@ namespace YAF.Lucene.Net.Analysis.Util
             }
             else if (key is CharArrayCharSequence charArrayCs)
             {
-                chars = charArrayCs.Value ?? Arrays.Empty<char>();
+                chars = charArrayCs.Value ?? Array.Empty<char>();
                 return CharReturnType.CharArray;
             }
             else if (key is StringBuilderCharSequence stringBuilderCs && stringBuilderCs.HasValue)
@@ -3876,7 +3876,7 @@ namespace YAF.Lucene.Net.Analysis.Util
     /// this half-measure will make that somewhat easier to do and is guaranteed not to cause
     /// performance issues.
     /// </summary>
-    static internal class SR
+    internal static class SR
     {
         public const string Arg_ArrayPlusOffTooSmall = "Destination array is not long enough to copy all the items in the collection. Check array index and length.";
         public const string Arg_KeyNotFoundWithKey = "The given text '{0}' was not present in the dictionary.";

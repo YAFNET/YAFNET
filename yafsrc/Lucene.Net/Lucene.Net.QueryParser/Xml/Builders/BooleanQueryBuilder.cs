@@ -63,7 +63,7 @@ namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
             return bq;
         }
 
-        static internal Occur GetOccursValue(XmlElement clauseElem)
+        internal static Occur GetOccursValue(XmlElement clauseElem)
         {
             string occs = clauseElem.GetAttribute("occurs");
             Occur occurs = Occur.SHOULD;

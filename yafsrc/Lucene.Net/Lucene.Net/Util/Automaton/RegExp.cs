@@ -806,7 +806,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal RegExp MakeUnion(RegExp exp1, RegExp exp2)
+        internal static RegExp MakeUnion(RegExp exp1, RegExp exp2)
         {
             return new RegExp
             {
@@ -817,7 +817,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal RegExp MakeConcatenation(RegExp exp1, RegExp exp2)
+        internal static RegExp MakeConcatenation(RegExp exp1, RegExp exp2)
         {
             if ((exp1.kind == Kind.REGEXP_CHAR || exp1.kind == Kind.REGEXP_STRING) && (exp2.kind == Kind.REGEXP_CHAR || exp2.kind == Kind.REGEXP_STRING))
             {
@@ -869,7 +869,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal RegExp MakeIntersection(RegExp exp1, RegExp exp2)
+        internal static RegExp MakeIntersection(RegExp exp1, RegExp exp2)
         {
             return new RegExp
             {
@@ -880,7 +880,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal RegExp MakeOptional(RegExp exp)
+        internal static RegExp MakeOptional(RegExp exp)
         {
             return new RegExp
             {
@@ -890,7 +890,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal RegExp MakeRepeat(RegExp exp)
+        internal static RegExp MakeRepeat(RegExp exp)
         {
             return new RegExp
             {
@@ -900,7 +900,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal RegExp MakeRepeat(RegExp exp, int min)
+        internal static RegExp MakeRepeat(RegExp exp, int min)
         {
             return new RegExp
             {
@@ -911,7 +911,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal RegExp MakeRepeat(RegExp exp, int min, int max)
+        internal static RegExp MakeRepeat(RegExp exp, int min, int max)
         {
             return new RegExp
             {
@@ -923,7 +923,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal RegExp MakeComplement(RegExp exp)
+        internal static RegExp MakeComplement(RegExp exp)
         {
             return new RegExp
             {
@@ -933,7 +933,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal RegExp MakeChar(int c)
+        internal static RegExp MakeChar(int c)
         {
             return new RegExp
             {
@@ -943,7 +943,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal RegExp MakeCharRange(int from, int to)
+        internal static RegExp MakeCharRange(int from, int to)
         {
             if (from > to)
             {
@@ -958,7 +958,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal RegExp MakeAnyChar()
+        internal static RegExp MakeAnyChar()
         {
             return new RegExp
             {
@@ -967,7 +967,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal RegExp MakeEmpty()
+        internal static RegExp MakeEmpty()
         {
             return new RegExp
             {
@@ -975,7 +975,7 @@ namespace YAF.Lucene.Net.Util.Automaton
             };
         }
 
-        static internal RegExp MakeString(string s)
+        internal static RegExp MakeString(string s)
         {
             return new RegExp
             {
@@ -985,7 +985,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal RegExp MakeAnyString()
+        internal static RegExp MakeAnyString()
         {
             return new RegExp
             {
@@ -994,7 +994,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal RegExp MakeAutomaton(string s)
+        internal static RegExp MakeAutomaton(string s)
         {
             return new RegExp
             {
@@ -1004,7 +1004,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal RegExp MakeInterval(int min, int max, int digits)
+        internal static RegExp MakeInterval(int min, int max, int digits)
         {
             return new RegExp
             {

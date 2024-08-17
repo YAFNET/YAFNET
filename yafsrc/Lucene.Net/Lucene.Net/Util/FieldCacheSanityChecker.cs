@@ -46,7 +46,7 @@ namespace YAF.Lucene.Net.Util
     /// Unit tests) to check at run time if the FieldCache contains "insane"
     /// usages of the FieldCache.
     /// </para>
-    /// @lucene.experimental 
+    /// @lucene.experimental
     /// </summary>
     /// <seealso cref="IFieldCache"/>
     /// <seealso cref="FieldCacheSanityChecker.Insanity"/>
@@ -107,7 +107,7 @@ namespace YAF.Lucene.Net.Util
         {
             if (null == cacheEntries || 0 == cacheEntries.Length)
             {
-                return Arrays.Empty<Insanity>();
+                return Array.Empty<Insanity>();
             }
 
             if (estimateRam)
@@ -354,7 +354,7 @@ namespace YAF.Lucene.Net.Util
                 }
 
                 ReaderField other = (ReaderField)that;
-                return (object.ReferenceEquals(this.readerKey, other.readerKey) 
+                return (object.ReferenceEquals(this.readerKey, other.readerKey)
                     && this.FieldName.Equals(other.FieldName, StringComparison.Ordinal));
             }
 
@@ -457,7 +457,7 @@ namespace YAF.Lucene.Net.Util
             /// Indicates an overlap in cache usage on a given field
             /// in sub/super readers.
             /// </summary>
-            public readonly static InsanityType SUBREADER = new InsanityType("SUBREADER");
+            public static readonly InsanityType SUBREADER = new InsanityType("SUBREADER");
 
             /// <summary>
             /// <para>
@@ -474,14 +474,14 @@ namespace YAF.Lucene.Net.Util
             /// in the way a Parser is specified (null vs DEFAULT_INT64_PARSER, etc...)
             /// </para>
             /// </summary>
-            public readonly static InsanityType VALUEMISMATCH = new InsanityType("VALUEMISMATCH");
+            public static readonly InsanityType VALUEMISMATCH = new InsanityType("VALUEMISMATCH");
 
             /// <summary>
             /// Indicates an expected bit of "insanity".  This may be useful for
             /// clients that wish to preserve/log information about insane usage
             /// but indicate that it was expected.
             /// </summary>
-            public readonly static InsanityType EXPECTED = new InsanityType("EXPECTED");
+            public static readonly InsanityType EXPECTED = new InsanityType("EXPECTED");
         }
     }
 }

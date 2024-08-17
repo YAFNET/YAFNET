@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Analysis.En
         private KStemData6()
         {
         }
-        static internal string[] data = new string[] {
+        internal static string[] data = new string[] {
             "pedant","pedantic","pedantry","peddle","peddler",
             "pederast","pederasty","pedestal","pedestrian","pediatrician",
             "pediatrics","pedicab","pedicel","pedicure","pedigree",
@@ -747,7 +747,7 @@ namespace YAF.Lucene.Net.Analysis.En
             "rummy","rumor","rumored","rumormonger","rumour",
             "rumoured","rumourmonger","rump","rumple","rumpus",
             "run","runaway","rung","runnel","runner",
-            "running","runny","runs","runt","runway"
+            "running","runny","runs","runt","runway",
         };
     }
 }

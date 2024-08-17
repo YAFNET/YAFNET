@@ -1,6 +1,7 @@
 ﻿using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support.Threading;
+using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -125,9 +126,9 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         private volatile bool pendingChangesInCurrentFullFlush;
 
-        readonly internal DocumentsWriterPerThreadPool perThreadPool;
-        readonly internal FlushPolicy flushPolicy;
-        readonly internal DocumentsWriterFlushControl flushControl;
+        internal readonly DocumentsWriterPerThreadPool perThreadPool;
+        internal readonly FlushPolicy flushPolicy;
+        internal readonly DocumentsWriterFlushControl flushControl;
         private readonly IndexWriter writer;
         private readonly ConcurrentQueue<IEvent> events;
 
@@ -854,7 +855,7 @@ namespace YAF.Lucene.Net.Index
 
         internal sealed class ApplyDeletesEvent : IEvent
         {
-            readonly static internal IEvent INSTANCE = new ApplyDeletesEvent();
+            internal static readonly IEvent INSTANCE = new ApplyDeletesEvent();
             private static int instCount = 0; // LUCENENET: Made static, otherwise this makes no sense at all
 
             internal ApplyDeletesEvent()
@@ -871,7 +872,7 @@ namespace YAF.Lucene.Net.Index
 
         internal sealed class MergePendingEvent : IEvent
         {
-            readonly static internal IEvent INSTANCE = new MergePendingEvent();
+            internal static readonly IEvent INSTANCE = new MergePendingEvent();
             private static int instCount = 0; // LUCENENET: Made static, otherwise this makes no sense at all
 
             internal MergePendingEvent()
@@ -888,7 +889,7 @@ namespace YAF.Lucene.Net.Index
 
         internal sealed class ForcedPurgeEvent : IEvent
         {
-            readonly static internal IEvent INSTANCE = new ForcedPurgeEvent();
+            internal static readonly IEvent INSTANCE = new ForcedPurgeEvent();
             private static int instCount = 0; // LUCENENET: Made static, otherwise this makes no sense at all
 
             internal ForcedPurgeEvent()

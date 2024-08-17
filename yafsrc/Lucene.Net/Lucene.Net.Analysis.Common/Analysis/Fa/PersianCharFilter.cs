@@ -62,7 +62,7 @@ namespace YAF.Lucene.Net.Analysis.Fa
                 return ch;
             }
         }
-        override protected int Correct(int currentOff)
+        protected override int Correct(int currentOff)
         {
             return currentOff; // we don't change the length of the string
         }

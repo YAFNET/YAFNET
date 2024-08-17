@@ -28,7 +28,7 @@ namespace YAF.Lucene.Net.Analysis.Pt
     /// <seealso cref="RSLPStemmerBase"/>
     public class PortugueseStemmer : RSLPStemmerBase
     {
-        private readonly static Step plural, feminine, adverb, augmentative, noun, verb, vowel;
+        private static readonly Step plural, feminine, adverb, augmentative, noun, verb, vowel;
 
         static PortugueseStemmer()
         {

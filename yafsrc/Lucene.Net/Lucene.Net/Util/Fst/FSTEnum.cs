@@ -31,16 +31,16 @@ namespace YAF.Lucene.Net.Util.Fst
     public abstract class FSTEnum<T> // LUCENENET NOTE: changed from internal to public because has public subclasses
         where T : class // LUCENENET specific - added class constraint, since we compare reference equality
     {
-        readonly protected FST<T> m_fst;
+        protected readonly FST<T> m_fst;
 
         protected FST.Arc<T>[] m_arcs = new FST.Arc<T>[10];
 
         // outputs are cumulative
         protected T[] m_output = new T[10];
 
-        readonly protected T NO_OUTPUT;
-        readonly protected FST.BytesReader m_fstReader;
-        readonly protected FST.Arc<T> m_scratchArc = new FST.Arc<T>();
+        protected readonly T NO_OUTPUT;
+        protected readonly FST.BytesReader m_fstReader;
+        protected readonly FST.Arc<T> m_scratchArc = new FST.Arc<T>();
 
         protected int m_upto;
         protected int m_targetLength;

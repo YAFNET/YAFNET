@@ -261,7 +261,7 @@ namespace YAF.Lucene.Net.Analysis.Sinks
             }
         }
 
-        private readonly static SinkFilter ACCEPT_ALL_FILTER = new SinkFilterAnonymousClass();
+        private static readonly SinkFilter ACCEPT_ALL_FILTER = new SinkFilterAnonymousClass();
 
         private sealed class SinkFilterAnonymousClass : SinkFilter
         {

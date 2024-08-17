@@ -261,11 +261,11 @@ namespace YAF.Lucene.Net.Tartarus.Snowball.Ext
                     new Among ( "ir\u00F2", -1, 1 )
                 };
 
-        private readonly static char[] g_v = { (char)17, (char)65, (char)16, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)128, (char)128, (char)8, (char)2, (char)1 };
+        private static readonly char[] g_v = { (char)17, (char)65, (char)16, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)128, (char)128, (char)8, (char)2, (char)1 };
 
-        private readonly static char[] g_AEIO = { (char)17, (char)65, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)128, (char)128, (char)8, (char)2 };
+        private static readonly char[] g_AEIO = { (char)17, (char)65, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)128, (char)128, (char)8, (char)2 };
 
-        private readonly static char[] g_CG = { (char)17 };
+        private static readonly char[] g_CG = { (char)17 };
 
         private int I_p2;
         private int I_p1;

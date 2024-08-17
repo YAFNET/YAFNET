@@ -39,15 +39,15 @@ namespace YAF.Lucene.Net.Util.Automaton
         public const int MAXIMUM_SUPPORTED_DISTANCE = 2;
 
         /* input word */
-        readonly internal int[] word;
+        internal readonly int[] word;
         /* the automata alphabet. */
-        readonly internal int[] alphabet;
+        internal readonly int[] alphabet;
         /* the maximum symbol in the alphabet (e.g. 255 for UTF-8 or 10FFFF for UTF-32) */
-        readonly internal int alphaMax;
+        internal readonly int alphaMax;
 
         /* the ranges outside of alphabet */
-        readonly internal int[] rangeLower;
-        readonly internal int[] rangeUpper;
+        internal readonly int[] rangeLower;
+        internal readonly int[] rangeUpper;
         internal int numRanges = 0;
 
         internal ParametricDescription[] descriptions;
@@ -253,8 +253,8 @@ namespace YAF.Lucene.Net.Util.Automaton
         /// </summary>
         internal abstract class ParametricDescription
         {
-            readonly protected int m_w;
-            readonly protected int m_n;
+            protected readonly int m_w;
+            protected readonly int m_n;
             private readonly int[] minErrors;
 
             private protected ParametricDescription(int w, int n, int[] minErrors) // LUCENENET: Changed from internal to private protected
@@ -300,7 +300,7 @@ namespace YAF.Lucene.Net.Util.Automaton
             /// </summary>
             internal abstract int Transition(int state, int position, int vector);
 
-            private readonly static long[] MASKS = new long[] {
+            private static readonly long[] MASKS = new long[] {
                 0x1, 0x3, 0x7, 0xf,
                 0x1f, 0x3f, 0x7f, 0xff,
                 0x1ff, 0x3ff, 0x7ff, 0xfff,

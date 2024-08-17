@@ -197,14 +197,14 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
         /// <summary> 
         /// The end of line string for this machine.
         /// </summary>
-        static protected string eol = Environment.NewLine;
+        protected static string eol = Environment.NewLine;
         
         /// <summary> 
         /// Used to convert raw characters to their escaped version
         /// when these raw version cannot be used as part of an ASCII
         /// string literal.
         /// </summary>
-        static internal string AddEscapes(string str)
+        internal static string AddEscapes(string str)
         {
             StringBuilder retval = new StringBuilder();
             char ch;

@@ -96,7 +96,7 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
         }
 
         // "source" => "target"
-        private readonly static Regex p = new Regex(@"\""(.*)\""\s*=>\s*\""(.*)\""\s*$", RegexOptions.Compiled);
+        private static readonly Regex p = new Regex(@"\""(.*)\""\s*=>\s*\""(.*)\""\s*$", RegexOptions.Compiled);
 
         protected virtual void ParseRules(IList<string> rules, NormalizeCharMap.Builder builder)
         {

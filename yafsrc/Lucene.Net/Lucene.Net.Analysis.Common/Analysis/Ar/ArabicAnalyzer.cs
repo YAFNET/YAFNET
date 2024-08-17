@@ -64,7 +64,7 @@ namespace YAF.Lucene.Net.Analysis.Ar
         /// </summary>
         private static class DefaultSetHolder
         {
-            readonly static internal CharArraySet DEFAULT_STOP_SET = LoadDefaultStopSet();
+            internal static readonly CharArraySet DEFAULT_STOP_SET = LoadDefaultStopSet();
 
             private static CharArraySet LoadDefaultStopSet() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
             {
@@ -129,7 +129,7 @@ namespace YAF.Lucene.Net.Analysis.Ar
         ///         <see cref="LowerCaseFilter"/>, <see cref="StopFilter"/>,
         ///         <see cref="ArabicNormalizationFilter"/>, <see cref="SetKeywordMarkerFilter"/>
         ///         if a stem exclusion set is provided and <see cref="ArabicStemFilter"/>. </returns>
-        override protected internal TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+        protected internal override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
 #pragma warning disable 612, 618
             Tokenizer source = m_matchVersion.OnOrAfter(LuceneVersion.LUCENE_31) 

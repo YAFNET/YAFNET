@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Analysis.En
         {
         }
         // KStemData1 ... KStemData8 are created from "head_word_list.txt"
-        static internal string[] data = new string[] {
+        internal static string[] data = new string[] {
             "aback","abacus","abandon","abandoned","abase",
             "abash","abate","abattoir","abbess","abbey",
             "abbot","abbreviate","abbreviation","abc","abdicate",
@@ -749,7 +749,7 @@ namespace YAF.Lucene.Net.Analysis.En
             "carter","carthorse","cartilage","cartilaginous","cartographer",
             "cartography","carton","cartoon","cartridge","cartwheel",
             "carve","carver","carving","caryatid","cascade",
-            "cascara","case","casebook","casein","casework"
+            "cascara","case","casebook","casein","casework",
         };
     }
 }

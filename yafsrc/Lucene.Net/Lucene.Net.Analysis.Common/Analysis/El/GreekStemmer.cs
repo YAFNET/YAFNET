@@ -256,7 +256,7 @@ namespace YAF.Lucene.Net.Analysis.El
         }
 
 #pragma warning disable 612, 618
-        private readonly static CharArraySet exc4 = new CharArraySet(LuceneVersion.LUCENE_CURRENT, new string[] { "θ", "δ", "ελ", "γαλ", "ν", "π", "ιδ", "παρ" }, false);
+        private static readonly CharArraySet exc4 = new CharArraySet(LuceneVersion.LUCENE_CURRENT, new string[] { "θ", "δ", "ελ", "γαλ", "ν", "π", "ιδ", "παρ" }, false);
 #pragma warning restore 612, 618
 
         private static int Rule4(char[] s, int len) // LUCENENET: CA1822: Mark members as static
@@ -295,7 +295,7 @@ namespace YAF.Lucene.Net.Analysis.El
             return len;
         }
 
-        private readonly static CharArraySet exc6 =
+        private static readonly CharArraySet exc6 =
 #pragma warning disable 612, 618
             new CharArraySet(LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618
@@ -331,7 +331,7 @@ namespace YAF.Lucene.Net.Analysis.El
             return len;
         }
 
-        private readonly static CharArraySet exc7 =
+        private static readonly CharArraySet exc7 =
 #pragma warning disable 612, 618
             new CharArraySet(LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618
@@ -372,13 +372,13 @@ namespace YAF.Lucene.Net.Analysis.El
             return len;
         }
 
-        private readonly static CharArraySet exc8a = new CharArraySet(
+        private static readonly CharArraySet exc8a = new CharArraySet(
 #pragma warning disable 612, 618
             LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618
             new string[] { "τρ", "τσ" }, false);
 
-        private readonly static CharArraySet exc8b = new CharArraySet(
+        private static readonly CharArraySet exc8b = new CharArraySet(
 #pragma warning disable 612, 618
             LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618
@@ -450,7 +450,7 @@ namespace YAF.Lucene.Net.Analysis.El
             return len;
         }
 
-        private readonly static CharArraySet exc9 = new CharArraySet(
+        private static readonly CharArraySet exc9 = new CharArraySet(
 #pragma warning disable 612, 618
             LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618
@@ -556,10 +556,10 @@ namespace YAF.Lucene.Net.Analysis.El
         }
 
 #pragma warning disable 612, 618
-        private readonly static CharArraySet exc12a = new CharArraySet(LuceneVersion.LUCENE_CURRENT, 
+        private static readonly CharArraySet exc12a = new CharArraySet(LuceneVersion.LUCENE_CURRENT, 
             new string[] { "π", "απ", "συμπ", "ασυμπ", "ακαταπ", "αμεταμφ" }, false);
 
-        private readonly static CharArraySet exc12b = new CharArraySet(LuceneVersion.LUCENE_CURRENT, 
+        private static readonly CharArraySet exc12b = new CharArraySet(LuceneVersion.LUCENE_CURRENT, 
             new string[] { "αλ", "αρ", "εκτελ", "ζ", "μ", "ξ", "παρακαλ", "αρ", "προ", "νισ" }, false);
 #pragma warning restore 612, 618
 
@@ -586,7 +586,7 @@ namespace YAF.Lucene.Net.Analysis.El
             return len;
         }
 
-        private readonly static CharArraySet exc13 = new CharArraySet(
+        private static readonly CharArraySet exc13 = new CharArraySet(
 #pragma warning disable 612, 618
             LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618
@@ -630,7 +630,7 @@ namespace YAF.Lucene.Net.Analysis.El
             return len;
         }
 
-        private readonly static CharArraySet exc14 = new CharArraySet(
+        private static readonly CharArraySet exc14 = new CharArraySet(
 #pragma warning disable 612, 618
             LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618
@@ -675,7 +675,7 @@ namespace YAF.Lucene.Net.Analysis.El
             return len;
         }
 
-        private readonly static CharArraySet exc15a = new CharArraySet(
+        private static readonly CharArraySet exc15a = new CharArraySet(
 #pragma warning disable 612, 618
             LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618
@@ -686,7 +686,7 @@ namespace YAF.Lucene.Net.Analysis.El
                 "αρτιπ", "διατ", "εν", "επιτ", "κροκαλοπ", "σιδηροπ", "λ", "ναυ",
                 "ουλαμ", "ουρ", "π", "τρ", "μ" }, false);
 
-        private readonly static CharArraySet exc15b = new CharArraySet(
+        private static readonly CharArraySet exc15b = new CharArraySet(
 #pragma warning disable 612, 618
             LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618
@@ -731,7 +731,7 @@ namespace YAF.Lucene.Net.Analysis.El
             return len;
         }
 
-        private readonly static CharArraySet exc16 = new CharArraySet(
+        private static readonly CharArraySet exc16 = new CharArraySet(
 #pragma warning disable 612, 618
             LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618
@@ -759,7 +759,7 @@ namespace YAF.Lucene.Net.Analysis.El
             return len;
         }
 
-        private readonly static CharArraySet exc17 = new CharArraySet(
+        private static readonly CharArraySet exc17 = new CharArraySet(
 #pragma warning disable 612, 618
             LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618
@@ -779,7 +779,7 @@ namespace YAF.Lucene.Net.Analysis.El
             return len;
         }
 
-        private readonly static CharArraySet exc18 = new CharArraySet(
+        private static readonly CharArraySet exc18 = new CharArraySet(
 #pragma warning disable 612, 618
             LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618
@@ -810,7 +810,7 @@ namespace YAF.Lucene.Net.Analysis.El
             return len;
         }
 
-        private readonly static CharArraySet exc19 = new CharArraySet(
+        private static readonly CharArraySet exc19 = new CharArraySet(
 #pragma warning disable 612, 618
             LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618

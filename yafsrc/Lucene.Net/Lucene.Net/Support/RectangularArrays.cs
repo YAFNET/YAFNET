@@ -6,7 +6,7 @@
 //  arrays with inner arrays of the same length. A size of -1 indicates unknown length.
 //----------------------------------------------------------------------------------------
 
-namespace Lucene.Net.Support
+namespace YAF.Lucene.Net.Support
 {
     static internal class RectangularArrays
     {

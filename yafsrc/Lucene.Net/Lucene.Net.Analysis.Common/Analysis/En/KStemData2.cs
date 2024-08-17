@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Analysis.En
         private KStemData2()
         {
         }
-        static internal string[] data = new string[] {
+        internal static string[] data = new string[] {
             "cash","cashew","cashier","cashmere","casing",
             "casino","cask","casket","casque","cassava",
             "casserole","cassette","cassock","cassowary","cast",
@@ -747,7 +747,7 @@ namespace YAF.Lucene.Net.Analysis.En
             "dissimilar","dissimilarity","dissimulate","dissipate","dissipated",
             "dissipation","dissociate","dissoluble","dissolute","dissolution",
             "dissolve","dissonance","dissonant","dissuade","distaff",
-            "distal","distance","distant","distantly","distaste"
+            "distal","distance","distant","distantly","distaste",
         };
     }
 }

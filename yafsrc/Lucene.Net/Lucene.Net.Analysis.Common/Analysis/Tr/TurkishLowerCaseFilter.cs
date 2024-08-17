@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Analysis.Tr
         private const int COMBINING_DOT_ABOVE = '\u0307';
         private readonly ICharTermAttribute termAtt;
 
-        private readonly static CultureInfo culture = new CultureInfo("tr"); // LUCENENET specific - we need to do a culture-sensitive lowercase operation in Turkish
+        private static readonly CultureInfo culture = new CultureInfo("tr"); // LUCENENET specific - we need to do a culture-sensitive lowercase operation in Turkish
 
         /// <summary>
         /// Create a new <see cref="TurkishLowerCaseFilter"/>, that normalizes Turkish token text 

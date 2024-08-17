@@ -27,7 +27,7 @@ namespace YAF.Lucene.Net.Analysis.Util
     /// </summary>
     public abstract class TokenFilterFactory : AbstractAnalysisFactory
     {
-        private readonly static AnalysisSPILoader<TokenFilterFactory> loader = 
+        private static readonly AnalysisSPILoader<TokenFilterFactory> loader = 
             new AnalysisSPILoader<TokenFilterFactory>(new string[] { "TokenFilterFactory", "FilterFactory" });
 
         /// <summary>

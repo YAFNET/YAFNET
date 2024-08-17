@@ -132,7 +132,7 @@ namespace YAF.Lucene.Net.Analysis.Core
         /// <summary>
         /// Returns the next input Token whose Term is not a stop word.
         /// </summary>
-        override protected bool Accept()
+        protected override bool Accept()
         {
             return !stopWords.Contains(termAtt.Buffer, 0, termAtt.Length);
         }

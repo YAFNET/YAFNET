@@ -290,7 +290,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        static internal DocumentsWriterPerThread Reset(ThreadState threadState, bool closed) // LUCENENET: CA1822: Mark members as static
+        internal static DocumentsWriterPerThread Reset(ThreadState threadState, bool closed) // LUCENENET: CA1822: Mark members as static
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(threadState.IsHeldByCurrentThread);
             DocumentsWriterPerThread dwpt = threadState.dwpt;
@@ -415,25 +415,8 @@ namespace YAF.Lucene.Net.Index
             return threadStates[ord];
         }
 
-        /// <summary>
-        /// Returns the <see cref="ThreadState"/> with the minimum estimated number of threads
-        /// waiting to acquire its lock or <c>null</c> if no <see cref="ThreadState"/>
-        /// is yet visible to the calling thread.
-        /// </summary>
-        internal ThreadState MinContendedThreadState()
-        {
-            ThreadState minThreadState = null;
-            int limit = numThreadStatesActive;
-            for (int i = 0; i < limit; i++)
-            {
-                ThreadState state = threadStates[i];
-                if (minThreadState is null || state.QueueLength < minThreadState.QueueLength)
-                {
-                    minThreadState = state;
-                }
-            }
-            return minThreadState;
-        }
+        // LUCENENET specific - Removed MinContendedThreadState() because it has no callers
+        // and adds overhead to ReentrantLock that we don't need.
 
         /// <summary>
         /// Returns the number of currently deactivated <see cref="ThreadState"/> instances.
@@ -469,7 +452,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         /// <param name="threadState"> the state to deactivate </param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal void DeactivateThreadState(ThreadState threadState) // LUCENENET: CA1822: Mark members as static
+        internal static void DeactivateThreadState(ThreadState threadState) // LUCENENET: CA1822: Mark members as static
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(threadState.IsActive);
             threadState.Deactivate();

@@ -103,7 +103,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             this.fieldAnalyzers = fieldAnalyzers ?? Collections.EmptyMap<string, Analyzer>(); // LUCENENET-615: Must support nullable keys
         }
 
-        override protected Analyzer GetWrappedAnalyzer(string fieldName)
+        protected override Analyzer GetWrappedAnalyzer(string fieldName)
         {
             fieldAnalyzers.TryGetValue(fieldName, out Analyzer analyzer);
             return analyzer ?? defaultAnalyzer;

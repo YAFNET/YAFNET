@@ -55,16 +55,16 @@ namespace YAF.Lucene.Net.Analysis.Compound
         /// </summary>
         public const int DEFAULT_MAX_SUBWORD_SIZE = 15;
 
-        readonly protected LuceneVersion m_matchVersion;
-        readonly protected CharArraySet m_dictionary;
-        readonly protected Queue<CompoundToken> m_tokens;
-        readonly protected int m_minWordSize;
-        readonly protected int m_minSubwordSize;
-        readonly protected int m_maxSubwordSize;
-        readonly protected bool m_onlyLongestMatch;
+        protected readonly LuceneVersion m_matchVersion;
+        protected readonly CharArraySet m_dictionary;
+        protected readonly Queue<CompoundToken> m_tokens;
+        protected readonly int m_minWordSize;
+        protected readonly int m_minSubwordSize;
+        protected readonly int m_maxSubwordSize;
+        protected readonly bool m_onlyLongestMatch;
 
-        readonly protected ICharTermAttribute m_termAtt;
-        readonly protected IOffsetAttribute m_offsetAtt;
+        protected readonly ICharTermAttribute m_termAtt;
+        protected readonly IOffsetAttribute m_offsetAtt;
         private readonly IPositionIncrementAttribute posIncAtt;
 
         private AttributeSource.State current;

@@ -35,7 +35,7 @@ namespace YAF.Lucene.Net.Analysis.Nl
     [Obsolete("(3.1) Use Tartarus.Snowball.Ext.DutchStemmer instead, which has the same functionality. This filter will be removed in Lucene 5.0")]
     public class DutchStemmer
     {
-        private readonly static CultureInfo locale = new CultureInfo("nl-NL");
+        private static readonly CultureInfo locale = new CultureInfo("nl-NL");
 
         /// <summary>
         /// Buffer for the terms while stemming them.

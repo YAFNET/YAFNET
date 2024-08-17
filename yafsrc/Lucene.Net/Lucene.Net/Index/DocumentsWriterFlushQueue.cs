@@ -278,7 +278,7 @@ namespace YAF.Lucene.Net.Index
             /// publishing operation is synced on IW -> BDS so that the <see cref="SegmentInfo"/>'s
             /// delete generation is always <see cref="FrozenBufferedUpdates.DelGen"/> (<paramref name="globalPacket"/>) + 1
             /// </summary>
-            static protected void PublishFlushedSegment(IndexWriter indexWriter, FlushedSegment newSegment, FrozenBufferedUpdates globalPacket) // LUCENENET: CA1822: Mark members as static
+            protected static void PublishFlushedSegment(IndexWriter indexWriter, FlushedSegment newSegment, FrozenBufferedUpdates globalPacket) // LUCENENET: CA1822: Mark members as static
             {
                 if (Debugging.AssertsEnabled)
                 {
@@ -330,7 +330,7 @@ namespace YAF.Lucene.Net.Index
             {
             }
 
-            override protected internal void Publish(IndexWriter writer)
+            protected internal override void Publish(IndexWriter writer)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(!m_published, "ticket was already publised - can not publish twice");
                 m_published = true;
@@ -338,7 +338,7 @@ namespace YAF.Lucene.Net.Index
                 FinishFlush(writer, null, m_frozenUpdates);
             }
 
-            override protected internal bool CanPublish => true;
+            protected internal override bool CanPublish => true;
         }
 
         internal sealed class SegmentFlushTicket : FlushTicket
@@ -351,7 +351,7 @@ namespace YAF.Lucene.Net.Index
             {
             }
 
-            override protected internal void Publish(IndexWriter writer)
+            protected internal override void Publish(IndexWriter writer)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(!m_published, "ticket was already publised - can not publish twice");
                 m_published = true;
@@ -370,7 +370,7 @@ namespace YAF.Lucene.Net.Index
                 failed = true;
             }
 
-            override protected internal bool CanPublish => segment != null || failed;
+            protected internal override bool CanPublish => segment != null || failed;
         }
     }
 }

@@ -51,7 +51,7 @@ namespace YAF.Lucene.Net.Analysis.NGram
             /// <summary>
             /// Get the n-gram from the end of the input </summary>
             [System.Obsolete]
-            BACK
+            BACK,
         }
 
         /// <summary>
@@ -241,9 +241,9 @@ namespace YAF.Lucene.Net.Analysis.NGram
     }
 
     // LUCENENET: added this to avoid the Enum.IsDefined() method, which requires boxing
-    static internal partial class SideExtensions
+    internal static partial class SideExtensions
     {
-        static internal bool IsDefined(this EdgeNGramTokenFilter.Side side)
+        internal static bool IsDefined(this EdgeNGramTokenFilter.Side side)
         {
             return side >= EdgeNGramTokenFilter.Side.FRONT &&
 #pragma warning disable CS0612 // Type or member is obsolete

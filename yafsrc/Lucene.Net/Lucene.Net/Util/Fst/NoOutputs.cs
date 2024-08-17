@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Util.Fst
     /// </summary>
     public sealed class NoOutputs : Outputs<object>
     {
-        readonly static internal object NO_OUTPUT = new ObjectAnonymousClass();
+        internal static readonly object NO_OUTPUT = new ObjectAnonymousClass();
 
         private sealed class ObjectAnonymousClass : object
         {
@@ -56,7 +56,7 @@ namespace YAF.Lucene.Net.Util.Fst
             }
         }
 
-        private readonly static NoOutputs singleton = new NoOutputs();
+        private static readonly NoOutputs singleton = new NoOutputs();
 
         private NoOutputs()
         {

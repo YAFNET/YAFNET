@@ -41,10 +41,10 @@ namespace YAF.Lucene.Net.Analysis.Util
         // LUCENENET specific class for supporting broken Unicode support in Lucene 3.0.
         // See the TestCharArraySet.TestSupplementaryCharsBWCompat()
         // and TestCharArraySet.TestSingleHighSurrogateBWComapt() tests.
-        private readonly static CharacterUtils JAVA_4_BW_COMPAT = new Java4CharacterUtilsBWCompatibility();
+        private static readonly CharacterUtils JAVA_4_BW_COMPAT = new Java4CharacterUtilsBWCompatibility();
 
-        private readonly static CharacterUtils JAVA_4 = new Java4CharacterUtils();
-        private readonly static CharacterUtils JAVA_5 = new Java5CharacterUtils();
+        private static readonly CharacterUtils JAVA_4 = new Java4CharacterUtils();
+        private static readonly CharacterUtils JAVA_5 = new Java5CharacterUtils();
 
         /// <summary>
         /// Returns a <see cref="CharacterUtils"/> implementation according to the given

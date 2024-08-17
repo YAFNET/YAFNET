@@ -75,7 +75,7 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
             this.InOrder = true;
         }
 
-        override protected internal Query GetFieldQuery(string field, string queryText, int slop)
+        protected internal override Query GetFieldQuery(string field, string queryText, int slop)
         {
             ComplexPhraseQuery cpq = new ComplexPhraseQuery(field, queryText, slop, InOrder);
             complexPhrases.Add(cpq); // add to list of phrases to be parsed once
@@ -139,7 +139,7 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
         // unfortunately need
         // to throw a runtime exception here if a term for another field is embedded
         // in phrase query
-        override protected Query NewTermQuery(Term term)
+        protected override Query NewTermQuery(Term term)
         {
             if (isPass2ResolvingPhrases)
             {
@@ -166,7 +166,7 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
             }
         }
 
-        override protected internal Query GetWildcardQuery(string field, string termStr)
+        protected internal override Query GetWildcardQuery(string field, string termStr)
         {
             if (isPass2ResolvingPhrases)
             {
@@ -175,7 +175,7 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
             return base.GetWildcardQuery(field, termStr);
         }
 
-        override protected internal Query GetRangeQuery(string field, string part1, string part2, bool startInclusive, bool endInclusive)
+        protected internal override Query GetRangeQuery(string field, string part1, string part2, bool startInclusive, bool endInclusive)
         {
             if (isPass2ResolvingPhrases)
             {
@@ -184,7 +184,7 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
             return base.GetRangeQuery(field, part1, part2, startInclusive, endInclusive);
         }
 
-        override protected internal Query NewRangeQuery(string field, string part1, string part2, bool startInclusive, bool endInclusive)
+        protected internal override Query NewRangeQuery(string field, string part1, string part2, bool startInclusive, bool endInclusive)
         {
             if (isPass2ResolvingPhrases)
             {
@@ -197,7 +197,7 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
             return base.NewRangeQuery(field, part1, part2, startInclusive, endInclusive);
         }
 
-        override protected internal Query GetFuzzyQuery(string field, string termStr, float minSimilarity)
+        protected internal override Query GetFuzzyQuery(string field, string termStr, float minSimilarity)
         {
             if (isPass2ResolvingPhrases)
             {

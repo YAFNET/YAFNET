@@ -63,7 +63,7 @@ namespace YAF.Lucene.Net.Analysis.Fa
         /// </summary>
         private static class DefaultSetHolder
         {
-            readonly static internal CharArraySet DEFAULT_STOP_SET = LoadDefaultStopSet();
+            internal static readonly CharArraySet DEFAULT_STOP_SET = LoadDefaultStopSet();
 
             private static CharArraySet LoadDefaultStopSet() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
             {
@@ -110,7 +110,7 @@ namespace YAF.Lucene.Net.Analysis.Fa
         ///         built from a <see cref="StandardTokenizer"/> filtered with
         ///         <see cref="LowerCaseFilter"/>, <see cref="ArabicNormalizationFilter"/>,
         ///         <see cref="PersianNormalizationFilter"/> and Persian Stop words </returns>
-        override protected internal TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+        protected internal override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
             Tokenizer source;
 #pragma warning disable 612, 618
@@ -139,7 +139,7 @@ namespace YAF.Lucene.Net.Analysis.Fa
         /// <summary>
         /// Wraps the <see cref="TextReader"/> with <see cref="PersianCharFilter"/>
         /// </summary>
-        override protected internal TextReader InitReader(string fieldName, TextReader reader)
+        protected internal override TextReader InitReader(string fieldName, TextReader reader)
         {
 #pragma warning disable 612, 618
             return m_matchVersion.OnOrAfter(LuceneVersion.LUCENE_31) ?

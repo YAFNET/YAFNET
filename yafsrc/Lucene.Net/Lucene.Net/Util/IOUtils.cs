@@ -1,10 +1,14 @@
 ﻿using J2N;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
+using YAF.Lucene.Net.Support.IO;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace YAF.Lucene.Net.Util
@@ -17,7 +21,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -516,8 +520,55 @@ namespace YAF.Lucene.Net.Util
             }
         }
 
-        // LUCENENET specific: Fsync is pointless in .NET, since we are
-        // calling FileStream.Flush(true) before the stream is disposed
-        // which means we never need it at the point in Java where it is called.
+        // LUCENENET specific: using string instead of FileSystemInfo to avoid extra allocation
+        public static void Fsync(string fileToSync, bool isDir)
+        {
+            // LUCENENET NOTE: there is a bug in 4.8 where it tries to fsync a directory on Windows,
+            // which is not supported in OpenJDK. This change adopts the latest Lucene code as of 9.10
+            // and only fsyncs directories on Linux and macOS.
+
+            // If the file is a directory we have to open read-only, for regular files we must open r/w for
+            // the fsync to have an effect.
+            // See http://blog.httrack.com/blog/2013/11/15/everything-you-always-wanted-to-know-about-fsync/
+            if (isDir && Constants.WINDOWS)
+            {
+                // opening a directory on Windows fails, directories can not be fsynced there
+                if (System.IO.Directory.Exists(fileToSync) == false)
+                {
+                    // yet do not suppress trying to fsync directories that do not exist
+                    throw new DirectoryNotFoundException($"Directory does not exist: {fileToSync}");
+                }
+                return;
+            }
+
+            try
+            {
+                // LUCENENET specific: was: file.force(true);
+                // We must call fsync on the parent directory, requiring some custom P/Invoking
+                if (Constants.WINDOWS)
+                {
+                    WindowsFsyncSupport.Fsync(fileToSync, isDir);
+                }
+                else
+                {
+                    PosixFsyncSupport.Fsync(fileToSync, isDir);
+                }
+            }
+            catch (Exception e) when (e.IsIOException() && isDir && e is not DirectoryNotFoundException)
+            {
+                // LUCENENET specific - make catch specific to IOExceptions when it's a directory,
+                // but allow DirectoryNotFoundException to pass through as an equivalent would normally be
+                // thrown by the FileChannel.open call in Java which is outside the try block.
+
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert((Constants.LINUX || Constants.MAC_OS_X) == false,
+                        "On Linux and MacOSX fsyncing a directory should not throw IOException, we just don't want to rely on that in production (undocumented). Got: {0}",
+                        e);
+                }
+
+                // Ignore exception if it is a directory
+            }
+        }
     }
 }

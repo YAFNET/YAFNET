@@ -47,7 +47,6 @@
     <!-- Features in .NET Standard, .NET Core, .NET 5.x, and .NET 6.x only (no .NET Framework support) -->
     <PropertyGroup Condition=" $(TargetFramework.StartsWith('netstandard')) Or $(TargetFramework.StartsWith('netcoreapp')) Or $(TargetFramework.StartsWith('net5.')) Or $(TargetFramework.StartsWith('net6.')) Or $(TargetFramework.StartsWith('net7.')) ">
         <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
-        <DefineConstants>$(DefineConstants);FEATURE_ARRAYEMPTY</DefineConstants>
         <DefineConstants>$(DefineConstants);FEATURE_CULTUREINFO_CURRENTCULTURE_SETTER</DefineConstants>
         <DefineConstants>$(DefineConstants);FEATURE_ENCODINGPROVIDERS</DefineConstants>
 
@@ -99,13 +98,6 @@
     
     <DefineConstants>$(DefineConstants);FEATURE_ICONFIGURATIONROOT_PROVIDERS</DefineConstants>
     
-  </PropertyGroup>
-
-  <!-- Features in .NET Framework 4.6+ only -->
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('net46')) Or $(TargetFramework.StartsWith('net47')) Or $(TargetFramework.StartsWith('net48'))">
-    
-    <DefineConstants>$(DefineConstants);FEATURE_ARRAYEMPTY</DefineConstants>
-
   </PropertyGroup>
 
   <!-- Features in .NET Framework 4.5+ -->

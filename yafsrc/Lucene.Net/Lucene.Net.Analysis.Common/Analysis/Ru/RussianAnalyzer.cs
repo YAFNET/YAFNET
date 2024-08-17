@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Analysis.Ru
         /// List of typical Russian stopwords. (for backwards compatibility) </summary>
         /// @deprecated (3.1) Remove this for LUCENE 5.0 
         [Obsolete("(3.1) Remove this for LUCENE 5.0")]
-        private readonly static string[] RUSSIAN_STOP_WORDS_30 = new string[] {
+        private static readonly string[] RUSSIAN_STOP_WORDS_30 = new string[] {
             "а", "без", "более", "бы", "был", "была", "были", "было", "быть", "в",
             "вам", "вас", "весь", "во", "вот", "все", "всего", "всех", "вы", "где",
             "да", "даже", "для", "до", "его", "ее", "ей", "ею", "если", "есть",
@@ -70,8 +70,8 @@ namespace YAF.Lucene.Net.Analysis.Ru
         {
             /// @deprecated (3.1) remove this for Lucene 5.0 
             [Obsolete("(3.1) remove this for Lucene 5.0")]
-            readonly static internal CharArraySet DEFAULT_STOP_SET_30 = new CharArraySet(LuceneVersion.LUCENE_CURRENT, RUSSIAN_STOP_WORDS_30, false).AsReadOnly();
-            readonly static internal CharArraySet DEFAULT_STOP_SET = LoadDefaultStopSet();
+            internal static readonly CharArraySet DEFAULT_STOP_SET_30 = new CharArraySet(LuceneVersion.LUCENE_CURRENT, RUSSIAN_STOP_WORDS_30, false).AsReadOnly();
+            internal static readonly CharArraySet DEFAULT_STOP_SET = LoadDefaultStopSet();
 
             private static CharArraySet LoadDefaultStopSet() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
             {
@@ -144,7 +144,7 @@ namespace YAF.Lucene.Net.Analysis.Ru
         ///         <see cref="StandardFilter"/>, <see cref="LowerCaseFilter"/>, <see cref="StopFilter"/>
         ///         , <see cref="SetKeywordMarkerFilter"/> if a stem exclusion set is
         ///         provided, and <see cref="SnowballFilter"/> </returns>
-        override protected internal TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+        protected internal override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
 #pragma warning disable 612, 618
             if (m_matchVersion.OnOrAfter(LuceneVersion.LUCENE_31))

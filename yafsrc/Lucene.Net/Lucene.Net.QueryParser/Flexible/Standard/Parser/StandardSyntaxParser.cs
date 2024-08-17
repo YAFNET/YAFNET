@@ -983,9 +983,9 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
         private Token jj_scanpos, jj_lastpos;
         private int jj_la;
         private int jj_gen;
-        private readonly int[] jj_la1 = new int[28];
-        private static uint[] jj_la1_0;
-        private static int[] jj_la1_1;
+        readonly private int[] jj_la1 = new int[28];
+        static private uint[] jj_la1_0;
+        static private int[] jj_la1_1;
         static StandardSyntaxParser()
         {
             Jj_la1_init_0();
@@ -993,13 +993,13 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
         }
         private static void Jj_la1_init_0()
         {
-            jj_la1_0 = new uint[] { 0x300, 0x300, 0x1c00, 0x1c00, 0x1ec03c00, 0x200, 0x100, 0x18000, 0x1e0000, 0x10c00000, 0x1f8000, 0x18000, 0x200000, 0x1ec02000, 0x1ec02000, 0x12800000, 0x1000000, 0x1000000, 0x200000, 0xc000000, 0x0, 0x20000000, 0x0, 0xc0000000, 0x200000, 0x1000000, 0x200000, 0x1ec00000 };
+            jj_la1_0 = new uint[] { 0x300, 0x300, 0x1c00, 0x1c00, 0x1ec03c00, 0x200, 0x100, 0x18000, 0x1e0000, 0x10c00000, 0x1f8000, 0x18000, 0x200000, 0x1ec02000, 0x1ec02000, 0x12800000, 0x1000000, 0x1000000, 0x200000, 0xc000000, 0x0, 0x20000000, 0x0, 0xc0000000, 0x200000, 0x1000000, 0x200000, 0x1ec00000, };
         }
         private static void Jj_la1_init_1()
         {
-            jj_la1_1 = new int[] { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3, 0x0, 0x3, 0x0, 0x0, 0x0, 0x0, 0x0 };
+            jj_la1_1 = new int[] { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3, 0x0, 0x3, 0x0, 0x0, 0x0, 0x0, 0x0, };
         }
-        private readonly JJCalls[] jj_2_rtns = new JJCalls[2];
+        readonly private JJCalls[] jj_2_rtns = new JJCalls[2];
         private bool jj_rescan = false;
         private int jj_gc = 0;
 
@@ -1100,7 +1100,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
             }
 #endif
         }
-        private readonly LookaheadSuccess jj_ls = new LookaheadSuccess();
+        readonly private LookaheadSuccess jj_ls = new LookaheadSuccess();
         private bool Jj_scan_token(int kind)
         {
             if (jj_scanpos == jj_lastpos)

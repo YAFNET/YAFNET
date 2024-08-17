@@ -36,9 +36,9 @@ namespace YAF.Lucene.Net.Util.Fst
     /// </summary>
     public sealed class PositiveInt32Outputs : Outputs<Int64>
     {
-        private readonly static Int64 NO_OUTPUT = Int64.GetInstance(0);
+        private static readonly Int64 NO_OUTPUT = Int64.GetInstance(0);
 
-        private readonly static PositiveInt32Outputs singleton = new PositiveInt32Outputs();
+        private static readonly PositiveInt32Outputs singleton = new PositiveInt32Outputs();
 
         private PositiveInt32Outputs()
         {

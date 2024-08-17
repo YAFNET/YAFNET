@@ -1,5 +1,4 @@
 ﻿using YAF.Lucene.Net.Search;
-using YAF.Lucene.Net.Support;
 using System;
 using System.Globalization;
 using System.Text;
@@ -25,7 +24,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
      */
 
     /// <summary>
-    /// Lowest level base class for surround queries 
+    /// Lowest level base class for surround queries
     /// </summary>
     public abstract class SrndQuery // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
@@ -36,8 +35,8 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
 
         public virtual bool IsWeighted => weighted;
 
-        public virtual float Weight 
-        { 
+        public virtual float Weight
+        {
             get => weight;
             set
             {
@@ -51,7 +50,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
         public virtual string WeightOperator => "^";
 
         protected virtual void WeightToString(StringBuilder r)
-        { 
+        {
             /* append the weight part of a query */
             if (IsWeighted)
             {
@@ -65,7 +64,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
             Search.Query q = MakeLuceneQueryFieldNoBoost(fieldName, qf);
             if (IsWeighted)
             {
-                q.Boost=(Weight * q.Boost); /* weight may be at any level in a SrndQuery */
+                q.Boost = (Weight * q.Boost); /* weight may be at any level in a SrndQuery */
             }
             return q;
         }
@@ -76,7 +75,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
         /// This method is used by <see cref="GetHashCode()"/> and <see cref="Equals(Object)"/>,
         /// see LUCENE-2945.
         /// </summary>
-        public override abstract string ToString();
+        public abstract override string ToString();
 
         public virtual bool IsFieldsSubQueryAcceptable => true;
 
@@ -113,8 +112,8 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
         }
 
         /// <summary> An empty Lucene query  </summary>
-        public readonly static Search.Query TheEmptyLcnQuery = new EmptyLcnQuery(); /* no changes allowed */ 
-  
+        public readonly static Search.Query TheEmptyLcnQuery = new EmptyLcnQuery(); /* no changes allowed */
+
         internal sealed class EmptyLcnQuery : BooleanQuery
         {
             public override float Boost

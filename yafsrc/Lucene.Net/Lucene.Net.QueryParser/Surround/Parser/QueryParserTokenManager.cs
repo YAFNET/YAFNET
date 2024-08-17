@@ -77,10 +77,10 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
                     return JjMoveNfa_1(0, 0);
             }
         }
-        readonly static internal ulong[] jjbitVec0 = {
+        internal static readonly ulong[] jjbitVec0 = {
             0xfffffffffffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
         };
-        readonly static internal ulong[] jjbitVec2 = {
+        internal static readonly ulong[] jjbitVec2 = {
             0x0L, 0x0L, 0xffffffffffffffffL, 0xffffffffffffffffL
         };
         private int JjMoveNfa_1(int startState, int curPos)
@@ -523,9 +523,9 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
                 catch (Exception e) when (e.IsIOException()) { return curPos; }
             }
         }
-        readonly static internal int[] jjnextStates = {
+        internal static readonly int[] jjnextStates = {
             32, 33, 34, 35, 37, 24, 27, 28, 20, 17, 21, 18, 27, 28, 30, 24,
-            25, 0, 1
+            25, 0, 1,
         };
         private static bool JjCanMove_0(int hiByte, int i1, int i2, ulong l1, ulong l2)
         {
@@ -547,26 +547,26 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
         ////};
 
         /// <summary>Token literal values.</summary>
-        public readonly static string[] jjstrLiteralImages = {
+        public static readonly string[] jjstrLiteralImages = {
             "", null, null, null, null, null, null, null, null, null, null, null, null,
             "\x0028" /*"\50"*/, "\x0029" /*"\51"*/, "\x002C" /*"\54"*/, "\x003A" /*"\72"*/, "\x005E" /*"\136"*/, null, null, null, null, null, null
         };
 
         /// <summary>Lexer state names.</summary>
-        public readonly static string[] lexStateNames = {
+        public static readonly string[] lexStateNames = {
            "Boost",
            "DEFAULT"
         };
 
         /// <summary>Lex State array.</summary>
-        public readonly static int[] jjnewLexState = {
-           -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, -1, -1, 1
+        public static readonly int[] jjnewLexState = {
+           -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, -1, -1, 1,
         };
-        readonly static internal long[] jjtoToken = {
-           0xffff01L
+        internal static readonly long[] jjtoToken = {
+           0xffff01L,
         };
-        readonly static internal long[] jjtoSkip = {
-           0x80L
+        internal static readonly long[] jjtoSkip = {
+           0x80L,
         };
         protected ICharStream m_input_stream;
         private readonly uint[] jjrounds = new uint[38];

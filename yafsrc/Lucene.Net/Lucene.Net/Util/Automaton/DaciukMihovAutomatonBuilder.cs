@@ -1,4 +1,4 @@
-using J2N;
+﻿using J2N;
 using J2N.Runtime.CompilerServices;
 using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
@@ -43,11 +43,11 @@ namespace YAF.Lucene.Net.Util.Automaton
         {
             /// <summary>
             /// An empty set of labels. </summary>
-            private readonly static int[] NO_LABELS = Arrays.Empty<int>();
+            private static readonly int[] NO_LABELS = Array.Empty<int>();
 
             /// <summary>
             /// An empty set of states. </summary>
-            private readonly static State[] NO_STATES = Arrays.Empty<State>();
+            private static readonly State[] NO_STATES = Array.Empty<State>();
 
             /// <summary>
             /// Labels of outgoing transitions. Indexed identically to <see cref="states"/>.
@@ -221,7 +221,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         /// <summary>
         /// A comparer used for enforcing sorted UTF8 order, used in assertions only.
         /// </summary>
-        private readonly static IComparer<CharsRef> comparer =
+        private static readonly IComparer<CharsRef> comparer =
 #pragma warning disable 612, 618
             CharsRef.UTF16SortedAsUTF8Comparer;
 #pragma warning restore 612, 618

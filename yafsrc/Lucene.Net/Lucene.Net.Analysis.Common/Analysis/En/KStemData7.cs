@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Analysis.En
         private KStemData7()
         {
         }
-        static internal string[] data = new string[] {
+        internal static string[] data = new string[] {
             "rupee","rupture","rural","ruritanian","ruse",
             "rush","rushes","rushlight","rusk","russet",
             "rust","rustic","rusticate","rustication","rustle",
@@ -747,7 +747,7 @@ namespace YAF.Lucene.Net.Analysis.En
             "tenancy","tenant","tenantry","tench","tend",
             "tendency","tendentious","tender","tenderfoot","tenderhearted",
             "tenderise","tenderize","tenderloin","tendon","tendril",
-            "tenement","tenet","tenner","tennis","tenon"
+            "tenement","tenet","tenner","tennis","tenon",
         };
     }
 }

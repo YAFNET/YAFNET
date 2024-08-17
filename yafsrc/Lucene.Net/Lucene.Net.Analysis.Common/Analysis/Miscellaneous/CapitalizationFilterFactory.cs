@@ -71,11 +71,11 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
 
         internal ICollection<char[]> okPrefix = Collections.EmptyList<char[]>(); // for Example: McK
 
-        readonly internal int minWordLength; // don't modify capitalization for words shorter then this
-        readonly internal int maxWordCount;
-        readonly internal int maxTokenLength;
-        readonly internal bool onlyFirstWord;
-        readonly internal bool forceFirstLetter; // make sure the first letter is capital even if it is in the keep list
+        internal readonly int minWordLength; // don't modify capitalization for words shorter then this
+        internal readonly int maxWordCount;
+        internal readonly int maxTokenLength;
+        internal readonly bool onlyFirstWord;
+        internal readonly bool forceFirstLetter; // make sure the first letter is capital even if it is in the keep list
         private readonly CultureInfo culture; // LUCENENET specific
 
         /// <summary>

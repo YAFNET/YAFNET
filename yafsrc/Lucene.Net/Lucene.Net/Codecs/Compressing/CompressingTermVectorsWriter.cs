@@ -27,28 +27,28 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BlockPackedWriter = YAF.Lucene.Net.Util.Packed.BlockPackedWriter;
-    using BufferedChecksumIndexInput = YAF.Lucene.Net.Store.BufferedChecksumIndexInput;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using Fields = YAF.Lucene.Net.Index.Fields;
-    using GrowableByteArrayDataOutput = YAF.Lucene.Net.Util.GrowableByteArrayDataOutput;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using MergeState = YAF.Lucene.Net.Index.MergeState;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using SegmentReader = YAF.Lucene.Net.Index.SegmentReader;
-    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
+    using AtomicReader = Lucene.Net.Index.AtomicReader;
+    using IBits = Lucene.Net.Util.IBits;
+    using BlockPackedWriter = Lucene.Net.Util.Packed.BlockPackedWriter;
+    using BufferedChecksumIndexInput = Lucene.Net.Store.BufferedChecksumIndexInput;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using ChecksumIndexInput = Lucene.Net.Store.ChecksumIndexInput;
+    using DataInput = Lucene.Net.Store.DataInput;
+    using Directory = Lucene.Net.Store.Directory;
+    using FieldInfo = Lucene.Net.Index.FieldInfo;
+    using FieldInfos = Lucene.Net.Index.FieldInfos;
+    using Fields = Lucene.Net.Index.Fields;
+    using GrowableByteArrayDataOutput = Lucene.Net.Util.GrowableByteArrayDataOutput;
+    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
+    using IndexInput = Lucene.Net.Store.IndexInput;
+    using IndexOutput = Lucene.Net.Store.IndexOutput;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using MergeState = Lucene.Net.Index.MergeState;
+    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
+    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
+    using SegmentReader = Lucene.Net.Index.SegmentReader;
+    using StringHelper = Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// <see cref="TermVectorsWriter"/> for <see cref="CompressingTermVectorsFormat"/>.
@@ -75,7 +75,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         internal const int POSITIONS = 0x01;
         internal const int OFFSETS = 0x02;
         internal const int PAYLOADS = 0x04;
-        readonly static internal int FLAGS_BITS = PackedInt32s.BitsRequired(POSITIONS | OFFSETS | PAYLOADS);
+        internal static readonly int FLAGS_BITS = PackedInt32s.BitsRequired(POSITIONS | OFFSETS | PAYLOADS);
 
         private readonly Directory directory;
         private readonly string segment;
@@ -95,9 +95,9 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         {
             private readonly CompressingTermVectorsWriter outerInstance;
 
-            readonly internal int numFields;
-            readonly internal LinkedList<FieldData> fields;
-            readonly internal int posStart, offStart, payStart;
+            internal readonly int numFields;
+            internal readonly LinkedList<FieldData> fields;
+            internal readonly int posStart, offStart, payStart;
 
             internal DocData(CompressingTermVectorsWriter outerInstance, int numFields, int posStart, int offStart, int payStart)
             {
@@ -167,10 +167,10 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         {
             private readonly CompressingTermVectorsWriter outerInstance;
 
-            readonly internal bool hasPositions, hasOffsets, hasPayloads;
-            readonly internal int fieldNum, flags, numTerms;
-            readonly internal int[] freqs, prefixLengths, suffixLengths;
-            readonly internal int posStart, offStart, payStart;
+            internal readonly bool hasPositions, hasOffsets, hasPayloads;
+            internal readonly int fieldNum, flags, numTerms;
+            internal readonly int[] freqs, prefixLengths, suffixLengths;
+            internal readonly int posStart, offStart, payStart;
             internal int totalPositions;
             internal int ord;
 
@@ -304,7 +304,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

@@ -68,7 +68,7 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
 
         /// <summary>
         /// String token types that correspond to token type int constants </summary>
-        public readonly static string[] TOKEN_TYPES = new string[] {
+        public static readonly string[] TOKEN_TYPES = new string[] {
             "<ALPHANUM>",
             "<APOSTROPHE>",
             "<ACRONYM>",
@@ -318,7 +318,7 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
             offsetAtt.SetOffset(CorrectOffset(start), CorrectOffset(start + termAtt.Length));
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
             if (disposing)

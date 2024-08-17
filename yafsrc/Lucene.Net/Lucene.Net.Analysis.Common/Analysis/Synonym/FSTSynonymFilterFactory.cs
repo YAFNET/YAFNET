@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
         // LUCENENET: Optimized by pre-comiling regex and lazy-loading
         private class Holder
         {
-            public readonly static Regex TOKENIZER_FACTORY_REPLACEMENT_PATTERN = new Regex("^tokenizerFactory\\.", RegexOptions.Compiled);
+            public static readonly Regex TOKENIZER_FACTORY_REPLACEMENT_PATTERN = new Regex("^tokenizerFactory\\.", RegexOptions.Compiled);
         }
 
         [Obsolete(@"(3.4) use SynonymFilterFactory instead. this is only a backwards compatibility")]

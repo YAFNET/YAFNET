@@ -77,7 +77,7 @@ namespace YAF.Lucene.Net.Analysis.Core
         /// Converts char to lower case
         /// <see cref="Character.ToLower(int, CultureInfo)"/> in the invariant culture.
         /// </summary>
-        override protected int Normalize(int c)
+        protected override int Normalize(int c)
         {
             return Character.ToLower(c, CultureInfo.InvariantCulture); // LUCENENET specific - need to use invariant culture to match Java
         }

@@ -1,5 +1,4 @@
-﻿using YAF.Lucene.Net.Support;
-using YAF.Lucene.Net.Util;
+﻿using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -48,7 +47,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Messages
         /// Initializes a new instance of the <see cref="QueryParserResourceProvider"/> class with default values.
         /// </summary>
         public QueryParserResourceProvider()
-            : this((IList<ResourceManager>)Arrays.Empty<ResourceManager>())
+            : this((IList<ResourceManager>)Array.Empty<ResourceManager>())
         {
         }
 

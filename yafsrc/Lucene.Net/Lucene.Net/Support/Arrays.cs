@@ -27,7 +27,7 @@ namespace YAF.Lucene.Net.Support
      * limitations under the License.
      */
 
-    static internal class Arrays
+    internal static class Arrays
     {
         /// <summary>
         /// Compares the entire members of one array whith the other one.
@@ -118,7 +118,7 @@ namespace YAF.Lucene.Net.Support
         #region ArrayFiller<T>
         private static class ArrayFiller<T>
         {
-            public readonly static IArrayFiller<T> Default = LoadArrayFiller();
+            public static readonly IArrayFiller<T> Default = LoadArrayFiller();
 
             private static IArrayFiller<T> LoadArrayFiller()
             {
@@ -225,8 +225,8 @@ namespace YAF.Lucene.Net.Support
         {
             // We put this in its own class so every type doesn't have to reload it. But, at the same time,
             // we don't want to have to load this just to use the Arrays class.
-            public readonly static bool IsFullFramework = LoadIsFullFramework();
-            public readonly static bool IsNetCore = LoadIsNetCore();
+            public static readonly bool IsFullFramework = LoadIsFullFramework();
+            public static readonly bool IsNetCore = LoadIsNetCore();
 
             private static bool LoadIsFullFramework()
             {
@@ -255,7 +255,7 @@ namespace YAF.Lucene.Net.Support
 
         private static class ArrayCopier<T>
         {
-            public readonly static IArrayCopier<T> Default = LoadArrayCopier();
+            public static readonly IArrayCopier<T> Default = LoadArrayCopier();
 
             private static IArrayCopier<T> LoadArrayCopier()
             {
@@ -651,31 +651,5 @@ namespace YAF.Lucene.Net.Support
             sb.Append(']');
             return sb.ToString();
         }
-
-        /// <summary>
-        /// Returns an empty array.
-        /// </summary>
-        /// <typeparam name="T">The type of the elements of the array.</typeparam>
-        /// <returns>An empty array.</returns>
-        // LUCENENET: Since Array.Empty<T>() doesn't exist in all supported platforms, we
-        // have this wrapper method to add support.
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T[] Empty<T>()
-        {
-#if FEATURE_ARRAYEMPTY
-            return Array.Empty<T>();
-#else
-            return EmptyArrayHolder<T>.EMPTY;
-#endif
-        }
-
-#if !FEATURE_ARRAYEMPTY
-        private static class EmptyArrayHolder<T>
-        {
-#pragma warning disable CA1825 // Avoid zero-length array allocations.
-            public static readonly T[] EMPTY = new T[0];
-#pragma warning restore CA1825 // Avoid zero-length array allocations.
-        }
-#endif
     }
 }

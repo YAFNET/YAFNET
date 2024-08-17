@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.Analysis.Br
     /// </summary>
     public class BrazilianStemmer
     {
-        private readonly static CultureInfo locale = new CultureInfo("pt-BR");
+        private static readonly CultureInfo locale = new CultureInfo("pt-BR");
 
         /// <summary>
         /// Changed term

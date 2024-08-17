@@ -33,10 +33,10 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std31
     public sealed class UAX29URLEmailTokenizerImpl31 : IStandardTokenizerInterface
     {
         /// <summary>This character denotes the end of file</summary>
-        public readonly static int YYEOF = -1;
+        public static readonly int YYEOF = -1;
 
         /// <summary>initial size of the lookahead buffer </summary>
-        private readonly static int ZZ_BUFFERSIZE = 4096;
+        private static readonly int ZZ_BUFFERSIZE = 4096;
 
         /// <summary>lexical states</summary>
         public const int YYINITIAL = 0;
@@ -47,10 +47,10 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std31
         ///                  at the beginning of a line
         /// l is of the form l = 2*k, k a non negative integer
         /// </summary>
-        private readonly static int[] ZZ_LEXSTATE = { 0, 0 };
+        private static readonly int[] ZZ_LEXSTATE = { 0, 0 };
 
         /// <summary>Translates characters to character classes</summary>
-        private readonly static string ZZ_CMAP_PACKED =
+        private static readonly string ZZ_CMAP_PACKED =
             "\x0001\x009F\x0008\x009D\x0002\x009F\x0002\x009D\x0001\x009F\x0013\x009D\x0001\x00A0\x0001\x009C\x0001\x0097\x0001\x00A0" +
             "\x0001\x0090\x0001\x008E\x0001\x0093\x0002\x0091\x0002\x00A0\x0001\x0092\x0001\x0082\x0001\x0067\x0001\x0096\x0001\x0083" +
             "\x0001\x0086\x0001\x008C\x0001\x0087\x0001\x008A\x0001\x0084\x0001\x0085\x0001\x0089\x0001\x008B\x0001\x0088\x0001\x008D" +
@@ -194,10 +194,10 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std31
             "\x0006\x0066\x0002\x0000\x0003\x0066\x001C\x0000\x0003\x005B\x0004\x0000";
 
         /// <summary>Translates characters to character classes</summary>
-        private readonly static char[] ZZ_CMAP = ZzUnpackCMap(ZZ_CMAP_PACKED);
+        private static readonly char[] ZZ_CMAP = ZzUnpackCMap(ZZ_CMAP_PACKED);
 
         /// <summary>Translates DFA states to action switch labels.</summary>
-        private readonly static int[] ZZ_ACTION = ZzUnpackAction();
+        private static readonly int[] ZZ_ACTION = ZzUnpackAction();
 
         private const string ZZ_ACTION_PACKED_0 =
             "\x0001\x0000\x0013\x0001\x0001\x0002\x0001\x0003\x0001\x0004\x0001\x0001\x0001\x0005\x0001\x0006" +
@@ -240,7 +240,7 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std31
             return j;
         }
 
-        private readonly static int[] ZZ_ROWMAP = ZzUnpackRowMap();
+        private static readonly int[] ZZ_ROWMAP = ZzUnpackRowMap();
 
         private const string ZZ_ROWMAP_PACKED_0 =
             "\x0000\x0000\x0000\x00A3\x0000\u0146\x0000\u01e9\x0000\u028c\x0000\u032f\x0000\u03d2\x0000\u0475" +
@@ -433,7 +433,7 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std31
         }
 
         /// <summary>The transition table of the DFA</summary>
-        private readonly static int[] ZZ_TRANS = ZzUnpackTrans();
+        private static readonly int[] ZZ_TRANS = ZzUnpackTrans();
 
         private const string ZZ_TRANS_PACKED_0 =
             "\x0001\x0002\x0001\x0003\x0001\x0002\x0001\x0004\x0001\x0002\x0001\x0005\x0001\x0002\x0001\x0006" +
@@ -3151,19 +3151,19 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std31
 
 
         /// <summary>error codes</summary>
-        private readonly static int ZZ_UNKNOWN_ERROR = 0;
-        private readonly static int ZZ_NO_MATCH = 1;
-        private readonly static int ZZ_PUSHBACK_2BIG = 2;
+        private static readonly int ZZ_UNKNOWN_ERROR = 0;
+        private static readonly int ZZ_NO_MATCH = 1;
+        private static readonly int ZZ_PUSHBACK_2BIG = 2;
 
         /// <summary>error messages for the codes above</summary>
-        private readonly static string[] ZZ_ERROR_MSG = {
+        private static readonly string[] ZZ_ERROR_MSG = {
             "Unkown internal scanner error",
             "Error: could not match input",
             "Error: pushback value was too large"
         };
 
         /// <summary>ZZ_ATTRIBUTE[aState] contains the attributes of state <c>aState</c></summary>
-        private readonly static int[] ZZ_ATTRIBUTE = ZzUnpackAttribute();
+        private static readonly int[] ZZ_ATTRIBUTE = ZzUnpackAttribute();
 
         private const string ZZ_ATTRIBUTE_PACKED_0 =
             "\x0001\x0000\x0001\x0009\x0017\x0001\x0002\x0009\x000B\x0001\x000D\x0000\x0001\x0001\x0001\x0000" +
@@ -3257,10 +3257,10 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std31
 
         /* user code: */
         /// <summary>Alphanumeric sequences</summary>
-        public readonly static int WORD_TYPE = UAX29URLEmailTokenizer.ALPHANUM;
+        public static readonly int WORD_TYPE = UAX29URLEmailTokenizer.ALPHANUM;
 
         /// <summary>Numbers</summary>
-        public readonly static int NUMERIC_TYPE = UAX29URLEmailTokenizer.NUM;
+        public static readonly int NUMERIC_TYPE = UAX29URLEmailTokenizer.NUM;
 
         /// <summary>
         /// Chars in class \p{Line_Break = Complex_Context} are from South East Asian
@@ -3270,19 +3270,19 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std31
         /// <para/>
         /// See Unicode Line Breaking Algorithm: http://www.unicode.org/reports/tr14/#SA
         /// </summary>
-        public readonly static int SOUTH_EAST_ASIAN_TYPE = UAX29URLEmailTokenizer.SOUTHEAST_ASIAN;
+        public static readonly int SOUTH_EAST_ASIAN_TYPE = UAX29URLEmailTokenizer.SOUTHEAST_ASIAN;
 
-        public readonly static int IDEOGRAPHIC_TYPE = UAX29URLEmailTokenizer.IDEOGRAPHIC;
+        public static readonly int IDEOGRAPHIC_TYPE = UAX29URLEmailTokenizer.IDEOGRAPHIC;
 
-        public readonly static int HIRAGANA_TYPE = UAX29URLEmailTokenizer.HIRAGANA;
+        public static readonly int HIRAGANA_TYPE = UAX29URLEmailTokenizer.HIRAGANA;
 
-        public readonly static int KATAKANA_TYPE = UAX29URLEmailTokenizer.KATAKANA;
+        public static readonly int KATAKANA_TYPE = UAX29URLEmailTokenizer.KATAKANA;
 
-        public readonly static int HANGUL_TYPE = UAX29URLEmailTokenizer.HANGUL;
+        public static readonly int HANGUL_TYPE = UAX29URLEmailTokenizer.HANGUL;
 
-        public readonly static int EMAIL_TYPE = UAX29URLEmailTokenizer.EMAIL;
+        public static readonly int EMAIL_TYPE = UAX29URLEmailTokenizer.EMAIL;
 
-        public readonly static int URL_TYPE = UAX29URLEmailTokenizer.URL;
+        public static readonly int URL_TYPE = UAX29URLEmailTokenizer.URL;
 
         public int YyChar => yychar;
 

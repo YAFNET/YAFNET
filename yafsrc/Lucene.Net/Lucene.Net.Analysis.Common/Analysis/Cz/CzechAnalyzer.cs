@@ -59,7 +59,7 @@ namespace YAF.Lucene.Net.Analysis.Cz
 
         private static class DefaultSetHolder
         {
-            readonly static internal CharArraySet DEFAULT_SET = LoadDefaultSet();
+            internal static readonly CharArraySet DEFAULT_SET = LoadDefaultSet();
 
             private static CharArraySet LoadDefaultSet() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
             {
@@ -130,7 +130,7 @@ namespace YAF.Lucene.Net.Analysis.Cz
         ///         <see cref="SetKeywordMarkerFilter"/> is added before
         ///         <see cref="CzechStemFilter"/>. </returns>
 
-        override protected internal TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+        protected internal override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
             Tokenizer source = new StandardTokenizer(m_matchVersion, reader);
             TokenStream result = new StandardFilter(m_matchVersion, source);

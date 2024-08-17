@@ -106,7 +106,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
             this.m_fields = fields;
         }
 
-        override protected internal Query GetFieldQuery(string field, string queryText, int slop)
+        protected internal override Query GetFieldQuery(string field, string queryText, int slop)
         {
             if (field is null)
             {
@@ -149,7 +149,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
             }
         }
 
-        override protected internal Query GetFieldQuery(string field, string queryText, bool quoted)
+        protected internal override Query GetFieldQuery(string field, string queryText, bool quoted)
         {
             if (field is null)
             {
@@ -177,7 +177,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
             return q2;
         }
 
-        override protected internal Query GetFuzzyQuery(string field, string termStr, float minSimilarity)
+        protected internal override Query GetFuzzyQuery(string field, string termStr, float minSimilarity)
         {
             if (field is null)
             {
@@ -191,7 +191,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
             return base.GetFuzzyQuery(field, termStr, minSimilarity);
         }
 
-        override protected internal Query GetPrefixQuery(string field, string termStr)
+        protected internal override Query GetPrefixQuery(string field, string termStr)
         {
             if (field is null)
             {
@@ -205,7 +205,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
             return base.GetPrefixQuery(field, termStr);
         }
 
-        override protected internal Query GetWildcardQuery(string field, string termStr)
+        protected internal override Query GetWildcardQuery(string field, string termStr)
         {
             if (field is null)
             {
@@ -220,7 +220,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
         }
 
 
-        override protected internal Query GetRangeQuery(string field, string part1, string part2, bool startInclusive, bool endInclusive)
+        protected internal override Query GetRangeQuery(string field, string part1, string part2, bool startInclusive, bool endInclusive)
         {
             if (field is null)
             {
@@ -234,7 +234,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
             return base.GetRangeQuery(field, part1, part2, startInclusive, endInclusive);
         }
 
-        override protected internal Query GetRegexpQuery(string field, string termStr)
+        protected internal override Query GetRegexpQuery(string field, string termStr)
         {
             if (field is null)
             {

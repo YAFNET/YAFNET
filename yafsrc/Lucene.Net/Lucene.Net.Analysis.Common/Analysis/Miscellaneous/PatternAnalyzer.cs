@@ -63,13 +63,13 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
     {
         /// <summary>
         /// <c>"\\W+"</c>; Divides text at non-letters (NOT Character.isLetter(c)) </summary>
-        public readonly static Regex NON_WORD_PATTERN = new Regex("\\W+", RegexOptions.Compiled);
+        public static readonly Regex NON_WORD_PATTERN = new Regex("\\W+", RegexOptions.Compiled);
 
         /// <summary>
         /// <c>"\\s+"</c>; Divides text at whitespaces (Character.isWhitespace(c)) </summary>
-        public readonly static Regex WHITESPACE_PATTERN = new Regex("\\s+", RegexOptions.Compiled);
+        public static readonly Regex WHITESPACE_PATTERN = new Regex("\\s+", RegexOptions.Compiled);
 
-        private readonly static CharArraySet EXTENDED_ENGLISH_STOP_WORDS =
+        private static readonly CharArraySet EXTENDED_ENGLISH_STOP_WORDS =
             new CharArraySet(LuceneVersion.LUCENE_CURRENT,
                 new string[] {
                     "a", "about", "above", "across", "adj", "after", "afterwards",
@@ -119,7 +119,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         /// A lower-casing word analyzer with English stop words (can be shared
         /// freely across threads without harm); global per class loader.
         /// </summary>
-        public readonly static PatternAnalyzer DEFAULT_ANALYZER = new PatternAnalyzer(
+        public static readonly PatternAnalyzer DEFAULT_ANALYZER = new PatternAnalyzer(
             LuceneVersion.LUCENE_CURRENT, NON_WORD_PATTERN, true, StopAnalyzer.ENGLISH_STOP_WORDS_SET);
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         /// http://thomas.loc.gov/home/stopwords.html, see
         /// http://thomas.loc.gov/home/all.about.inquery.html
         /// </summary>
-        public readonly static PatternAnalyzer EXTENDED_ANALYZER = new PatternAnalyzer(
+        public static readonly PatternAnalyzer EXTENDED_ANALYZER = new PatternAnalyzer(
             LuceneVersion.LUCENE_CURRENT, NON_WORD_PATTERN, true, EXTENDED_ENGLISH_STOP_WORDS);
 
         private readonly Regex pattern;
@@ -227,7 +227,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         /// <param name="reader">
         ///            the reader delivering the text </param>
         /// <returns> a new token stream </returns>
-        override protected internal TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+        protected internal override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
             return CreateComponents(fieldName, reader, null);
         }
@@ -432,7 +432,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
                 this.offsetAtt.SetOffset(finalOffset, finalOffset);
             }
 
-            override protected void Dispose(bool disposing)
+            protected override void Dispose(bool disposing)
             {
                 base.Dispose(disposing);
                 if (disposing)
@@ -569,7 +569,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
                 return stopWords != null && stopWords.Contains(text);
             }
 
-            override protected void Dispose(bool disposing)
+            protected override void Dispose(bool disposing)
             {
                 base.Dispose(disposing);
                 if (disposing)

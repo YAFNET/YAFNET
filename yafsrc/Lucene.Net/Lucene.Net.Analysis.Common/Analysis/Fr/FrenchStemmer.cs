@@ -35,7 +35,7 @@ namespace YAF.Lucene.Net.Analysis.Fr
     [Obsolete("Use FrenchStemmer instead, which has the same functionality.")]
     public class FrenchStemmer
     {
-        private readonly static CultureInfo locale = new CultureInfo("fr-FR");
+        private static readonly CultureInfo locale = new CultureInfo("fr-FR");
 
         /// <summary>
         /// Buffer for the terms while stemming them.

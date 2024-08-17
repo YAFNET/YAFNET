@@ -51,7 +51,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
         // LUCENENET: Optimized by pre-comiling regex and lazy-loading
         private class Holder
         {
-            public readonly static Regex TOKENIZER_FACTORY_REPLACEMENT_PATTERN = new Regex("^tokenizerFactory\\.", RegexOptions.Compiled);
+            public static readonly Regex TOKENIZER_FACTORY_REPLACEMENT_PATTERN = new Regex("^tokenizerFactory\\.", RegexOptions.Compiled);
         }
 
         public SlowSynonymFilterFactory(IDictionary<string, string> args) 
@@ -117,7 +117,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
 
         private SlowSynonymMap synMap;
 
-        static internal void ParseRules(IEnumerable<string> rules, SlowSynonymMap map, string mappingSep, string synSep, bool expansion, TokenizerFactory tokFactory)
+        internal static void ParseRules(IEnumerable<string> rules, SlowSynonymMap map, string mappingSep, string synSep, bool expansion, TokenizerFactory tokFactory)
         {
             int count = 0;
             foreach (string rule in rules)

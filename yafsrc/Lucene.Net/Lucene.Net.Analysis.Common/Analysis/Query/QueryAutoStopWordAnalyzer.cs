@@ -3,8 +3,8 @@ using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Analysis.Core;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Index;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using JCG = J2N.Collections.Generic;
@@ -30,11 +30,11 @@ namespace YAF.Lucene.Net.Analysis.Query
 
     /// <summary>
     /// An <see cref="Analyzer"/> used primarily at query time to wrap another analyzer and provide a layer of protection
-    /// which prevents very common words from being passed into queries. 
+    /// which prevents very common words from being passed into queries.
     /// <para>
     /// For very large indexes the cost
     /// of reading TermDocs for a very common word can be  high. This analyzer was created after experience with
-    /// a 38 million doc index which had a term in around 50% of docs and was causing TermQueries for 
+    /// a 38 million doc index which had a term in around 50% of docs and was causing TermQueries for
     /// this term to take 2 seconds.
     /// </para>
     /// </summary>
@@ -147,12 +147,12 @@ namespace YAF.Lucene.Net.Analysis.Query
             }
         }
 
-        override protected Analyzer GetWrappedAnalyzer(string fieldName)
+        protected override Analyzer GetWrappedAnalyzer(string fieldName)
         {
             return @delegate;
         }
 
-        override protected TokenStreamComponents WrapComponents(string fieldName, TokenStreamComponents components)
+        protected override TokenStreamComponents WrapComponents(string fieldName, TokenStreamComponents components)
         {
             if (!stopWordsPerField.TryGetValue(fieldName, out ISet<string> stopWords) || stopWords is null)
             {
@@ -169,9 +169,9 @@ namespace YAF.Lucene.Net.Analysis.Query
         ///                  method calls will be returned </param>
         /// <returns> the stop words identified for a field </returns>
         public string[] GetStopWords(string fieldName)
-        {            
+        {
             var stopWords = stopWordsPerField[fieldName];
-            return stopWords != null ? stopWords.ToArray() : Arrays.Empty<string>();
+            return stopWords != null ? stopWords.ToArray() : Array.Empty<string>();
         }
 
         /// <summary>

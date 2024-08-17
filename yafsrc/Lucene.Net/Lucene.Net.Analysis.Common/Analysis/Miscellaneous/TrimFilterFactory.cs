@@ -35,7 +35,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
     /// <seealso cref="TrimFilter"/>
     public class TrimFilterFactory : TokenFilterFactory
     {
-        readonly protected bool m_updateOffsets;
+        protected readonly bool m_updateOffsets;
 
         /// <summary>
         /// Creates a new <see cref="TrimFilterFactory"/> </summary>

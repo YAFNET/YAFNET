@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Analysis.En
         private KStemData8()
         {
         }
-        static internal string[] data = new string[] {
+        internal static string[] data = new string[] {
             "tenor","tenpin","tense","tensile","tension",
             "tent","tentacle","tentative","tenterhooks","tenuity",
             "tenuous","tenure","tepee","tepid","tequila",
@@ -646,7 +646,7 @@ namespace YAF.Lucene.Net.Analysis.En
             "zip","zipper","zippy","zither","zizz",
             "zodiac","zombi","zombie","zonal","zone",
             "zoning","zonked","zoo","zoologist","zoology",
-            "zoom","zoophyte","zouave","zucchini","zulu"
+            "zoom","zoophyte","zouave","zucchini","zulu",
         };
     }
 }

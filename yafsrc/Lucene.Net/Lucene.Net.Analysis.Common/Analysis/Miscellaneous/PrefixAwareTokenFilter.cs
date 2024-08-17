@@ -175,7 +175,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             suffix.End();
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

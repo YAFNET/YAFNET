@@ -37,12 +37,12 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
     /// <seealso cref="FuzzyQueryNode"/>
     public class FuzzyQueryNodeProcessor : QueryNodeProcessor
     {
-        override protected IQueryNode PostProcessNode(IQueryNode node)
+        protected override IQueryNode PostProcessNode(IQueryNode node)
         {
             return node;
         }
 
-        override protected IQueryNode PreProcessNode(IQueryNode node)
+        protected override IQueryNode PreProcessNode(IQueryNode node)
         {
             if (node is FuzzyQueryNode fuzzyNode)
             {
@@ -68,7 +68,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
             return node;
         }
 
-        override protected IList<IQueryNode> SetChildrenOrder(IList<IQueryNode> children)
+        protected override IList<IQueryNode> SetChildrenOrder(IList<IQueryNode> children)
         {
             return children;
         }

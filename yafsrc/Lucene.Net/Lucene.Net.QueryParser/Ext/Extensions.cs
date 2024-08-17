@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.QueryParsers.Ext
         /// <summary>
         /// The default extension field delimiter character. This constant is set to ':'
         /// </summary>
-        public readonly static char DEFAULT_EXTENSION_FIELD_DELIMITER = ':';
+        public static readonly char DEFAULT_EXTENSION_FIELD_DELIMITER = ':';
 
         /// <summary>
         /// Creates a new <see cref="Extensions"/> instance with the
