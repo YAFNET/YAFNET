@@ -65,6 +65,9 @@ function loadModal(modal, placeholderElement) {
 	modal._element.addEventListener('shown.bs.modal',
 		event => {
 			if (event.target.id === 'LoginBox') {
+
+				togglePassword();
+
 				var form = document.querySelector('.modal.show').querySelector('form');
 				form.addEventListener('submit',
 					function(e) {

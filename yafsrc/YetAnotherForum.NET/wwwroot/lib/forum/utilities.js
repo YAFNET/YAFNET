@@ -179,6 +179,28 @@ function renderAttachPreview(previewClass) {
     });
 }
 
+// Toggle password visibility
+function togglePassword() {
+
+    if (document.body.contains(document.getElementById('PasswordToggle'))) {
+        const passwordToggle = document.getElementById('PasswordToggle');
+        var icon = passwordToggle.querySelector('i'),
+            pass = document.querySelector("input[id*='Password']");
+        passwordToggle.addEventListener('click', function (event) {
+            event.preventDefault();
+            if (pass.getAttribute('type') === 'text') {
+                pass.setAttribute('type', 'password');
+                icon.classList.add('fa-eye-slash');
+                icon.classList.remove('fa-eye');
+            } else if (pass.getAttribute('type') === 'password') {
+                pass.setAttribute('type', 'text');
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    }
+}
+
 // Confirm Dialog
 document.addEventListener('click', function (event) {
     if (event.target.parentElement && event.target.parentElement.matches('[data-bs-toggle="confirm"]')) {
@@ -257,22 +279,5 @@ document.addEventListener('DOMContentLoaded', function () {
         document.addEventListener('scroll', handleScroll);
     }
 
-    // Toggle password visibility
-    if (document.body.contains(document.getElementById('PasswordToggle'))) {
-        const passwordToggle = document.getElementById('PasswordToggle');
-        var icon = passwordToggle.querySelector('i'),
-        pass = document.querySelector("input[id*='Password']");
-        passwordToggle.addEventListener('click', function (event) {
-            event.preventDefault();
-            if (pass.getAttribute('type') === 'text') {
-                pass.setAttribute('type', 'password');
-                icon.classList.add('fa-eye-slash');
-                icon.classList.remove('fa-eye');
-            } else if (pass.getAttribute('type') === 'password') {
-                pass.setAttribute('type', 'text');
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        });
-    }
+    togglePassword();
 })
