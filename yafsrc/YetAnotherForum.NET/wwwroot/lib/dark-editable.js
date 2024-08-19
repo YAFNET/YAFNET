@@ -1,3 +1,10 @@
+/*!
+ * In-place editing with Bootstrap 5 (https://getbootstrap.com/) and Popper
+ * https://github.com/DarKsandr/dark-editable
+ * Copyright (c) 2021 DarKsandr
+ * Licensed under MIT (https://github.com/DarKsandr/dark-editable/blob/main/LICENSE)
+ */
+
 class DarkEditable {
     constructor(element, options = {}) {
         this._element = { element: null, form: null, load: null, buttons: { success: null, cancel: null } };
@@ -12,7 +19,7 @@ class DarkEditable {
         if (this.disabled) {
             this.disable();
         }
-        this.element.dispatchEvent(new CustomEvent("init"));
+        this.element.dispatchEvent(new CustomEvent('init'));
     }
 
     /* INIT METHODS */
@@ -23,10 +30,10 @@ class DarkEditable {
         };
         const get_opt_bool = (name, default_value) => {
             get_opt(name, default_value);
-            if (typeof this[name] != "boolean") {
-                if (this[name] == "true") {
+            if (typeof this[name] != 'boolean') {
+                if (this[name] == 'true') {
                     this[name] = true;
-                } else if (this[name] == "false") {
+                } else if (this[name] == 'false') {
                     this[name] = false;
                 } else {
                     this[name] = default_value;
@@ -35,63 +42,63 @@ class DarkEditable {
             return this[name];
         };
         //priority date elements
-        get_opt("value", this.element.innerHTML);
-        get_opt("name", this.element.id);
-        get_opt("id", null);
-        get_opt("title", "");
-        get_opt("type", "text");
-        get_opt("emptytext", "Empty");
-        get_opt("url", null);
-        get_opt("ajaxOptions", {});
+        get_opt('value', this.element.innerHTML);
+        get_opt('name', this.element.id);
+        get_opt('id', null);
+        get_opt('title', '');
+        get_opt('type', 'text');
+        get_opt('emptytext', 'Empty');
+        get_opt('url', null);
+        get_opt('ajaxOptions', {});
         this.ajaxOptions = Object.assign({
-            method: "POST",
-            dataType: "text"
+            method: 'POST',
+            dataType: 'text'
         }, this.ajaxOptions);
-        get_opt_bool("send", true);
-        get_opt_bool("disabled", false);
-        get_opt_bool("required", false);
-        if (this.options?.success && typeof this.options?.success == "function") {
+        get_opt_bool('send', true);
+        get_opt_bool('disabled', false);
+        get_opt_bool('required', false);
+        if (this.options?.success && typeof this.options?.success == 'function') {
             this.success = this.options.success;
         }
-        if (this.options?.error && typeof this.options?.error == "function") {
+        if (this.options?.error && typeof this.options?.error == 'function') {
             this.error = this.options.error;
         }
         switch (this.type) {
-            case "select":
-                get_opt("source", []);
-                if (typeof this.source == "string" && this.source != "") {
+            case 'select':
+                get_opt('source', []);
+                if (typeof this.source == 'string' && this.source != '') {
                     this.source = JSON.parse(this.source);
                 }
                 break;
-            case "date":
-                get_opt("format", "YYYY-MM-DD");
-                get_opt("viewformat", "YYYY-MM-DD");
+            case 'date':
+                get_opt('format', 'YYYY-MM-DD');
+                get_opt('viewformat', 'YYYY-MM-DD');
                 // if(this.value != empty_value) this.value = moment(this.value).format("YYYY-MM-DD");
                 break;
-            case "datetime":
-                get_opt("format", "YYYY-MM-DD HH:mm");
-                get_opt("viewformat", "YYYY-MM-DD HH:mm");
-                this.value = moment(this.value).format("YYYY-MM-DDTHH:mm");
+            case 'datetime':
+                get_opt('format', 'YYYY-MM-DD HH:mm');
+                get_opt('viewformat', 'YYYY-MM-DD HH:mm');
+                this.value = moment(this.value).format('YYYY-MM-DDTHH:mm');
                 break;
         }
     }
 
     init_text() {
-        const empty_class = "text-danger";
+        const empty_class = 'text-danger';
         this.element.classList.remove(empty_class);
         let empty = true;
         switch (this.type) {
             default:
-                if (this.value == "") {
+                if (this.value == '') {
                     this.element.innerHTML = this.emptytext;
                 } else {
                     this.element.innerHTML = this.value;
                     empty = false;
                 }
                 break;
-            case "select":
+            case 'select':
                 this.element.innerHTML = this.emptytext;
-                if (this.value != "" && this.source.length > 0) {
+                if (this.value != '' && this.source.length > 0) {
                     this.source.forEach(item => {
                         if (item.value == this.value) {
                             this.element.innerHTML = item.text;
@@ -100,9 +107,9 @@ class DarkEditable {
                     });
                 }
                 break;
-            case "date":
-            case "datetime":
-                if (this.value == "") {
+            case 'date':
+            case 'datetime':
+                if (this.value == '') {
                     this.element.innerHTML = this.emptytext;
                 } else {
                     this.element.innerHTML = moment(this.value).format(this.viewformat);
@@ -116,7 +123,7 @@ class DarkEditable {
     }
 
     init_style() {
-        this.element.classList.add("dark-editable-element");
+        this.element.classList.add('dark-editable-element');
     }
 
     init_hide_onclick() {
@@ -133,24 +140,24 @@ class DarkEditable {
 
     init_popover() {
         this.popover = new bootstrap.Popover(this.element, {
-            container: "body",
+            container: 'body',
             content: this.route_type(),
             html: true,
-            customClass: "dark-editable",
+            customClass: 'dark-editable',
             title: this.title,
         });
         this.element.addEventListener('show.bs.popover', () => {
             this._element.element.value = this.value;
-            this.element.dispatchEvent(new CustomEvent("show"));
+            this.element.dispatchEvent(new CustomEvent('show'));
         });
         this.element.addEventListener('shown.bs.popover', () => {
-            this.element.dispatchEvent(new CustomEvent("shown"));
+            this.element.dispatchEvent(new CustomEvent('shown'));
         });
         this.element.addEventListener('hide.bs.popover', () => {
-            this.element.dispatchEvent(new CustomEvent("hide"));
+            this.element.dispatchEvent(new CustomEvent('hide'));
         });
         this.element.addEventListener('hidden.bs.popover', () => {
-            this.element.dispatchEvent(new CustomEvent("hidden"));
+            this.element.dispatchEvent(new CustomEvent('hidden'));
         });
     }
 
@@ -160,22 +167,22 @@ class DarkEditable {
         switch (this.type) {
             default:
                 throw new Error(`Undefined type`);
-            case "text":
-            case "password":
-            case "email":
-            case "url":
-            case "tel":
-            case "number":
-            case "range":
-            case "time":
+            case 'text':
+            case 'password':
+            case 'email':
+            case 'url':
+            case 'tel':
+            case 'number':
+            case 'range':
+            case 'time':
                 return this.type_input();
-            case "textarea":
+            case 'textarea':
                 return this.type_textarea();
-            case "select":
+            case 'select':
                 return this.type_select();
-            case "date":
+            case 'date':
                 return this.type_date();
-            case "datetime":
+            case 'datetime':
                 return this.type_datetime();
         }
     }
@@ -184,7 +191,7 @@ class DarkEditable {
 
     createElement(name) {
         const element = document.createElement(name);
-        element.classList.add("form-control");
+        element.classList.add('form-control');
         if (this.required) {
             element.required = this.required;
         }
@@ -219,14 +226,14 @@ class DarkEditable {
 
     type_date() {
         const input = this.createElement(`input`);
-        input.type = "date";
+        input.type = 'date';
 
         return this.createContainer(input);
     }
 
     type_datetime() {
         const input = this.createElement(`input`);
-        input.type = "datetime-local";
+        input.type = 'datetime-local';
 
         return this.createContainer(input);
     }
@@ -248,9 +255,9 @@ class DarkEditable {
     //true/false
     load(action) {
         if (action) {
-            this._element.load.style.display = "block";
+            this._element.load.style.display = 'block';
         } else {
-            this._element.load.style.display = "none";
+            this._element.load.style.display = 'none';
         }
     }
 
@@ -270,8 +277,8 @@ class DarkEditable {
 
     createContainerForm(element) {
         const form = document.createElement(`form`);
-        form.classList.add("d-flex", "align-items-start");
-        form.style.gap = "10px";
+        form.classList.add('d-flex', 'align-items-start');
+        form.style.gap = '10px';
         form.addEventListener('submit', async e => {
             e.preventDefault();
             const newValue = element.value;
@@ -292,22 +299,22 @@ class DarkEditable {
                 this.popover.hide();
                 this.init_text();
             }
-            this.element.dispatchEvent(new CustomEvent("save"));
+            this.element.dispatchEvent(new CustomEvent('save'));
         });
         return form;
     }
 
     createContainerLoad() {
         const div = document.createElement(`div`);
-        div.style.display = "none";
-        div.style.position = "absolute";
-        div.style.background = "white";
-        div.style.width = "100%";
-        div.style.height = "100%";
+        div.style.display = 'none';
+        div.style.position = 'absolute';
+        div.style.background = 'white';
+        div.style.width = '100%';
+        div.style.height = '100%';
         div.style.top = 0;
         div.style.left = 0;
         const loader = document.createElement(`div`);
-        loader.classList.add("dark-editable-loader");
+        loader.classList.add('dark-editable-loader');
         div.append(loader);
         return div;
     }
@@ -317,25 +324,25 @@ class DarkEditable {
     /* BUTTONS */
 
     createButton() {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.classList.add("btn", "btn-sm");
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.classList.add('btn', 'btn-sm');
         return button;
     }
 
     createButtonSuccess() {
         const btn_success = this.createButton();
-        btn_success.type = "submit";
-        btn_success.classList.add("btn-success");
+        btn_success.type = 'submit';
+        btn_success.classList.add('btn-success');
         btn_success.innerHTML = '<i class="fa-solid fa-check"></i>';
         return btn_success;
     }
 
     createButtonCancel() {
         const btn_cancel = this.createButton();
-        btn_cancel.classList.add("btn-danger");
+        btn_cancel.classList.add('btn-danger');
         btn_cancel.innerHTML = '<i class="fa-solid fa-times"></i>';
-        btn_cancel.addEventListener("click", () => {
+        btn_cancel.addEventListener('click', () => {
             this.popover.hide();
         });
         return btn_cancel;
@@ -348,19 +355,19 @@ class DarkEditable {
     async ajax(new_value) {
         let url = this.url;
         const form = new FormData;
-        form.append("id", this.id);
-        form.append("name", this.name);
-        form.append("value", new_value);
+        form.append('id', this.id);
+        form.append('name', this.name);
+        form.append('value', new_value);
         const option = {};
         option.method = this.ajaxOptions.method;
-        if (option.method == "POST") {
+        if (option.method == 'POST') {
             option.body = form;
 
             option.headers = Object.assign({
                 "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
             });
         } else {
-            url += "?" + new URLSearchParams(form).toString();
+            url += `?${new URLSearchParams(form).toString()}`;
         }
 
         const response = await fetch(url, option);
@@ -381,13 +388,13 @@ class DarkEditable {
 
     enable() {
         this.disabled = false;
-        this.element.classList.remove("dark-editable-element-disabled");
+        this.element.classList.remove('dark-editable-element-disabled');
         this.popover.enable();
     }
 
     disable() {
         this.disabled = true;
-        this.element.classList.add("dark-editable-element-disabled");
+        this.element.classList.add('dark-editable-element-disabled');
         this.popover.disable();
     }
 
