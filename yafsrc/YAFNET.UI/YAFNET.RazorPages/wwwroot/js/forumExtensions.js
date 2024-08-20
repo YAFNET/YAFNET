@@ -6102,7 +6102,7 @@ class DarkEditable {
                 RequestVerificationToken: document.querySelector('input[name="__RequestVerificationToken"]').value
             });
         } else {
-            url += "?" + new URLSearchParams(form).toString();
+            url += `?${new URLSearchParams(form).toString()}`;
         }
         const response = await fetch(url, option);
         return response;
@@ -18097,6 +18097,25 @@ function renderAttachPreview(previewClass) {
     });
 }
 
+function togglePassword() {
+    if (document.body.contains(document.getElementById("PasswordToggle"))) {
+        const passwordToggle = document.getElementById("PasswordToggle");
+        var icon = passwordToggle.querySelector("i"), pass = document.querySelector("input[id*='Password']");
+        passwordToggle.addEventListener("click", function(event) {
+            event.preventDefault();
+            if (pass.getAttribute("type") === "text") {
+                pass.setAttribute("type", "password");
+                icon.classList.add("fa-eye-slash");
+                icon.classList.remove("fa-eye");
+            } else if (pass.getAttribute("type") === "password") {
+                pass.setAttribute("type", "text");
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        });
+    }
+}
+
 document.addEventListener("click", function(event) {
     if (event.target.parentElement && event.target.parentElement.matches('[data-bs-toggle="confirm"]')) {
         event.preventDefault();
@@ -18158,22 +18177,7 @@ document.addEventListener("DOMContentLoaded", function() {
         scrollToTopBtn.addEventListener("click", scrollToTop);
         document.addEventListener("scroll", handleScroll);
     }
-    if (document.body.contains(document.getElementById("PasswordToggle"))) {
-        const passwordToggle = document.getElementById("PasswordToggle");
-        var icon = passwordToggle.querySelector("i"), pass = document.querySelector("input[id*='Password']");
-        passwordToggle.addEventListener("click", function(event) {
-            event.preventDefault();
-            if (pass.getAttribute("type") === "text") {
-                pass.setAttribute("type", "password");
-                icon.classList.add("fa-eye-slash");
-                icon.classList.remove("fa-eye");
-            } else if (pass.getAttribute("type") === "password") {
-                pass.setAttribute("type", "text");
-                icon.classList.remove("fa-eye-slash");
-                icon.classList.add("fa-eye");
-            }
-        });
-    }
+    togglePassword();
 });
 
 function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
@@ -18834,6 +18838,7 @@ function loadModal(modal, placeholderElement) {
     modal.show();
     modal._element.addEventListener("shown.bs.modal", event => {
         if (event.target.id === "LoginBox") {
+            togglePassword();
             var form = document.querySelector(".modal.show").querySelector("form");
             form.addEventListener("submit", function(e) {
                 if (!form.checkValidity()) {

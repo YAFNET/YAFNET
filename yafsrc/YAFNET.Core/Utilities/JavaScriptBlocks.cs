@@ -124,8 +124,6 @@ public static class JavaScriptBlocks
                       SearchTerm: ""
                   };
                   
-                  tagsSelect.setChoices(function () { return loadChoiceOptions(query, "/api/Tags/GetBoardTags") });
-                  
                   const hiddenField = document.getElementById("{{hiddenId}}");
                   
                   if (hiddenField.value.length > 0) {
@@ -150,6 +148,7 @@ public static class JavaScriptBlocks
                               SearchTerm: event.detail.value
                           };
                           tagsSelect.setChoices(function () { return loadChoiceOptions(query, "/api/Tags/GetBoardTags") }, "value", "label", true);
+                  
                       }
                   });
 

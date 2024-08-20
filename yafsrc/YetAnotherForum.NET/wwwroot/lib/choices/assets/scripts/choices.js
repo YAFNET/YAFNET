@@ -415,6 +415,7 @@ var Choices = /** @class */function () {
     if (this.containerOuter.isDisabled) {
       this._addEventListeners();
       this.input.enable();
+      this.input.element.focus();
       this.containerOuter.enable();
     }
     return this;
@@ -2954,7 +2955,7 @@ exports.DEFAULT_CONFIG = {
   uniqueItemText: 'Only unique values can be added',
   customAddItemText: 'Only values matching specific conditions can be added',
   addItemText: function (value) {
-    return "Press Enter to add <b>\"".concat((0, utils_1.sanitise)(value), "\"</b>");
+    return "Press Enter to add \"".concat((0, utils_1.sanitise)(value), "\"");
   },
   maxItemText: function (maxItemCount) {
     return "Only ".concat(maxItemCount, " values can be added");
