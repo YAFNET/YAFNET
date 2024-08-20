@@ -1,3 +1,9 @@
+/*!
+ * In-place editing with Bootstrap 5 (https://getbootstrap.com/) and Popper
+ * https://github.com/DarKsandr/dark-editable
+ * Copyright (c) 2021 DarKsandr
+ * Licensed under MIT (https://github.com/DarKsandr/dark-editable/blob/main/LICENSE)
+ */
 class DarkEditable {
     constructor(element, options = {}) {
         this._element = { element: null, form: null, load: null, buttons: { success: null, cancel: null } };

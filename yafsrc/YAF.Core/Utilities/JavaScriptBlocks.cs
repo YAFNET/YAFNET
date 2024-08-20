@@ -99,8 +99,6 @@ public static class JavaScriptBlocks
                       SearchTerm: ""
                   };
                   
-                  tagsSelect.setChoices(function () { return loadChoiceOptions(query, "{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Tags/GetBoardTags") });
-                  
                   const hiddenField = document.getElementById("{{hiddenId}}");
                   
                   if (hiddenField.value.length > 0) {
