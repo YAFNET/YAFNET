@@ -23,7 +23,13 @@
     }
 
     const getStoredTheme = () => getCookie('YAF-Theme');
-    const setStoredTheme = theme => document.cookie = encodeURIComponent('YAF-Theme') + '=' + encodeURIComponent(theme) + '; path=/';
+    const setStoredTheme = theme => {
+	    const d = new Date();
+	    d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
+	    const expires = `expires=${d.toUTCString()}`;
+
+	    document.cookie = `${encodeURIComponent('YAF-Theme')}=${encodeURIComponent(theme)}; ${expires}; path=/`;
+    }
 
     const getPreferredTheme = () => {
         const storedTheme = getStoredTheme();
