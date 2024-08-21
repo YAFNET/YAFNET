@@ -6785,6 +6785,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         if (this.containerOuter.isDisabled) {
                             this._addEventListeners();
                             this.input.enable();
+                            this.input.element.focus();
                             this.containerOuter.enable();
                         }
                         return this;
@@ -8960,7 +8961,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     uniqueItemText: "Only unique values can be added",
                     customAddItemText: "Only values matching specific conditions can be added",
                     addItemText: function(value) {
-                        return 'Press Enter to add <b>"'.concat((0, utils_1.sanitise)(value), '"</b>');
+                        return 'Press Enter to add "'.concat((0, utils_1.sanitise)(value), '"');
                     },
                     maxItemText: function(maxItemCount) {
                         return "Only ".concat(maxItemCount, " values can be added");
@@ -18336,8 +18337,10 @@ function setPageNumber(pageSize, pageNumber, total, pagerHolder, label, javascri
 
 document.addEventListener("DOMContentLoaded", function() {
     if (document.querySelector("a.btn-login,input.btn-login, .btn-spinner") != null) {
-        document.querySelector("a.btn-login,input.btn-login, .btn-spinner").addEventListener("click", () => {
-            document.querySelector(this).innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
+        document.querySelector("a.btn-login,input.btn-login, .btn-spinner").addEventListener("click", event => {
+            var button = event.target;
+            button.innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
+            button.classList.add("disabled");
         });
     }
     for (const el of document.querySelectorAll('[data-toggle="lightbox"]')) {

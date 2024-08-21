@@ -1256,6 +1256,27 @@ public static class MessageRepositoryExtensions
     }
 
     /// <summary>
+    /// Gets the user last posted date time.
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>System.Nullable&lt;System.DateTime&gt;.</returns>
+    public static DateTime? GetUserLastPosted(
+            this IRepository<Message> repository,
+            int userId)
+    {
+        var lastPostedExpression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+        lastPostedExpression.Where(a => a.UserID == userId).Select(x => x.Posted).OrderByDescending(x => x.Posted)
+            .Take(1)
+            .ToMergedParamsSelectStatement();
+
+        return repository.DbAccess
+            .Execute(db => db.Connection.Select<DateTime?>(lastPostedExpression))
+            .FirstOrDefault();
+    }
+
+    /// <summary>
     /// Delete all messages recursively.
     /// </summary>
     /// <param name="repository">

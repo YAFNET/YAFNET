@@ -113,13 +113,15 @@ public class PostMessageModel : ForumPage
             return false;
         }
 
-        if (!this.PageBoardContext.LastPosted.HasValue)
+        var lastPosted = this.GetRepository<Message>().GetUserLastPosted(this.PageBoardContext.PageUserID);
+
+        if (!lastPosted.HasValue)
         {
             return false;
         }
 
         // see if they've past that delay point
-        if (this.PageBoardContext.LastPosted
+        if (lastPosted
             <= DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
         {
             return false;
@@ -128,7 +130,7 @@ public class PostMessageModel : ForumPage
         this.PageBoardContext.Notify(
             this.GetTextFormatted(
                 "wait",
-                (this.PageBoardContext.LastPosted.Value
+                (lastPosted.Value
                  - DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay)).Seconds),
             MessageTypes.warning);
         return true;

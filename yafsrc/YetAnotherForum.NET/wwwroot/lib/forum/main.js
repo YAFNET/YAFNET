@@ -1,8 +1,10 @@
 ﻿// Generic Functions
 document.addEventListener('DOMContentLoaded', function () {
     if (document.querySelector('a.btn-login,input.btn-login, .btn-spinner') != null) {
-        document.querySelector('a.btn-login,input.btn-login, .btn-spinner').addEventListener('click', () => {
-            document.querySelector(this).innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
+        document.querySelector('a.btn-login,input.btn-login, .btn-spinner').addEventListener('click', (event) => {
+            var button = event.target;
+            button.innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
+            button.classList.add('disabled');
         });
     }
 
