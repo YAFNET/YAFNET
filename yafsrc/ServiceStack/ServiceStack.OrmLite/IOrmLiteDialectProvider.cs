@@ -1113,6 +1113,12 @@ public interface IOrmLiteDialectProvider
 
     //Async
     /// <summary>
+    /// Gets a value indicating whether [supports asynchronous].
+    /// </summary>
+    /// <value><c>true</c> if [supports asynchronous]; otherwise, <c>false</c>.</value>
+    bool SupportsAsync { get; }
+
+    /// <summary>
     /// Opens the asynchronous.
     /// </summary>
     /// <param name="db">The database.</param>

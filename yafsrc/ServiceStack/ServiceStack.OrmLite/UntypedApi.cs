@@ -147,7 +147,6 @@ public class UntypedApi<T> : IUntypedApi
         return this.Exec(dbCmd => dbCmd.Save((T)obj));
     }
 
-#if ASYNC
     /// <summary>
     /// Saves all asynchronous.
     /// </summary>
@@ -169,17 +168,6 @@ public class UntypedApi<T> : IUntypedApi
     {
         return this.Exec(dbCmd => dbCmd.SaveAsync((T)obj, token));
     }
-#else
-        public Task<int> SaveAllAsync(IEnumerable objs, CancellationToken token)
-        {
-            throw new NotImplementedException(OrmLiteUtils.AsyncRequiresNet45Error);
-        }
-
-        public Task<bool> SaveAsync(object obj, CancellationToken token)
-        {
-            throw new NotImplementedException(OrmLiteUtils.AsyncRequiresNet45Error);
-        }
-#endif
 
     /// <summary>
     /// Inserts all.

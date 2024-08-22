@@ -8,42 +8,41 @@
 #if !SL5 && !XBOX
 using System.Data;
 
-namespace ServiceStack.Data
+namespace ServiceStack.Data;
+
+/// <summary>
+/// Interface IHasDbConnection
+/// </summary>
+public interface IHasDbConnection
 {
     /// <summary>
-    /// Interface IHasDbConnection
+    /// Gets the database connection.
     /// </summary>
-    public interface IHasDbConnection
-    {
-        /// <summary>
-        /// Gets the database connection.
-        /// </summary>
-        /// <value>The database connection.</value>
-        IDbConnection DbConnection { get; }
-    }
+    /// <value>The database connection.</value>
+    IDbConnection DbConnection { get; }
+}
 
+/// <summary>
+/// Interface IHasDbCommand
+/// </summary>
+public interface IHasDbCommand
+{
     /// <summary>
-    /// Interface IHasDbCommand
+    /// Gets the database command.
     /// </summary>
-    public interface IHasDbCommand
-    {
-        /// <summary>
-        /// Gets the database command.
-        /// </summary>
-        /// <value>The database command.</value>
-        IDbCommand DbCommand { get; }
-    }
+    /// <value>The database command.</value>
+    IDbCommand DbCommand { get; }
+}
 
+/// <summary>
+/// Interface IHasDbTransaction
+/// </summary>
+public interface IHasDbTransaction
+{
     /// <summary>
-    /// Interface IHasDbTransaction
+    /// Gets the database transaction.
     /// </summary>
-    public interface IHasDbTransaction
-    {
-        /// <summary>
-        /// Gets the database transaction.
-        /// </summary>
-        /// <value>The database transaction.</value>
-        IDbTransaction DbTransaction { get; }
-    }
+    /// <value>The database transaction.</value>
+    IDbTransaction DbTransaction { get; }
 }
 #endif

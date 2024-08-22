@@ -8,48 +8,47 @@
 using System;
 using System.Data;
 
-namespace ServiceStack.Data
+namespace ServiceStack.Data;
+
+/// <summary>
+/// Class DbConnectionFactory.
+/// Implements the <see cref="ServiceStack.Data.IDbConnectionFactory" />
+/// </summary>
+/// <seealso cref="ServiceStack.Data.IDbConnectionFactory" />
+public class DbConnectionFactory : IDbConnectionFactory
 {
     /// <summary>
-    /// Class DbConnectionFactory.
-    /// Implements the <see cref="ServiceStack.Data.IDbConnectionFactory" />
+    /// The connection factory function
     /// </summary>
-    /// <seealso cref="ServiceStack.Data.IDbConnectionFactory" />
-    public class DbConnectionFactory : IDbConnectionFactory
+    private readonly Func<IDbConnection> connectionFactoryFn;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DbConnectionFactory" /> class.
+    /// </summary>
+    /// <param name="connectionFactoryFn">The connection factory function.</param>
+    public DbConnectionFactory(Func<IDbConnection> connectionFactoryFn)
     {
-        /// <summary>
-        /// The connection factory function
-        /// </summary>
-        private readonly Func<IDbConnection> connectionFactoryFn;
+        this.connectionFactoryFn = connectionFactoryFn;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbConnectionFactory" /> class.
-        /// </summary>
-        /// <param name="connectionFactoryFn">The connection factory function.</param>
-        public DbConnectionFactory(Func<IDbConnection> connectionFactoryFn)
-        {
-            this.connectionFactoryFn = connectionFactoryFn;
-        }
+    /// <summary>
+    /// Opens the database connection.
+    /// </summary>
+    /// <returns>IDbConnection.</returns>
+    public IDbConnection OpenDbConnection()
+    {
+        var dbConn = this.CreateDbConnection();
+        dbConn.Open();
+        return dbConn;
+    }
 
-        /// <summary>
-        /// Opens the database connection.
-        /// </summary>
-        /// <returns>IDbConnection.</returns>
-        public IDbConnection OpenDbConnection()
-        {
-            var dbConn = this.CreateDbConnection();
-            dbConn.Open();
-            return dbConn;
-        }
-
-        /// <summary>
-        /// Creates the database connection.
-        /// </summary>
-        /// <returns>IDbConnection.</returns>
-        public IDbConnection CreateDbConnection()
-        {
-            return this.connectionFactoryFn();
-        }
+    /// <summary>
+    /// Creates the database connection.
+    /// </summary>
+    /// <returns>IDbConnection.</returns>
+    public IDbConnection CreateDbConnection()
+    {
+        return this.connectionFactoryFn();
     }
 }
 #endif

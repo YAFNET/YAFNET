@@ -1830,7 +1830,12 @@ namespace ServiceStack.OrmLite.SqlServer
             return (DbDataReader)reader;
         }
 
-#if ASYNC
+        /// <summary>
+        /// Gets a value indicating whether [supports asynchronous].
+        /// </summary>
+        /// <value><c>true</c> if [supports asynchronous]; otherwise, <c>false</c>.</value>
+        public override bool SupportsAsync => true;
+
         /// <summary>
         /// Opens the asynchronous.
         /// </summary>
@@ -1970,8 +1975,6 @@ namespace ServiceStack.OrmLite.SqlServer
                 reader.Dispose();
             }
         }
-
-#endif
 
         /// <summary>
         /// Initializes the connection.

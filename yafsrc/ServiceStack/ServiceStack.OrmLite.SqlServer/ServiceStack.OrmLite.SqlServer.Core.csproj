@@ -10,7 +10,7 @@
       ServiceStack.OrmLite.SqlServer
     </PackageDescription>
     <PackageTags>SQLServer;OrmLite;RDBMS;SQL;POCO;Code-First;ORM;Schema-less;Blobs</PackageTags>
-    <DefineConstants>$(DefineConstants);ASYNC;MSDATA</DefineConstants>
+    <DefineConstants>$(DefineConstants);MSDATA</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
