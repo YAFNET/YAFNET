@@ -237,7 +237,6 @@ internal class LoadReferencesSync<T> : LoadReferences<T>
     }
 }
 
-#if ASYNC
 /// <summary>
 /// Class LoadReferencesAsync.
 /// Implements the <see cref="ServiceStack.OrmLite.Support.LoadReferences{T}" />
@@ -310,4 +309,3 @@ internal class LoadReferencesAsync<T> : LoadReferences<T>
         fieldDef.SetValue(instance, refFieldValue);
     }
 }
-#endif

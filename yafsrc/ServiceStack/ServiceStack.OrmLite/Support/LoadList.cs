@@ -365,7 +365,6 @@ internal class LoadListSync<Into, From> : LoadList<Into, From>
     }
 }
 
-#if ASYNC
 /// <summary>
 /// Class LoadListAsync.
 /// Implements the <see cref="ServiceStack.OrmLite.Support.LoadList{Into, From}" />
@@ -438,4 +437,3 @@ internal class LoadListAsync<Into, From> : LoadList<Into, From>
         SetFieldReferenceChildResults(fieldDef, fieldRef, childResults);
     }
 }
-#endif
