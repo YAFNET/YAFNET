@@ -57,47 +57,132 @@ public class UserProfileModel : ForumPage
     {
     }
 
-    [BindProperty] public Tuple<User, AspNetUsers, Rank, VAccess> CombinedUser { get; set; }
+    /// <summary>
+    /// Gets or sets the combined user.
+    /// </summary>
+    /// <value>The combined user.</value>
+    public Tuple<User, AspNetUsers, Rank, VAccess> CombinedUser { get; set; }
 
-    [BindProperty] public List<Tuple<ProfileCustom, ProfileDefinition>> CustomProfile { get; set; }
+    /// <summary>
+    /// Gets or sets the custom profile.
+    /// </summary>
+    /// <value>The custom profile.</value>
+    public List<Tuple<ProfileCustom, ProfileDefinition>> CustomProfile { get; set; }
 
-    [BindProperty] public List<Group> Groups { get; set; }
+    /// <summary>
+    /// Gets or sets the groups.
+    /// </summary>
+    /// <value>The groups.</value>
+    public List<Group> Groups { get; set; }
 
-    [BindProperty] public List<Tuple<Message, Topic, User>> LastPosts { get; set; }
+    /// <summary>
+    /// Gets or sets the last posts.
+    /// </summary>
+    /// <value>The last posts.</value>
+    public List<Tuple<Message, Topic, User>> LastPosts { get; set; }
 
-    [BindProperty] public List<BuddyUser> Friends { get; set; }
+    /// <summary>
+    /// Gets or sets the friends.
+    /// </summary>
+    /// <value>The friends.</value>
+    public List<BuddyUser> Friends { get; set; }
 
-    [BindProperty] public (int Posts, string ThanksReceived) Thanks { get; set; }
+    /// <summary>
+    /// Gets or sets the thanks.
+    /// </summary>
+    /// <value>The thanks.</value>
+    public (int Posts, string ThanksReceived) Thanks { get; set; }
 
+    /// <summary>
+    /// Gets or sets the stats.
+    /// </summary>
+    /// <value>The stats.</value>
     [BindProperty] public string Stats { get; set; }
 
+    /// <summary>
+    /// Gets or sets the medals.
+    /// </summary>
+    /// <value>The medals.</value>
     [BindProperty] public string Medals { get; set; }
 
+    /// <summary>
+    /// Gets or sets the facebook URL.
+    /// </summary>
+    /// <value>The facebook URL.</value>
     [BindProperty] public string FacebookUrl { get; set; }
 
+    /// <summary>
+    /// Gets or sets the skype URL.
+    /// </summary>
+    /// <value>The skype URL.</value>
     [BindProperty] public string SkypeUrl { get; set; }
 
+    /// <summary>
+    /// Gets or sets the blog URL.
+    /// </summary>
+    /// <value>The blog URL.</value>
     [BindProperty] public string BlogUrl { get; set; }
 
+    /// <summary>
+    /// Gets or sets the XMPP URL.
+    /// </summary>
+    /// <value>The XMPP URL.</value>
     [BindProperty] public string XmppUrl { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether [show add buddy link].
+    /// </summary>
+    /// <value><c>true</c> if [show add buddy link]; otherwise, <c>false</c>.</value>
     [BindProperty] public bool ShowAddBuddyLink { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether [show remove buddy link].
+    /// </summary>
+    /// <value><c>true</c> if [show remove buddy link]; otherwise, <c>false</c>.</value>
     [BindProperty] public bool ShowRemoveBuddyLink { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether [show pm link].
+    /// </summary>
+    /// <value><c>true</c> if [show pm link]; otherwise, <c>false</c>.</value>
     [BindProperty] public bool ShowPmLink { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether [show email link].
+    /// </summary>
+    /// <value><c>true</c> if [show email link]; otherwise, <c>false</c>.</value>
     [BindProperty] public bool ShowEmailLink { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether [show social media card].
+    /// </summary>
+    /// <value><c>true</c> if [show social media card]; otherwise, <c>false</c>.</value>
     [BindProperty] public bool ShowSocialMediaCard { get; set; }
 
+    /// <summary>
+    /// Gets or sets the suspend reason.
+    /// </summary>
+    /// <value>The suspend reason.</value>
     [BindProperty] public string SuspendReason { get; set; }
 
+    /// <summary>
+    /// Gets or sets the suspend count.
+    /// </summary>
+    /// <value>The suspend count.</value>
     [BindProperty] public int SuspendCount { get; set; }
 
+    /// <summary>
+    /// Gets or sets the suspend unit.
+    /// </summary>
+    /// <value>The suspend unit.</value>
     [BindProperty] public string SuspendUnit { get; set; }
 
-    public List<SelectListItem> SuspendUnits => [
+    /// <summary>
+    /// Gets the suspend units.
+    /// </summary>
+    /// <value>The suspend units.</value>
+    public List<SelectListItem> SuspendUnits =>
+    [
         new SelectListItem(this.GetText("PROFILE", "DAYS"), "1"),
         new SelectListItem(this.GetText("PROFILE", "HOURS"), "2"),
         new SelectListItem(this.GetText("PROFILE", "MINUTES"), "3")
@@ -131,6 +216,11 @@ public class UserProfileModel : ForumPage
             : this.BindData(u);
     }
 
+    /// <summary>
+    /// Remove active suspension.
+    /// </summary>
+    /// <param name="u">The u.</param>
+    /// <returns>System.Threading.Tasks.Task.</returns>
     public Task OnPostRemoveSuspensionAsync(int u)
     {
         this.BindData(u);
@@ -155,7 +245,7 @@ public class UserProfileModel : ForumPage
     }
 
     /// <summary>
-    /// Called when [post suspend asynchronous].
+    /// Suspends the user.
     /// </summary>
     /// <param name="u">The u.</param>
     /// <returns>System.Threading.Tasks.Task.</returns>
@@ -246,7 +336,7 @@ public class UserProfileModel : ForumPage
 
         if (this.CombinedUser is null || this.CombinedUser.Item1.ID == 0)
         {
-            // No such user exists or this is an nntp user ("0")
+            // No such user exists or this is a nntp user ("0")
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
