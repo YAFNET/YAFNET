@@ -4,6 +4,7 @@ using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
+using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +18,7 @@ namespace YAF.Lucene.Net.Analysis.Compound
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -109,10 +110,9 @@ namespace YAF.Lucene.Net.Analysis.Compound
 
         public override sealed bool IncrementToken()
         {
-            if (m_tokens.Count > 0)
+            if (m_tokens.TryDequeue(out CompoundToken token))
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(current != null);
-                CompoundToken token = m_tokens.Dequeue();
                 RestoreState(current); // keep all other attributes untouched
                 m_termAtt.SetEmpty().Append(token.Text);
                 m_offsetAtt.SetOffset(token.StartOffset, token.EndOffset);

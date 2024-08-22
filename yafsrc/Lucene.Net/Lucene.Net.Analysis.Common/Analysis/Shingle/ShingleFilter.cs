@@ -1,6 +1,7 @@
 ﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Util;
+using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +17,7 @@ namespace YAF.Lucene.Net.Analysis.Shingle
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -508,11 +509,7 @@ namespace YAF.Lucene.Net.Analysis.Shingle
         /// <exception cref="IOException"> if there's a problem getting the next token </exception>
         private void ShiftInputWindow()
         {
-            InputWindowToken firstToken = null;
-            if (inputWindow.Count > 0)
-            {
-                firstToken = inputWindow.Dequeue();
-            }
+            inputWindow.TryDequeue(out InputWindowToken firstToken); // LUCENENET: firstToken will be null if the queue is empty
             while (inputWindow.Count < maxShingleSize)
             {
                 if (null != firstToken) // recycle the firstToken, if available

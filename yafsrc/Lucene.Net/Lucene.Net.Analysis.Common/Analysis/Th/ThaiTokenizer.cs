@@ -5,6 +5,7 @@ using ICU4N.Text;
 using J2N;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
 using System;
@@ -23,7 +24,7 @@ namespace YAF.Lucene.Net.Analysis.Th
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -236,8 +237,10 @@ namespace YAF.Lucene.Net.Analysis.Th
         {
             get
             {
-                if (transitions.Count > 0)
-                    return transitions.Peek();
+                if (transitions.TryPeek(out int current))
+                {
+                    return current;
+                }
 
                 return wordBreaker.Current;
             }
@@ -245,11 +248,10 @@ namespace YAF.Lucene.Net.Analysis.Th
 
         public int Next()
         {
-            if (transitions.Count > 0)
-                transitions.Dequeue();
-
-            if (transitions.Count > 0)
-                return transitions.Peek();
+            if (transitions.TryDequeue(out _) && transitions.TryPeek(out int next))
+            {
+                return next;
+            }
 
             return GetNext();
         }
@@ -297,10 +299,10 @@ namespace YAF.Lucene.Net.Analysis.Th
                     prevWasNonThai = isNonThai;
                 }
 
-                if (transitions.Count > 0)
+                if (transitions.TryPeek(out int transition))
                 {
                     transitions.Enqueue(current);
-                    return transitions.Peek();
+                    return transition;
                 }
             }
 

@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,24 +34,24 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
-    using Constants = YAF.Lucene.Net.Util.Constants;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldNumbers = YAF.Lucene.Net.Index.FieldInfos.FieldNumbers;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using Lock = YAF.Lucene.Net.Store.Lock;
-    using LockObtainFailedException = YAF.Lucene.Net.Store.LockObtainFailedException;
-    using Lucene3xCodec = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xCodec;
-    using Lucene3xSegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
-    using MergeInfo = YAF.Lucene.Net.Store.MergeInfo;
-    using Query = YAF.Lucene.Net.Search.Query;
-    using TrackingDirectoryWrapper = YAF.Lucene.Net.Store.TrackingDirectoryWrapper;
+    using Analyzer = Lucene.Net.Analysis.Analyzer;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using CompoundFileDirectory = Lucene.Net.Store.CompoundFileDirectory;
+    using Constants = Lucene.Net.Util.Constants;
+    using Directory = Lucene.Net.Store.Directory;
+    using FieldNumbers = Lucene.Net.Index.FieldInfos.FieldNumbers;
+    using IBits = Lucene.Net.Util.IBits;
+    using InfoStream = Lucene.Net.Util.InfoStream;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using Lock = Lucene.Net.Store.Lock;
+    using LockObtainFailedException = Lucene.Net.Store.LockObtainFailedException;
+    using Lucene3xCodec = Lucene.Net.Codecs.Lucene3x.Lucene3xCodec;
+    using Lucene3xSegmentInfoFormat = Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
+    using MergeInfo = Lucene.Net.Store.MergeInfo;
+    using Query = Lucene.Net.Search.Query;
+    using TrackingDirectoryWrapper = Lucene.Net.Store.TrackingDirectoryWrapper;
 
     /// <summary>
     /// An <see cref="IndexWriter"/> creates and maintains an index.
@@ -2685,7 +2685,7 @@ namespace YAF.Lucene.Net.Index
         /// <para/>
         /// @lucene.experimental
         /// </summary>
-        public virtual MergePolicy.OneMerge NextMerge()
+        public virtual MergePolicy.OneMerge NextMerge() // LUCENENET TODO: API - Revert name to GetNextMerge() to match Java
         {
             UninterruptableMonitor.Enter(this);
             try
@@ -3382,7 +3382,7 @@ namespace YAF.Lucene.Net.Index
                         JCG.HashSet<string> copiedFiles = new JCG.HashSet<string>();
                         foreach (SegmentCommitInfo info in sis.Segments)
                         {
-                            if (Debugging.AssertsEnabled) Debugging.Assert(!infos.Contains(info),"dup info dir={0} name={1}", info.Info.Dir, info.Info.Name);
+                            if (Debugging.AssertsEnabled) Debugging.Assert(!infos.Contains(info), "dup info dir={0} name={1}", info.Info.Dir, info.Info.Name);
 
                             string newSegName = NewSegmentName();
 
@@ -4439,7 +4439,7 @@ namespace YAF.Lucene.Net.Index
                 // when entering the method, all iterators must already be beyond the
                 // deleted document, or right on it, in which case we advance them over
                 // and they must be beyond it now.
-                if (Debugging.AssertsEnabled) Debugging.Assert(iter.Doc > deletedDoc,"updateDoc={0} deletedDoc={1}", iter.Doc, deletedDoc);
+                if (Debugging.AssertsEnabled) Debugging.Assert(iter.Doc > deletedDoc, "updateDoc={0} deletedDoc={1}", iter.Doc, deletedDoc);
             }
         }
 
@@ -5986,7 +5986,7 @@ namespace YAF.Lucene.Net.Index
                 UninterruptableMonitor.Enter(this);
                 try
                 {
-                    if (Debugging.AssertsEnabled) Debugging.Assert(lastCommitChangeCount <= changeCount,"lastCommitChangeCount={0} changeCount={1}", lastCommitChangeCount, changeCount);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(lastCommitChangeCount <= changeCount, "lastCommitChangeCount={0} changeCount={1}", lastCommitChangeCount, changeCount);
 
                     if (pendingCommitChangeCount == lastCommitChangeCount)
                     {

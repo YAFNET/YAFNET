@@ -1,6 +1,7 @@
 ﻿using J2N.Runtime.CompilerServices;
 using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
 using System;
@@ -17,7 +18,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,8 +27,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using ThreadState = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
+    using InfoStream = Lucene.Net.Util.InfoStream;
+    using ThreadState = Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
 
     /// <summary>
     /// This class controls <see cref="DocumentsWriterPerThread"/> flushing during
@@ -501,8 +502,7 @@ namespace YAF.Lucene.Net.Index
             UninterruptableMonitor.Enter(this);
             try
             {
-                DocumentsWriterPerThread poll;
-                if (flushQueue.Count > 0 && (poll = flushQueue.Dequeue()) != null)
+                if (flushQueue.TryDequeue(out DocumentsWriterPerThread poll))
                 {
                     UpdateStallState();
                     return poll;
@@ -641,7 +641,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        public bool GetAndResetApplyAllDeletes() 
+        public bool GetAndResetApplyAllDeletes()
         {
             return flushDeletes.GetAndSet(false);
         }
@@ -688,7 +688,7 @@ namespace YAF.Lucene.Net.Index
                 if (Debugging.AssertsEnabled)
                 {
                     Debugging.Assert(!fullFlush, "called DWFC#markForFullFlush() while full flush is still running");
-                    Debugging.Assert(fullFlushBuffer.Count == 0,"full flush buffer should be empty: {0}", fullFlushBuffer);
+                    Debugging.Assert(fullFlushBuffer.Count == 0, "full flush buffer should be empty: {0}", fullFlushBuffer);
                 }
                 fullFlush = true;
                 flushingQueue = documentsWriter.deleteQueue;
@@ -765,7 +765,7 @@ namespace YAF.Lucene.Net.Index
                 next.@Lock();
                 try
                 {
-                    if (Debugging.AssertsEnabled) Debugging.Assert(!next.IsInitialized || next.dwpt.deleteQueue == queue,"isInitialized: {0} numDocs: {1}", next.IsInitialized, (next.IsInitialized ? next.dwpt.NumDocsInRAM : 0));
+                    if (Debugging.AssertsEnabled) Debugging.Assert(!next.IsInitialized || next.dwpt.deleteQueue == queue, "isInitialized: {0} numDocs: {1}", next.IsInitialized, (next.IsInitialized ? next.dwpt.NumDocsInRAM : 0));
                 }
                 finally
                 {

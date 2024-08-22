@@ -1,6 +1,7 @@
 ﻿using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support.Threading;
+using YAF.Lucene.Net.Support;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
@@ -15,7 +16,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,7 +25,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using FlushedSegment = YAF.Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
+    using FlushedSegment = Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
 
     /// <summary>
     /// @lucene.internal
@@ -142,7 +143,7 @@ namespace YAF.Lucene.Net.Index
         {
             get
             {
-                if (Debugging.AssertsEnabled) Debugging.Assert(ticketCount >= 0,"ticketCount should be >= 0 but was: {0}", ticketCount);
+                if (Debugging.AssertsEnabled) Debugging.Assert(ticketCount >= 0, "ticketCount should be >= 0 but was: {0}", ticketCount);
                 return ticketCount != 0;
             }
         }
@@ -158,8 +159,7 @@ namespace YAF.Lucene.Net.Index
                 UninterruptableMonitor.Enter(this);
                 try
                 {
-                    head = queue.Count <= 0 ? null : queue.Peek();
-                    canPublish = head != null && head.CanPublish; // do this synced
+                    canPublish = queue.TryPeek(out head) && head.CanPublish; // do this synced
                 }
                 finally
                 {

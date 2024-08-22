@@ -1,6 +1,7 @@
 ﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.Util;
+using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,7 +16,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,21 +25,21 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FilteredTermsEnum = YAF.Lucene.Net.Index.FilteredTermsEnum;
-    using NumericUtils = YAF.Lucene.Net.Util.NumericUtils;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AttributeSource = Lucene.Net.Util.AttributeSource;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using FilteredTermsEnum = Lucene.Net.Index.FilteredTermsEnum;
+    using NumericUtils = Lucene.Net.Util.NumericUtils;
+    using Terms = Lucene.Net.Index.Terms;
+    using TermsEnum = Lucene.Net.Index.TermsEnum;
+    using ToStringUtils = Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// <para>A <see cref="Query"/> that matches numeric values within a
     /// specified range.  To use this, you must first index the
-    /// numeric values using <see cref="Int32Field"/>, 
-    /// <see cref="SingleField"/>, <see cref="Int64Field"/> or <see cref="DoubleField"/> (expert: 
+    /// numeric values using <see cref="Int32Field"/>,
+    /// <see cref="SingleField"/>, <see cref="Int64Field"/> or <see cref="DoubleField"/> (expert:
     /// <see cref="Analysis.NumericTokenStream"/>).  If your terms are instead textual,
-    /// you should use <see cref="TermRangeQuery"/>.  
+    /// you should use <see cref="TermRangeQuery"/>.
     /// <see cref="NumericRangeFilter"/> is the filter equivalent of this
     /// query.</para>
     ///
@@ -68,7 +69,7 @@ namespace YAF.Lucene.Net.Search
     /// classes.  See <a href="#precisionStepDesc">below</a> for
     /// details.</para>
     ///
-    /// <para>This query defaults to 
+    /// <para>This query defaults to
     /// <see cref="MultiTermQuery.CONSTANT_SCORE_AUTO_REWRITE_DEFAULT"/>.
     /// With precision steps of &lt;=4, this query can be run with
     /// one of the <see cref="BooleanQuery"/> rewrite methods without changing
@@ -183,7 +184,7 @@ namespace YAF.Lucene.Net.Search
 
         // LUCENENET NOTE: Static methods were moved into the NumericRangeQuery class
 
-        override protected TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
+        protected override TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
         {
             // very strange: java.lang.Number itself is not Comparable, but all subclasses used here are
             if (min.HasValue && max.HasValue && (min.Value).CompareTo(max.Value) > 0)
@@ -262,32 +263,32 @@ namespace YAF.Lucene.Net.Search
         }
 
         // members (package private, to be also fast accessible by NumericRangeTermEnum)
-        readonly internal int precisionStep;
+        internal readonly int precisionStep;
 
-        readonly internal NumericType dataType;
-        readonly internal T? min, max;
-        readonly internal bool minInclusive, maxInclusive;
+        internal readonly NumericType dataType;
+        internal readonly T? min, max;
+        internal readonly bool minInclusive, maxInclusive;
 
         // used to handle float/double infinity correcty
         /// <summary>
         /// NOTE: This was LONG_NEGATIVE_INFINITY in Lucene
         /// </summary>
-        readonly static internal long INT64_NEGATIVE_INFINITY = NumericUtils.DoubleToSortableInt64(double.NegativeInfinity);
+        internal static readonly long INT64_NEGATIVE_INFINITY = NumericUtils.DoubleToSortableInt64(double.NegativeInfinity);
 
         /// <summary>
         /// NOTE: This was LONG_NEGATIVE_INFINITY in Lucene
         /// </summary>
-        readonly static internal long INT64_POSITIVE_INFINITY = NumericUtils.DoubleToSortableInt64(double.PositiveInfinity);
+        internal static readonly long INT64_POSITIVE_INFINITY = NumericUtils.DoubleToSortableInt64(double.PositiveInfinity);
 
         /// <summary>
         /// NOTE: This was INT_NEGATIVE_INFINITY in Lucene
         /// </summary>
-        readonly static internal int INT32_NEGATIVE_INFINITY = NumericUtils.SingleToSortableInt32(float.NegativeInfinity);
+        internal static readonly int INT32_NEGATIVE_INFINITY = NumericUtils.SingleToSortableInt32(float.NegativeInfinity);
 
         /// <summary>
         /// NOTE: This was INT_POSITIVE_INFINITY in Lucene
         /// </summary>
-        readonly static internal int INT32_POSITIVE_INFINITY = NumericUtils.SingleToSortableInt32(float.PositiveInfinity);
+        internal static readonly int INT32_POSITIVE_INFINITY = NumericUtils.SingleToSortableInt32(float.PositiveInfinity);
 
         /// <summary>
         /// Subclass of <see cref="FilteredTermsEnum"/> for enumerating all terms that match the
@@ -305,8 +306,8 @@ namespace YAF.Lucene.Net.Search
 
             internal BytesRef currentLowerBound, currentUpperBound;
 
-            readonly internal Queue<BytesRef> rangeBounds = new Queue<BytesRef>();
-            readonly internal IComparer<BytesRef> termComp;
+            internal readonly Queue<BytesRef> rangeBounds = new Queue<BytesRef>();
+            internal readonly IComparer<BytesRef> termComp;
 
             internal NumericRangeTermsEnum(NumericRangeQuery<T> outerInstance, TermsEnum tenum)
                 : base(tenum)
@@ -462,7 +463,7 @@ namespace YAF.Lucene.Net.Search
                 currentUpperBound = rangeBounds.Dequeue();
             }
 
-            override protected sealed BytesRef NextSeekTerm(BytesRef term)
+            protected override sealed BytesRef NextSeekTerm(BytesRef term)
             {
                 while (rangeBounds.Count >= 2)
                 {
@@ -483,7 +484,7 @@ namespace YAF.Lucene.Net.Search
                 return null;
             }
 
-            override protected sealed AcceptStatus Accept(BytesRef term)
+            protected override sealed AcceptStatus Accept(BytesRef term)
             {
                 while (currentUpperBound is null || termComp.Compare(term, currentUpperBound) > 0)
                 {
