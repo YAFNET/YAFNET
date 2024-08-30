@@ -32,11 +32,12 @@ using YAF.Types.Models;
 
 /// <summary>
 /// The suspend check module.
-/// Implements the <see cref="Microsoft.AspNetCore.Mvc.Filters.ResultFilterAttribute" />
-/// Implements the <see cref="YAF.Types.Interfaces.IHaveServiceLocator" />
+/// Implements the <see cref="ResultFilterAttribute" />
+/// Implements the <see cref="IHaveServiceLocator" />
 /// </summary>
-/// <seealso cref="Microsoft.AspNetCore.Mvc.Filters.ResultFilterAttribute" />
-/// <seealso cref="YAF.Types.Interfaces.IHaveServiceLocator" />
+/// <seealso cref="ResultFilterAttribute" />
+/// <seealso cref="IHaveServiceLocator" />
+[AttributeUsage(AttributeTargets.Class)]
 public class UserSuspendCheckAttribute : ResultFilterAttribute, IHaveServiceLocator
 {
     /// <summary>

@@ -24,6 +24,7 @@
 
 namespace YAF.Core.Filters;
 
+using System;
 using System.Threading.Tasks;
 
 using YAF.Core.Model;
@@ -31,11 +32,12 @@ using YAF.Types.Models;
 
 /// <summary>
 /// Page Security Check
-/// Implements the <see cref="Microsoft.AspNetCore.Mvc.Filters.ResultFilterAttribute" />
-/// Implements the <see cref="YAF.Types.Interfaces.IHaveServiceLocator" />
+/// Implements the <see cref="ResultFilterAttribute" />
+/// Implements the <see cref="IHaveServiceLocator" />
 /// </summary>
-/// <seealso cref="Microsoft.AspNetCore.Mvc.Filters.ResultFilterAttribute" />
-/// <seealso cref="YAF.Types.Interfaces.IHaveServiceLocator" />
+/// <seealso cref="ResultFilterAttribute" />
+/// <seealso cref="IHaveServiceLocator" />
+[AttributeUsage(AttributeTargets.Class)]
 public class PageSecurityCheckAttribute : ResultFilterAttribute, IHaveServiceLocator
 {
     /// <summary>
@@ -69,7 +71,8 @@ public class PageSecurityCheckAttribute : ResultFilterAttribute, IHaveServiceLoc
             }
 
             // check if it's a "registered user only page" and check permissions.
-            if (BoardContext.Current.CurrentForumPage.IsRegisteredPage && BoardContext.Current.CurrentForumPage.AspNetUser == null)
+            if (BoardContext.Current.CurrentForumPage.IsRegisteredPage &&
+                BoardContext.Current.CurrentForumPage.AspNetUser == null)
             {
                 var result = this.Get<IPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
 
@@ -94,9 +97,11 @@ public class PageSecurityCheckAttribute : ResultFilterAttribute, IHaveServiceLoc
                         BoardContext.Current.CurrentForumPage.PageName.ToString());
 
                     // Check access rights to the page.
-                    if (!BoardContext.Current.PageUser.UserFlags.IsHostAdmin && (!BoardContext.Current.CurrentForumPage.PageName.ToString().IsSet() || !hasAccess))
+                    if (!BoardContext.Current.PageUser.UserFlags.IsHostAdmin &&
+                        (!BoardContext.Current.CurrentForumPage.PageName.ToString().IsSet() || !hasAccess))
                     {
-                        context.Result = this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
+                        context.Result = this.Get<LinkBuilder>()
+                            .RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
                     }
                 }
             }
@@ -106,6 +111,25 @@ public class PageSecurityCheckAttribute : ResultFilterAttribute, IHaveServiceLoc
                 BoardContext.Current.BoardSettings.DisableRegistrations)
             {
                 context.Result = this.Get<LinkBuilder>().AccessDenied();
+            }
+
+            // check access permissions for specific pages...
+            var resultPermission = BoardContext.Current.CurrentForumPage.PageName switch
+            {
+                ForumPages.ActiveUsers => this.Get<IPermissions>()
+                    .HandleRequest((ViewPermissions)BoardContext.Current.BoardSettings.ActiveUsersViewPermissions),
+                ForumPages.Members => this.Get<IPermissions>()
+                    .HandleRequest((ViewPermissions)BoardContext.Current.BoardSettings.MembersListViewPermissions),
+                ForumPages.UserProfile or ForumPages.Albums or ForumPages.Album => this.Get<IPermissions>()
+                    .HandleRequest((ViewPermissions)BoardContext.Current.BoardSettings.ProfileViewPermissions),
+                ForumPages.Search => this.Get<IPermissions>()
+                    .HandleRequest((ViewPermissions)BoardContext.Current.BoardSettings.SearchPermissions),
+                _ => null
+            };
+
+            if (resultPermission != null)
+            {
+                context.Result = resultPermission;
             }
         }
 
