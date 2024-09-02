@@ -27,7 +27,7 @@
     <ProjectReference Include="..\..\YAFNET.Types\YAFNET.Types.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="8.0.0" />
+    <PackageReference Include="Autofac" Version="8.1.0" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
   </ItemGroup>
 </Project>
