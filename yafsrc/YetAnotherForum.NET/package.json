@@ -17,7 +17,7 @@
     "grunt-replace": "^2.0.2",
     "grunt-sass": "^3.1.0",
     "grunt-shell": "^4.0.0",
-    "grunt-webpack": "^6.0.0",
+    "grunt-webpack": "^7.0.0",
     "grunt-zip": "^1.0.0",
     "postcss": "^8.4.41",
     "sass": "^1.77.8",
