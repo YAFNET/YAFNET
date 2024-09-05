@@ -16,10 +16,10 @@
         "grunt-replace": "^2.0.2",
         "grunt-sass": "^3.1.0",
         "grunt-shell": "^4.0.0",
-        "grunt-webpack": "^6.0.0",
-        "postcss": "^8.4.41",
-        "sass": "^1.77.8",
-        "webpack": "^5.92.1",
+        "grunt-webpack": "^7.0.0",
+        "postcss": "^8.4.45",
+        "sass": "^1.78.0",
+        "webpack": "^5.94.0",
         "webpack-merge": "^6.0.1"
     },
     "dependencies": {
