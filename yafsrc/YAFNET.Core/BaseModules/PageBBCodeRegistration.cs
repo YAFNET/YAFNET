@@ -46,13 +46,14 @@ public class PageBBCodeRegistration : BaseForumModule, IHandleEvent<ForumPagePos
     public void Handle(ForumPagePostLoadEvent @event)
     {
         switch (this.PageContext.CurrentForumPage.PageName)
-                    {
-                        case ForumPages.MyMessages:
-                        case ForumPages.Search:
-                        case ForumPages.Posts:
-                        case ForumPages.UserProfile:
-                            this.Get<IBBCodeService>().RegisterCustomBBCodeInlineElements();
-                            break;
-                    }
+        {
+            case ForumPages.MyMessages:
+            case ForumPages.Search:
+            case ForumPages.Posts:
+            case ForumPages.Post:
+            case ForumPages.UserProfile:
+                this.Get<IBBCodeService>().RegisterCustomBBCodeInlineElements();
+                break;
+        }
     }
 }

@@ -54,6 +54,16 @@ public static class ForumPageExtensions
         {
             switch (page.PageName)
             {
+                case ForumPages.Post:
+                    if (BoardContext.Current.PageTopicID != 0)
+                    {
+                        // Tack on the topic we're viewing
+                        title.Append(
+                            BoardContext.Current.Get<IBadWordReplace>().Replace(
+                                BoardContext.Current.PageTopic.TopicName.Truncate(80)));
+                    }
+
+                    break;
                 case ForumPages.Posts:
                     if (BoardContext.Current.PageTopicID != 0)
                     {

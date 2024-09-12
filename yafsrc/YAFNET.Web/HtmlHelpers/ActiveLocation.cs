@@ -219,6 +219,7 @@ public static class ActiveLocationHtmlHelper
         // We are in messages
         switch (forumPageName)
         {
+            case ForumPages.Post:
             case ForumPages.Posts:
                 content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "POSTS"));
                 break;
