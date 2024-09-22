@@ -45,28 +45,28 @@
   --bs-danger-rgb: 238, 95, 91;
   --bs-light-rgb: 233, 236, 239;
   --bs-dark-rgb: 39, 43, 48;
-  --bs-primary-text-emphasis: #17191b;
-  --bs-secondary-text-emphasis: #313436;
-  --bs-success-text-emphasis: #274e27;
-  --bs-info-text-emphasis: #244d59;
-  --bs-warning-text-emphasis: #633b02;
-  --bs-danger-text-emphasis: #5f2624;
+  --bs-primary-text-emphasis: rgb(23.2, 25.2, 27.2);
+  --bs-secondary-text-emphasis: rgb(48.8, 52, 54.4);
+  --bs-success-text-emphasis: rgb(39.2, 78.4, 39.2);
+  --bs-info-text-emphasis: rgb(36.4, 76.8, 88.8);
+  --bs-warning-text-emphasis: rgb(99.2, 59.2, 2.4);
+  --bs-danger-text-emphasis: rgb(95.2, 38, 36.4);
   --bs-light-text-emphasis: #52575c;
   --bs-dark-text-emphasis: #52575c;
-  --bs-primary-bg-subtle: #515960;
-  --bs-secondary-bg-subtle: #e4e6e7;
-  --bs-success-bg-subtle: #e0f3e0;
-  --bs-info-bg-subtle: #def2f8;
-  --bs-warning-bg-subtle: #feeacd;
-  --bs-danger-bg-subtle: #fcdfde;
-  --bs-light-bg-subtle: #fcfcfd;
+  --bs-primary-bg-subtle: rgb(81.4761904762, 88.5, 95.5238095238);
+  --bs-secondary-bg-subtle: rgb(228.4, 230, 231.2);
+  --bs-success-bg-subtle: rgb(223.6, 243.2, 223.6);
+  --bs-info-bg-subtle: rgb(222.2, 242.4, 248.4);
+  --bs-warning-bg-subtle: rgb(253.6, 233.6, 205.2);
+  --bs-danger-bg-subtle: rgb(251.6, 223, 222.2);
+  --bs-light-bg-subtle: rgb(251.5, 252, 252.5);
   --bs-dark-bg-subtle: #ced4da;
-  --bs-primary-border-subtle: #b0b2b4;
-  --bs-secondary-border-subtle: #cacdcf;
-  --bs-success-border-subtle: #c0e7c0;
-  --bs-info-border-subtle: #bde6f2;
-  --bs-warning-border-subtle: #fcd49b;
-  --bs-danger-border-subtle: #f8bfbd;
+  --bs-primary-border-subtle: rgb(176.2, 178.2, 180.2);
+  --bs-secondary-border-subtle: rgb(201.8, 205, 207.4);
+  --bs-success-border-subtle: rgb(192.2, 231.4, 192.2);
+  --bs-info-border-subtle: rgb(189.4, 229.8, 241.8);
+  --bs-warning-border-subtle: rgb(252.2, 212.2, 155.4);
+  --bs-danger-border-subtle: rgb(248.2, 191, 189.4);
   --bs-light-border-subtle: #e9ecef;
   --bs-dark-border-subtle: #999;
   --bs-white-rgb: 255, 255, 255;
@@ -100,7 +100,7 @@
   --bs-link-hover-color-rgb: 204, 204, 204;
   --bs-code-color: #e83e8c;
   --bs-highlight-color: #aaa;
-  --bs-highlight-bg: #feeacd;
+  --bs-highlight-bg: rgb(253.6, 233.6, 205.2);
   --bs-border-width: 1px;
   --bs-border-style: solid;
   --bs-border-color: #dee2e6;
@@ -139,46 +139,46 @@
   --bs-secondary-bg-rgb: 58, 63, 68;
   --bs-tertiary-color: rgba(222, 226, 230, 0.5);
   --bs-tertiary-color-rgb: 222, 226, 230;
-  --bs-tertiary-bg: #31353a;
+  --bs-tertiary-bg: rgb(48.5, 53, 58);
   --bs-tertiary-bg-rgb: 49, 53, 58;
-  --bs-primary-text-emphasis: #898c8f;
-  --bs-secondary-text-emphasis: #afb4b8;
-  --bs-success-text-emphasis: #a1dca1;
-  --bs-info-text-emphasis: #9dd9eb;
-  --bs-warning-text-emphasis: #fbbf6a;
-  --bs-danger-text-emphasis: #f59f9d;
+  --bs-primary-text-emphasis: rgb(136.8, 139.8, 142.8);
+  --bs-secondary-text-emphasis: rgb(175.2, 180, 183.6);
+  --bs-success-text-emphasis: rgb(160.8, 219.6, 160.8);
+  --bs-info-text-emphasis: rgb(156.6, 217.2, 235.2);
+  --bs-warning-text-emphasis: rgb(250.8, 190.8, 105.6);
+  --bs-danger-text-emphasis: rgb(244.8, 159, 156.6);
   --bs-light-text-emphasis: #f8f9fa;
   --bs-dark-text-emphasis: #dee2e6;
-  --bs-primary-bg-subtle: #0c0d0e;
-  --bs-secondary-bg-subtle: #181a1b;
-  --bs-success-bg-subtle: #142714;
-  --bs-info-bg-subtle: #12262c;
-  --bs-warning-bg-subtle: #321e01;
-  --bs-danger-bg-subtle: #301312;
+  --bs-primary-bg-subtle: rgb(11.6, 12.6, 13.6);
+  --bs-secondary-bg-subtle: rgb(24.4, 26, 27.2);
+  --bs-success-bg-subtle: rgb(19.6, 39.2, 19.6);
+  --bs-info-bg-subtle: rgb(18.2, 38.4, 44.4);
+  --bs-warning-bg-subtle: rgb(49.6, 29.6, 1.2);
+  --bs-danger-bg-subtle: rgb(47.6, 19, 18.2);
   --bs-light-bg-subtle: #3a3f44;
-  --bs-dark-bg-subtle: #1d2022;
-  --bs-primary-border-subtle: #232629;
-  --bs-secondary-border-subtle: #494e52;
-  --bs-success-border-subtle: #3b763b;
-  --bs-info-border-subtle: #377385;
-  --bs-warning-border-subtle: #955904;
-  --bs-danger-border-subtle: #8f3937;
+  --bs-dark-bg-subtle: rgb(29, 31.5, 34);
+  --bs-primary-border-subtle: rgb(34.8, 37.8, 40.8);
+  --bs-secondary-border-subtle: rgb(73.2, 78, 81.6);
+  --bs-success-border-subtle: rgb(58.8, 117.6, 58.8);
+  --bs-info-border-subtle: rgb(54.6, 115.2, 133.2);
+  --bs-warning-border-subtle: rgb(148.8, 88.8, 3.6);
+  --bs-danger-border-subtle: rgb(142.8, 57, 54.6);
   --bs-light-border-subtle: #52575c;
   --bs-dark-border-subtle: #3a3f44;
   --bs-heading-color: inherit;
-  --bs-link-color: #898c8f;
-  --bs-link-hover-color: #a1a3a5;
+  --bs-link-color: rgb(136.8, 139.8, 142.8);
+  --bs-link-hover-color: rgb(160.44, 162.84, 165.24);
   --bs-link-color-rgb: 137, 140, 143;
-  --bs-link-hover-color-rgb: 161, 163, 165;
-  --bs-code-color: #f18bba;
+  --bs-link-hover-color-rgb: 160, 163, 165;
+  --bs-code-color: rgb(241.2, 139.2, 186);
   --bs-highlight-color: #dee2e6;
-  --bs-highlight-bg: #633b02;
+  --bs-highlight-bg: rgb(99.2, 59.2, 2.4);
   --bs-border-color: #52575c;
   --bs-border-color-translucent: rgba(255, 255, 255, 0.15);
-  --bs-form-valid-color: #a1dca1;
-  --bs-form-valid-border-color: #a1dca1;
-  --bs-form-invalid-color: #f59f9d;
-  --bs-form-invalid-border-color: #f59f9d;
+  --bs-form-valid-color: rgb(160.8, 219.6, 160.8);
+  --bs-form-valid-border-color: rgb(160.8, 219.6, 160.8);
+  --bs-form-invalid-color: rgb(244.8, 159, 156.6);
+  --bs-form-invalid-border-color: rgb(244.8, 159, 156.6);
 }
 
 *,
@@ -2197,12 +2197,12 @@ progress {
 .table-primary {
   --bs-table-color: #fff;
   --bs-table-bg: #3a3f44;
-  --bs-table-border-color: #616569;
-  --bs-table-striped-bg: #44494d;
+  --bs-table-border-color: rgb(97.4, 101.4, 105.4);
+  --bs-table-striped-bg: rgb(67.85, 72.6, 77.35);
   --bs-table-striped-color: #fff;
-  --bs-table-active-bg: #4e5257;
+  --bs-table-active-bg: rgb(77.7, 82.2, 86.7);
   --bs-table-active-color: #fff;
-  --bs-table-hover-bg: #494d52;
+  --bs-table-hover-bg: rgb(72.775, 77.4, 82.025);
   --bs-table-hover-color: #fff;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
@@ -2211,12 +2211,12 @@ progress {
 .table-secondary {
   --bs-table-color: #fff;
   --bs-table-bg: #7a8288;
-  --bs-table-border-color: #959ba0;
-  --bs-table-striped-bg: #81888e;
+  --bs-table-border-color: rgb(148.6, 155, 159.8);
+  --bs-table-striped-bg: rgb(128.65, 136.25, 141.95);
   --bs-table-striped-color: #fff;
-  --bs-table-active-bg: #878f94;
+  --bs-table-active-bg: rgb(135.3, 142.5, 147.9);
   --bs-table-active-color: #fff;
-  --bs-table-hover-bg: #848b91;
+  --bs-table-hover-bg: rgb(131.975, 139.375, 144.925);
   --bs-table-hover-color: #fff;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
@@ -2225,12 +2225,12 @@ progress {
 .table-success {
   --bs-table-color: #fff;
   --bs-table-bg: #62c462;
-  --bs-table-border-color: #81d081;
-  --bs-table-striped-bg: #6ac76a;
+  --bs-table-border-color: rgb(129.4, 207.8, 129.4);
+  --bs-table-striped-bg: rgb(105.85, 198.95, 105.85);
   --bs-table-striped-color: #fff;
-  --bs-table-active-bg: #72ca72;
+  --bs-table-active-bg: rgb(113.7, 201.9, 113.7);
   --bs-table-active-color: #fff;
-  --bs-table-hover-bg: #6ec86e;
+  --bs-table-hover-bg: rgb(109.775, 200.425, 109.775);
   --bs-table-hover-color: #fff;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
@@ -2239,12 +2239,12 @@ progress {
 .table-info {
   --bs-table-color: #fff;
   --bs-table-bg: #5bc0de;
-  --bs-table-border-color: #7ccde5;
-  --bs-table-striped-bg: #63c3e0;
+  --bs-table-border-color: rgb(123.8, 204.6, 228.6);
+  --bs-table-striped-bg: rgb(99.2, 195.15, 223.65);
   --bs-table-striped-color: #fff;
-  --bs-table-active-bg: #6bc6e1;
+  --bs-table-active-bg: rgb(107.4, 198.3, 225.3);
   --bs-table-active-color: #000;
-  --bs-table-hover-bg: #67c5e0;
+  --bs-table-hover-bg: rgb(103.3, 196.725, 224.475);
   --bs-table-hover-color: #fff;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
@@ -2253,12 +2253,12 @@ progress {
 .table-warning {
   --bs-table-color: #fff;
   --bs-table-bg: #f89406;
-  --bs-table-border-color: #f9a938;
-  --bs-table-striped-bg: #f89912;
+  --bs-table-border-color: rgb(249.4, 169.4, 55.8);
+  --bs-table-striped-bg: rgb(248.35, 153.35, 18.45);
   --bs-table-striped-color: #fff;
-  --bs-table-active-bg: #f99f1f;
+  --bs-table-active-bg: rgb(248.7, 158.7, 30.9);
   --bs-table-active-color: #fff;
-  --bs-table-hover-bg: #f99c19;
+  --bs-table-hover-bg: rgb(248.525, 156.025, 24.675);
   --bs-table-hover-color: #fff;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
@@ -2267,12 +2267,12 @@ progress {
 .table-danger {
   --bs-table-color: #fff;
   --bs-table-bg: #ee5f5b;
-  --bs-table-border-color: #f17f7c;
-  --bs-table-striped-bg: #ef6763;
+  --bs-table-border-color: rgb(241.4, 127, 123.8);
+  --bs-table-striped-bg: rgb(238.85, 103, 99.2);
   --bs-table-striped-color: #fff;
-  --bs-table-active-bg: #f06f6b;
+  --bs-table-active-bg: rgb(239.7, 111, 107.4);
   --bs-table-active-color: #fff;
-  --bs-table-hover-bg: #ef6b67;
+  --bs-table-hover-bg: rgb(239.275, 107, 103.3);
   --bs-table-hover-color: #fff;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
@@ -2281,12 +2281,12 @@ progress {
 .table-light {
   --bs-table-color: #000;
   --bs-table-bg: #e9ecef;
-  --bs-table-border-color: #babdbf;
-  --bs-table-striped-bg: #dde0e3;
+  --bs-table-border-color: rgb(186.4, 188.8, 191.2);
+  --bs-table-striped-bg: rgb(221.35, 224.2, 227.05);
   --bs-table-striped-color: #000;
-  --bs-table-active-bg: #d2d4d7;
+  --bs-table-active-bg: rgb(209.7, 212.4, 215.1);
   --bs-table-active-color: #000;
-  --bs-table-hover-bg: #d8dadd;
+  --bs-table-hover-bg: rgb(215.525, 218.3, 221.075);
   --bs-table-hover-color: #000;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
@@ -2295,12 +2295,12 @@ progress {
 .table-dark {
   --bs-table-color: #fff;
   --bs-table-bg: #272b30;
-  --bs-table-border-color: #525559;
-  --bs-table-striped-bg: #32363a;
+  --bs-table-border-color: rgb(82.2, 85.4, 89.4);
+  --bs-table-striped-bg: rgb(49.8, 53.6, 58.35);
   --bs-table-striped-color: #fff;
-  --bs-table-active-bg: #3d4045;
+  --bs-table-active-bg: rgb(60.6, 64.2, 68.7);
   --bs-table-active-color: #fff;
-  --bs-table-hover-bg: #373b40;
+  --bs-table-hover-bg: rgb(55.2, 58.9, 63.525);
   --bs-table-hover-color: #fff;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
@@ -2406,7 +2406,7 @@ progress {
 .form-control:focus {
   color: #272b30;
   background-color: #fff;
-  border-color: #9d9fa2;
+  border-color: rgb(156.5, 159, 161.5);
   outline: 0;
   -webkit-box-shadow: 0 0 0 0.25rem rgba(58, 63, 68, 0.25);
           box-shadow: 0 0 0 0.25rem rgba(58, 63, 68, 0.25);
@@ -2492,10 +2492,10 @@ progress {
   }
 }
 .form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
-  background-color: #464a4f;
+  background-color: rgb(69.9827586207, 74.25, 78.5172413793);
 }
 .form-control:hover:not(:disabled):not([readonly])::file-selector-button {
-  background-color: #464a4f;
+  background-color: rgb(69.9827586207, 74.25, 78.5172413793);
 }
 
 .form-control-plaintext {
@@ -2619,7 +2619,7 @@ textarea.form-control-lg {
   }
 }
 .form-select:focus {
-  border-color: #9d9fa2;
+  border-color: rgb(156.5, 159, 161.5);
   outline: 0;
   -webkit-box-shadow: 0 0 0 0.25rem rgba(58, 63, 68, 0.25);
           box-shadow: 0 0 0 0.25rem rgba(58, 63, 68, 0.25);
@@ -2710,7 +2710,7 @@ textarea.form-control-lg {
           filter: brightness(90%);
 }
 .form-check-input:focus, .aspNetDisabled input:focus, .form-check-custom input:focus {
-  border-color: #9d9fa2;
+  border-color: rgb(156.5, 159, 161.5);
   outline: 0;
   -webkit-box-shadow: 0 0 0 0.25rem rgba(58, 63, 68, 0.25);
           box-shadow: 0 0 0 0.25rem rgba(58, 63, 68, 0.25);
@@ -2761,7 +2761,7 @@ textarea.form-control-lg {
   }
 }
 .form-switch .form-check-input:focus, .form-switch .aspNetDisabled input:focus, .aspNetDisabled .form-switch input:focus, .form-switch .form-check-custom input:focus, .form-check-custom .form-switch input:focus {
-  --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%239d9fa2'/%3e%3c/svg%3e");
+  --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgb%28156.5, 159, 161.5%29'/%3e%3c/svg%3e");
 }
 .form-switch .form-check-input:checked, .form-switch .aspNetDisabled input:checked, .aspNetDisabled .form-switch input:checked, .form-switch .form-check-custom input:checked, .form-check-custom .form-switch input:checked {
   background-position: right center;
@@ -2840,7 +2840,7 @@ textarea.form-control-lg {
   }
 }
 .form-range::-webkit-slider-thumb:active {
-  background-color: #c4c5c7;
+  background-color: rgb(195.9, 197.4, 198.9);
 }
 .form-range::-webkit-slider-runnable-track {
   width: 100%;
@@ -2869,7 +2869,7 @@ textarea.form-control-lg {
   }
 }
 .form-range::-moz-range-thumb:active {
-  background-color: #c4c5c7;
+  background-color: rgb(195.9, 197.4, 198.9);
 }
 .form-range::-moz-range-track {
   width: 100%;
@@ -3415,12 +3415,12 @@ textarea.form-control-lg {
   --bs-btn-bg: #3a3f44;
   --bs-btn-border-color: #3a3f44;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #31363a;
-  --bs-btn-hover-border-color: #2e3236;
+  --bs-btn-hover-bg: rgb(49.3, 53.55, 57.8);
+  --bs-btn-hover-border-color: rgb(46.4, 50.4, 54.4);
   --bs-btn-focus-shadow-rgb: 88, 92, 96;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #2e3236;
-  --bs-btn-active-border-color: #2c2f33;
+  --bs-btn-active-bg: rgb(46.4, 50.4, 54.4);
+  --bs-btn-active-border-color: rgb(43.5, 47.25, 51);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #3a3f44;
@@ -3432,12 +3432,12 @@ textarea.form-control-lg {
   --bs-btn-bg: #7a8288;
   --bs-btn-border-color: #7a8288;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #686f74;
-  --bs-btn-hover-border-color: #62686d;
+  --bs-btn-hover-bg: rgb(103.7, 110.5, 115.6);
+  --bs-btn-hover-border-color: rgb(97.6, 104, 108.8);
   --bs-btn-focus-shadow-rgb: 142, 149, 154;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #62686d;
-  --bs-btn-active-border-color: #5c6266;
+  --bs-btn-active-bg: rgb(97.6, 104, 108.8);
+  --bs-btn-active-border-color: rgb(91.5, 97.5, 102);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #7a8288;
@@ -3449,12 +3449,12 @@ textarea.form-control-lg {
   --bs-btn-bg: #62c462;
   --bs-btn-border-color: #62c462;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #53a753;
-  --bs-btn-hover-border-color: #4e9d4e;
+  --bs-btn-hover-bg: rgb(83.3, 166.6, 83.3);
+  --bs-btn-hover-border-color: rgb(78.4, 156.8, 78.4);
   --bs-btn-focus-shadow-rgb: 122, 205, 122;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #4e9d4e;
-  --bs-btn-active-border-color: #4a934a;
+  --bs-btn-active-bg: rgb(78.4, 156.8, 78.4);
+  --bs-btn-active-border-color: rgb(73.5, 147, 73.5);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #62c462;
@@ -3466,12 +3466,12 @@ textarea.form-control-lg {
   --bs-btn-bg: #5bc0de;
   --bs-btn-border-color: #5bc0de;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #4da3bd;
-  --bs-btn-hover-border-color: #499ab2;
+  --bs-btn-hover-bg: rgb(77.35, 163.2, 188.7);
+  --bs-btn-hover-border-color: rgb(72.8, 153.6, 177.6);
   --bs-btn-focus-shadow-rgb: 116, 201, 227;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #499ab2;
-  --bs-btn-active-border-color: #4490a7;
+  --bs-btn-active-bg: rgb(72.8, 153.6, 177.6);
+  --bs-btn-active-border-color: rgb(68.25, 144, 166.5);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #5bc0de;
@@ -3483,12 +3483,12 @@ textarea.form-control-lg {
   --bs-btn-bg: #f89406;
   --bs-btn-border-color: #f89406;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #d37e05;
-  --bs-btn-hover-border-color: #c67605;
+  --bs-btn-hover-bg: rgb(210.8, 125.8, 5.1);
+  --bs-btn-hover-border-color: rgb(198.4, 118.4, 4.8);
   --bs-btn-focus-shadow-rgb: 249, 164, 43;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #c67605;
-  --bs-btn-active-border-color: #ba6f05;
+  --bs-btn-active-bg: rgb(198.4, 118.4, 4.8);
+  --bs-btn-active-border-color: rgb(186, 111, 4.5);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #f89406;
@@ -3500,12 +3500,12 @@ textarea.form-control-lg {
   --bs-btn-bg: #ee5f5b;
   --bs-btn-border-color: #ee5f5b;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #ca514d;
-  --bs-btn-hover-border-color: #be4c49;
+  --bs-btn-hover-bg: rgb(202.3, 80.75, 77.35);
+  --bs-btn-hover-border-color: rgb(190.4, 76, 72.8);
   --bs-btn-focus-shadow-rgb: 241, 119, 116;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #be4c49;
-  --bs-btn-active-border-color: #b34744;
+  --bs-btn-active-bg: rgb(190.4, 76, 72.8);
+  --bs-btn-active-border-color: rgb(178.5, 71.25, 68.25);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #ee5f5b;
@@ -3517,12 +3517,12 @@ textarea.form-control-lg {
   --bs-btn-bg: #e9ecef;
   --bs-btn-border-color: #e9ecef;
   --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: #c6c9cb;
-  --bs-btn-hover-border-color: #babdbf;
+  --bs-btn-hover-bg: rgb(198.05, 200.6, 203.15);
+  --bs-btn-hover-border-color: rgb(186.4, 188.8, 191.2);
   --bs-btn-focus-shadow-rgb: 198, 201, 203;
   --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #babdbf;
-  --bs-btn-active-border-color: #afb1b3;
+  --bs-btn-active-bg: rgb(186.4, 188.8, 191.2);
+  --bs-btn-active-border-color: rgb(174.75, 177, 179.25);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #000;
   --bs-btn-disabled-bg: #e9ecef;
@@ -3534,12 +3534,12 @@ textarea.form-control-lg {
   --bs-btn-bg: #272b30;
   --bs-btn-border-color: #272b30;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #474b4f;
-  --bs-btn-hover-border-color: #3d4045;
+  --bs-btn-hover-bg: rgb(71.4, 74.8, 79.05);
+  --bs-btn-hover-border-color: rgb(60.6, 64.2, 68.7);
   --bs-btn-focus-shadow-rgb: 71, 75, 79;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #525559;
-  --bs-btn-active-border-color: #3d4045;
+  --bs-btn-active-bg: rgb(82.2, 85.4, 89.4);
+  --bs-btn-active-border-color: rgb(60.6, 64.2, 68.7);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #272b30;
@@ -4909,11 +4909,11 @@ textarea.form-control-lg {
   --bs-card-inner-border-radius: calc(var(--bs-border-radius) - (var(--bs-border-width)));
   --bs-card-cap-padding-y: 0.5rem;
   --bs-card-cap-padding-x: 1rem;
-  --bs-card-cap-bg: #515960;
+  --bs-card-cap-bg: rgb(81.4761904762, 88.5, 95.5238095238);
   --bs-card-cap-color: ;
   --bs-card-height: ;
   --bs-card-color: ;
-  --bs-card-bg: #32383e;
+  --bs-card-bg: rgb(50.4310344828, 55.6034482759, 62.0689655172);
   --bs-card-img-overlay-padding: 1rem;
   --bs-card-group-margin: 0.75rem;
   position: relative;
@@ -5099,7 +5099,7 @@ textarea.form-control-lg {
 
 .accordion {
   --bs-accordion-color: var(--bs-body-color);
-  --bs-accordion-bg: #32383e;
+  --bs-accordion-bg: rgb(50.4310344828, 55.6034482759, 62.0689655172);
   --bs-accordion-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease;
   --bs-accordion-border-color: rgba(0, 0, 0, 0.6);
   --bs-accordion-border-width: var(--bs-border-width);
@@ -5113,7 +5113,7 @@ textarea.form-control-lg {
   --bs-accordion-btn-icon-width: 1.25rem;
   --bs-accordion-btn-icon-transform: rotate(-180deg);
   --bs-accordion-btn-icon-transition: transform 0.2s ease-in-out;
-  --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%2317191b' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e");
+  --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='rgb%2823.2, 25.2, 27.2%29' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e");
   --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(58, 63, 68, 0.25);
   --bs-accordion-body-padding-x: 1.25rem;
   --bs-accordion-body-padding-y: 1rem;
@@ -5243,8 +5243,8 @@ textarea.form-control-lg {
 }
 
 [data-bs-theme=dark] .accordion-button::after {
-  --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23898c8f'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-  --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23898c8f'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='rgb%28136.8, 139.8, 142.8%29'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='rgb%28136.8, 139.8, 142.8%29'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
 }
 
 .breadcrumb {
@@ -5520,7 +5520,7 @@ textarea.form-control-lg {
 .progress-stacked {
   --bs-progress-height: 1rem;
   --bs-progress-font-size: 0.75rem;
-  --bs-progress-bg: #1c1e22;
+  --bs-progress-bg: rgb(27.5689655172, 30.3965517241, 33.9310344828);
   --bs-progress-border-radius: var(--bs-border-radius);
   --bs-progress-box-shadow: var(--bs-box-shadow-inset);
   --bs-progress-bar-color: #7a8288;
@@ -5588,7 +5588,7 @@ textarea.form-control-lg {
 
 .list-group {
   --bs-list-group-color: #fff;
-  --bs-list-group-bg: #32383e;
+  --bs-list-group-bg: rgb(50.4310344828, 55.6034482759, 62.0689655172);
   --bs-list-group-border-color: rgba(0, 0, 0, 0.6);
   --bs-list-group-border-width: var(--bs-border-width);
   --bs-list-group-border-radius: var(--bs-border-radius);
@@ -5596,13 +5596,13 @@ textarea.form-control-lg {
   --bs-list-group-item-padding-y: 0.5rem;
   --bs-list-group-action-color: #fff;
   --bs-list-group-action-hover-color: var(--bs-emphasis-color);
-  --bs-list-group-action-hover-bg: #3e444c;
+  --bs-list-group-action-hover-bg: rgb(61.8620689655, 68.2068965517, 76.1379310345);
   --bs-list-group-action-active-color: var(--bs-body-color);
   --bs-list-group-action-active-bg: var(--bs-secondary-bg);
   --bs-list-group-disabled-color: #52575c;
-  --bs-list-group-disabled-bg: #32383e;
+  --bs-list-group-disabled-bg: rgb(50.4310344828, 55.6034482759, 62.0689655172);
   --bs-list-group-active-color: #fff;
-  --bs-list-group-active-bg: #3e444c;
+  --bs-list-group-active-bg: rgb(61.8620689655, 68.2068965517, 76.1379310345);
   --bs-list-group-active-border-color: rgba(0, 0, 0, 0.6);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -6010,13 +6010,13 @@ textarea.form-control-lg {
   --bs-toast-max-width: 350px;
   --bs-toast-font-size: 0.875rem;
   --bs-toast-color: ;
-  --bs-toast-bg: #32383e;
+  --bs-toast-bg: rgb(50.4310344828, 55.6034482759, 62.0689655172);
   --bs-toast-border-width: var(--bs-border-width);
   --bs-toast-border-color: rgba(0, 0, 0, 0.2);
   --bs-toast-border-radius: var(--bs-border-radius);
   --bs-toast-box-shadow: var(--bs-box-shadow);
   --bs-toast-header-color: #aaa;
-  --bs-toast-header-bg: #32383e;
+  --bs-toast-header-bg: rgb(50.4310344828, 55.6034482759, 62.0689655172);
   --bs-toast-header-border-color: rgba(0, 0, 0, 0.2);
   width: var(--bs-toast-max-width);
   max-width: 100%;
@@ -6082,7 +6082,7 @@ textarea.form-control-lg {
   --bs-modal-padding: 1rem;
   --bs-modal-margin: 0.5rem;
   --bs-modal-color: ;
-  --bs-modal-bg: #32383e;
+  --bs-modal-bg: rgb(50.4310344828, 55.6034482759, 62.0689655172);
   --bs-modal-border-color: var(--bs-border-color-translucent);
   --bs-modal-border-width: var(--bs-border-width);
   --bs-modal-border-radius: var(--bs-border-radius-lg);
@@ -6504,7 +6504,7 @@ textarea.form-control-lg {
   --bs-popover-zindex: 1070;
   --bs-popover-max-width: 276px;
   --bs-popover-font-size: 0.875rem;
-  --bs-popover-bg: #32383e;
+  --bs-popover-bg: rgb(50.4310344828, 55.6034482759, 62.0689655172);
   --bs-popover-border-width: var(--bs-border-width);
   --bs-popover-border-color: var(--bs-border-color-translucent);
   --bs-popover-border-radius: var(--bs-border-radius-lg);
@@ -13385,113 +13385,113 @@ textarea.form-control-lg {
   margin-left: 0;
 }
 .navbar.bg-primary .nav-link:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#313539), color-stop(40%, #34393d), to(#373b40));
-  background-image: linear-gradient(#313539, #34393d 40%, #373b40);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(48.72, 52.92, 57.12)), color-stop(40%, rgb(52.2, 56.7, 61.2)), to(rgb(54.52, 59.22, 63.92)));
+  background-image: linear-gradient(rgb(48.72, 52.92, 57.12), rgb(52.2, 56.7, 61.2) 40%, rgb(54.52, 59.22, 63.92));
   -webkit-filter: none;
           filter: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navbar.bg-primary .nav-link:active, .navbar.bg-primary .nav-link.active {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#25282c), color-stop(40%, #292c30), to(#2b2f32));
-  background-image: linear-gradient(#25282c, #292c30 40%, #2b2f32);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(37.12, 40.32, 43.52)), color-stop(40%, rgb(40.6, 44.1, 47.6)), to(rgb(42.92, 46.62, 50.32)));
+  background-image: linear-gradient(rgb(37.12, 40.32, 43.52), rgb(40.6, 44.1, 47.6) 40%, rgb(42.92, 46.62, 50.32));
   -webkit-filter: none;
           filter: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navbar.bg-secondary .nav-link:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#666d72), color-stop(40%, #6e757a), to(#737a80));
-  background-image: linear-gradient(#666d72, #6e757a 40%, #737a80);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(102.48, 109.2, 114.24)), color-stop(40%, rgb(109.8, 117, 122.4)), to(rgb(114.68, 122.2, 127.84)));
+  background-image: linear-gradient(rgb(102.48, 109.2, 114.24), rgb(109.8, 117, 122.4) 40%, rgb(114.68, 122.2, 127.84));
   -webkit-filter: none;
           filter: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navbar.bg-secondary .nav-link:active, .navbar.bg-secondary .nav-link.active {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#4e5357), color-stop(40%, #555b5f), to(#5a6065));
-  background-image: linear-gradient(#4e5357, #555b5f 40%, #5a6065);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(78.08, 83.2, 87.04)), color-stop(40%, rgb(85.4, 91, 95.2)), to(rgb(90.28, 96.2, 100.64)));
+  background-image: linear-gradient(rgb(78.08, 83.2, 87.04), rgb(85.4, 91, 95.2) 40%, rgb(90.28, 96.2, 100.64));
   -webkit-filter: none;
           filter: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navbar.bg-success .nav-link:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#52a552), color-stop(40%, #58b058), to(#5cb85c));
-  background-image: linear-gradient(#52a552, #58b058 40%, #5cb85c);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(82.32, 164.64, 82.32)), color-stop(40%, rgb(88.2, 176.4, 88.2)), to(rgb(92.12, 184.24, 92.12)));
+  background-image: linear-gradient(rgb(82.32, 164.64, 82.32), rgb(88.2, 176.4, 88.2) 40%, rgb(92.12, 184.24, 92.12));
   -webkit-filter: none;
           filter: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navbar.bg-success .nav-link:active, .navbar.bg-success .nav-link.active {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#3f7d3f), color-stop(40%, #458945), to(#499149));
-  background-image: linear-gradient(#3f7d3f, #458945 40%, #499149);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(62.72, 125.44, 62.72)), color-stop(40%, rgb(68.6, 137.2, 68.6)), to(rgb(72.52, 145.04, 72.52)));
+  background-image: linear-gradient(rgb(62.72, 125.44, 62.72), rgb(68.6, 137.2, 68.6) 40%, rgb(72.52, 145.04, 72.52));
   -webkit-filter: none;
           filter: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navbar.bg-info .nav-link:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#4ca1ba), color-stop(40%, #52adc8), to(#56b4d1));
-  background-image: linear-gradient(#4ca1ba, #52adc8 40%, #56b4d1);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(76.44, 161.28, 186.48)), color-stop(40%, rgb(81.9, 172.8, 199.8)), to(rgb(85.54, 180.48, 208.68)));
+  background-image: linear-gradient(rgb(76.44, 161.28, 186.48), rgb(81.9, 172.8, 199.8) 40%, rgb(85.54, 180.48, 208.68));
   -webkit-filter: none;
           filter: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navbar.bg-info .nav-link:active, .navbar.bg-info .nav-link.active {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#3a7b8e), color-stop(40%, #40869b), to(#438ea4));
-  background-image: linear-gradient(#3a7b8e, #40869b 40%, #438ea4);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(58.24, 122.88, 142.08)), color-stop(40%, rgb(63.7, 134.4, 155.4)), to(rgb(67.34, 142.08, 164.28)));
+  background-image: linear-gradient(rgb(58.24, 122.88, 142.08), rgb(63.7, 134.4, 155.4) 40%, rgb(67.34, 142.08, 164.28));
   -webkit-filter: none;
           filter: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navbar.bg-warning .nav-link:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#d07c05), color-stop(40%, #df8505), to(#e98b06));
-  background-image: linear-gradient(#d07c05, #df8505 40%, #e98b06);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(208.32, 124.32, 5.04)), color-stop(40%, rgb(223.2, 133.2, 5.4)), to(rgb(233.12, 139.12, 5.64)));
+  background-image: linear-gradient(rgb(208.32, 124.32, 5.04), rgb(223.2, 133.2, 5.4) 40%, rgb(233.12, 139.12, 5.64));
   -webkit-filter: none;
           filter: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navbar.bg-warning .nav-link:active, .navbar.bg-warning .nav-link.active {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#9f5f04), color-stop(40%, #ae6804), to(#b86e04));
-  background-image: linear-gradient(#9f5f04, #ae6804 40%, #b86e04);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(158.72, 94.72, 3.84)), color-stop(40%, rgb(173.6, 103.6, 4.2)), to(rgb(183.52, 109.52, 4.44)));
+  background-image: linear-gradient(rgb(158.72, 94.72, 3.84), rgb(173.6, 103.6, 4.2) 40%, rgb(183.52, 109.52, 4.44));
   -webkit-filter: none;
           filter: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navbar.bg-danger .nav-link:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#c8504c), color-stop(40%, #d65652), to(#e05956));
-  background-image: linear-gradient(#c8504c, #d65652 40%, #e05956);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(199.92, 79.8, 76.44)), color-stop(40%, rgb(214.2, 85.5, 81.9)), to(rgb(223.72, 89.3, 85.54)));
+  background-image: linear-gradient(rgb(199.92, 79.8, 76.44), rgb(214.2, 85.5, 81.9) 40%, rgb(223.72, 89.3, 85.54));
   -webkit-filter: none;
           filter: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navbar.bg-danger .nav-link:active, .navbar.bg-danger .nav-link.active {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#983d3a), color-stop(40%, #a74340), to(#b04643));
-  background-image: linear-gradient(#983d3a, #a74340 40%, #b04643);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(152.32, 60.8, 58.24)), color-stop(40%, rgb(166.6, 66.5, 63.7)), to(rgb(176.12, 70.3, 67.34)));
+  background-image: linear-gradient(rgb(152.32, 60.8, 58.24), rgb(166.6, 66.5, 63.7) 40%, rgb(176.12, 70.3, 67.34));
   -webkit-filter: none;
           filter: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navbar.bg-light .nav-link:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#c4c6c9), color-stop(40%, #d2d4d7), to(#dbdee1));
-  background-image: linear-gradient(#c4c6c9, #d2d4d7 40%, #dbdee1);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(195.72, 198.24, 200.76)), color-stop(40%, rgb(209.7, 212.4, 215.1)), to(rgb(219.02, 221.84, 224.66)));
+  background-image: linear-gradient(rgb(195.72, 198.24, 200.76), rgb(209.7, 212.4, 215.1) 40%, rgb(219.02, 221.84, 224.66));
   -webkit-filter: none;
           filter: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navbar.bg-light .nav-link:active, .navbar.bg-light .nav-link.active {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#959799), color-stop(40%, #a3a5a7), to(#acafb1));
-  background-image: linear-gradient(#959799, #a3a5a7 40%, #acafb1);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(149.12, 151.04, 152.96)), color-stop(40%, rgb(163.1, 165.2, 167.3)), to(rgb(172.42, 174.64, 176.86)));
+  background-image: linear-gradient(rgb(149.12, 151.04, 152.96), rgb(163.1, 165.2, 167.3) 40%, rgb(172.42, 174.64, 176.86));
   -webkit-filter: none;
           filter: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navbar.bg-dark .nav-link:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#212428), color-stop(40%, #23272b), to(#25282d));
-  background-image: linear-gradient(#212428, #23272b 40%, #25282d);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(32.76, 36.12, 40.32)), color-stop(40%, rgb(35.1, 38.7, 43.2)), to(rgb(36.66, 40.42, 45.12)));
+  background-image: linear-gradient(rgb(32.76, 36.12, 40.32), rgb(35.1, 38.7, 43.2) 40%, rgb(36.66, 40.42, 45.12));
   -webkit-filter: none;
           filter: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navbar.bg-dark .nav-link:active, .navbar.bg-dark .nav-link.active {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#191c1f), color-stop(40%, #1b1e22), to(#1d2024));
-  background-image: linear-gradient(#191c1f, #1b1e22 40%, #1d2024);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(24.96, 27.52, 30.72)), color-stop(40%, rgb(27.3, 30.1, 33.6)), to(rgb(28.86, 31.82, 35.52)));
+  background-image: linear-gradient(rgb(24.96, 27.52, 30.72), rgb(27.3, 30.1, 33.6) 40%, rgb(28.86, 31.82, 35.52));
   -webkit-filter: none;
           filter: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
@@ -13528,146 +13528,146 @@ textarea.form-control-lg {
   border-color: rgba(0, 0, 0, 0.6);
 }
 .btn-primary {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#44494d), color-stop(20%, #3a3f44), to(#2e3236));
-  background-image: linear-gradient(#44494d, #3a3f44 20%, #2e3236);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(67.85, 72.6, 77.35)), color-stop(20%, #3a3f44), to(rgb(46.4, 50.4, 54.4)));
+  background-image: linear-gradient(rgb(67.85, 72.6, 77.35), #3a3f44 20%, rgb(46.4, 50.4, 54.4));
   -webkit-filter: none;
           filter: none;
 }
 .btn-primary:not([disabled]):not(.disabled):hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#313539), color-stop(40%, #34393d), to(#373b40));
-  background-image: linear-gradient(#313539, #34393d 40%, #373b40);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(48.72, 52.92, 57.12)), color-stop(40%, rgb(52.2, 56.7, 61.2)), to(rgb(54.52, 59.22, 63.92)));
+  background-image: linear-gradient(rgb(48.72, 52.92, 57.12), rgb(52.2, 56.7, 61.2) 40%, rgb(54.52, 59.22, 63.92));
   -webkit-filter: none;
           filter: none;
 }
 .btn-primary:not([disabled]):not(.disabled):active:hover, .btn-primary:not([disabled]):not(.disabled).active:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#25282c), color-stop(40%, #292c30), to(#2b2f32));
-  background-image: linear-gradient(#25282c, #292c30 40%, #2b2f32);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(37.12, 40.32, 43.52)), color-stop(40%, rgb(40.6, 44.1, 47.6)), to(rgb(42.92, 46.62, 50.32)));
+  background-image: linear-gradient(rgb(37.12, 40.32, 43.52), rgb(40.6, 44.1, 47.6) 40%, rgb(42.92, 46.62, 50.32));
   -webkit-filter: none;
           filter: none;
 }
 .btn-secondary {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#81888e), color-stop(20%, #7a8288), to(#62686d));
-  background-image: linear-gradient(#81888e, #7a8288 20%, #62686d);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(128.65, 136.25, 141.95)), color-stop(20%, #7a8288), to(rgb(97.6, 104, 108.8)));
+  background-image: linear-gradient(rgb(128.65, 136.25, 141.95), #7a8288 20%, rgb(97.6, 104, 108.8));
   -webkit-filter: none;
           filter: none;
 }
 .btn-secondary:not([disabled]):not(.disabled):hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#666d72), color-stop(40%, #6e757a), to(#737a80));
-  background-image: linear-gradient(#666d72, #6e757a 40%, #737a80);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(102.48, 109.2, 114.24)), color-stop(40%, rgb(109.8, 117, 122.4)), to(rgb(114.68, 122.2, 127.84)));
+  background-image: linear-gradient(rgb(102.48, 109.2, 114.24), rgb(109.8, 117, 122.4) 40%, rgb(114.68, 122.2, 127.84));
   -webkit-filter: none;
           filter: none;
 }
 .btn-secondary:not([disabled]):not(.disabled):active:hover, .btn-secondary:not([disabled]):not(.disabled).active:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#4e5357), color-stop(40%, #555b5f), to(#5a6065));
-  background-image: linear-gradient(#4e5357, #555b5f 40%, #5a6065);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(78.08, 83.2, 87.04)), color-stop(40%, rgb(85.4, 91, 95.2)), to(rgb(90.28, 96.2, 100.64)));
+  background-image: linear-gradient(rgb(78.08, 83.2, 87.04), rgb(85.4, 91, 95.2) 40%, rgb(90.28, 96.2, 100.64));
   -webkit-filter: none;
           filter: none;
 }
 .btn-success {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#6ac76a), color-stop(20%, #62c462), to(#4e9d4e));
-  background-image: linear-gradient(#6ac76a, #62c462 20%, #4e9d4e);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(105.85, 198.95, 105.85)), color-stop(20%, #62c462), to(rgb(78.4, 156.8, 78.4)));
+  background-image: linear-gradient(rgb(105.85, 198.95, 105.85), #62c462 20%, rgb(78.4, 156.8, 78.4));
   -webkit-filter: none;
           filter: none;
 }
 .btn-success:not([disabled]):not(.disabled):hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#52a552), color-stop(40%, #58b058), to(#5cb85c));
-  background-image: linear-gradient(#52a552, #58b058 40%, #5cb85c);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(82.32, 164.64, 82.32)), color-stop(40%, rgb(88.2, 176.4, 88.2)), to(rgb(92.12, 184.24, 92.12)));
+  background-image: linear-gradient(rgb(82.32, 164.64, 82.32), rgb(88.2, 176.4, 88.2) 40%, rgb(92.12, 184.24, 92.12));
   -webkit-filter: none;
           filter: none;
 }
 .btn-success:not([disabled]):not(.disabled):active:hover, .btn-success:not([disabled]):not(.disabled).active:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#3f7d3f), color-stop(40%, #458945), to(#499149));
-  background-image: linear-gradient(#3f7d3f, #458945 40%, #499149);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(62.72, 125.44, 62.72)), color-stop(40%, rgb(68.6, 137.2, 68.6)), to(rgb(72.52, 145.04, 72.52)));
+  background-image: linear-gradient(rgb(62.72, 125.44, 62.72), rgb(68.6, 137.2, 68.6) 40%, rgb(72.52, 145.04, 72.52));
   -webkit-filter: none;
           filter: none;
 }
 .btn-info {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#63c3e0), color-stop(20%, #5bc0de), to(#499ab2));
-  background-image: linear-gradient(#63c3e0, #5bc0de 20%, #499ab2);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(99.2, 195.15, 223.65)), color-stop(20%, #5bc0de), to(rgb(72.8, 153.6, 177.6)));
+  background-image: linear-gradient(rgb(99.2, 195.15, 223.65), #5bc0de 20%, rgb(72.8, 153.6, 177.6));
   -webkit-filter: none;
           filter: none;
 }
 .btn-info:not([disabled]):not(.disabled):hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#4ca1ba), color-stop(40%, #52adc8), to(#56b4d1));
-  background-image: linear-gradient(#4ca1ba, #52adc8 40%, #56b4d1);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(76.44, 161.28, 186.48)), color-stop(40%, rgb(81.9, 172.8, 199.8)), to(rgb(85.54, 180.48, 208.68)));
+  background-image: linear-gradient(rgb(76.44, 161.28, 186.48), rgb(81.9, 172.8, 199.8) 40%, rgb(85.54, 180.48, 208.68));
   -webkit-filter: none;
           filter: none;
 }
 .btn-info:not([disabled]):not(.disabled):active:hover, .btn-info:not([disabled]):not(.disabled).active:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#3a7b8e), color-stop(40%, #40869b), to(#438ea4));
-  background-image: linear-gradient(#3a7b8e, #40869b 40%, #438ea4);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(58.24, 122.88, 142.08)), color-stop(40%, rgb(63.7, 134.4, 155.4)), to(rgb(67.34, 142.08, 164.28)));
+  background-image: linear-gradient(rgb(58.24, 122.88, 142.08), rgb(63.7, 134.4, 155.4) 40%, rgb(67.34, 142.08, 164.28));
   -webkit-filter: none;
           filter: none;
 }
 .btn-warning {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#f89912), color-stop(20%, #f89406), to(#c67605));
-  background-image: linear-gradient(#f89912, #f89406 20%, #c67605);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(248.35, 153.35, 18.45)), color-stop(20%, #f89406), to(rgb(198.4, 118.4, 4.8)));
+  background-image: linear-gradient(rgb(248.35, 153.35, 18.45), #f89406 20%, rgb(198.4, 118.4, 4.8));
   -webkit-filter: none;
           filter: none;
 }
 .btn-warning:not([disabled]):not(.disabled):hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#d07c05), color-stop(40%, #df8505), to(#e98b06));
-  background-image: linear-gradient(#d07c05, #df8505 40%, #e98b06);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(208.32, 124.32, 5.04)), color-stop(40%, rgb(223.2, 133.2, 5.4)), to(rgb(233.12, 139.12, 5.64)));
+  background-image: linear-gradient(rgb(208.32, 124.32, 5.04), rgb(223.2, 133.2, 5.4) 40%, rgb(233.12, 139.12, 5.64));
   -webkit-filter: none;
           filter: none;
 }
 .btn-warning:not([disabled]):not(.disabled):active:hover, .btn-warning:not([disabled]):not(.disabled).active:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#9f5f04), color-stop(40%, #ae6804), to(#b86e04));
-  background-image: linear-gradient(#9f5f04, #ae6804 40%, #b86e04);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(158.72, 94.72, 3.84)), color-stop(40%, rgb(173.6, 103.6, 4.2)), to(rgb(183.52, 109.52, 4.44)));
+  background-image: linear-gradient(rgb(158.72, 94.72, 3.84), rgb(173.6, 103.6, 4.2) 40%, rgb(183.52, 109.52, 4.44));
   -webkit-filter: none;
           filter: none;
 }
 .btn-danger {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#ef6763), color-stop(20%, #ee5f5b), to(#be4c49));
-  background-image: linear-gradient(#ef6763, #ee5f5b 20%, #be4c49);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(238.85, 103, 99.2)), color-stop(20%, #ee5f5b), to(rgb(190.4, 76, 72.8)));
+  background-image: linear-gradient(rgb(238.85, 103, 99.2), #ee5f5b 20%, rgb(190.4, 76, 72.8));
   -webkit-filter: none;
           filter: none;
 }
 .btn-danger:not([disabled]):not(.disabled):hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#c8504c), color-stop(40%, #d65652), to(#e05956));
-  background-image: linear-gradient(#c8504c, #d65652 40%, #e05956);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(199.92, 79.8, 76.44)), color-stop(40%, rgb(214.2, 85.5, 81.9)), to(rgb(223.72, 89.3, 85.54)));
+  background-image: linear-gradient(rgb(199.92, 79.8, 76.44), rgb(214.2, 85.5, 81.9) 40%, rgb(223.72, 89.3, 85.54));
   -webkit-filter: none;
           filter: none;
 }
 .btn-danger:not([disabled]):not(.disabled):active:hover, .btn-danger:not([disabled]):not(.disabled).active:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#983d3a), color-stop(40%, #a74340), to(#b04643));
-  background-image: linear-gradient(#983d3a, #a74340 40%, #b04643);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(152.32, 60.8, 58.24)), color-stop(40%, rgb(166.6, 66.5, 63.7)), to(rgb(176.12, 70.3, 67.34)));
+  background-image: linear-gradient(rgb(152.32, 60.8, 58.24), rgb(166.6, 66.5, 63.7) 40%, rgb(176.12, 70.3, 67.34));
   -webkit-filter: none;
           filter: none;
 }
 .btn-light {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#eaedf0), color-stop(20%, #e9ecef), to(#babdbf));
-  background-image: linear-gradient(#eaedf0, #e9ecef 20%, #babdbf);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(234.1, 236.95, 239.8)), color-stop(20%, #e9ecef), to(rgb(186.4, 188.8, 191.2)));
+  background-image: linear-gradient(rgb(234.1, 236.95, 239.8), #e9ecef 20%, rgb(186.4, 188.8, 191.2));
   -webkit-filter: none;
           filter: none;
 }
 .btn-light:not([disabled]):not(.disabled):hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#c4c6c9), color-stop(40%, #d2d4d7), to(#dbdee1));
-  background-image: linear-gradient(#c4c6c9, #d2d4d7 40%, #dbdee1);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(195.72, 198.24, 200.76)), color-stop(40%, rgb(209.7, 212.4, 215.1)), to(rgb(219.02, 221.84, 224.66)));
+  background-image: linear-gradient(rgb(195.72, 198.24, 200.76), rgb(209.7, 212.4, 215.1) 40%, rgb(219.02, 221.84, 224.66));
   -webkit-filter: none;
           filter: none;
 }
 .btn-light:not([disabled]):not(.disabled):active:hover, .btn-light:not([disabled]):not(.disabled).active:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#959799), color-stop(40%, #a3a5a7), to(#acafb1));
-  background-image: linear-gradient(#959799, #a3a5a7 40%, #acafb1);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(149.12, 151.04, 152.96)), color-stop(40%, rgb(163.1, 165.2, 167.3)), to(rgb(172.42, 174.64, 176.86)));
+  background-image: linear-gradient(rgb(149.12, 151.04, 152.96), rgb(163.1, 165.2, 167.3) 40%, rgb(172.42, 174.64, 176.86));
   -webkit-filter: none;
           filter: none;
 }
 .btn-dark {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#32363a), color-stop(20%, #272b30), to(#1f2226));
-  background-image: linear-gradient(#32363a, #272b30 20%, #1f2226);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(49.8, 53.6, 58.35)), color-stop(20%, #272b30), to(rgb(31.2, 34.4, 38.4)));
+  background-image: linear-gradient(rgb(49.8, 53.6, 58.35), #272b30 20%, rgb(31.2, 34.4, 38.4));
   -webkit-filter: none;
           filter: none;
 }
 .btn-dark:not([disabled]):not(.disabled):hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#212428), color-stop(40%, #23272b), to(#25282d));
-  background-image: linear-gradient(#212428, #23272b 40%, #25282d);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(32.76, 36.12, 40.32)), color-stop(40%, rgb(35.1, 38.7, 43.2)), to(rgb(36.66, 40.42, 45.12)));
+  background-image: linear-gradient(rgb(32.76, 36.12, 40.32), rgb(35.1, 38.7, 43.2) 40%, rgb(36.66, 40.42, 45.12));
   -webkit-filter: none;
           filter: none;
 }
 .btn-dark:not([disabled]):not(.disabled):active:hover, .btn-dark:not([disabled]):not(.disabled).active:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#191c1f), color-stop(40%, #1b1e22), to(#1d2024));
-  background-image: linear-gradient(#191c1f, #1b1e22 40%, #1d2024);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(24.96, 27.52, 30.72)), color-stop(40%, rgb(27.3, 30.1, 33.6)), to(rgb(28.86, 31.82, 35.52)));
+  background-image: linear-gradient(rgb(24.96, 27.52, 30.72), rgb(27.3, 30.1, 33.6) 40%, rgb(28.86, 31.82, 35.52));
   -webkit-filter: none;
           filter: none;
 }
@@ -13711,8 +13711,8 @@ legend {
 }
 
 .input-group-addon {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#81888e), color-stop(20%, #7a8288), to(#62686d));
-  background-image: linear-gradient(#81888e, #7a8288 20%, #62686d);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(128.65, 136.25, 141.95)), color-stop(20%, #7a8288), to(rgb(97.6, 104, 108.8)));
+  background-image: linear-gradient(rgb(128.65, 136.25, 141.95), #7a8288 20%, rgb(97.6, 104, 108.8));
   -webkit-filter: none;
           filter: none;
   color: #fff;
@@ -13720,15 +13720,15 @@ legend {
 }
 
 .nav-tabs .nav-link {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#313539), color-stop(40%, #34393d), to(#373b40));
-  background-image: linear-gradient(#313539, #34393d 40%, #373b40);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(48.72, 52.92, 57.12)), color-stop(40%, rgb(52.2, 56.7, 61.2)), to(rgb(54.52, 59.22, 63.92)));
+  background-image: linear-gradient(rgb(48.72, 52.92, 57.12), rgb(52.2, 56.7, 61.2) 40%, rgb(54.52, 59.22, 63.92));
   -webkit-filter: none;
           filter: none;
   border: 1px solid rgba(0, 0, 0, 0.6);
 }
 .nav-tabs .nav-link:not([disabled]):not(.disabled):hover, .nav-tabs .nav-link:not([disabled]):not(.disabled):focus, .nav-tabs .nav-link:not([disabled]):not(.disabled):active, .nav-tabs .nav-link:not([disabled]):not(.disabled).active {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#44494d), color-stop(20%, #3a3f44), to(#2e3236));
-  background-image: linear-gradient(#44494d, #3a3f44 20%, #2e3236);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(67.85, 72.6, 77.35)), color-stop(20%, #3a3f44), to(rgb(46.4, 50.4, 54.4)));
+  background-image: linear-gradient(rgb(67.85, 72.6, 77.35), #3a3f44 20%, rgb(46.4, 50.4, 54.4));
   -webkit-filter: none;
           filter: none;
 }
@@ -13741,8 +13741,8 @@ legend {
 }
 
 .nav-pills .nav-link {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#44494d), color-stop(20%, #3a3f44), to(#2e3236));
-  background-image: linear-gradient(#44494d, #3a3f44 20%, #2e3236);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(67.85, 72.6, 77.35)), color-stop(20%, #3a3f44), to(rgb(46.4, 50.4, 54.4)));
+  background-image: linear-gradient(rgb(67.85, 72.6, 77.35), #3a3f44 20%, rgb(46.4, 50.4, 54.4));
   -webkit-filter: none;
           filter: none;
   color: #fff;
@@ -13750,8 +13750,8 @@ legend {
   border: 1px solid rgba(0, 0, 0, 0.6);
 }
 .nav-pills .nav-link:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#313539), color-stop(40%, #34393d), to(#373b40));
-  background-image: linear-gradient(#313539, #34393d 40%, #373b40);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(48.72, 52.92, 57.12)), color-stop(40%, rgb(52.2, 56.7, 61.2)), to(rgb(54.52, 59.22, 63.92)));
+  background-image: linear-gradient(rgb(48.72, 52.92, 57.12), rgb(52.2, 56.7, 61.2) 40%, rgb(54.52, 59.22, 63.92));
   -webkit-filter: none;
           filter: none;
   border: 1px solid rgba(0, 0, 0, 0.6);
@@ -13759,16 +13759,16 @@ legend {
 .nav-pills .nav-link.active,
 .nav-pills .nav-link:hover {
   background-color: transparent;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#313539), color-stop(40%, #34393d), to(#373b40));
-  background-image: linear-gradient(#313539, #34393d 40%, #373b40);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(48.72, 52.92, 57.12)), color-stop(40%, rgb(52.2, 56.7, 61.2)), to(rgb(54.52, 59.22, 63.92)));
+  background-image: linear-gradient(rgb(48.72, 52.92, 57.12), rgb(52.2, 56.7, 61.2) 40%, rgb(54.52, 59.22, 63.92));
   -webkit-filter: none;
           filter: none;
   border: 1px solid rgba(0, 0, 0, 0.6);
 }
 .nav-pills .nav-link.disabled,
 .nav-pills .nav-link.disabled:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#44494d), color-stop(20%, #3a3f44), to(#2e3236));
-  background-image: linear-gradient(#44494d, #3a3f44 20%, #2e3236);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(67.85, 72.6, 77.35)), color-stop(20%, #3a3f44), to(rgb(46.4, 50.4, 54.4)));
+  background-image: linear-gradient(rgb(67.85, 72.6, 77.35), #3a3f44 20%, rgb(46.4, 50.4, 54.4));
   -webkit-filter: none;
           filter: none;
   color: var(--bs-secondary-color);
@@ -13776,27 +13776,27 @@ legend {
 
 .pagination .page-link {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#44494d), color-stop(20%, #3a3f44), to(#2e3236));
-  background-image: linear-gradient(#44494d, #3a3f44 20%, #2e3236);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(67.85, 72.6, 77.35)), color-stop(20%, #3a3f44), to(rgb(46.4, 50.4, 54.4)));
+  background-image: linear-gradient(rgb(67.85, 72.6, 77.35), #3a3f44 20%, rgb(46.4, 50.4, 54.4));
   -webkit-filter: none;
           filter: none;
 }
 .pagination .page-link:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#313539), color-stop(40%, #34393d), to(#373b40));
-  background-image: linear-gradient(#313539, #34393d 40%, #373b40);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(48.72, 52.92, 57.12)), color-stop(40%, rgb(52.2, 56.7, 61.2)), to(rgb(54.52, 59.22, 63.92)));
+  background-image: linear-gradient(rgb(48.72, 52.92, 57.12), rgb(52.2, 56.7, 61.2) 40%, rgb(54.52, 59.22, 63.92));
   -webkit-filter: none;
           filter: none;
   text-decoration: none;
 }
 .pagination .page-item.active .page-link {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#313539), color-stop(40%, #34393d), to(#373b40));
-  background-image: linear-gradient(#313539, #34393d 40%, #373b40);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(48.72, 52.92, 57.12)), color-stop(40%, rgb(52.2, 56.7, 61.2)), to(rgb(54.52, 59.22, 63.92)));
+  background-image: linear-gradient(rgb(48.72, 52.92, 57.12), rgb(52.2, 56.7, 61.2) 40%, rgb(54.52, 59.22, 63.92));
   -webkit-filter: none;
           filter: none;
 }
 .pagination .page-item.disabled .page-link {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#44494d), color-stop(20%, #3a3f44), to(#2e3236));
-  background-image: linear-gradient(#44494d, #3a3f44 20%, #2e3236);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(67.85, 72.6, 77.35)), color-stop(20%, #3a3f44), to(rgb(46.4, 50.4, 54.4)));
+  background-image: linear-gradient(rgb(67.85, 72.6, 77.35), #3a3f44 20%, rgb(46.4, 50.4, 54.4));
   -webkit-filter: none;
           filter: none;
 }
@@ -13805,8 +13805,8 @@ legend {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   background-color: transparent;
   border: 1px solid rgba(0, 0, 0, 0.6);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#44494d), color-stop(20%, #3a3f44), to(#2e3236));
-  background-image: linear-gradient(#44494d, #3a3f44 20%, #2e3236);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(67.85, 72.6, 77.35)), color-stop(20%, #3a3f44), to(rgb(46.4, 50.4, 54.4)));
+  background-image: linear-gradient(rgb(67.85, 72.6, 77.35), #3a3f44 20%, rgb(46.4, 50.4, 54.4));
   -webkit-filter: none;
           filter: none;
 }
@@ -13870,7 +13870,7 @@ legend {
   color: #272b30;
 }
 .list-group-item-action:hover {
-  background-color: #23272b;
+  background-color: rgb(35.1, 38.7, 43.2);
 }
 .list-group-item-primary {
   background-color: #3a3f44;
@@ -14008,7 +14008,7 @@ legend {
   margin-bottom: 0;
   margin-left: 8px;
   padding-left: 16px;
-  border-left: 1px solid #232628;
+  border-left: 1px solid rgb(34.5238095238, 37.5, 40.4761904762);
   background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMSAyMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yLjU5Mi4wNDRsMTguMzY0IDE4LjM2NC0yLjU0OCAyLjU0OEwuMDQ0IDIuNTkyeiIvPjxwYXRoIGQ9Ik0wIDE4LjM2NEwxOC4zNjQgMGwyLjU0OCAyLjU0OEwyLjU0OCAyMC45MTJ6Ii8+PC9nPjwvc3ZnPg==");
   background-size: 8px;
   width: 8px;
@@ -14035,7 +14035,7 @@ legend {
   overflow: hidden;
 }
 .is-focused .choices__inner, .is-open .choices__inner {
-  border-color: #9d9fa2;
+  border-color: rgb(156.5, 159, 161.5);
   -webkit-box-shadow: 0 0 0 0.25rem rgba(58, 63, 68, 0.25);
           box-shadow: 0 0 0 0.25rem rgba(58, 63, 68, 0.25);
 }
@@ -14077,7 +14077,7 @@ legend {
 .choices__list--multiple .choices__item.is-highlighted {
   background-color: #272b30;
   color: #fff;
-  border: 1px solid #232628;
+  border: 1px solid rgb(34.5238095238, 37.5, 40.4761904762);
 }
 .is-disabled .choices__list--multiple .choices__item {
   background-color: #ccc;
@@ -14103,7 +14103,7 @@ legend {
   visibility: visible;
 }
 .is-open .choices__list--dropdown, .is-open .choices__list[aria-expanded] {
-  border-color: #9d9fa2;
+  border-color: rgb(156.5, 159, 161.5);
 }
 .is-flipped .choices__list--dropdown, .is-flipped .choices__list[aria-expanded] {
   top: auto;
@@ -14185,8 +14185,8 @@ legend {
   font-weight: 600;
   font-size: 0.875rem;
   padding: 10px;
-  border-bottom: 1px solid #9d9fa2;
-  color: gray;
+  border-bottom: 1px solid rgb(156.5, 159, 161.5);
+  color: rgb(127.5, 127.5, 127.5);
 }
 
 .choices__button {
