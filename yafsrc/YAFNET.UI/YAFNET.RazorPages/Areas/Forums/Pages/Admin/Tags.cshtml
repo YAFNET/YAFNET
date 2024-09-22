@@ -57,7 +57,7 @@
                                     <small>
                                         <div class="btn-group btn-group-sm">
                                             <a asp-page="@ForumPages.Search.GetPageName()"
-                                               asp-route-tag="item.TagName"
+                                               asp-route-tag="@item.TagName"
                                                text-localized-tag="SHOW_TOPICS"
                                                class="btn btn-info"></a>
                                             <button
@@ -74,7 +74,7 @@
                                     <div class="dropdown-menu context-menu" aria-labelledby="context menu">
                                         <a asp-page="@ForumPages.Search.GetPageName()"
                                            class="dropdown-item"
-                                           asp-route-tag="item.TagName"
+                                           asp-route-tag="@item.TagName"
                                            text-localized-tag="SHOW_TOPICS"
                                            button-style="@ButtonStyle.None"></a>
                                         <button button-style="@ButtonStyle.None"
