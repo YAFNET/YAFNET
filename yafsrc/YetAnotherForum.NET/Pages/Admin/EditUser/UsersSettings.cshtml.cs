@@ -142,7 +142,7 @@ public class UsersSettingsModel : AdminPage
 
             try
             {
-                await this.Get<IAspNetUsersHelper>().UpdateEmailAsync(this.PageBoardContext.MembershipUser, this.Input.Email.Trim());
+                await this.Get<IAspNetUsersHelper>().UpdateEmailAsync(user.Item2, this.Input.Email.Trim());
             }
             catch (ApplicationException)
             {
