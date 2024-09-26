@@ -59,23 +59,12 @@ public static class UrlRewriteHelper
         // normalize the Unicode
         inputString = inputString.Normalize(NormalizationForm.FormD);
 
-        switch (Config.UrlRewritingMode)
+        return Config.UrlRewritingMode switch
         {
-            case "Unicode":
-                {
-                    return FormatUnicode(inputString, sb);
-                }
-
-            case "Translit":
-                {
-                    return FormatTranslit(inputString, sb);
-                }
-
-            default:
-                {
-                    return FormatDefault(inputString, sb);
-                }
-        }
+            "Unicode" => FormatUnicode(inputString, sb),
+            "Translit" => FormatTranslit(inputString, sb),
+            _ => FormatDefault(inputString, sb)
+        };
     }
 
     /// <summary>
@@ -182,6 +171,6 @@ public static class UrlRewriteHelper
             strNew = strNew.Remove(strNew.Length - 1, 1);
         }
 
-        return strNew.Length.Equals(0) ? "Default" : HttpUtility.UrlEncode(strNew);
+        return strNew.Length.Equals(0) ? "Default" : strNew;
     }
 }
