@@ -32,6 +32,6 @@
     <ProjectReference Include="..\..\YAFNET.Types\YAFNET.Types.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="8.1.0" />
+    <PackageReference Include="Autofac" Version="8.1.1" />
   </ItemGroup>
 </Project>
