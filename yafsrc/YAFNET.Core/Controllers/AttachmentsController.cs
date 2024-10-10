@@ -109,16 +109,12 @@ public class Attachments : ForumBaseController
 
                 // output stream...
                 var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-                var result = new FileStreamResult(stream, attachment.ContentType);
-
-                return result;
+                return File(stream, attachment.ContentType, fileDownloadName: attachment.FileName);
             }
             else
             {
                 var stream = new MemoryStream(attachment.FileData);
-                var result = new FileStreamResult(stream, attachment.ContentType);
-
-                return result;
+                return File(stream, attachment.ContentType, fileDownloadName: attachment.FileName);
             }
         }
         catch (Exception x)
