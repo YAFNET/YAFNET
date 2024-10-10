@@ -146,7 +146,7 @@ public class SpamWordCheck : ISpamWordCheck, IHaveServiceLocator
             {
                 // disable this regular expression henceforth...
                 item.Active = false;
-                this.Logger.Warn("Couldn't run RegEx for Spam Word Replace value: {0}", item.SpamWordRegEx);
+                this.Logger.LogWarning("Couldn't run RegEx for Spam Word Replace value: {0}", item.SpamWordRegEx);
             }
 
 #endif
