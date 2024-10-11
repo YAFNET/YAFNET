@@ -2884,6 +2884,8 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 return this.VisitParameter(exp as ParameterExpression);
             case ExpressionType.Call:
                 return this.VisitMethodCall(exp as MethodCallExpression);
+            case ExpressionType.Invoke:
+                return VisitInvocation(exp as InvocationExpression);
             case ExpressionType.New:
                 return this.VisitNew(exp as NewExpression);
             case ExpressionType.NewArrayInit:
@@ -4022,6 +4024,15 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                && this.IsJoinedTable(exp.Expression.Type);
     }
 
+    /// <summary>
+    /// Visits the invocation.
+    /// </summary>
+    /// <param name="m">The m.</param>
+    /// <returns>System.Object.</returns>
+    protected virtual object VisitInvocation(InvocationExpression m)
+    {
+        return EvaluateExpression(m);
+    }
 
     /// <summary>
     /// Visits the method call.

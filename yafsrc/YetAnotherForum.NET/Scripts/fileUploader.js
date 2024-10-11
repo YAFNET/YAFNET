@@ -36,9 +36,9 @@ var FileUploader = (function () {
             document.body.addEventListener(eventName, self.preventDefaults, false);
         });
 
-        document.querySelector(this.config.fileInput).addEventListener('onchange',
+        document.getElementById('fileElem').addEventListener('change',
             (e) => {
-                self.handleDrop(e, self);
+	            self.handleFiles(self, e.target.files);
             }); 
 
         dropArea.ondragenter = function () {

@@ -69,7 +69,7 @@ public partial class ForumStatsUsers : BaseUserControl
         var canViewActive = this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ActiveUsersViewPermissions);
         var showGuestTotal = activeGuests > 0 && (this.PageBoardContext.BoardSettings.ShowGuestsInDetailedActiveList
                                                   || this.PageBoardContext.BoardSettings.ShowCrawlersInActiveList);
-            
+
         if (canViewActive && (showGuestTotal || activeMembers > 0 && activeGuests > 0))
         {
             // always show active users...
