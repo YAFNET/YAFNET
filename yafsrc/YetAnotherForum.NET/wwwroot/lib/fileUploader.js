@@ -36,10 +36,10 @@ var FileUploader = (function () {
             document.body.addEventListener(eventName, self.preventDefaults, false);
         });
 
-        document.querySelector(this.config.fileInput).addEventListener('onchange',
-            (e) => {
-                self.handleDrop(e, self);
-            }); 
+        document.getElementById('fileElem').addEventListener('change',
+	        (e) => {
+		        self.handleFiles(self, e.target.files);
+	        });
 
         dropArea.ondragenter = function () {
             self.highlight(self);
