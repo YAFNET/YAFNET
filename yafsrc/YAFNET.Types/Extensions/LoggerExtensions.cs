@@ -277,4 +277,25 @@ public static class LoggerExtensions
             logger.Log(LogLevel.Error, description);
         }
     }
+
+    /// <summary>
+    /// The warn.
+    /// </summary>
+    /// <param name="logger">
+    /// The logger.
+    /// </param>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param>
+    public static void Warn(this ILogger logger, string format, params object[] args)
+    {
+        var logEntry = new EventLog { Type = EventLogTypes.Warning.ToInt() };
+        using (logger.BeginScope(logEntry))
+        {
+            logger.Log(LogLevel.Warning, string.Format(format, args));
+        }
+    }
 }
