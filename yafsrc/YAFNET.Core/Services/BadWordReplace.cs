@@ -139,7 +139,7 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
                         {
                             // disable this regular expression henceforth...
                             item.Active = false;
-                            this.Logger.LogWarning(
+                            this.Logger.Warn(
                                 "Couldn't run RegEx for Bad Word Replace value: {0}",
                                 item.BadWordRegEx);
                         }
