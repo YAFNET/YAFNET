@@ -208,12 +208,9 @@ public partial class PollChoiceList : BaseUserControl
         voteButton.Visible = true;
 
         // override if multi vote
-        if (this.DataSource[0].Item1.PollFlags.AllowMultipleChoice)
+        if (this.DataSource[0].Item1.PollFlags.AllowMultipleChoice && this.UserPollVotes.TrueForAll(v => choice.Item2.ID != v.ChoiceID))
         {
-            if (this.UserPollVotes.TrueForAll(v => choice.Item2.ID != v.ChoiceID))
-            {
-                voteButton.Enabled = true;
-            }
+            voteButton.Enabled = true;
         }
 
         // Poll Choice image

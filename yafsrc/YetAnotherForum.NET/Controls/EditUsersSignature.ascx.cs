@@ -266,19 +266,21 @@ public partial class EditUsersSignature : BaseUserControl
                             case 1:
                                 this.Logger.SpamBotDetected(
                                     this.user.ID,
-                                    $@"Internal Spam Word Check detected a SPAM BOT: (
-                                                      user name : '{this.user.Name}', 
-                                                      user id : '{this.CurrentUserID}') 
-                                                 after the user included a spam word in his/her signature: {result}");
+                                    $"""
+                                     Internal Spam Word Check detected a SPAM BOT: (user name : '{this.user.Name}', 
+                                                                                           user id : '{this.CurrentUserID}') 
+                                                                                      after the user included a spam word in his/her signature: {result}
+                                     """);
                                 break;
                             case 2:
                                 {
                                     this.Logger.SpamBotDetected(
                                         this.user.ID,
-                                        $@"Internal Spam Word Check detected a SPAM BOT: (
-                                                       user name : '{this.user.Name}', 
-                                                       user id : '{this.CurrentUserID}') 
-                                                 after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.");
+                                        $"""
+                                         Internal Spam Word Check detected a SPAM BOT: (user name : '{this.user.Name}', 
+                                                                                                user id : '{this.CurrentUserID}') 
+                                                                                          after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.
+                                         """);
 
                                     // Kill user
                                     if (!this.PageBoardContext.CurrentForumPage.IsAdminPage)

@@ -195,10 +195,14 @@ public class StackTraceBeautify
                     }
 
                     var paramType = cleanedParameter[0];
-                    var paramName = cleanedParameter[1];
 
-                    var theParam =
-                        $"<span class=\"{this.paramTypeCssClass}\">{paramType}</span> <span class=\"{this.paramNameCssClass}\">{paramName}</span>";
+                    var theParam = $"<span class=\"{this.paramTypeCssClass}\">{paramType}</span>";
+
+                    if (cleanedParameter.Length > 1)
+                    {
+                        var paramName = cleanedParameter[1];
+                        theParam += $" <span class=\"{this.paramNameCssClass}\">{paramName}</span>";
+                    }
 
                     parameterList.Append(index + 1 < arrParams.Length ? $"{theParam}, " : $"{theParam}");
                 }
@@ -208,7 +212,7 @@ public class StackTraceBeautify
                 // Frame -> Type & Method
                 var partsTypeMethod = partsFrame.Replace(partsParamList, string.Empty).Replace("\r", string.Empty);
                 var arrTypeMethod = partsTypeMethod.Split('.').ToList();
-                var method = arrTypeMethod.Last();
+                var method = arrTypeMethod[arrTypeMethod.Count - 1];
 
                 var type = partsTypeMethod.Replace($".{method}", string.Empty);
                 var stringTypeMethod =

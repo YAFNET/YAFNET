@@ -246,16 +246,14 @@ public partial class DisplayPost : BaseUserControl
 
         // report post
         if (this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ReportPostPermissions)
-            && !this.PostData.PostDeleted)
+            && !this.PostData.PostDeleted
+            && !this.PageBoardContext.IsGuest && this.PageBoardContext.MembershipUser != null)
         {
-            if (!this.PageBoardContext.IsGuest && this.PageBoardContext.MembershipUser != null)
-            {
-                this.ReportPost.Visible = this.ReportPost2.Visible = true;
+            this.ReportPost.Visible = this.ReportPost2.Visible = true;
 
-                this.ReportPost.NavigateUrl = this.ReportPost2.NavigateUrl = this.Get<LinkBuilder>().GetLink(
-                                                  ForumPages.ReportPost,
-                                                  new { m = this.PostData.MessageId });
-            }
+            this.ReportPost.NavigateUrl = this.ReportPost2.NavigateUrl = this.Get<LinkBuilder>().GetLink(
+                ForumPages.ReportPost,
+                new { m = this.PostData.MessageId });
         }
 
         // mark post as answer
