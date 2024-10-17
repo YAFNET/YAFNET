@@ -930,8 +930,8 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     private string DoesTableExistSql(IDbCommand dbCmd, string tableName, string schema)
     {
         var sql = !this.Normalize || ReservedWords.Contains(tableName)
-            ? "SELECT COUNT(*) FROM pg_class WHERE relname = {0} AND relkind = 'r'".SqlFmt(tableName)
-            : "SELECT COUNT(*) FROM pg_class WHERE lower(relname) = {0} AND relkind = 'r'".SqlFmt(tableName.ToLower());
+            ? "SELECT COUNT(*) FROM pg_class WHERE relname = {0} AND relkind = 'r'".SqlFmt(this, tableName)
+            : "SELECT COUNT(*) FROM pg_class WHERE lower(relname) = {0} AND relkind = 'r'".SqlFmt(this, tableName.ToLower());
 
         var conn = dbCmd.Connection;
         if (conn != null)
@@ -944,9 +944,9 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             {
                 sql = !this.Normalize || ReservedWords.Contains(schema)
                     ? "SELECT COUNT(*) FROM pg_class JOIN pg_catalog.pg_namespace n ON n.oid = pg_class.relnamespace WHERE relname = {0} AND relkind = 'r' AND nspname = {1}"
-                        .SqlFmt(tableName, schema)
+                        .SqlFmt(this, tableName, schema)
                     : "SELECT COUNT(*) FROM pg_class JOIN pg_catalog.pg_namespace n ON n.oid = pg_class.relnamespace WHERE lower(relname) = {0} AND relkind = 'r' AND lower(nspname) = {1}"
-                        .SqlFmt(tableName.ToLower(), schema.ToLower());
+                        .SqlFmt(this, tableName.ToLower(), schema.ToLower());
             }
         }
 
@@ -1061,13 +1061,13 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     private string DoesColumnExistSql(string columnName, string tableName, ref string schema)
     {
         var sql = !this.Normalize || ReservedWords.Contains(tableName)
-            ? "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName".SqlFmt(tableName)
+            ? "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName".SqlFmt(this, tableName)
             : "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE lower(TABLE_NAME) = @tableName".SqlFmt(
-                tableName.ToLower());
+                this, tableName.ToLower());
 
         sql += !this.Normalize || ReservedWords.Contains(columnName)
-            ? " AND COLUMN_NAME = @columnName".SqlFmt(columnName)
-            : " AND lower(COLUMN_NAME) = @columnName".SqlFmt(columnName.ToLower());
+            ? " AND COLUMN_NAME = @columnName".SqlFmt(this, columnName)
+            : " AND lower(COLUMN_NAME) = @columnName".SqlFmt(this, columnName.ToLower());
 
         if (schema != null)
         {
