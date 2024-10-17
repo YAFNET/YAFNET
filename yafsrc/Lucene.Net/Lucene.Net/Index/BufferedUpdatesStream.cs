@@ -18,7 +18,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,13 +27,13 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using Query = YAF.Lucene.Net.Search.Query;
-    using QueryWrapperFilter = YAF.Lucene.Net.Search.QueryWrapperFilter;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using DocIdSet = Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator = Lucene.Net.Search.DocIdSetIterator;
+    using InfoStream = Lucene.Net.Util.InfoStream;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using Query = Lucene.Net.Search.Query;
+    using QueryWrapperFilter = Lucene.Net.Search.QueryWrapperFilter;
 
     /// <summary>
     /// Tracks the stream of BufferedDeletes.
@@ -155,7 +155,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         // Sorts SegmentInfos from smallest to biggest bufferedDelGen:
-        private readonly static IComparer<SegmentCommitInfo> sortSegInfoByDelGen = Comparer<SegmentCommitInfo>.Create((si1, si2) =>
+        private static readonly IComparer<SegmentCommitInfo> sortSegInfoByDelGen = Comparer<SegmentCommitInfo>.Create((si1, si2) =>
             {
                 long cmp = si1.BufferedDeletesGen - si2.BufferedDeletesGen;
                 if (cmp > 0)

@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,23 +23,23 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using StoredFieldsWriter = YAF.Lucene.Net.Codecs.StoredFieldsWriter;
+    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
+    using StoredFieldsWriter = Lucene.Net.Codecs.StoredFieldsWriter;
 
     /// <summary>
     /// This is a <see cref="StoredFieldsConsumer"/> that writes stored fields. </summary>
     internal sealed class StoredFieldsProcessor : StoredFieldsConsumer
     {
         internal StoredFieldsWriter fieldsWriter;
-        readonly internal DocumentsWriterPerThread docWriter;
+        internal readonly DocumentsWriterPerThread docWriter;
         internal int lastDocID;
 
-        readonly internal DocumentsWriterPerThread.DocState docState;
-        readonly internal Codec codec;
+        internal readonly DocumentsWriterPerThread.DocState docState;
+        internal readonly Codec codec;
 
         public StoredFieldsProcessor(DocumentsWriterPerThread docWriter)
         {
@@ -143,7 +143,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        override internal void FinishDocument()
+        internal override void FinishDocument()
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(docWriter.TestPoint("StoredFieldsWriter.finishDocument start"));
 

@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,10 +20,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using Int32BlockPool = YAF.Lucene.Net.Util.Int32BlockPool;
+    using ByteBlockPool = Lucene.Net.Util.ByteBlockPool;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using Counter = Lucene.Net.Util.Counter;
+    using Int32BlockPool = Lucene.Net.Util.Int32BlockPool;
 
     /// <summary>
     /// This class implements <see cref="InvertedDocConsumer"/>, which
@@ -36,26 +36,26 @@ namespace YAF.Lucene.Net.Index
     /// </summary>
     internal sealed class TermsHash : InvertedDocConsumer
     {
-        readonly internal TermsHashConsumer consumer;
-        readonly internal TermsHash nextTermsHash;
+        internal readonly TermsHashConsumer consumer;
+        internal readonly TermsHash nextTermsHash;
 
-        readonly internal Int32BlockPool intPool;
-        readonly internal ByteBlockPool bytePool;
+        internal readonly Int32BlockPool intPool;
+        internal readonly ByteBlockPool bytePool;
         internal ByteBlockPool termBytePool;
-        readonly internal Counter bytesUsed;
+        internal readonly Counter bytesUsed;
 
-        readonly internal bool primary;
-        readonly internal DocumentsWriterPerThread.DocState docState;
+        internal readonly bool primary;
+        internal readonly DocumentsWriterPerThread.DocState docState;
 
         // Used when comparing postings via termRefComp, in TermsHashPerField
-        readonly internal BytesRef tr1 = new BytesRef();
+        internal readonly BytesRef tr1 = new BytesRef();
 
-        readonly internal BytesRef tr2 = new BytesRef();
+        internal readonly BytesRef tr2 = new BytesRef();
 
         // Used by perField to obtain terms from the analysis chain
-        readonly internal BytesRef termBytesRef = new BytesRef(10);
+        internal readonly BytesRef termBytesRef = new BytesRef(10);
 
-        readonly internal bool trackAllocations;
+        internal readonly bool trackAllocations;
 
         public TermsHash(DocumentsWriterPerThread docWriter, TermsHashConsumer consumer, bool trackAllocations, TermsHash nextTermsHash)
         {
@@ -106,7 +106,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        override internal void Flush(IDictionary<string, InvertedDocConsumerPerField> fieldsToFlush, SegmentWriteState state)
+        internal override void Flush(IDictionary<string, InvertedDocConsumerPerField> fieldsToFlush, SegmentWriteState state)
         {
             IDictionary<string, TermsHashConsumerPerField> childFields = new Dictionary<string, TermsHashConsumerPerField>();
             IDictionary<string, InvertedDocConsumerPerField> nextChildFields;
@@ -138,13 +138,13 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        override internal InvertedDocConsumerPerField AddField(DocInverterPerField docInverterPerField, FieldInfo fieldInfo)
+        internal override InvertedDocConsumerPerField AddField(DocInverterPerField docInverterPerField, FieldInfo fieldInfo)
         {
             return new TermsHashPerField(docInverterPerField, this, nextTermsHash, fieldInfo);
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        override internal void FinishDocument()
+        internal override void FinishDocument()
         {
             consumer.FinishDocument(this);
             if (nextTermsHash != null)
@@ -153,7 +153,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        override internal void StartDocument()
+        internal override void StartDocument()
         {
             consumer.StartDocument();
             if (nextTermsHash != null)

@@ -13,7 +13,7 @@ namespace YAF.Lucene.Net.Store
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,8 +22,8 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using UnicodeUtil = YAF.Lucene.Net.Util.UnicodeUtil;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using UnicodeUtil = Lucene.Net.Util.UnicodeUtil;
 
     /// <summary>
     /// Abstract base class for performing write operations of Lucene's low-level
@@ -287,13 +287,13 @@ namespace YAF.Lucene.Net.Store
         }
 
         /// <summary>
-        /// Writes a <see cref="T:IDictionary{string, string}"/>.
+        /// Writes a <see cref="T:IDictionary{string,string}"/>.
         /// <para/>
         /// First the size is written as an <see cref="WriteInt32(int)"/>,
         /// followed by each key-value pair written as two consecutive
         /// <see cref="WriteString(string)"/>s.
         /// </summary>
-        /// <param name="map"> Input <see cref="T:IDictionary{string, string}"/>. May be <c>null</c> (equivalent to an empty dictionary) </param>
+        /// <param name="map"> Input <see cref="T:IDictionary{string,string}"/>. May be <c>null</c> (equivalent to an empty dictionary) </param>
         public virtual void WriteStringStringMap(IDictionary<string, string> map)
         {
             if (map is null)

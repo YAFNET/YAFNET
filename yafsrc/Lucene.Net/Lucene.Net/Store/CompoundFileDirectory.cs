@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Store
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,10 +26,10 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using CodecUtil = Lucene.Net.Codecs.CodecUtil;
+    using CorruptIndexException = Lucene.Net.Index.CorruptIndexException;
+    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Class for accessing a compound stream.
@@ -86,7 +86,7 @@ namespace YAF.Lucene.Net.Store
         //private readonly int readBufferSize; // LUCENENET: Never read
         private readonly IDictionary<string, FileEntry> entries;
         private readonly bool openForWrite;
-        private readonly static IDictionary<string, FileEntry> SENTINEL = Collections.EmptyMap<string, FileEntry>();
+        private static readonly IDictionary<string, FileEntry> SENTINEL = Collections.EmptyMap<string, FileEntry>();
         private readonly CompoundFileWriter writer;
 #pragma warning disable CA2213 // Disposable fields should be disposed
         private readonly IndexInputSlicer handle;
@@ -132,10 +132,10 @@ namespace YAF.Lucene.Net.Store
         }
 
         // LUCENENET NOTE: These MUST be sbyte because they can be negative
-        private readonly static sbyte CODEC_MAGIC_BYTE1 = (sbyte)CodecUtil.CODEC_MAGIC.TripleShift(24);
-        private readonly static sbyte CODEC_MAGIC_BYTE2 = (sbyte)CodecUtil.CODEC_MAGIC.TripleShift(16);
-        private readonly static sbyte CODEC_MAGIC_BYTE3 = (sbyte)CodecUtil.CODEC_MAGIC.TripleShift(8);
-        private readonly static sbyte CODEC_MAGIC_BYTE4 = (sbyte)CodecUtil.CODEC_MAGIC;
+        private static readonly sbyte CODEC_MAGIC_BYTE1 = (sbyte)CodecUtil.CODEC_MAGIC.TripleShift(24);
+        private static readonly sbyte CODEC_MAGIC_BYTE2 = (sbyte)CodecUtil.CODEC_MAGIC.TripleShift(16);
+        private static readonly sbyte CODEC_MAGIC_BYTE3 = (sbyte)CodecUtil.CODEC_MAGIC.TripleShift(8);
+        private static readonly sbyte CODEC_MAGIC_BYTE4 = (sbyte)CodecUtil.CODEC_MAGIC;
 
         /// <summary>
         /// Helper method that reads CFS entries from an input stream </summary>
@@ -284,7 +284,7 @@ namespace YAF.Lucene.Net.Store
 
         public string Name => fileName;
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             // allow double close - usually to be consistent with other closeables
             if (!CompareAndSetIsOpen(expect: true, update: false)) return; // already closed
@@ -451,7 +451,7 @@ namespace YAF.Lucene.Net.Store
                 this.entry = entry;
             }
 
-            override protected void Dispose(bool disposing)
+            protected override void Dispose(bool disposing)
             {
                 // LUCENENET: Intentionally blank
             }

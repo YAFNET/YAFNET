@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,9 +25,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using Directory = Lucene.Net.Store.Directory;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     internal sealed class StandardDirectoryReader : DirectoryReader
     {
@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// called from <c>DirectoryReader.Open(...)</c> methods </summary>
-        static internal DirectoryReader Open(Directory directory, IndexCommit commit, int termInfosIndexDivisor)
+        internal static DirectoryReader Open(Directory directory, IndexCommit commit, int termInfosIndexDivisor)
         {
             return (DirectoryReader)new FindSegmentsFileAnonymousClass(directory, termInfosIndexDivisor).Run(commit);
         }
@@ -64,7 +64,7 @@ namespace YAF.Lucene.Net.Index
                 this.termInfosIndexDivisor = termInfosIndexDivisor;
             }
 
-            override protected internal object DoBody(string segmentFileName)
+            protected internal override object DoBody(string segmentFileName)
             {
                 var sis = new SegmentInfos();
                 sis.Read(directory, segmentFileName);
@@ -93,7 +93,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Used by near real-time search </summary>
-        static internal DirectoryReader Open(IndexWriter writer, SegmentInfos infos, bool applyAllDeletes)
+        internal static DirectoryReader Open(IndexWriter writer, SegmentInfos infos, bool applyAllDeletes)
         {
             // IndexWriter synchronizes externally before calling
             // us, which ensures infos will not change; so there's
@@ -315,12 +315,12 @@ namespace YAF.Lucene.Net.Index
             return buffer.ToString();
         }
 
-        override protected internal DirectoryReader DoOpenIfChanged()
+        protected internal override DirectoryReader DoOpenIfChanged()
         {
             return DoOpenIfChanged((IndexCommit)null);
         }
 
-        override protected internal DirectoryReader DoOpenIfChanged(IndexCommit commit)
+        protected internal override DirectoryReader DoOpenIfChanged(IndexCommit commit)
         {
             EnsureOpen();
 
@@ -336,7 +336,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        override protected internal DirectoryReader DoOpenIfChanged(IndexWriter writer, bool applyAllDeletes)
+        protected internal override DirectoryReader DoOpenIfChanged(IndexWriter writer, bool applyAllDeletes)
         {
             EnsureOpen();
             if (writer == this.writer && applyAllDeletes == this.applyAllDeletes)
@@ -412,7 +412,7 @@ namespace YAF.Lucene.Net.Index
                 this.outerInstance = outerInstance;
             }
 
-            override protected internal object DoBody(string segmentFileName)
+            protected internal override object DoBody(string segmentFileName)
             {
                 SegmentInfos infos = new SegmentInfos();
                 infos.Read(outerInstance.m_directory, segmentFileName);
@@ -456,7 +456,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        override protected internal void DoClose()
+        protected internal override void DoClose()
         {
             Exception firstExc = null;
             foreach (AtomicReader r in GetSequentialSubReaders())
@@ -510,8 +510,8 @@ namespace YAF.Lucene.Net.Index
             internal ICollection<string> files;
             internal Directory dir;
             internal long generation;
-            readonly internal IDictionary<string, string> userData;
-            readonly internal int segmentCount;
+            internal readonly IDictionary<string, string> userData;
+            internal readonly int segmentCount;
 
             internal ReaderCommit(SegmentInfos infos, Directory dir)
             {

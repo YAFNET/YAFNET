@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Store
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,7 +34,7 @@ namespace YAF.Lucene.Net.Store
     /// </summary>
     public class FilterDirectory : Directory
     {
-        readonly protected Directory m_input;
+        protected readonly Directory m_input;
 
         /// <summary>
         /// Sole constructor, typically called from sub-classes. </summary>
@@ -93,7 +93,7 @@ namespace YAF.Lucene.Net.Store
             m_input.ClearLock(name);
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

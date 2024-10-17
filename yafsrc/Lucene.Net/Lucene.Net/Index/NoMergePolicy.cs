@@ -10,7 +10,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,13 +34,13 @@ namespace YAF.Lucene.Net.Index
         /// A singleton <see cref="NoMergePolicy"/> which indicates the index does not use
         /// compound files.
         /// </summary>
-        public readonly static MergePolicy NO_COMPOUND_FILES = new NoMergePolicy(false);
+        public static readonly MergePolicy NO_COMPOUND_FILES = new NoMergePolicy(false);
 
         /// <summary>
         /// A singleton <see cref="NoMergePolicy"/> which indicates the index uses compound
         /// files.
         /// </summary>
-        public readonly static MergePolicy COMPOUND_FILES = new NoMergePolicy(true);
+        public static readonly MergePolicy COMPOUND_FILES = new NoMergePolicy(true);
 
         private readonly bool useCompoundFile;
 
@@ -51,7 +51,7 @@ namespace YAF.Lucene.Net.Index
             this.useCompoundFile = useCompoundFile;
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             // LUCENENET: Intentionally blank
         }
@@ -81,7 +81,7 @@ namespace YAF.Lucene.Net.Index
             // LUCENENET: Intentionally blank
         }
 
-        override protected long Size(SegmentCommitInfo info)
+        protected override long Size(SegmentCommitInfo info)
         {
             return long.MaxValue;
         }

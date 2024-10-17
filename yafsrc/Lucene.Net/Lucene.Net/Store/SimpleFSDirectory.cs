@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Store
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -125,7 +125,7 @@ namespace YAF.Lucene.Net.Store
                 this.descriptor = descriptor;
             }
 
-            override protected void Dispose(bool disposing)
+            protected override void Dispose(bool disposing)
             {
                 if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
 
@@ -171,7 +171,7 @@ namespace YAF.Lucene.Net.Store
 
             /// <summary>
             /// the file channel we will read from </summary>
-            readonly protected internal FileStream m_file;
+            protected internal readonly FileStream m_file;
 
             /// <summary>
             /// is this instance a clone and hence does not own the file to close it </summary>
@@ -179,11 +179,11 @@ namespace YAF.Lucene.Net.Store
 
             /// <summary>
             /// start offset: non-zero in the slice case </summary>
-            readonly protected internal long m_off;
+            protected internal readonly long m_off;
 
             /// <summary>
             /// end offset (start+length) </summary>
-            readonly protected internal long m_end;
+            protected internal readonly long m_end;
 
             public SimpleFSIndexInput(string resourceDesc, FileStream file, IOContext context)
                 : base(resourceDesc, context)
@@ -203,7 +203,7 @@ namespace YAF.Lucene.Net.Store
                 this.IsClone = true;
             }
 
-            override protected void Dispose(bool disposing)
+            protected override void Dispose(bool disposing)
             {
                 if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
 
@@ -224,7 +224,7 @@ namespace YAF.Lucene.Net.Store
 
             /// <summary>
             /// <see cref="IndexInput"/> methods </summary>
-            override protected void ReadInternal(byte[] b, int offset, int len)
+            protected override void ReadInternal(byte[] b, int offset, int len)
             {
                 UninterruptableMonitor.Enter(m_file);
                 try
@@ -270,7 +270,7 @@ namespace YAF.Lucene.Net.Store
                 }
             }
 
-            override protected void SeekInternal(long position)
+            protected override void SeekInternal(long position)
             {
             }
 

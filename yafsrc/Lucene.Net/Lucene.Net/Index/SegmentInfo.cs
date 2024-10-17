@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,10 +24,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using Lucene3xSegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
-    using TrackingDirectoryWrapper = YAF.Lucene.Net.Store.TrackingDirectoryWrapper;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using Directory = Lucene.Net.Store.Directory;
+    using Lucene3xSegmentInfoFormat = Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
+    using TrackingDirectoryWrapper = Lucene.Net.Store.TrackingDirectoryWrapper;
 
     /// <summary>
     /// Information about a segment such as it's name, directory, and files related
@@ -42,13 +42,13 @@ namespace YAF.Lucene.Net.Index
         /// Used by some member fields to mean not present (e.g.,
         /// norms, deletions).
         /// </summary>
-        public readonly static int NO = -1; // e.g. no norms; no deletes;
+        public static readonly int NO = -1; // e.g. no norms; no deletes;
 
         /// <summary>
         /// Used by some member fields to mean present (e.g.,
         /// norms, deletions).
         /// </summary>
-        public readonly static int YES = 1; // e.g. have norms; have deletes;
+        public static readonly int YES = 1; // e.g. have norms; have deletes;
 
         /// <summary>
         /// Unique segment name in the directory. </summary>

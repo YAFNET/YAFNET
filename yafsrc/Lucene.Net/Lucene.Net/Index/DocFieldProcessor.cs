@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,11 +26,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using FieldInfosWriter = YAF.Lucene.Net.Codecs.FieldInfosWriter;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using Counter = Lucene.Net.Util.Counter;
+    using FieldInfosWriter = Lucene.Net.Codecs.FieldInfosWriter;
+    using IOContext = Lucene.Net.Store.IOContext;
 
     /// <summary>
     /// This is a <see cref="DocConsumer"/> that gathers all fields under the
@@ -42,9 +42,9 @@ namespace YAF.Lucene.Net.Index
 
     internal sealed class DocFieldProcessor : DocConsumer
     {
-        readonly internal DocFieldConsumer consumer;
-        readonly internal StoredFieldsConsumer storedConsumer;
-        readonly internal Codec codec;
+        internal readonly DocFieldConsumer consumer;
+        internal readonly StoredFieldsConsumer storedConsumer;
+        internal readonly Codec codec;
 
         // Holds all fields seen in current doc
         internal DocFieldProcessorPerField[] fields = new DocFieldProcessorPerField[1];
@@ -58,9 +58,9 @@ namespace YAF.Lucene.Net.Index
         internal int totalFieldCount;
 
         internal int fieldGen;
-        readonly internal DocumentsWriterPerThread.DocState docState;
+        internal readonly DocumentsWriterPerThread.DocState docState;
 
-        readonly internal Counter bytesUsed;
+        internal readonly Counter bytesUsed;
 
         public DocFieldProcessor(DocumentsWriterPerThread docWriter, DocFieldConsumer consumer, StoredFieldsConsumer storedConsumer)
         {
@@ -284,10 +284,10 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        private readonly static IComparer<DocFieldProcessorPerField> fieldsComp = Comparer<DocFieldProcessorPerField>.Create((o1, o2) => o1.fieldInfo.Name.CompareToOrdinal(o2.fieldInfo.Name));
+        private static readonly IComparer<DocFieldProcessorPerField> fieldsComp = Comparer<DocFieldProcessorPerField>.Create((o1, o2) => o1.fieldInfo.Name.CompareToOrdinal(o2.fieldInfo.Name));
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        override internal void FinishDocument()
+        internal override void FinishDocument()
         {
             try
             {

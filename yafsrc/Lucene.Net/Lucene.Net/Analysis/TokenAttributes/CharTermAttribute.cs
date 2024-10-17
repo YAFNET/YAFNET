@@ -1,4 +1,4 @@
-using J2N.Text;
+﻿using J2N.Text;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
     * (the "License"); you may not use this file except in compliance with
     * the License.  You may obtain a copy of the License at
     *
-    *     https://www.apache.org/licenses/LICENSE-2.0
+    *     http://www.apache.org/licenses/LICENSE-2.0
     *
     * Unless required by applicable law or agreed to in writing, software
     * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,7 +30,8 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
     {
         /// <summary>
         /// Copies the contents of buffer, starting at offset for
-        /// length characters, into the termBuffer array. </summary>
+        /// length characters, into the termBuffer array.
+        /// </summary>
         /// <param name="buffer"> the buffer to copy </param>
         /// <param name="offset"> the index in the buffer of the first character to copy </param>
         /// <param name="length"> the number of characters to copy </param>

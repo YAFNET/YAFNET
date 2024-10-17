@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,18 +34,18 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using Lucene3xCodec = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xCodec;
-    using Lucene3xSegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
-    using Lucene3xSegmentInfoReader = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoReader;
-    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
+    using ChecksumIndexInput = Lucene.Net.Store.ChecksumIndexInput;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using CodecUtil = Lucene.Net.Codecs.CodecUtil;
+    using Directory = Lucene.Net.Store.Directory;
+    using IndexInput = Lucene.Net.Store.IndexInput;
+    using IndexOutput = Lucene.Net.Store.IndexOutput;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using Lucene3xCodec = Lucene.Net.Codecs.Lucene3x.Lucene3xCodec;
+    using Lucene3xSegmentInfoFormat = Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
+    using Lucene3xSegmentInfoReader = Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoReader;
+    using StringHelper = Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// A collection of segmentInfo objects with methods for operating on
@@ -104,7 +104,7 @@ namespace YAF.Lucene.Net.Index
     ///   <item><description>SegCodec is the <see cref="Codec.Name"/> of the <see cref="Codec"/> that encoded
     ///       this segment.</description></item>
     ///   <item><description>CommitUserData stores an optional user-supplied opaque
-    ///       <see cref="T:IDictionary{string, string}"/> that was passed to
+    ///       <see cref="T:IDictionary{string,string}"/> that was passed to
     ///       <see cref="IndexWriter.SetCommitData(IDictionary{string, string})"/>.</description></item>
     ///   <item><description>FieldInfosGen is the generation count of the fieldInfos file. If this is -1,
     ///       there are no updates to the fieldInfos in that segment. Anything above zero
@@ -120,11 +120,11 @@ namespace YAF.Lucene.Net.Index
     {
         /// <summary>
         /// The file format version for the segments_N codec header, up to 4.5. </summary>
-        public readonly static int VERSION_40 = 0;
+        public static readonly int VERSION_40 = 0;
 
         /// <summary>
         /// The file format version for the segments_N codec header, since 4.6+. </summary>
-        public readonly static int VERSION_46 = 1;
+        public static readonly int VERSION_46 = 1;
 
         /// <summary>
         /// The file format version for the segments_N codec header, since 4.8+ </summary>
@@ -139,7 +139,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Current format of segments.gen </summary>
-        public readonly static int FORMAT_SEGMENTS_GEN_CURRENT = FORMAT_SEGMENTS_GEN_CHECKSUM;
+        public static readonly int FORMAT_SEGMENTS_GEN_CURRENT = FORMAT_SEGMENTS_GEN_CHECKSUM;
 
         /// <summary>
         /// Setting this to true will generate the same file names that were used in 4.8.0-beta00001 through 4.8.0-beta00015.
@@ -158,7 +158,7 @@ namespace YAF.Lucene.Net.Index
             get => useLegacySegmentNames;
             set => useLegacySegmentNames = value;
         }
-        static internal bool useLegacySegmentNames = Util.SystemProperties.GetPropertyAsBoolean("useLegacySegmentNames", defaultValue: false);
+        internal static bool useLegacySegmentNames = Util.SystemProperties.GetPropertyAsBoolean("useLegacySegmentNames", defaultValue: false);
 
         /// <summary>
         /// Optimized version of <see cref="J2N.IntegralNumberExtensions.ToString(long, int)"/> with a radix of 36, that
@@ -167,7 +167,7 @@ namespace YAF.Lucene.Net.Index
         /// <para/>
         /// This also implements the switch for <see cref="UseLegacySegmentNames"/> so it doesn't have to be dealt with externally.
         /// </summary>
-        static internal string SegmentNumberToString(long segment, bool allowLegacyNames = true)
+        internal static string SegmentNumberToString(long segment, bool allowLegacyNames = true)
         {
             switch (segment)
             {
@@ -277,7 +277,7 @@ namespace YAF.Lucene.Net.Index
                     97 => "2p",
                     98 => "2q",
                     99 => "2r",
-                    _ => segment.ToString(Character.MaxRadix)
+                    _ => segment.ToString(Character.MaxRadix),
                 };
             }
 
@@ -635,7 +635,7 @@ namespace YAF.Lucene.Net.Index
                 this.outerInstance = outerInstance;
             }
 
-            override protected internal object DoBody(string segmentFileName)
+            protected internal override object DoBody(string segmentFileName)
             {
                 outerInstance.Read(directory, segmentFileName);
                 return null;
@@ -947,7 +947,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public abstract class FindSegmentsFile
         {
-            readonly internal Directory directory;
+            internal readonly Directory directory;
 
             /// <summary>
             /// Sole constructor. </summary>

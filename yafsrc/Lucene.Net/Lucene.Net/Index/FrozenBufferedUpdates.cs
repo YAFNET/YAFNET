@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -35,28 +35,28 @@ namespace YAF.Lucene.Net.Index
     internal class FrozenBufferedUpdates
     {
         /// <summary>Query we often undercount (say 24 bytes), plus int.</summary>
-        readonly static internal int BYTES_PER_DEL_QUERY = RamUsageEstimator.NUM_BYTES_OBJECT_REF + RamUsageEstimator.NUM_BYTES_INT32 + 24;
+        internal static readonly int BYTES_PER_DEL_QUERY = RamUsageEstimator.NUM_BYTES_OBJECT_REF + RamUsageEstimator.NUM_BYTES_INT32 + 24;
 
         /// <summary>Terms, in sorted order:</summary>
-        readonly internal PrefixCodedTerms terms;
+        internal readonly PrefixCodedTerms terms;
 
         internal int termCount; // just for debugging
 
         /// <summary>Parallel array of deleted query, and the docIDUpto for each</summary>
-        readonly internal Query[] queries;
+        internal readonly Query[] queries;
 
-        readonly internal int[] queryLimits;
+        internal readonly int[] queryLimits;
 
         /// <summary>numeric DV update term and their updates</summary>
-        readonly internal NumericDocValuesUpdate[] numericDVUpdates;
+        internal readonly NumericDocValuesUpdate[] numericDVUpdates;
 
         /// <summary>binary DV update term and their updates</summary>
-        readonly internal BinaryDocValuesUpdate[] binaryDVUpdates;
+        internal readonly BinaryDocValuesUpdate[] binaryDVUpdates;
 
-        readonly internal int bytesUsed;
-        readonly internal int numTermDeletes;
+        internal readonly int bytesUsed;
+        internal readonly int numTermDeletes;
         private long gen = -1; // assigned by BufferedDeletesStream once pushed
-        readonly internal bool isSegmentPrivate; // set to true iff this frozen packet represents
+        internal readonly bool isSegmentPrivate; // set to true iff this frozen packet represents
         // a segment private deletes. in that case is should
         // only have Queries
 

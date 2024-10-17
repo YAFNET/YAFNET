@@ -18,7 +18,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,22 +27,22 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Allocator = YAF.Lucene.Net.Util.ByteBlockPool.Allocator;
-    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using Constants = YAF.Lucene.Net.Util.Constants;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using DeleteSlice = YAF.Lucene.Net.Index.DocumentsWriterDeleteQueue.DeleteSlice;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DirectTrackingAllocator = YAF.Lucene.Net.Util.ByteBlockPool.DirectTrackingAllocator;
-    using FlushInfo = YAF.Lucene.Net.Store.FlushInfo;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using Int32BlockPool = YAF.Lucene.Net.Util.Int32BlockPool;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IMutableBits = YAF.Lucene.Net.Util.IMutableBits;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
-    using TrackingDirectoryWrapper = YAF.Lucene.Net.Store.TrackingDirectoryWrapper;
+    using Allocator = Lucene.Net.Util.ByteBlockPool.Allocator;
+    using Analyzer = Lucene.Net.Analysis.Analyzer;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using Constants = Lucene.Net.Util.Constants;
+    using Counter = Lucene.Net.Util.Counter;
+    using DeleteSlice = Lucene.Net.Index.DocumentsWriterDeleteQueue.DeleteSlice;
+    using Directory = Lucene.Net.Store.Directory;
+    using DirectTrackingAllocator = Lucene.Net.Util.ByteBlockPool.DirectTrackingAllocator;
+    using FlushInfo = Lucene.Net.Store.FlushInfo;
+    using InfoStream = Lucene.Net.Util.InfoStream;
+    using Int32BlockPool = Lucene.Net.Util.Int32BlockPool;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IMutableBits = Lucene.Net.Util.IMutableBits;
+    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
+    using Similarity = Lucene.Net.Search.Similarities.Similarity;
+    using TrackingDirectoryWrapper = Lucene.Net.Store.TrackingDirectoryWrapper;
 
     internal class DocumentsWriterPerThread
     {
@@ -56,7 +56,7 @@ namespace YAF.Lucene.Net.Index
             internal abstract DocConsumer GetChain(DocumentsWriterPerThread documentsWriterPerThread);
         }
 
-        private readonly static IndexingChain defaultIndexingChain = new IndexingChainAnonymousClass();
+        private static readonly IndexingChain defaultIndexingChain = new IndexingChainAnonymousClass();
 
         public static IndexingChain DefaultIndexingChain => defaultIndexingChain;
 
@@ -66,7 +66,7 @@ namespace YAF.Lucene.Net.Index
             {
             }
 
-            override internal DocConsumer GetChain(DocumentsWriterPerThread documentsWriterPerThread)
+            internal override DocConsumer GetChain(DocumentsWriterPerThread documentsWriterPerThread)
             {
                 /*
                 this is the current indexing chain:
@@ -107,7 +107,7 @@ namespace YAF.Lucene.Net.Index
 
         public class DocState
         {
-            readonly internal DocumentsWriterPerThread docWriter;
+            internal readonly DocumentsWriterPerThread docWriter;
             internal Analyzer analyzer;
             internal InfoStream infoStream;
             internal Similarity similarity;
@@ -138,11 +138,11 @@ namespace YAF.Lucene.Net.Index
 
         internal class FlushedSegment
         {
-            readonly internal SegmentCommitInfo segmentInfo;
-            readonly internal FieldInfos fieldInfos;
-            readonly internal FrozenBufferedUpdates segmentUpdates;
-            readonly internal IMutableBits liveDocs;
-            readonly internal int delCount;
+            internal readonly SegmentCommitInfo segmentInfo;
+            internal readonly FieldInfos fieldInfos;
+            internal readonly FrozenBufferedUpdates segmentUpdates;
+            internal readonly IMutableBits liveDocs;
+            internal readonly int delCount;
 
             internal FlushedSegment(SegmentCommitInfo segmentInfo, FieldInfos fieldInfos, BufferedUpdates segmentUpdates, IMutableBits liveDocs, int delCount)
             {
@@ -194,17 +194,17 @@ namespace YAF.Lucene.Net.Index
         }
 
         private const bool INFO_VERBOSE = false;
-        readonly internal Codec codec;
-        readonly internal TrackingDirectoryWrapper directory;
-        readonly internal Directory directoryOrig;
-        readonly internal DocState docState;
-        readonly internal DocConsumer consumer;
-        readonly internal Counter bytesUsed;
+        internal readonly Codec codec;
+        internal readonly TrackingDirectoryWrapper directory;
+        internal readonly Directory directoryOrig;
+        internal readonly DocState docState;
+        internal readonly DocConsumer consumer;
+        internal readonly Counter bytesUsed;
 
         internal SegmentWriteState flushState;
 
         // Updates for our still-in-RAM (to be flushed next) segment
-        readonly internal BufferedUpdates pendingUpdates;
+        internal readonly BufferedUpdates pendingUpdates;
 
         private readonly SegmentInfo segmentInfo; // Current segment we are working on
         internal bool aborting = false; // True if an abort is pending
@@ -213,11 +213,11 @@ namespace YAF.Lucene.Net.Index
         private readonly FieldInfos.Builder fieldInfos; // LUCENENET: marked readonly
         private readonly InfoStream infoStream;
         private int numDocsInRAM;
-        readonly internal DocumentsWriterDeleteQueue deleteQueue;
+        internal readonly DocumentsWriterDeleteQueue deleteQueue;
         private readonly DeleteSlice deleteSlice;
         private readonly NumberFormatInfo nf = CultureInfo.InvariantCulture.NumberFormat;
-        readonly internal Allocator byteBlockAllocator;
-        readonly internal Int32BlockPool.Allocator intBlockAllocator;
+        internal readonly Allocator byteBlockAllocator;
+        internal readonly Int32BlockPool.Allocator intBlockAllocator;
         private readonly LiveIndexWriterConfig indexWriterConfig;
 
         public DocumentsWriterPerThread(string segmentName, Directory directory, LiveIndexWriterConfig indexWriterConfig, InfoStream infoStream, DocumentsWriterDeleteQueue deleteQueue, FieldInfos.Builder fieldInfos)
@@ -686,13 +686,13 @@ namespace YAF.Lucene.Net.Index
         /// Initial chunks size of the shared byte[] blocks used to
         /// store postings data
         /// </summary>
-        readonly static internal int BYTE_BLOCK_NOT_MASK = ~ByteBlockPool.BYTE_BLOCK_MASK;
+        internal static readonly int BYTE_BLOCK_NOT_MASK = ~ByteBlockPool.BYTE_BLOCK_MASK;
 
         /// <summary>
         /// if you increase this, you must fix field cache impl for
         /// getTerms/getTermsIndex requires &lt;= 32768
         /// </summary>
-        readonly static internal int MAX_TERM_LENGTH_UTF8 = ByteBlockPool.BYTE_BLOCK_SIZE - 2;
+        internal static readonly int MAX_TERM_LENGTH_UTF8 = ByteBlockPool.BYTE_BLOCK_SIZE - 2;
 
         /// <summary>
         /// NOTE: This was IntBlockAllocator in Lucene

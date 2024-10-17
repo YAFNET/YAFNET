@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -52,25 +52,25 @@ namespace YAF.Lucene.Net.Index
         /// log size, minus LEVEL_LOG_SPAN, and finding all
         /// segments falling within that range.
         /// </summary>
-        public readonly static double LEVEL_LOG_SPAN = 0.75;
+        public static readonly double LEVEL_LOG_SPAN = 0.75;
 
         /// <summary>
         /// Default merge factor, which is how many segments are
         /// merged at a time
         /// </summary>
-        public readonly static int DEFAULT_MERGE_FACTOR = 10;
+        public static readonly int DEFAULT_MERGE_FACTOR = 10;
 
         /// <summary>
         /// Default maximum segment size.  A segment of this size 
         /// or larger will never be merged. </summary> 
         /// <seealso cref="MaxMergeDocs"/>
-        public readonly static int DEFAULT_MAX_MERGE_DOCS = int.MaxValue;
+        public static readonly int DEFAULT_MAX_MERGE_DOCS = int.MaxValue;
 
         /// <summary>
         /// Default noCFSRatio.  If a merge's size is >= 10% of
         /// the index, then we disable compound file for it. </summary>
         /// <seealso cref="MergePolicy.NoCFSRatio"/>
-        public readonly static new double DEFAULT_NO_CFS_RATIO = 0.1;
+        public new static readonly double DEFAULT_NO_CFS_RATIO = 0.1;
 
         /// <summary>
         /// How many segments to merge at a time. </summary>
@@ -179,7 +179,7 @@ namespace YAF.Lucene.Net.Index
             set => this.m_calibrateSizeByDeletes = value;
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
         }
 
@@ -524,8 +524,8 @@ namespace YAF.Lucene.Net.Index
 
         private class SegmentInfoAndLevel : IComparable<SegmentInfoAndLevel>
         {
-            readonly internal SegmentCommitInfo info;
-            readonly internal float level;
+            internal readonly SegmentCommitInfo info;
+            internal readonly float level;
             //private int index; // LUCENENET: Never read
 
             public SegmentInfoAndLevel(SegmentCommitInfo info, float level /*, int index // LUCENENET: Never read */)

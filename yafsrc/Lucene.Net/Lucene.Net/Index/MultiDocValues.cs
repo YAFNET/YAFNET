@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,13 +23,13 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AppendingPackedInt64Buffer = YAF.Lucene.Net.Util.Packed.AppendingPackedInt64Buffer;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using MonotonicAppendingInt64Buffer = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using TermsEnumIndex = YAF.Lucene.Net.Index.MultiTermsEnum.TermsEnumIndex;
-    using TermsEnumWithSlice = YAF.Lucene.Net.Index.MultiTermsEnum.TermsEnumWithSlice;
+    using AppendingPackedInt64Buffer = Lucene.Net.Util.Packed.AppendingPackedInt64Buffer;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using IBits = Lucene.Net.Util.IBits;
+    using MonotonicAppendingInt64Buffer = Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
+    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
+    using TermsEnumIndex = Lucene.Net.Index.MultiTermsEnum.TermsEnumIndex;
+    using TermsEnumWithSlice = Lucene.Net.Index.MultiTermsEnum.TermsEnumWithSlice;
 
     /// <summary>
     /// A wrapper for <see cref="CompositeReader"/> providing access to <see cref="DocValues"/>.
@@ -434,16 +434,16 @@ namespace YAF.Lucene.Net.Index
         public class OrdinalMap
         {
             // cache key of whoever asked for this awful thing
-            readonly internal object owner;
+            internal readonly object owner;
 
             // globalOrd -> (globalOrd - segmentOrd) where segmentOrd is the the ordinal in the first segment that contains this term
-            readonly internal MonotonicAppendingInt64Buffer globalOrdDeltas;
+            internal readonly MonotonicAppendingInt64Buffer globalOrdDeltas;
 
             // globalOrd -> first segment container
-            readonly internal AppendingPackedInt64Buffer firstSegments;
+            internal readonly AppendingPackedInt64Buffer firstSegments;
 
             // for every segment, segmentOrd -> (globalOrd - segmentOrd)
-            readonly internal MonotonicAppendingInt64Buffer[] ordDeltas;
+            internal readonly MonotonicAppendingInt64Buffer[] ordDeltas;
 
             /// <summary>
             /// Creates an ordinal map that allows mapping ords to/from a merged

@@ -8,7 +8,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,7 +18,7 @@ namespace YAF.Lucene.Net.Index
      */
 
     // javadocs
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRef = Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// Subclass of <see cref="FilteredTermsEnum"/> for enumerating a single term.
@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Index
             SetInitialSeekTerm(termText);
         }
 
-        override protected AcceptStatus Accept(BytesRef term)
+        protected override AcceptStatus Accept(BytesRef term)
         {
             return term.Equals(singleRef) ? AcceptStatus.YES : AcceptStatus.END;
         }

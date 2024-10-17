@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,17 +26,17 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using FieldInfosWriter = YAF.Lucene.Net.Codecs.FieldInfosWriter;
-    using FieldsConsumer = YAF.Lucene.Net.Codecs.FieldsConsumer;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using StoredFieldsWriter = YAF.Lucene.Net.Codecs.StoredFieldsWriter;
-    using TermVectorsWriter = YAF.Lucene.Net.Codecs.TermVectorsWriter;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using Directory = Lucene.Net.Store.Directory;
+    using DocValuesConsumer = Lucene.Net.Codecs.DocValuesConsumer;
+    using FieldInfosWriter = Lucene.Net.Codecs.FieldInfosWriter;
+    using FieldsConsumer = Lucene.Net.Codecs.FieldsConsumer;
+    using IBits = Lucene.Net.Util.IBits;
+    using InfoStream = Lucene.Net.Util.InfoStream;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using StoredFieldsWriter = Lucene.Net.Codecs.StoredFieldsWriter;
+    using TermVectorsWriter = Lucene.Net.Codecs.TermVectorsWriter;
 
     /// <summary>
     /// The <see cref="SegmentMerger"/> class combines two or more Segments, represented by an

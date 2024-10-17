@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Store
      * "License"); you may not use this file except in compliance with the License.
      * You may obtain a copy of the License at
      *
-     * https://www.apache.org/licenses/LICENSE-2.0
+     * http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
@@ -129,7 +129,7 @@ namespace YAF.Lucene.Net.Store
                 this.descriptor = descriptor;
             }
 
-            override protected void Dispose(bool disposing)
+            protected override void Dispose(bool disposing)
             {
                 if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
 
@@ -172,7 +172,7 @@ namespace YAF.Lucene.Net.Store
 
             /// <summary>
             /// the file channel we will read from </summary>
-            readonly protected FileStream m_channel;
+            protected readonly FileStream m_channel;
 
             /// <summary>
             /// is this instance a clone and hence does not own the file to close it </summary>
@@ -180,11 +180,11 @@ namespace YAF.Lucene.Net.Store
 
             /// <summary>
             /// start offset: non-zero in the slice case </summary>
-            readonly protected long m_off;
+            protected readonly long m_off;
 
             /// <summary>
             /// end offset (start+length) </summary>
-            readonly protected long m_end;
+            protected readonly long m_end;
 
             private ByteBuffer byteBuf; // wraps the buffer for NIO
 
@@ -207,7 +207,7 @@ namespace YAF.Lucene.Net.Store
                 this.isClone = true;
             }
 
-            override protected void Dispose(bool disposing)
+            protected override void Dispose(bool disposing)
             {
                 if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
 
@@ -226,13 +226,13 @@ namespace YAF.Lucene.Net.Store
 
             public override sealed long Length => m_end - m_off;
 
-            override protected void NewBuffer(byte[] newBuffer)
+            protected override void NewBuffer(byte[] newBuffer)
             {
                 base.NewBuffer(newBuffer);
                 byteBuf = ByteBuffer.Wrap(newBuffer);
             }
 
-            override protected void ReadInternal(byte[] b, int offset, int len)
+            protected override void ReadInternal(byte[] b, int offset, int len)
             {
                 ByteBuffer bb;
 
@@ -283,7 +283,7 @@ namespace YAF.Lucene.Net.Store
                 }
             }
 
-            override protected void SeekInternal(long pos)
+            protected override void SeekInternal(long pos)
             {
             }
         }

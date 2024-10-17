@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,8 +36,8 @@ namespace YAF.Lucene.Net.Index
 
         public class Container
         {
-            readonly internal IDictionary<string, NumericDocValuesFieldUpdates> numericDVUpdates = new Dictionary<string, NumericDocValuesFieldUpdates>();
-            readonly internal IDictionary<string, BinaryDocValuesFieldUpdates> binaryDVUpdates = new Dictionary<string, BinaryDocValuesFieldUpdates>();
+            internal readonly IDictionary<string, NumericDocValuesFieldUpdates> numericDVUpdates = new Dictionary<string, NumericDocValuesFieldUpdates>();
+            internal readonly IDictionary<string, BinaryDocValuesFieldUpdates> binaryDVUpdates = new Dictionary<string, BinaryDocValuesFieldUpdates>();
 
             internal virtual bool Any()
             {
@@ -109,8 +109,8 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        readonly internal string field;
-        readonly internal DocValuesFieldUpdatesType type;
+        internal readonly string field;
+        internal readonly DocValuesFieldUpdatesType type;
 
         protected DocValuesFieldUpdates(string field, DocValuesFieldUpdatesType type)
         {

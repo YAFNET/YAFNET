@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,13 +25,13 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
-    using PostingsFormat = YAF.Lucene.Net.Codecs.PostingsFormat; // javadocs
-    using SeekStatus = YAF.Lucene.Net.Index.TermsEnum.SeekStatus;
-    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using DocIdSetIterator = Lucene.Net.Search.DocIdSetIterator;
+    using IBits = Lucene.Net.Util.IBits;
+    using PagedBytes = Lucene.Net.Util.PagedBytes;
+    using PostingsFormat = Lucene.Net.Codecs.PostingsFormat; // javadocs
+    using SeekStatus = Lucene.Net.Index.TermsEnum.SeekStatus;
+    using StringHelper = Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// This class enables fast access to multiple term ords for
@@ -127,11 +127,11 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Don't uninvert terms that exceed this count. </summary>
-        readonly protected int m_maxTermDocFreq; 
+        protected readonly int m_maxTermDocFreq; 
 
         /// <summary>
         /// Field we are uninverting. </summary>
-        readonly protected string m_field; 
+        protected readonly string m_field; 
 
         /// <summary>
         /// Number of terms in the field. </summary>
@@ -741,7 +741,7 @@ namespace YAF.Lucene.Net.Index
         {
             private readonly DocTermOrds outerInstance;
 
-            readonly internal TermsEnum termsEnum;
+            internal readonly TermsEnum termsEnum;
             internal BytesRef term;
             internal long ord; // force "real" seek
 

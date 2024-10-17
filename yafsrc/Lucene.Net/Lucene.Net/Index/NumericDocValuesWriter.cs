@@ -13,7 +13,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,12 +22,12 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AppendingDeltaPackedInt64Buffer = YAF.Lucene.Net.Util.Packed.AppendingDeltaPackedInt64Buffer;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using AppendingDeltaPackedInt64Buffer = Lucene.Net.Util.Packed.AppendingDeltaPackedInt64Buffer;
+    using Counter = Lucene.Net.Util.Counter;
+    using DocValuesConsumer = Lucene.Net.Codecs.DocValuesConsumer;
+    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
+    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
+    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
 
     /// <summary>
     /// Buffers up pending long per doc, then flushes when

@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -97,7 +97,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// When overridden in a subclass, provides the numeric format as a <see cref="string"/>.
-        /// Generally, this is the same format that is passed into the <see cref="M:string.Format(IFormatProvider, string, object)"/>
+        /// Generally, this is the same format that is passed into the <see cref="string.Format(IFormatProvider, string, object)"/>
         /// method.
         /// </summary>
         /// <returns>A numeric format string.</returns>

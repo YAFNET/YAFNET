@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,8 +28,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using CollectionUtil = YAF.Lucene.Net.Util.CollectionUtil;
-    using Directory = YAF.Lucene.Net.Store.Directory;
+    using CollectionUtil = Lucene.Net.Util.CollectionUtil;
+    using Directory = Lucene.Net.Store.Directory;
 
     /// <summary>
     /// A <see cref="MergeScheduler"/> that runs each merge using a
@@ -192,7 +192,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Sorts <see cref="MergeThread"/>s; larger merges come first. </summary>
-        readonly static protected internal IComparer<MergeThread> compareByMergeDocCount = Comparer<MergeThread>.Create((t1, t2) =>
+        protected internal static readonly IComparer<MergeThread> compareByMergeDocCount = Comparer<MergeThread>.Create((t1, t2) =>
             {
                 MergePolicy.OneMerge m1 = t1.CurrentMerge;
                 MergePolicy.OneMerge m2 = t2.CurrentMerge;
@@ -332,7 +332,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             Sync();
         }

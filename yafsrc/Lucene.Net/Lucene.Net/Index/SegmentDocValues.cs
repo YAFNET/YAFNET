@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,11 +26,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocValuesFormat = YAF.Lucene.Net.Codecs.DocValuesFormat;
-    using DocValuesProducer = YAF.Lucene.Net.Codecs.DocValuesProducer;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using Directory = Lucene.Net.Store.Directory;
+    using DocValuesFormat = Lucene.Net.Codecs.DocValuesFormat;
+    using DocValuesProducer = Lucene.Net.Codecs.DocValuesProducer;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Manages the <see cref="DocValuesProducer"/> held by <see cref="SegmentReader"/> and
@@ -70,7 +70,7 @@ namespace YAF.Lucene.Net.Index
                 this.gen = gen;
             }
 
-            override protected void Release()
+            protected override void Release()
             {
                 m_object.Dispose();
                 UninterruptableMonitor.Enter(outerInstance);

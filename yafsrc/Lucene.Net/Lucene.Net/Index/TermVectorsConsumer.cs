@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,25 +24,25 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FlushInfo = YAF.Lucene.Net.Store.FlushInfo;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using TermVectorsWriter = YAF.Lucene.Net.Codecs.TermVectorsWriter;
+    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using FlushInfo = Lucene.Net.Store.FlushInfo;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
+    using TermVectorsWriter = Lucene.Net.Codecs.TermVectorsWriter;
 
     internal sealed class TermVectorsConsumer : TermsHashConsumer
     {
         internal TermVectorsWriter writer;
-        readonly internal DocumentsWriterPerThread docWriter;
-        readonly internal DocumentsWriterPerThread.DocState docState;
-        readonly internal BytesRef flushTerm = new BytesRef();
+        internal readonly DocumentsWriterPerThread docWriter;
+        internal readonly DocumentsWriterPerThread.DocState docState;
+        internal readonly BytesRef flushTerm = new BytesRef();
 
         // Used by perField when serializing the term vectors
-        readonly internal ByteSliceReader vectorSliceReaderPos = new ByteSliceReader();
+        internal readonly ByteSliceReader vectorSliceReaderPos = new ByteSliceReader();
 
-        readonly internal ByteSliceReader vectorSliceReaderOff = new ByteSliceReader();
+        internal readonly ByteSliceReader vectorSliceReaderOff = new ByteSliceReader();
         internal bool hasVectors;
         internal int numVectorFields;
         internal int lastDocID;
@@ -112,7 +112,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        override internal void FinishDocument(TermsHash termsHash)
+        internal override void FinishDocument(TermsHash termsHash)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(docWriter.TestPoint("TermVectorsTermsWriter.finishDocument start"));
 
@@ -182,7 +182,7 @@ namespace YAF.Lucene.Net.Index
             perFields[numVectorFields++] = fieldToFlush;
         }
 
-        override internal void StartDocument()
+        internal override void StartDocument()
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(ClearLastVectorFieldName());
             Reset();

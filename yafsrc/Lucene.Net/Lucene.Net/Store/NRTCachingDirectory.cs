@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Store
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,8 +24,8 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     // TODO
     //   - let subclass dictate policy...?
@@ -73,7 +73,7 @@ namespace YAF.Lucene.Net.Store
         private readonly long maxCachedBytes;
 
 #pragma warning disable CA1802 // Use literals where appropriate
-        private readonly static bool VERBOSE = false; // For debugging
+        private static readonly bool VERBOSE = false; // For debugging
 #pragma warning restore CA1802 // Use literals where appropriate
 
         /// <summary>
@@ -364,7 +364,7 @@ namespace YAF.Lucene.Net.Store
         /// Dispose this directory, which flushes any cached files
         /// to the delegate and then disposes the delegate.
         /// </summary>
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (!CompareAndSetIsOpen(expect: true, update: false)) return; // LUCENENET: Don't allow dispose more than once
 

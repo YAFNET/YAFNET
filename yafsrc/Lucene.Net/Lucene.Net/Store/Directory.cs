@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Store
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// A <see cref="Directory"/> is a flat list of files.  Files may be written once, when they
@@ -266,7 +266,7 @@ namespace YAF.Lucene.Net.Store
                 return new SlicedIndexInput("SlicedIndexInput(" + sliceDescription + " in " + @base + ")", @base, offset, length);
             }
 
-            override protected void Dispose(bool disposing)
+            protected override void Dispose(bool disposing)
             {
                 if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
 
@@ -357,7 +357,7 @@ namespace YAF.Lucene.Net.Store
             /// <param name="b"> the array to read bytes into </param>
             /// <param name="offset"> the offset in the array to start storing bytes </param>
             /// <param name="len"> the number of bytes to read </param>
-            override protected void ReadInternal(byte[] b, int offset, int len)
+            protected override void ReadInternal(byte[] b, int offset, int len)
             {
                 long start = Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 if (start + len > length)
@@ -373,14 +373,14 @@ namespace YAF.Lucene.Net.Store
             /// the next <see cref="ReadInternal(byte[], int, int)"/> will occur. 
             /// </summary>
             /// <seealso cref="ReadInternal(byte[], int, int)"/>
-            override protected void SeekInternal(long pos)
+            protected override void SeekInternal(long pos)
             {
             }
 
             /// <summary>
             /// Closes the stream to further operations.
             /// </summary>
-            override protected void Dispose(bool disposing)
+            protected override void Dispose(bool disposing)
             {
                 if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
 

@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,9 +21,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using NormsFormat = YAF.Lucene.Net.Codecs.NormsFormat;
+    using DocValuesConsumer = Lucene.Net.Codecs.DocValuesConsumer;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using NormsFormat = Lucene.Net.Codecs.NormsFormat;
 
     // TODO FI: norms could actually be stored as doc store
 
@@ -36,12 +36,12 @@ namespace YAF.Lucene.Net.Index
     internal sealed class NormsConsumer : InvertedDocEndConsumer
     {
         [MethodImpl(MethodImplOptions.NoInlining)]
-        override internal void Abort()
+        internal override void Abort()
         {
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        override internal void Flush(IDictionary<string, InvertedDocEndConsumerPerField> fieldsToFlush, SegmentWriteState state)
+        internal override void Flush(IDictionary<string, InvertedDocEndConsumerPerField> fieldsToFlush, SegmentWriteState state)
         {
             bool success = false;
             DocValuesConsumer normsConsumer = null;
@@ -88,15 +88,15 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        override internal void FinishDocument()
+        internal override void FinishDocument()
         {
         }
 
-        override internal void StartDocument()
+        internal override void StartDocument()
         {
         }
 
-        override internal InvertedDocEndConsumerPerField AddField(DocInverterPerField docInverterPerField, FieldInfo fieldInfo)
+        internal override InvertedDocEndConsumerPerField AddField(DocInverterPerField docInverterPerField, FieldInfo fieldInfo)
         {
             return new NormsConsumerPerField(docInverterPerField, fieldInfo /* , this // LUCENENET: Not referenced */);
         }

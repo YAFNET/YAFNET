@@ -13,7 +13,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,16 +22,16 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Query = YAF.Lucene.Net.Search.Query;
-    using QueryAndLimit = YAF.Lucene.Net.Index.BufferedUpdatesStream.QueryAndLimit;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using Query = Lucene.Net.Search.Query;
+    using QueryAndLimit = Lucene.Net.Index.BufferedUpdatesStream.QueryAndLimit;
 
     internal class CoalescedUpdates
     {
-        readonly internal IDictionary<Query, int> queries = new Dictionary<Query, int>();
-        readonly internal IList<IEnumerable<Term>> iterables = new JCG.List<IEnumerable<Term>>();
-        readonly internal IList<NumericDocValuesUpdate> numericDVUpdates = new JCG.List<NumericDocValuesUpdate>();
-        readonly internal IList<BinaryDocValuesUpdate> binaryDVUpdates = new JCG.List<BinaryDocValuesUpdate>();
+        internal readonly IDictionary<Query, int> queries = new Dictionary<Query, int>();
+        internal readonly IList<IEnumerable<Term>> iterables = new JCG.List<IEnumerable<Term>>();
+        internal readonly IList<NumericDocValuesUpdate> numericDVUpdates = new JCG.List<NumericDocValuesUpdate>();
+        internal readonly IList<BinaryDocValuesUpdate> binaryDVUpdates = new JCG.List<BinaryDocValuesUpdate>();
 
         public override string ToString()
         {

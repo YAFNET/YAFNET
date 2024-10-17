@@ -10,7 +10,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,8 +19,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using IBits = Lucene.Net.Util.IBits;
+    using BytesRef = Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// This class contains utility methods and constants for <see cref="DocValues"/>
@@ -36,7 +36,7 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// An empty <see cref="BinaryDocValues"/> which returns <see cref="BytesRef.EMPTY_BYTES"/> for every document
         /// </summary>
-        public readonly static BinaryDocValues EMPTY_BINARY = new BinaryDocValuesAnonymousClass();
+        public static readonly BinaryDocValues EMPTY_BINARY = new BinaryDocValuesAnonymousClass();
 
         private sealed class BinaryDocValuesAnonymousClass : BinaryDocValues
         {
@@ -55,7 +55,7 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// An empty <see cref="NumericDocValues"/> which returns zero for every document
         /// </summary>
-        public readonly static NumericDocValues EMPTY_NUMERIC = new NumericDocValuesAnonymousClass();
+        public static readonly NumericDocValues EMPTY_NUMERIC = new NumericDocValuesAnonymousClass();
 
         private sealed class NumericDocValuesAnonymousClass : NumericDocValues
         {
@@ -72,7 +72,7 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// An empty <see cref="SortedDocValues"/> which returns <see cref="BytesRef.EMPTY_BYTES"/> for every document
         /// </summary>
-        public readonly static SortedDocValues EMPTY_SORTED = new SortedDocValuesAnonymousClass();
+        public static readonly SortedDocValues EMPTY_SORTED = new SortedDocValuesAnonymousClass();
 
         private sealed class SortedDocValuesAnonymousClass : SortedDocValues
         {
@@ -98,7 +98,7 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// An empty <see cref="SortedDocValues"/> which returns <see cref="SortedSetDocValues.NO_MORE_ORDS"/> for every document
         /// </summary>
-        public readonly static SortedSetDocValues EMPTY_SORTED_SET = new RandomAccessOrdsAnonymousClass();
+        public static readonly SortedSetDocValues EMPTY_SORTED_SET = new RandomAccessOrdsAnonymousClass();
 
         private sealed class RandomAccessOrdsAnonymousClass : RandomAccessOrds
         {

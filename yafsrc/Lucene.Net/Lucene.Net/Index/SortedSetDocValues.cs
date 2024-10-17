@@ -10,7 +10,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRef = Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// A per-document set of presorted <see cref="T:byte[]"/> values.
@@ -43,7 +43,7 @@ namespace YAF.Lucene.Net.Index
         /// When returned by <see cref="NextOrd()"/> it means there are no more
         /// ordinals for the document.
         /// </summary>
-        public readonly static long NO_MORE_ORDS = -1;
+        public static readonly long NO_MORE_ORDS = -1;
 
         /// <summary>
         /// Returns the next ordinal for the current document (previously

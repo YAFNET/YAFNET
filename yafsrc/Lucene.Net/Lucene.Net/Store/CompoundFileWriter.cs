@@ -18,7 +18,7 @@ namespace YAF.Lucene.Net.Store
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,9 +27,9 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using CodecUtil = Lucene.Net.Codecs.CodecUtil;
+    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Combines multiple files into a single compound file.
@@ -81,8 +81,8 @@ namespace YAF.Lucene.Net.Store
         private IndexOutput dataOut;
 #pragma warning restore CA2213 // Disposable fields should be disposed
         private readonly AtomicBoolean outputTaken = new AtomicBoolean(false);
-        readonly internal string entryTableName;
-        readonly internal string dataFileName;
+        internal readonly string entryTableName;
+        internal readonly string dataFileName;
 
         /// <summary>
         /// Create the compound stream in the specified file. The file name is the
@@ -373,7 +373,7 @@ namespace YAF.Lucene.Net.Store
                 @delegate.Flush();
             }
 
-            override protected void Dispose(bool disposing)
+            protected override void Dispose(bool disposing)
             {
                 if (disposing && !closed)
                 {

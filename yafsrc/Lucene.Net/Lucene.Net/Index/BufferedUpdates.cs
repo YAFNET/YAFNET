@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -47,19 +47,19 @@ namespace YAF.Lucene.Net.Index
            Term's text is String (OBJ_HEADER + 4*INT + POINTER +
            OBJ_HEADER + string.length*CHAR).  Integer is
            OBJ_HEADER + INT. */
-        readonly static internal int BYTES_PER_DEL_TERM = 9 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + 7 * RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + 10 * RamUsageEstimator.NUM_BYTES_INT32;
+        internal static readonly int BYTES_PER_DEL_TERM = 9 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + 7 * RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + 10 * RamUsageEstimator.NUM_BYTES_INT32;
 
         /* Rough logic: del docIDs are List<Integer>.  Say list
            allocates ~2X size (2*POINTER).  Integer is OBJ_HEADER
            + int */
-        readonly static internal int BYTES_PER_DEL_DOCID = 2 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + RamUsageEstimator.NUM_BYTES_INT32;
+        internal static readonly int BYTES_PER_DEL_DOCID = 2 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + RamUsageEstimator.NUM_BYTES_INT32;
 
         /* Rough logic: HashMap has an array[Entry] w/ varying
            load factor (say 2 * POINTER).  Entry is object w/
            Query key, Integer val, int hash, Entry next
            (OBJ_HEADER + 3*POINTER + INT).  Query we often
            undercount (say 24 bytes).  Integer is OBJ_HEADER + INT. */
-        readonly static internal int BYTES_PER_DEL_QUERY = 5 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + 2 * RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + 2 * RamUsageEstimator.NUM_BYTES_INT32 + 24;
+        internal static readonly int BYTES_PER_DEL_QUERY = 5 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + 2 * RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + 2 * RamUsageEstimator.NUM_BYTES_INT32 + 24;
 
         /* Rough logic: NumericUpdate calculates its actual size,
          * including the update Term and DV field (String). The
@@ -75,7 +75,7 @@ namespace YAF.Lucene.Net.Index
          * LinkedHashMap (val) is counted as OBJ_HEADER, array[Entry] ref + header, 4*INT, 1*FLOAT,
          * Set (entrySet) (2*OBJ_HEADER + ARRAY_HEADER + 2*POINTER + 4*INT + FLOAT)
          */
-        readonly static internal int BYTES_PER_NUMERIC_FIELD_ENTRY = 7 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + 3 * RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + RamUsageEstimator.NUM_BYTES_ARRAY_HEADER + 5 * RamUsageEstimator.NUM_BYTES_INT32 + RamUsageEstimator.NUM_BYTES_SINGLE;
+        internal static readonly int BYTES_PER_NUMERIC_FIELD_ENTRY = 7 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + 3 * RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + RamUsageEstimator.NUM_BYTES_ARRAY_HEADER + 5 * RamUsageEstimator.NUM_BYTES_INT32 + RamUsageEstimator.NUM_BYTES_SINGLE;
 
         /* Rough logic: Incremented when we see another Term for an already updated
          * field.
@@ -86,7 +86,7 @@ namespace YAF.Lucene.Net.Index
          * Term (key) is counted only as POINTER.
          * NumericUpdate (val) counts its own size and isn't accounted for here.
          */
-        readonly static internal int BYTES_PER_NUMERIC_UPDATE_ENTRY = 7 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + RamUsageEstimator.NUM_BYTES_INT32;
+        internal static readonly int BYTES_PER_NUMERIC_UPDATE_ENTRY = 7 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + RamUsageEstimator.NUM_BYTES_INT32;
 
         /* Rough logic: BinaryUpdate calculates its actual size,
          * including the update Term and DV field (String). The
@@ -102,7 +102,7 @@ namespace YAF.Lucene.Net.Index
          * LinkedHashMap (val) is counted as OBJ_HEADER, array[Entry] ref + header, 4*INT, 1*FLOAT,
          * Set (entrySet) (2*OBJ_HEADER + ARRAY_HEADER + 2*POINTER + 4*INT + FLOAT)
          */
-        readonly static internal int BYTES_PER_BINARY_FIELD_ENTRY = 7 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + 3 * RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + RamUsageEstimator.NUM_BYTES_ARRAY_HEADER + 5 * RamUsageEstimator.NUM_BYTES_INT32 + RamUsageEstimator.NUM_BYTES_SINGLE;
+        internal static readonly int BYTES_PER_BINARY_FIELD_ENTRY = 7 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + 3 * RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + RamUsageEstimator.NUM_BYTES_ARRAY_HEADER + 5 * RamUsageEstimator.NUM_BYTES_INT32 + RamUsageEstimator.NUM_BYTES_SINGLE;
 
         /* Rough logic: Incremented when we see another Term for an already updated
          * field.
@@ -113,14 +113,14 @@ namespace YAF.Lucene.Net.Index
          * Term (key) is counted only as POINTER.
          * BinaryUpdate (val) counts its own size and isn't accounted for here.
          */
-        readonly static internal int BYTES_PER_BINARY_UPDATE_ENTRY = 7 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + RamUsageEstimator.NUM_BYTES_INT32;
+        internal static readonly int BYTES_PER_BINARY_UPDATE_ENTRY = 7 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + RamUsageEstimator.NUM_BYTES_INT32;
 
-        readonly internal AtomicInt32 numTermDeletes = new AtomicInt32();
-        readonly internal AtomicInt32 numNumericUpdates = new AtomicInt32();
-        readonly internal AtomicInt32 numBinaryUpdates = new AtomicInt32();
-        readonly internal SCG.IDictionary<Term, int> terms = new Dictionary<Term, int>();
-        readonly internal SCG.IDictionary<Query, int> queries = new Dictionary<Query, int>();
-        readonly internal SCG.IList<int> docIDs = new JCG.List<int>();
+        internal readonly AtomicInt32 numTermDeletes = new AtomicInt32();
+        internal readonly AtomicInt32 numNumericUpdates = new AtomicInt32();
+        internal readonly AtomicInt32 numBinaryUpdates = new AtomicInt32();
+        internal readonly SCG.IDictionary<Term, int> terms = new Dictionary<Term, int>();
+        internal readonly SCG.IDictionary<Query, int> queries = new Dictionary<Query, int>();
+        internal readonly SCG.IList<int> docIDs = new JCG.List<int>();
 
 
         // Map<dvField,Map<updateTerm,NumericUpdate>>
@@ -130,7 +130,7 @@ namespace YAF.Lucene.Net.Index
         // one that came in wins), and helps us detect faster if the same Term is
         // used to update the same field multiple times (so we later traverse it
         // only once).
-        readonly internal SCG.IDictionary<string, LinkedDictionary<Term, NumericDocValuesUpdate>> numericUpdates = new Dictionary<string, LinkedDictionary<Term, NumericDocValuesUpdate>>();
+        internal readonly SCG.IDictionary<string, LinkedDictionary<Term, NumericDocValuesUpdate>> numericUpdates = new Dictionary<string, LinkedDictionary<Term, NumericDocValuesUpdate>>();
 
         // Map<dvField,Map<updateTerm,BinaryUpdate>>
         // For each field we keep an ordered list of BinaryUpdates, key'd by the
@@ -139,17 +139,17 @@ namespace YAF.Lucene.Net.Index
         // one that came in wins), and helps us detect faster if the same Term is
         // used to update the same field multiple times (so we later traverse it
         // only once).
-        readonly internal SCG.IDictionary<string, LinkedDictionary<Term, BinaryDocValuesUpdate>> binaryUpdates = new Dictionary<string, LinkedDictionary<Term, BinaryDocValuesUpdate>>();
+        internal readonly SCG.IDictionary<string, LinkedDictionary<Term, BinaryDocValuesUpdate>> binaryUpdates = new Dictionary<string, LinkedDictionary<Term, BinaryDocValuesUpdate>>();
 
         /// <summary>
         /// NOTE: This was MAX_INT in Lucene
         /// </summary>
-        readonly static internal int MAX_INT32 = int.MaxValue; // LUCENENET specific - Made internal rather than public, since this class is intended to be internal but couldn't be because it is exposed through a public API
+        internal static readonly int MAX_INT32 = int.MaxValue; // LUCENENET specific - Made internal rather than public, since this class is intended to be internal but couldn't be because it is exposed through a public API
 
-        readonly internal AtomicInt64 bytesUsed;
+        internal readonly AtomicInt64 bytesUsed;
 
 #pragma warning disable CA1802 // Use literals where appropriate
-        private readonly static bool VERBOSE_DELETES = false;
+        private static readonly bool VERBOSE_DELETES = false;
 #pragma warning restore CA1802 // Use literals where appropriate
 
         internal long gen;

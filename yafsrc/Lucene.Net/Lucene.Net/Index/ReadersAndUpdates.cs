@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,18 +30,18 @@ namespace YAF.Lucene.Net.Index
      */
 
     using BinaryDocValuesField = BinaryDocValuesField;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using DocValuesFormat = YAF.Lucene.Net.Codecs.DocValuesFormat;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IMutableBits = YAF.Lucene.Net.Util.IMutableBits;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using LiveDocsFormat = YAF.Lucene.Net.Codecs.LiveDocsFormat;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using Directory = Lucene.Net.Store.Directory;
+    using DocValuesConsumer = Lucene.Net.Codecs.DocValuesConsumer;
+    using DocValuesFormat = Lucene.Net.Codecs.DocValuesFormat;
+    using IBits = Lucene.Net.Util.IBits;
+    using IMutableBits = Lucene.Net.Util.IMutableBits;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using LiveDocsFormat = Lucene.Net.Codecs.LiveDocsFormat;
     using NumericDocValuesField = NumericDocValuesField;
-    using TrackingDirectoryWrapper = YAF.Lucene.Net.Store.TrackingDirectoryWrapper;
+    using TrackingDirectoryWrapper = Lucene.Net.Store.TrackingDirectoryWrapper;
 
     /// <summary>
     /// Used by <see cref="IndexWriter"/> to hold open <see cref="SegmentReader"/>s (for

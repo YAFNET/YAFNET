@@ -18,7 +18,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,16 +27,16 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocValuesFormat = YAF.Lucene.Net.Codecs.DocValuesFormat;
-    using DocValuesProducer = YAF.Lucene.Net.Codecs.DocValuesProducer;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using StoredFieldsReader = YAF.Lucene.Net.Codecs.StoredFieldsReader;
-    using TermVectorsReader = YAF.Lucene.Net.Codecs.TermVectorsReader;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using CompoundFileDirectory = Lucene.Net.Store.CompoundFileDirectory;
+    using Directory = Lucene.Net.Store.Directory;
+    using DocValuesFormat = Lucene.Net.Codecs.DocValuesFormat;
+    using DocValuesProducer = Lucene.Net.Codecs.DocValuesProducer;
+    using IBits = Lucene.Net.Util.IBits;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using StoredFieldsReader = Lucene.Net.Codecs.StoredFieldsReader;
+    using TermVectorsReader = Lucene.Net.Codecs.TermVectorsReader;
 
     /// <summary>
     /// <see cref="IndexReader"/> implementation over a single segment.
@@ -56,17 +56,17 @@ namespace YAF.Lucene.Net.Index
         // tells us the docCount:
         private readonly int numDocs;
 
-        readonly internal SegmentCoreReaders core;
-        readonly internal SegmentDocValues segDocValues;
+        internal readonly SegmentCoreReaders core;
+        internal readonly SegmentDocValues segDocValues;
 
-        readonly internal DisposableThreadLocal<IDictionary<string, object>> docValuesLocal =
+        internal readonly DisposableThreadLocal<IDictionary<string, object>> docValuesLocal =
             new DisposableThreadLocal<IDictionary<string, object>>(() => new Dictionary<string, object>());
 
-        readonly internal DisposableThreadLocal<IDictionary<string, IBits>> docsWithFieldLocal =
+        internal readonly DisposableThreadLocal<IDictionary<string, IBits>> docsWithFieldLocal =
             new DisposableThreadLocal<IDictionary<string, IBits>>(() => new Dictionary<string, IBits>());
 
-        readonly internal IDictionary<string, DocValuesProducer> dvProducersByField = new Dictionary<string, DocValuesProducer>();
-        readonly internal ISet<DocValuesProducer> dvProducers = new JCG.HashSet<DocValuesProducer>(IdentityEqualityComparer<DocValuesProducer>.Default);
+        internal readonly IDictionary<string, DocValuesProducer> dvProducersByField = new Dictionary<string, DocValuesProducer>();
+        internal readonly ISet<DocValuesProducer> dvProducers = new JCG.HashSet<DocValuesProducer>(IdentityEqualityComparer<DocValuesProducer>.Default);
 
         private readonly FieldInfos fieldInfos; // LUCENENET specific - since it is readonly, made all internal classes use property
 
@@ -214,7 +214,7 @@ namespace YAF.Lucene.Net.Index
         /// <para/>
         /// @lucene.internal
         /// </summary>
-        static internal FieldInfos ReadFieldInfos(SegmentCommitInfo info)
+        internal static FieldInfos ReadFieldInfos(SegmentCommitInfo info)
         {
             Directory dir;
             bool closeDir;
@@ -278,7 +278,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        override protected internal void DoClose()
+        protected internal override void DoClose()
         {
             //System.out.println("SR.close seg=" + si);
             try

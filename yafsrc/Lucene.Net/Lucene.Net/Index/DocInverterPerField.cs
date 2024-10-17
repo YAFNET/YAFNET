@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,8 +21,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using TokenStream = YAF.Lucene.Net.Analysis.TokenStream;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using TokenStream = Lucene.Net.Analysis.TokenStream;
 
     /// <summary>
     /// Holds state for inverting all occurrences of a single
@@ -34,11 +34,11 @@ namespace YAF.Lucene.Net.Index
     /// </summary>
     internal sealed class DocInverterPerField : DocFieldConsumerPerField
     {
-        readonly internal FieldInfo fieldInfo;
-        readonly internal InvertedDocConsumerPerField consumer;
-        readonly internal InvertedDocEndConsumerPerField endConsumer;
-        readonly internal DocumentsWriterPerThread.DocState docState;
-        readonly internal FieldInvertState fieldState;
+        internal readonly FieldInfo fieldInfo;
+        internal readonly InvertedDocConsumerPerField consumer;
+        internal readonly InvertedDocEndConsumerPerField endConsumer;
+        internal readonly DocumentsWriterPerThread.DocState docState;
+        internal readonly FieldInvertState fieldState;
 
         public DocInverterPerField(DocInverter parent, FieldInfo fieldInfo)
         {
@@ -50,7 +50,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        override internal void Abort()
+        internal override void Abort()
         {
             try
             {
@@ -248,6 +248,6 @@ namespace YAF.Lucene.Net.Index
             endConsumer.Finish();
         }
 
-        override internal FieldInfo FieldInfo => fieldInfo;
+        internal override FieldInfo FieldInfo => fieldInfo;
     }
 }

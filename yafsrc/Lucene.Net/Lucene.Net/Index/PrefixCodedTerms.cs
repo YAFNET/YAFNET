@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,11 +24,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using RAMFile = YAF.Lucene.Net.Store.RAMFile;
-    using RAMInputStream = YAF.Lucene.Net.Store.RAMInputStream;
-    using RAMOutputStream = YAF.Lucene.Net.Store.RAMOutputStream;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using IndexInput = Lucene.Net.Store.IndexInput;
+    using RAMFile = Lucene.Net.Store.RAMFile;
+    using RAMInputStream = Lucene.Net.Store.RAMInputStream;
+    using RAMOutputStream = Lucene.Net.Store.RAMOutputStream;
 
     /// <summary>
     /// Prefix codes term instances (prefixes are shared)
@@ -37,7 +37,7 @@ namespace YAF.Lucene.Net.Index
     /// </summary>
     internal class PrefixCodedTerms : IEnumerable<Term>
     {
-        readonly internal RAMFile buffer;
+        internal readonly RAMFile buffer;
 
         private PrefixCodedTerms(RAMFile buffer)
         {

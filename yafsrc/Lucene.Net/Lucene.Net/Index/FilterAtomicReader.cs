@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,9 +21,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using AttributeSource = Lucene.Net.Util.AttributeSource;
+    using IBits = Lucene.Net.Util.IBits;
+    using BytesRef = Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// A <see cref="FilterAtomicReader"/> contains another <see cref="AtomicReader"/>, which it
@@ -67,7 +67,7 @@ namespace YAF.Lucene.Net.Index
         {
             /// <summary>
             /// The underlying <see cref="Index.Fields"/> instance. </summary>
-            readonly protected Fields m_input;
+            protected readonly Fields m_input;
 
             /// <summary>
             /// Creates a new <see cref="FilterFields"/>. </summary>
@@ -100,7 +100,7 @@ namespace YAF.Lucene.Net.Index
         {
             /// <summary>
             /// The underlying <see cref="Terms"/> instance. </summary>
-            readonly protected Terms m_input;
+            protected readonly Terms m_input;
 
             /// <summary>
             /// Creates a new <see cref="FilterTerms"/> </summary>
@@ -139,7 +139,7 @@ namespace YAF.Lucene.Net.Index
         {
             /// <summary>
             /// The underlying <see cref="TermsEnum"/> instance. </summary>
-            readonly protected internal TermsEnum m_input;
+            protected internal readonly TermsEnum m_input;
 
             /// <summary>
             /// Creates a new <see cref="FilterTermsEnum"/> </summary>
@@ -242,7 +242,7 @@ namespace YAF.Lucene.Net.Index
         {
             /// <summary>
             /// The underlying <see cref="DocsAndPositionsEnum"/> instance. </summary>
-            readonly protected internal DocsAndPositionsEnum m_input;
+            protected internal readonly DocsAndPositionsEnum m_input;
 
             /// <summary>
             /// Create a new <see cref="FilterDocsAndPositionsEnum"/> </summary>
@@ -290,7 +290,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// The underlying <see cref="AtomicReader"/>. </summary>
-        readonly protected AtomicReader m_input;
+        protected readonly AtomicReader m_input;
 
         /// <summary>
         /// Construct a <see cref="FilterAtomicReader"/> based on the specified base reader.
@@ -336,7 +336,7 @@ namespace YAF.Lucene.Net.Index
             m_input.Document(docID, visitor);
         }
 
-        override protected internal void DoClose()
+        protected internal override void DoClose()
         {
             m_input.Dispose();
         }

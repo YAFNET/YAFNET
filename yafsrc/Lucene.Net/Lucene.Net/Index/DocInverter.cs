@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,10 +27,10 @@ namespace YAF.Lucene.Net.Index
     /// </summary>
     internal sealed class DocInverter : DocFieldConsumer
     {
-        readonly internal InvertedDocConsumer consumer;
-        readonly internal InvertedDocEndConsumer endConsumer;
+        internal readonly InvertedDocConsumer consumer;
+        internal readonly InvertedDocEndConsumer endConsumer;
 
-        readonly internal DocumentsWriterPerThread.DocState docState;
+        internal readonly DocumentsWriterPerThread.DocState docState;
 
         public DocInverter(DocumentsWriterPerThread.DocState docState, InvertedDocConsumer consumer, InvertedDocEndConsumer endConsumer)
         {
@@ -40,7 +40,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        override internal void Flush(IDictionary<string, DocFieldConsumerPerField> fieldsToFlush, SegmentWriteState state)
+        internal override void Flush(IDictionary<string, DocFieldConsumerPerField> fieldsToFlush, SegmentWriteState state)
         {
             IDictionary<string, InvertedDocConsumerPerField> childFieldsToFlush = new Dictionary<string, InvertedDocConsumerPerField>();
             IDictionary<string, InvertedDocEndConsumerPerField> endChildFieldsToFlush = new Dictionary<string, InvertedDocEndConsumerPerField>();
@@ -72,7 +72,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        override internal void Abort()
+        internal override void Abort()
         {
             try
             {

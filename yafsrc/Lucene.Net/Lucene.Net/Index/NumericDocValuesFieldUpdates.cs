@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -169,7 +169,7 @@ namespace YAF.Lucene.Net.Index
                 this.docsWithField = docsWithField;
             }
 
-            override protected void Swap(int i, int j)
+            protected override void Swap(int i, int j)
             {
                 long tmpDoc = docs.Get(j);
                 docs.Set(j, docs.Get(i));
@@ -198,7 +198,7 @@ namespace YAF.Lucene.Net.Index
                 }
             }
 
-            override protected int Compare(int i, int j)
+            protected override int Compare(int i, int j)
             {
                 int x = (int)docs.Get(i);
                 int y = (int)docs.Get(j);

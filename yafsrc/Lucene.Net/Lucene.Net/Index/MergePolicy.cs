@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,11 +32,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using MergeInfo = YAF.Lucene.Net.Store.MergeInfo;
+    using Directory = Lucene.Net.Store.Directory;
+    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
+    using MergeInfo = Lucene.Net.Store.MergeInfo;
 
-    //using AlreadySetException = YAF.Lucene.Net.Util.SetOnce.AlreadySetException;
+    //using AlreadySetException = Lucene.Net.Util.SetOnce.AlreadySetException;
 
     /// <summary>
     /// <para>Expert: a <see cref="MergePolicy"/> determines the sequence of
@@ -584,12 +584,12 @@ namespace YAF.Lucene.Net.Index
         /// Default ratio for compound file system usage. Set to <c>1.0</c>, always use
         /// compound file system.
         /// </summary>
-        readonly static protected double DEFAULT_NO_CFS_RATIO = 1.0;
+        protected static readonly double DEFAULT_NO_CFS_RATIO = 1.0;
 
         /// <summary>
         /// Default max segment size in order to use compound file system. Set to <see cref="long.MaxValue"/>.
         /// </summary>
-        readonly static protected long DEFAULT_MAX_CFS_SEGMENT_SIZE = long.MaxValue;
+        protected static readonly long DEFAULT_MAX_CFS_SEGMENT_SIZE = long.MaxValue;
 
         /// <summary>
         /// <see cref="IndexWriter"/> that contains this instance. </summary>

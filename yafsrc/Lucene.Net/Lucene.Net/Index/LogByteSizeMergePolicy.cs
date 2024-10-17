@@ -8,7 +8,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,19 +25,19 @@ namespace YAF.Lucene.Net.Index
     {
         /// <summary>Default minimum segment size. </summary>
         /// <seealso cref="MinMergeMB"/>
-        public readonly static double DEFAULT_MIN_MERGE_MB = 1.6;
+        public static readonly double DEFAULT_MIN_MERGE_MB = 1.6;
 
         /// <summary>
         /// Default maximum segment size.  A segment of this size 
         /// or larger will never be merged. </summary> 
         /// <seealso cref="MaxMergeMB"/>
-        public readonly static double DEFAULT_MAX_MERGE_MB = 2048;
+        public static readonly double DEFAULT_MAX_MERGE_MB = 2048;
 
         /// <summary>
         /// Default maximum segment size.  A segment of this size 
         /// or larger will never be merged during <see cref="IndexWriter.ForceMerge(int)"/>.  </summary>
         /// <seealso cref="MaxMergeMBForForcedMerge"/>
-        public readonly static double DEFAULT_MAX_MERGE_MB_FOR_FORCED_MERGE = long.MaxValue;
+        public static readonly double DEFAULT_MAX_MERGE_MB_FOR_FORCED_MERGE = long.MaxValue;
 
         /// <summary>
         /// Sole constructor, setting all settings to their
@@ -56,7 +56,7 @@ namespace YAF.Lucene.Net.Index
             m_maxMergeSizeForForcedMerge = long.MaxValue;
         }
 
-        override protected long Size(SegmentCommitInfo info)
+        protected override long Size(SegmentCommitInfo info)
         {
             return SizeBytes(info);
         }

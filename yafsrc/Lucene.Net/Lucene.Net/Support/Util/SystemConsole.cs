@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,15 +26,14 @@ namespace YAF.Lucene.Net.Util
 
     /// <summary>
     /// Mimics <see cref="System.Console"/>, but allows for swapping
-    /// the <see cref="TextWriter"/> of 
-    /// <see cref="Out"/> and <see cref="Error"/>, or the <see cref="TextReader"/> of <see cref="In"/>
+    /// the <see cref="TextWriter"/> of
+    /// <see cref="Out"/> and <see cref="Error"/>
     /// with user-defined implementations.
     /// </summary>
     public static class SystemConsole
     {
-        public static TextWriter Out { get; set; } = Console.Out;
-        public static TextWriter Error { get; set; } = Console.Error;
-        public static TextReader In { get; set; } = Console.In;
+        public static TextWriter Out { get; set; } = TextWriter.Null;
+        public static TextWriter Error { get; set; } = TextWriter.Null;
 
         [MethodImpl(MethodImplOptions.NoInlining)]
 #if FEATURE_CODE_ACCESS_SECURITY

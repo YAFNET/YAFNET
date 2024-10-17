@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Store
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -44,8 +44,8 @@ namespace YAF.Lucene.Net.Store
     /// </summary>
     public class RAMDirectory : BaseDirectory
     {
-        readonly protected internal ConcurrentDictionary<string, RAMFile> m_fileMap = new ConcurrentDictionary<string, RAMFile>();
-        readonly protected internal AtomicInt64 m_sizeInBytes = new AtomicInt64(0);
+        protected internal readonly ConcurrentDictionary<string, RAMFile> m_fileMap = new ConcurrentDictionary<string, RAMFile>();
+        protected internal readonly AtomicInt64 m_sizeInBytes = new AtomicInt64(0);
 
         // *****
         // Lock acquisition sequence:  RAMDirectory, then RAMFile
@@ -215,7 +215,7 @@ namespace YAF.Lucene.Net.Store
 
         /// <summary>
         /// Closes the store to future operations, releasing associated memory. </summary>
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (!CompareAndSetIsOpen(expect: true, update: false)) return; // LUCENENET: allow dispose more than once as per https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/dispose-pattern
 

@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Search.Highlight
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,7 +33,7 @@ namespace YAF.Lucene.Net.Search.Highlight
     /// </summary>
     public class Highlighter
     {
-        public readonly static int DEFAULT_MAX_CHARS_TO_ANALYZE = 50 * 1024;
+        public static readonly int DEFAULT_MAX_CHARS_TO_ANALYZE = 50 * 1024;
 
         private int _maxDocCharsToAnalyze = DEFAULT_MAX_CHARS_TO_ANALYZE;
         private readonly IFormatter _formatter; // LUCENENET: marked readonly
@@ -473,7 +473,7 @@ namespace YAF.Lucene.Net.Search.Highlight
     {
         public FragmentQueue(int size) : base(size) { }
 
-        override protected internal bool LessThan(TextFragment fragA, TextFragment fragB)
+        protected internal override bool LessThan(TextFragment fragA, TextFragment fragB)
         {
             if (fragA.Score == fragB.Score)
                 return fragA.FragNum > fragB.FragNum;

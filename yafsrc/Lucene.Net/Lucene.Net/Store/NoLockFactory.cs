@@ -8,7 +8,7 @@ namespace YAF.Lucene.Net.Store
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,8 +26,8 @@ namespace YAF.Lucene.Net.Store
     public class NoLockFactory : LockFactory
     {
         // Single instance returned whenever makeLock is called.
-        private readonly static NoLock singletonLock = new NoLock(); // LUCENENET: marked readonly
-        private readonly static NoLockFactory singleton = new NoLockFactory(); // LUCENENET: marked readonly
+        private static readonly NoLock singletonLock = new NoLock(); // LUCENENET: marked readonly
+        private static readonly NoLockFactory singleton = new NoLockFactory(); // LUCENENET: marked readonly
 
         private NoLockFactory()
         {
@@ -55,7 +55,7 @@ namespace YAF.Lucene.Net.Store
             return true;
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
         }
 

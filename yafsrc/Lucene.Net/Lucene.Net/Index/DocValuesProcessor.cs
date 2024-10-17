@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,11 +25,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using DocValuesFormat = YAF.Lucene.Net.Codecs.DocValuesFormat;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using Counter = Lucene.Net.Util.Counter;
+    using DocValuesConsumer = Lucene.Net.Codecs.DocValuesConsumer;
+    using DocValuesFormat = Lucene.Net.Codecs.DocValuesFormat;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     internal sealed class DocValuesProcessor : StoredFieldsConsumer
     {
@@ -50,7 +50,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        override internal void FinishDocument()
+        internal override void FinishDocument()
         {
         }
 

@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Store
     * (the "License"); you may not use this file except in compliance with
     * the License.  You may obtain a copy of the License at
     *
-    *     https://www.apache.org/licenses/LICENSE-2.0
+    *     http://www.apache.org/licenses/LICENSE-2.0
     *
     * Unless required by applicable law or agreed to in writing, software
     * distributed under the License is distributed on an "AS IS" BASIS,
@@ -67,7 +67,7 @@ namespace YAF.Lucene.Net.Store
         }
 
         // LUCENENET: This controls the locking strategy used for the current operating system and framework
-        static internal FSLockingStrategy LockingStrategy
+        internal static FSLockingStrategy LockingStrategy
         {
             get
             {
@@ -89,13 +89,13 @@ namespace YAF.Lucene.Net.Store
         // we are interested in.
         //
         // Reference: https://stackoverflow.com/q/46380483
-        private readonly static bool IS_FILESTREAM_LOCKING_PLATFORM = LoadIsFileStreamLockingPlatform();
+        private static readonly bool IS_FILESTREAM_LOCKING_PLATFORM = LoadIsFileStreamLockingPlatform();
 
         private const int WIN_HRESULT_FILE_LOCK_VIOLATION = unchecked((int)0x80070021);
         private const int WIN_HRESULT_FILE_SHARE_VIOLATION = unchecked((int)0x80070020);
 
-        readonly static internal int? HRESULT_FILE_LOCK_VIOLATION = LoadFileLockViolationHResult();
-        readonly static internal int? HRESULT_FILE_SHARE_VIOLATION = LoadFileShareViolationHResult();
+        internal static readonly int? HRESULT_FILE_LOCK_VIOLATION = LoadFileLockViolationHResult();
+        internal static readonly int? HRESULT_FILE_SHARE_VIOLATION = LoadFileShareViolationHResult();
 
         private static bool LoadIsFileStreamLockingPlatform()
         {
@@ -178,7 +178,7 @@ namespace YAF.Lucene.Net.Store
 
         // LUCENENET: NativeFSLocks in Java are infact singletons; this is how we mimick that to track instances and make sure
         // IW.Unlock and IW.IsLocked works correctly
-        readonly static internal Dictionary<string, Lock> _locks = new Dictionary<string, Lock>();
+        internal static readonly Dictionary<string, Lock> _locks = new Dictionary<string, Lock>();
 
         /// <summary>
         /// Given a lock name, return the full prefixed path of the actual lock file.
@@ -339,7 +339,7 @@ namespace YAF.Lucene.Net.Store
             }
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -541,7 +541,7 @@ namespace YAF.Lucene.Net.Store
             }
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -728,7 +728,7 @@ namespace YAF.Lucene.Net.Store
             }
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

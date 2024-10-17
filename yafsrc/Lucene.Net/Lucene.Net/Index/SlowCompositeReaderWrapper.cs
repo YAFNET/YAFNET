@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,10 +21,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using MultiSortedDocValues = YAF.Lucene.Net.Index.MultiDocValues.MultiSortedDocValues;
-    using MultiSortedSetDocValues = YAF.Lucene.Net.Index.MultiDocValues.MultiSortedSetDocValues;
-    using OrdinalMap = YAF.Lucene.Net.Index.MultiDocValues.OrdinalMap;
+    using IBits = Lucene.Net.Util.IBits;
+    using MultiSortedDocValues = Lucene.Net.Index.MultiDocValues.MultiSortedDocValues;
+    using MultiSortedSetDocValues = Lucene.Net.Index.MultiDocValues.MultiSortedSetDocValues;
+    using OrdinalMap = Lucene.Net.Index.MultiDocValues.OrdinalMap;
 
     /// <summary>
     /// This class forces a composite reader (eg a 
@@ -249,7 +249,7 @@ namespace YAF.Lucene.Net.Index
 
         public override object CombinedCoreAndDeletesKey => @in.CombinedCoreAndDeletesKey;
 
-        override protected internal void DoClose()
+        protected internal override void DoClose()
         {
             // TODO: as this is a wrapper, should we really close the delegate?
             @in.Dispose();

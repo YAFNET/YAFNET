@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,12 +23,12 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ByteRunAutomaton = YAF.Lucene.Net.Util.Automaton.ByteRunAutomaton;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using CompiledAutomaton = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
-    using Int32sRef = YAF.Lucene.Net.Util.Int32sRef;
-    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
-    using Transition = YAF.Lucene.Net.Util.Automaton.Transition;
+    using ByteRunAutomaton = Lucene.Net.Util.Automaton.ByteRunAutomaton;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using CompiledAutomaton = Lucene.Net.Util.Automaton.CompiledAutomaton;
+    using Int32sRef = Lucene.Net.Util.Int32sRef;
+    using StringHelper = Lucene.Net.Util.StringHelper;
+    using Transition = Lucene.Net.Util.Automaton.Transition;
 
     /// <summary>
     /// A <see cref="FilteredTermsEnum"/> that enumerates terms based upon what is accepted by a
@@ -106,7 +106,7 @@ namespace YAF.Lucene.Net.Index
         /// Returns <c>true</c> if the term matches the automaton. Also stashes away the term
         /// to assist with smart enumeration.
         /// </summary>
-        override protected AcceptStatus Accept(BytesRef term)
+        protected override AcceptStatus Accept(BytesRef term)
         {
             if (commonSuffixRef is null || StringHelper.EndsWith(term, commonSuffixRef))
             {
@@ -125,7 +125,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        override protected BytesRef NextSeekTerm(BytesRef term)
+        protected override BytesRef NextSeekTerm(BytesRef term)
         {
             //System.out.println("ATE.nextSeekTerm term=" + term);
             if (term is null)

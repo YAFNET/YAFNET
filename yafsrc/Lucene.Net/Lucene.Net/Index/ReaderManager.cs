@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,8 +20,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using IndexSearcher = YAF.Lucene.Net.Search.IndexSearcher;
+    using Directory = Lucene.Net.Store.Directory;
+    using IndexSearcher = Lucene.Net.Search.IndexSearcher;
 
     /// <summary>
     /// Utility class to safely share <see cref="DirectoryReader"/> instances across
@@ -65,22 +65,22 @@ namespace YAF.Lucene.Net.Index
             Current = DirectoryReader.Open(dir);
         }
 
-        override protected void DecRef(DirectoryReader reference)
+        protected override void DecRef(DirectoryReader reference)
         {
             reference.DecRef();
         }
 
-        override protected DirectoryReader RefreshIfNeeded(DirectoryReader referenceToRefresh)
+        protected override DirectoryReader RefreshIfNeeded(DirectoryReader referenceToRefresh)
         {
             return DirectoryReader.OpenIfChanged(referenceToRefresh);
         }
 
-        override protected bool TryIncRef(DirectoryReader reference)
+        protected override bool TryIncRef(DirectoryReader reference)
         {
             return reference.TryIncRef();
         }
 
-        override protected int GetRefCount(DirectoryReader reference)
+        protected override int GetRefCount(DirectoryReader reference)
         {
             return reference.RefCount;
         }

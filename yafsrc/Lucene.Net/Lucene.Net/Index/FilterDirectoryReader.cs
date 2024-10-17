@@ -10,7 +10,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -83,7 +83,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// The filtered <see cref="DirectoryReader"/> </summary>
-        readonly protected DirectoryReader m_input;
+        protected readonly DirectoryReader m_input;
 
         /// <summary>
         /// Create a new <see cref="FilterDirectoryReader"/> that filters a passed in <see cref="DirectoryReader"/>. </summary>
@@ -119,17 +119,17 @@ namespace YAF.Lucene.Net.Index
             return input is null ? null : DoWrapDirectoryReader(input);
         }
 
-        override protected internal sealed DirectoryReader DoOpenIfChanged()
+        protected internal override sealed DirectoryReader DoOpenIfChanged()
         {
             return WrapDirectoryReader(m_input.DoOpenIfChanged());
         }
 
-        override protected internal sealed DirectoryReader DoOpenIfChanged(IndexCommit commit)
+        protected internal override sealed DirectoryReader DoOpenIfChanged(IndexCommit commit)
         {
             return WrapDirectoryReader(m_input.DoOpenIfChanged(commit));
         }
 
-        override protected internal sealed DirectoryReader DoOpenIfChanged(IndexWriter writer, bool applyAllDeletes)
+        protected internal override sealed DirectoryReader DoOpenIfChanged(IndexWriter writer, bool applyAllDeletes)
         {
             return WrapDirectoryReader(m_input.DoOpenIfChanged(writer, applyAllDeletes));
         }
@@ -143,7 +143,7 @@ namespace YAF.Lucene.Net.Index
 
         public override IndexCommit IndexCommit => m_input.IndexCommit;
 
-        override protected internal void DoClose()
+        protected internal override void DoClose()
         {
             m_input.DoClose();
         }

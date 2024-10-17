@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,24 +26,24 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FieldsConsumer = YAF.Lucene.Net.Codecs.FieldsConsumer;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using PostingsConsumer = YAF.Lucene.Net.Codecs.PostingsConsumer;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using TermsConsumer = YAF.Lucene.Net.Codecs.TermsConsumer;
-    using TermStats = YAF.Lucene.Net.Codecs.TermStats;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using FieldsConsumer = Lucene.Net.Codecs.FieldsConsumer;
+    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
+    using PostingsConsumer = Lucene.Net.Codecs.PostingsConsumer;
+    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
+    using TermsConsumer = Lucene.Net.Codecs.TermsConsumer;
+    using TermStats = Lucene.Net.Codecs.TermStats;
 
     // TODO: break into separate freq and prox writers as
     // codecs; make separate container (tii/tis/skip/*) that can
     // be configured as any number of files 1..N
     internal sealed class FreqProxTermsWriterPerField : TermsHashConsumerPerField, IComparable<FreqProxTermsWriterPerField>
     {
-        readonly internal FreqProxTermsWriter parent;
-        readonly internal TermsHashPerField termsHashPerField;
-        readonly internal FieldInfo fieldInfo;
-        readonly internal DocumentsWriterPerThread.DocState docState;
-        readonly internal FieldInvertState fieldState;
+        internal readonly FreqProxTermsWriter parent;
+        internal readonly TermsHashPerField termsHashPerField;
+        internal readonly FieldInfo fieldInfo;
+        internal readonly DocumentsWriterPerThread.DocState docState;
+        internal readonly FieldInvertState fieldState;
         private bool hasFreq;
         private bool hasProx;
         private bool hasOffsets;
@@ -60,7 +60,7 @@ namespace YAF.Lucene.Net.Index
             SetIndexOptions(fieldInfo.IndexOptions);
         }
 
-        override internal int StreamCount
+        internal override int StreamCount
         {
             get
             {
@@ -75,7 +75,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        override internal void Finish()
+        internal override void Finish()
         {
             if (hasPayloads)
             {
@@ -86,7 +86,7 @@ namespace YAF.Lucene.Net.Index
         internal bool hasPayloads;
 
         [ExceptionToNetNumericConvention]
-        override internal void SkippingLongTerm()
+        internal override void SkippingLongTerm()
         {
         }
 
@@ -120,7 +120,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        override internal bool Start(IIndexableField[] fields, int count)
+        internal override bool Start(IIndexableField[] fields, int count)
         {
             for (int i = 0; i < count; i++)
             {
@@ -132,7 +132,7 @@ namespace YAF.Lucene.Net.Index
             return false;
         }
 
-        override internal void Start(IIndexableField f)
+        internal override void Start(IIndexableField f)
         {
             if (fieldState.AttributeSource.HasAttribute<IPayloadAttribute>())
             {
@@ -195,7 +195,7 @@ namespace YAF.Lucene.Net.Index
             postings.lastOffsets[termID] = startOffset;
         }
 
-        override internal void NewTerm(int termID)
+        internal override void NewTerm(int termID)
         {
             // First time we're seeing this term since the last
             // flush
@@ -228,7 +228,7 @@ namespace YAF.Lucene.Net.Index
             fieldState.UniqueTermCount++;
         }
 
-        override internal void AddTerm(int termID)
+        internal override void AddTerm(int termID)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(docState.TestPoint("FreqProxTermsWriterPerField.addTerm start"));
 
@@ -298,7 +298,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        override internal ParallelPostingsArray CreatePostingsArray(int size)
+        internal override ParallelPostingsArray CreatePostingsArray(int size)
         {
             return new FreqProxPostingsArray(size, hasFreq, hasProx, hasOffsets);
         }
@@ -335,12 +335,12 @@ namespace YAF.Lucene.Net.Index
             internal int[] lastPositions; // Last position where this term occurred
             internal int[] lastOffsets; // Last endOffset where this term occurred
 
-            override internal ParallelPostingsArray NewInstance(int size)
+            internal override ParallelPostingsArray NewInstance(int size)
             {
                 return new FreqProxPostingsArray(size, termFreqs != null, lastPositions != null, lastOffsets != null);
             }
 
-            override internal void CopyTo(ParallelPostingsArray toArray, int numToCopy)
+            internal override void CopyTo(ParallelPostingsArray toArray, int numToCopy)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(toArray is FreqProxPostingsArray);
                 FreqProxPostingsArray to = (FreqProxPostingsArray)toArray;
@@ -366,7 +366,7 @@ namespace YAF.Lucene.Net.Index
                 }
             }
 
-            override internal int BytesPerPosting()
+            internal override int BytesPerPosting()
             {
                 int bytes = ParallelPostingsArray.BYTES_PER_POSTING + 2 * RamUsageEstimator.NUM_BYTES_INT32;
                 if (lastPositions != null)

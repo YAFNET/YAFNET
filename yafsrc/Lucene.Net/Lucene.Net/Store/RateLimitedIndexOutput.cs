@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Store
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Store
             this.rateLimiter = rateLimiter;
         }
 
-        override protected internal void FlushBuffer(byte[] b, int offset, int len)
+        protected internal override void FlushBuffer(byte[] b, int offset, int len)
         {
             rateLimiter.Pause(len);
             if (bufferedDelegate != null)
@@ -96,7 +96,7 @@ namespace YAF.Lucene.Net.Store
             }
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
 

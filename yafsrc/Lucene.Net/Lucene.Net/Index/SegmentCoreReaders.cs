@@ -18,7 +18,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,17 +27,17 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocValuesProducer = YAF.Lucene.Net.Codecs.DocValuesProducer;
-    using FieldsProducer = YAF.Lucene.Net.Codecs.FieldsProducer;
-    using ICoreDisposedListener = YAF.Lucene.Net.Index.SegmentReader.ICoreDisposedListener;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using PostingsFormat = YAF.Lucene.Net.Codecs.PostingsFormat;
-    using StoredFieldsReader = YAF.Lucene.Net.Codecs.StoredFieldsReader;
-    using TermVectorsReader = YAF.Lucene.Net.Codecs.TermVectorsReader;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using CompoundFileDirectory = Lucene.Net.Store.CompoundFileDirectory;
+    using Directory = Lucene.Net.Store.Directory;
+    using DocValuesProducer = Lucene.Net.Codecs.DocValuesProducer;
+    using FieldsProducer = Lucene.Net.Codecs.FieldsProducer;
+    using ICoreDisposedListener = Lucene.Net.Index.SegmentReader.ICoreDisposedListener;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using PostingsFormat = Lucene.Net.Codecs.PostingsFormat;
+    using StoredFieldsReader = Lucene.Net.Codecs.StoredFieldsReader;
+    using TermVectorsReader = Lucene.Net.Codecs.TermVectorsReader;
 
     /// <summary>
     /// Holds core readers that are shared (unchanged) when
@@ -53,22 +53,22 @@ namespace YAF.Lucene.Net.Index
         // SegmentReaders:
         private readonly AtomicInt32 @ref = new AtomicInt32(1);
 
-        readonly internal FieldsProducer fields;
-        readonly internal DocValuesProducer normsProducer;
+        internal readonly FieldsProducer fields;
+        internal readonly DocValuesProducer normsProducer;
 
-        readonly internal int termsIndexDivisor;
+        internal readonly int termsIndexDivisor;
 
-        readonly internal StoredFieldsReader fieldsReaderOrig;
-        readonly internal TermVectorsReader termVectorsReaderOrig;
-        readonly internal CompoundFileDirectory cfsReader;
+        internal readonly StoredFieldsReader fieldsReaderOrig;
+        internal readonly TermVectorsReader termVectorsReaderOrig;
+        internal readonly CompoundFileDirectory cfsReader;
 
         // TODO: make a single thread local w/ a
         // Thingy class holding fieldsReader, termVectorsReader,
         // normsProducer
 
-        readonly internal DisposableThreadLocal<StoredFieldsReader> fieldsReaderLocal;
-        readonly internal DisposableThreadLocal<TermVectorsReader> termVectorsLocal;
-        readonly internal DisposableThreadLocal<IDictionary<string, object>> normsLocal =
+        internal readonly DisposableThreadLocal<StoredFieldsReader> fieldsReaderLocal;
+        internal readonly DisposableThreadLocal<TermVectorsReader> termVectorsLocal;
+        internal readonly DisposableThreadLocal<IDictionary<string, object>> normsLocal =
             new DisposableThreadLocal<IDictionary<string, object>>(() => new Dictionary<string, object>());
         private readonly ISet<ICoreDisposedListener> coreClosedListeners = new JCG.LinkedHashSet<ICoreDisposedListener>().AsConcurrent();
 

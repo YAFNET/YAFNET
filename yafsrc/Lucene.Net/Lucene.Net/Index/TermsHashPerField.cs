@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,38 +24,38 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using BytesRefHash = YAF.Lucene.Net.Util.BytesRefHash;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using Int32BlockPool = YAF.Lucene.Net.Util.Int32BlockPool;
+    using ByteBlockPool = Lucene.Net.Util.ByteBlockPool;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using BytesRefHash = Lucene.Net.Util.BytesRefHash;
+    using Counter = Lucene.Net.Util.Counter;
+    using Int32BlockPool = Lucene.Net.Util.Int32BlockPool;
 
     internal sealed class TermsHashPerField : InvertedDocConsumerPerField
     {
         private const int HASH_INIT_SIZE = 4;
 
-        readonly internal TermsHashConsumerPerField consumer;
+        internal readonly TermsHashConsumerPerField consumer;
 
-        readonly internal TermsHash termsHash;
+        internal readonly TermsHash termsHash;
 
-        readonly internal TermsHashPerField nextPerField;
-        readonly internal DocumentsWriterPerThread.DocState docState;
-        readonly internal FieldInvertState fieldState;
+        internal readonly TermsHashPerField nextPerField;
+        internal readonly DocumentsWriterPerThread.DocState docState;
+        internal readonly FieldInvertState fieldState;
         internal ITermToBytesRefAttribute termAtt;
         internal BytesRef termBytesRef;
 
         // Copied from our perThread
-        readonly internal Int32BlockPool intPool;
+        internal readonly Int32BlockPool intPool;
 
-        readonly internal ByteBlockPool bytePool;
-        readonly internal ByteBlockPool termBytePool;
+        internal readonly ByteBlockPool bytePool;
+        internal readonly ByteBlockPool termBytePool;
 
-        readonly internal int streamCount;
-        readonly internal int numPostingInt;
+        internal readonly int streamCount;
+        internal readonly int numPostingInt;
 
-        readonly internal FieldInfo fieldInfo;
+        internal readonly FieldInfo fieldInfo;
 
-        readonly internal BytesRefHash bytesHash;
+        internal readonly BytesRefHash bytesHash;
 
         internal ParallelPostingsArray postingsArray;
         private readonly Counter bytesUsed;
@@ -130,7 +130,7 @@ namespace YAF.Lucene.Net.Index
         private bool doCall;
         private bool doNextCall;
 
-        override internal void Start(IIndexableField f)
+        internal override void Start(IIndexableField f)
         {
             termAtt = fieldState.AttributeSource.GetAttribute<ITermToBytesRefAttribute>();
             termBytesRef = termAtt.BytesRef;
@@ -141,7 +141,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        override internal bool Start(IIndexableField[] fields, int count)
+        internal override bool Start(IIndexableField[] fields, int count)
         {
             doCall = consumer.Start(fields, count);
             bytesHash.Reinit();
@@ -201,7 +201,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         // Primary entry point (for first TermsHash)
-        override internal void Add()
+        internal override void Add()
         {
             termAtt.FillBytesRef();
 
@@ -324,7 +324,7 @@ namespace YAF.Lucene.Net.Index
             WriteByte(stream, (byte)i);
         }
 
-        override internal void Finish()
+        internal override void Finish()
         {
             consumer.Finish();
             if (nextPerField != null)

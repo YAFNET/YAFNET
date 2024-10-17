@@ -13,7 +13,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,10 +22,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using MonotonicAppendingInt64Buffer = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
+    using Directory = Lucene.Net.Store.Directory;
+    using IBits = Lucene.Net.Util.IBits;
+    using InfoStream = Lucene.Net.Util.InfoStream;
+    using MonotonicAppendingInt64Buffer = Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
 
     /// <summary>
     /// Holds common state used during segment merging.
@@ -80,7 +80,7 @@ namespace YAF.Lucene.Net.Index
                 return Build(maxDoc, liveDocs);
             }
 
-            static internal DocMap Build(int maxDoc, IBits liveDocs)
+            internal static DocMap Build(int maxDoc, IBits liveDocs)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(liveDocs != null);
                 MonotonicAppendingInt64Buffer docMap = new MonotonicAppendingInt64Buffer();
@@ -249,7 +249,7 @@ namespace YAF.Lucene.Net.Index
         /// <para/>
         /// @lucene.internal
         /// </summary>
-        public readonly static CheckAbort NONE = new CheckAbortAnonymousClass();
+        public static readonly CheckAbort NONE = new CheckAbortAnonymousClass();
 
         private sealed class CheckAbortAnonymousClass : CheckAbort
         {

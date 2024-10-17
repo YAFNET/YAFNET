@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Store
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using Constants = YAF.Lucene.Net.Util.Constants;
+    using Constants = Lucene.Net.Util.Constants;
 
     /// <summary>
     /// File-based <see cref="Directory"/> implementation that uses
@@ -59,7 +59,7 @@ namespace YAF.Lucene.Net.Store
         /// <summary>
         /// Default max chunk size. </summary>
         /// <seealso cref="MMapDirectory(DirectoryInfo, LockFactory, int)"/>
-        public readonly static int DEFAULT_MAX_BUFF = Constants.RUNTIME_IS_64BIT ? (1 << 30) : (1 << 28);
+        public static readonly int DEFAULT_MAX_BUFF = Constants.RUNTIME_IS_64BIT ? (1 << 30) : (1 << 28);
 
         private readonly int chunkSizePower;
 
@@ -219,7 +219,7 @@ namespace YAF.Lucene.Net.Store
                 return (IndexInput)full.Clone();
             }
 
-            override protected void Dispose(bool disposing)
+            protected override void Dispose(bool disposing)
             {
                 if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
 
@@ -243,7 +243,7 @@ namespace YAF.Lucene.Net.Store
                 this.SetBuffers(outerInstance.Map(this, fc, 0, fc.Length));
             }
 
-            override protected sealed void Dispose(bool disposing)
+            protected override sealed void Dispose(bool disposing)
             {
                 if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
 
@@ -278,7 +278,7 @@ namespace YAF.Lucene.Net.Store
             /// for that in the runtime. On Windows, this leads to the fact,
             /// that mmapped files cannot be modified or deleted.
             /// </summary>
-            override protected void FreeBuffer(ByteBuffer buffer)
+            protected override void FreeBuffer(ByteBuffer buffer)
             {
                 // LUCENENET specific: this should free the memory mapped view accessor
                 if (buffer is IDisposable disposable)

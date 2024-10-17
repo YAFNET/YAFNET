@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,11 +23,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using CommandLineUtil = YAF.Lucene.Net.Util.CommandLineUtil;
-    using Constants = YAF.Lucene.Net.Util.Constants;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FSDirectory = YAF.Lucene.Net.Store.FSDirectory;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
+    using CommandLineUtil = Lucene.Net.Util.CommandLineUtil;
+    using Constants = Lucene.Net.Util.Constants;
+    using Directory = Lucene.Net.Store.Directory;
+    using FSDirectory = Lucene.Net.Store.FSDirectory;
+    using InfoStream = Lucene.Net.Util.InfoStream;
 
     /// <summary>
     /// This is an easy-to-use tool that upgrades all segments of an index from previous Lucene versions
@@ -137,9 +137,9 @@ namespace YAF.Lucene.Net.Index
 #pragma warning restore 612, 618
         }
 
-        readonly internal Directory dir; // LUCENENET specific - made internal for testing CLI arguments
-        readonly internal IndexWriterConfig iwc; // LUCENENET specific - made internal for testing CLI arguments
-        readonly internal bool deletePriorCommits; // LUCENENET specific - made internal for testing CLI arguments
+        internal readonly Directory dir; // LUCENENET specific - made internal for testing CLI arguments
+        internal readonly IndexWriterConfig iwc; // LUCENENET specific - made internal for testing CLI arguments
+        internal readonly bool deletePriorCommits; // LUCENENET specific - made internal for testing CLI arguments
 
         /// <summary>
         /// Creates index upgrader on the given directory, using an <see cref="IndexWriter"/> using the given
