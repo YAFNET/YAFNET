@@ -76,7 +76,8 @@
             Model.GetText("select_forum_moveto"),
             false,
             false,
-            "Input_ForumListSelected")))
+            "Input_ForumListSelected",
+                    JavaScriptBlocks.LoadTopicsByForumJs())))
 
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SelectTopicsLoadJs(
             "TopicList",

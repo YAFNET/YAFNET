@@ -91,10 +91,10 @@ public partial class StackTraceBeautify
         this.lineCssClass = "st-line";
 
         this.languages = [
-            new() { Name = "english", At = "at", In = "in", Line = "line" },
-            new() { Name = "danish", At = "ved", In = "i", Line = "linje" },
-            new() { Name = "german", At = "bei", In = "in", Line = "Zeile" },
-            new() { Name = "russian", At = "в", In = "в", Line = "строка" }
+            new Language { Name = "english", At = "at", In = "in", Line = "line" },
+            new Language { Name = "danish", At = "ved", In = "i", Line = "linje" },
+            new Language { Name = "german", At = "bei", In = "in", Line = "Zeile" },
+            new Language { Name = "russian", At = "в", In = "в", Line = "строка" }
         ];
     }
 
@@ -199,10 +199,14 @@ public partial class StackTraceBeautify
                     }
 
                     var paramType = cleanedParameter[0];
-                    var paramName = cleanedParameter[1];
 
-                    var theParam =
-                        $"<span class=\"{this.paramTypeCssClass}\">{paramType}</span> <span class=\"{this.paramNameCssClass}\">{paramName}</span>";
+                    var theParam = $"<span class=\"{this.paramTypeCssClass}\">{paramType}</span>";
+
+                    if (cleanedParameter.Length > 1)
+                    {
+                        var paramName = cleanedParameter[1];
+                        theParam += $" <span class=\"{this.paramNameCssClass}\">{paramName}</span>";
+                    }
 
                     parameterList.Append(index + 1 < arrParams.Length ? $"{theParam}, " : $"{theParam}");
                 }
