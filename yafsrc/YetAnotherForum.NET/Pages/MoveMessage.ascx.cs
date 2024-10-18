@@ -56,7 +56,8 @@ public partial class MoveMessage : ForumPageRegistered
                 this.GetText("SELECT_FORUM"),
                 false,
                 false,
-                this.ForumListSelected.ClientID));
+                this.ForumListSelected.ClientID,
+                JavaScriptBlocks.LoadTopicsByForumJs()));
 
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.SelectTopicsLoadJs),
@@ -109,10 +110,9 @@ public partial class MoveMessage : ForumPageRegistered
         if (moveTopicId == 0 || moveTopicId == this.PageBoardContext.PageMessage.ID)
         {
             this.PageBoardContext.Notify(this.GetText("MOVE_TITLE"), MessageTypes.warning);
-            
             return;
         }
-        
+
         this.GetRepository<Message>().Move(
             this.PageBoardContext.PageTopic,
             this.PageBoardContext.PageMessage,

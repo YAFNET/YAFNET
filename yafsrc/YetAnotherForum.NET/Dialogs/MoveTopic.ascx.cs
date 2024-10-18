@@ -46,8 +46,7 @@ public partial class MoveTopic : BaseUserControl
                 this.GetText("SELECT_FORUM"),
                 false,
                 false,
-                this.ForumListSelected.ClientID,
-                JavaScriptBlocks.LoadTopicsByForumJs()));
+                this.ForumListSelected.ClientID));
 
         base.OnPreRender(e);
     }
