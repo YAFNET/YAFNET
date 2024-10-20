@@ -470,6 +470,8 @@ public static class JavaScriptBlocks
         return $$"""
                    var textarea = document.getElementById('{{editorId}}');
                    
+                   const noAttachmentsText = '{{HttpUtility.HtmlEncode(BoardContext.Current.Get<ILocalization>().GetText("ATTACHMENTS", "NO_ATTACHMENTS"))}}';
+                   
                    sceditor.create(textarea, {
                      autoUpdate: true,
                      autoExpand: true,

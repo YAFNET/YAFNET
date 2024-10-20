@@ -15429,12 +15429,6 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
     }).then(res => res.json()).then(data => {
         empty(list);
         document.getElementById("PostAlbumsLoader").style.display = "none";
-        if (data.AttachmentList.length === 0) {
-            const noText = placeHolder.dataset.notext;
-            const li = document.createElement("li");
-            li.innerHTML = `<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">${noText}</div></li>`;
-            list.appendChild(li);
-        }
         data.AttachmentList.forEach(dataItem => {
             var li = document.createElement("li");
             li.classList.add("list-group-item");
@@ -15474,9 +15468,11 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
         empty(list);
         document.getElementById("PostAttachmentLoader").style.display = "none";
         if (data.AttachmentList.length === 0) {
-            const noText = placeHolder.dataset.notext;
             const li = document.createElement("li");
-            li.innerHTML = `<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">${noText}</div></li>`;
+            if (noText) {
+                noAttachmentsText = noText;
+            }
+            li.innerHTML = `<li><div class="alert alert-info text-break" role="alert" style="white-space:normal;width:200px">${noAttachmentsText}</div></li>`;
             list.appendChild(li);
         }
         data.AttachmentList.forEach(dataItem => {
