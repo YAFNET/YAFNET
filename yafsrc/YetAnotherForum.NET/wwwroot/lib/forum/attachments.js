@@ -24,11 +24,17 @@
         document.getElementById('PostAttachmentLoader').style.display = 'none';
 
         if (data.attachmentList.length === 0) {
-            const noText = placeHolder.dataset.notext;
-
             const li = document.createElement('li');
 
-            li.innerHTML = `<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">${noText}</div></li>`;
+            li.classList.add('list-group-item');
+
+            const noText = placeHolder.dataset.notext;
+
+            if (noText) {
+	           noAttachmentsText = noText;
+            }
+
+            li.innerHTML = `<div class="alert alert-info text-break" role="alert" style="white-space:normal;width:200px">${noAttachmentsText}</div>`;
 
             list.appendChild(li);
         }

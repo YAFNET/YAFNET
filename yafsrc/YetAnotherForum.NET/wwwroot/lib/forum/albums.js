@@ -23,16 +23,6 @@
 
         document.getElementById('PostAlbumsLoader').style.display = 'none';
 
-        if (data.attachmentList.length === 0) {
-            const noText = placeHolder.dataset.notext;
-
-            const li = document.createElement('li');
-
-            li.innerHTML = `<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">${noText}</div></li>`;
-
-            list.appendChild(li);
-        }
-
         data.attachmentList.forEach((dataItem) => {
             var li = document.createElement('li');
 
