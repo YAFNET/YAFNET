@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
     */
 
-    using Directory = Lucene.Net.Store.Directory;
+    using Directory = YAF.Lucene.Net.Store.Directory;
 
     /// <summary>
     /// <para>Expert: represents a single commit into an index as seen by the

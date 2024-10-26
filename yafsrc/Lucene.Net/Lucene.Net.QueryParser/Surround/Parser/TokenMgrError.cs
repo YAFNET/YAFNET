@@ -1,5 +1,6 @@
 ﻿using System;
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
+using System.ComponentModel;
 using System.Runtime.Serialization;
 #endif
 #if FEATURE_CODE_ACCESS_SECURITY
@@ -17,7 +18,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -180,6 +181,8 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
         /// </summary>
         /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
         /// <param name="context">The <see cref="StreamingContext"/> that contains contextual information about the source or destination.</param>
+        [Obsolete("This API supports obsolete formatter-based serialization. It should not be called or extended by application code.")]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected TokenMgrError(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
@@ -189,7 +192,11 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
 #if FEATURE_CODE_ACCESS_SECURITY
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
 #endif
+        [Obsolete("This API supports obsolete formatter-based serialization. It should not be called or extended by application code.")]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+#pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
+#pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
         {
             base.GetObjectData(info, context);
             info.AddValue("errorCode", errorCode, typeof(int));

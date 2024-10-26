@@ -10,7 +10,7 @@ namespace YAF.Lucene.Net.Search.Similarities
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -84,15 +84,15 @@ namespace YAF.Lucene.Net.Search.Similarities
     {
         /// <summary>
         /// The probabilistic distribution used to model term occurrence. </summary>
-        readonly protected internal Distribution m_distribution;
+        protected internal readonly Distribution m_distribution;
 
         /// <summary>
         /// The <em>lambda (&#955;<sub>w</sub>)</em> parameter. </summary>
-        readonly protected internal Lambda m_lambda;
+        protected internal readonly Lambda m_lambda;
 
         /// <summary>
         /// The term frequency normalization. </summary>
-        readonly protected internal Normalization m_normalization;
+        protected internal readonly Normalization m_normalization;
 
         /// <summary>
         /// Creates IBSimilarity from the three components.
@@ -115,7 +115,7 @@ namespace YAF.Lucene.Net.Search.Similarities
             return stats.TotalBoost * m_distribution.Score(stats, m_normalization.Tfn(stats, freq, docLen), m_lambda.CalculateLambda(stats));
         }
 
-        override protected internal void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
+        protected internal override void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
         {
             if (stats.TotalBoost != 1.0f)
             {

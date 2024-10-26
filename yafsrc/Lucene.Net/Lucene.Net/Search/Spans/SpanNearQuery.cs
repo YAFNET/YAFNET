@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Search.Spans
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -39,7 +39,7 @@ namespace YAF.Lucene.Net.Search.Spans
     /// </summary>
     public class SpanNearQuery : SpanQuery // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
-        readonly protected IList<SpanQuery> m_clauses;
+        protected readonly IList<SpanQuery> m_clauses;
         protected int m_slop;
         protected bool m_inOrder;
 

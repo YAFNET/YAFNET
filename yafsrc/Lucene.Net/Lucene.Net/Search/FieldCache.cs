@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -393,7 +393,7 @@ namespace YAF.Lucene.Net.Search
             /// <summary>
             /// Zero value for every document
             /// </summary>
-            public readonly static Bytes EMPTY = new Bytes((docID) => 0);
+            public static readonly Bytes EMPTY = new Bytes((docID) => 0);
         }
 
         /// <summary>
@@ -430,7 +430,7 @@ namespace YAF.Lucene.Net.Search
             /// <summary>
             /// Zero value for every document
             /// </summary>
-            public readonly static Int16s EMPTY = new Int16s((docID) => 0);
+            public static readonly Int16s EMPTY = new Int16s((docID) => 0);
         }
 
         /// <summary>
@@ -467,7 +467,7 @@ namespace YAF.Lucene.Net.Search
             /// <summary>
             /// Zero value for every document
             /// </summary>
-            public readonly static Int32s EMPTY = new Int32s((docID) => 0);
+            public static readonly Int32s EMPTY = new Int32s((docID) => 0);
         }
 
         /// <summary>
@@ -504,7 +504,7 @@ namespace YAF.Lucene.Net.Search
             /// <summary>
             /// Zero value for every document
             /// </summary>
-            public readonly static Int64s EMPTY = new Int64s((docID) => 0);
+            public static readonly Int64s EMPTY = new Int64s((docID) => 0);
         }
 
         /// <summary>
@@ -541,7 +541,7 @@ namespace YAF.Lucene.Net.Search
             /// <summary>
             /// Zero value for every document
             /// </summary>
-            public readonly static Singles EMPTY = new Singles((docID) => 0);
+            public static readonly Singles EMPTY = new Singles((docID) => 0);
         }
 
         /// <summary>
@@ -576,7 +576,7 @@ namespace YAF.Lucene.Net.Search
             /// <summary>
             /// Zero value for every document
             /// </summary>
-            public readonly static Doubles EMPTY = new Doubles((docID) => 0);
+            public static readonly Doubles EMPTY = new Doubles((docID) => 0);
         }
 
         /// <summary>
@@ -709,7 +709,7 @@ namespace YAF.Lucene.Net.Search
         /// using <see cref="CultureInfo.InvariantCulture"/>.
         /// </summary>
         [Obsolete]
-        public readonly static IByteParser DEFAULT_BYTE_PARSER = new ByteParser();
+        public static readonly IByteParser DEFAULT_BYTE_PARSER = new ByteParser();
 
         [Obsolete]
         private sealed class ByteParser : IByteParser
@@ -741,7 +741,7 @@ namespace YAF.Lucene.Net.Search
         /// NOTE: This was DEFAULT_SHORT_PARSER in Lucene
         /// </summary>
         [Obsolete]
-        public readonly static IInt16Parser DEFAULT_INT16_PARSER = new Int16Parser();
+        public static readonly IInt16Parser DEFAULT_INT16_PARSER = new Int16Parser();
 
         [Obsolete]
         private sealed class Int16Parser : IInt16Parser
@@ -776,7 +776,7 @@ namespace YAF.Lucene.Net.Search
         /// NOTE: This was DEFAULT_INT_PARSER in Lucene
         /// </summary>
         [Obsolete]
-        public readonly static IInt32Parser DEFAULT_INT32_PARSER = new Int32Parser();
+        public static readonly IInt32Parser DEFAULT_INT32_PARSER = new Int32Parser();
 
         [Obsolete]
         private sealed class Int32Parser : IInt32Parser
@@ -811,7 +811,7 @@ namespace YAF.Lucene.Net.Search
         /// NOTE: This was DEFAULT_FLOAT_PARSER in Lucene
         /// </summary>
         [Obsolete]
-        public readonly static ISingleParser DEFAULT_SINGLE_PARSER = new SingleParser();
+        public static readonly ISingleParser DEFAULT_SINGLE_PARSER = new SingleParser();
 
         [Obsolete]
         private sealed class SingleParser : ISingleParser
@@ -848,7 +848,7 @@ namespace YAF.Lucene.Net.Search
         /// NOTE: This was DEFAULT_LONG_PARSER in Lucene
         /// </summary>
         [Obsolete]
-        public readonly static IInt64Parser DEFAULT_INT64_PARSER = new Int64Parser();
+        public static readonly IInt64Parser DEFAULT_INT64_PARSER = new Int64Parser();
 
         [Obsolete]
         private sealed class Int64Parser : IInt64Parser
@@ -881,7 +881,7 @@ namespace YAF.Lucene.Net.Search
         /// using <see cref="CultureInfo.InvariantCulture"/>.
         /// </summary>
         [Obsolete]
-        public readonly static IDoubleParser DEFAULT_DOUBLE_PARSER = new DoubleParser();
+        public static readonly IDoubleParser DEFAULT_DOUBLE_PARSER = new DoubleParser();
 
         [Obsolete]
         private sealed class DoubleParser : IDoubleParser
@@ -913,7 +913,7 @@ namespace YAF.Lucene.Net.Search
         /// <para/>
         /// NOTE: This was NUMERIC_UTILS_INT_PARSER in Lucene
         /// </summary>
-        public readonly static IInt32Parser NUMERIC_UTILS_INT32_PARSER = new NumericUtilsInt32Parser();
+        public static readonly IInt32Parser NUMERIC_UTILS_INT32_PARSER = new NumericUtilsInt32Parser();
 
         private sealed class NumericUtilsInt32Parser : IInt32Parser
         {
@@ -942,7 +942,7 @@ namespace YAF.Lucene.Net.Search
         /// <para/>
         /// NOTE: This was NUMERIC_UTILS_FLOAT_PARSER in Lucene
         /// </summary>
-        public readonly static ISingleParser NUMERIC_UTILS_SINGLE_PARSER = new NumericUtilsSingleParser();
+        public static readonly ISingleParser NUMERIC_UTILS_SINGLE_PARSER = new NumericUtilsSingleParser();
 
         private sealed class NumericUtilsSingleParser : ISingleParser
         {
@@ -971,7 +971,7 @@ namespace YAF.Lucene.Net.Search
         /// <para/>
         /// NOTE: This was NUMERIC_UTILS_LONG_PARSER in Lucene
         /// </summary>
-        public readonly static IInt64Parser NUMERIC_UTILS_INT64_PARSER = new NumericUtilsInt64Parser();
+        public static readonly IInt64Parser NUMERIC_UTILS_INT64_PARSER = new NumericUtilsInt64Parser();
 
         private sealed class NumericUtilsInt64Parser : IInt64Parser
         {
@@ -998,7 +998,7 @@ namespace YAF.Lucene.Net.Search
         /// A parser instance for <see cref="double"/> values encoded with <see cref="NumericUtils"/>, e.g. when indexed
         /// via <see cref="Documents.DoubleField"/>/<see cref="Analysis.NumericTokenStream"/>.
         /// </summary>
-        public readonly static IDoubleParser NUMERIC_UTILS_DOUBLE_PARSER = new NumericUtilsDoubleParser();
+        public static readonly IDoubleParser NUMERIC_UTILS_DOUBLE_PARSER = new NumericUtilsDoubleParser();
 
         private sealed class NumericUtilsDoubleParser : IDoubleParser
         {

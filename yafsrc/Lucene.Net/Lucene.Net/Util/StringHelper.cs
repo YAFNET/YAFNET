@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Util
         // backing field internal and writable so it can be set by the test framework.
         // The tests:seed system property is only applicable to the test environment, as it has no
         // useful purpose in production.
-        static internal int goodFastHashSeed = (int)J2N.Time.CurrentTimeMilliseconds();
+        internal static int goodFastHashSeed = (int)J2N.Time.CurrentTimeMilliseconds();
 
         /// <summary>
         /// Pass this as the seed to <see cref="Murmurhash3_x86_32(byte[], int, int, int)"/>. </summary>

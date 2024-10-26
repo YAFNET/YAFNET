@@ -22,13 +22,13 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Analyzer = Lucene.Net.Analysis.Analyzer;
-    using Codec = Lucene.Net.Codecs.Codec;
-    using IndexingChain = Lucene.Net.Index.DocumentsWriterPerThread.IndexingChain;
-    using IndexReaderWarmer = Lucene.Net.Index.IndexWriter.IndexReaderWarmer;
-    using InfoStream = Lucene.Net.Util.InfoStream;
-    using TextWriterInfoStream = Lucene.Net.Util.TextWriterInfoStream;
-    using Similarity = Lucene.Net.Search.Similarities.Similarity;
+    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using IndexingChain = YAF.Lucene.Net.Index.DocumentsWriterPerThread.IndexingChain;
+    using IndexReaderWarmer = YAF.Lucene.Net.Index.IndexWriter.IndexReaderWarmer;
+    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
+    using TextWriterInfoStream = YAF.Lucene.Net.Util.TextWriterInfoStream;
+    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
 
     /// <summary>
     /// Holds all the configuration that is used to create an <see cref="IndexWriter"/>.

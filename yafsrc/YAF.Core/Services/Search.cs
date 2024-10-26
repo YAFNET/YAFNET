@@ -30,7 +30,6 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-using YAF.Core.Model;
 using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Analysis.Standard;
 using YAF.Lucene.Net.Documents;
@@ -239,7 +238,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         try
         {
-            messageList.ForEach(message => this.UpdateSearchIndexItemAsync(message).Wait());
+            messageList.ForEach(message => this.UpdateSearchIndexItemAsync(message).ConfigureAwait(true));
         }
         finally
         {

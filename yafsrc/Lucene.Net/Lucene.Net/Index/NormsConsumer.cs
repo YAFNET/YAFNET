@@ -21,9 +21,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using DocValuesConsumer = Lucene.Net.Codecs.DocValuesConsumer;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using NormsFormat = Lucene.Net.Codecs.NormsFormat;
+    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using NormsFormat = YAF.Lucene.Net.Codecs.NormsFormat;
 
     // TODO FI: norms could actually be stored as doc store
 

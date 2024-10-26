@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -563,7 +563,7 @@ namespace YAF.Lucene.Net.Util
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            override protected AcceptStatus Accept(BytesRef term)
+            protected override AcceptStatus Accept(BytesRef term)
             {
                 return NumericUtils.GetPrefixCodedInt64Shift(term) == 0 ? AcceptStatus.YES : AcceptStatus.END;
             }
@@ -593,7 +593,7 @@ namespace YAF.Lucene.Net.Util
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            override protected AcceptStatus Accept(BytesRef term)
+            protected override AcceptStatus Accept(BytesRef term)
             {
                 return NumericUtils.GetPrefixCodedInt32Shift(term) == 0 ? AcceptStatus.YES : AcceptStatus.END;
             }

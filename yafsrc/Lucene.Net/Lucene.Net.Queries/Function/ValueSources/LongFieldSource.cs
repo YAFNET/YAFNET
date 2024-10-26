@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -37,7 +37,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class Int64FieldSource : FieldCacheSource
     {
-        readonly protected FieldCache.IInt64Parser m_parser;
+        protected readonly FieldCache.IInt64Parser m_parser;
 
         public Int64FieldSource(string field)
             : this(field, null)
@@ -131,7 +131,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             /// <summary>
             /// NOTE: This was externalToLong() in Lucene
             /// </summary>
-            override protected long ExternalToInt64(string extVal)
+            protected override long ExternalToInt64(string extVal)
             {
                 return outerInstance.ExternalToInt64(extVal);
             }

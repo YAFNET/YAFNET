@@ -8,7 +8,7 @@ namespace YAF.Lucene.Net.Search.Similarities
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,7 +32,7 @@ namespace YAF.Lucene.Net.Search.Similarities
     {
         /// <summary>
         /// the sub-similarities used to create the combined score </summary>
-        readonly protected internal Similarity[] m_sims;
+        protected internal readonly Similarity[] m_sims;
 
         /// <summary>
         /// Creates a <see cref="MultiSimilarity"/> which will sum the scores
@@ -110,7 +110,7 @@ namespace YAF.Lucene.Net.Search.Similarities
 
         internal class MultiStats : SimWeight
         {
-            readonly internal SimWeight[] subStats;
+            internal readonly SimWeight[] subStats;
 
             internal MultiStats(SimWeight[] subStats)
             {

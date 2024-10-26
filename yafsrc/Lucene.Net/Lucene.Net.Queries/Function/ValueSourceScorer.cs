@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Queries.Function
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,10 +34,10 @@ namespace YAF.Lucene.Net.Queries.Function
     /// </summary>
     public class ValueSourceScorer : Scorer
     {
-        readonly protected IndexReader m_reader;
+        protected readonly IndexReader m_reader;
         private int doc = -1;
-        readonly protected int m_maxDoc;
-        readonly protected FunctionValues m_values;
+        protected readonly int m_maxDoc;
+        protected readonly FunctionValues m_values;
         protected bool m_checkDeletes;
         private readonly IBits liveDocs;
 

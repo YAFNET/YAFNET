@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Analysis
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,7 +30,7 @@ namespace YAF.Lucene.Net.Analysis
     {
         /// <summary>
         /// The source of tokens for this filter. </summary>
-        readonly protected TokenStream m_input;
+        protected readonly TokenStream m_input;
 
         /// <summary>
         /// Construct a token stream filtering the given input. </summary>
@@ -76,7 +76,7 @@ namespace YAF.Lucene.Net.Analysis
         /// The default implementation chains the call to the input TokenStream, so
         /// be sure to call <c>base.Dispose(disposing)</c> when overriding this method.
         /// </summary>
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

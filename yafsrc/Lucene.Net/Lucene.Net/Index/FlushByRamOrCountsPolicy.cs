@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ThreadState = Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
+    using ThreadState = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
 
     /// <summary>
     /// Default <see cref="FlushPolicy"/> implementation that flushes new segments based on

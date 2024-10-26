@@ -10,7 +10,7 @@ namespace YAF.Lucene.Net.Search.Payloads
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -87,7 +87,7 @@ namespace YAF.Lucene.Net.Search.Payloads
                 protected BytesRef m_payload;
                 protected internal float m_payloadScore;
                 protected internal int m_payloadsSeen;
-                readonly internal TermSpans termSpans;
+                internal readonly TermSpans termSpans;
 
                 public PayloadTermSpanScorer(PayloadTermQuery.PayloadTermWeight outerInstance, TermSpans spans, Weight weight, Similarity.SimScorer docScorer)
                     : base(spans, weight, docScorer)
@@ -96,7 +96,7 @@ namespace YAF.Lucene.Net.Search.Payloads
                     termSpans = spans;
                 }
 
-                override protected bool SetFreqCurrentDoc()
+                protected override bool SetFreqCurrentDoc()
                 {
                     if (!m_more)
                     {

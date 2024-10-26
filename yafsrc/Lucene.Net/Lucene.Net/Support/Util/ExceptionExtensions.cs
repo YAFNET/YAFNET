@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,7 +29,7 @@ namespace YAF.Lucene.Net.Util
     /// </summary>
     public static class ExceptionExtensions
     {
-        public readonly static string SUPPRESSED_EXCEPTIONS_KEY = "Lucene_SuppressedExceptions";
+        public static readonly string SUPPRESSED_EXCEPTIONS_KEY = "Lucene_SuppressedExceptions";
 
         public static Exception[] GetSuppressed(this Exception e)
         {

@@ -1,9 +1,9 @@
 ﻿using YAF.Lucene.Net.Support.IO;
+using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
 using System;
-using System.IO;
 using System.Collections.Generic;
-using YAF.Lucene.Net.Support.Threading;
+using System.IO;
 
 namespace YAF.Lucene.Net.Store
 {
@@ -625,7 +625,7 @@ namespace YAF.Lucene.Net.Store
     }
 
     // Uses FileStream locking of file pages.
-#if NET6_0
+#if FEATURE_SUPPORTEDOSPLATFORMATTRIBUTE
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
 #endif
     internal class NativeFSLock : Lock

@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -214,7 +214,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -441,8 +441,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         private class TVTermsEnum : TermsEnum
         {
             internal bool unicodeSortOrder;
-            readonly internal IndexInput origTVF;
-            readonly internal IndexInput tvf;
+            internal readonly IndexInput origTVF;
+            internal readonly IndexInput tvf;
             internal int numTerms;
             internal int currentTerm;
             internal bool storePositions;

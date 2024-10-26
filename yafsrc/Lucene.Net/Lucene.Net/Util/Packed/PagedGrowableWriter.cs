@@ -10,7 +10,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,7 +33,7 @@ namespace YAF.Lucene.Net.Util.Packed
     /// </summary>
     public sealed class PagedGrowableWriter : AbstractPagedMutable<PagedGrowableWriter>
     {
-        readonly internal float acceptableOverheadRatio;
+        internal readonly float acceptableOverheadRatio;
 
         /// <summary>
         /// Create a new <see cref="PagedGrowableWriter"/> instance.
@@ -58,19 +58,19 @@ namespace YAF.Lucene.Net.Util.Packed
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected Mutable NewMutable(int valueCount, int bitsPerValue)
+        protected override Mutable NewMutable(int valueCount, int bitsPerValue)
         {
             return new GrowableWriter(bitsPerValue, valueCount, acceptableOverheadRatio);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected PagedGrowableWriter NewUnfilledCopy(long newSize)
+        protected override PagedGrowableWriter NewUnfilledCopy(long newSize)
         {
             return new PagedGrowableWriter(newSize, PageSize, bitsPerValue, acceptableOverheadRatio, false);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected long BaseRamBytesUsed()
+        protected override long BaseRamBytesUsed()
         {
             return base.BaseRamBytesUsed() + RamUsageEstimator.NUM_BYTES_SINGLE;
         }

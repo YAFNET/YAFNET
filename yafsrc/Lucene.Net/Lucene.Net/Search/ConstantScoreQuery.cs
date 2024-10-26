@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,8 +36,8 @@ namespace YAF.Lucene.Net.Search
     /// </summary>
     public class ConstantScoreQuery : Query
     {
-        readonly protected Filter m_filter;
-        readonly protected Query m_query;
+        protected readonly Filter m_filter;
+        protected readonly Query m_query;
 
         /// <summary>
         /// Strips off scores from the passed in <see cref="Search.Query"/>. The hits will get a constant score
@@ -234,9 +234,9 @@ namespace YAF.Lucene.Net.Search
         {
             private readonly ConstantScoreQuery outerInstance;
 
-            readonly internal BulkScorer bulkScorer;
-            readonly internal Weight weight;
-            readonly internal float theScore;
+            internal readonly BulkScorer bulkScorer;
+            internal readonly Weight weight;
+            internal readonly float theScore;
 
             public ConstantBulkScorer(ConstantScoreQuery outerInstance, BulkScorer bulkScorer, Weight weight, float theScore)
             {
@@ -293,8 +293,8 @@ namespace YAF.Lucene.Net.Search
         {
             private readonly ConstantScoreQuery outerInstance;
 
-            readonly internal DocIdSetIterator docIdSetIterator;
-            readonly internal float theScore;
+            internal readonly DocIdSetIterator docIdSetIterator;
+            internal readonly float theScore;
 
             public ConstantScorer(ConstantScoreQuery outerInstance, DocIdSetIterator docIdSetIterator, Weight w, float theScore)
                 : base(w)

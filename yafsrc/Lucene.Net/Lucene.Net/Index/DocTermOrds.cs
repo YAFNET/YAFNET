@@ -25,13 +25,13 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using DocIdSetIterator = Lucene.Net.Search.DocIdSetIterator;
-    using IBits = Lucene.Net.Util.IBits;
-    using PagedBytes = Lucene.Net.Util.PagedBytes;
-    using PostingsFormat = Lucene.Net.Codecs.PostingsFormat; // javadocs
-    using SeekStatus = Lucene.Net.Index.TermsEnum.SeekStatus;
-    using StringHelper = Lucene.Net.Util.StringHelper;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
+    using PostingsFormat = YAF.Lucene.Net.Codecs.PostingsFormat; // javadocs
+    using SeekStatus = YAF.Lucene.Net.Index.TermsEnum.SeekStatus;
+    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// This class enables fast access to multiple term ords for

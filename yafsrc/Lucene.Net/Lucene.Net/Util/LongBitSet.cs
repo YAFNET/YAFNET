@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -37,9 +37,9 @@ namespace YAF.Lucene.Net.Util
 #endif
     public sealed class Int64BitSet
     {
-        readonly internal long[] bits; // LUCENENET: Internal for testing
+        internal readonly long[] bits; // LUCENENET: Internal for testing
         private readonly long numBits;
-        readonly internal int numWords; // LUCENENET: Internal for testing
+        internal readonly int numWords; // LUCENENET: Internal for testing
 
         /// <summary>
         /// If the given <see cref="Int64BitSet"/> is large enough to hold

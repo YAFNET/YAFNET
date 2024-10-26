@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = Lucene.Net.Store.Directory;
+    using Directory = YAF.Lucene.Net.Store.Directory;
 
     /// <summary>
     /// Embeds a [read-only] <see cref="SegmentInfo"/> and adds per-commit
@@ -99,7 +99,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Returns the per generation updates files. </summary>
-        public virtual IDictionary<long, ISet<string>> UpdatesFiles => genUpdatesFiles.AsReadOnly();
+        public virtual IDictionary<long, ISet<string>> UpdatesFiles => Collections.AsReadOnly(genUpdatesFiles);
 
         /// <summary>
         /// Sets the updates file names per generation. Does not deep clone the map. </summary>

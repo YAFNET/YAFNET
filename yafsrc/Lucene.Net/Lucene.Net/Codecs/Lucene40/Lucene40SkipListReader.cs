@@ -13,7 +13,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -98,7 +98,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         public virtual int OffsetLength => lastOffsetLength;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected void SeekChild(int level)
+        protected override void SeekChild(int level)
         {
             base.SeekChild(level);
             freqPointer[level] = lastFreqPointer;
@@ -108,7 +108,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected void SetLastSkipData(int level)
+        protected override void SetLastSkipData(int level)
         {
             base.SetLastSkipData(level);
             lastFreqPointer = freqPointer[level];
@@ -117,7 +117,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             lastOffsetLength = offsetLength[level];
         }
 
-        override protected int ReadSkipData(int level, IndexInput skipStream)
+        protected override int ReadSkipData(int level, IndexInput skipStream)
         {
             int delta;
             if (currentFieldStoresPayloads || currentFieldStoresOffsets)

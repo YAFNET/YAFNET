@@ -8,7 +8,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
  *
- *   https://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Support
 {
     internal class CRC32 : IChecksum
     {
-        private readonly static uint[] crcTable = InitializeCRCTable();
+        private static readonly uint[] crcTable = InitializeCRCTable();
 
         private static uint[] InitializeCRCTable()
         {

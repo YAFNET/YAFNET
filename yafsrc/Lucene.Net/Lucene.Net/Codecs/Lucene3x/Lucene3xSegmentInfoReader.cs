@@ -1,13 +1,12 @@
-using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using JCG = J2N.Collections.Generic;
 using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
 using Directory = YAF.Lucene.Net.Store.Directory;
-using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -19,7 +18,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -41,7 +40,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
     /// <summary>
     /// Lucene 3x implementation of <see cref="SegmentInfoReader"/>.
     /// <para/>
-    /// @lucene.experimental 
+    /// @lucene.experimental
     /// </summary>
     [Obsolete("Only for reading existing 3.x indexes")]
     public class Lucene3xSegmentInfoReader : SegmentInfoReader
@@ -292,7 +291,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 }
             }
 
-            SegmentInfo info = new SegmentInfo(dir, version, name, docCount, isCompoundFile, null, diagnostics, attributes.AsReadOnly());
+            SegmentInfo info = new SegmentInfo(dir, version, name, docCount, isCompoundFile, null, diagnostics, Collections.AsReadOnly(attributes));
             info.SetFiles(files);
 
             SegmentCommitInfo infoPerCommit = new SegmentCommitInfo(info, delCount, delGen, -1);
@@ -314,7 +313,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
             ISet<string> files = input.ReadStringSet();
 
-            SegmentInfo info = new SegmentInfo(dir, version, name, docCount, isCompoundFile, null, diagnostics, attributes.AsReadOnly());
+            SegmentInfo info = new SegmentInfo(dir, version, name, docCount, isCompoundFile, null, diagnostics, Collections.AsReadOnly(attributes));
             info.SetFiles(files);
             return info;
         }

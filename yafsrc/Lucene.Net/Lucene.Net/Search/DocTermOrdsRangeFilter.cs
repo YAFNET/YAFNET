@@ -13,7 +13,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -37,11 +37,11 @@ namespace YAF.Lucene.Net.Search
 
     public abstract class DocTermOrdsRangeFilter : Filter
     {
-        readonly internal string field;
-        readonly internal BytesRef lowerVal;
-        readonly internal BytesRef upperVal;
-        readonly internal bool includeLower;
-        readonly internal bool includeUpper;
+        internal readonly string field;
+        internal readonly BytesRef lowerVal;
+        internal readonly BytesRef upperVal;
+        internal readonly bool includeLower;
+        internal readonly bool includeUpper;
 
         private DocTermOrdsRangeFilter(string field, BytesRef lowerVal, BytesRef upperVal, bool includeLower, bool includeUpper)
         {

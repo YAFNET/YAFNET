@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -45,7 +45,7 @@ namespace YAF.Lucene.Net.Search
     /// </summary>
     public class MultiTermQueryWrapperFilter<Q> : Filter where Q : MultiTermQuery
     {
-        readonly protected Q m_query;
+        protected readonly Q m_query;
 
         /// <summary>
         /// Wrap a <see cref="MultiTermQuery"/> as a <see cref="Filter"/>.

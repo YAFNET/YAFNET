@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -35,11 +35,11 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class RangeMapSingleFunction : ValueSource
     {
-        readonly protected ValueSource m_source;
-        readonly protected float m_min;
-        readonly protected float m_max;
-        readonly protected ValueSource m_target;
-        readonly protected ValueSource m_defaultVal;
+        protected readonly ValueSource m_source;
+        protected readonly float m_min;
+        protected readonly float m_max;
+        protected readonly ValueSource m_target;
+        protected readonly ValueSource m_defaultVal;
 
         public RangeMapSingleFunction(ValueSource source, float min, float max, float target, float? def)
             : this(source, min, max, new ConstValueSource(target), def is null ? null : new ConstValueSource(def.Value))

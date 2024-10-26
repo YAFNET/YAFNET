@@ -10,7 +10,7 @@ namespace YAF.Lucene.Net.Search.Similarities
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -38,7 +38,7 @@ namespace YAF.Lucene.Net.Search.Similarities
     {
         /// <summary>
         /// The collection model. </summary>
-        readonly protected ICollectionModel m_collectionModel;
+        protected readonly ICollectionModel m_collectionModel;
 
         /// <summary>
         /// Creates a new instance with the specified collection language model. </summary>
@@ -54,7 +54,7 @@ namespace YAF.Lucene.Net.Search.Similarities
         {
         }
 
-        override protected internal BasicStats NewStats(string field, float queryBoost)
+        protected internal override BasicStats NewStats(string field, float queryBoost)
         {
             return new LMStats(field, queryBoost);
         }
@@ -63,14 +63,14 @@ namespace YAF.Lucene.Net.Search.Similarities
         /// Computes the collection probability of the current term in addition to the
         /// usual statistics.
         /// </summary>
-        override protected internal void FillBasicStats(BasicStats stats, CollectionStatistics collectionStats, TermStatistics termStats)
+        protected internal override void FillBasicStats(BasicStats stats, CollectionStatistics collectionStats, TermStatistics termStats)
         {
             base.FillBasicStats(stats, collectionStats, termStats);
             LMStats lmStats = (LMStats)stats;
             lmStats.CollectionProbability = m_collectionModel.ComputeProbability(stats);
         }
 
-        override protected internal void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
+        protected internal override void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
         {
             expl.AddDetail(new Explanation(m_collectionModel.ComputeProbability(stats), "collection probability"));
         }

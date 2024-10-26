@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -61,7 +61,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Singleton <see cref="BytesRefEnumerator"/> that iterates over 0 BytesRefs.
         /// </summary>
-        public readonly static IBytesRefEnumerator EMPTY = new EmptyBytesRefEnumerator();
+        public static readonly IBytesRefEnumerator EMPTY = new EmptyBytesRefEnumerator();
 
         private class EmptyBytesRefEnumerator : IBytesRefEnumerator
         {
@@ -113,7 +113,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Singleton <see cref="BytesRefIterator"/> that iterates over 0 BytesRefs.
         /// </summary>
-        public readonly static IBytesRefIterator EMPTY = new EmptyBytesRefIterator();
+        public static readonly IBytesRefIterator EMPTY = new EmptyBytesRefIterator();
 
         private class EmptyBytesRefIterator : IBytesRefIterator
         {

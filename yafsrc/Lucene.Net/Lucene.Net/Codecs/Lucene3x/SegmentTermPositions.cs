@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -67,7 +67,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             this.proxStreamOrig = proxStream; // the proxStream will be cloned lazily when nextPosition() is called for the first time
         }
 
-        override internal void Seek(TermInfo ti, Term term)
+        internal override void Seek(TermInfo ti, Term term)
         {
             base.Seek(ti, term);
             if (ti != null)
@@ -82,7 +82,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
 
@@ -127,13 +127,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected internal sealed void SkippingDoc()
+        protected internal sealed override void SkippingDoc()
         {
             // we remember to skip a document lazily
             lazySkipProxCount += freq;
         }
 
-        public override sealed bool Next()
+        public sealed override bool Next()
         {
             // we remember to skip the remaining positions of the current
             // document lazily
@@ -148,7 +148,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             return false;
         }
 
-        public override sealed int Read(int[] docs, int[] freqs)
+        public sealed override int Read(int[] docs, int[] freqs)
         {
             throw UnsupportedOperationException.Create("TermPositions does not support processing multiple documents in one call. Use TermDocs instead.");
         }
@@ -156,7 +156,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         /// <summary>
         /// Called by <c>base.SkipTo()</c>. </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected internal void SkipProx(long proxPointer, int payloadLength)
+        protected internal override void SkipProx(long proxPointer, int payloadLength)
         {
             // we save the pointer, we might have to skip there lazily
             lazySkipPointer = proxPointer;

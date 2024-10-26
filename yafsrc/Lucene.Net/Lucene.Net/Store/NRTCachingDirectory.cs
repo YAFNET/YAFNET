@@ -24,8 +24,8 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IOUtils = Lucene.Net.Util.IOUtils;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     // TODO
     //   - let subclass dictate policy...?

@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -37,37 +37,37 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         /// This format adds optional per-segment String
         /// diagnostics storage, and switches userData to Map.
         /// </summary>
-        public readonly static int FORMAT_DIAGNOSTICS = -9;
+        public static readonly int FORMAT_DIAGNOSTICS = -9;
 
         /// <summary>
         /// Each segment records whether it has term vectors. </summary>
-        public readonly static int FORMAT_HAS_VECTORS = -10;
+        public static readonly int FORMAT_HAS_VECTORS = -10;
 
         /// <summary>
         /// Each segment records the Lucene version that created it. </summary>
-        public readonly static int FORMAT_3_1 = -11;
+        public static readonly int FORMAT_3_1 = -11;
 
         /// <summary>
         /// Extension used for saving each SegmentInfo, once a 3.x
         /// index is first committed to with 4.0.
         /// </summary>
-        public readonly static string UPGRADED_SI_EXTENSION = "si";
+        public static readonly string UPGRADED_SI_EXTENSION = "si";
 
-        public readonly static string UPGRADED_SI_CODEC_NAME = "Lucene3xSegmentInfo";
-        public readonly static int UPGRADED_SI_VERSION_START = 0;
-        public readonly static int UPGRADED_SI_VERSION_CURRENT = UPGRADED_SI_VERSION_START;
+        public static readonly string UPGRADED_SI_CODEC_NAME = "Lucene3xSegmentInfo";
+        public static readonly int UPGRADED_SI_VERSION_START = 0;
+        public static readonly int UPGRADED_SI_VERSION_CURRENT = UPGRADED_SI_VERSION_START;
 
         public override SegmentInfoReader SegmentInfoReader => reader;
 
         public override SegmentInfoWriter SegmentInfoWriter => throw UnsupportedOperationException.Create("this codec can only be used for reading");
 
         // only for backwards compat
-        public readonly static string DS_OFFSET_KEY = typeof(Lucene3xSegmentInfoFormat).Name + ".dsoffset";
+        public static readonly string DS_OFFSET_KEY = typeof(Lucene3xSegmentInfoFormat).Name + ".dsoffset";
 
-        public readonly static string DS_NAME_KEY = typeof(Lucene3xSegmentInfoFormat).Name + ".dsname";
-        public readonly static string DS_COMPOUND_KEY = typeof(Lucene3xSegmentInfoFormat).Name + ".dscompound";
-        public readonly static string NORMGEN_KEY = typeof(Lucene3xSegmentInfoFormat).Name + ".normgen";
-        public readonly static string NORMGEN_PREFIX = typeof(Lucene3xSegmentInfoFormat).Name + ".normfield";
+        public static readonly string DS_NAME_KEY = typeof(Lucene3xSegmentInfoFormat).Name + ".dsname";
+        public static readonly string DS_COMPOUND_KEY = typeof(Lucene3xSegmentInfoFormat).Name + ".dscompound";
+        public static readonly string NORMGEN_KEY = typeof(Lucene3xSegmentInfoFormat).Name + ".normgen";
+        public static readonly string NORMGEN_PREFIX = typeof(Lucene3xSegmentInfoFormat).Name + ".normfield";
 
         /// <returns> If this segment shares stored fields &amp; vectors, this
         ///         offset is where in that file this segment's docs begin.  </returns>

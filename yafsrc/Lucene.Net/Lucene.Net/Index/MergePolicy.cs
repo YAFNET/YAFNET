@@ -1,5 +1,5 @@
-﻿using J2N.Collections.Generic.Extensions;
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
 using System;
@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
+using System.ComponentModel;
 using System.Runtime.Serialization;
 #endif
 using System.Text;
@@ -32,11 +33,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = Lucene.Net.Store.Directory;
-    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
-    using MergeInfo = Lucene.Net.Store.MergeInfo;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
+    using MergeInfo = YAF.Lucene.Net.Store.MergeInfo;
 
-    //using AlreadySetException = Lucene.Net.Util.SetOnce.AlreadySetException;
+    //using AlreadySetException = YAF.Lucene.Net.Util.SetOnce.AlreadySetException;
 
     /// <summary>
     /// <para>Expert: a <see cref="MergePolicy"/> determines the sequence of
@@ -56,7 +57,7 @@ namespace YAF.Lucene.Net.Index
     /// then return the necessary merges.</para>
     ///
     /// <para>Note that the policy can return more than one merge at
-    /// a time.  In this case, if the writer is using 
+    /// a time.  In this case, if the writer is using
     /// <see cref="SerialMergeScheduler"/>, the merges will be run
     /// sequentially but if it is using
     /// <see cref="ConcurrentMergeScheduler"/> they will be run concurrently.</para>
@@ -190,7 +191,7 @@ namespace YAF.Lucene.Net.Index
                         readers.Add(reader);
                     }
                 }
-                return readers.AsReadOnly();
+                return Collections.AsReadOnly(readers);
             }
 
             /// <summary>
@@ -450,7 +451,7 @@ namespace YAF.Lucene.Net.Index
             public IList<OneMerge> Merges { get; private set; }
 
             /// <summary>
-            /// Sole constructor.  Use 
+            /// Sole constructor.  Use
             /// <see cref="Add(OneMerge)"/> to add merges.
             /// </summary>
             public MergeSpecification()
@@ -488,7 +489,7 @@ namespace YAF.Lucene.Net.Index
         /// Exception thrown if there are any problems while
         /// executing a merge.
         /// </summary>
-        // LUCENENET: It is no longer good practice to use binary serialization. 
+        // LUCENENET: It is no longer good practice to use binary serialization.
         // See: https://github.com/dotnet/corefx/issues/23584#issuecomment-325724568
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
         [Serializable]
@@ -525,6 +526,8 @@ namespace YAF.Lucene.Net.Index
             /// </summary>
             /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
             /// <param name="context">The <see cref="StreamingContext"/> that contains contextual information about the source or destination.</param>
+            [Obsolete("This API supports obsolete formatter-based serialization. It should not be called or extended by application code.")]
+            [EditorBrowsable(EditorBrowsableState.Never)]
             protected MergeException(SerializationInfo info, StreamingContext context)
                 : base(info, context)
             {
@@ -544,7 +547,7 @@ namespace YAF.Lucene.Net.Index
         /// <c>false</c>.  Normally this exception is
         /// privately caught and suppresed by <see cref="IndexWriter"/>.
         /// </summary>
-        // LUCENENET: It is no longer good practice to use binary serialization. 
+        // LUCENENET: It is no longer good practice to use binary serialization.
         // See: https://github.com/dotnet/corefx/issues/23584#issuecomment-325724568
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
         [Serializable]
@@ -573,6 +576,8 @@ namespace YAF.Lucene.Net.Index
             /// </summary>
             /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
             /// <param name="context">The <see cref="StreamingContext"/> that contains contextual information about the source or destination.</param>
+            [Obsolete("This API supports obsolete formatter-based serialization. It should not be called or extended by application code.")]
+            [EditorBrowsable(EditorBrowsableState.Never)]
             protected MergeAbortedException(SerializationInfo info, StreamingContext context)
                 : base(info, context)
             {
@@ -736,7 +741,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         /// <summary>
-        /// Return the byte size of the provided 
+        /// Return the byte size of the provided
         /// <see cref="SegmentCommitInfo"/>, pro-rated by percentage of
         /// non-deleted documents is set.
         /// </summary>
@@ -763,7 +768,7 @@ namespace YAF.Lucene.Net.Index
 #pragma warning disable 612, 618
                 && !info.Info.HasSeparateNorms
 #pragma warning restore 612, 618
-                && info.Info.Dir == w.Directory 
+                && info.Info.Dir == w.Directory
                 && UseCompoundFile(infos, info) == info.Info.UseCompoundFile;
         }
 

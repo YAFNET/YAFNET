@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -54,15 +54,15 @@ namespace YAF.Lucene.Net.Util
             /// This is the default factory that creates <see cref="Attribute"/>s using the
             /// <see cref="Type"/> of the supplied <see cref="IAttribute"/> interface by removing the <code>I</code> from the prefix.
             /// </summary>
-            public readonly static AttributeFactory DEFAULT_ATTRIBUTE_FACTORY = new DefaultAttributeFactory();
+            public static readonly AttributeFactory DEFAULT_ATTRIBUTE_FACTORY = new DefaultAttributeFactory();
 
             private sealed class DefaultAttributeFactory : AttributeFactory
             {
                 // LUCENENET: Using ConditionalWeakTable instead of WeakIdentityMap. A Type IS an
                 // identity for a class, so there is no need for an identity wrapper for it.
-                private readonly static ConditionalWeakTable<Type, WeakReference<Type>> attClassImplMap =
+                private static readonly ConditionalWeakTable<Type, WeakReference<Type>> attClassImplMap =
                     new ConditionalWeakTable<Type, WeakReference<Type>>();
-                private readonly static object attClassImplMapLock = new object();
+                private static readonly object attClassImplMapLock = new object();
 
                 internal DefaultAttributeFactory()
                 {
@@ -105,7 +105,7 @@ namespace YAF.Lucene.Net.Util
                     return null;
                 }
 
-                static internal Type GetClassForInterface<T>() where T : IAttribute
+                internal static Type GetClassForInterface<T>() where T : IAttribute
                 {
                     var attClass = typeof(T);
                     Type clazz;
@@ -328,10 +328,10 @@ namespace YAF.Lucene.Net.Util
         /// A cache that stores all interfaces for known implementation classes for performance (slow reflection) </summary>
         // LUCENENET: Using ConditionalWeakTable instead of WeakIdentityMap. A Type IS an
         // identity for a class, so there is no need for an identity wrapper for it.
-        private readonly static ConditionalWeakTable<Type, LinkedList<WeakReference<Type>>> knownImplClasses =
+        private static readonly ConditionalWeakTable<Type, LinkedList<WeakReference<Type>>> knownImplClasses =
             new ConditionalWeakTable<Type, LinkedList<WeakReference<Type>>>();
 
-        static internal LinkedList<WeakReference<Type>> GetAttributeInterfaces(Type clazz)
+        internal static LinkedList<WeakReference<Type>> GetAttributeInterfaces(Type clazz)
         {
             return knownImplClasses.GetValue(clazz, (key) =>
             {

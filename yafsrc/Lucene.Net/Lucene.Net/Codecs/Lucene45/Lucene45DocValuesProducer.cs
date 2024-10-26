@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -263,7 +263,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
             }
         }
 
-        static internal NumericEntry ReadNumericEntry(IndexInput meta)
+        internal static NumericEntry ReadNumericEntry(IndexInput meta)
         {
             NumericEntry entry = new NumericEntry();
             entry.format = meta.ReadVInt32();
@@ -305,7 +305,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
             return entry;
         }
 
-        static internal BinaryEntry ReadBinaryEntry(IndexInput meta)
+        internal static BinaryEntry ReadBinaryEntry(IndexInput meta)
         {
             BinaryEntry entry = new BinaryEntry();
             entry.format = meta.ReadVInt32();
@@ -889,7 +889,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
                 data.Dispose();
@@ -1007,13 +1007,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
         // more efficient reverse lookup and enumeration
         internal class CompressedBinaryDocValues : Int64BinaryDocValues
         {
-            readonly internal BinaryEntry bytes;
-            readonly internal long interval;
-            readonly internal long numValues;
-            readonly internal long numIndexValues;
-            readonly internal MonotonicBlockPackedReader addresses;
-            readonly internal IndexInput data;
-            readonly internal TermsEnum termsEnum;
+            internal readonly BinaryEntry bytes;
+            internal readonly long interval;
+            internal readonly long numValues;
+            internal readonly long numIndexValues;
+            internal readonly MonotonicBlockPackedReader addresses;
+            internal readonly IndexInput data;
+            internal readonly TermsEnum termsEnum;
 
             public CompressedBinaryDocValues(BinaryEntry bytes, MonotonicBlockPackedReader addresses, IndexInput data)
             {

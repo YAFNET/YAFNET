@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Index
      */
 
     // javadocs
-    using BytesRef = Lucene.Net.Util.BytesRef;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 
     // LUCENENET specific - converted constants from DocsAndPositionsEnum
     // into a flags enum.

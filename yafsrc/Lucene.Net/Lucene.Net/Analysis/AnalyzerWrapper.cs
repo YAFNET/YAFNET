@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Analysis
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -96,7 +96,7 @@ namespace YAF.Lucene.Net.Analysis
             return reader;
         }
 
-        override protected internal sealed TokenStreamComponents CreateComponents(string fieldName, TextReader aReader)
+        protected internal override sealed TokenStreamComponents CreateComponents(string fieldName, TextReader aReader)
         {
             var wrappedAnalyzer = GetWrappedAnalyzer(fieldName);
             var component = wrappedAnalyzer.CreateComponents(fieldName, aReader);
@@ -113,7 +113,7 @@ namespace YAF.Lucene.Net.Analysis
             return GetWrappedAnalyzer(fieldName).GetOffsetGap(fieldName);
         }
 
-        override protected internal TextReader InitReader(string fieldName, TextReader reader)
+        protected internal override TextReader InitReader(string fieldName, TextReader reader)
         {
             return GetWrappedAnalyzer(fieldName).InitReader(fieldName, WrapReader(fieldName, reader));
         }

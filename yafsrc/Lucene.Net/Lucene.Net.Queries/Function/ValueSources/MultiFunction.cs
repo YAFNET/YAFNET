@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public abstract class MultiFunction : ValueSource
     {
-        readonly protected IList<ValueSource> m_sources;
+        protected readonly IList<ValueSource> m_sources;
 
         protected MultiFunction(IList<ValueSource> sources)
         {
@@ -81,7 +81,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         {
             private readonly MultiFunction outerInstance;
 
-            readonly internal FunctionValues[] valsArr;
+            internal readonly FunctionValues[] valsArr;
 
             public Values(MultiFunction outerInstance, FunctionValues[] valsArr)
             {

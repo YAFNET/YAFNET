@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Search.Spans
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -90,12 +90,12 @@ namespace YAF.Lucene.Net.Search.Spans
                 this.outerInstance = outerInstance;
             }
 
-            override protected void Swap(int i, int j)
+            protected override void Swap(int i, int j)
             {
                 ArrayUtil.Swap(outerInstance.subSpansByDoc, i, j);
             }
 
-            override protected int Compare(int i, int j)
+            protected override int Compare(int i, int j)
             {
                 return outerInstance.subSpansByDoc[i].Doc - outerInstance.subSpansByDoc[j].Doc;
             }
@@ -300,7 +300,7 @@ namespace YAF.Lucene.Net.Search.Spans
         /// <returns> <c>true</c> if <paramref name="spans1"/> starts before <paramref name="spans2"/>
         ///              or the spans start at the same position,
         ///              and <paramref name="spans1"/> ends before <paramref name="spans2"/>. </returns>
-        static internal bool DocSpansOrdered(Spans spans1, Spans spans2)
+        internal static bool DocSpansOrdered(Spans spans1, Spans spans2)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(spans1.Doc == spans2.Doc,"doc1 {0} != doc2 {1}", spans1.Doc, spans2.Doc);
             int start1 = spans1.Start;

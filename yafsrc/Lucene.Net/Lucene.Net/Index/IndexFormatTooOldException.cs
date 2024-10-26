@@ -1,6 +1,8 @@
 ﻿using YAF.Lucene.Net.Diagnostics;
 using System;
+
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
+using System.ComponentModel;
 using System.Runtime.Serialization;
 #endif
 
@@ -23,7 +25,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using DataInput = Lucene.Net.Store.DataInput;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
 
     /// <summary>
     /// This exception is thrown when Lucene detects
@@ -102,6 +104,8 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
         /// <param name="context">The <see cref="StreamingContext"/> that contains contextual information about the source or destination.</param>
+        [Obsolete("This API supports obsolete formatter-based serialization. It should not be called or extended by application code.")]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected IndexFormatTooOldException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

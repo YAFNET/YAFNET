@@ -1,5 +1,4 @@
 ﻿// Lucene version compatibility level 4.8.1
-using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
@@ -17,7 +16,7 @@ namespace YAF.Lucene.Net.Analysis.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -98,7 +97,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                         services.Add(name, service);
                     }
                 }
-                this.services = services.AsReadOnly();
+                this.services = Collections.AsReadOnly(services);
             }
             finally
             {

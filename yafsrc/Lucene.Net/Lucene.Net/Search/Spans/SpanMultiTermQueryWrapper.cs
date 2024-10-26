@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Search.Spans
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -43,7 +43,7 @@ namespace YAF.Lucene.Net.Search.Spans
     /// </summary>
     public class SpanMultiTermQueryWrapper<Q> : SpanQuery, ISpanMultiTermQueryWrapper where Q : MultiTermQuery
     {
-        readonly protected Q m_query;
+        protected readonly Q m_query;
 
         /// <summary>
         /// Create a new <see cref="SpanMultiTermQueryWrapper{Q}"/>.
@@ -161,7 +161,7 @@ namespace YAF.Lucene.Net.Search.Spans
         /// scores as computed by the query.
         /// </summary>
         /// <seealso cref="MultiTermRewriteMethod"/>
-        public readonly static SpanRewriteMethod SCORING_SPAN_QUERY_REWRITE = new SpanRewriteMethodAnonymousClass();
+        public static readonly SpanRewriteMethod SCORING_SPAN_QUERY_REWRITE = new SpanRewriteMethodAnonymousClass();
 
         private sealed class SpanRewriteMethodAnonymousClass : SpanRewriteMethod
         {
@@ -177,17 +177,17 @@ namespace YAF.Lucene.Net.Search.Spans
                 {
                 }
 
-                override protected SpanOrQuery GetTopLevelQuery()
+                protected override SpanOrQuery GetTopLevelQuery()
                 {
                     return new SpanOrQuery();
                 }
 
-                override protected void CheckMaxClauseCount(int count)
+                protected override void CheckMaxClauseCount(int count)
                 {
                     // we accept all terms as SpanOrQuery has no limits
                 }
 
-                override protected void AddClause(SpanOrQuery topLevel, Term term, int docCount, float boost, TermContext states)
+                protected override void AddClause(SpanOrQuery topLevel, Term term, int docCount, float boost, TermContext states)
                 {
                     // TODO: would be nice to not lose term-state here.
                     // we could add a hack option to SpanOrQuery, but the hack would only work if this is the top-level Span
@@ -234,14 +234,14 @@ namespace YAF.Lucene.Net.Search.Spans
                 {
                 }
 
-                override protected int MaxSize => int.MaxValue;
+                protected override int MaxSize => int.MaxValue;
 
-                override protected SpanOrQuery GetTopLevelQuery()
+                protected override SpanOrQuery GetTopLevelQuery()
                 {
                     return new SpanOrQuery();
                 }
 
-                override protected void AddClause(SpanOrQuery topLevel, Term term, int docFreq, float boost, TermContext states)
+                protected override void AddClause(SpanOrQuery topLevel, Term term, int docFreq, float boost, TermContext states)
                 {
                     SpanTermQuery q = new SpanTermQuery(term);
                     q.Boost = boost;

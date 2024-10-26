@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -76,9 +76,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         internal const int VERSION_START = VERSION_NO_PAYLOADS;
         internal const int VERSION_CURRENT = VERSION_PAYLOADS;
 
-        readonly static internal long HEADER_LENGTH_FIELDS = CodecUtil.HeaderLength(CODEC_NAME_FIELDS);
-        readonly static internal long HEADER_LENGTH_DOCS = CodecUtil.HeaderLength(CODEC_NAME_DOCS);
-        readonly static internal long HEADER_LENGTH_INDEX = CodecUtil.HeaderLength(CODEC_NAME_INDEX);
+        internal static readonly long HEADER_LENGTH_FIELDS = CodecUtil.HeaderLength(CODEC_NAME_FIELDS);
+        internal static readonly long HEADER_LENGTH_DOCS = CodecUtil.HeaderLength(CODEC_NAME_DOCS);
+        internal static readonly long HEADER_LENGTH_INDEX = CodecUtil.HeaderLength(CODEC_NAME_INDEX);
 
         private readonly FieldInfos fieldInfos; // LUCENENET: marked readonly
 
@@ -225,7 +225,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             }
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
                 IOUtils.Dispose(tvx, tvd, tvf);

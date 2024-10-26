@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,7 +27,7 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
     /// </summary>
     public abstract class BoolDocValues : FunctionValues
     {
-        readonly protected ValueSource m_vs;
+        protected readonly ValueSource m_vs;
 
         protected BoolDocValues(ValueSource vs) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {

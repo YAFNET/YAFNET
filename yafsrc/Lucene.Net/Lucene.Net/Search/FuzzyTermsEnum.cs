@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -72,18 +72,18 @@ namespace YAF.Lucene.Net.Search
         // TODO: chicken-and-egg
         private readonly IComparer<BytesRef> termComparer = BytesRef.UTF8SortedAsUnicodeComparer;
 
-        readonly protected float m_minSimilarity;
-        readonly protected float m_scaleFactor;
+        protected readonly float m_minSimilarity;
+        protected readonly float m_scaleFactor;
 
-        readonly protected int m_termLength;
+        protected readonly int m_termLength;
 
         protected int m_maxEdits; 
-        readonly protected bool m_raw;
+        protected readonly bool m_raw;
 
-        readonly protected Terms m_terms;
+        protected readonly Terms m_terms;
         private readonly Term term;
-        readonly protected int[] m_termText;
-        readonly protected int m_realPrefixLength;
+        protected readonly int[] m_termText;
+        protected readonly int m_realPrefixLength;
 
         private readonly bool transpositions;
 
@@ -385,7 +385,7 @@ namespace YAF.Lucene.Net.Search
 
             /// <summary>
             /// Finds the smallest Lev(n) DFA that accepts the term. </summary>
-            override protected AcceptStatus Accept(BytesRef term)
+            protected override AcceptStatus Accept(BytesRef term)
             {
                 //System.out.println("AFTE.accept term=" + term);
                 int ed = matchers.Length - 1;

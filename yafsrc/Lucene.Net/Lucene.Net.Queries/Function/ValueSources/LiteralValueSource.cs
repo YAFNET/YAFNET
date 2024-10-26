@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,8 +29,8 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class LiteralValueSource : ValueSource
     {
-        readonly protected string m_str;
-        readonly protected BytesRef m_bytesRef;
+        protected readonly string m_str;
+        protected readonly BytesRef m_bytesRef;
 
         public LiteralValueSource(string str)
         {
@@ -92,7 +92,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
 
         }
 
-        public readonly static int hash = typeof(LiteralValueSource).GetHashCode();
+        public static readonly int hash = typeof(LiteralValueSource).GetHashCode();
         public override int GetHashCode()
         {
             return hash + m_str.GetHashCode();

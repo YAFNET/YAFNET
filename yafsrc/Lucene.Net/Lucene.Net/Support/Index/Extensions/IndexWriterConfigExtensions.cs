@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Index.Extensions
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -340,7 +340,7 @@ namespace YAF.Lucene.Net.Index.Extensions
         /// <param name="config">this <see cref="IndexWriterConfig"/> instance</param>
         /// <param name="threadPool"></param>
         /// <returns>this <see cref="IndexWriterConfig"/> instance</returns>
-        static internal IndexWriterConfig SetIndexerThreadPool(this IndexWriterConfig config, DocumentsWriterPerThreadPool threadPool)
+        internal static IndexWriterConfig SetIndexerThreadPool(this IndexWriterConfig config, DocumentsWriterPerThreadPool threadPool)
         {
             config.IndexerThreadPool = threadPool;
             return config;
@@ -376,7 +376,7 @@ namespace YAF.Lucene.Net.Index.Extensions
         /// <param name="config">this <see cref="IndexWriterConfig"/> instance</param>
         /// <param name="indexingChain"></param>
         /// <returns>this <see cref="IndexWriterConfig"/> instance</returns>
-        static internal IndexWriterConfig SetIndexingChain(this IndexWriterConfig config, DocumentsWriterPerThread.IndexingChain indexingChain)
+        internal static IndexWriterConfig SetIndexingChain(this IndexWriterConfig config, DocumentsWriterPerThread.IndexingChain indexingChain)
         {
             config.IndexingChain = indexingChain;
             return config;
@@ -388,7 +388,7 @@ namespace YAF.Lucene.Net.Index.Extensions
         /// <param name="config">this <see cref="IndexWriterConfig"/> instance</param>
         /// <param name="flushPolicy"></param>
         /// <returns>this <see cref="IndexWriterConfig"/> instance</returns>
-        static internal IndexWriterConfig SetFlushPolicy(this IndexWriterConfig config, FlushPolicy flushPolicy)
+        internal static IndexWriterConfig SetFlushPolicy(this IndexWriterConfig config, FlushPolicy flushPolicy)
         {
             config.FlushPolicy = flushPolicy;
             return config;

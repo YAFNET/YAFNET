@@ -13,7 +13,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,11 +30,11 @@ namespace YAF.Lucene.Net.Util.Packed
     internal sealed class PackedWriter : PackedInt32s.Writer
     {
         internal bool finished;
-        readonly internal PackedInt32s.Format format;
-        readonly internal BulkOperation encoder;
-        readonly internal byte[] nextBlocks;
-        readonly internal long[] nextValues;
-        readonly internal int iterations;
+        internal readonly PackedInt32s.Format format;
+        internal readonly BulkOperation encoder;
+        internal readonly byte[] nextBlocks;
+        internal readonly long[] nextValues;
+        internal readonly int iterations;
         internal int off;
         internal int written;
 
@@ -51,7 +51,7 @@ namespace YAF.Lucene.Net.Util.Packed
             finished = false;
         }
 
-        override protected internal PackedInt32s.Format Format => format;
+        protected internal override PackedInt32s.Format Format => format;
 
         public override void Add(long v)
         {

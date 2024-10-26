@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Search.Spans
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -37,7 +37,7 @@ namespace YAF.Lucene.Net.Search.Spans
     /// </summary>
     public class SpanPayloadCheckQuery : SpanPositionCheckQuery
     {
-        readonly protected ICollection<byte[]> m_payloadToMatch;
+        protected readonly ICollection<byte[]> m_payloadToMatch;
         private readonly IEqualityComparer payloadEqualityComparer;
 
         ///
@@ -65,7 +65,7 @@ namespace YAF.Lucene.Net.Search.Spans
                 payloadEqualityComparer = J2N.Collections.StructuralEqualityComparer.Default;
         }
 
-        override protected AcceptStatus AcceptPosition(Spans spans)
+        protected override AcceptStatus AcceptPosition(Spans spans)
         {
             bool result = spans.IsPayloadAvailable;
             if (result == true)

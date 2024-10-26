@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Analysis
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -42,7 +42,7 @@ namespace YAF.Lucene.Net.Analysis
         /// <summary>
         /// The underlying character-input stream.
         /// </summary>
-        readonly protected internal TextReader m_input;
+        protected internal readonly TextReader m_input;
 
         /// <summary>
         /// Create a new <see cref="CharFilter"/> wrapping the provided reader. </summary>
@@ -59,7 +59,7 @@ namespace YAF.Lucene.Net.Analysis
         /// The default implementation closes the input <see cref="TextReader"/>, so
         /// be sure to call <c>base.Dispose(disposing)</c> when overriding this method.
         /// </summary>
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -88,7 +88,7 @@ namespace YAF.Lucene.Net.Analysis
         // LUCENENET specific - force subclasses to implement Read(char[] buffer, int index, int count),
         // since it is required (and the .NET implementation calls Read() which would have infinite recursion
         // if it were called.
-        public override abstract int Read(char[] buffer, int index, int count);
+        public abstract override int Read(char[] buffer, int index, int count);
 
         // LUCENENET specific - need to override read, as it returns -1 by default in .NET.
         public override int Read()

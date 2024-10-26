@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -70,8 +70,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         internal const string CODEC_NAME_DAT = "Lucene40StoredFieldsData";
         internal const int VERSION_START = 0;
         internal const int VERSION_CURRENT = VERSION_START;
-        readonly static internal long HEADER_LENGTH_IDX = CodecUtil.HeaderLength(CODEC_NAME_IDX);
-        readonly static internal long HEADER_LENGTH_DAT = CodecUtil.HeaderLength(CODEC_NAME_DAT);
+        internal static readonly long HEADER_LENGTH_IDX = CodecUtil.HeaderLength(CODEC_NAME_IDX);
+        internal static readonly long HEADER_LENGTH_DAT = CodecUtil.HeaderLength(CODEC_NAME_DAT);
 
         /// <summary>
         /// Extension of stored fields file. </summary>
@@ -132,7 +132,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

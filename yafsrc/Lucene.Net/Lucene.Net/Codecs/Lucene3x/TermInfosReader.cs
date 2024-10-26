@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -62,7 +62,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         // Just adds term's ord to TermInfo
         public sealed class TermInfoAndOrd : TermInfo
         {
-            readonly internal long termOrd;
+            internal readonly long termOrd;
 
             public TermInfoAndOrd(TermInfo ti, long termOrd)
                 : base(ti)
@@ -198,7 +198,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             return resources;
         }
 
-        private readonly static IComparer<BytesRef> legacyComparer = BytesRef.UTF8SortedAsUTF16Comparer;
+        private static readonly IComparer<BytesRef> legacyComparer = BytesRef.UTF8SortedAsUTF16Comparer;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int CompareAsUTF16(Term term1, Term term2) // LUCENENET: CA1822: Mark members as static
@@ -249,7 +249,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal Term DeepCopyOf(Term other)
+        internal static Term DeepCopyOf(Term other)
         {
             return new Term(other.Field, BytesRef.DeepCopyOf(other.Bytes));
         }

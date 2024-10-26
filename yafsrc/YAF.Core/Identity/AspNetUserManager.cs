@@ -111,7 +111,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public IdentityResult RemoveFromRole(string userId, string role)
     {
-        return this.RemoveFromRoleAsync(userId, role).Result;
+        return this.RemoveFromRoleAsync(userId, role).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -128,7 +128,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public ClaimsIdentity CreateIdentity(AspNetUsers user, string authenticationType)
     {
-        return this.CreateIdentityAsync(user, authenticationType).Result;
+        return this.CreateIdentityAsync(user, authenticationType).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -142,7 +142,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public IdentityResult Delete(AspNetUsers user)
     {
-        return this.DeleteAsync(user).Result;
+        return this.DeleteAsync(user).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -156,11 +156,11 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public AspNetUsers FindById(string userId)
     {
-        return this.FindByIdAsync(userId).Result;
+        return this.FindByIdAsync(userId).GetAwaiter().GetResult();
     }
 
     /// <summary>
-    /// Gets the roles for the user
+    /// Gets the roles for the user.
     /// </summary>
     /// <param name="userId">
     /// The user Id.
@@ -170,7 +170,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public IList<string> GetRoles(string userId)
     {
-        return this.GetRolesAsync(userId).Result;
+        return this.GetRolesAsync(userId).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -187,7 +187,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public bool IsInRole(AspNetUsers user, string role)
     {
-        return this.IsInRoleAsync(user.Id, role).Result;
+        return this.IsInRoleAsync(user.Id, role).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -218,7 +218,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public IdentityResult Create(AspNetUsers user, string password)
     {
-        return this.CreateAsync(user, password).Result;
+        return this.CreateAsync(user, password).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -232,7 +232,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public IdentityResult Update(AspNetUsers user)
     {
-        return this.UpdateAsync(user).Result;
+        return this.UpdateAsync(user).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -249,7 +249,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public IdentityResult ConfirmEmail(string userId, string token)
     {
-        return this.ConfirmEmailAsync(userId, token).Result;
+        return this.ConfirmEmailAsync(userId, token).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -263,7 +263,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public AspNetUsers FindByName(string userName)
     {
-        return this.FindByNameAsync(userName).Result;
+        return this.FindByNameAsync(userName).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -277,7 +277,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public AspNetUsers FindByEmail(string email)
     {
-        return this.FindByEmailAsync(email).Result;
+        return this.FindByEmailAsync(email).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -291,7 +291,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public string GeneratePasswordResetToken(string userId)
     {
-        return this.GeneratePasswordResetTokenAsync(userId).Result;
+        return this.GeneratePasswordResetTokenAsync(userId).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -311,7 +311,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public IdentityResult ResetPassword(string userId, string token, string newPassword)
     {
-        return this.ResetPasswordAsync(userId, token, newPassword).Result;
+        return this.ResetPasswordAsync(userId, token, newPassword).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -325,7 +325,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public string GenerateEmailConfirmationResetToken(string userId)
     {
-        return this.GenerateEmailConfirmationTokenAsync(userId).Result;
+        return this.GenerateEmailConfirmationTokenAsync(userId).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -345,7 +345,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public IdentityResult ChangePassword(string userId, string currentPassword, string newPassword)
     {
-        return this.ChangePasswordAsync(userId, currentPassword, newPassword).Result;
+        return this.ChangePasswordAsync(userId, currentPassword, newPassword).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -362,6 +362,6 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public IdentityResult AddLogin(string userId, UserLoginInfo login)
     {
-        return this.AddLoginAsync(userId, login).Result;
+        return this.AddLoginAsync(userId, login).GetAwaiter().GetResult();
     }
 }

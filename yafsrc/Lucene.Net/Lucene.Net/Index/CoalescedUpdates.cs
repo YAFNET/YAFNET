@@ -22,9 +22,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using Query = Lucene.Net.Search.Query;
-    using QueryAndLimit = Lucene.Net.Index.BufferedUpdatesStream.QueryAndLimit;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using Query = YAF.Lucene.Net.Search.Query;
+    using QueryAndLimit = YAF.Lucene.Net.Index.BufferedUpdatesStream.QueryAndLimit;
 
     internal class CoalescedUpdates
     {

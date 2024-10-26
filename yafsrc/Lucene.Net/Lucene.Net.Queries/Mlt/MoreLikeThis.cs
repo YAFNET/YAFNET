@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Queries.Mlt
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -132,64 +132,64 @@ namespace YAF.Lucene.Net.Queries.Mlt
         /// Default maximum number of tokens to parse in each example doc field that is not stored with TermVector support.
         /// </summary>
         /// <seealso cref="MaxNumTokensParsed"/>
-        public readonly static int DEFAULT_MAX_NUM_TOKENS_PARSED = 5000;
+        public static readonly int DEFAULT_MAX_NUM_TOKENS_PARSED = 5000;
 
         /// <summary>
         /// Ignore terms with less than this frequency in the source doc.
         /// </summary>
         /// <seealso cref="MinTermFreq"/>
-        public readonly static int DEFAULT_MIN_TERM_FREQ = 2;
+        public static readonly int DEFAULT_MIN_TERM_FREQ = 2;
 
         /// <summary>
         /// Ignore words which do not occur in at least this many docs.
         /// </summary>
         /// <seealso cref="MinDocFreq"/>
-        public readonly static int DEFAULT_MIN_DOC_FREQ = 5;
+        public static readonly int DEFAULT_MIN_DOC_FREQ = 5;
 
         /// <summary>
         /// Ignore words which occur in more than this many docs.
         /// </summary>
         /// <seealso cref="MaxDocFreq"/>
         /// <seealso cref="SetMaxDocFreqPct(int)"/>
-        public readonly static int DEFAULT_MAX_DOC_FREQ = int.MaxValue;
+        public static readonly int DEFAULT_MAX_DOC_FREQ = int.MaxValue;
 
         /// <summary>
         /// Boost terms in query based on score.
         /// </summary>
         /// <seealso cref="ApplyBoost"/>
-        public readonly static bool DEFAULT_BOOST = false;
+        public static readonly bool DEFAULT_BOOST = false;
 
         /// <summary>
         /// Default field names. Null is used to specify that the field names should be looked
         /// up at runtime from the provided reader.
         /// </summary>
-        public readonly static string[] DEFAULT_FIELD_NAMES = new string[] { "contents" };
+        public static readonly string[] DEFAULT_FIELD_NAMES = new string[] { "contents" };
 
         /// <summary>
         /// Ignore words less than this length or if 0 then this has no effect.
         /// </summary>
         /// <seealso cref="MinWordLen"/>
-        public readonly static int DEFAULT_MIN_WORD_LENGTH = 0;
+        public static readonly int DEFAULT_MIN_WORD_LENGTH = 0;
 
         /// <summary>
         /// Ignore words greater than this length or if 0 then this has no effect.
         /// </summary>
         /// <seealso cref="MaxWordLen"/>
-        public readonly static int DEFAULT_MAX_WORD_LENGTH = 0;
+        public static readonly int DEFAULT_MAX_WORD_LENGTH = 0;
 
         /// <summary>
         /// Default set of stopwords.
         /// If null means to allow stop words.
         /// </summary>
         /// <seealso cref="StopWords"/>
-        public readonly static ISet<string> DEFAULT_STOP_WORDS = null;
+        public static readonly ISet<string> DEFAULT_STOP_WORDS = null;
 
         /// <summary>
         /// Return a Query with no more than this many terms.
         /// </summary>
         /// <seealso cref="BooleanQuery.MaxClauseCount"/>
         /// <seealso cref="MaxQueryTerms"/>
-        public readonly static int DEFAULT_MAX_QUERY_TERMS = 25;
+        public static readonly int DEFAULT_MAX_QUERY_TERMS = 25;
 
         // LUCNENENET NOTE: The following fields were made into auto-implemented properties:
         // analyzer, minTermFreq, minDocFreq, maxDocFreq, boost, 
@@ -720,7 +720,7 @@ namespace YAF.Lucene.Net.Queries.Mlt
             }
 
             // LUCENENET: Factored out the object[] to avoid boxing
-            override protected internal bool LessThan(ScoreTerm aa, ScoreTerm bb)
+            protected internal override bool LessThan(ScoreTerm aa, ScoreTerm bb)
             {
                 return aa.Score > bb.Score;
             }

@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Search
     * (the "License"); you may not use this file except in compliance with
     * the License.  You may obtain a copy of the License at
     *
-    *     https://www.apache.org/licenses/LICENSE-2.0
+    *     http://www.apache.org/licenses/LICENSE-2.0
     *
     * Unless required by applicable law or agreed to in writing, software
     * distributed under the License is distributed on an "AS IS" BASIS,
@@ -246,7 +246,7 @@ namespace YAF.Lucene.Net.Search
             return false;
         }
 
-        private readonly static IComparer<ScoreTerm> scoreTermSortByTermComp = Comparer<ScoreTerm>.Create((st1, st2) =>
+        private static readonly IComparer<ScoreTerm> scoreTermSortByTermComp = Comparer<ScoreTerm>.Create((st1, st2) =>
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(st1.TermComp == st2.TermComp, "term comparer should not change between segments");
             return st1.TermComp.Compare(st1.Bytes, st2.Bytes);

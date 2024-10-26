@@ -13,7 +13,7 @@ namespace YAF.Lucene.Net.Search.Spans
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -31,8 +31,8 @@ namespace YAF.Lucene.Net.Search.Spans
     /// </summary>
     public class TermSpans : Spans
     {
-        readonly protected DocsAndPositionsEnum m_postings;
-        readonly protected Term m_term;
+        protected readonly DocsAndPositionsEnum m_postings;
+        protected readonly Term m_term;
         protected int m_doc;
         protected int m_freq;
         protected int m_count;
@@ -162,6 +162,6 @@ namespace YAF.Lucene.Net.Search.Spans
             }
         }
 
-        public readonly static TermSpans EMPTY_TERM_SPANS = new EmptyTermSpans();
+        public static readonly TermSpans EMPTY_TERM_SPANS = new EmptyTermSpans();
     }
 }

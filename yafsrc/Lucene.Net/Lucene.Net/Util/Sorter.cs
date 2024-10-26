@@ -13,7 +13,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -347,13 +347,13 @@ namespace YAF.Lucene.Net.Util
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal int HeapParent(int from, int i)
+        internal static int HeapParent(int from, int i)
         {
             return ((i - 1 - from).TripleShift(1)) + from;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal int HeapChild(int from, int i)
+        internal static int HeapChild(int from, int i)
         {
             return ((i - from) << 1) + 1 + from;
         }

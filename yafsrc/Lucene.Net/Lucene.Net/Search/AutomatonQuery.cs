@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -50,13 +50,13 @@ namespace YAF.Lucene.Net.Search
     {
         /// <summary>
         /// The automaton to match index terms against </summary>
-        readonly protected Automaton m_automaton;
+        protected readonly Automaton m_automaton;
 
-        readonly protected CompiledAutomaton m_compiled;
+        protected readonly CompiledAutomaton m_compiled;
 
         /// <summary>
         /// Term containing the field, and possibly some pattern structure </summary>
-        readonly protected Term m_term;
+        protected readonly Term m_term;
 
         /// <summary>
         /// Create a new AutomatonQuery from an <see cref="Automaton"/>.
@@ -73,7 +73,7 @@ namespace YAF.Lucene.Net.Search
             this.m_compiled = new CompiledAutomaton(automaton);
         }
 
-        override protected TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
+        protected override TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
         {
             return m_compiled.GetTermsEnum(terms);
         }

@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Codecs
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -510,7 +510,7 @@ namespace YAF.Lucene.Net.Codecs
         // TODO: seek-by-ord to nextSetBit
         internal class BitsFilteredTermsEnum : FilteredTermsEnum
         {
-            readonly internal Int64BitSet liveTerms;
+            internal readonly Int64BitSet liveTerms;
 
             internal BitsFilteredTermsEnum(TermsEnum @in, Int64BitSet liveTerms)
                 : base(@in, false)
@@ -519,7 +519,7 @@ namespace YAF.Lucene.Net.Codecs
                 this.liveTerms = liveTerms;
             }
 
-            override protected AcceptStatus Accept(BytesRef term)
+            protected override AcceptStatus Accept(BytesRef term)
             {
                 return liveTerms.Get(Ord) ? AcceptStatus.YES : AcceptStatus.NO;
             }

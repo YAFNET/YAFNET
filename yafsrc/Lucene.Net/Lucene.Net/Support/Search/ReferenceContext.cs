@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,9 +30,9 @@ namespace YAF.Lucene.Net.Search
     /// <para/>
     /// LUCENENET specific
     /// </summary>
-    /// <typeparam name="T">The reference type</typeparam>
+    /// <typeparam name="T">The reference type.</typeparam>
     public ref struct ReferenceContext<T>
-         where T : class
+        where T : class
     {
         [SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "This is a SonarCloud issue")]
         [SuppressMessage("Major Code Smell", "S2933:Fields that are only assigned in the constructor should be \"readonly\"", Justification = "Structs are known to have performance issues with readonly fields")]

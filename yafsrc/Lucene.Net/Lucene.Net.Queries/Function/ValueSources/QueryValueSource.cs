@@ -18,7 +18,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,8 +32,8 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class QueryValueSource : ValueSource
     {
-        readonly internal Query q;
-        readonly internal float defVal;
+        internal readonly Query q;
+        internal readonly float defVal;
 
         public QueryValueSource(Query q, float defVal)
         {
@@ -78,12 +78,12 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
 
     internal class QueryDocValues : SingleDocValues
     {
-        readonly internal AtomicReaderContext readerContext;
-        readonly internal IBits acceptDocs;
-        readonly internal Weight weight;
-        readonly internal float defVal;
-        readonly internal IDictionary fcontext;
-        readonly internal Query q;
+        internal readonly AtomicReaderContext readerContext;
+        internal readonly IBits acceptDocs;
+        internal readonly Weight weight;
+        internal readonly float defVal;
+        internal readonly IDictionary fcontext;
+        internal readonly Query q;
 
         internal Scorer scorer;
         internal int scorerDoc; // the document the scorer is on

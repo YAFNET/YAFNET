@@ -10,7 +10,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -61,7 +61,7 @@ namespace YAF.Lucene.Net.Search
     /// </summary>
     public abstract class MultiTermQuery : Query
     {
-        readonly protected internal string m_field;
+        protected internal readonly string m_field;
         protected RewriteMethod m_rewriteMethod = CONSTANT_SCORE_AUTO_REWRITE_DEFAULT;
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace YAF.Lucene.Net.Search
         /// exception.
         /// </summary>
         /// <seealso cref="MultiTermRewriteMethod"/>
-        public readonly static RewriteMethod CONSTANT_SCORE_FILTER_REWRITE = new RewriteMethodAnonymousClass();
+        public static readonly RewriteMethod CONSTANT_SCORE_FILTER_REWRITE = new RewriteMethodAnonymousClass();
 
         private sealed class RewriteMethodAnonymousClass : RewriteMethod
         {
@@ -122,7 +122,7 @@ namespace YAF.Lucene.Net.Search
         /// exceeds <see cref="BooleanQuery.MaxClauseCount"/>.
         /// </summary>
         /// <seealso cref="MultiTermRewriteMethod"/>
-        public readonly static RewriteMethod SCORING_BOOLEAN_QUERY_REWRITE = ScoringRewrite<MultiTermQuery>.SCORING_BOOLEAN_QUERY_REWRITE;
+        public static readonly RewriteMethod SCORING_BOOLEAN_QUERY_REWRITE = ScoringRewrite<MultiTermQuery>.SCORING_BOOLEAN_QUERY_REWRITE;
 
         /// <summary>
         /// Like <see cref="SCORING_BOOLEAN_QUERY_REWRITE"/> except
@@ -135,7 +135,7 @@ namespace YAF.Lucene.Net.Search
         /// exceeds <see cref="BooleanQuery.MaxClauseCount"/>.
         /// </summary>
         /// <seealso cref="MultiTermRewriteMethod"/>
-        public readonly static RewriteMethod CONSTANT_SCORE_BOOLEAN_QUERY_REWRITE = ScoringRewrite<MultiTermQuery>.CONSTANT_SCORE_BOOLEAN_QUERY_REWRITE;
+        public static readonly RewriteMethod CONSTANT_SCORE_BOOLEAN_QUERY_REWRITE = ScoringRewrite<MultiTermQuery>.CONSTANT_SCORE_BOOLEAN_QUERY_REWRITE;
 
         /// <summary>
         /// A rewrite method that first translates each term into
@@ -162,14 +162,14 @@ namespace YAF.Lucene.Net.Search
             {
             }
 
-            override protected int MaxSize => BooleanQuery.MaxClauseCount;
+            protected override int MaxSize => BooleanQuery.MaxClauseCount;
 
-            override protected BooleanQuery GetTopLevelQuery()
+            protected override BooleanQuery GetTopLevelQuery()
             {
                 return new BooleanQuery(true);
             }
 
-            override protected void AddClause(BooleanQuery topLevel, Term term, int docCount, float boost, TermContext states)
+            protected override void AddClause(BooleanQuery topLevel, Term term, int docCount, float boost, TermContext states)
             {
                 TermQuery tq = new TermQuery(term, states);
                 tq.Boost = boost;
@@ -200,14 +200,14 @@ namespace YAF.Lucene.Net.Search
             {
             }
 
-            override protected int MaxSize => BooleanQuery.MaxClauseCount;
+            protected override int MaxSize => BooleanQuery.MaxClauseCount;
 
-            override protected BooleanQuery GetTopLevelQuery()
+            protected override BooleanQuery GetTopLevelQuery()
             {
                 return new BooleanQuery(true);
             }
 
-            override protected void AddClause(BooleanQuery topLevel, Term term, int docFreq, float boost, TermContext states)
+            protected override void AddClause(BooleanQuery topLevel, Term term, int docFreq, float boost, TermContext states)
             {
                 Query q = new ConstantScoreQuery(new TermQuery(term, states));
                 q.Boost = boost;
@@ -242,7 +242,7 @@ namespace YAF.Lucene.Net.Search
         /// instance; you'll need to create a private instance
         /// instead.
         /// </summary>
-        public readonly static RewriteMethod CONSTANT_SCORE_AUTO_REWRITE_DEFAULT = new ConstantScoreAutoRewriteAnonymousClass();
+        public static readonly RewriteMethod CONSTANT_SCORE_AUTO_REWRITE_DEFAULT = new ConstantScoreAutoRewriteAnonymousClass();
 
         private sealed class ConstantScoreAutoRewriteAnonymousClass : ConstantScoreAutoRewrite
         {

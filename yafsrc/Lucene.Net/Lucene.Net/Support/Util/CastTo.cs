@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,7 +24,7 @@ namespace YAF.Lucene.Net.Util
     /// Class to cast to type <typeparamref name="T"/>.
     /// </summary>
     /// <typeparam name="T">Target type</typeparam>
-    static internal class CastTo<T>
+    internal static class CastTo<T>
     {
         /// <summary>
         /// Casts <paramref name="s"/> to <typeparamref name="T"/>.
@@ -39,7 +39,7 @@ namespace YAF.Lucene.Net.Util
 
         private static class Cache<TSource>
         {
-            public readonly static Func<TSource, T> caster = Get();
+            public static readonly Func<TSource, T> caster = Get();
 
             private static Func<TSource, T> Get()
             {

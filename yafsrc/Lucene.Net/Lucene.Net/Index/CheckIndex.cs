@@ -31,21 +31,21 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BlockTreeTermsReader = Lucene.Net.Codecs.BlockTreeTermsReader<object>;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using Codec = Lucene.Net.Codecs.Codec;
-    using Directory = Lucene.Net.Store.Directory;
-    using DocIdSetIterator = Lucene.Net.Search.DocIdSetIterator;
+    using BlockTreeTermsReader = YAF.Lucene.Net.Codecs.BlockTreeTermsReader<object>;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
     using Document = Documents.Document;
-    using DocValuesStatus = Lucene.Net.Index.CheckIndex.Status.DocValuesStatus;
-    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
-    using IBits = Lucene.Net.Util.IBits;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using Int64BitSet = Lucene.Net.Util.Int64BitSet;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using Lucene3xSegmentInfoFormat = Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
-    using PostingsFormat = Lucene.Net.Codecs.PostingsFormat;
-    using StringHelper = Lucene.Net.Util.StringHelper;
+    using DocValuesStatus = YAF.Lucene.Net.Index.CheckIndex.Status.DocValuesStatus;
+    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using Int64BitSet = YAF.Lucene.Net.Util.Int64BitSet;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using Lucene3xSegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
+    using PostingsFormat = YAF.Lucene.Net.Codecs.PostingsFormat;
+    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// Basic tool and API to check the health of an index and
@@ -107,7 +107,7 @@ namespace YAF.Lucene.Net.Index
             /// <summary>
             /// Empty unless you passed specific segments list to check as optional 3rd argument. </summary>
             /// <seealso cref="CheckIndex.DoCheckIndex(IList{string})"/>
-            public IList<string> SegmentsChecked { get; internal set; } // LUCENENET specific - made setter internal 
+            public IList<string> SegmentsChecked { get; internal set; } // LUCENENET specific - made setter internal
 
             /// <summary>
             /// True if the index was created with a newer version of Lucene than the <see cref="CheckIndex"/> tool. </summary>
@@ -137,7 +137,7 @@ namespace YAF.Lucene.Net.Index
             public int NumBadSegments { get; internal set; } // LUCENENET specific - made setter internal
 
             /// <summary>
-            /// True if we checked only specific segments 
+            /// True if we checked only specific segments
             /// (<see cref="DoCheckIndex(IList{string})"/> was called with non-null
             /// argument).
             /// </summary>
@@ -519,13 +519,13 @@ namespace YAF.Lucene.Net.Index
             {
                 Msg(infoStream, "ERROR: could not read any segments file in directory");
                 result.MissingSegments = true;
-                
+
                 // LUCENENET NOTE: Some tests rely on the error type being in
                 // the message. We can't get the error type with StackTrace, we
                 // need ToString() for that.
                 infoStream?.WriteLine(t.ToString());
                 //infoStream.WriteLine(t.StackTrace);
-                
+
                 return result;
             }
 
@@ -567,13 +567,13 @@ namespace YAF.Lucene.Net.Index
             catch (Exception t) when (t.IsThrowable())
             {
                 Msg(infoStream, "ERROR: could not open segments file in directory");
-                
+
                 // LUCENENET NOTE: Some tests rely on the error type being in
                 // the message. We can't get the error type with StackTrace, we
                 // need ToString() for that.
                 infoStream?.WriteLine(t.ToString());
                 //infoStream.WriteLine(t.StackTrace);
-                
+
                 result.CantOpenSegments = true;
                 return result;
             }
@@ -585,13 +585,13 @@ namespace YAF.Lucene.Net.Index
             catch (Exception t) when (t.IsThrowable())
             {
                 Msg(infoStream, "ERROR: could not read segment file version in directory");
-                
+
                 // LUCENENET NOTE: Some tests rely on the error type being in
                 // the message. We can't get the error type with StackTrace, we
                 // need ToString() for that.
                 infoStream?.WriteLine(t.ToString());
                 //infoStream.WriteLine(t.StackTrace);
-                
+
                 result.MissingSegmentVersion = true;
                 return result;
             }
@@ -745,12 +745,12 @@ namespace YAF.Lucene.Net.Index
                     segInfoStat.OpenReaderPassed = true;
 
                     infoStream?.Write("    test: check integrity.....");
-                    
+
                     reader.CheckIntegrity();
                     Msg(infoStream, "OK");
 
                     infoStream?.Write("    test: check live docs.....");
-                    
+
                     int numDocs = reader.NumDocs;
                     toLoseDocCount = numDocs;
                     if (reader.HasDeletions)
@@ -818,7 +818,7 @@ namespace YAF.Lucene.Net.Index
 
                     // Test getFieldInfos()
                     infoStream?.Write("    test: fields..............");
-                    
+
                     FieldInfos fieldInfos = reader.FieldInfos;
                     Msg(infoStream, "OK [" + fieldInfos.Count + " fields]");
                     segInfoStat.NumFields = fieldInfos.Count;
@@ -873,7 +873,7 @@ namespace YAF.Lucene.Net.Index
                     // the message. We can't get the error type with StackTrace, we
                     // need ToString() for that.
                     infoStream?.WriteLine(t.ToString());
-                    
+
                     Msg(infoStream, "");
                     result.TotLoseDocCount += toLoseDocCount;
                     result.NumBadSegments++;
@@ -954,12 +954,12 @@ namespace YAF.Lucene.Net.Index
             {
                 Msg(infoStream, "ERROR [" + e.Message + "]");
                 status.Error = e;
-             
+
                 // LUCENENET NOTE: Some tests rely on the error type being in
                 // the message. We can't get the error type with StackTrace, we
                 // need ToString() for that.
                 infoStream?.WriteLine(e.ToString());
-                //infoStream.WriteLine(e.StackTrace);      
+                //infoStream.WriteLine(e.StackTrace);
             }
 
             return status;
@@ -1645,7 +1645,7 @@ namespace YAF.Lucene.Net.Index
             try
             {
                 infoStream?.Write("    test: terms, freq, prox...");
-                
+
                 Fields fields = reader.Fields;
                 FieldInfos fieldInfos = reader.FieldInfos;
                 status = CheckFields(fields, liveDocs, maxDoc, fieldInfos, true, false, infoStream, verbose);
@@ -1660,12 +1660,12 @@ namespace YAF.Lucene.Net.Index
                 Msg(infoStream, "ERROR: " + e);
                 status = new Status.TermIndexStatus();
                 status.Error = e;
-                
+
                 // LUCENENET NOTE: Some tests rely on the error type being in
                 // the message. We can't get the error type with StackTrace, we
                 // need ToString() for that.
                 infoStream?.WriteLine(e.ToString());
-                //infoStream.WriteLine(e.StackTrace);                
+                //infoStream.WriteLine(e.StackTrace);
             }
 
             return status;
@@ -1710,12 +1710,12 @@ namespace YAF.Lucene.Net.Index
             {
                 Msg(infoStream, "ERROR [" + e.Message + "]");
                 status.Error = e;
-               
+
                 // LUCENENET NOTE: Some tests rely on the error type being in
                 // the message. We can't get the error type with StackTrace, we
                 // need ToString() for that.
                 infoStream?.WriteLine(e.ToString());
-                //infoStream.WriteLine(e.StackTrace);                
+                //infoStream.WriteLine(e.StackTrace);
             }
 
             return status;
@@ -1732,7 +1732,7 @@ namespace YAF.Lucene.Net.Index
             try
             {
                 infoStream?.Write("    test: docvalues...........");
-                
+
                 foreach (FieldInfo fieldInfo in reader.FieldInfos)
                 {
                     if (fieldInfo.HasDocValues)
@@ -1755,12 +1755,12 @@ namespace YAF.Lucene.Net.Index
             {
                 Msg(infoStream, "ERROR [" + e.Message + "]");
                 status.Error = e;
-                
+
                 // LUCENENET NOTE: Some tests rely on the error type being in
                 // the message. We can't get the error type with StackTrace, we
                 // need ToString() for that.
                 infoStream?.WriteLine(e.ToString());
-                //infoStream.WriteLine(e.StackTrace);                
+                //infoStream.WriteLine(e.StackTrace);
             }
             return status;
         }
@@ -2278,7 +2278,7 @@ namespace YAF.Lucene.Net.Index
             {
                 Msg(infoStream, "ERROR [" + e.Message + "]");
                 status.Error = e;
-               
+
                 // LUCENENET NOTE: Some tests rely on the error type being in
                 // the message. We can't get the error type with StackTrace, we
                 // need ToString() for that.
@@ -2363,6 +2363,19 @@ namespace YAF.Lucene.Net.Index
         /////  <p>
         /////                     this tool exits with exit code 1 if the index cannot be opened or has any
         /////                     corruption, else 0.
+
+
+        /// <summary>
+        /// LUCENENET specific: In the Java implementation, this Main method
+        /// was intended to be called from the command line. However, in .NET a
+        /// method within a DLL can't be directly called from the command line so we
+        /// provide a <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/global-tools">.NET tool</see>,
+        /// <see href="https://www.nuget.org/packages/lucene-cli">lucene-cli</see>,
+        /// with a command that maps to this method:
+        /// index check
+        /// </summary>
+        /// <param name="args">The command line arguments</param>
+        /// <exception cref="ArgumentException">Thrown if invalid arguments are provided</exception>
         [STAThread]
         public static void Main(string[] args)
         {

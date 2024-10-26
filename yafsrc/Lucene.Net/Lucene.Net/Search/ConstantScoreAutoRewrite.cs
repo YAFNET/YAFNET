@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -86,12 +86,12 @@ namespace YAF.Lucene.Net.Search
             set => docCountPercent = value;
         }
 
-        override protected BooleanQuery GetTopLevelQuery()
+        protected override BooleanQuery GetTopLevelQuery()
         {
             return new BooleanQuery(true);
         }
 
-        override protected void AddClause(BooleanQuery topLevel, Term term, int docFreq, float boost, TermContext states) //ignored
+        protected override void AddClause(BooleanQuery topLevel, Term term, int docFreq, float boost, TermContext states) //ignored
         {
             topLevel.Add(new TermQuery(term, states), Occur.SHOULD);
         }
@@ -176,8 +176,8 @@ namespace YAF.Lucene.Net.Search
             internal bool hasCutOff = false;
             internal TermsEnum termsEnum;
 
-            readonly internal int docCountCutoff, termCountLimit;
-            readonly internal TermStateByteStart array = new TermStateByteStart(16);
+            internal readonly int docCountCutoff, termCountLimit;
+            internal readonly TermStateByteStart array = new TermStateByteStart(16);
             internal BytesRefHash pendingTerms;
         }
 

@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -210,11 +210,11 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
     {
         /// <summary>
         /// Minimum items (terms or sub-blocks) per block for BlockTree. </summary>
-        readonly protected int m_minBlockSize;
+        protected readonly int m_minBlockSize;
 
         /// <summary>
         /// Maximum items (terms or sub-blocks) per block for BlockTree. </summary>
-        readonly protected int m_maxBlockSize;
+        protected readonly int m_maxBlockSize;
 
         /// <summary>
         /// Creates <see cref="Lucene40PostingsFormat"/> with default

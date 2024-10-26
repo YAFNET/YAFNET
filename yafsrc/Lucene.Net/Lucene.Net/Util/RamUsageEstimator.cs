@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -90,29 +90,29 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Number of bytes this .NET runtime uses to represent an object reference.
         /// </summary>
-        public readonly static int NUM_BYTES_OBJECT_REF = Constants.RUNTIME_IS_64BIT ? 8 : 4; // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        public static readonly int NUM_BYTES_OBJECT_REF = Constants.RUNTIME_IS_64BIT ? 8 : 4; // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
 
         /// <summary>
         /// Number of bytes to represent an object header (no fields, no alignments).
         /// </summary>
-        public readonly static int NUM_BYTES_OBJECT_HEADER = Constants.RUNTIME_IS_64BIT ? (8 + 8) : 8; // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        public static readonly int NUM_BYTES_OBJECT_HEADER = Constants.RUNTIME_IS_64BIT ? (8 + 8) : 8; // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
 
         /// <summary>
         /// Number of bytes to represent an array header (no content, but with alignments).
         /// </summary>
-        public readonly static int NUM_BYTES_ARRAY_HEADER = Constants.RUNTIME_IS_64BIT ? (8 + 2 * 8) : 12; // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        public static readonly int NUM_BYTES_ARRAY_HEADER = Constants.RUNTIME_IS_64BIT ? (8 + 2 * 8) : 12; // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
 
         /// <summary>
         /// A constant specifying the object alignment boundary inside the .NET runtime. Objects will
         /// always take a full multiple of this constant, possibly wasting some space.
         /// </summary>
-        public readonly static int NUM_BYTES_OBJECT_ALIGNMENT = Constants.RUNTIME_IS_64BIT ? 8 : 4; // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        public static readonly int NUM_BYTES_OBJECT_ALIGNMENT = Constants.RUNTIME_IS_64BIT ? 8 : 4; // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
 
         /// <summary>
         /// Sizes of primitive classes.
         /// </summary>
         // LUCENENET specific - Identity comparer is not necessary here because Type is already representing an identity
-        private readonly static IDictionary<Type, int> primitiveSizes = new Dictionary<Type, int>(/*IdentityEqualityComparer<Type>.Default*/) // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        private static readonly IDictionary<Type, int> primitiveSizes = new Dictionary<Type, int>(/*IdentityEqualityComparer<Type>.Default*/) // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
             [typeof(bool)] = NUM_BYTES_BOOLEAN,
             [typeof(sbyte)] = NUM_BYTES_BYTE,

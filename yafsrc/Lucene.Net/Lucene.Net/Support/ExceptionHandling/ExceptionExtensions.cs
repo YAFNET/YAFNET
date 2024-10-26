@@ -18,7 +18,7 @@ namespace YAF.Lucene
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,18 +34,18 @@ namespace YAF.Lucene
     /// type in Java even though the exception inheritance structure is different in .NET
     /// and does not map 1-to-1 with Java exceptions.
     /// </summary>
-    static internal class ExceptionExtensions
+    internal static class ExceptionExtensions
     {
-        static internal Type NUnitResultStateExceptionType = null; // All NUnit public exceptions derive from this base class
-        static internal Type NUnitAssertionExceptionType = null;
-        static internal Type NUnitMultipleAssertExceptionType = null;
-        static internal Type NUnitInconclusiveExceptionType = null;
-        static internal Type NUnitSuccessExceptionType = null; // Since this doesn't correspond to anything in Java, we should always ignore it
-        static internal Type NUnitInvalidPlatformException = null; // Internal exception that subclasses ArgumentException that probably isn't thrown outside of NUnit, but if it ever is we should ignore it always
-        static internal Type DebugAssertExceptionType = null;
+        internal static Type NUnitResultStateExceptionType = null; // All NUnit public exceptions derive from this base class
+        internal static Type NUnitAssertionExceptionType = null;
+        internal static Type NUnitMultipleAssertExceptionType = null;
+        internal static Type NUnitInconclusiveExceptionType = null;
+        internal static Type NUnitSuccessExceptionType = null; // Since this doesn't correspond to anything in Java, we should always ignore it
+        internal static Type NUnitInvalidPlatformException = null; // Internal exception that subclasses ArgumentException that probably isn't thrown outside of NUnit, but if it ever is we should ignore it always
+        internal static Type DebugAssertExceptionType = null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal bool IsAlwaysIgnored(this Exception e)
+        internal static bool IsAlwaysIgnored(this Exception e)
         {
             return (!(NUnitSuccessExceptionType is null) && NUnitSuccessExceptionType.IsAssignableFrom(e.GetType())) ||
                 (!(NUnitInvalidPlatformException is null) && NUnitInvalidPlatformException.IsAssignableFrom(e.GetType()));

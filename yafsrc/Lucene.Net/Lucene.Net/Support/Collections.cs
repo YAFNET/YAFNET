@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Support
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,21 +29,21 @@ namespace YAF.Lucene.Net.Support
      * limitations under the License.
      */
 
-    static internal class Collections
+    internal static class Collections
     {
         private static class EmptyListHolder<T>
         {
-            public readonly static ReadOnlyList<T> EMPTY_LIST = new JCG.List<T>().AsReadOnly();
+            public static readonly ReadOnlyList<T> EMPTY_LIST = new JCG.List<T>().AsReadOnly();
         }
 
         private static class EmptyDictionaryHolder<TKey, TValue>
         {
-            public readonly static ReadOnlyDictionary<TKey, TValue> EMPTY_DICTIONARY = new JCG.Dictionary<TKey, TValue>().AsReadOnly(); // LUCENENET-615: Must support nullable keys
+            public static readonly ReadOnlyDictionary<TKey, TValue> EMPTY_DICTIONARY = new JCG.Dictionary<TKey, TValue>().AsReadOnly(); // LUCENENET-615: Must support nullable keys
         }
 
         private static class EmptySetHolder<T>
         {
-            public readonly static ReadOnlySet<T> EMPTY_SET = new JCG.HashSet<T>().AsReadOnly();
+            public static readonly ReadOnlySet<T> EMPTY_SET = new JCG.HashSet<T>().AsReadOnly();
         }
 
         public static ReadOnlyList<T> EmptyList<T>()
@@ -88,7 +88,7 @@ namespace YAF.Lucene.Net.Support
 
         public static IDictionary<TKey, TValue> SingletonMap<TKey, TValue>(TKey key, TValue value)
         {
-            return new Dictionary<TKey, TValue> { { key, value } }.AsReadOnly();
+            return AsReadOnly(new Dictionary<TKey, TValue> { { key, value } });
         }
 
 
@@ -213,13 +213,23 @@ namespace YAF.Lucene.Net.Support
             return ToString(obj);
         }
 
+        public static ReadOnlyList<T> AsReadOnly<T>(IList<T> list)
+        {
+            return new ReadOnlyList<T>(list);
+        }
+
+        public static ReadOnlyDictionary<TKey, TValue> AsReadOnly<TKey, TValue>(IDictionary<TKey, TValue> dictionary)
+        {
+            return new ReadOnlyDictionary<TKey, TValue>(dictionary);
+        }
+
         #region Nested Types
 
         #region ReverseComparer
 
         private class ReverseComparer<T> : IComparer<T>
         {
-            readonly static internal ReverseComparer<T> REVERSE_ORDER = new ReverseComparer<T>();
+            internal static readonly ReverseComparer<T> REVERSE_ORDER = new ReverseComparer<T>();
 
             public int Compare(T x, T y)
             {
@@ -242,7 +252,7 @@ namespace YAF.Lucene.Net.Support
              *
              * @serial
              */
-            readonly internal IComparer<T> cmp;
+            internal readonly IComparer<T> cmp;
 
             public ReverseComparer2(IComparer<T> cmp)
             {

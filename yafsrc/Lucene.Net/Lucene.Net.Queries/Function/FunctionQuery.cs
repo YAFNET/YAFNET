@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Queries.Function
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -58,10 +58,10 @@ namespace YAF.Lucene.Net.Queries.Function
         {
             private readonly FunctionQuery outerInstance;
 
-            readonly protected IndexSearcher m_searcher;
+            protected readonly IndexSearcher m_searcher;
             protected internal float m_queryNorm;
             protected float m_queryWeight;
-            readonly protected internal IDictionary m_context;
+            protected internal readonly IDictionary m_context;
 
             public FunctionWeight(FunctionQuery outerInstance, IndexSearcher searcher)
             {

@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -41,25 +41,25 @@ namespace YAF.Lucene.Net.Util
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected int Compare(int i, int j)
+        protected override int Compare(int i, int j)
         {
             return comparer.Compare(arr[i], arr[j]);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected void Swap(int i, int j)
+        protected override void Swap(int i, int j)
         {
             ArrayUtil.Swap(arr, i, j);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected void SetPivot(int i)
+        protected override void SetPivot(int i)
         {
             pivot = (i < arr.Length) ? arr[i] : default;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected int ComparePivot(int i)
+        protected override int ComparePivot(int i)
         {
             return comparer.Compare(pivot, arr[i]);
         }

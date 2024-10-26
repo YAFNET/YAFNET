@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,7 +33,7 @@ namespace YAF.Lucene.Net.Util
     public abstract class IntroSorter : Sorter
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal int CeilLog2(int n)
+        internal static int CeilLog2(int n)
         {
             //8bits in a byte
             return sizeof(int) * 8 - (n - 1).LeadingZeroCount();

@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -160,7 +160,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             return new StandardTermState();
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -293,11 +293,11 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         {
             private readonly Lucene40PostingsReader outerInstance;
 
-            readonly protected int[] m_docs = new int[BUFFERSIZE];
-            readonly protected int[] m_freqs = new int[BUFFERSIZE];
+            protected readonly int[] m_docs = new int[BUFFERSIZE];
+            protected readonly int[] m_freqs = new int[BUFFERSIZE];
 
-            readonly internal IndexInput freqIn; // reuse
-            readonly internal IndexInput startFreqIn; // reuse
+            internal readonly IndexInput freqIn; // reuse
+            internal readonly IndexInput startFreqIn; // reuse
             internal Lucene40SkipListReader skipper; // reuse - lazy loaded
 
             protected bool m_indexOmitsTF; // does current field omit term freq?
@@ -318,7 +318,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             protected long m_skipOffset;
 
             protected bool m_skipped;
-            readonly protected internal IBits m_liveDocs;
+            protected internal readonly IBits m_liveDocs;
 
             private protected SegmentDocsEnumBase(Lucene40PostingsReader outerInstance, IndexInput startFreqIn, IBits liveDocs) // LUCENENET: Changed from internal to private protected
             {
@@ -409,7 +409,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            static internal int ReadFreq(IndexInput freqIn, int code) // LUCENENET: CA1822: Mark members as static
+            internal static int ReadFreq(IndexInput freqIn, int code) // LUCENENET: CA1822: Mark members as static
             {
                 if ((code & 1) != 0) // if low bit is set
                 {
@@ -546,7 +546,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 return m_doc = Refill();
             }
 
-            override protected internal int LinearScan(int scanTo)
+            protected internal override int LinearScan(int scanTo)
             {
                 int[] docs = this.m_docs;
                 int upTo = m_count;
@@ -563,7 +563,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 return m_doc = Refill();
             }
 
-            override protected internal int ScanTo(int target)
+            protected internal override int ScanTo(int target)
             {
                 int docAcc = m_accum;
                 int frq = 1;
@@ -595,7 +595,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 return NO_MORE_DOCS;
             }
 
-            override protected internal int NextUnreadDoc()
+            protected internal override int NextUnreadDoc()
             {
                 if (m_ord++ < m_limit)
                 {
@@ -643,7 +643,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 return m_doc = Refill();
             }
 
-            override protected internal int LinearScan(int scanTo)
+            protected internal override int LinearScan(int scanTo)
             {
                 int[] docs = this.m_docs;
                 int upTo = m_count;
@@ -661,7 +661,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 return m_doc = Refill();
             }
 
-            override protected internal int ScanTo(int target)
+            protected internal override int ScanTo(int target)
             {
                 int docAcc = m_accum;
                 int frq = 1;
@@ -694,7 +694,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 return NO_MORE_DOCS;
             }
 
-            override protected internal int NextUnreadDoc()
+            protected internal override int NextUnreadDoc()
             {
                 int docAcc = m_accum;
                 int frq = 1;
@@ -735,9 +735,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         {
             private readonly Lucene40PostingsReader outerInstance;
 
-            readonly internal IndexInput startFreqIn;
-            readonly internal IndexInput freqIn;
-            readonly internal IndexInput proxIn;
+            internal readonly IndexInput startFreqIn;
+            internal readonly IndexInput freqIn;
+            internal readonly IndexInput proxIn;
             internal int limit; // number of docs in this posting
             internal int ord; // how many docs we've read
             internal int doc = -1; // doc we last read
@@ -948,7 +948,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         {
             private readonly Lucene40PostingsReader outerInstance;
 
-            readonly internal IndexInput startFreqIn;
+            internal readonly IndexInput startFreqIn;
             private readonly IndexInput freqIn;
             private readonly IndexInput proxIn;
 

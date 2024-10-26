@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -145,7 +145,7 @@ namespace YAF.Lucene.Net.Search
         /// Just wraps a <see cref="Scorer"/> and performs top scoring using it. </summary>
         internal class DefaultBulkScorer : BulkScorer
         {
-            readonly internal Scorer scorer;
+            internal readonly Scorer scorer;
 
             public DefaultBulkScorer(Scorer scorer)
             {
@@ -178,7 +178,7 @@ namespace YAF.Lucene.Net.Search
                 }
             }
 
-            static internal bool ScoreRange(ICollector collector, Scorer scorer, int currentDoc, int end)
+            internal static bool ScoreRange(ICollector collector, Scorer scorer, int currentDoc, int end)
             {
                 while (currentDoc < end)
                 {
@@ -188,7 +188,7 @@ namespace YAF.Lucene.Net.Search
                 return currentDoc != DocIdSetIterator.NO_MORE_DOCS;
             }
 
-            static internal void ScoreAll(ICollector collector, Scorer scorer)
+            internal static void ScoreAll(ICollector collector, Scorer scorer)
             {
                 int doc;
                 while ((doc = scorer.NextDoc()) != DocIdSetIterator.NO_MORE_DOCS)

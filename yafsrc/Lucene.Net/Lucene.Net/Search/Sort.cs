@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -105,11 +105,11 @@ namespace YAF.Lucene.Net.Search
         /// <see cref="IndexSearcher.Search(Query, int)"/>without a sort criteria,
         /// only with slightly more overhead.
         /// </summary>
-        public readonly static Sort RELEVANCE = new Sort();
+        public static readonly Sort RELEVANCE = new Sort();
 
         /// <summary>
         /// Represents sorting by index order. </summary>
-        public readonly static Sort INDEXORDER = new Sort(SortField.FIELD_DOC);
+        public static readonly Sort INDEXORDER = new Sort(SortField.FIELD_DOC);
 
         // internal representation of the sort criteria
         internal SortField[] fields;

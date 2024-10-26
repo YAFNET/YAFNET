@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -360,7 +360,7 @@ namespace YAF.Lucene.Net.Search
                 this.m_primaryDoc = firstFilteredDoc; // initialize to prevent and advance call to move it further
             }
 
-            override protected int PrimaryNext()
+            protected override int PrimaryNext()
             {
                 if (m_secondaryDoc != -1)
                 {
@@ -471,7 +471,7 @@ namespace YAF.Lucene.Net.Search
         /// Note: this strategy is the default strategy in <see cref="FilteredQuery"/>
         /// </para>
         /// </summary>
-        public readonly static FilterStrategy RANDOM_ACCESS_FILTER_STRATEGY = new RandomAccessFilterStrategy();
+        public static readonly FilterStrategy RANDOM_ACCESS_FILTER_STRATEGY = new RandomAccessFilterStrategy();
 
         /// <summary>
         /// A filter strategy that uses a "leap-frog" approach (also called "zig-zag join").
@@ -483,7 +483,7 @@ namespace YAF.Lucene.Net.Search
         /// Note: this strategy uses the filter to lead the iteration.
         /// </para>
         /// </summary>
-        public readonly static FilterStrategy LEAP_FROG_FILTER_FIRST_STRATEGY = new LeapFrogFilterStrategy(false);
+        public static readonly FilterStrategy LEAP_FROG_FILTER_FIRST_STRATEGY = new LeapFrogFilterStrategy(false);
 
         /// <summary>
         /// A filter strategy that uses a "leap-frog" approach (also called "zig-zag join").
@@ -495,7 +495,7 @@ namespace YAF.Lucene.Net.Search
         /// Note: this strategy uses the query to lead the iteration.
         /// </para>
         /// </summary>
-        public readonly static FilterStrategy LEAP_FROG_QUERY_FIRST_STRATEGY = new LeapFrogFilterStrategy(true);
+        public static readonly FilterStrategy LEAP_FROG_QUERY_FIRST_STRATEGY = new LeapFrogFilterStrategy(true);
 
         /// <summary>
         /// A filter strategy that advances the <see cref="Search.Query"/> or rather its <see cref="Scorer"/> first and consults the
@@ -510,7 +510,7 @@ namespace YAF.Lucene.Net.Search
         /// matching doc like exact geo distances.
         /// </para>
         /// </summary>
-        public readonly static FilterStrategy QUERY_FIRST_FILTER_STRATEGY = new QueryFirstFilterStrategy();
+        public static readonly FilterStrategy QUERY_FIRST_FILTER_STRATEGY = new QueryFirstFilterStrategy();
 
         /// <summary>
         /// Abstract class that defines how the filter (<see cref="DocIdSet"/>) applied during document collection. </summary>

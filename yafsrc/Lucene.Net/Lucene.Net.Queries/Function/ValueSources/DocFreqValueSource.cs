@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -31,12 +31,12 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     internal class ConstInt32DocValues : Int32DocValues
     {
-        readonly internal int ival;
-        readonly internal float fval;
-        readonly internal double dval;
-        readonly internal long lval;
-        readonly internal string sval;
-        readonly internal ValueSource parent;
+        internal readonly int ival;
+        internal readonly float fval;
+        internal readonly double dval;
+        internal readonly long lval;
+        internal readonly string sval;
+        internal readonly ValueSource parent;
 
         internal ConstInt32DocValues(int val, ValueSource parent)
             : base(parent)
@@ -88,12 +88,12 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
 
     internal class ConstDoubleDocValues : DoubleDocValues
     {
-        readonly internal int ival;
-        readonly internal float fval;
-        readonly internal double dval;
-        readonly internal long lval;
-        readonly internal string sval;
-        readonly internal ValueSource parent;
+        internal readonly int ival;
+        internal readonly float fval;
+        internal readonly double dval;
+        internal readonly long lval;
+        internal readonly string sval;
+        internal readonly ValueSource parent;
 
         internal ConstDoubleDocValues(double val, ValueSource parent)
             : base(parent)
@@ -150,10 +150,10 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class DocFreqValueSource : ValueSource
     {
-        readonly protected string m_field;
-        readonly protected string m_indexedField;
-        readonly protected string m_val;
-        readonly protected BytesRef m_indexedBytes;
+        protected readonly string m_field;
+        protected readonly string m_indexedField;
+        protected readonly string m_val;
+        protected readonly BytesRef m_indexedBytes;
 
         public DocFreqValueSource(string field, string val, string indexedField, BytesRef indexedBytes)
         {

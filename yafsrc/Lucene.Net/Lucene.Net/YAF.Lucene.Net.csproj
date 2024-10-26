@@ -68,4 +68,10 @@
 
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Net.Http">
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\System.Net.Http.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

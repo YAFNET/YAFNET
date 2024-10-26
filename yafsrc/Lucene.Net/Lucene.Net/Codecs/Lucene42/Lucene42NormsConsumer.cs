@@ -13,7 +13,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -50,8 +50,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
 #pragma warning disable CA2213 // Disposable fields should be disposed
         internal IndexOutput data, meta;
 #pragma warning restore CA2213 // Disposable fields should be disposed
-        readonly internal int maxDoc;
-        readonly internal float acceptableOverheadRatio;
+        internal readonly int maxDoc;
+        internal readonly float acceptableOverheadRatio;
 
         internal Lucene42NormsConsumer(SegmentWriteState state, string dataCodec, string dataExtension, string metaCodec, string metaExtension, float acceptableOverheadRatio)
         {
@@ -200,7 +200,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
             }
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

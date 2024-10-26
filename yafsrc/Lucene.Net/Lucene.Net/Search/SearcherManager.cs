@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -112,12 +112,12 @@ namespace YAF.Lucene.Net.Search
             Current = GetSearcher(searcherFactory, DirectoryReader.Open(dir));
         }
 
-        override protected void DecRef(IndexSearcher reference)
+        protected override void DecRef(IndexSearcher reference)
         {
             reference.IndexReader.DecRef();
         }
 
-        override protected IndexSearcher RefreshIfNeeded(IndexSearcher referenceToRefresh)
+        protected override IndexSearcher RefreshIfNeeded(IndexSearcher referenceToRefresh)
         {
             IndexReader r = referenceToRefresh.IndexReader;
             if (Debugging.AssertsEnabled) Debugging.Assert(r is DirectoryReader,"searcher's IndexReader should be a DirectoryReader, but got {0}", r);
@@ -132,12 +132,12 @@ namespace YAF.Lucene.Net.Search
             }
         }
 
-        override protected bool TryIncRef(IndexSearcher reference)
+        protected override bool TryIncRef(IndexSearcher reference)
         {
             return reference.IndexReader.TryIncRef();
         }
 
-        override protected int GetRefCount(IndexSearcher reference)
+        protected override int GetRefCount(IndexSearcher reference)
         {
             return reference.IndexReader.RefCount;
         }

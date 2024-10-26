@@ -20,10 +20,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ByteBlockPool = Lucene.Net.Util.ByteBlockPool;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using Counter = Lucene.Net.Util.Counter;
-    using Int32BlockPool = Lucene.Net.Util.Int32BlockPool;
+    using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using Counter = YAF.Lucene.Net.Util.Counter;
+    using Int32BlockPool = YAF.Lucene.Net.Util.Int32BlockPool;
 
     /// <summary>
     /// This class implements <see cref="InvertedDocConsumer"/>, which

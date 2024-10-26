@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,10 +34,10 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class TotalTermFreqValueSource : ValueSource
     {
-        readonly protected string m_field;
-        readonly protected string m_indexedField;
-        readonly protected string m_val;
-        readonly protected BytesRef m_indexedBytes;
+        protected readonly string m_field;
+        protected readonly string m_indexedField;
+        protected readonly string m_val;
+        protected readonly BytesRef m_indexedBytes;
 
         public TotalTermFreqValueSource(string field, string val, string indexedField, BytesRef indexedBytes)
         {

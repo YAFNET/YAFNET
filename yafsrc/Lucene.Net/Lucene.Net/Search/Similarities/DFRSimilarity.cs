@@ -10,7 +10,7 @@ namespace YAF.Lucene.Net.Search.Similarities
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -89,15 +89,15 @@ namespace YAF.Lucene.Net.Search.Similarities
     {
         /// <summary>
         /// The basic model for information content. </summary>
-        readonly protected internal BasicModel m_basicModel;
+        protected internal readonly BasicModel m_basicModel;
 
         /// <summary>
         /// The first normalization of the information content. </summary>
-        readonly protected internal AfterEffect m_afterEffect;
+        protected internal readonly AfterEffect m_afterEffect;
 
         /// <summary>
         /// The term frequency normalization. </summary>
-        readonly protected internal Normalization m_normalization;
+        protected internal readonly Normalization m_normalization;
 
         /// <summary>
         /// Creates DFRSimilarity from the three components.
@@ -124,7 +124,7 @@ namespace YAF.Lucene.Net.Search.Similarities
             return stats.TotalBoost * m_basicModel.Score(stats, tfn) * m_afterEffect.Score(stats, tfn);
         }
 
-        override protected internal void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
+        protected internal override void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
         {
             if (stats.TotalBoost != 1.0f)
             {

@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Util
         internal const int STACKSIZE = 40; // depends on MINRUN
         internal const int MIN_GALLOP = 7;
 
-        readonly internal int maxTempSlots;
+        internal readonly int maxTempSlots;
         internal int minRun;
         internal int to;
         internal int stackSize;
@@ -68,7 +68,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Minimum run length for an array of length <paramref name="length"/>. </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal int MinRun(int length)
+        internal static int MinRun(int length)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(length >= MINRUN);
             int n = length;
@@ -266,7 +266,7 @@ namespace YAF.Lucene.Net.Util
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override internal void DoRotate(int lo, int mid, int hi)
+        internal override void DoRotate(int lo, int mid, int hi)
         {
             int len1 = mid - lo;
             int len2 = hi - mid;

@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -75,7 +75,7 @@ namespace YAF.Lucene.Net.Search
             /// <param name="hitA">ScoreDoc</param>
             /// <param name="hitB">ScoreDoc</param>
             /// <returns><c>true</c> if document <c>a</c> should be sorted after document <c>b</c>.</returns>
-            override protected internal bool LessThan(T hitA, T hitB)
+            protected internal override bool LessThan(T hitA, T hitB)
             {
                 // LUCENENET specific - added null guard clauses
                 if (hitA is null)
@@ -124,7 +124,7 @@ namespace YAF.Lucene.Net.Search
                 }
             }
 
-            override protected internal bool LessThan(T hitA, T hitB)
+            protected internal override bool LessThan(T hitA, T hitB)
             {
                 // LUCENENET specific - added null guard clauses
                 if (hitA is null)
@@ -238,11 +238,11 @@ namespace YAF.Lucene.Net.Search
 
         /// <summary>
         /// Stores the sort criteria being used. </summary>
-        readonly protected SortField[] m_fields;
+        protected readonly SortField[] m_fields;
 
-        readonly protected FieldComparer[] m_comparers; // use setComparer to change this array
+        protected readonly FieldComparer[] m_comparers; // use setComparer to change this array
         protected FieldComparer m_firstComparer; // this must always be equal to comparers[0]
-        readonly protected int[] m_reverseMul;
+        protected readonly int[] m_reverseMul;
 
         internal FieldComparer FirstComparer => this.m_firstComparer;
 

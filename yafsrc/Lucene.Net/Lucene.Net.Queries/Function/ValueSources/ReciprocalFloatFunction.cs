@@ -18,7 +18,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -45,10 +45,10 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// <seealso cref="FunctionQuery"/>
     public class ReciprocalSingleFunction : ValueSource
     {
-        readonly protected ValueSource m_source;
-        readonly protected float m_m;
-        readonly protected float m_a;
-        readonly protected float m_b;
+        protected readonly ValueSource m_source;
+        protected readonly float m_m;
+        protected readonly float m_a;
+        protected readonly float m_b;
 
         /// <summary>
         ///  f(source) = a/(m*float(source)+b)

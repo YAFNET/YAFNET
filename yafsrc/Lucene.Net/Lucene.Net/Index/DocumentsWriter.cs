@@ -28,15 +28,15 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Analyzer = Lucene.Net.Analysis.Analyzer;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using Directory = Lucene.Net.Store.Directory;
-    using FlushedSegment = Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
-    using IEvent = Lucene.Net.Index.IndexWriter.IEvent;
-    using InfoStream = Lucene.Net.Util.InfoStream;
-    using Query = Lucene.Net.Search.Query;
-    using SegmentFlushTicket = Lucene.Net.Index.DocumentsWriterFlushQueue.SegmentFlushTicket;
-    using ThreadState = Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
+    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FlushedSegment = YAF.Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
+    using IEvent = YAF.Lucene.Net.Index.IndexWriter.IEvent;
+    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
+    using Query = YAF.Lucene.Net.Search.Query;
+    using SegmentFlushTicket = YAF.Lucene.Net.Index.DocumentsWriterFlushQueue.SegmentFlushTicket;
+    using ThreadState = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
 
     /// <summary>
     /// This class accepts multiple added documents and directly

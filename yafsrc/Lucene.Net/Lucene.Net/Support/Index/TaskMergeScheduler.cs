@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -164,7 +164,7 @@ namespace YAF.Lucene.Net.Index
             _writer.infoStream.Message(COMPONENT_NAME, message);
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             Sync();
             _manualResetEvent.Dispose();
@@ -269,7 +269,7 @@ namespace YAF.Lucene.Net.Index
                         }
                     }
 
-                    MergePolicy.OneMerge merge = writer.NextMerge();
+                    MergePolicy.OneMerge merge = writer.GetNextMerge();
                     if (merge is null)
                     {
                         if (Verbose)
@@ -576,7 +576,7 @@ namespace YAF.Lucene.Net.Index
 
                         // Subsequent times through the loop we do any new
                         // merge that writer says is necessary:
-                        merge = _writer.NextMerge();
+                        merge = _writer.GetNextMerge();
 
                         // Notify here in case any threads were stalled;
                         // they will notice that the pending merge has

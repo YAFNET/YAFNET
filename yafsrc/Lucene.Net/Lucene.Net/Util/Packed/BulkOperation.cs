@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -58,7 +58,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// </summary>
         public abstract int Int64BlockCount { get; }
 
-        private readonly static BulkOperation[] packedBulkOps = new BulkOperation[] {
+        private static readonly BulkOperation[] packedBulkOps = new BulkOperation[] {
             new BulkOperationPacked1(),
             new BulkOperationPacked2(),
             new BulkOperationPacked3(),
@@ -126,7 +126,7 @@ namespace YAF.Lucene.Net.Util.Packed
         };
 
         // NOTE: this is sparse (some entries are null):
-        private readonly static BulkOperation[] packedSingleBlockBulkOps = new BulkOperation[] {
+        private static readonly BulkOperation[] packedSingleBlockBulkOps = new BulkOperation[] {
             new BulkOperationPackedSingleBlock(1),
             new BulkOperationPackedSingleBlock(2),
             new BulkOperationPackedSingleBlock(3),

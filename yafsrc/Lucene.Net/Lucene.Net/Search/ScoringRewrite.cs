@@ -13,7 +13,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -56,7 +56,7 @@ namespace YAF.Lucene.Net.Search
         /// exceeds <see cref="BooleanQuery.MaxClauseCount"/>.
         /// </summary>
         ///  <seealso cref="MultiTermQuery.MultiTermRewriteMethod"/>
-        public readonly static ScoringRewrite<BooleanQuery> SCORING_BOOLEAN_QUERY_REWRITE = new ScoringRewriteAnonymousClass();
+        public static readonly ScoringRewrite<BooleanQuery> SCORING_BOOLEAN_QUERY_REWRITE = new ScoringRewriteAnonymousClass();
 
         private sealed class ScoringRewriteAnonymousClass : ScoringRewrite<BooleanQuery>
         {
@@ -64,19 +64,19 @@ namespace YAF.Lucene.Net.Search
             {
             }
 
-            override protected BooleanQuery GetTopLevelQuery()
+            protected override BooleanQuery GetTopLevelQuery()
             {
                 return new BooleanQuery(true);
             }
 
-            override protected void AddClause(BooleanQuery topLevel, Term term, int docCount, float boost, TermContext states)
+            protected override void AddClause(BooleanQuery topLevel, Term term, int docCount, float boost, TermContext states)
             {
                 TermQuery tq = new TermQuery(term, states);
                 tq.Boost = boost;
                 topLevel.Add(tq, Occur.SHOULD);
             }
 
-            override protected void CheckMaxClauseCount(int count)
+            protected override void CheckMaxClauseCount(int count)
             {
                 if (count > BooleanQuery.MaxClauseCount)
                 {
@@ -96,7 +96,7 @@ namespace YAF.Lucene.Net.Search
         /// exceeds <see cref="BooleanQuery.MaxClauseCount"/>.
         /// </summary>
         /// <seealso cref="MultiTermQuery.MultiTermRewriteMethod"/>
-        public readonly static RewriteMethod CONSTANT_SCORE_BOOLEAN_QUERY_REWRITE = new RewriteMethodAnonymousClass();
+        public static readonly RewriteMethod CONSTANT_SCORE_BOOLEAN_QUERY_REWRITE = new RewriteMethodAnonymousClass();
 
         private sealed class RewriteMethodAnonymousClass : RewriteMethod
         {
@@ -154,7 +154,7 @@ namespace YAF.Lucene.Net.Search
                 terms = new BytesRefHash(new ByteBlockPool(new ByteBlockPool.DirectAllocator()), 16, array);
             }
 
-            readonly internal TermFreqBoostByteStart array = new TermFreqBoostByteStart(16);
+            internal readonly TermFreqBoostByteStart array = new TermFreqBoostByteStart(16);
             internal BytesRefHash terms;
             internal TermsEnum termsEnum;
 

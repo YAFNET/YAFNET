@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Codecs
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -105,7 +105,7 @@ namespace YAF.Lucene.Net.Codecs
     // LUCENENET specific
     public class DefaultDocValuesFormatFactory : NamedServiceFactory<DocValuesFormat>, IDocValuesFormatFactory, IServiceListable
     {
-        private readonly static Type[] localDocValuesFormatTypes = new Type[] {
+        private static readonly Type[] localDocValuesFormatTypes = new Type[] {
             typeof(Lucene45.Lucene45DocValuesFormat),
 #pragma warning disable 612, 618
             typeof(Lucene42.Lucene42DocValuesFormat),
@@ -147,7 +147,7 @@ namespace YAF.Lucene.Net.Codecs
         /// If two types have the same name by using the <see cref="DocValuesFormatNameAttribute"/>, the
         /// last one registered wins.
         /// </summary>
-        override protected void Initialize()
+        protected override void Initialize()
         {
             foreach (var docValuesFormatType in localDocValuesFormatTypes)
                 PutDocValuesFormatTypeImpl(docValuesFormatType);

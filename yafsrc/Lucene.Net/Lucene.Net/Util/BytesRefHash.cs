@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
+using System.ComponentModel;
 using System.Runtime.Serialization;
 #endif
 
@@ -17,7 +18,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -50,7 +51,7 @@ namespace YAF.Lucene.Net.Util
 
         // the following fields are needed by comparer,
         // so package private to prevent access$-methods:
-        readonly internal ByteBlockPool pool;
+        internal readonly ByteBlockPool pool;
 
         internal int[] bytesStart;
 
@@ -193,14 +194,14 @@ namespace YAF.Lucene.Net.Util
                 this.compact = compact;
             }
 
-            override protected void Swap(int i, int j)
+            protected override void Swap(int i, int j)
             {
                 int o = compact[i];
                 compact[i] = compact[j];
                 compact[j] = o;
             }
 
-            override protected int Compare(int i, int j)
+            protected override int Compare(int i, int j)
             {
                 int id1 = compact[i], id2 = compact[j];
                 if (Debugging.AssertsEnabled) Debugging.Assert(outerInstance.bytesStart.Length > id1 && outerInstance.bytesStart.Length > id2);
@@ -211,14 +212,14 @@ namespace YAF.Lucene.Net.Util
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            override protected void SetPivot(int i)
+            protected override void SetPivot(int i)
             {
                 int id = compact[i];
                 if (Debugging.AssertsEnabled) Debugging.Assert(outerInstance.bytesStart.Length > id);
                 outerInstance.pool.SetBytesRef(pivot, outerInstance.bytesStart[id]);
             }
 
-            override protected int ComparePivot(int j)
+            protected override int ComparePivot(int j)
             {
                 int id = compact[j];
                 if (Debugging.AssertsEnabled) Debugging.Assert(outerInstance.bytesStart.Length > id);
@@ -588,6 +589,8 @@ namespace YAF.Lucene.Net.Util
             /// </summary>
             /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
             /// <param name="context">The <see cref="StreamingContext"/> that contains contextual information about the source or destination.</param>
+            [Obsolete("This API supports obsolete formatter-based serialization. It should not be called or extended by application code.")]
+            [EditorBrowsable(EditorBrowsableState.Never)]
             protected MaxBytesLengthExceededException(SerializationInfo info, StreamingContext context)
                 : base(info, context)
             {
@@ -638,9 +641,9 @@ namespace YAF.Lucene.Net.Util
             // TrackingDirectBytesStartArray...?  Just add a ctor
             // that makes a private bytesUsed?
 
-            readonly protected int m_initSize;
+            protected readonly int m_initSize;
             internal int[] bytesStart;
-            readonly internal Counter bytesUsed;
+            internal readonly Counter bytesUsed;
 
             public DirectBytesStartArray(int initSize, Counter counter)
             {

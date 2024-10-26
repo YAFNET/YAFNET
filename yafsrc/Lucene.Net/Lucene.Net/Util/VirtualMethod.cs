@@ -1,6 +1,7 @@
 ﻿using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 #if !FEATURE_TYPE_GETMETHOD__BINDINGFLAGS_PARAMS
 using System.Linq;
 #endif
@@ -18,7 +19,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -65,7 +66,7 @@ namespace YAF.Lucene.Net.Util
     // is not generic).
     public sealed class VirtualMethod
     {
-        private readonly static ISet<MethodInfo> singletonSet = new ConcurrentHashSet<MethodInfo>();
+        private static readonly ISet<MethodInfo> singletonSet = new ConcurrentHashSet<MethodInfo>();
 
         private readonly Type baseClass;
         private readonly string method;

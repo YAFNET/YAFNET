@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,12 +27,12 @@ namespace YAF.Lucene.Net.Util.Packed
 
     internal sealed class PackedReaderIterator : PackedInt32s.ReaderIterator
     {
-        readonly internal int packedIntsVersion;
-        readonly internal PackedInt32s.Format format;
-        readonly internal BulkOperation bulkOperation;
-        readonly internal byte[] nextBlocks;
-        readonly internal Int64sRef nextValues;
-        readonly internal int iterations;
+        internal readonly int packedIntsVersion;
+        internal readonly PackedInt32s.Format format;
+        internal readonly BulkOperation bulkOperation;
+        internal readonly byte[] nextBlocks;
+        internal readonly Int64sRef nextValues;
+        internal readonly int iterations;
         internal int position;
 
         internal PackedReaderIterator(PackedInt32s.Format format, int packedIntsVersion, int valueCount, int bitsPerValue, DataInput @in, int mem)

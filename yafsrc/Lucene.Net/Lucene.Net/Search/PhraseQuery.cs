@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -188,11 +188,11 @@ namespace YAF.Lucene.Net.Search
 
         internal class PostingsAndFreq : IComparable<PostingsAndFreq>
         {
-            readonly internal DocsAndPositionsEnum postings;
-            readonly internal int docFreq;
-            readonly internal int position;
-            readonly internal Term[] terms;
-            readonly internal int nTerms; // for faster comparisons
+            internal readonly DocsAndPositionsEnum postings;
+            internal readonly int docFreq;
+            internal readonly int position;
+            internal readonly Term[] terms;
+            internal readonly int nTerms; // for faster comparisons
 
             public PostingsAndFreq(DocsAndPositionsEnum postings, int docFreq, int position, params Term[] terms)
             {
@@ -297,8 +297,8 @@ namespace YAF.Lucene.Net.Search
         {
             private readonly PhraseQuery outerInstance;
 
-            readonly internal Similarity similarity;
-            readonly internal Similarity.SimWeight stats;
+            internal readonly Similarity similarity;
+            internal readonly Similarity.SimWeight stats;
 
             
             internal TermContext[] states;

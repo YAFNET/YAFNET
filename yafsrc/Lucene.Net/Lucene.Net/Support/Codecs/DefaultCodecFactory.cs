@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Codecs
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -106,7 +106,7 @@ namespace YAF.Lucene.Net.Codecs
     // LUCENENET specific
     public class DefaultCodecFactory : NamedServiceFactory<Codec>, ICodecFactory, IServiceListable
     {
-        private readonly static Type[] localCodecTypes = new Type[] {
+        private static readonly Type[] localCodecTypes = new Type[] {
             typeof(Lucene46.Lucene46Codec),
 #pragma warning disable 612, 618
             typeof(Lucene3x.Lucene3xCodec), // Optimize 3.x codec over < 4.6 codecs
@@ -151,7 +151,7 @@ namespace YAF.Lucene.Net.Codecs
         /// If two types have the same name by using the <see cref="CodecNameAttribute"/>, the
         /// last one registered wins.
         /// </summary>
-        override protected void Initialize()
+        protected override void Initialize()
         {
             foreach (var codecType in localCodecTypes)
                 PutCodecTypeImpl(codecType);

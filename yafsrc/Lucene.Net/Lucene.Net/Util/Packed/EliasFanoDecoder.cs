@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,7 +33,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <summary>
         /// NOTE: This was LOG2_LONG_SIZE in Lucene.
         /// </summary>
-        private readonly static int LOG2_INT64_SIZE = (sizeof(long) * 8).TrailingZeroCount();
+        private static readonly int LOG2_INT64_SIZE = (sizeof(long) * 8).TrailingZeroCount();
 
         private readonly EliasFanoEncoder efEncoder;
         private readonly long numEncoded;

@@ -13,7 +13,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Util
     [Obsolete("Implement Analysis.TokenAttributes.ITermToBytesRefAttribute and store bytes directly instead. this class will be removed in Lucene 5.0")]
     public static class IndexableBinaryStringTools // LUCENENET specific - made static
     {
-        private readonly static CodingCase[] CODING_CASES = new CodingCase[] {
+        private static readonly CodingCase[] CODING_CASES = new CodingCase[] {
             // CodingCase(int initialShift, int finalShift)
             new CodingCase(7, 1),
             // CodingCase(int initialShift, int middleShift, int finalShift)

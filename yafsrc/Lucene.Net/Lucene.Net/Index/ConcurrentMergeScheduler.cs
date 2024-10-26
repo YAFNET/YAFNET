@@ -28,8 +28,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using CollectionUtil = Lucene.Net.Util.CollectionUtil;
-    using Directory = Lucene.Net.Store.Directory;
+    using CollectionUtil = YAF.Lucene.Net.Util.CollectionUtil;
+    using Directory = YAF.Lucene.Net.Store.Directory;
 
     /// <summary>
     /// A <see cref="MergeScheduler"/> that runs each merge using a
@@ -485,7 +485,7 @@ namespace YAF.Lucene.Net.Index
                         }
                     }
 
-                    MergePolicy.OneMerge merge = writer.NextMerge();
+                    MergePolicy.OneMerge merge = writer.GetNextMerge();
                     if (merge is null)
                     {
                         if (IsVerbose)
@@ -691,7 +691,7 @@ namespace YAF.Lucene.Net.Index
 
                         // Subsequent times through the loop we do any new
                         // merge that writer says is necessary:
-                        merge = tWriter.NextMerge();
+                        merge = tWriter.GetNextMerge();
 
                         // Notify here in case any threads were stalled;
                         // they will notice that the pending merge has

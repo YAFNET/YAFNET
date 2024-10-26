@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Util.Packed
     /// </summary>
     public sealed class PagedMutable : AbstractPagedMutable<PagedMutable>
     {
-        readonly internal PackedInt32s.Format format;
+        internal readonly PackedInt32s.Format format;
 
         /// <summary>
         /// Create a new <see cref="PagedMutable"/> instance.
@@ -58,20 +58,20 @@ namespace YAF.Lucene.Net.Util.Packed
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected Mutable NewMutable(int valueCount, int bitsPerValue)
+        protected override Mutable NewMutable(int valueCount, int bitsPerValue)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(this.bitsPerValue >= bitsPerValue);
             return PackedInt32s.GetMutable(valueCount, this.bitsPerValue, format);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected PagedMutable NewUnfilledCopy(long newSize)
+        protected override PagedMutable NewUnfilledCopy(long newSize)
         {
             return new PagedMutable(newSize, PageSize, bitsPerValue, format);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override protected long BaseRamBytesUsed()
+        protected override long BaseRamBytesUsed()
         {
             return base.BaseRamBytesUsed() + RamUsageEstimator.NUM_BYTES_OBJECT_REF;
         }

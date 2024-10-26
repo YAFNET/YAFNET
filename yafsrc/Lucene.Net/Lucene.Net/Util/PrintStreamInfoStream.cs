@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -51,10 +51,10 @@ namespace YAF.Lucene.Net.Util
     public class TextWriterInfoStream : InfoStream
     {
         // Used for printing messages
-        private readonly static AtomicInt32 MESSAGE_ID = new AtomicInt32();
+        private static readonly AtomicInt32 MESSAGE_ID = new AtomicInt32();
 
-        readonly protected int m_messageID;
-        readonly protected TextWriter m_stream;
+        protected readonly int m_messageID;
+        protected readonly TextWriter m_stream;
         private readonly bool isSystemStream;
 
         public TextWriterInfoStream(TextWriter stream)
@@ -84,7 +84,7 @@ namespace YAF.Lucene.Net.Util
             return true;
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing && !IsSystemStream)
             {

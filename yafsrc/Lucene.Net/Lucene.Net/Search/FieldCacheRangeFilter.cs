@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -247,7 +247,7 @@ namespace YAF.Lucene.Net.Search
             }
 
             // LUCENENET specific - since we use value types, we need to use special handling to avoid boxing.
-            override protected bool Equals(sbyte? objA, sbyte? objB)
+            protected override bool Equals(sbyte? objA, sbyte? objB)
             {
                 if (!objA.HasValue) return !objB.HasValue;
                 else if (!objB.HasValue) return false;
@@ -305,7 +305,7 @@ namespace YAF.Lucene.Net.Search
             }
 
             // LUCENENET specific - since we use value types, we need to use special handling to avoid boxing.
-            override protected bool Equals(short? objA, short? objB)
+            protected override bool Equals(short? objA, short? objB)
             {
                 if (!objA.HasValue) return !objB.HasValue;
                 else if (!objB.HasValue) return false;
@@ -360,7 +360,7 @@ namespace YAF.Lucene.Net.Search
             }
 
             // LUCENENET specific - since we use value types, we need to use special handling to avoid boxing.
-            override protected bool Equals(int? objA, int? objB)
+            protected override bool Equals(int? objA, int? objB)
             {
                 if (!objA.HasValue) return !objB.HasValue;
                 else if (!objB.HasValue) return false;
@@ -415,7 +415,7 @@ namespace YAF.Lucene.Net.Search
             }
 
             // LUCENENET specific - since we use value types, we need to use special handling to avoid boxing.
-            override protected bool Equals(long? objA, long? objB)
+            protected override bool Equals(long? objA, long? objB)
             {
                 if (!objA.HasValue) return !objB.HasValue;
                 else if (!objB.HasValue) return false;
@@ -475,7 +475,7 @@ namespace YAF.Lucene.Net.Search
             }
 
             // LUCENENET specific - since we use value types, we need to use special handling to avoid boxing.
-            override protected bool Equals(float? objA, float? objB)
+            protected override bool Equals(float? objA, float? objB)
             {
                 if (!objA.HasValue) return !objB.HasValue;
                 else if (!objB.HasValue) return false;
@@ -535,7 +535,7 @@ namespace YAF.Lucene.Net.Search
             }
 
             // LUCENENET specific - since we use value types, we need to use special handling to avoid boxing.
-            override protected bool Equals(double? objA, double? objB)
+            protected override bool Equals(double? objA, double? objB)
             {
                 if (!objA.HasValue) return !objB.HasValue;
                 else if (!objB.HasValue) return false;
@@ -707,12 +707,12 @@ namespace YAF.Lucene.Net.Search
 
     public abstract class FieldCacheRangeFilter<T> : Filter
     {
-        readonly internal string field;
-        readonly internal FieldCache.IParser parser;
-        readonly internal T lowerVal;
-        readonly internal T upperVal;
-        readonly internal bool includeLower;
-        readonly internal bool includeUpper;
+        internal readonly string field;
+        internal readonly FieldCache.IParser parser;
+        internal readonly T lowerVal;
+        internal readonly T upperVal;
+        internal readonly bool includeLower;
+        internal readonly bool includeUpper;
 
         private protected FieldCacheRangeFilter(string field, FieldCache.IParser parser, T lowerVal, T upperVal, bool includeLower, bool includeUpper)
         {

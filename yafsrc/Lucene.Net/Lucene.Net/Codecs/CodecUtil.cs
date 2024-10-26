@@ -15,7 +15,7 @@ namespace YAF.Lucene.Net.Codecs
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -37,12 +37,12 @@ namespace YAF.Lucene.Net.Codecs
         /// <summary>
         /// Constant to identify the start of a codec header.
         /// </summary>
-        public readonly static int CODEC_MAGIC = 0x3fd76c17;
+        public static readonly int CODEC_MAGIC = 0x3fd76c17;
 
         /// <summary>
         /// Constant to identify the start of a codec footer.
         /// </summary>
-        public readonly static int FOOTER_MAGIC = ~CODEC_MAGIC;
+        public static readonly int FOOTER_MAGIC = ~CODEC_MAGIC;
 
         /// <summary>
         /// Writes a codec header, which records both a string to

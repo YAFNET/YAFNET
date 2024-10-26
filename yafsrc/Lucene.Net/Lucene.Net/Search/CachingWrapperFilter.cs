@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -167,7 +167,7 @@ namespace YAF.Lucene.Net.Search
 
         /// <summary>
         /// An empty <see cref="DocIdSet"/> instance </summary>
-        readonly static protected DocIdSet EMPTY_DOCIDSET = new DocIdSetAnonymousClass();
+        protected static readonly DocIdSet EMPTY_DOCIDSET = new DocIdSetAnonymousClass();
 
         private sealed class DocIdSetAnonymousClass : DocIdSet
         {

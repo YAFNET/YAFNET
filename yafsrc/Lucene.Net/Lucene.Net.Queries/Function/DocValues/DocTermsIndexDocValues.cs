@@ -5,6 +5,7 @@ using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Mutable;
 using System;
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
+using System.ComponentModel;
 using System.Runtime.Serialization;
 #endif
 
@@ -18,7 +19,7 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,11 +34,11 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
     /// </summary>
     public abstract class DocTermsIndexDocValues : FunctionValues
     {
-        readonly protected SortedDocValues m_termsIndex;
-        readonly protected ValueSource m_vs;
-        readonly protected MutableValueStr m_val = new MutableValueStr();
-        readonly protected BytesRef m_spare = new BytesRef();
-        readonly protected CharsRef m_spareChars = new CharsRef();
+        protected readonly SortedDocValues m_termsIndex;
+        protected readonly ValueSource m_vs;
+        protected readonly MutableValueStr m_val = new MutableValueStr();
+        protected readonly BytesRef m_spare = new BytesRef();
+        protected readonly CharsRef m_spareChars = new CharsRef();
 
         protected DocTermsIndexDocValues(ValueSource vs, AtomicReaderContext context, string field) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {
@@ -185,6 +186,8 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
             /// </summary>
             /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
             /// <param name="context">The <see cref="StreamingContext"/> that contains contextual information about the source or destination.</param>
+            [Obsolete("This API supports obsolete formatter-based serialization. It should not be called or extended by application code.")]
+            [EditorBrowsable(EditorBrowsableState.Never)]
             private DocTermsIndexException(SerializationInfo info, StreamingContext context)
                 : base(info, context)
             {

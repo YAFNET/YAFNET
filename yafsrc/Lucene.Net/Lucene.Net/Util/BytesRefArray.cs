@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Util
      * "License"); you may not use this file except in compliance with the License.
      * You may obtain a copy of the License at
      *
-     * https://www.apache.org/licenses/LICENSE-2.0
+     * http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
@@ -137,7 +137,7 @@ namespace YAF.Lucene.Net.Util
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            override protected void Swap(int i, int j)
+            protected override void Swap(int i, int j)
             {
                 int o = orderedEntries[i];
                 orderedEntries[i] = orderedEntries[j];
@@ -145,21 +145,21 @@ namespace YAF.Lucene.Net.Util
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            override protected int Compare(int i, int j)
+            protected override int Compare(int i, int j)
             {
                 int idx1 = orderedEntries[i], idx2 = orderedEntries[j];
                 return comp.Compare(outerInstance.Get(scratch1, idx1), outerInstance.Get(scratch2, idx2));
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            override protected void SetPivot(int i)
+            protected override void SetPivot(int i)
             {
                 int index = orderedEntries[i];
                 outerInstance.Get(pivot, index);
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            override protected int ComparePivot(int j)
+            protected override int ComparePivot(int j)
             {
                 int index = orderedEntries[j];
                 return comp.Compare(pivot, outerInstance.Get(scratch2, index));

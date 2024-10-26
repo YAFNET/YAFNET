@@ -24,7 +24,7 @@ namespace YAF.Lucene.Net.Documents
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -59,12 +59,12 @@ namespace YAF.Lucene.Net.Documents
         /// <summary>
         /// Field's type
         /// </summary>
-        readonly protected FieldType m_type;
+        protected readonly FieldType m_type;
 
         /// <summary>
         /// Field's name
         /// </summary>
-        readonly protected string m_name;
+        protected readonly string m_name;
 
         /// <summary>
         /// Field's value.
@@ -954,7 +954,7 @@ namespace YAF.Lucene.Net.Documents
                 used = false;
             }
 
-            override protected void Dispose(bool disposing)
+            protected override void Dispose(bool disposing)
             {
                 if (disposing)
                 {
@@ -1031,7 +1031,7 @@ namespace YAF.Lucene.Net.Documents
             /// <see cref="NOT_ANALYZED_NO_NORMS" /> for what norms are
             /// and why you may want to disable them.
             /// </summary>
-            ANALYZED_NO_NORMS
+            ANALYZED_NO_NORMS,
         }
 
         /// <summary>
@@ -1069,7 +1069,7 @@ namespace YAF.Lucene.Net.Documents
             /// <seealso cref="YES"/>
             /// <seealso cref="WITH_POSITIONS"/>
             /// <seealso cref="WITH_OFFSETS"/>
-            WITH_POSITIONS_OFFSETS
+            WITH_POSITIONS_OFFSETS,
         }
 
         /// <summary>

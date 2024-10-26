@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -35,7 +35,7 @@ namespace YAF.Lucene.Net.Util.Packed
     internal abstract class Packed64SingleBlock : PackedInt32s.MutableImpl
     {
         public const int MAX_SUPPORTED_BITS_PER_VALUE = 32;
-        private readonly static int[] SUPPORTED_BITS_PER_VALUE = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 16, 21, 32 };
+        private static readonly int[] SUPPORTED_BITS_PER_VALUE = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 16, 21, 32 };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSupported(int bitsPerValue)
@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Util.Packed
             return valueCount / valuesPerBlock + (valueCount % valuesPerBlock == 0 ? 0 : 1);
         }
 
-        readonly internal long[] blocks;
+        internal readonly long[] blocks;
 
         private protected Packed64SingleBlock(int valueCount, int bitsPerValue) // LUCENENET: Changed from internal to private protected
             : base(valueCount, bitsPerValue)
@@ -233,7 +233,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
         }
 
-        override internal PackedInt32s.Format Format => PackedInt32s.Format.PACKED_SINGLE_BLOCK;
+        internal override PackedInt32s.Format Format => PackedInt32s.Format.PACKED_SINGLE_BLOCK;
 
         public override string ToString()
         {

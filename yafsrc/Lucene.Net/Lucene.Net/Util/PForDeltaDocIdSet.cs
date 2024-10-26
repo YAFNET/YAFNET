@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -40,12 +40,12 @@ namespace YAF.Lucene.Net.Util
     {
         internal const int BLOCK_SIZE = 128;
         internal const int MAX_EXCEPTIONS = 24; // no more than 24 exceptions per block
-        readonly static internal PackedInt32s.IDecoder[] DECODERS = new PackedInt32s.IDecoder[32];
-        readonly static internal int[] ITERATIONS = new int[32];
-        readonly static internal int[] BYTE_BLOCK_COUNTS = new int[32];
-        readonly static internal int MAX_BYTE_BLOCK_COUNT;
-        readonly static internal MonotonicAppendingInt64Buffer SINGLE_ZERO_BUFFER = LoadSingleZeroBuffer();
-        readonly static internal PForDeltaDocIdSet EMPTY = new PForDeltaDocIdSet(null, 0, int.MaxValue, SINGLE_ZERO_BUFFER, SINGLE_ZERO_BUFFER);
+        internal static readonly PackedInt32s.IDecoder[] DECODERS = new PackedInt32s.IDecoder[32];
+        internal static readonly int[] ITERATIONS = new int[32];
+        internal static readonly int[] BYTE_BLOCK_COUNTS = new int[32];
+        internal static readonly int MAX_BYTE_BLOCK_COUNT;
+        internal static readonly MonotonicAppendingInt64Buffer SINGLE_ZERO_BUFFER = LoadSingleZeroBuffer();
+        internal static readonly PForDeltaDocIdSet EMPTY = new PForDeltaDocIdSet(null, 0, int.MaxValue, SINGLE_ZERO_BUFFER, SINGLE_ZERO_BUFFER);
         internal const int LAST_BLOCK = 1 << 5; // flag to indicate the last block
         internal const int HAS_EXCEPTIONS = 1 << 6;
         internal const int UNARY = 1 << 7;
@@ -77,10 +77,10 @@ namespace YAF.Lucene.Net.Util
         /// A builder for <see cref="PForDeltaDocIdSet"/>. </summary>
         public class Builder
         {
-            readonly internal GrowableByteArrayDataOutput data;
-            readonly internal int[] buffer = new int[BLOCK_SIZE];
-            readonly internal int[] exceptionIndices = new int[BLOCK_SIZE];
-            readonly internal int[] exceptions = new int[BLOCK_SIZE];
+            internal readonly GrowableByteArrayDataOutput data;
+            internal readonly int[] buffer = new int[BLOCK_SIZE];
+            internal readonly int[] exceptionIndices = new int[BLOCK_SIZE];
+            internal readonly int[] exceptions = new int[BLOCK_SIZE];
             internal int bufferSize;
             internal int previousDoc;
             internal int cardinality;
@@ -88,7 +88,7 @@ namespace YAF.Lucene.Net.Util
             internal int numBlocks;
 
             // temporary variables used when compressing blocks
-            readonly internal int[] freqs = new int[32];
+            internal readonly int[] freqs = new int[32];
 
             internal int bitsPerValue;
             internal int numExceptions;
@@ -379,9 +379,9 @@ namespace YAF.Lucene.Net.Util
             }
         }
 
-        readonly internal byte[] data;
-        readonly internal MonotonicAppendingInt64Buffer docIDs, offsets; // for the index
-        readonly internal int cardinality, indexInterval;
+        internal readonly byte[] data;
+        internal readonly MonotonicAppendingInt64Buffer docIDs, offsets; // for the index
+        internal readonly int cardinality, indexInterval;
 
         internal PForDeltaDocIdSet(byte[] data, int cardinality, int indexInterval, MonotonicAppendingInt64Buffer docIDs, MonotonicAppendingInt64Buffer offsets)
         {
@@ -409,18 +409,18 @@ namespace YAF.Lucene.Net.Util
         internal class Iterator : DocIdSetIterator
         {
             // index
-            readonly internal int indexInterval;
+            internal readonly int indexInterval;
 
-            readonly internal MonotonicAppendingInt64Buffer docIDs, offsets;
+            internal readonly MonotonicAppendingInt64Buffer docIDs, offsets;
 
-            readonly internal int cardinality;
-            readonly internal byte[] data;
+            internal readonly int cardinality;
+            internal readonly byte[] data;
             internal int offset; // offset in data
 
-            readonly internal int[] nextDocs;
+            internal readonly int[] nextDocs;
             internal int i; // index in nextDeltas
 
-            readonly internal int[] nextExceptions;
+            internal readonly int[] nextExceptions;
 
             internal int blockIdx;
             internal int docID;

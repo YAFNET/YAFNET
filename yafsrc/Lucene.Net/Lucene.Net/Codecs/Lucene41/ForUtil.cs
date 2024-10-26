@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         /// Upper limit of the number of bytes that might be required to stored
         /// <see cref="Lucene41PostingsFormat.BLOCK_SIZE"/> encoded values.
         /// </summary>
-        public readonly static int MAX_ENCODED_SIZE = Lucene41PostingsFormat.BLOCK_SIZE * 4;
+        public static readonly int MAX_ENCODED_SIZE = Lucene41PostingsFormat.BLOCK_SIZE * 4;
 
         /// <summary>
         /// Upper limit of the number of values that might be decoded in a single call to
@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         /// <see cref="Lucene41PostingsFormat.BLOCK_SIZE"/> are garbage, it is necessary to allocate value buffers
         /// whose size is &gt;= MAX_DATA_SIZE to avoid <see cref="IndexOutOfRangeException"/>s.
         /// </summary>
-        public readonly static int MAX_DATA_SIZE = LoadMaxDataSize();
+        public static readonly int MAX_DATA_SIZE = LoadMaxDataSize();
 
         private static int LoadMaxDataSize() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {

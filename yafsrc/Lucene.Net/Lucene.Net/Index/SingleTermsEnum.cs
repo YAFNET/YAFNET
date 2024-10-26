@@ -18,7 +18,7 @@ namespace YAF.Lucene.Net.Index
      */
 
     // javadocs
-    using BytesRef = Lucene.Net.Util.BytesRef;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// Subclass of <see cref="FilteredTermsEnum"/> for enumerating a single term.

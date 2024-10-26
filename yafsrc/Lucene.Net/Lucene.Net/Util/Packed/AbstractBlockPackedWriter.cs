@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Util.Packed
     * (the "License"); you may not use this file except in compliance with
     * the License.  You may obtain a copy of the License at
     *
-    *     https://www.apache.org/licenses/LICENSE-2.0
+    *     http://www.apache.org/licenses/LICENSE-2.0
     *
     * Unless required by applicable law or agreed to in writing, software
     * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,7 +33,7 @@ namespace YAF.Lucene.Net.Util.Packed
         internal const int BPV_SHIFT = 1;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal long ZigZagEncode(long n)
+        internal static long ZigZagEncode(long n)
         {
             return (n >> 63) ^ (n << 1);
         }
@@ -43,7 +43,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// NOTE: This was writeVLong() in Lucene.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal void WriteVInt64(DataOutput @out, long i)
+        internal static void WriteVInt64(DataOutput @out, long i)
         {
             int k = 0;
             while ((i & ~0x7FL) != 0L && k++ < 8)
@@ -55,7 +55,7 @@ namespace YAF.Lucene.Net.Util.Packed
         }
 
         protected DataOutput m_out;
-        readonly protected long[] m_values;
+        protected readonly long[] m_values;
         protected byte[] m_blocks;
         protected int m_off;
         protected long m_ord;

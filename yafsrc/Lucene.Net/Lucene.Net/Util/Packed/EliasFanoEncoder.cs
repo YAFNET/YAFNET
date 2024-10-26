@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -89,17 +89,17 @@ namespace YAF.Lucene.Net.Util.Packed
     /// </summary>
     public class EliasFanoEncoder
     {
-        readonly internal long numValues;
+        internal readonly long numValues;
         private readonly long upperBound;
-        readonly internal int numLowBits;
-        readonly internal long lowerBitsMask;
-        readonly internal long[] upperLongs;
-        readonly internal long[] lowerLongs;
+        internal readonly int numLowBits;
+        internal readonly long lowerBitsMask;
+        internal readonly long[] upperLongs;
+        internal readonly long[] lowerLongs;
 
         /// <summary>
         /// NOTE: This was LOG2_LONG_SIZE in Lucene.
         /// </summary>
-        private readonly static int LOG2_INT64_SIZE = (sizeof(long) * 8).TrailingZeroCount();
+        private static readonly int LOG2_INT64_SIZE = (sizeof(long) * 8).TrailingZeroCount();
 
         internal long numEncoded = 0L;
         internal long lastEncoded = 0L;
@@ -108,15 +108,15 @@ namespace YAF.Lucene.Net.Util.Packed
         /// The default index interval for zero upper bits. </summary>
         public const long DEFAULT_INDEX_INTERVAL = 256;
 
-        readonly internal long numIndexEntries;
-        readonly internal long indexInterval;
-        readonly internal int nIndexEntryBits;
+        internal readonly long numIndexEntries;
+        internal readonly long indexInterval;
+        internal readonly int nIndexEntryBits;
 
         /// <summary>
         /// upperZeroBitPositionIndex[i] (filled using packValue) will contain the bit position
         /// just after the zero bit ((i+1) * indexInterval) in the upper bits.
         /// </summary>
-        readonly internal long[] upperZeroBitPositionIndex;
+        internal readonly long[] upperZeroBitPositionIndex;
 
         internal long currentEntryIndex; // also indicates how many entries in the index are valid.
 

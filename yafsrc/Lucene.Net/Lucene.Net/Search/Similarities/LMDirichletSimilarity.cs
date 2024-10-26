@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Search.Similarities
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -77,7 +77,7 @@ namespace YAF.Lucene.Net.Search.Similarities
             return score > 0.0f ? score : 0.0f;
         }
 
-        override protected internal void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
+        protected internal override void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
         {
             if (stats.TotalBoost != 1.0f)
             {

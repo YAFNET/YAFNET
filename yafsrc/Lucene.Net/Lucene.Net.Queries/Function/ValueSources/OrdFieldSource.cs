@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class OrdFieldSource : ValueSource
     {
-        readonly protected string m_field;
+        protected readonly string m_field;
 
         public OrdFieldSource(string field)
         {
@@ -120,7 +120,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             return o != null && o.GetType() == typeof(OrdFieldSource) && this.m_field.Equals(((OrdFieldSource)o).m_field, StringComparison.Ordinal);
         }
 
-        private readonly static int hcode = typeof(OrdFieldSource).GetHashCode();
+        private static readonly int hcode = typeof(OrdFieldSource).GetHashCode();
 
         public override int GetHashCode()
         {

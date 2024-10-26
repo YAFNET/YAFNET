@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,7 +33,7 @@ namespace YAF.Lucene.Net.Util
     /// </summary>
     public class SPIClassIterator<S> : IEnumerable<Type>
     {
-        private readonly static JCG.HashSet<Type> types = LoadTypes();
+        private static readonly JCG.HashSet<Type> types = LoadTypes();
 
         private static JCG.HashSet<Type> LoadTypes() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
@@ -112,7 +112,7 @@ namespace YAF.Lucene.Net.Util
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal bool IsInvokableSubclassOf<T>(Type type)
+        internal static bool IsInvokableSubclassOf<T>(Type type)
         {
             return typeof(T).IsAssignableFrom(type) && !type.IsAbstract && !type.IsInterface;
         }

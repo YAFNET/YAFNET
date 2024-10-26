@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -125,9 +125,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
     {
         /// <summary>
         /// Maximum length for each binary doc values field. </summary>
-        public readonly static int MAX_BINARY_FIELD_LENGTH = (1 << 15) - 2;
+        public static readonly int MAX_BINARY_FIELD_LENGTH = (1 << 15) - 2;
 
-        readonly protected float m_acceptableOverheadRatio;
+        protected readonly float m_acceptableOverheadRatio;
 
         /// <summary>
         /// Calls <c>Lucene42DocValuesFormat(PackedInts.DEFAULT)</c> (<see cref="Lucene42DocValuesFormat(float)"/>.

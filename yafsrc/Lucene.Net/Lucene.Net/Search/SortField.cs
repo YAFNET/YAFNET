@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -40,11 +40,11 @@ namespace YAF.Lucene.Net.Search
 
         /// <summary>
         /// Represents sorting by document score (relevance). </summary>
-        public readonly static SortField FIELD_SCORE = new SortField(null, SortFieldType.SCORE);
+        public static readonly SortField FIELD_SCORE = new SortField(null, SortFieldType.SCORE);
 
         /// <summary>
         /// Represents sorting by document number (index order). </summary>
-        public readonly static SortField FIELD_DOC = new SortField(null, SortFieldType.DOC);
+        public static readonly SortField FIELD_DOC = new SortField(null, SortFieldType.DOC);
 
         private string field;
         private SortFieldType type; // defaults to determining type dynamically
@@ -150,7 +150,7 @@ namespace YAF.Lucene.Net.Search
         /// Pass this to <see cref="MissingValue"/> to have missing
         /// string values sort first.
         /// </summary>
-        public readonly static object STRING_FIRST = new ObjectAnonymousClass();
+        public static readonly object STRING_FIRST = new ObjectAnonymousClass();
 
         private sealed class ObjectAnonymousClass : object
         {
@@ -168,7 +168,7 @@ namespace YAF.Lucene.Net.Search
         /// Pass this to <see cref="MissingValue"/> to have missing
         /// string values sort last.
         /// </summary>
-        public readonly static object STRING_LAST = new ObjectAnonymousClass2();
+        public static readonly object STRING_LAST = new ObjectAnonymousClass2();
 
         private sealed class ObjectAnonymousClass2 : object
         {

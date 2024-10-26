@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -70,7 +70,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         internal IndexOutput payOut;
 #pragma warning restore CA2213 // Disposable fields should be disposed
 
-        readonly static internal Int32BlockTermState emptyState = new Int32BlockTermState();
+        internal static readonly Int32BlockTermState emptyState = new Int32BlockTermState();
         internal Int32BlockTermState lastState;
 
         // How current field indexes postings:
@@ -86,14 +86,14 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         private long posStartFP;
         private long payStartFP;
 
-        readonly internal int[] docDeltaBuffer;
-        readonly internal int[] freqBuffer;
+        internal readonly int[] docDeltaBuffer;
+        internal readonly int[] freqBuffer;
         private int docBufferUpto;
 
-        readonly internal int[] posDeltaBuffer;
-        readonly internal int[] payloadLengthBuffer;
-        readonly internal int[] offsetStartDeltaBuffer;
-        readonly internal int[] offsetLengthBuffer;
+        internal readonly int[] posDeltaBuffer;
+        internal readonly int[] payloadLengthBuffer;
+        internal readonly int[] offsetStartDeltaBuffer;
+        internal readonly int[] offsetLengthBuffer;
         private int posBufferUpto;
 
         private byte[] payloadBytes;
@@ -110,7 +110,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         private int lastStartOffset;
         private int docCount;
 
-        readonly internal byte[] encoded;
+        internal readonly byte[] encoded;
 
         private readonly ForUtil forUtil;
         private readonly Lucene41SkipWriter skipWriter;
@@ -665,7 +665,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             lastState = state2;
         }
 
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

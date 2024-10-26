@@ -10,7 +10,7 @@ namespace YAF.Lucene.Net.Search.Similarities
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -48,7 +48,7 @@ namespace YAF.Lucene.Net.Search.Similarities
     {
         /// <summary>
         /// Cache of decoded bytes. </summary>
-        private readonly static float[] NORM_TABLE = LoadNormTable();
+        private static readonly float[] NORM_TABLE = LoadNormTable();
 
         private static float[] LoadNormTable() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {

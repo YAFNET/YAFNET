@@ -70,7 +70,7 @@ public class AspNetRoleManager : RoleManager<AspNetRoles>, IAspNetRoleManager
         var roleNames = BoardContext.Current.GetRepository<AspNetRoles>().Get(r => roles.Contains(r.Id))
             .Select(r => r.Name).ToList();
 
-        return Task.FromResult<IList<string>>(roleNames).Result;
+        return Task.FromResult<IList<string>>(roleNames).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -84,7 +84,7 @@ public class AspNetRoleManager : RoleManager<AspNetRoles>, IAspNetRoleManager
     /// </returns>
     public AspNetRoles FindByName(string roleName)
     {
-        return this.FindByNameAsync(roleName).Result;
+        return this.FindByNameAsync(roleName).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -99,7 +99,7 @@ public class AspNetRoleManager : RoleManager<AspNetRoles>, IAspNetRoleManager
     public IdentityResult Create(
         AspNetRoles role)
     {
-        return this.CreateAsync(role).Result;
+        return this.CreateAsync(role).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -114,7 +114,7 @@ public class AspNetRoleManager : RoleManager<AspNetRoles>, IAspNetRoleManager
     public IdentityResult Delete(
         AspNetRoles role)
     {
-        return this.DeleteAsync(role).Result;
+        return this.DeleteAsync(role).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -129,6 +129,6 @@ public class AspNetRoleManager : RoleManager<AspNetRoles>, IAspNetRoleManager
     public bool RoleExists(
         string roleName)
     {
-        return this.RoleExistsAsync(roleName).Result;
+        return this.RoleExistsAsync(roleName).GetAwaiter().GetResult();
     }
 }

@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -138,8 +138,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             }
         }
 
-        readonly static internal string LEGACY_DV_TYPE_KEY = typeof(Lucene40FieldInfosReader).Name + ".dvtype";
-        readonly static internal string LEGACY_NORM_TYPE_KEY = typeof(Lucene40FieldInfosReader).Name + ".normtype";
+        internal static readonly string LEGACY_DV_TYPE_KEY = typeof(Lucene40FieldInfosReader).Name + ".dvtype";
+        internal static readonly string LEGACY_NORM_TYPE_KEY = typeof(Lucene40FieldInfosReader).Name + ".normtype";
 
         // mapping of 4.0 types -> 4.2 types
         /*internal enum LegacyDocValuesType
@@ -186,7 +186,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         BYTES_VAR_SORTED
     }
 
-    static internal class LegacyDocValuesTypeExtensions
+    internal static class LegacyDocValuesTypeExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DocValuesType GetMapping(this LegacyDocValuesType legacyDocValuesType)
@@ -201,7 +201,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         }
 
         // mapping of 4.0 types -> 4.2 types
-        static internal IDictionary<LegacyDocValuesType, DocValuesType> mapping = new Dictionary<LegacyDocValuesType, DocValuesType>
+        internal static IDictionary<LegacyDocValuesType, DocValuesType> mapping = new Dictionary<LegacyDocValuesType, DocValuesType>
         {
             { LegacyDocValuesType.NONE, DocValuesType.NONE },
             { LegacyDocValuesType.VAR_INTS, DocValuesType.NUMERIC },

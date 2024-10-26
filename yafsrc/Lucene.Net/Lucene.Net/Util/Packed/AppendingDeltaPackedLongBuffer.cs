@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -63,7 +63,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
         }
 
-        override internal long Get(int block, int element)
+        internal override long Get(int block, int element)
         {
             if (block == valuesOff)
             {
@@ -79,7 +79,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
         }
 
-        override internal int Get(int block, int element, long[] arr, int off, int len)
+        internal override int Get(int block, int element, long[] arr, int off, int len)
         {
             if (block == valuesOff)
             {
@@ -100,7 +100,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
         }
 
-        override internal void PackPendingValues()
+        internal override void PackPendingValues()
         {
             // compute max delta
             long minValue = pending[0];
@@ -135,14 +135,14 @@ namespace YAF.Lucene.Net.Util.Packed
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override internal void Grow(int newBlockCount)
+        internal override void Grow(int newBlockCount)
         {
             base.Grow(newBlockCount);
             this.minValues = Arrays.CopyOf(minValues, newBlockCount);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        override internal long BaseRamBytesUsed()
+        internal override long BaseRamBytesUsed()
         {
             return base.BaseRamBytesUsed() + RamUsageEstimator.NUM_BYTES_OBJECT_REF; // additional array
         }

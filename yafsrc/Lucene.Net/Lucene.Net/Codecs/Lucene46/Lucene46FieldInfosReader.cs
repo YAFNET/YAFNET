@@ -1,5 +1,5 @@
-﻿using J2N.Collections.Generic.Extensions;
-using J2N.Numerics;
+﻿using J2N.Numerics;
+using YAF.Lucene.Net.Support;
 using System.Collections.Generic;
 
 namespace YAF.Lucene.Net.Codecs.Lucene46
@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene46
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,7 +36,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene46
     /// <summary>
     /// Lucene 4.6 FieldInfos reader.
     /// <para/>
-    /// @lucene.experimental 
+    /// @lucene.experimental
     /// </summary>
     /// <seealso cref="Lucene46FieldInfosFormat"/>
     internal sealed class Lucene46FieldInfosReader : FieldInfosReader
@@ -97,7 +97,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene46
                     DocValuesType normsType = GetDocValuesType(input, (byte)((val.TripleShift(4)) & 0x0F));
                     long dvGen = input.ReadInt64();
                     IDictionary<string, string> attributes = input.ReadStringStringMap();
-                    infos[i] = new FieldInfo(name, isIndexed, fieldNumber, storeTermVector, omitNorms, storePayloads, indexOptions, docValuesType, normsType, attributes.AsReadOnly());
+                    infos[i] = new FieldInfo(name, isIndexed, fieldNumber, storeTermVector, omitNorms, storePayloads, indexOptions, docValuesType, normsType, Collections.AsReadOnly(attributes));
                     infos[i].DocValuesGen = dvGen;
                 }
 

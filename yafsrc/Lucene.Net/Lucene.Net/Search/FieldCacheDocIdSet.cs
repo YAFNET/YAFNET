@@ -10,7 +10,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -35,8 +35,8 @@ namespace YAF.Lucene.Net.Search
     /// </summary>
     public class FieldCacheDocIdSet : DocIdSet
     {
-        readonly protected int m_maxDoc;
-        readonly protected IBits m_acceptDocs;
+        protected readonly int m_maxDoc;
+        protected readonly IBits m_acceptDocs;
         private readonly Predicate<int> matchDoc;
         private readonly bool hasMatchDoc;
 
@@ -178,7 +178,7 @@ namespace YAF.Lucene.Net.Search
                 this.outerInstance = outerInstance;
             }
 
-            override protected bool Match(int doc)
+            protected override bool Match(int doc)
             {
                 return outerInstance.MatchDoc(doc);
             }

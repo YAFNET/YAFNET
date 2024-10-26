@@ -1,6 +1,5 @@
 ﻿// Lucene version compatibility level 4.10.4
 using J2N;
-using J2N.Collections.Generic.Extensions;
 using J2N.Numerics;
 using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
@@ -29,7 +28,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -726,11 +725,11 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         internal static readonly IDictionary<string, string> CHARSET_ALIASES = LoadCharsetAliases();
         private static IDictionary<string, string> LoadCharsetAliases() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
-            return new Dictionary<string, string>
+            return Collections.AsReadOnly(new Dictionary<string, string>
             {
                 ["microsoft-cp1251"] = "windows-1251",
                 ["TIS620-2533"] = "TIS-620"
-            }.AsReadOnly();
+            });
         }
 
         /// <summary>

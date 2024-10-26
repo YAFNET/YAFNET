@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Codecs.PerField
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -66,13 +66,13 @@ namespace YAF.Lucene.Net.Codecs.PerField
         /// <see cref="FieldInfo"/> attribute name used to store the
         /// format name for each field.
         /// </summary>
-        public readonly static string PER_FIELD_FORMAT_KEY = typeof(PerFieldDocValuesFormat).Name + ".format";
+        public static readonly string PER_FIELD_FORMAT_KEY = typeof(PerFieldDocValuesFormat).Name + ".format";
 
         /// <summary>
         /// <see cref="FieldInfo"/> attribute name used to store the
         /// segment suffix name for each field.
         /// </summary>
-        public readonly static string PER_FIELD_SUFFIX_KEY = typeof(PerFieldDocValuesFormat).Name + ".suffix";
+        public static readonly string PER_FIELD_SUFFIX_KEY = typeof(PerFieldDocValuesFormat).Name + ".suffix";
 
         /// <summary>
         /// Sole constructor. </summary>
@@ -111,10 +111,10 @@ namespace YAF.Lucene.Net.Codecs.PerField
         {
             private readonly PerFieldDocValuesFormat outerInstance;
 
-            readonly internal IDictionary<DocValuesFormat, ConsumerAndSuffix> formats = new Dictionary<DocValuesFormat, ConsumerAndSuffix>();
-            readonly internal IDictionary<string, int?> suffixes = new Dictionary<string, int?>();
+            internal readonly IDictionary<DocValuesFormat, ConsumerAndSuffix> formats = new Dictionary<DocValuesFormat, ConsumerAndSuffix>();
+            internal readonly IDictionary<string, int?> suffixes = new Dictionary<string, int?>();
 
-            readonly internal SegmentWriteState segmentWriteState;
+            internal readonly SegmentWriteState segmentWriteState;
 
             public FieldsWriter(PerFieldDocValuesFormat outerInstance, SegmentWriteState state)
             {
@@ -225,7 +225,7 @@ namespace YAF.Lucene.Net.Codecs.PerField
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            override protected void Dispose(bool disposing)
+            protected override void Dispose(bool disposing)
             {
                 if (disposing)
                 {
@@ -236,13 +236,13 @@ namespace YAF.Lucene.Net.Codecs.PerField
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal string GetSuffix(string formatName, string suffix)
+        internal static string GetSuffix(string formatName, string suffix)
         {
             return formatName + "_" + suffix;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal string GetFullSegmentSuffix(string outerSegmentSuffix, string segmentSuffix)
+        internal static string GetFullSegmentSuffix(string outerSegmentSuffix, string segmentSuffix)
         {
             if (outerSegmentSuffix.Length == 0)
             {
@@ -259,8 +259,8 @@ namespace YAF.Lucene.Net.Codecs.PerField
             private readonly PerFieldDocValuesFormat outerInstance;
 
             // LUCENENET specific: Use StringComparer.Ordinal to get the same ordering as Java
-            readonly internal IDictionary<string, DocValuesProducer> fields = new JCG.SortedDictionary<string, DocValuesProducer>(StringComparer.Ordinal);
-            readonly internal IDictionary<string, DocValuesProducer> formats = new Dictionary<string, DocValuesProducer>();
+            internal readonly IDictionary<string, DocValuesProducer> fields = new JCG.SortedDictionary<string, DocValuesProducer>(StringComparer.Ordinal);
+            internal readonly IDictionary<string, DocValuesProducer> formats = new Dictionary<string, DocValuesProducer>();
 
             public FieldsReader(PerFieldDocValuesFormat outerInstance, SegmentReadState readState)
             {
@@ -376,7 +376,7 @@ namespace YAF.Lucene.Net.Codecs.PerField
                 return null;
             }
 
-            override protected void Dispose(bool disposing)
+            protected override void Dispose(bool disposing)
             {
                 if (disposing)
                 {

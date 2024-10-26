@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Codecs
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -246,11 +246,11 @@ namespace YAF.Lucene.Net.Codecs
         private readonly IndexOutput @out;
         private readonly IndexOutput indexOut;
 #pragma warning restore CA2213 // Disposable fields should be disposed
-        readonly internal int minItemsInBlock;
-        readonly internal int maxItemsInBlock;
+        internal readonly int minItemsInBlock;
+        internal readonly int maxItemsInBlock;
 
-        readonly internal PostingsWriterBase postingsWriter;
-        readonly internal FieldInfos fieldInfos;
+        internal readonly PostingsWriterBase postingsWriter;
+        internal readonly FieldInfos fieldInfos;
         internal FieldInfo currentField;
 
         private class FieldMetaData
@@ -408,7 +408,7 @@ namespace YAF.Lucene.Net.Codecs
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static internal long EncodeOutput(long fp, bool hasTerms, bool isFloor)
+        internal static long EncodeOutput(long fp, bool hasTerms, bool isFloor)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(fp < (1L << 62));
             return (fp << 2) | (uint)(hasTerms ? BlockTreeTermsWriter.OUTPUT_FLAG_HAS_TERMS : 0) | (uint)(isFloor ? BlockTreeTermsWriter.OUTPUT_FLAG_IS_FLOOR : 0);
@@ -614,7 +614,7 @@ namespace YAF.Lucene.Net.Codecs
         }
 
 #pragma warning disable CA2213 // Disposable fields should be disposed
-        readonly internal RAMOutputStream scratchBytes = new RAMOutputStream();
+        internal readonly RAMOutputStream scratchBytes = new RAMOutputStream();
 #pragma warning restore CA2213 // Disposable fields should be disposed
 
         internal class TermsWriter : TermsConsumer
@@ -1298,16 +1298,16 @@ namespace YAF.Lucene.Net.Codecs
                 }
             }
 
-            readonly internal RAMOutputStream suffixWriter = new RAMOutputStream();
-            readonly internal RAMOutputStream statsWriter = new RAMOutputStream();
-            readonly internal RAMOutputStream metaWriter = new RAMOutputStream();
-            readonly internal RAMOutputStream bytesWriter = new RAMOutputStream();
+            internal readonly RAMOutputStream suffixWriter = new RAMOutputStream();
+            internal readonly RAMOutputStream statsWriter = new RAMOutputStream();
+            internal readonly RAMOutputStream metaWriter = new RAMOutputStream();
+            internal readonly RAMOutputStream bytesWriter = new RAMOutputStream();
         }
 
         /// <summary>
         /// Disposes all resources used by this object.
         /// </summary>
-        override protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

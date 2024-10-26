@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -70,23 +70,23 @@ namespace YAF.Lucene.Net.Search
     /// </summary>
     public class IndexSearcher
     {
-        readonly internal IndexReader reader; // package private for testing!
+        internal readonly IndexReader reader; // package private for testing!
 
         // NOTE: these members might change in incompatible ways
         // in the next release
-        readonly protected IndexReaderContext m_readerContext;
+        protected readonly IndexReaderContext m_readerContext;
 
-        readonly protected internal IList<AtomicReaderContext> m_leafContexts;
+        protected internal readonly IList<AtomicReaderContext> m_leafContexts;
 
         /// <summary>
         /// Used with executor - each slice holds a set of leafs executed within one thread </summary>
-        readonly protected LeafSlice[]? m_leafSlices;
+        protected readonly LeafSlice[]? m_leafSlices;
 
         // These are only used for multi-threaded search
         private readonly TaskScheduler? executor;
 
         // the default Similarity
-        private readonly static Similarity defaultSimilarity = new DefaultSimilarity();
+        private static readonly Similarity defaultSimilarity = new DefaultSimilarity();
 
         /// <summary>
         /// Expert: returns a default <see cref="Similarities.Similarity"/> instance.

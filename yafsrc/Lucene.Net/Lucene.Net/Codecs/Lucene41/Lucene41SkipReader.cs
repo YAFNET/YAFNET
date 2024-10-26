@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -150,7 +150,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
 
         public int NextSkipDoc => m_skipDoc[0];
 
-        override protected void SeekChild(int level)
+        protected override void SeekChild(int level)
         {
             base.SeekChild(level);
             // if (DEBUG) {
@@ -172,7 +172,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             }
         }
 
-        override protected void SetLastSkipData(int level)
+        protected override void SetLastSkipData(int level)
         {
             base.SetLastSkipData(level);
             lastDocPointer = docPointer[level];
@@ -198,7 +198,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             }
         }
 
-        override protected int ReadSkipData(int level, IndexInput skipStream)
+        protected override int ReadSkipData(int level, IndexInput skipStream)
         {
             // if (DEBUG) {
             //   System.out.println("readSkipData level=" + level);

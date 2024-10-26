@@ -8,7 +8,7 @@
 
 namespace YAF.Lucene.Net.Support
 {
-    static internal class RectangularArrays
+    internal static class RectangularArrays
     {
         public static T[][] ReturnRectangularArray<T>(int size1, int size2)
         {
