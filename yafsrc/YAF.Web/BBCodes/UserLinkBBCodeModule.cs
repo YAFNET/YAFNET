@@ -62,13 +62,20 @@ public class UserLinkBBCodeModule : BBCodeControl
             }
 
             writer.Write("<!-- BEGIN userlink -->");
-            writer.Write("""<span class="badge rounded-pill text-bg-secondary fs-6">""");
+
+            var badgeColor = boardUser == BoardContext.Current.PageUser ? "text-bg-primary" : "text-bg-secondary";
+
+            writer.Write("<span class=\"badge rounded-pill ");
+
+            writer.Write(badgeColor);
+
+            writer.Write(" fs-6\">");
 
             writer.WriteBeginTag("a");
 
             writer.WriteAttribute("href", this.Get<LinkBuilder>().GetUserProfileLink(boardUser.ID, boardUser.DisplayOrUserName()));
 
-            writer.WriteAttribute("class", "link-light");
+            writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "link-light");
 
             writer.Write(HtmlTextWriter.TagRightChar);
 
