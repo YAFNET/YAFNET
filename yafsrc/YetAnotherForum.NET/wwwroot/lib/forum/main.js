@@ -109,7 +109,7 @@ function loadSelectMenus() {
                 allowHTML: true,
                 shouldSort: false,
                 placeholderValue: select.getAttribute('placeholder'),
-                classNames: { containerOuter: 'choices w-100' }
+                classNames: { containerOuter: ['choices', 'w-100'] }
             });
     });
 
@@ -148,7 +148,7 @@ function loadSelectMenus() {
 
         const choice = new window.Choices(select,
             {
-                classNames: { containerOuter: 'choices w-100' },
+                classNames: { containerOuter: ['choices', 'w-100'] },
                 allowHTML: true,
                 shouldSort: false,
                 removeItemButton: select.dataset.allowClear === 'true',
@@ -228,11 +228,11 @@ function loadSelectMenus() {
             function (event) {
                 var json;
 
-                if (event.detail.choice.customProperties) {
+                if (event.detail.customProperties) {
                     try {
-                        json = JSON.parse(event.detail.choice.customProperties);
+                        json = JSON.parse(event.detail.customProperties);
                     } catch (e) {
-                        json = event.detail.choice.customProperties;
+                        json = event.detail.customProperties;
                     }
 
                     if (json.url !== undefined) {

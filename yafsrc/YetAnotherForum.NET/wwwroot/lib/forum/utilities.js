@@ -71,14 +71,14 @@ function createForumSelectTemplates(template) {
             );
         },
         choiceGroup: function ({ classNames }, data) {
-            return template(`
+	        return template(`
                      <div class="${String(classNames.item)} fw-bold text-secondary"
                           data-select-text="${String(itemSelectText)}" data-choice ${String(data.disabled
                 ? 'data-choice-disabled aria-disabled="true"'
                 : 'data-choice-selectable')}
                           data-id="${String(data.id)}" data-value="${String(data.value)}"
                           ${String(data.groupId > 0 ? 'role="treeitem"' : 'role="option"')}>
-                          <span><i class="fas fa-fw fa-folder text-warning me-1"></i>${String(data.value)}</span>
+                          <span><i class="fas fa-fw fa-folder text-warning me-1"></i>${String(data.label)}</span>
                      </div>
                      `);
         }

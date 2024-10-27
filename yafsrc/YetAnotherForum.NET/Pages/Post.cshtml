@@ -15,8 +15,25 @@
 @model PostModel
 
 @{
-	var showQuickReply = Model.PageBoardContext.BoardSettings.ShowQuickAnswer && Model.PageBoardContext.ForumReplyAccess && ((!Model.PageBoardContext.PageTopic.TopicFlags.IsLocked && !Model.PageBoardContext.PageForum.ForumFlags.IsLocked)
-	                                                                                                                         || Model.PageBoardContext.ForumModeratorAccess);
+	var showQuickReply = Model.PageBoardContext.BoardSettings.ShowQuickAnswer && Model.PageBoardContext.ForumReplyAccess && ((!Model.PageBoardContext.PageTopic.TopicFlags.IsLocked && !Model.PageBoardContext.PageForum.ForumFlags.IsLocked) || Model.PageBoardContext.ForumModeratorAccess);
+
+	var selectForumsLoadJs = JavaScriptBlocks.SelectForumsLoadJs(
+		"ForumList",
+		Model.GetText("SELECT_FORUM"),
+		false,
+		false,
+		"ForumListSelected");
+
+	var editorJs = showQuickReply
+		? JavaScriptBlocks.CreateEditorJs(
+			"QuickReplyEditor",
+			Model.GetText("COMMON", "TT_URL_TITLE"),
+			Model.GetText("COMMON", "TT_URL_DESC"),
+			Model.GetText("COMMON", "TT_IMAGE_TITLE"),
+			Model.GetText("COMMON", "TT_IMAGE_DESC"),
+			Model.GetText("COMMON", "TT_DESCRIPTION"),
+			Model.GetText("COMMON", "TT_MEDIA"))
+		: string.Empty;
 }
 
 @if (Model.PageBoardContext.PageTopic.PollID.HasValue)
@@ -411,54 +428,34 @@
 
 @section Scripts {
 
-    <script>
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ForumModsPopoverJs(
-            $"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
+	<script>
+	@Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ForumModsPopoverJs(
+		$"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
 
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.TopicLinkPopoverJs(
-            $"{Model.Get<ILocalization>().GetText("TOPIC_STARTER")}&nbsp;...",
-            ".topic-starter-popover",
-            "hover")))
+	@Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.TopicLinkPopoverJs(
+		$"{Model.Get<ILocalization>().GetText("TOPIC_STARTER")}&nbsp;...",
+		".topic-starter-popover",
+		"hover")))
 
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(
-            JavaScriptBlocks.TopicLinkPopoverJs(
-                $"{Model.Get<ILocalization>().GetText("LASTPOST")}&nbsp;{Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...",
-                ".topic-link-popover",
-                "focus hover")))
+	@Html.Raw(JsAndCssHelper.CompressJavaScript(
+		JavaScriptBlocks.TopicLinkPopoverJs(
+			$"{Model.Get<ILocalization>().GetText("LASTPOST")}&nbsp;{Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...",
+			".topic-link-popover",
+			"focus hover")))
 
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(
-            JavaScriptBlocks.ForumIconLegendPopoverJs(
-                (await Html.PartialAsync("_TopicIconLegend")).RenderToString().ToJsString(),
-                "topic-icon-legend-popvover")))
+	@Html.Raw(JsAndCssHelper.CompressJavaScript(
+		JavaScriptBlocks.ForumIconLegendPopoverJs(
+			(await Html.PartialAsync("_TopicIconLegend")).RenderToString().ToJsString(),
+			"topic-icon-legend-popvover")))
 
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(
-            JavaScriptBlocks.ForumIconLegendPopoverJs(
-                (await Html.PartialAsync("_ForumIconLegend")).RenderToString().ToJsString(),
-                "forum-icon-legend-popvover")))
+	@Html.Raw(JsAndCssHelper.CompressJavaScript(
+		JavaScriptBlocks.ForumIconLegendPopoverJs(
+			(await Html.PartialAsync("_ForumIconLegend")).RenderToString().ToJsString(),
+			"forum-icon-legend-popvover")))
 
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
+	@Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
 
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(
-            JavaScriptBlocks.DialogFunctionsJs(
-                    JavaScriptBlocks.SelectForumsLoadJs(
-                "ForumList",
-                Model.GetText("SELECT_FORUM"),
-                false,
-                false,
-                "ForumListSelected"))))
-
-        @if (showQuickReply)
-        {
-	        @Html.Raw(JsAndCssHelper.CompressJavaScript(
-			        JavaScriptBlocks.DialogFunctionsJs(JavaScriptBlocks.CreateEditorJs(
-				        "QuickReplyEditor",
-				        Model.GetText("COMMON", "TT_URL_TITLE"),
-				        Model.GetText("COMMON", "TT_URL_DESC"),
-				        Model.GetText("COMMON", "TT_IMAGE_TITLE"),
-				        Model.GetText("COMMON", "TT_IMAGE_DESC"),
-				        Model.GetText("COMMON", "TT_DESCRIPTION"),
-				        Model.GetText("COMMON", "TT_MEDIA")))))
-        }
+	@Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.DialogFunctionsJs(selectForumsLoadJs + editorJs)))
 
     </script>
 }

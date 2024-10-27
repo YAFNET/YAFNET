@@ -84,7 +84,8 @@ public class ForumController : ForumBaseController
                             id = 0,
                             text = this.GetText("ALL_CATEGORIES"),
                             children = [
-                                new() {
+                                new SelectOptions
+                                {
                                     id = "0",
                                     text = this.GetText("ALL_FORUMS")
                                 }
