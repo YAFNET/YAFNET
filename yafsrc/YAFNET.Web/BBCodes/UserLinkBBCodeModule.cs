@@ -61,8 +61,14 @@ public class UserLinkBBCodeModule : BBCodeControl
                 return;
             }
 
+            var badgeColor = boardUser == BoardContext.Current.PageUser ? "text-bg-primary" : "text-bg-secondary";
+
             stringBuilder.Append("<!-- BEGIN user link -->");
-            stringBuilder.Append("<span class=\"badge rounded-pill text-bg-secondary fs-6\">");
+            stringBuilder.Append("<span class=\"badge rounded-pill ");
+
+            stringBuilder.Append(badgeColor);
+
+            stringBuilder.Append(" fs-6\">");
 
             var link = new TagBuilder(HtmlTag.A);
 
