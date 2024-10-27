@@ -150,11 +150,11 @@ document.addEventListener('DOMContentLoaded', function () {
         choice.passedElement.element.addEventListener('choice', function (event) {
             var json;
 
-            if (event.detail.choice.customProperties) {
+            if (event.detail.customProperties) {
                 try {
-                    json = JSON.parse(event.detail.choice.customProperties);
+                    json = JSON.parse(event.detail.customProperties);
                 } catch (e) {
-                    json = event.detail.choice.customProperties;
+                    json = event.detail.customProperties;
                 }
 
                 if (json.url !== undefined) {

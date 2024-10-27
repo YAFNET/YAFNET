@@ -78,7 +78,7 @@ function createForumSelectTemplates(template) {
                 : 'data-choice-selectable')}
                           data-id="${String(data.id)}" data-value="${String(data.value)}"
                           ${String(data.groupId > 0 ? 'role="treeitem"' : 'role="option"')}>
-                          <span><i class="fas fa-fw fa-folder text-warning me-1"></i>${String(data.value)}</span>
+                          <span><i class="fas fa-fw fa-folder text-warning me-1"></i>${String(data.label)}</span>
                      </div>
                      `);
         }
