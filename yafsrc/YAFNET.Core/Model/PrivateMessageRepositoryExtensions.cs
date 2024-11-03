@@ -59,7 +59,7 @@ public static class PrivateMessageRepositoryExtensions
             .Select<PrivateMessage>(p => p);
 
         // clear lazy data.
-        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(toUserId));
+        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
         // Mark all to messages as read
         await repository.DbAccess.ExecuteAsync(

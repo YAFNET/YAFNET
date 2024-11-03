@@ -20,8 +20,8 @@
     "grunt-webpack": "^7.0.0",
     "grunt-zip": "^1.0.0",
     "postcss": "^8.4.47",
-    "sass": "^1.80.4",
-    "webpack": "^5.95.0",
+    "sass": "^1.80.6",
+    "webpack": "^5.96.1",
     "webpack-merge": "^6.0.1"
   },
   "dependencies": {
@@ -34,6 +34,7 @@
     "bs5-lightbox": "^1.8.3",
     "choices.js": "^11.0.2",
     "codemirror": "^5.65.18",
+    "dark-editable": "^1.4.3",
     "flag-icons": "^7.2.3",
     "form-serialize": "^0.7.2",
     "long-press-event": "^2.5.0",

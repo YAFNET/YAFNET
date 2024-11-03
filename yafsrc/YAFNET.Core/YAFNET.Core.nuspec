@@ -24,10 +24,10 @@
 			<dependency id="FarsiLibrary.Core" version="2.8.0" exclude="Build,Analyzers" />
 			<dependency id="GoogleAuthenticator" version="3.2.0" exclude="Build,Analyzers" />
 			<dependency id="HtmlProperties" version="1.0.0" exclude="Build,Analyzers" />
-			<dependency id="Lucene.Net" version="4.8.0-beta00016" exclude="Build,Analyzers" />
-			<dependency id="Lucene.Net.Analysis.Common" version="4.8.0-beta00016" exclude="Build,Analyzers" />
-			<dependency id="Lucene.Net.Highlighter" version="4.8.0-beta00016" exclude="Build,Analyzers" />
-			<dependency id="Lucene.Net.QueryParser" version="4.8.0-beta00016" exclude="Build,Analyzers" />
+			<dependency id="Lucene.Net" version="4.8.0-beta00017" exclude="Build,Analyzers" />
+			<dependency id="Lucene.Net.Analysis.Common" version="4.8.0-beta00017" exclude="Build,Analyzers" />
+			<dependency id="Lucene.Net.Highlighter" version="4.8.0-beta00017" exclude="Build,Analyzers" />
+			<dependency id="Lucene.Net.QueryParser" version="4.8.0-beta00017" exclude="Build,Analyzers" />
 			<dependency id="MailKit" version="4.8.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.AspNet.WebApi.Client" version="6.0.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.AspNetCore.Authentication.Facebook" version="8.0.10" exclude="Build,Analyzers" />
