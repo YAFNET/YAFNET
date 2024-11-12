@@ -26,7 +26,7 @@
 	</PropertyGroup>
 
   <PropertyGroup>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>11.0</LangVersion>
   </PropertyGroup>
   
   <!-- IMPORTANT: When these values are changed, the CI counter number should also be reset. -->

@@ -1,5 +1,4 @@
-﻿using J2N.Numerics;
-using YAF.Lucene.Net.Util;
+﻿using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,7 +17,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -208,7 +207,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
 
         /// <summary>
         ///
-        /// NOTE: When overriding this method, be aware that the constructor of this class calls 
+        /// NOTE: When overriding this method, be aware that the constructor of this class calls
         /// a private method and not this virtual method. So if you need to override
         /// the behavior during the initialization, call your own private method from the constructor
         /// with whatever custom behavior you need.
@@ -224,8 +223,8 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
             {
                 if (existWpi.IsOffsetOverlap(wpi))
                 {
-                    // WeightedPhraseInfo.addIfNoOverlap() dumps the second part of, for example, hyphenated words (social-economics). 
-                    // The result is that all informations in TermInfo are lost and not available for further operations. 
+                    // WeightedPhraseInfo.addIfNoOverlap() dumps the second part of, for example, hyphenated words (social-economics).
+                    // The result is that all informations in TermInfo are lost and not available for further operations.
                     existWpi.TermsInfos.AddRange(wpi.TermsInfos);
                     return;
                 }
@@ -270,7 +269,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
             public virtual float Boost => boost;
 
             /// <summary>
-            /// the termInfos 
+            /// the termInfos
             /// </summary>
             public virtual IList<TermInfo> TermsInfos => termsInfos;
 
@@ -437,7 +436,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
                 result = prime * result + StartOffset;
                 result = prime * result + EndOffset;
                 long b = J2N.BitConversion.DoubleToInt64Bits(Boost);
-                result = prime * result + (int)(b ^ b.TripleShift(32));
+                result = prime * result + (int)(b ^ (b >>> 32));
                 return result;
             }
 

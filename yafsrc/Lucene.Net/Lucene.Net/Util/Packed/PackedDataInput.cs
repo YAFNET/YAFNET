@@ -1,5 +1,4 @@
-﻿using J2N.Numerics;
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -27,7 +26,7 @@ namespace YAF.Lucene.Net.Util.Packed
     /// <summary>
     /// A <see cref="DataInput"/> wrapper to read unaligned, variable-length packed
     /// integers. This API is much slower than the <see cref="PackedInt32s"/> fixed-length
-    /// API but can be convenient to save space. 
+    /// API but can be convenient to save space.
     /// <para/>
     /// @lucene.internal
     /// </summary>
@@ -64,7 +63,7 @@ namespace YAF.Lucene.Net.Util.Packed
                     remainingBits = 8;
                 }
                 int bits = Math.Min(bitsPerValue, remainingBits);
-                r = (r << bits) | ((current.TripleShift((remainingBits - bits))) & ((1L << bits) - 1));
+                r = (r << bits) | ((current >>> (remainingBits - bits)) & ((1L << bits) - 1));
                 bitsPerValue -= bits;
                 remainingBits -= bits;
             }

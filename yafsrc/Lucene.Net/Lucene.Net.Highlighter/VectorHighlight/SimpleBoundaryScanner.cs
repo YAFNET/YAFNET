@@ -12,7 +12,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,8 +27,8 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
     /// </summary>
     public class SimpleBoundaryScanner : IBoundaryScanner
     {
-        public readonly static int DEFAULT_MAX_SCAN = 20;
-        public readonly static char[] DEFAULT_BOUNDARY_CHARS = { '.', ',', '!', '?', ' ', '\t', '\n' };
+        public static readonly int DEFAULT_MAX_SCAN = 20;
+        public static readonly char[] DEFAULT_BOUNDARY_CHARS = { '.', ',', '!', '?', ' ', '\t', '\n' };
 
         protected int m_maxScan;
         protected ISet<char> m_boundaryChars;

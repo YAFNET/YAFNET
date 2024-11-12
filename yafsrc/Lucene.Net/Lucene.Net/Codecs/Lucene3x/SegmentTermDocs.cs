@@ -1,7 +1,5 @@
-﻿using J2N.Numerics;
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using IBits = YAF.Lucene.Net.Util.IBits;
 
@@ -169,7 +167,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 }
                 else
                 {
-                    doc += docCode.TripleShift(1); // shift off low bit
+                    doc += docCode >>> 1; // shift off low bit
                     if ((docCode & 1) != 0) // if low bit is set
                     {
                         freq = 1; // freq is one
@@ -208,7 +206,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 {
                     // manually inlined call to next() for speed
                     int docCode = m_freqStream.ReadVInt32();
-                    doc += docCode.TripleShift(1); // shift off low bit
+                    doc += docCode >>> 1; // shift off low bit
                     if ((docCode & 1) != 0) // if low bit is set
                     {
                         freq = 1; // freq is one

@@ -1,9 +1,7 @@
-﻿using J2N.Numerics;
-using YAF.Lucene.Net.Codecs.Lucene40;
+﻿using YAF.Lucene.Net.Codecs.Lucene40;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
-using System.IO;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
@@ -358,7 +356,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             for (int fieldIDX = 0; fieldIDX < numStoredFields; fieldIDX++)
             {
                 long infoAndBits = documentInput.ReadVInt64();
-                int fieldNumber = (int)infoAndBits.TripleShift(CompressingStoredFieldsWriter.TYPE_BITS);
+                int fieldNumber = (int)(infoAndBits >>> CompressingStoredFieldsWriter.TYPE_BITS);
                 FieldInfo fieldInfo = fieldInfos.FieldInfo(fieldNumber);
 
                 int bits = (int)(infoAndBits & CompressingStoredFieldsWriter.TYPE_MASK);

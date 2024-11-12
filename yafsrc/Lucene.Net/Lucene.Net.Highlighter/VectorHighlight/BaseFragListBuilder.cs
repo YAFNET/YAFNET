@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,11 +28,11 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
     /// </summary>
     public abstract class BaseFragListBuilder : IFragListBuilder
     {
-        public readonly static int MARGIN_DEFAULT = 6;
-        public readonly static int MIN_FRAG_CHAR_SIZE_FACTOR = 3;
+        public static readonly int MARGIN_DEFAULT = 6;
+        public static readonly int MIN_FRAG_CHAR_SIZE_FACTOR = 3;
 
-        readonly internal int margin;
-        readonly internal int minFragCharSize;
+        internal readonly int margin;
+        internal readonly int minFragCharSize;
 
         protected BaseFragListBuilder(int margin) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {

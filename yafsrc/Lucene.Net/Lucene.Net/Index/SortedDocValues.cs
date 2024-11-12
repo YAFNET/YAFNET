@@ -1,6 +1,4 @@
-﻿using J2N.Numerics;
-
-namespace YAF.Lucene.Net.Index
+﻿namespace YAF.Lucene.Net.Index
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -77,7 +75,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// If <paramref name="key"/> exists, returns its ordinal, else
-        /// returns <c>-insertionPoint-1</c>, like 
+        /// returns <c>-insertionPoint-1</c>, like
         /// <see cref="System.Array.BinarySearch(System.Array, int, int, object)"/>
         /// </summary>
         /// <param name="key"> Key to look up</param>
@@ -89,7 +87,7 @@ namespace YAF.Lucene.Net.Index
 
             while (low <= high)
             {
-                int mid = (low + high).TripleShift(1);
+                int mid = (low + high) >>> 1;
                 LookupOrd(mid, spare);
                 int cmp = spare.CompareTo(key);
 

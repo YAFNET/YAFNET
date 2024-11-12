@@ -1,5 +1,4 @@
-﻿using J2N.Numerics;
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -108,7 +107,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 {
                     payloadLength[level] = skipStream.ReadVInt32();
                 }
-                delta = delta.TripleShift(1);
+                delta >>>= 1;
             }
             else
             {

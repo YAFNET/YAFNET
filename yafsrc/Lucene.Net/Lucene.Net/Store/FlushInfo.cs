@@ -1,6 +1,4 @@
-﻿using J2N.Numerics;
-
-namespace YAF.Lucene.Net.Store
+﻿namespace YAF.Lucene.Net.Store
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -45,7 +43,7 @@ namespace YAF.Lucene.Net.Store
         {
             const int prime = 31;
             int result = 1;
-            result = prime * result + (int)(EstimatedSegmentSize ^ (EstimatedSegmentSize.TripleShift(32)));
+            result = prime * result + (int)(EstimatedSegmentSize ^ (EstimatedSegmentSize >>> 32));
             result = prime * result + NumDocs;
             return result;
         }

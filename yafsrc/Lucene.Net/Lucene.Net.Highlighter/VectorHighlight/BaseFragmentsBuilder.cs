@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -40,7 +40,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
     public abstract class BaseFragmentsBuilder : IFragmentsBuilder
     {
         protected string[] m_preTags, m_postTags;
-        public readonly static string[] COLORED_PRE_TAGS = {
+        public static readonly string[] COLORED_PRE_TAGS = {
             "<b style=\"background:yellow\">", "<b style=\"background:lawngreen\">", "<b style=\"background:aquamarine\">",
             "<b style=\"background:magenta\">", "<b style=\"background:palegreen\">", "<b style=\"background:coral\">",
             "<b style=\"background:wheat\">", "<b style=\"background:khaki\">", "<b style=\"background:lime\">",
@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
             "<b style=\"background:palegoldenrod\">", "<b style=\"background:darkkhaki\">", "<b style=\"background:springgreen\">",
             "<b style=\"background:turquoise\">", "<b style=\"background:powderblue\">"
         };
-        public readonly static string[] COLORED_POST_TAGS = { "</b>" };
+        public static readonly string[] COLORED_POST_TAGS = { "</b>" };
         private char multiValuedSeparator = ' ';
         private readonly IBoundaryScanner boundaryScanner;
         private bool discreteMultiValueHighlighting = false;
@@ -76,7 +76,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
             this.boundaryScanner = boundaryScanner;
         }
 
-        static internal object CheckTagsArgument(object tags)
+        internal static object CheckTagsArgument(object tags)
         {
             if (tags is string) return tags;
             else if (tags is string[]) return tags;
@@ -85,7 +85,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
 
         public abstract IList<WeightedFragInfo> GetWeightedFragInfoList(IList<WeightedFragInfo> src);
 
-        private readonly static IEncoder NULL_ENCODER = new DefaultEncoder();
+        private static readonly IEncoder NULL_ENCODER = new DefaultEncoder();
 
         public virtual string CreateFragment(IndexReader reader, int docId,
             string fieldName, FieldFragList fieldFragList)
