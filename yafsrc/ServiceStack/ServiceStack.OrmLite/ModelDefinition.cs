@@ -226,10 +226,7 @@ public class ModelDefinition
     /// <exception cref="System.ArgumentNullException">fieldNames</exception>
     public FieldDefinition[] GetOrderedFieldDefinitions(ICollection<string> fieldNames, Func<string, string> sanitizeFieldName = null)
     {
-        if (fieldNames == null)
-        {
-            throw new ArgumentNullException(nameof(fieldNames));
-        }
+        ArgumentNullException.ThrowIfNull(fieldNames);
 
         var fieldDefs = new FieldDefinition[fieldNames.Count];
 

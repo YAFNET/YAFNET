@@ -143,10 +143,7 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <exception cref="System.ArgumentException">Can't set both Join Expression and TableOptions Expression</exception>
     public SqlExpression<T> Join<Target>(Expression<Func<T, Target, bool>> joinExpr, TableOptions options)
     {
-        if (options == null)
-        {
-            throw new ArgumentNullException(nameof(options));
-        }
+        ArgumentNullException.ThrowIfNull(options);
 
         if (options.Expression != null)
         {

@@ -60,10 +60,7 @@ static internal class WriteExpressionCommandExtensionsAsync
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
-        if (onlyFields == null)
-        {
-            throw new ArgumentNullException(nameof(onlyFields));
-        }
+        ArgumentNullException.ThrowIfNull(onlyFields);
 
         var q = dbCmd.GetDialectProvider().SqlExpression<T>();
         q.Update(onlyFields);
@@ -91,10 +88,7 @@ static internal class WriteExpressionCommandExtensionsAsync
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
-        if (onlyFields == null)
-        {
-            throw new ArgumentNullException(nameof(onlyFields));
-        }
+        ArgumentNullException.ThrowIfNull(onlyFields);
 
         var q = dbCmd.GetDialectProvider().SqlExpression<T>();
         q.Update(onlyFields);
@@ -192,10 +186,7 @@ static internal class WriteExpressionCommandExtensionsAsync
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
-        if (updateFields == null)
-        {
-            throw new ArgumentNullException(nameof(updateFields));
-        }
+        ArgumentNullException.ThrowIfNull(updateFields);
 
         OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.ToFilterType<T>());
 
@@ -270,10 +261,7 @@ static internal class WriteExpressionCommandExtensionsAsync
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
-        if (updateFields == null)
-        {
-            throw new ArgumentNullException(nameof(updateFields));
-        }
+        ArgumentNullException.ThrowIfNull(updateFields);
 
         OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.ToFilterType<T>());
 

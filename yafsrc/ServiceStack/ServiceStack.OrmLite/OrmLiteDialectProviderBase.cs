@@ -396,10 +396,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <exception cref="System.ArgumentNullException">converter</exception>
     public void RegisterConverter<T>(IOrmLiteConverter converter)
     {
-        if (converter == null)
-        {
-            throw new ArgumentNullException(nameof(converter));
-        }
+        ArgumentNullException.ThrowIfNull(converter);
 
         converter.DialectProvider = this;
         this.Converters[typeof(T)] = converter;

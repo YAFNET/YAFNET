@@ -149,10 +149,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// <exception cref="System.Collections.Generic.KeyNotFoundException">No factory registered is named " + namedConnection</exception>
     public static IDbConnection CreateDbConnection(string namedConnection)
     {
-        if (namedConnection == null)
-        {
-            throw new ArgumentNullException(nameof(namedConnection));
-        }
+        ArgumentNullException.ThrowIfNull(namedConnection);
 
         if (!NamedConnections.TryGetValue(namedConnection, out var factory))
         {
@@ -222,10 +219,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// <exception cref="System.ArgumentNullException">connectionString</exception>
     public virtual IDbConnection OpenDbConnectionString(string connectionString)
     {
-        if (connectionString == null)
-        {
-            throw new ArgumentNullException(nameof(connectionString));
-        }
+        ArgumentNullException.ThrowIfNull(connectionString);
 
         var connection = new OrmLiteConnection(this)
                              {
@@ -246,10 +240,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// <exception cref="System.ArgumentNullException">connectionString</exception>
     public async virtual Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, CancellationToken token = default)
     {
-        if (connectionString == null)
-        {
-            throw new ArgumentNullException(nameof(connectionString));
-        }
+        ArgumentNullException.ThrowIfNull(connectionString);
 
         var connection = new OrmLiteConnection(this)
                              {
@@ -272,15 +263,9 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// <exception cref="System.ArgumentException"></exception>
     public virtual IDbConnection OpenDbConnectionString(string connectionString, string providerName)
     {
-        if (connectionString == null)
-        {
-            throw new ArgumentNullException(nameof(connectionString));
-        }
+        ArgumentNullException.ThrowIfNull(connectionString);
 
-        if (providerName == null)
-        {
-            throw new ArgumentNullException(nameof(providerName));
-        }
+        ArgumentNullException.ThrowIfNull(providerName);
 
         if (!DialectProviders.TryGetValue(providerName, out var dialectProvider))
         {
@@ -304,15 +289,9 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// <exception cref="System.ArgumentException"></exception>
     public async virtual Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, string providerName, CancellationToken token = default)
     {
-        if (connectionString == null)
-        {
-            throw new ArgumentNullException(nameof(connectionString));
-        }
+        ArgumentNullException.ThrowIfNull(connectionString);
 
-        if (providerName == null)
-        {
-            throw new ArgumentNullException(nameof(providerName));
-        }
+        ArgumentNullException.ThrowIfNull(providerName);
 
         if (!DialectProviders.TryGetValue(providerName, out var dialectProvider))
         {

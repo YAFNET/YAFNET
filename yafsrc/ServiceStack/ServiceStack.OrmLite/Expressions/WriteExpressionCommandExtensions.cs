@@ -87,10 +87,7 @@ static internal class WriteExpressionCommandExtensions
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
-        if (onlyFields == null)
-        {
-            throw new ArgumentNullException(nameof(onlyFields));
-        }
+        ArgumentNullException.ThrowIfNull(onlyFields);
 
         var q = dbCmd.GetDialectProvider().SqlExpression<T>();
         q.Update(onlyFields);
@@ -116,10 +113,7 @@ static internal class WriteExpressionCommandExtensions
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
-        if (onlyFields == null)
-        {
-            throw new ArgumentNullException(nameof(onlyFields));
-        }
+        ArgumentNullException.ThrowIfNull(onlyFields);
 
         var q = dbCmd.GetDialectProvider().SqlExpression<T>();
         q.Update(onlyFields);
@@ -180,10 +174,7 @@ static internal class WriteExpressionCommandExtensions
     /// <exception cref="System.ArgumentNullException">updateFields</exception>
     static internal IDbCommand InitUpdateOnly<T>(this IDbCommand dbCmd, Expression<Func<T>> updateFields, SqlExpression<T> q)
     {
-        if (updateFields == null)
-        {
-            throw new ArgumentNullException(nameof(updateFields));
-        }
+        ArgumentNullException.ThrowIfNull(updateFields);
 
         OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.EvalFactoryFn());
 
@@ -230,10 +221,7 @@ static internal class WriteExpressionCommandExtensions
     /// <exception cref="System.ArgumentNullException">updateFields</exception>
     static internal IDbCommand InitUpdateOnly<T>(this IDbCommand dbCmd, Expression<Func<T>> updateFields, string whereExpression, IEnumerable<IDbDataParameter> sqlParams)
     {
-        if (updateFields == null)
-        {
-            throw new ArgumentNullException(nameof(updateFields));
-        }
+        ArgumentNullException.ThrowIfNull(updateFields);
 
         OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.EvalFactoryFn());
 
@@ -275,10 +263,7 @@ static internal class WriteExpressionCommandExtensions
     /// <exception cref="System.ArgumentNullException">updateFields</exception>
     static internal IDbCommand InitUpdateAdd<T>(this IDbCommand dbCmd, Expression<Func<T>> updateFields, SqlExpression<T> q)
     {
-        if (updateFields == null)
-        {
-            throw new ArgumentNullException(nameof(updateFields));
-        }
+        ArgumentNullException.ThrowIfNull(updateFields);
 
         OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.EvalFactoryFn());
 
@@ -307,10 +292,7 @@ static internal class WriteExpressionCommandExtensions
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
-        if (updateFields == null)
-        {
-            throw new ArgumentNullException(nameof(updateFields));
-        }
+        ArgumentNullException.ThrowIfNull(updateFields);
 
         OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.ToFilterType<T>());
 
@@ -423,10 +405,7 @@ static internal class WriteExpressionCommandExtensions
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
-        if (updateFields == null)
-        {
-            throw new ArgumentNullException(nameof(updateFields));
-        }
+        ArgumentNullException.ThrowIfNull(updateFields);
 
         OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.ToFilterType<T>());
 
@@ -466,10 +445,7 @@ static internal class WriteExpressionCommandExtensions
     /// <exception cref="System.ArgumentNullException">updateFields</exception>
     static internal void PrepareUpdateOnly<T>(this IDbCommand dbCmd, Dictionary<string, object> updateFields, string whereExpression, object[] whereParams)
     {
-        if (updateFields == null)
-        {
-            throw new ArgumentNullException(nameof(updateFields));
-        }
+        ArgumentNullException.ThrowIfNull(updateFields);
 
         OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.ToFilterType<T>());
 
@@ -702,10 +678,7 @@ static internal class WriteExpressionCommandExtensions
     /// <exception cref="System.ArgumentNullException">insertFields</exception>
     static internal IDbCommand InitInsertOnly<T>(this IDbCommand dbCmd, Expression<Func<T>> insertFields)
     {
-        if (insertFields == null)
-        {
-            throw new ArgumentNullException(nameof(insertFields));
-        }
+        ArgumentNullException.ThrowIfNull(insertFields);
 
         OrmLiteConfig.InsertFilter?.Invoke(dbCmd, insertFields.EvalFactoryFn());
 
