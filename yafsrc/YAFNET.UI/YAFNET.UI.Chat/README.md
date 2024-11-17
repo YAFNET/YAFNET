@@ -3,7 +3,7 @@
 Chat UI for [YAF.NET](https://yetanotherforum.net)
 
 ## Prerequisites:
-* ASP.NET Core 8.0 (YAF v4.x)
+* ASP.NET Core 9.0 (YAF v4.x)
 
 ## Usage
 1. Install the [YAFNET.UI.Chat](https://www.nuget.org/packages/YAFNET.UI.Chat/) Package via Nuget Browser or the console

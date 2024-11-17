@@ -3,7 +3,7 @@
 [YAF.NET](https://yetanotherforum.net) Razor Pages Client Library  
 
 ## Prerequisites:
-* ASP.NET Core 8.0 (YAF v4.x)
+* ASP.NET Core 9.0 (YAF v4.x)
 
 # Quick Guide
 
