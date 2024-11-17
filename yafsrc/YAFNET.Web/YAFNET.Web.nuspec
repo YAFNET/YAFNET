@@ -16,23 +16,23 @@
     <tags>forums yaf yaf.net YetAnotherForum.net forum</tags>
     <repository type="git" url="https://github.com/YAFNET/YAFNET" />
     <dependencies>
-		<group targetFramework="net8.0">
+		<group targetFramework="net9.0">
 			<dependency id="GoogleAuthenticator" version="3.2.0" exclude="Build,Analyzers" />
 			<dependency id="HtmlProperties" version="1.0.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.CSharp" version="4.7.0" exclude="Build,Analyzers" />
 			<dependency id="Newtonsoft.Json" version="13.0.3" exclude="Build,Analyzers" />
 			<dependency id="OEmbed.Core" version="2.0.3" exclude="Build,Analyzers" />
-			<dependency id="System.Runtime.Caching" version="8.0.1" exclude="Build,Analyzers" />
+			<dependency id="System.Runtime.Caching" version="9.0.0" exclude="Build,Analyzers" />
 		</group>
     </dependencies>
     <frameworkReferences>
-	    <group targetFramework="net8.0">
+	    <group targetFramework="net9.0">
 		    <frameworkReference name="Microsoft.AspNetCore.App" />
 	    </group>
     </frameworkReferences>
   </metadata>
   <files>
-    <file src="bin\Release\net8.0\YAF.Web.dll" target="lib\net8.0\"/>
+    <file src="bin\Release\net9.0\YAF.Web.dll" target="lib\net9.0\"/>
 	<file src="..\..\LICENSE.md" target=""/>
     <file src="..\..\README.md" target=""/>
     <file src="..\yaf.png" target=""/>

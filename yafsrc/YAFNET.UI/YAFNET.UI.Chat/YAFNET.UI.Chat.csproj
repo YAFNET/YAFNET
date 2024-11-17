@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
 	<Version>4.0.0-rc03</Version>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <RootNamespace>YAF.UI.Chat</RootNamespace>
@@ -50,6 +50,10 @@
   </ItemGroup>
 
   <ItemGroup>
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="9.0.0" />
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="9.0.0" />
+	<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.0" />
+	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.0" />
 	<PackageReference Include="SonarAnalyzer.CSharp" Version="9.32.0.97167">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -16,13 +16,13 @@
     <tags>forums yaf yaf.net YetAnotherForum.net forum</tags>
     <repository type="git" url="https://github.com/YAFNET/YAFNET" />
     <dependencies>
-		<group targetFramework="net8.0">
+		<group targetFramework="net9.0">
 			<dependency id="YAFNET.Configuration" version="4.0.0-rc03" exclude="Build,Analyzers" />
 			<dependency id="YAFNET.Core" version="4.0.0-rc03" exclude="Build,Analyzers" />
 			<dependency id="YAFNET.Types" version="4.0.0-rc03" exclude="Build,Analyzers" />
 			<dependency id="Autofac" version="8.1.1" exclude="Build,Analyzers" />
 			<dependency id="MySql.Data" version="9.1.0" exclude="Build,Analyzers" />
-			<dependency id="System.ComponentModel.Composition" version="8.0.0" exclude="Build,Analyzers" />
+			<dependency id="System.ComponentModel.Composition" version="9.0.0" exclude="Build,Analyzers" />
 		</group>
     </dependencies>
     <references>
@@ -31,15 +31,15 @@
 	    <reference file="YAF.Data.MySql.dll" />
     </references>
     <frameworkReferences>
-	    <group targetFramework="net8.0">
+	    <group targetFramework="net9.0">
 		    <frameworkReference name="Microsoft.AspNetCore.App" />
 	    </group>
     </frameworkReferences>
   </metadata>
   <files>
-    <file src="bin\Release\net8.0\YAF.Data.MySql.dll" target="lib\net8.0\"/>
-    <file src="bin\Release\net8.0\ServiceStack.OrmLite.dll" target="lib\net8.0\"/>
-    <file src="bin\Release\net8.0\ServiceStack.OrmLite.MySql.dll" target="lib\net8.0\"/>
+    <file src="bin\Release\net9.0\YAF.Data.MySql.dll" target="lib\net9.0\"/>
+    <file src="bin\Release\net9.0\ServiceStack.OrmLite.dll" target="lib\net9.0\"/>
+    <file src="bin\Release\net9.0\ServiceStack.OrmLite.MySql.dll" target="lib\net9.0\"/>
 	<file src="..\..\..\LICENSE.md" target=""/>
     <file src="..\..\..\README.md" target=""/>
     <file src="..\..\yaf.png" target=""/>
