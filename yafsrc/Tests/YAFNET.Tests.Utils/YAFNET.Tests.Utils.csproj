@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion />
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>	  
     <RootNamespace>YAF.Tests.Utils</RootNamespace>
@@ -12,7 +12,7 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.0" />
     <PackageReference Include="Microsoft.Playwright" Version="1.48.0" />
     <PackageReference Include="netDumbster" Version="3.1.1" />
 	  <PackageReference Include="NUnit" Version="4.2.2" />
@@ -23,6 +23,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\YAFNET.Types\YAFNET.Types.csproj" />
-    <ProjectReference Include="..\..\YetAnotherForum.NET\YAF-SqlServer.csproj" />
+	<ProjectReference Include="..\..\YetAnotherForum.NET\YAF-SqlServer.csproj" />
   </ItemGroup>
 </Project>
