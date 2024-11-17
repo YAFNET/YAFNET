@@ -1,7 +1,7 @@
 {
   "name": "yetanotherforum-net",
-  "version": "4.0.0-rc.3",
-  "versionNuget": "4.0.0-rc03",
+  "version": "4.0.0-rc.4",
+  "versionNuget": "4.0.0-rc04",
   "private": true,
   "devDependencies": {
     "@babel/preset-env": "^7.25.8",

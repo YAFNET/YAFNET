@@ -65,9 +65,6 @@ public class LatestInformationService : IHaveServiceLocator, ILatestInformationS
 
         try
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault |
-                                                   SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
-
             var client = new HttpClient(new HttpClientHandler());
 
             client.DefaultRequestHeaders.UserAgent.ParseAdd("YAF.NET");

@@ -154,9 +154,6 @@ public class LoginBox : ForumBaseController
         var properties = this.Get<SignInManager<AspNetUsers>>()
             .ConfigureExternalAuthenticationProperties(auth, redirectUrl);
 
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault |
-                                               SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
-
         return Task.FromResult<IActionResult>(new ChallengeResult(auth, properties));
     }
 
