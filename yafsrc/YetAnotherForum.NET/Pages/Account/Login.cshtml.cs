@@ -262,9 +262,6 @@ public class LoginModel : AccountPage
         var properties = this.Get<SignInManager<AspNetUsers>>()
             .ConfigureExternalAuthenticationProperties(auth, redirectUrl);
 
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault | SecurityProtocolType.Tls12
-                                               | SecurityProtocolType.Tls13;
-
         return Task.FromResult<ActionResult>(new ChallengeResult(auth, properties));
     }
 
