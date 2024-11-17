@@ -1,4 +1,4 @@
-name: YAF.NET v4 (.NET v8)
+name: YAF.NET v4 (.NET v9)
 on:
   push:
     branches:
