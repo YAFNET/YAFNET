@@ -204,6 +204,19 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     }
 
     /// <summary>
+    /// Add Notify message to session
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="messageType">Type of the message.</param>
+    /// <param name="redirectPage">the Page to redirect to.</param>
+    public IActionResult SessionNotify(string message, MessageTypes messageType, ForumPages redirectPage)
+    {
+        this.SessionMessageService.AddSession(message, messageType);
+
+        return this.CurrentForumPage.Get<LinkBuilder>().Redirect(redirectPage);
+    }
+
+    /// <summary>
     /// Show Confirm Modal
     /// </summary>
     public void ShowConfirmModal(string title, string text,

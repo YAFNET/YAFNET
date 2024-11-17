@@ -118,7 +118,6 @@ public class UsersInfoModel : AdminPage
             this.PageBoardContext.PageBoardID,
             userId,
             this.Input.Name,
-            this.Input.DisplayName,
             userFlags.BitValue,
             this.Input.RankID);
 

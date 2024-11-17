@@ -172,14 +172,16 @@ public class EditProfileModel : ProfilePage
         if (this.Input.HomePage.IsSet())
         {
             // add http:// by default
-            if (!Regex.IsMatch(this.Input.HomePage.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*", RegexOptions.NonBacktracking))
+            if (!Regex.IsMatch(this.Input.HomePage.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*",
+                    RegexOptions.NonBacktracking))
             {
                 this.Input.HomePage = $"https://{this.Input.HomePage.Trim()}";
             }
 
             if (!ValidationHelper.IsValidUrl(this.Input.HomePage))
             {
-                return this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_HOME"), MessageTypes.warning);
+                return this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_HOME"), MessageTypes.warning,
+                    ForumPages.Profile_EditProfile);
             }
 
             if (this.CurrentUser.Item1.NumPosts < this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount)
@@ -220,45 +222,50 @@ public class EditProfileModel : ProfilePage
 
         if (this.Input.Blog.IsSet() && !ValidationHelper.IsValidUrl(this.Input.Blog.Trim()))
         {
-            return this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_WEBLOG"), MessageTypes.warning);
+            return this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_WEBLOG"), MessageTypes.warning,
+                ForumPages.Profile_EditProfile);
         }
 
         if (this.Input.Xmpp.IsSet() && !ValidationHelper.IsValidXmpp(this.Input.Xmpp))
         {
-            return this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning);
+            return this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning,
+                ForumPages.Profile_EditProfile);
         }
 
         if (this.Input.Facebook.IsSet() && !ValidationHelper.IsValidUrl(this.Input.Facebook))
         {
-            return this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.warning);
+            return this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.warning,
+                ForumPages.Profile_EditProfile);
         }
 
         string displayName = null;
 
-        if (this.PageBoardContext.BoardSettings.EnableDisplayName && this.PageBoardContext.BoardSettings.AllowDisplayNameModification)
+        if (this.PageBoardContext.BoardSettings.EnableDisplayName &&
+            this.PageBoardContext.BoardSettings.AllowDisplayNameModification)
         {
             // Check if name matches the required minimum length
             if (this.Input.DisplayName.Trim().Length < this.PageBoardContext.BoardSettings.DisplayNameMinLength)
             {
-                return this.PageBoardContext.Notify(
+                return this.PageBoardContext.SessionNotify(
                     this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.DisplayNameMinLength),
-                    MessageTypes.warning);            }
+                    MessageTypes.warning, ForumPages.Profile_EditProfile);
+            }
 
             // Check if name matches the required minimum length
             if (this.Input.DisplayName.Length > this.PageBoardContext.BoardSettings.UserNameMaxLength)
             {
-                return this.PageBoardContext.Notify(
+                return this.PageBoardContext.SessionNotify(
                     this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.UserNameMaxLength),
-                    MessageTypes.warning);
+                    MessageTypes.warning, ForumPages.Profile_EditProfile);
             }
 
             if (this.Input.DisplayName.Trim() != this.CurrentUser.Item1.DisplayName)
             {
                 if (this.Get<IUserDisplayName>().FindUserByName(this.Input.DisplayName.Trim()) != null)
                 {
-                    return this.PageBoardContext.Notify(
+                    return this.PageBoardContext.SessionNotify(
                         this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"),
-                        MessageTypes.warning);
+                        MessageTypes.warning, ForumPages.Profile_EditProfile);
                 }
 
                 displayName = this.Input.DisplayName.Trim();
@@ -267,16 +274,16 @@ public class EditProfileModel : ProfilePage
 
         if (this.Input.Interests.IsSet() && this.Input.Interests.Trim().Length > 400)
         {
-            return this.PageBoardContext.Notify(
+            return this.PageBoardContext.SessionNotify(
                 this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 400),
-                MessageTypes.warning);
+                MessageTypes.warning, ForumPages.Profile_EditProfile);
         }
 
         if (this.Input.Occupation.IsSet() && this.Input.Occupation.Trim().Length > 400)
         {
-            return this.PageBoardContext.Notify(
+            return this.PageBoardContext.SessionNotify(
                 this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "OCCUPATION"), 400),
-                MessageTypes.warning);
+                MessageTypes.warning, ForumPages.Profile_EditProfile);
         }
 
         await this.UpdateUserProfileAsync();
@@ -286,7 +293,7 @@ public class EditProfileModel : ProfilePage
 
         this.SaveCustomProfile();
 
-        // clear the cache for this user...)
+        // clear the cache for this user...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 
         this.Get<IDataCache>().Clear();

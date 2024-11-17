@@ -358,9 +358,6 @@ public static class UserRepositoryExtensions
     /// <param name="name">
     /// The name.
     /// </param>
-    /// <param name="displayName">
-    /// The display Name.
-    /// </param>
     /// <param name="flags">
     /// The flags.
     /// </param>
@@ -372,7 +369,6 @@ public static class UserRepositoryExtensions
         int boardId,
         int userId,
         string name,
-        string displayName,
         int flags,
         int rankId)
     {
@@ -381,7 +377,6 @@ public static class UserRepositoryExtensions
                       {
                           BoardID = boardId,
                           Name = name,
-                          DisplayName = displayName,
                           Flags = flags,
                           RankID = rankId
                       },
