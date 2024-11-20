@@ -73,8 +73,6 @@ public partial class EditUsersInfo : BaseUserControl
         this.GetRepository<User>().AdminSave(
             this.PageBoardContext.PageBoardID,
             this.User.Item1.ID,
-            this.Name.Text.Trim(),
-            this.DisplayName.Text.Trim(),
             userFlags.BitValue,
             this.RankID.SelectedValue.ToType<int>());
 

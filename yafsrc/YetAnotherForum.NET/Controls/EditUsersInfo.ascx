@@ -17,8 +17,9 @@
     <div class="mb-3 col-md-4">
         <YAF:HelpLabel ID="HelpLabel2" runat="server" 
                        AssociatedControlID="DisplayName"
-                       LocalizedTag="USERINFO_DISPLAYNAME" LocalizedPage="ADMIN_EDITUSER" />
-        <asp:TextBox CssClass="form-control" ID="DisplayName" runat="server" />
+                       LocalizedTag="USERINFO_DISPLAYNAME" LocalizedPage="ADMIN_EDITUSER"/>
+        <asp:TextBox CssClass="form-control" ID="DisplayName" runat="server"
+                     Enabled="False"/>
     </div>
     <div class="mb-3 col-md-4">
         <YAF:HelpLabel ID="HelpLabel3" runat="server" 
