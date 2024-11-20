@@ -355,9 +355,6 @@ public static class UserRepositoryExtensions
     /// <param name="userId">
     /// The user Id.
     /// </param>
-    /// <param name="name">
-    /// The name.
-    /// </param>
     /// <param name="flags">
     /// The flags.
     /// </param>
@@ -368,7 +365,6 @@ public static class UserRepositoryExtensions
         this IRepository<User> repository,
         int boardId,
         int userId,
-        string name,
         int flags,
         int rankId)
     {
@@ -376,7 +372,6 @@ public static class UserRepositoryExtensions
             () => new User
                       {
                           BoardID = boardId,
-                          Name = name,
                           Flags = flags,
                           RankID = rankId
                       },

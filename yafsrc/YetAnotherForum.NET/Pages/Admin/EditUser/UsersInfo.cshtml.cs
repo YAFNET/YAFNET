@@ -117,7 +117,6 @@ public class UsersInfoModel : AdminPage
         this.GetRepository<User>().AdminSave(
             this.PageBoardContext.PageBoardID,
             userId,
-            this.Input.Name,
             userFlags.BitValue,
             this.Input.RankID);
 
