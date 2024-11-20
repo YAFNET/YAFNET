@@ -26,7 +26,7 @@
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
 	  <PackageReference Include="SonarAnalyzer.CSharp" Version="9.32.0.97167">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
