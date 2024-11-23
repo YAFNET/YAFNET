@@ -934,6 +934,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
                 }
                 catch (LookaheadSuccess)
                 {
+                    // ignored
                 }
             }
             jj_rescan = false;
