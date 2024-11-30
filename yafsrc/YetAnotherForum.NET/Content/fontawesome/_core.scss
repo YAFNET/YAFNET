@@ -30,7 +30,6 @@
 .#{$fa-css-prefix}-brands::before,
 .fa::before {
   content: var(#{$fa-icon-property});
-  content: var(#{$fa-icon-property}) / "";
 }
 
 .#{$fa-css-prefix}-classic,
