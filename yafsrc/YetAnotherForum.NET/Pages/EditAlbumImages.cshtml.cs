@@ -256,7 +256,14 @@ public class EditAlbumImagesModel : ForumPageRegistered
         {
             this.AlbumId = albumId;
 
-            this.AlbumTitle = this.GetRepository<UserAlbum>().GetTitle(this.AlbumId.Value);
+            try
+            {
+                this.AlbumTitle = this.GetRepository<UserAlbum>().GetTitle(this.AlbumId.Value);
+            }
+            catch {
+                return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            }
+
 
             this.Images = this.GetRepository<UserAlbumImage>().List(this.AlbumId.Value);
 
