@@ -261,10 +261,10 @@ public class EditAlbumImagesModel : ForumPageRegistered
             this.Images = this.GetRepository<UserAlbumImage>().List(this.AlbumId.Value);
 
             // Check if user album is empty
-            if (this.Images.NullOrEmpty())
-            {
-                return this.DeleteAlbum(this.AlbumId.Value);
-            }
+            //if (this.Images.NullOrEmpty())
+            //{
+            //    return this.DeleteAlbum(this.AlbumId.Value);
+            //}
         }
 
         // Has the user uploaded maximum number of images?

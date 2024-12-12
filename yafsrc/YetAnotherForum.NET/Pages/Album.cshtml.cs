@@ -160,10 +160,10 @@ public class AlbumModel : ForumPage
             this.PageBoardContext.PageIndex,
             this.PageBoardContext.BoardSettings.AlbumImagesPerPage);
 
-        if (albumImageList.NullOrEmpty())
-        {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-        }
+        //if (albumImageList.NullOrEmpty())
+        //{
+        //    return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        //}
 
         this.Images = albumImageList;
 
