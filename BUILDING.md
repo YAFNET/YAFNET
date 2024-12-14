@@ -8,7 +8,7 @@ Building the YAF.NET v4.x.x Source with the command line...
 
 You will need the following software installed:
 
-1. [.NET 8.0 SDK or higher](https://dotnet.microsoft.com/download/visual-studio-sdks)
+1. [.NET 9.0 SDK or higher](https://dotnet.microsoft.com/download/visual-studio-sdks)
 2. [Node.js](https://nodejs.org/en/download/current)
 
 ## Execution
@@ -57,7 +57,7 @@ for SQLite
 ## Pre-Requisites
 
 1. Visual Studio 2022 or higher
-2. [.NET 8.0 SDK or higher](https://dotnet.microsoft.com/download/visual-studio-sdks)
+2. [.NET 9.0 SDK or higher](https://dotnet.microsoft.com/download/visual-studio-sdks)
 3. [Node.js](https://nodejs.org/en/download/current)
 4. [NPM Task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.NPMTaskRunner)
 
