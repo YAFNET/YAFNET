@@ -330,7 +330,7 @@ public class User : IEntity, IHaveBoardID, IHaveID
     public int PageSize { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether use Dark Mode or not.
+    /// Gets or sets a value indicating whether to use Dark Mode or not.
     /// </summary>
     [Ignore]
     public bool DarkMode { get; set; }
