@@ -1,4 +1,6 @@
 ﻿@page "{a}/{handler?}"
+@using YAF.Core.Helpers
+@using YAF.Types.Extensions
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Interfaces
 
@@ -70,6 +72,8 @@
 
                     @if (Model.EnableUpload)
                     {
+	                    var fileTypes = StaticDataHelper.ImageFormats().Select(x => ".{0}".FormatWith(x)).ToDelimitedString(",");
+
                         <h4>
                             @Html.LocalizedText("UPLOAD_TITLE")
                         </h4>
@@ -77,10 +81,11 @@
                         <label class="form-label"
                                asp-for="ImageFiles"
                                localized-tag="SELECT_FILE"
-                               localized-page="EDIT_ALBUMIMAGES">
+                               localized-page="EDIT_ALBUMIMAGES"
+                               param0="@fileTypes">
                         </label>
                         <div class="input-group mb-3">
-                            <input type="file" asp-for="ImageFiles" class="form-control mb-3" multiple />
+                            <input type="file" asp-for="ImageFiles" class="form-control mb-3" accept="@fileTypes" multiple />
                             <button asp-page-handler="Upload"
                                     asp-route-albumId="@Model.AlbumId"
                                     type="submit"
