@@ -54,7 +54,7 @@ public class AdminPagesTests : TestBase
                     "Login failed");
 
 
-                foreach (var pageName in Enum.GetNames(typeof(ForumPages)).Where(x =>
+                foreach (var pageName in Enum.GetNames<ForumPages>().Where(x =>
                              x.StartsWith("Admin_") && !x.Equals("Admin_PageAccessEdit") &&
                              !x.Equals("Admin_EditForum") &&
                              !x.Equals("Admin_DeleteForum") &&

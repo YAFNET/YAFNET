@@ -63,7 +63,7 @@ public class RoleTests : TestBase
                     await page.Locator("#Input_Name").FillAsync(roleName);
                     await page.Locator("#Input_Description").FillAsync("Test Role for testing");
 
-                    await page.Locator("#Input_NewAccessMaskID").SelectOptionAsync(new[] { "3" });
+                    await page.Locator("#Input_NewAccessMaskID").SelectOptionAsync(["3"]);
 
                     await page.Locator("#Save").ClickAsync();
 

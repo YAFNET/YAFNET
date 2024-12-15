@@ -88,7 +88,7 @@ public class AlbumTests : TestBase
                 },
             this.BrowserType);
     }
-    
+
     /// <summary>
     /// Add an additional image test.
     /// </summary>

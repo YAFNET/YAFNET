@@ -124,7 +124,7 @@ public class FriendTests : TestBase
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
                     await page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
-                        .SelectOptionAsync(new[] { "3" });
+                        .SelectOptionAsync(["3"]);
 
                     // Select the First Request
                     await page.Locator("//button[contains(@formaction,'Approve')]").First.ClickAsync();
@@ -173,7 +173,7 @@ public class FriendTests : TestBase
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
                     await page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
-                        .SelectOptionAsync(new[] { "3" });
+                        .SelectOptionAsync(["3"]);
 
                     // Select the First Request
                     await page.Locator("//button[contains(@formaction,'Deny')]").First.ClickAsync();
@@ -224,7 +224,7 @@ public class FriendTests : TestBase
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
                     await page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
-                        .SelectOptionAsync(new[] { "3" });
+                        .SelectOptionAsync(["3"]);
 
                     // Select the First Request
                     await page.Locator("//button[contains(@formaction,'ApproveAdd')]").First.ClickAsync();
