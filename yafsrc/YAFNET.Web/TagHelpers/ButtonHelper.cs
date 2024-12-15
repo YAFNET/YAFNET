@@ -191,7 +191,6 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
     /// 
     public IServiceLocator ServiceLocator { get; set; }
 
-
     /// <summary>
     /// The HTML
     /// </summary>
@@ -236,7 +235,7 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
 
         if (this.ButtonSize != ButtonSize.Normal)
         {
-            cssClass.AppendFormat(" {0}", GetButtonSizeClass(this.ButtonSize));
+            cssClass.Append($" {GetButtonSizeClass(this.ButtonSize)}");
         }
 
         if (cssClass.Length > 0)
@@ -309,17 +308,10 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
             }
         }
 
-        // Render Icon
+        // Render Icon or Icon with Badge
         if (this.Icon.IsSet())
         {
-            if (this.IconBade.IsSet())
-            {
-                output.Content.AppendHtml(html.IconBadge(this.Icon, this.IconBade));
-            }
-            else
-            {
-                output.Content.AppendHtml(RenderIcon());
-            }
+            output.Content.AppendHtml(this.IconBade.IsSet() ? this.html.IconBadge(this.Icon, this.IconBade) : this.RenderIcon());
         }
 
         // Render span

@@ -100,7 +100,7 @@ static internal class CultureSwitcherViewComponent
         var stringMetadata = metadataProvider.GetMetadataForType(typeof(string));
         return viewData.ModelExplorer.GetExplorerForExpression(stringMetadata, modelAccessor: null);
     }
-    
+
     private static ModelExplorer FromModel(
         ViewDataDictionary viewData,
         IModelMetadataProvider metadataProvider)

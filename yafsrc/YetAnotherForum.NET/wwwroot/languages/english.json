@@ -9614,7 +9614,7 @@
           },
           {
             "@tag": "SELECT_FILE",
-            "#text": "Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload."
+            "#text": "Select an Image File ('.jpg','.jpeg', '.gif', '.png' or '.bmp') you want to upload."
           },
           {
             "@tag": "TITLE",

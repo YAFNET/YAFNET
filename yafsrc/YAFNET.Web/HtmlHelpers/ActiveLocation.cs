@@ -32,7 +32,7 @@ public static class ActiveLocationHtmlHelper
     /// <summary>
     /// Provides Active Users location info
     /// </summary>
-    /// <param name="htmlHelper">
+    /// <param name="_">
     /// The html helper.
     /// </param>
     /// <param name="userId">
@@ -66,7 +66,7 @@ public static class ActiveLocationHtmlHelper
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
     public static IHtmlContent ActiveLocation(
-        this IHtmlHelper htmlHelper,
+        this IHtmlHelper _,
         int userId,
         bool hasForumAccess,
         string forumPage,

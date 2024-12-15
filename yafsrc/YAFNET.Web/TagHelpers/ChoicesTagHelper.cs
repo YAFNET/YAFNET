@@ -154,7 +154,7 @@ public class ChoicesTagHelper : TagHelper
         }
 
         // Ensure GenerateSelect() _never_ looks anything up in ViewData.
-        var items = this.Items ?? Enumerable.Empty<SelectListItem>();
+        var items = this.Items ?? [];
 
         if (this.For is null)
         {
@@ -261,7 +261,7 @@ public class ChoicesTagHelper : TagHelper
         if (!IsFullNameValid(fullName, htmlAttributeDictionary))
         {
             throw new ArgumentException(
-                $"The name of an HTML field cannot be null or empty. Instead use methods {typeof(IHtmlHelper).FullName}.{nameof(IHtmlHelper.Editor)} or {typeof(IHtmlHelper<>).FullName}.{nameof(IHtmlHelper<object>.EditorFor)} with a non-empty {"htmlFieldName"} argument value.",
+                $"The name of an HTML field cannot be null or empty. Instead use methods {typeof(IHtmlHelper).FullName}.{nameof(IHtmlHelper.Editor)} or {typeof(IHtmlHelper<>).FullName}.{nameof(IHtmlHelper<object>.EditorFor)} with a non-empty htmlFieldName argument value.",
                 nameof(expression));
         }
 

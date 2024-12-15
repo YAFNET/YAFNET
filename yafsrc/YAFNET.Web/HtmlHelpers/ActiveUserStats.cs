@@ -70,6 +70,7 @@ public static class ActiveUserStatsHtmlHelper
         var canViewActive = context.Get<IPermissions>().Check(context.BoardSettings.ActiveUsersViewPermissions);
         var showGuestTotal = activeGuests > 0 && (context.BoardSettings.ShowGuestsInDetailedActiveList ||
                                                   context.BoardSettings.ShowCrawlersInActiveList);
+
         if (canViewActive && (showGuestTotal || activeMembers > 0 && activeGuests <= 0))
         {
             // always show active users...

@@ -596,4 +596,13 @@ public static class StaticDataHelper
 
         return list;
     }
+
+    /// <summary>
+    /// Get a string array of the supported image file types.
+    /// </summary>
+    /// <returns>System.String[].</returns>
+    public static string[] ImageFormats()
+    {
+        return ["jpg", "jpeg", "gif", "png", "bmp"];
+    }
 }

@@ -24,6 +24,9 @@
 
 namespace YAF.Web.ViewFeatures;
 
+/// <summary>
+/// Class PreviousNameAndId. This class cannot be inherited.
+/// </summary>
 public sealed class PreviousNameAndId
 {
     // Cached ambient input for NameAndIdProvider.GetFullHtmlFieldName(). TemplateInfo.HtmlFieldPrefix may

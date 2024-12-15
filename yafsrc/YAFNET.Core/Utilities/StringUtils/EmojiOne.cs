@@ -151,7 +151,7 @@ public static partial class EmojiOne
                 {
                     var hi = Math.Floor((decimal)(part - 0x10000) / 0x400) + 0xD800;
                     var lo = (part - 0x10000) % 0x400 + 0xDC00;
-                    hilos[i] = new string(new[] { (char)hi, (char)lo });
+                    hilos[i] = new string([(char)hi, (char)lo]);
                 }
                 else
                 {

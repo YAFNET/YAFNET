@@ -917,7 +917,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     public string MakeHtml(string inputString, bool doFormatting, bool targetBlankOverride)
     {
         var ruleEngine = this.ProcessReplaceRulesFactory(
-            new[] { doFormatting, targetBlankOverride, this.Get<BoardSettings>().UseNoFollowLinks });
+            [doFormatting, targetBlankOverride, this.Get<BoardSettings>().UseNoFollowLinks]);
 
         if (!ruleEngine.HasRules)
         {

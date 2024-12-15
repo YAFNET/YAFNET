@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using Microsoft.AspNetCore.Http;
-
 namespace YAF.Web.TagHelpers;
 
 /// <summary>

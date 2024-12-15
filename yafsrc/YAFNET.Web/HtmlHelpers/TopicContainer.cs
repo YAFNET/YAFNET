@@ -154,7 +154,7 @@ public static class TopicContainerHtmlHelper
 
             var viewsLabel = new TagBuilder(HtmlTag.Span);
 
-            viewsLabel.AddCssClass($"badge text-light-emphasis bg-light-subtle");
+            viewsLabel.AddCssClass("badge text-light-emphasis bg-light-subtle");
 
             viewsLabel.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("MODERATE", "VIEWS"));
             viewsLabel.MergeAttribute("data-bs-toggle", "tooltip");

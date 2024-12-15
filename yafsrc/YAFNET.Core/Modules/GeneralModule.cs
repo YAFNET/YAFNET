@@ -122,7 +122,7 @@ public class GeneralModule : BaseModule
     /// </param>
     private static void RegisterModules(ContainerBuilder builder)
     {
-        var assemblies = ExtensionAssemblies.Concat(new[] { Assembly.GetExecutingAssembly() }).ToArray();
+        var assemblies = ExtensionAssemblies.Concat([Assembly.GetExecutingAssembly()]).ToArray();
 
         // forum modules...
         builder.RegisterAssemblyTypes(assemblies).AssignableTo<IBaseForumModule>().As<IBaseForumModule>()
@@ -137,7 +137,7 @@ public class GeneralModule : BaseModule
     /// </param>
     private static void RegisterPages(ContainerBuilder builder)
     {
-        var assemblies = ExtensionAssemblies.Concat(new[] { Assembly.GetExecutingAssembly() }).ToArray();
+        var assemblies = ExtensionAssemblies.Concat([Assembly.GetExecutingAssembly()]).ToArray();
 
         builder.RegisterAssemblyTypes(assemblies).AssignableTo<ILocatablePage>().AsImplementedInterfaces()
             .SingleInstance();
