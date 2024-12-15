@@ -1146,7 +1146,7 @@ public struct JsonTypeSerializer
                 return new string((char)utf32, 1);
             default:
                 utf32 -= 0x10000;
-                return new string(new[] { (char)((utf32 >> 10) + 0xD800), (char)(utf32 % 0x0400 + 0xDC00) });
+                return new string([(char)((utf32 >> 10) + 0xD800), (char)(utf32 % 0x0400 + 0xDC00)]);
         }
     }
 

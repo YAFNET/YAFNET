@@ -1711,7 +1711,7 @@ namespace ServiceStack.OrmLite.SqlServer
         public override string SqlCurrency(string fieldOrValue, string currencySymbol)
         {
             return this.SqlConcat(
-                new[] { "'" + currencySymbol + "'", $"CONVERT(VARCHAR, CONVERT(MONEY, {fieldOrValue}), 1)" });
+                ["'" + currencySymbol + "'", $"CONVERT(VARCHAR, CONVERT(MONEY, {fieldOrValue}), 1)"]);
         }
 
         /// <summary>

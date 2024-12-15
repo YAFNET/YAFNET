@@ -565,7 +565,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <returns>System.String.</returns>
     public override string SqlCurrency(string fieldOrValue, string currencySymbol)
     {
-        return this.SqlConcat(new[] { "'" + currencySymbol + "'", "printf(\"%.2f\", " + fieldOrValue + ")" });
+        return this.SqlConcat(["'" + currencySymbol + "'", "printf(\"%.2f\", " + fieldOrValue + ")"]);
     }
 
     /// <summary>

@@ -7,6 +7,7 @@
 
 using System;
 using System.Data;
+using System.Linq.Expressions;
 
 using ServiceStack.OrmLite.Base.Text;
 using ServiceStack.OrmLite.SqlServer.Converters;
@@ -37,6 +38,18 @@ public class SqlServerExpression<T> : SqlExpression<T>
     public override void PrepareUpdateStatement(IDbCommand dbCmd, T item, bool excludeDefaults = false)
     {
         SqlServerExpressionUtils.PrepareSqlServerUpdateStatement(dbCmd, this, item, excludeDefaults);
+    }
+
+    /// <summary>
+    /// Gets the coalesce expression.
+    /// </summary>
+    /// <param name="b">The b.</param>
+    /// <param name="left">The left.</param>
+    /// <param name="right">The right.</param>
+    /// <returns>System.String.</returns>
+    override protected string GetCoalesceExpression(BinaryExpression b, object left, object right)
+    {
+        return b.Type == typeof(bool) ? $"COALESCE({left},{right}) = 1" : $"COALESCE({left},{right})";
     }
 
     /// <summary>

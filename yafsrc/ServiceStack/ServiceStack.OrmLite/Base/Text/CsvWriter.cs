@@ -587,7 +587,7 @@ public class CsvWriter<T>
                 CsvDictionaryWriter.Write(writer, kvpStrings);
                 break;
             default:
-                Write(writer, new[] { row });
+                Write(writer, [row]);
                 break;
         }
     }
