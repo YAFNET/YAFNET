@@ -106,7 +106,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             RegisterConverter<DateOnly>(new PostgreSqlDateOnlyConverter());
 #endif
 
-#if NET472
+#if NET481
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 #endif
 

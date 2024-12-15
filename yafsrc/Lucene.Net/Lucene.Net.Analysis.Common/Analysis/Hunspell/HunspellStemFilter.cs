@@ -1,5 +1,6 @@
 ﻿// Lucene version compatibility level 4.10.4
 using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Analysis.TokenAttributes.Extensions;
 using YAF.Lucene.Net.Util;
 using System.Collections.Generic;
 using JCG = J2N.Collections.Generic;
@@ -24,20 +25,20 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
      */
 
     /// <summary>
-    /// <see cref="TokenFilter"/> that uses hunspell affix rules and words to stem tokens.  
-    /// Since hunspell supports a word having multiple stems, this filter can emit 
+    /// <see cref="TokenFilter"/> that uses hunspell affix rules and words to stem tokens.
+    /// Since hunspell supports a word having multiple stems, this filter can emit
     /// multiple tokens for each consumed token
-    /// 
+    ///
     /// <para>
     /// Note: This filter is aware of the <see cref="IKeywordAttribute"/>. To prevent
     /// certain terms from being passed to the stemmer
     /// <see cref="IKeywordAttribute.IsKeyword"/> should be set to <c>true</c>
     /// in a previous <see cref="TokenStream"/>.
-    /// 
+    ///
     /// Note: For including the original term as well as the stemmed version, see
     /// <see cref="Miscellaneous.KeywordRepeatFilterFactory"/>
     /// </para>
-    /// 
+    ///
     /// @lucene.experimental
     /// </summary>
     public sealed class HunspellStemFilter : TokenFilter

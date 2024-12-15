@@ -36,13 +36,55 @@ public static class AssemblyUtils
     private static Dictionary<string, Type> TypeCache = new();
 
     /// <summary>
+    /// Gets or sets the name of the validate type.
+    /// </summary>
+    /// <value>The name of the validate type.</value>
+    public static Func<string, bool> ValidateTypeName { get; set; } = DefaultValidateTypeName;
+
+    /// <summary>
+    /// Gets or sets the validate type regex.
+    /// </summary>
+    /// <value>The validate type regex.</value>
+    public static Regex ValidateTypeRegex { get; set; } =
+        new(@"^[a-zA-Z0-9_.,+`\[\]\s]+$", RegexOptions.Compiled);
+
+    /// <summary>
+    /// Defaults the name of the validate type.
+    /// </summary>
+    /// <param name="typeName">Name of the type.</param>
+    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+    public static bool DefaultValidateTypeName(string typeName)
+    {
+        return ValidateTypeRegex.IsMatch(typeName);
+    }
+
+    /// <summary>
     /// Find the type from the name supplied
     /// </summary>
     /// <param name="typeName">[typeName] or [typeName, assemblyName]</param>
     /// <returns>System.Type.</returns>
     public static Type FindType(string typeName)
     {
-        if (TypeCache.TryGetValue(typeName, out var type)) return type;
+        if (!ValidateTypeName(typeName))
+        {
+            throw new NotSupportedException($"Invalid Type Name: {typeName}");
+        }
+
+        return UncheckedFindType(typeName);
+    }
+
+
+    /// <summary>
+    /// Uncheckeds the type of the find.
+    /// </summary>
+    /// <param name="typeName">Name of the type.</param>
+    /// <returns>Type.</returns>
+    public static Type UncheckedFindType(string typeName)
+    {
+        if (TypeCache.TryGetValue(typeName, out var type))
+        {
+            return type;
+        }
 
         type = Type.GetType(typeName);
         if (type == null)

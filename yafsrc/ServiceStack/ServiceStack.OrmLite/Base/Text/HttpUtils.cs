@@ -16,7 +16,7 @@ namespace ServiceStack.OrmLite.Base.Text;
 
 public static partial class HttpUtils
 {
-    public static string UserAgent = "ServiceStack.Text/net472";
+    public static string UserAgent = "ServiceStack.Text/net481";
 
     public static Encoding UseEncoding { get; set; } = new UTF8Encoding(false);
 

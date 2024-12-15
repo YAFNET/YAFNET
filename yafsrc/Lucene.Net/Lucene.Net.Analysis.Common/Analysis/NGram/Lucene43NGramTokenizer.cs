@@ -1,5 +1,6 @@
 ﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Analysis.TokenAttributes.Extensions;
 using System;
 using System.IO;
 

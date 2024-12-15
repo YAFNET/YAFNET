@@ -1,6 +1,7 @@
 ﻿using System;
 using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Analysis.TokenAttributes.Extensions;
 
 namespace YAF.Lucene.Net.Search.Highlight
 {

@@ -1,5 +1,6 @@
 ﻿using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Analysis.TokenAttributes.Extensions;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util;
 using System.Collections.Generic;

@@ -5,11 +5,14 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
+using System;
+
 namespace ServiceStack.DataAnnotations;
 
 /// <summary>
 /// Decorate any type or property with adhoc info
 /// </summary>
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Class, AllowMultiple = true)]
 public class MetaAttribute : AttributeBase
 {
     /// <summary>

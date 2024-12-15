@@ -1,5 +1,6 @@
 ﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Analysis.TokenAttributes.Extensions;
 using System;
 
 namespace YAF.Lucene.Net.Analysis.Br
@@ -41,7 +42,7 @@ namespace YAF.Lucene.Net.Analysis.Br
         private readonly IKeywordAttribute keywordAttr;
 
         /// <summary>
-        /// Creates a new <see cref="BrazilianStemFilter"/> 
+        /// Creates a new <see cref="BrazilianStemFilter"/>
         /// </summary>
         /// <param name="in"> the source <see cref="TokenStream"/>  </param>
         public BrazilianStemFilter(TokenStream @in)
