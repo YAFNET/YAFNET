@@ -25,6 +25,17 @@
                 
                 @foreach (var topic in topicsList)
                 {
+	                DateTime? posted;
+
+	                try
+	                {
+		                posted = topic.Posted.ToType<DateTime>().ToUniversalTime();
+	                }
+	                catch (Exception)
+	                {
+		                posted = null;
+	                }
+
 	                <li class="list-group-item">
                         <a href="@(topic.TopicUrl)">
                             <strong>@Html.Raw(Html.HtmlEncode(Current.Get<IBadWordReplace>().Replace(topic.Topic)))</strong>
@@ -32,7 +43,11 @@
                         @Html.LocalizedText("SEARCH", "BY")
                         @Html.UserLink(topic.UserId.Value, Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName, topic.Suspended, topic.UserStyle)
                         @Html.IconBadge("calendar-day", "clock")
-                        @Html.DisplayDateTime(DateTimeFormat.Both, topic.Posted.ToType<DateTime>().ToUniversalTime())
+						
+                        @if (posted != null)
+                        {
+	                        @Html.DisplayDateTime(DateTimeFormat.Both, posted)
+                        }
                     </li>
                 }
             

@@ -66,7 +66,7 @@ public class AllChatHub : Hub, IHaveServiceLocator
 
         var body = HtmlTagHelper.StripHtml(message);
 
-        this.GetRepository<ChatMessage>().Insert(
+        await this.GetRepository<ChatMessage>().InsertAsync(
             new ChatMessage
             {
                 Message = body,

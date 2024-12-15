@@ -20,7 +20,7 @@
 
 @inject BoardContext Current
 
-@inject IHttpContextAccessor Context
+@inject IHttpContextAccessor ContextAccessor
 
 @{
     var postData = new PostDataHelperWrapper(Model);
@@ -32,7 +32,7 @@
     var removeReputationVisible = false;
     var toolsVisible = true;
 
-    var request = Context.HttpContext.Request;
+    var request = ContextAccessor.HttpContext.Request;
 
     if (Current.IsGuest)
     {

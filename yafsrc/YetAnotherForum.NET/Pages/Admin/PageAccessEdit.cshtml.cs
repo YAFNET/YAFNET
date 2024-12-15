@@ -177,7 +177,7 @@ public class PageAccessEditModel : AdminPage
         var dt = this.GetRepository<AdminPageUserAccess>().List(userId);
 
         // Get admin pages by page prefixes.
-        var listPages = Enum.GetNames(typeof(ForumPages)).Where(e => e.StartsWith("Admin_"));
+        var listPages = Enum.GetNames<ForumPages>().Where(e => e.StartsWith("Admin_"));
 
         // Initialize list with a helper class.
         var pagesAll = new List<AdminPageUserAccess>();

@@ -36,7 +36,6 @@ using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Objects;
 
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 

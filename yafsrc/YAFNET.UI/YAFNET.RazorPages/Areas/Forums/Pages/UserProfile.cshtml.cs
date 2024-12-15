@@ -183,9 +183,9 @@ public class UserProfileModel : ForumPage
     /// <value>The suspend units.</value>
     public List<SelectListItem> SuspendUnits =>
     [
-        new SelectListItem(this.GetText("PROFILE", "DAYS"), "1"),
-        new SelectListItem(this.GetText("PROFILE", "HOURS"), "2"),
-        new SelectListItem(this.GetText("PROFILE", "MINUTES"), "3")
+        new(this.GetText("PROFILE", "DAYS"), "1"),
+        new(this.GetText("PROFILE", "HOURS"), "2"),
+        new(this.GetText("PROFILE", "MINUTES"), "3")
     ];
 
     /// <summary>

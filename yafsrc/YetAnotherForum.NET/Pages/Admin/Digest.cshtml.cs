@@ -25,7 +25,6 @@
 
 namespace YAF.Pages.Admin;
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using MimeKit;

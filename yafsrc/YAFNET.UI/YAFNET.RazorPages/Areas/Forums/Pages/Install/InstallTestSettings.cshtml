@@ -32,10 +32,10 @@
             @Localization.GetText("ConnectionTest")
         </h4>
         <h4>
-            @(BoardContext.Current.Get<BoardConfiguration>().ConnectionProviderName.ToString())
+	        @(BoardContext.Current.Get<BoardConfiguration>().ConnectionProviderName)
         </h4>
         <p class="text-body-secondary">
-            @(BoardContext.Current.Get<IConfiguration>().GetConnectionString("DefaultConnection").ToString())
+	        @(BoardContext.Current.Get<IConfiguration>().GetConnectionString("DefaultConnection"))
         </p>
 
         <hr/>

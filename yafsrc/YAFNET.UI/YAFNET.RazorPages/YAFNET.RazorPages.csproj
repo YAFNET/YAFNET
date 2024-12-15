@@ -10,7 +10,7 @@
     <PackageId>YAFNET.RazorPages</PackageId>
     <PackageTags>forums yaf yaf.net YetAnotherForum.net forum</PackageTags>
     <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
-
+	<CompressionEnabled>false</CompressionEnabled>
   </PropertyGroup>
 
   <ItemGroup>
@@ -77,7 +77,7 @@
 	<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="9.0.0" />
 	<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.0" />
 	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.0" />
-	<PackageReference Include="SonarAnalyzer.CSharp" Version="9.32.0.97167">
+	<PackageReference Include="SonarAnalyzer.CSharp" Version="10.3.0.106239">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>

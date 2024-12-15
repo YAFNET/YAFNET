@@ -40,7 +40,6 @@ using YAF.Types.Objects;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 /// <summary>

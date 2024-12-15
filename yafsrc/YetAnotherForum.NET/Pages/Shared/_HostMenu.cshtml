@@ -11,7 +11,11 @@
 {
 	var currentPageName = Enum.GetName(Current.CurrentForumPage.PageName);
 
-	var isHostPage = Current.CurrentForumPage.PageName is ForumPages.Admin_HostSettings or ForumPages.Admin_Boards or ForumPages.Admin_EditBoard or ForumPages.Admin_PageAccessEdit or ForumPages.Admin_PageAccessList || 
+	var isHostPage = Current.CurrentForumPage.PageName is ForumPages.Admin_HostSettings or
+		                 ForumPages.Admin_Boards or
+		                 ForumPages.Admin_EditBoard or
+		                 ForumPages.Admin_PageAccessEdit or
+		                 ForumPages.Admin_PageAccessList ||
 	                 currentPageName != null && currentPageName.StartsWith("Host_");
 
 	<li class="nav-item dropdown">

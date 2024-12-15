@@ -36,7 +36,6 @@ using YAF.Core.Services;
 using YAF.Types.Flags;
 using YAF.Types.Models;
 
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 

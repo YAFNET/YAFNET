@@ -4,7 +4,7 @@
 @model YAF.Types.Modals.EditProfileDefinitionModal
 
 @{
-    var types = new SelectList(Enum.GetNames(typeof(DataType)));
+    var types = new SelectList(Enum.GetNames<DataType>());
 }
 
 <!-- Modal -->
