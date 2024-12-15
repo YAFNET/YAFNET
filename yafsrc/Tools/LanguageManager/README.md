@@ -2,7 +2,7 @@
 Tool for synchronization, packing and automatic translation of YAF.NET language files
 
 ## Prerequisites:
-* .NET v8
+* .NET v9
 
 ## License
 
