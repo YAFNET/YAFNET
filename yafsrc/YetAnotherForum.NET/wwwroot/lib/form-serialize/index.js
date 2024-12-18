@@ -23,14 +23,14 @@ var brackets = /(\[[^\[\]]*\])/g;
 //    - disabled: [true | false]. If true serialize disabled fields.
 //    - empty: [true | false]. If true serialize empty fields
 function serialize(form, options) {
-    if (typeof options != "object") {
+    if (typeof options != 'object') {
         options = { hash: !!options };
     }
     else if (options.hash === undefined) {
         options.hash = true;
     }
 
-    var result = (options.hash) ? {} : "";
+    var result = (options.hash) ? {} : '';
     var serializer = options.serializer || ((options.hash) ? hash_serializer : str_serialize);
 
     var elements = form && form.elements ? form.elements : [];
@@ -56,19 +56,19 @@ function serialize(form, options) {
 
         // we can't just use element.value for checkboxes cause some browsers lie to us
         // they say "on" for value when the box isn't checked
-        if ((element.type === "checkbox" || element.type === "radio") && !element.checked) {
+        if ((element.type === 'checkbox' || element.type === 'radio') && !element.checked) {
             val = undefined;
         }
 
         // If we want empty elements
         if (options.empty) {
             // for checkbox
-            if (element.type === "checkbox" && !element.checked) {
-                val = "";
+            if (element.type === 'checkbox' && !element.checked) {
+                val = '';
             }
 
             // for radio
-            if (element.type === "radio") {
+            if (element.type === 'radio') {
                 if (!radio_store[element.name] && !element.checked) {
                     radio_store[element.name] = false;
                 }
@@ -78,7 +78,7 @@ function serialize(form, options) {
             }
 
             // if options empty is true, continue only if its radio
-            if (val == undefined && element.type == "radio") {
+            if (val == undefined && element.type == 'radio') {
                 continue;
             }
         }
@@ -90,7 +90,7 @@ function serialize(form, options) {
         }
 
         // multi select boxes
-        if (element.type === "select-multiple") {
+        if (element.type === 'select-multiple') {
             val = [];
 
             var selectOptions = element.options;
@@ -107,8 +107,8 @@ function serialize(form, options) {
                     // context. Here the name attribute on the select element
                     // might be missing the trailing bracket pair. Both names
                     // "foo" and "foo[]" should be arrays.
-                    if (options.hash && key.slice(key.length - 2) !== "[]") {
-                        result = serializer(result, key + "[]", option.value);
+                    if (options.hash && key.slice(key.length - 2) !== '[]') {
+                        result = serializer(result, key + '[]', option.value);
                     }
                     else {
                         result = serializer(result, key, option.value);
@@ -118,7 +118,7 @@ function serialize(form, options) {
 
             // Serialize if no selected options and options.empty is true
             if (!isSelectedOptions && options.empty) {
-                result = serializer(result, key, "");
+                result = serializer(result, key, '');
             }
 
             continue;
@@ -131,13 +131,13 @@ function serialize(form, options) {
     if (options.empty) {
         for (var key in radio_store) {
             if (!radio_store[key]) {
-                result = serializer(result, key, "");
+                result = serializer(result, key, '');
             }
         }
     }
 
-    return JSON.stringify(result).replaceAll('"false"', "false").replaceAll('"true"', "true")
-        .replaceAll("[true,false]", "true");
+    return JSON.stringify(result).replaceAll('"false"', 'false').replaceAll('"true"', 'true')
+        .replaceAll('[true,false]', 'true');
 }
 
 function parse_keys(string) {
@@ -166,7 +166,7 @@ function hash_assign(result, keys, value) {
     const key = keys.shift();
     const between = key.match(/^\[(.+?)\]$/);
 
-    if (key === "[]") {
+    if (key === '[]') {
         result = result || [];
 
         if (Array.isArray(result)) {
@@ -251,10 +251,10 @@ function hash_serializer(result, key, value) {
 // urlform encoding serializer
 function str_serialize(result, key, value) {
     // encode newlines as \r\n cause the html spec says so
-    value = value.replace(/(\r)?\n/g, "\r\n");
+    value = value.replace(/(\r)?\n/g, '\r\n');
     value = encodeURIComponent(value);
 
     // spaces should be '+' rather than '%20'.
-    value = value.replace(/%20/g, "+");
-    return result + (result ? "&" : "") + encodeURIComponent(key) + "=" + value;
+    value = value.replace(/%20/g, '+');
+    return result + (result ? '&' : '') + encodeURIComponent(key) + '=' + value;
 }
