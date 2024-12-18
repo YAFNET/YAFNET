@@ -1,6 +1,6 @@
 {
     "name": "yetanotherforum-net",
-    "version": "3.2.7",
+    "version": "3.2.8",
     "private": true,
     "devDependencies": {
         "@babel/preset-env": "^7.25.8",
@@ -18,12 +18,12 @@
         "grunt-shell": "^4.0.0",
         "grunt-webpack": "^7.0.0",
         "postcss": "^8.4.49",
-        "sass": "^1.81.0",
-        "webpack": "^5.96.1",
+        "sass": "^1.83.0",
+        "webpack": "^5.97.1",
         "webpack-merge": "^6.0.1"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "^6.7.1",
+        "@fortawesome/fontawesome-free": "^6.7.2",
         "@yafnet/sceditor": "^3.2.1",
         "bootbox": "^6.0.0",
         "bootstrap": "^5.3.3",
