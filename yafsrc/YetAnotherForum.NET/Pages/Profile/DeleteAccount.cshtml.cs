@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Identity;
+
 namespace YAF.Pages.Profile;
 
 using System.Threading.Tasks;
@@ -36,6 +38,7 @@ using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
+using YAF.Types.Models.Identity;
 
 /// <summary>
 /// User Page To Delete (deactivate) his account
@@ -45,10 +48,16 @@ public class DeleteAccountModel : ProfilePage
     /// <summary>
     ///   Initializes a new instance of the <see cref = "DeleteAccountModel" /> class.
     /// </summary>
-    public DeleteAccountModel()
+    public DeleteAccountModel(SignInManager<AspNetUsers> signInManager)
         : base("DELETE_ACCOUNT", ForumPages.Profile_DeleteAccount)
     {
+        this.signInManager = signInManager;
     }
+
+    /// <summary>
+    /// The _sign in manager.
+    /// </summary>
+    private readonly SignInManager<AspNetUsers> signInManager;
 
     /// <summary>
     /// Gets or sets the options.
@@ -161,6 +170,12 @@ public class DeleteAccountModel : ProfilePage
 
                 break;
         }
+
+        await this.signInManager.SignOutAsync();
+
+        await this.Get<IAspNetUsersHelper>().SignOutAsync();
+
+        this.Get<IRaiseEvent>().Raise(new UserLogoutEvent(this.PageBoardContext.PageUserID));
 
         return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
     }
