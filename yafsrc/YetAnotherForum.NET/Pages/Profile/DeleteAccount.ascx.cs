@@ -24,6 +24,8 @@
 
 namespace YAF.Pages.Profile;
 
+using System.Web.Security;
+
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
@@ -160,6 +162,13 @@ public partial class DeleteAccount : ProfilePage
 
                 break;
         }
+
+        this.Get<IAspNetUsersHelper>().SignOut();
+
+        // Handle legacy ASP.NET Membership logout
+        FormsAuthentication.SignOut();
+
+        this.Get<IRaiseEvent>().Raise(new UserLogoutEvent(this.PageBoardContext.PageUserID));
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Board);
     }
