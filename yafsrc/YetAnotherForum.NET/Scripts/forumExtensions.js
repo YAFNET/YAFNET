@@ -15202,7 +15202,7 @@ document.addEventListener("DOMContentLoaded", function() {
             shouldSort: false,
             placeholderValue: select.getAttribute("placeholder"),
             classNames: {
-                containerOuter: "choices w-100"
+                containerOuter: [ "choices", "w-100" ]
             }
         });
     });
@@ -15234,7 +15234,7 @@ document.addEventListener("DOMContentLoaded", function() {
         select.value = selectedValue;
         const choice = new window.Choices(select, {
             classNames: {
-                containerOuter: "choices w-100"
+                containerOuter: [ "choices", "w-100" ]
             },
             allowHTML: true,
             shouldSort: false,
