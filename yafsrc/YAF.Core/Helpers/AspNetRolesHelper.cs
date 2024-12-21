@@ -114,6 +114,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
                 displayName,
                 user.Email,
                 user.Id,
+                this.Get<BoardSettings>().PageSizeDefault,
                 user.IsApproved);
 
             this.Get<IAspNetRolesHelper>().GetRolesForUser(user).ForEach(

@@ -186,6 +186,24 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.DropDownList DefaultCollapsiblePanelState;
 
         /// <summary>
+        /// HelpLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel2;
+
+        /// <summary>
+        /// DefaultPageSize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox DefaultPageSize;
+
+        /// <summary>
         /// LocalizedLabel13 control.
         /// </summary>
         /// <remarks>

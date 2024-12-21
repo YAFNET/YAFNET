@@ -438,6 +438,18 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <summary>
     /// Method returns MembershipUser
     /// </summary>
+    /// <param name="providerKey">The provider key.</param>
+    /// <returns>
+    /// Returns MembershipUser
+    /// </returns>
+    public AspNetUsers GetUser(object providerKey)
+    {
+        return this.Get<AspNetUsersManager>().FindById(providerKey.ToString());
+    }
+
+    /// <summary>
+    /// Method returns MembershipUser
+    /// </summary>
     /// <param name="username">The username.</param>
     /// <returns>
     /// Returns MembershipUser
@@ -459,18 +471,6 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     public AspNetUsers GetUserByEmail(string email)
     {
         return this.Get<AspNetUsersManager>().FindByEmail(email);
-    }
-
-    /// <summary>
-    /// Method returns MembershipUser
-    /// </summary>
-    /// <param name="providerKey">The provider key.</param>
-    /// <returns>
-    /// Returns MembershipUser
-    /// </returns>
-    public AspNetUsers GetUser(object providerKey)
-    {
-        return this.Get<AspNetUsersManager>().FindById(providerKey.ToString());
     }
 
     /// <summary>
@@ -542,6 +542,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
             null,
             newEmail,
             user.Id,
+            this.Get<BoardSettings>().PageSizeDefault,
             user.IsApproved);
 
         return true;

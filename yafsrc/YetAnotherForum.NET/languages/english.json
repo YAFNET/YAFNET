@@ -1720,196 +1720,204 @@
         },
         {
             "@name": "ADMIN_BOARDSETTINGS",
-            "Resource": [
-                {
-                    "@tag": "ANNOUNCEMENT_CURRENT",
-                    "#text": "Current Announcement visible until"
-                },
-                {
-                    "@tag": "ANNOUNCEMENT_MESSAGE",
-                    "#text": "Announcement Message:"
-                },
-                {
-                    "@tag": "ANNOUNCEMENT_TITLE",
-                    "#text": "Board Announcement"
-                },
-                {
-                    "@tag": "ANNOUNCEMENT_TYPE",
-                    "#text": "Type:"
-                },
-                {
-                    "@tag": "ANNOUNCEMENT_UNTIL",
-                    "#text": "Announcement visible for..."
-                },
-                {
-                    "@tag": "BOARD_ALLOW_DIGEST",
-                    "#text": "Allow Digest Email Sending for Users:"
-                },
-                {
-                    "@tag": "BOARD_ALLOW_DIGEST_HELP",
-                    "#text": "NOTE: board must have \"YAF.BaseUrlMask\" and \"YAF.ForceScriptName\" AppSettings defined in your web.config for digest to function."
-                },
-                {
-                    "@tag": "BOARD_CULTURE",
-                    "#text": "Culture:"
-                },
-                {
-                    "@tag": "BOARD_CULTURE_HELP",
-                    "#text": "The default culture & language for this forum."
-                },
-                {
-                    "@tag": "BOARD_DEFAULT_NOTIFICATION",
-                    "#text": "Default Notification Setting:"
-                },
-                {
-                    "@tag": "BOARD_DEFAULT_NOTIFICATION_HELP",
-                    "#text": "When a new user account is created, what notification setting does it default to?"
-                },
-                {
-                    "@tag": "BOARD_DEFAULT_PANEL_STATE",
-                    "#text": "Default Collapsible Panel State"
-                },
-                {
-                    "@tag": "BOARD_DEFAULT_PANEL_STATE_HELP",
-                    "#text": "Show Categories Expanded or Collapsed on the Board Start page"
-                },
-                {
-                    "@tag": "BOARD_DIGEST_HOURS",
-                    "#text": "Hours Between Digest Sending:"
-                },
-                {
-                    "@tag": "BOARD_DIGEST_HOURS_HELP",
-                    "#text": "Number of hours before attempting to send another digest. Digest only attempts sending between 12:00 and 6:00am."
-                },
-                {
-                    "@tag": "BOARD_DIGEST_NEWUSERS",
-                    "#text": "Default Send Digest \"On\" for New Users?"
-                },
-                {
-                    "@tag": "BOARD_DIGEST_NEWUSERS_HELP",
-                    "#text": "When a new user account is created, default send digest to true?"
-                },
-                {
-                    "@tag": "BOARD_EMAIL_MODS",
-                    "#text": "Email Moderators On New Moderated Post:"
-                },
-                {
-                    "@tag": "BOARD_EMAIL_MODS_HELP",
-                    "#text": "Should all the moderators of a forum be notified if a new post that needs approval is created?"
-                },
-                {
-                    "@tag": "BOARD_EMAIL_ONREGISTER",
-                    "#text": "Send Email Notification On User Register to Emails:"
-                },
-                {
-                    "@tag": "BOARD_EMAIL_ONREGISTER_HELP",
-                    "#text": "Semi-colon (;) separated list of emails to send a notification to on user registration."
-                },
-                {
-                    "@tag": "BOARD_EMAIL_REPORTMODS",
-                    "#text": "Email Moderators On a Reported Post:"
-                },
-                {
-                    "@tag": "BOARD_EMAIL_REPORTMODS_HELP",
-                    "#text": "Should all the moderators of a forum be notified if someone reported a post?"
-                },
-                {
-                    "@tag": "BOARD_LOGO",
-                    "#text": "Board Logo:"
-                },
-                {
-                    "@tag": "BOARD_LOGO_HELP",
-                    "#text": "Select a Board Logo or use the default YAF Board Logo, Logos will be loaded from the Folder Images/Logos."
-                },
-                {
-                    "@tag": "BOARD_LOGO_SELECT",
-                    "#text": "Select a Board logo"
-                },
-                {
-                    "@tag": "BOARD_MOBILE_THEME",
-                    "#text": "Mobile Theme:"
-                },
-                {
-                    "@tag": "BOARD_MOBILE_THEME_HELP",
-                    "#text": "The mobile theme to use on this board."
-                },
-                {
-                    "@tag": "BOARD_NAME",
-                    "#text": "Board Name:"
-                },
-                {
-                    "@tag": "BOARD_NAME_HELP",
-                    "#text": "The name of the board."
-                },
-                {
-                    "@tag": "BOARD_SETUP",
-                    "#text": "Board Setup"
-                },
-                {
-                    "@tag": "BOARD_THEME",
-                    "#text": "Theme:"
-                },
-                {
-                    "@tag": "BOARD_THEME_HELP",
-                    "#text": "The theme to use on this board."
-                },
-                {
-                    "@tag": "BOARD_TOPIC_DEFAULT",
-                    "#text": "Show Topic Default:"
-                },
-                {
-                    "@tag": "BOARD_TOPIC_DEFAULT_HELP",
-                    "#text": "The default board show topic interval selection."
-                },
-                {
-                    "@tag": "CDVVERSION",
-                    "#text": "CRM Version"
-                },
-                {
-                    "@tag": "CDVVERSION_BUTTON",
-                    "#text": "Increase CRM Version"
-                },
-                {
-                    "@tag": "CDVVERSION_HELP",
-                    "#text": "CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files"
-                },
-                {
-                    "@tag": "COLLAPSED",
-                    "#text": "Collapsed"
-                },
-                {
-                    "@tag": "COPYRIGHT_REMOVAL_KEY",
-                    "#text": "Hide Copyright:"
-                },
-                {
-                    "@tag": "COPYRIGHT_REMOVAL_KEY_HELP",
-                    "#text": "Remove the copyright information and link back to YAF from the footer of your entire forum domain."
-                },
-                {
-                    "@tag": "EXPANDED",
-                    "#text": "Expanded"
-                },
-                {
-                    "@tag": "FORUM_DEFAULT_ACCESSMASK",
-                    "#text": "New Forum Default Access mask:"
-                },
-                {
-                    "@tag": "FORUM_DEFAULT_ACCESSMASK_HELP",
-                    "#text": "The Default Access Mask when creating a new Forum"
-                },
-                {
-                    "@tag": "HEADER",
-                    "#text": "Current Board Settings"
-                },
-                {
-                    "@tag": "NEED_MESSAGE",
-                    "#text": "You need to enter an Announcement Message."
-                },
-                {
-                    "@tag": "TITLE",
-                    "#text": "Board Settings"
-                }
-            ]
+          "Resource": [
+            {
+              "@tag": "ANNOUNCEMENT_CURRENT",
+              "#text": "Current Announcement visible until"
+            },
+            {
+              "@tag": "ANNOUNCEMENT_MESSAGE",
+              "#text": "Announcement Message:"
+            },
+            {
+              "@tag": "ANNOUNCEMENT_TITLE",
+              "#text": "Board Announcement"
+            },
+            {
+              "@tag": "ANNOUNCEMENT_TYPE",
+              "#text": "Type:"
+            },
+            {
+              "@tag": "ANNOUNCEMENT_UNTIL",
+              "#text": "Announcement visible for..."
+            },
+            {
+              "@tag": "BOARD_ALLOW_DIGEST",
+              "#text": "Allow Digest Email Sending for Users:"
+            },
+            {
+              "@tag": "BOARD_ALLOW_DIGEST_HELP",
+              "#text": "NOTE: board must have \"YAF.BaseUrlMask\" and \"YAF.ForceScriptName\" AppSettings defined in your web.config for digest to function."
+            },
+            {
+              "@tag": "BOARD_CULTURE",
+              "#text": "Culture:"
+            },
+            {
+              "@tag": "BOARD_CULTURE_HELP",
+              "#text": "The default culture & language for this forum."
+            },
+            {
+              "@tag": "BOARD_DEFAULT_NOTIFICATION",
+              "#text": "Default Notification Setting:"
+            },
+            {
+              "@tag": "BOARD_DEFAULT_NOTIFICATION_HELP",
+              "#text": "When a new user account is created, what notification setting does it default to?"
+            },
+            {
+              "@tag": "BOARD_DEFAULT_PAGESIZE",
+              "#text": "Default Page Size"
+            },
+            {
+              "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
+              "#text": "The default page size for lists for new users."
+            },
+            {
+              "@tag": "BOARD_DEFAULT_PANEL_STATE",
+              "#text": "Default Collapsible Panel State"
+            },
+            {
+              "@tag": "BOARD_DEFAULT_PANEL_STATE_HELP",
+              "#text": "Show Categories Expanded or Collapsed on the Board Start page"
+            },
+            {
+              "@tag": "BOARD_DIGEST_HOURS",
+              "#text": "Hours Between Digest Sending:"
+            },
+            {
+              "@tag": "BOARD_DIGEST_HOURS_HELP",
+              "#text": "Number of hours before attempting to send another digest. Digest only attempts sending between 12:00 and 6:00am."
+            },
+            {
+              "@tag": "BOARD_DIGEST_NEWUSERS",
+              "#text": "Default Send Digest \"On\" for New Users?"
+            },
+            {
+              "@tag": "BOARD_DIGEST_NEWUSERS_HELP",
+              "#text": "When a new user account is created, default send digest to true?"
+            },
+            {
+              "@tag": "BOARD_EMAIL_MODS",
+              "#text": "Email Moderators On New Moderated Post:"
+            },
+            {
+              "@tag": "BOARD_EMAIL_MODS_HELP",
+              "#text": "Should all the moderators of a forum be notified if a new post that needs approval is created?"
+            },
+            {
+              "@tag": "BOARD_EMAIL_ONREGISTER",
+              "#text": "Send Email Notification On User Register to Emails:"
+            },
+            {
+              "@tag": "BOARD_EMAIL_ONREGISTER_HELP",
+              "#text": "Semi-colon (;) separated list of emails to send a notification to on user registration."
+            },
+            {
+              "@tag": "BOARD_EMAIL_REPORTMODS",
+              "#text": "Email Moderators On a Reported Post:"
+            },
+            {
+              "@tag": "BOARD_EMAIL_REPORTMODS_HELP",
+              "#text": "Should all the moderators of a forum be notified if someone reported a post?"
+            },
+            {
+              "@tag": "BOARD_LOGO",
+              "#text": "Board Logo:"
+            },
+            {
+              "@tag": "BOARD_LOGO_HELP",
+              "#text": "Select a Board Logo or use the default YAF Board Logo, Logos will be loaded from the Folder Images/Logos."
+            },
+            {
+              "@tag": "BOARD_LOGO_SELECT",
+              "#text": "Select a Board logo"
+            },
+            {
+              "@tag": "BOARD_MOBILE_THEME",
+              "#text": "Mobile Theme:"
+            },
+            {
+              "@tag": "BOARD_MOBILE_THEME_HELP",
+              "#text": "The mobile theme to use on this board."
+            },
+            {
+              "@tag": "BOARD_NAME",
+              "#text": "Board Name:"
+            },
+            {
+              "@tag": "BOARD_NAME_HELP",
+              "#text": "The name of the board."
+            },
+            {
+              "@tag": "BOARD_SETUP",
+              "#text": "Board Setup"
+            },
+            {
+              "@tag": "BOARD_THEME",
+              "#text": "Theme:"
+            },
+            {
+              "@tag": "BOARD_THEME_HELP",
+              "#text": "The theme to use on this board."
+            },
+            {
+              "@tag": "BOARD_TOPIC_DEFAULT",
+              "#text": "Show Topic Default:"
+            },
+            {
+              "@tag": "BOARD_TOPIC_DEFAULT_HELP",
+              "#text": "The default board show topic interval selection."
+            },
+            {
+              "@tag": "CDVVERSION",
+              "#text": "CRM Version"
+            },
+            {
+              "@tag": "CDVVERSION_BUTTON",
+              "#text": "Increase CRM Version"
+            },
+            {
+              "@tag": "CDVVERSION_HELP",
+              "#text": "CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files"
+            },
+            {
+              "@tag": "COLLAPSED",
+              "#text": "Collapsed"
+            },
+            {
+              "@tag": "COPYRIGHT_REMOVAL_KEY",
+              "#text": "Hide Copyright:"
+            },
+            {
+              "@tag": "COPYRIGHT_REMOVAL_KEY_HELP",
+              "#text": "Remove the copyright information and link back to YAF from the footer of your entire forum domain."
+            },
+            {
+              "@tag": "EXPANDED",
+              "#text": "Expanded"
+            },
+            {
+              "@tag": "FORUM_DEFAULT_ACCESSMASK",
+              "#text": "New Forum Default Access mask:"
+            },
+            {
+              "@tag": "FORUM_DEFAULT_ACCESSMASK_HELP",
+              "#text": "The Default Access Mask when creating a new Forum"
+            },
+            {
+              "@tag": "HEADER",
+              "#text": "Current Board Settings"
+            },
+            {
+              "@tag": "NEED_MESSAGE",
+              "#text": "You need to enter an Announcement Message."
+            },
+            {
+              "@tag": "TITLE",
+              "#text": "Board Settings"
+            }
+          ]
         },
         {
             "@name": "ADMIN_COMMON",

@@ -318,6 +318,15 @@ public class BoardSettings
     }
 
     /// <summary>
+    /// Gets or sets default page size for new users
+    /// </summary>
+    public int PageSizeDefault {
+        get => this.RegistryBoard.GetValue("PageSizeDefault", 5);
+
+        set => this.RegistryBoard.SetValue("PageSizeDefault", value);
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether [log error].
     /// </summary>
     /// <value>

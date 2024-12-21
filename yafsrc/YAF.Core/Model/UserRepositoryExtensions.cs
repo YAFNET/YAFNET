@@ -437,6 +437,9 @@ public static class UserRepositoryExtensions
     /// <param name="providerUserKey">
     /// The provider user key.
     /// </param>
+    /// <param name="pageSize">
+    /// The default page size.
+    /// </param>
     /// <param name="isApproved">
     /// The is approved.
     /// </param>
@@ -453,6 +456,7 @@ public static class UserRepositoryExtensions
         string displayName,
         string email,
         string providerUserKey,
+        int pageSize,
         bool isApproved,
         User existingUser = null)
     {
@@ -547,7 +551,7 @@ public static class UserRepositoryExtensions
                         TimeZone = TimeZoneInfo.Local.Id,
                         Flags = approvedFlag,
                         ProviderUserKey = providerUserKey,
-                        PageSize = 5
+                        PageSize = pageSize
                     });
         }
 

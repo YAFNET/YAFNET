@@ -111,6 +111,7 @@ public partial class Settings : AdminPage
         boardSettings.DefaultSendDigestEmail = this.DefaultSendDigestEmail.Checked;
         boardSettings.DefaultNotificationSetting = this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>();
         boardSettings.DefaultCollapsiblePanelState = this.DefaultCollapsiblePanelState.SelectedValue.ToEnum<CollapsiblePanelState>();
+        boardSettings.PageSizeDefault = this.DefaultPageSize.Text.ToType<int>();
         boardSettings.BaseUrlMask = this.ForumBaseUrlMask.Text;
         boardSettings.ForumEmail = this.ForumEmail.Text;
         boardSettings.DigestSendEveryXHours = this.DigestSendEveryXHours.Text.ToType<int>();
@@ -272,6 +273,7 @@ public partial class Settings : AdminPage
         this.DefaultSendDigestEmail.Checked = boardSettings.DefaultSendDigestEmail;
         this.ForumEmail.Text = boardSettings.ForumEmail;
         this.ForumBaseUrlMask.Text = boardSettings.BaseUrlMask;
+        this.DefaultPageSize.Text = boardSettings.PageSizeDefault.ToString();
 
         var item = this.BoardLogo.Items.FindByText(boardSettings.ForumLogo);
 

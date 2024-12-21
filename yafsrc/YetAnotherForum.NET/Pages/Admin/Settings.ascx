@@ -90,6 +90,13 @@
                                   placeholder='<%# this.GetText("BOARD_DEFAULT_PANEL_STATE") %>'>
                 </asp:DropDownList>
             </div>
+	        <div class="mb-3">
+		        <YAF:HelpLabel ID="HelpLabel2" runat="server"
+		                       AssociatedControlID="DefaultPageSize"
+		                       LocalizedTag="BOARD_DEFAULT_PAGESIZE"
+		                       LocalizedPage="ADMIN_BOARDSETTINGS"/>
+		        <asp:TextBox ID="DefaultPageSize" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
+	        </div>
             <div class="mb-3">
                 <YAF:HelpLabel ID="LocalizedLabel13" runat="server"
                                AssociatedControlID="NotificationOnUserRegisterEmailList"
