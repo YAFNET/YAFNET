@@ -161,6 +161,7 @@ public class SettingsModel : AdminPage
         boardSettings.BaseUrlMask = this.Input.ForumBaseUrlMask;
         boardSettings.ForumEmail = this.Input.ForumEmail;
         boardSettings.DigestSendEveryXHours = this.Input.DigestSendEveryXHours;
+        boardSettings.PageSizeDefault = this.Input.DefaultPageSize;
 
         if (this.Input.BoardLogo.IsSet())
         {
@@ -261,6 +262,7 @@ public class SettingsModel : AdminPage
 
         this.Input.DefaultNotificationSetting = boardSettings.DefaultNotificationSetting.ToInt();
         this.Input.DefaultCollapsiblePanelState = boardSettings.DefaultCollapsiblePanelState.ToInt();
+        this.Input.DefaultPageSize = boardSettings.PageSizeDefault;
 
         this.Input.NotificationOnUserRegisterEmailList = boardSettings.NotificationOnUserRegisterEmailList;
         this.Input.EmailModeratorsOnModeratedPost = boardSettings.EmailModeratorsOnModeratedPost;

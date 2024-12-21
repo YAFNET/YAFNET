@@ -84,6 +84,12 @@ public class SettingsInputModel
     public int DefaultCollapsiblePanelState { get; set; }
 
     /// <summary>
+    /// Gets or sets the default size of the page.
+    /// </summary>
+    /// <value>The default size of the page.</value>
+    public int DefaultPageSize { get; set; }
+
+    /// <summary>
     /// Gets or sets the notification on user register email list.
     /// </summary>
     /// <value>The notification on user register email list.</value>

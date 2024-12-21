@@ -121,6 +121,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
                 displayName,
                 user.Email,
                 user.Id,
+                this.Get<BoardSettings>().PageSizeDefault,
                 user.IsApproved);
 
             var roles = await this.Get<IAspNetRolesHelper>().GetRolesForUserAsync(user);

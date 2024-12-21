@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading;
+
 namespace YAF.Types.Objects;
 
 using System.Text.RegularExpressions;
@@ -35,7 +37,7 @@ public class SpamWordCheckItem
     /// <summary>
     ///   The _active lock.
     /// </summary>
-    private readonly object _activeLock = new();
+    private readonly Lock _activeLock = new();
 
     /// <summary>
     ///   The _active.

@@ -1908,6 +1908,14 @@
           {
             "@tag": "TITLE",
             "#text": "Nastavení desky"
+          },
+          {
+            "@tag": "BOARD_DEFAULT_PAGESIZE",
+            "#text": "Default Page Size"
+          },
+          {
+            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
+            "#text": "The default page size for lists for new users."
           }
         ]
       },

@@ -34,7 +34,7 @@ public class LongBackgroundTask : IntermittentBackgroundTask
     /// <summary>
     /// The lock object.
     /// </summary>
-    private readonly object lockObj = new ();
+    private readonly Lock lockObj = new ();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LongBackgroundTask"/> class.

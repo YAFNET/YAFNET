@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading;
+
 namespace YAF.Core.BBCode;
 
 using System;
@@ -40,7 +42,7 @@ public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
     /// <summary>
     ///     The rules lock.
     /// </summary>
-    private readonly object rulesLock = new ();
+    private readonly Lock rulesLock = new ();
 
     /// <summary>
     ///     The need sort.

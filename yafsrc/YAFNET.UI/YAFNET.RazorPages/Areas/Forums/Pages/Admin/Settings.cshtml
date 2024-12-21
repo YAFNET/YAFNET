@@ -100,6 +100,13 @@
                     </select>
                 </div>
                 <div class="mb-3">
+	                <label class="form-label" info-button="true" 
+	                       asp-for="Input.DefaultCollapsiblePanelState"
+	                       localized-tag="BOARD_DEFAULT_PAGESIZE"
+	                       localized-page="ADMIN_BOARDSETTINGS"></label>
+                        <input type="text" asp-for="Input.DefaultPageSize" class="form-control" type="number" />
+                </div>
+                <div class="mb-3">
                     <label class="form-label"
                            asp-for="Input.NotificationOnUserRegisterEmailList"
                            localized-tag="BOARD_EMAIL_ONREGISTER"
