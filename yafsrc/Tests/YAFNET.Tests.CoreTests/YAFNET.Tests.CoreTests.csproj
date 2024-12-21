@@ -23,7 +23,7 @@
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
 	  <PackageReference Include="xunit" Version="2.9.2" />
-	  <PackageReference Include="xunit.analyzers" Version="1.17.0">
+	  <PackageReference Include="xunit.analyzers" Version="1.18.0">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
