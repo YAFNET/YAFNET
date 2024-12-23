@@ -310,6 +310,21 @@ public class FieldDefinition
     /// <value><c>true</c> if this instance is reference; otherwise, <c>false</c>.</value>
     public bool IsReference { get; set; }
 
+    /// <summary>
+    /// Whether the PK for the Reference Table is a field on the same table
+    /// </summary>
+    public string ReferenceSelfId { get; set; }
+
+    /// <summary>
+    /// The PK to use for the Reference Table (e.g. what ReferenceSelfId references) 
+    /// </summary>
+    public string ReferenceRefId { get; set; }
+
+    /// <summary>
+    /// References a Field on another Table
+    /// [ReferenceField(typeof(Target), nameof(TargetId))]
+    /// public TargetFieldType TargetFieldName { get; set; }
+    /// </summary>
     public FieldReference FieldReference { get; set; }
 
     /// <summary>
@@ -427,6 +442,8 @@ public class FieldDefinition
             CustomSelect = CustomSelect,
             BelongToModelName = BelongToModelName,
             IsReference = IsReference,
+            ReferenceRefId = ReferenceRefId,
+            ReferenceSelfId = ReferenceSelfId,
             FieldReference = FieldReference,
             CustomFieldDefinition = CustomFieldDefinition,
             IsRefType = IsRefType

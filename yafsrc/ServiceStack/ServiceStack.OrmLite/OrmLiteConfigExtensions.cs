@@ -265,6 +265,8 @@ static internal class OrmLiteConfigExtensions
                             fkAttr.OnUpdate,
                             fkAttr.ForeignKeyName),
                 IsReference = isReference,
+                ReferenceSelfId = referenceAttr?.SelfId,
+                ReferenceRefId = referenceAttr?.RefId,
                 GetValueFn = propertyInfo.CreateGetter(),
                 SetValueFn = propertyInfo.CreateSetter(),
                 Sequence = sequenceAttr?.Name,

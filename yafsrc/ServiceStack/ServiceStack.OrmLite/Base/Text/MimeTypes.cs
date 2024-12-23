@@ -12,7 +12,7 @@ namespace ServiceStack.OrmLite.Base.Text;
 
 public static class MimeTypes
 {
-    public static Dictionary<string, string> ExtensionMimeTypes = new();
+    public static Dictionary<string, string> ExtensionMimeTypes = [];
 
     public const string Html = "text/html";
 
@@ -79,33 +79,43 @@ public static class MimeTypes
         }
 
         var parts = mimeType.Split('/');
-        if (parts.Length == 1) return "." + parts[0].LeftPart('+').LeftPart(';');
-        if (parts.Length == 2) return "." + parts[1].LeftPart('+').LeftPart(';');
 
-        throw new NotSupportedException("Unknown mimeType");
+        return parts.Length switch
+        {
+            1 => $".{parts[0].LeftPart('+').LeftPart(';')}",
+            2 => "." + parts[1].LeftPart('+').LeftPart(';'),
+            _ => throw new NotSupportedException("Unknown mimeType")
+        };
     }
 
     //Lower cases and trims left part of content-type prior ';'
     public static string GetRealContentType(string contentType)
     {
         if (contentType == null)
+        {
             return null;
+        }
 
         int start = -1, end = -1;
 
-        for (int i = 0; i < contentType.Length; i++)
+        for (var i = 0; i < contentType.Length; i++)
         {
-            if (!char.IsWhiteSpace(contentType[i]))
+            if (char.IsWhiteSpace(contentType[i]))
             {
-                if (contentType[i] == ';')
-                    break;
-                if (start == -1)
-                {
-                    start = i;
-                }
-
-                end = i;
+                continue;
             }
+
+            if (contentType[i] == ';')
+            {
+                break;
+            }
+
+            if (start == -1)
+            {
+                start = i;
+            }
+
+            end = i;
         }
 
         return start != -1 ? contentType.Substring(start, end - start + 1).ToLowerInvariant() : null;
