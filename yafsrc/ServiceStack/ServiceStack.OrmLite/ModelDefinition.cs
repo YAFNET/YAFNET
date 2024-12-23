@@ -11,6 +11,7 @@ using System.Linq;
 using ServiceStack.DataAnnotations;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 using ServiceStack.OrmLite.Base.Text;
 
@@ -184,7 +185,7 @@ public class ModelDefinition
     /// <summary>
     /// The field definition lock
     /// </summary>
-    private readonly object fieldDefLock = new();
+    private readonly Lock fieldDefLock = new();
     /// <summary>
     /// The field definition map
     /// </summary>

@@ -312,9 +312,20 @@ public class FieldDefinition
     public bool IsReference { get; set; }
 
     /// <summary>
-    /// Gets or sets the field reference.
+    /// Whether the PK for the Reference Table is a field on the same table
     /// </summary>
-    /// <value>The field reference.</value>
+    public string ReferenceSelfId { get; set; }
+
+    /// <summary>
+    /// The PK to use for the Reference Table (e.g. what ReferenceSelfId references) 
+    /// </summary>
+    public string ReferenceRefId { get; set; }
+
+    /// <summary>
+    /// References a Field on another Table
+    /// [ReferenceField(typeof(Target), nameof(TargetId))]
+    /// public TargetFieldType TargetFieldName { get; set; }
+    /// </summary>
     public FieldReference FieldReference { get; set; }
 
     /// <summary>
@@ -413,41 +424,43 @@ public class FieldDefinition
     public FieldDefinition Clone(Action<FieldDefinition> modifier = null)
     {
         var fieldDef = new FieldDefinition
-                           {
-                               Name = this.Name,
-                               Alias = this.Alias,
-                               FieldType = this.FieldType,
-                               FieldTypeDefaultValue = this.FieldTypeDefaultValue,
-                               TreatAsType = this.TreatAsType,
-                               PropertyInfo = this.PropertyInfo,
-                               IsPrimaryKey = this.IsPrimaryKey,
-                               AutoIncrement = this.AutoIncrement,
-                               AutoId = this.AutoId,
-                               IsNullable = this.IsNullable,
-                               IsIndexed = this.IsIndexed,
-                               IsUniqueIndex = this.IsUniqueIndex,
-                               IsClustered = this.IsClustered,
-                               IsNonClustered = this.IsNonClustered,
-                               IsRowVersion = this.IsRowVersion,
-                               FieldLength = this.FieldLength,
-                               Scale = this.Scale,
-                               DefaultValue = this.DefaultValue,
-                               CheckConstraint = this.CheckConstraint,
-                               IsUniqueConstraint = this.IsUniqueConstraint,
-                               ForeignKey = this.ForeignKey,
-                               GetValueFn = this.GetValueFn,
-                               SetValueFn = this.SetValueFn,
-                               Sequence = this.Sequence,
-                               IsComputed = this.IsComputed,
-                               IsPersisted = this.IsPersisted,
-                               ComputeExpression = this.ComputeExpression,
-                               CustomSelect = this.CustomSelect,
-                               BelongToModelName = this.BelongToModelName,
-                               IsReference = this.IsReference,
-                               FieldReference = this.FieldReference,
-                               CustomFieldDefinition = this.CustomFieldDefinition,
-                               IsRefType = this.IsRefType
-                           };
+        {
+            Name = this.Name,
+            Alias = this.Alias,
+            FieldType = this.FieldType,
+            FieldTypeDefaultValue = this.FieldTypeDefaultValue,
+            TreatAsType = this.TreatAsType,
+            PropertyInfo = this.PropertyInfo,
+            IsPrimaryKey = this.IsPrimaryKey,
+            AutoIncrement = this.AutoIncrement,
+            AutoId = this.AutoId,
+            IsNullable = this.IsNullable,
+            IsIndexed = this.IsIndexed,
+            IsUniqueIndex = this.IsUniqueIndex,
+            IsClustered = this.IsClustered,
+            IsNonClustered = this.IsNonClustered,
+            IsRowVersion = this.IsRowVersion,
+            FieldLength = this.FieldLength,
+            Scale = this.Scale,
+            DefaultValue = this.DefaultValue,
+            CheckConstraint = this.CheckConstraint,
+            IsUniqueConstraint = this.IsUniqueConstraint,
+            ForeignKey = this.ForeignKey,
+            GetValueFn = this.GetValueFn,
+            SetValueFn = this.SetValueFn,
+            Sequence = this.Sequence,
+            IsComputed = this.IsComputed,
+            IsPersisted = this.IsPersisted,
+            ComputeExpression = this.ComputeExpression,
+            CustomSelect = this.CustomSelect,
+            BelongToModelName = this.BelongToModelName,
+            IsReference = this.IsReference,
+            ReferenceRefId = ReferenceRefId,
+            ReferenceSelfId = ReferenceSelfId,
+            FieldReference = this.FieldReference,
+            CustomFieldDefinition = this.CustomFieldDefinition,
+            IsRefType = this.IsRefType
+        };
 
         modifier?.Invoke(fieldDef);
         return fieldDef;

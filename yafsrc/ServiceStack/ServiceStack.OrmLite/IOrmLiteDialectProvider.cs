@@ -1240,7 +1240,8 @@ public interface IOrmLiteDialectProvider
     /// <param name="refSelf">The reference self.</param>
     /// <param name="refModelDef">The reference model definition.</param>
     /// <returns>System.String.</returns>
-    string GetRefSelfSql<From>(SqlExpression<From> refQ, ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef);
+    string GetRefSelfSql<From>(SqlExpression<From> refQ, ModelDefinition modelDef, FieldDefinition refSelf,
+        ModelDefinition refModelDef, FieldDefinition refId);
     /// <summary>
     /// Gets the reference field SQL.
     /// </summary>

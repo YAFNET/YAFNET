@@ -1677,7 +1677,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="refSelf">The reference self.</param>
     /// <param name="refModelDef">The reference model definition.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetRefSelfSql<From>(SqlExpression<From> refQ, ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef)
+    public virtual string GetRefSelfSql<From>(SqlExpression<From> refQ, ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef, FieldDefinition refId)
     {
         refQ.Select(this.GetQuotedColumnName(modelDef, refSelf));
         refQ.OrderBy().ClearLimits(); // clear any ORDER BY or LIMIT's in Sub Select's
@@ -1686,7 +1686,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
 
         var sqlRef = $"SELECT {this.GetColumnNames(refModelDef)} " +
                      $"FROM {this.GetQuotedTableName(refModelDef)} " +
-                     $"WHERE {this.GetQuotedColumnName(refModelDef.PrimaryKey)} " +
+                     $"WHERE {this.GetQuotedColumnName(refId)} " +
                      $"IN ({subSqlRef})";
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)

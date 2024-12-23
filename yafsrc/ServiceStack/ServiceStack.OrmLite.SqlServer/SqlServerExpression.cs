@@ -86,7 +86,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
         var paramValue = right;
         var parameter = this.CreateParam(paramName, paramValue);
 
-        // Prevents a new plan cache for each different string length. Every string is parameterized as NVARCHAR(max) 
+        // Prevents a new plan cache for each different string length. Every string is parameterized as NVARCHAR(max)
         if (parameter.DbType == DbType.String)
         {
             parameter.Size = -1;

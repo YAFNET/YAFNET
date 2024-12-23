@@ -162,9 +162,9 @@ internal abstract class LoadList<Into, From>
     /// <param name="refSelf">The reference self.</param>
     /// <param name="refModelDef">The reference model definition.</param>
     /// <returns>System.String.</returns>
-    protected string GetRefSelfSql(ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef)
+    protected string GetRefSelfSql(ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef, FieldDefinition refId)
     {
-        return this.dialectProvider.GetRefSelfSql(this.q.Clone(), modelDef, refSelf, refModelDef);
+        return this.dialectProvider.GetRefSelfSql(this.q.Clone(), modelDef, refSelf, refModelDef, refId);
     }
 
     /// <summary>
@@ -252,13 +252,13 @@ internal abstract class LoadList<Into, From>
     /// <param name="refModelDef">The reference model definition.</param>
     /// <param name="refSelf">The reference self.</param>
     /// <param name="childResults">The child results.</param>
-    protected void SetRefSelfChildResults(FieldDefinition fieldDef, ModelDefinition refModelDef, FieldDefinition refSelf, IList childResults)
+    protected void SetRefSelfChildResults(FieldDefinition fieldDef, ModelDefinition refModelDef, FieldDefinition refSelf, IList childResults, FieldDefinition refId)
     {
         var map = this.CreateRefMap();
 
         foreach (var result in childResults)
         {
-            var pkValue = refModelDef.PrimaryKey.GetValue(result);
+            var pkValue = refId.GetValue(result);
             map[pkValue] = result;
         }
 
@@ -376,9 +376,13 @@ internal class LoadListSync<Into, From> : LoadList<Into, From>
 
         if (refSelf != null)
         {
-            var sqlRef = this.GetRefSelfSql(this.modelDef, refSelf, refModelDef);
+            var refId = fieldDef.ReferenceRefId != null
+                ? refModelDef.GetFieldDefinition(fieldDef.ReferenceRefId)
+                  ?? throw new NotSupportedException($"{fieldDef.ReferenceRefId} is not a property of {refModelDef.Name}")
+                : refModelDef.PrimaryKey;
+            var sqlRef = GetRefSelfSql(modelDef, refSelf, refModelDef, refId);
             var childResults = this.dbCmd.ConvertToList(refType, sqlRef);
-            this.SetRefSelfChildResults(fieldDef, refModelDef, refSelf, childResults);
+            SetRefSelfChildResults(fieldDef, refModelDef, refSelf, childResults, refId);
         }
         else if (refField != null)
         {
@@ -454,9 +458,13 @@ internal class LoadListAsync<Into, From> : LoadList<Into, From>
 
         if (refSelf != null)
         {
-            var sqlRef = this.GetRefSelfSql(this.modelDef, refSelf, refModelDef);
+            var refId = fieldDef.ReferenceRefId != null
+                ? refModelDef.GetFieldDefinition(fieldDef.ReferenceRefId)
+                  ?? throw new NotSupportedException($"{fieldDef.ReferenceRefId} is not a property of {refModelDef.Name}")
+                : refModelDef.PrimaryKey;
+            var sqlRef = GetRefSelfSql(modelDef, refSelf, refModelDef, refId);
             var childResults = await this.dbCmd.ConvertToListAsync(refType, sqlRef, token).ConfigAwait();
-            this.SetRefSelfChildResults(fieldDef, refModelDef, refSelf, childResults);
+            this.SetRefSelfChildResults(fieldDef, refModelDef, refSelf, childResults, refId);
         }
         else if (refField != null)
         {

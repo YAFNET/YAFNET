@@ -19,7 +19,7 @@ namespace ServiceStack.OrmLite.Base.Text;
 /// <summary>
 /// Utils to load types
 /// </summary>
-public static class AssemblyUtils
+public static partial class AssemblyUtils
 {
     /// <summary>
     /// The type cache
@@ -37,7 +37,7 @@ public static class AssemblyUtils
     /// </summary>
     /// <value>The validate type regex.</value>
     public static Regex ValidateTypeRegex { get; set; } =
-        new(@"^[a-zA-Z0-9_.,+`\[\]\s]+$", RegexOptions.Compiled);
+        ValidateType();
 
     /// <summary>
     /// Defaults the name of the validate type.
@@ -163,4 +163,7 @@ public static class AssemblyUtils
     {
         return type.ToTypeString();
     }
+
+    [GeneratedRegex(@"^[a-zA-Z0-9_.,+`\[\]\s]+$", RegexOptions.Compiled)]
+    private static partial Regex ValidateType();
 }

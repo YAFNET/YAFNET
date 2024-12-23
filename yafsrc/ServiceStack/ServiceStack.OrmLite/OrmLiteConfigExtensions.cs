@@ -266,6 +266,8 @@ static internal class OrmLiteConfigExtensions
                             fkAttr.OnUpdate,
                             fkAttr.ForeignKeyName),
                 IsReference = isReference,
+                ReferenceSelfId = referenceAttr?.SelfId,
+                ReferenceRefId = referenceAttr?.RefId,
                 GetValueFn = propertyInfo.CreateGetter(),
                 SetValueFn = propertyInfo.CreateSetter(),
                 Sequence = sequenceAttr?.Name,
@@ -319,7 +321,7 @@ static internal class OrmLiteConfigExtensions
                    Interlocked.CompareExchange(ref typeModelDefinitionMap, newCache, snapshot),
                    snapshot));
 
-        LicenseUtils.AssertValidUsage(LicenseFeature.OrmLite, QuotaType.Tables, typeModelDefinitionMap.Count);
+        LicenseUtils.AssertValidUsage();
 
         return modelDef;
     }
