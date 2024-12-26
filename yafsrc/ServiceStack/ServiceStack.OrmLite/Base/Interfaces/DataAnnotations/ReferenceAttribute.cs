@@ -13,21 +13,24 @@ namespace ServiceStack.DataAnnotations;
 
 /// <summary>
 /// Class ReferenceAttribute.
-/// Implements the <see cref="ServiceStack.AttributeBase" />
+/// Implements the <see cref="AttributeBase" />
 /// </summary>
-/// <seealso cref="ServiceStack.AttributeBase" />
+/// <seealso cref="AttributeBase" />
 [AttributeUsage(AttributeTargets.Property)]
 public class ReferenceAttribute : AttributeBase
 {
     /// <summary>
-    /// Gets or sets the self identifier.
+    /// Use the specified Field on this POCO as the FK field for the referenced POCO Complex Type.
     /// </summary>
-    /// <value>The self identifier.</value>
     public string? SelfId { get; set; }
 
     /// <summary>
-    /// Gets or sets the reference identifier.
+    /// Specify the FK field to match of the referenced POCO Complex Type (default Primary Key).
     /// </summary>
-    /// <value>The reference identifier.</value>
     public string? RefId { get; set; }
+
+    /// <summary>
+    /// If configured will display the Reference Field instead of the default rendered complex type.
+    /// </summary>
+    public string? RefLabel { get; set; }
 }
