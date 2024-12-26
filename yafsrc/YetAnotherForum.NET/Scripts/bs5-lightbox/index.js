@@ -141,7 +141,7 @@ class Lightbox {
 						src = youtubeLink;
 						attributes = 'title="YouTube video player" frameborder="0" allow="accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture"';
 					}
-					inner = instagramEmbed || `<img src="${src}" ${attributes} class="d-block w-100" style="object-fit-cover;height:auto" />`;
+					inner = instagramEmbed || `<img src="${src}" ${attributes} class="d-block mw-100 mh-100 h-auto w-auto m-auto top-0 end-0 bottom-0 start-0 img-fluid" style="z-index: 1; object-fit: contain;" />`;
 				}
 				if (isHtml) {
 					inner = src;
