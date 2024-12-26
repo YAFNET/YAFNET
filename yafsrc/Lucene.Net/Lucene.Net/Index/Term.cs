@@ -115,11 +115,14 @@ namespace YAF.Lucene.Net.Index
 
         public override int GetHashCode()
         {
-            const int prime = 31;
-            int result = 1;
-            result = prime * result + ((Field is null) ? 0 : Field.GetHashCode());
-            result = prime * result + ((Bytes is null) ? 0 : Bytes.GetHashCode());
-            return result;
+            unchecked
+            {
+                const int prime = 31;
+                int result = 1;
+                result = prime * result + (Field is null ? 0 : Field.GetHashCode());
+                result = prime * result + (Bytes is null ? 0 : Bytes.GetHashCode());
+                return result;
+            }
         }
 
         /// <summary>
@@ -189,5 +192,30 @@ namespace YAF.Lucene.Net.Index
         {
             return Field + ":" + Text;
         }
+
+        #region Operator overrides
+#nullable enable
+        // LUCENENET specific - per csharpsquid:S1210, IComparable<T> should override comparison operators
+
+        public static bool operator <(Term? left, Term? right)
+            => left is null ? right is not null : left.CompareTo(right) < 0;
+
+        public static bool operator <=(Term? left, Term? right)
+            => left is null || left.CompareTo(right) <= 0;
+
+        public static bool operator >(Term? left, Term? right)
+            => left is not null && left.CompareTo(right) > 0;
+
+        public static bool operator >=(Term? left, Term? right)
+            => left is null ? right is null : left.CompareTo(right) >= 0;
+
+        public static bool operator ==(Term? left, Term? right)
+            => left?.Equals(right) ?? right is null;
+
+        public static bool operator !=(Term? left, Term? right)
+            => !(left == right);
+
+#nullable restore
+        #endregion
     }
 }

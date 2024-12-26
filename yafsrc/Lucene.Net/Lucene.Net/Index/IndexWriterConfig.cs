@@ -150,7 +150,7 @@ namespace YAF.Lucene.Net.Index
         ///           if this config is already attached to a writer. </exception>
         internal IndexWriterConfig SetIndexWriter(IndexWriter writer)
         {
-            this.writer.Set(writer);
+            this.writer.Value = writer;
             return this;
         }
 
@@ -293,8 +293,8 @@ namespace YAF.Lucene.Net.Index
         // so must declare it new. See: http://stackoverflow.com/q/82437
         new public long WriteLockTimeout
         {
-            get => writeLockTimeout;
-            set => this.writeLockTimeout = value;
+            get => writeLockTimeout.Value;
+            set => writeLockTimeout.Value = value;
         }
 
         /// <summary>

@@ -222,7 +222,7 @@ namespace YAF.Lucene.Net.Util
                 pos = 0;
             }
 
-            internal int pos;
+            private int pos;
 
             public BytesRef Next()
             {

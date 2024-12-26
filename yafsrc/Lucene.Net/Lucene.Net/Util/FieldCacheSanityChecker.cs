@@ -343,7 +343,10 @@ namespace YAF.Lucene.Net.Util
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int GetHashCode()
             {
-                return RuntimeHelpers.GetHashCode(readerKey) * FieldName.GetHashCode();
+                unchecked
+                {
+                    return RuntimeHelpers.GetHashCode(readerKey) * FieldName.GetHashCode();
+                }
             }
 
             public override bool Equals(object that)

@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+﻿using J2N.Threading.Atomic;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
@@ -128,12 +129,17 @@ namespace YAF.Lucene.Net.Index
             }
             private int maxNumSegments = -1;
 
+            // LUCENENET NOTE: original was volatile, using AtomicInt64 instead.
+            // Also, we expose the value as a `long` property instead of exposing
+            // the AtomicInt64 object itself.
+            internal readonly AtomicInt64 estimatedMergeBytes = new AtomicInt64();
+
             /// <summary>
             /// Estimated size in bytes of the merged segment. </summary>
-            public long EstimatedMergeBytes { get; internal set; } // used by IndexWriter // LUCENENET NOTE: original was volatile, but long cannot be in .NET
+            public long EstimatedMergeBytes => estimatedMergeBytes.Value;
 
             // Sum of sizeInBytes of all SegmentInfos; set by IW.mergeInit
-            internal long totalMergeBytes; // LUCENENET NOTE: original was volatile, but long cannot be in .NET
+            internal readonly AtomicInt64 totalMergeBytes = new AtomicInt64(); // LUCENENET NOTE: original was volatile, using AtomicInt64 instead
 
             internal IList<SegmentReader> readers; // used by IndexWriter
 
@@ -413,7 +419,7 @@ namespace YAF.Lucene.Net.Index
             /// input total size. This is only set once the merge is
             /// initialized by <see cref="IndexWriter"/>.
             /// </summary>
-            public virtual long TotalBytesSize => totalMergeBytes;
+            public virtual long TotalBytesSize => totalMergeBytes.Value;
 
             /// <summary>
             /// Returns the total number of documents that are included with this merge.
@@ -652,7 +658,7 @@ namespace YAF.Lucene.Net.Index
         /// <seealso cref="SetOnce{T}"/>
         public virtual void SetIndexWriter(IndexWriter writer)
         {
-            this.m_writer.Set(writer);
+            this.m_writer.Value = writer;
         }
 
         /// <summary>
@@ -748,7 +754,8 @@ namespace YAF.Lucene.Net.Index
         protected virtual long Size(SegmentCommitInfo info)
         {
             long byteSize = info.GetSizeInBytes();
-            int delCount = m_writer.Get().NumDeletedDocs(info);
+            int delCount = m_writer.Value?.NumDeletedDocs(info)
+                ?? throw new InvalidOperationException("The writer has not been initialized"); // LUCENENET specific - throw exception if writer is null
             double delRatio = (info.Info.DocCount <= 0 ? 0.0f : ((float)delCount / (float)info.Info.DocCount));
             if (Debugging.AssertsEnabled) Debugging.Assert(delRatio <= 1.0);
             return (info.Info.DocCount <= 0 ? byteSize : (long)(byteSize * (1.0 - delRatio)));
@@ -761,7 +768,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         protected bool IsMerged(SegmentInfos infos, SegmentCommitInfo info)
         {
-            IndexWriter w = m_writer.Get();
+            IndexWriter w = m_writer.Value;
             if (Debugging.AssertsEnabled) Debugging.Assert(w != null);
             bool hasDeletions = w.NumDeletedDocs(info) > 0;
             return !hasDeletions

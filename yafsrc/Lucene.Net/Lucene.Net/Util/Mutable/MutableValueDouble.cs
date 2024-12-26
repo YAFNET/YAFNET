@@ -82,8 +82,11 @@ namespace YAF.Lucene.Net.Util.Mutable
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
         {
-            long x = J2N.BitConversion.DoubleToInt64Bits(Value);
-            return (int)x + (int)(x >>> 32);
+            unchecked
+            {
+                long x = J2N.BitConversion.DoubleToInt64Bits(Value);
+                return (int)x + (int)(x >>> 32);
+            }
         }
     }
 }

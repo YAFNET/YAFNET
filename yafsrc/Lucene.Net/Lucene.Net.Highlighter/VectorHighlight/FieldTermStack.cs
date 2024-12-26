@@ -257,15 +257,18 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
 
             public override int GetHashCode()
             {
-                int prime = 31;
-                int result = 1;
-                result = prime * result + position;
-                return result;
+                unchecked
+                {
+                    const int prime = 31;
+                    int result = 1;
+                    result = prime * result + position;
+                    return result;
+                }
             }
 
             public override bool Equals(object obj)
             {
-                if (this == obj)
+                if (ReferenceEquals(this, obj))
                 {
                     return true;
                 }
@@ -284,6 +287,31 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
                 }
                 return true;
             }
+
+            #region Operator overrides
+#nullable enable
+            // LUCENENET specific - per csharpsquid:S1210, IComparable<T> should override comparison operators
+
+            public static bool operator <(TermInfo? left, TermInfo? right)
+                => left is null ? right is not null : left.CompareTo(right) < 0;
+
+            public static bool operator <=(TermInfo? left, TermInfo? right)
+                => left is null || left.CompareTo(right) <= 0;
+
+            public static bool operator >(TermInfo? left, TermInfo? right)
+                => left is not null && left.CompareTo(right) > 0;
+
+            public static bool operator >=(TermInfo? left, TermInfo? right)
+                => left is null ? right is null : left.CompareTo(right) >= 0;
+
+            public static bool operator ==(TermInfo? left, TermInfo? right)
+                => left?.Equals(right) ?? right is null;
+
+            public static bool operator !=(TermInfo? left, TermInfo? right)
+                => !(left == right);
+
+#nullable restore
+            #endregion
         }
     }
 }

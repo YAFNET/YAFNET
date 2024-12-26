@@ -431,18 +431,21 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
 
             public override int GetHashCode()
             {
-                int prime = 31;
-                int result = 1;
-                result = prime * result + StartOffset;
-                result = prime * result + EndOffset;
-                long b = J2N.BitConversion.DoubleToInt64Bits(Boost);
-                result = prime * result + (int)(b ^ (b >>> 32));
-                return result;
+                unchecked
+                {
+                    const int prime = 31;
+                    int result = 1;
+                    result = prime * result + StartOffset;
+                    result = prime * result + EndOffset;
+                    long b = J2N.BitConversion.DoubleToInt64Bits(Boost);
+                    result = prime * result + (int)(b ^ (b >>> 32));
+                    return result;
+                }
             }
 
             public override bool Equals(object obj)
             {
-                if (this == obj)
+                if (ReferenceEquals(this, obj))
                 {
                     return true;
                 }
@@ -469,6 +472,31 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
                 }
                 return true;
             }
+
+            #region Operator overrides
+#nullable enable
+            // LUCENENET specific - per csharpsquid:S1210, IComparable<T> should override comparison operators
+
+            public static bool operator <(WeightedPhraseInfo? left, WeightedPhraseInfo? right)
+                => left is null ? right is not null : left.CompareTo(right) < 0;
+
+            public static bool operator <=(WeightedPhraseInfo? left, WeightedPhraseInfo? right)
+                => left is null || left.CompareTo(right) <= 0;
+
+            public static bool operator >(WeightedPhraseInfo? left, WeightedPhraseInfo? right)
+                => left is not null && left.CompareTo(right) > 0;
+
+            public static bool operator >=(WeightedPhraseInfo? left, WeightedPhraseInfo? right)
+                => left is null ? right is null : left.CompareTo(right) >= 0;
+
+            public static bool operator ==(WeightedPhraseInfo? left, WeightedPhraseInfo? right)
+                => left?.Equals(right) ?? right is null;
+
+            public static bool operator !=(WeightedPhraseInfo? left, WeightedPhraseInfo? right)
+                => !(left == right);
+
+#nullable restore
+            #endregion
 
             /// <summary>
             /// Term offsets (start + end)
@@ -503,16 +531,19 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
 
                 public override int GetHashCode()
                 {
-                    int prime = 31;
-                    int result = 1;
-                    result = prime * result + StartOffset;
-                    result = prime * result + EndOffset;
-                    return result;
+                    unchecked
+                    {
+                        const int prime = 31;
+                        int result = 1;
+                        result = prime * result + StartOffset;
+                        result = prime * result + EndOffset;
+                        return result;
+                    }
                 }
 
                 public override bool Equals(object obj)
                 {
-                    if (this == obj)
+                    if (ReferenceEquals(this, obj))
                     {
                         return true;
                     }
@@ -535,12 +566,38 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
                     }
                     return true;
                 }
+
                 public override string ToString()
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.Append('(').Append(startOffset).Append(',').Append(endOffset).Append(')');
                     return sb.ToString();
                 }
+
+                #region Operator overrides
+#nullable enable
+                // LUCENENET specific - per csharpsquid:S1210, IComparable<T> should override comparison operators
+
+                public static bool operator <(Toffs? left, Toffs? right)
+                    => left is null ? right is not null : left.CompareTo(right) < 0;
+
+                public static bool operator <=(Toffs? left, Toffs? right)
+                    => left is null || left.CompareTo(right) <= 0;
+
+                public static bool operator >(Toffs? left, Toffs? right)
+                    => left is not null && left.CompareTo(right) > 0;
+
+                public static bool operator >=(Toffs? left, Toffs? right)
+                    => left is null ? right is null : left.CompareTo(right) >= 0;
+
+                public static bool operator ==(Toffs? left, Toffs? right)
+                    => left?.Equals(right) ?? right is null;
+
+                public static bool operator !=(Toffs? left, Toffs? right)
+                    => !(left == right);
+
+#nullable restore
+                #endregion
             }
         }
     }

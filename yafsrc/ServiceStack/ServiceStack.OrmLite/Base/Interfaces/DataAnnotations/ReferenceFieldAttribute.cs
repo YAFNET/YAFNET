@@ -16,12 +16,12 @@ using System;
 public class ReferenceFieldAttribute : AttributeBase
 {
     /// <summary>
-    /// Foreign Key Table name
+    /// The Foreign Key Table name
     /// </summary>
     public Type Model { get; set; }
 
     /// <summary>
-    /// The Field name on current Model to use for the Foreign Key Table Lookup 
+    /// The Field name on current Model to use for the Foreign Key Table Lookup.
     /// </summary>
     public string Id { get; set; }
 
@@ -30,7 +30,16 @@ public class ReferenceFieldAttribute : AttributeBase
     /// </summary>
     public string Field { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ReferenceFieldAttribute"/> class.
+    /// </summary>
     public ReferenceFieldAttribute() { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ReferenceFieldAttribute"/> class.
+    /// </summary>
+    /// <param name="model">The Foreign Key Table name</param>
+    /// <param name="id">The Field name on current Model to use for the Foreign Key Table Lookup.</param>
     public ReferenceFieldAttribute(Type model, string id)
     {
         Model = model;

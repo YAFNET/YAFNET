@@ -112,14 +112,17 @@ namespace YAF.Lucene.Net.Util
 
         public override int GetHashCode()
         {
-            const int prime = 31;
-            int result = 0;
-            int end = Offset + Length;
-            for (int i = Offset; i < end; i++)
+            unchecked
             {
-                result = prime * result + ints[i];
+                const int prime = 31;
+                int result = 0;
+                int end = Offset + Length;
+                for (int i = Offset; i < end; i++)
+                {
+                    result = prime * result + ints[i];
+                }
+                return result;
             }
-            return result;
         }
 
         public override bool Equals(object obj)
@@ -293,5 +296,30 @@ namespace YAF.Lucene.Net.Util
             }
             return true;
         }
+
+        #region Operator overrides
+#nullable enable
+        // LUCENENET specific - per csharpsquid:S1210, IComparable<T> should override comparison operators
+
+        public static bool operator <(Int32sRef? left, Int32sRef? right)
+            => left is null ? right is not null : left.CompareTo(right) < 0;
+
+        public static bool operator <=(Int32sRef? left, Int32sRef? right)
+            => left is null || left.CompareTo(right) <= 0;
+
+        public static bool operator >(Int32sRef? left, Int32sRef? right)
+            => left is not null && left.CompareTo(right) > 0;
+
+        public static bool operator >=(Int32sRef? left, Int32sRef? right)
+            => left is null ? right is null : left.CompareTo(right) >= 0;
+
+        public static bool operator ==(Int32sRef? left, Int32sRef? right)
+            => left?.Equals(right) ?? right is null;
+
+        public static bool operator !=(Int32sRef? left, Int32sRef? right)
+            => !(left == right);
+
+#nullable restore
+        #endregion
     }
 }
