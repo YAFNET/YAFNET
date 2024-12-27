@@ -97,9 +97,9 @@ public class RanksModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public async Task OnGetAsync()
+    public Task OnGetAsync()
     {
-        await this.BindDataAsync();
+        return this.BindDataAsync();
     }
 
     /// <summary>

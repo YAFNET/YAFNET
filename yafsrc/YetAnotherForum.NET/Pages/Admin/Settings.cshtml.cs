@@ -114,11 +114,11 @@ public class SettingsModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public async Task OnGetAsync()
+    public Task OnGetAsync()
     {
         this.Input = new SettingsInputModel();
 
-        await this.BindDataAsync();
+        return this.BindDataAsync();
     }
 
     /// <summary>
@@ -180,12 +180,12 @@ public class SettingsModel : AdminPage
     /// <summary>
     /// Increases the CDV version on click.
     /// </summary>
-    public async Task OnPostIncreaseVersionAsync()
+    public Task OnPostIncreaseVersionAsync()
     {
         this.PageBoardContext.BoardSettings.CdvVersion++;
         this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
 
-        await this.BindDataAsync();
+        return this.BindDataAsync();
     }
 
     /// <summary>

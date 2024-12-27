@@ -85,7 +85,7 @@ public class ApproveModel : AccountPage
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<IActionResult> OnGetAsync(string code)
+    public Task<IActionResult> OnGetAsync(string code)
     {
         this.Input = new ApproveInputModel();
 
@@ -93,7 +93,7 @@ public class ApproveModel : AccountPage
 
         this.Input.Key = code;
 
-        return await this.ValidateKeyAsync();
+        return this.ValidateKeyAsync();
     }
 
     /// <summary>
