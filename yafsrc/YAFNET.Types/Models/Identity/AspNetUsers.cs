@@ -316,6 +316,7 @@ public class AspNetUsers<TKey> : IEntity, IHasId<TKey>
     /// <summary>
     /// Gets or sets Blog.
     /// </summary>
+    [StringLength(255)]
     public string Profile_Blog { get; set; }
 
     /// <summary>
@@ -326,65 +327,78 @@ public class AspNetUsers<TKey> : IEntity, IHasId<TKey>
     /// <summary>
     /// Gets or sets Google Id
     /// </summary>
+    [StringLength(255)]
     public string Profile_GoogleId { get; set; }
 
     /// <summary>
     /// Gets or sets Homepage.
     /// </summary>
+    [StringLength(255)]
     public string Profile_Homepage { get; set; }
 
     /// <summary>
     /// Gets or sets Facebook.
     /// </summary>
+    [StringLength(400)]
     public string Profile_Facebook { get; set; }
 
     /// <summary>
     /// Gets or sets Facebook.
     /// </summary>
+    [StringLength(400)]
     public string Profile_FacebookId { get; set; }
 
     /// <summary>
     /// Gets or sets Interests.
     /// </summary>
+    [StringLength(400)]
     public string Profile_Interests { get; set; }
 
     /// <summary>
     /// Gets or sets Location.
     /// </summary>
+    [StringLength(255)]
     public string Profile_Location { get; set; }
 
     /// <summary>
     /// Gets or sets Country.
     /// </summary>
+    [StringLength(2)]
     public string Profile_Country { get; set; }
 
     /// <summary>
     /// Gets or sets Region or State(US).
     /// </summary>
+    [StringLength(255)]
     public string Profile_Region { get; set; }
 
     /// <summary>
     /// Gets or sets a City.
     /// </summary>
+    [StringLength(255)]
     public string Profile_City { get; set; }
 
     /// <summary>
     /// Gets or sets Occupation.
     /// </summary>
+    [StringLength(400)]
     public string Profile_Occupation { get; set; }
 
     /// <summary>
     /// Gets or sets RealName.
     /// </summary>
+    [StringLength(255)]
     public string Profile_RealName { get; set; }
 
     /// <summary>
     /// Gets or sets Skype.
     /// </summary>
+    [StringLength(255)]
     public string Profile_Skype { get; set; }
 
     /// <summary>
     /// Gets or sets XMPP.
     /// </summary>
+    [StringLength(255)]
     public string Profile_XMPP { get; set; }
 }

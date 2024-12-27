@@ -65,7 +65,7 @@ public class ProfileInfo
     /// <summary>
     /// Gets or sets Facebook.
     /// </summary>
-    public string Facebook { get; set; }
+   public string Facebook { get; set; }
 
     /// <summary>
     /// Gets or sets Facebook.
