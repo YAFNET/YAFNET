@@ -2085,7 +2085,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             if (fieldDef.AutoId && p.Value != null)
             {
                 var existingId = fieldDef.GetValue(obj);
-                if (existingId is Guid existingGuid && existingGuid != default)
+                if (existingId is Guid existingGuid && existingGuid != Guid.Empty)
                 {
                     p.Value = existingGuid; // Use existing value if not default
                 }

@@ -46,16 +46,6 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     private readonly ILifetimeScope contextLifetimeContainer;
 
     /// <summary>
-    /// The load message.
-    /// </summary>
-    private SessionMessageService loadMessage;
-
-    /// <summary>
-    /// The inline elements
-    /// </summary>
-    private InlineElements inlineElements;
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="BoardContext"/> class. BoardContext Constructor
     /// </summary>
     /// <param name="contextLifetimeContainer">
@@ -118,13 +108,13 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// <summary>
     /// Gets the current Page Load Message
     /// </summary>
-    public SessionMessageService SessionMessageService => this.loadMessage ??= new SessionMessageService();
+    public SessionMessageService SessionMessageService => field ??= new SessionMessageService();
 
     /// <summary>
     /// Gets the inline elements.
     /// </summary>
     /// <value>The inline elements.</value>
-    public InlineElements InlineElements => this.inlineElements ??= new InlineElements();
+    public InlineElements InlineElements => field ??= new InlineElements();
 
     /// <summary>
     /// Gets the Provides access to the Service Locator

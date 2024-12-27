@@ -98,7 +98,7 @@ public class StringConverter : OrmLiteConverter, IHasColumnDefinitionLength
     {
         base.InitDbParam(p, fieldType);
 
-        if (p.Size == default && fieldType == typeof(string))
+        if (p.Size == 0 && fieldType == typeof(string))
         {
             p.Size = this.UseUnicode
                          ? Math.Min(this.StringLength, 4000)

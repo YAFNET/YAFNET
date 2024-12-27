@@ -344,8 +344,8 @@ public class CsvSerializer
         CsvSerializer<T>.WriteObject(null, null);
         CsvWriter<T>.Write(null, default(IEnumerable<T>));
         CsvWriter<T>.WriteRow(null, default(T));
-        CsvWriter<T>.WriteObject(null, default(IEnumerable<T>));
-        CsvWriter<T>.WriteObjectRow(null, default(IEnumerable<T>));
+        CsvWriter<T>.WriteObject(null, null);
+        CsvWriter<T>.WriteObjectRow(null, null);
 
         CsvReader<T>.ReadRow(null);
         CsvReader<T>.ReadObject(null);
@@ -635,12 +635,12 @@ public static class CsvSerializer<T>
     /// <summary>
     /// The value setter
     /// </summary>
-    private static SetMemberDelegate valueSetter = null;
+    private static SetMemberDelegate valueSetter;
 
     /// <summary>
     /// The read element function
     /// </summary>
-    private static ParseStringDelegate readElementFn = null;
+    private static ParseStringDelegate readElementFn;
 
     /// <summary>
     /// Gets the read function.

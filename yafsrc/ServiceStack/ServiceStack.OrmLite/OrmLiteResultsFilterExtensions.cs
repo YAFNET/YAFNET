@@ -202,17 +202,17 @@ public static class OrmLiteResultsFilterExtensions
         to.DbType = from.DbType;
         to.Value = from.Value;
 
-        if (from.Precision != default(byte))
+        if (from.Precision != 0)
         {
             to.Precision = from.Precision;
         }
 
-        if (from.Scale != default(byte))
+        if (from.Scale != 0)
         {
             to.Scale = from.Scale;
         }
 
-        if (from.Size != default(int))
+        if (from.Size != 0)
         {
             to.Size = from.Size;
         }

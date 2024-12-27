@@ -228,7 +228,7 @@ public class DynamicSByte : IDynamicNumber
     /// Gets the default value.
     /// </summary>
     /// <value>The default value.</value>
-    public object DefaultValue => default(sbyte);
+    public object DefaultValue => 0;
 
     /// <summary>
     /// Adds the specified LHS.
@@ -467,7 +467,7 @@ public class DynamicByte : IDynamicNumber
     /// Gets the default value.
     /// </summary>
     /// <value>The default value.</value>
-    public object DefaultValue => default(byte);
+    public object DefaultValue => 0;
 
     /// <summary>
     /// Adds the specified LHS.
@@ -706,7 +706,7 @@ public class DynamicShort : IDynamicNumber
     /// Gets the default value.
     /// </summary>
     /// <value>The default value.</value>
-    public object DefaultValue => default(short);
+    public object DefaultValue => 0;
 
     /// <summary>
     /// Adds the specified LHS.
@@ -945,7 +945,7 @@ public class DynamicUShort : IDynamicNumber
     /// Gets the default value.
     /// </summary>
     /// <value>The default value.</value>
-    public object DefaultValue => default(ushort);
+    public object DefaultValue => 0;
 
     /// <summary>
     /// Adds the specified LHS.
@@ -1184,7 +1184,7 @@ public class DynamicInt : IDynamicNumber
     /// Gets the default value.
     /// </summary>
     /// <value>The default value.</value>
-    public object DefaultValue => default(int);
+    public object DefaultValue => 0;
 
     /// <summary>
     /// Adds the specified LHS.
@@ -1423,7 +1423,7 @@ public class DynamicUInt : IDynamicNumber
     /// Gets the default value.
     /// </summary>
     /// <value>The default value.</value>
-    public object DefaultValue => default(uint);
+    public object DefaultValue => 0;
 
     /// <summary>
     /// Adds the specified LHS.
@@ -1662,7 +1662,7 @@ public class DynamicLong : IDynamicNumber
     /// Gets the default value.
     /// </summary>
     /// <value>The default value.</value>
-    public object DefaultValue => default(long);
+    public object DefaultValue => 0;
 
     /// <summary>
     /// Adds the specified LHS.
@@ -1901,7 +1901,7 @@ public class DynamicULong : IDynamicNumber
     /// Gets the default value.
     /// </summary>
     /// <value>The default value.</value>
-    public object DefaultValue => default(ulong);
+    public object DefaultValue => 0;
 
     /// <summary>
     /// Adds the specified LHS.
@@ -2140,7 +2140,7 @@ public class DynamicFloat : IDynamicNumber
     /// Gets the default value.
     /// </summary>
     /// <value>The default value.</value>
-    public object DefaultValue => default(float);
+    public object DefaultValue => 0;
 
     /// <summary>
     /// Adds the specified LHS.
@@ -2384,7 +2384,7 @@ public class DynamicDouble : IDynamicNumber
     /// Gets the default value.
     /// </summary>
     /// <value>The default value.</value>
-    public object DefaultValue => default(double);
+    public object DefaultValue => 0;
 
     /// <summary>
     /// Adds the specified LHS.
@@ -2628,7 +2628,7 @@ public class DynamicDecimal : IDynamicNumber
     /// Gets the default value.
     /// </summary>
     /// <value>The default value.</value>
-    public object DefaultValue => default(decimal);
+    public object DefaultValue => 0;
 
     /// <summary>
     /// Adds the specified LHS.

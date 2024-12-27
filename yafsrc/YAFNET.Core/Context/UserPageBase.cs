@@ -38,11 +38,6 @@ using YAF.Types.Objects.Model;
 public abstract class UserPageBase
 {
     /// <summary>
-    /// The page
-    /// </summary>
-    private Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic, Message>, UserLazyData, PageQueryData> page;
-
-    /// <summary>
     /// Gets or sets a value indicating whether the page data is loaded.
     /// </summary>
     public bool UserPageDataLoaded { get; set; }
@@ -154,12 +149,12 @@ public abstract class UserPageBase
         {
             if (this.UserPageDataLoaded)
             {
-                return this.page;
+                return field;
             }
 
             if (!Monitor.TryEnter(this))
             {
-                return this.page;
+                return field;
             }
 
             try
@@ -174,12 +169,12 @@ public abstract class UserPageBase
                 Monitor.Exit(this);
             }
 
-            return this.page;
+            return field;
         }
 
         set
         {
-            this.page = value;
+            field = value;
             this.UserPageDataLoaded = value != null;
         }
     }

@@ -59,7 +59,7 @@ public class LatestInformationService : IHaveServiceLocator, ILatestInformationS
     /// Gets the latest version information.
     /// </summary>
     /// <returns>Returns the LatestVersionInformation</returns>
-    public async Task<dynamic> GetLatestVersion()
+    public async Task<dynamic> GetLatestVersionAsync()
     {
         dynamic version = new ExpandoObject();
 

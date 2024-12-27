@@ -1215,7 +1215,7 @@ public static class UserRepositoryExtensions
             {
                 data = new byte[stream.Length];
                 stream.Seek(0, SeekOrigin.Begin);
-                stream.Read(data, 0, stream.Length.ToType<int>());
+                stream.ReadExactly(data, 0, stream.Length.ToType<int>());
             }
 
             repository.UpdateOnly(

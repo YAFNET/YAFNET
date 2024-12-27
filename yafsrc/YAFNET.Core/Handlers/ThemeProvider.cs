@@ -35,11 +35,6 @@ public class ThemeProvider
     private bool initTheme;
 
     /// <summary>
-    ///   The theme.
-    /// </summary>
-    private ITheme theme;
-
-    /// <summary>
     ///   The after init.
     /// </summary>
     public event EventHandler<EventArgs> AfterInit;
@@ -61,12 +56,12 @@ public class ThemeProvider
                 this.InitTheme();
             }
 
-            return this.theme;
+            return field;
         }
 
         set
         {
-            this.theme = value;
+            field = value;
             this.initTheme = value != null;
         }
     }

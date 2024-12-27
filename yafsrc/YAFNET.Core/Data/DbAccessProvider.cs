@@ -35,11 +35,6 @@ using YAF.Types.Objects;
 public class DbAccessProvider : IDbAccessProvider
 {
     /// <summary>
-    /// The database access providers.
-    /// </summary>
-    private readonly IIndex<string, IDbAccess> _dbAccessProviders;
-
-    /// <summary>
     /// The database access safe.
     /// </summary>
     private readonly SafeReadWriteProvider<IDbAccess> _dbAccessSafe;
@@ -48,11 +43,6 @@ public class DbAccessProvider : IDbAccessProvider
     /// The service locator.
     /// </summary>
     private readonly IServiceLocator _serviceLocator;
-
-    /// <summary>
-    /// The provider name.
-    /// </summary>
-    private string _providerName;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="DbAccessProvider" /> class.
@@ -65,14 +55,14 @@ public class DbAccessProvider : IDbAccessProvider
     /// </param>
     public DbAccessProvider(IIndex<string, IDbAccess> dbAccessProviders, IServiceLocator serviceLocator)
     {
-        this._dbAccessProviders = dbAccessProviders;
+        var dbAccessProviders1 = dbAccessProviders;
         this._serviceLocator = serviceLocator;
 
         this._dbAccessSafe = new SafeReadWriteProvider<IDbAccess>(
             () =>
                 {
                     // attempt to get the provider...
-                    if (this._dbAccessProviders.TryGetValue(this.ProviderName, out var dbAccess))
+                    if (dbAccessProviders1.TryGetValue(this.ProviderName, out var dbAccess))
                     {
                         // first time...
                         this._serviceLocator.Get<IRaiseEvent>()
@@ -115,11 +105,11 @@ public class DbAccessProvider : IDbAccessProvider
     /// </summary>
     public string ProviderName
     {
-        get => this._providerName ??= this._serviceLocator.Get<BoardConfiguration>().ConnectionProviderName;
+        get => field ??= this._serviceLocator.Get<BoardConfiguration>().ConnectionProviderName;
 
         set
         {
-            this._providerName = value;
+            field = value;
             this._dbAccessSafe.Instance = null;
         }
     }

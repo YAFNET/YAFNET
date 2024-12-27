@@ -102,7 +102,7 @@ public class ReputationController : ForumBaseController
             {
                 return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
             }
-            
+
             var messages = this.Get<ISessionService>().GetPageData<List<PagedMessage>>();
 
             var source = messages.Find(message => message.MessageID == m);

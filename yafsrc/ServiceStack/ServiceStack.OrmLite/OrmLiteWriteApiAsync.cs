@@ -138,7 +138,7 @@ public static class OrmLiteWriteApiAsync
     /// <returns>Task.</returns>
     public static Task InsertAsync<T>(this IDbConnection dbConn, params T[] objs)
     {
-        return dbConn.Exec(dbCmd => dbCmd.InsertAsync(commandFilter: null, token: default, objs: objs));
+        return dbConn.Exec(dbCmd => dbCmd.InsertAsync(commandFilter: null, token: CancellationToken.None, objs: objs));
     }
 
     /// <summary>
@@ -281,7 +281,7 @@ public static class OrmLiteWriteApiAsync
     /// <returns>Task&lt;System.Int32&gt;.</returns>
     public static Task<int> UpdateAsync<T>(this IDbConnection dbConn, params T[] objs)
     {
-        return dbConn.Exec(dbCmd => dbCmd.UpdateAsync(commandFilter: null, token: default, objs: objs));
+        return dbConn.Exec(dbCmd => dbCmd.UpdateAsync(commandFilter: null, token: CancellationToken.None, objs: objs));
     }
     /// <summary>
     /// Updates the asynchronous.
@@ -306,7 +306,7 @@ public static class OrmLiteWriteApiAsync
     /// <returns>Task&lt;System.Int32&gt;.</returns>
     public static Task<int> UpdateAsync<T>(this IDbConnection dbConn, Action<IDbCommand> commandFilter, params T[] objs)
     {
-        return dbConn.Exec(dbCmd => dbCmd.UpdateAsync(commandFilter: commandFilter, token: default, objs: objs));
+        return dbConn.Exec(dbCmd => dbCmd.UpdateAsync(commandFilter: commandFilter, token: CancellationToken.None, objs: objs));
     }
 
     /// <summary>
@@ -398,7 +398,7 @@ public static class OrmLiteWriteApiAsync
     public static Task<int> DeleteAsync<T>(this IDbConnection dbConn,
         Action<IDbCommand> commandFilter = null, params T[] allFieldsFilters)
     {
-        return dbConn.Exec(dbCmd => dbCmd.DeleteAsync(default, allFieldsFilters));
+        return dbConn.Exec(dbCmd => dbCmd.DeleteAsync(CancellationToken.None, allFieldsFilters));
     }
 
     /// <summary>
@@ -438,7 +438,7 @@ public static class OrmLiteWriteApiAsync
     /// <returns>Task&lt;System.Int32&gt;.</returns>
     public static Task<int> DeleteNonDefaultsAsync<T>(this IDbConnection dbConn, params T[] nonDefaultsFilters)
     {
-        return dbConn.Exec(dbCmd => dbCmd.DeleteNonDefaultsAsync(default, nonDefaultsFilters));
+        return dbConn.Exec(dbCmd => dbCmd.DeleteNonDefaultsAsync(CancellationToken.None, nonDefaultsFilters));
     }
 
     /// <summary>
@@ -601,7 +601,7 @@ public static class OrmLiteWriteApiAsync
     /// <returns>Task&lt;System.Int32&gt;.</returns>
     public static Task<int> SaveAsync<T>(this IDbConnection dbConn, params T[] objs)
     {
-        return dbConn.Exec(dbCmd => dbCmd.SaveAsync(default, objs));
+        return dbConn.Exec(dbCmd => dbCmd.SaveAsync(CancellationToken.None, objs));
     }
 
     /// <summary>
@@ -658,7 +658,7 @@ public static class OrmLiteWriteApiAsync
     /// <returns>Task.</returns>
     public static Task SaveReferencesAsync<T, TRef>(this IDbConnection dbConn, T instance, params TRef[] refs)
     {
-        return dbConn.Exec(dbCmd => dbCmd.SaveReferencesAsync(default, instance, refs));
+        return dbConn.Exec(dbCmd => dbCmd.SaveReferencesAsync(CancellationToken.None, instance, refs));
     }
 
     /// <summary>

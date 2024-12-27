@@ -1696,7 +1696,7 @@ public static class OrmLiteReadCommandExtensions
     static internal long ToLong(object result)
     {
         return result switch {
-            DBNull => default,
+            DBNull => 0,
             int i => i,
             decimal result1 => Convert.ToInt64(result1),
             ulong => (long)Convert.ToUInt64(result),

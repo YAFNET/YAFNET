@@ -1152,7 +1152,7 @@ public static class OrmLiteWriteCommandExtensions
                 var id = pkField.GetValue(obj);
                 return Convert.ToInt64(id);
             }
-            return default;
+            return 0;
         }
         finally
         {

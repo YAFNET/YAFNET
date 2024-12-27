@@ -913,7 +913,7 @@ public static class StringExtensions
     /// <returns>int.</returns>
     public static int ToInt(this string text)
     {
-        return text == null ? default : int.Parse(text);
+        return text == null ? 0 : int.Parse(text);
     }
 
     /// <summary>
@@ -955,7 +955,7 @@ public static class StringExtensions
     /// <returns>double.</returns>
     public static double ToDouble(this string text)
     {
-        return text == null ? default : double.Parse(text);
+        return text == null ? 0 : double.Parse(text);
     }
 
     /// <summary>
@@ -976,7 +976,7 @@ public static class StringExtensions
     /// <returns>decimal.</returns>
     public static decimal ToDecimal(this string text)
     {
-        return text == null ? default : decimal.Parse(text);
+        return text == null ? 0 : decimal.Parse(text);
     }
 
     /// <summary>

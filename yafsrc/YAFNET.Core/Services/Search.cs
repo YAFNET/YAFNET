@@ -970,7 +970,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         var booleanFilter = new BooleanFilter
                                 {
-                                    new(new TermsFilter(new Term("TopicId", filter)), Occur.MUST_NOT)
+                                    new FilterClause(new TermsFilter(new Term("TopicId", filter)), Occur.MUST_NOT)
                                 };
 
         var hitsLimit = this.Get<BoardSettings>().ReturnSearchMax;

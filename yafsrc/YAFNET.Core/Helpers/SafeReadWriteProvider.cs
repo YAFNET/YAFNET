@@ -15,8 +15,6 @@ public class SafeReadWriteProvider<T> : IReadWriteProvider<T>
 
     private readonly ReaderWriterLockSlim _slimLock = new();
 
-    private T _instance;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="SafeReadWriteProvider{T}"/> class.
     /// </summary>
@@ -41,7 +39,7 @@ public class SafeReadWriteProvider<T> : IReadWriteProvider<T>
             this._slimLock.EnterUpgradeableReadLock();
             try
             {
-                returnInstance = this._instance;
+                returnInstance = field;
                 if (returnInstance == null)
                 {
                     returnInstance = this._create();
@@ -64,7 +62,7 @@ public class SafeReadWriteProvider<T> : IReadWriteProvider<T>
 
             try
             {
-                this._instance = value;
+                field = value;
             }
             finally
             {

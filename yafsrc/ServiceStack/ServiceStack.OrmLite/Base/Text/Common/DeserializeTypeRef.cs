@@ -104,7 +104,7 @@ static internal class DeserializeTypeRef
         var fieldInfos = type.GetSerializableFields();
         if (propertyInfos.Length == 0 && fieldInfos.Length == 0)
         {
-            return default;
+            return null;
         }
 
         var accessors = new KeyValuePair<string, TypeAccessor>[propertyInfos.Length + fieldInfos.Length];

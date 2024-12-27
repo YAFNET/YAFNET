@@ -124,7 +124,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
     /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
     public static Task<List<T>> ConvertToListAsync<T>(this IDbCommand dbCmd)
     {
-        return dbCmd.ConvertToListAsync<T>(null, default);
+        return dbCmd.ConvertToListAsync<T>(null, CancellationToken.None);
     }
 
     /// <summary>
@@ -165,7 +165,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
     /// <returns>Task&lt;IList&gt;.</returns>
     public static Task<IList> ConvertToListAsync(this IDbCommand dbCmd, Type refType)
     {
-        return dbCmd.ConvertToListAsync(refType, null, default);
+        return dbCmd.ConvertToListAsync(refType, null, CancellationToken.None);
     }
 
     /// <summary>
@@ -230,7 +230,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
     /// <returns>Task&lt;T&gt;.</returns>
     public static Task<T> ConvertToAsync<T>(this IDbCommand dbCmd)
     {
-        return dbCmd.ConvertToAsync<T>(null, default);
+        return dbCmd.ConvertToAsync<T>(null, CancellationToken.None);
     }
 
     /// <summary>
@@ -291,7 +291,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
     /// <returns>Task&lt;T&gt;.</returns>
     public static Task<T> ScalarAsync<T>(this IDbCommand dbCmd)
     {
-        return dbCmd.ScalarAsync<T>(null, default(CancellationToken));
+        return dbCmd.ScalarAsync<T>(null, CancellationToken.None);
     }
 
     /// <summary>
@@ -340,7 +340,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
     /// <returns>Task&lt;System.Object&gt;.</returns>
     public static Task<object> ScalarAsync(this IDbCommand dbCmd)
     {
-        return dbCmd.ScalarAsync((string)null, default);
+        return dbCmd.ScalarAsync((string)null, CancellationToken.None);
     }
 
     /// <summary>
@@ -391,7 +391,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
     /// <returns>Task&lt;System.Int64&gt;.</returns>
     public static Task<long> ExecLongScalarAsync(this IDbCommand dbCmd)
     {
-        return dbCmd.ExecLongScalarAsync(null, default);
+        return dbCmd.ExecLongScalarAsync(null, CancellationToken.None);
     }
 
     /// <summary>

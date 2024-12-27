@@ -162,23 +162,23 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <summary>
     /// The use field name
     /// </summary>
-    protected bool useFieldName = false;
+    protected bool useFieldName;
     /// <summary>
     /// The select distinct
     /// </summary>
-    protected bool selectDistinct = false;
+    protected bool selectDistinct;
     /// <summary>
     /// The skip parameterization for this expression
     /// </summary>
-    protected bool skipParameterizationForThisExpression = false;
+    protected bool skipParameterizationForThisExpression;
     /// <summary>
     /// The has ensure conditions
     /// </summary>
-    private bool hasEnsureConditions = false;
+    private bool hasEnsureConditions;
     /// <summary>
     /// The in SQL method call
     /// </summary>
-    private bool inSqlMethodCall = false;
+    private bool inSqlMethodCall;
 
     /// <summary>
     /// Gets the sep.

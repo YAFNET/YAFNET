@@ -39,16 +39,6 @@ public class LocalizationProvider
     private bool initLocalization;
 
     /// <summary>
-    ///   The localization.
-    /// </summary>
-    private ILocalization localization;
-
-    /// <summary>
-    ///   The trans page.
-    /// </summary>
-    private string transPage = string.Empty;
-
-    /// <summary>
     ///   The after initializing Event.
     /// </summary>
     public event EventHandler<EventArgs> AfterInit;
@@ -70,12 +60,12 @@ public class LocalizationProvider
                 this.InitLocalization();
             }
 
-            return this.localization;
+            return field;
         }
 
         set
         {
-            this.localization = value;
+            field = value;
             this.initLocalization = value != null;
         }
     }
@@ -83,18 +73,16 @@ public class LocalizationProvider
     /// <summary>
     ///   Gets or sets the Current TransPage for Localization
     /// </summary>
-    public string TranslationPage
-    {
-        get => this.transPage;
+    public string TranslationPage {
+        get;
 
-        set
-        {
-            if (value == this.transPage)
+        set {
+            if (value == field)
             {
                 return;
             }
 
-            this.transPage = value;
+            field = value;
 
             if (this.initLocalization)
             {
@@ -102,7 +90,7 @@ public class LocalizationProvider
                 this.Localization = null;
             }
         }
-    }
+    } = string.Empty;
 
     /// <summary>
     /// Set up the localization

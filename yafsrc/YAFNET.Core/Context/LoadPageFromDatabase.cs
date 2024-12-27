@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using Microsoft.AspNetCore.Http.Extensions;
-
 namespace YAF.Core.Context;
 
 using System;

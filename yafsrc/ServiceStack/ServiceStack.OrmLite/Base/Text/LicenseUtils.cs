@@ -49,24 +49,94 @@ public enum LicenseType
     /// </summary>
     Free,
 
-
+    /// <summary>
+    /// The free individual/
+    /// </summary>
     FreeIndividual,
+
+    /// <summary>
+    /// The free open source
+    /// </summary>
     FreeOpenSource,
+
+    /// <summary>
+    /// The indie
+    /// </summary>
     Indie,
+
+    /// <summary>
+    /// The business
+    /// </summary>
     Business,
+
+    /// <summary>
+    /// The enterprise
+    /// </summary>
     Enterprise,
+
+    /// <summary>
+    /// The text indie
+    /// </summary>
     TextIndie,
+
+    /// <summary>
+    /// The text business
+    /// </summary>
     TextBusiness,
+
+    /// <summary>
+    /// The ormlite indie
+    /// </summary>
     OrmLiteIndie,
+
+    /// <summary>
+    /// The ormlite business
+    /// </summary>
     OrmLiteBusiness,
+
+    /// <summary>
+    /// The redis indie
+    /// </summary>
     RedisIndie,
+
+    /// <summary>
+    /// The redis business
+    /// </summary>
     RedisBusiness,
+
+    /// <summary>
+    /// The aws indie
+    /// </summary>
     AwsIndie,
+
+    /// <summary>
+    /// The aws business/
+    /// </summary>
     AwsBusiness,
+
+    /// <summary>
+    /// The trial
+    /// </summary>
     Trial,
+
+    /// <summary>
+    /// The site
+    /// </summary>
     Site,
+
+    /// <summary>
+    /// The text site
+    /// </summary>
     TextSite,
+
+    /// <summary>
+    /// The redis site
+    /// </summary>
     RedisSite,
+
+    /// <summary>
+    /// The ormlite site
+    /// </summary>
     OrmLiteSite
 }
 
@@ -126,6 +196,8 @@ public static partial class LicenseUtils
     private const string ContactDetails =
         " Please see servicestack.net or contact team@servicestack.net for more details.";
 
+    private readonly static Lock LockObj = new();
+
     static LicenseUtils()
     {
         const string ossLicenseKey =
@@ -163,7 +235,6 @@ public static partial class LicenseUtils
             return;
         }
 
-        string subId = null;
         var hold = Thread.CurrentThread.CurrentCulture;
         Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
         try
@@ -174,7 +245,7 @@ public static partial class LicenseUtils
                 throw new ArgumentNullException(nameof(licenseKeyText));
             }
 
-            subId = licenseKeyText.LeftPart('-');
+            var subId = licenseKeyText.LeftPart('-');
             if (!int.TryParse(subId, out var subIdInt))
             {
                 if (!licenseKeyText.StartsWith("TRIAL"))
@@ -212,7 +283,7 @@ public static partial class LicenseUtils
 
             var msg = ex.Message;
 
-            lock (typeof(LicenseUtils))
+            lock (LockObj)
             {
                 try
                 {

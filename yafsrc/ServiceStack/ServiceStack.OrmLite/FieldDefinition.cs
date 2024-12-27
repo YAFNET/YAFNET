@@ -317,7 +317,7 @@ public class FieldDefinition
     public string ReferenceSelfId { get; set; }
 
     /// <summary>
-    /// The PK to use for the Reference Table (e.g. what ReferenceSelfId references) 
+    /// The PK to use for the Reference Table (e.g. what ReferenceSelfId references)
     /// </summary>
     public string ReferenceRefId { get; set; }
 

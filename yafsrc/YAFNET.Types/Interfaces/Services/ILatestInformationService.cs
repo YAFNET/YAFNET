@@ -35,5 +35,5 @@ public interface ILatestInformationService
     /// Gets the latest version information.
     /// </summary>
     /// <returns>Returns the LatestVersionInformation</returns>
-    Task<dynamic> GetLatestVersion();
+    Task<dynamic> GetLatestVersionAsync();
 }
