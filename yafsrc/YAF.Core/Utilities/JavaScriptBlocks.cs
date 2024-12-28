@@ -479,7 +479,7 @@ public static class JavaScriptBlocks
                      locale: '{{locale}}',
                      toolbar: '{{toolbar}}',
                      root: '{{root}}',
-                     plugins: 'plaintext',
+                     plugins: 'plaintext,dragdrop',
                      albumsPreviewUrl: '/resource.ashx?imgprv=',
                    	 styles: [{{styles}}],
                    	 extensionsUrl: '{{extensionsUrl}}',
@@ -516,7 +516,7 @@ public static class JavaScriptBlocks
     {
         return $$"""
                 	 ,dragdrop: {
-                	 handlePaste: false,
+                	 handlePaste: true,
                 	 handleFile: function (file, createPlaceholder) {
         var placeholder = createPlaceholder();
         
