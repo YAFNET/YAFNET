@@ -59,7 +59,7 @@ public static class StreamExtensions
     {
         var data = new byte[stream.Length];
         stream.Seek(0, SeekOrigin.Begin);
-        stream.Read(data, 0, (int)stream.Length);
+        stream.ReadExactly(data, 0, (int)stream.Length);
 
         return data;
     }

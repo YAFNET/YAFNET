@@ -626,7 +626,7 @@ public static class JavaScriptBlocks
                          locale: '{{{locale}}}',
                          toolbar: '{{{toolbar}}}',
                          root: '',
-                         plugins: 'plaintext',
+                         plugins: 'plaintext,dragdrop',
                          styles: [{{{styles}}}],
                          extensionsUrl: '{{{extensionsUrl}}}',
                          albumsPreviewUrl: '/api/Albums/GetImagePreview?imageId=',
@@ -664,7 +664,7 @@ public static class JavaScriptBlocks
     {
         return $$"""
                          	 ,dragdrop: {
-                         	 handlePaste: false,
+                         	 handlePaste: true,
                          	 handleFile: function (file, createPlaceholder) {
                  var placeholder = createPlaceholder();
 

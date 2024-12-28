@@ -127,10 +127,10 @@ public class ProfileDefinitionsModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public async Task OnGetAsync()
+    public Task OnGetAsync()
     {
         // bind data
-        await this.BindDataAsync();
+        return this.BindDataAsync();
     }
 
     /// <summary>
