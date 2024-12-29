@@ -90,6 +90,8 @@
     };
 
     var KeyCodeMap = {
+        TAB_KEY: 9,
+        SHIFT_KEY: 16,
         BACK_KEY: 46,
         DELETE_KEY: 8,
         ENTER_KEY: 13,
@@ -757,11 +759,15 @@
         }
         return undefined;
     };
-    var mapInputToChoice = function (value, allowGroup) {
+    var mapInputToChoice = function (value, allowGroup, allowRawString) {
+        if (allowRawString === void 0) { allowRawString = true; }
         if (typeof value === 'string') {
+            var sanitisedValue = sanitise(value);
+            var userValue = allowRawString || sanitisedValue === value ? value : { escaped: sanitisedValue, raw: value };
             var result_1 = mapInputToChoice({
                 value: value,
-                label: value,
+                label: userValue,
+                selected: true,
             }, false);
             return result_1;
         }
@@ -773,7 +779,6 @@
             }
             var group = groupOrChoice;
             var choices = group.choices.map(function (e) { return mapInputToChoice(e, false); });
-
             var result_2 = {
                 id: 0, // actual ID will be assigned during _addGroup
                 value: group.value,
@@ -868,7 +873,7 @@
                 score: 0,
                 rank: 0,
                 value: option.value,
-                label: option.innerHTML,
+                label: option.innerText, // HTML options do not support most html tags, but innerHtml will extract html comments...
                 element: option,
                 active: true,
                 // this returns true if nothing is selected on initial load, which will break placeholder support
@@ -3629,11 +3634,15 @@
             if (this.dropdown.isActive) {
                 return this;
             }
+            if (preventInputFocus === undefined) {
+                // eslint-disable-next-line no-param-reassign
+                preventInputFocus = !this._canSearch;
+            }
             requestAnimationFrame(function () {
                 _this.dropdown.show();
                 var rect = _this.dropdown.element.getBoundingClientRect();
                 _this.containerOuter.open(rect.bottom, rect.height);
-                if (!preventInputFocus && _this._canSearch) {
+                if (!preventInputFocus) {
                     _this.input.focus();
                 }
                 _this.passedElement.triggerEvent(EventType.showDropdown);
@@ -3935,6 +3944,7 @@
             }
             this.itemList.element.replaceChildren('');
             this.choiceList.element.replaceChildren('');
+            this._clearNotice();
             this._store.reset();
             this._lastAddedChoiceId = 0;
             this._lastAddedGroupId = 0;
@@ -4316,6 +4326,7 @@
         };
         Choices.prototype._loadChoices = function () {
             var _a;
+            var _this = this;
             var config = this.config;
             if (this._isTextElement) {
                 // Assign preset items from passed object first
@@ -4324,7 +4335,7 @@
                 if (this.passedElement.value) {
                     var elementItems = this.passedElement.value
                         .split(config.delimiter)
-                        .map(function (e) { return mapInputToChoice(e, false); });
+                        .map(function (e) { return mapInputToChoice(e, false, _this.config.allowHtmlUserInput); });
                     this._presetChoices = this._presetChoices.concat(elementItems);
                 }
                 this._presetChoices.forEach(function (choice) {
@@ -4390,6 +4401,7 @@
             var maxItemCount = config.maxItemCount, maxItemText = config.maxItemText;
             if (!config.singleModeForMultiSelect && maxItemCount > 0 && maxItemCount <= this._store.items.length) {
                 this.choiceList.element.replaceChildren('');
+                this._notice = undefined;
                 this._displayNotice(typeof maxItemText === 'function' ? maxItemText(maxItemCount) : maxItemText, NoticeTypes.addChoice);
                 return false;
             }
@@ -4567,7 +4579,15 @@
             var wasPrintableChar = event.key.length === 1 ||
                 (event.key.length === 2 && event.key.charCodeAt(0) >= 0xd800) ||
                 event.key === 'Unidentified';
-            if (!this._isTextElement && !hasActiveDropdown) {
+            /*
+              We do not show the dropdown if focusing out with esc or navigating through input fields.
+              An activated search can still be opened with any other key.
+             */
+            if (!this._isTextElement &&
+                !hasActiveDropdown &&
+                keyCode !== KeyCodeMap.ESC_KEY &&
+                keyCode !== KeyCodeMap.TAB_KEY &&
+                keyCode !== KeyCodeMap.SHIFT_KEY) {
                 this.showDropdown();
                 if (!this.input.isFocussed && wasPrintableChar) {
                     /*
@@ -4676,13 +4696,7 @@
                     if (!_this._canCreateItem(value)) {
                         return;
                     }
-                    var sanitisedValue = sanitise(value);
-                    var userValue = _this.config.allowHtmlUserInput || sanitisedValue === value ? value : { escaped: sanitisedValue, raw: value };
-                    _this._addChoice(mapInputToChoice({
-                        value: userValue,
-                        label: userValue,
-                        selected: true,
-                    }, false), true, true);
+                    _this._addChoice(mapInputToChoice(value, false, _this.config.allowHtmlUserInput), true, true);
                     addedItem = true;
                 }
                 _this.clearInput();
@@ -4700,6 +4714,7 @@
             if (hasActiveDropdown) {
                 event.stopPropagation();
                 this.hideDropdown(true);
+                this._stopSearch();
                 this.containerOuter.element.focus();
             }
         };
@@ -4875,19 +4890,16 @@
             var containerOuter = this.containerOuter;
             var blurWasWithinContainer = target && containerOuter.element.contains(target);
             if (blurWasWithinContainer && !this._isScrollingOnIe) {
-                var targetIsInput = target === this.input.element;
-                if (this._isTextElement || this._isSelectMultipleElement) {
-                    if (targetIsInput) {
-                        containerOuter.removeFocusState();
-                        this.hideDropdown(true);
+                if (target === this.input.element) {
+                    containerOuter.removeFocusState();
+                    this.hideDropdown(true);
+                    if (this._isTextElement || this._isSelectMultipleElement) {
                         this.unhighlightAll();
                     }
                 }
-                else {
+                else if (target === this.containerOuter.element) {
+                    // Remove the focus state when the past outerContainer was the target
                     containerOuter.removeFocusState();
-                    if (targetIsInput || (target === containerOuter.element && !this._canSearch)) {
-                        this.hideDropdown(true);
-                    }
                 }
             }
             else {
@@ -4974,6 +4986,10 @@
                 return;
             }
             this._store.dispatch(removeItem$1(item));
+            var notice = this._notice;
+            if (notice && notice.type === NoticeTypes.noChoices) {
+                this._clearNotice();
+            }
             this.passedElement.triggerEvent(EventType.removeItem, this._getChoiceForOutput(item));
         };
         Choices.prototype._addChoice = function (choice, withEvents, userTriggered) {
