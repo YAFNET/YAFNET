@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -149,11 +149,11 @@ public class FileUpload : ForumBaseController
                 return await Task.FromResult<ActionResult<List<FilesUploadStatus>>>(statuses);
             }
 
-            Stream resized = null;
+            MemoryStream resized = null;
 
             try
             {
-                //  resize image ?!
+                // resize image ?!
                 using var img = await Image.LoadAsync(file.OpenReadStream());
 
                 if (img.Width > this.Get<BoardSettings>().ImageAttachmentResizeWidth
@@ -228,7 +228,7 @@ public class FileUpload : ForumBaseController
 
                     await using var fs = new FileStream($"{uploadFolder}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload", FileMode.Create, FileAccess.ReadWrite);
                     var bytes = resized.ToArray();
-                    await fs.WriteAsync(bytes, 0, bytes.Length);
+                    await fs.WriteAsync(bytes);
                 }
             }
 
