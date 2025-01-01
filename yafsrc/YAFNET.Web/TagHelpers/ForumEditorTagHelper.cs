@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -138,7 +138,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 }
 
                 var toolbar =
-                $"bold,italic,underline,strike|font,size,color|mark|email,link,unlink,quote,code,|image{albums}{attachments}|bulletlist,orderedlist,|left,center,right|indent,outdent|cut,copy,pastetext,removeformat|undo,redo|youtube,vimeo,instagram,facebook,media|extensions|source|reply";
+                $"bold,italic,underline,strike|font,size,color|mark|email,link,unlink,quote,code,|image{albums}{attachments}|bulletlist,orderedlist,|left,center,right|cut,copy,pastetext,removeformat|undo,redo|youtube,vimeo,instagram,facebook,media|extensions|source|reply";
 
                 var dragDropJs = string.Empty;
 
