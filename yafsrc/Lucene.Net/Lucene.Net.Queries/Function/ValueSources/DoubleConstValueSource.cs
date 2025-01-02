@@ -112,7 +112,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
 
         public override bool Equals(object o)
         {
-            if (!(o is DoubleConstValueSource other))
+            if (o is not DoubleConstValueSource other)
             {
                 return false;
             }

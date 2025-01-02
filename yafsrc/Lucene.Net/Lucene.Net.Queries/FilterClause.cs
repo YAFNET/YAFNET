@@ -58,7 +58,7 @@ namespace YAF.Lucene.Net.Queries
                 return true;
             }
 
-            if (!(o is FilterClause other))
+            if (o is not FilterClause other)
             {
                 return false;
             }

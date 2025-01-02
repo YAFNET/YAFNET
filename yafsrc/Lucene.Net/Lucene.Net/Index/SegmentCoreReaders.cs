@@ -166,7 +166,7 @@ namespace YAF.Lucene.Net.Index
 
             IDictionary<string, object> normFields = normsLocal.Value;
 
-            if (!normFields.TryGetValue(fi.Name, out object ret) || !(ret is NumericDocValues norms))
+            if (!normFields.TryGetValue(fi.Name, out object ret) || ret is not NumericDocValues norms)
             {
                 norms = normsProducer.GetNumeric(fi);
                 normFields[fi.Name] = norms;

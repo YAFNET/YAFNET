@@ -124,7 +124,7 @@ namespace YAF.Lucene.Net.Search.Spans
             {
                 return true;
             }
-            if (!(o is SpanNearPayloadCheckQuery other))
+            if (o is not SpanNearPayloadCheckQuery other)
             {
                 return false;
             }

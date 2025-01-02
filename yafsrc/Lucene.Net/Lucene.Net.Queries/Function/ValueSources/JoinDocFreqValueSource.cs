@@ -102,7 +102,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
 
         public override bool Equals(object o)
         {
-            if (!(o is JoinDocFreqValueSource other))
+            if (o is not JoinDocFreqValueSource other)
                 return false;
             if (!m_qfield.Equals(other.m_qfield, StringComparison.Ordinal))
             {

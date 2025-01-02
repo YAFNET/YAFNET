@@ -18,7 +18,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         protected Term m_term;
 
         /// <summary>
-        /// Create a new <see cref="SlowFuzzyQuery"/> that will match terms with a similarity 
+        /// Create a new <see cref="SlowFuzzyQuery"/> that will match terms with a similarity
         /// of at least <paramref name="minimumSimilarity"/> to <paramref name="term"/>.
         /// If a <paramref name="prefixLength"/> &gt; 0 is specified, a common prefix
         /// of that length is also required.
@@ -142,7 +142,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         /// </summary>
         public virtual int PrefixLength => prefixLength;
 
-        override protected TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
+        protected override TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
         {
             if (!termLongEnough)
             {  // can only match if it's exact
@@ -162,7 +162,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             if (!m_term.Field.Equals(field, StringComparison.Ordinal))
             {
                 buffer.Append(m_term.Field);
-                buffer.Append(":");
+                buffer.Append(':');
             }
             buffer.Append(m_term.Text);
             buffer.Append('~');
@@ -173,12 +173,15 @@ namespace YAF.Lucene.Net.Sandbox.Queries
 
         public override int GetHashCode()
         {
-            int prime = 31;
-            int result = base.GetHashCode();
-            result = prime * result + J2N.BitConversion.SingleToInt32Bits(minimumSimilarity);
-            result = prime * result + prefixLength;
-            result = prime * result + ((m_term is null) ? 0 : m_term.GetHashCode());
-            return result;
+            unchecked
+            {
+                const int prime = 31;
+                int result = base.GetHashCode();
+                result = prime * result + J2N.BitConversion.SingleToInt32Bits(minimumSimilarity);
+                result = prime * result + prefixLength;
+                result = prime * result + (m_term is null ? 0 : m_term.GetHashCode());
+                return result;
+            }
         }
 
         public override bool Equals(object obj)

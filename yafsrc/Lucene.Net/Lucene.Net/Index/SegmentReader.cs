@@ -309,7 +309,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         /// <summary>
-        /// Expert: retrieve thread-private 
+        /// Expert: retrieve thread-private
         /// <see cref="StoredFieldsReader"/>
         /// <para/>
         /// @lucene.internal
@@ -376,7 +376,8 @@ namespace YAF.Lucene.Net.Index
         {
             if (docID < 0 || docID >= MaxDoc)
             {
-                throw new IndexOutOfRangeException("docID must be >= 0 and < maxDoc=" + MaxDoc + " (got docID=" + docID + ")");
+                throw new ArgumentOutOfRangeException(nameof(docID),
+                    $"docID must be >= 0 and < maxDoc={MaxDoc} (got docID={docID})");
             }
         }
 
@@ -458,7 +459,7 @@ namespace YAF.Lucene.Net.Index
 
             IDictionary<string, object> dvFields = docValuesLocal.Value;
 
-            if (!dvFields.TryGetValue(field, out object dvsDummy) || !(dvsDummy is NumericDocValues dvs))
+            if (!dvFields.TryGetValue(field, out object dvsDummy) || dvsDummy is not NumericDocValues dvs)
             {
                 dvProducersByField.TryGetValue(field, out DocValuesProducer dvProducer);
                 if (Debugging.AssertsEnabled) Debugging.Assert(dvProducer != null);
@@ -508,7 +509,7 @@ namespace YAF.Lucene.Net.Index
 
             IDictionary<string, object> dvFields = docValuesLocal.Value;
 
-            if (!dvFields.TryGetValue(field, out object ret) || !(ret is BinaryDocValues dvs))
+            if (!dvFields.TryGetValue(field, out object ret) || ret is not BinaryDocValues dvs)
             {
                 dvProducersByField.TryGetValue(field, out DocValuesProducer dvProducer);
                 if (Debugging.AssertsEnabled) Debugging.Assert(dvProducer != null);
@@ -530,7 +531,7 @@ namespace YAF.Lucene.Net.Index
 
             IDictionary<string, object> dvFields = docValuesLocal.Value;
 
-            if (!dvFields.TryGetValue(field, out object ret) || !(ret is SortedDocValues dvs))
+            if (!dvFields.TryGetValue(field, out object ret) || ret is not SortedDocValues dvs)
             {
                 dvProducersByField.TryGetValue(field, out DocValuesProducer dvProducer);
                 if (Debugging.AssertsEnabled) Debugging.Assert(dvProducer != null);
@@ -552,7 +553,7 @@ namespace YAF.Lucene.Net.Index
 
             IDictionary<string, object> dvFields = docValuesLocal.Value;
 
-            if (!dvFields.TryGetValue(field, out object ret) || !(ret is SortedSetDocValues dvs))
+            if (!dvFields.TryGetValue(field, out object ret) || ret is not SortedSetDocValues dvs)
             {
                 dvProducersByField.TryGetValue(field, out DocValuesProducer dvProducer);
                 if (Debugging.AssertsEnabled) Debugging.Assert(dvProducer != null);
@@ -590,10 +591,10 @@ namespace YAF.Lucene.Net.Index
         /// <para/>
         /// @lucene.experimental
         /// </summary>
-        public interface ICoreDisposedListener 
+        public interface ICoreDisposedListener
         {
             /// <summary>
-            /// Invoked when the shared core of the original 
+            /// Invoked when the shared core of the original
             /// <see cref="SegmentReader"/> has disposed.
             /// </summary>
             void OnDispose(object ownerCoreCacheKey);

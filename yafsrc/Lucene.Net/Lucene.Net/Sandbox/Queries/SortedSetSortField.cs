@@ -1,10 +1,7 @@
-﻿using J2N.Numerics;
-using YAF.Lucene.Net.Diagnostics;
-using YAF.Lucene.Net.Index;
+﻿using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
 using System;
-using System.Diagnostics;
 using System.Text;
 
 namespace YAF.Lucene.Net.Sandbox.Queries
@@ -17,7 +14,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -46,7 +43,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
     ///     are unsupported.
     ///     </description></item>
     ///     <item><description>
-    ///     Selectors other than the default <see cref="Selector.MIN"/> require 
+    ///     Selectors other than the default <see cref="Selector.MIN"/> require
     ///     optional codec support. However several codecs provided by Lucene,
     ///     including the current default codec, support this.
     ///     </description></item>
@@ -60,7 +57,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         private readonly Selector selector;
 
         /// <summary>
-        /// Creates a sort, possibly in reverse, by the minimum value in the set 
+        /// Creates a sort, possibly in reverse, by the minimum value in the set
         /// for the document.
         /// </summary>
         /// <param name="field">Name of field to sort by.  Must not be null.</param>
@@ -71,7 +68,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         }
 
         /// <summary>
-        /// Creates a sort, possibly in reverse, specifying how the sort value from 
+        /// Creates a sort, possibly in reverse, specifying how the sort value from
         /// the document's set is selected.
         /// </summary>
         /// <param name="field">Name of field to sort by.  Must not be null.</param>
@@ -97,7 +94,10 @@ namespace YAF.Lucene.Net.Sandbox.Queries
 
         public override int GetHashCode()
         {
-            return 31 * base.GetHashCode() + selector.GetHashCode();
+            unchecked
+            {
+                return 31 * base.GetHashCode() + selector.GetHashCode();
+            }
         }
 
         public override bool Equals(object obj)
@@ -129,7 +129,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         /// <summary>
         /// Set how missing values (the empty set) are sorted.
         /// <para/>
-        /// Note that this must be <see cref="SortField.STRING_FIRST"/> or 
+        /// Note that this must be <see cref="SortField.STRING_FIRST"/> or
         /// <see cref="SortField.STRING_LAST"/>.
         /// </summary>
         public override void SetMissingValue(object value)
@@ -141,7 +141,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             base.m_missingValue = value;
         }
 
-        private class TermOrdValComparerAnonymousClass : FieldComparer.TermOrdValComparer
+        private sealed class TermOrdValComparerAnonymousClass : FieldComparer.TermOrdValComparer
         {
             private readonly SortedSetSortField outerInstance;
 
@@ -151,7 +151,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
                 this.outerInstance = outerInstance;
             }
 
-            override protected SortedDocValues GetSortedDocValues(AtomicReaderContext context, string field)
+            protected override SortedDocValues GetSortedDocValues(AtomicReaderContext context, string field)
             {
                 SortedSetDocValues sortedSet = FieldCache.DEFAULT.GetDocTermOrds(context.AtomicReader, field);
 
@@ -200,7 +200,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         /// <summary>Wraps a <see cref="SortedSetDocValues"/> and returns the first ordinal (min)</summary>
         internal class MinValue : SortedDocValues
         {
-            readonly internal SortedSetDocValues @in;
+            internal readonly SortedSetDocValues @in;
 
             internal MinValue(SortedSetDocValues @in)
             {
@@ -229,7 +229,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         /// <summary>Wraps a <see cref="SortedSetDocValues"/> and returns the last ordinal (max)</summary>
         internal class MaxValue : SortedDocValues
         {
-            readonly internal RandomAccessOrds @in;
+            internal readonly RandomAccessOrds @in;
 
             internal MaxValue(RandomAccessOrds @in)
             {
@@ -266,7 +266,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         /// <summary>Wraps a <see cref="SortedSetDocValues"/> and returns the middle ordinal (or min of the two)</summary>
         internal class MiddleMinValue : SortedDocValues
         {
-            readonly internal RandomAccessOrds @in;
+            internal readonly RandomAccessOrds @in;
 
             internal MiddleMinValue(RandomAccessOrds @in)
             {
@@ -283,7 +283,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
                 }
                 else
                 {
-                    return (int)@in.OrdAt((count - 1).TripleShift(1));
+                    return (int)@in.OrdAt((count - 1) >>> 1);
                 }
             }
 
@@ -303,7 +303,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         /// <summary>Wraps a <see cref="SortedSetDocValues"/> and returns the middle ordinal (or max of the two)</summary>
         internal class MiddleMaxValue : SortedDocValues
         {
-            readonly internal RandomAccessOrds @in;
+            internal readonly RandomAccessOrds @in;
 
             internal MiddleMaxValue(RandomAccessOrds @in)
             {
@@ -320,7 +320,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
                 }
                 else
                 {
-                    return (int)@in.OrdAt(count.TripleShift(1));
+                    return (int)@in.OrdAt(count >>> 1);
                 }
             }
 
@@ -342,11 +342,11 @@ namespace YAF.Lucene.Net.Sandbox.Queries
     public enum Selector
     {
         /// <summary>
-        /// Selects the minimum value in the set 
+        /// Selects the minimum value in the set
         /// </summary>
         MIN,
         /// <summary>
-        /// Selects the maximum value in the set 
+        /// Selects the maximum value in the set
         /// </summary>
         MAX,
         /// <summary>

@@ -490,7 +490,7 @@ namespace YAF.Lucene.Net.Util.Fst
             {
                 throw IllegalStateException.Create("cannot save an FST pre-packed FST; it must first be packed");
             }
-            if (packed && !(nodeRefToAddress is PackedInt32s.Mutable))
+            if (packed && nodeRefToAddress is not PackedInt32s.Mutable)
             {
                 throw IllegalStateException.Create("cannot save a FST which has been loaded from disk ");
             }
@@ -511,7 +511,7 @@ namespace YAF.Lucene.Net.Util.Fst
                 @out.WriteByte(1);
 
                 // Serialize empty-string output:
-                var ros = new RAMOutputStream();
+                using var ros = new RAMOutputStream();
                 Outputs.WriteFinalOutput(emptyOutput, ros);
 
                 var emptyOutputBytes = new byte[(int)ros.Position]; // LUCENENET specific: Renamed from getFilePointer() to match FileStream

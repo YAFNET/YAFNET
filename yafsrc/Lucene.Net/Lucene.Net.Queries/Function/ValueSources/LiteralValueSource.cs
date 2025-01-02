@@ -86,7 +86,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             {
                 return true;
             }
-            if (!(o is LiteralValueSource that))
+            if (o is not LiteralValueSource that)
                 return false;
             return m_str.Equals(that.m_str, StringComparison.Ordinal);
 

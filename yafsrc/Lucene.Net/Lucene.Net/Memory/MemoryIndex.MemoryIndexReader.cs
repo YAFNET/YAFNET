@@ -1,5 +1,4 @@
 ﻿using J2N.Collections.Generic.Extensions;
-using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Search.Similarities;
@@ -20,7 +19,7 @@ namespace YAF.Lucene.Net.Index.Memory
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -220,8 +219,8 @@ namespace YAF.Lucene.Net.Index.Memory
             {
                 private readonly MemoryIndex.MemoryIndexReader outerInstance;
 
-                readonly internal Info info;
-                readonly internal BytesRef br = new BytesRef();
+                internal readonly Info info;
+                internal readonly BytesRef br = new BytesRef();
                 internal int termUpto = -1;
 
                 public MemoryTermsEnum(MemoryIndex.MemoryIndexReader outerInstance, Info info)
@@ -231,12 +230,12 @@ namespace YAF.Lucene.Net.Index.Memory
                     info.SortTerms();
                 }
 
-                static internal int BinarySearch(BytesRef b, BytesRef bytesRef, int low, int high, BytesRefHash hash, int[] ords, IComparer<BytesRef> comparer) // LUCENENET: CA1822: Mark members as static
+                internal static int BinarySearch(BytesRef b, BytesRef bytesRef, int low, int high, BytesRefHash hash, int[] ords, IComparer<BytesRef> comparer) // LUCENENET: CA1822: Mark members as static
                 {
                     int mid; // LUCENENET: IDE0059: Remove unnecessary value assignment
                     while (low <= high)
                     {
-                        mid = (low + high).TripleShift(1);
+                        mid = (low + high) >>> 1;
                         hash.Get(ords[mid], bytesRef);
                         int cmp = comparer.Compare(bytesRef, b);
                         if (cmp < 0)
@@ -323,7 +322,7 @@ namespace YAF.Lucene.Net.Index.Memory
 
                 public override DocsEnum Docs(IBits liveDocs, DocsEnum reuse, DocsFlags flags)
                 {
-                    if (reuse is null || !(reuse is MemoryDocsEnum toReuse))
+                    if (reuse is null || reuse is not MemoryDocsEnum toReuse)
                         toReuse = new MemoryDocsEnum();
 
                     return toReuse.Reset(liveDocs, info.sliceArray.freq[info.sortedTerms[termUpto]]);
@@ -331,7 +330,7 @@ namespace YAF.Lucene.Net.Index.Memory
 
                 public override DocsAndPositionsEnum DocsAndPositions(IBits liveDocs, DocsAndPositionsEnum reuse, DocsAndPositionsFlags flags)
                 {
-                    if (reuse is null || !(reuse is MemoryDocsAndPositionsEnum toReuse))
+                    if (reuse is null || reuse is not MemoryDocsAndPositionsEnum toReuse)
                         toReuse = new MemoryDocsAndPositionsEnum(outerInstance);
 
                     int ord = info.sortedTerms[termUpto];
@@ -551,7 +550,7 @@ namespace YAF.Lucene.Net.Index.Memory
 #endif
                 // no-op: there are no stored fields
             }
-            override protected internal void DoClose()
+            protected internal override void DoClose()
             {
 #if DEBUG
                 Debug.WriteLine("MemoryIndexReader.DoClose");

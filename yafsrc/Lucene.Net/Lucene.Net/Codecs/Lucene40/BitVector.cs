@@ -97,8 +97,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         {
             if (bit >= size)
             {
-                throw new IndexOutOfRangeException("bit=" + bit + " size=" + size);
+                throw new ArgumentOutOfRangeException(nameof(bit), $"bit={bit} size={size}");
             }
+
             bits[bit >> 3] |= (byte)(1 << (bit & 7));
             count = -1;
         }
@@ -111,8 +112,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         {
             if (bit >= size)
             {
-                throw new IndexOutOfRangeException("bit=" + bit + " size=" + size);
+                throw new ArgumentOutOfRangeException(nameof(bit), $"bit={bit} size={size}");
             }
+
             int pos = bit >> 3;
             int v = bits[pos];
             int flag = 1 << (bit & 7);
@@ -139,8 +141,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         {
             if (bit >= size)
             {
-                throw new IndexOutOfRangeException(bit.ToString());
+                throw new ArgumentOutOfRangeException(nameof(bit), bit.ToString());
             }
+
             bits[bit >> 3] &= (byte)(~(1 << (bit & 7)));
             count = -1;
         }
@@ -149,8 +152,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         {
             if (bit >= size)
             {
-                throw new IndexOutOfRangeException(bit.ToString());
+                throw new ArgumentOutOfRangeException(nameof(bit), bit.ToString());
             }
+
             int pos = bit >> 3;
             int v = bits[pos];
             int flag = 1 << (bit & 7);
@@ -262,7 +266,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /// </summary>
         public void Write(Directory d, string name, IOContext context)
         {
-            if (Debugging.AssertsEnabled) Debugging.Assert(!(d is CompoundFileDirectory));
+            if (Debugging.AssertsEnabled) Debugging.Assert(d is not CompoundFileDirectory);
             IndexOutput output = d.CreateOutput(name, context);
             try
             {

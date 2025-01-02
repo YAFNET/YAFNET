@@ -1,5 +1,6 @@
 ﻿using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.IO;
@@ -14,7 +15,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -44,7 +45,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         {
         }
 
-        override protected void MaxEditDistanceChanged(BytesRef lastTerm, int maxEdits, bool init)
+        protected override void MaxEditDistanceChanged(BytesRef lastTerm, int maxEdits, bool init)
         {
             TermsEnum newEnum = GetAutomatonEnum(maxEdits, lastTerm);
             if (newEnum != null)
@@ -92,7 +93,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
                 this.boostAtt = Attributes.AddAttribute<IBoostAttribute>();
 
                 this.text = new int[outerInstance.m_termLength - outerInstance.m_realPrefixLength];
-                System.Array.Copy(outerInstance.m_termText, outerInstance.m_realPrefixLength, text, 0, text.Length);
+                Arrays.Copy(outerInstance.m_termText, outerInstance.m_realPrefixLength, text, 0, text.Length);
                 string prefix = UnicodeUtil.NewString(outerInstance.m_termText, 0, outerInstance.m_realPrefixLength);
                 prefixBytesRef = new BytesRef(prefix);
                 this.d = new int[this.text.Length + 1];
@@ -120,7 +121,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             /// where distance is the Levenshtein distance for the two words.
             /// </para>
             /// </summary>
-            override protected sealed AcceptStatus Accept(BytesRef term)
+            protected override sealed AcceptStatus Accept(BytesRef term)
             {
                 if (StringHelper.StartsWith(term, prefixBytesRef))
                 {
