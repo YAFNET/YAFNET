@@ -268,10 +268,10 @@ public class UsersProfileModel : AdminPage
             }
         }
 
-        if (this.Input.Interests.IsSet() && this.Input.Interests.Trim().Length > 400)
+        if (this.Input.Interests.IsSet() && this.Input.Interests.Trim().Length > 4000)
         {
             this.PageBoardContext.SessionNotify(
-                this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 400),
+                this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 4000),
                 MessageTypes.warning);
             return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }

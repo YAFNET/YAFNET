@@ -48,7 +48,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetUsers](
     [Profile_FacebookId] NVARCHAR (400) NULL,
     [Profile_Twitter] NVARCHAR (400) NULL,
     [Profile_TwitterId] NVARCHAR (400) NULL,
-    [Profile_Interests] NVARCHAR (400) NULL,
+    [Profile_Interests] NVARCHAR (4000) NULL,
     [Profile_Location] NVARCHAR (255) NULL,
     [Profile_Country] NVARCHAR (2) NULL,
     [Profile_Region] NVARCHAR (255) NULL,

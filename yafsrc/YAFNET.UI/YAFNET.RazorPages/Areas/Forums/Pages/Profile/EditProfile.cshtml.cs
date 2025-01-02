@@ -272,10 +272,10 @@ public class EditProfileModel : ProfilePage
             }
         }
 
-        if (this.Input.Interests.IsSet() && this.Input.Interests.Trim().Length > 400)
+        if (this.Input.Interests.IsSet() && this.Input.Interests.Trim().Length > 4000)
         {
             return this.PageBoardContext.SessionNotify(
-                this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 400),
+                this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 4000),
                 MessageTypes.warning, ForumPages.Profile_EditProfile);
         }
 

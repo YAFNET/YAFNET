@@ -66,7 +66,7 @@ public class EditProfileInputModel
     /// Gets or sets the interests.
     /// </summary>
     /// <value>The interests.</value>
-    [BindProperty, MaxLength(400)]
+    [BindProperty, MaxLength(4000)]
     public string Interests { get; set; }
 
     /// <summary>
