@@ -294,7 +294,7 @@ public class AspNetUsers<TKey> : IUser<TKey>, IEntity, IHasId<TKey>
     /// <summary>
     /// Gets or sets Interests.
     /// </summary>
-    [StringLength(400)]
+    [StringLength(4000)]
     public string Profile_Interests { get; set; }
 
     /// <summary>

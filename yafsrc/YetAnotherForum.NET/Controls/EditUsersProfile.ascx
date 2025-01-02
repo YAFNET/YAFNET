@@ -54,7 +54,7 @@
         <asp:TextBox ID="Interests" runat="server"
             CssClass="form-control"
             TextMode="MultiLine"
-            MaxLength="400"
+            MaxLength="4000"
             Rows="4" />
     </div>
     <div class="mb-3">

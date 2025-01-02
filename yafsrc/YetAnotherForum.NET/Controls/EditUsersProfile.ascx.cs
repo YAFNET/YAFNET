@@ -91,6 +91,11 @@ public partial class EditUsersProfile : BaseUserControl
             this.PageBoardContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.MyAccount);
     }
 
+    /// <summary>
+    /// Handles the OnItemDataBound event of the CustomProfile control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="RepeaterItemEventArgs"/> instance containing the event data.</param>
     protected void CustomProfile_OnItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
@@ -215,7 +220,7 @@ public partial class EditUsersProfile : BaseUserControl
         this.DisplayNamePlaceholder.Visible = this.PageBoardContext.BoardSettings.EnableDisplayName &&
                                               this.PageBoardContext.BoardSettings.AllowDisplayNameModification;
 
-        // override Place Holders for DNN, dnn users should only see the forum settings but not the profile page
+        // override placeholders for DNN, dnn users should only see the forum settings but not the profile page
         if (Config.IsDotNetNuke)
         {
             this.ProfilePlaceHolder.Visible = false;
@@ -345,10 +350,10 @@ public partial class EditUsersProfile : BaseUserControl
             }
         }
 
-        if (this.Interests.Text.Trim().Length > 400)
+        if (this.Interests.Text.Trim().Length > 4000)
         {
             this.PageBoardContext.Notify(
-                this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 400),
+                this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 4000),
                 MessageTypes.warning);
 
             return;
@@ -387,22 +392,8 @@ public partial class EditUsersProfile : BaseUserControl
                         switch (type)
                         {
                             case DataType.Text:
-                                {
-                                    if (textBox.Text.IsSet())
-                                    {
-                                        this.GetRepository<ProfileCustom>().Insert(
-                                            new ProfileCustom
-                                                {
-                                                    UserID = this.User.Item1.ID,
-                                                    ProfileDefinitionID = profileDef.ID,
-                                                    Value = textBox.Text
-                                                });
-                                    }
-
-                                    break;
-                                }
                             case DataType.Number:
-                                {
+                            {
                                     if (textBox.Text.IsSet())
                                     {
                                         this.GetRepository<ProfileCustom>().Insert(
