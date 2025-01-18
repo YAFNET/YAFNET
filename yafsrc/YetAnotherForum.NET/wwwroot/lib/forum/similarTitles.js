@@ -6,7 +6,6 @@
         input.addEventListener('keyup', () => {
 
             const placeHolder = document.getElementById('SearchResultsPlaceholder'),
-                ajaxUrl = '/api/Search/GetSimilarTitles',
                 searchText = input.value;
 
             if (searchText.length && searchText.length >= 4) {
@@ -16,6 +15,8 @@
                 searchTopic.PageSize = 0;
                 searchTopic.Page = 0;
                 searchTopic.SearchTerm = searchText;
+
+                const ajaxUrl = '/api/Search/GetSimilarTitles';
 
                 fetch(ajaxUrl,
                     {

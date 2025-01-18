@@ -22,7 +22,7 @@
 			<dependency id="YAFNET.Types" version="4.0.0-rc03" exclude="Build,Analyzers" />
 			<dependency id="Autofac" version="8.2.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.Data.SqlClient" version="5.2.2" exclude="Build,Analyzers" />
-			<dependency id="System.ComponentModel.Composition" version="9.0.0" exclude="Build,Analyzers" />
+			<dependency id="System.ComponentModel.Composition" version="9.0.1" exclude="Build,Analyzers" />
 		</group>
     </dependencies>
     <references>

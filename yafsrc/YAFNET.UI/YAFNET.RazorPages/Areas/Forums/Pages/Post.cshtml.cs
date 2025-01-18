@@ -54,6 +54,10 @@ public class PostModel : ForumPage
     {
     }
 
+    /// <summary>
+    /// Gets or sets the topic subject.
+    /// </summary>
+    /// <value>The topic subject.</value>
     [TempData]
     public string TopicSubject { get; set; }
 
