@@ -2627,12 +2627,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             return null;
         }
 
-        if (!sql.StartsWith('{'))
-        {
-            return sql;
-        }
-
-        return this.Variables.TryGetValue(sql, out var variable) ? variable : null;
+        return !sql.StartsWith('{') ? sql : this.Variables.GetValueOrDefault(sql);
     }
 
     /// <summary>

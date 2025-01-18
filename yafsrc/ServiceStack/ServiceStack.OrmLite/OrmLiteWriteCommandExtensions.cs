@@ -1201,9 +1201,9 @@ public static class OrmLiteWriteCommandExtensions
 
             if (modelDef.HasAnyReferences(obj.Keys))
             {
-                if (pkField != null && !obj.ContainsKey(pkField.Name))
+                if (pkField != null)
                 {
-                    obj[pkField.Name] = ret;
+                    obj.TryAdd(pkField.Name, ret);
                 }
 
                 var instance = obj.FromObjectDictionary<T>();
