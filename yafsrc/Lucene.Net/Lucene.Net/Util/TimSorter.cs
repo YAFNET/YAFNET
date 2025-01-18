@@ -219,7 +219,6 @@ namespace YAF.Lucene.Net.Util
             --stackSize;
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         internal virtual void Merge(int lo, int mid, int hi)
         {
             if (Compare(mid - 1, mid) <= 0)

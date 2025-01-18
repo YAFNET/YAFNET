@@ -21,8 +21,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using DocValuesConsumer = Lucene.Net.Codecs.DocValuesConsumer;
+    using Similarity = Lucene.Net.Search.Similarities.Similarity;
 
     internal sealed class NormsConsumerPerField : InvertedDocEndConsumerPerField, IComparable<NormsConsumerPerField>
     {
@@ -74,10 +74,8 @@ namespace YAF.Lucene.Net.Index
 
         internal bool IsEmpty => consumer is null;
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         internal override void Abort()
         {
-            //
         }
     }
 }

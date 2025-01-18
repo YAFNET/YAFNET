@@ -746,7 +746,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             }
             if ("ISO8859-14".Equals(encoding, StringComparison.OrdinalIgnoreCase))
             {
-                return new ISO8859_14Encoding();
+                return ISO8859_14Encoding.Default;
             }
             // .NET doesn't recognize the encoding without a dash between ISO and the number
             // https://msdn.microsoft.com/en-us/library/system.text.encodinginfo.getencoding(v=vs.110).aspx
@@ -910,7 +910,8 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             {
                 foreach (Stream dictionary in dictionaries)
                 {
-                    using var lines = new StreamReader(dictionary, decoder); // LUCENENET specific - CA2000: Use using pattern to ensure reader is disposed
+                    // LUCENENET specific - CA2000: Use using pattern to ensure reader is disposed, although we want to leave the dictionary stream open. See: TestDictionary.TestResourceCleanup
+                    using var lines = new StreamReader(dictionary, decoder, detectEncodingFromByteOrderMarks: true, bufferSize: 1024, leaveOpen: true);
                     string line = lines.ReadLine(); // first line is number of entries (approximately, sometimes)
 
                     while ((line = lines.ReadLine()) != null)

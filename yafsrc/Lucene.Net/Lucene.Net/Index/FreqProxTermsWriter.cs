@@ -22,16 +22,16 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using CollectionUtil = YAF.Lucene.Net.Util.CollectionUtil;
-    using FieldsConsumer = YAF.Lucene.Net.Codecs.FieldsConsumer;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using CollectionUtil = Lucene.Net.Util.CollectionUtil;
+    using FieldsConsumer = Lucene.Net.Codecs.FieldsConsumer;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     internal sealed class FreqProxTermsWriter : TermsHashConsumer
     {
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public override void Abort()
-        { }
+        {
+        }
 
         // TODO: would be nice to factor out more of this, eg the
         // FreqProxFieldMergeState, and code to visit all Fields
@@ -124,7 +124,6 @@ namespace YAF.Lucene.Net.Index
             return new FreqProxTermsWriterPerField(termsHashPerField, this, fieldInfo);
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         internal override void FinishDocument(TermsHash termsHash)
         {
         }

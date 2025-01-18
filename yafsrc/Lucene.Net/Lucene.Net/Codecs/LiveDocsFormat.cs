@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs
 {
@@ -20,11 +19,11 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IMutableBits = YAF.Lucene.Net.Util.IMutableBits;
-    using SegmentCommitInfo = YAF.Lucene.Net.Index.SegmentCommitInfo;
+    using IBits = Lucene.Net.Util.IBits;
+    using Directory = Lucene.Net.Store.Directory;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IMutableBits = Lucene.Net.Util.IMutableBits;
+    using SegmentCommitInfo = Lucene.Net.Index.SegmentCommitInfo;
 
     /// <summary>
     /// Format for live/deleted documents.
@@ -54,11 +53,10 @@ namespace YAF.Lucene.Net.Codecs
         public abstract IBits ReadLiveDocs(Directory dir, SegmentCommitInfo info, IOContext context);
 
         /// <summary>
-        /// Persist live docs bits.  Use 
+        /// Persist live docs bits.  Use
         /// <see cref="SegmentCommitInfo.NextDelGen"/> to determine the
         /// generation of the deletes file you should write to.
         /// </summary>
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public abstract void WriteLiveDocs(IMutableBits bits, Directory dir, SegmentCommitInfo info, int newDelCount, IOContext context);
 
         /// <summary>

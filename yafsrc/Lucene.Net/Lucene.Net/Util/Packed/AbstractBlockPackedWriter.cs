@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Util.Packed
     * limitations under the License.
     */
 
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using DataOutput = Lucene.Net.Store.DataOutput;
 
     public abstract class AbstractBlockPackedWriter // LUCENENET NOTE: made public rather than internal because has public subclasses
     {
@@ -148,7 +148,6 @@ namespace YAF.Lucene.Net.Util.Packed
         /// Return the number of values which have been added. </summary>
         public virtual long Ord => m_ord;
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         protected abstract void Flush();
 
         protected void WriteValues(int bitsRequired)

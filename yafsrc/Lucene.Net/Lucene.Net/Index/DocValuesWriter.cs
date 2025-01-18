@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 namespace YAF.Lucene.Net.Index
 {
     /*
@@ -19,16 +17,14 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using DocValuesConsumer = Lucene.Net.Codecs.DocValuesConsumer;
 
     internal abstract class DocValuesWriter
     {
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public abstract void Abort();
 
         public abstract void Finish(int numDoc);
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public abstract void Flush(SegmentWriteState state, DocValuesConsumer consumer);
     }
 }

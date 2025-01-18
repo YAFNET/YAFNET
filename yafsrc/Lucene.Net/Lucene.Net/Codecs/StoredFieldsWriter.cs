@@ -21,13 +21,13 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using IBits = YAF.Lucene.Net.Util.IBits;
+    using AtomicReader = Lucene.Net.Index.AtomicReader;
+    using IBits = Lucene.Net.Util.IBits;
     using Document = Documents.Document;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IIndexableField = YAF.Lucene.Net.Index.IIndexableField;
-    using MergeState = YAF.Lucene.Net.Index.MergeState;
+    using FieldInfo = Lucene.Net.Index.FieldInfo;
+    using FieldInfos = Lucene.Net.Index.FieldInfos;
+    using IIndexableField = Lucene.Net.Index.IIndexableField;
+    using MergeState = Lucene.Net.Index.MergeState;
 
     /// <summary>
     /// Codec API for writing stored fields:
@@ -65,7 +65,6 @@ namespace YAF.Lucene.Net.Codecs
 
         /// <summary>
         /// Called when a document and all its fields have been added. </summary>
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public virtual void FinishDocument()
         {
         }
@@ -78,7 +77,6 @@ namespace YAF.Lucene.Net.Codecs
         /// Aborts writing entirely, implementation should remove
         /// any partially-written files, etc.
         /// </summary>
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public abstract void Abort();
 
         /// <summary>
@@ -132,7 +130,7 @@ namespace YAF.Lucene.Net.Codecs
         }
 
         /// <summary>
-        /// Sugar method for <see cref="StartDocument(int)"/> + <see cref="WriteField(FieldInfo, IIndexableField)"/> 
+        /// Sugar method for <see cref="StartDocument(int)"/> + <see cref="WriteField(FieldInfo, IIndexableField)"/>
         /// for every stored field in the document. </summary>
         protected void AddDocument<T1>(IEnumerable<T1> doc, FieldInfos fieldInfos) where T1 : Lucene.Net.Index.IIndexableField
         {
