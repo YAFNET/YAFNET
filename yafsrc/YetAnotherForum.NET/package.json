@@ -32,7 +32,7 @@
         "choices.js": "^11.0.3",
         "codemirror": "^5.65.18",
         "dark-editable": "^2.0.2",
-        "flag-icons": "^7.2.3",
+        "flag-icons": "^7.3.2",
         "long-press-event": "^2.5.0",
         "prismjs": "^1.29.0"
     }
