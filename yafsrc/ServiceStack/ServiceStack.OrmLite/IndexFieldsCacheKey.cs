@@ -35,7 +35,7 @@ public class IndexFieldsCacheKey
     /// Gets the fields.
     /// </summary>
     /// <value>The fields.</value>
-    public string[] Fields { get; }
+    public string Fields { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="IndexFieldsCacheKey"/> class.
@@ -43,7 +43,7 @@ public class IndexFieldsCacheKey
     /// <param name="fields">The fields.</param>
     /// <param name="modelDefinition">The model definition.</param>
     /// <param name="dialect">The dialect.</param>
-    public IndexFieldsCacheKey(string[] fields, ModelDefinition modelDefinition, IOrmLiteDialectProvider dialect)
+    public IndexFieldsCacheKey(string fields, ModelDefinition modelDefinition, IOrmLiteDialectProvider dialect)
     {
         this.Fields = fields;
         this.ModelDefinition = modelDefinition;
@@ -54,11 +54,7 @@ public class IndexFieldsCacheKey
             this.hashCode = 17;
             this.hashCode = this.hashCode * 23 + this.ModelDefinition.GetHashCode();
             this.hashCode = this.hashCode * 23 + this.Dialect.GetHashCode();
-            this.hashCode = this.hashCode * 23 + this.Fields.Length;
-            foreach (var field in this.Fields)
-            {
-                this.hashCode = this.hashCode * 23 + field.Length;
-            }
+            hashCode = hashCode * 23 + Fields.GetHashCode();
         }
     }
 
@@ -78,8 +74,7 @@ public class IndexFieldsCacheKey
 
         return this.ModelDefinition == that.ModelDefinition
                && this.Dialect == that.Dialect
-               && this.Fields.Length == that.Fields.Length
-               && this.Fields.SequenceEqual(that.Fields);
+               && this.Fields == that.Fields;
     }
 
     /// <summary>
