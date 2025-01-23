@@ -2,7 +2,6 @@
 using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.Collections.Generic;
-using Console = YAF.Lucene.Net.Util.SystemConsole;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Store
@@ -307,7 +306,7 @@ namespace YAF.Lucene.Net.Store
                 {
                     Console.WriteLine("nrtdir.openInput name=" + name);
                 }
-                
+
 #pragma warning disable 612, 618
                 if (cache.FileExists(name))
 #pragma warning restore 612, 618

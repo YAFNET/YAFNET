@@ -924,8 +924,8 @@ public static class OrmLiteUtils
     /// <returns>System.String[].</returns>
     public static string[] GetFieldNames(this IDataReader reader)
     {
-        var fields = new string[reader.FieldCount];
         int count = reader.FieldCount;
+        var fields = new string[count];
         for (int i = 0; i < count; i++)
         {
             fields[i] = reader.GetName(i);
@@ -950,9 +950,19 @@ public static class OrmLiteUtils
         int startPos = 0,
         int? endPos = null)
     {
-        var end = endPos.GetValueOrDefault(reader.FieldCount);
-        var cacheKey = (startPos == 0 && end == reader.FieldCount && onlyFields == null)
-                           ? new IndexFieldsCacheKey(reader.GetFieldNames(), modelDefinition, dialect)
+        var fieldCount = reader.FieldCount;
+        var sb = StringBuilderCache.Allocate();
+        for (int i = 0; i < fieldCount; i++)
+        {
+            if (sb.Length > 0)
+                sb.Append(", ");
+            sb.Append(reader.GetName(i));
+        }
+        var fieldNames = StringBuilderCache.ReturnAndFree(sb);
+
+        var end = endPos.GetValueOrDefault(fieldCount);
+        var cacheKey = (startPos == 0 && end == fieldCount && onlyFields == null)
+            ? new IndexFieldsCacheKey(fieldNames, modelDefinition, dialect)
                            : null;
 
         Tuple<FieldDefinition, int, IOrmLiteConverter>[] value;

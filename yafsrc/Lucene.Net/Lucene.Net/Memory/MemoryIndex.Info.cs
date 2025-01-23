@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Index.Memory
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -31,41 +31,41 @@ namespace YAF.Lucene.Net.Index.Memory
             /// <summary>
             /// Term strings and their positions for this field: <see cref="System.Collections.Generic.IDictionary{String, ArrayIntList}"/>
             /// </summary>
-            readonly internal BytesRefHash terms;
+            internal readonly BytesRefHash terms;
 
-            readonly internal SliceByteStartArray sliceArray;
+            internal readonly SliceByteStartArray sliceArray;
 
             /// <summary>
-            /// Terms sorted ascending by term text; computed on demand 
+            /// Terms sorted ascending by term text; computed on demand
             /// </summary>
             internal int[] sortedTerms;
 
             /// <summary>
-            /// Number of added tokens for this field 
+            /// Number of added tokens for this field
             /// </summary>
-            readonly internal int numTokens;
+            internal readonly int numTokens;
 
             /// <summary>
-            /// Number of overlapping tokens for this field 
+            /// Number of overlapping tokens for this field
             /// </summary>
-            readonly internal int numOverlapTokens;
+            internal readonly int numOverlapTokens;
 
             /// <summary>
-            /// Boost factor for hits for this field 
+            /// Boost factor for hits for this field
             /// </summary>
-            readonly internal float boost;
+            internal readonly float boost;
 
-            readonly internal long sumTotalTermFreq;
-
-            /// <summary>
-            /// the last position encountered in this field for multi field support 
-            /// </summary>
-            internal int lastPosition;
+            internal readonly long sumTotalTermFreq;
 
             /// <summary>
-            /// the last offset encountered in this field for multi field support 
+            /// the last position encountered in this field for multi field support
             /// </summary>
-            internal int lastOffset;
+            internal readonly int lastPosition; // LUCENENET: marked readonly
+
+            /// <summary>
+            /// the last offset encountered in this field for multi field support
+            /// </summary>
+            internal readonly int lastOffset; // LUCENENET: marked readonly
 
             public Info(BytesRefHash terms, SliceByteStartArray sliceArray, int numTokens, int numOverlapTokens, float boost, int lastPosition, int lastOffset, long sumTotalTermFreq)
             {

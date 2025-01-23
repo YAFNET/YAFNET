@@ -147,7 +147,7 @@ namespace YAF.Lucene.Net.Search
             }
 
             internal readonly TermFreqBoostByteStart array = new TermFreqBoostByteStart(16);
-            internal BytesRefHash terms;
+            internal readonly BytesRefHash terms; // LUCENENET: marked readonly
             internal TermsEnum termsEnum;
 
             private IBoostAttribute boostAtt;

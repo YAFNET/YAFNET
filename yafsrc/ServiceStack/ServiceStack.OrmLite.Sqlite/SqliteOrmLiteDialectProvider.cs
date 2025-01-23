@@ -6,6 +6,7 @@
 // ***********************************************************************
 namespace ServiceStack.OrmLite.Sqlite;
 
+using System;
 using System.Data;
 using System.Data.SQLite;
 
@@ -27,7 +28,13 @@ public class SqliteOrmLiteDialectProvider : SqliteOrmLiteDialectProviderBase
     public SqliteOrmLiteDialectProvider()
     {
 #if NETFX
-        ConnectionStringFilter = sb => sb.Append("Version=3;New=True;Compress=True");
+        ConnectionStringFilter = sb =>
+        {
+            if (sb.ToString().IndexOf("Version=3", StringComparison.OrdinalIgnoreCase) == -1)
+            {
+                sb.Append("Version=3;New=True;Compress=True");
+            }
+        };
 #endif
     }
 
