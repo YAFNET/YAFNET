@@ -60,7 +60,7 @@ public class Migration30 : IRepositoryMigration, IHaveServiceLocator
     /// <param name="dbAccess">
     ///     The Database access.
     /// </param>
-    public async Task MigrateDatabaseAsync(IDbAccess dbAccess)
+    public Task MigrateDatabaseAsync(IDbAccess dbAccess)
     {
         // Install Membership Scripts
         dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUsers>());
@@ -69,7 +69,7 @@ public class Migration30 : IRepositoryMigration, IHaveServiceLocator
         dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserLogins>());
         dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserRoles>());
 
-        await this.MigrateLegacyUsersAsync(dbAccess);
+        return this.MigrateLegacyUsersAsync(dbAccess);
     }
 
     /// <summary>

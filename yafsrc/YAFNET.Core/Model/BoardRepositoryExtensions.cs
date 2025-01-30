@@ -326,9 +326,11 @@ public static class BoardRepositoryExtensions
             string.Empty,
             string.Empty,
             "Welcome to the New YAF.NET Installation",
-            @"😎 Thank you for installing YetAnotherForum.
+            """
+            😎 Thank you for installing YetAnotherForum.
 
-If you have any questions use our [url=https://yetanotherforum.net/forum/]Support Forum[/url] or if you found any issues or have problems use the GitHub Issue tracker on our [url=https://github.com/YAFNET/YAFNET/issues]Project Site[/url]",
+            If you have any questions use our [url=https://yetanotherforum.net/forum/]Support Forum[/url] or if you found any issues or have problems use the GitHub Issue tracker on our [url=https://github.com/YAFNET/YAFNET/issues]Project Site[/url]
+            """,
             adminUser,
             0,
             userName,

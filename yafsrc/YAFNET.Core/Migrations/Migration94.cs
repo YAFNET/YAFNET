@@ -26,8 +26,6 @@ namespace YAF.Core.Migrations;
 
 using ServiceStack.DataAnnotations;
 
-using YAF.Types.Models;
-
 /// <summary>
 /// Version 94 Migrations
 /// </summary>

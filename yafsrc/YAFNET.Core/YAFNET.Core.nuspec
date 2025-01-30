@@ -28,7 +28,7 @@
 			<dependency id="Lucene.Net.Analysis.Common" version="4.8.0-beta00017" exclude="Build,Analyzers" />
 			<dependency id="Lucene.Net.Highlighter" version="4.8.0-beta00017" exclude="Build,Analyzers" />
 			<dependency id="Lucene.Net.QueryParser" version="4.8.0-beta00017" exclude="Build,Analyzers" />
-			<dependency id="MailKit" version="4.9.0" exclude="Build,Analyzers" />
+			<dependency id="MailKit" version="4.10.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.AspNet.WebApi.Client" version="6.0.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.AspNetCore.Authentication.Facebook" version="9.0.1" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.AspNetCore.Authentication.Google" version="9.0.1" exclude="Build,Analyzers" />
