@@ -54,7 +54,7 @@
 	<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="9.0.1" />
 	<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.1" />
 	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.1" />
-	<PackageReference Include="SonarAnalyzer.CSharp" Version="10.5.0.109200">
+	<PackageReference Include="SonarAnalyzer.CSharp" Version="10.6.0.109712">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
