@@ -33,14 +33,11 @@
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Content Remove="C:\Users\iherb\.nuget\packages\system.diagnostics.diagnosticsource\9.0.0\contentFiles\any\net462\ILLink\ILLink.Descriptors.LibraryBuild.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Identity.Owin" Version="2.2.4" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.3.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.WebHost" Version="5.3.0" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.1" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.2" />
     <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.2.2" />
     <PackageReference Include="Microsoft.Owin.Security" Version="4.2.2" />
     <PackageReference Include="Microsoft.Owin.Security.Cookies" Version="4.2.2" />
@@ -53,7 +50,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.1" />
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.2" />
     <PackageReference Include="System.Runtime.Caching" Version="9.0.2" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.6.0" />
   </ItemGroup>

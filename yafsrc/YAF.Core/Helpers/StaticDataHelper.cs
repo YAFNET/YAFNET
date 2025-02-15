@@ -401,7 +401,7 @@ public static class StaticDataHelper
             BoardContext.Current.Get<HttpRequestBase>().MapPath(
                 $"{BoardInfo.ForumServerFileRoot}/Content/Themes"));
 
-        return dir.GetDirectories().Select(folder => folder.Name).ToList();
+        return [.. dir.GetDirectories().Select(folder => folder.Name)];
     }
 
     /// <summary>

@@ -3,7 +3,7 @@
     "version": "3.2.8",
     "private": true,
     "devDependencies": {
-        "@babel/preset-env": "^7.25.8",
+        "@babel/preset-env": "^7.26.7",
         "@lodder/grunt-postcss": "^3.1.1",
         "@w8tcha/grunt-dev-update": "^2.3.4",
         "autoprefixer": "^10.4.20",
@@ -14,10 +14,10 @@
         "grunt-contrib-uglify": "^5.2.2",
         "grunt-file-append": "^0.0.7",
         "grunt-replace": "^2.0.2",
-        "grunt-sass": "^3.1.0",
+        "grunt-sass": "^4.0.0",
         "grunt-shell": "^4.0.0",
         "grunt-webpack": "^7.0.0",
-        "postcss": "^8.5.1",
+        "postcss": "^8.5.2",
         "sass": "^1.83.4",
         "webpack": "^5.97.1",
         "webpack-merge": "^6.0.1"
