@@ -90,10 +90,9 @@ public class LoginLogoutUser : TestBase
                     await page.Locator("//input[contains(@id, 'Password')]")
                         .FillAsync(this.Base.TestSettings.TestUserPassword);
 
-                    await page.Locator("//*[contains(@id, 'LoginButton')]").ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Forum Login" }).ClickAsync();
 
-                    Assert.That(await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync(), Is.True);
-                    Assert.That(await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync(), Is.True);
+                    Assert.That( await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync(), Is.True);
                 }, this.BrowserType);
     }
 

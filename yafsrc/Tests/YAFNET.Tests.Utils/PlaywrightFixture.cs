@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace YAF.Tests.Utils;
 
 using System;
@@ -59,7 +61,7 @@ public class PlaywrightFixture
     /// <summary>
     /// Initialize the Playwright fixture.
     /// </summary>
-    public async Task InitializeAsync(string url)
+    public async Task InitializeAsync([StringSyntax(StringSyntaxAttribute.Uri)] string url)
     {
         var launchOptions = new BrowserTypeLaunchOptions { Headless = true };
 
@@ -147,7 +149,7 @@ public class PlaywrightFixture
     /// <param name="browserType">The Browser to use to open the page.
     /// </param>
     /// <returns>The GotoPage task.</returns>
-    public async Task GotoPageAsync(string url, Func<IPage, Task> testHandler, Browser browserType)
+    public async Task GotoPageAsync([StringSyntax(StringSyntaxAttribute.Uri)] string url, Func<IPage, Task> testHandler, Browser browserType)
     {
         // select and launch the browser.
         var browser = await this.SelectBrowserAsync(browserType);

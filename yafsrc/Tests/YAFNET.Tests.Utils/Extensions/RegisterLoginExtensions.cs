@@ -141,7 +141,7 @@ public static class RegisterLoginExtensions
 
         await page.Locator("//input[contains(@id, '_Password')]").FillAsync(userPassword);
 
-        await page.Locator("//button[contains(@id, 'Login')]").ClickAsync();
+         await page.Locator("#Login").ClickAsync();
 
         return await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync();
     }
