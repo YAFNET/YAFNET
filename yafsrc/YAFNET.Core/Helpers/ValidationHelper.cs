@@ -25,6 +25,7 @@
 namespace YAF.Core.Helpers;
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
 /// <summary>
@@ -33,7 +34,7 @@ using System.Text.RegularExpressions;
 public static class ValidationHelper
 {
     /// <summary>
-    /// Checks if string is an valid email address.
+    /// Checks if string is a valid email address.
     /// </summary>
     /// <param name="email">
     /// The email string to check
@@ -50,7 +51,7 @@ public static class ValidationHelper
     }
 
     /// <summary>
-    /// Checks if string is an valid email address (XMPP).
+    /// Checks if string is a valid email address (XMPP).
     /// </summary>
     /// <param name="xmpp">
     /// The XMPP string to check
@@ -72,7 +73,7 @@ public static class ValidationHelper
     /// <returns>
     /// Returns indicating whether the value is a valid Url
     /// </returns>
-    public static bool IsValidUrl(string url)
+    public static bool IsValidUrl([StringSyntax(StringSyntaxAttribute.Uri)] string url)
     {
         try
         {

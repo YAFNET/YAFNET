@@ -167,7 +167,7 @@ public static class JsWriter
             TypeCode.Double => true,
             TypeCode.Decimal => true,
             TypeCode.DateTime => true,
-            _ => underlyingType == typeof(Guid)
+            _ => false
         };
     }
 

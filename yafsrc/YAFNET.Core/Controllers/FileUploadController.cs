@@ -63,6 +63,16 @@ public class FileUpload : ForumBaseController
     {
         var statuses = new List<FilesUploadStatus>();
 
+        if (file == null) {
+            statuses.Add(
+                new FilesUploadStatus
+                {
+                    error = "No File"
+                });
+
+            return await Task.FromResult<ActionResult<List<FilesUploadStatus>>>(statuses);
+        }
+
         var yafUserId = this.PageBoardContext.PageUserID;
         var uploadFolder = Path.Combine(
             this.Get<IWebHostEnvironment>().WebRootPath,
