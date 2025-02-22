@@ -61,29 +61,30 @@
                                                button-style="@ButtonStyle.Info"
                                                text-localized-tag="SHOW_TOPICS">
                                             </a>
-                                            <button 
-                                                button-style="@ButtonStyle.Danger"
-                                                button-size="@ButtonSize.Small"
-                                                asp-page-handler="Delete"
-                                                asp-route-id="@t.Item2.ID"
-                                                Icon="trash"
-                                                text-localized-tag="DELETE">
+                                            <button button-style="@ButtonStyle.Danger"
+                                                    button-size="@ButtonSize.Small"
+                                                    asp-page-handler="Delete"
+                                                    asp-route-id="@t.Item2.ID"
+                                                    return-confirm-tag="CONFIRM_DELETE"
+                                                    Icon="trash"
+                                                    text-localized-tag="DELETE">
                                             </button>
                                         </div>
                                     </small>
                                     <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                                        <a asp-route-search="@($"]{t.Item2.ID}[")"
-                                           class="dropdown-item"
+	                                    <a asp-route-search="@($"]{t.Item2.ID}[")"
+	                                       class="dropdown-item"
                                            asp-page="@ForumPages.Search.GetPageName()"
                                            button-style="@ButtonStyle.None"
                                            text-localized-tag="SHOW_TOPICS">
                                         </a>
                                         <button class="dropdown-item"
-                                            button-style="@ButtonStyle.None"
-                                            asp-page-handler="Delete"
-                                            asp-route-id="@t.Item2.ID"
-                                            Icon="trash"
-                                            text-localized-tag="DELETE">
+                                                button-style="@ButtonStyle.None"
+                                                asp-page-handler="Delete"
+                                                asp-route-id="@t.Item2.ID"
+                                                return-confirm-tag="CONFIRM_DELETE"
+                                                Icon="trash"
+                                                text-localized-tag="DELETE">
                                         </button>
                                     </div>
                                 </li>

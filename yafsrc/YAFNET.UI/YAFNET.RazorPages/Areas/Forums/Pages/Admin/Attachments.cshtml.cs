@@ -77,11 +77,6 @@ public class AttachmentsModel : AdminPage
     /// </summary>
     public void OnGet()
     {
-        this.PageSizeList = new SelectList(
-            StaticDataHelper.PageEntries(),
-            nameof(SelectListItem.Value),
-            nameof(SelectListItem.Text));
-
         // bind data to controls
         this.BindData();
     }
@@ -132,6 +127,11 @@ public class AttachmentsModel : AdminPage
     /// </summary>
     private void BindData()
     {
+        this.PageSizeList = new SelectList(
+            StaticDataHelper.PageEntries(),
+            nameof(SelectListItem.Value),
+            nameof(SelectListItem.Text));
+
         // list event for this board
         this.List = this.GetRepository<Attachment>().GetByBoardPaged(
             out var count,

@@ -111,6 +111,7 @@ public class IndexModel : ForumPage
 
         this.Get<ISessionService>().BoardForumsIndex = index;
 
+
         this.BindData(true);
 
         return this.Partial("_CategoryList", this.Categories);

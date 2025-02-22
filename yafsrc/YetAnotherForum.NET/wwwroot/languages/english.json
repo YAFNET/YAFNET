@@ -995,6 +995,10 @@
           {
             "@tag": "TITLE",
             "#text": "User Attachments"
+          },
+          {
+	          "@tag": "CONFIRM_DELETE",
+	          "#text": "Delete attachment(s)?"
           }
         ]
       },
