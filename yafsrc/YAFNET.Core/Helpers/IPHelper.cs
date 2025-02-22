@@ -280,22 +280,21 @@ public static class IPHelper
         switch (ipAddress.AddressFamily)
         {
             case AddressFamily.InterNetwork:
-                {
-                    var mask = ~(uint.MaxValue >> bits);
+            {
+                var mask = ~(uint.MaxValue >> bits);
+                maskBytes = BitConverter.GetBytes(mask).ToArray();
 
-                    maskBytes = BitConverter.GetBytes(mask).ToArray();
-                    Array.Reverse(maskBytes);
-                }
+                Array.Reverse(maskBytes);
+            }
 
                 break;
             case AddressFamily.InterNetworkV6:
-                {
-                    var bitArray = new BitArray(128, false);
-                    ShiftRight(bitArray, bits, true);
+            {
+                var bitArray = new BitArray(128, false);
+                ShiftRight(bitArray, bits, true);
+                maskBytes = ConvertToByteArray(bitArray).ToArray();
 
-
-                    maskBytes = ConvertToByteArray(bitArray).ToArray();
-                    Array.Reverse(maskBytes);
+                Array.Reverse(maskBytes);
             }
 
                 break;

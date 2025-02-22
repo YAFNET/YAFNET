@@ -161,19 +161,6 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                             "CustomBBCodes"), dragDropJs));
                 break;
             case EditorMode.Basic:
-                output.Attributes.SetAttribute(HtmlAttribute.Class, "BBCodeEditor form-control");
-
-                BoardContext.Current.InlineElements.InsertJsBlock(
-                    nameof(JavaScriptBlocks.CreateEditorJs),
-                    JavaScriptBlocks.CreateEditorJs(
-                        this.AspFor.Name.Replace(".", "_"),
-                        this.GetText("COMMON", "TT_URL_TITLE"),
-                        this.GetText("COMMON", "TT_URL_DESC"),
-                        this.GetText("COMMON", "TT_IMAGE_TITLE"),
-                        this.GetText("COMMON", "TT_IMAGE_DESC"),
-                        this.GetText("COMMON", "TT_DESCRIPTION"),
-                        this.GetText("COMMON", "TT_MEDIA")));
-                break;
             case EditorMode.Standard:
                 output.Attributes.SetAttribute(HtmlAttribute.Class, "BBCodeEditor form-control");
 

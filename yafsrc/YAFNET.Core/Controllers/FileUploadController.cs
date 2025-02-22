@@ -63,7 +63,8 @@ public class FileUpload : ForumBaseController
     {
         var statuses = new List<FilesUploadStatus>();
 
-        if (file == null) {
+        if (file == null)
+        {
             statuses.Add(
                 new FilesUploadStatus
                 {

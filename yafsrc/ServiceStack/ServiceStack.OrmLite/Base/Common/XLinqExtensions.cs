@@ -217,7 +217,7 @@ public static class XLinqExtensions
     /// <returns>XAttribute.</returns>
     public static XAttribute AnyAttribute(this XElement element, string name)
     {
-        if (element is null)
+        if (element == null)
         {
             return null;
         }
