@@ -360,7 +360,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
                             r => r.UserId == user.Id,
                             cancellationToken: cancellationToken);
 
-        var rolesSelected = userRoles.Select(r => r.RoleId).ToArray();
+        var rolesSelected = userRoles.Select(r => r.RoleId).ToArray().ToList();
 
         var roles = await this.GetRepository<AspNetRoles>().GetAsync(
                         r => rolesSelected.Contains(r.Id),
