@@ -114,13 +114,13 @@ public static class ForumAccessRepositoryExtensions
     /// <param name="forumId">The forum identifier.</param>
     /// <param name="groupId">The group identifier.</param>
     /// <param name="accessMaskId">The access mask identifier.</param>
-    public async static Task SaveAsync(
+    public static Task SaveAsync(
         this IRepository<ForumAccess> repository,
         int forumId,
         int groupId,
         int accessMaskId)
     {
-        await repository.UpdateOnlyAsync(
+        return repository.UpdateOnlyAsync(
             () => new ForumAccess { AccessMaskID = accessMaskId },
             f => f.ForumID == forumId && f.GroupID == groupId);
     }

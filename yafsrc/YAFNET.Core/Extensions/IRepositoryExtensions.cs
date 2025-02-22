@@ -571,12 +571,12 @@ public static class IRepositoryExtensions
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public async static Task<bool> ExistsAsync<T>(
+    public static Task<bool> ExistsAsync<T>(
         this IRepository<T> repository,
         Expression<Func<T, bool>> where = null)
         where T : class, IEntity, new()
     {
-        return await repository.DbAccess.ExistsAsync(where);
+        return repository.DbAccess.ExistsAsync(where);
     }
 
     /// <summary>
@@ -635,10 +635,10 @@ public static class IRepositoryExtensions
     /// <returns>
     /// The <see cref="T"/> .
     /// </returns>
-    public async static Task<T> GetByIdAsync<T>(this IRepository<T> repository, int id, bool includeReference = false)
+    public static Task<T> GetByIdAsync<T>(this IRepository<T> repository, int id, bool includeReference = false)
         where T : IEntity, IHaveID, new()
     {
-        return await repository.DbAccess.ExecuteAsync(
+        return repository.DbAccess.ExecuteAsync(
             db => includeReference ? db.LoadSingleByIdAsync<T>(id) : db.SingleByIdAsync<T>(id));
     }
 
