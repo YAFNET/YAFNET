@@ -1,29 +1,34 @@
 {
   "runtimeTarget": {
-    "name": ".NETCoreApp,Version=v8.0",
+    "name": ".NETCoreApp,Version=v9.0",
     "signature": ""
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v8.0": {
+    ".NETCoreApp,Version=v9.0": {
       "BootstrapEmail.Cli/1.0.0": {
         "dependencies": {
-          "BootstrapEmail.Net": "1.4.1",
+          "BootstrapEmail.Net": "1.5.4",
           "CommandLineParser": "2.9.1",
-          "SonarAnalyzer.CSharp": "9.21.0.86780"
+          "SonarAnalyzer.CSharp": "10.6.0.109712"
         },
         "runtime": {
           "BootstrapEmail.Cli.dll": {}
         }
       },
-      "AngleSharp/1.1.2": {
-        "dependencies": {
-          "System.Text.Encoding.CodePages": "8.0.0"
-        },
+      "AngleSharp/1.2.0": {
         "runtime": {
           "lib/net8.0/AngleSharp.dll": {
-            "assemblyVersion": "1.1.2.0",
-            "fileVersion": "1.1.2.0"
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.2.0.0"
+          }
+        }
+      },
+      "Citizen17.DartSass/2.7.0": {
+        "runtime": {
+          "lib/net8.0/Citizen17.DartSass.dll": {
+            "assemblyVersion": "2.7.0.0",
+            "fileVersion": "2.7.0.0"
           }
         }
       },
@@ -35,45 +40,40 @@
           }
         }
       },
-      "HtmlAgilityPack/1.11.59": {
+      "DartSass.Native.win-x64/1.85.0": {},
+      "HtmlAgilityPack/1.11.72": {
         "runtime": {
           "lib/netstandard2.0/HtmlAgilityPack.dll": {
-            "assemblyVersion": "1.11.59.0",
-            "fileVersion": "1.11.59.0"
+            "assemblyVersion": "1.11.72.0",
+            "fileVersion": "1.11.72.0"
           }
         }
       },
-      "libsassnetstandard/3.3.8": {
-        "runtime": {
-          "lib/netstandard2.0/LibSass.NET.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.0.0.0"
-          }
-        }
-      },
-      "PreMailer.Net/2.5.0": {
+      "PreMailer.Net/2.6.0": {
         "dependencies": {
-          "AngleSharp": "1.1.2"
+          "AngleSharp": "1.2.0"
         },
         "runtime": {
           "lib/netstandard2.0/PreMailer.Net.dll": {
-            "assemblyVersion": "2.5.0.0",
-            "fileVersion": "2.5.0.0"
+            "assemblyVersion": "2.6.0.0",
+            "fileVersion": "2.6.0.0"
           }
         }
       },
-      "SonarAnalyzer.CSharp/9.21.0.86780": {},
-      "System.Text.Encoding.CodePages/8.0.0": {},
-      "BootstrapEmail.Net/1.4.1": {
+      "SonarAnalyzer.CSharp/10.6.0.109712": {},
+      "BootstrapEmail.Net/1.5.4": {
         "dependencies": {
-          "AngleSharp": "1.1.2",
-          "CommandLineParser": "2.9.1",
-          "HtmlAgilityPack": "1.11.59",
-          "PreMailer.Net": "2.5.0",
-          "libsassnetstandard": "3.3.8"
+          "AngleSharp": "1.2.0",
+          "Citizen17.DartSass": "2.7.0",
+          "DartSass.Native.win-x64": "1.85.0",
+          "HtmlAgilityPack": "1.11.72",
+          "PreMailer.Net": "2.6.0"
         },
         "runtime": {
-          "BootstrapEmail.Net.dll": {}
+          "BootstrapEmail.Net.dll": {
+            "assemblyVersion": "1.5.4.0",
+            "fileVersion": "1.5.4.0"
+          }
         }
       }
     }
@@ -84,12 +84,19 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AngleSharp/1.1.2": {
+    "AngleSharp/1.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-aRFpAqixbuj1Vmqy2hsWPF0PJygo1SfjvmpBvVWZv6i+/u+C/L4wDdwFIzyCGUbjqr61NsZdPNPqDE8wlmG2qA==",
-      "path": "anglesharp/1.1.2",
-      "hashPath": "anglesharp.1.1.2.nupkg.sha512"
+      "sha512": "sha512-uF/PzSCVcb+b2nqVvHZbOqexoJ9R6QLjonugPf0PQl+0h7YKaFZeXyspctbHe5HGlx7/Iuk5BErtk+t63ac/ZA==",
+      "path": "anglesharp/1.2.0",
+      "hashPath": "anglesharp.1.2.0.nupkg.sha512"
+    },
+    "Citizen17.DartSass/2.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GVpKtDWLdFowQ7Zut3kShQARE/W3oeaPp0cT5WkXarI9xGvuah5m8h2OBAo+srALuzn1RIkquAVBWPpRIVyWuw==",
+      "path": "citizen17.dartsass/2.7.0",
+      "hashPath": "citizen17.dartsass.2.7.0.nupkg.sha512"
     },
     "CommandLineParser/2.9.1": {
       "type": "package",
@@ -98,42 +105,35 @@
       "path": "commandlineparser/2.9.1",
       "hashPath": "commandlineparser.2.9.1.nupkg.sha512"
     },
-    "HtmlAgilityPack/1.11.59": {
+    "DartSass.Native.win-x64/1.85.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-0tMaGzTJ5uFFMCYvprZ4hRYg6Dm5E+/WeMFJiD5K83Fe/Y6kyLaRKcfrfUwfb1j428XzB4/2RR7sdxoQX5eaEA==",
-      "path": "htmlagilitypack/1.11.59",
-      "hashPath": "htmlagilitypack.1.11.59.nupkg.sha512"
+      "sha512": "sha512-piQZmUiysHH2ymVfSNICFKvkc0xU5boeD/MbYmZSrW5s0GhJApLRfB0Q9ohL7pjmtFudiabjdH4nrMWvGVZrsw==",
+      "path": "dartsass.native.win-x64/1.85.0",
+      "hashPath": "dartsass.native.win-x64.1.85.0.nupkg.sha512"
     },
-    "libsassnetstandard/3.3.8": {
+    "HtmlAgilityPack/1.11.72": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Fl2ZZM/QxFNPbskAWcNS1BdERWd/SC9CMZ1Qu/pwforWfxRhbelGInwIZtwO5ypQn6n6BTEw+tAa9ebZwQ/9pw==",
-      "path": "libsassnetstandard/3.3.8",
-      "hashPath": "libsassnetstandard.3.3.8.nupkg.sha512"
+      "sha512": "sha512-RNLgXxTFdIGFI+o5l8c2aJ2L5StIRn9Uv8HKR76p7QP4ZUL26wzpWUCWh08xWUdkL2kocl+Xhv6VUu0rA1npVg==",
+      "path": "htmlagilitypack/1.11.72",
+      "hashPath": "htmlagilitypack.1.11.72.nupkg.sha512"
     },
-    "PreMailer.Net/2.5.0": {
+    "PreMailer.Net/2.6.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-gBZ6XoNns2AO63CL5Vb4T/hrcdcwBtfSxzDk20+MIUT03F/wN8/LM1QTLCN3vpyTQagYDjjTAnDEV9/9dyV1/g==",
-      "path": "premailer.net/2.5.0",
-      "hashPath": "premailer.net.2.5.0.nupkg.sha512"
+      "sha512": "sha512-D7+OkqlgAE6pPGtwBIMAT3YgVUGy6EqbHIp/4+78caNNcZpTMORjS4UQMaeBm7JRKkuVMFJj4ESna3JP4hEfgA==",
+      "path": "premailer.net/2.6.0",
+      "hashPath": "premailer.net.2.6.0.nupkg.sha512"
     },
-    "SonarAnalyzer.CSharp/9.21.0.86780": {
+    "SonarAnalyzer.CSharp/10.6.0.109712": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-m+0RKlTMGDLKH8zDwGqWtvVVbY7leuDWNjcGDqEtvI12lR0fQtmPV8eooMyaA76QxUxRnbIMmilwqba1lXMvJQ==",
-      "path": "sonaranalyzer.csharp/9.21.0.86780",
-      "hashPath": "sonaranalyzer.csharp.9.21.0.86780.nupkg.sha512"
+      "sha512": "sha512-fMwoXhlmFrcIYLpmCZOPXQkKwQD6WoFsmkZp8FZ7RJ9Db+ELUg56qh1X4Vy2nU7ZOWmuAMDOMosYxiQKNLBWtw==",
+      "path": "sonaranalyzer.csharp/10.6.0.109712",
+      "hashPath": "sonaranalyzer.csharp.10.6.0.109712.nupkg.sha512"
     },
-    "System.Text.Encoding.CodePages/8.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-OZIsVplFGaVY90G2SbpgU7EnCoOO5pw1t4ic21dBF3/1omrJFpAGoNAVpPyMVOC90/hvgkGG3VFqR13YgZMQfg==",
-      "path": "system.text.encoding.codepages/8.0.0",
-      "hashPath": "system.text.encoding.codepages.8.0.0.nupkg.sha512"
-    },
-    "BootstrapEmail.Net/1.4.1": {
+    "BootstrapEmail.Net/1.5.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
