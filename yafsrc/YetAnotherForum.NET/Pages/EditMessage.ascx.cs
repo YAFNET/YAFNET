@@ -96,18 +96,21 @@ public partial class EditMessage : ForumPage
             return false;
         }
 
-        if (this.TopicSubjectTextBox.Text.IsNotSet())
+        if (this.TopicSubjectTextBox.Enabled)
         {
-            this.PageBoardContext.Notify(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
-            return false;
-        }
+            if (this.TopicSubjectTextBox.Text.IsNotSet())
+            {
+                this.PageBoardContext.Notify(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
+                return false;
+            }
 
-        if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.AllowCreateTopicsSameName)
-            && this.GetRepository<Topic>().CheckForDuplicate(this.TopicSubjectTextBox.Text.Trim())
-            && this.PageBoardContext.PageMessage == null)
-        {
-            this.PageBoardContext.Notify(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
-            return false;
+            if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.AllowCreateTopicsSameName)
+                && this.GetRepository<Topic>().CheckForDuplicate(this.TopicSubjectTextBox.Text.Trim())
+                && this.PageBoardContext.PageMessage == null)
+            {
+                this.PageBoardContext.Notify(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
+                return false;
+            }
         }
 
         return true;

@@ -990,13 +990,17 @@
             ]
         },
         {
-            "@name": "ADMIN_ATTACHMENTS",
-            "Resource": [
-                {
-                    "@tag": "TITLE",
-                    "#text": "User Attachments"
-                }
-            ]
+	        "@name": "ADMIN_ATTACHMENTS",
+	        "Resource": [
+		        {
+			        "@tag": "TITLE",
+			        "#text": "User Attachments"
+		        },
+		        {
+			        "@tag": "CONFIRM_DELETE",
+			        "#text": "Delete attachment(s)?"
+		        }
+	        ]
         },
         {
             "@name": "ADMIN_BANNEDEMAIL",

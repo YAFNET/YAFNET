@@ -995,6 +995,10 @@
           {
             "@tag": "TITLE",
             "#text": "Prílohy používateľa"
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Delete attachment(s)?"
           }
         ]
       },
@@ -1766,6 +1770,14 @@
             "#text": "Aké nastavenie upozornení je predvolené pri vytvorení nového používateľského účtu?"
           },
           {
+            "@tag": "BOARD_DEFAULT_PAGESIZE",
+            "#text": "Default Page Size"
+          },
+          {
+            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
+            "#text": "The default page size for lists for new users."
+          },
+          {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
             "#text": "Predvolený stav skladacieho panela"
           },
@@ -1908,14 +1920,6 @@
           {
             "@tag": "TITLE",
             "#text": "Nastavenia dosky"
-          },
-          {
-            "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
-          },
-          {
-            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
           }
         ]
       },

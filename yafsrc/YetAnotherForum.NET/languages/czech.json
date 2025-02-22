@@ -995,6 +995,10 @@
           {
             "@tag": "TITLE",
             "#text": "Uživatelské přílohy"
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Delete attachment(s)?"
           }
         ]
       },
@@ -1766,6 +1770,14 @@
             "#text": "Jaké výchozí nastavení oznámení je po vytvoření nového uživatelského účtu?"
           },
           {
+            "@tag": "BOARD_DEFAULT_PAGESIZE",
+            "#text": "Default Page Size"
+          },
+          {
+            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
+            "#text": "The default page size for lists for new users."
+          },
+          {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
             "#text": "Výchozí stav skládacího panelu"
           },
@@ -1908,14 +1920,6 @@
           {
             "@tag": "TITLE",
             "#text": "Nastavení desky"
-          },
-          {
-            "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
-          },
-          {
-            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
           }
         ]
       },

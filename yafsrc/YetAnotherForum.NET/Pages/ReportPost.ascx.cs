@@ -128,13 +128,11 @@ public partial class ReportPost : ForumPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (this.Get<HttpRequestBase>().QueryString.Exists("m"))
+        // We check here if the user have access to the option
+        if (this.Get<HttpRequestBase>().QueryString.Exists("m") && !this.Get<IPermissions>()
+                .Check(this.PageBoardContext.BoardSettings.ReportPostPermissions))
         {
-            // We check here if the user have access to the option
-            if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ReportPostPermissions))
-            {
-                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Moderated);
-            }
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Moderated);
         }
 
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(

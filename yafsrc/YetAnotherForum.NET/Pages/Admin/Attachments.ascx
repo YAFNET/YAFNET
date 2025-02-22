@@ -69,6 +69,7 @@
                                              Size="Small"
                                              CommandName="delete" CommandArgument="<%# ((Tuple<User,Attachment>)Container.DataItem).Item2.ID %>"
                                              Icon="trash"
+                                             ReturnConfirmTag="CONFIRM_DELETE"
                                              TextLocalizedTag="DELETE">
                             </YAF:ThemeButton>
                         </div>
@@ -82,6 +83,7 @@
                                          Type="None"
                                          CssClass="dropdown-item"
                                          CommandName="delete" CommandArgument="<%# ((Tuple<User,Attachment>)Container.DataItem).Item2.ID %>"
+                                         ReturnConfirmTag="CONFIRM_DELETE"
                                          Icon="trash"
                                          TextLocalizedTag="DELETE">
                         </YAF:ThemeButton>

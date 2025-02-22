@@ -995,6 +995,10 @@
           {
             "@tag": "TITLE",
             "#text": "Tệp đính kèm của người dùng"
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Delete attachment(s)?"
           }
         ]
       },
@@ -1766,6 +1770,14 @@
             "#text": "Khi tài khoản người dùng mới được tạo, cài đặt thông báo đó sẽ được đặt mặc định là gì?"
           },
           {
+            "@tag": "BOARD_DEFAULT_PAGESIZE",
+            "#text": "Default Page Size"
+          },
+          {
+            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
+            "#text": "The default page size for lists for new users."
+          },
+          {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
             "#text": "Trạng thái bảng điều khiển có thể thu gọn mặc định"
           },
@@ -1908,14 +1920,6 @@
           {
             "@tag": "TITLE",
             "#text": "Cài đặt bảng"
-          },
-          {
-            "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
-          },
-          {
-            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
           }
         ]
       },
