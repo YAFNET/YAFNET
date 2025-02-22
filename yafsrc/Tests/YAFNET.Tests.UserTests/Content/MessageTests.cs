@@ -32,6 +32,61 @@ namespace YAF.Tests.UserTests.Content;
 public class MessageTests : TestBase
 {
     /// <summary>
+    /// Editing a message.
+    /// </summary>
+    [Test]
+    [Description("Editing a message")]
+    public async Task EditMessageTest()
+    {
+        await this.Base.PlaywrightFixture.GotoPageAsync(
+            this.Base.TestSettings.TestForumUrl,
+            async page =>
+            {
+                // Log user in first!
+                Assert.That(
+                 await page.LoginUserAsync(
+                     this.Base.TestSettings,
+                     this.Base.TestSettings.TestUserName,
+                     this.Base.TestSettings.TestUserPassword), Is.True,
+                 "Login failed");
+
+                // Do actual test
+
+                // Go to Edit Message
+                await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}EditMessage/{this.Base.TestSettings.TestMessageId}");
+
+                var pageSource = await page.ContentAsync();
+
+                if (pageSource.Contains("You tried to enter an area where you didn't have access."))
+                {
+                    // Topic doesn't exist create a topic first
+                    Assert.That(await page.CreateNewTestTopicAsync(this.Base.TestSettings), Is.True, "Topic Creating failed");
+
+                    // Wait 60 seconds to avoid post flood
+                    await Task.Delay(31000);
+                }
+
+                // Edit message
+                var editorContent = await page.FrameLocator(".sceditor-container >> iframe").Locator("body")
+                    .TextContentAsync();
+
+
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync(
+                    $"{editorContent} This messsage was edited.");
+
+                // Post New Topic
+                await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
+
+                pageSource = await page.ContentAsync();
+
+                Assert.That(
+                 pageSource, Does.Contain("This messsage was edited."),
+                 "Edit Message failed");
+            },
+            this.BrowserType);
+    }
+
+    /// <summary>
     /// Create a new reply in a topic.
     /// </summary>
     [Test]

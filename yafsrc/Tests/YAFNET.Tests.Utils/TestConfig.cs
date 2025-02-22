@@ -40,6 +40,11 @@ public class TestConfig
     public int TestTopicId { get; set; } = 1;
 
     /// <summary>
+    /// Gets the test message ID.
+    /// </summary>
+    public int TestMessageId { get; set; } = 1;
+
+    /// <summary>
     /// Gets the name of the test application.
     /// </summary>
     /// <value>

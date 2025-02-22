@@ -113,21 +113,22 @@ public class EditMessageModel : ForumPage
             return false;
         }
 
-        if (this.PageBoardContext.PageTopic.UserID == this.PageBoardContext.PageMessage.UserID || this.PageBoardContext.ForumModeratorAccess)
+        if (this.PageBoardContext.PageTopic.UserID == this.PageBoardContext.PageMessage.UserID ||
+            this.PageBoardContext.ForumModeratorAccess)
         {
             if (this.Input.TopicSubject.IsNotSet())
             {
                 this.PageBoardContext.Notify(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
                 return false;
             }
-        }
 
-        if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.AllowCreateTopicsSameName)
-            && this.GetRepository<Topic>().CheckForDuplicate(this.Input.TopicSubject.Trim())
-            && this.PageBoardContext.PageMessage is null)
-        {
-            this.PageBoardContext.Notify(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
-            return false;
+            if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.AllowCreateTopicsSameName)
+                && this.GetRepository<Topic>().CheckForDuplicate(this.Input.TopicSubject.Trim())
+                && this.PageBoardContext.PageMessage is null)
+            {
+                this.PageBoardContext.Notify(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
+                return false;
+            }
         }
 
         return true;
