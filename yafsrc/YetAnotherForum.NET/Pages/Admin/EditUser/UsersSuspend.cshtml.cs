@@ -51,7 +51,6 @@ public class UsersSuspendModel : AdminPage
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
-    [BindProperty]
     public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
     /// <summary>
