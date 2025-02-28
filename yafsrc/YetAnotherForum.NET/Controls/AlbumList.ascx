@@ -63,6 +63,7 @@
                                            CssClass="card-text">
                                     <YAF:Icon runat="server" IconName="pen" IconType="text-secondary"/>
                                     <a class="album-caption border-bottom border-danger border-3" data-type="text" 
+                                       id='<%# this.Eval("ID") %>' 
                                        data-id='<%# this.Eval("ID") %>' 
                                        data-url='<%# "{0}{1}/Album/ChangeAlbumTitle".FormatWith(BoardInfo.ForumClientFileRoot, WebApiConfig.UrlPrefix) %>'
                                        data-title='<%#  this.GetText("ALBUM_CHANGE_TITLE") %>'><%# this.Eval("Title").IsNullOrEmptyField() ? this.GetText("ALBUM_CHANGE_TITLE") : this.HtmlEncode(this.Eval("Title"))%></a>

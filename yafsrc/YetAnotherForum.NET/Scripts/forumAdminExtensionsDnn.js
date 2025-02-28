@@ -1084,14 +1084,14 @@ function deepExtend(out, ...arguments_) {
 
 var DarkEditable = function(m) {
     "use strict";
-    var y = Object.defineProperty;
-    var _ = (m, r, a) => r in m ? y(m, r, {
+    var _ = Object.defineProperty;
+    var g = (m, r, a) => r in m ? _(m, r, {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: a
     }) : m[r] = a;
-    var i = (m, r, a) => _(m, typeof r != "symbol" ? r + "" : r, a);
+    var i = (m, r, a) => g(m, typeof r != "symbol" ? r + "" : r, a);
     var r = document.createElement("style");
     r.textContent = `.dark-editable-element{border-bottom:dashed 1px #0088cc;text-decoration:none;cursor:pointer}.dark-editable-element-disabled{border-bottom:none;cursor:default}.dark-editable-element-empty{font-style:italic;color:#d14}.dark-editable{max-width:none}.dark-editable-loader{font-size:5px;left:50%;top:50%;width:1em;height:1em;border-radius:50%;position:relative;text-indent:-9999em;-webkit-animation:load5 1.1s infinite ease;animation:load5 1.1s infinite ease;-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0)}@-webkit-keyframes load5{0%,to{box-shadow:0 -2.6em #000,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #00000080,-1.8em -1.8em #000000b3}12.5%{box-shadow:0 -2.6em #000000b3,1.8em -1.8em #000,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #00000080}25%{box-shadow:0 -2.6em #00000080,1.8em -1.8em #000000b3,2.5em 0 #000,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}37.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #00000080,2.5em 0 #000000b3,1.75em 1.75em #000,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}50%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #00000080,1.75em 1.75em #000000b3,0 2.5em #000,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}62.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #00000080,0 2.5em #000000b3,-1.8em 1.8em #000,-2.6em 0 #0003,-1.8em -1.8em #0003}75%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #00000080,-1.8em 1.8em #000000b3,-2.6em 0 #000,-1.8em -1.8em #0003}87.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #00000080,-2.6em 0 #000000b3,-1.8em -1.8em #000}}@keyframes load5{0%,to{box-shadow:0 -2.6em #000,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #00000080,-1.8em -1.8em #000000b3}12.5%{box-shadow:0 -2.6em #000000b3,1.8em -1.8em #000,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #00000080}25%{box-shadow:0 -2.6em #00000080,1.8em -1.8em #000000b3,2.5em 0 #000,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}37.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #00000080,2.5em 0 #000000b3,1.75em 1.75em #000,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}50%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #00000080,1.75em 1.75em #000000b3,0 2.5em #000,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}62.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #00000080,0 2.5em #000000b3,-1.8em 1.8em #000,-2.6em 0 #0003,-1.8em -1.8em #0003}75%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #00000080,-1.8em 1.8em #000000b3,-2.6em 0 #000,-1.8em -1.8em #0003}87.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #00000080,-2.6em 0 #000000b3,-1.8em -1.8em #000}}
 /*$vite$:1*/`, document.head.appendChild(r);
@@ -1103,7 +1103,7 @@ var DarkEditable = function(m) {
         }
         event_show() {
             if (this.context.typeElement.hideError(), !this.context.typeElement.element) throw new Error("Element is missing!");
-            this.context.typeElement.element.value = this.context.value, this.context.element.dispatchEvent(new CustomEvent("show"));
+            this.context.typeElement.element.value = this.context.getValue(), this.context.element.dispatchEvent(new CustomEvent("show"));
         }
         event_shown() {
             this.context.element.dispatchEvent(new CustomEvent("shown"));
@@ -1127,7 +1127,7 @@ var DarkEditable = function(m) {
             throw new Error("Method `hide` not define!");
         }
     }
-    class d extends a {
+    class p extends a {
         constructor() {
             super(...arguments);
             i(this, "popover", null);
@@ -1168,7 +1168,7 @@ var DarkEditable = function(m) {
             this.popover && this.popover.hide();
         }
     }
-    class p extends a {
+    class u extends a {
         init() {
             const e = () => {
                 if (!this.context.options.disabled) {
@@ -1183,7 +1183,7 @@ var DarkEditable = function(m) {
         enable() {}
         disable() {}
         hide() {
-            this.event_hide(), this.context.element.innerHTML = this.context.value, 
+            this.event_hide(), this.context.element.innerHTML = this.context.getValue(), 
             setTimeout(() => {
                 this.init(), this.event_hidden();
             }, 100);
@@ -1225,7 +1225,7 @@ var DarkEditable = function(m) {
             e.addEventListener("submit", async t => {
                 t.preventDefault();
                 const s = this.getValue();
-                if (this.context.options.send && this.context.options.id && this.context.options.url && this.context.value !== s) {
+                if (this.context.options.send && this.context.options.id && this.context.options.url && this.context.getValue() !== s) {
                     this.showLoad();
                     let n;
                     try {
@@ -1235,9 +1235,9 @@ var DarkEditable = function(m) {
                         console.error(o), n = o;
                     }
                     n ? (this.setError(n), this.showError()) : (this.setError(""), 
-                    this.hideError(), this.context.value = this.getValue(), this.context.modeElement.hide(), 
+                    this.hideError(), this.context.setValue(this.getValue()), this.context.modeElement.hide(), 
                     this.initText()), this.hideLoad();
-                } else this.context.value = this.getValue(), this.context.modeElement.hide(), 
+                } else this.context.setValue(this.getValue()), this.context.modeElement.hide(), 
                 this.initText();
                 this.context.element.dispatchEvent(new CustomEvent("save"));
             }), e;
@@ -1273,20 +1273,23 @@ var DarkEditable = function(m) {
             this.load && (this.load.style.display = "block");
         }
         ajax(e) {
-            var n;
+            var o;
             let t = this.context.options.url;
             if (!t) throw new Error("URL is required!");
             if (!this.context.options.id) throw new Error("pk is required!");
             if (!this.context.options.name) throw new Error("Name is required!");
             const s = new FormData();
             if (s.append("id", this.context.options.id), s.append("name", this.context.options.name), 
-            s.append("value", e), ((n = this.context.options.ajaxOptions) == null ? void 0 : n.method) === "GET") {
-                const o = [];
-                s.forEach((v, E) => {
-                    o.push(`${E}=${v}`);
-                }), t += "?" + o.join("&");
+            s.append("value", e), ((o = this.context.options.ajaxOptions) == null ? void 0 : o.method) === "GET") {
+                const d = [];
+                s.forEach((y, v) => {
+                    d.push(`${v}=${y}`);
+                }), t += "?" + d.join("&");
             }
-            return fetch(t, this.context.options.ajaxOptions);
+            const n = {
+                ...this.context.options.ajaxOptions
+            };
+            return n.body = s, fetch(t, n);
         }
         async successResponse(e, t) {}
         async errorResponse(e, t) {}
@@ -1302,6 +1305,7 @@ var DarkEditable = function(m) {
         createElement(e) {
             const t = document.createElement(e);
             return t.classList.add("form-control"), this.context.options.required && (t.required = this.context.options.required), 
+            this.context.options.placeholder && (t.placeholder = this.context.options.placeholder), 
             this.context.options.showbuttons || t.addEventListener("change", () => {
                 this.form && this.form.dispatchEvent(new Event("submit"));
             }), this.add_focus(t), t;
@@ -1312,28 +1316,28 @@ var DarkEditable = function(m) {
             });
         }
         initText() {
-            return this.context.value === "" ? (this.context.element.innerHTML = this.context.options.emptytext || "", 
-            !0) : (this.context.element.innerHTML = this.context.value, !1);
+            return this.context.getValue() === "" ? (this.context.element.innerHTML = this.context.options.emptytext || "", 
+            !0) : (this.context.element.innerHTML = this.context.getValue(), !1);
         }
         initOptions() {}
         getValue() {
             return this.element ? this.element.value : "";
         }
     }
-    class u extends c {
+    class x extends c {
         create() {
             const e = this.createElement("input");
             return e.type = typeof this.context.options.type == "string" ? this.context.options.type : "text", 
             this.createContainer(e);
         }
     }
-    class x extends c {
+    class b extends c {
         create() {
             const e = this.createElement("textarea");
             return this.createContainer(e);
         }
     }
-    class b extends c {
+    class f extends c {
         create() {
             const e = this.createElement("select");
             return this.context.options.source && Array.isArray(this.context.options.source) && this.context.options.source.forEach(t => {
@@ -1343,9 +1347,9 @@ var DarkEditable = function(m) {
         }
         initText() {
             if (this.context.element.innerHTML = this.context.options.emptytext || "", 
-            this.context.value !== "" && this.context.options.source && Array.isArray(this.context.options.source) && this.context.options.source.length > 0) for (let e = 0; e < this.context.options.source.length; e++) {
+            this.context.getValue() !== "" && this.context.options.source && Array.isArray(this.context.options.source) && this.context.options.source.length > 0) for (let e = 0; e < this.context.options.source.length; e++) {
                 const t = this.context.options.source[e];
-                if (t.value == this.context.value) return this.context.element.innerHTML = t.text, 
+                if (t.value == this.context.getValue()) return this.context.element.innerHTML = t.text, 
                 !1;
             }
             return !0;
@@ -1360,30 +1364,29 @@ var DarkEditable = function(m) {
             return e.type = "date", this.createContainer(e);
         }
         initText() {
-            return this.context.value === "" ? (this.context.element.innerHTML = this.context.options.emptytext || "", 
-            !0) : (this.context.element.innerHTML = this.context.value, !1);
+            return this.context.getValue() === "" ? (this.context.element.innerHTML = this.context.options.emptytext || "", 
+            !0) : (this.context.element.innerHTML = this.context.getValue(), !1);
         }
         initOptions() {
             this.context.get_opt("format", "YYYY-MM-DD"), this.context.get_opt("viewformat", "YYYY-MM-DD");
         }
     }
-    class f extends l {
+    class w extends l {
         create() {
             const e = this.createElement("input");
             return e.type = "datetime-local", this.createContainer(e);
         }
         initOptions() {
             this.context.get_opt("format", "YYYY-MM-DD HH:mm"), this.context.get_opt("viewformat", "YYYY-MM-DD HH:mm"), 
-            this.context.value = this.context.value;
+            this.context.setValue(this.context.getValue());
         }
     }
-    class w {
+    class E {
         constructor(e, t = {}) {
             i(this, "element");
             i(this, "options");
             i(this, "typeElement");
             i(this, "modeElement");
-            i(this, "value", "");
             this.element = e, this.options = {
                 ...t
             }, this.init_options(), this.typeElement = this.route_type(), this.typeElement.initOptions(), 
@@ -1411,11 +1414,14 @@ var DarkEditable = function(m) {
             var e, t, s, n, o;
             this.get_opt("value", this.element.innerHTML), this.get_opt("name", this.element.id), 
             this.get_opt("id", null), this.get_opt("title", ""), this.get_opt("type", "text"), 
-            this.get_opt("emptytext", "Empty"), this.get_opt("mode", "popup"), this.get_opt("url", null), 
-            this.get_opt("ajaxOptions", {}), this.options.ajaxOptions = Object.assign({
+            this.get_opt("emptytext", "Empty"), this.get_opt("placeholder", this.element.getAttribute("placeholder")), 
+            this.get_opt("mode", "popup"), this.get_opt("url", null), this.get_opt("ajaxOptions", {}), 
+            this.options.ajaxOptions = Object.assign({
                 method: "POST",
                 dataType: "text",
-                RequestVerificationToken: (e = document.querySelector('input[name="__RequestVerificationToken"]')) == null ? void 0 : e.value
+                headers: {
+                    RequestVerificationToken: (e = document.querySelector('input[name="__RequestVerificationToken"]')) == null ? void 0 : e.value
+                }
             }, this.options.ajaxOptions), this.get_opt_bool("send", !0), this.get_opt_bool("disabled", !1), 
             this.get_opt_bool("required", !1), this.get_opt_bool("showbuttons", !0), 
             (t = this.options) != null && t.success && typeof ((s = this.options) == null ? void 0 : s.success) == "function" && (this.success = this.options.success), 
@@ -1434,10 +1440,10 @@ var DarkEditable = function(m) {
                 throw new Error(`Mode ${this.options.mode} not found!`);
 
               case "popup":
-                return new d(this);
+                return new p(this);
 
               case "inline":
-                return new p(this);
+                return new u(this);
             }
         }
         route_type() {
@@ -1451,19 +1457,19 @@ var DarkEditable = function(m) {
               case "number":
               case "range":
               case "time":
-                return new u(this);
-
-              case "textarea":
                 return new x(this);
 
-              case "select":
+              case "textarea":
                 return new b(this);
+
+              case "select":
+                return new f(this);
 
               case "date":
                 return new l(this);
 
               case "datetime":
-                return new f(this);
+                return new w(this);
             }
             throw new Error("Undefined type");
         }
@@ -1482,13 +1488,13 @@ var DarkEditable = function(m) {
             this.modeElement.enable();
         }
         setValue(e) {
-            this.value = e, this.init_text();
+            this.options.value = e, this.init_text();
         }
         getValue() {
-            return this.value;
+            return this.options.value ?? "";
         }
     }
-    return w;
+    return E;
 }(bootstrap);
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -2401,7 +2407,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return {
                 id: 0,
                 label: optgroup.label || "",
-                value: optgroup.value,
+                value: optgroup.getAttribute("value") || "",
                 element: optgroup,
                 active: !!choices.length,
                 disabled: optgroup.disabled,
@@ -2799,7 +2805,7 @@ document.addEventListener("DOMContentLoaded", function() {
         Object.defineProperty(Store.prototype, "highlightedActiveItems", {
             get: function() {
                 return this.items.filter(function(item) {
-                    return !item.disabled && item.active && item.highlighted;
+                    return item.active && item.highlighted;
                 });
             },
             enumerable: false,
@@ -5024,7 +5030,7 @@ document.addEventListener("DOMContentLoaded", function() {
             this._searcher.reset();
             return this;
         };
-        Choices.prototype.setChoices = function(choicesArrayOrFetcher, value, label, replaceChoices, clearSearchFlag) {
+        Choices.prototype.setChoices = function(choicesArrayOrFetcher, value, label, replaceChoices, clearSearchFlag, replaceItems) {
             var _this = this;
             if (choicesArrayOrFetcher === void 0) {
                 choicesArrayOrFetcher = [];
@@ -5041,6 +5047,9 @@ document.addEventListener("DOMContentLoaded", function() {
             if (clearSearchFlag === void 0) {
                 clearSearchFlag = true;
             }
+            if (replaceItems === void 0) {
+                replaceItems = false;
+            }
             if (!this.initialisedOK) {
                 this._warnChoicesInitFailed("setChoices");
                 return this;
@@ -5050,9 +5059,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             if (typeof value !== "string" || !value) {
                 throw new TypeError("value parameter must be a name of 'value' field in passed objects");
-            }
-            if (replaceChoices) {
-                this.clearChoices();
             }
             if (typeof choicesArrayOrFetcher === "function") {
                 var fetcher_1 = choicesArrayOrFetcher(this);
@@ -5064,7 +5070,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     }).then(function() {
                         return fetcher_1;
                     }).then(function(data) {
-                        return _this.setChoices(data, value, label, replaceChoices);
+                        return _this.setChoices(data, value, label, replaceChoices, clearSearchFlag, replaceItems);
                     }).catch(function(err) {
                         if (!_this.config.silent) {
                             console.error(err);
@@ -5088,6 +5094,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (clearSearchFlag) {
                     _this._isSearching = false;
                 }
+                if (replaceChoices) {
+                    _this.clearChoices(true, replaceItems);
+                }
                 var isDefaultValue = value === "value";
                 var isDefaultLabel = label === "label";
                 choicesArrayOrFetcher.forEach(function(groupOrChoice) {
@@ -5108,7 +5117,11 @@ document.addEventListener("DOMContentLoaded", function() {
                                 label: choice[label]
                             });
                         }
-                        _this._addChoice(mapInputToChoice(choice, false));
+                        var choiceFull = mapInputToChoice(choice, false);
+                        _this._addChoice(choiceFull);
+                        if (choiceFull.placeholder && !_this._hasNonChoicePlaceholder) {
+                            _this._placeholderValue = unwrapStringForEscaped(choiceFull.label);
+                        }
                     }
                 });
                 _this.unhighlightAll();
@@ -5138,7 +5151,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 var existingItems = {};
                 if (!deselectAll) {
                     _this._store.items.forEach(function(choice) {
-                        if (choice.id && choice.active && choice.selected && !choice.disabled) {
+                        if (choice.id && choice.active && choice.selected) {
                             existingItems[choice.value] = true;
                         }
                     });
@@ -5180,13 +5193,32 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             return this;
         };
-        Choices.prototype.clearChoices = function() {
+        Choices.prototype.clearChoices = function(clearOptions, clearItems) {
             var _this = this;
+            if (clearOptions === void 0) {
+                clearOptions = true;
+            }
+            if (clearItems === void 0) {
+                clearItems = false;
+            }
+            if (clearOptions) {
+                if (clearItems) {
+                    this.passedElement.element.replaceChildren("");
+                } else {
+                    this.passedElement.element.querySelectorAll(":not([selected])").forEach(function(el) {
+                        el.remove();
+                    });
+                }
+            }
+            this.itemList.element.replaceChildren("");
+            this.choiceList.element.replaceChildren("");
+            this._clearNotice();
             this._store.withTxn(function() {
-                _this._store.choices.forEach(function(choice) {
-                    if (!choice.selected) {
-                        _this._store.dispatch(removeChoice(choice));
-                    }
+                var items = clearItems ? [] : _this._store.items;
+                _this._store.reset();
+                items.forEach(function(item) {
+                    _this._store.dispatch(addChoice(item));
+                    _this._store.dispatch(addItem(item));
                 });
             });
             this._searcher.reset();
@@ -5196,17 +5228,10 @@ document.addEventListener("DOMContentLoaded", function() {
             if (clearOptions === void 0) {
                 clearOptions = true;
             }
+            this.clearChoices(clearOptions, true);
             this._stopSearch();
-            if (clearOptions) {
-                this.passedElement.element.replaceChildren("");
-            }
-            this.itemList.element.replaceChildren("");
-            this.choiceList.element.replaceChildren("");
-            this._clearNotice();
-            this._store.reset();
             this._lastAddedChoiceId = 0;
             this._lastAddedGroupId = 0;
-            this._searcher.reset();
             return this;
         };
         Choices.prototype.clearInput = function() {
@@ -5291,7 +5316,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     var dropdownItem = choice.choiceEl || _this._templates.choice(config, choice, config.itemSelectText, groupLabel);
                     choice.choiceEl = dropdownItem;
                     fragment.appendChild(dropdownItem);
-                    if (!choice.disabled && (isSearching || !choice.selected)) {
+                    if (isSearching || !choice.selected) {
                         selectableChoices = true;
                     }
                     return index < choiceLimit;
@@ -5331,7 +5356,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     renderChoices(renderableChoices(activeChoices), false, undefined);
                 }
             }
-            if (!selectableChoices) {
+            if (!selectableChoices && (isSearching || !fragment.children.length || !config.renderSelectedChoices)) {
                 if (!this._notice) {
                     this._notice = {
                         text: resolveStringFunction(isSearching ? config.noResultsText : config.noChoicesText),
@@ -5365,25 +5390,25 @@ document.addEventListener("DOMContentLoaded", function() {
                 fragment.appendChild(el);
             };
             items.forEach(addItemToFragment);
-            var addItems = !!fragment.childNodes.length;
-            if (this._isSelectOneElement && this._hasNonChoicePlaceholder) {
+            var addedItems = !!fragment.childNodes.length;
+            if (this._isSelectOneElement) {
                 var existingItems = itemList.children.length;
-                if (addItems || existingItems > 1) {
+                if (addedItems || existingItems > 1) {
                     var placeholder = itemList.querySelector(getClassNamesSelector(config.classNames.placeholder));
                     if (placeholder) {
                         placeholder.remove();
                     }
-                } else if (!existingItems) {
-                    addItems = true;
+                } else if (!addedItems && !existingItems && this._placeholderValue) {
+                    addedItems = true;
                     addItemToFragment(mapInputToChoice({
                         selected: true,
                         value: "",
-                        label: config.placeholderValue || "",
+                        label: this._placeholderValue,
                         placeholder: true
                     }, false));
                 }
             }
-            if (addItems) {
+            if (addedItems) {
                 itemList.append(fragment);
                 if (config.shouldSortItems && !this._isSelectOneElement) {
                     items.sort(config.sorter);
@@ -5488,8 +5513,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 _this._removeItem(itemToRemove);
                 _this._triggerChange(itemToRemove.value);
                 if (_this._isSelectOneElement && !_this._hasNonChoicePlaceholder) {
-                    var placeholderChoice = _this._store.choices.reverse().find(function(choice) {
-                        return !choice.disabled && choice.placeholder;
+                    var placeholderChoice = (_this.config.shouldSort ? _this._store.choices.reverse() : _this._store.choices).find(function(choice) {
+                        return choice.placeholder;
                     });
                     if (placeholderChoice) {
                         _this._addItem(placeholderChoice);
@@ -5647,6 +5672,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 this._displayNotice(typeof maxItemText === "function" ? maxItemText(maxItemCount) : maxItemText, NoticeTypes.addChoice);
                 return false;
             }
+            if (this._notice && this._notice.type === NoticeTypes.addChoice) {
+                this._clearNotice();
+            }
             return true;
         };
         Choices.prototype._canCreateItem = function(value) {
@@ -5661,13 +5689,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 var foundChoice = this._store.choices.find(function(choice) {
                     return config.valueComparer(choice.value, value);
                 });
-                if (this._isSelectElement) {
-                    if (foundChoice) {
+                if (foundChoice) {
+                    if (this._isSelectElement) {
                         this._displayNotice("", NoticeTypes.addChoice);
                         return false;
                     }
-                } else if (this._isTextElement && !config.duplicateItemsAllowed) {
-                    if (foundChoice) {
+                    if (!config.duplicateItemsAllowed) {
                         canAddItem = false;
                         notice = resolveNoticeFunction(config.uniqueItemText, value);
                     }
@@ -6061,6 +6088,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 } else if (target === this.containerOuter.element) {
                     containerOuter.removeFocusState();
+                    if (!this._canSearch) {
+                        this.hideDropdown(true);
+                    }
                 }
             } else {
                 this._isScrollingOnIe = false;
@@ -6158,7 +6188,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 throw new TypeError("Can not re-add a choice which has already been added");
             }
             var config = this.config;
-            if ((this._isSelectElement || !config.duplicateItemsAllowed) && this._store.choices.find(function(c) {
+            if (!config.duplicateItemsAllowed && this._store.choices.find(function(c) {
                 return config.valueComparer(c.value, choice.value);
             })) {
                 return;
@@ -6361,7 +6391,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 throw new TypeError("".concat(caller, " called for an element which has multiple instances of Choices initialised on it"));
             }
         };
-        Choices.version = "11.0.3";
+        Choices.version = "11.0.6";
         return Choices;
     }();
     return Choices;

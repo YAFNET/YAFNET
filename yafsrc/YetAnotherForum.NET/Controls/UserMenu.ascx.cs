@@ -466,6 +466,12 @@ public partial class UserMenu : BaseUserControl
             }
         }
 
+        if (this.PageBoardContext.IsSuspended)
+        {
+            this.MyNotifications.Visible = false;
+            return;
+        }
+
         if (unreadCount <= 0)
         {
             this.UnreadPlaceHolder.Visible = false;
