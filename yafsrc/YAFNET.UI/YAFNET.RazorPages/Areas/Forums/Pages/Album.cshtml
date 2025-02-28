@@ -76,6 +76,7 @@
 								<p class="card-text mb-3">
 									@Html.Icon("pen", "text-secondary")
 									<a class="album-image-caption border-bottom border-danger border-3" data-type="text"
+									   id="@Html.Raw(image.ID)"
 									   data-id="@Html.Raw(image.ID)"
 									   data-url="/api/Album/ChangeImageCaption"
 									   data-title="@Html.LocalizedText(image.Caption.IsNotSet() ? "ALBUM_IMAGE_CHANGE_CAPTION" : "ALBUM_IMAGE_CHANGE_CAPTION2")">@caption</a>

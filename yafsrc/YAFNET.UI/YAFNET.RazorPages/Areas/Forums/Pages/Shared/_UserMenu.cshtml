@@ -165,7 +165,7 @@
 
     <div class="dropdown-divider"></div>
     
-    @if (Current.BoardSettings.AllowPrivateMessages && Current.UserHasPrivateConversations)
+    @if (Current.BoardSettings.AllowPrivateMessages && Current.UserHasPrivateConversations && !Current.IsSuspended)
     {
         <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.MyMessages ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
@@ -186,7 +186,7 @@
         </a>
     }
 
-    @if (Current.BoardSettings.EnableBuddyList && Current.UserHasBuddies)
+    @if (Current.BoardSettings.EnableBuddyList && Current.UserHasBuddies && !Current.IsSuspended)
     {
         <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Friends ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
@@ -207,7 +207,7 @@
         </a>
     }
 
-    @if (Current.BoardSettings.EnableAlbum && Current.NumAlbums > 0)
+    @if (Current.BoardSettings.EnableAlbum && Current.NumAlbums > 0 && !Current.IsSuspended)
     {
         <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Albums ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
@@ -247,7 +247,7 @@
     </a>
     </div>
     </li>
-    @if (Current.PageUser.Activity)
+    @if (Current.PageUser.Activity && !Current.IsSuspended)
     {
         <li class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Notification ? "nav-item dropdown dropdown-notify active" : "nav-item dropdown dropdown-notify")">
 

@@ -14,7 +14,15 @@
             @Model.Title
         </h5>
         <p class="card-text">
-            @Model.InfoLabel
+            @if (Model.PageBoardContext.IsSuspended)
+            {
+                @Html.Raw(Model.InfoLabel)
+            }
+            else
+            {
+                @Model.InfoLabel
+            }
+	        
         </p>
         <a asp-page="@ForumPages.Index.GetPageName()" button-style="Danger"
            text-localized-page="INFO" text-localized-tag="CONTINUE">

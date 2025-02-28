@@ -69,6 +69,7 @@
                                     <p class="card-text mb-3">
                                         @Html.Icon("pen", "text-secondary")
                                         <a class="album-caption border-bottom border-danger border-3" data-type="text"
+                                           id="@Html.Raw(album.ID)"
                                            data-id="@Html.Raw(album.ID)"
                                            data-url="/api/Album/ChangeAlbumTitle"
                                            data-title="@Html.LocalizedText("ALBUM_CHANGE_TITLE")">@caption</a>
