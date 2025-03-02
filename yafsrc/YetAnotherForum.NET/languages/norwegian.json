@@ -993,12 +993,12 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "Brukervedlegg"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Delete attachment(s)?"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Brukervedlegg"
           }
         ]
       },
@@ -10693,14 +10693,6 @@
           {
             "@tag": "DISABLED",
             "#text": "Administratoren av dette forumet har deaktivert denne funksjonen."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "For å bruke forumet må du aktivere JavaScript i nettleseren din."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "The JavaScript version is unsupported. Please use a more new browser version/"
           },
           {
             "@tag": "EXCEPTION",

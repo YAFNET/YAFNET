@@ -993,12 +993,12 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "קבצים מצורפים למשתמש"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Delete attachment(s)?"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "קבצים מצורפים למשתמש"
           }
         ]
       },
@@ -10697,14 +10697,6 @@
           {
             "@tag": "DISABLED",
             "#text": "מנהל הפורום חסם את האפשרות."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "כדי להשתמש בפורום עליך להפעיל JavaScript בדפדפן שלך."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "The JavaScript version is unsupported. Please use a more new browser version/"
           },
           {
             "@tag": "EXCEPTION",

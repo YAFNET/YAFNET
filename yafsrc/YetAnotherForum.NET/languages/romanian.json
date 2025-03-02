@@ -993,12 +993,12 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "Atașamente de utilizator"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Delete attachment(s)?"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Atașamente de utilizator"
           }
         ]
       },
@@ -10693,14 +10693,6 @@
           {
             "@tag": "DISABLED",
             "#text": "Administratorul acestui forum a dezactivat această funcție."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "Pentru a utiliza forumul, trebuie să activați JavaScript în browserul dumneavoastră."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "The JavaScript version is unsupported. Please use a more new browser version/"
           },
           {
             "@tag": "EXCEPTION",

@@ -993,12 +993,12 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "Załączniki użytkownika"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Delete attachment(s)?"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Załączniki użytkownika"
           }
         ]
       },
@@ -10681,14 +10681,6 @@
           {
             "@tag": "DISABLED",
             "#text": "Administrator tego forum wyłączył tą funkcję."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "Aby używać tego forum powinieneś aktywować JavaScript w swojej przeglądarce."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "Wersja JavaScript jest niewspierana. Proszę używać nowszej przeglądarki/"
           },
           {
             "@tag": "EXCEPTION",

@@ -993,12 +993,12 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "Anexos do utilizador"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Delete attachment(s)?"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Anexos do utilizador"
           }
         ]
       },
@@ -10693,14 +10693,6 @@
           {
             "@tag": "DISABLED",
             "#text": "O administrador deste fórum desactivou esta funcionalidade."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "Para utilizar o fórum deve activar o JavaScript no seu navegador."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "The JavaScript version is unsupported. Please use a more new browser version/"
           },
           {
             "@tag": "EXCEPTION",

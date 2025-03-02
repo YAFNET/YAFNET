@@ -993,12 +993,12 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "Användarens bilagor"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Delete attachment(s)?"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Användarens bilagor"
           }
         ]
       },
@@ -10693,14 +10693,6 @@
           {
             "@tag": "DISABLED",
             "#text": "Administratören för detta forum har inaktiverat denna funktion."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "För att kunna använda forumet måste du aktivera JavaScript i din webbläsare."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "The JavaScript version is unsupported. Please use a more new browser version/"
           },
           {
             "@tag": "EXCEPTION",

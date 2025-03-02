@@ -993,12 +993,12 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "Prílohy používateľa"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Delete attachment(s)?"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Prílohy používateľa"
           }
         ]
       },
@@ -10693,14 +10693,6 @@
           {
             "@tag": "DISABLED",
             "#text": "Správca tohto fóra túto funkciu zakázal."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "Ak chcete používať fórum, mali by ste vo svojom prehliadači povoliť JavaScript."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "The JavaScript version is unsupported. Please use a more new browser version/"
           },
           {
             "@tag": "EXCEPTION",

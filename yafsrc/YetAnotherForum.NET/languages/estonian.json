@@ -993,12 +993,12 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "Kasutaja manused"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Delete attachment(s)?"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Kasutaja manused"
           }
         ]
       },
@@ -10693,14 +10693,6 @@
           {
             "@tag": "DISABLED",
             "#text": "See funktsioon on keelatud foorumi administraatori poolt."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "Foorumi kasutamiseks tuleb lubada JavaScript veebilehitsejas."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "See JavaScripti versioon ei ole toetatud. Palun kasutage uuemat veebilehitsejat."
           },
           {
             "@tag": "EXCEPTION",

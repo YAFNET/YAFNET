@@ -993,12 +993,12 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "Gebruikersbijlagen"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Delete attachment(s)?"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Gebruikersbijlagen"
           }
         ]
       },
@@ -10677,14 +10677,6 @@
           {
             "@tag": "DISABLED",
             "#text": "De beheerder van dit forum heeft dit onderdeel afgesloten."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "Om van het forum gebruik te kunnen maken moet JavaScript aangezet zijn in je browser."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "Deze versie van JavaScript version wordt niet ondersteund. Gebruik een nieuwere versie."
           },
           {
             "@tag": "EXCEPTION",

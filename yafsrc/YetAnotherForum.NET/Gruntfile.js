@@ -679,6 +679,11 @@ module.exports = function(grunt) {
             'devUpdate', 'webpack:lightBox', 'uglify', 'sass', 'postcss', 'cssmin'
         ]);
 
+    grunt.registerTask('updatePackages',
+	    [
+		    'devUpdate'
+	    ]);
+
     grunt.registerTask('syncLanguages',
         [
             'shell:syncLanguages'

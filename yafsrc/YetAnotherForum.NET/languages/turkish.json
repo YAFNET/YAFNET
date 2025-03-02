@@ -993,12 +993,12 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "Kullanıcı Ekleri"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Delete attachment(s)?"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Kullanıcı Ekleri"
           }
         ]
       },
@@ -10693,14 +10693,6 @@
           {
             "@tag": "DISABLED",
             "#text": "Forumu yönetisi bu özelliği kapattı."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "Forumda JavaScript kullanabilmek için tarayıcdan aktifleştirmeniz gerekmektedir."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "Bu JavaScript versiyonu desteklenmiyor, lütfen yeni versiyonu kurunuz."
           },
           {
             "@tag": "EXCEPTION",
