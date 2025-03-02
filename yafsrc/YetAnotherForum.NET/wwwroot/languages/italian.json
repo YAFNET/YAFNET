@@ -993,12 +993,12 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "Allegati dell'utente"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Delete attachment(s)?"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Allegati dell'utente"
           }
         ]
       },
@@ -10673,14 +10673,6 @@
           {
             "@tag": "DISABLED",
             "#text": "L'amministratore del forum ha disabilitato questa funzionalita'."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "Devi abilitare JavaScript nel browser per usare il forum."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "La tua versione di JavaScript non e' supportata. Per favore aggiorna il browser."
           },
           {
             "@tag": "EXCEPTION",

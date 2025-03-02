@@ -993,12 +993,12 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "Вложения пользователя"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Delete attachment(s)?"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Вложения пользователя"
           }
         ]
       },
@@ -10673,14 +10673,6 @@
           {
             "@tag": "DISABLED",
             "#text": "Администратор форума отключил эту возможность."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "Для посещения форума Вы должны включить JavaScript в Вашем браузере."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "Эта версия JavaScript не поддерживается. Пожалуйста, установите более новую версию браузера./"
           },
           {
             "@tag": "EXCEPTION",

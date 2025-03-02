@@ -993,12 +993,12 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "用户附件"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Delete attachment(s)?"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "用户附件"
           }
         ]
       },
@@ -10689,14 +10689,6 @@
           {
             "@tag": "DISABLED",
             "#text": "该论坛的管理员已禁用此功能。"
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "要使用该论坛，您应该在浏览器中启用 JavaScript。"
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "The JavaScript version is unsupported. Please use a more new browser version/"
           },
           {
             "@tag": "EXCEPTION",

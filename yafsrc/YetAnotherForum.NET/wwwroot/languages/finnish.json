@@ -993,12 +993,12 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "Käyttäjän liitteet"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Delete attachment(s)?"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Käyttäjän liitteet"
           }
         ]
       },
@@ -10689,14 +10689,6 @@
           {
             "@tag": "DISABLED",
             "#text": "Tämän foorumin ylläpitäjä on poistanut tämän ominaisuuden käytöstä."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "Jotta voit käyttää foorumia, sinun on otettava JavaScript käyttöön selaimessasi."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "The JavaScript version is unsupported. Please use a more new browser version/"
           },
           {
             "@tag": "EXCEPTION",
