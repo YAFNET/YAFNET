@@ -60,7 +60,7 @@ public class ReportedPostsModel : ModerateForumPage
         // moderation index
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("MODERATE_DEFAULT", "TITLE"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Moderate));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Moderate_Moderate));
 
         // current page
         this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageForum.Name);
@@ -189,7 +189,7 @@ public class ReportedPostsModel : ModerateForumPage
         if (reported.Count == 0)
         {
             // nope -- redirect back to the moderate main...
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Moderate);
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Moderate_Moderate);
         }
 
         this.Reported = reported;

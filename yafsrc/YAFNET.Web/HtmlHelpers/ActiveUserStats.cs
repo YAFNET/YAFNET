@@ -76,7 +76,7 @@ public static class ActiveUserStatsHtmlHelper
             // always show active users...
             var link = new TagBuilder(HtmlTag.A);
 
-            link.MergeAttribute(HtmlAttribute.Href, context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 0 }));
+            link.MergeAttribute(HtmlAttribute.Href, context.Get<ILinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 0 }));
             link.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
             link.MergeAttribute("data-bs-toggle", "tooltip");
 
@@ -111,7 +111,7 @@ public static class ActiveUserStatsHtmlHelper
 
                 link.MergeAttribute(
                     HtmlAttribute.Href,
-                    context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 1 }));
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 1 }));
                 link.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
                 link.MergeAttribute("data-bs-toggle", "tooltip");
 
@@ -147,7 +147,7 @@ public static class ActiveUserStatsHtmlHelper
 
                 link.MergeAttribute(
                     HtmlAttribute.Href,
-                    context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 2 }));
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 2 }));
                 link.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
                 link.MergeAttribute("data-bs-toggle", "tooltip");
 
@@ -176,7 +176,7 @@ public static class ActiveUserStatsHtmlHelper
 
             var link = new TagBuilder(HtmlTag.A);
 
-            link.MergeAttribute(HtmlAttribute.Href, context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 3 }));
+            link.MergeAttribute(HtmlAttribute.Href, context.Get<ILinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 3 }));
             link.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FULLINFO"));
             link.MergeAttribute("data-bs-toggle", "tooltip");
 

@@ -68,7 +68,7 @@ public class BoardsModel : AdminPage
     /// </summary>
     public IActionResult OnGet()
     {
-        return !this.PageBoardContext.PageUser.UserFlags.IsHostAdmin ? this.Get<LinkBuilder>().AccessDenied() : this.BindData();
+        return !this.PageBoardContext.PageUser.UserFlags.IsHostAdmin ? this.Get<ILinkBuilder>().AccessDenied() : this.BindData();
     }
 
     /// <summary>

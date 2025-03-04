@@ -316,8 +316,8 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         link.MergeAttribute(
             HtmlAttribute.Href,
             parameter is not null
-                ? this.Get<LinkBuilder>().GetLink(page, parameter)
-                : this.Get<LinkBuilder>().GetLink(page));
+                ? this.Get<ILinkBuilder>().GetLink(page, parameter)
+                : this.Get<ILinkBuilder>().GetLink(page));
 
         link.MergeAttribute("data-bs-toggle", "tooltip");
         link.MergeAttribute(HtmlAttribute.Title, getText);

@@ -173,7 +173,7 @@ public static class HostMenuHtmlHelper
             RenderMenuItem(
                 cssClassItem,
                 context.Get<ILocalization>().GetText(page, "HEADER_SERVER_INFO"),
-                context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "ServerInfo" }),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "ServerInfo" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_ServerInfo,
                 false,
                 "server"));
@@ -183,7 +183,7 @@ public static class HostMenuHtmlHelper
             RenderMenuItem(
                 cssClassItem,
                 context.Get<ILocalization>().GetText(page, "HEADER_SETUP"),
-                context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Setup" }),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Setup" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Setup,
                 false,
                 "gears"));
@@ -193,7 +193,7 @@ public static class HostMenuHtmlHelper
             RenderMenuItem(
                 cssClassItem,
                 context.Get<ILocalization>().GetText(page, "HOST_FEATURES"),
-                context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Features" }),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Features" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Features,
                 false,
                 "wand-sparkles"));
@@ -203,7 +203,7 @@ public static class HostMenuHtmlHelper
             RenderMenuItem(
                 cssClassItem,
                 context.Get<ILocalization>().GetText(page, "HOST_DISPLAY"),
-                context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Display" }),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Display" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Display,
                 false,
                 "display"));
@@ -213,7 +213,7 @@ public static class HostMenuHtmlHelper
             RenderMenuItem(
                 cssClassItem,
                 context.Get<ILocalization>().GetText(page, "HOST_ADVERTS"),
-                context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Adverts" }),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Adverts" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Adverts,
                 false,
                 "rectangle-ad"));
@@ -223,7 +223,7 @@ public static class HostMenuHtmlHelper
             RenderMenuItem(
                 cssClassItem,
                 context.Get<ILocalization>().GetText(page, "HOST_PERMISSION"),
-                context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Permission" }),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Permission" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Permission,
                 false,
                 "user-lock"));
@@ -233,7 +233,7 @@ public static class HostMenuHtmlHelper
             RenderMenuItem(
                 cssClassItem,
                 context.Get<ILocalization>().GetText(page, "HOST_AVATARS"),
-                context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Avatars" }),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Avatars" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Avatars,
                 false,
                 "user-tie"));
@@ -243,7 +243,7 @@ public static class HostMenuHtmlHelper
             RenderMenuItem(
                 cssClassItem,
                 context.Get<ILocalization>().GetText(page, "HOST_CACHE"),
-                context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Cache" }),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Cache" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Cache,
                 false,
                 "memory"));
@@ -253,7 +253,7 @@ public static class HostMenuHtmlHelper
             RenderMenuItem(
                 cssClassItem,
                 context.Get<ILocalization>().GetText(page, "HOST_SEARCH"),
-                context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Search" }),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Search" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Search,
                 false,
                 "magnifying-glass"));
@@ -263,7 +263,7 @@ public static class HostMenuHtmlHelper
             RenderMenuItem(
                 cssClassItem,
                 context.Get<ILocalization>().GetText(page, "HOST_LOG"),
-                context.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Log" }),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_HostSettings, new { tab = "Log" }),
                 context.CurrentForumPage.PageName == ForumPages.Host_Log,
                 false,
                 "book"));

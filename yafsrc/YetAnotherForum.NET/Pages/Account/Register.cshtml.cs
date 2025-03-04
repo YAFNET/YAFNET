@@ -97,7 +97,7 @@ public class RegisterModel : AccountPage
 
         if (this.PageBoardContext.BoardSettings.DisableRegistrations)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
         }
 
         if (this.ErrorMessage.IsSet())
@@ -159,7 +159,7 @@ public class RegisterModel : AccountPage
         if (userId is null)
         {
             // something is seriously wrong here -- redirect to failure...
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
         }
 
         this.SaveCustomProfile(userId.Value);

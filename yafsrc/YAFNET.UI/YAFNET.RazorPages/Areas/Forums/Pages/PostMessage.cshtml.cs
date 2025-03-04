@@ -77,7 +77,7 @@ public class PostMessageModel : ForumPage
     public IActionResult OnPostCancel()
     {
         // reply to existing topic or editing of existing topic
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Posts,
            new {t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName});
     }
@@ -181,24 +181,24 @@ public class PostMessageModel : ForumPage
         // in case topic is deleted or not existent
         if (this.PageBoardContext.PageTopic is null)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.Input = new PostMessageInputModel();
 
         if (this.PageBoardContext.PageForumID == 0)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         if (!this.PageBoardContext.ForumPostAccess && !this.PageBoardContext.ForumReplyAccess)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         if (this.PageBoardContext.PageTopic.TopicFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         // we reply to a post with a quote
@@ -218,12 +218,12 @@ public class PostMessageModel : ForumPage
 
                 if (this.quotedMessage.TopicID != this.PageBoardContext.PageTopicID)
                 {
-                    return this.Get<LinkBuilder>().AccessDenied();
+                    return this.Get<ILinkBuilder>().AccessDenied();
                 }
 
                 if (!this.CanQuotePostCheck(this.PageBoardContext.PageTopic))
                 {
-                    return this.Get<LinkBuilder>().AccessDenied();
+                    return this.Get<ILinkBuilder>().AccessDenied();
                 }
             }
         }
@@ -449,7 +449,7 @@ public class PostMessageModel : ForumPage
             }
 
             // regular redirect...
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Post,
                 new {m = newMessage.ID, name = this.PageBoardContext.PageTopic.TopicName});
         }
@@ -465,15 +465,15 @@ public class PostMessageModel : ForumPage
         }
 
         // Tell user that his message will have to be approved by a moderator
-        var url = this.Get<LinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
+        var url = this.Get<ILinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
 
         if (this.PageBoardContext.PageTopicID > 0 && this.PageBoardContext.PageTopic.NumPosts > 1)
         {
-            url = this.Get<LinkBuilder>().GetTopicLink(
+            url = this.Get<ILinkBuilder>().GetTopicLink(
                 this.PageBoardContext.PageTopic);
         }
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Info, new {i = 1, url = HttpUtility.UrlEncode(url)});
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Info, new {i = 1, url = HttpUtility.UrlEncode(url)});
     }
 
     /// <summary>

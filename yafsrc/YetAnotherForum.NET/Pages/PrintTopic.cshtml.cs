@@ -73,7 +73,7 @@ public class PrintTopicModel : ForumPage
     {
         if (!t.HasValue || !this.PageBoardContext.ForumReadAccess)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         var showDeleted = this.PageBoardContext.BoardSettings.ShowDeletedMessagesToAll;

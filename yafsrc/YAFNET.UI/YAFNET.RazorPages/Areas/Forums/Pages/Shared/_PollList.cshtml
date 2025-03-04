@@ -330,7 +330,7 @@
                                     {
                                         <a button-size="Small"
                                            class="me-1"
-                                           href="@(Current.Get<LinkBuilder>().GetLink(
+                                           href="@(Current.Get<ILinkBuilder>().GetLink(
                                                      ForumPages.PollEdit,
                                                      new {f = Current.PageForumID, t = Current.PageTopicID, pollId = poll.ID}))"
                                            text-localized-tag="EDITPOLL"
@@ -366,7 +366,7 @@
         <div class="col">
             <a text-localized-tag="CREATEPOLL"
                icon="poll-h"
-               href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.PollEdit, paramsToSend))"
+               href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.PollEdit, paramsToSend))"
                button-style="Secondary"
                class="mb-3"></a>
         </div>

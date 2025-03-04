@@ -12,7 +12,7 @@
 @if (Current.BoardSettings.ShowQuickSearch && BoardContext.Current.Get<IPermissions>().Check(Current.BoardSettings.SearchPermissions))
 {
     <script>
-    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.DoQuickSearchJs(Current.Get<LinkBuilder>().GetLink(ForumPages.Search))))
+    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.DoQuickSearchJs(Current.Get<ILinkBuilder>().GetLink(ForumPages.Search))))
 </script>
 
     <div class="d-flex">

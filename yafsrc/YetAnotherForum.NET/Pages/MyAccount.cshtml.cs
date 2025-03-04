@@ -99,7 +99,7 @@ public class MyAccountModel : ForumPageRegistered
     {
         this.PageBoardContext.PageLinks.AddLink(
             this.PageBoardContext.PageUser.DisplayOrUserName(),
-            this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.MyAccount));
     }
 
     /// <summary>

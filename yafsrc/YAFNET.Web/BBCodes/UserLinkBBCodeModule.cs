@@ -72,7 +72,7 @@ public class UserLinkBBCodeModule : BBCodeControl
 
             var link = new TagBuilder(HtmlTag.A);
 
-            link.MergeAttribute(HtmlAttribute.Href, this.Get<LinkBuilder>().GetUserProfileLink(boardUser.ID, boardUser.DisplayOrUserName()));
+            link.MergeAttribute(HtmlAttribute.Href, this.Get<ILinkBuilder>().GetUserProfileLink(boardUser.ID, boardUser.DisplayOrUserName()));
 
             link.AddCssClass("link-light");
 

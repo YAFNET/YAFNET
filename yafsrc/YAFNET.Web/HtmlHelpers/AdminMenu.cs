@@ -66,7 +66,7 @@ public static class AdminMenuHtmlHelper
             RenderMenuItem(
                 "dropdown-item",
                 context.Get<ILocalization>().GetText("ADMINMENU", "ADMIN_ADMIN"),
-                context.Get<LinkBuilder>().GetLink(ForumPages.Admin_Admin),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Admin),
                 context.CurrentForumPage.PageName == ForumPages.Admin_Admin,
                 false,
                 "tachometer-alt"));
@@ -118,7 +118,7 @@ public static class AdminMenuHtmlHelper
             RenderMenuItem(
                 "dropdown-item",
                 "Test Generator",
-                context.Get<LinkBuilder>().GetLink(ForumPages.Admin_TestData),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_TestData),
                 context.CurrentForumPage.PageName == ForumPages.Admin_TestData,
                 false,
                 "vial-virus"));
@@ -235,7 +235,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_BoardAnnouncement"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_BoardAnnouncement),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_BoardAnnouncement),
                     context.CurrentForumPage.PageName == ForumPages.Admin_BoardAnnouncement,
                     false,
                     "bullhorn"));
@@ -248,7 +248,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item dropdown",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_boardsettings"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_Settings),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Settings),
                     context.CurrentForumPage.PageName == ForumPages.Admin_Settings,
                     false,
                     "cogs"));
@@ -261,7 +261,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_forums"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_Forums),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Forums),
                     context.CurrentForumPage.PageName is ForumPages.Admin_Forums or ForumPages.Admin_EditForum or ForumPages.Admin_EditCategory,
                     false,
                     "comments"));
@@ -274,7 +274,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_replacewords"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_ReplaceWords),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_ReplaceWords),
                     context.CurrentForumPage.PageName == ForumPages.Admin_ReplaceWords,
                     false,
                     "sticky-note"));
@@ -287,7 +287,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_bbcode"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_BBCodes),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_BBCodes),
                     context.CurrentForumPage.PageName is ForumPages.Admin_BBCodes or ForumPages.Admin_EditBBCode,
                     false,
                     "plug"));
@@ -300,7 +300,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_Languages"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_Languages),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Languages),
                     context.CurrentForumPage.PageName is ForumPages.Admin_Languages or ForumPages.Admin_EditLanguage,
                     false,
                     "language"));
@@ -353,7 +353,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_spamlog"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_SpamLog),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_SpamLog),
                     context.CurrentForumPage.PageName == ForumPages.Admin_SpamLog,
                     false,
                     "book"));
@@ -366,7 +366,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_SpamWords"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_SpamWords),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_SpamWords),
                     context.CurrentForumPage.PageName == ForumPages.Admin_SpamWords,
                     false,
                     "hand-paper"));
@@ -379,7 +379,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_BannedEmail"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_BannedEmails),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_BannedEmails),
                     context.CurrentForumPage.PageName == ForumPages.Admin_BannedEmails,
                     false,
                     "hand-paper"));
@@ -392,7 +392,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_BannedIp"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_BannedIps),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_BannedIps),
                     context.CurrentForumPage.PageName == ForumPages.Admin_BannedIps,
                     false,
                     "hand-paper"));
@@ -405,7 +405,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_BannedName"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_BannedNames),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_BannedNames),
                     context.CurrentForumPage.PageName == ForumPages.Admin_BannedNames,
                     false,
                     "hand-paper"));
@@ -418,7 +418,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "ADMIN_BANNED_USERAGENTS"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_BannedUserAgents),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_BannedUserAgents),
                     context.CurrentForumPage.PageName == ForumPages.Admin_BannedUserAgents,
                     false,
                     "user-secret"));
@@ -469,7 +469,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_ProfileDefinitions"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_ProfileDefinitions),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_ProfileDefinitions),
                     context.CurrentForumPage.PageName == ForumPages.Admin_ProfileDefinitions,
                     false,
                     "id-card"));
@@ -482,7 +482,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_AccessMasks"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_AccessMasks),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_AccessMasks),
                     context.CurrentForumPage.PageName is ForumPages.Admin_AccessMasks or ForumPages.Admin_EditAccessMask,
                     false,
                     "universal-access"));
@@ -495,7 +495,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_Groups"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_Groups),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Groups),
                     context.CurrentForumPage.PageName is ForumPages.Admin_Groups or ForumPages.Admin_EditGroup,
                     false,
                     "users"));
@@ -508,7 +508,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_Users"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_Users),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Users),
                     context.CurrentForumPage.PageName is ForumPages.Admin_EditUser or ForumPages.Admin_Users,
                     false,
                     "users"));
@@ -521,7 +521,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_Ranks"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_Ranks),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Ranks),
                     context.CurrentForumPage.PageName is ForumPages.Admin_Ranks or ForumPages.Admin_EditRank,
                     false,
                     "graduation-cap"));
@@ -534,7 +534,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_Medals"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_Medals),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Medals),
                     context.CurrentForumPage.PageName is ForumPages.Admin_Medals or ForumPages.Admin_EditMedal,
                     false,
                     "medal"));
@@ -547,7 +547,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_Mail"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_Mail),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Mail),
                     context.CurrentForumPage.PageName == ForumPages.Admin_Mail,
                     false,
                     "at"));
@@ -560,7 +560,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_Digest"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_Digest),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Digest),
                     context.CurrentForumPage.PageName == ForumPages.Admin_Digest,
                     false,
                     "envelope"));
@@ -613,7 +613,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_Attachments"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_Attachments),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Attachments),
                     context.CurrentForumPage.PageName == ForumPages.Admin_Attachments,
                     false,
                     "paperclip"));
@@ -626,7 +626,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_Tags"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_Tags),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Tags),
                     context.CurrentForumPage.PageName == ForumPages.Admin_Tags,
                     false,
                     "tags"));
@@ -639,7 +639,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_Prune"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_Prune),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Prune),
                     context.CurrentForumPage.PageName == ForumPages.Admin_Prune,
                     false,
                     "trash"));
@@ -652,7 +652,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_Restore"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_Restore),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Restore),
                     context.CurrentForumPage.PageName == ForumPages.Admin_Restore,
                     false,
                     "trash-restore"));
@@ -665,7 +665,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_Pm"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_Pm),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Pm),
                     context.CurrentForumPage.PageName == ForumPages.Admin_Pm,
                     false,
                     "envelope-square"));
@@ -678,7 +678,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_TaskManager"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_TaskManager),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_TaskManager),
                     context.CurrentForumPage.PageName == ForumPages.Admin_TaskManager,
                     false,
                     "tasks"));
@@ -691,7 +691,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_EventLog"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_EventLog),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EventLog),
                     context.CurrentForumPage.PageName == ForumPages.Admin_EventLog,
                     false,
                     "book"));
@@ -704,7 +704,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_RestartApp"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_RestartApp),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_RestartApp),
                     context.CurrentForumPage.PageName == ForumPages.Admin_RestartApp,
                     false,
                     "sync"));
@@ -755,7 +755,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_ReIndex"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_ReIndex),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_ReIndex),
                     context.CurrentForumPage.PageName == ForumPages.Admin_ReIndex,
                     false,
                     "database"));
@@ -768,7 +768,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_RunSql"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_RunSql),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_RunSql),
                     context.CurrentForumPage.PageName == ForumPages.Admin_RunSql,
                     false,
                     "database"));
@@ -819,7 +819,7 @@ public static class AdminMenuHtmlHelper
                 RenderMenuItem(
                     "dropdown-item dropdown",
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_Version"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_Version),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Version),
                     context.CurrentForumPage.PageName == ForumPages.Admin_Version,
                     false,
                     "info"));

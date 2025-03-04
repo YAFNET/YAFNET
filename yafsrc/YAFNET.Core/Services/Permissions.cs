@@ -81,11 +81,11 @@ public class Permissions : IPermissions, IHaveServiceLocator
 
         if (permission != ViewPermissions.RegisteredUsers)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
-        return this.Get<BoardConfiguration>().AllowLoginAndLogoff ? this.Get<LinkBuilder>().Redirect(ForumPages.Account_Login) :
+        return this.Get<BoardConfiguration>().AllowLoginAndLogoff ? this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Login) :
                    // fall-through with no access...
-                   this.Get<LinkBuilder>().AccessDenied();
+                   this.Get<ILinkBuilder>().AccessDenied();
     }
 }

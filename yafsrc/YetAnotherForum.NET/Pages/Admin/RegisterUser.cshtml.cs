@@ -64,7 +64,7 @@ public class RegisterUserModel : AdminPage
 
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_USERS", "TITLE"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Users));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Users));
 
         // current page label (no link)
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_REGUSER", "TITLE"), string.Empty);
@@ -134,7 +134,7 @@ public class RegisterUserModel : AdminPage
             this.GetTextFormatted("MSG_CREATED", this.Input.UserName),
             MessageTypes.success);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Users);
     }
 
     /// <summary>

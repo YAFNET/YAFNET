@@ -119,7 +119,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
     {
         if (!this.PageBoardContext.BoardSettings.EnableAlbum)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         int? albumId = null;
@@ -227,12 +227,12 @@ public class EditAlbumImagesModel : ForumPageRegistered
     {
         if (albumId.HasValue)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Album,
                 new { u = this.PageBoardContext.PageUserID, a = albumId });
         }
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Albums, new { u = this.PageBoardContext.PageUserID });
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Albums, new { u = this.PageBoardContext.PageUserID });
     }
 
     /// <summary>
@@ -254,7 +254,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
             if (this.AllowedImages > 0 && albumSize >= this.AllowedImages)
             {
                 // Albums count. If we reached limit then we go to info page.
-                return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+                return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
             }
 
             this.Images = [];
@@ -302,7 +302,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
         // clear the cache for this user to update albums|images stats...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.EditAlbumImages);
     }
 
     /// <summary>

@@ -70,7 +70,7 @@ public class UserSuspendCheckAttribute : ResultFilterAttribute, IHaveServiceLoca
             }
             else
             {
-                context.Result = this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Suspended);
+                context.Result = this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Suspended);
             }
         }
 

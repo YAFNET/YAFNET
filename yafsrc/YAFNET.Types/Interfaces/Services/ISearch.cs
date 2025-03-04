@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using YAF.Types.Models;
-
 namespace YAF.Types.Interfaces.Services;
 
 using System.Collections.Generic;

@@ -80,7 +80,7 @@ public class AlbumsModel : ForumPage
     {
         if (!this.PageBoardContext.BoardSettings.EnableAlbum)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.AlbumUser = this.GetRepository<User>().GetById(u);
@@ -88,12 +88,12 @@ public class AlbumsModel : ForumPage
         if (this.AlbumUser is null)
         {
             // No such user exists
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         if (!this.AlbumUser.UserFlags.IsApproved)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         var title = this.GetTextFormatted("ALBUMS_HEADER_TEXT", this.AlbumUser.DisplayOrUserName(), string.Empty);
@@ -126,7 +126,7 @@ public class AlbumsModel : ForumPage
         {
             if (this.AlbumUser.ID != this.PageBoardContext.PageUserID)
             {
-                return this.Get<LinkBuilder>().AccessDenied();
+                return this.Get<ILinkBuilder>().AccessDenied();
             }
 
             this.Albums = [];

@@ -70,7 +70,7 @@ public class MyMessagesModel : ForumPageRegistered
         // check if this feature is disabled
         if (!this.PageBoardContext.BoardSettings.AllowPrivateMessages)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Disabled);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Disabled);
         }
 
         return await this.BindDataAsync(u);
@@ -81,7 +81,7 @@ public class MyMessagesModel : ForumPageRegistered
     /// </summary>
     public override void CreatePageLinks()
     {
-        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<ILinkBuilder>().GetLink(ForumPages.MyAccount));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("PM","TITLE"));
     }
 
@@ -117,7 +117,7 @@ public class MyMessagesModel : ForumPageRegistered
             return this.OpenUserChat(conversationUser);
         }
 
-        return this.Users.NullOrEmpty() ? this.Get<LinkBuilder>().Redirect(ForumPages.MyAccount) :
+        return this.Users.NullOrEmpty() ? this.Get<ILinkBuilder>().Redirect(ForumPages.MyAccount) :
                    // If no user is selected open
                    this.OpenUserChat(this.Users[^1]);
     }

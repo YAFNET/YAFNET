@@ -231,7 +231,7 @@ public class LoginModel : AccountPage
 
         this.Get<ISessionService>().SetPageData(user);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Account_Authorize);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Authorize);
     }
 
     /// <summary>
@@ -239,7 +239,7 @@ public class LoginModel : AccountPage
     /// </summary>
     public IActionResult OnPostRegister()
     {
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             this.PageBoardContext.BoardSettings.ShowRulesForRegistration
                 ? ForumPages.Privacy
                 : ForumPages.Account_Register);
@@ -256,7 +256,7 @@ public class LoginModel : AccountPage
     /// </returns>
     public Task<ActionResult> OnPostAuthAsync(string auth)
     {
-        var redirectUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login, new { auth, handler = "Callback" });
+        var redirectUrl = this.Get<ILinkBuilder>().GetLink(ForumPages.Account_Login, new { auth, handler = "Callback" });
 
         var properties = this.Get<SignInManager<AspNetUsers>>()
             .ConfigureExternalAuthenticationProperties(auth, redirectUrl);
@@ -293,12 +293,12 @@ public class LoginModel : AccountPage
             "VERIFICATION_EMAIL_SUBJECT",
             this.PageBoardContext.BoardSettings.Name);
 
-        verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+        verifyEmail.TemplateParams["{link}"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
             ForumPages.Account_Approve,
             new { code = checkMail.Hash });
         verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
         verifyEmail.TemplateParams["{forumname}"] = this.PageBoardContext.BoardSettings.Name;
-        verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
+        verifyEmail.TemplateParams["{forumlink}"] = this.Get<ILinkBuilder>().ForumUrl;
 
         await verifyEmail.SendEmailAsync(new MailboxAddress(this.Input.UserName, checkMail.Email), subject);
 

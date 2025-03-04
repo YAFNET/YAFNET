@@ -75,7 +75,7 @@ public class AlbumModel : ForumPage
     /// </param>
     public IActionResult OnGet(int u, int a)
     {
-        return !this.PageBoardContext.BoardSettings.EnableAlbum ? this.Get<LinkBuilder>().AccessDenied() : this.BindData(u, a);
+        return !this.PageBoardContext.BoardSettings.EnableAlbum ? this.Get<ILinkBuilder>().AccessDenied() : this.BindData(u, a);
     }
 
     /// <summary>
@@ -129,12 +129,12 @@ public class AlbumModel : ForumPage
         if (this.AlbumUser is null)
         {
             // No such user exists
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         if (!this.AlbumUser.UserFlags.IsApproved)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         // set the Data table
@@ -142,7 +142,7 @@ public class AlbumModel : ForumPage
 
         // Generate the page links.
         this.PageBoardContext.PageLinks.AddUser(this.AlbumUser.ID, this.AlbumUser.DisplayOrUserName());
-        this.PageBoardContext.PageLinks.AddLink(this.GetText("ALBUMS"), this.Get<LinkBuilder>().GetLink(ForumPages.Albums, new { u = this.AlbumUser.ID }));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ALBUMS"), this.Get<ILinkBuilder>().GetLink(ForumPages.Albums, new { u = this.AlbumUser.ID }));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
         if (album != null)
@@ -151,7 +151,7 @@ public class AlbumModel : ForumPage
         }
         else
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         // set the Data table
@@ -162,7 +162,7 @@ public class AlbumModel : ForumPage
 
         if (albumImageList.NullOrEmpty())
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.Images = albumImageList;

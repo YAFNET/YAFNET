@@ -69,12 +69,12 @@ public class EmailTopicModel : ForumPage
     {
         if (!t.HasValue)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         if (this.PageBoardContext.PageTopic is null)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.PageBoardContext.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
@@ -91,14 +91,14 @@ public class EmailTopicModel : ForumPage
 
         if (!this.PageBoardContext.ForumReadAccess || !this.PageBoardContext.BoardSettings.AllowEmailTopic)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.Input.Subject = this.PageBoardContext.PageTopic.TopicName;
 
         var emailTopic = new TemplateEmail("EMAILTOPIC") {
                                                              TemplateParams = {
-                                                                                  ["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+                                                                                  ["{link}"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
                                                                                       ForumPages.Posts,
                                                                                       new {
                                                                                           t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName
@@ -127,7 +127,7 @@ public class EmailTopicModel : ForumPage
             // send a change email message...
             await emailTopic.SendEmailAsync(MailboxAddress.Parse(this.Input.Email.Trim()), this.Input.Subject.Trim());
 
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Posts,
                 new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
         }

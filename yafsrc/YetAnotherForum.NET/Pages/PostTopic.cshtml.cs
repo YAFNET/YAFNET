@@ -89,7 +89,7 @@ public class PostTopicModel : ForumPage
     public IActionResult OnPostCancel()
     {
         // new topic -- cancel back to forum
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Topics,
             new {f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name});
     }
@@ -193,12 +193,12 @@ public class PostTopicModel : ForumPage
 
         if (this.PageBoardContext.PageForumID == 0)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         if (!this.PageBoardContext.ForumPostAccess)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.Input.Priority = 0;
@@ -410,13 +410,13 @@ public class PostTopicModel : ForumPage
             if (!attachPollParameter || !this.Input.AddPoll)
             {
                 // regular redirect...
-                return this.Get<LinkBuilder>().Redirect(
+                return this.Get<ILinkBuilder>().Redirect(
                     ForumPages.Post,
                     new {m = newMessage.ID, name = newMessage.Topic.TopicName});
             }
 
             // poll edit redirect...
-            return this.Get<LinkBuilder>().Redirect(ForumPages.PollEdit, new {t = newMessage.TopicID});
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.PollEdit, new {t = newMessage.TopicID});
         }
 
         // Not Approved
@@ -436,16 +436,16 @@ public class PostTopicModel : ForumPage
         }
 
         // Tell user that his message will have to be approved by a moderator
-        var url = this.Get<LinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
+        var url = this.Get<ILinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
 
         if (!attachPollParameter)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Info,
                 new {i = 1, url = HttpUtility.UrlEncode(url)});
         }
 
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.PollEdit,
             new {ra = 1, t = newMessage.TopicID, f = this.PageBoardContext.PageForumID});
     }

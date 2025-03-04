@@ -108,19 +108,19 @@ public class DeleteMessageModel : ForumPage
     {
         if (!m.HasValue)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         if (this.PageBoardContext.PageMessage.IsNullOrEmptyField())
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.isModeratorChanged = this.PageBoardContext.PageUserID != this.PageBoardContext.PageMessage.UserID;
 
         if (!this.PageBoardContext.ForumModeratorAccess && this.isModeratorChanged)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         // delete message...
@@ -176,12 +176,12 @@ public class DeleteMessageModel : ForumPage
         // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
         if (topic is null)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Topics,
                 new {f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name});
         }
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new {t = topic.ID, name = topic.TopicName});
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Posts, new {t = topic.ID, name = topic.TopicName});
     }
 
     /// <summary>
@@ -194,7 +194,7 @@ public class DeleteMessageModel : ForumPage
             this.PageBoardContext.PageMessage.TopicID,
             this.PageBoardContext.PageMessage);
 
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Post,
             new {m = this.PageBoardContext.PageMessage.ID, name = this.PageBoardContext.PageTopic.TopicName});
     }

@@ -132,7 +132,7 @@ public class MembersModel : ForumPage
     public IActionResult OnPostReset()
     {
         // re-direct to self.
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Members);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Members);
     }
 
     /// <summary>

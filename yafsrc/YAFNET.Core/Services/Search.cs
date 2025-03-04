@@ -554,13 +554,13 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                    {
                        Topic = doc.Get("Topic"),
                        TopicId = doc.Get("TopicId").ToType<int>(),
-                       TopicUrl = this.Get<LinkBuilder>().GetTopicLink(doc.Get("TopicId").ToType<int>(), doc.Get("Topic")),
+                       TopicUrl = this.Get<ILinkBuilder>().GetTopicLink(doc.Get("TopicId").ToType<int>(), doc.Get("Topic")),
                        Posted = doc.Get("Posted"),
                        UserId = doc.Get("UserId").ToType<int>(),
                        UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
                        UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),
                        ForumName = doc.Get("ForumName"),
-                       ForumUrl = this.Get<LinkBuilder>().GetForumLink(
+                       ForumUrl = this.Get<ILinkBuilder>().GetForumLink(
                            doc.Get("ForumId").ToType<int>(),
                            doc.Get("ForumName")),
                        UserStyle = doc.Get("AuthorStyle")
@@ -754,12 +754,12 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             TopicTags = doc.Get("TopicTags"),
             ForumId = doc.Get("ForumId").ToType<int>(),
             Description = doc.Get("Description"),
-            TopicUrl = this.Get<LinkBuilder>().GetTopicLink(
+            TopicUrl = this.Get<ILinkBuilder>().GetTopicLink(
                 doc.Get("TopicId").ToType<int>(),
                 doc.Get("Topic")),
-            MessageUrl = this.Get<LinkBuilder>().GetMessageLink(doc.Get("Topic"),
+            MessageUrl = this.Get<ILinkBuilder>().GetMessageLink(doc.Get("Topic"),
                 doc.Get("MessageId").ToType<int>()),
-            ForumUrl = this.Get<LinkBuilder>().GetForumLink(
+            ForumUrl = this.Get<ILinkBuilder>().GetForumLink(
                 doc.Get("ForumId").ToType<int>(),
                 doc.Get("ForumName")),
             UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),

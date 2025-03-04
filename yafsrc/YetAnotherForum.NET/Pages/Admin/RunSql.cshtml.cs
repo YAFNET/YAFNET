@@ -57,7 +57,7 @@ public class RunSqlModel : AdminPage
     {
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_ADMIN", "Administration"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Admin));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Admin));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_RUNSQL", "TITLE"), string.Empty);
     }
 

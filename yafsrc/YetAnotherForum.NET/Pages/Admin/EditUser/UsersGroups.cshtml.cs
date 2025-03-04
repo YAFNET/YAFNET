@@ -80,7 +80,7 @@ public class UsersGroupsModel : AdminPage
     {
         if (!BoardContext.Current.IsAdmin)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.Input = new UsersGroupsInputModel();
@@ -100,7 +100,7 @@ public class UsersGroupsModel : AdminPage
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {
                     u = this.Input.UserId
@@ -164,7 +164,7 @@ public class UsersGroupsModel : AdminPage
         // clear the cache for this user...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.Input.UserId));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View2" });
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View2" });
     }
 
     /// <summary>

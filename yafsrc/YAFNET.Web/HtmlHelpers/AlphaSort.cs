@@ -77,7 +77,7 @@ public static class AlphaSortHtmlHelper
 
                             link.MergeAttribute(
                                 HtmlAttribute.Href,
-                                context.Get<LinkBuilder>().GetLink(
+                                context.Get<ILinkBuilder>().GetLink(
                                     ForumPages.Members,
                                     new { letter = letter == '#' ? '_' : letter }));
 

@@ -993,12 +993,12 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "Benutzer-Anhänge"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Delete attachment(s)?"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Benutzer-Anhänge"
           }
         ]
       },
@@ -10673,14 +10673,6 @@
           {
             "@tag": "DISABLED",
             "#text": "Der Administrator hat diese Funktion gesperrt."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "Um dieses Forum benutzen zu können müssen Sie Javascript in ihrem Browser aktiviert haben."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "Diese JavaScript Version wird nicht unterstützt. Bitte Nutzen Sie eine Neuere Version."
           },
           {
             "@tag": "EXCEPTION",

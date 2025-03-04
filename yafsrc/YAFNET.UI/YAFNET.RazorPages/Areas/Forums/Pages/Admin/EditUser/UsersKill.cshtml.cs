@@ -110,7 +110,7 @@ public class UsersKillModel : AdminPage
     {
         if (!BoardContext.Current.IsAdmin)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.Input = new UsersKillInputModel
@@ -189,7 +189,7 @@ public class UsersKillModel : AdminPage
                     this.GetText("ADMIN_EDITUSER", "BOT_REPORTED_FAILED"),
                     MessageTypes.danger);
 
-                return this.Get<LinkBuilder>().Redirect(
+                return this.Get<ILinkBuilder>().Redirect(
                     ForumPages.Admin_EditUser,
                     new { u = this.Input.UserId, tab = "View9" });
             }
@@ -208,7 +208,7 @@ public class UsersKillModel : AdminPage
                             this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"),
                             MessageTypes.danger);
 
-                        return this.Get<LinkBuilder>().Redirect(
+                        return this.Get<ILinkBuilder>().Redirect(
                             ForumPages.Admin_EditUser,
                             new { u = this.Input.UserId, tab = "View9" });
                     }
@@ -221,7 +221,7 @@ public class UsersKillModel : AdminPage
                             this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
                             MessageTypes.danger);
 
-                        return this.Get<LinkBuilder>().Redirect(
+                        return this.Get<ILinkBuilder>().Redirect(
                             ForumPages.Admin_EditUser,
                             new { u = this.Input.UserId, tab = "View9" });
                     }
@@ -233,7 +233,7 @@ public class UsersKillModel : AdminPage
                             this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
                             MessageTypes.danger);
 
-                        return this.Get<LinkBuilder>().Redirect(
+                        return this.Get<ILinkBuilder>().Redirect(
                             ForumPages.Admin_EditUser,
                             new {u = this.Input.UserId, tab = "View9"});
                     }
@@ -245,7 +245,7 @@ public class UsersKillModel : AdminPage
                         this.GetTextFormatted("MSG_USER_KILLED", user.Item1.Name),
                         MessageTypes.success);
 
-                    return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
+                    return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Users);
                 }
 
                 break;
@@ -260,7 +260,7 @@ public class UsersKillModel : AdminPage
                 break;
         }
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View9" });
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View9" });
     }
 
     /// <summary>
@@ -324,7 +324,7 @@ public class UsersKillModel : AdminPage
                     "ADMIN_EDITUSER",
                     "LINK_USER_BAN",
                     user.ID,
-                    this.Get<LinkBuilder>().GetUserProfileLink(user.ID, name),
+                    this.Get<ILinkBuilder>().GetUserProfileLink(user.ID, name),
                     this.HtmlEncode(name));
 
                 this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageBoardContext.PageUserID);

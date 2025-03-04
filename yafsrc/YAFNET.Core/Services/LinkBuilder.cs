@@ -22,23 +22,19 @@
  * under the License.
  */
 
+namespace YAF.Core.Services;
+
 using System.Web;
 
 using Microsoft.AspNetCore.Routing;
 
 using YAF.Types.Objects;
-
-namespace YAF.Core.Services;
-
-using System.Collections.Generic;
-using System.Reflection;
-
 using YAF.Types.Models;
 
 /// <summary>
 /// Class with link building functions.
 /// </summary>
-public class LinkBuilder : IHaveServiceLocator
+public class LinkBuilder : IHaveServiceLocator, ILinkBuilder
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="LinkBuilder"/> class.
@@ -59,7 +55,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// <summary>
     /// Gets full URL to the Root of the Forum
     /// </summary>
-    public string ForumUrl => this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Index);
+    public string ForumUrl => this.Get<ILinkBuilder>().GetAbsoluteLink(ForumPages.Index);
 
     /// <summary>
     /// The get user profile link.
@@ -72,7 +68,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetUserProfileLink(User user)
     {
-        return this.Get<LinkBuilder>().GetLink(
+        return this.Get<ILinkBuilder>().GetLink(
             ForumPages.UserProfile,
             new {u = user.ID, name = user.DisplayOrUserName()});
     }
@@ -91,7 +87,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetUserProfileLink(int userId, string userName)
     {
-        return this.Get<LinkBuilder>().GetLink(ForumPages.UserProfile, new {u = userId, name = userName});
+        return this.Get<ILinkBuilder>().GetLink(ForumPages.UserProfile, new {u = userId, name = userName});
     }
 
     /// <summary>
@@ -105,7 +101,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetForumLink(Forum forum)
     {
-        return this.Get<LinkBuilder>().GetLink(ForumPages.Topics, new {f = forum.ID, name = forum.Name});
+        return this.Get<ILinkBuilder>().GetLink(ForumPages.Topics, new {f = forum.ID, name = forum.Name});
     }
 
     /// <summary>
@@ -122,7 +118,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetForumLink(int forumId, string forumName)
     {
-        return this.Get<LinkBuilder>().GetLink(
+        return this.Get<ILinkBuilder>().GetLink(
             ForumPages.Topics,
             new {f = forumId, name = forumName});
     }
@@ -141,7 +137,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetCategoryLink(int categoryId, string categoryName)
     {
-        return this.Get<LinkBuilder>().GetLink(
+        return this.Get<ILinkBuilder>().GetLink(
             ForumPages.Index,
             new {c = categoryId, name = categoryName});
     }
@@ -157,7 +153,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetTopicLink(Topic topic)
     {
-        return this.Get<LinkBuilder>().GetTopicLink(topic.ID, topic.TopicName);
+        return this.Get<ILinkBuilder>().GetTopicLink(topic.ID, topic.TopicName);
     }
 
     /// <summary>
@@ -176,7 +172,7 @@ public class LinkBuilder : IHaveServiceLocator
     {
         var topicSubject = HttpUtility.HtmlEncode(this.Get<IBadWordReplace>().Replace(topicName));
 
-        return this.Get<LinkBuilder>().GetLink(
+        return this.Get<ILinkBuilder>().GetLink(
             ForumPages.Posts,
             new {t = topicId, name = topicSubject });
     }
@@ -197,7 +193,7 @@ public class LinkBuilder : IHaveServiceLocator
     {
         var topicSubject = HttpUtility.HtmlEncode(this.Get<IBadWordReplace>().Replace(topic.TopicName));
 
-        return this.Get<LinkBuilder>().GetLink(
+        return this.Get<ILinkBuilder>().GetLink(
             ForumPages.Post,
             new { name = topicSubject, m = messageId });
     }
@@ -218,7 +214,7 @@ public class LinkBuilder : IHaveServiceLocator
     {
         var topicSubject = HttpUtility.HtmlEncode(this.Get<IBadWordReplace>().Replace(topicName));
 
-        return this.Get<LinkBuilder>().GetLink(
+        return this.Get<ILinkBuilder>().GetLink(
             ForumPages.Post,
             new { name = topicSubject, m = messageId });
     }
@@ -234,7 +230,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetLink(ForumPages page)
     {
-        return this.Get<LinkBuilder>().GetLink(page, null);
+        return this.Get<ILinkBuilder>().GetLink(page, null);
     }
 
     /// <summary>
@@ -282,7 +278,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetAbsoluteLink(ForumPages page)
     {
-        return this.Get<LinkBuilder>().GetAbsoluteLink(page, null);
+        return this.Get<ILinkBuilder>().GetAbsoluteLink(page, null);
     }
 
     /// <summary>
@@ -299,7 +295,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetAbsoluteLink(ForumPages page, object values)
     {
-        var url = this.Get<LinkBuilder>().GetLink(page, values);
+        var url = this.Get<ILinkBuilder>().GetLink(page, values);
 
         return $"{this.Get<BoardInfo>().ForumBaseUrl}{url}";
     }
@@ -309,7 +305,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </summary>
     public IActionResult AccessDenied()
     {
-        return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+        return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
     }
 
     /// <summary>
@@ -320,7 +316,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </param>
     public IActionResult Redirect(ForumPages page)
     {
-        return this.Get<LinkBuilder>().Redirect(page, null);
+        return this.Get<ILinkBuilder>().Redirect(page, null);
     }
 
     /// <summary>
@@ -346,9 +342,19 @@ public class LinkBuilder : IHaveServiceLocator
             routeValues.AddOrUpdate("area", this.Get<BoardConfiguration>().Area);
         }
 
-        return BoardContext.Current.CurrentForumPage != null
-                   ? BoardContext.Current.CurrentForumPage.RedirectToPage(page.GetPageName(), null, routeValues)
-                   : BoardContext.Current.CurrentForumController.RedirectToPage(page.GetPageName(), null, routeValues);
+        if (BoardContext.Current.CurrentForumPage is not null)
+        {
+            return BoardContext.Current.CurrentForumPage.RedirectToPage(page.GetPageName(), null, routeValues);
+        }
+
+        if (BoardContext.Current.CurrentForumController is not null)
+        {
+            return BoardContext.Current.CurrentForumController.RedirectToPage(page.GetPageName(), null, routeValues);
+        }
+
+        this.Get<IHttpContextAccessor>().HttpContext?.Response.Redirect(page.GetPageName());
+
+        return null;
     }
 
     /// <summary>
@@ -359,22 +365,8 @@ public class LinkBuilder : IHaveServiceLocator
     /// </param>
     public IActionResult RedirectInfoPage(InfoMessage infoMessage)
     {
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Info,
             new {info = infoMessage.ToType<int>()});
-    }
-
-    /// <summary>
-    /// Gets all route data.
-    /// </summary>
-    /// <param name="values">The values.</param>
-    /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
-    public IDictionary<string, string> GetAllRouteData(object values)
-    {
-        const BindingFlags bindingFlags = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance;
-
-        return values.GetType().GetProperties(bindingFlags).ToDictionary(
-            propInfo => propInfo.Name,
-            propInfo => propInfo.GetValue(values, null).ToString());
     }
 }

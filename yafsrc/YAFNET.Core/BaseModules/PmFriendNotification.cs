@@ -53,7 +53,7 @@ public class PmFriendNotification : BaseForumModule, IHandleEvent<ForumPagePostL
                 this.GetTextFormatted("UNREAD_MSG2", this.PageContext.UnreadPrivate),
                 this.GetText("COMMON", "YES"),
                 this.GetText("COMMON", "NO"),
-                this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages));
+                this.Get<ILinkBuilder>().GetLink(ForumPages.MyMessages));
 
             // Avoid Showing Both Popups
             return;
@@ -69,7 +69,7 @@ public class PmFriendNotification : BaseForumModule, IHandleEvent<ForumPagePostL
             this.GetTextFormatted("PENDINGBUDDIES2", this.PageContext.PendingBuddies),
             this.GetText("COMMON", "YES"),
             this.GetText("COMMON", "NO"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Friends));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Friends));
 
         this.Get<ISessionService>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
     }

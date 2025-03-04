@@ -22,7 +22,7 @@
                 {
                     <span class="badge text-bg-primary">
                         @Html.Icon("tag")
-                        <a href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.Search, new { tag = tag.Item2.TagName} ))"
+                        <a href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Search, new { tag = tag.Item2.TagName} ))"
                            class="link-light">@(tag.Item2.TagName)
                         </a>
                     </span>

@@ -136,7 +136,7 @@ public class GroupsModel : AdminPage
             0);
 
         // redirect to newly created role
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditGroup, new { i = groupId });
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditGroup, new { i = groupId });
     }
 
     public void OnPostDeleteNet(string role)

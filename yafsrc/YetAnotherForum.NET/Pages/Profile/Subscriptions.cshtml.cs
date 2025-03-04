@@ -94,7 +94,7 @@ public class SubscriptionsModel : ProfilePage
     /// </summary>
     public override void CreatePageLinks()
     {
-        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<ILinkBuilder>().GetLink(ForumPages.MyAccount));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("SUBSCRIPTIONS","TITLE"), string.Empty);
     }
 
@@ -202,7 +202,7 @@ public class SubscriptionsModel : ProfilePage
             this.PageBoardContext.SessionNotify(this.GetText("WARN_SELECTFORUMS"), MessageTypes.warning);
         }
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Profile_Subscriptions);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Profile_Subscriptions);
     }
 
     /// <summary>
@@ -227,7 +227,7 @@ public class SubscriptionsModel : ProfilePage
             this.PageBoardContext.SessionNotify(this.GetText("WARN_SELECTTOPICS"), MessageTypes.warning);
         }
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Profile_Subscriptions);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Profile_Subscriptions);
     }
 
     /// <summary>

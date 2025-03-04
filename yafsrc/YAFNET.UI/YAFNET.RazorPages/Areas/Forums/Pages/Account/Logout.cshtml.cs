@@ -84,6 +84,6 @@ public class LogoutModel : AccountPage
 
         this.logger.LogInformation("User logged out.");
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
     }
 }

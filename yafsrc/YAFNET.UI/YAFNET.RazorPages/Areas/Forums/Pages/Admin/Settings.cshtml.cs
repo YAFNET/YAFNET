@@ -174,7 +174,7 @@ public class SettingsModel : AdminPage
         // Clearing cache with old users permissions data to get new default styles...
         this.Get<IDataCache>().Remove(x => x.StartsWith(Constants.Cache.ActiveUserLazyData));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Admin);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Admin);
     }
 
     /// <summary>

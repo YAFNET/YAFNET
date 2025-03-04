@@ -203,7 +203,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     {
         this.SessionMessageService.AddSession(message, messageType);
 
-        return this.CurrentForumPage.Get<LinkBuilder>().Redirect(redirectPage);
+        return this.CurrentForumPage.Get<ILinkBuilder>().Redirect(redirectPage);
     }
 
     /// <summary>

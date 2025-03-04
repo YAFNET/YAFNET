@@ -44,6 +44,6 @@ public class PrivacyModel : ForumPage
     public IActionResult OnPost()
     {
         // Go to the Register Page
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Account_Register, true);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Register, true);
     }
 }

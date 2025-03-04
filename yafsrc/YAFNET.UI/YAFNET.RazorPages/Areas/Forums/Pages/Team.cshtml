@@ -65,7 +65,7 @@
                                                        title-localized-tag="PM_TITLE"
                                                        title-param0="@user.DisplayOrUserName()"
                                                        bs-toggle="tooltip"
-                                                       href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, new { u = user.ID }))">
+                                                       href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.MyMessages, new { u = user.ID }))">
                                                     </a>
                                                 }
                                             }
@@ -86,7 +86,7 @@
                                                        title-localized-tag="EMAIL_TITLE"
                                                        title-param0="@user.DisplayOrUserName()"
                                                        bs-toggle="tooltip"
-                                                       href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Email, new { u = user.ID }))">
+                                                       href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Email, new { u = user.ID }))">
                                                     </a>
                                                 }
                                             }
@@ -104,7 +104,7 @@
                                                title-localized-page="PROFILE"
                                                title-localized-tag="ADMIN_USER"
                                                bs-toggle="tooltip"
-                                               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = user.ID }))"></a>
+                                               href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = user.ID }))"></a>
                                         }
 
                                     </form>
@@ -186,7 +186,7 @@
                                                            title-localized-tag="PM_TITLE"
                                                            title-param0="@Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? mod.DisplayName : mod.Name)"
                                                            bs-toggle="tooltip"
-                                                           href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, new { u = mod.ModeratorID }))">
+                                                           href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.MyMessages, new { u = mod.ModeratorID }))">
                                                         </a>
                                                     }
                                                 }
@@ -207,7 +207,7 @@
                                                            title-localized-tag="EMAIL_TITLE"
                                                            title-param0="@Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? mod.DisplayName : mod.Name)"
                                                            bs-toggle="tooltip"
-                                                           href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Email, new { u = mod.ModeratorID }))">
+                                                           href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Email, new { u = mod.ModeratorID }))">
                                                         </a>
                                                     }
                                                 }
@@ -225,7 +225,7 @@
                                                    title-localized-page="PROFILE"
                                                    title-localized-tag="ADMIN_USER"
                                                    bs-toggle="tooltip"
-                                                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = mod.ModeratorID }))"></a>
+                                                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = mod.ModeratorID }))"></a>
                                             }
 
                                         </form>

@@ -82,7 +82,7 @@ public class EditMedalModel : AdminPage
 
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_MEDALS", "TITLE"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Medals));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Medals));
 
         // current page label (no link)
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITMEDAL", "TITLE"), string.Empty);
@@ -183,7 +183,7 @@ public class EditMedalModel : AdminPage
         return string.Format(
             "<a href=\"{1}\">{0}</a>",
             item.Item3.Name,
-            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditGroup, new {i = item.Item3.ID }));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditGroup, new {i = item.Item3.ID }));
     }
 
     /// <summary>
@@ -201,7 +201,7 @@ public class EditMedalModel : AdminPage
             "<a href=\"{2}\">{0}&nbsp;({1})</a>",
             this.HtmlEncode(item.Item3.DisplayName),
             this.HtmlEncode(item.Item3.Name),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, new {u = item.Item3.ID }));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditUser, new {u = item.Item3.ID }));
     }
 
     /// <summary>
@@ -269,7 +269,7 @@ public class EditMedalModel : AdminPage
             flags.BitValue);
 
         // go back to medals administration
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Medals);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Medals);
     }
 
     public async Task OnPostRemoveUserAsync(int id)

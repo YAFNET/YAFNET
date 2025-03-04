@@ -70,12 +70,12 @@ public class EmailModel : ForumPage
     {
         if (!u.HasValue)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         if (this.AspNetUser is null || !this.PageBoardContext.BoardSettings.AllowEmailSending)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         // get user data...
@@ -84,13 +84,13 @@ public class EmailModel : ForumPage
         if (this.EmailUser is null)
         {
             // No such user exists
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.PageBoardContext.PageLinks.AddUser(this.EmailUser.ID, this.EmailUser.DisplayOrUserName());
         this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-        return !this.EmailUser.UserFlags.IsApproved ? this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid) : this.Page();
+        return !this.EmailUser.UserFlags.IsApproved ? this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid) : this.Page();
     }
 
     /// <summary>
@@ -119,7 +119,7 @@ public class EmailModel : ForumPage
                 this.Input.Body.Trim());
 
             // redirect to profile page...
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.UserProfile,
                 new { u, name = this.Get<IUserDisplayName>().GetNameById(u) });
         }

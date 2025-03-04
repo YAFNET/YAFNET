@@ -90,7 +90,7 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
 
                     var topic = BoardContext.Current.GetRepository<Topic>().GetTopicFromMessage(postId.ToType<int>());
 
-                    topicLink = BoardContext.Current.Get<LinkBuilder>().GetMessageLink(topic, postId.ToType<int>());
+                    topicLink = BoardContext.Current.Get<ILinkBuilder>().GetMessageLink(topic, postId.ToType<int>());
                 }
                 catch (Exception)
                 {

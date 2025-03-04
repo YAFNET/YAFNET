@@ -91,7 +91,7 @@ public class EditAvatarModel : ProfilePage
     {
         this.PageBoardContext.PageLinks.AddLink(
             this.PageBoardContext.PageUser.DisplayOrUserName(),
-            this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.MyAccount));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("EDIT_AVATAR", "TITLE"), string.Empty);
     }
 
@@ -115,7 +115,7 @@ public class EditAvatarModel : ProfilePage
         // clear the cache for this user...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Profile_EditAvatar);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Profile_EditAvatar);
     }
 
     /// <summary>
@@ -135,7 +135,7 @@ public class EditAvatarModel : ProfilePage
         // clear the cache for this user...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Profile_EditAvatar);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Profile_EditAvatar);
     }
 
     /// <summary>
@@ -195,7 +195,7 @@ public class EditAvatarModel : ProfilePage
                     MessageTypes.warning);
             }
 
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Profile_EditAvatar);
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Profile_EditAvatar);
         }
         catch (Exception exception)
         {

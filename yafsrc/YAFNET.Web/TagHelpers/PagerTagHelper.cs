@@ -315,15 +315,15 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
 
         var url = this.PageContext.CurrentForumPage.PageName switch {
             ForumPages.Topics => page > 1
-                ? this.Get<LinkBuilder>()
+                ? this.Get<ILinkBuilder>()
                     .GetLink(ForumPages.Topics,
                         new { f = this.PageContext.PageForumID, p = page, name = this.PageContext.PageForum.Name })
-                : this.Get<LinkBuilder>()
+                : this.Get<ILinkBuilder>()
                     .GetForumLink(this.PageContext.PageForum),
-            ForumPages.Posts => this.Get<LinkBuilder>()
+            ForumPages.Posts => this.Get<ILinkBuilder>()
                 .GetLink(ForumPages.Posts,
                     new { t = this.PageContext.PageTopicID, p = page, name = this.PageContext.PageTopic.TopicName }),
-            _ => this.Get<LinkBuilder>()
+            _ => this.Get<ILinkBuilder>()
                 .GetLink(this.PageContext.CurrentForumPage.PageName, query)
                 .Replace("p=", $"{this.QueryName}=")
         };

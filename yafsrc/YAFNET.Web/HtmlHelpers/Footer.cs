@@ -66,7 +66,7 @@ public static class FooterHtmlHelper
 
         rulesTag.MergeAttribute(HtmlAttribute.Title, privacyText);
         rulesTag.MergeAttribute(HtmlAttribute.Href,
-            BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Privacy));
+            BoardContext.Current.Get<ILinkBuilder>().GetLink(ForumPages.Privacy));
 
         rulesTag.InnerHtml.Append(privacyText);
 

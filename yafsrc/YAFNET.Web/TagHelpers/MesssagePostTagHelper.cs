@@ -405,7 +405,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
             link.MergeAttribute(
                 HtmlAttribute.Href,
-                this.Get<LinkBuilder>().GetLink(ForumPages.MessageHistory, new { m = msgId.ToType<int>() }));
+                this.Get<ILinkBuilder>().GetLink(ForumPages.MessageHistory, new { m = msgId.ToType<int>() }));
 
             var iconHistory = new TagBuilder(HtmlTag.I);
 
@@ -445,7 +445,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         link.MergeAttribute(HtmlAttribute.Title, this.GetText("GO_TO_ANSWER"));
         link.MergeAttribute(
             HtmlAttribute.Href,
-            this.Get<LinkBuilder>().GetMessageLink(BoardContext.Current.PageTopic, answerMessageId));
+            this.Get<ILinkBuilder>().GetMessageLink(BoardContext.Current.PageTopic, answerMessageId));
 
         var icon = new TagBuilder(HtmlTag.I);
 

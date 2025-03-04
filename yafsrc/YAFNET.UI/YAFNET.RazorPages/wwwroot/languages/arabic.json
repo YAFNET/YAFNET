@@ -993,12 +993,12 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "مرفقات المستخدم"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Delete attachment(s)?"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "مرفقات المستخدم"
           }
         ]
       },
@@ -10669,14 +10669,6 @@
           {
             "@tag": "DISABLED",
             "#text": "لقد تم إلاغاء هذه الخاصية من قبل المدير"
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "لستخدام هذى المنتدي يجب ان يدعم المتصفح  الجافا (JavaScript) "
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "متصفك لايدعم  الجافا(JavaScript). يرجى عمل تحديث للمتصفح /"
           },
           {
             "@tag": "EXCEPTION",

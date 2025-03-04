@@ -89,7 +89,7 @@ public class EditForumModel : AdminPage
 
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMINMENU", "ADMIN_FORUMS"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Forums));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Forums));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITFORUM", "TITLE"), string.Empty);
     }
 
@@ -196,7 +196,7 @@ public class EditForumModel : AdminPage
 
         if (forum is null)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.Input.Id = forum.ID;
@@ -383,6 +383,6 @@ public class EditForumModel : AdminPage
                 });
         }
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Forums);
     }
 }

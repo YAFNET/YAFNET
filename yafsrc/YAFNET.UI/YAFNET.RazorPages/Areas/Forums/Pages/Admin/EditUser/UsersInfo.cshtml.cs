@@ -82,7 +82,7 @@ public class UsersInfoModel : AdminPage
     {
         if (!BoardContext.Current.IsAdmin)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.Input = new UsersInfoInputModel();
@@ -98,7 +98,7 @@ public class UsersInfoModel : AdminPage
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {
                     u = userId
@@ -122,7 +122,7 @@ public class UsersInfoModel : AdminPage
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = userId, tab = "View1" });
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = userId, tab = "View1" });
     }
 
     /// <summary>
@@ -132,7 +132,7 @@ public class UsersInfoModel : AdminPage
     {
         await this.Get<IAspNetUsersHelper>().ApproveUserAsync(id);
 
-        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
+        this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Users);
     }
 
     /// <summary>
@@ -142,7 +142,7 @@ public class UsersInfoModel : AdminPage
     {
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {
                     u = userId

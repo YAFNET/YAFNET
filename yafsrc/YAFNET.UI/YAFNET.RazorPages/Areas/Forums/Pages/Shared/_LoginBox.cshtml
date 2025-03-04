@@ -69,7 +69,7 @@
                                 <a button-style="Secondary"
                                    button-size="Small"
                                    Icon="key"
-                                   href="@Html.Raw(Current.Get<LinkBuilder>().GetLink(ForumPages.Account_ForgotPassword))"
+                                   href="@Html.Raw(Current.Get<ILinkBuilder>().GetLink(ForumPages.Account_ForgotPassword))"
                                    text-localized-tag="LOSTPASSWORD"></a>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                     <a button-size="Small"
                        button-style="OutlineSecondary"
                        Icon="user-plus"
-                       href="@Html.Raw(Current.Get<LinkBuilder>().GetLink(Current.BoardSettings.ShowRulesForRegistration ? ForumPages.Privacy : ForumPages.Account_Register))"
+                       href="@Html.Raw(Current.Get<ILinkBuilder>().GetLink(Current.BoardSettings.ShowRulesForRegistration ? ForumPages.Privacy : ForumPages.Account_Register))"
                        text-localized-tag="REGISTER_INSTEAD"></a>
                 </div>
             }

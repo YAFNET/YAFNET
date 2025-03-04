@@ -71,7 +71,7 @@ public static partial class EmojiOne
                 $"{IGNORE_PATTERN}|{ASCII_PATTERN}",
                 AsciiToUnicodeCallback,
                 RegexOptions.IgnoreCase,
-                TimeSpan.FromMilliseconds(100));
+                TimeSpan.FromMilliseconds(300));
         }
 
         return str;

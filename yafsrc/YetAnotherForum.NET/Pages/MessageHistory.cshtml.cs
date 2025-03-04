@@ -72,12 +72,12 @@ public class MessageHistoryModel : ForumPageRegistered
     {
         if (this.PageBoardContext.IsGuest)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         if (this.PageBoardContext.PageMessage is null)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         return this.BindData();
@@ -88,7 +88,7 @@ public class MessageHistoryModel : ForumPageRegistered
     /// </summary>
     public IActionResult OnPostReturn()
     {
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Post,
             new {m = this.PageBoardContext.PageMessage.ID, name = this.PageBoardContext.PageTopic.TopicName});
     }
@@ -98,7 +98,7 @@ public class MessageHistoryModel : ForumPageRegistered
     /// </summary>
     public IActionResult OnPostReturnForum(int f)
     {
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_ReportedPosts, new {f});
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Moderate_ReportedPosts, new {f});
     }
 
     /// <summary>
@@ -223,13 +223,13 @@ public class MessageHistoryModel : ForumPageRegistered
 
         if (this.RevisionsList.NullOrEmpty())
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         var originalMessage = this.GetRepository<Message>().GetMessageWithAccess(
             this.PageBoardContext.PageMessage.ID,
             this.PageBoardContext.PageUserID);
 
-        return originalMessage is null ? this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid) : this.Page();
+        return originalMessage is null ? this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid) : this.Page();
     }
 }

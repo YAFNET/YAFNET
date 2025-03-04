@@ -58,7 +58,7 @@ public static class CanonicalMetaTagHtmlHelper
 
             link.MergeAttribute(
                 HtmlAttribute.Href,
-                context.Get<LinkBuilder>().GetAbsoluteLink(
+                context.Get<ILinkBuilder>().GetAbsoluteLink(
                     ForumPages.Posts,
                     new { t = context.PageTopicID, name = context.PageTopic.TopicName }));
 

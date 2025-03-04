@@ -73,7 +73,7 @@ public class AccessMasksModel : AdminPage
     public IActionResult OnPostEdit(int maskId)
     {
         // redirect to editing page
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Admin_EditAccessMask,
             new {
                     i = maskId

@@ -71,12 +71,12 @@ public static class HelpMenuHtmlHelper
 
         // Index / Search
         var indexContent =
-            $"""<a href="{context.Get<LinkBuilder>().GetLink(ForumPages.Help, new { faq = "index" })}">{context.Get<ILocalization>().GetText("HELP_INDEX", "INDEX")} / {context.Get<ILocalization>().GetText("BTNSEARCH")}</a>""";
+            $"""<a href="{context.Get<ILinkBuilder>().GetLink(ForumPages.Help, new { faq = "index" })}">{context.Get<ILocalization>().GetText("HELP_INDEX", "INDEX")} / {context.Get<ILocalization>().GetText("BTNSEARCH")}</a>""";
 
         htmlDropDown.AppendFormat(
             """<a href="{1}" class="dropdown-item">{0}</a>""",
             context.Get<ILocalization>().GetText("BTNSEARCH"),
-            context.Get<LinkBuilder>().GetLink(ForumPages.Help, new { faq = "index" }));
+            context.Get<ILinkBuilder>().GetLink(ForumPages.Help, new { faq = "index" }));
 
         html.Append("""<nav><div class="accordion">""");
 
@@ -135,7 +135,7 @@ public static class HelpMenuHtmlHelper
                             {
                                 var selectedStyle = helpPage.ToLower().Equals(faqPage) ? "fw-bold" : string.Empty;
 
-                                var link = context.Get<LinkBuilder>().GetLink(
+                                var link = context.Get<ILinkBuilder>().GetLink(
                                     ForumPages.Help,
                                     new { faq = helpPage.ToLower() });
 

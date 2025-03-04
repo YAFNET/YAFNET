@@ -27,7 +27,7 @@
                         @if (forum.ReadAccess)
                         {
                             <a class="card-link small"
-                               href="@Html.Raw(Current.Get<LinkBuilder>().GetForumLink(forum.ForumID, forum.Forum))"
+                               href="@Html.Raw(Current.Get<ILinkBuilder>().GetForumLink(forum.ForumID, forum.Forum))"
                                title="@Html.Raw(Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM"))">
                                 @forum.Forum
                             </a>
@@ -52,7 +52,7 @@
 
                         @if (forum.ReadAccess)
                         {
-                            <a class="card-link small" href="@Html.Raw(Current.Get<LinkBuilder>().GetForumLink(forum.ForumID, forum.Forum))" 
+                            <a class="card-link small" href="@Html.Raw(Current.Get<ILinkBuilder>().GetForumLink(forum.ForumID, forum.Forum))" 
                                title-localized-tag="VIEW_FORUM" title-localized-page="COMMON">
                                 @Html.Encode(forum.Forum) 
                             </a>

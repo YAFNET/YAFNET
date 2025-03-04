@@ -67,7 +67,7 @@ public class EditCategoryModel : AdminPage
     {
         this.PageBoardContext.PageLinks.AddAdminIndex();
 
-        this.PageBoardContext.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Forums));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Forums));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITCATEGORY", "TITLE"), string.Empty);
     }
 
@@ -141,7 +141,7 @@ public class EditCategoryModel : AdminPage
             categoryFlags);
 
         // redirect
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Forums);
     }
 
     /// <summary>
@@ -177,7 +177,7 @@ public class EditCategoryModel : AdminPage
 
         if (category is null)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.Input.Name = category.Name;

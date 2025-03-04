@@ -74,7 +74,7 @@ public class TeamModel : ForumPage
     {
         if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ShowTeamTo))
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.BindData();
@@ -94,7 +94,7 @@ public class TeamModel : ForumPage
             var forumId = item.SelectedForumId.ToType<int>();
             var forum = this.GetRepository<Forum>().GetById(forumId);
 
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Topics, new { f = forumId, name = forum.Name });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Topics, new { f = forumId, name = forum.Name });
         }
 
         this.BindData();

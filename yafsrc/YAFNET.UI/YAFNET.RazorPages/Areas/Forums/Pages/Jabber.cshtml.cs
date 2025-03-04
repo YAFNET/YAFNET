@@ -72,12 +72,12 @@ public class JabberModel : ForumPage
     {
         if (!u.HasValue)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         if (this.AspNetUser is null || !this.PageBoardContext.BoardSettings.AllowEmailSending)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         // get user data...
@@ -86,12 +86,12 @@ public class JabberModel : ForumPage
         if (this.CurrentUser is null)
         {
             // No such user exists
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         if (!this.CurrentUser.UserFlags.IsApproved)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.PageBoardContext.PageLinks.AddUser(

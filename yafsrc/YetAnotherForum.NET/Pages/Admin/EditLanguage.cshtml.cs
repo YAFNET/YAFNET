@@ -77,7 +77,7 @@ public class EditLanguageModel : AdminPage
 
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_LANGUAGES", "TITLE"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Languages));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Languages));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITLANGUAGE", "TITLE"), string.Empty);
     }
 
@@ -98,7 +98,7 @@ public class EditLanguageModel : AdminPage
 
         if (x.IsNotSet())
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.BindData(x);

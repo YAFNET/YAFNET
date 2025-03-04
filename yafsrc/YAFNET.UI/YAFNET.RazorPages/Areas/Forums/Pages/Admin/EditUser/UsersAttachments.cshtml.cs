@@ -83,7 +83,7 @@ public class UsersAttachmentsModel : AdminPage
     {
         if (!BoardContext.Current.IsAdmin)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.Input = new UsersSignatureInputModel {
@@ -107,7 +107,7 @@ public class UsersAttachmentsModel : AdminPage
             this.PageBoardContext.SessionNotify(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
         }
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View11" });
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View11" });
     }
 
     /// <summary>

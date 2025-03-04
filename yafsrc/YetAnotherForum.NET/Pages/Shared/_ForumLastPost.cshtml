@@ -39,7 +39,7 @@
                 lastPostedDateTime);
 
         // Topic Link
-        topicLink = Current.Get<LinkBuilder>().GetTopicLink(Model.LastTopicID, topicName);
+        topicLink = Current.Get<ILinkBuilder>().GetTopicLink(Model.LastTopicID, topicName);
 
         var styles = Current.BoardSettings.UseStyledTopicTitles
             ? Current.Get<IStyleTransform>().Decode(

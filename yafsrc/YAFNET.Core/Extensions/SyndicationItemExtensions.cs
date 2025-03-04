@@ -138,6 +138,6 @@ public static class SyndicationItemExtensions
         return new SyndicationPerson(
             userEmail,
             userNameToShow,
-            BoardContext.Current.Get<LinkBuilder>().GetUserProfileLink(userId, userNameToShow));
+            BoardContext.Current.Get<ILinkBuilder>().GetUserProfileLink(userId, userNameToShow));
     }
 }

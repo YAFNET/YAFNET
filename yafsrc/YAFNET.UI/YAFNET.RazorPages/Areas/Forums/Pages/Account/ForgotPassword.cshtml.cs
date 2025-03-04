@@ -110,6 +110,6 @@ public class ForgotPasswordModel : AccountPage
 
         this.PageBoardContext.SessionNotify(this.GetText("SUCCESS"), MessageTypes.success);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
     }
 }

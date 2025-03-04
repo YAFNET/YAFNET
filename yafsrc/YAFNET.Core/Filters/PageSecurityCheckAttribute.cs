@@ -55,82 +55,84 @@ public class PageSecurityCheckAttribute : ResultFilterAttribute, IHaveServiceLoc
     public override Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
     {
         // no security features for login/logout pages
-        if (!BoardContext.Current.CurrentForumPage.IsAccountPage)
+        if (BoardContext.Current.CurrentForumPage.IsAccountPage)
         {
-            // check if login is required
-            if (BoardContext.Current.BoardSettings.RequireLogin && BoardContext.Current.IsGuest &&
-                BoardContext.Current.CurrentForumPage.IsProtected)
-            {
-                // redirect to login page if login is required
-                var result = this.Get<IPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
+            return next.Invoke();
+        }
 
-                if (result != null)
+        // check if login is required
+        if (BoardContext.Current.BoardSettings.RequireLogin && BoardContext.Current.IsGuest &&
+            BoardContext.Current.CurrentForumPage.IsProtected)
+        {
+            // redirect to login page if login is required
+            var result = this.Get<IPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
+
+            if (result != null)
+            {
+                context.Result = result;
+            }
+        }
+
+        // check if it's a "registered user only page" and check permissions.
+        if (BoardContext.Current.CurrentForumPage.IsRegisteredPage &&
+            BoardContext.Current.CurrentForumPage.AspNetUser == null)
+        {
+            var result = this.Get<IPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
+
+            if (result != null)
+            {
+                context.Result = result;
+            }
+        }
+
+        // Handle admin pages
+        if (BoardContext.Current.CurrentForumPage.IsAdminPage)
+        {
+            if (!BoardContext.Current.IsAdmin)
+            {
+                context.Result = this.Get<ILinkBuilder>().AccessDenied();
+            }
+            else
+            {
+                // Load the page access list.
+                var hasAccess = this.GetRepository<AdminPageUserAccess>().HasAccess(
+                    BoardContext.Current.PageUserID,
+                    BoardContext.Current.CurrentForumPage.PageName.ToString());
+
+                // Check access rights to the page.
+                if (!BoardContext.Current.PageUser.UserFlags.IsHostAdmin &&
+                    (!BoardContext.Current.CurrentForumPage.PageName.ToString().IsSet() || !hasAccess))
                 {
-                    context.Result = result;
+                    context.Result = this.Get<ILinkBuilder>()
+                        .RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
                 }
             }
+        }
 
-            // check if it's a "registered user only page" and check permissions.
-            if (BoardContext.Current.CurrentForumPage.IsRegisteredPage &&
-                BoardContext.Current.CurrentForumPage.AspNetUser == null)
-            {
-                var result = this.Get<IPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
+        // handle security features...
+        if (BoardContext.Current.CurrentForumPage.PageName == ForumPages.Account_Register &&
+            BoardContext.Current.BoardSettings.DisableRegistrations)
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
 
-                if (result != null)
-                {
-                    context.Result = result;
-                }
-            }
+        // check access permissions for specific pages...
+        var resultPermission = BoardContext.Current.CurrentForumPage.PageName switch
+        {
+            ForumPages.ActiveUsers => this.Get<IPermissions>()
+                .HandleRequest((ViewPermissions)BoardContext.Current.BoardSettings.ActiveUsersViewPermissions),
+            ForumPages.Members => this.Get<IPermissions>()
+                .HandleRequest((ViewPermissions)BoardContext.Current.BoardSettings.MembersListViewPermissions),
+            ForumPages.UserProfile or ForumPages.Albums or ForumPages.Album => this.Get<IPermissions>()
+                .HandleRequest((ViewPermissions)BoardContext.Current.BoardSettings.ProfileViewPermissions),
+            ForumPages.Search => this.Get<IPermissions>()
+                .HandleRequest((ViewPermissions)BoardContext.Current.BoardSettings.SearchPermissions),
+            _ => null
+        };
 
-            // Handle admin pages
-            if (BoardContext.Current.CurrentForumPage.IsAdminPage)
-            {
-                if (!BoardContext.Current.IsAdmin)
-                {
-                    context.Result = this.Get<LinkBuilder>().AccessDenied();
-                }
-                else
-                {
-                    // Load the page access list.
-                    var hasAccess = this.GetRepository<AdminPageUserAccess>().HasAccess(
-                        BoardContext.Current.PageUserID,
-                        BoardContext.Current.CurrentForumPage.PageName.ToString());
-
-                    // Check access rights to the page.
-                    if (!BoardContext.Current.PageUser.UserFlags.IsHostAdmin &&
-                        (!BoardContext.Current.CurrentForumPage.PageName.ToString().IsSet() || !hasAccess))
-                    {
-                        context.Result = this.Get<LinkBuilder>()
-                            .RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
-                    }
-                }
-            }
-
-            // handle security features...
-            if (BoardContext.Current.CurrentForumPage.PageName == ForumPages.Account_Register &&
-                BoardContext.Current.BoardSettings.DisableRegistrations)
-            {
-                context.Result = this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            // check access permissions for specific pages...
-            var resultPermission = BoardContext.Current.CurrentForumPage.PageName switch
-            {
-                ForumPages.ActiveUsers => this.Get<IPermissions>()
-                    .HandleRequest((ViewPermissions)BoardContext.Current.BoardSettings.ActiveUsersViewPermissions),
-                ForumPages.Members => this.Get<IPermissions>()
-                    .HandleRequest((ViewPermissions)BoardContext.Current.BoardSettings.MembersListViewPermissions),
-                ForumPages.UserProfile or ForumPages.Albums or ForumPages.Album => this.Get<IPermissions>()
-                    .HandleRequest((ViewPermissions)BoardContext.Current.BoardSettings.ProfileViewPermissions),
-                ForumPages.Search => this.Get<IPermissions>()
-                    .HandleRequest((ViewPermissions)BoardContext.Current.BoardSettings.SearchPermissions),
-                _ => null
-            };
-
-            if (resultPermission != null)
-            {
-                context.Result = resultPermission;
-            }
+        if (resultPermission != null)
+        {
+            context.Result = resultPermission;
         }
 
         return next.Invoke();

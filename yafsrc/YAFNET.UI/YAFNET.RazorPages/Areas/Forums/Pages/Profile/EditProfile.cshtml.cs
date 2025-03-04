@@ -132,7 +132,7 @@ public class EditProfileModel : ProfilePage
     /// </summary>
     public override void CreatePageLinks()
     {
-        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<ILinkBuilder>().GetLink(ForumPages.MyAccount));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("EDIT_PROFILE", "TITLE"), string.Empty);
     }
 
@@ -298,7 +298,7 @@ public class EditProfileModel : ProfilePage
 
         this.Get<IDataCache>().Clear();
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.MyAccount);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyAccount);
     }
 
     /// <summary>

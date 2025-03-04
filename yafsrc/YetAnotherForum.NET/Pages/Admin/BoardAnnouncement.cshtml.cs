@@ -114,7 +114,7 @@ public class BoardAnnouncementModel : AdminPage
         // save the settings to the database
         this.Get<BoardSettingsService>().SaveRegistry(boardSettings);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BoardAnnouncement);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_BoardAnnouncement);
     }
 
     /// <summary>
@@ -131,7 +131,7 @@ public class BoardAnnouncementModel : AdminPage
         // save the settings to the database
         this.Get<BoardSettingsService>().SaveRegistry(boardSettings);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BoardAnnouncement);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_BoardAnnouncement);
     }
 
     /// <summary>

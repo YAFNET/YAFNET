@@ -187,7 +187,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
                     filler.AppendFormat(
                         """<li class="list-inline-item"><a id="{0}" href="{1}"><u>{2}</u></a>""",
                         dr.Item2.ID,
-                        this.Get<LinkBuilder>().GetUserProfileLink(dr.Item2.ID, name),
+                        this.Get<ILinkBuilder>().GetUserProfileLink(dr.Item2.ID, name),
                         name);
 
                     if (this.Get<BoardSettings>().ShowThanksDate)

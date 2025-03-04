@@ -73,7 +73,7 @@ public class EditMessageModel : ForumPage
     public IActionResult OnPostCancel()
     {
         // reply to existing topic or editing of existing topic
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Posts,
             new {t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName});
     }
@@ -143,23 +143,23 @@ public class EditMessageModel : ForumPage
 
         if (this.PageBoardContext.PageMessage is null)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         if (!this.PageBoardContext.ForumPostAccess && !this.PageBoardContext.ForumReplyAccess)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         if (!this.CanEditPostCheck())
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         // Ederon : 9/9/2007 - moderators can reply in locked topics
         if (this.PageBoardContext.PageTopic.TopicFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Posts,
                 new {t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName});
         }
@@ -278,7 +278,7 @@ public class EditMessageModel : ForumPage
 
         if (!this.PageBoardContext.ForumEditAccess)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         var isPossibleSpamMessage = false;
@@ -347,7 +347,7 @@ public class EditMessageModel : ForumPage
         // Create notification emails
         if (isApproved)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Post,
                 new {m = messageId, name = this.PageBoardContext.PageTopic.TopicName});
         }
@@ -363,15 +363,15 @@ public class EditMessageModel : ForumPage
         }
 
         // Tell user that his message will have to be approved by a moderator
-        var url = this.Get<LinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
+        var url = this.Get<ILinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
 
         if (this.PageBoardContext.PageTopicID > 0 && this.PageBoardContext.PageTopic.NumPosts > 1)
         {
-            url = this.Get<LinkBuilder>().GetTopicLink(
+            url = this.Get<ILinkBuilder>().GetTopicLink(
                 this.PageBoardContext.PageTopic);
         }
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Info, new {i = 1, url = HttpUtility.UrlEncode(url)});
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Info, new {i = 1, url = HttpUtility.UrlEncode(url)});
     }
 
     /// <summary>

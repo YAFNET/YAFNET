@@ -93,7 +93,7 @@ public class ServicesModule : BaseModule
         builder.RegisterType<CurrentBoardId>().As<IHaveBoardID>().InstancePerLifetimeScope()
             .PreserveExistingDefaults();
         builder.RegisterType<Search>().As<ISearch>().InstancePerLifetimeScope().PreserveExistingDefaults();
-        builder.RegisterType<LinkBuilder>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
+        builder.RegisterType<LinkBuilder>().As<ILinkBuilder>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
         builder.RegisterType<SessionService>().As<ISessionService>().InstancePerLifetimeScope()
             .PreserveExistingDefaults();

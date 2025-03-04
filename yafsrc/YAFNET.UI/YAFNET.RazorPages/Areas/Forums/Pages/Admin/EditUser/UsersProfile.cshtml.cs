@@ -134,7 +134,7 @@ public class UsersProfileModel : AdminPage
     {
         if (!BoardContext.Current.IsAdmin)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.Input = new UsersProfileInputModel
@@ -156,7 +156,7 @@ public class UsersProfileModel : AdminPage
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {
                     u = this.Input.UserId
@@ -181,7 +181,7 @@ public class UsersProfileModel : AdminPage
             if (!ValidationHelper.IsValidUrl(this.Input.HomePage))
             {
                 this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_HOME"), MessageTypes.warning);
-                return this.Get<LinkBuilder>().Redirect(
+                return this.Get<ILinkBuilder>().Redirect(
                     ForumPages.Admin_EditUser,
                     new { u = this.Input.UserId, tab = "View3" });
             }
@@ -217,19 +217,19 @@ public class UsersProfileModel : AdminPage
         if (this.Input.Blog.IsSet() && !ValidationHelper.IsValidUrl(this.Input.Blog.Trim()))
         {
             this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_WEBLOG"), MessageTypes.warning);
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }
 
         if (this.Input.Xmpp.IsSet() && !ValidationHelper.IsValidXmpp(this.Input.Xmpp))
         {
             this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning);
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }
 
         if (this.Input.Facebook.IsSet() && !ValidationHelper.IsValidUrl(this.Input.Facebook))
         {
             this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.warning);
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }
 
         string displayName = null;
@@ -242,7 +242,7 @@ public class UsersProfileModel : AdminPage
                 this.PageBoardContext.SessionNotify(
                     this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.DisplayNameMinLength),
                     MessageTypes.warning);
-                return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
             }
 
             // Check if name matches the required minimum length
@@ -251,7 +251,7 @@ public class UsersProfileModel : AdminPage
                 this.PageBoardContext.SessionNotify(
                     this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.UserNameMaxLength),
                     MessageTypes.warning);
-                return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
             }
 
             if (this.Input.DisplayName.Trim() != this.EditUser.Item1.DisplayName)
@@ -261,7 +261,7 @@ public class UsersProfileModel : AdminPage
                     this.PageBoardContext.SessionNotify(
                         this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"),
                         MessageTypes.warning);
-                    return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+                    return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
                 }
 
                 displayName = this.Input.DisplayName.Trim();
@@ -273,7 +273,7 @@ public class UsersProfileModel : AdminPage
             this.PageBoardContext.SessionNotify(
                 this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 4000),
                 MessageTypes.warning);
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }
 
         if (this.Input.Occupation.IsSet() && this.Input.Occupation.Trim().Length > 400)
@@ -281,7 +281,7 @@ public class UsersProfileModel : AdminPage
             this.PageBoardContext.SessionNotify(
                 this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "OCCUPATION"), 400),
                 MessageTypes.warning);
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }
 
         await this.UpdateUserProfileAsync();
@@ -296,7 +296,7 @@ public class UsersProfileModel : AdminPage
 
         this.Get<IDataCache>().Clear();
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
     }
 
     /// <summary>
@@ -306,7 +306,7 @@ public class UsersProfileModel : AdminPage
     {
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {
                     u = userId

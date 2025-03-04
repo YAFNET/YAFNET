@@ -107,7 +107,7 @@
             <a button-style="Secondary"
                text-localized-tag="BUTTON_NEWTOPIC" title-localized-tag="BUTTON_NEWTOPIC_TT"
                class="me-1 mb-1"
-               href="@(Model.Get<LinkBuilder>().GetLink(ForumPages.PostTopic, new { f = Model.PageBoardContext.PageForumID }))"
+               href="@(Model.Get<ILinkBuilder>().GetLink(ForumPages.PostTopic, new { f = Model.PageBoardContext.PageForumID }))"
                icon="plus"></a>
         }
 
@@ -133,7 +133,7 @@
 	<div class="col">
             <nav class="navbar navbar-expand-lg bg-light-subtle">
 			<div class="container-fluid">
-				<a href="@Html.Raw(Model.Get<LinkBuilder>().GetTopicLink(Model.PageBoardContext.PageTopic))" class="navbar-brand pt-0 text-wrap"
+				<a href="@Html.Raw(Model.Get<ILinkBuilder>().GetTopicLink(Model.PageBoardContext.PageTopic))" class="navbar-brand pt-0 text-wrap"
 				   title="@Html.Raw(Model.Get<IBadWordReplace>().Replace(Html.HtmlEncode(Model.PageBoardContext.PageTopic.Description)))">
 					@Html.Raw(Model.TopicSubject)
 				</a>
@@ -172,7 +172,7 @@
 						<li class="nav-item dropdown">
 							@if (Model.Get<IPermissions>().Check(Model.PageBoardContext.BoardSettings.ShowShareTopicTo))
 							{
-								var topicUrl = Model.Get<LinkBuilder>().GetAbsoluteLink(
+								var topicUrl = Model.Get<ILinkBuilder>().GetAbsoluteLink(
 									ForumPages.Posts,
 									new { t = Model.PageBoardContext.PageTopicID, name = this.Model.PageBoardContext.PageTopic.TopicName });
 
@@ -257,7 +257,7 @@
 								   icon="print"
 								   button-style="None"
 								   class="dropdown-item"
-								   href="@(Model.Get<LinkBuilder>().GetLink(ForumPages.PrintTopic, new { t = Model.PageBoardContext.PageTopicID }))"></a>
+								   href="@(Model.Get<ILinkBuilder>().GetLink(ForumPages.PrintTopic, new { t = Model.PageBoardContext.PageTopicID }))"></a>
 
 								@if (Model.PageBoardContext.BoardSettings.ShowAtomLink && Model.Get<IPermissions>().Check(Model.PageBoardContext.BoardSettings.PostsFeedAccess))
 								{
@@ -386,7 +386,7 @@
                 <a button-style="Secondary"
                    text-localized-tag="BUTTON_NEWTOPIC" title-localized-tag="BUTTON_NEWTOPIC_TT"
                    class="me-1 mb-1"
-                   href="@(Model.Get<LinkBuilder>().GetLink(ForumPages.PostTopic, new { f = Model.PageBoardContext.PageForumID }))"
+                   href="@(Model.Get<ILinkBuilder>().GetLink(ForumPages.PostTopic, new { f = Model.PageBoardContext.PageForumID }))"
                    icon="plus"></a>
             }
             

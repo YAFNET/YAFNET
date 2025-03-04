@@ -109,7 +109,7 @@ public class NotificationModel : ForumPageRegistered
     {
         this.PageBoardContext.PageLinks.AddLink(
             this.PageBoardContext.PageUser.DisplayOrUserName(),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Notification));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Notification));
     }
 
     /// <summary>

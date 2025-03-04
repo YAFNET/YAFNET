@@ -271,7 +271,7 @@ public class HostSettingsModel : AdminPage
 
         if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.RenderListItems();
@@ -359,7 +359,7 @@ public class HostSettingsModel : AdminPage
         // save the settings to the database
         this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Admin);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Admin);
     }
 
     /// <summary>

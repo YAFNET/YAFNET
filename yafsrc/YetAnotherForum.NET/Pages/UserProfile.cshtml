@@ -63,7 +63,7 @@
                    title-localized-page="POSTS"
                    title-localized-tag="PM_TITLE"
                    bs-toggle="tooltip"
-                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, new { u = Model.CombinedUser.Item1.ID }))"></a>
+                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.MyMessages, new { u = Model.CombinedUser.Item1.ID }))"></a>
             }
 
             @if (Model.ShowEmailLink)
@@ -78,7 +78,7 @@
                    title-localized-page="POSTS"
                    title-localized-tag="EMAIL_TITLE"
                    bs-toggle="tooltip"
-                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Email, new { u = Model.CombinedUser.Item1.ID }))"></a>
+                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Email, new { u = Model.CombinedUser.Item1.ID }))"></a>
             }
 
             @if (Model.PageBoardContext.IsAdmin)
@@ -89,7 +89,7 @@
                    icon="user-cog"
                    text-localized-page="PROFILE"
                    text-localized-tag="ADMIN_USER"
-                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = Model.CombinedUser.Item1.ID }))"></a>
+                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = Model.CombinedUser.Item1.ID }))"></a>
             }
 
         </form>
@@ -426,7 +426,7 @@
                        text-localized-tag="SEARCHUSER"
                        icon="search"
                        class=" mb-3"
-                       href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Search, new { postedby = Model.CombinedUser.Item1.DisplayOrUserName() }))"></a>
+                       href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Search, new { postedby = Model.CombinedUser.Item1.DisplayOrUserName() }))"></a>
 
 
                     @foreach (var message in Model.LastPosts)
@@ -441,7 +441,7 @@
                                    title-localized-page="COMMON"
                                    title-localized-tag="VIEW_TOPIC"
                                    bs-toggle="tooltip"
-                                   href="@Html.Raw(Model.Get<LinkBuilder>().GetTopicLink(message.Item2))"
+                                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetTopicLink(message.Item2))"
                                    text="@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(message.Item2.TopicName))">
                                 </a>
                             </div>

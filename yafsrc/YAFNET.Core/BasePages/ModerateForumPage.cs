@@ -54,7 +54,7 @@ public class ModerateForumPage : ForumPage
         // Only moderators or admins are allowed here
         if (!(this.PageBoardContext.IsModeratorInAnyForum || this.PageBoardContext.IsAdmin))
         {
-            context.Result = this.Get<LinkBuilder>().AccessDenied();
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
         }
     }
 }

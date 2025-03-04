@@ -67,11 +67,11 @@ public class HelpModel : ForumPage
     {
         if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ShowHelpTo))
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.PageBoardContext.PageLinks.AddLink(
-            this.GetText("SUBTITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Help));
+            this.GetText("SUBTITLE"), this.Get<ILinkBuilder>().GetLink(ForumPages.Help));
 
         this.LoadHelpContent();
 
@@ -162,11 +162,11 @@ public class HelpModel : ForumPage
                 {
                     "RECOVER" => this.GetTextFormatted(
                         $"{helpPage}CONTENT",
-                        this.Get<LinkBuilder>().GetLink(ForumPages.Account_ForgotPassword)),
+                        this.Get<ILinkBuilder>().GetLink(ForumPages.Account_ForgotPassword)),
                     "BBCODES" => this.GetTextFormatted($"{helpPage}CONTENT", this.Get<BoardInfo>().ForumBaseUrl),
                     "POSTING" => this.GetTextFormatted(
                         $"{helpPage}CONTENT",
-                        this.Get<LinkBuilder>().GetLink(ForumPages.Help, "faq=bbcodes")),
+                        this.Get<ILinkBuilder>().GetLink(ForumPages.Help, "faq=bbcodes")),
                     _ => this.GetText($"{helpPage}CONTENT")
                 };
 

@@ -94,7 +94,7 @@ public static class TopicContainerHtmlHelper
 
         topicLink.AddCssClass("topic-starter-popover");
 
-        topicLink.MergeAttribute(HtmlAttribute.Href, context.Get<LinkBuilder>().GetTopicLink(topic.LinkTopicID, topic.Subject));
+        topicLink.MergeAttribute(HtmlAttribute.Href, context.Get<ILinkBuilder>().GetTopicLink(topic.LinkTopicID, topic.Subject));
         topicLink.MergeAttribute("data-bs-toggle", "popover");
 
         topicLink.InnerHtml.AppendHtml(FormatTopicName(topic, htmlHelper));
@@ -253,7 +253,7 @@ public static class TopicContainerHtmlHelper
 
         gotoLastPost.MergeAttribute(
             HtmlAttribute.Href,
-            context.Get<LinkBuilder>().GetTopicLink(topic.TopicID, topic.Subject));
+            context.Get<ILinkBuilder>().GetTopicLink(topic.TopicID, topic.Subject));
 
         gotoLastPost.MergeAttribute("data-bs-toggle", "tooltip");
         gotoLastPost.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("GO_LAST_POST"));
@@ -546,7 +546,7 @@ public static class TopicContainerHtmlHelper
 
             pageLinkFirst.MergeAttribute(
                 HtmlAttribute.Href,
-                context.Get<LinkBuilder>().GetTopicLink(topicId, item.Subject));
+                context.Get<ILinkBuilder>().GetTopicLink(topicId, item.Subject));
 
             pageLinkFirst.InnerHtml.Append("1");
 
@@ -568,7 +568,7 @@ public static class TopicContainerHtmlHelper
 
                 pageLink.MergeAttribute(
                     HtmlAttribute.Href,
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = topicId, name = item.Subject, p = post }));
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Posts, new { t = topicId, name = item.Subject, p = post }));
 
                 pageLink.InnerHtml.Append(post.ToString());
 
@@ -592,7 +592,7 @@ public static class TopicContainerHtmlHelper
 
                 pageLink.MergeAttribute(
                     HtmlAttribute.Href,
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = topicId, name = item.Subject, p = post }));
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Posts, new { t = topicId, name = item.Subject, p = post }));
 
                 pageLink.InnerHtml.Append(post.ToString());
 

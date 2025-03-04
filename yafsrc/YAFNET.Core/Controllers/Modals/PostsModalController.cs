@@ -79,7 +79,7 @@ public class PostsModalController : ForumBaseController
         this.Get<IDataCache>().Remove("TopicID");
 
         return this.Ok(
-            this.Get<LinkBuilder>().GetLink(
+            this.Get<ILinkBuilder>().GetLink(
                 ForumPages.Topics,
                 new { f = this.PageBoardContext.PageForum.ID, name = this.PageBoardContext.PageForum.Name }));
     }
@@ -252,7 +252,7 @@ public class PostsModalController : ForumBaseController
                 }
 
                 // redirect to newly posted message
-                return this.Ok(this.Get<LinkBuilder>().GetMessageLink(this.PageBoardContext.PageTopic, newMessage.ID));
+                return this.Ok(this.Get<ILinkBuilder>().GetMessageLink(this.PageBoardContext.PageTopic, newMessage.ID));
             }
 
             if (this.PageBoardContext.BoardSettings.EmailModeratorsOnModeratedPost)
@@ -264,9 +264,9 @@ public class PostsModalController : ForumBaseController
                     isPossibleSpamMessage);
             }
 
-            var url = this.Get<LinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
+            var url = this.Get<ILinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
 
-            return this.Ok(this.Get<LinkBuilder>().GetLink(ForumPages.Info, new { i = 1, url = HttpUtility.UrlEncode(url) }));
+            return this.Ok(this.Get<ILinkBuilder>().GetLink(ForumPages.Info, new { i = 1, url = HttpUtility.UrlEncode(url) }));
         }
         catch (Exception exception)
         {

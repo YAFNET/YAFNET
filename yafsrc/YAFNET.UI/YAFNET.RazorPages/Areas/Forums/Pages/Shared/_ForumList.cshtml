@@ -129,7 +129,7 @@ forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
                     }
                     else
                     {
-                        <a href="@Html.Raw(Current.Get<LinkBuilder>().GetForumLink(forum.ForumID, forum.Forum))" data-bs-toggle="tooltip" title="@title">
+                        <a href="@Html.Raw(Current.Get<ILinkBuilder>().GetForumLink(forum.ForumID, forum.Forum))" data-bs-toggle="tooltip" title="@title">
                             @Html.HtmlEncode(forum.Forum)
                         </a>
                     }

@@ -97,9 +97,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
 
         var inlineCss = await File.ReadAllTextAsync(cssPath);
 
-        var forumLink = this.Get<LinkBuilder>().ForumUrl;
+        var forumLink = this.Get<ILinkBuilder>().ForumUrl;
 
-        var adminLink = this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Moderate_UnapprovedPosts, new {f = forumId});
+        var adminLink = this.Get<ILinkBuilder>().GetAbsoluteLink(ForumPages.Moderate_UnapprovedPosts, new {f = forumId});
 
         // send each message...
         moderatorUserNames.Distinct().AsParallel().ForAll(
@@ -213,7 +213,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                                                ["{reason}"] = reportText,
                                                                ["{reporter}"] =
                                                                    this.Get<IUserDisplayName>().GetNameById(reporter),
-                                                               ["{adminlink}"] = this.Get<LinkBuilder>()
+                                                               ["{adminlink}"] = this.Get<ILinkBuilder>()
                                                                    .GetAbsoluteLink(
                                                                        ForumPages.Moderate_ReportedPosts,
                                                                        new {f = pageForumId})
@@ -280,10 +280,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                          ["{postedby}"] = this.Get<IUserDisplayName>().GetNameById(message.UserID),
                                          ["{body}"] = bodyText,
                                          ["{bodytruncated}"] = bodyText.Truncate(160),
-                                         ["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+                                         ["{link}"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
                                              ForumPages.Post,
                                              new {m = message.ID, name = message.Topic.TopicName}),
-                                         ["{subscriptionlink}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+                                         ["{subscriptionlink}"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
                                              ForumPages.Profile_Subscriptions)
                                      }
                              };
@@ -479,7 +479,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                   TemplateLanguageFile = this.BoardSettings.Language,
                                   TemplateParams =
                                       {
-                                          ["{adminlink}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+                                          ["{adminlink}"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
                                               ForumPages.Admin_EditUser,
                                               new {u = userId}),
                                           ["{user}"] = user.UserName,
@@ -529,7 +529,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                   {
                                       TemplateParams =
                                           {
-                                              ["{adminlink}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+                                              ["{adminlink}"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
                                                   ForumPages.Admin_EditUser,
                                                   new {u = userId}),
                                               ["{user}"] = user.UserName,
@@ -617,7 +617,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                   TemplateParams =
                                       {
                                           ["{link}"] =
-                                              this.Get<LinkBuilder>().GetAbsoluteLink(
+                                              this.Get<ILinkBuilder>().GetAbsoluteLink(
                                                   ForumPages.Account_Approve,
                                                   new {code = token}),
                                           ["{key}"] = token,
@@ -696,12 +696,12 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
             "RESET_PASS_EMAIL_SUBJECT",
             this.Get<BoardSettings>().Name);
 
-        verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+        verifyEmail.TemplateParams["{link}"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
             ForumPages.Account_ResetPassword,
             new {code = token});
 
         verifyEmail.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
-        verifyEmail.TemplateParams["{forumlink}"] = $"{this.Get<LinkBuilder>().ForumUrl}";
+        verifyEmail.TemplateParams["{forumlink}"] = $"{this.Get<ILinkBuilder>().ForumUrl}";
 
         return verifyEmail.SendEmailAsync(new MailboxAddress(user.UserName, user.Email), subject);
     }

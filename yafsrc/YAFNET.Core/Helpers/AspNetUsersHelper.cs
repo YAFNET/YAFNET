@@ -669,7 +669,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(BoardContext.Current.PageUserID));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
     }
 
     /// <summary>
@@ -687,7 +687,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         if (info == null)
         {
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Account_Login);
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Login);
         }
 
         await this.Get<SignInManager<AspNetUsers>>().SignOutAsync();
@@ -702,7 +702,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(BoardContext.Current.PageUserID));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
     }
 
     /// <summary>

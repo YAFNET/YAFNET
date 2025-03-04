@@ -10675,14 +10675,6 @@
             "#text": "The administrator of this forum has disabled this feature."
           },
           {
-            "@tag": "ECMAREQUIRED",
-            "#text": "To use the forum you should enable JavaScript in your browser."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "The JavaScript version is unsupported. Please use a newer browser version/"
-          },
-          {
             "@tag": "EXCEPTION",
             "#text": "You are logged in as"
           },

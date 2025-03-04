@@ -27,7 +27,7 @@
                        icon="plus"
                        text-localized-page="BUTTON"
                        text-localized-tag="BUTTON_EDITALBUMIMAGES"
-                       href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(
+                       href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(
                                  ForumPages.EditAlbumImages,
                                  new {a = Model.Album.ID}))"></a>
                 }
@@ -36,7 +36,7 @@
                    icon="arrow-circle-left"
                    text-localized-page="BUTTON"
                    text-localized-tag="BACK_ALBUMS"
-                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(
+                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(
                              ForumPages.Albums,
                              new {u = this.Request.RouteValues["u"].ToString()}))"></a>
             </p>

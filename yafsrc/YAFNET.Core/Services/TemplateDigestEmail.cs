@@ -51,10 +51,10 @@ public class TemplateDigestEmail : IHaveServiceLocator
             $"/{this.Get<BoardFolders>().Logos}/{this.Get<BoardSettings>().ForumLogo}";
 
         this.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
-        this.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
-        this.TemplateParams["%%forumlink%%"] = this.Get<LinkBuilder>().ForumUrl;
+        this.TemplateParams["{forumlink}"] = this.Get<ILinkBuilder>().ForumUrl;
+        this.TemplateParams["%%forumlink%%"] = this.Get<ILinkBuilder>().ForumUrl;
         this.TemplateParams["%%logo%%"] = $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}";
-        this.TemplateParams["%%manageLink%%"] = this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Profile_Subscriptions);
+        this.TemplateParams["%%manageLink%%"] = this.Get<ILinkBuilder>().GetAbsoluteLink(ForumPages.Profile_Subscriptions);
     }
 
     /// <summary>
@@ -180,7 +180,7 @@ public class TemplateDigestEmail : IHaveServiceLocator
             .StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(topic.LastMessage)))
             .RemoveMultipleWhitespace().Truncate(200);
 
-        this.TemplateTopicParams["%%topicLink%%"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+        this.TemplateTopicParams["%%topicLink%%"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
             ForumPages.Posts,
             new { m = topic.LastMessageID, name = topic.Subject, t = topic.TopicID });
 

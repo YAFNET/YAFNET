@@ -57,7 +57,7 @@ public class ChangePasswordModel : ProfilePage
     {
         this.PageBoardContext.PageLinks.AddLink(
             this.PageBoardContext.PageUser.DisplayOrUserName(),
-            this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.MyAccount));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"));
     }
 

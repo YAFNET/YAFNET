@@ -59,7 +59,7 @@ public class UnapprovedPostsModel : ModerateForumPage
         // moderation index
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("MODERATE_DEFAULT", "TITLE"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Moderate));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Moderate_Moderate));
 
         // current page
         this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageForum.Name);
@@ -170,7 +170,7 @@ public class UnapprovedPostsModel : ModerateForumPage
         if (messages.NullOrEmpty())
         {
             // nope -- redirect back to the moderate main...
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Moderate);
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Moderate_Moderate);
         }
 
         this.Messages = messages;

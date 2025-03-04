@@ -47,7 +47,7 @@ public static class PageLinkExtensions
 
         pageLinks.AddLink(
             BoardContext.Current.BoardSettings.Name,
-            BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Index));
+            BoardContext.Current.Get<ILinkBuilder>().GetLink(ForumPages.Index));
 
         return pageLinks;
     }
@@ -65,7 +65,7 @@ public static class PageLinkExtensions
 
         pageLinks.AddLink(
             BoardContext.Current.Get<ILocalization>().GetText("ADMIN_ADMIN", "Administration"),
-            BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Admin_Admin));
+            BoardContext.Current.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Admin));
 
         return pageLinks;
     }
@@ -89,7 +89,7 @@ public static class PageLinkExtensions
     {
         ArgumentNullException.ThrowIfNull(pageLinks);
 
-        pageLinks.AddLink(name, BoardContext.Current.Get<LinkBuilder>().GetUserProfileLink(userId, name));
+        pageLinks.AddLink(name, BoardContext.Current.Get<ILinkBuilder>().GetUserProfileLink(userId, name));
 
         return pageLinks;
     }
@@ -115,7 +115,7 @@ public static class PageLinkExtensions
             return pageLinks;
         }
 
-        pageLinks.AddLink(topic.TopicName, BoardContext.Current.Get<LinkBuilder>().GetTopicLink(topic));
+        pageLinks.AddLink(topic.TopicName, BoardContext.Current.Get<ILinkBuilder>().GetTopicLink(topic));
 
         return pageLinks;
     }
@@ -145,7 +145,7 @@ public static class PageLinkExtensions
 
         pageLinks.AddLink(
             category.Name,
-            BoardContext.Current.Get<LinkBuilder>().GetCategoryLink(category.ID, category.Name));
+            BoardContext.Current.Get<ILinkBuilder>().GetCategoryLink(category.ID, category.Name));
 
         return pageLinks;
     }
@@ -183,7 +183,7 @@ public static class PageLinkExtensions
             {
                 pageLinks.AddLink(
                     parent.Name,
-                    BoardContext.Current.Get<LinkBuilder>().GetForumLink(parent));
+                    BoardContext.Current.Get<ILinkBuilder>().GetForumLink(parent));
             }
         }
 
@@ -193,7 +193,7 @@ public static class PageLinkExtensions
                 BoardContext.Current.PageForum.Name,
                 noForumLink
                     ? string.Empty
-                    : BoardContext.Current.Get<LinkBuilder>().GetForumLink(
+                    : BoardContext.Current.Get<ILinkBuilder>().GetForumLink(
                         BoardContext.Current.PageForum));
         }
 

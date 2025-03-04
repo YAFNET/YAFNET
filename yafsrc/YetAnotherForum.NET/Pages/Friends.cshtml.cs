@@ -91,7 +91,7 @@ public class FriendsModel : ForumPageRegistered
     {
         this.PageBoardContext.PageLinks.AddLink(
             this.PageBoardContext.PageUser.DisplayOrUserName(),
-            this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.MyAccount));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("BUDDYLIST_TT"), string.Empty);
     }
 
@@ -124,7 +124,7 @@ public class FriendsModel : ForumPageRegistered
             string.Format(this.GetText("REMOVEBUDDY_NOTIFICATION"), this.Get<IFriends>().Remove(userId)),
             MessageTypes.success);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Friends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Friends);
     }
 
     /// <summary>
@@ -138,7 +138,7 @@ public class FriendsModel : ForumPageRegistered
 
         this.PageBoardContext.SessionNotify(this.GetText("NOTIFICATION_REQUESTREMOVED"), MessageTypes.success);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Friends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Friends);
     }
 
     /// <summary>
@@ -160,7 +160,7 @@ public class FriendsModel : ForumPageRegistered
                 user.DisplayOrUserName()),
             MessageTypes.success);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Friends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Friends);
     }
 
     /// <summary>
@@ -173,7 +173,7 @@ public class FriendsModel : ForumPageRegistered
 
         this.PageBoardContext.SessionNotify(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"), MessageTypes.success);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Friends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Friends);
     }
 
     /// <summary>
@@ -187,7 +187,7 @@ public class FriendsModel : ForumPageRegistered
 
         this.PageBoardContext.SessionNotify(this.GetText("NOTIFICATION_BUDDYDENIED"), MessageTypes.info);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Friends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Friends);
     }
 
     /// <summary>
@@ -200,7 +200,7 @@ public class FriendsModel : ForumPageRegistered
 
         this.PageBoardContext.SessionNotify(this.GetText("NOTIFICATION_ALL_DENIED"), MessageTypes.info);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Friends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Friends);
     }
 
     /// <summary>

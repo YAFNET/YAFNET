@@ -86,7 +86,7 @@ public class AttachmentsModel : ProfilePage
     {
         if (!this.PageBoardContext.UploadAccess)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
         }
 
         var items = this.Attachments.Where(x => x.Selected).Select(x => x.ID).ToList();

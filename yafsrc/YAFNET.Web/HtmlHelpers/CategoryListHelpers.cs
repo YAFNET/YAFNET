@@ -176,7 +176,7 @@ public static class CategoryListHelpers
             {
                 link.MergeAttribute(
                     HtmlAttribute.Href,
-                    BoardContext.Current.Get<LinkBuilder>().GetForumLink(item.ForumID, item.Forum));
+                    BoardContext.Current.Get<ILinkBuilder>().GetForumLink(item.ForumID, item.Forum));
                 link.MergeAttribute(HtmlAttribute.Title, title);
             }
 
@@ -184,7 +184,7 @@ public static class CategoryListHelpers
                 HtmlAttribute.Href,
                 item.RemoteURL.IsSet()
                     ? item.RemoteURL
-                    : BoardContext.Current.Get<LinkBuilder>().GetForumLink(item.ForumID, item.Forum));
+                    : BoardContext.Current.Get<ILinkBuilder>().GetForumLink(item.ForumID, item.Forum));
 
             content.AppendHtml(link);
         }
@@ -282,14 +282,14 @@ public static class CategoryListHelpers
 
             link.InnerHtml.AppendHtml(BoardContext.Current.CurrentForumPage.HtmlEncode(item.Forum));
 
-            link.MergeAttribute(HtmlAttribute.Href, BoardContext.Current.Get<LinkBuilder>().GetForumLink(item.ForumID, item.Forum));
+            link.MergeAttribute(HtmlAttribute.Href, BoardContext.Current.Get<ILinkBuilder>().GetForumLink(item.ForumID, item.Forum));
             link.MergeAttribute(HtmlAttribute.Title, title);
 
             link.MergeAttribute(
                 HtmlAttribute.Href,
                 item.RemoteURL.IsSet()
                     ? item.RemoteURL
-                    : BoardContext.Current.Get<LinkBuilder>().GetForumLink(item.ForumID, item.Forum));
+                    : BoardContext.Current.Get<ILinkBuilder>().GetForumLink(item.ForumID, item.Forum));
 
             content.AppendHtml(link);
         }

@@ -338,10 +338,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
             html = html.Insert(mc2[i].Index + 1, " \r");
         }
 
-        html = !allowHtml
-                   ? html//this.HttpServer.HtmlEncode(html)
-                   : RemoveHtmlByList(html, this.Get<BoardSettings>().AcceptedHTML.Split(','));
-
         return html;
     }
 
@@ -419,38 +415,5 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
                     var inner = text.Substring(match.Index + 1, match.Length - 1).Trim().ToLower();
                     matchAction(inner, match.Index, match.Length);
                 });
-    }
-
-    /// <summary>
-    /// remove html by list.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <param name="matchList">
-    /// The match list.
-    /// </param>
-    /// <returns>
-    /// The remove html by list.
-    /// </returns>
-    private static string RemoveHtmlByList(string text, IEnumerable<string> matchList)
-    {
-        var allowedTags = matchList.ToList();
-
-        ArgumentNullException.ThrowIfNull(text);
-        ArgumentNullException.ThrowIfNull(allowedTags);
-
-        MatchAndPerformAction(
-            "<.*?>",
-            text,
-            (tag, index, len) =>
-                {
-                    if (!HtmlTagHelper.IsValidTag(tag, allowedTags))
-                    {
-                        text = text.Remove(index, len);
-                    }
-                });
-
-        return text;
     }
 }

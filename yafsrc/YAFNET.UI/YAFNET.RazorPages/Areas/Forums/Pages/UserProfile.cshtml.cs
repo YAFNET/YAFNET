@@ -199,7 +199,7 @@ public class UserProfileModel : ForumPage
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("MEMBERS"),
             this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.MembersListViewPermissions)
-                ? this.Get<LinkBuilder>().GetLink(ForumPages.Members)
+                ? this.Get<ILinkBuilder>().GetLink(ForumPages.Members)
                 : null);
         this.PageBoardContext.PageLinks.AddLink(userDisplayName, string.Empty);
     }
@@ -212,7 +212,7 @@ public class UserProfileModel : ForumPage
         return u == 0
             ?
             // No such user exists
-            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid)
+            this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid)
             : this.BindData(u);
     }
 
@@ -337,7 +337,7 @@ public class UserProfileModel : ForumPage
         if (this.CombinedUser is null || this.CombinedUser.Item1.ID == 0)
         {
             // No such user exists or this is a nntp user ("0")
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         // populate user information controls...
@@ -481,7 +481,7 @@ public class UserProfileModel : ForumPage
 
         if (this.CombinedUser.Item2.Profile_XMPP.IsSet())
         {
-            this.XmppUrl = this.Get<LinkBuilder>().GetLink(
+            this.XmppUrl = this.Get<ILinkBuilder>().GetLink(
                 ForumPages.Jabber,
                 new { u = this.CombinedUser.Item1.ID });
         }

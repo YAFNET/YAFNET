@@ -60,7 +60,7 @@ public class EditAccessMaskModel : AdminPage
 
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_ACCESSMASKS", "TITLE"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_AccessMasks));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_AccessMasks));
 
         // current page label (no link)
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITACCESSMASKS", "TITLE"), string.Empty);
@@ -98,7 +98,7 @@ public class EditAccessMaskModel : AdminPage
         this.GetRepository<AccessMask>().Save(this.Input.Id, this.Input.Name, flags, this.Input.SortOrder);
 
         // get back to access masks administration
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_AccessMasks);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_AccessMasks);
     }
 
     /// <summary>
@@ -132,7 +132,7 @@ public class EditAccessMaskModel : AdminPage
             }
             else
             {
-                return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+                return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
         }
         else

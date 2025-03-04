@@ -67,7 +67,7 @@ public class UsersPointsModel : AdminPage
     {
         if (!BoardContext.Current.IsAdmin)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.Input = new UsersPointsInputModel {
@@ -84,7 +84,7 @@ public class UsersPointsModel : AdminPage
     {
         this.GetRepository<User>().AddPoints(this.Input.UserId, null, this.Input.AddPoints);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new {u = this.Input.UserId, tab = "View6"});
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new {u = this.Input.UserId, tab = "View6"});
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ public class UsersPointsModel : AdminPage
     {
         this.GetRepository<User>().RemovePoints(this.Input.UserId, null, this.Input.RemovePoints);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View6" });
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View6" });
     }
 
     /// <summary>
@@ -104,7 +104,7 @@ public class UsersPointsModel : AdminPage
     {
         this.GetRepository<User>().SetPoints(this.Input.UserId, this.Input.UserPoints);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View6" });
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View6" });
     }
 
     /// <summary>
@@ -114,7 +114,7 @@ public class UsersPointsModel : AdminPage
     {
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {
                     u = userId

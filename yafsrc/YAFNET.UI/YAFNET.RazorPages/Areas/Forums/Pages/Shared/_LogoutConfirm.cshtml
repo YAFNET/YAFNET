@@ -10,5 +10,5 @@
         BoardContext.Current.Get<ILocalization>().GetText("TOOLBAR", "LOGOUT_QUESTION"),
         BoardContext.Current.Get<ILocalization>().GetText("TOOLBAR", "LOGOUT"),
         BoardContext.Current.Get<ILocalization>().GetText("COMMON", "CANCEL"),
-                        BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Account_Logout))))
+                        BoardContext.Current.Get<ILinkBuilder>().GetLink(ForumPages.Account_Logout))))
 </script>

@@ -21,7 +21,7 @@
             {
 	            <a title="@Html.LocalizedText("TOOLBAR", "REGISTER_TITLE")"
 	               class="alert-link"
-	               href="@(Current.BoardSettings.ShowRulesForRegistration ? Current.Get<LinkBuilder>().GetLink(ForumPages.Privacy) : Current.Get<LinkBuilder>().GetLink(ForumPages.Account_Register))">
+	               href="@(Current.BoardSettings.ShowRulesForRegistration ? Current.Get<ILinkBuilder>().GetLink(ForumPages.Privacy) : Current.Get<ILinkBuilder>().GetLink(ForumPages.Account_Register))">
                     @Html.LocalizedText("TOOLBAR", "REGISTER_CONNECT")
 	            </a>
             }

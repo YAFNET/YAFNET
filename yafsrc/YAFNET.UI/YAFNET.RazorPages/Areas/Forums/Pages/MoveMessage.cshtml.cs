@@ -83,7 +83,7 @@ public class MoveMessageModel : ForumPageRegistered
             topicId.ToType<int>(),
             true);
 
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Topics,
             new {f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name});
     }
@@ -108,7 +108,7 @@ public class MoveMessageModel : ForumPageRegistered
 
         var topic = this.GetRepository<Topic>().GetById(moveTopicId);
 
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Post,
             new {m = this.PageBoardContext.PageMessage.ID, name = topic.TopicName});
     }
@@ -124,7 +124,7 @@ public class MoveMessageModel : ForumPageRegistered
 
         if (this.PageBoardContext.PageMessage is null || !this.PageBoardContext.ForumModeratorAccess)
         {
-            this.Get<LinkBuilder>().AccessDenied();
+            this.Get<ILinkBuilder>().AccessDenied();
         }
     }
 }

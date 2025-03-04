@@ -229,7 +229,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
             }
 
             // show a failure notice since something is probably up with membership...
-            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
+            this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
         }
 #else
         catch (Exception)

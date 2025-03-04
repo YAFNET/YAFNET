@@ -50,11 +50,11 @@ public class TemplateEmail : IHaveServiceLocator
             $"/{this.Get<BoardFolders>().Logos}/{this.Get<BoardSettings>().ForumLogo}";
 
         this.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
-        this.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
-        this.TemplateParams["%%forumlink%%"] = this.Get<LinkBuilder>().ForumUrl;
+        this.TemplateParams["{forumlink}"] = this.Get<ILinkBuilder>().ForumUrl;
+        this.TemplateParams["%%forumlink%%"] = this.Get<ILinkBuilder>().ForumUrl;
         this.TemplateParams["%%logo%%"] = $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}";
         this.TemplateParams["%%manageLink%%"] =
-            this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Profile_Subscriptions);
+            this.Get<ILinkBuilder>().GetAbsoluteLink(ForumPages.Profile_Subscriptions);
     }
 
     /// <summary>

@@ -131,7 +131,7 @@ public class SyndicationFeeds : IHaveServiceLocator
                     topic.Item1.UserID,
                     topic.Item2.LastMessageFlags ?? 22),
                 null,
-                this.Get<LinkBuilder>().GetAbsoluteLink(
+                this.Get<ILinkBuilder>().GetAbsoluteLink(
                     ForumPages.Posts,
                     new { t = topic.Item2.ID, name = topic.Item2.TopicName }),
                 $"urn:{urlAlphaNum}:ft{RssFeeds.LatestPosts}:tid{topic.Item2.ID}:mid{topic.Item2.LastMessageID}:{BoardContext.Current.PageBoardID}"
@@ -198,7 +198,7 @@ public class SyndicationFeeds : IHaveServiceLocator
                     row.UserID,
                     new MessageFlags(row.Flags)),
                 null,
-                this.Get<LinkBuilder>().GetAbsoluteLink(
+                this.Get<ILinkBuilder>().GetAbsoluteLink(
                     ForumPages.Posts,
                     new { m = row.MessageID, name = row.Topic, t = row.TopicID }),
                 $"urn:{urlAlphaNum}:ft{RssFeeds.Posts}:meid{row.MessageID}:{BoardContext.Current.PageBoardID}"
@@ -251,7 +251,7 @@ public class SyndicationFeeds : IHaveServiceLocator
             feed.Contributors.Add(
                 SyndicationItemExtensions.NewSyndicationPerson(string.Empty, topic.LastUserID.Value, null, null));
 
-            var postLink = this.Get<LinkBuilder>().GetAbsoluteLink(
+            var postLink = this.Get<ILinkBuilder>().GetAbsoluteLink(
                 ForumPages.Posts,
                 new { m = topic.LastMessageID.Value, name = topic.Topic, t = topic.TopicID });
 

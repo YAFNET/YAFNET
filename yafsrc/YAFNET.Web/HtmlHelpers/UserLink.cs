@@ -191,7 +191,7 @@ public static class UserLinkHtmlHelper
         {
             var link = new TagBuilder(HtmlTag.A);
 
-            link.MergeAttribute(HtmlAttribute.Href, context.Get<LinkBuilder>().GetUserProfileLink(userId, displayName));
+            link.MergeAttribute(HtmlAttribute.Href, context.Get<ILinkBuilder>().GetUserProfileLink(userId, displayName));
 
             cssClass.Append("btn-sm");
 

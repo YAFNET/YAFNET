@@ -78,7 +78,7 @@ public class PageAccessEditModel : AdminPage
     public IActionResult OnPostCancel()
     {
         // get back to access admin list
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
     }
 
     /// <summary>
@@ -88,7 +88,7 @@ public class PageAccessEditModel : AdminPage
     {
         if (!u.HasValue)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.BindData(u.Value);
@@ -120,7 +120,7 @@ public class PageAccessEditModel : AdminPage
 
         this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.UserId));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
     }
 
     /// <summary>
@@ -136,7 +136,7 @@ public class PageAccessEditModel : AdminPage
 
         this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.UserId));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
     }
 
     /// <summary>
@@ -160,7 +160,7 @@ public class PageAccessEditModel : AdminPage
 
         this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.UserId));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
     }
 
     /// <summary>

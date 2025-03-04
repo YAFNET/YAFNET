@@ -892,7 +892,7 @@ public static class ForumRepositoryExtensions
                                          : HttpUtility.HtmlEncode(forum.ForumName),
                              ForumID = forum.ForumID,
                              Icon = "comments",
-                             ForumLink = BoardContext.Current.Get<LinkBuilder>().GetForumLink(forum.ForumID, forum.ForumName)
+                             ForumLink = BoardContext.Current.Get<ILinkBuilder>().GetForumLink(forum.ForumID, forum.ForumName)
                          }).ToList();
     }
 
@@ -932,7 +932,7 @@ public static class ForumRepositoryExtensions
                                                                    id = forum.ID.ToString(),
                                                                    text = forum.ParentID.HasValue ? $" - {HttpUtility.HtmlEncode(forum.Name)}"
                                                                               : HttpUtility.HtmlEncode(forum.Name),
-                                                                   url = BoardContext.Current.Get<LinkBuilder>().GetForumLink(forum)
+                                                                   url = BoardContext.Current.Get<ILinkBuilder>().GetForumLink(forum)
                                                                }).ToList()
                                           };
 

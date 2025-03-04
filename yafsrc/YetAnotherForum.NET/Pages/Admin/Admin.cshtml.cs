@@ -130,12 +130,12 @@ public class AdminModel : AdminPage
                 "VERIFICATION_EMAIL_SUBJECT",
                 this.PageBoardContext.BoardSettings.Name);
 
-            verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+            verifyEmail.TemplateParams["{link}"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
                 ForumPages.Account_Approve,
                 new {code = checkMail.Hash});
             verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
             verifyEmail.TemplateParams["{forumname}"] = this.PageBoardContext.BoardSettings.Name;
-            verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
+            verifyEmail.TemplateParams["{forumlink}"] = this.Get<ILinkBuilder>().ForumUrl;
 
             await verifyEmail.SendEmailAsync(new MailboxAddress(userUnApproved.DisplayOrUserName(), checkMail.Email), subject);
 

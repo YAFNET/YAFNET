@@ -91,7 +91,7 @@ public class NotifyController : ForumBaseController
 
                     var topicLink = new TagBuilder(HtmlTag.A);
 
-                    topicLink.MergeAttribute(HtmlAttribute.Href, this.Get<LinkBuilder>().GetLink(
+                    topicLink.MergeAttribute(HtmlAttribute.Href, this.Get<ILinkBuilder>().GetLink(
                     ForumPages.Post,
                         new { m = activity.MessageID.Value, name = topic.TopicName }));
                     topicLink.InnerHtml.Append($"<i class=\"fas fa-comment fa-fw me-1\"></i>{topic.TopicName}");
@@ -190,6 +190,6 @@ public class NotifyController : ForumBaseController
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
     }
 }

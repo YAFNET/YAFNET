@@ -150,7 +150,7 @@
 	                                                <li class="list-inline-item">
                                                         @if (forum.ReadAccess)
                                                         {
-                                                            <a href="@(BoardContext.Current.Get<LinkBuilder>().GetForumLink(forum.ForumID, forum.Forum))">...</a>
+                                                            <a href="@(BoardContext.Current.Get<ILinkBuilder>().GetForumLink(forum.ForumID, forum.Forum))">...</a>
                                                         }
                                                         else
                                                         {
@@ -184,7 +184,7 @@
 	                                                   role="button"
 	                                                   title-localized-page="COMMON"
 	                                                   title-localized-tag="VIEW_TOPIC"
-                                                       href="@(Current.Get<LinkBuilder>().GetTopicLink(forum.LastTopicID, forum.LastTopicName))"
+                                                       href="@(Current.Get<ILinkBuilder>().GetTopicLink(forum.LastTopicID, forum.LastTopicName))"
 	                                                   text="@topicLinkText"
                                                        style="@Html.Raw(Current.Get<IStyleTransform>().Decode(forum.LastTopicStyles))"></a>
                                                 }
@@ -199,7 +199,7 @@
 	                                                   role="button"
 	                                                   title-localized-page="COMMON"
 	                                                   title-localized-tag="VIEW_TOPIC"
-                                                       href="@(Current.Get<LinkBuilder>().GetTopicLink(forum.LastTopicID, forum.LastTopicName))"
+                                                       href="@(Current.Get<ILinkBuilder>().GetTopicLink(forum.LastTopicID, forum.LastTopicName))"
 	                                                   text="@topicLinkText"></a>
                                                 }
 

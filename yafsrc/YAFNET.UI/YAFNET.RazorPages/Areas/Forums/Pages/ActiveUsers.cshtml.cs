@@ -83,7 +83,7 @@ public class ActiveUsersModel : ForumPage
     /// <returns>IActionResult.</returns>
     public IActionResult OnPost(int? v = null)
     {
-        return !this.PageBoardContext.UploadAccess ? this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied) : this.BindData(v);
+        return !this.PageBoardContext.UploadAccess ? this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied) : this.BindData(v);
     }
 
     /// <summary>
@@ -120,7 +120,7 @@ public class ActiveUsersModel : ForumPage
         }
         else
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         List<ActiveUser> activeUsers;
@@ -179,12 +179,12 @@ public class ActiveUsersModel : ForumPage
                 }
                 else
                 {
-                    return this.Get<LinkBuilder>().AccessDenied();
+                    return this.Get<ILinkBuilder>().AccessDenied();
                 }
 
                 break;
             default:
-                return this.Get<LinkBuilder>().AccessDenied();
+                return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         if (activeUsers.NullOrEmpty())

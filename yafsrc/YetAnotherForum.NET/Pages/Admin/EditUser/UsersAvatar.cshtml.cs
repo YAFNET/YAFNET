@@ -109,7 +109,7 @@ public class UsersAvatarModel : AdminPage
     {
         if (!BoardContext.Current.IsAdmin)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.Input = new UsersSignatureInputModel {
@@ -130,7 +130,7 @@ public class UsersAvatarModel : AdminPage
         // clear the cache for this user...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.Input.UserId));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View4" });
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View4" });
     }
 
     /// <summary>
@@ -141,7 +141,7 @@ public class UsersAvatarModel : AdminPage
     {
         if (!this.AvatarGallery.IsNotSet() || this.AvatarGallery == this.GetText("OURAVATAR"))
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {u = this.Input.UserId, tab = "View4"});
         }
@@ -156,7 +156,7 @@ public class UsersAvatarModel : AdminPage
         // clear the cache for this user...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.Input.UserId));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View4" });
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View4" });
     }
 
     /// <summary>
@@ -167,7 +167,7 @@ public class UsersAvatarModel : AdminPage
     {
         if (this.Upload.FileName.Trim().Length <= 0 || !this.Upload.FileName.Trim().IsImageName())
         {
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View4" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View4" });
         }
 
         long x = this.PageBoardContext.BoardSettings.AvatarWidth;
@@ -209,10 +209,10 @@ public class UsersAvatarModel : AdminPage
                 this.PageBoardContext.SessionNotify(
                     $"{this.GetTextFormatted("WARN_BIGFILE", avatarSize)} {this.GetTextFormatted("WARN_FILESIZE", this.Upload.Length)}",
                     MessageTypes.warning);
-                return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View4" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View4" });
             }
 
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Profile_EditAvatar);
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Profile_EditAvatar);
         }
         catch (Exception exception)
         {
@@ -220,7 +220,7 @@ public class UsersAvatarModel : AdminPage
 
             // image is probably invalid...
             this.PageBoardContext.SessionNotify(this.GetText("EDIT_AVATAR", "INVALID_FILE"), MessageTypes.danger);
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View4" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View4" });
         }
     }
 
@@ -231,7 +231,7 @@ public class UsersAvatarModel : AdminPage
     {
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {
                     u = userId

@@ -75,7 +75,7 @@ public class LoginBox : ForumBaseController
         if (user == null)
         {
             this.PageBoardContext.SessionNotify(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
         }
 
         if (!user.IsApproved)
@@ -85,12 +85,12 @@ public class LoginBox : ForumBaseController
             // Ignore Deleted User
             if (yafUser.UserFlags.IsDeleted)
             {
-                return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
             }
 
             this.PageBoardContext.SessionNotify(this.GetText("LOGIN", "ACCOUNT_NOT_APPROVED"), MessageTypes.warning);
 
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
         }
 
         // Valid user, verify password
@@ -132,7 +132,7 @@ public class LoginBox : ForumBaseController
 
                     this.PageBoardContext.SessionNotify(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
 
-                    return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+                    return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
                 }
         }
     }
@@ -147,7 +147,7 @@ public class LoginBox : ForumBaseController
     [HttpPost("Auth")]
     public Task<IActionResult> AuthAsync(string auth)
     {
-        var redirectUrl = this.Get<LinkBuilder>().GetLink(
+        var redirectUrl = this.Get<ILinkBuilder>().GetLink(
             ForumPages.Account_Login,
             new { auth, handler = "Callback" });
 
@@ -172,6 +172,6 @@ public class LoginBox : ForumBaseController
 
         this.Get<ISessionService>().SetPageData(user);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Account_Authorize);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Authorize);
     }
 }
