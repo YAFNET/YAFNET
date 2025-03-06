@@ -176,7 +176,7 @@ public class EditForumModel : AdminPage
 
             try
             {
-                // Currently creating a New Forum, and auto fill the Forum Sort Order + 1
+                // Currently creating a New Forum, and autofill the Forum Sort Order + 1
                 var forumCheck = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID)
                     .MaxBy(a => a.Item2.SortOrder);
 

@@ -35,7 +35,7 @@ using YAF.Types.Objects;
 public static class BoardRepositoryExtensions
 {
     /// <summary>
-    /// The create.
+    /// Creates the new Board.
     /// </summary>
     /// <param name="repository">
     /// The repository.

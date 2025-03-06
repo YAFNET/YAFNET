@@ -33,7 +33,7 @@ using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
 
 /// <summary>
-///     Class used for multi-step DB operations so they can be cached, etc.
+///     Class used for multistep DB operations so they can be cached, etc.
 /// </summary>
 public class DataBroker : IHaveServiceLocator
 {

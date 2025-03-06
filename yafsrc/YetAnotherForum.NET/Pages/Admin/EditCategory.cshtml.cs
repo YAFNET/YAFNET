@@ -50,6 +50,11 @@ public class EditCategoryModel : AdminPage
     [BindProperty]
     public EditCategoryInputModel Input { get; set; }
 
+    /// <summary>
+    /// Gets or sets the category images.
+    /// </summary>
+    /// <value>The category images.</value>
+    [BindProperty]
     public List<SelectListItem> CategoryImages { get; set; }
 
     /// <summary>
@@ -145,16 +150,21 @@ public class EditCategoryModel : AdminPage
     }
 
     /// <summary>
-    /// The bind data.
+    /// Binds the existing category data.
     /// </summary>
     private IActionResult BindData(int? c)
     {
         return c is > 0 ? this.BindExisting() : this.BindNew();
     }
 
+
+    /// <summary>
+    /// Binds the data as new category.
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     private IActionResult BindNew()
     {
-        // Currently creating a New Category, and auto fill the Category Sort Order + 1
+        // Currently creating a New Category, and autofill the Category Sort Order + 1
         var sortOrder = 1;
 
         try
@@ -167,6 +177,7 @@ public class EditCategoryModel : AdminPage
         }
 
         this.Input.SortOrder = sortOrder;
+        this.Input.Active = true;
 
         return this.Page();
     }

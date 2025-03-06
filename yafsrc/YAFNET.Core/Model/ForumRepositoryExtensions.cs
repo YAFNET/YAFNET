@@ -899,7 +899,7 @@ public static class ForumRepositoryExtensions
     /// <summary>
     /// The SortList.
     /// </summary>
-    /// <param name="repository">
+    /// <param name="_">
     /// The repository.
     /// </param>
     /// <param name="listSource">
@@ -909,7 +909,7 @@ public static class ForumRepositoryExtensions
     /// Returns the Sorted List
     /// </returns>
     private static List<SelectGroup> SortList(
-        this IRepository<Forum> repository,
+        this IRepository<Forum> _,
         IEnumerable<Tuple<Forum, Category, ActiveAccess>> listSource)
     {
         var enumerable = listSource.ToList();

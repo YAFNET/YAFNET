@@ -28,7 +28,6 @@ namespace YAF.Pages.Admin;
 using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
-using YAF.Core.Services;
 using YAF.Core.Tasks;
 using YAF.Types.Extensions;
 using YAF.Types.Models;
@@ -38,12 +37,24 @@ using YAF.Types.Models;
 /// </summary>
 public class DeleteForumModel : AdminPage
 {
+    /// <summary>
+    /// Gets or sets a value indicating whether [move topics].
+    /// </summary>
+    /// <value><c>true</c> if [move topics]; otherwise, <c>false</c>.</value>
     [BindProperty]
     public bool MoveTopics { get; set; }
 
+    /// <summary>
+    /// Gets or sets the forum.
+    /// </summary>
+    /// <value>The forum.</value>
     [BindProperty]
     public Forum Forum { get; set; }
 
+    /// <summary>
+    /// Gets or sets the forum list selected.
+    /// </summary>
+    /// <value>The forum list selected.</value>
     [BindProperty]
     public int ForumListSelected { get; set; }
 
