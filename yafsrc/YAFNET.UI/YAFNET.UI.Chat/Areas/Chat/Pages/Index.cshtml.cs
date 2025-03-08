@@ -76,7 +76,7 @@ public class ChatModel : PageModel, IHaveServiceLocator
     {
         if (BoardContext.Current.IsGuest)
         {
-            return this.RedirectToPage(ForumPages.Account_Login.GetPageName(), new { area = "Forums" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Login, new { area = "Forums" });
         }
 
         this.AvatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(BoardContext.Current.PageUser);
