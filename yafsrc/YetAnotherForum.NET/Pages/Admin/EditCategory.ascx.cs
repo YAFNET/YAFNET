@@ -161,7 +161,7 @@ public partial class EditCategory : AdminPage
     {
         if (this.Get<HttpRequestBase>().QueryString.Exists("c"))
         {
-            this.BindExisting(); 
+            this.BindExisting();
         }
         else
         {
@@ -186,6 +186,8 @@ public partial class EditCategory : AdminPage
         }
 
         this.SortOrder.Text = sortOrder.ToString();
+
+        this.Active.Checked = true;
     }
 
     private void BindExisting()

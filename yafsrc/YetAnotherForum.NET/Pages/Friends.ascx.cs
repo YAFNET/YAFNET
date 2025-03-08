@@ -61,6 +61,12 @@ public partial class Friends : ForumPageRegistered
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!this.PageBoardContext.BoardSettings.EnableBuddyList)
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+            return;
+        }
+
         this.BindData();
     }
 
