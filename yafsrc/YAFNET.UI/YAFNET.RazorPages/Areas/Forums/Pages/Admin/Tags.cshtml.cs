@@ -101,7 +101,7 @@ public class TagsModel : AdminPage
 
         await this.GetRepository<Tag>().DeleteByIdAsync(id);
 
-        return this.RedirectToPage(ForumPages.Admin_Tags.GetPageName());
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Tags);
     }
 
     /// <summary>

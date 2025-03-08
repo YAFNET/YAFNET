@@ -163,13 +163,13 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         {
             html.InnerHtml.AppendHtml(this.RenderMenuItem(
                 "list-group-item list-group-item-action",
-                ForumPages.Friends,
+                ForumPages.MyFriends,
                 this.GetText("EDIT_BUDDIES"),
                 "users"));
 
             htmlDropDownMenu.InnerHtml.AppendHtml(this.RenderMenuItem(
                 "dropdown-item",
-                ForumPages.Friends,
+                ForumPages.MyFriends,
                 this.GetText("EDIT_BUDDIES"),
                 "users"));
         }

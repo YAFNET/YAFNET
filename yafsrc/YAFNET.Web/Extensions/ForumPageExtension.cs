@@ -142,7 +142,7 @@ public static class ForumPageExtensions
                     }
 
                     break;
-                case ForumPages.Friends:
+                case ForumPages.MyFriends:
                     {
                         title.Append(BoardContext.Current.Get<ILocalization>().GetText("BUDDYLIST_TT"));
                     }

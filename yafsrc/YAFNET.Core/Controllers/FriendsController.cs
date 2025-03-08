@@ -59,7 +59,7 @@ public class FriendsController : ForumBaseController
 
             if (source == null)
             {
-                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
             var userName = this.PageBoardContext.BoardSettings.EnableDisplayName ? source.DisplayName : source.UserName;
@@ -72,13 +72,13 @@ public class FriendsController : ForumBaseController
                     : this.GetText("NOTIFICATION_BUDDYREQUEST"),
                 MessageTypes.success);
 
-            return this.RedirectToPage(
-                ForumPages.Post.GetPageName(),
+            return this.Get<ILinkBuilder>().Redirect(
+                ForumPages.Post,
                 new {m, name = source.Topic});
         }
         catch (Exception)
         {
-            return this.RedirectToPage(ForumPages.Post.GetPageName(), new {m, name = "Topic" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new {m, name = "Topic" });
         }
     }
 
@@ -97,9 +97,8 @@ public class FriendsController : ForumBaseController
 
             if (user == null)
             {
-                return this.RedirectToPage(
-                    ForumPages.Info.GetPageName(),
-                    null,
+                return this.Get<ILinkBuilder>().Redirect(
+                    ForumPages.Info,
                     new { info = InfoMessage.Invalid.ToType<int>() });
             }
 
@@ -111,15 +110,14 @@ public class FriendsController : ForumBaseController
                     : this.GetText("NOTIFICATION_BUDDYREQUEST"),
                 MessageTypes.success);
 
-            return this.RedirectToPage(
-                ForumPages.UserProfile.GetPageName(),
+            return this.Get<ILinkBuilder>().Redirect(
+                ForumPages.UserProfile,
                 new { u, name = user.DisplayOrUserName() });
         }
         catch (Exception)
         {
-            return this.RedirectToPage(
-                ForumPages.Info.GetPageName(),
-                null,
+            return this.Get<ILinkBuilder>().Redirect(
+                ForumPages.Info,
                 new { info = InfoMessage.Invalid.ToType<int>() });
         }
     }
@@ -141,7 +139,7 @@ public class FriendsController : ForumBaseController
 
             if (source == null)
             {
-                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
             this.Get<IFriends>().Remove(source.UserID);
@@ -152,13 +150,13 @@ public class FriendsController : ForumBaseController
                     this.Get<IFriends>().Remove(source.UserID)),
                 MessageTypes.success);
 
-            return this.RedirectToPage(
-                ForumPages.Post.GetPageName(),
+            return this.Get<ILinkBuilder>().Redirect(
+                ForumPages.Post,
                 new {m, name = source.Topic});
         }
         catch (Exception)
         {
-            return this.RedirectToPage(ForumPages.Post.GetPageName(), new {m, name = "Topic" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new {m, name = "Topic" });
         }
     }
 
@@ -177,9 +175,8 @@ public class FriendsController : ForumBaseController
 
             if (user == null)
             {
-                return this.RedirectToPage(
-                    ForumPages.Info.GetPageName(),
-                    null,
+                return this.Get<ILinkBuilder>().Redirect(
+                    ForumPages.Info,
                     new { info = InfoMessage.Invalid.ToType<int>() });
             }
 
@@ -191,15 +188,14 @@ public class FriendsController : ForumBaseController
                     this.Get<IFriends>().Remove(user.ID)),
                 MessageTypes.success);
 
-            return this.RedirectToPage(
-                ForumPages.UserProfile.GetPageName(),
+            return this.Get<ILinkBuilder>().Redirect(
+                ForumPages.UserProfile,
                 new { u, name = user.DisplayOrUserName() });
         }
         catch (Exception)
         {
-            return this.RedirectToPage(
-                ForumPages.Info.GetPageName(),
-                null,
+            return this.Get<ILinkBuilder>().Redirect(
+                ForumPages.Info,
                 new { info = InfoMessage.Invalid.ToType<int>() });
         }
     }

@@ -112,7 +112,7 @@ public class SpamWordsController : ForumBaseController
                 this.GetText("ADMIN_SPAMWORDS_EDIT", "MSG_REGEX_SPAM"),
                 MessageTypes.danger));
 
-            return this.RedirectToPage(ForumPages.Admin_SpamWords.GetPageName());
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_SpamWords);
         }
 
         this.GetRepository<SpamWords>().Save(

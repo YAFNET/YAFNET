@@ -248,7 +248,7 @@
     </div>
 }
 
-@if (Current.Get<ISessionService>().Forums[0].Total > Current.Get<ISessionService>().Forums.Count)
+@if (!Current.Get<ISessionService>().Forums.NullOrEmpty() && Current.Get<ISessionService>().Forums[0].Total > Current.Get<ISessionService>().Forums.Count)
 {
     <div class="text-center" id="category-info-more">
         <div class="alert alert-light" role="alert">

@@ -152,8 +152,7 @@ public class Friends : IFriends, IHaveServiceLocator
         }
 
         var userBuddyList = this.GetRepository<Buddy>().Get(
-            x => x.ToUserID == BoardContext.Current.PageUserID && x.FromUserID == buddyUserId
-                 || x.ToUserID == buddyUserId && x.FromUserID == BoardContext.Current.PageUserID);
+            x => x.ToUserID == buddyUserId && x.FromUserID == BoardContext.Current.PageUserID);
 
         return !userBuddyList.NullOrEmpty();
     }

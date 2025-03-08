@@ -587,7 +587,7 @@ public enum ForumPages
     /// <summary>
     /// The Friends page.
     /// </summary>
-    Friends,
+    MyFriends,
 
     /// <summary>
     /// The MyMessages Page.

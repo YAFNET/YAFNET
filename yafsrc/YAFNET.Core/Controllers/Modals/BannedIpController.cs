@@ -149,7 +149,7 @@ public class BannedIpController : ForumBaseController
         if (ipError.Length > 0)
         {
             this.PageBoardContext.SessionNotify(ipError.ToString(), MessageTypes.warning);
-            return this.RedirectToPage(ForumPages.Admin_BannedIps.GetPageName());
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_BannedIps);
         }
 
         if (!this.GetRepository<BannedIP>().Save(

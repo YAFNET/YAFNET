@@ -30,7 +30,6 @@ using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Types.Extensions;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
@@ -86,11 +85,11 @@ public class ModerateModel : ModerateForumPage
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public Task<RedirectToPageResult> OnPostUnapprovedAsync(int forumId)
+    public IActionResult OnPostUnapproved(int forumId)
     {
-        return Task.FromResult(this.RedirectToPage(
-            ForumPages.Moderate_UnapprovedPosts.GetPageName(),
-            new { f = forumId }));
+        return this.Get<ILinkBuilder>().Redirect(
+            ForumPages.Moderate_UnapprovedPosts,
+            new { f = forumId });
     }
 
     /// <summary>
@@ -102,11 +101,11 @@ public class ModerateModel : ModerateForumPage
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public Task<RedirectToPageResult> OnPostReportedAsync(int forumId)
+    public IActionResult OnPostReported(int forumId)
     {
-        return Task.FromResult(this.RedirectToPage(
-            ForumPages.Moderate_ReportedPosts.GetPageName(),
-            new { f = forumId }));
+        return this.Get<ILinkBuilder>().Redirect(
+            ForumPages.Moderate_ReportedPosts,
+            new { f = forumId });
     }
 
     /// <summary>

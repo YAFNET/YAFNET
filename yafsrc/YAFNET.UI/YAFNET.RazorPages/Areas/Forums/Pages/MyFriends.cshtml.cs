@@ -28,7 +28,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
-using YAF.Core.Services;
 using YAF.Types.Objects.Model;
 
 using System.Collections.Generic;
@@ -47,7 +46,7 @@ public class FriendsModel : ForumPageRegistered
     ///   Initializes a new instance of the <see cref = "FriendsModel" /> class.
     /// </summary>
     public FriendsModel()
-        : base("FRIENDS", ForumPages.Friends)
+        : base("FRIENDS", ForumPages.MyFriends)
     {
     }
 
@@ -98,19 +97,24 @@ public class FriendsModel : ForumPageRegistered
     /// <summary>
     /// The on get.
     /// </summary>
-    public void OnGet()
+    public IActionResult OnGet()
     {
+        if (!this.PageBoardContext.BoardSettings.EnableBuddyList)
+        {
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
         this.Mode = FriendMode.Friends.ToInt();
 
-        this.BindData();
+        return this.BindData();
     }
 
     /// <summary>
     /// Called when [post].
     /// </summary>
-    public void OnPost()
+    public IActionResult OnPost()
     {
-        this.BindData();
+        return this.BindData();
     }
 
     /// <summary>
@@ -124,7 +128,7 @@ public class FriendsModel : ForumPageRegistered
             string.Format(this.GetText("REMOVEBUDDY_NOTIFICATION"), this.Get<IFriends>().Remove(userId)),
             MessageTypes.success);
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.Friends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends);
     }
 
     /// <summary>
@@ -138,7 +142,7 @@ public class FriendsModel : ForumPageRegistered
 
         this.PageBoardContext.SessionNotify(this.GetText("NOTIFICATION_REQUESTREMOVED"), MessageTypes.success);
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.Friends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends);
     }
 
     /// <summary>
@@ -160,7 +164,7 @@ public class FriendsModel : ForumPageRegistered
                 user.DisplayOrUserName()),
             MessageTypes.success);
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.Friends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends);
     }
 
     /// <summary>
@@ -173,7 +177,7 @@ public class FriendsModel : ForumPageRegistered
 
         this.PageBoardContext.SessionNotify(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"), MessageTypes.success);
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.Friends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends);
     }
 
     /// <summary>
@@ -187,7 +191,7 @@ public class FriendsModel : ForumPageRegistered
 
         this.PageBoardContext.SessionNotify(this.GetText("NOTIFICATION_BUDDYDENIED"), MessageTypes.info);
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.Friends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends);
     }
 
     /// <summary>
@@ -200,13 +204,13 @@ public class FriendsModel : ForumPageRegistered
 
         this.PageBoardContext.SessionNotify(this.GetText("NOTIFICATION_ALL_DENIED"), MessageTypes.info);
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.Friends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends);
     }
 
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData()
+    private IActionResult BindData()
     {
         this.FriendListModes = new SelectList(
             StaticDataHelper.FriendListModes(),
@@ -249,5 +253,7 @@ public class FriendsModel : ForumPageRegistered
             FriendMode.SendRequests => this.GetText("FRIENDS", "YOUR_REQUESTS"),
             _ => this.Get<ILocalization>().GetText("FRIENDS", "BUDDYLIST")
         };
+
+        return this.Page();
     }
 }

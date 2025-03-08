@@ -58,14 +58,14 @@ public class PostsController : ForumBaseController
 
             if (source == null)
             {
-                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
             if (source.IsDeleted || this.PageBoardContext.IsGuest || this.PageBoardContext.MembershipUser == null
                 || !this.PageBoardContext.PageUserID.Equals(source.TopicOwnerID)
                 || source.UserID.Equals(this.PageBoardContext.PageUserID))
             {
-                return this.RedirectToPage(ForumPages.Post.GetPageName(),
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post,
                     new { m, name = source.Topic, t = source.TopicID });
             }
 
@@ -102,12 +102,12 @@ public class PostsController : ForumBaseController
                 this.GetRepository<Message>().UpdateFlags(source.MessageID, messageFlags.BitValue);
             }
 
-            return this.RedirectToPage(ForumPages.Post.GetPageName(),
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Post,
                 new { m, name = source.Topic, t = source.TopicID });
         }
         catch (Exception)
         {
-            return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
         }
     }
 }

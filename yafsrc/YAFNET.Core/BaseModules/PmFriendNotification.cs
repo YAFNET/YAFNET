@@ -59,7 +59,7 @@ public class PmFriendNotification : BaseForumModule, IHandleEvent<ForumPagePostL
             return;
         }
 
-        if (!this.DisplayPendingBuddies()  || this.PageContext.CurrentForumPage.PageName == ForumPages.Friends)
+        if (!this.DisplayPendingBuddies()  || this.PageContext.CurrentForumPage.PageName == ForumPages.MyFriends)
         {
             return;
         }
@@ -69,7 +69,7 @@ public class PmFriendNotification : BaseForumModule, IHandleEvent<ForumPagePostL
             this.GetTextFormatted("PENDINGBUDDIES2", this.PageContext.PendingBuddies),
             this.GetText("COMMON", "YES"),
             this.GetText("COMMON", "NO"),
-            this.Get<ILinkBuilder>().GetLink(ForumPages.Friends));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.MyFriends));
 
         this.Get<ISessionService>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
     }

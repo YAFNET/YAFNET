@@ -232,32 +232,11 @@ public static class BuddyRepositoryExtensions
                                             u.AvatarImage
             });
 
-        var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
-
-        // Get from user friends
-        expression2.Join<User>((b, u) => u.ID == b.FromUserID && (u.Flags & 2) == 2 && (u.Flags & 32) != 32)
-            .Where<Buddy>(b => b.ToUserID == userId && b.Approved == true)
-            .Select<Buddy, User>((b, u) => new
-                                               {
-                                                   UserID = u.ID,
-                                                   u.Name,
-                                                   u.DisplayName,
-                                                   u.Joined,
-                                                   u.NumPosts,
-                                                   b.Approved,
-                                                   b.Requested,
-                                                   u.UserStyle,
-                                                   u.Suspended,
-                                                   u.Avatar,
-                                                   u.AvatarImage
-                                               });
-
         return
         [
             .. repository.DbAccess.Execute(
-                            db => db.Connection.Select<BuddyUser>(
-                                $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}"))
-                        .DistinctBy(x => x.UserID).OrderBy(x => x.Name)
+                    db => db.Connection.Select<BuddyUser>(expression))
+                .DistinctBy(x => x.UserID).OrderBy(x => x.Name)
         ];
     }
 

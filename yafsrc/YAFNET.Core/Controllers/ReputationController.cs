@@ -55,7 +55,7 @@ public class ReputationController : ForumBaseController
         {
             if (this.PageBoardContext.IsGuest)
             {
-                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
             var messages = this.Get<ISessionService>().GetPageData<List<PagedMessage>>();
@@ -64,7 +64,7 @@ public class ReputationController : ForumBaseController
 
             if (source == null)
             {
-                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
             if (!this.Get<IReputation>().CheckIfAllowReputationVoting(source.ReputationVoteDate))
@@ -100,7 +100,7 @@ public class ReputationController : ForumBaseController
         {
             if (this.PageBoardContext.IsGuest)
             {
-                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
             var messages = this.Get<ISessionService>().GetPageData<List<PagedMessage>>();
@@ -109,7 +109,7 @@ public class ReputationController : ForumBaseController
 
             if (source == null)
             {
-                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
             if (!this.Get<IReputation>().CheckIfAllowReputationVoting(source.ReputationVoteDate))

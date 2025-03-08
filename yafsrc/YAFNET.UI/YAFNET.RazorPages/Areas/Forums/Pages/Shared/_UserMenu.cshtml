@@ -188,9 +188,9 @@
 
     @if (Current.BoardSettings.EnableBuddyList && Current.UserHasBuddies && !Current.IsSuspended)
     {
-        <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Friends ? "dropdown-item active" : "dropdown-item")"
+        <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.MyFriends ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
-           asp-page="@ForumPages.Friends.GetPageName()"
+           asp-page="@ForumPages.MyFriends.GetPageName()"
            role="button"
            title-localized-page="TOOLBAR"6
            title-localized-tag="BUDDIES_TITLE">

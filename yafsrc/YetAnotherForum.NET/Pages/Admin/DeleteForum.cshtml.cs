@@ -126,6 +126,6 @@ public class DeleteForumModel : AdminPage
             await Task.Delay(4000);
         }
 
-        return this.RedirectToPage(ForumPages.Admin_Forums.GetPageName());
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Forums);
     }
 }

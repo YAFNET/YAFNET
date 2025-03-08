@@ -49,9 +49,8 @@ public class PollController : ForumBaseController
         if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess
                                            && this.PageBoardContext.PageUserID != poll.UserID)
         {
-            return this.RedirectToPage(
-                ForumPages.Info.GetPageName(),
-                null,
+            return this.Get<ILinkBuilder>().Redirect(
+                ForumPages.Info,
                 new { info = InfoMessage.Invalid.ToType<int>() });
         }
 
@@ -61,8 +60,8 @@ public class PollController : ForumBaseController
 
         this.PageBoardContext.SessionNotify(this.GetText("REMOVEPOLL_MSG"), MessageTypes.success);
 
-        return this.RedirectToPage(
-            ForumPages.Posts.GetPageName(),
+        return this.Get<ILinkBuilder>().Redirect(
+            ForumPages.Posts,
             new { t = topic.ID, name = topic.TopicName });
     }
 
@@ -88,9 +87,8 @@ public class PollController : ForumBaseController
                       || poll.PollFlags.AllowMultipleChoice && forumAccess.VoteAccess
                                                             && userPollVotes.TrueForAll(v => choiceId != v.ChoiceID);
 
-        var redirect = this.RedirectToPage(
-            ForumPages.Posts.GetPageName(),
-            null,
+        var redirect = this.Get<ILinkBuilder>().Redirect(
+            ForumPages.Posts,
             new {t = topic.ID, name = topic.TopicName});
 
         if (!canVote)

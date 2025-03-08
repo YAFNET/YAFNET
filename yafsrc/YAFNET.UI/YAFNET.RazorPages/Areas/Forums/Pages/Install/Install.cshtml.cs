@@ -74,7 +74,7 @@ public class InstallModel : InstallPage
 
         if (this.IsForumInstalled && cachePage is null)
         {
-            return this.RedirectToPage(ForumPages.Index.GetPageName());
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
         }
 
         this.Get<ILocalization>().TransPage = "INSTALL";
@@ -251,7 +251,7 @@ public class InstallModel : InstallPage
     {
         this.Get<IDataCache>().Remove("Install");
 
-        return this.RedirectToPage(ForumPages.Index.GetPageName());
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
     }
 
     /// <summary>

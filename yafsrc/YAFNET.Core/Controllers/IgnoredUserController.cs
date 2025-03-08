@@ -54,7 +54,7 @@ public class IgnoredUserController : ForumBaseController
         {
             if (this.PageBoardContext.IsGuest)
             {
-                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
             var messages = this.Get<ISessionService>().GetPageData<List<PagedMessage>>();
@@ -63,16 +63,16 @@ public class IgnoredUserController : ForumBaseController
 
             if (source == null)
             {
-                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
             this.Get<IUserIgnored>().RemoveIgnored(source.UserID);
 
-            return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = source.Topic });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = source.Topic });
         }
         catch (Exception)
         {
-            return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
         }
     }
 
@@ -89,7 +89,7 @@ public class IgnoredUserController : ForumBaseController
         {
             if (this.PageBoardContext.IsGuest)
             {
-                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
             var messages = this.Get<ISessionService>().GetPageData<List<PagedMessage>>();
@@ -98,16 +98,16 @@ public class IgnoredUserController : ForumBaseController
 
             if (source == null)
             {
-                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
             this.Get<IUserIgnored>().AddIgnored(source.UserID);
 
-            return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = source.Topic });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = source.Topic });
         }
         catch (Exception)
         {
-            return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
         }
     }
 }
