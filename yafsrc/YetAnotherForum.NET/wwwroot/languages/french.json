@@ -4371,14 +4371,6 @@
             "#text": "La tâche de l'index de recherche a commencé."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Masque URL de la base du forum :"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "L'url complète de ce forum."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Courriel du forum :"
           },

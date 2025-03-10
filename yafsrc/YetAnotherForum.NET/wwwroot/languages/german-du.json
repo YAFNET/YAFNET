@@ -4363,14 +4363,6 @@
             "#text": "Suchindexaufgabe gestartet."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Forum Base URL Maske:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Die vollständige, nach vorne gerichtete Url zu diesem Forum."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forum E-Mail Adresse:"
           },

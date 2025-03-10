@@ -4371,14 +4371,6 @@
             "#text": "Nhiệm vụ lập chỉ mục tìm kiếm đã bắt đầu."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Mặt nạ URL cơ sở của diễn đàn:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Toàn bộ url hướng về phía trước cho diễn đàn này."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Email Diễn đàn:"
           },

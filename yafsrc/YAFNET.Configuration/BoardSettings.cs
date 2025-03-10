@@ -1832,16 +1832,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets BaseUrlMask.
-    /// </summary>
-    public string BaseUrlMask
-    {
-        get => this.Registry.GetValue<string>("BaseUrlMask", null);
-
-        set => this.Registry.SetValue("BaseUrlMask", value);
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether ShowBrowsingUsers.
     /// </summary>
     public bool ShowBrowsingUsers

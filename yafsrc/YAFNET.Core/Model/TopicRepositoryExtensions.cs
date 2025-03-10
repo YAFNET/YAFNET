@@ -908,6 +908,17 @@ public static class TopicRepositoryExtensions
                     var lastUserStyleSql = lastUserNameExpression.Select(
                         $"{lastUserNameExpression.Column<User>(x => x.UserStyle)}").Limit(1).ToSelectStatement();
 
+                    // -- last message
+                    var lastMessageExpression = db.Connection.From<Message>(db.Connection.TableAlias("fm"));
+                    lastMessageExpression.Where(
+                        $"""
+                         fm.{lastMessageExpression.Column<Message>(x => x.ID)}=
+                         {OrmLiteConfig.DialectProvider.IsNullFunction(expression.Column<Topic>(x => x.TopicMovedID, true), expression.Column<Topic>(x => x.LastMessageID, true))}
+                         """);
+
+                    var lastMessageSql = lastMessageExpression.Select(
+                        $"{lastMessageExpression.Column<Message>(x => x.MessageText)}").Limit(1).ToSelectStatement();
+
                     // -- first message
                     var firstMessageExpression = db.Connection.From<Message>(db.Connection.TableAlias("fm"));
                     firstMessageExpression.Where(
@@ -921,44 +932,46 @@ public static class TopicRepositoryExtensions
 
                     expression.Select<Topic, User, Forum>(
                         (c, b, d) => new
-                                         {
-                                             ForumID = d.ID,
-                                             TopicID = c.ID,
-                                             c.Posted,
-                                             LinkTopicID = c.TopicMovedID ?? c.ID,
-                                             c.TopicMovedID,
-                                             Subject = c.TopicName,
-                                             c.Description,
-                                             c.Status,
-                                             c.Styles,
-                                             c.UserID,
-                                             Starter = c.UserName ?? b.Name,
-                                             StarterDisplay = c.UserDisplayName ?? b.DisplayName,
-                                             Replies = c.NumPosts - 1,
-                                             NumPostsDeleted = Sql.Custom($"({countDeletedSql})"),
-                                             c.Views,
-                                             c.LastPosted,
-                                             c.LastUserID,
-                                             LastUserName = Sql.Custom($"({lastUserNameSql})"),
-                                             LastUserDisplayName = Sql.Custom($"({lastUserDisplayNameSql})"),
-                                             LastUserSuspended = Sql.Custom($"({lastUserSuspendedSql})"),
-                                             LastUserStyle = Sql.Custom($"({lastUserStyleSql})"),
-                                             c.LastMessageFlags,
-                                             c.LastMessageID,
-                                             LastTopicID = c.ID,
-                                             c.LinkDate,
-                                             TopicFlags = c.Flags,
-                                             c.Priority,
-                                             c.PollID,
-                                             ForumFlags = d.Flags,
-                                             FirstMessage = Sql.Custom($"({firstMessageSql})"),
-                                             StarterStyle = b.UserStyle,
-                                             StarterSuspended = b.Suspended,
-                                             LastForumAccess = Sql.Custom($"({lastForumAccessSql})"),
-                                             LastTopicAccess = Sql.Custom($"({lastTopicAccessSql})"),
-                                             c.TopicImage,
-                                             TotalRows = Sql.Custom($"({countTotalSql})")
-                                         });
+                        {
+                            ForumID = d.ID,
+                            TopicID = c.ID,
+                            c.Posted,
+                            LinkTopicID = c.TopicMovedID ?? c.ID,
+                            c.TopicMovedID,
+                            Subject = c.TopicName,
+                            c.Description,
+                            c.Status,
+                            c.Styles,
+                            c.UserID,
+                            Starter = c.UserName ?? b.Name,
+                            StarterDisplay = c.UserDisplayName ?? b.DisplayName,
+                            Replies = c.NumPosts - 1,
+                            NumPostsDeleted = Sql.Custom($"({countDeletedSql})"),
+                            c.Views,
+                            c.LastPosted,
+                            c.LastUserID,
+                            LastUserName = Sql.Custom($"({lastUserNameSql})"),
+                            LastUserDisplayName = Sql.Custom($"({lastUserDisplayNameSql})"),
+                            LastUserSuspended = Sql.Custom($"({lastUserSuspendedSql})"),
+                            LastUserStyle = Sql.Custom($"({lastUserStyleSql})"),
+                            LastMessage = Sql.Custom($"({lastMessageSql})"),
+                            c.LastMessageFlags,
+                            c.LastMessageID,
+                            LastTopicID = c.ID,
+                            c.LinkDate,
+                            TopicFlags = c.Flags,
+                            c.Priority,
+                            c.PollID,
+                            ForumFlags = d.Flags,
+                            ForumName = d.Name,
+                            FirstMessage = Sql.Custom($"({firstMessageSql})"),
+                            StarterStyle = b.UserStyle,
+                            StarterSuspended = b.Suspended,
+                            LastForumAccess = Sql.Custom($"({lastForumAccessSql})"),
+                            LastTopicAccess = Sql.Custom($"({lastTopicAccessSql})"),
+                            c.TopicImage,
+                            TotalRows = Sql.Custom($"({countTotalSql})")
+                        });
 
                     return db.Connection.Select<PagedTopic>(expression);
                 });

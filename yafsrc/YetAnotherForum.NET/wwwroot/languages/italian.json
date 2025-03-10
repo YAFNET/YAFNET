@@ -4363,14 +4363,6 @@
             "#text": "L'attività di ricerca dell'indice è stata avviata."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Maschera URL base del forum:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "L'url completo di questo forum."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forum E-mail:"
           },

@@ -104,6 +104,6 @@ public class DigestService : IDigestService, IHaveServiceLocator
             this.Get<ILocalization>().GetText("DIGEST", "SUBJECT", languageFile),
             this.Get<BoardSettings>().Name);
 
-        return email.CreateEmail(boardAddress, new MailboxAddress(toEmail, toName), subject);
+        return email.CreateEmail(boardAddress, new MailboxAddress(toName, toEmail), subject);
     }
 }

@@ -23,6 +23,8 @@
  * under the License.
  */
 
+using Microsoft.Extensions.Logging;
+
 namespace YAF.Pages.Admin;
 
 using System.Threading.Tasks;
@@ -101,6 +103,10 @@ public class DigestModel : AdminPage
         }
         catch (Exception ex)
         {
+            this.Get<ILogger<DigestModel>>().Error(
+                ex,
+                string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR"), ex));
+
             return this.PageBoardContext.Notify(
                 string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR"), ex),
                 MessageTypes.danger);

@@ -4371,14 +4371,6 @@
             "#text": "Søkeindeksoppgave startet."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Forum Base URL Mask:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Hele fremadvendte url til dette forumet."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forum e-post:"
           },

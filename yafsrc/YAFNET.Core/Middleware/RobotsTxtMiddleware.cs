@@ -102,7 +102,7 @@ public class RobotsTxtMiddleware : IHaveServiceLocator
             // replace default sitemap url
             if (output.Contains("https://www.mydomain.com/", StringComparison.CurrentCultureIgnoreCase))
             {
-                output = output.Replace("https://www.mydomain.com/", $"{this.Get<BoardSettings>().BaseUrlMask}");
+                output = output.Replace("https://www.mydomain.com/", $"{this.Get<BoardInfo>().ForumBaseUrl}");
             }
 
             context.Response.ContentType = "text/plain";

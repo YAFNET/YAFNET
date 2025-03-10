@@ -4363,14 +4363,6 @@
             "#text": "Tarea de índice de búsqueda iniciada."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Máscara de URL de la base del foro:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "La url completa de este foro."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Email del foro:"
           },

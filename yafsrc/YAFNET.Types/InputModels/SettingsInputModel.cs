@@ -48,12 +48,6 @@ public class SettingsInputModel
     public string BoardLogo { get; set; }
 
     /// <summary>
-    /// Gets or sets the forum base URL mask.
-    /// </summary>
-    /// <value>The forum base URL mask.</value>
-    public string ForumBaseUrlMask { get; set; }
-
-    /// <summary>
     /// Gets or sets the theme.
     /// </summary>
     /// <value>The theme.</value>

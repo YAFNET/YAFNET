@@ -143,21 +143,23 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
         {
             string baseUrlMask;
 
-            try
-            {
-                if (MemoryCache.Default["BoardSettings$1"] is not BoardSettings boardSettings)
-                {
-                    return this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
-                }
+            /* try
+             {
+                 if (MemoryCache.Default["BoardSettings$1"] is not BoardSettings boardSettings)
+                 {
+                     return this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
+                 }
 
-                baseUrlMask = boardSettings.BaseUrlMask.IsSet()
-                                  ? boardSettings.BaseUrlMask
-                                  : this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
-            }
-            catch (Exception)
-            {
-                baseUrlMask = this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
-            }
+                 baseUrlMask = boardSettings.BaseUrlMask.IsSet()
+                                   ? boardSettings.BaseUrlMask
+                                   : this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
+             }
+             catch (Exception)
+             {
+                 baseUrlMask = this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
+             }*/
+
+            baseUrlMask = this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
 
             return TreatBaseUrl(baseUrlMask);
         }

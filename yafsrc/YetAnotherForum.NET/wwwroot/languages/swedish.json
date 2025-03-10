@@ -4371,14 +4371,6 @@
             "#text": "Sökindex Uppgift påbörjad."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "URL-mask för forumbasen:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Den fullständiga webbadressen till detta forum."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "E-post till forumet:"
           },

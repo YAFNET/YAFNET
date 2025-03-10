@@ -4363,14 +4363,6 @@
             "#text": "Zoekindextaak gestart."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Masker basis-URL van forum:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "De volledige naar voren gerichte url naar dit forum."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forum E-mail:"
           },

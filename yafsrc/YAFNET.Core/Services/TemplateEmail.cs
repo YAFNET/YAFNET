@@ -52,7 +52,7 @@ public class TemplateEmail : IHaveServiceLocator
         this.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
         this.TemplateParams["{forumlink}"] = this.Get<ILinkBuilder>().ForumUrl;
         this.TemplateParams["%%forumlink%%"] = this.Get<ILinkBuilder>().ForumUrl;
-        this.TemplateParams["%%logo%%"] = $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}";
+        this.TemplateParams["%%logo%%"] = $"{this.Get<BoardInfo>().ForumBaseUrl}{logoUrl}";
         this.TemplateParams["%%manageLink%%"] =
             this.Get<ILinkBuilder>().GetAbsoluteLink(ForumPages.Profile_Subscriptions);
     }

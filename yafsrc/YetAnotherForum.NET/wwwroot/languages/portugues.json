@@ -4371,14 +4371,6 @@
             "#text": "Tarefa de Índice de Pesquisa iniciada."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Máscara URL Base do Fórum:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "A url virada para a frente para este fórum."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Email do Fórum:"
           },

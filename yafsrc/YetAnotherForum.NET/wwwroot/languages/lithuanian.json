@@ -4371,14 +4371,6 @@
             "#text": "Pradėta paieškos rodyklės užduotis."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Forumo bazės URL kaukė:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Visas į priekį nukreiptas šio forumo url adresas."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forumo el. paštas:"
           },

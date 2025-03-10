@@ -4371,14 +4371,6 @@
             "#text": "搜索索引任务已启动。"
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "论坛基本 URL 掩码："
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "此论坛的完整前向 URL。"
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "论坛邮箱："
           },
