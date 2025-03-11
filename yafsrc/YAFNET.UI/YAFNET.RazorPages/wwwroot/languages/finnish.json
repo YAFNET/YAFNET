@@ -4371,14 +4371,6 @@
             "#text": "Haku Indeksi Tehtävä käynnistetty."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Foorumin URL-osoite:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Tämän foorumin täydellinen eteenpäin osoittava url-osoite."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Foorumin sähköpostiosoite:"
           },

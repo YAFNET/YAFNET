@@ -4371,14 +4371,6 @@
             "#text": "Úloha indexu hledání byla zahájena."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Základní maska ​​URL fóra:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Úplná dopředná adresa URL tohoto fóra."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "E-mail fóra:"
           },

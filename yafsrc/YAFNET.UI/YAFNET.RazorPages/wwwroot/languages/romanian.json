@@ -4371,14 +4371,6 @@
             "#text": "Index de căutare Sarcina a început."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Masca URL-ului de bază a forumului:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "URL-ul complet al acestui forum."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "E-mail forum:"
           },

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading;
+
 namespace YAF.Core.Tasks;
 
 using System;
@@ -49,7 +51,7 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     /// <summary>
     /// The lock object.
     /// </summary>
-    readonly protected object LockObject = new ();
+    readonly protected Lock LockObject = new ();
 
     /// <summary>
     /// The started.

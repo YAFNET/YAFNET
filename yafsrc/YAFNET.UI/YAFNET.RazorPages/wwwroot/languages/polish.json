@@ -4363,14 +4363,6 @@
             "#text": "Wyszukiwanie indeksu Zadanie rozpoczęte."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Maska adresu URL bazy forum:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Pełny adres url do przodu tego forum."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Email Forum:"
           },

@@ -27,7 +27,6 @@ using Microsoft.AspNetCore.Hosting;
 namespace YAF.Core.Services;
 
 using System;
-using System.Runtime.Caching;
 
 using YAF.Types.Objects;
 
@@ -58,7 +57,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public DateTime AppVersionDate { get; set; } = new (2025, 01, 02, 07, 52, 00, DateTimeKind.Utc);
+    public DateTime AppVersionDate { get; set; } = new (2025, 03, 10, 08, 55, 00, DateTimeKind.Utc);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value
@@ -141,25 +140,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     {
         get
         {
-            string baseUrlMask;
-
-            /* try
-             {
-                 if (MemoryCache.Default["BoardSettings$1"] is not BoardSettings boardSettings)
-                 {
-                     return this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
-                 }
-
-                 baseUrlMask = boardSettings.BaseUrlMask.IsSet()
-                                   ? boardSettings.BaseUrlMask
-                                   : this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
-             }
-             catch (Exception)
-             {
-                 baseUrlMask = this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
-             }*/
-
-            baseUrlMask = this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
+            var baseUrlMask = this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
 
             return TreatBaseUrl(baseUrlMask);
         }

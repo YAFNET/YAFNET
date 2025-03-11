@@ -4363,14 +4363,6 @@
             "#text": "بدأت مهمة فهرس البحث."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "قناع URL الأساسي للمنتدى:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "عنوان url الأمامي الكامل لهذا المنتدى."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "البريد الإلكتروني للمنتدى:"
           },

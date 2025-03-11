@@ -4363,14 +4363,6 @@
             "#text": "عملیات ساخت فهرست برای جستجو شروع شد."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "قالب دسترسی پایه‌ی انجمن"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "آدرس اینترنتی کامل forward-facing به این انجمن."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "ایمیل انجمن:"
           },

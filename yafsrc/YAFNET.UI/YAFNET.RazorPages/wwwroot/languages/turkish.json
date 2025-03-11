@@ -4371,14 +4371,6 @@
             "#text": "Arama Dizini Görevi başlatıldı."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Forum Tabanı URL Maskesi:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Bu forumun ileriye dönük tam URL'si."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forum E-postası:"
           },

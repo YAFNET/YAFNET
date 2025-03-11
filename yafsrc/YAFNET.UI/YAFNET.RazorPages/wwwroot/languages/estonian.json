@@ -4371,14 +4371,6 @@
             "#text": "Otsinguindeksi ülesanne on alanud."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Foorumi baas-URL-i mask:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Selle foorumi täielik ettepoole suunatud URL."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Foorumi e-post:"
           },

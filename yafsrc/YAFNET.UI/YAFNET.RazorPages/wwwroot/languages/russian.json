@@ -4363,14 +4363,6 @@
             "#text": "Задача \"Поисковый индекс\" запущена."
           },
           {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Маска URL базы форума:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Полный прямой url этого форума."
-          },
-          {
             "@tag": "FORUM_EMAIL",
             "#text": "Email форума:"
           },
