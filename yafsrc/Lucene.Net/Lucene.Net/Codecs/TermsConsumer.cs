@@ -1,7 +1,6 @@
 ﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs
 {
@@ -96,7 +95,6 @@ namespace YAF.Lucene.Net.Codecs
 
         /// <summary>
         /// Default merge impl. </summary>
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public virtual void Merge(MergeState mergeState, IndexOptions indexOptions, TermsEnum termsEnum)
         {
             BytesRef term;

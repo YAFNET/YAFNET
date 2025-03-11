@@ -1,6 +1,5 @@
 ﻿using YAF.Lucene.Net.Support;
 using System;
-using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace YAF.Lucene.Net.Store
@@ -132,7 +131,6 @@ namespace YAF.Lucene.Net.Store
         }
 
         /// <inheritdoc/>
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public override void Flush()
         {
             if (buffer is null) return; // LUCENENET: Lazy-load the buffer, so we don't force all subclasses to allocate it

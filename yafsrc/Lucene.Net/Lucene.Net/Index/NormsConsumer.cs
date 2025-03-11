@@ -1,6 +1,5 @@
 using YAF.Lucene.Net.Diagnostics;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -39,7 +38,6 @@ namespace YAF.Lucene.Net.Index
         {
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         internal override void Flush(IDictionary<string, InvertedDocEndConsumerPerField> fieldsToFlush, SegmentWriteState state)
         {
             bool success = false;

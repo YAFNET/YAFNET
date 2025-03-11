@@ -367,7 +367,6 @@ namespace YAF.Lucene.Net.Store
                 this.isSeparate = isSeparate;
             }
 
-            [MethodImpl(MethodImplOptions.NoInlining)]
             public override void Flush()
             {
                 @delegate.Flush();

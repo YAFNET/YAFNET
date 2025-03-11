@@ -1,7 +1,5 @@
 ﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs
 {
@@ -86,7 +84,6 @@ namespace YAF.Lucene.Net.Codecs
         /// Default merge impl: append documents, mapping around
         /// deletes.
         /// </summary>
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public virtual TermStats Merge(MergeState mergeState, IndexOptions indexOptions, DocsEnum postings, FixedBitSet visitedDocs)
         {
             int df = 0;

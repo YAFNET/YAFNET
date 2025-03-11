@@ -93,7 +93,6 @@ namespace YAF.Lucene.Net.Util.Fst
             return NO_OUTPUT;
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public override object Merge(object first, object second)
         {
             if (Debugging.AssertsEnabled)

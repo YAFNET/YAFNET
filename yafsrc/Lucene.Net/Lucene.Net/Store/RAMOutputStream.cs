@@ -1,7 +1,6 @@
 ﻿using YAF.Lucene.Net.Support;
 using System;
 using YAF.Lucene.Net.Diagnostics;
-using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Store
 {
@@ -206,7 +205,6 @@ namespace YAF.Lucene.Net.Store
             }
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public override void Flush()
         {
             SetFileLength();

@@ -1,7 +1,6 @@
 ﻿using YAF.Lucene.Net.Util.Packed;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -93,7 +92,6 @@ namespace YAF.Lucene.Net.Index
         {
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public override void Flush(SegmentWriteState state, DocValuesConsumer dvConsumer)
         {
             int maxDoc = state.SegmentInfo.DocCount;

@@ -3,7 +3,6 @@ using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Packed;
-using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -206,7 +205,6 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public override void Merge(DocValuesFieldUpdates other)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(other is NumericDocValuesFieldUpdates);

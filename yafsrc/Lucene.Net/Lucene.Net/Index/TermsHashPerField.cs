@@ -2,7 +2,6 @@
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -100,7 +99,6 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public override void Abort()
         {
             Reset();

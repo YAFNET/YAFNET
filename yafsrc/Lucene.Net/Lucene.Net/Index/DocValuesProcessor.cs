@@ -3,7 +3,6 @@ using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.Documents.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -85,7 +84,6 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public override void Flush(SegmentWriteState state)
         {
             if (writers.Count > 0)
@@ -214,7 +212,6 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public override void Abort()
         {
             foreach (DocValuesWriter writer in writers.Values)

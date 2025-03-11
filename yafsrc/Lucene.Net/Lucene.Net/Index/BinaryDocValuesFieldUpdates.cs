@@ -1,6 +1,4 @@
 ﻿using YAF.Lucene.Net.Documents;
-using System;
-using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -250,7 +248,6 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public override void Merge(DocValuesFieldUpdates other)
         {
             BinaryDocValuesFieldUpdates otherUpdates = (BinaryDocValuesFieldUpdates)other;

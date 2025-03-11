@@ -1,11 +1,9 @@
 ﻿using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support.Threading;
-using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using JCG = J2N.Collections.Generic;
 
@@ -45,7 +43,7 @@ namespace YAF.Lucene.Net.Index
     /// Each added document is passed to the <see cref="DocConsumer"/>,
     /// which in turn processes the document and interacts with
     /// other consumers in the indexing chain.  Certain
-    /// consumers, like <see cref="StoredFieldsConsumer"/> and 
+    /// consumers, like <see cref="StoredFieldsConsumer"/> and
     /// <see cref="TermVectorsConsumer"/>, digest a document and
     /// immediately write bytes to the "doc store" files (ie,
     /// they do not consume RAM per document, except while they
@@ -259,7 +257,6 @@ namespace YAF.Lucene.Net.Index
         ///  currently buffered docs.  this resets our state,
         ///  discarding any docs added since last flush.
         /// </summary>
-        [MethodImpl(MethodImplOptions.NoInlining)]
         internal void Abort(IndexWriter writer)
         {
             UninterruptableMonitor.Enter(this);

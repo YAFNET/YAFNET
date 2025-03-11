@@ -1,8 +1,6 @@
 ﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
-using System;
-using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -64,7 +62,6 @@ namespace YAF.Lucene.Net.Index
             Reset();
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public override void Flush(SegmentWriteState state)
         {
             int numDocs = state.SegmentInfo.DocCount;
@@ -115,7 +112,6 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public override void Abort()
         {
             Reset();
@@ -142,7 +138,6 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         internal override void FinishDocument()
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(docWriter.TestPoint("StoredFieldsWriter.finishDocument start"));
