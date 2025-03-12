@@ -23,7 +23,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="9.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="9.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.3" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.2" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="9.0.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.2" />
