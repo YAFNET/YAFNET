@@ -479,7 +479,7 @@ public static class JavaScriptBlocks
                      locale: '{{locale}}',
                      toolbar: '{{toolbar}}',
                      root: '{{root}}',
-                     plugins: 'plaintext,dragdrop',
+                     plugins: 'plaintext,dragdrop,undo',
                      albumsPreviewUrl: '/resource.ashx?imgprv=',
                    	 styles: [{{styles}}],
                    	 extensionsUrl: '{{extensionsUrl}}',

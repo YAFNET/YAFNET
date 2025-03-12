@@ -276,11 +276,6 @@ namespace YAF.Lucene.Net.Support
             {
                 return cmp.GetHashCode() ^ int.MinValue;
             }
-
-            public IComparer<T> Reversed()
-            {
-                return cmp;
-            }
         }
 
         #endregion ReverseComparer2

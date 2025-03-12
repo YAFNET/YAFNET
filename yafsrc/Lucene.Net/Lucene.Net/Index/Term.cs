@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRef = Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// A <see cref="Term"/> represents a word from text.  This is the unit of search.  It is
@@ -37,7 +37,9 @@ namespace YAF.Lucene.Net.Index
     /// </summary>
     public sealed class Term : IComparable<Term>, IEquatable<Term> // LUCENENET specific - class implements IEquatable<T>
     {
+#if FEATURE_UTF8_TOUTF16
         private const int CharStackBufferSize = 64;
+#endif
 
         /// <summary>
         /// Constructs a <see cref="Term"/> with the given field and bytes.
