@@ -87,6 +87,22 @@ public class OrmLiteConnection
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="OrmLiteConnection"/> class.
+    /// </summary>
+    /// <param name="factory">The factory.</param>
+    /// <param name="connection">The connection.</param>
+    /// <param name="transaction">The transaction.</param>
+    public OrmLiteConnection(OrmLiteConnectionFactory factory, IDbConnection connection, IDbTransaction transaction = null)
+        : this(factory)
+    {
+        this.dbConnection = connection;
+        if (transaction != null)
+        {
+            Transaction = transaction;
+        }
+    }
+
+    /// <summary>
     /// Gets the database connection.
     /// </summary>
     /// <value>The database connection.</value>

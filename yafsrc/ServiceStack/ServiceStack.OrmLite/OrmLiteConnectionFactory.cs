@@ -141,6 +141,17 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     }
 
     /// <summary>
+    /// Uses the specified connection.
+    /// </summary>
+    /// <param name="connection">The connection.</param>
+    /// <param name="trans">The trans.</param>
+    /// <returns>IDbConnection.</returns>
+    public virtual IDbConnection Use(IDbConnection connection, IDbTransaction trans = null)
+    {
+        return new OrmLiteConnection(this, connection, trans);
+    }
+
+    /// <summary>
     /// Creates the database connection.
     /// </summary>
     /// <param name="namedConnection">The named connection.</param>

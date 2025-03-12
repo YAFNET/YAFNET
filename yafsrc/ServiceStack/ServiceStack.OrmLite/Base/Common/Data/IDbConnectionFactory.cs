@@ -53,5 +53,13 @@ public interface IDbConnectionFactoryExtended : IDbConnectionFactory
     /// <param name="providerName">Name of the provider.</param>
     /// <returns>IDbConnection.</returns>
     IDbConnection OpenDbConnectionString(string connectionString, string providerName);
+
+    /// <summary>
+    /// Uses the specified connection.
+    /// </summary>
+    /// <param name="connection">The connection.</param>
+    /// <param name="trans">The trans.</param>
+    /// <returns>IDbConnection.</returns>
+    IDbConnection Use(IDbConnection connection, IDbTransaction trans = null);
 }
 #endif

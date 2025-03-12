@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using static System.String;
@@ -201,12 +202,7 @@ public static class XLinqExtensions
     /// <returns>List&lt;System.String&gt;.</returns>
     public static List<string> GetValues(this IEnumerable<XElement> els)
     {
-        var values = new List<string>();
-        foreach (var el in els)
-        {
-            values.Add(el.Value);
-        }
-        return values;
+        return els.Select(el => el.Value).ToList();
     }
 
     /// <summary>
@@ -217,19 +213,7 @@ public static class XLinqExtensions
     /// <returns>XAttribute.</returns>
     public static XAttribute AnyAttribute(this XElement element, string name)
     {
-        if (element == null)
-        {
-            return null;
-        }
-
-        foreach (var attribute in element.Attributes())
-        {
-            if (attribute.Name.LocalName == name)
-            {
-                return attribute;
-            }
-        }
-        return null;
+        return element?.Attributes().FirstOrDefault(attribute => attribute.Name.LocalName == name);
     }
 
     /// <summary>
