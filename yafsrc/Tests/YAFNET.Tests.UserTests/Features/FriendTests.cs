@@ -116,7 +116,7 @@ public class FriendTests : TestBase
                     }
                     else
                     {
-                        await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Friends");
+                        await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}MyFriends");
                     }
 
                     Assert.That(
@@ -163,7 +163,7 @@ public class FriendTests : TestBase
                     }
                     else
                     {
-                        await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Friends");
+                        await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}MyFriends");
                     }
 
                     pageSource = await page.ContentAsync();
@@ -214,7 +214,7 @@ public class FriendTests : TestBase
                     }
                     else
                     {
-                        await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Friends");
+                        await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}MyFriends");
                     }
 
                     pageSource = await page.ContentAsync();
@@ -255,7 +255,7 @@ public class FriendTests : TestBase
                         "Login failed");
 
                     // Do actual test
-                    await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Friends");
+                    await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}MyFriends");
 
                     var pageSource = await page.ContentAsync();
 
@@ -269,6 +269,8 @@ public class FriendTests : TestBase
                     Assert.That(delete, Is.Not.Null, "Currently the Test User doesn't have any Friends");
 
                     await delete.ClickAsync();
+
+                    await page.Locator(".btn-success").ClickAsync();
 
                     pageSource = await page.ContentAsync();
 

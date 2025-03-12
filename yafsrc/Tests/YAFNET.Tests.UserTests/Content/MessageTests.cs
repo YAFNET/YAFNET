@@ -74,7 +74,6 @@ public class MessageTests : TestBase
                 await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync(
                     $"{editorContent} This messsage was edited.");
 
-                // Post New Topic
                 await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
 
                 pageSource = await page.ContentAsync();
