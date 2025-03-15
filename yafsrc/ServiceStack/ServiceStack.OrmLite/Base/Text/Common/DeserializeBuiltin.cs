@@ -99,7 +99,7 @@ public static class DeserializeBuiltin<T>
             {
                 return value => DateTimeSerializer.ParseTimeSpan(value.ToString());
             }
-#if NET7_0_OR_GREATER
+#if NET9_0_OR_GREATER
                 if (typeof(T) == typeof(DateOnly))
                 {
                     return value => DateOnly.FromDateTime(DateTimeSerializer.ParseShortestXsdDateTime(value.ToString()));

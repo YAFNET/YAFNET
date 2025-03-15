@@ -1298,7 +1298,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         [typeof(PhysicalAddress)] = NpgsqlDbType.MacAddr,
         [typeof(NpgsqlTsQuery)] = NpgsqlDbType.TsQuery,
         [typeof(NpgsqlTsVector)] = NpgsqlDbType.TsVector,
-#if NET7_0_OR_GREATER
+#if NET9_0_OR_GREATER
         [typeof(DateOnly)] = NpgsqlDbType.Date,
         [typeof(TimeOnly)] = NpgsqlDbType.Time,
 #endif

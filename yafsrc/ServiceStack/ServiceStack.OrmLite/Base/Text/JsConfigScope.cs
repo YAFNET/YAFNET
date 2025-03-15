@@ -52,7 +52,7 @@ public sealed class JsConfigScope : Config, IDisposable
     /// </summary>
     /// <value>The current.</value>
     static internal JsConfigScope Current =>
-#if NET7_0_OR_GREATER
+#if NET9_0_OR_GREATER
             head.Value;
 #else
         head;
@@ -66,7 +66,7 @@ public sealed class JsConfigScope : Config, IDisposable
         if (!this.disposed)
         {
             this.disposed = true;
-#if NET7_0_OR_GREATER        
+#if NET9_0_OR_GREATER
                 head.Value = this.parent;
 #else
             head = parent;

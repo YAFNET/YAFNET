@@ -9,7 +9,7 @@
 using System;
 using System.Globalization;
 
-#if NET7_0_OR_GREATER
+#if NET9_0_OR_GREATER
 namespace ServiceStack.OrmLite.Converters;
 
 /// <summary>

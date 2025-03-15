@@ -28,7 +28,7 @@ public static class Env
             throw new ArgumentException("PclExport.Instance needs to be initialized");
         }
 
-#if NET7_0_OR_GREATER
+#if NET9_0_OR_GREATER
         try
         {
             var fxDesc = RuntimeInformation.FrameworkDescription;

@@ -318,7 +318,7 @@ public struct JsonTypeSerializer
         this.WriteTimeSpan(writer, ((TimeSpan?)oTimeSpan).Value);
     }
 
-#if NET7_0_OR_GREATER
+#if NET9_0_OR_GREATER
     /// <summary>
     /// Writes the date only.
     /// </summary>

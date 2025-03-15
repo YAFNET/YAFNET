@@ -6,7 +6,7 @@
 	<FileVersion>4.0.0</FileVersion>
     <Authors>ServiceStack</Authors>
     <Company>ServiceStack, Inc.</Company>
-    <Copyright>&#169; 2008-2024 ServiceStack, Inc</Copyright>
+    <Copyright>&#169; 2008-2025 ServiceStack, Inc</Copyright>
     <DebugType>embedded</DebugType>
     <LangVersion>latest</LangVersion>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>

@@ -554,7 +554,7 @@ public struct JsvTypeSerializer
         }
     }
 
-#if NET7_0_OR_GREATER
+#if NET9_0_OR_GREATER
     /// <summary>
     /// Writes the date only.
     /// </summary>

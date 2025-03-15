@@ -47,7 +47,7 @@ public abstract class PclExport
     public static PclExport Instance { get; private set; }
 #if NETSTANDARD2_0
           = new NetStandardPclExport();
-#elif NET7_0_OR_GREATER
+#elif NET9_0_OR_GREATER
         = new Net7PclExport();
 #endif
 

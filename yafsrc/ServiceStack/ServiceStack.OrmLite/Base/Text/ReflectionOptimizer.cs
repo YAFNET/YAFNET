@@ -21,7 +21,7 @@ public abstract class ReflectionOptimizer
     /// The instance
     /// </summary>
     public static ReflectionOptimizer Instance { get; set; } =
-#if NETFX || NET7_0_OR_GREATER
+#if NETFX || NET9_0_OR_GREATER
             EmitReflectionOptimizer.Provider
 #else
             ExpressionReflectionOptimizer.Provider

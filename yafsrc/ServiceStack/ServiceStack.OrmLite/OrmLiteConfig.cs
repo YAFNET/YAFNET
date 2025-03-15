@@ -314,7 +314,7 @@ public static class OrmLiteConfig
     /// </summary>
     /// <value><c>true</c> if [strip upper in like]; otherwise, <c>false</c>.</value>
     public static bool StripUpperInLike { get; set; }
-#if NET7_0_OR_GREATER
+#if NET9_0_OR_GREATER
             = true;
 #endif
 
