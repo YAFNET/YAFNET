@@ -7345,7 +7345,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 score: 0,
                 rank: 0,
                 value: option.value,
-                label: option.innerText,
+                label: option.label,
                 element: option,
                 active: true,
                 selected: this.extractPlaceholder ? option.selected : option.hasAttribute("selected"),
@@ -9531,7 +9531,6 @@ document.addEventListener("DOMContentLoaded", function() {
             inp.autocomplete = "off";
             inp.autocapitalize = "off";
             inp.spellcheck = false;
-            inp.setAttribute("role", "textbox");
             inp.setAttribute("aria-autocomplete", "list");
             if (placeholderValue) {
                 inp.setAttribute("aria-label", placeholderValue);
@@ -11350,7 +11349,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 throw new TypeError("".concat(caller, " called for an element which has multiple instances of Choices initialised on it"));
             }
         };
-        Choices.version = "11.0.6";
+        Choices.version = "11.1.0";
         return Choices;
     }();
     return Choices;

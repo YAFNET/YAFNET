@@ -1,7 +1,6 @@
 ﻿namespace YAF.Pages;
 
 using YAF.Core.Extensions;
-using YAF.Core.Services;
 
 /// <summary>
 /// The privacy model.

@@ -32,7 +32,6 @@ using System.Web;
 using Microsoft.AspNetCore.Authorization;
 
 using YAF.Core.Extensions;
-using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
 

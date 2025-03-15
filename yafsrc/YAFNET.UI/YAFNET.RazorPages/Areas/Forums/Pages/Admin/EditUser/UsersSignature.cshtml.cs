@@ -29,7 +29,6 @@ using Microsoft.Extensions.Logging;
 
 using YAF.Core.Context;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Pages.Profile;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;

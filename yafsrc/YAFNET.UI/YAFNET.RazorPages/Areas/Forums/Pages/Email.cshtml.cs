@@ -31,7 +31,6 @@ using Microsoft.Extensions.Logging;
 using MimeKit;
 
 using YAF.Core.Extensions;
-using YAF.Core.Services;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 

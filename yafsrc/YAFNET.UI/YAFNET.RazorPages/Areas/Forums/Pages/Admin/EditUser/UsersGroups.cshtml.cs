@@ -35,7 +35,6 @@ using Microsoft.AspNetCore.Mvc;
 using YAF.Core.Context;
 using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;

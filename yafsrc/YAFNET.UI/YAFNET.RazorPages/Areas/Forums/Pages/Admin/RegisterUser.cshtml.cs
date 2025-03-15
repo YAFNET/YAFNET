@@ -30,7 +30,6 @@ using System.Threading.Tasks;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
