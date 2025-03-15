@@ -43,9 +43,9 @@ static internal class MessageProvider
 
         lock (MessageCache)
         {
-            if (MessageCache.ContainsKey(message))
+            if (MessageCache.TryGetValue(message, out var value))
             {
-                format = MessageCache[message];
+                format = value;
             }
             else
             {

@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Tasks;
 
 using System;
@@ -43,7 +44,7 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     /// <summary>
     /// The lock object.
     /// </summary>
-    protected object lockObject = new();
+    readonly protected object lockObject = new();
 
     /// <summary>
     /// The started.

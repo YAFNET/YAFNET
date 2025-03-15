@@ -104,8 +104,6 @@ public static class IPHelper
             // return localhost if no IP address found or detected (prevents server IP from being listed as user IP
             // we should never get here -- connections to server ALWAYS return some form of remote IP address
             return "127.0.0.1";
-
-
         }
         catch (Exception ex)
         {
