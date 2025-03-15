@@ -34,7 +34,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using YAF.Core.Context;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Constants;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;

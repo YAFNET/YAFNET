@@ -25,8 +25,6 @@
 
 using System.Threading.Tasks;
 
-using YAF.Types.Extensions;
-
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;

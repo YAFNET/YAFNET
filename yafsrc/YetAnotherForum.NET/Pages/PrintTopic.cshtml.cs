@@ -30,7 +30,6 @@ using System.Collections.Generic;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 

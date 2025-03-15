@@ -28,7 +28,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
-using YAF.Core.Services;
 using YAF.Types.Interfaces.Identity;
 
 /// <summary>

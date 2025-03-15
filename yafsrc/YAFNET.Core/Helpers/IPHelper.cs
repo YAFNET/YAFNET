@@ -76,7 +76,7 @@ public static class IPHelper
         // don't resolve ip regex
         if (inputIpAddress.IsSet() && inputIpAddress.ToLower().Contains('*'))
         {
-            return ipAddressAsString;
+            return inputIpAddress;
         }
 
         try

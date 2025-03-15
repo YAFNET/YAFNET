@@ -31,7 +31,6 @@ using System.Collections.Generic;
 
 using YAF.Core.BasePages;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;

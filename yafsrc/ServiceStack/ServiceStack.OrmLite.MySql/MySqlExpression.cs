@@ -8,7 +8,6 @@
 namespace ServiceStack.OrmLite.MySql;
 
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 
 /// <summary>

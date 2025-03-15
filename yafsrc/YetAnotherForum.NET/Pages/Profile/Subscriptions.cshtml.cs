@@ -39,7 +39,6 @@ using Types.Interfaces.Events;
 using Types.Models;
 
 using YAF.Core.Context;
-using YAF.Core.Services;
 
 using System.Threading.Tasks;
 

@@ -35,7 +35,6 @@ using Core.Model;
 using Types.Models;
 
 using YAF.Core.Extensions;
-using YAF.Core.Services;
 
 /// <summary>
 /// The privacy model.
