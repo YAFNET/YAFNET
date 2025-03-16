@@ -15,12 +15,12 @@
     if (!Current.IsAdmin)
     {
         // non-admins cannot assign moderation access masks
-        masks = Current.GetRepository<AccessMask>()
-            .Get(a => a.BoardID == Current.PageBoardID && a.AccessFlags.ModeratorAccess);
+        masks = await Current.GetRepository<AccessMask>()
+            .GetAsync(a => a.BoardID == Current.PageBoardID && a.AccessFlags.ModeratorAccess);
     }
     else
     {
-        masks = Current.GetRepository<AccessMask>().GetByBoardId();
+        masks = await Current.GetRepository<AccessMask>().GetByBoardIdAsync();
     }
 
     var maskList = new SelectList(masks, nameof(AccessMask.ID), nameof(AccessMask.Name));

@@ -100,7 +100,7 @@
 
                                         @if (report.ResolvedDate.HasValue && report.ResolvedDate.Value > DateTime.MinValue)
                                         {
-                                            var resolvedBy = Model.GetRepository<User>().GetById(report.ResolvedBy.Value);
+                                            var resolvedBy = await Model.GetRepository<User>().GetByIdAsync(report.ResolvedBy.Value);
 
                                             var resolvedByName = resolvedBy.DisplayOrUserName();
 

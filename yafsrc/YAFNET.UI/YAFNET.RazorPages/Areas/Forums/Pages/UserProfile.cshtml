@@ -470,7 +470,7 @@
                 <div class="card-body">
                     @if (Model.CombinedUser.Item1.Suspended.HasValue)
                     {
-                        var suspendedByUser = Model.GetRepository<User>().GetById(Model.CombinedUser.Item1.SuspendedBy);
+                        var suspendedByUser = await Model.GetRepository<User>().GetByIdAsync(Model.CombinedUser.Item1.SuspendedBy);
 
                         <div class="alert alert-warning" role="alert">
                             <h4 class="alert-heading">

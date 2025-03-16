@@ -279,9 +279,9 @@ public class UsersModel : AdminPage
     /// <summary>
     /// The lock accounts click.
     /// </summary>
-    public void OnPostLockAccounts()
+    public async Task OnPostLockAccountsAsync()
     {
-        this.Get<IAspNetUsersHelper>().LockInactiveAccountsAsync(DateTime.UtcNow.AddYears(-this.Input.YearsOld));
+        await this.Get<IAspNetUsersHelper>().LockInactiveAccountsAsync(DateTime.UtcNow.AddYears(-this.Input.YearsOld));
 
         this.BindData();
     }
