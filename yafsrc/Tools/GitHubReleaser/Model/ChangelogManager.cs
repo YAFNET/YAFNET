@@ -6,7 +6,7 @@ internal class ChangelogManager
 {
     private readonly Releaser releaser;
 
-    private static readonly string Alert = $"| :warning: **Pre-release**|{Environment.NewLine}| --- |";
+    private readonly static string Alert = $"| :warning: **Pre-release**|{Environment.NewLine}| --- |";
 
     public ChangelogManager(Releaser releaser)
     {
@@ -137,7 +137,7 @@ internal class ChangelogManager
         return changelog;
     }*/
 
-    internal async Task SetAsync()
+    async internal Task SetAsync()
     {
         Log.Information("Create Changelog...");
 

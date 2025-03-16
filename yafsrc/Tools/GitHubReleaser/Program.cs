@@ -4,7 +4,7 @@ namespace GitHubReleaser;
 
 internal class Program
 {
-    private static async Task<int> Main(string[] args)
+    private async static Task<int> Main(string[] args)
     {
         // Setup
         var argumentString = string.Join(" ", args.Skip(1));

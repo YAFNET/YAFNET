@@ -3,7 +3,6 @@
 namespace GitHubReleaser.Model;
 
 using System.Diagnostics;
-using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -68,8 +67,8 @@ internal partial class Releaser
         }
 
         // GitHub
-        ServicePointManager.SecurityProtocol =
-            SecurityProtocolType.Tls12; // needed https://github.com/octokit/octokit.net/issues/1756
+        /*ServicePointManager.SecurityProtocol =
+            SecurityProtocolType.Tls12; // needed https://github.com/octokit/octokit.net/issues/1756*/
         var connection = new Connection(new ProductHeaderValue(this.Repo));
         this.Client = new GitHubClient(connection);
         var tokenAuth = new Credentials(this.Settings.GitHubToken);

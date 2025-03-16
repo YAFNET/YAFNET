@@ -1,8 +1,6 @@
 # GitHubReleaser
 Simple way to automatically create GitHub releases with changelog and attachments out of issues & milestones.
 
-![](img/flow.png)
-
 ## Functions
 Creates a release with the version of a DLL or EXE file, e.g. `1.2.3.4`. The last version part is the build number.
 
