@@ -665,8 +665,11 @@ public partial class DisplayPost : BaseUserControl
             }
         }
 
-        this.UserDropHolder.Controls.Add(new Panel { CssClass = "dropdown-divider" });
-        this.UserDropHolder2.Controls.Add(new Panel { CssClass = "dropdown-divider" });
+        if (this.Separator2.Visible)
+        {
+            this.UserDropHolder.Controls.Add(new Panel { CssClass = "dropdown-divider" });
+            this.UserDropHolder2.Controls.Add(new Panel { CssClass = "dropdown-divider" });
+        }
     }
 
     /// <summary>

@@ -1,6 +1,12 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.2.8
+* [NEW] Board Setting to set the default page size
+* [FIXED #1371] paste from clipboard and drag & drop in the SCEditor
+* [CHANGES #1372] increase Interests field to 4000 characters 
+* bug fixes
+
 # YetAnotherForum.NET v3.2.7
 * [FIXED] New Install
 * bug fixes

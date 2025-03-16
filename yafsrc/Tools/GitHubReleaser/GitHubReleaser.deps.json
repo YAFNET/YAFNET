@@ -1,26 +1,26 @@
 {
   "runtimeTarget": {
-    "name": ".NETCoreApp,Version=v8.0",
+    "name": ".NETCoreApp,Version=v9.0",
     "signature": ""
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v8.0": {
+    ".NETCoreApp,Version=v9.0": {
       "GitHubReleaser/1.0.0.0": {
         "dependencies": {
-          "Octokit": "12.0.0",
+          "Octokit": "14.0.0",
           "Serilog.Sinks.Console": "6.0.0",
-          "SonarAnalyzer.CSharp": "9.27.0.93347"
+          "SonarAnalyzer.CSharp": "10.7.0.110445"
         },
         "runtime": {
           "GitHubReleaser.dll": {}
         }
       },
-      "Octokit/12.0.0": {
+      "Octokit/14.0.0": {
         "runtime": {
           "lib/netstandard2.0/Octokit.dll": {
-            "assemblyVersion": "12.0.0.0",
-            "fileVersion": "12.0.0.0"
+            "assemblyVersion": "14.0.0.0",
+            "fileVersion": "14.0.0.0"
           }
         }
       },
@@ -43,7 +43,7 @@
           }
         }
       },
-      "SonarAnalyzer.CSharp/9.27.0.93347": {}
+      "SonarAnalyzer.CSharp/10.7.0.110445": {}
     }
   },
   "libraries": {
@@ -52,12 +52,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Octokit/12.0.0": {
+    "Octokit/14.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-7LAFFcirR/IaC84Uy+L1L+yqlYHxaMjHPt5GeLkB/GG0ujl7IgWWcL3VHMwMB3Y76Spsz0lMnPKub4EeosSljg==",
-      "path": "octokit/12.0.0",
-      "hashPath": "octokit.12.0.0.nupkg.sha512"
+      "sha512": "sha512-jGOuTH1l+TCpJH+fwYOp7USzHDuGfN1jKbLz3J2COwyn+wL08eynvpnM6rY2qkzIEXum3PN2p2QkP3BW/p9Qcw==",
+      "path": "octokit/14.0.0",
+      "hashPath": "octokit.14.0.0.nupkg.sha512"
     },
     "Serilog/4.0.0": {
       "type": "package",
@@ -73,12 +73,12 @@
       "path": "serilog.sinks.console/6.0.0",
       "hashPath": "serilog.sinks.console.6.0.0.nupkg.sha512"
     },
-    "SonarAnalyzer.CSharp/9.27.0.93347": {
+    "SonarAnalyzer.CSharp/10.7.0.110445": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-NinyCe6I1D+b8anA7RaTg1wkdGglMeW+qsp+z0tMQ4vm616oLAn47XU9DK3NclE5r3UhAoXyrUZVzcBVHe6dDA==",
-      "path": "sonaranalyzer.csharp/9.27.0.93347",
-      "hashPath": "sonaranalyzer.csharp.9.27.0.93347.nupkg.sha512"
+      "sha512": "sha512-U4v2LWopxADYkUv7Z5CX7ifKMdDVqHb7a1bzppIQnQi4WQR6z1Zi5rDkCHlVYGEd1U/WMz1IJCU8OmFZLJpVig==",
+      "path": "sonaranalyzer.csharp/10.7.0.110445",
+      "hashPath": "sonaranalyzer.csharp.10.7.0.110445.nupkg.sha512"
     }
   }
 }
