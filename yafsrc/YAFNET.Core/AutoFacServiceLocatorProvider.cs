@@ -89,12 +89,21 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
     }
 
     /// <summary>
-    ///     The dispose.
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     /// </summary>
     public void Dispose()
     {
-        this.Container.Dispose();
+        Dispose(true);
         GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    /// Releases unmanaged and - optionally - managed resources.
+    /// </summary>
+    /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+    protected virtual void Dispose(bool disposing)
+    {
+        this.Container.Dispose();
     }
 
     /// <summary>
@@ -221,14 +230,14 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
         if (!InjectionCache.TryGetValue(keyPair, out var properties))
         {
             // find them...
-            properties = type.GetProperties(DefaultFlags)
+            properties = [.. type.GetProperties(DefaultFlags)
                 .Where(
                     p => p.GetSetMethod(false) != null && p.GetIndexParameters().Length == 0
                                                        && p.IsDefined(attributeType, true)).Select(
                     p => Tuple.Create(
                         p.PropertyType,
                         p.DeclaringType,
-                        new Action<object, object>((i, v) => p.SetValue(i, v, null)))).ToList();
+                        new Action<object, object>((i, v) => p.SetValue(i, v, null))))];
 
             InjectionCache.AddOrUpdate(keyPair, _ => properties, (k, v) => properties);
         }

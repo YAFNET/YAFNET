@@ -48,7 +48,7 @@ public static partial class BBCodeHelper
             RegexOptions.Singleline,
             TimeSpan.FromMilliseconds(100));
 
-        return (from Match match in mentions select match.Groups["user"].Value).ToList();
+        return [.. (from Match match in mentions select match.Groups["user"].Value)];
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ public static partial class BBCodeHelper
         var mentions = Regex.Matches(text, @"@\[userlink\](?<inner>.+?)\[\/userlink\]", RegexOptions.IgnoreCase,
             TimeSpan.FromMilliseconds(100));
 
-        return (from Match match in mentions select match.Groups["inner"].Value).ToList();
+        return [.. (from Match match in mentions select match.Groups["inner"].Value)];
     }
 
     /// <summary>

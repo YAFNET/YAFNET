@@ -106,9 +106,9 @@ public interface IAspNetUsersHelper
     /// De-active all User accounts which are not active for x years
     /// </summary>
     /// <param name="createdCutoff">
-    /// The created cutoff.
+    ///     The created cutoff.
     /// </param>
-    void LockInactiveAccounts(DateTime createdCutoff);
+    Task LockInactiveAccountsAsync(DateTime createdCutoff);
 
     /// <summary>
     /// Deletes the user.

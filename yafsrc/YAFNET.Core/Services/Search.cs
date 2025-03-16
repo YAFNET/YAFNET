@@ -539,7 +539,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             .ToList();
 
         return results.Count != 0
-                   ? results.Where(item => item != null).GroupBy(x => x.Topic).Select(y => y.FirstOrDefault()).ToList()
+                   ? [.. results.Where(item => item != null).GroupBy(x => x.Topic).Select(y => y.FirstOrDefault())]
                    : [];
     }
 

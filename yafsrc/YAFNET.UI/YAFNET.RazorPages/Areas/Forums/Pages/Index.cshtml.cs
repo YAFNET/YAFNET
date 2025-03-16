@@ -209,7 +209,7 @@ public class IndexModel : ForumPage
         }
 
         // Filter Categories
-        this.Categories = this.Get<ISessionService>().Forums.DistinctBy(x => x.CategoryID).ToList();
+        this.Categories = [.. this.Get<ISessionService>().Forums.DistinctBy(x => x.CategoryID)];
 
         this.TimeNow = this.GetTextFormatted(
             "Current_Time",

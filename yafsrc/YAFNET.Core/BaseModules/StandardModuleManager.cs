@@ -52,7 +52,7 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
     {
         ArgumentNullException.ThrowIfNull(modules);
 
-        this.modules = modules.ToList();
+        this.modules = [.. modules];
     }
 
     /// <summary>

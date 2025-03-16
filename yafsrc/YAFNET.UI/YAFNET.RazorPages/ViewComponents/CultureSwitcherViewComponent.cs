@@ -60,7 +60,7 @@ public class CultureSwitcherViewComponent : ViewComponent
         var cultureFeature = this.HttpContext.Features.Get<IRequestCultureFeature>();
         var model = new CultureSwitcherModel
                     {
-                        SupportedCultures = this.localizationOptions.Value.SupportedUICultures.ToList(),
+                        SupportedCultures = [.. this.localizationOptions.Value.SupportedUICultures],
                         CurrentUICulture = cultureFeature.RequestCulture.UICulture
                     };
 

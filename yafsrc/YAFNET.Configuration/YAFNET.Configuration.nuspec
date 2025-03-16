@@ -4,7 +4,7 @@
     <id>YAFNET.Configuration</id>
 	<title>YAFNET.Configuration</title>
 	<copyright>Copyright © YetAnotherForum.NET and Ingo Herbote. All rights reserved</copyright>
-    <version>4.0.0-rc04</version>
+    <version>4.0.0</version>
     <authors>Ingo Herbote</authors>
 	<readme>README.md</readme>
 	<owners>Ingo Herbote, YAFNET</owners>
@@ -17,7 +17,7 @@
     <repository type="git" url="https://github.com/YAFNET/YAFNET" />
     <dependencies>
 		<group targetFramework="net9.0">
-			<dependency id="YAFNET.Types" version="4.0.0-rc04" exclude="Build,Analyzers" />
+			<dependency id="YAFNET.Types" version="4.0.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.CSharp" version="4.7.0" exclude="Build,Analyzers" />
 		</group>
     </dependencies>

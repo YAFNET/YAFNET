@@ -281,7 +281,7 @@ public class UsersModel : AdminPage
     /// </summary>
     public void OnPostLockAccounts()
     {
-        this.Get<IAspNetUsersHelper>().LockInactiveAccounts(DateTime.UtcNow.AddYears(-this.Input.YearsOld));
+        this.Get<IAspNetUsersHelper>().LockInactiveAccountsAsync(DateTime.UtcNow.AddYears(-this.Input.YearsOld));
 
         this.BindData();
     }

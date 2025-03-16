@@ -220,7 +220,7 @@
 
                                 if (activity.Item1.ActivityFlags.GivenThanks)
                                 {
-                                    var user = Model.GetRepository<User>().GetById(activity.Item1.FromUserID.Value);
+                                    var user = await Model.GetRepository<User>().GetByIdAsync(activity.Item1.FromUserID.Value);
 
                                     var userLink = Model.Get<IHtmlHelper>().UserLink(user);
 
@@ -234,7 +234,7 @@
 
                                 if (activity.Item1.ActivityFlags.BecomeFriends)
                                 {
-                                    var user = Model.GetRepository<User>().GetById(activity.Item1.FromUserID.Value);
+                                    var user = await Model.GetRepository<User>().GetByIdAsync(activity.Item1.FromUserID.Value);
 
                                     var userLink = Model.Get<IHtmlHelper>().UserLink(user);
 

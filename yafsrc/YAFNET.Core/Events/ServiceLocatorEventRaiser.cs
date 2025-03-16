@@ -117,9 +117,8 @@ public class ServiceLocatorEventRaiser : IRaiseEvent
     /// </returns>
     private IList<IHandleEvent<T>> GetAggregatedAndOrderedEventHandlers<T>() where T : IAmEvent
     {
-        return this._serviceLocator.Get<IEnumerable<IHandleEvent<T>>>()
+        return [.. this._serviceLocator.Get<IEnumerable<IHandleEvent<T>>>()
             .Concat(this._serviceLocator.Get<IEnumerable<IFireEvent<T>>>())
-            .OrderBy(x => x.Order)
-            .ToList();
+            .OrderBy(x => x.Order)];
     }
 }

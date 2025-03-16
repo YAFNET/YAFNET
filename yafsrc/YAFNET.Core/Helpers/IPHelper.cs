@@ -282,7 +282,7 @@ public static class IPHelper
             case AddressFamily.InterNetwork:
             {
                 var mask = ~(uint.MaxValue >> bits);
-                maskBytes = BitConverter.GetBytes(mask).ToArray();
+                maskBytes = [.. BitConverter.GetBytes(mask)];
 
                 Array.Reverse(maskBytes);
             }
@@ -292,7 +292,7 @@ public static class IPHelper
             {
                 var bitArray = new BitArray(128, false);
                 ShiftRight(bitArray, bits, true);
-                maskBytes = ConvertToByteArray(bitArray).ToArray();
+                maskBytes = [.. ConvertToByteArray(bitArray)];
 
                 Array.Reverse(maskBytes);
             }

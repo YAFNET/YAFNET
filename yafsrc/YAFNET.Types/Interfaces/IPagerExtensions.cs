@@ -51,7 +51,7 @@ public static class IPagerExtensions
     {
         pager.Count = list.Count;
 
-        return list.Skip(pager.SkipIndex()).Take(pager.PageSize).ToList();
+        return [.. list.Skip(pager.SkipIndex()).Take(pager.PageSize)];
     }
 
     /// <summary>

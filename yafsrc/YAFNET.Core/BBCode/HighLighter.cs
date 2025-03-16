@@ -76,7 +76,7 @@ public class HighLighter
         var highlight = string.Empty;
 
         // extract highlight
-        if (language.Contains(";"))
+        if (language.Contains(';'))
         {
             highlight = language[(language.IndexOf(';') + 1)..];
             language = language.Remove(language.IndexOf(';'));

@@ -26,6 +26,9 @@ namespace YAF.Core.Context;
 
 using System;
 
+#if !DEBUG
+using Microsoft.AspNetCore.Http.Extensions;
+#endif
 using Microsoft.Extensions.Logging;
 
 using YAF.Types.Attributes;

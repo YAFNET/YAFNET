@@ -122,7 +122,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
         var logins = await this.GetRepository<AspNetUserLogins>().GetAsync(l => l.UserId == user.Id);
 
         IList<UserLoginInfo> result =
-            logins.Select(l => new UserLoginInfo(l.LoginProvider, l.ProviderKey, user.UserName)).ToList();
+            [.. logins.Select(l => new UserLoginInfo(l.LoginProvider, l.ProviderKey, user.UserName))];
         return result;
     }
 
@@ -283,7 +283,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     {
         var claims = await this.GetRepository<AspNetUserClaims>().GetAsync(l => l.UserId == user.Id);
 
-        IList<Claim> result = claims.Select(c => new Claim(c.ClaimType, c.ClaimValue)).ToList();
+        IList<Claim> result = [.. claims.Select(c => new Claim(c.ClaimType, c.ClaimValue))];
         return result;
     }
 
@@ -360,13 +360,13 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
                             r => r.UserId == user.Id,
                             cancellationToken: cancellationToken);
 
-        var rolesSelected = userRoles.Select(r => r.RoleId).ToArray().ToList();
+        var rolesSelected = userRoles.Select(r => r.RoleId).AsEnumerable().ToList();
 
         var roles = await this.GetRepository<AspNetRoles>().GetAsync(
                         r => rolesSelected.Contains(r.Id),
                         cancellationToken: cancellationToken);
 
-        return roles.Select(r => r.Name).ToList();
+        return [.. roles.Select(r => r.Name)];
     }
 
     /// <summary>

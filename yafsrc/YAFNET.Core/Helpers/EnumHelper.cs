@@ -66,7 +66,7 @@ public static class EnumHelper
 
         var enumValArray = Enum.GetValues(enumType);
 
-        return enumValArray.Cast<int>().Select(val => (T)Enum.Parse(enumType, val.ToString(CultureInfo.InvariantCulture))).ToList();
+        return [.. enumValArray.Cast<int>().Select(val => (T)Enum.Parse(enumType, val.ToString(CultureInfo.InvariantCulture)))];
     }
 
     /// <summary>

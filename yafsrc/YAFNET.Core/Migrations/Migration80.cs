@@ -294,7 +294,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
             dbCommand.Connection.AddColumn<ActiveAccess>(x => x.IsGuestX);
         }
 
-        // -- drop the old contrained just in case
+        // -- drop the old constrained just in case
         dbCommand.Connection.DropIndex<ActiveAccess>();
     }
 
@@ -363,11 +363,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
 
         var timeZoneType = dbCommand.Connection.ColumnDataType<User>(x => x.TimeZone);
 
-        if (timeZoneType == "ntext")
-        {
-            dbCommand.Connection.AlterColumn<User>(x => x.TimeZone);
-        }
-        else if (timeZoneType == "int")
+        if (timeZoneType is "ntext" or "int")
         {
             dbCommand.Connection.AlterColumn<User>(x => x.TimeZone);
         }

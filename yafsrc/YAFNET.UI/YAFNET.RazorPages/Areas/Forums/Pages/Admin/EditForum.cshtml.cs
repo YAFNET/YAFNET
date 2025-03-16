@@ -153,14 +153,14 @@ public class EditForumModel : AdminPage
 
         if (forumId.HasValue)
         {
-            this.AccessList = this.GetRepository<ForumAccess>().GetForumAccessList(forumId.Value).Select(
+            this.AccessList = [.. this.GetRepository<ForumAccess>().GetForumAccessList(forumId.Value).Select(
                 i => new GroupAccessMask
-                     {GroupID = i.Item2.ID, GroupName = i.Item2.Name, AccessMaskID = i.Item1.AccessMaskID}).ToList();
+                     {GroupID = i.Item2.ID, GroupName = i.Item2.Name, AccessMaskID = i.Item1.AccessMaskID})];
         }
         else
         {
-            this.AccessList = this.PageBoardContext.GetRepository<Group>().GetByBoardId().Select(
-                i => new GroupAccessMask {GroupID = i.ID, GroupName = i.Name, AccessMaskID = this.PageBoardContext.BoardSettings.ForumDefaultAccessMask }).ToList();
+            this.AccessList = [.. this.PageBoardContext.GetRepository<Group>().GetByBoardId().Select(
+                i => new GroupAccessMask {GroupID = i.ID, GroupName = i.Name, AccessMaskID = this.PageBoardContext.BoardSettings.ForumDefaultAccessMask })];
         }
 
         // Load forum's themes

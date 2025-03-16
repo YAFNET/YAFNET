@@ -717,10 +717,10 @@ public static class UserRepositoryExtensions
                 (a, b, c) => b.ID != userId && b.NotificationType != 10 &&
                              c.ID == topicId && (b.Flags & 2) == 2 && (b.Flags & 4) != 4 && (b.Flags & 32) != 32).Select<User>(x => x);
 
-        return repository.DbAccess.Execute(
+        return [.. repository.DbAccess.Execute(
                 db => db.Connection.Select<User>(
                     $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}"))
-            .DistinctBy(x => x.ID).ToList();
+            .DistinctBy(x => x.ID)];
     }
 
     /// <summary>

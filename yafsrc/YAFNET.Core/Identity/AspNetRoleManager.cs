@@ -75,7 +75,7 @@ public class AspNetRoleManager : RoleManager<AspNetRoles>, IAspNetRoleManager
         var roleNames = await BoardContext.Current.GetRepository<AspNetRoles>()
                             .GetAsync(r => rolesSelected.Contains(r.Id));
 
-        return roleNames.Select(r => r.Name).ToList();
+        return [.. roleNames.Select(r => r.Name)];
     }
 
     /// <summary>

@@ -11,6 +11,16 @@ YetAnotherForum.NET Changelog
 * Replaced Private Messages with real-time user chat
 * Two Factor Authentication
 
+# YetAnotherForum.NET v3.2.8
+* [NEW] Board Setting to set the default page size
+* [FIXED #1371] paste from clipboard and drag & drop in the SCEditor
+* [CHANGES #1372] increase Interests field to 4000 characters 
+* bug fixe
+
+# YetAnotherForum.NET v3.2.7
+* [FIXED] New Install
+* bug fixes
+
 # YetAnotherForum.NET v3.2.6
 * [NEW] log user agent strings for Active users
 * [NEW] added support for twitch bbcode embed

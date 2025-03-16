@@ -247,11 +247,11 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// De-active all PageUser accounts which are not active for x years
     /// </summary>
     /// <param name="createdCutoff">
-    /// The created cutoff.
+    ///     The created cutoff.
     /// </param>
-    public void LockInactiveAccounts(DateTime createdCutoff)
+    public async Task LockInactiveAccountsAsync(DateTime createdCutoff)
     {
-        var allUsers = this.GetRepository<User>().GetByBoardId();
+        var allUsers = await this.GetRepository<User>().GetByBoardIdAsync();
 
         // iterate through each one...
         allUsers.Where(user => (user.Flags & 4) != 4 && (user.Flags & 2) == 2 && (user.Flags & 32) != 32 && user.LastVisit < createdCutoff)

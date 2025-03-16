@@ -883,7 +883,7 @@ public static class ForumRepositoryExtensions
         this IRepository<Forum> repository,
         IEnumerable<ModeratorsForums> listSource)
     {
-        return listSource.Select(
+        return [.. listSource.Select(
             forum => new ForumSorted
                          {
                              Category = forum.CategoryName,
@@ -893,7 +893,7 @@ public static class ForumRepositoryExtensions
                              ForumID = forum.ForumID,
                              Icon = "comments",
                              ForumLink = BoardContext.Current.Get<ILinkBuilder>().GetForumLink(forum.ForumID, forum.ForumName)
-                         }).ToList();
+                         })];
     }
 
     /// <summary>
@@ -926,15 +926,15 @@ public static class ForumRepositoryExtensions
                                           {
                                               id = -category.ID,
                                               text = category.Name,
-                                              children = forumsByCategory.Select(
+                                              children = [.. forumsByCategory.Select(
                                                   forum => new SelectOptions
                                                                {
                                                                    id = forum.ID.ToString(),
                                                                    text = forum.ParentID.HasValue ? $" - {HttpUtility.HtmlEncode(forum.Name)}"
                                                                               : HttpUtility.HtmlEncode(forum.Name),
                                                                    url = BoardContext.Current.Get<ILinkBuilder>().GetForumLink(forum)
-                                                               }).ToList()
-                                          };
+                                                               })]
+                    };
 
                     listDestination.Add(selectGroup);
                 });

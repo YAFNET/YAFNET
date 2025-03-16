@@ -202,6 +202,6 @@ public class ForumsModel : AdminPage
                         PageSize = 20, Count = listAll.Count
                     };
 
-        this.CategoryList = listAll.GetPaged(pager).Select(x => x.Item1).DistinctBy(x => x.Name).ToList();
+        this.CategoryList = [.. listAll.GetPaged(pager).Select(x => x.Item1).DistinctBy(x => x.Name)];
     }
 }

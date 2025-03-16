@@ -98,7 +98,7 @@ public class DynamicServicesModule : BaseModule
                     else
                     {
                         // register all associated interfaces including inherited interfaces
-                        typesToRegister = c.GetInterfaces().Where(i => !exclude.Contains(i)).ToArray();
+                        typesToRegister = [.. c.GetInterfaces().Where(i => !exclude.Contains(i))];
                     }
 
                     built = exportAttribute.Named.IsSet()

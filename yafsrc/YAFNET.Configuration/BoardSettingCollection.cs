@@ -46,7 +46,7 @@ public class BoardSettingCollection
     {
         // load up the settings...
         var boardSettingsType = boardSettings.GetType();
-        this.settings = boardSettingsType.GetProperties().ToList();
+        this.settings = [.. boardSettingsType.GetProperties()];
     }
 
     /// <summary>

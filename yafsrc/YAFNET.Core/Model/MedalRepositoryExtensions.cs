@@ -96,7 +96,7 @@ public static class MedalRepositoryExtensions
                 .Select<(int MedalID, string Name, string Message, string MedalURL, byte SortOrder, bool Hide, int
                     Flags, DateTime DateAwarded)>(expressionUserGroup));
 
-        return userMedals.Union(userGroupMedals).Distinct().ToList();
+        return [.. userMedals.Union(userGroupMedals).Distinct()];
     }
 
     /// <summary>

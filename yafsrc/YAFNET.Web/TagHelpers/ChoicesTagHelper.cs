@@ -319,7 +319,7 @@ public class ChoicesTagHelper : TagHelper
     {
         if (selectList is not IList<SelectListItem> itemsList)
         {
-            itemsList = selectList.ToList();
+            itemsList = [.. selectList];
         }
 
         var count = itemsList.Count;

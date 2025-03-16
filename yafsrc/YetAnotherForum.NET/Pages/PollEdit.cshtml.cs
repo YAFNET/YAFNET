@@ -150,7 +150,7 @@ public class PollEditModel : ForumPage
                 this.Input.PollExpire = string.Empty;
             }
 
-            choices = pollAndChoices.Select(c => c.Item2).ToList();
+            choices = [.. pollAndChoices.Select(c => c.Item2)];
 
             var count = this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber - 1 - choices.Count;
 

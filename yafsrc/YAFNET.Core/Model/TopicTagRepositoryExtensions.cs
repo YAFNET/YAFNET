@@ -155,8 +155,8 @@ public static class TopicTagRepositoryExtensions
 
         var topicTags = tags.ToList();
 
-        return topicTags.Select(topicTag => new Tag
-            { ID = topicTag.Key, TagName = topicTag.Select(t => t.TagName).ToDelimitedString(",") }).ToList();
+        return [.. topicTags.Select(topicTag => new Tag
+            { ID = topicTag.Key, TagName = topicTag.Select(t => t.TagName).ToDelimitedString(",") })];
     }
 
     /// <summary>

@@ -27,7 +27,7 @@
     
     @if (Model.EditUser.Item1.Suspended.HasValue)
     {
-        var suspendedByUser = Current.GetRepository<User>().GetById(Model.EditUser.Item1.SuspendedBy);
+        var suspendedByUser = await Current.GetRepository<User>().GetByIdAsync(Model.EditUser.Item1.SuspendedBy);
         var suspendedTo = Current.Get<IDateTimeService>().GetUserDateTime(Model.EditUser.Item1.Suspended.Value, Model.EditUser.Item1.TimeZoneInfo).ToString(CultureInfo.InvariantCulture);
 
         <div class="alert alert-warning" role="alert">
