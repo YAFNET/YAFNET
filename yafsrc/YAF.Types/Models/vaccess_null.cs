@@ -27,16 +27,8 @@ namespace YAF.Types.Models;
 ///     A class which represents the yaf_vaccess_null views.
 /// </summary>
 [Serializable]
-public partial class vaccess_null : IEntity
+public class vaccess_null : IEntity
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="vaccess_user"/> class.
-    /// </summary>
-    public vaccess_null()
-    {
-        this.OnCreated();
-    }
-
     [Required]
     public int UserID { get; set; }
     [Required]
@@ -54,9 +46,4 @@ public partial class vaccess_null : IEntity
     public int? EditAccess { get; set; }
     public int? DeleteAccess { get; set; }
     public int? AdminGroup { get; set; }
-
-    /// <summary>
-    /// The on created.
-    /// </summary>
-    partial void OnCreated();
 }

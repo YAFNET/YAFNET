@@ -94,7 +94,7 @@ namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
                     }
                     finally
                     {
-                        IOUtils.DisposeWhileHandlingException(ts);
+                        IOUtils.CloseWhileHandlingException(ts);
                     }
                 }
             }

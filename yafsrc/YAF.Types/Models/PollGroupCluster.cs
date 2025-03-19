@@ -31,15 +31,8 @@ using System.Data.Linq.Mapping;
 [Serializable]
 [Table(Name = "PollGroupCluster")]
 [Obsolete("Only used for Droping")]
-public partial class PollGroupCluster : IEntity, IHaveID
+public class PollGroupCluster : IEntity, IHaveID
 {
-    partial void OnCreated();
-
-    public PollGroupCluster()
-    {
-        this.OnCreated();
-    }
-
     [Alias("PollGroupID")]
     [AutoIncrement]
     public int ID { get; set; }
