@@ -824,7 +824,7 @@ public static class JavaScriptBlocks
                      Page: 0,
                      SearchTerm: ""
                  };
-                 topicsSelect.setChoices(function () { return loadChoiceOptions(query, "/api/Topic/GetTopics") });
+                 topicsSelect.setChoices(function () { return loadChoiceOptions(query, "{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Topic/GetTopics") });
 
                  """;
     }
