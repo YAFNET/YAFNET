@@ -24,7 +24,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.7.2",
-        "@yafnet/sceditor": "^3.2.7",
+        "@yafnet/sceditor": "^3.2.9",
         "bootbox": "^6.0.0",
         "bootstrap": "^5.3.3",
         "bootswatch": "^5.3.3",
