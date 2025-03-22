@@ -292,7 +292,7 @@ module.exports = function(grunt) {
 			deletePublish: {
 				command: [
 					'@echo off',
-					'if exist bin\\Release\\net9.0\\publish\\ (rmdir bin\\Release\\net8.0\\publish\\ /s /q)'
+					'if exist bin\\Release\\net9.0\\publish\\ (rmdir bin\\Release\\net9.0\\publish\\ /s /q)'
 				].join('&&')
 			},
 			deleteAppSettings: {

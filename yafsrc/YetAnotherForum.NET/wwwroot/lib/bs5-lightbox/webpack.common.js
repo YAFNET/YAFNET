@@ -5,6 +5,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 module.exports = {
 	entry: "./wwwroot/lib/bs5-lightbox/index.js",
 	devtool: "source-map",
+	mode: 'production',
 	plugins: [
 		new webpack.BannerPlugin({
 			raw: true,
@@ -24,5 +25,8 @@ module.exports = {
 	},
 	optimization: {
 		minimizer: [new TerserPlugin({ extractComments: false })]
+	},
+	stats: {
+		orphanModules: true
 	}
 };
