@@ -427,6 +427,17 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                              RuleRank = 98
                          });
 
+        // note
+        ruleEngine.AddRule(
+            new VariableRegexReplaceRule(
+                    """<div class="alert alert-(?<type>(.*?))" role="alert">(?<inner>(.*?))</div>""",
+                    "[note=${size}]${inner}[/note]",
+                    Options,
+                    [
+                        "type"
+                    ])
+                { RuleRank = 101 });
+
         ruleEngine.AddRule(new SimpleRegexReplaceRule("<br />", "\r\n", Options));
         ruleEngine.AddRule(new SimpleRegexReplaceRule("<br>", "\r\n", Options));
 
@@ -816,6 +827,14 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 """<div class="code">${inner}</div>""") {
                                                             RuleRank = 2
                                                         });
+
+        // note
+        ruleEngine.AddRule(
+            new VariableRegexReplaceRule(
+                @"\[note=(?<type>([-a-z, ]*))\](?<inner>(.*?))\[/note\]",
+                "<div class=\"alert alert-${type}\" role=\"alert\">${inner}</div>",
+                Options,
+                ["type"]));
 
         // handle custom BBCode
         this.AddCustomBBCodeRules(ruleEngine);
