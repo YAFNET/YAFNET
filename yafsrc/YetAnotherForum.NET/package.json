@@ -18,7 +18,7 @@
         "grunt-shell": "^4.0.0",
         "grunt-webpack": "^7.0.0",
         "postcss": "^8.5.3",
-        "sass": "^1.85.1",
+        "sass": "^1.86.0",
         "webpack": "^5.98.0",
         "webpack-merge": "^6.0.1"
     },
@@ -30,7 +30,7 @@
         "bootswatch": "^5.3.3",
         "bs5-lightbox": "^1.8.3",
         "choices.js": "^11.1.0",
-        "codemirror": "^5.65.18",
+        "codemirror": "^5.65.19",
         "dark-editable": "^2.1.1",
         "flag-icons": "^7.3.2",
         "long-press-event": "^2.5.0",
