@@ -874,7 +874,13 @@
 		       asp-for="Input.IPInfoPageURL"
 		       localized-tag="IPINFO_ULRL"></label>
 		<input type="text" class="form-control" asp-for="Input.IPInfoPageURL"/>
-	</div>
+		</div>
+									<div class="mb-3">
+										<label class="form-label" info-button="true"
+											   asp-for="Input.AbuseIpDbApiKey"
+											   localized-tag="ABUSEIPDB_APIKEY"></label>
+										<input type="text" class="form-control" asp-for="Input.AbuseIpDbApiKey" />
+									</div>
 </div>
 <div class="tab-pane fade" id="reputation" role="tabpanel" aria-labelledby="reputation-tab">
 	<div class="row">

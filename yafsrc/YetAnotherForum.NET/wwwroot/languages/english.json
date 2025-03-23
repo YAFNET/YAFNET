@@ -1145,6 +1145,14 @@
             "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Import Address(es)"
           },
@@ -4605,6 +4613,14 @@
           {
             "@tag": "IPINFO_ULRL_HELP",
             "#text": "Set it to get details about IPs whereabouts as web page."
+          },
+          {
+	          "@tag": "ABUSEIPDB_APIKEY",
+	          "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
           },
           {
             "@tag": "LASTPOST_COUNT",

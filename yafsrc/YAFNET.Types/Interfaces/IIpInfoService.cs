@@ -24,6 +24,7 @@
 
 namespace YAF.Types.Interfaces;
 
+using System.Threading;
 using System.Threading.Tasks;
 
 using YAF.Types.Objects;
@@ -43,4 +44,27 @@ public interface IIpInfoService
     /// The <see cref="IpLocator"/>.
     /// </returns>
     Task<IpLocator> GetUserIpLocatorAsync(string ipAddress);
+
+    /// <summary>
+    /// Gets the AbuseIpDb.com black list.
+    /// </summary>
+    /// <param name="apiKey">The API key.</param>
+    /// <param name="confidenceMinimum">The confidence minimum.</param>
+    /// <param name="limit">The limit.</param>
+    /// <param name="cancellationToken">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>A Task&lt;AbuseIpDbBlackList&gt; representing the asynchronous operation.</returns>
+    Task<AbuseIpDbBlackList> GetAbuseIpDbBlackListAsync(string apiKey, int confidenceMinimum = 55, int limit = 10,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Check abuse ipd database as an asynchronous operation.
+    /// </summary>
+    /// <param name="ipAddress">The ip address.</param>
+    /// <param name="apiKey">The API key.</param>
+    /// <param name="maxAgeInDays">The maxAgeInDays parameter determines how far back in time we go to fetch reports.
+    /// The default is 30.</param>
+    /// <param name="cancellationToken">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>A Task&lt;IpLocator&gt; representing the asynchronous operation.</returns>
+    Task<AbuseIpDbReport> CheckAbuseIpdDbAsync(string ipAddress, string apiKey, int maxAgeInDays = 30,
+        CancellationToken cancellationToken = default);
 }

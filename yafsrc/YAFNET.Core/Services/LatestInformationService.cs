@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Collections.Generic;
+
 using YAF.Types.Objects;
 
 namespace YAF.Core.Services;
@@ -70,14 +72,16 @@ public class LatestInformationService : IHaveServiceLocator, ILatestInformationS
             client.DefaultRequestHeaders.UserAgent.ParseAdd("YAF.NET");
 
 #pragma warning disable S1075
-            const string url = "https://api.github.com/repos/YAFNET/YAFNET/releases/latest";
-#pragma warning restore S1075
+            const string url = "https://api.github.com/repos/YAFNET/YAFNET/releases";
 
-            var json = await client.GetFromJsonAsync<GitHubRelease>(url);
+            var releases = await client.GetFromJsonAsync<List<GitHubRelease>>(url);
+
+            var release = releases.First(x => x.TagName.StartsWith("v4"));
 
             version.UpgradeUrl = "https://yetanotherforum.net/download";
-            version.VersionDate = json.PublishedAt;
-            version.Version = json.TagName.Replace("v", string.Empty);
+            version.VersionDate = release.PublishedAt;
+            version.Version = release.TagName.Replace("v", string.Empty);
+#pragma warning restore S1075
         }
         catch (Exception x)
         {

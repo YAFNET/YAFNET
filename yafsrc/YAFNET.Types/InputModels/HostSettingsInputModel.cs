@@ -78,6 +78,12 @@ public class HostSettingsInputModel
     public string IPInfoPageURL { get; set; }
 
     /// <summary>
+    /// Gets or sets the abuse ip database API key.
+    /// </summary>
+    /// <value>The abuse ip database API key.</value>
+    public string AbuseIpDbApiKey { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether [log user suspended unsuspended].
     /// </summary>
     /// <value><c>true</c> if [log user suspended unsuspended]; otherwise, <c>false</c>.</value>

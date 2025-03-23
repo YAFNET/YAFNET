@@ -24,6 +24,8 @@
 
 using System.Collections.Generic;
 
+using YAF.Types.Objects;
+
 namespace YAF.Core.Services.Import;
 
 using System;
@@ -111,13 +113,15 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
                         if (bbCodeExtension != null)
                         {
-                            if (!BBCode.Equals(updateEntry, bbCodeExtension))
+                            if (BBCode.Equals(updateEntry, bbCodeExtension))
                             {
-                                updateEntry.ID = bbCodeExtension.ID;
-
-                                // update this bbcode...
-                                repository.Update(updateEntry);
+                                return;
                             }
+
+                            updateEntry.ID = bbCodeExtension.ID;
+
+                            // update this bbcode...
+                            repository.Update(updateEntry);
                         }
                         else
                         {
@@ -237,7 +241,42 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     }
 
     /// <summary>
-    /// Import List of Banned User Names
+    /// Import the most recent Ip Addresses from AbuseIpDb.com
+    /// </summary>
+    /// <param name="boardId">The board id.</param>
+    /// <param name="userId">The user id.</param>
+    /// <param name="blackListData">The black list data.</param>
+    /// <returns>Returns how many address where imported.</returns>
+    public int BannedIpAddressesImport(int boardId, int userId, List<BlackListEntry> blackListData)
+    {
+        var importedCount = 0;
+
+        var repository = this.GetRepository<BannedIP>();
+        var existingBannedIpList = repository.Get(x => x.BoardID == boardId);
+
+        foreach (var data in blackListData)
+        {
+            if (!IPAddress.TryParse(data.IpAddress, out var importAddress))
+            {
+                continue;
+            }
+
+            if (existingBannedIpList.Exists(b => b.Mask == importAddress.ToString()))
+            {
+                continue;
+            }
+
+            if (repository.Save(null, importAddress.ToString(), $"Imported IP Address from AbuseIpDb.com with {data.AbuseConfidenceScore} confidence", userId, boardId))
+            {
+                importedCount++;
+            }
+        }
+
+        return importedCount;
+    }
+
+    /// <summary>
+    /// Import List of Banned Usernames
     /// </summary>
     /// <param name="boardId">The board id.</param>
     /// <param name="inputStream">The input stream.</param>

@@ -215,6 +215,31 @@ public class BannedIpsModel : AdminPage
     }
 
     /// <summary>
+    /// Import most recent Ip Addresses from AbuseIpDb.com
+    /// </summary>
+    /// <returns>IActionResult.</returns>
+    public async Task<IActionResult> OnPostImportMostRecentAsync()
+    {
+        if (this.PageBoardContext.BoardSettings.AbuseIpDbApiKey.IsNotSet())
+        {
+            return this.Page();
+        }
+
+        var blackList = await this.Get<IIpInfoService>()
+            .GetAbuseIpDbBlackListAsync(this.PageBoardContext.BoardSettings.AbuseIpDbApiKey, 55, 10000);
+
+        var importedCount = this.Get<IDataImporter>()
+            .BannedIpAddressesImport(this.PageBoardContext.PageBoardID, this.PageBoardContext.PageUserID,
+                blackList.Data);
+
+        this.BindData();
+
+        return this.PageBoardContext.Notify(importedCount > 0
+            ? string.Format(this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_SUCESS"), importedCount)
+            : this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_NOTHING"), MessageTypes.success);
+    }
+
+    /// <summary>
     /// Helper to get mask from ID.
     /// </summary>
     /// <param name="id">The ID.</param>

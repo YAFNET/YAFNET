@@ -1719,6 +1719,16 @@ public class BoardSettings
     }
 
     /// <summary>
+    /// Gets or sets the abuse ip database API key.
+    /// </summary>
+    /// <value>The abuse ip database API key.</value>
+    public string AbuseIpDbApiKey {
+        get => this.Registry.GetValue("AbuseIpDbApiKey", string.Empty);
+
+        set => this.Registry.SetValue("AbuseIpDbApiKey", value);
+    }
+
+    /// <summary>
     /// Gets or sets Forum Logo.
     /// </summary>
     public string ForumLogo

@@ -22,6 +22,10 @@
  * under the License.
  */
 
+using System.Collections.Generic;
+
+using YAF.Types.Objects;
+
 namespace YAF.Types.Interfaces.Services;
 
 using System.IO;
@@ -60,7 +64,16 @@ public interface IDataImporter
     int BannedIpAddressesImport(int boardId, int userId, Stream inputStream);
 
     /// <summary>
-    /// Import List of Banned User Names
+    /// Import the most recent Ip Addresses from AbuseIpDb.com
+    /// </summary>
+    /// <param name="boardId">The board id.</param>
+    /// <param name="userId">The user id.</param>
+    /// <param name="blackListData">The black list data.</param>
+    /// <returns>Returns how many address where imported.</returns>
+    int BannedIpAddressesImport(int boardId, int userId, List<BlackListEntry> blackListData);
+
+    /// <summary>
+    /// Import List of Banned Usernames
     /// </summary>
     /// <param name="boardId">The board id.</param>
     /// <param name="inputStream">The input stream.</param>

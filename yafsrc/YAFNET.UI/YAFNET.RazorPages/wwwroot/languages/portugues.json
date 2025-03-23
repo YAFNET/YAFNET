@@ -1274,6 +1274,14 @@
           {
             "@tag": "TITLE",
             "#text": "Endereços IP proibidos"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -5629,6 +5637,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Ficha utilizada para fazer chamadas seguras de serviço web. Mudança constante até guardar as configurações do seu anfitrião."
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },

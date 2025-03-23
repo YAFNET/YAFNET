@@ -147,6 +147,16 @@
                                                 button-style="None"
                                                 class="dropdown-item"
                                                 text-localized-tag="IMPORT_IPS" text-localized-page="ADMIN_BANNEDIP"></button>
+										
+                                        @if (Model.PageBoardContext.BoardSettings.AbuseIpDbApiKey.IsSet())
+                                        {
+	                                        <button asp-page-handler="ImportMostRecent"
+	                                                button-style="None"
+	                                                class="dropdown-item"
+	                                                Icon="upload"
+	                                                title-localized-page="ADMIN_BANNEDIP" title-localized-tag="IMPORT_BLACKLIST_HELP"
+	                                                text-localized-page="ADMIN_BANNEDIP" text-localized-tag="IMPORT_BLACKLIST"></button>
+                                        }
                                         <button asp-page-handler="Export"
                                                 button-style="None"
                                                 class="dropdown-item"
@@ -181,6 +191,16 @@
                             bs-target-url="@Url.Page("BannedIps", "Import")"
                             button-style="Info"
                             text-localized-tag="IMPORT_IPS" text-localized-page="ADMIN_BANNEDIP"></button>
+					
+                    @if (Model.PageBoardContext.BoardSettings.AbuseIpDbApiKey.IsSet())
+                    {
+	                    <button class="mb-1"
+	                            asp-page-handler="ImportMostRecent"
+	                            button-style="Info"
+	                            Icon="upload"
+                                title-localized-page="ADMIN_BANNEDIP" title-localized-tag="IMPORT_BLACKLIST_HELP"
+	                            text-localized-page="ADMIN_BANNEDIP" text-localized-tag="IMPORT_BLACKLIST"></button>
+                    }
                     <button class="mb-1"
                             asp-page-handler="Export"
                             button-style="Warning"
