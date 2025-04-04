@@ -557,10 +557,6 @@
             "#text": "Använder MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Använder Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Använder XMPP"
           },
@@ -3473,14 +3469,6 @@
           {
             "@tag": "TITLE",
             "#text": "Redigera användare \"{0}\""
-          },
-          {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitteranvändare:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Anger om användaren är inloggad via Twitter."
           },
           {
             "@tag": "USER_AVATAR",
@@ -6672,10 +6660,6 @@
             "#text": "Användare"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter-användare"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Användarnamn"
           }
@@ -7218,10 +7202,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Klicka här för att visa eller dölja den dolda texten (även kallad spoiler)."
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Ange status-ID för den Tweet du vill bädda in."
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9349,10 +9329,6 @@
             "#text": "Laddar Facebook Info ..."
           },
           {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Laddar Twitter Info ..."
-          },
-          {
             "@tag": "MAIN_FORUM_ATOM",
             "#text": "Huvudforum Atom"
           },
@@ -9919,10 +9895,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Ditt SKYPE-ID:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Tidszon"
           },
@@ -9933,10 +9905,6 @@
           {
             "@tag": "TITLE",
             "#text": "Ändra profil"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Ditt Twitter-namn:"
           },
           {
             "@tag": "WEBLOG2",
@@ -10311,7 +10279,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Du kan ändra din kontoinformation med hjälp av alternativet Personlig profil -&gt; \"Redigera profil\" i <strong>Brukers kontrollpanel</strong>. Om du vill ändra ditt lösenord finns det en extra sida (Ändra lösenord) för detta i <strong>användarkontrollpanelen</strong>, där du kan ange ett nytt lösenord.</p>\r\n<p><strong>Redigera profilsida</strong></p>\r\n<p>På den här sidan kan du ställa in ett antal obligatoriska och valfria uppgifter, varav en del kommer att visas på din offentliga profil. Med undantag för din e-postadress ska du inte ange information som du inte vill ska vara offentligt synlig.</p>\r\n<p><strong>Om dig</strong></p>\r\n<p>Detta är den grundläggande informationen om dig</p>.\r\n<p><strong>Bostad</strong></p>\r\n<p>Här kan du eventuellt ange den plats där du bor</p>.\r\n<p><strong>Hemsida</strong></p>\r\n<p>Här kan du eventuellt ange en hemsida och/eller en blogg.</p>\r\n<p><strong>Snabbmeddelandetjänster</strong></p>\r\n<p>Här kan du eventuellt ange dina Messenger Ids för tjänster som MSN, XMPP, SKYPE, Facebook och Twitter.</p>\r\n<p><strong>Tidszon</strong></p>\r\n<p>Här kan du ange tidszon för att justera bordets tid och datum till din lokala tid. Och ställa in sommartid om den ska justeras automatiskt.</p>\r\n<p><strong>Inställningar för forum</strong></p>\r\n<p>Här kan du ändra din e-postadress.</p>\r\n<p>Och om administratören har aktiverat det kan du ändra forumets <strong>språk</strong>, <strong>tema</strong> för webbplatsen och <strong>textredigeraren</strong> (som används för att lägga upp meddelanden).</p>\r\n<p>Det finns också en inställning &quot;Single Sign On&quot; (Om den&rsquo;är aktiverad). Om du aktiverar den kan du logga in via Facebook, du anger också ditt Facebook-ID ovan.</p>\r\n\r\n"
+            "#text": "<p>Du kan ändra din kontoinformation med hjälp av alternativet Personlig profil -&gt; \"Redigera profil\" i <strong>Brukers kontrollpanel</strong>. Om du vill ändra ditt lösenord finns det en extra sida (Ändra lösenord) för detta i <strong>användarkontrollpanelen</strong>, där du kan ange ett nytt lösenord.</p>\r\n<p><strong>Redigera profilsida</strong></p>\r\n<p>På den här sidan kan du ställa in ett antal obligatoriska och valfria uppgifter, varav en del kommer att visas på din offentliga profil. Med undantag för din e-postadress ska du inte ange information som du inte vill ska vara offentligt synlig.</p>\r\n<p><strong>Om dig</strong></p>\r\n<p>Detta är den grundläggande informationen om dig</p>.\r\n<p><strong>Bostad</strong></p>\r\n<p>Här kan du eventuellt ange den plats där du bor</p>.\r\n<p><strong>Hemsida</strong></p>\r\n<p>Här kan du eventuellt ange en hemsida och/eller en blogg.</p>\r\n<p><strong>Snabbmeddelandetjänster</strong></p>\r\n<p>Här kan du eventuellt ange dina Messenger Ids för tjänster som XMPP, Facebook och Twitter.</p>\r\n<p><strong>Tidszon</strong></p>\r\n<p>Här kan du ange tidszon för att justera bordets tid och datum till din lokala tid. Och ställa in sommartid om den ska justeras automatiskt.</p>\r\n<p><strong>Inställningar för forum</strong></p>\r\n<p>Här kan du ändra din e-postadress.</p>\r\n<p>Och om administratören har aktiverat det kan du ändra forumets <strong>språk</strong>, <strong>tema</strong> för webbplatsen och <strong>textredigeraren</strong> (som används för att lägga upp meddelanden).</p>\r\n<p>Det finns också en inställning &quot;Single Sign On&quot; (Om den&rsquo;är aktiverad). Om du aktiverar den kan du logga in via Facebook, du anger också ditt Facebook-ID ovan.</p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -11206,10 +11174,6 @@
             "#text": "Logga in eller registrera dig med {0} eller anslut ett befintligt användarkonto med {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Twitter-användarnamnet måste matcha forumets användarnamn för att ansluta användaren.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Logga in med ett användarkonto som är anslutet till {0}. Om inget konto hittas skapas automatiskt ett nytt konto i forumet."
           },
@@ -11326,28 +11290,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Twitter-inloggningen misslyckades, ett användarkonto med samma användarnamn som Twitter-kontot finns redan, försök att ansluta ditt forumkonto istället."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Twitter-användarnamnet måste matcha forumets användarnamn!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Logga in"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Du har fått ytterligare information om ditt nya konto i ett privat meddelande på forumet."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Information om ditt {0} Forumkonto: Användarnamn \"{1}\" Lösenord \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12949,14 +12893,6 @@
             "#text": "Liknande ämnen"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Kontakta {0} via Skype"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "Statistik"
           },
@@ -13342,10 +13278,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Visa alla inlägg av användare"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm)-ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

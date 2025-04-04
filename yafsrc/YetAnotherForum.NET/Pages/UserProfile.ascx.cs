@@ -321,20 +321,11 @@ public partial class UserProfile : ForumPage
 
         this.Facebook.ParamTitle0 = userName;
 
-        this.Twitter.Visible = user.Item2.Profile_Twitter.IsSet();
-        this.Twitter.NavigateUrl = $"http://twitter.com/{this.HtmlEncode(user.Item2.Profile_Twitter)}";
-        this.Twitter.ParamTitle0 = userName;
-
         this.XMPP.Visible = user.Item2.Profile_XMPP.IsSet();
         this.XMPP.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Jabber, new { u = user.Item1.ID });
         this.XMPP.ParamTitle0 = userName;
 
-        this.Skype.Visible = user.Item2.Profile_Skype.IsSet();
-        this.Skype.NavigateUrl = $"skype:{user.Item2.Profile_Skype}?call";
-        this.Skype.ParamTitle0 = userName;
-
-        if (!this.Skype.Visible && !this.Blog.Visible && !this.XMPP.Visible && !this.Facebook.Visible &&
-            !this.Twitter.Visible)
+        if (!this.Blog.Visible && !this.XMPP.Visible && !this.Facebook.Visible)
         {
             this.SocialMediaHolder.Visible = false;
         }

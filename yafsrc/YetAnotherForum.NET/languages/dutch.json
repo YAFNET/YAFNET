@@ -557,10 +557,6 @@
             "#text": "Gebruikt MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Gebruikt Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Gebruikt XMPP"
           },
@@ -3465,14 +3461,6 @@
           {
             "@tag": "TITLE",
             "#text": "Bewerk Gebruiker \"{0}\""
-          },
-          {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter Gebruiker:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Geeft aan of de Gebruiker is ingelogd via Twitter."
           },
           {
             "@tag": "USER_AVATAR",
@@ -6664,10 +6652,6 @@
             "#text": "Gebruikers"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter Gebruiker"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Gebruikersnaam"
           }
@@ -7210,10 +7194,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Klik hier om de verborgen tekst (ook wel bekend als een spoiler) te verbergen of te laten zien"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Voer de Status-ID in van de Tweet die je wilt insluiten"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9341,10 +9321,6 @@
             "#text": "Facebook-info laden..."
           },
           {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Twitter-info wordt geladen..."
-          },
-          {
             "@tag": "MAIN_FORUM_ATOM",
             "#text": "Hoofd Forum Atom"
           },
@@ -9911,10 +9887,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Je SKYPE ID:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Tijdzone"
           },
@@ -9925,10 +9897,6 @@
           {
             "@tag": "TITLE",
             "#text": "Profiel bewerken"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Je Twitter Naam:"
           },
           {
             "@tag": "WEBLOG2",
@@ -10303,7 +10271,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Je kunt je Account informatie wijzigen in Persoonlijk Profiel -&gt; 'Profiel Bewerken' in je Profiel. Als je je wachtwoord wilt wijzigen kom je op een aparte pagina terecht, wanneer je op 'Wijzig Wachtwoord' klikt.</p>\r\n<p><strong>Profiel Bewerken</strong> Pagina</p>\r\n<p>Met deze pagina kun je een aantal verplichte en optionele details ingeven, waarvan een aantal op je publieke profielpagina komen te staan. Als bepaalde zaken niet publiek wilt maken, hoef je die niet in te vullen (je e-mailadres is wel verplicht).</p>\r\n<p><strong>Over jezelf</strong></p>\r\n<p>Dit is standaard informatie over jezelf</p>\r\n<p><strong>Locatie</strong></p>\r\n<p>Hier kun je invullen waar je woont (optioneel)</p>\r\n<p><strong>Homepage</strong></p>\r\n<p>Hier kun je een link naar je site en/of Blog plaatsen (optioneel).</p>\r\n<p><strong>Instant messaging diensten</strong></p>\r\n<p>Hier kun je de ID's van messenger diensten zoals MSN, XMPP, SKYPE invullen (optioneel).</p>\r\n<p><strong>Tijdzone</strong></p>\r\n<p>Hier kun je de tijdzone instellen, zodat de op je pc kunt aanpassen aan de tijd op het forum. En je kunt instellen of de zomertijd automatisch moet worden aangepast.</p>\r\n<p><strong>Forum Instellingen</strong></p>\r\n<p>Hier kun je je e-mailadres wijzigen.</p>\r\n<p>En als de beheerder het heeft geactiveerd, kun je de <strong>Taal</strong> en het <strong>Thema</strong> van de site instellen.</p>\r\n\r\n"
+            "#text": "<p>Je kunt je Account informatie wijzigen in Persoonlijk Profiel -&gt; 'Profiel Bewerken' in je Profiel. Als je je wachtwoord wilt wijzigen kom je op een aparte pagina terecht, wanneer je op 'Wijzig Wachtwoord' klikt.</p>\r\n<p><strong>Profiel Bewerken</strong> Pagina</p>\r\n<p>Met deze pagina kun je een aantal verplichte en optionele details ingeven, waarvan een aantal op je publieke profielpagina komen te staan. Als bepaalde zaken niet publiek wilt maken, hoef je die niet in te vullen (je e-mailadres is wel verplicht).</p>\r\n<p><strong>Over jezelf</strong></p>\r\n<p>Dit is standaard informatie over jezelf</p>\r\n<p><strong>Locatie</strong></p>\r\n<p>Hier kun je invullen waar je woont (optioneel)</p>\r\n<p><strong>Homepage</strong></p>\r\n<p>Hier kun je een link naar je site en/of Blog plaatsen (optioneel).</p>\r\n<p><strong>Instant messaging diensten</strong></p>\r\n<p>Hier kun je de ID's van messenger diensten zoals XMPP invullen (optioneel).</p>\r\n<p><strong>Tijdzone</strong></p>\r\n<p>Hier kun je de tijdzone instellen, zodat de op je pc kunt aanpassen aan de tijd op het forum. En je kunt instellen of de zomertijd automatisch moet worden aangepast.</p>\r\n<p><strong>Forum Instellingen</strong></p>\r\n<p>Hier kun je je e-mailadres wijzigen.</p>\r\n<p>En als de beheerder het heeft geactiveerd, kun je de <strong>Taal</strong> en het <strong>Thema</strong> van de site instellen.</p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -11190,10 +11158,6 @@
             "#text": "Log in of registreer met {0} of verbind een bestaand gebruikersaccount met {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>De Twitter-gebruikersnaam moet overeenkomen met de forumgebruikersnaam om de gebruiker te verbinden.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Log in met een gebruikersaccount dat is verbonden met {0}. "
           },
@@ -11310,28 +11274,8 @@
             "#text": "Het Facebook ID komt niet overeen!"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "Twitter Login is niet gelukt, de gebruiker bestaat niet."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "De Twitter-login is mislukt, er bestaat al een gebruikersaccount met dezelfde gebruikersnaam als het Twitter-account. Probeer in plaats daarvan uw forumaccount te koppelen."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "De Twitter-gebruikersnaam moet overeenkomen met de forumgebruikersnaam!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Inloggen"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Je hebt nieuwe informatie over je account gekregen per PM."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "je {0} Forum Account Informatie: Gebruikersnaam \"{1}\" Wachtwoord \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12933,14 +12877,6 @@
             "#text": "Vergelijkbare onderwerpen"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Neem met {0} contact op via Skype"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "Statistieken"
           },
@@ -13322,10 +13258,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Bekijk alle berichte van deze gebruiker"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm)-ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

@@ -73,16 +73,6 @@ public class ProfileInfo
     public string FacebookId { get; set; }
 
     /// <summary>
-    /// Gets or sets Twitter.
-    /// </summary>
-    public string Twitter { get; set; }
-
-    /// <summary>
-    /// Gets or sets Twitter.
-    /// </summary>
-    public string TwitterId { get; set; }
-
-    /// <summary>
     /// Gets or sets Interests.
     /// </summary>
     public string Interests { get; set; }
@@ -116,11 +106,6 @@ public class ProfileInfo
     /// Gets or sets RealName.
     /// </summary>
     public string RealName { get; set; }
-
-    /// <summary>
-    /// Gets or sets Skype.
-    /// </summary>
-    public string Skype { get; set; }
 
     /// <summary>
     /// Gets or sets XMPP.

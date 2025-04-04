@@ -162,32 +162,12 @@
     </h4>
     <div class="row">
         <div class="mb-3 col-md-6">
-            <asp:Label runat="server" AssociatedControlID="Twitter">
-                <YAF:LocalizedLabel ID="LocalizedLabel33" runat="server"
-                    LocalizedPage="EDIT_PROFILE"
-                    LocalizedTag="Twitter" />
-            </asp:Label>
-            <asp:TextBox runat="server" ID="Twitter" CssClass="form-control"
-                         MaxLength="400"/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="mb-3 col-md-6">
             <asp:Label runat="server" AssociatedControlID="Xmpp">
                 <YAF:LocalizedLabel ID="LocalizedLabel32" runat="server"
                     LocalizedPage="EDIT_PROFILE"
                     LocalizedTag="xmpp" />
             </asp:Label>
             <asp:TextBox runat="server" ID="Xmpp" CssClass="form-control"
-                         MaxLength="255"/>
-        </div>
-        <div class="mb-3 col-md-6">
-            <asp:Label runat="server" AssociatedControlID="Skype">
-                <YAF:LocalizedLabel ID="LocalizedLabel30" runat="server"
-                    LocalizedPage="EDIT_PROFILE"
-                    LocalizedTag="SKYPE" />
-            </asp:Label>
-            <asp:TextBox runat="server" ID="Skype" CssClass="form-control"
                          MaxLength="255"/>
         </div>
     </div>

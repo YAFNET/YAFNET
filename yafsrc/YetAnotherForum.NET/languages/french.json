@@ -557,10 +557,6 @@
             "#text": "Utilise MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Utilise Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Utilise XMPP"
           },
@@ -3473,14 +3469,6 @@
           {
             "@tag": "TITLE",
             "#text": "Modifier l'utilisateur \"{0}\""
-          },
-          {
-            "@tag": "TWITTER_USER",
-            "#text": "Utilisateur de Twitter :"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Indique si l'utilisateur est connecté via Twitter."
           },
           {
             "@tag": "USER_AVATAR",
@@ -6672,10 +6660,6 @@
             "#text": "Utilisateurs"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Utilisateur de Twitter"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Nom de l'utilisateur"
           }
@@ -7218,10 +7202,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Cliquez ici pour afficher ou masquer le texte caché (aussi appellé spoiler)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Saisissez l'ID de statut du Tweet que vous souhaitez intégrer."
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9349,10 +9329,6 @@
             "#text": "Chargement des informations sur Facebook ..."
           },
           {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Chargement des informations Twitter ..."
-          },
-          {
             "@tag": "MAIN_FORUM_ATOM",
             "#text": "Forum principal Atom"
           },
@@ -9919,10 +9895,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Votre ID SKYPE :"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Fuseau horaire"
           },
@@ -9933,10 +9905,6 @@
           {
             "@tag": "TITLE",
             "#text": "Edition du Profil"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Votre nom sur Twitter :"
           },
           {
             "@tag": "WEBLOG2",
@@ -10311,7 +10279,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "</p> <p>Vous pouvez modifier les informations de votre compte en utilisant Profil personnel -&gt ; option 'Modifier le profil' à partir du <strong>Panneau de configuration de l'utilisateur</strong>. Si vous voulez changer votre mot de passe, il y a une page supplémentaire (Changer le mot de passe) pour cela dans le <strong>Panneau de contrôle de l'utilisateur</strong>, où vous pouvez définir un nouveau mot de passe.</p>\r\n<p><strong>Page de modification du profil</strong></p> <p>.\r\n<p>Cette page vous permet de définir un certain nombre de détails obligatoires et facultatifs, dont certains seront affichés sur votre profil public. A l'exception de votre adresse e-mail, n'entrez pas d'informations que vous ne souhaitez pas voir apparaître publiquement.</p>\r\n<p><strong>A propos de vous</strong></p><strong>.\r\n<p>Voici les informations de base vous concernant</p>.\r\n<p><strong>Localisation</strong></p> <p>.\r\n<p>Ici, vous pouvez éventuellement saisir le Lieu où vous vivez</p>.\r\n<p><strong>Page d'accueil</strong></p><p>\r\n<p>Ici vous pouvez optionnellement entrer une page d'accueil et/ou un Blog.</p>\r\n<p><strong>Services de messagerie instantanée</strong></p> <p>.\r\n</p> <p>Vous pouvez ici saisir de manière facultative vos identifiants de messagerie de services tels que MSN, XMPP, SKYPE, Facebook et Twitter.</p> <p>.\r\n<p><strong>Fuseau horaire</strong></p><p>\r\n<p>Ici, vous pouvez spécifier le fuseau horaire pour ajuster l'heure et la date du conseil à votre heure locale. Et définir l'heure d'été au cas où elle serait automatiquement ajustée.</p>\r\n<p><strong>Paramètres du forum</strong></p> <p>.\r\n<p>C'est ici que vous modifiez votre adresse électronique.</p>\r\n</p> <p>Et si l'Administrateur l'a activé, vous pouvez changer la <strong>Langue</strong> du forum, le <strong>thème</strong> du site et l'<strong>Éditeur de texte</strong> (Qui est utilisé pour poster des messages).</p>\r\n</p> <p>Il existe également un paramètre &quot;Single Sign On&quot ; (S'il&rsquo;est activé). Si vous l'activez, vous pouvez vous connecter par l'intermédiaire de Facebook, vous devez également entrer votre ID Facebook ci-dessus.</p>>\r\n\r\n"
+            "#text": "</p> <p>Vous pouvez modifier les informations de votre compte en utilisant Profil personnel -&gt ; option 'Modifier le profil' à partir du <strong>Panneau de configuration de l'utilisateur</strong>. Si vous voulez changer votre mot de passe, il y a une page supplémentaire (Changer le mot de passe) pour cela dans le <strong>Panneau de contrôle de l'utilisateur</strong>, où vous pouvez définir un nouveau mot de passe.</p>\r\n<p><strong>Page de modification du profil</strong></p> <p>.\r\n<p>Cette page vous permet de définir un certain nombre de détails obligatoires et facultatifs, dont certains seront affichés sur votre profil public. A l'exception de votre adresse e-mail, n'entrez pas d'informations que vous ne souhaitez pas voir apparaître publiquement.</p>\r\n<p><strong>A propos de vous</strong></p><strong>.\r\n<p>Voici les informations de base vous concernant</p>.\r\n<p><strong>Localisation</strong></p> <p>.\r\n<p>Ici, vous pouvez éventuellement saisir le Lieu où vous vivez</p>.\r\n<p><strong>Page d'accueil</strong></p><p>\r\n<p>Ici vous pouvez optionnellement entrer une page d'accueil et/ou un Blog.</p>\r\n<p><strong>Services de messagerie instantanée</strong></p> <p>.\r\n</p> <p>Vous pouvez ici saisir de manière facultative vos identifiants de messagerie de services tels que XMPP, Facebook et Twitter.</p> <p>.\r\n<p><strong>Fuseau horaire</strong></p><p>\r\n<p>Ici, vous pouvez spécifier le fuseau horaire pour ajuster l'heure et la date du conseil à votre heure locale. Et définir l'heure d'été au cas où elle serait automatiquement ajustée.</p>\r\n<p><strong>Paramètres du forum</strong></p> <p>.\r\n<p>C'est ici que vous modifiez votre adresse électronique.</p>\r\n</p> <p>Et si l'Administrateur l'a activé, vous pouvez changer la <strong>Langue</strong> du forum, le <strong>thème</strong> du site et l'<strong>Éditeur de texte</strong> (Qui est utilisé pour poster des messages).</p>\r\n</p> <p>Il existe également un paramètre &quot;Single Sign On&quot ; (S'il&rsquo;est activé). Si vous l'activez, vous pouvez vous connecter par l'intermédiaire de Facebook, vous devez également entrer votre ID Facebook ci-dessus.</p>>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -11206,10 +11174,6 @@
             "#text": "Connectez-vous ou enregistrez-vous avec {0} ou connectez un compte utilisateur existant avec {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Le nom d'utilisateur Twitter doit correspondre au nom d'utilisateur du forum pour connecter l'utilisateur.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Connectez-vous avec un compte utilisateur qui est connecté avec {0}. Ou si aucun compte n'est trouvé, un nouveau compte sera automatiquement créé dans les forums."
           },
@@ -11326,28 +11290,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "La connexion Twitter a échoué, un compte utilisateur avec le même nom d'utilisateur que le compte Twitter existe déjà, veuillez essayer de vous connecter à votre compte de forum à la place."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Le nom d'utilisateur Twitter doit correspondre au nom d'utilisateur du forum !"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Connexion"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Vous avez reçu des informations supplémentaires sur votre nouveau compte sous forme de message privé sur le forum."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Vos informations de compte du forum {0} : Nom d'utilisateur \"{1}\" Mot de passe \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12949,14 +12893,6 @@
             "#text": "Sujets similaires"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Contactez {0} via Skype"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "Statistiques"
           },
@@ -13342,10 +13278,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Voir tous les messages de l'utilisateur"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Identifiant Skype(tm) :"
           },
           {
             "@tag": "SOCIAL_MEDIA",

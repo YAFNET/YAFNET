@@ -557,10 +557,6 @@
             "#text": "Bruker MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Bruker Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Bruker XMPP"
           },
@@ -3473,14 +3469,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rediger bruker &quot;{0}&quot;"
-          },
-          {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter-bruker:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Indikerer om brukeren er pålogget via Twitter."
           },
           {
             "@tag": "USER_AVATAR",
@@ -6672,10 +6660,6 @@
             "#text": "Brukere"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter-bruker"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Brukernavn"
           }
@@ -7218,10 +7202,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Klikk her for å vise eller skjule den skjulte teksten (også kjent som en spoiler)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Skriv inn status-ID-en til tweeten du vil bygge inn"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9349,10 +9329,6 @@
             "#text": "Laster Facebook-informasjon ..."
           },
           {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Laster Twitter-informasjon ..."
-          },
-          {
             "@tag": "MAIN_FORUM_ATOM",
             "#text": "Hovedforum Atom"
           },
@@ -9919,10 +9895,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Din SKYPE ID:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Tidssone"
           },
@@ -9933,10 +9905,6 @@
           {
             "@tag": "TITLE",
             "#text": "Endre profil"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Ditt Twitter-navn:"
           },
           {
             "@tag": "WEBLOG2",
@@ -10311,7 +10279,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Du kan endre kontoinformasjonen din ved å bruke Personlig profil -&gt; &quot;Rediger profil&quot; fra <strong>brukerkontrollpanelet</strong> . Hvis du vil endre passordet ditt, er det en ekstra side (Endre passord) for det i <strong>brukerkontrollpanelet</strong> , hvor du kan angi et nytt passord.</p><p> <strong>Rediger profilside</strong></p><p> Denne siden lar deg angi en rekke nødvendige og valgfrie detaljer, hvorav noen vil vises på din offentlige profil. Med unntak av e-postadressen din, ikke skriv inn informasjon som du ikke ønsker skal være offentlig synlig.</p><p> <strong>Om deg</strong></p><p> Dette er den grunnleggende informasjonen om deg</p><p> <strong>plassering</strong></p><p> Her kan du valgfritt gå inn på stedet du bor</p><p> <strong>Hjemmeside</strong></p><p> Her kan du eventuelt gå inn på en hjemmeside og/eller en blogg.</p><p> <strong>Direktemeldingstjenester</strong></p><p> Her kan du valgfritt legge inn dine messenger-IDer for tjenester som MSN, XMPP, SKYPE, Facebook og Twitter.</p><p> <strong>Tidssone</strong></p><p> Her kan du spesifisere tidssonen for å justere styrets tid og dato til din lokale tid. Og still inn sommertid hvis den justeres automatisk.</p><p> <strong>Foruminnstillinger</strong></p><p> Her endrer du e-postadressen din.</p><p> Og hvis administratoren har aktivert det, kan du endre <strong>forumspråket</strong> , <strong>temaet</strong> for nettstedet og <strong>tekstredigeringsprogrammet</strong> (som brukes til å legge ut meldinger).</p><p> Det er også en innstilling &quot;Single Sign On&quot; (hvis den er aktivert). Hvis du slår den på, kan du logge inn via Facebook, du skriver også inn Facebook-ID-en din ovenfor.</p>"
+            "#text": "<p>Du kan endre kontoinformasjonen din ved å bruke Personlig profil -&gt; &quot;Rediger profil&quot; fra <strong>brukerkontrollpanelet</strong> . Hvis du vil endre passordet ditt, er det en ekstra side (Endre passord) for det i <strong>brukerkontrollpanelet</strong> , hvor du kan angi et nytt passord.</p><p> <strong>Rediger profilside</strong></p><p> Denne siden lar deg angi en rekke nødvendige og valgfrie detaljer, hvorav noen vil vises på din offentlige profil. Med unntak av e-postadressen din, ikke skriv inn informasjon som du ikke ønsker skal være offentlig synlig.</p><p> <strong>Om deg</strong></p><p> Dette er den grunnleggende informasjonen om deg</p><p> <strong>plassering</strong></p><p> Her kan du valgfritt gå inn på stedet du bor</p><p> <strong>Hjemmeside</strong></p><p> Her kan du eventuelt gå inn på en hjemmeside og/eller en blogg.</p><p> <strong>Direktemeldingstjenester</strong></p><p> Her kan du valgfritt legge inn dine messenger-IDer for tjenester som XMPP, Facebook og Twitter.</p><p> <strong>Tidssone</strong></p><p> Her kan du spesifisere tidssonen for å justere styrets tid og dato til din lokale tid. Og still inn sommertid hvis den justeres automatisk.</p><p> <strong>Foruminnstillinger</strong></p><p> Her endrer du e-postadressen din.</p><p> Og hvis administratoren har aktivert det, kan du endre <strong>forumspråket</strong> , <strong>temaet</strong> for nettstedet og <strong>tekstredigeringsprogrammet</strong> (som brukes til å legge ut meldinger).</p><p> Det er også en innstilling &quot;Single Sign On&quot; (hvis den er aktivert). Hvis du slår den på, kan du logge inn via Facebook, du skriver også inn Facebook-ID-en din ovenfor.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -11206,10 +11174,6 @@
             "#text": "Logg på eller registrer deg med {0} eller koble en eksisterende brukerkonto til {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Twitter-brukernavnet må samsvare med forumbrukernavnet for å koble til brukeren.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Logg på med en brukerkonto som er koblet til {0}. Eller hvis ingen konto blir funnet, opprettes en ny konto automatisk i forumene."
           },
@@ -11326,28 +11290,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Twitter-påloggingen mislyktes, en brukerkonto med samme brukernavn som Twitter-kontoen eksisterer allerede, prøv å koble deg til forumkontoen din i stedet."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Twitter-brukernavnet må samsvare med forumbrukernavnet!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Logg inn"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Du har mottatt ytterligere informasjon til din nye konto som privat melding på forumet."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Din {0} Forumkontoinformasjon: Brukernavn &quot;{1}&quot; Passord &quot;{2}&quot;"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12949,14 +12893,6 @@
             "#text": "Lignende emner"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Kontakt {0} via Skype"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "Statistikk"
           },
@@ -13342,10 +13278,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Se alle innlegg etter bruker"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm) ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

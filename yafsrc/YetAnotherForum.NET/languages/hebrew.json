@@ -557,10 +557,6 @@
             "#text": "משתמש ב-MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "משתמש בסקייפ"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "משתמש ב-XMPP"
           },
@@ -3473,14 +3469,6 @@
           {
             "@tag": "TITLE",
             "#text": "ערוך משתמש &quot;{0}&quot;"
-          },
-          {
-            "@tag": "TWITTER_USER",
-            "#text": "משתמש בטוויטר:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "מציין אם המשתמש מחובר דרך Twitter."
           },
           {
             "@tag": "USER_AVATAR",
@@ -6672,10 +6660,6 @@
             "#text": "משתמשים"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "משתמש בטוויטר"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "שם משתמש"
           }
@@ -7218,10 +7202,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "לחץ כאן כדי להציג או להסתיר את הטקסט הנסתר (ידוע גם כספוילר)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "הזן את מזהה הסטטוס של הציוץ שברצונך להטביע"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9353,10 +9333,6 @@
             "#text": "טוען מידע בפייסבוק..."
           },
           {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "טוען מידע טוויטר..."
-          },
-          {
             "@tag": "MAIN_FORUM_ATOM",
             "#text": "פורום ראשי Atom"
           },
@@ -9923,10 +9899,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "שם המשתמש שלך בסקייפ:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "איזור זמן"
           },
@@ -9937,10 +9909,6 @@
           {
             "@tag": "TITLE",
             "#text": "עריכת פרופיל"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "השם שלך בטוויטר:"
           },
           {
             "@tag": "WEBLOG2",
@@ -10315,7 +10283,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">אתה יכול לשנות את פרטי החשבון שלך באמצעות פרופיל אישי -&gt; אפשרות &#39;ערוך פרופיל&#39; מתוך <strong>לוח הבקרה</strong> של המשתמש. אם אתה רוצה לשנות את הסיסמה שלך יש עמוד נוסף (שנה סיסמה) עבור זה <strong>בלוח הבקרה של המשתמש</strong> , שבו תוכל להגדיר סיסמה חדשה.</p><p style=\";text-align:right;direction:rtl\"> <strong>ערוך דף פרופיל</strong></p><p style=\";text-align:right;direction:rtl\"> דף זה מאפשר לך להגדיר מספר פרטים נדרשים ואופציונליים, שחלקם יוצגו בפרופיל הציבורי שלך. למעט כתובת הדואר האלקטרוני שלך, אל תזין מידע שאינך מעוניין שיהיה גלוי לציבור.</p><p style=\";text-align:right;direction:rtl\"> <strong>עליך</strong></p><p style=\";text-align:right;direction:rtl\"> אלה המידע הבסיסי עליך</p><p style=\";text-align:right;direction:rtl\"> <strong>מקום</strong></p><p style=\";text-align:right;direction:rtl\"> כאן אתה יכול להזין באופן אופציונלי את המקום שבו אתה גר</p><p style=\";text-align:right;direction:rtl\"> <strong>דף הבית</strong></p><p style=\";text-align:right;direction:rtl\"> כאן תוכל להיכנס לדף הבית ו/או לבלוג באופן אופציונלי.</p><p style=\";text-align:right;direction:rtl\"> <strong>שירותי מסרים מיידיים</strong></p><p style=\";text-align:right;direction:rtl\"> כאן תוכל להזין באופן אופציונלי את מזהי המסנג&#39;ר שלך של שירותים כגון MSN, XMPP, SKYPE, Facebook וטוויטר.</p><p style=\";text-align:right;direction:rtl\"> <strong>אזור זמן</strong></p><p style=\";text-align:right;direction:rtl\"> כאן אתה יכול לציין את אזור הזמן כדי להתאים את השעה והתאריך של הלוח לזמן המקומי שלך. והגדר את שעון הקיץ אם הוא יותאם אוטומטית.</p><p style=\";text-align:right;direction:rtl\"> <strong>הגדרות הפורום</strong></p><p style=\";text-align:right;direction:rtl\"> כאן אתה משנה את כתובת האימייל שלך.</p><p style=\";text-align:right;direction:rtl\"> ואם המנהל הפעיל את זה אתה יכול לשנות את <strong>שפת</strong> הפורום, <strong>נושא</strong> האתר <strong>ועורך הטקסט</strong> (שמשמש לפרסום הודעות).</p><p style=\";text-align:right;direction:rtl\"> יש גם הגדרה &quot;כניסה יחידה&quot; (אם היא מופעלת). אם אתה מפעיל את זה אתה יכול להיכנס דרך פייסבוק, אתה גם הזן את מזהה הפייסבוק שלך למעלה.</p>"
+            "#text": "<p style=\";text-align:right;direction:rtl\">אתה יכול לשנות את פרטי החשבון שלך באמצעות פרופיל אישי -&gt; אפשרות &#39;ערוך פרופיל&#39; מתוך <strong>לוח הבקרה</strong> של המשתמש. אם אתה רוצה לשנות את הסיסמה שלך יש עמוד נוסף (שנה סיסמה) עבור זה <strong>בלוח הבקרה של המשתמש</strong> , שבו תוכל להגדיר סיסמה חדשה.</p><p style=\";text-align:right;direction:rtl\"> <strong>ערוך דף פרופיל</strong></p><p style=\";text-align:right;direction:rtl\"> דף זה מאפשר לך להגדיר מספר פרטים נדרשים ואופציונליים, שחלקם יוצגו בפרופיל הציבורי שלך. למעט כתובת הדואר האלקטרוני שלך, אל תזין מידע שאינך מעוניין שיהיה גלוי לציבור.</p><p style=\";text-align:right;direction:rtl\"> <strong>עליך</strong></p><p style=\";text-align:right;direction:rtl\"> אלה המידע הבסיסי עליך</p><p style=\";text-align:right;direction:rtl\"> <strong>מקום</strong></p><p style=\";text-align:right;direction:rtl\"> כאן אתה יכול להזין באופן אופציונלי את המקום שבו אתה גר</p><p style=\";text-align:right;direction:rtl\"> <strong>דף הבית</strong></p><p style=\";text-align:right;direction:rtl\"> כאן תוכל להיכנס לדף הבית ו/או לבלוג באופן אופציונלי.</p><p style=\";text-align:right;direction:rtl\"> <strong>שירותי מסרים מיידיים</strong></p><p style=\";text-align:right;direction:rtl\"> כאן תוכל להזין באופן אופציונלי את מזהי המסנג&#39;ר שלך של שירותים כגון XMPP, Facebook וטוויטר.</p><p style=\";text-align:right;direction:rtl\"> <strong>אזור זמן</strong></p><p style=\";text-align:right;direction:rtl\"> כאן אתה יכול לציין את אזור הזמן כדי להתאים את השעה והתאריך של הלוח לזמן המקומי שלך. והגדר את שעון הקיץ אם הוא יותאם אוטומטית.</p><p style=\";text-align:right;direction:rtl\"> <strong>הגדרות הפורום</strong></p><p style=\";text-align:right;direction:rtl\"> כאן אתה משנה את כתובת האימייל שלך.</p><p style=\";text-align:right;direction:rtl\"> ואם המנהל הפעיל את זה אתה יכול לשנות את <strong>שפת</strong> הפורום, <strong>נושא</strong> האתר <strong>ועורך הטקסט</strong> (שמשמש לפרסום הודעות).</p><p style=\";text-align:right;direction:rtl\"> יש גם הגדרה &quot;כניסה יחידה&quot; (אם היא מופעלת). אם אתה מפעיל את זה אתה יכול להיכנס דרך פייסבוק, אתה גם הזן את מזהה הפייסבוק שלך למעלה.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -11210,10 +11178,6 @@
             "#text": "התחבר או הירשם עם {0} או חבר חשבון משתמש קיים עם {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>שם המשתמש בטוויטר חייב להתאים לשם המשתמש בפורום כדי לחבר את המשתמש.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "התחבר עם חשבון משתמש שמחובר ל-{0}. או אם לא נמצא חשבון, חשבון חדש ייווצר אוטומטית בפורומים."
           },
@@ -11330,28 +11294,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "הכניסה לטוויטר נכשלה, חשבון משתמש עם אותו שם משתמש כמו חשבון הטוויטר כבר קיים, אנא נסה לחבר לך את חשבון הפורום שלך במקום זאת."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "שם המשתמש בטוויטר חייב להתאים לשם המשתמש בפורום!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "התחבר"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "קיבלת מידע נוסף לחשבון החדש שלך כהודעה פרטית בפורום."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "פרטי חשבון הפורום שלך ב-{0}: שם משתמש &quot;{1}&quot; סיסמה &quot;{2}&quot;"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12961,14 +12905,6 @@
             "#text": "נושאים דומים"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "סקייפ"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "צור קשר עם {0} באמצעות Skype"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "סטטיסטיקות"
           },
@@ -13354,10 +13290,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "הצג את כל ההודעות על ידי משתמש"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "זהות Skype(tm):"
           },
           {
             "@tag": "SOCIAL_MEDIA",

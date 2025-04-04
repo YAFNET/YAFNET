@@ -557,10 +557,6 @@
             "#text": " MSN استخدام"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": " Skype استخدام"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": " XMPP استخدام"
           },
@@ -3465,14 +3461,6 @@
           {
             "@tag": "TITLE",
             "#text": "تحرير المستخدم \"{0}\""
-          },
-          {
-            "@tag": "TWITTER_USER",
-            "#text": "مستخدم تويتر:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "يشير إلى ما إذا كان المستخدم قد قام بتسجيل الدخول عبر Twitter."
           },
           {
             "@tag": "USER_AVATAR",
@@ -6664,10 +6652,6 @@
             "#text": "المستخدمون"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "مستخدم تويتر"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "اسم االمستخدم"
           }
@@ -7210,10 +7194,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "اضغظ هنا لإضهار او إخفاء السبويلر"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "أدخل معرف الحالة للتغريدة التي تريد تضمينها"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9337,10 +9317,6 @@
             "#text": "جارٍ تحميل معلومات Facebook ..."
           },
           {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "جارٍ تحميل معلومات Twitter ..."
-          },
-          {
             "@tag": "MAIN_FORUM_ATOM",
             "#text": "المنتدى الرئيسي أتوم"
           },
@@ -9907,10 +9883,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "معرّف سكايب الخاص بك:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "التوقيت"
           },
@@ -9921,10 +9893,6 @@
           {
             "@tag": "TITLE",
             "#text": "تعديل الملف الشخصي"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "اسم تويتر الخاص بك:"
           },
           {
             "@tag": "WEBLOG2",
@@ -10299,7 +10267,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile</strong> Page</p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, XMPP, SKYPE, Facebook and Twitter.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong> and the <strong>Theme</strong> of the Site.</p>\r\n\r\n"
+            "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile</strong> Page</p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as XMPP and Facebook.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong> and the <strong>Theme</strong> of the Site.</p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -11186,10 +11154,6 @@
             "#text": "تسجيل الدخول أو التسجيل باستخدام {0} أو ربط حساب مستخدم موجود بـ {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong> يجب أن يتطابق اسم مستخدم Twitter مع اسم مستخدم المنتدى لتوصيل المستخدم. </ strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "تسجيل الدخول بحساب مستخدم متصل بـ {0}. "
           },
@@ -11306,28 +11270,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "فشل تسجيل الدخول إلى Twitter ، حساب مستخدم بنفس اسم المستخدم مثل حساب Twitter موجود بالفعل ، يرجى محاولة توصيل حساب المنتدى الخاص بك بدلاً من ذلك."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "يجب أن يتطابق اسم مستخدم Twitter مع اسم مستخدم المنتدى!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "تسجيل الدخول"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "لقد تلقيت مزيدًا من المعلومات إلى حسابك الجديد كرسالة خاصة في المنتدى."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "معلومات حساب المنتدى {0}: اسم المستخدم \"{1}\" كلمة المرور \"{2}"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12929,14 +12873,6 @@
             "#text": "مواضيع مماثلة"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "(SKYPE)سكاي بي"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "اتصل بـ {0} عبر Skype"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "إحصاءات"
           },
@@ -13318,10 +13254,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "اضهار كل  مشاركات المستخدم "
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "سكاي بي(SKYPE):"
           },
           {
             "@tag": "SOCIAL_MEDIA",

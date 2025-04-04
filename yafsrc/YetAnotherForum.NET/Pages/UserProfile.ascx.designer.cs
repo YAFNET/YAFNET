@@ -582,15 +582,6 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.ThemeButton XMPP;
 
         /// <summary>
-        /// Skype control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton Skype;
-
-        /// <summary>
         /// Facebook control.
         /// </summary>
         /// <remarks>
@@ -598,15 +589,6 @@ namespace YAF.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Facebook;
-
-        /// <summary>
-        /// Twitter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton Twitter;
 
         /// <summary>
         /// InterestsTR control.

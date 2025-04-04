@@ -557,10 +557,6 @@
             "#text": "Utiliza MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Utiliza o Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Utiliza XMPP"
           },
@@ -3473,14 +3469,6 @@
           {
             "@tag": "TITLE",
             "#text": "Editar utilizador \"{0}\""
-          },
-          {
-            "@tag": "TWITTER_USER",
-            "#text": "Utilizador do Twitter:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Indica se o Utilizador está logado via Twitter."
           },
           {
             "@tag": "USER_AVATAR",
@@ -6672,10 +6660,6 @@
             "#text": "Utilizadores"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Utilizador do Twitter"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Nome do Utilizador"
           }
@@ -7218,10 +7202,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Clique aqui para mostrar ou esconder o texto escondido (também conhecido como spoiler)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Introduza o ID de estado do Tweet que pretende inserir"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9349,10 +9329,6 @@
             "#text": "Carregar informações do Facebook ..."
           },
           {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Carregando informações no Twitter ..."
-          },
-          {
             "@tag": "MAIN_FORUM_ATOM",
             "#text": "Fórum principal Átomo"
           },
@@ -9919,10 +9895,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "O seu SKYPE ID:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Zona de Horário"
           },
@@ -9933,10 +9905,6 @@
           {
             "@tag": "TITLE",
             "#text": "Editar Perfil"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "O seu nome no Twitter:"
           },
           {
             "@tag": "WEBLOG2",
@@ -10311,7 +10279,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Pode alterar as informações da sua conta usando a opção 'Perfil Pessoal -&gt; 'Editar Perfil' a partir da opção <forte>Painel de Controlo do Utilizador</strong>. Se quiser alterar a sua Palavra-passe, existe uma Página extra (Alterar Palavra-passe) para isso no <forte> Painel de Controlo do Utilizador</strong>, onde pode definir uma nova Palavra-passe.</p>\r\n<p>>forte>Editar Perfil Página</strong></p>\r\n<p>Esta página permite-lhe definir um número de detalhes obrigatórios e opcionais, alguns dos quais serão exibidos no seu perfil público. Com excepção do seu endereço de correio electrónico, não introduza informações que não deseje que possam ser visualizadas publicamente.</p>\r\n<p>>forte>Sobre Você</sforte></p>\r\n<p>Estas são as Informações Básicas sobre si</p>\r\n<p>>forte>Localização</forte></p>\r\n<p>Aqui pode opcionalmente entrar no Lugar onde vive</p>\r\n<p>>forte>Página Inicial>>forte></p>\r\n<p>Aqui pode opcionalmente introduzir uma página inicial e/ou um Blog.</p>\r\n<p>>forte>Serviços de mensagens instantâneas</strong></p>\r\n<p>Aqui pode opcionalmente introduzir os seus Ids de mensagens de serviços como MSN, XMPP, SKYPE, Facebook e Twitter.</p>\r\n<p>> forte>Time Zone</strong>>/p>\r\n<p>Aqui pode especificar o Fuso Horário para ajustar a Hora e Data do quadro à sua hora local. E defina a Hora de Verão, caso seja automaticamente ajustada.</p>\r\n<p>>forte>Forum Settings</strong>>/p>\r\n<p>Aqui muda o seu endereço de e-mail.</p>\r\n<p>E se o Administrador o tiver habilitado pode alterar o Fórum <forte>Linguagem</strong>, <forte>te>tema</strong> do Site e o <forte>Editor de texto</strong> (Que é usado para postar mensagens).</p>\r\n<p>Tambem há um Setting &quot;Single Sign On&quot; (Se it&rsquo;s activado). Se o ligar pode iniciar sessão através do Facebook, também introduzir o seu ID do Facebook acima.</p>\r\n\r\n"
+            "#text": "<p>Pode alterar as informações da sua conta usando a opção 'Perfil Pessoal -&gt; 'Editar Perfil' a partir da opção <forte>Painel de Controlo do Utilizador</strong>. Se quiser alterar a sua Palavra-passe, existe uma Página extra (Alterar Palavra-passe) para isso no <forte> Painel de Controlo do Utilizador</strong>, onde pode definir uma nova Palavra-passe.</p>\r\n<p>>forte>Editar Perfil Página</strong></p>\r\n<p>Esta página permite-lhe definir um número de detalhes obrigatórios e opcionais, alguns dos quais serão exibidos no seu perfil público. Com excepção do seu endereço de correio electrónico, não introduza informações que não deseje que possam ser visualizadas publicamente.</p>\r\n<p>>forte>Sobre Você</sforte></p>\r\n<p>Estas são as Informações Básicas sobre si</p>\r\n<p>>forte>Localização</forte></p>\r\n<p>Aqui pode opcionalmente entrar no Lugar onde vive</p>\r\n<p>>forte>Página Inicial>>forte></p>\r\n<p>Aqui pode opcionalmente introduzir uma página inicial e/ou um Blog.</p>\r\n<p>>forte>Serviços de mensagens instantâneas</strong></p>\r\n<p>Aqui pode opcionalmente introduzir os seus Ids de mensagens de serviços como XMPP, Facebook e Twitter.</p>\r\n<p>> forte>Time Zone</strong>>/p>\r\n<p>Aqui pode especificar o Fuso Horário para ajustar a Hora e Data do quadro à sua hora local. E defina a Hora de Verão, caso seja automaticamente ajustada.</p>\r\n<p>>forte>Forum Settings</strong>>/p>\r\n<p>Aqui muda o seu endereço de e-mail.</p>\r\n<p>E se o Administrador o tiver habilitado pode alterar o Fórum <forte>Linguagem</strong>, <forte>te>tema</strong> do Site e o <forte>Editor de texto</strong> (Que é usado para postar mensagens).</p>\r\n<p>Tambem há um Setting &quot;Single Sign On&quot; (Se it&rsquo;s activado). Se o ligar pode iniciar sessão através do Facebook, também introduzir o seu ID do Facebook acima.</p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -11206,10 +11174,6 @@
             "#text": "Iniciar sessão ou Registar com {0} ou ligar uma Conta de Utilizador existente com {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<forte>O nome de utilizador do Twitter deve corresponder ao nome de utilizador do fórum para ligar o utilizador.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Inicie sessão com uma conta de utilizador que esteja ligada a {0}. Ou, se não for encontrada uma conta, será automaticamente criada uma nova conta nos fóruns."
           },
@@ -11326,28 +11290,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "O Login no Twitter falhou, já existe uma conta de utilizador com o mesmo nome de utilizador que a conta do Twitter, por favor tente ligar-lhe a sua conta no fórum em vez disso."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "O nome de utilizador do Twitter deve corresponder ao nome de utilizador do fórum!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Acesso"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Recebeu mais informações para a sua nova conta como mensagem privada no Fórum."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "O seu {0} Forum Account Information: Nome de utilizador \"{1}\" Palavra-passe \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12949,14 +12893,6 @@
             "#text": "Tópicos semelhantes"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Contacto {0} via Skype"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "Estatísticas"
           },
@@ -13342,10 +13278,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Ver todos os Posts por Utilizador"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Identificação Skype(tm):"
           },
           {
             "@tag": "SOCIAL_MEDIA",

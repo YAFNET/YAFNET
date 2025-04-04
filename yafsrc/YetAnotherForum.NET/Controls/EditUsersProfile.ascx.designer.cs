@@ -312,24 +312,6 @@ namespace YAF.Controls
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel16;
 
         /// <summary>
-        /// LocalizedLabel33 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel33;
-
-        /// <summary>
-        /// Twitter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Twitter;
-
-        /// <summary>
         /// LocalizedLabel32 control.
         /// </summary>
         /// <remarks>
@@ -346,24 +328,6 @@ namespace YAF.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Xmpp;
-
-        /// <summary>
-        /// LocalizedLabel30 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel30;
-
-        /// <summary>
-        /// Skype control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Skype;
 
         /// <summary>
         /// LocalizedLabel31 control.

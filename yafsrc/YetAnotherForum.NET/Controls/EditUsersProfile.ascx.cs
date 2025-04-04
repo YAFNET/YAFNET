@@ -543,9 +543,7 @@ public partial class EditUsersProfile : BaseUserControl
                                  ? $"https://www.facebook.com/profile.php?id={this.User.Item2.Profile_Facebook}"
                                  : this.User.Item2.Profile_Facebook;
 
-        this.Twitter.Text = this.User.Item2.Profile_Twitter;
         this.Xmpp.Text = this.User.Item2.Profile_XMPP;
-        this.Skype.Text = this.User.Item2.Profile_Skype;
         this.Gender.SelectedIndex = this.User.Item2.Profile_Gender;
 
         if (this.User.Item2.Profile_Country.IsSet())
@@ -597,9 +595,7 @@ public partial class EditUsersProfile : BaseUserControl
                                   Location = this.Location.Text.Trim(),
                                   Homepage = this.HomePage.Text.Trim(),
                                   Facebook = this.Facebook.Text.Trim(),
-                                  Twitter = this.Twitter.Text.Trim(),
                                   XMPP = this.Xmpp.Text.Trim(),
-                                  Skype = this.Skype.Text.Trim(),
                                   RealName = this.Realname.Text.Trim(),
                                   Occupation = this.Occupation.Text.Trim(),
                                   Interests = this.Interests.Text.Trim(),
@@ -645,8 +641,6 @@ public partial class EditUsersProfile : BaseUserControl
         this.User.Item2.Profile_Homepage = userProfile.Homepage;
         this.User.Item2.Profile_Facebook = userProfile.Facebook;
         this.User.Item2.Profile_FacebookId = userProfile.FacebookId;
-        this.User.Item2.Profile_Twitter = userProfile.Twitter;
-        this.User.Item2.Profile_TwitterId = userProfile.TwitterId;
         this.User.Item2.Profile_Interests = userProfile.Interests;
         this.User.Item2.Profile_Location = userProfile.Location;
         this.User.Item2.Profile_Country = userProfile.Country;
@@ -654,7 +648,6 @@ public partial class EditUsersProfile : BaseUserControl
         this.User.Item2.Profile_City = userProfile.City;
         this.User.Item2.Profile_Occupation = userProfile.Occupation;
         this.User.Item2.Profile_RealName = userProfile.RealName;
-        this.User.Item2.Profile_Skype = userProfile.Skype;
         this.User.Item2.Profile_XMPP = userProfile.XMPP;
 
         this.Get<IAspNetUsersHelper>().Update(this.User.Item2);

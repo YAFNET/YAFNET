@@ -557,10 +557,6 @@
             "#text": "Bruger MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Bruger Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Bruger XMPP"
           },
@@ -3473,14 +3469,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rediger bruger \"{0}\""
-          },
-          {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter-bruger:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Angiver om brugeren er logget ind via Twitter."
           },
           {
             "@tag": "USER_AVATAR",
@@ -6672,10 +6660,6 @@
             "#text": "Brugere"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter-bruger"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Brugernavn"
           }
@@ -7218,10 +7202,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Klik her for at vise eller skjule den gemte tekst (afsløringen)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Indtast status-id'et for det tweet, du vil integrere"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9349,10 +9329,6 @@
             "#text": "Indlæser Facebook-oplysninger..."
           },
           {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Indlæser Twitter-oplysninger..."
-          },
-          {
             "@tag": "MAIN_FORUM_ATOM",
             "#text": "Hovedforum Atom"
           },
@@ -9919,10 +9895,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Dit SKYPE ID:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Tidszone"
           },
@@ -9933,10 +9905,6 @@
           {
             "@tag": "TITLE",
             "#text": "Ændre profil"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Dit Twitter-navn:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11206,10 +11174,6 @@
             "#text": "Log på eller tilmeld dig med {0}, eller tilslut en eksisterende brugerkonto med {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Twitter-brugernavnet skal matche forumbrugernavnet for at forbinde brugeren.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Log på med en brugerkonto, der er forbundet med {0}. "
           },
@@ -11326,28 +11290,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Twitter-login mislykkedes, en brugerkonto med samme brugernavn som Twitter-kontoen eksisterer allerede, prøv venligst at oprette forbindelse til din forumkonto i stedet."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Twitter-brugernavnet skal matche forumbrugernavnet!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Log ind"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Du har modtaget yderligere information til din nye konto som privat besked på forummet."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Dine {0} Forumkontooplysninger: Brugernavn \"{1}\" Adgangskode \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12949,14 +12893,6 @@
             "#text": "Lignende emner"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Kontakt {0} via Skype"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "Statistik"
           },
@@ -13342,10 +13278,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Vis alle indlæg af brugeren"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm)-ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

@@ -557,10 +557,6 @@
             "#text": "Utilizeaza MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Utilizeaza Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Utilizeaza XMPP"
           },
@@ -3473,14 +3469,6 @@
           {
             "@tag": "TITLE",
             "#text": "Editați utilizatorul \"{0}\""
-          },
-          {
-            "@tag": "TWITTER_USER",
-            "#text": "Utilizator Twitter:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Indică dacă utilizatorul este conectat prin Twitter."
           },
           {
             "@tag": "USER_AVATAR",
@@ -6672,10 +6660,6 @@
             "#text": "Utilizatori"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Utilizator Twitter"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Nume utilizator"
           }
@@ -7218,10 +7202,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Clic aici pentru a vizualiza,ascunde textul ascuns (denumit ca text spoiler)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Introduceți ID-ul de stare al Tweet-ului pe care doriți să îl încorporați"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9349,10 +9329,6 @@
             "#text": "Încărcare Facebook Info ..."
           },
           {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Încărcare Info Twitter ..."
-          },
-          {
             "@tag": "MAIN_FORUM_ATOM",
             "#text": "Forumul principal Atom"
           },
@@ -9919,10 +9895,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "ID-ul tău SKYPE:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Timpul zonei"
           },
@@ -9933,10 +9905,6 @@
           {
             "@tag": "TITLE",
             "#text": "Editeaza Profil"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Numele tău pe Twitter:"
           },
           {
             "@tag": "WEBLOG2",
@@ -10311,7 +10279,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Vă puteți modifica informațiile contului dvs. folosind opțiunea Profil personal -&gt; 'Editare profil' din cadrul <strong>Panou de control al utilizatorului</strong>. Dacă doriți să vă schimbați parola, există o pagină suplimentară (Change Password) pentru acest lucru în <strong>Panou de control al utilizatorului</strong>, unde puteți seta o nouă parolă.</p> <p> <p>.\r\n<p><strong>Pagina de editare a profilului</strong></p> <p><strong>Edit Profile Page</strong>.\r\n<p>Această pagină vă permite să setați o serie de detalii obligatorii și opționale, dintre care unele vor fi afișate pe profilul dvs. public. Cu excepția adresei dvs. de e-mail, nu introduceți informații pe care nu doriți să le puteți vedea în mod public.</p> <p>.\r\n<p><strong>Despre dumneavoastră</strong></p> <p> <p><strong>Despre dumneavoastră</strong>.\r\n<p>Acestea sunt informațiile de bază despre dumneavoastră</p>\r\n<p><strong>Localizare</strong></p>\r\n<p>Aici puteți introduce opțional Locul în care locuiți</p>\r\n<p><strong>Pagina de pornire</strong></p>\r\n<p>Aici puteți introduce opțional o pagină de pornire și/sau un blog.</p> <p>.\r\n<p><strong>Servicii de mesagerie instantanee</strong></p>\r\n<p>Aici puteți introduce opțional ID-urile de messenger ale unor servicii precum MSN, XMPP, SKYPE, Facebook și Twitter.</p> <p> Aici puteți introduce opțional ID-urile de messenger ale unor servicii precum MSN, XMPP, SKYPE, Facebook și Twitter.</p>\r\n<p><strong>Fusul orar</strong></p> <p><strong>Fusul orar</strong>.\r\n<p>Aici puteți specifica fusul orar pentru a ajusta ora și data de la bord la ora locală. Și setați ora de vară în cazul în care aceasta este ajustată automat.</p> <p>.\r\n<p><strong>Setări forum</strong></p> <p><strong>Setări forum</strong></p>\r\n<p>Aici vă puteți schimba Adresa de e-mail.</p>.\r\n<p>Și dacă Administratorul a activat-o puteți schimba <strong>Limba</strong> Forumului, <strong>Tema</strong> site-ului și <strong>Editorul de text</strong> (Care este folosit pentru postarea mesajelor).</p>\r\n<p>Există, de asemenea, o setare &quot;Single Sign On&quot; (Dacă este activată). Dacă o activați, vă puteți autentifica prin Facebook, introduceți și ID-ul de Facebook de mai sus.</p> <p>.\r\n\r\n"
+            "#text": "<p>Vă puteți modifica informațiile contului dvs. folosind opțiunea Profil personal -&gt; 'Editare profil' din cadrul <strong>Panou de control al utilizatorului</strong>. Dacă doriți să vă schimbați parola, există o pagină suplimentară (Change Password) pentru acest lucru în <strong>Panou de control al utilizatorului</strong>, unde puteți seta o nouă parolă.</p> <p> <p>.\r\n<p><strong>Pagina de editare a profilului</strong></p> <p><strong>Edit Profile Page</strong>.\r\n<p>Această pagină vă permite să setați o serie de detalii obligatorii și opționale, dintre care unele vor fi afișate pe profilul dvs. public. Cu excepția adresei dvs. de e-mail, nu introduceți informații pe care nu doriți să le puteți vedea în mod public.</p> <p>.\r\n<p><strong>Despre dumneavoastră</strong></p> <p> <p><strong>Despre dumneavoastră</strong>.\r\n<p>Acestea sunt informațiile de bază despre dumneavoastră</p>\r\n<p><strong>Localizare</strong></p>\r\n<p>Aici puteți introduce opțional Locul în care locuiți</p>\r\n<p><strong>Pagina de pornire</strong></p>\r\n<p>Aici puteți introduce opțional o pagină de pornire și/sau un blog.</p> <p>.\r\n<p><strong>Servicii de mesagerie instantanee</strong></p>\r\n<p>Aici puteți introduce opțional ID-urile de messenger ale unor servicii precum XMPP, Facebook și Twitter.</p> <p> Aici puteți introduce opțional ID-urile de messenger ale unor servicii precum XMPP, Facebook și Twitter.</p>\r\n<p><strong>Fusul orar</strong></p> <p><strong>Fusul orar</strong>.\r\n<p>Aici puteți specifica fusul orar pentru a ajusta ora și data de la bord la ora locală. Și setați ora de vară în cazul în care aceasta este ajustată automat.</p> <p>.\r\n<p><strong>Setări forum</strong></p> <p><strong>Setări forum</strong></p>\r\n<p>Aici vă puteți schimba Adresa de e-mail.</p>.\r\n<p>Și dacă Administratorul a activat-o puteți schimba <strong>Limba</strong> Forumului, <strong>Tema</strong> site-ului și <strong>Editorul de text</strong> (Care este folosit pentru postarea mesajelor).</p>\r\n<p>Există, de asemenea, o setare &quot;Single Sign On&quot; (Dacă este activată). Dacă o activați, vă puteți autentifica prin Facebook, introduceți și ID-ul de Facebook de mai sus.</p> <p>.\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -11206,10 +11174,6 @@
             "#text": "Conectați-vă sau înregistrați-vă cu {0} sau conectați un cont de utilizator existent cu {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Numele de utilizator Twitter trebuie să se potrivească cu numele de utilizator de pe forum pentru a conecta utilizatorul.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Conectați-vă cu un cont de utilizator conectat la {0}. Sau, dacă nu se găsește niciun cont, se va crea automat un cont nou în forum."
           },
@@ -11326,28 +11290,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Autentificarea Twitter a eșuat, există deja un cont de utilizator cu același nume de utilizator ca și contul Twitter, vă rugăm să încercați să vă conectați la contul dvs. de forum."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Numele de utilizator Twitter trebuie să se potrivească cu numele de utilizator al forumului!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Intrare"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Ați primit informații suplimentare pentru noul dvs. cont sub formă de mesaj privat pe forum."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Informații despre contul dvs. de forum {0}: Nume utilizator \"{1}\" Parola \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12949,14 +12893,6 @@
             "#text": "Subiecte similare"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Contactați {0} prin Skype"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "Statistici"
           },
@@ -13342,10 +13278,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Vezi toate publicatiile utilizatorului"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "ID-ul Skype(tm):"
           },
           {
             "@tag": "SOCIAL_MEDIA",

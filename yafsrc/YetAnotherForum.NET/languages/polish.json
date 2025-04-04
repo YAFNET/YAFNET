@@ -557,10 +557,6 @@
             "#text": "Używa MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Używa Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Używa XMPP"
           },
@@ -3465,14 +3461,6 @@
           {
             "@tag": "TITLE",
             "#text": "Edytuj użytkownika \"{0}\""
-          },
-          {
-            "@tag": "TWITTER_USER",
-            "#text": "Użytkownik Twittera:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Wskazuje, czy użytkownik jest zalogowany przez Twittera."
           },
           {
             "@tag": "USER_AVATAR",
@@ -6664,10 +6652,6 @@
             "#text": "Użytkownicy"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Użytkownik Twittera"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Nazwa użytkownika"
           }
@@ -7210,10 +7194,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Kliknij tutaj, aby pokazać lub ukryć ukryty tekst (znany również jako spoiler)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Wpisz identyfikator statusu Tweeta, który chcesz osadzić"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9345,10 +9325,6 @@
             "#text": "Wczytywanie informacji z Facebook'a..."
           },
           {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Wczytywanie informacji z Twitter'a..."
-          },
-          {
             "@tag": "MAIN_FORUM_ATOM",
             "#text": "Forum Atom"
           },
@@ -9915,10 +9891,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Twoja nazwa konta Skype:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Strefa czasowa:"
           },
@@ -9929,10 +9901,6 @@
           {
             "@tag": "TITLE",
             "#text": "Edytuj Profil"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twoja nazwa na Twitterze:"
           },
           {
             "@tag": "WEBLOG2",
@@ -10307,7 +10275,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Możesz zmienić informacje o swoim koncie, korzystając z opcji Profil osobisty -&gt; 'Edytuj profil' w Panelu użytkownika</strong>. Jeśli chcesz zmienić swoje Hasło, w Panelu użytkownika jest do tego celu dodatkowa strona (Zmień hasło), na której możesz ustawić nowe Hasło.</p> <p><strong>Panel użytkownika</strong>.\r\n<p><strong>Strona Edytuj profil</strong></p>>\r\n<p>Ta strona umożliwia ustawienie szeregu wymaganych i opcjonalnych szczegółów, z których część będzie wyświetlana w Twoim publicznym profilu. Z wyjątkiem adresu e-mail, nie należy wprowadzać informacji, które nie mają być widoczne publicznie.</p> <p><strong>Abidemia\r\n<p><strong>O Tobie</strong></p>>\r\n<p>Podstawowe informacje o Tobie</p> <p><strong>Miejsce zamieszkania\r\n<p><strong>Miejsce zamieszkania</strong></p> <p><strong>Miejsce zamieszkania</strong></p>\r\n<p>W tym miejscu możesz opcjonalnie wpisać Miejscowość, w której mieszkasz</p> <p><strong>Miejsce zamieszkania</strong></p>\r\n<p><strong>Strona główna</strong></p> <p>\r\n\r\n<p><strong>Instant messaging services</strong></p> <p>Tutaj możesz opcjonalnie wpisać Strona główna i/lub Blog.\r\n<p>W tym miejscu można opcjonalnie wprowadzić identyfikatory komunikatorów takich usług, jak MSN, XMPP, SKYPE, Facebook i Twitter.</p> <p><strong>Strefa czasowa</strong></p> <p><strong>Wyłączenie z listy.\r\n<p><strong>Strefa czasowa</strong></p>\r\n<p>W tym miejscu można określić Strefę czasową, aby dostosować godzinę i datę na tablicy do czasu lokalnego. Możesz też ustawić czas letni, jeśli ma być ustawiony automatycznie.</p> <p>\r\n<p><strong>Ustawienia forum</strong></p> <p>W tym miejscu możesz zmienić ustawienia forum.\r\n<p>Tutaj możesz zmienić swój Adres e-mail.</p> <p>\r\n<p>A jeśli administrator to umożliwi, możesz zmienić język forum, motyw strony i edytor tekstu (używany do pisania wiadomości).</p> <p>W tym miejscu możesz zmienić swój adres e-mail.\r\n<p>Jest też ustawienie &quot;Single Sign On&quot; (jeśli jest włączone). Jeśli je włączysz, będziesz mógł logować się przez Facebooka, podając również swój identyfikator z Facebooka powyżej.</p> <p>\r\n\r\n"
+            "#text": "<p>Możesz zmienić informacje o swoim koncie, korzystając z opcji Profil osobisty -&gt; 'Edytuj profil' w Panelu użytkownika</strong>. Jeśli chcesz zmienić swoje Hasło, w Panelu użytkownika jest do tego celu dodatkowa strona (Zmień hasło), na której możesz ustawić nowe Hasło.</p> <p><strong>Panel użytkownika</strong>.\r\n<p><strong>Strona Edytuj profil</strong></p>>\r\n<p>Ta strona umożliwia ustawienie szeregu wymaganych i opcjonalnych szczegółów, z których część będzie wyświetlana w Twoim publicznym profilu. Z wyjątkiem adresu e-mail, nie należy wprowadzać informacji, które nie mają być widoczne publicznie.</p> <p><strong>Abidemia\r\n<p><strong>O Tobie</strong></p>>\r\n<p>Podstawowe informacje o Tobie</p> <p><strong>Miejsce zamieszkania\r\n<p><strong>Miejsce zamieszkania</strong></p> <p><strong>Miejsce zamieszkania</strong></p>\r\n<p>W tym miejscu możesz opcjonalnie wpisać Miejscowość, w której mieszkasz</p> <p><strong>Miejsce zamieszkania</strong></p>\r\n<p><strong>Strona główna</strong></p> <p>\r\n\r\n<p><strong>Instant messaging services</strong></p> <p>Tutaj możesz opcjonalnie wpisać Strona główna i/lub Blog.\r\n<p>W tym miejscu można opcjonalnie wprowadzić identyfikatory komunikatorów takich usług, jak XMPP, Facebook i Twitter.</p> <p><strong>Strefa czasowa</strong></p> <p><strong>Wyłączenie z listy.\r\n<p><strong>Strefa czasowa</strong></p>\r\n<p>W tym miejscu można określić Strefę czasową, aby dostosować godzinę i datę na tablicy do czasu lokalnego. Możesz też ustawić czas letni, jeśli ma być ustawiony automatycznie.</p> <p>\r\n<p><strong>Ustawienia forum</strong></p> <p>W tym miejscu możesz zmienić ustawienia forum.\r\n<p>Tutaj możesz zmienić swój Adres e-mail.</p> <p>\r\n<p>A jeśli administrator to umożliwi, możesz zmienić język forum, motyw strony i edytor tekstu (używany do pisania wiadomości).</p> <p>W tym miejscu możesz zmienić swój adres e-mail.\r\n<p>Jest też ustawienie &quot;Single Sign On&quot; (jeśli jest włączone). Jeśli je włączysz, będziesz mógł logować się przez Facebooka, podając również swój identyfikator z Facebooka powyżej.</p> <p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -11194,10 +11162,6 @@
             "#text": "Zaloguj się lub zarejestruj przez {0} lub połącz istniejące konto z {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Nazwa użytkownika Twitter musi być taka sama jak nazwa użytkownika na forum, aby połączyć.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Zaloguj się z konta użytkownika, który jest połączony z {0}. Lub jeśli nie można znaleźć nowe konto zostanie automatycznie utworzone na forum."
           },
@@ -11314,28 +11278,8 @@
             "#text": "Konto użytkownika jest niepołączone, lub nie istnieje."
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "Logowanie przez Twittera nie powiodło się. Użytkownik nie istnieje, albo nie jest połączony."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Logowanie na Twitterze nie powiodło się, konto użytkownika o takiej samej nazwie jak konto na Twitterze już istnieje, spróbuj zamiast tego połączyć się z kontem na forum."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Nazwa użytkownika na Twitterze musi być taka sama, jak nazwa użytkownika na forum!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Zaloguj"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Otrzymałeś dalsze informacje w prywatnej wiadomości na forum."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Twoje dane na forum {0} to: Nazwa użytkownika \"{1}\" Hasło\"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12937,14 +12881,6 @@
             "#text": "Podobne tematy"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Skontaktuj się z {0} przez Skype"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "Statystyki"
           },
@@ -13326,10 +13262,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Zobacz wszystkie posty napisane przez użytkownika"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Identyfikator Skype(tm):"
           },
           {
             "@tag": "SOCIAL_MEDIA",

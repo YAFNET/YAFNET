@@ -117,7 +117,6 @@ public partial class EditUsersInfo : BaseUserControl
         this.Moderated.Checked = this.User.Item1.UserFlags.Moderated;
         this.Joined.Text = this.User.Item1.Joined.ToString(CultureInfo.InvariantCulture);
         this.IsFacebookUser.Checked = this.User.Item2.Profile_FacebookId.IsSet();
-        this.IsTwitterUser.Checked = this.User.Item2.Profile_TwitterId.IsSet();
         this.IsGoogleUser.Checked = this.User.Item2.Profile_GoogleId.IsSet();
         this.LastVisit.Text = this.User.Item1.LastVisit.ToString(CultureInfo.InvariantCulture);
         var item = this.RankID.Items.FindByValue(this.User.Item1.RankID.ToString());

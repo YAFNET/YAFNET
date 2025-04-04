@@ -620,9 +620,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     {
         var loginInfo = this.Get<IAuthenticationManager>().GetExternalLoginInfo();
 
-        var user = loginInfo.Login.LoginProvider.Equals("Twitter")
-                       ? this.Get<IAspNetUsersHelper>().GetUserByName(loginInfo.DefaultUserName)
-                       : this.Get<IAspNetUsersHelper>().GetUserByEmail(loginInfo.Email);
+        var user = this.Get<IAspNetUsersHelper>().GetUserByEmail(loginInfo.Email);
 
         this.Get<IAspNetUsersHelper>().AddLogin(user.Id, loginInfo.Login);
 
@@ -1084,7 +1082,6 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                                                  IsGuest = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
                                                  a.Profile_GoogleId,
                                                  a.Profile_FacebookId,
-                                                 a.Profile_TwitterId,
                                                  RankName = r.Name,
                                                  TotalRows = Sql.Custom($"({countTotalSql})")
                                              });
@@ -1267,7 +1264,6 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                                                  IsGuest = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
                                                  a.Profile_GoogleId,
                                                  a.Profile_FacebookId,
-                                                 a.Profile_TwitterId,
                                                  RankName = r.Name,
                                                  TotalRows = Sql.Custom($"({countTotalSql})")
                                              });

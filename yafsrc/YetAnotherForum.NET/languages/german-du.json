@@ -557,10 +557,6 @@
             "#text": "Benutzt MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Benutzt Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Benutzt XMPP"
           },
@@ -3465,14 +3461,6 @@
           {
             "@tag": "TITLE",
             "#text": "Benutzer \"{0}\" bearbeiten"
-          },
-          {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter Benutzer:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Gibt an ob der Benutzer über Twitter angemeldet ist."
           },
           {
             "@tag": "USER_AVATAR",
@@ -6664,10 +6652,6 @@
             "#text": "Benutzer"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter Benutzer"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Benutzername"
           }
@@ -7210,10 +7194,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Hier klicken, um den verborgenen Text (\"Spoiler\") anzuzeigen oder auszublenden"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Geben Sie hier die Status ID des Tweets ein"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9341,10 +9321,6 @@
             "#text": "Facebook Benutzer Info laden ..."
           },
           {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Twitter Benutzer Info laden ..."
-          },
-          {
             "@tag": "MAIN_FORUM_ATOM",
             "#text": "Hauptforum Atom"
           },
@@ -9911,10 +9887,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE ID:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Zeitzone"
           },
@@ -9925,10 +9897,6 @@
           {
             "@tag": "TITLE",
             "#text": "Profil bearbeiten"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twittername:"
           },
           {
             "@tag": "WEBLOG2",
@@ -10303,7 +10271,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Sie können ihre Konto Einstellungen ändern über Mein Profil -&gt; Profil -&gt; 'Profil bearbeiten'. Wenn Sie ihr Passwort ändern wollen dafür gibt es eine extra  Seite &bdquo;Passwort ändern&ldquo; in ihren Einstellungen, wo Sie ein neues Passwort  definieren können.</p>\r\n<p><strong> Profil bearbeiten</strong></p>\r\n<p>Diese Seite erlaubt das Bearbeiten von einigen  erforderlichen  und optionalen Profileigenschaften.  Einige davon werden in ihrem Öffentlichen Profil Angezeigt. Mit Ausnahme der E-Mail  Adresse. Geben Sie keine Informationen die Sie nicht öffentlich einsehbar  machen wollen.</p>\r\n<p><strong>Über dich</strong></p>\r\n<p> Dies sind die grundlegenden Informationen über Sie </p>\r\n<p><strong>Wohnort</strong></p>\r\n<p>Hier können Sie optional den Ort angeben, an dem Sie sich befinden.</p>\r\n<p><strong>Webseite</strong></p>\r\n<p>Optional können Sie hier ihre Webseite und/oder Blog URL angeben.</p>\r\n<p><strong>Messanger</strong></p>\r\n<p>Hier können Sie optional Ihren Messenger-IDs von Diensten wie MSN, XMPP, Skype, Facebook und Twitter eingeben.</p>\r\n<p><strong>Zeitzone</strong></p>\r\n<p>Hier können Sie die Zeitzone angeben damit die Forum Uhrzeit an  ihrer lokalen Zeit angepasst wird. Und geben Sie an ob die Sommerzeit automatisch  eingestellt werden soll.</p>\r\n<p><strong>Einstellungen des Forums</strong></p>\r\n<p>Hier können Sie ihre E-Mail Adresse ändern.</p>\r\n<p>Und wenn vom Administrator aktiviert kann hier die Forum Sprache geändert werden, ein anderes Skin ausgewählt werden, der Text Editor gewählt werden.</p>\r\n<p>Außerdem kann hier die &quot;Single Sign On&quot; Funktion für ihr Konto aktiviert werden wenn Sie sich z.b. über Facebook anmelden möchten, dazu müssen Sie im Bereich Messenger ihre Facebook ID angeben.</p>"
+            "#text": "<p>Sie können ihre Konto Einstellungen ändern über Mein Profil -&gt; Profil -&gt; 'Profil bearbeiten'. Wenn Sie ihr Passwort ändern wollen dafür gibt es eine extra  Seite &bdquo;Passwort ändern&ldquo; in ihren Einstellungen, wo Sie ein neues Passwort  definieren können.</p>\r\n<p><strong> Profil bearbeiten</strong></p>\r\n<p>Diese Seite erlaubt das Bearbeiten von einigen  erforderlichen  und optionalen Profileigenschaften.  Einige davon werden in ihrem Öffentlichen Profil Angezeigt. Mit Ausnahme der E-Mail  Adresse. Geben Sie keine Informationen die Sie nicht öffentlich einsehbar  machen wollen.</p>\r\n<p><strong>Über dich</strong></p>\r\n<p> Dies sind die grundlegenden Informationen über Sie </p>\r\n<p><strong>Wohnort</strong></p>\r\n<p>Hier können Sie optional den Ort angeben, an dem Sie sich befinden.</p>\r\n<p><strong>Webseite</strong></p>\r\n<p>Optional können Sie hier ihre Webseite und/oder Blog URL angeben.</p>\r\n<p><strong>Messanger</strong></p>\r\n<p>Hier können Sie optional Ihren Messenger-IDs von Diensten wie XMPP, Facebook und Twitter eingeben.</p>\r\n<p><strong>Zeitzone</strong></p>\r\n<p>Hier können Sie die Zeitzone angeben damit die Forum Uhrzeit an  ihrer lokalen Zeit angepasst wird. Und geben Sie an ob die Sommerzeit automatisch  eingestellt werden soll.</p>\r\n<p><strong>Einstellungen des Forums</strong></p>\r\n<p>Hier können Sie ihre E-Mail Adresse ändern.</p>\r\n<p>Und wenn vom Administrator aktiviert kann hier die Forum Sprache geändert werden, ein anderes Skin ausgewählt werden, der Text Editor gewählt werden.</p>\r\n<p>Außerdem kann hier die &quot;Single Sign On&quot; Funktion für ihr Konto aktiviert werden wenn Sie sich z.b. über Facebook anmelden möchten, dazu müssen Sie im Bereich Messenger ihre Facebook ID angeben.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -11190,10 +11158,6 @@
             "#text": "Anmelden oder registrieren über {0} oder ein bestehendes Konto mit {0} verbinden."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Der Twitter Benutzer Name muss mit dem Forum Benutzer Namen übereinstimmen um das Konto zu verbinden.</strong> {1}"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Mit einem Konto anmelden das mit {0} verbunden ist. Oder wenn kein Konto gefunden wurde wird automatisch ein neues Erstellt."
           },
@@ -11310,28 +11274,8 @@
             "#text": "Die Facebook Benutzer is nicht verbunden oder wurde nicht gefunden!"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "Die Twitter Anmeldung ist fehlgeschlagen, ein Benutzer mit diesem Namen existiert nicht, oder das Konto ist nicht verbunden."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Der Twitter-Login ist fehlgeschlagen, ein Benutzerkonto mit demselben Benutzernamen wie das Twitter-Konto existiert bereits, bitte versuchen Sie stattdessen, sich mit Ihrem Forumskonto zu verbinden."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Der Twitter Benutzer Namen muss mit dem Forum Benutzernamen identisch sein!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Einloggen"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Sie haben weitere Informationen für Ihr Benutzerkonto als Private Nachricht im Forum erhalten."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Ihr Konto im Forum {0}: Username \"{1}\" Password \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12933,14 +12877,6 @@
             "#text": "Ähnliche Themen"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Skype"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": " {0} via Skype kontaktieren"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "Statistik"
           },
@@ -13322,10 +13258,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Alle Beiträge des Mitglieds anschauen"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

@@ -280,18 +280,6 @@ public class AspNetUsers<TKey> : IUser<TKey>, IEntity, IHasId<TKey>
     public string Profile_FacebookId { get; set; }
 
     /// <summary>
-    /// Gets or sets Twitter.
-    /// </summary>
-    [StringLength(400)]
-    public string Profile_Twitter { get; set; }
-
-    /// <summary>
-    /// Gets or sets Twitter.
-    /// </summary>
-    [StringLength(400)]
-    public string Profile_TwitterId { get; set; }
-
-    /// <summary>
     /// Gets or sets Interests.
     /// </summary>
     [StringLength(4000)]
@@ -332,12 +320,6 @@ public class AspNetUsers<TKey> : IUser<TKey>, IEntity, IHasId<TKey>
     /// </summary>
     [StringLength(255)]
     public string Profile_RealName { get; set; }
-
-    /// <summary>
-    /// Gets or sets Skype.
-    /// </summary>
-    [StringLength(255)]
-    public string Profile_Skype { get; set; }
 
     /// <summary>
     /// Gets or sets XMPP.

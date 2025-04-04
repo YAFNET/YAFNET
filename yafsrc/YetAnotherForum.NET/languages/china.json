@@ -557,10 +557,6 @@
             "#text": "使用 MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "使用 Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "使用 XMPP"
           },
@@ -3473,14 +3469,6 @@
           {
             "@tag": "TITLE",
             "#text": "编辑用户“{0}”"
-          },
-          {
-            "@tag": "TWITTER_USER",
-            "#text": "推特用户："
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "指示用户是否通过 Twitter 登录。"
           },
           {
             "@tag": "USER_AVATAR",
@@ -6672,10 +6660,6 @@
             "#text": "用户"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "推特用户"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "用户名"
           }
@@ -7218,10 +7202,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "单击此处显示或隐藏隐藏文本（也称为剧透）"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "输入您要嵌入的推文的状态 ID"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9349,10 +9329,6 @@
             "#text": "加载反馈信息 ..."
           },
           {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "加载 Twitter 信息 ..."
-          },
-          {
             "@tag": "MAIN_FORUM_ATOM",
             "#text": "主论坛 Atom"
           },
@@ -9919,10 +9895,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "你的Skype帐号："
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "时区"
           },
@@ -9933,10 +9905,6 @@
           {
             "@tag": "TITLE",
             "#text": "个人配置"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "你的推特名称："
           },
           {
             "@tag": "WEBLOG2",
@@ -10311,7 +10279,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile Page</strong></p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, XMPP, SKYPE, Facebook and Twitter.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong>, <strong>Theme</strong> of the Site and the <strong>Text Editor</strong> (That is used for posting messages).</p>\r\n<p>There is also a Setting &quot;Single Sign On&quot; (If it&rsquo;s activated). If you turn it on you can login thru Facebook, you also enter your Facebook ID above.</p>\r\n\r\n"
+            "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile Page</strong></p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as XMPP and Facebook.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong>, <strong>Theme</strong> of the Site and the <strong>Text Editor</strong> (That is used for posting messages).</p>\r\n<p>There is also a Setting &quot;Single Sign On&quot; (If it&rsquo;s activated). If you turn it on you can login thru Facebook, you also enter your Facebook ID above.</p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -11206,10 +11174,6 @@
             "#text": "使用 {0} 登录或注册，或将现有用户帐户连接到 {0}。"
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Twitter 用户名必须与论坛用户名匹配才能连接用户。</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "使用与 {0} 连接的用户帐户登录。"
           },
@@ -11326,28 +11290,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "Twitter 登录失败，用户不存在."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Twitter 登录失败，与 Twitter 帐户同名的用户帐户已经存在，请尝试连接您的论坛帐户。"
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Twitter 用户名必须与论坛用户名匹配！"
-          },
-          {
             "@tag": "TITLE",
             "#text": "登录"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "您已在论坛上以私人消息的形式收到有关您的新帐户的更多信息。"
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "您的 {0} 论坛帐户信息：用户名“{1}”密码“{2}”"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12949,14 +12893,6 @@
             "#text": "类似主题"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Skype"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "通过 Skype 联系 {0}"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "统计"
           },
@@ -13342,10 +13278,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "按用户查看所有帖子"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm) ID："
           },
           {
             "@tag": "SOCIAL_MEDIA",

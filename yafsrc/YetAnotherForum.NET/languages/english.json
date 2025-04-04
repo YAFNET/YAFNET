@@ -557,10 +557,6 @@
                     "#text": "Uses MSN"
                 },
                 {
-                    "@tag": "IM_SKYPE",
-                    "#text": "Uses Skype"
-                },
-                {
                     "@tag": "IM_XMPP",
                     "#text": "Uses XMPP"
                 },
@@ -3467,14 +3463,6 @@
                     "#text": "Edit User \"{0}\""
                 },
                 {
-                    "@tag": "TWITTER_USER",
-                    "#text": "Twitter User:"
-                },
-                {
-                    "@tag": "TWITTER_USER_HELP",
-                    "#text": "Indicates if the User is logged in via Twitter."
-                },
-                {
                     "@tag": "USER_AVATAR",
                     "#text": "User Avatar"
                 },
@@ -4284,7 +4272,7 @@
             },
             {
               "@tag": "ENABLE_HOVERCARDS_HELP",
-              "#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter & Facebook Profile Button.\r\n     "
+              "#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Facebook Profile Button.\r\n     "
             },
             {
               "@tag": "ENABLE_RETWEET_MSG",
@@ -4300,7 +4288,7 @@
             },
             {
               "@tag": "ENABLE_SSO_HELP",
-              "#text": "If checked, users will be able to Login to an existing account via Facebook and/or Twitter. To Enable it for Facebook you need to setup YAF.FacebookAPIKey and YAF.FacebookSecretKey Values, and for Twitter YAF.TwitterConsumerKey and YAF.TwitterConsumerSecret Values in the app.config (AppSettings)."
+              "#text": "If checked, users will be able to Login to an existing account via Facebook. To Enable it for Facebook you need to setup YAF.FacebookAPIKey and YAF.FacebookSecretKey Values, and for Twitter YAF.TwitterConsumerKey and YAF.TwitterConsumerSecret Values in the app.config (AppSettings)."
             },
             {
               "@tag": "ENABLE_USERREPUTATION",
@@ -6664,10 +6652,6 @@
                     "#text": "Users"
                 },
                 {
-                    "@tag": "TWITTER_USER",
-                    "#text": "Twitter User"
-                },
-                {
                     "@tag": "USER_NAME",
                     "#text": "User Name"
                 }
@@ -7210,10 +7194,6 @@
                 {
                     "@tag": "SPOILERMOD_TOOLTIP",
                     "#text": "Click here to show or hide the hidden text (also known as a spoiler)"
-                },
-                {
-                    "@tag": "TWITTER_DESCRIPTION",
-                    "#text": "Enter the Status ID of the Tweet you want to embed"
                 },
                 {
                     "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9341,10 +9321,6 @@
                     "#text": "Loading Facebook Info ..."
                 },
                 {
-                    "@tag": "LOADING_TWIT_HOVERCARD",
-                    "#text": "Loading Twitter Info ..."
-                },
-                {
                     "@tag": "MAIN_FORUM_ATOM",
                     "#text": "Main Forum Atom"
                 },
@@ -9911,10 +9887,6 @@
                     "#text": "Select the theme mode:"
                 },
                 {
-                    "@tag": "SKYPE",
-                    "#text": "Your SKYPE ID:"
-                },
-                {
                     "@tag": "TIMEZONE",
                     "#text": "Time Zone"
                 },
@@ -9925,10 +9897,6 @@
                 {
                     "@tag": "TITLE",
                     "#text": "Edit Profile"
-                },
-                {
-                    "@tag": "TWITTER",
-                    "#text": "Your Twitter Name:"
                 },
                 {
                     "@tag": "WEBLOG2",
@@ -10303,7 +10271,7 @@
                 },
                 {
                     "@tag": "EDITPROFILECONTENT",
-                    "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile Page</strong></p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as XMPP, SKYPE, Facebook and Twitter.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong> and the <strong>Theme</strong> of the Site.</p>"
+                    "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile Page</strong></p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as XMPP, Facebook and Twitter.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong> and the <strong>Theme</strong> of the Site.</p>"
                 },
                 {
                     "@tag": "EDITPROFILETITLE",
@@ -11190,10 +11158,6 @@
                     "#text": "Login or Register with {0} or connect an existing User Account with {0}."
                 },
                 {
-                    "@tag": "AUTH_CONNECT_TWITTER",
-                    "#text": "<strong>The Twitter user name must match the forum user name to connect the user.</strong>"
-                },
-                {
                     "@tag": "AUTH_LOGIN_EXISTING",
                     "#text": "Login with an user Account that is connected with {0}. Or if no account is found a new account will be automatically created in the forums."
                 },
@@ -11310,28 +11274,8 @@
                     "#text": "The User Account is not connected or not found!"
                 },
                 {
-                    "@tag": "SSO_TWITTER_FAILED",
-                    "#text": "The Twitter Login failed, User does not exists, or the account is not connected."
-                },
-                {
-                    "@tag": "SSO_TWITTER_FAILED2",
-                    "#text": "The Twitter Login failed, an user account with the same user name as the Twitter account already exists, please try to connect you your forum account instead."
-                },
-                {
-                    "@tag": "SSO_TWITTERNAME_NOTMATCH",
-                    "#text": "The Twitter User Name must match the Forum Username!"
-                },
-                {
                     "@tag": "TITLE",
                     "#text": "Login"
-                },
-                {
-                    "@tag": "TWITTER_DM",
-                    "#text": "You have received further Information to your new Account as Private Message on the Forum."
-                },
-                {
-                    "@tag": "TWITTER_DM_ACCOUNT",
-                    "#text": "Your {0} Forum Account Information: Username \"{1}\" Password \"{2}\""
                 },
                 {
                     "@tag": "UPDATE_EMAIL",
@@ -12943,19 +12887,11 @@
                 },
                 {
                     "@tag": "SHARE_TOOLTIP",
-                    "#text": "Share this Topic via Email, Twitter, Facebook, Reddit or Tumblr."
+                    "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
                 },
                 {
                     "@tag": "SIMILAR_TOPICS",
                     "#text": "Similar Topics"
-                },
-                {
-                    "@tag": "SKYPE",
-                    "#text": "SKYPE"
-                },
-                {
-                    "@tag": "SKYPE_TITLE",
-                    "#text": "Contact {0} via Skype"
                 },
                 {
                     "@tag": "STATISTICS",
@@ -13048,14 +12984,6 @@
                 {
                     "@tag": "TUMBLR_TOPIC",
                     "#text": "Share on Tumblr"
-                },
-                {
-                    "@tag": "TWITTER",
-                    "#text": "Twitter"
-                },
-                {
-                    "@tag": "TWITTER_TITLE",
-                    "#text": "Visit {0}'s Twitter Profile"
                 },
                 {
                     "@tag": "UNWATCHTOPIC",
@@ -13341,10 +13269,6 @@
                     "#text": "View All Posts by User"
                 },
                 {
-                    "@tag": "SKYPE",
-                    "#text": "Skype(tm) ID:"
-                },
-                {
                     "@tag": "SOCIAL_MEDIA",
                     "#text": "Social Media"
                 },
@@ -13395,10 +13319,6 @@
                 {
                     "@tag": "TOPIC",
                     "#text": "Topic:"
-                },
-                {
-                    "@tag": "TWITTER",
-                    "#text": "Twitter Name:"
                 },
                 {
                     "@tag": "USERNAME",
@@ -14601,10 +14521,6 @@
                 {
                     "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
                     "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-                },
-                {
-                    "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-                    "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n      Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email address to your real one in order to Receive E-Mails)\r\n\r\n    "
                 },
                 {
                     "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

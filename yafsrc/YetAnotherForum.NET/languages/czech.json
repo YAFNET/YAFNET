@@ -557,10 +557,6 @@
             "#text": "Používá MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Používá Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Používá XMPP"
           },
@@ -3473,14 +3469,6 @@
           {
             "@tag": "TITLE",
             "#text": "Upravit uživatele „{0}“"
-          },
-          {
-            "@tag": "TWITTER_USER",
-            "#text": "Uživatel Twitteru:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Označuje, zda je uživatel přihlášen přes Twitter."
           },
           {
             "@tag": "USER_AVATAR",
@@ -6672,10 +6660,6 @@
             "#text": "Uživatelé"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Uživatel Twitteru"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Uživatelské jméno"
           }
@@ -7218,10 +7202,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Kliknutím sem zobrazíte nebo skryjete skrytý text (známý také jako spoiler)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Zadejte ID stavu tweetu, který chcete vložit"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9349,10 +9329,6 @@
             "#text": "Načítání informací o Facebooku..."
           },
           {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Načítání informací o Twitteru..."
-          },
-          {
             "@tag": "MAIN_FORUM_ATOM",
             "#text": "Hlavní fórum Atom"
           },
@@ -9923,10 +9899,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Vaše SKYPE ID:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Časová zóna"
           },
@@ -9937,10 +9909,6 @@
           {
             "@tag": "TITLE",
             "#text": "Úprava profilu"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Vaše jméno na Twitteru:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11210,10 +11178,6 @@
             "#text": "Přihlaste se nebo se zaregistrujte u {0} nebo propojte stávající uživatelský účet s {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Uživatelské jméno na Twitteru se musí shodovat s uživatelským jménem fóra, aby bylo možné uživatele připojit.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Přihlaste se pomocí uživatelského účtu, který je propojen s {0}. "
           },
@@ -11330,28 +11294,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Přihlášení na Twitter se nezdařilo, uživatelský účet se stejným uživatelským jménem jako účet Twitter již existuje, zkuste prosím připojit svůj účet na fóru."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Uživatelské jméno na Twitteru se musí shodovat s uživatelským jménem na fóru!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Přihlásit"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Obdrželi jste další informace na svůj nový účet jako soukromou zprávu na fóru."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Informace o vašem účtu ve fóru {0}: Uživatelské jméno \"{1}\" Heslo \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12953,14 +12897,6 @@
             "#text": "Podobná témata"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Kontaktujte {0} přes Skype"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "Statistika"
           },
@@ -13346,10 +13282,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Zobrazit všechny příspěvky uživatele"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "ID Skype(tm):"
           },
           {
             "@tag": "SOCIAL_MEDIA",

@@ -557,10 +557,6 @@
             "#text": "Kasutab MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Kasutab Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Kasutab XMPP"
           },
@@ -3473,14 +3469,6 @@
           {
             "@tag": "TITLE",
             "#text": "Muuda kasutajat \"{0}\""
-          },
-          {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitteri kasutaja:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Näitab, kas kasutaja on Twitteri kaudu sisse logitud."
           },
           {
             "@tag": "USER_AVATAR",
@@ -6672,10 +6660,6 @@
             "#text": "Kasutajad"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitteri kasutaja"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Kasutajanimi"
           }
@@ -7218,10 +7202,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Vajutage siia, et vaadata või peita varjatud teksti (samuti nimetatakse spoileriks)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Sisestage selle säutsu oleku ID, mida soovite manustada"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9349,10 +9329,6 @@
             "#text": "Facebooki teabe laadimine ..."
           },
           {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Twitteri teabe laadimine ..."
-          },
-          {
             "@tag": "MAIN_FORUM_ATOM",
             "#text": "Põhifoorumi Atom"
           },
@@ -9919,10 +9895,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Teie SKYPE ID:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Ajavöönd"
           },
@@ -9933,10 +9905,6 @@
           {
             "@tag": "TITLE",
             "#text": "Profiili muutmine"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Teie Twitteri nimi:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11206,10 +11174,6 @@
             "#text": "Logige sisse või registreeruge kontoga {0} või ühendage olemasolev kasutajakonto teenusega {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Kasutaja ühendamiseks peab Twitteri kasutajanimi ühtima foorumi kasutajanimega.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Logige sisse kasutajakontoga, mis on ühendatud teenusega {0}. "
           },
@@ -11326,28 +11290,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Twitterisse sisselogimine ebaõnnestus, Twitteri kontoga sama kasutajanimega kasutajakonto on juba olemas. Proovige selle asemel ühendada oma foorumi konto."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Twitteri kasutajanimi peab ühtima foorumi kasutajanimega!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Sisselogimine"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Olete saanud oma uuele kontole lisateavet foorumi privaatsõnumina."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Teie {0} foorumi konto teave: kasutajanimi \"{1}\" parool \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12949,14 +12893,6 @@
             "#text": "Sarnased teemad"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Võtke Skype'i kaudu ühendust kasutajaga {0}"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "Statistika"
           },
@@ -13342,10 +13278,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Vaata kõiki postitusi kasutaja järgi"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm) ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

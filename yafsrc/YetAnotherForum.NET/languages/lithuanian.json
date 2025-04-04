@@ -557,10 +557,6 @@
             "#text": "Naudoja MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Naudoja \"Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Naudoja XMPP"
           },
@@ -3473,14 +3469,6 @@
           {
             "@tag": "TITLE",
             "#text": "Redaguoti naudotoją \"{0}\""
-          },
-          {
-            "@tag": "TWITTER_USER",
-            "#text": "\"Twitter\" vartotojas:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Nurodo, ar Naudotojas yra prisijungęs per \"Twitter\"."
           },
           {
             "@tag": "USER_AVATAR",
@@ -6672,10 +6660,6 @@
             "#text": "Vartotojai"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "\"Twitter\" vartotojas"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Vartotojo vardas"
           }
@@ -7218,10 +7202,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Spustelėkite čia, jei norite parodyti arba paslėpti paslėptą tekstą (dar vadinamą spoileriu)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Įveskite norimo įterpti Tweet'o būsenos ID"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9349,10 +9329,6 @@
             "#text": "Kraunama \"Facebook\" informacija..."
           },
           {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Įkeliama Twitter informacija..."
-          },
-          {
             "@tag": "MAIN_FORUM_ATOM",
             "#text": "Pagrindinis forumas Atom"
           },
@@ -9919,10 +9895,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Jūsų SKYPE ID:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Laiko juosta "
           },
@@ -9933,10 +9905,6 @@
           {
             "@tag": "TITLE",
             "#text": "Redaguoti profilį "
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Jūsų \"Twitter\" vardas:"
           },
           {
             "@tag": "WEBLOG2",
@@ -10311,7 +10279,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Savo paskyros informaciją galite keisti naudodami asmeninio profilio -&gt; \"Redaguoti profilį\" parinktį, esančią <strong>Vartotojo valdymo skydelyje</strong>. Jei norite pakeisti slaptažodį, <strong>Vartotojo valdymo skydelyje</strong> tam yra papildomas puslapis (\"Keisti slaptažodį\"), kuriame galite nustatyti naują slaptažodį.</p>\r\n<p><strong>Profilio redagavimo puslapis</strong></p>\r\n<p>Šiame puslapyje galite nustatyti daug privalomų ir neprivalomų duomenų, iš kurių kai kurie bus rodomi jūsų viešajame profilyje. Išskyrus el. pašto adresą, neįveskite informacijos, kurios nenorite, kad ji būtų matoma viešai.</p> </p>\r\n<p><strong>Apie jus</strong></p>\r\n<p>Tai pagrindinė informacija apie jus</p>\r\n<p><strong>Gyvenamoji vieta</strong></p>\r\n<p>Tur galite pasirinktinai įvesti Vietą, kurioje gyvenate</p>\r\n<p><strong>Pagrindinis puslapis</strong></p>\r\n<p>Tur galite pasirinktinai įvesti Namų puslapį ir (arba) tinklaraštį </p>.\r\n<p><strong>Nuolatinių žinučių siuntimo paslaugos</strong></p>\r\n<p>Tur galite pasirinktinai įvesti savo žinučių siuntimo paslaugų, pavyzdžiui, MSN, XMPP, SKYPE, \"Facebook\" ir \"Twitter\", ID.</p>\r\n<p><strong>Taikos zona</strong></p>\r\n<p>Šioje vietoje galite nurodyti laiko juostą, kad valdybos laiką ir datą pritaikytumėte prie savo vietinio laiko. Taip pat nustatykite vasaros laiką, jei jis turėtų būti pritaikytas automatiškai.</p>\r\n<p><strong>Forumo nustatymai</strong></p>\r\n<p>Tur galite pakeisti savo el. pašto adresą.</p>\r\n<p>Antra, jei administratorius leido, galite pakeisti forumo <strong>kalbą</strong>, <strong>Svetainės temą</strong> ir <strong>Teksto redaktorių</strong> (kuris naudojamas žinutėms rašyti).</p>\r\n<p>Taip pat yra nustatymas &quot;Single Sign On&quot; (Jei jis&rsquo;įjungtas). Jei jį įjungsite, galėsite prisijungti per \"Facebook\", taip pat pirmiau įveskite savo \"Facebook\" ID.</p>\r\n\r\n"
+            "#text": "<p>Savo paskyros informaciją galite keisti naudodami asmeninio profilio -&gt; \"Redaguoti profilį\" parinktį, esančią <strong>Vartotojo valdymo skydelyje</strong>. Jei norite pakeisti slaptažodį, <strong>Vartotojo valdymo skydelyje</strong> tam yra papildomas puslapis (\"Keisti slaptažodį\"), kuriame galite nustatyti naują slaptažodį.</p>\r\n<p><strong>Profilio redagavimo puslapis</strong></p>\r\n<p>Šiame puslapyje galite nustatyti daug privalomų ir neprivalomų duomenų, iš kurių kai kurie bus rodomi jūsų viešajame profilyje. Išskyrus el. pašto adresą, neįveskite informacijos, kurios nenorite, kad ji būtų matoma viešai.</p> </p>\r\n<p><strong>Apie jus</strong></p>\r\n<p>Tai pagrindinė informacija apie jus</p>\r\n<p><strong>Gyvenamoji vieta</strong></p>\r\n<p>Tur galite pasirinktinai įvesti Vietą, kurioje gyvenate</p>\r\n<p><strong>Pagrindinis puslapis</strong></p>\r\n<p>Tur galite pasirinktinai įvesti Namų puslapį ir (arba) tinklaraštį </p>.\r\n<p><strong>Nuolatinių žinučių siuntimo paslaugos</strong></p>\r\n<p>Tur galite pasirinktinai įvesti savo žinučių siuntimo paslaugų, pavyzdžiui, XMPP, \"Facebook\" ir \"Twitter\", ID.</p>\r\n<p><strong>Taikos zona</strong></p>\r\n<p>Šioje vietoje galite nurodyti laiko juostą, kad valdybos laiką ir datą pritaikytumėte prie savo vietinio laiko. Taip pat nustatykite vasaros laiką, jei jis turėtų būti pritaikytas automatiškai.</p>\r\n<p><strong>Forumo nustatymai</strong></p>\r\n<p>Tur galite pakeisti savo el. pašto adresą.</p>\r\n<p>Antra, jei administratorius leido, galite pakeisti forumo <strong>kalbą</strong>, <strong>Svetainės temą</strong> ir <strong>Teksto redaktorių</strong> (kuris naudojamas žinutėms rašyti).</p>\r\n<p>Taip pat yra nustatymas &quot;Single Sign On&quot; (Jei jis&rsquo;įjungtas). Jei jį įjungsite, galėsite prisijungti per \"Facebook\", taip pat pirmiau įveskite savo \"Facebook\" ID.</p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -11206,10 +11174,6 @@
             "#text": "Prisijunkite arba užsiregistruokite naudodami {0} arba prijunkite esamą naudotojo paskyrą naudodami {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>\"Twitter\" vartotojo vardas turi sutapti su forumo vartotojo vardu, kad vartotojas būtų prijungtas.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Prisijunkite naudodami naudotojo paskyrą, kuri yra prijungta prie {0}. Arba, jei paskyra nerandama, nauja paskyra forume bus sukurta automatiškai."
           },
@@ -11326,28 +11290,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Prisijungti prie \"Twitter\" nepavyko, vartotojo paskyra su tuo pačiu vartotojo vardu, kaip ir \"Twitter\" paskyra, jau egzistuoja, vietoj jos bandykite prisijungti prie savo forumo paskyros."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "\"Twitter\" vartotojo vardas turi sutapti su forumo vartotojo vardu!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Prisijungimas "
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Jūs gavote daugiau informacijos apie savo naująją paskyrą kaip privačią žinutę forume."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Jūsų {0} forumo paskyros informacija: Vartotojo vardas \"{1}\" Slaptažodis \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12949,14 +12893,6 @@
             "#text": "Panašios temos"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Susisiekite su {0} per \"Skype"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "Statistika "
           },
@@ -13342,10 +13278,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Peržiūrėti visas naudotojo žinutes"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "\"Skype\"(tm) ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

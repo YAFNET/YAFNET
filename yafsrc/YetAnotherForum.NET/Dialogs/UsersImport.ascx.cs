@@ -247,11 +247,6 @@ public partial class UsersImport : BaseUserControl
             userProfile.Homepage = (string)row["Homepage"];
         }
 
-        if (row.Table.Columns.Contains("Skype") && ((string)row["Skype"]).IsSet())
-        {
-            userProfile.Skype = (string)row["Skype"];
-        }
-
         if (row.Table.Columns.Contains("XMPP") && ((string)row["XMPP"]).IsSet())
         {
             userProfile.XMPP = (string)row["XMPP"];
@@ -260,16 +255,6 @@ public partial class UsersImport : BaseUserControl
         if (row.Table.Columns.Contains("Occupation") && ((string)row["Occupation"]).IsSet())
         {
             userProfile.Occupation = (string)row["Occupation"];
-        }
-
-        if (row.Table.Columns.Contains("Twitter") && ((string)row["Twitter"]).IsSet())
-        {
-            userProfile.Twitter = (string)row["Twitter"];
-        }
-
-        if (row.Table.Columns.Contains("TwitterId") && ((string)row["TwitterId"]).IsSet())
-        {
-            userProfile.TwitterId = (string)row["TwitterId"];
         }
 
         if (row.Table.Columns.Contains("Facebook") && ((string)row["Facebook"]).IsSet())
@@ -298,8 +283,6 @@ public partial class UsersImport : BaseUserControl
                            Profile_Homepage = userProfile.Homepage,
                            Profile_Facebook = userProfile.Facebook,
                            Profile_FacebookId = userProfile.FacebookId,
-                           Profile_Twitter = userProfile.Twitter,
-                           Profile_TwitterId = userProfile.TwitterId,
                            Profile_Interests = userProfile.Interests,
                            Profile_Location = userProfile.Location,
                            Profile_Country = userProfile.Country,
@@ -307,7 +290,6 @@ public partial class UsersImport : BaseUserControl
                            Profile_City = userProfile.City,
                            Profile_Occupation = userProfile.Occupation,
                            Profile_RealName = userProfile.RealName,
-                           Profile_Skype = userProfile.Skype,
                            Profile_XMPP = userProfile.XMPP
                        };
 

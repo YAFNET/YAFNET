@@ -139,15 +139,6 @@
         </div>
     </div>
     <div class="mb-3 col-md-4">
-        <YAF:HelpLabel ID="HelpLabel13" runat="server" 
-                       AssociatedControlID="IsTwitterUser"
-                       LocalizedTag="TWITTER_USER" LocalizedPage="ADMIN_EDITUSER" />
-         
-        <div class="form-check form-switch">
-            <asp:CheckBox Text="&nbsp;" runat="server" ID="IsTwitterUser" Enabled="false" />
-        </div>
-    </div>
-    <div class="mb-3 col-md-4">
         <YAF:HelpLabel ID="HelpLabel14" runat="server" 
                        AssociatedControlID="IsGoogleUser"
                        LocalizedTag="Google_USER" LocalizedPage="ADMIN_EDITUSER" />

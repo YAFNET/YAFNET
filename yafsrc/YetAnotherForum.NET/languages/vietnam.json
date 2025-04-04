@@ -557,10 +557,6 @@
             "#text": "Sử dụng MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Sử dụng Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Sử dụng XMPP"
           },
@@ -3473,14 +3469,6 @@
           {
             "@tag": "TITLE",
             "#text": "Chỉnh sửa Người dùng &quot;{0}&quot;"
-          },
-          {
-            "@tag": "TWITTER_USER",
-            "#text": "Người dùng Twitter:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Cho biết người dùng có đăng nhập qua Twitter hay không."
           },
           {
             "@tag": "USER_AVATAR",
@@ -6672,10 +6660,6 @@
             "#text": "Người dùng"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Người dùng Twitter"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Tên tài khoản"
           }
@@ -7218,10 +7202,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Nhấp vào đây để hiển thị hoặc ẩn văn bản ẩn (còn được gọi là trình giả mạo)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Nhập ID trạng thái của Tweet bạn muốn nhúng"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9349,10 +9329,6 @@
             "#text": "Đang tải thông tin Facebook ..."
           },
           {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Đang tải thông tin Twitter ..."
-          },
-          {
             "@tag": "MAIN_FORUM_ATOM",
             "#text": "Diễn đàn chính Atom"
           },
@@ -9919,10 +9895,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "ID SKYPE của bạn:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Múi giờ"
           },
@@ -9933,10 +9905,6 @@
           {
             "@tag": "TITLE",
             "#text": "Sửa lý lịch"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Tên Twitter của bạn:"
           },
           {
             "@tag": "WEBLOG2",
@@ -10311,7 +10279,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Bạn có thể thay đổi thông tin tài khoản của mình bằng cách sử dụng Hồ sơ cá nhân -&gt; tùy chọn &#39;Chỉnh sửa hồ sơ&#39; từ trong <strong>Bảng điều khiển người dùng</strong> . Nếu bạn muốn thay đổi Mật khẩu của mình, có một Trang bổ sung (Thay đổi Mật khẩu) cho Trang đó trong <strong>Bảng Điều khiển Người dùng</strong> , nơi bạn có thể đặt Mật khẩu mới.</p><p> <strong>Chỉnh sửa trang hồ sơ</strong></p><p> Trang này cho phép bạn đặt một số chi tiết bắt buộc và tùy chọn, một số chi tiết trong số đó sẽ được hiển thị trên hồ sơ công khai của bạn. Ngoại trừ địa chỉ e-mail của bạn, không nhập thông tin mà bạn không muốn hiển thị công khai.</p><p> <strong>Về bạn</strong></p><p> Đây là những thông tin cơ bản về bạn</p><p> <strong>Địa điểm</strong></p><p> Tại đây, bạn có thể tùy ý nhập Nơi ở của mình</p><p> <strong>Trang chủ</strong></p><p> Tại đây, bạn có thể tùy chọn nhập Trang chủ và / hoặc Blog.</p><p> <strong>Dịch vụ nhắn tin tức thì</strong></p><p> Tại đây, bạn có thể tùy chọn nhập Id messenger của các dịch vụ như MSN, XMPP, SKYPE, Facebook và Twitter.</p><p> <strong>Múi giờ</strong></p><p> Tại đây bạn có thể chỉ định Múi giờ để điều chỉnh bảng Giờ và Ngày thành giờ địa phương của bạn. Và đặt Giờ tiết kiệm ánh sáng ban ngày nếu nó được tự động điều chỉnh.</p><p> <strong>Cài đặt Diễn đàn</strong></p><p> Tại đây bạn thay đổi Địa chỉ Email của mình.</p><p> Và nếu Quản trị viên đã bật nó, bạn có thể thay đổi <strong>Ngôn ngữ</strong> Diễn đàn, <strong>Chủ đề</strong> của Trang web và <strong>Trình soạn thảo Văn bản</strong> (Được sử dụng để đăng tin).</p><p> Ngoài ra còn có Cài đặt &quot;Đăng nhập một lần&quot; (Nếu nó được kích hoạt). Nếu bạn bật nó lên, bạn có thể đăng nhập thông qua Facebook, bạn cũng nhập ID Facebook của mình ở trên.</p>"
+            "#text": "<p>Bạn có thể thay đổi thông tin tài khoản của mình bằng cách sử dụng Hồ sơ cá nhân -&gt; tùy chọn &#39;Chỉnh sửa hồ sơ&#39; từ trong <strong>Bảng điều khiển người dùng</strong> . Nếu bạn muốn thay đổi Mật khẩu của mình, có một Trang bổ sung (Thay đổi Mật khẩu) cho Trang đó trong <strong>Bảng Điều khiển Người dùng</strong> , nơi bạn có thể đặt Mật khẩu mới.</p><p> <strong>Chỉnh sửa trang hồ sơ</strong></p><p> Trang này cho phép bạn đặt một số chi tiết bắt buộc và tùy chọn, một số chi tiết trong số đó sẽ được hiển thị trên hồ sơ công khai của bạn. Ngoại trừ địa chỉ e-mail của bạn, không nhập thông tin mà bạn không muốn hiển thị công khai.</p><p> <strong>Về bạn</strong></p><p> Đây là những thông tin cơ bản về bạn</p><p> <strong>Địa điểm</strong></p><p> Tại đây, bạn có thể tùy ý nhập Nơi ở của mình</p><p> <strong>Trang chủ</strong></p><p> Tại đây, bạn có thể tùy chọn nhập Trang chủ và / hoặc Blog.</p><p> <strong>Dịch vụ nhắn tin tức thì</strong></p><p> Tại đây, bạn có thể tùy chọn nhập Id messenger của các dịch vụ như XMPP, Facebook và Twitter.</p><p> <strong>Múi giờ</strong></p><p> Tại đây bạn có thể chỉ định Múi giờ để điều chỉnh bảng Giờ và Ngày thành giờ địa phương của bạn. Và đặt Giờ tiết kiệm ánh sáng ban ngày nếu nó được tự động điều chỉnh.</p><p> <strong>Cài đặt Diễn đàn</strong></p><p> Tại đây bạn thay đổi Địa chỉ Email của mình.</p><p> Và nếu Quản trị viên đã bật nó, bạn có thể thay đổi <strong>Ngôn ngữ</strong> Diễn đàn, <strong>Chủ đề</strong> của Trang web và <strong>Trình soạn thảo Văn bản</strong> (Được sử dụng để đăng tin).</p><p> Ngoài ra còn có Cài đặt &quot;Đăng nhập một lần&quot; (Nếu nó được kích hoạt). Nếu bạn bật nó lên, bạn có thể đăng nhập thông qua Facebook, bạn cũng nhập ID Facebook của mình ở trên.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -11206,10 +11174,6 @@
             "#text": "Đăng nhập hoặc Đăng ký với {0} hoặc kết nối Tài khoản Người dùng hiện có với {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Tên người dùng Twitter phải khớp với tên người dùng diễn đàn để kết nối người dùng.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Đăng nhập bằng Tài khoản người dùng được kết nối với {0}. Hoặc nếu không có tài khoản nào được tìm thấy, một tài khoản mới sẽ được tự động tạo trong diễn đàn."
           },
@@ -11326,28 +11290,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Đăng nhập Twitter không thành công, một tài khoản người dùng có cùng tên người dùng với tài khoản Twitter đã tồn tại, hãy thử kết nối bạn với tài khoản diễn đàn của bạn."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Tên người dùng Twitter phải khớp với tên người dùng của Diễn đàn!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Đăng nhập"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Bạn đã nhận được thêm Thông tin về Tài khoản mới của mình dưới dạng Tin nhắn riêng trên Diễn đàn."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "{0} Thông tin tài khoản diễn đàn của bạn: Tên người dùng &quot;{1}&quot; Mật khẩu &quot;{2}&quot;"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12949,14 +12893,6 @@
             "#text": "Chủ đề tương tự"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "ỨNG DỤNG TRÒ CHUYỆN"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Liên hệ với {0} qua Skype"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "Thống kê"
           },
@@ -13342,10 +13278,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Xem tất cả các bài của thành viên này"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "ID Skype (tm):"
           },
           {
             "@tag": "SOCIAL_MEDIA",

@@ -46,8 +46,6 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetUsers](
     [Profile_Homepage] NVARCHAR (255) NULL,
     [Profile_Facebook] NVARCHAR (400) NULL,
     [Profile_FacebookId] NVARCHAR (400) NULL,
-    [Profile_Twitter] NVARCHAR (400) NULL,
-    [Profile_TwitterId] NVARCHAR (400) NULL,
     [Profile_Interests] NVARCHAR (4000) NULL,
     [Profile_Location] NVARCHAR (255) NULL,
     [Profile_Country] NVARCHAR (2) NULL,
@@ -55,7 +53,6 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetUsers](
     [Profile_City] NVARCHAR (255) NULL,
     [Profile_Occupation] NVARCHAR (400) NULL,
     [Profile_RealName] NVARCHAR (255) NULL,
-    [Profile_Skype] NVARCHAR (255) NULL,
     [Profile_XMPP] NVARCHAR (255) NULL
     CONSTRAINT [PK_{databaseOwner}.AspNetUsers] PRIMARY KEY CLUSTERED ([Id] ASC)
     /*FOREIGN KEY ([ApplicationId]) REFERENCES [{databaseOwner}].[aspnet_Applications] ([ApplicationId]),*/
@@ -80,12 +77,6 @@ GO
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Occupation')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Occupation nvarchar(255)  Null
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Skype')
-begin
-    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Skype nvarchar(255)  Null
 end
 GO
 
@@ -134,18 +125,6 @@ GO
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='FacebookId')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add FacebookId nvarchar(255)  Null
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Twitter')
-begin
-    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Twitter nvarchar(255) Null
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='TwitterId')
-begin
-    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add TwitterId nvarchar(255) Null
 end
 GO
 
@@ -282,8 +261,6 @@ GO
        Profile_Homepage,
        Profile_Facebook,
        Profile_FacebookId,
-       Profile_Twitter,
-       Profile_TwitterId,
        Profile_Interests,
        Profile_Location,
        Profile_Country,
@@ -291,7 +268,6 @@ GO
        Profile_City,
        Profile_Occupation,
        Profile_RealName,
-       Profile_Skype,
        Profile_XMPP
       )
   SELECT
@@ -329,8 +305,6 @@ GO
       p.Homepage,
       p.Facebook,
       p.FacebookId,
-      p.Twitter,
-      p.TwitterId,
       p.Interests,
       p.Location,
       p.Country,
@@ -338,7 +312,6 @@ GO
       p.City,
       p.Occupation,
       p.RealName,
-      p.Skype,
       p.XMPP
   FROM
       [{databaseOwner}].[{objectQualifier}prov_Membership]
