@@ -1,6 +1,7 @@
 ﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.TokenAttributes.Extensions;
+using YAF.Lucene.Net.Util;
 using System;
 using System.IO;
 
@@ -56,7 +57,7 @@ namespace YAF.Lucene.Net.Analysis.NGram
 
         /// <summary>
         /// Creates <see cref="Lucene43NGramTokenizer"/> with given min and max n-grams. </summary>
-        /// <param name="factory"> <see cref="Lucene.Net.Util.AttributeSource.AttributeFactory"/> to use </param>
+        /// <param name="factory"> <see cref="AttributeFactory"/> to use </param>
         /// <param name="input"> <see cref="TextReader"/> holding the input to be tokenized </param>
         /// <param name="minGram"> the smallest n-gram to generate </param>
         /// <param name="maxGram"> the largest n-gram to generate </param>

@@ -1,4 +1,5 @@
 ﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Util;
 using System;
 using System.IO;
 
@@ -57,7 +58,7 @@ namespace YAF.Lucene.Net.Analysis
         }
 
         /// <summary>
-        /// Construct a token stream processing the given input using the given <see cref="Util.AttributeSource.AttributeFactory"/>.
+        /// Construct a token stream processing the given input using the given <see cref="AttributeFactory"/>.
         /// </summary>
         protected Tokenizer(AttributeFactory factory, TextReader input)
             : base(factory)
