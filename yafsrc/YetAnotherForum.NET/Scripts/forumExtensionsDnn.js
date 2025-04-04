@@ -10,7 +10,7 @@
 })(this, function init($, undefined) {
     "use strict";
     const exports = {};
-    const VERSION = "6.0.0";
+    const VERSION = "6.0.2";
     exports.VERSION = VERSION;
     const locales = {
         en: {
@@ -66,7 +66,7 @@
         return name ? locales[name] : locales;
     };
     exports.addLocale = function(name, values) {
-        [ "OK", "CANCEL", "CONFIRM" ].forEach(v => {
+        [ "OK", "CANCEL", "CONFIRM" ].forEach((v, _) => {
             if (!values[v]) {
                 throw new Error(`Please supply a translation for "${v}"`);
             }
@@ -383,9 +383,13 @@
         options.buttons.confirm.callback = function() {
             let value;
             if (options.inputType === "checkbox") {
-                value = Array.from(input.querySelectorAll('input[type="checkbox"]:checked')).map(function(e) {
+                const checkedInputs = Array.from(input.querySelectorAll('input[type="checkbox"]:checked'));
+                value = Array.from(checkedInputs).map(function(e) {
                     return e.value;
                 });
+                if (options.required === true && checkedInputs.length === 0) {
+                    return false;
+                }
             } else if (options.inputType === "radio") {
                 value = input.querySelector('input[type="radio"]:checked').value;
             } else {
@@ -726,8 +730,8 @@
     function getKeyLength(obj) {
         return Object.keys(obj).length;
     }
-    function focusPrimaryButton() {
-        trigger(de.data.dialog.querySelector(".bootbox-accept").first(), "focus");
+    function focusPrimaryButton(e) {
+        trigger(e.data.dialog.querySelector(".bootbox-accept").first(), "focus");
     }
     function processCallback(e, dialog, callback) {
         e.stopPropagation();
@@ -796,9 +800,7 @@
     function addEventListener(el, eventName, eventHandler, selector) {
         if (selector) {
             const wrappedHandler = e => {
-                if (!e.target) {
-                    return;
-                }
+                if (!e.target) return;
                 const el = e.target.closest(selector);
                 if (el) {
                     eventHandler.call(el, e);
@@ -6481,8 +6483,9 @@ document.addEventListener("DOMContentLoaded", function() {
             }), this.settings = Object.assign(Object.assign({}, this.settings), a), 
             this.modalOptions = n.setOptionsFromSettings(c.Modal.Default), this.carouselOptions = n.setOptionsFromSettings(c.Carousel.Default), 
             "string" == typeof e && (this.settings.target = e, e = document.querySelector(this.settings.target)), 
-            this.el = e, this.type = e.dataset.type || "", this.src = this.getSrc(e), 
-            this.sources = this.getGalleryItems(), this.createCarousel(), this.createModal();
+            this.el = e, this.type = e.dataset.type || "", e.dataset.size && (this.settings.size = e.dataset.size), 
+            this.src = this.getSrc(e), this.sources = this.getGalleryItems(), this.createCarousel(), 
+            this.createModal();
         }
         return e = t, n = [ {
             key: "show",
