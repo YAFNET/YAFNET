@@ -391,12 +391,6 @@ public class AspNetUsers<TKey> : IEntity, IHasId<TKey>
     public string Profile_RealName { get; set; }
 
     /// <summary>
-    /// Gets or sets Skype.
-    /// </summary>
-    [StringLength(255)]
-    public string Profile_Skype { get; set; }
-
-    /// <summary>
     /// Gets or sets XMPP.
     /// </summary>
     [StringLength(255)]

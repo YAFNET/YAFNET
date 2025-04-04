@@ -31,7 +31,7 @@
     <ProjectReference Include="..\..\YAFNET.Types\YAFNET.Types.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="8.2.0" />
+    <PackageReference Include="Autofac" Version="8.2.1" />
     <PackageReference Include="Npgsql" Version="9.0.3" />
   </ItemGroup>
 </Project>

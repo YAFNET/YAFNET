@@ -557,16 +557,8 @@
             "#text": "Käyttää MSN:ää"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Käyttää Skypeä"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Käyttää XMPP:tä"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Käyttää YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "Vie tekstitiedostoon"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Tuontiosoite(t)"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "Kielletyt IP-osoitteet"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3799,6 +3791,14 @@
             "#text": "Hylkää automaattisesti istunnot käyttäjille, jotka on merkitty \"Älä seuraa\" -merkinnällä, kuten hakukoneet ja botit. Ota käyttöön, jos sinulla on istunto-ongelmia."
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Aktiiviset käyttäjät Aika:"
           },
@@ -5637,14 +5637,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token, jota käytetään turvallisten verkkopalvelukutsujen tekemiseen. Muuttuu jatkuvasti, kunnes tallennat isäntäasetukset."
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7194,10 +7186,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Klikkaa tästä näyttääksesi tai piilottaaksesi piilotetun tekstin (tunnetaan myös nimellä spoileri)."
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Kirjoita sen twiitin tilatunnus, jonka haluat upottaa."
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9895,10 +9883,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE-tunnuksesi:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Aikavyöhyke"
           },
@@ -10315,7 +10299,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Voit muuttaa tilisi tietoja käyttämällä Henkilökohtainen profiili -&gt; \"Muokkaa profiilia\" -vaihtoehtoa <strong>Käyttäjän ohjauspaneelissa</strong>. Jos haluat vaihtaa salasanasi, sitä varten on <strong>Käyttäjän ohjauspaneelissa</strong> ylimääräinen sivu (Vaihda salasana), jossa voit asettaa uuden salasanan.</p>\r\n<p><strong>Muokkaa profiilia -sivu</strong></p>\r\n<p>Tällä sivulla voit asettaa useita pakollisia ja valinnaisia tietoja, joista osa näkyy julkisessa profiilissasi. Sähköpostiosoitettasi lukuun ottamatta älä anna tietoja, joiden et halua olevan julkisesti nähtävissä.</p>\r\n<p><strong>Tietoja sinusta</strong></p>\r\n<p>Nämä ovat sinua koskevat perustiedot</p>\r\n<p><strong>Sijainti</strong></p>\r\n<p>Tässä voit valinnaisesti syöttää asuinpaikkasi</p>\r\n<p><strong>Kotisivu</strong></p>\r\n<p>Tässä voit valinnaisesti syöttää kotisivun ja/tai blogin.</p>\r\n<p><strong>Pikaviestipalvelut</strong></p>\r\n<p>Täällä voit valinnaisesti syöttää viestipalveluiden, kuten MSN:n, XMPP:n, SKYPE:n, Facebookin ja Twitterin, viestipalvelutunnukset.</p>\r\n<p><strong>Aikavyöhyke</strong></p>\r\n<p>Tässä voit määrittää aikavyöhykkeen, jotta voit säätää taulun kellonajan ja päivämäärän paikalliseen aikaasi. Ja asettaa kesäajan, jos se säädetään automaattisesti.</p>\r\n<p><strong>Foorumin asetukset</strong></p>\r\n<p>Tässä voit muuttaa sähköpostiosoitteen.</p>\r\n<p>Ja jos ylläpitäjä on ottanut sen käyttöön, voit vaihtaa foorumin <strong>kielen</strong>, sivuston <strong>teeman</strong> ja <strong>tekstieditorin</strong> (jota käytetään viestien lähettämiseen).</p>\r\n<p>On myös asetus &quot;Single Sign On&quot; (Jos se&rsquo;on aktivoitu). Jos otat sen käyttöön, voit kirjautua sisään Facebookin kautta, syötät myös Facebook-tunnuksesi edellä.</p>\r\n\r\n"
+            "#text": "<p>Voit muuttaa tilisi tietoja käyttämällä Henkilökohtainen profiili -&gt; \"Muokkaa profiilia\" -vaihtoehtoa <strong>Käyttäjän ohjauspaneelissa</strong>. Jos haluat vaihtaa salasanasi, sitä varten on <strong>Käyttäjän ohjauspaneelissa</strong> ylimääräinen sivu (Vaihda salasana), jossa voit asettaa uuden salasanan.</p>\r\n<p><strong>Muokkaa profiilia -sivu</strong></p>\r\n<p>Tällä sivulla voit asettaa useita pakollisia ja valinnaisia tietoja, joista osa näkyy julkisessa profiilissasi. Sähköpostiosoitettasi lukuun ottamatta älä anna tietoja, joiden et halua olevan julkisesti nähtävissä.</p>\r\n<p><strong>Tietoja sinusta</strong></p>\r\n<p>Nämä ovat sinua koskevat perustiedot</p>\r\n<p><strong>Sijainti</strong></p>\r\n<p>Tässä voit valinnaisesti syöttää asuinpaikkasi</p>\r\n<p><strong>Kotisivu</strong></p>\r\n<p>Tässä voit valinnaisesti syöttää kotisivun ja/tai blogin.</p>\r\n<p><strong>Pikaviestipalvelut</strong></p>\r\n<p>Täällä voit valinnaisesti syöttää viestipalveluiden, kuten MSN:n, XMPP:n:n, Facebookin ja Twitterin, viestipalvelutunnukset.</p>\r\n<p><strong>Aikavyöhyke</strong></p>\r\n<p>Tässä voit määrittää aikavyöhykkeen, jotta voit säätää taulun kellonajan ja päivämäärän paikalliseen aikaasi. Ja asettaa kesäajan, jos se säädetään automaattisesti.</p>\r\n<p><strong>Foorumin asetukset</strong></p>\r\n<p>Tässä voit muuttaa sähköpostiosoitteen.</p>\r\n<p>Ja jos ylläpitäjä on ottanut sen käyttöön, voit vaihtaa foorumin <strong>kielen</strong>, sivuston <strong>teeman</strong> ja <strong>tekstieditorin</strong> (jota käytetään viestien lähettämiseen).</p>\r\n<p>On myös asetus &quot;Single Sign On&quot; (Jos se&rsquo;on aktivoitu). Jos otat sen käyttöön, voit kirjautua sisään Facebookin kautta, syötät myös Facebook-tunnuksesi edellä.</p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -12795,19 +12779,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Samankaltaisia aiheita"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Ota yhteyttä {0} Skypen kautta"
           },
           {
             "@tag": "STATISTICS",
@@ -13183,10 +13159,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Näytä kaikki käyttäjän Viestit"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm) ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

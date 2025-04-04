@@ -557,16 +557,8 @@
             "#text": "使用 MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "使用 Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "使用 XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "使用 YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "导出到文本文件"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "导入地址"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "禁止的 IP 地址"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3799,6 +3791,14 @@
             "#text": "自动放弃标记为“不跟踪”的用户的会话，例如搜索引擎和机器人。"
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "活跃用户时间："
           },
@@ -5637,14 +5637,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "用于进行安全 Web 服务调用的令牌。"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7194,10 +7186,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "单击此处显示或隐藏隐藏文本（也称为剧透）"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "输入您要嵌入的推文的状态 ID"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9895,10 +9883,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "你的Skype帐号："
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "时区"
           },
@@ -10315,7 +10299,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile Page</strong></p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, XMPP, SKYPE, Facebook and Twitter.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong>, <strong>Theme</strong> of the Site and the <strong>Text Editor</strong> (That is used for posting messages).</p>\r\n<p>There is also a Setting &quot;Single Sign On&quot; (If it&rsquo;s activated). If you turn it on you can login thru Facebook, you also enter your Facebook ID above.</p>\r\n\r\n"
+            "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile Page</strong></p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as  XMPP, Facebook and Twitter.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong>, <strong>Theme</strong> of the Site and the <strong>Text Editor</strong> (That is used for posting messages).</p>\r\n<p>There is also a Setting &quot;Single Sign On&quot; (If it&rsquo;s activated). If you turn it on you can login thru Facebook, you also enter your Facebook ID above.</p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -12795,19 +12779,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "类似主题"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "通过 Skype 联系 {0}"
           },
           {
             "@tag": "STATISTICS",
@@ -13183,10 +13159,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "按用户查看所有帖子"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm) ID："
           },
           {
             "@tag": "SOCIAL_MEDIA",

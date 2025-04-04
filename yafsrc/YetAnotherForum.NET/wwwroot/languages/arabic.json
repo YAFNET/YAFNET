@@ -557,16 +557,8 @@
             "#text": " MSN استخدام"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": " Skype استخدام"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": " XMPP استخدام"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": " YIM استخدام"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "تصدير إلى ملف نصي"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "عنوان (عناوين) الاستيراد"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "عناوين IP المحظورة"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3791,6 +3783,14 @@
             "#text": "التخلي تلقائيًا عن الجلسات للمستخدمين الذين تم وضع علامة \"عدم التتبع\" عليها مثل محركات البحث والروبوتات. "
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "وقت المستخدمين النشطين:"
           },
@@ -4276,7 +4276,7 @@
           },
           {
             "@tag": "ENABLE_HOVERCARDS_HELP",
-            "#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter & Facebook Profile Button."
+            "#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Facebook Profile Button."
           },
           {
             "@tag": "ENABLE_RETWEET_MSG",
@@ -5629,14 +5629,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "رمز يستخدم لإجراء مكالمات خدمة ويب آمنة. "
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7186,10 +7178,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "اضغظ هنا لإضهار او إخفاء السبويلر"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "أدخل معرف الحالة للتغريدة التي تريد تضمينها"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9883,10 +9871,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "معرّف سكايب الخاص بك:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "التوقيت"
           },
@@ -10303,7 +10287,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile</strong> Page</p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, XMPP, SKYPE, Facebook and Twitter.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong> and the <strong>Theme</strong> of the Site.</p>\r\n\r\n"
+            "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile</strong> Page</p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as  XMPP, Facebook and Twitter.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong> and the <strong>Theme</strong> of the Site.</p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -12775,19 +12759,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "مواضيع مماثلة"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "(SKYPE)سكاي بي"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "اتصل بـ {0} عبر Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -13163,10 +13139,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "اضهار كل  مشاركات المستخدم "
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "سكاي بي(SKYPE):"
           },
           {
             "@tag": "SOCIAL_MEDIA",

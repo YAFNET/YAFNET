@@ -126,12 +126,6 @@ public class UsersProfileInputModel
     public string Xmpp { get; set; }
 
     /// <summary>
-    /// Gets or sets the skype.
-    /// </summary>
-    /// <value>The skype.</value>
-    public string Skype { get; set; }
-
-    /// <summary>
     /// Gets or sets the facebook.
     /// </summary>
     /// <value>The facebook.</value>

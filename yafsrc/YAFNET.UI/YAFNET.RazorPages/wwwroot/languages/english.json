@@ -557,16 +557,8 @@
             "#text": "Uses MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Uses Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Uses XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Uses YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -3972,7 +3964,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg, Reddit or Tumblr a Topic."
+            "#text": "Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Reddit or Tumblr a Topic."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -7188,10 +7180,6 @@
             "#text": "Click here to show or hide the hidden text (also known as a spoiler)"
           },
           {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Enter the Status ID of the Tweet you want to embed"
-          },
-          {
             "@tag": "UERLINKMOD_DESCRIPTION",
             "#text": "Put User Name here"
           },
@@ -9887,10 +9875,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Your SKYPE ID:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Time Zone"
           },
@@ -10307,7 +10291,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile Page</strong></p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as XMPP, SKYPE and Facebook.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong> and the <strong>Theme</strong> of the Site.</p>"
+            "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile Page</strong></p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as XMPP and Facebook.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong> and the <strong>Theme</strong> of the Site.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -12794,14 +12778,6 @@
             "#text": "Similar Topics"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Contact {0} via Skype"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "Statistics"
           },
@@ -13175,10 +13151,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "View All Posts by User"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm) ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

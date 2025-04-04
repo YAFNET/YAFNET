@@ -557,16 +557,8 @@
             "#text": "Bruger MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Bruger Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Bruger XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Bruger YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "Eksporter til tekstfil"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Import adresse(r)"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "Forbudte IP-adresser"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3799,6 +3791,14 @@
             "#text": "Afbryd automatisk sessioner for brugere, der er markeret som \"Spor ikke\", såsom søgemaskiner og bots. "
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Aktive brugere tid:"
           },
@@ -3980,7 +3980,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Aktiverer/deaktiverer delemenuen, hvor en bruger kan e-maile, tweete, buzz, like på Facebook, Digg, Reddit eller Tumblr et emne."
+            "#text": "Aktiverer/deaktiverer delemenuen, hvor en bruger kan e-maile, tweete, buzz, like på Facebook, Reddit eller Tumblr et emne."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5637,14 +5637,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token bruges til at foretage sikre webserviceopkald. "
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7194,10 +7186,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Klik her for at vise eller skjule den gemte tekst (afsløringen)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Indtast status-id'et for det tweet, du vil integrere"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9893,10 +9881,6 @@
           {
             "@tag": "SELECT_THEME_MODE",
             "#text": "Select the theme mode:"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Dit SKYPE ID:"
           },
           {
             "@tag": "TIMEZONE",
@@ -12795,19 +12779,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Lignende emner"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Kontakt {0} via Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -13183,10 +13159,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Vis alle indlæg af brugeren"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm)-ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

@@ -557,16 +557,8 @@
             "#text": "MSN  Kullananlar"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Skype  Kullananlar"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "XMPP  Kullananlar"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "YIM Kullananlar"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "Metin Dosyasına Aktar"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "İthalat Adres(ler)i"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "Yasaklı IP Adresleri"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3799,6 +3791,14 @@
             "#text": "Arama Motorları ve Botlar gibi \"Takip Etme\" olarak işaretlenen kullanıcılar için oturumları otomatik olarak terk edin. Herhangi bir oturum sorunu yaşıyorsanız etkinleştirin."
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Aktif Kullanıcı Süresi:"
           },
@@ -3980,7 +3980,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Kullanıcının bir Konuyu E-posta, Tweet, Buzz, Facebook, Digg, Reddit veya Tumblr'da Beğenebileceği Paylaş Menüsünü etkinleştirir/devre dışı bırakır."
+            "#text": "Kullanıcının bir Konuyu E-posta, Tweet, Buzz, Facebook, Reddit veya Tumblr'da Beğenebileceği Paylaş Menüsünü etkinleştirir/devre dışı bırakır."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5637,14 +5637,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Güvenli web hizmeti çağrıları yapmak için kullanılan belirteç. Ana bilgisayar ayarlarınızı kaydedinceye kadar sürekli değişir."
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7194,10 +7186,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Gizli yazıyı göstermek/saklamak için buraya tıklayınız (spoiler)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Yerleştirmek istediğiniz Tweetin Durum Kimliğini girin"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9895,10 +9883,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE kimliğiniz:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Zaman Dilimi"
           },
@@ -10315,7 +10299,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Hesap bilgilerinizi <strong>Kullanıcı Kontrol Paneli</strong> içerisinden Kişisel Profil -&gt; 'Profili Düzenle' seçeneğini kullanarak değiştirebilirsiniz. Şifrenizi değiştirmek isterseniz, <strong>Kullanıcı Kontrol Paneli</strong>'nde bunun için yeni bir Şifre belirleyebileceğiniz ekstra bir Sayfa (Şifre Değiştir) vardır.</p>\r\n<p><strong>Profil Sayfasını Düzenle</strong></p>\r\n<p>Bu sayfa, bazıları herkese açık profilinizde görüntülenecek olan bir dizi gerekli ve isteğe bağlı ayrıntıyı ayarlamanıza olanak tanır. E-posta adresiniz haricinde, herkese açık olarak görüntülenmesini istemediğiniz bilgileri girmeyin.</p>\r\n<p><strong>Hakkınızda</strong></p>\r\n<p>Bunlar Sizin Hakkınızdaki Temel Bilgilerdir</p>\r\n<p><strong>Lokasyon</strong></p>\r\n<p>Burada isteğe bağlı olarak yaşadığınız yeri girebilirsiniz</p>\r\n<p><strong>Ana Sayfa</strong></p>\r\n<p>Burada isteğe bağlı olarak bir Ana sayfa ve/veya bir Blog girebilirsiniz.</p>\r\n<p><strong>Anlık mesajlaşma hizmetleri</strong></p>\r\n<p>Burada isteğe bağlı olarak MSN, XMPP, SKYPE, Facebook ve Twitter gibi hizmetlerin mesajlaşma kimliklerini girebilirsiniz.</p>\r\n<p><strong>Zaman Dilimi</strong></p>\r\n<p>Burada, pano Saatini ve Tarihini yerel saatinize göre ayarlamak için Saat Dilimini belirleyebilirsiniz. Ve otomatik olarak ayarlanması durumunda Yaz Saati Uygulamasını ayarlayabilirsiniz.</p>\r\n<p><strong>Forum Ayarları</strong></p>\r\n<p>Burada E-posta Adresinizi değiştirirsiniz.</p>\r\n<p>Ve eğer Yönetici etkinleştirdiyse, Forum <strong>Dilini</strong>, Sitenin <strong>Temasını</strong> ve <strong>Metin Editörünü</strong> (Mesaj göndermek için kullanılır) değiştirebilirsiniz.</p>\r\n<p>Ayrıca bir &quot;Single Sign On&quot; Ayarı da vardır (Etkinleştirilmişse). Bunu açarsanız Facebook üzerinden giriş yapabilirsiniz, ayrıca yukarıda Facebook kimliğinizi de girersiniz.</p>\r\n\r\n"
+            "#text": "<p>Hesap bilgilerinizi <strong>Kullanıcı Kontrol Paneli</strong> içerisinden Kişisel Profil -&gt; 'Profili Düzenle' seçeneğini kullanarak değiştirebilirsiniz. Şifrenizi değiştirmek isterseniz, <strong>Kullanıcı Kontrol Paneli</strong>'nde bunun için yeni bir Şifre belirleyebileceğiniz ekstra bir Sayfa (Şifre Değiştir) vardır.</p>\r\n<p><strong>Profil Sayfasını Düzenle</strong></p>\r\n<p>Bu sayfa, bazıları herkese açık profilinizde görüntülenecek olan bir dizi gerekli ve isteğe bağlı ayrıntıyı ayarlamanıza olanak tanır. E-posta adresiniz haricinde, herkese açık olarak görüntülenmesini istemediğiniz bilgileri girmeyin.</p>\r\n<p><strong>Hakkınızda</strong></p>\r\n<p>Bunlar Sizin Hakkınızdaki Temel Bilgilerdir</p>\r\n<p><strong>Lokasyon</strong></p>\r\n<p>Burada isteğe bağlı olarak yaşadığınız yeri girebilirsiniz</p>\r\n<p><strong>Ana Sayfa</strong></p>\r\n<p>Burada isteğe bağlı olarak bir Ana sayfa ve/veya bir Blog girebilirsiniz.</p>\r\n<p><strong>Anlık mesajlaşma hizmetleri</strong></p>\r\n<p>Burada isteğe bağlı olarak  XMPP, Facebook ve Twitter gibi hizmetlerin mesajlaşma kimliklerini girebilirsiniz.</p>\r\n<p><strong>Zaman Dilimi</strong></p>\r\n<p>Burada, pano Saatini ve Tarihini yerel saatinize göre ayarlamak için Saat Dilimini belirleyebilirsiniz. Ve otomatik olarak ayarlanması durumunda Yaz Saati Uygulamasını ayarlayabilirsiniz.</p>\r\n<p><strong>Forum Ayarları</strong></p>\r\n<p>Burada E-posta Adresinizi değiştirirsiniz.</p>\r\n<p>Ve eğer Yönetici etkinleştirdiyse, Forum <strong>Dilini</strong>, Sitenin <strong>Temasını</strong> ve <strong>Metin Editörünü</strong> (Mesaj göndermek için kullanılır) değiştirebilirsiniz.</p>\r\n<p>Ayrıca bir &quot;Single Sign On&quot; Ayarı da vardır (Etkinleştirilmişse). Bunu açarsanız Facebook üzerinden giriş yapabilirsiniz, ayrıca yukarıda Facebook kimliğinizi de girersiniz.</p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -12795,19 +12779,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Benzer Konular"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Skype üzerinden {0} ile iletişime geçin"
           },
           {
             "@tag": "STATISTICS",
@@ -13183,10 +13159,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Kullanıcının Tüm Mesajlarını Gör"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm) Kimliği:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

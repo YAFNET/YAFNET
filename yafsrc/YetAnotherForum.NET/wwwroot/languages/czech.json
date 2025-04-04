@@ -557,16 +557,8 @@
             "#text": "Používá MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Používá Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Používá XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Používá YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "Export do textového souboru"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Importovat adresy"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "Zakázané IP adresy"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3799,6 +3791,14 @@
             "#text": "Automaticky opouštět relace pro uživatele, kteří jsou označeni jako „Nesledovat“, jako jsou vyhledávače a roboti. "
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Čas aktivních uživatelů:"
           },
@@ -3980,7 +3980,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Povolí/zakáže nabídku sdílení, kde může uživatel e-mailovat, tweetovat, hlásat, lajkovat na Facebooku, Digg, Reddit nebo Tumblr téma."
+            "#text": "Povolí/zakáže nabídku sdílení, kde může uživatel e-mailovat, tweetovat, hlásat, lajkovat na Facebooku, Reddit nebo Tumblr téma."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5637,14 +5637,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token používaný k volání zabezpečené webové služby. "
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7194,10 +7186,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Kliknutím sem zobrazíte nebo skryjete skrytý text (známý také jako spoiler)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Zadejte ID stavu tweetu, který chcete vložit"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9897,10 +9885,6 @@
           {
             "@tag": "SELECT_THEME_MODE",
             "#text": "Select the theme mode:"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Vaše SKYPE ID:"
           },
           {
             "@tag": "TIMEZONE",
@@ -12799,19 +12783,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Podobná témata"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Kontaktujte {0} přes Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -13187,10 +13163,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Zobrazit všechny příspěvky uživatele"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "ID Skype(tm):"
           },
           {
             "@tag": "SOCIAL_MEDIA",

@@ -557,16 +557,8 @@
             "#text": "Utiliza MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Utiliza o Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Utiliza XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Utiliza o YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "Exportar para ficheiro de texto"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Endereço(s) de importação"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "Endereços IP proibidos"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3799,6 +3791,14 @@
             "#text": "Abandonar automaticamente sessões para utilizadores que estejam marcados como \"Don't Track\", tais como motores de busca e robots. Activar se tiver algum problema com a sessão."
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Tempo de Utilizador Activo:"
           },
@@ -3980,7 +3980,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Activa/desactiva o menu de partilha, onde um utilizador pode enviar um e-mail, Tweet, Buzz, Como no Facebook, Digg, Reddit ou Tumblr a Topic."
+            "#text": "Activa/desactiva o menu de partilha, onde um utilizador pode enviar um e-mail, Tweet, Buzz, Como no Facebook, Reddit ou Tumblr a Topic."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5637,14 +5637,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Ficha utilizada para fazer chamadas seguras de serviço web. Mudança constante até guardar as configurações do seu anfitrião."
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7194,10 +7186,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Clique aqui para mostrar ou esconder o texto escondido (também conhecido como spoiler)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Introduza o ID de estado do Tweet que pretende inserir"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9895,10 +9883,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "O seu SKYPE ID:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Zona de Horário"
           },
@@ -10315,7 +10299,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Pode alterar as informações da sua conta usando a opção 'Perfil Pessoal -&gt; 'Editar Perfil' a partir da opção <forte>Painel de Controlo do Utilizador</strong>. Se quiser alterar a sua Palavra-passe, existe uma Página extra (Alterar Palavra-passe) para isso no <forte> Painel de Controlo do Utilizador</strong>, onde pode definir uma nova Palavra-passe.</p>\r\n<p>>forte>Editar Perfil Página</strong></p>\r\n<p>Esta página permite-lhe definir um número de detalhes obrigatórios e opcionais, alguns dos quais serão exibidos no seu perfil público. Com excepção do seu endereço de correio electrónico, não introduza informações que não deseje que possam ser visualizadas publicamente.</p>\r\n<p>>forte>Sobre Você</sforte></p>\r\n<p>Estas são as Informações Básicas sobre si</p>\r\n<p>>forte>Localização</forte></p>\r\n<p>Aqui pode opcionalmente entrar no Lugar onde vive</p>\r\n<p>>forte>Página Inicial>>forte></p>\r\n<p>Aqui pode opcionalmente introduzir uma página inicial e/ou um Blog.</p>\r\n<p>>forte>Serviços de mensagens instantâneas</strong></p>\r\n<p>Aqui pode opcionalmente introduzir os seus Ids de mensagens de serviços como MSN, XMPP, SKYPE, Facebook e Twitter.</p>\r\n<p>> forte>Time Zone</strong>>/p>\r\n<p>Aqui pode especificar o Fuso Horário para ajustar a Hora e Data do quadro à sua hora local. E defina a Hora de Verão, caso seja automaticamente ajustada.</p>\r\n<p>>forte>Forum Settings</strong>>/p>\r\n<p>Aqui muda o seu endereço de e-mail.</p>\r\n<p>E se o Administrador o tiver habilitado pode alterar o Fórum <forte>Linguagem</strong>, <forte>te>tema</strong> do Site e o <forte>Editor de texto</strong> (Que é usado para postar mensagens).</p>\r\n<p>Tambem há um Setting &quot;Single Sign On&quot; (Se it&rsquo;s activado). Se o ligar pode iniciar sessão através do Facebook, também introduzir o seu ID do Facebook acima.</p>\r\n\r\n"
+            "#text": "<p>Pode alterar as informações da sua conta usando a opção 'Perfil Pessoal -&gt; 'Editar Perfil' a partir da opção <forte>Painel de Controlo do Utilizador</strong>. Se quiser alterar a sua Palavra-passe, existe uma Página extra (Alterar Palavra-passe) para isso no <forte> Painel de Controlo do Utilizador</strong>, onde pode definir uma nova Palavra-passe.</p>\r\n<p>>forte>Editar Perfil Página</strong></p>\r\n<p>Esta página permite-lhe definir um número de detalhes obrigatórios e opcionais, alguns dos quais serão exibidos no seu perfil público. Com excepção do seu endereço de correio electrónico, não introduza informações que não deseje que possam ser visualizadas publicamente.</p>\r\n<p>>forte>Sobre Você</sforte></p>\r\n<p>Estas são as Informações Básicas sobre si</p>\r\n<p>>forte>Localização</forte></p>\r\n<p>Aqui pode opcionalmente entrar no Lugar onde vive</p>\r\n<p>>forte>Página Inicial>>forte></p>\r\n<p>Aqui pode opcionalmente introduzir uma página inicial e/ou um Blog.</p>\r\n<p>>forte>Serviços de mensagens instantâneas</strong></p>\r\n<p>Aqui pode opcionalmente introduzir os seus Ids de mensagens de serviços como  XMPP, Facebook e Twitter.</p>\r\n<p>> forte>Time Zone</strong>>/p>\r\n<p>Aqui pode especificar o Fuso Horário para ajustar a Hora e Data do quadro à sua hora local. E defina a Hora de Verão, caso seja automaticamente ajustada.</p>\r\n<p>>forte>Forum Settings</strong>>/p>\r\n<p>Aqui muda o seu endereço de e-mail.</p>\r\n<p>E se o Administrador o tiver habilitado pode alterar o Fórum <forte>Linguagem</strong>, <forte>te>tema</strong> do Site e o <forte>Editor de texto</strong> (Que é usado para postar mensagens).</p>\r\n<p>Tambem há um Setting &quot;Single Sign On&quot; (Se it&rsquo;s activado). Se o ligar pode iniciar sessão através do Facebook, também introduzir o seu ID do Facebook acima.</p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -12795,19 +12779,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Tópicos semelhantes"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Contacto {0} via Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -13183,10 +13159,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Ver todos os Posts por Utilizador"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Identificação Skype(tm):"
           },
           {
             "@tag": "SOCIAL_MEDIA",

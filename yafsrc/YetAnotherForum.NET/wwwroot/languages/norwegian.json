@@ -557,16 +557,8 @@
             "#text": "Bruker MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Bruker Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Bruker XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Bruker YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "Eksporter til tekstfil"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Importer adresse(r)"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "Forbudte IP-adresser"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3799,6 +3791,14 @@
             "#text": "Avbryt automatisk økter for brukere som er merket som «Ikke spor», for eksempel søkemotorer og bots. Aktiver hvis du har noen øktproblemer."
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Aktive brukere tid:"
           },
@@ -3980,7 +3980,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Aktiverer/deaktiverer delemenyen, der en bruker kan sende e-post, tweet, buzz, like på Facebook, Digg, Reddit eller Tumblr et emne."
+            "#text": "Aktiverer/deaktiverer delemenyen, der en bruker kan sende e-post, tweet, buzz, like på Facebook, Reddit eller Tumblr et emne."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5637,14 +5637,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token som brukes til å foreta sikre nettjenesteanrop. Endres hele tiden til du lagrer vertsinnstillingene."
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7194,10 +7186,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Klikk her for å vise eller skjule den skjulte teksten (også kjent som en spoiler)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Skriv inn status-ID-en til tweeten du vil bygge inn"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9895,10 +9883,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Din SKYPE ID:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Tidssone"
           },
@@ -10315,7 +10299,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Du kan endre kontoinformasjonen din ved å bruke Personlig profil -&gt; &quot;Rediger profil&quot; fra <strong>brukerkontrollpanelet</strong> . Hvis du vil endre passordet ditt, er det en ekstra side (Endre passord) for det i <strong>brukerkontrollpanelet</strong> , hvor du kan angi et nytt passord.</p><p> <strong>Rediger profilside</strong></p><p> Denne siden lar deg angi en rekke nødvendige og valgfrie detaljer, hvorav noen vil vises på din offentlige profil. Med unntak av e-postadressen din, ikke skriv inn informasjon som du ikke ønsker skal være offentlig synlig.</p><p> <strong>Om deg</strong></p><p> Dette er den grunnleggende informasjonen om deg</p><p> <strong>plassering</strong></p><p> Her kan du valgfritt gå inn på stedet du bor</p><p> <strong>Hjemmeside</strong></p><p> Her kan du eventuelt gå inn på en hjemmeside og/eller en blogg.</p><p> <strong>Direktemeldingstjenester</strong></p><p> Her kan du valgfritt legge inn dine messenger-IDer for tjenester som MSN, XMPP, SKYPE, Facebook og Twitter.</p><p> <strong>Tidssone</strong></p><p> Her kan du spesifisere tidssonen for å justere styrets tid og dato til din lokale tid. Og still inn sommertid hvis den justeres automatisk.</p><p> <strong>Foruminnstillinger</strong></p><p> Her endrer du e-postadressen din.</p><p> Og hvis administratoren har aktivert det, kan du endre <strong>forumspråket</strong> , <strong>temaet</strong> for nettstedet og <strong>tekstredigeringsprogrammet</strong> (som brukes til å legge ut meldinger).</p><p> Det er også en innstilling &quot;Single Sign On&quot; (hvis den er aktivert). Hvis du slår den på, kan du logge inn via Facebook, du skriver også inn Facebook-ID-en din ovenfor.</p>"
+            "#text": "<p>Du kan endre kontoinformasjonen din ved å bruke Personlig profil -&gt; &quot;Rediger profil&quot; fra <strong>brukerkontrollpanelet</strong> . Hvis du vil endre passordet ditt, er det en ekstra side (Endre passord) for det i <strong>brukerkontrollpanelet</strong> , hvor du kan angi et nytt passord.</p><p> <strong>Rediger profilside</strong></p><p> Denne siden lar deg angi en rekke nødvendige og valgfrie detaljer, hvorav noen vil vises på din offentlige profil. Med unntak av e-postadressen din, ikke skriv inn informasjon som du ikke ønsker skal være offentlig synlig.</p><p> <strong>Om deg</strong></p><p> Dette er den grunnleggende informasjonen om deg</p><p> <strong>plassering</strong></p><p> Her kan du valgfritt gå inn på stedet du bor</p><p> <strong>Hjemmeside</strong></p><p> Her kan du eventuelt gå inn på en hjemmeside og/eller en blogg.</p><p> <strong>Direktemeldingstjenester</strong></p><p> Her kan du valgfritt legge inn dine messenger-IDer for tjenester som  XMPP, Facebook og Twitter.</p><p> <strong>Tidssone</strong></p><p> Her kan du spesifisere tidssonen for å justere styrets tid og dato til din lokale tid. Og still inn sommertid hvis den justeres automatisk.</p><p> <strong>Foruminnstillinger</strong></p><p> Her endrer du e-postadressen din.</p><p> Og hvis administratoren har aktivert det, kan du endre <strong>forumspråket</strong> , <strong>temaet</strong> for nettstedet og <strong>tekstredigeringsprogrammet</strong> (som brukes til å legge ut meldinger).</p><p> Det er også en innstilling &quot;Single Sign On&quot; (hvis den er aktivert). Hvis du slår den på, kan du logge inn via Facebook, du skriver også inn Facebook-ID-en din ovenfor.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -12795,19 +12779,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Lignende emner"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Kontakt {0} via Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -13183,10 +13159,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Se alle innlegg etter bruker"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm) ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

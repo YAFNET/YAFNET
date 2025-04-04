@@ -335,7 +335,6 @@ public class UsersProfileModel : AdminPage
                                   : this.EditUser.Item2.Profile_Facebook;
 
         this.Input.Xmpp = this.EditUser.Item2.Profile_XMPP;
-        this.Input.Skype = this.EditUser.Item2.Profile_Skype;
 
         this.LoadCountriesAndRegions(this.EditUser.Item2.Profile_Country);
 
@@ -471,7 +470,6 @@ public class UsersProfileModel : AdminPage
                                               Facebook =
                                                   this.Input.Facebook.IsSet() ? this.Input.Facebook.Trim() : null,
                                               XMPP = this.Input.Xmpp.IsSet() ? this.Input.Xmpp.Trim() : null,
-                                              Skype = this.Input.Skype.IsSet() ? this.Input.Skype.Trim() : null,
                                               RealName =
                                                   this.Input.RealName.IsSet() ? this.Input.RealName.Trim() : null,
                                               Occupation =
@@ -528,7 +526,6 @@ public class UsersProfileModel : AdminPage
         this.EditUser.Item2.Profile_City = userProfile.City;
         this.EditUser.Item2.Profile_Occupation = userProfile.Occupation;
         this.EditUser.Item2.Profile_RealName = userProfile.RealName;
-        this.EditUser.Item2.Profile_Skype = userProfile.Skype;
         this.EditUser.Item2.Profile_XMPP = userProfile.XMPP;
 
         return this.Get<IAspNetUsersHelper>().UpdateUserAsync(this.EditUser.Item2);

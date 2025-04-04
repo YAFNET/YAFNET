@@ -557,16 +557,8 @@
             "#text": "Utilizeaza MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Utilizeaza Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Utilizeaza XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Utilizeaza YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "Export în fișier text"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Adresa (adresele) de import"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "Adrese IP interzise"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3799,6 +3791,14 @@
             "#text": "Abandonarea automată a sesiunilor pentru utilizatorii care sunt marcați ca \"Don't Track\", cum ar fi motoarele de căutare și roboții. Activați dacă aveți probleme cu sesiunile."
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Utilizatori activi Timp:"
           },
@@ -3980,7 +3980,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Activează/dezactivează Meniul de partajare, unde un utilizator poate trimite un subiect prin e-mail, Tweet, Buzz, Like pe Facebook, Digg, Reddit sau Tumblr."
+            "#text": "Activează/dezactivează Meniul de partajare, unde un utilizator poate trimite un subiect prin e-mail, Tweet, Buzz, Like pe Facebook, Reddit sau Tumblr."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5637,14 +5637,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilizat pentru a efectua apeluri securizate de servicii web. Se schimbă constant până când salvați setările de gazdă."
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7194,10 +7186,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Clic aici pentru a vizualiza,ascunde textul ascuns (denumit ca text spoiler)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Introduceți ID-ul de stare al Tweet-ului pe care doriți să îl încorporați"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9895,10 +9883,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "ID-ul tău SKYPE:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Timpul zonei"
           },
@@ -10315,7 +10299,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Vă puteți modifica informațiile contului dvs. folosind opțiunea Profil personal -&gt; 'Editare profil' din cadrul <strong>Panou de control al utilizatorului</strong>. Dacă doriți să vă schimbați parola, există o pagină suplimentară (Change Password) pentru acest lucru în <strong>Panou de control al utilizatorului</strong>, unde puteți seta o nouă parolă.</p> <p> <p>.\r\n<p><strong>Pagina de editare a profilului</strong></p> <p><strong>Edit Profile Page</strong>.\r\n<p>Această pagină vă permite să setați o serie de detalii obligatorii și opționale, dintre care unele vor fi afișate pe profilul dvs. public. Cu excepția adresei dvs. de e-mail, nu introduceți informații pe care nu doriți să le puteți vedea în mod public.</p> <p>.\r\n<p><strong>Despre dumneavoastră</strong></p> <p> <p><strong>Despre dumneavoastră</strong>.\r\n<p>Acestea sunt informațiile de bază despre dumneavoastră</p>\r\n<p><strong>Localizare</strong></p>\r\n<p>Aici puteți introduce opțional Locul în care locuiți</p>\r\n<p><strong>Pagina de pornire</strong></p>\r\n<p>Aici puteți introduce opțional o pagină de pornire și/sau un blog.</p> <p>.\r\n<p><strong>Servicii de mesagerie instantanee</strong></p>\r\n<p>Aici puteți introduce opțional ID-urile de messenger ale unor servicii precum MSN, XMPP, SKYPE, Facebook și Twitter.</p> <p> Aici puteți introduce opțional ID-urile de messenger ale unor servicii precum MSN, XMPP, SKYPE, Facebook și Twitter.</p>\r\n<p><strong>Fusul orar</strong></p> <p><strong>Fusul orar</strong>.\r\n<p>Aici puteți specifica fusul orar pentru a ajusta ora și data de la bord la ora locală. Și setați ora de vară în cazul în care aceasta este ajustată automat.</p> <p>.\r\n<p><strong>Setări forum</strong></p> <p><strong>Setări forum</strong></p>\r\n<p>Aici vă puteți schimba Adresa de e-mail.</p>.\r\n<p>Și dacă Administratorul a activat-o puteți schimba <strong>Limba</strong> Forumului, <strong>Tema</strong> site-ului și <strong>Editorul de text</strong> (Care este folosit pentru postarea mesajelor).</p>\r\n<p>Există, de asemenea, o setare &quot;Single Sign On&quot; (Dacă este activată). Dacă o activați, vă puteți autentifica prin Facebook, introduceți și ID-ul de Facebook de mai sus.</p> <p>.\r\n\r\n"
+            "#text": "<p>Vă puteți modifica informațiile contului dvs. folosind opțiunea Profil personal -&gt; 'Editare profil' din cadrul <strong>Panou de control al utilizatorului</strong>. Dacă doriți să vă schimbați parola, există o pagină suplimentară (Change Password) pentru acest lucru în <strong>Panou de control al utilizatorului</strong>, unde puteți seta o nouă parolă.</p> <p> <p>.\r\n<p><strong>Pagina de editare a profilului</strong></p> <p><strong>Edit Profile Page</strong>.\r\n<p>Această pagină vă permite să setați o serie de detalii obligatorii și opționale, dintre care unele vor fi afișate pe profilul dvs. public. Cu excepția adresei dvs. de e-mail, nu introduceți informații pe care nu doriți să le puteți vedea în mod public.</p> <p>.\r\n<p><strong>Despre dumneavoastră</strong></p> <p> <p><strong>Despre dumneavoastră</strong>.\r\n<p>Acestea sunt informațiile de bază despre dumneavoastră</p>\r\n<p><strong>Localizare</strong></p>\r\n<p>Aici puteți introduce opțional Locul în care locuiți</p>\r\n<p><strong>Pagina de pornire</strong></p>\r\n<p>Aici puteți introduce opțional o pagină de pornire și/sau un blog.</p> <p>.\r\n<p><strong>Servicii de mesagerie instantanee</strong></p>\r\n<p>Aici puteți introduce opțional ID-urile de messenger ale unor servicii precum  XMPP, Facebook și Twitter.</p> <p> Aici puteți introduce opțional ID-urile de messenger ale unor servicii precum  XMPP, Facebook și Twitter.</p>\r\n<p><strong>Fusul orar</strong></p> <p><strong>Fusul orar</strong>.\r\n<p>Aici puteți specifica fusul orar pentru a ajusta ora și data de la bord la ora locală. Și setați ora de vară în cazul în care aceasta este ajustată automat.</p> <p>.\r\n<p><strong>Setări forum</strong></p> <p><strong>Setări forum</strong></p>\r\n<p>Aici vă puteți schimba Adresa de e-mail.</p>.\r\n<p>Și dacă Administratorul a activat-o puteți schimba <strong>Limba</strong> Forumului, <strong>Tema</strong> site-ului și <strong>Editorul de text</strong> (Care este folosit pentru postarea mesajelor).</p>\r\n<p>Există, de asemenea, o setare &quot;Single Sign On&quot; (Dacă este activată). Dacă o activați, vă puteți autentifica prin Facebook, introduceți și ID-ul de Facebook de mai sus.</p> <p>.\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -12795,19 +12779,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Subiecte similare"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Contactați {0} prin Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -13183,10 +13159,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Vezi toate publicatiile utilizatorului"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "ID-ul Skype(tm):"
           },
           {
             "@tag": "SOCIAL_MEDIA",

@@ -108,11 +108,6 @@ public class ProfileInfo
     public string RealName { get; set; }
 
     /// <summary>
-    /// Gets or sets Skype.
-    /// </summary>
-    public string Skype { get; set; }
-
-    /// <summary>
     /// Gets or sets XMPP.
     /// </summary>
     public string XMPP { get; set; }

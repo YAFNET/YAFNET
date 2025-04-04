@@ -557,16 +557,8 @@
             "#text": "Kasutab MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Kasutab Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Kasutab XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Kasutab YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "Ekspordi tekstifaili"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Impordi aadress(id)"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "Keelatud IP-aadressid"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3799,6 +3791,14 @@
             "#text": "Loobub automaatselt seanssidest kasutajate puhul, kellel on märge „Ära jälgi”, näiteks otsingumootorid ja robotid. "
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Aktiivsete kasutajate aeg:"
           },
@@ -5637,14 +5637,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token, mida kasutatakse turvaliste veebiteenuste kõnede tegemiseks. "
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7194,10 +7186,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Vajutage siia, et vaadata või peita varjatud teksti (samuti nimetatakse spoileriks)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Sisestage selle säutsu oleku ID, mida soovite manustada"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9893,10 +9881,6 @@
           {
             "@tag": "SELECT_THEME_MODE",
             "#text": "Select the theme mode:"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Teie SKYPE ID:"
           },
           {
             "@tag": "TIMEZONE",
@@ -12795,19 +12779,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Sarnased teemad"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Võtke Skype'i kaudu ühendust kasutajaga {0}"
           },
           {
             "@tag": "STATISTICS",
@@ -13183,10 +13159,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Vaata kõiki postitusi kasutaja järgi"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm) ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

@@ -557,16 +557,8 @@
             "#text": "Använder MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Använder Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Använder XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Använder YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "Exportera till textfil"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Importadress(er)"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "Förbjudna IP-adresser"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3799,6 +3791,14 @@
             "#text": "Avbryt automatiskt sessioner för användare som är markerade som \"Don't Track\", t.ex. sökmotorer och botar. Aktivera om du har problem med sessioner."
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Aktiva användare Tid:"
           },
@@ -3980,7 +3980,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Aktiverar/avaktiverar delningsmenyn, där en användare kan skicka e-post, twittra, surfa, gilla på Facebook, Digg, Reddit eller Tumblr till ett ämne."
+            "#text": "Aktiverar/avaktiverar delningsmenyn, där en användare kan skicka e-post, twittra, surfa, gilla på Facebook, Reddit eller Tumblr till ett ämne."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5637,14 +5637,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token som används för att göra säkra webbtjänstsamtal. Ändras ständigt tills du sparar dina värdinställningar."
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7194,10 +7186,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Klicka här för att visa eller dölja den dolda texten (även kallad spoiler)."
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Ange status-ID för den Tweet du vill bädda in."
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9895,10 +9883,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Ditt SKYPE-ID:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Tidszon"
           },
@@ -10315,7 +10299,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Du kan ändra din kontoinformation med hjälp av alternativet Personlig profil -&gt; \"Redigera profil\" i <strong>Brukers kontrollpanel</strong>. Om du vill ändra ditt lösenord finns det en extra sida (Ändra lösenord) för detta i <strong>användarkontrollpanelen</strong>, där du kan ange ett nytt lösenord.</p>\r\n<p><strong>Redigera profilsida</strong></p>\r\n<p>På den här sidan kan du ställa in ett antal obligatoriska och valfria uppgifter, varav en del kommer att visas på din offentliga profil. Med undantag för din e-postadress ska du inte ange information som du inte vill ska vara offentligt synlig.</p>\r\n<p><strong>Om dig</strong></p>\r\n<p>Detta är den grundläggande informationen om dig</p>.\r\n<p><strong>Bostad</strong></p>\r\n<p>Här kan du eventuellt ange den plats där du bor</p>.\r\n<p><strong>Hemsida</strong></p>\r\n<p>Här kan du eventuellt ange en hemsida och/eller en blogg.</p>\r\n<p><strong>Snabbmeddelandetjänster</strong></p>\r\n<p>Här kan du eventuellt ange dina Messenger Ids för tjänster som MSN, XMPP, SKYPE, Facebook och Twitter.</p>\r\n<p><strong>Tidszon</strong></p>\r\n<p>Här kan du ange tidszon för att justera bordets tid och datum till din lokala tid. Och ställa in sommartid om den ska justeras automatiskt.</p>\r\n<p><strong>Inställningar för forum</strong></p>\r\n<p>Här kan du ändra din e-postadress.</p>\r\n<p>Och om administratören har aktiverat det kan du ändra forumets <strong>språk</strong>, <strong>tema</strong> för webbplatsen och <strong>textredigeraren</strong> (som används för att lägga upp meddelanden).</p>\r\n<p>Det finns också en inställning &quot;Single Sign On&quot; (Om den&rsquo;är aktiverad). Om du aktiverar den kan du logga in via Facebook, du anger också ditt Facebook-ID ovan.</p>\r\n\r\n"
+            "#text": "<p>Du kan ändra din kontoinformation med hjälp av alternativet Personlig profil -&gt; \"Redigera profil\" i <strong>Brukers kontrollpanel</strong>. Om du vill ändra ditt lösenord finns det en extra sida (Ändra lösenord) för detta i <strong>användarkontrollpanelen</strong>, där du kan ange ett nytt lösenord.</p>\r\n<p><strong>Redigera profilsida</strong></p>\r\n<p>På den här sidan kan du ställa in ett antal obligatoriska och valfria uppgifter, varav en del kommer att visas på din offentliga profil. Med undantag för din e-postadress ska du inte ange information som du inte vill ska vara offentligt synlig.</p>\r\n<p><strong>Om dig</strong></p>\r\n<p>Detta är den grundläggande informationen om dig</p>.\r\n<p><strong>Bostad</strong></p>\r\n<p>Här kan du eventuellt ange den plats där du bor</p>.\r\n<p><strong>Hemsida</strong></p>\r\n<p>Här kan du eventuellt ange en hemsida och/eller en blogg.</p>\r\n<p><strong>Snabbmeddelandetjänster</strong></p>\r\n<p>Här kan du eventuellt ange dina Messenger Ids för tjänster som  XMPP, Facebook och Twitter.</p>\r\n<p><strong>Tidszon</strong></p>\r\n<p>Här kan du ange tidszon för att justera bordets tid och datum till din lokala tid. Och ställa in sommartid om den ska justeras automatiskt.</p>\r\n<p><strong>Inställningar för forum</strong></p>\r\n<p>Här kan du ändra din e-postadress.</p>\r\n<p>Och om administratören har aktiverat det kan du ändra forumets <strong>språk</strong>, <strong>tema</strong> för webbplatsen och <strong>textredigeraren</strong> (som används för att lägga upp meddelanden).</p>\r\n<p>Det finns också en inställning &quot;Single Sign On&quot; (Om den&rsquo;är aktiverad). Om du aktiverar den kan du logga in via Facebook, du anger också ditt Facebook-ID ovan.</p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -12795,19 +12779,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Liknande ämnen"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Kontakta {0} via Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -13183,10 +13159,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Visa alla inlägg av användare"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm)-ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

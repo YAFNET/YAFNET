@@ -557,16 +557,8 @@
             "#text": "Gebruikt MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Gebruikt Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Gebruikt XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Gebruikt YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "Exporteren naar tekstbestand"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Adres(sen) importeren"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "Geblokkeerde IP-Adressen"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3791,6 +3783,14 @@
             "#text": "Negeer sessies automatisch voor gebruikers die gemarkeerd zijn als \"Don't Track\", zoals zoekmachines en Bots. Alleen aanzetten bij sessie-problemen."
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Actieve Gebruikers Timeout:"
           },
@@ -3972,7 +3972,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Zet het 'Deel-Menu' aan of uit, zodat een gebruiker een topic kan delen via Email, Tweet, Buzz, Liken op Facebook, +Google, Digg, Reddit of Tumblr."
+            "#text": "Zet het 'Deel-Menu' aan of uit, zodat een gebruiker een topic kan delen via Email, Tweet, Buzz, Liken op Facebook, +Google, Reddit of Tumblr."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5629,14 +5629,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Merkteken om beveiligde web service calls te maken. Wijzigt voortdurend totdat je de host settings hebt opgeslagen."
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7186,10 +7178,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Klik hier om de verborgen tekst (ook wel bekend als een spoiler) te verbergen of te laten zien"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Voer de Status-ID in van de Tweet die je wilt insluiten"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9887,10 +9875,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Je SKYPE ID:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Tijdzone"
           },
@@ -10307,7 +10291,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Je kunt je Account informatie wijzigen in Persoonlijk Profiel -&gt; 'Profiel Bewerken' in je Profiel. Als je je wachtwoord wilt wijzigen kom je op een aparte pagina terecht, wanneer je op 'Wijzig Wachtwoord' klikt.</p>\r\n<p><strong>Profiel Bewerken</strong> Pagina</p>\r\n<p>Met deze pagina kun je een aantal verplichte en optionele details ingeven, waarvan een aantal op je publieke profielpagina komen te staan. Als bepaalde zaken niet publiek wilt maken, hoef je die niet in te vullen (je e-mailadres is wel verplicht).</p>\r\n<p><strong>Over jezelf</strong></p>\r\n<p>Dit is standaard informatie over jezelf</p>\r\n<p><strong>Locatie</strong></p>\r\n<p>Hier kun je invullen waar je woont (optioneel)</p>\r\n<p><strong>Homepage</strong></p>\r\n<p>Hier kun je een link naar je site en/of Blog plaatsen (optioneel).</p>\r\n<p><strong>Instant messaging diensten</strong></p>\r\n<p>Hier kun je de ID's van messenger diensten zoals MSN, XMPP, SKYPE invullen (optioneel).</p>\r\n<p><strong>Tijdzone</strong></p>\r\n<p>Hier kun je de tijdzone instellen, zodat de op je pc kunt aanpassen aan de tijd op het forum. En je kunt instellen of de zomertijd automatisch moet worden aangepast.</p>\r\n<p><strong>Forum Instellingen</strong></p>\r\n<p>Hier kun je je e-mailadres wijzigen.</p>\r\n<p>En als de beheerder het heeft geactiveerd, kun je de <strong>Taal</strong> en het <strong>Thema</strong> van de site instellen.</p>\r\n\r\n"
+            "#text": "<p>Je kunt je Account informatie wijzigen in Persoonlijk Profiel -&gt; 'Profiel Bewerken' in je Profiel. Als je je wachtwoord wilt wijzigen kom je op een aparte pagina terecht, wanneer je op 'Wijzig Wachtwoord' klikt.</p>\r\n<p><strong>Profiel Bewerken</strong> Pagina</p>\r\n<p>Met deze pagina kun je een aantal verplichte en optionele details ingeven, waarvan een aantal op je publieke profielpagina komen te staan. Als bepaalde zaken niet publiek wilt maken, hoef je die niet in te vullen (je e-mailadres is wel verplicht).</p>\r\n<p><strong>Over jezelf</strong></p>\r\n<p>Dit is standaard informatie over jezelf</p>\r\n<p><strong>Locatie</strong></p>\r\n<p>Hier kun je invullen waar je woont (optioneel)</p>\r\n<p><strong>Homepage</strong></p>\r\n<p>Hier kun je een link naar je site en/of Blog plaatsen (optioneel).</p>\r\n<p><strong>Instant messaging diensten</strong></p>\r\n<p>Hier kun je de ID's van messenger diensten zoals  XMPP invullen (optioneel).</p>\r\n<p><strong>Tijdzone</strong></p>\r\n<p>Hier kun je de tijdzone instellen, zodat de op je pc kunt aanpassen aan de tijd op het forum. En je kunt instellen of de zomertijd automatisch moet worden aangepast.</p>\r\n<p><strong>Forum Instellingen</strong></p>\r\n<p>Hier kun je je e-mailadres wijzigen.</p>\r\n<p>En als de beheerder het heeft geactiveerd, kun je de <strong>Taal</strong> en het <strong>Thema</strong> van de site instellen.</p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -12779,19 +12763,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Deel dit topic via Email, Twitter, Google+, Facebook, Digg, Reddit of Tumblr."
+            "#text": "Deel dit topic via Email, Facebook, Reddit of Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Vergelijkbare onderwerpen"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Neem met {0} contact op via Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -13167,10 +13143,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Bekijk alle berichte van deze gebruiker"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm)-ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

@@ -557,16 +557,8 @@
             "#text": "משתמש ב-MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "משתמש בסקייפ"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "משתמש ב-XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "משתמש ב-YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "ייצוא לקובץ טקסט"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "כתובות ייבוא"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "כתובות IP אסורות"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3799,6 +3791,14 @@
             "#text": "נטישה אוטומטית של הפעלות עבור משתמשים המסומנים כ&quot;אל תעקוב&quot; כמו מנועי חיפוש ובוטים. הפעל אם אתה נתקל בבעיות כלשהן בהפעלה."
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "זמן משתמשים פעילים:"
           },
@@ -3980,7 +3980,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "מפעיל/משבית את תפריט השיתוף, שבו משתמש יכול לשלוח דוא&quot;ל, ציוץ, באז, לייק בפייסבוק, Digg, Reddit או Tumblr נושא."
+            "#text": "מפעיל/משבית את תפריט השיתוף, שבו משתמש יכול לשלוח דוא&quot;ל, ציוץ, באז, לייק בפייסבוק, Reddit או Tumblr נושא."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5637,14 +5637,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "אסימון המשמש לביצוע שיחות שירות אינטרנט מאובטח. משתנה כל הזמן עד שתשמור את הגדרות המארח שלך."
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7194,10 +7186,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "לחץ כאן כדי להציג או להסתיר את הטקסט הנסתר (ידוע גם כספוילר)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "הזן את מזהה הסטטוס של הציוץ שברצונך להטביע"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9899,10 +9887,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "שם המשתמש שלך בסקייפ:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "איזור זמן"
           },
@@ -10319,7 +10303,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">אתה יכול לשנות את פרטי החשבון שלך באמצעות פרופיל אישי -&gt; אפשרות &#39;ערוך פרופיל&#39; מתוך <strong>לוח הבקרה</strong> של המשתמש. אם אתה רוצה לשנות את הסיסמה שלך יש עמוד נוסף (שנה סיסמה) עבור זה <strong>בלוח הבקרה של המשתמש</strong> , שבו תוכל להגדיר סיסמה חדשה.</p><p style=\";text-align:right;direction:rtl\"> <strong>ערוך דף פרופיל</strong></p><p style=\";text-align:right;direction:rtl\"> דף זה מאפשר לך להגדיר מספר פרטים נדרשים ואופציונליים, שחלקם יוצגו בפרופיל הציבורי שלך. למעט כתובת הדואר האלקטרוני שלך, אל תזין מידע שאינך מעוניין שיהיה גלוי לציבור.</p><p style=\";text-align:right;direction:rtl\"> <strong>עליך</strong></p><p style=\";text-align:right;direction:rtl\"> אלה המידע הבסיסי עליך</p><p style=\";text-align:right;direction:rtl\"> <strong>מקום</strong></p><p style=\";text-align:right;direction:rtl\"> כאן אתה יכול להזין באופן אופציונלי את המקום שבו אתה גר</p><p style=\";text-align:right;direction:rtl\"> <strong>דף הבית</strong></p><p style=\";text-align:right;direction:rtl\"> כאן תוכל להיכנס לדף הבית ו/או לבלוג באופן אופציונלי.</p><p style=\";text-align:right;direction:rtl\"> <strong>שירותי מסרים מיידיים</strong></p><p style=\";text-align:right;direction:rtl\"> כאן תוכל להזין באופן אופציונלי את מזהי המסנג&#39;ר שלך של שירותים כגון MSN, XMPP, SKYPE, Facebook וטוויטר.</p><p style=\";text-align:right;direction:rtl\"> <strong>אזור זמן</strong></p><p style=\";text-align:right;direction:rtl\"> כאן אתה יכול לציין את אזור הזמן כדי להתאים את השעה והתאריך של הלוח לזמן המקומי שלך. והגדר את שעון הקיץ אם הוא יותאם אוטומטית.</p><p style=\";text-align:right;direction:rtl\"> <strong>הגדרות הפורום</strong></p><p style=\";text-align:right;direction:rtl\"> כאן אתה משנה את כתובת האימייל שלך.</p><p style=\";text-align:right;direction:rtl\"> ואם המנהל הפעיל את זה אתה יכול לשנות את <strong>שפת</strong> הפורום, <strong>נושא</strong> האתר <strong>ועורך הטקסט</strong> (שמשמש לפרסום הודעות).</p><p style=\";text-align:right;direction:rtl\"> יש גם הגדרה &quot;כניסה יחידה&quot; (אם היא מופעלת). אם אתה מפעיל את זה אתה יכול להיכנס דרך פייסבוק, אתה גם הזן את מזהה הפייסבוק שלך למעלה.</p>"
+            "#text": "<p style=\";text-align:right;direction:rtl\">אתה יכול לשנות את פרטי החשבון שלך באמצעות פרופיל אישי -&gt; אפשרות &#39;ערוך פרופיל&#39; מתוך <strong>לוח הבקרה</strong> של המשתמש. אם אתה רוצה לשנות את הסיסמה שלך יש עמוד נוסף (שנה סיסמה) עבור זה <strong>בלוח הבקרה של המשתמש</strong> , שבו תוכל להגדיר סיסמה חדשה.</p><p style=\";text-align:right;direction:rtl\"> <strong>ערוך דף פרופיל</strong></p><p style=\";text-align:right;direction:rtl\"> דף זה מאפשר לך להגדיר מספר פרטים נדרשים ואופציונליים, שחלקם יוצגו בפרופיל הציבורי שלך. למעט כתובת הדואר האלקטרוני שלך, אל תזין מידע שאינך מעוניין שיהיה גלוי לציבור.</p><p style=\";text-align:right;direction:rtl\"> <strong>עליך</strong></p><p style=\";text-align:right;direction:rtl\"> אלה המידע הבסיסי עליך</p><p style=\";text-align:right;direction:rtl\"> <strong>מקום</strong></p><p style=\";text-align:right;direction:rtl\"> כאן אתה יכול להזין באופן אופציונלי את המקום שבו אתה גר</p><p style=\";text-align:right;direction:rtl\"> <strong>דף הבית</strong></p><p style=\";text-align:right;direction:rtl\"> כאן תוכל להיכנס לדף הבית ו/או לבלוג באופן אופציונלי.</p><p style=\";text-align:right;direction:rtl\"> <strong>שירותי מסרים מיידיים</strong></p><p style=\";text-align:right;direction:rtl\"> כאן תוכל להזין באופן אופציונלי את מזהי המסנג&#39;ר שלך של שירותים כגון  XMPP, Facebook וטוויטר.</p><p style=\";text-align:right;direction:rtl\"> <strong>אזור זמן</strong></p><p style=\";text-align:right;direction:rtl\"> כאן אתה יכול לציין את אזור הזמן כדי להתאים את השעה והתאריך של הלוח לזמן המקומי שלך. והגדר את שעון הקיץ אם הוא יותאם אוטומטית.</p><p style=\";text-align:right;direction:rtl\"> <strong>הגדרות הפורום</strong></p><p style=\";text-align:right;direction:rtl\"> כאן אתה משנה את כתובת האימייל שלך.</p><p style=\";text-align:right;direction:rtl\"> ואם המנהל הפעיל את זה אתה יכול לשנות את <strong>שפת</strong> הפורום, <strong>נושא</strong> האתר <strong>ועורך הטקסט</strong> (שמשמש לפרסום הודעות).</p><p style=\";text-align:right;direction:rtl\"> יש גם הגדרה &quot;כניסה יחידה&quot; (אם היא מופעלת). אם אתה מפעיל את זה אתה יכול להיכנס דרך פייסבוק, אתה גם הזן את מזהה הפייסבוק שלך למעלה.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -12807,19 +12791,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "נושאים דומים"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "סקייפ"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "צור קשר עם {0} באמצעות Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -13195,10 +13171,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "הצג את כל ההודעות על ידי משתמש"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "זהות Skype(tm):"
           },
           {
             "@tag": "SOCIAL_MEDIA",

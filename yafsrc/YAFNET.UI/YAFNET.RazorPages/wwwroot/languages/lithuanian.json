@@ -557,16 +557,8 @@
             "#text": "Naudoja MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Naudoja \"Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Naudoja XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Naudoja YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "Eksportuoti į teksto failą"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Importo adresas (-ai)"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "Uždrausti IP adresai"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3799,6 +3791,14 @@
             "#text": "Automatiškai nutraukite naudotojų, kurie pažymėti kaip \"Nesekti\", pavyzdžiui, paieškos sistemų ir robotų, sesijas. Įjunkite, jei kyla problemų su sesijomis."
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Aktyvių naudotojų laikas:"
           },
@@ -5637,14 +5637,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Ženklas, naudojamas saugiems žiniatinklio paslaugos skambučiams atlikti. Nuolat keičiasi, kol išsaugote prieglobos nustatymus."
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7194,10 +7186,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Spustelėkite čia, jei norite parodyti arba paslėpti paslėptą tekstą (dar vadinamą spoileriu)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Įveskite norimo įterpti Tweet'o būsenos ID"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9895,10 +9883,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Jūsų SKYPE ID:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Laiko juosta "
           },
@@ -10315,7 +10299,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Savo paskyros informaciją galite keisti naudodami asmeninio profilio -&gt; \"Redaguoti profilį\" parinktį, esančią <strong>Vartotojo valdymo skydelyje</strong>. Jei norite pakeisti slaptažodį, <strong>Vartotojo valdymo skydelyje</strong> tam yra papildomas puslapis (\"Keisti slaptažodį\"), kuriame galite nustatyti naują slaptažodį.</p>\r\n<p><strong>Profilio redagavimo puslapis</strong></p>\r\n<p>Šiame puslapyje galite nustatyti daug privalomų ir neprivalomų duomenų, iš kurių kai kurie bus rodomi jūsų viešajame profilyje. Išskyrus el. pašto adresą, neįveskite informacijos, kurios nenorite, kad ji būtų matoma viešai.</p> </p>\r\n<p><strong>Apie jus</strong></p>\r\n<p>Tai pagrindinė informacija apie jus</p>\r\n<p><strong>Gyvenamoji vieta</strong></p>\r\n<p>Tur galite pasirinktinai įvesti Vietą, kurioje gyvenate</p>\r\n<p><strong>Pagrindinis puslapis</strong></p>\r\n<p>Tur galite pasirinktinai įvesti Namų puslapį ir (arba) tinklaraštį </p>.\r\n<p><strong>Nuolatinių žinučių siuntimo paslaugos</strong></p>\r\n<p>Tur galite pasirinktinai įvesti savo žinučių siuntimo paslaugų, pavyzdžiui, MSN, XMPP, SKYPE, \"Facebook\" ir \"Twitter\", ID.</p>\r\n<p><strong>Taikos zona</strong></p>\r\n<p>Šioje vietoje galite nurodyti laiko juostą, kad valdybos laiką ir datą pritaikytumėte prie savo vietinio laiko. Taip pat nustatykite vasaros laiką, jei jis turėtų būti pritaikytas automatiškai.</p>\r\n<p><strong>Forumo nustatymai</strong></p>\r\n<p>Tur galite pakeisti savo el. pašto adresą.</p>\r\n<p>Antra, jei administratorius leido, galite pakeisti forumo <strong>kalbą</strong>, <strong>Svetainės temą</strong> ir <strong>Teksto redaktorių</strong> (kuris naudojamas žinutėms rašyti).</p>\r\n<p>Taip pat yra nustatymas &quot;Single Sign On&quot; (Jei jis&rsquo;įjungtas). Jei jį įjungsite, galėsite prisijungti per \"Facebook\", taip pat pirmiau įveskite savo \"Facebook\" ID.</p>\r\n\r\n"
+            "#text": "<p>Savo paskyros informaciją galite keisti naudodami asmeninio profilio -&gt; \"Redaguoti profilį\" parinktį, esančią <strong>Vartotojo valdymo skydelyje</strong>. Jei norite pakeisti slaptažodį, <strong>Vartotojo valdymo skydelyje</strong> tam yra papildomas puslapis (\"Keisti slaptažodį\"), kuriame galite nustatyti naują slaptažodį.</p>\r\n<p><strong>Profilio redagavimo puslapis</strong></p>\r\n<p>Šiame puslapyje galite nustatyti daug privalomų ir neprivalomų duomenų, iš kurių kai kurie bus rodomi jūsų viešajame profilyje. Išskyrus el. pašto adresą, neįveskite informacijos, kurios nenorite, kad ji būtų matoma viešai.</p> </p>\r\n<p><strong>Apie jus</strong></p>\r\n<p>Tai pagrindinė informacija apie jus</p>\r\n<p><strong>Gyvenamoji vieta</strong></p>\r\n<p>Tur galite pasirinktinai įvesti Vietą, kurioje gyvenate</p>\r\n<p><strong>Pagrindinis puslapis</strong></p>\r\n<p>Tur galite pasirinktinai įvesti Namų puslapį ir (arba) tinklaraštį </p>.\r\n<p><strong>Nuolatinių žinučių siuntimo paslaugos</strong></p>\r\n<p>Tur galite pasirinktinai įvesti savo žinučių siuntimo paslaugų, pavyzdžiui,  XMPP, \"Facebook\" ir \"Twitter\", ID.</p>\r\n<p><strong>Taikos zona</strong></p>\r\n<p>Šioje vietoje galite nurodyti laiko juostą, kad valdybos laiką ir datą pritaikytumėte prie savo vietinio laiko. Taip pat nustatykite vasaros laiką, jei jis turėtų būti pritaikytas automatiškai.</p>\r\n<p><strong>Forumo nustatymai</strong></p>\r\n<p>Tur galite pakeisti savo el. pašto adresą.</p>\r\n<p>Antra, jei administratorius leido, galite pakeisti forumo <strong>kalbą</strong>, <strong>Svetainės temą</strong> ir <strong>Teksto redaktorių</strong> (kuris naudojamas žinutėms rašyti).</p>\r\n<p>Taip pat yra nustatymas &quot;Single Sign On&quot; (Jei jis&rsquo;įjungtas). Jei jį įjungsite, galėsite prisijungti per \"Facebook\", taip pat pirmiau įveskite savo \"Facebook\" ID.</p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -12795,19 +12779,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Panašios temos"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Susisiekite su {0} per \"Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -13183,10 +13159,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Peržiūrėti visas naudotojo žinutes"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "\"Skype\"(tm) ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

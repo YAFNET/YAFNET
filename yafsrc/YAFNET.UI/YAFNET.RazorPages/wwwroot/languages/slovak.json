@@ -557,16 +557,8 @@
             "#text": "Používa MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Používa Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Používa XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Používa YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "Export do textového súboru"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Dovozná adresa (adresy)"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "Zakázané IP adresy"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3799,6 +3791,14 @@
             "#text": "Automatické ukončenie relácií používateľov, ktorí sú označení ako \"Nesledovať\", napríklad vyhľadávače a roboty. Zapnite, ak máte problémy s reláciami."
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Čas aktívnych používateľov:"
           },
@@ -3980,7 +3980,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Zapnutie/vypnutie zdieľania Ponuka, v ktorej môže používateľ poslať e-mail, Tweet, Buzz, Like na Facebooku, Digg, Reddit alebo Tumblr."
+            "#text": "Zapnutie/vypnutie zdieľania Ponuka, v ktorej môže používateľ poslať e-mail, Tweet, Buzz, Like na Facebooku, Reddit alebo Tumblr."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5637,14 +5637,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token používaný na bezpečné volania webovej služby. Neustále sa mení, kým neuložíte nastavenia hostiteľa."
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7194,10 +7186,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Kliknutím sem zobrazíte alebo skryjete skrytý text (známy aj ako spoiler)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Zadajte ID stavu tweetu, ktorý chcete vložiť"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9895,10 +9883,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Vaše ID SKYPE:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Časová zóna"
           },
@@ -10315,7 +10299,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Môžete zmeniť informácie o svojom účte pomocou možnosti Osobný profil -&gt; \"Upraviť profil\" v rámci <strong>Užívateľského ovládacieho panela</strong>. Ak chcete zmeniť svoje heslo, v <strong>Užívateľskom ovládacom paneli</strong> je na to určená ďalšia stránka (Zmena hesla), kde môžete nastaviť nové heslo.</p>\r\n<p><strong>Stránka na úpravu profilu</strong></p>\r\n<p>Táto stránka umožňuje nastaviť množstvo povinných a nepovinných údajov, z ktorých niektoré sa budú zobrazovať vo vašom verejnom profile. S výnimkou vašej e-mailovej adresy nezadávajte údaje, ktoré nechcete, aby boli verejne viditeľné.</p>\r\n<p><strong>O vás</strong></p>\r\n<p>Tieto sú základné informácie o vás</p>\r\n<p><strong>Poloha</strong></p>\r\n<p>Tu môžete voliteľne zadať Miesto, kde žijete</p>\r\n<p><strong>Hlavná stránka</strong></p>\r\n<p>Tu môžete voliteľne zadať Domovskú stránku a/alebo Blog.</p>\r\n<p><strong>Služby okamžitých správ</strong></p>\r\n<p>Tu môžete voliteľne zadať identifikačné čísla správ služieb, ako sú MSN, XMPP, SKYPE, Facebook a Twitter.</p>\r\n<p><strong>Časové pásmo</strong></p>\r\n<p>Tu môžete zadať časové pásmo, aby ste prispôsobili čas a dátum na nástenke svojmu miestnemu času. A nastaviť letný čas, ak sa má automaticky prispôsobiť.</p>\r\n<p><strong>Nastavenia fóra</strong></p>\r\n<p>Tu môžete zmeniť svoju e-mailovú adresu.</p>\r\n<p>A ak to správca povolil, môžete zmeniť <strong>jazyk fóra</strong>, <strong>tému</strong> stránky a <strong>textový editor</strong> (ktorý sa používa na odosielanie správ).</p>\r\n<p>K dispozícii je aj nastavenie &quot;Single Sign On&quot; (Ak je aktivované). Ak ho zapnete, môžete sa prihlásiť cez Facebook, pričom vyššie zadáte aj svoje Facebook ID.</p>\r\n\r\n"
+            "#text": "<p>Môžete zmeniť informácie o svojom účte pomocou možnosti Osobný profil -&gt; \"Upraviť profil\" v rámci <strong>Užívateľského ovládacieho panela</strong>. Ak chcete zmeniť svoje heslo, v <strong>Užívateľskom ovládacom paneli</strong> je na to určená ďalšia stránka (Zmena hesla), kde môžete nastaviť nové heslo.</p>\r\n<p><strong>Stránka na úpravu profilu</strong></p>\r\n<p>Táto stránka umožňuje nastaviť množstvo povinných a nepovinných údajov, z ktorých niektoré sa budú zobrazovať vo vašom verejnom profile. S výnimkou vašej e-mailovej adresy nezadávajte údaje, ktoré nechcete, aby boli verejne viditeľné.</p>\r\n<p><strong>O vás</strong></p>\r\n<p>Tieto sú základné informácie o vás</p>\r\n<p><strong>Poloha</strong></p>\r\n<p>Tu môžete voliteľne zadať Miesto, kde žijete</p>\r\n<p><strong>Hlavná stránka</strong></p>\r\n<p>Tu môžete voliteľne zadať Domovskú stránku a/alebo Blog.</p>\r\n<p><strong>Služby okamžitých správ</strong></p>\r\n<p>Tu môžete voliteľne zadať identifikačné čísla správ služieb, ako sú  XMPP, Facebook a Twitter.</p>\r\n<p><strong>Časové pásmo</strong></p>\r\n<p>Tu môžete zadať časové pásmo, aby ste prispôsobili čas a dátum na nástenke svojmu miestnemu času. A nastaviť letný čas, ak sa má automaticky prispôsobiť.</p>\r\n<p><strong>Nastavenia fóra</strong></p>\r\n<p>Tu môžete zmeniť svoju e-mailovú adresu.</p>\r\n<p>A ak to správca povolil, môžete zmeniť <strong>jazyk fóra</strong>, <strong>tému</strong> stránky a <strong>textový editor</strong> (ktorý sa používa na odosielanie správ).</p>\r\n<p>K dispozícii je aj nastavenie &quot;Single Sign On&quot; (Ak je aktivované). Ak ho zapnete, môžete sa prihlásiť cez Facebook, pričom vyššie zadáte aj svoje Facebook ID.</p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -12795,19 +12779,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Podobné témy"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Kontaktovať {0} cez Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -13183,10 +13159,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Zobraziť všetky príspevky od používateľa"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm) ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

@@ -558,11 +558,6 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             userProfile.Homepage = (string)row["Homepage"];
         }
 
-        if (row.Table.Columns.Contains("Skype") && ((string)row["Skype"]).IsSet())
-        {
-            userProfile.Skype = (string)row["Skype"];
-        }
-
         if (row.Table.Columns.Contains("XMPP") && ((string)row["XMPP"]).IsSet())
         {
             userProfile.XMPP = (string)row["XMPP"];
@@ -606,7 +601,6 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             Profile_City = userProfile.City,
             Profile_Occupation = userProfile.Occupation,
             Profile_RealName = userProfile.RealName,
-            Profile_Skype = userProfile.Skype,
             Profile_XMPP = userProfile.XMPP
         };
 

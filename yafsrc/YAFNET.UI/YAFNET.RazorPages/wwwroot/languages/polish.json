@@ -557,16 +557,8 @@
             "#text": "Używa MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Używa Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Używa XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Używa YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "Eksport do pliku tekstowego"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Importuj adres(y)"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "Zbanowane adresy IP"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3791,6 +3783,14 @@
             "#text": "Automatycznie porzucaj sesje dla użytkowników oznaczonych jako \"Nie śledź\", takich jak wyszukiwarki i boty. Włącz, jeśli występują problemy z sesjami."
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Czas aktywnych użytkowników:"
           },
@@ -3972,7 +3972,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Włącza/wyłącza menu udostępniania, za pomocą którego użytkownik może wysłać wiadomość e-mail, Tweet, Buzz, Like on Facebook, Digg, Reddit lub Tumblr na temat."
+            "#text": "Włącza/wyłącza menu udostępniania, za pomocą którego użytkownik może wysłać wiadomość e-mail, Tweet, Buzz, Like on Facebook, Reddit lub Tumblr na temat."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5629,14 +5629,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token używany do bezpiecznego wywoływania usług sieciowych. Stale się zmienia, dopóki nie zapiszesz ustawień hosta."
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7186,10 +7178,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Kliknij tutaj, aby pokazać lub ukryć ukryty tekst (znany również jako spoiler)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Wpisz identyfikator statusu Tweeta, który chcesz osadzić"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9891,10 +9879,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Twoja nazwa konta Skype:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Strefa czasowa:"
           },
@@ -10311,7 +10295,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Możesz zmienić informacje o swoim koncie, korzystając z opcji Profil osobisty -&gt; 'Edytuj profil' w Panelu użytkownika</strong>. Jeśli chcesz zmienić swoje Hasło, w Panelu użytkownika jest do tego celu dodatkowa strona (Zmień hasło), na której możesz ustawić nowe Hasło.</p> <p><strong>Panel użytkownika</strong>.\r\n<p><strong>Strona Edytuj profil</strong></p>>\r\n<p>Ta strona umożliwia ustawienie szeregu wymaganych i opcjonalnych szczegółów, z których część będzie wyświetlana w Twoim publicznym profilu. Z wyjątkiem adresu e-mail, nie należy wprowadzać informacji, które nie mają być widoczne publicznie.</p> <p><strong>Abidemia\r\n<p><strong>O Tobie</strong></p>>\r\n<p>Podstawowe informacje o Tobie</p> <p><strong>Miejsce zamieszkania\r\n<p><strong>Miejsce zamieszkania</strong></p> <p><strong>Miejsce zamieszkania</strong></p>\r\n<p>W tym miejscu możesz opcjonalnie wpisać Miejscowość, w której mieszkasz</p> <p><strong>Miejsce zamieszkania</strong></p>\r\n<p><strong>Strona główna</strong></p> <p>\r\n\r\n<p><strong>Instant messaging services</strong></p> <p>Tutaj możesz opcjonalnie wpisać Strona główna i/lub Blog.\r\n<p>W tym miejscu można opcjonalnie wprowadzić identyfikatory komunikatorów takich usług, jak MSN, XMPP, SKYPE, Facebook i Twitter.</p> <p><strong>Strefa czasowa</strong></p> <p><strong>Wyłączenie z listy.\r\n<p><strong>Strefa czasowa</strong></p>\r\n<p>W tym miejscu można określić Strefę czasową, aby dostosować godzinę i datę na tablicy do czasu lokalnego. Możesz też ustawić czas letni, jeśli ma być ustawiony automatycznie.</p> <p>\r\n<p><strong>Ustawienia forum</strong></p> <p>W tym miejscu możesz zmienić ustawienia forum.\r\n<p>Tutaj możesz zmienić swój Adres e-mail.</p> <p>\r\n<p>A jeśli administrator to umożliwi, możesz zmienić język forum, motyw strony i edytor tekstu (używany do pisania wiadomości).</p> <p>W tym miejscu możesz zmienić swój adres e-mail.\r\n<p>Jest też ustawienie &quot;Single Sign On&quot; (jeśli jest włączone). Jeśli je włączysz, będziesz mógł logować się przez Facebooka, podając również swój identyfikator z Facebooka powyżej.</p> <p>\r\n\r\n"
+            "#text": "<p>Możesz zmienić informacje o swoim koncie, korzystając z opcji Profil osobisty -&gt; 'Edytuj profil' w Panelu użytkownika</strong>. Jeśli chcesz zmienić swoje Hasło, w Panelu użytkownika jest do tego celu dodatkowa strona (Zmień hasło), na której możesz ustawić nowe Hasło.</p> <p><strong>Panel użytkownika</strong>.\r\n<p><strong>Strona Edytuj profil</strong></p>>\r\n<p>Ta strona umożliwia ustawienie szeregu wymaganych i opcjonalnych szczegółów, z których część będzie wyświetlana w Twoim publicznym profilu. Z wyjątkiem adresu e-mail, nie należy wprowadzać informacji, które nie mają być widoczne publicznie.</p> <p><strong>Abidemia\r\n<p><strong>O Tobie</strong></p>>\r\n<p>Podstawowe informacje o Tobie</p> <p><strong>Miejsce zamieszkania\r\n<p><strong>Miejsce zamieszkania</strong></p> <p><strong>Miejsce zamieszkania</strong></p>\r\n<p>W tym miejscu możesz opcjonalnie wpisać Miejscowość, w której mieszkasz</p> <p><strong>Miejsce zamieszkania</strong></p>\r\n<p><strong>Strona główna</strong></p> <p>\r\n\r\n<p><strong>Instant messaging services</strong></p> <p>Tutaj możesz opcjonalnie wpisać Strona główna i/lub Blog.\r\n<p>W tym miejscu można opcjonalnie wprowadzić identyfikatory komunikatorów takich usług, jak  XMPP, Facebook i Twitter.</p> <p><strong>Strefa czasowa</strong></p> <p><strong>Wyłączenie z listy.\r\n<p><strong>Strefa czasowa</strong></p>\r\n<p>W tym miejscu można określić Strefę czasową, aby dostosować godzinę i datę na tablicy do czasu lokalnego. Możesz też ustawić czas letni, jeśli ma być ustawiony automatycznie.</p> <p>\r\n<p><strong>Ustawienia forum</strong></p> <p>W tym miejscu możesz zmienić ustawienia forum.\r\n<p>Tutaj możesz zmienić swój Adres e-mail.</p> <p>\r\n<p>A jeśli administrator to umożliwi, możesz zmienić język forum, motyw strony i edytor tekstu (używany do pisania wiadomości).</p> <p>W tym miejscu możesz zmienić swój adres e-mail.\r\n<p>Jest też ustawienie &quot;Single Sign On&quot; (jeśli jest włączone). Jeśli je włączysz, będziesz mógł logować się przez Facebooka, podając również swój identyfikator z Facebooka powyżej.</p> <p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -12783,19 +12767,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Podziel się tematem przez e-mail, Twitter, Google+, Facebook, Digg, Reddit, lub Tumblr."
+            "#text": "Podziel się tematem przez e-mail, Facebook, Reddit, lub Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Podobne tematy"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Skontaktuj się z {0} przez Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -13171,10 +13147,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Zobacz wszystkie posty napisane przez użytkownika"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Identyfikator Skype(tm):"
           },
           {
             "@tag": "SOCIAL_MEDIA",

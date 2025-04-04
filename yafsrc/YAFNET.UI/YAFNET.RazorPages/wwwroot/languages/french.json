@@ -557,16 +557,8 @@
             "#text": "Utilise MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Utilise Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Utilise XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Utilise YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "Exportation vers un fichier texte"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Adresse(s) d'importation"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "Adresses IP interdites"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3799,6 +3791,14 @@
             "#text": "Abandonner automatiquement les sessions pour les utilisateurs qui sont marqués comme \"Don't Track\" tels que les moteurs de recherche et les robots. Activez cette fonction si vous rencontrez des problèmes de session."
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Temps des utilisateurs actifs :"
           },
@@ -3980,7 +3980,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Active/désactive le menu de partage, dans lequel un utilisateur peut envoyer un sujet par courrier électronique, le tweeter, le buzzer, l'aimer sur Facebook, le Digg, le Reddit ou le Tumblr."
+            "#text": "Active/désactive le menu de partage, dans lequel un utilisateur peut envoyer un sujet par courrier électronique, le tweeter, le buzzer, l'aimer sur Facebook, le le Reddit ou le Tumblr."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5637,14 +5637,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilisé pour effectuer des appels de service web sécurisés. Il change constamment jusqu'à ce que vous sauvegardiez vos paramètres d'hôte."
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7194,10 +7186,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Cliquez ici pour afficher ou masquer le texte caché (aussi appellé spoiler)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Saisissez l'ID de statut du Tweet que vous souhaitez intégrer."
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9895,10 +9883,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "Votre ID SKYPE :"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Fuseau horaire"
           },
@@ -10315,7 +10299,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "</p> <p>Vous pouvez modifier les informations de votre compte en utilisant Profil personnel -&gt ; option 'Modifier le profil' à partir du <strong>Panneau de configuration de l'utilisateur</strong>. Si vous voulez changer votre mot de passe, il y a une page supplémentaire (Changer le mot de passe) pour cela dans le <strong>Panneau de contrôle de l'utilisateur</strong>, où vous pouvez définir un nouveau mot de passe.</p>\r\n<p><strong>Page de modification du profil</strong></p> <p>.\r\n<p>Cette page vous permet de définir un certain nombre de détails obligatoires et facultatifs, dont certains seront affichés sur votre profil public. A l'exception de votre adresse e-mail, n'entrez pas d'informations que vous ne souhaitez pas voir apparaître publiquement.</p>\r\n<p><strong>A propos de vous</strong></p><strong>.\r\n<p>Voici les informations de base vous concernant</p>.\r\n<p><strong>Localisation</strong></p> <p>.\r\n<p>Ici, vous pouvez éventuellement saisir le Lieu où vous vivez</p>.\r\n<p><strong>Page d'accueil</strong></p><p>\r\n<p>Ici vous pouvez optionnellement entrer une page d'accueil et/ou un Blog.</p>\r\n<p><strong>Services de messagerie instantanée</strong></p> <p>.\r\n</p> <p>Vous pouvez ici saisir de manière facultative vos identifiants de messagerie de services tels que MSN, XMPP, SKYPE, Facebook et Twitter.</p> <p>.\r\n<p><strong>Fuseau horaire</strong></p><p>\r\n<p>Ici, vous pouvez spécifier le fuseau horaire pour ajuster l'heure et la date du conseil à votre heure locale. Et définir l'heure d'été au cas où elle serait automatiquement ajustée.</p>\r\n<p><strong>Paramètres du forum</strong></p> <p>.\r\n<p>C'est ici que vous modifiez votre adresse électronique.</p>\r\n</p> <p>Et si l'Administrateur l'a activé, vous pouvez changer la <strong>Langue</strong> du forum, le <strong>thème</strong> du site et l'<strong>Éditeur de texte</strong> (Qui est utilisé pour poster des messages).</p>\r\n</p> <p>Il existe également un paramètre &quot;Single Sign On&quot ; (S'il&rsquo;est activé). Si vous l'activez, vous pouvez vous connecter par l'intermédiaire de Facebook, vous devez également entrer votre ID Facebook ci-dessus.</p>>\r\n\r\n"
+            "#text": "</p> <p>Vous pouvez modifier les informations de votre compte en utilisant Profil personnel -&gt ; option 'Modifier le profil' à partir du <strong>Panneau de configuration de l'utilisateur</strong>. Si vous voulez changer votre mot de passe, il y a une page supplémentaire (Changer le mot de passe) pour cela dans le <strong>Panneau de contrôle de l'utilisateur</strong>, où vous pouvez définir un nouveau mot de passe.</p>\r\n<p><strong>Page de modification du profil</strong></p> <p>.\r\n<p>Cette page vous permet de définir un certain nombre de détails obligatoires et facultatifs, dont certains seront affichés sur votre profil public. A l'exception de votre adresse e-mail, n'entrez pas d'informations que vous ne souhaitez pas voir apparaître publiquement.</p>\r\n<p><strong>A propos de vous</strong></p><strong>.\r\n<p>Voici les informations de base vous concernant</p>.\r\n<p><strong>Localisation</strong></p> <p>.\r\n<p>Ici, vous pouvez éventuellement saisir le Lieu où vous vivez</p>.\r\n<p><strong>Page d'accueil</strong></p><p>\r\n<p>Ici vous pouvez optionnellement entrer une page d'accueil et/ou un Blog.</p>\r\n<p><strong>Services de messagerie instantanée</strong></p> <p>.\r\n</p> <p>Vous pouvez ici saisir de manière facultative vos identifiants de messagerie de services tels que  XMPP, Facebook et Twitter.</p> <p>.\r\n<p><strong>Fuseau horaire</strong></p><p>\r\n<p>Ici, vous pouvez spécifier le fuseau horaire pour ajuster l'heure et la date du conseil à votre heure locale. Et définir l'heure d'été au cas où elle serait automatiquement ajustée.</p>\r\n<p><strong>Paramètres du forum</strong></p> <p>.\r\n<p>C'est ici que vous modifiez votre adresse électronique.</p>\r\n</p> <p>Et si l'Administrateur l'a activé, vous pouvez changer la <strong>Langue</strong> du forum, le <strong>thème</strong> du site et l'<strong>Éditeur de texte</strong> (Qui est utilisé pour poster des messages).</p>\r\n</p> <p>Il existe également un paramètre &quot;Single Sign On&quot ; (S'il&rsquo;est activé). Si vous l'activez, vous pouvez vous connecter par l'intermédiaire de Facebook, vous devez également entrer votre ID Facebook ci-dessus.</p>>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -12795,19 +12779,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Sujets similaires"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Contactez {0} via Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -13183,10 +13159,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Voir tous les messages de l'utilisateur"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Identifiant Skype(tm) :"
           },
           {
             "@tag": "SOCIAL_MEDIA",

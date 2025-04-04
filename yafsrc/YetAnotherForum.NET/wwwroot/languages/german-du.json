@@ -557,16 +557,8 @@
             "#text": "Benutzt MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Benutzt Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Benutzt XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Benutzt YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -1244,6 +1236,14 @@
             "#text": "In Textdatei exportieren"
           },
           {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Adress(en) importieren"
           },
@@ -1274,14 +1274,6 @@
           {
             "@tag": "TITLE",
             "#text": "Gesperrte IP-Adressen"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
-          },
-          {
-            "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           }
         ]
       },
@@ -3791,6 +3783,14 @@
             "#text": "Automatisch Sessions aufgeben für Benutzer, die als \"Nicht verfolgen\" markiert sind wie z.B.: Suchmaschinen und Bots. Aktivieren Sie, diese Option wenn Sie Probleme mit Sessions haben."
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Aktive Benutzer Zeit:"
           },
@@ -3972,7 +3972,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Aktiviert / deaktiviert die soziale Menü, wo ein Benutzer ein Thema als E-Mail, Tweet, Google+, Like on Facebook, Digg, Reddit oder Tumblr teilen kann."
+            "#text": "Aktiviert / deaktiviert die soziale Menü, wo ein Benutzer ein Thema als E-Mail, Tweet, Like on Facebook, Reddit oder Tumblr teilen kann."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5629,14 +5629,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token die verwendet werden, um sichere Web-Service-Anrufe zu tätigen. Ständig wechselnde, bis Sie Ihren Host Einstellungen  speichern."
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
-          },
-          {
-            "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
           }
         ]
       },
@@ -7186,10 +7178,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Hier klicken, um den verborgenen Text (\"Spoiler\") anzuzeigen oder auszublenden"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Geben Sie hier die Status ID des Tweets ein"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -9887,10 +9875,6 @@
             "#text": "Select the theme mode:"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE ID:"
-          },
-          {
             "@tag": "TIMEZONE",
             "#text": "Zeitzone"
           },
@@ -10307,7 +10291,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Sie können ihre Konto Einstellungen ändern über Mein Profil -&gt; Profil -&gt; 'Profil bearbeiten'. Wenn Sie ihr Passwort ändern wollen dafür gibt es eine extra  Seite &bdquo;Passwort ändern&ldquo; in ihren Einstellungen, wo Sie ein neues Passwort  definieren können.</p>\r\n<p><strong> Profil bearbeiten</strong></p>\r\n<p>Diese Seite erlaubt das Bearbeiten von einigen  erforderlichen  und optionalen Profileigenschaften.  Einige davon werden in ihrem Öffentlichen Profil Angezeigt. Mit Ausnahme der E-Mail  Adresse. Geben Sie keine Informationen die Sie nicht öffentlich einsehbar  machen wollen.</p>\r\n<p><strong>Über dich</strong></p>\r\n<p> Dies sind die grundlegenden Informationen über Sie </p>\r\n<p><strong>Wohnort</strong></p>\r\n<p>Hier können Sie optional den Ort angeben, an dem Sie sich befinden.</p>\r\n<p><strong>Webseite</strong></p>\r\n<p>Optional können Sie hier ihre Webseite und/oder Blog URL angeben.</p>\r\n<p><strong>Messanger</strong></p>\r\n<p>Hier können Sie optional Ihren Messenger-IDs von Diensten wie MSN, XMPP, Skype, Facebook und Twitter eingeben.</p>\r\n<p><strong>Zeitzone</strong></p>\r\n<p>Hier können Sie die Zeitzone angeben damit die Forum Uhrzeit an  ihrer lokalen Zeit angepasst wird. Und geben Sie an ob die Sommerzeit automatisch  eingestellt werden soll.</p>\r\n<p><strong>Einstellungen des Forums</strong></p>\r\n<p>Hier können Sie ihre E-Mail Adresse ändern.</p>\r\n<p>Und wenn vom Administrator aktiviert kann hier die Forum Sprache geändert werden, ein anderes Skin ausgewählt werden, der Text Editor gewählt werden.</p>\r\n<p>Außerdem kann hier die &quot;Single Sign On&quot; Funktion für ihr Konto aktiviert werden wenn Sie sich z.b. über Facebook anmelden möchten, dazu müssen Sie im Bereich Messenger ihre Facebook ID angeben.</p>"
+            "#text": "<p>Sie können ihre Konto Einstellungen ändern über Mein Profil -&gt; Profil -&gt; 'Profil bearbeiten'. Wenn Sie ihr Passwort ändern wollen dafür gibt es eine extra  Seite &bdquo;Passwort ändern&ldquo; in ihren Einstellungen, wo Sie ein neues Passwort  definieren können.</p>\r\n<p><strong> Profil bearbeiten</strong></p>\r\n<p>Diese Seite erlaubt das Bearbeiten von einigen  erforderlichen  und optionalen Profileigenschaften.  Einige davon werden in ihrem Öffentlichen Profil Angezeigt. Mit Ausnahme der E-Mail  Adresse. Geben Sie keine Informationen die Sie nicht öffentlich einsehbar  machen wollen.</p>\r\n<p><strong>Über dich</strong></p>\r\n<p> Dies sind die grundlegenden Informationen über Sie </p>\r\n<p><strong>Wohnort</strong></p>\r\n<p>Hier können Sie optional den Ort angeben, an dem Sie sich befinden.</p>\r\n<p><strong>Webseite</strong></p>\r\n<p>Optional können Sie hier ihre Webseite und/oder Blog URL angeben.</p>\r\n<p><strong>Messanger</strong></p>\r\n<p>Hier können Sie optional Ihren Messenger-IDs von Diensten wie  XMPP, Facebook und Twitter eingeben.</p>\r\n<p><strong>Zeitzone</strong></p>\r\n<p>Hier können Sie die Zeitzone angeben damit die Forum Uhrzeit an  ihrer lokalen Zeit angepasst wird. Und geben Sie an ob die Sommerzeit automatisch  eingestellt werden soll.</p>\r\n<p><strong>Einstellungen des Forums</strong></p>\r\n<p>Hier können Sie ihre E-Mail Adresse ändern.</p>\r\n<p>Und wenn vom Administrator aktiviert kann hier die Forum Sprache geändert werden, ein anderes Skin ausgewählt werden, der Text Editor gewählt werden.</p>\r\n<p>Außerdem kann hier die &quot;Single Sign On&quot; Funktion für ihr Konto aktiviert werden wenn Sie sich z.b. über Facebook anmelden möchten, dazu müssen Sie im Bereich Messenger ihre Facebook ID angeben.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -12779,19 +12763,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Dieses Thema via E-Mail, Twitter, Google+, Facebook, Digg, Reddit oder Tumblr verbreiten"
+            "#text": "Dieses Thema via E-Mail, Facebook, Reddit oder Tumblr verbreiten"
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Ähnliche Themen"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": " {0} via Skype kontaktieren"
           },
           {
             "@tag": "STATISTICS",
@@ -13167,10 +13143,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Alle Beiträge des Mitglieds anschauen"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",

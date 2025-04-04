@@ -112,12 +112,6 @@ public class UserProfileModel : ForumPage
     [BindProperty] public string FacebookUrl { get; set; }
 
     /// <summary>
-    /// Gets or sets the skype URL.
-    /// </summary>
-    /// <value>The skype URL.</value>
-    [BindProperty] public string SkypeUrl { get; set; }
-
-    /// <summary>
     /// Gets or sets the blog URL.
     /// </summary>
     /// <value>The blog URL.</value>
@@ -486,12 +480,7 @@ public class UserProfileModel : ForumPage
                 new { u = this.CombinedUser.Item1.ID });
         }
 
-        if (this.CombinedUser.Item2.Profile_Skype.IsSet())
-        {
-            this.SkypeUrl = $"skype:{this.CombinedUser.Item2.Profile_Skype}?call";
-        }
-
-        if (!this.SkypeUrl.IsSet() && !this.BlogUrl.IsSet() && !this.XmppUrl.IsSet() && !this.FacebookUrl.IsSet())
+        if (!this.BlogUrl.IsSet() && !this.XmppUrl.IsSet() && !this.FacebookUrl.IsSet())
         {
             this.ShowSocialMediaCard = false;
         }
