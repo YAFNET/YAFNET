@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
- * Bootstrap  v5.3.4 (https://getbootstrap.com/)
+ * Bootstrap  v5.3.5 (https://getbootstrap.com/)
  * Copyright 2011-2025 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
@@ -2119,15 +2119,15 @@ progress {
   --bs-table-bg-type: initial;
   --bs-table-color-state: initial;
   --bs-table-bg-state: initial;
-  --bs-table-color: var(--bs-emphasis-color);
+  --bs-table-color: initial;
   --bs-table-bg: var(--bs-body-bg);
   --bs-table-border-color: #333;
   --bs-table-accent-bg: transparent;
-  --bs-table-striped-color: var(--bs-emphasis-color);
+  --bs-table-striped-color: initial;
   --bs-table-striped-bg: rgba(var(--bs-emphasis-color-rgb), 0.05);
-  --bs-table-active-color: var(--bs-emphasis-color);
+  --bs-table-active-color: initial;
   --bs-table-active-bg: rgba(var(--bs-emphasis-color-rgb), 0.1);
-  --bs-table-hover-color: var(--bs-emphasis-color);
+  --bs-table-hover-color: initial;
   --bs-table-hover-bg: #fff;
   width: 100%;
   margin-bottom: 1rem;
@@ -4247,7 +4247,7 @@ textarea.form-control-lg {
   --bs-nav-tabs-border-color: #333;
   --bs-nav-tabs-border-radius: var(--bs-border-radius);
   --bs-nav-tabs-link-hover-border-color: #333;
-  --bs-nav-tabs-link-active-color: #333;
+  --bs-nav-tabs-link-active-color: var(--bs-emphasis-color);
   --bs-nav-tabs-link-active-bg: var(--bs-body-bg);
   --bs-nav-tabs-link-active-border-color: #333;
   border-bottom: var(--bs-nav-tabs-border-width) solid var(--bs-nav-tabs-border-color);
@@ -5253,7 +5253,7 @@ textarea.form-control-lg {
   --bs-breadcrumb-border-radius: 0.25rem;
   --bs-breadcrumb-divider-color: #333;
   --bs-breadcrumb-item-padding-x: 0.5rem;
-  --bs-breadcrumb-item-active-color: #333;
+  --bs-breadcrumb-item-active-color: var(--bs-secondary-color);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -13458,6 +13458,16 @@ table td {
 .table-dark th,
 .table-dark td, .table-dark.table-hover .table-active:hover > th, .table-dark.table-hover .table-active:hover > td {
   background-color: #333;
+}
+
+.table-primary,
+.table-secondary,
+.table-success,
+.table-warning,
+.table-danger,
+.table-info,
+.table-light {
+  --bs-table-color: #212529;
 }
 
 input,

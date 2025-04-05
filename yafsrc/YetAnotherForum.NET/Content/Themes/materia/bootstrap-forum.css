@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
- * Bootstrap  v5.3.4 (https://getbootstrap.com/)
+ * Bootstrap  v5.3.5 (https://getbootstrap.com/)
  * Copyright 2011-2025 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
@@ -2118,15 +2118,15 @@ progress {
   --bs-table-bg-type: initial;
   --bs-table-color-state: initial;
   --bs-table-bg-state: initial;
-  --bs-table-color: var(--bs-emphasis-color);
+  --bs-table-color: initial;
   --bs-table-bg: var(--bs-body-bg);
   --bs-table-border-color: var(--bs-border-color);
   --bs-table-accent-bg: transparent;
-  --bs-table-striped-color: var(--bs-emphasis-color);
+  --bs-table-striped-color: initial;
   --bs-table-striped-bg: rgba(var(--bs-emphasis-color-rgb), 0.05);
-  --bs-table-active-color: var(--bs-emphasis-color);
+  --bs-table-active-color: initial;
   --bs-table-active-bg: rgba(var(--bs-emphasis-color-rgb), 0.1);
-  --bs-table-hover-color: var(--bs-emphasis-color);
+  --bs-table-hover-color: initial;
   --bs-table-hover-bg: rgba(var(--bs-emphasis-color-rgb), 0.075);
   width: 100%;
   margin-bottom: 1rem;
@@ -2519,7 +2519,7 @@ progress {
 }
 
 .form-control-sm {
-  min-height: calc(1.5em + 0 + calc(0 * 2));
+  min-height: 1.5em;
   padding: 0 0;
   font-size: 0.875rem;
   border-radius: 0;
@@ -2538,7 +2538,7 @@ progress {
 }
 
 .form-control-lg {
-  min-height: calc(1.5em + 2.5rem + calc(0 * 2));
+  min-height: calc(1.5em + 2.5rem);
   padding: 1.25rem 0;
   font-size: 1.25rem;
   border-radius: 0;
@@ -2557,18 +2557,18 @@ progress {
 }
 
 textarea.form-control {
-  min-height: calc(1.5em + 2rem + calc(0 * 2));
+  min-height: calc(1.5em + 2rem);
 }
 textarea.form-control-sm {
-  min-height: calc(1.5em + 0 + calc(0 * 2));
+  min-height: 1.5em;
 }
 textarea.form-control-lg {
-  min-height: calc(1.5em + 2.5rem + calc(0 * 2));
+  min-height: calc(1.5em + 2.5rem);
 }
 
 .form-control-color {
   width: 3rem;
-  height: calc(1.5em + 2rem + calc(0 * 2));
+  height: calc(1.5em + 2rem);
   padding: 1rem;
 }
 .form-control-color:not(:disabled):not([readonly]) {
@@ -2583,10 +2583,10 @@ textarea.form-control-lg {
   border-radius: 0;
 }
 .form-control-color.form-control-sm {
-  height: calc(1.5em + 0 + calc(0 * 2));
+  height: 1.5em;
 }
 .form-control-color.form-control-lg {
-  height: calc(1.5em + 2.5rem + calc(0 * 2));
+  height: calc(1.5em + 2.5rem);
 }
 
 .form-select {
@@ -2900,8 +2900,8 @@ textarea.form-control-lg {
 .form-floating > .form-control,
 .form-floating > .form-control-plaintext,
 .form-floating > .form-select {
-  height: calc(3.5rem + calc(0 * 2));
-  min-height: calc(3.5rem + calc(0 * 2));
+  height: 3.5rem;
+  min-height: 3.5rem;
   line-height: 1.25;
 }
 .form-floating > label {
@@ -14125,6 +14125,16 @@ p {
 .thead-inverse th {
   color: #fff;
   background-color: #2196f3;
+}
+
+.table-primary,
+.table-secondary,
+.table-success,
+.table-warning,
+.table-danger,
+.table-info,
+.table-light {
+  --bs-table-color: #444;
 }
 
 .col-form-label {
