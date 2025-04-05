@@ -217,6 +217,8 @@ module.exports = function(grunt) {
                     'BootstrapEmail.Cli -f ../../YetAnotherForum.NET/Resources/EmailTemplate.html -d ../../YetAnotherForum.NET/Content/Themes/yeti/EmailTemplate.html -c ../../YetAnotherForum.NET/Content/Themes/yeti/bootstrap_email.json',
                     'echo Build zephyr theme email template',
                     'BootstrapEmail.Cli -f ../../YetAnotherForum.NET/Resources/EmailTemplate.html -d ../../YetAnotherForum.NET/Content/Themes/zephyr/EmailTemplate.html -c ../../YetAnotherForum.NET/Content/Themes/zephyr/bootstrap_email.json',
+                    'echo Build brite theme email template',
+                    'BootstrapEmail.Cli -f ../../YetAnotherForum.NET/Resources/EmailTemplate.html -d ../../YetAnotherForum.NET/Content/Themes/brite/EmailTemplate.html -c ../../YetAnotherForum.NET/Content/Themes/brite/bootstrap_email.json',
                     'rmdir .sass-cache /s /q'
                 ].join('&&')
             },
@@ -276,6 +278,8 @@ module.exports = function(grunt) {
                     'BootstrapEmail.Cli -f ../../YetAnotherForum.NET/Resources/DigestTopicTemplate.html -d ../../YetAnotherForum.NET/Content/Themes/yeti/DigestTopicTemplate.html -c ../../YetAnotherForum.NET/Content/Themes/yeti/bootstrap_email-digest.json',
                     'echo Build zephyr theme digest email template',
                     'BootstrapEmail.Cli -f ../../YetAnotherForum.NET/Resources/DigestTopicTemplate.html -d ../../YetAnotherForum.NET/Content/Themes/zephyr/DigestTopicTemplate.html -c ../../YetAnotherForum.NET/Content/Themes/zephyr/bootstrap_email-digest.json',
+                    'echo Build brite theme digest email template',
+                    'BootstrapEmail.Cli -f ../../YetAnotherForum.NET/Resources/DigestTopicTemplate.html -d ../../YetAnotherForum.NET/Content/Themes/brite/DigestTopicTemplate.html -c ../../YetAnotherForum.NET/Content/Themes/brite/bootstrap_email-digest.json',
                     'rmdir .sass-cache /s /q'
                 ].join('&&')
             }
@@ -535,6 +539,7 @@ module.exports = function(grunt) {
             },
             themes: {
                 files: {
+                    "Content/Themes/brite/bootstrap-forum.css": 'Content/Themes/brite/bootstrap-forum.scss',
                     "Content/Themes/zephyr/bootstrap-forum.css": 'Content/Themes/zephyr/bootstrap-forum.scss',
                     "Content/Themes/yaf/bootstrap-forum.css": 'Content/Themes/yaf/bootstrap-forum.scss',
                     "Content/Themes/yeti/bootstrap-forum.css": 'Content/Themes/yeti/bootstrap-forum.scss',
@@ -606,6 +611,7 @@ module.exports = function(grunt) {
             },
             themes: {
                 files: {
+                    "Content/Themes/brite/bootstrap-forum.min.css": 'Content/Themes/brite/bootstrap-forum.css',
                     "Content/Themes/zephyr/bootstrap-forum.min.css": 'Content/Themes/zephyr/bootstrap-forum.css',
                     "Content/Themes/yaf/bootstrap-forum.min.css": 'Content/Themes/yaf/bootstrap-forum.css',
                     "Content/Themes/yeti/bootstrap-forum.min.css": 'Content/Themes/yeti/bootstrap-forum.css',
