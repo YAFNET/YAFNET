@@ -506,7 +506,7 @@
             }
         }
     }
-    const VERSION = "5.3.4";
+    const VERSION = "5.3.5";
     class BaseComponent extends Config {
         constructor(element, config) {
             super();

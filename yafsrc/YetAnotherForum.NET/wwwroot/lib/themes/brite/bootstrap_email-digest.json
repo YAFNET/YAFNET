@@ -1,0 +1,5 @@
+{
+	"sass_email_location": "../../YetAnotherForum.NET/wwwroot/lib/Themes/brite/",
+	"sass_location": "../../YetAnotherForum.NET/wwwroot/lib/bootstrap-email/",
+  "CompileOnlyBody": true
+}
