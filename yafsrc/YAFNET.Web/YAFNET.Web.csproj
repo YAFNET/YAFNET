@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <LangVersion>latest</LangVersion>
@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="HtmlProperties" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="9.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="9.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="9.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.3" />
     <PackageReference Include="OEmbed.Core" Version="2.0.5" />
