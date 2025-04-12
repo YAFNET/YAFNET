@@ -43,7 +43,7 @@ public static partial class StringUtils
         var urlRx = UrlRegex();
 
         var matches = urlRx.Matches(message);
-        return (from Match match in matches select match.Value).ToList();
+        return [.. (from Match match in matches select match.Value)];
     }
 
     [GeneratedRegex(@"https?:\/\/(?:w{1,3}\.)?[^\s.]+(?:\.[a-z]+)*(?::\d+)?(?![^<]*(?:<\/\w+>|\/?>))", RegexOptions.IgnoreCase, "de-DE")]
