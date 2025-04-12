@@ -353,7 +353,7 @@ public static class PlatformExtensions
     {
         return !propertyAttributesMap.TryGetValue(propertyInfo.UniqueKey(), out var propertyAttrs)
                    ? []
-                   : propertyAttrs.OfType<TAttr>().ToList();
+                   : [.. propertyAttrs.OfType<TAttr>()];
     }
 
     /// <summary>
@@ -378,7 +378,7 @@ public static class PlatformExtensions
     {
         return !propertyAttributesMap.TryGetValue(propertyInfo.UniqueKey(), out var propertyAttrs)
                    ? []
-                   : propertyAttrs.Where(x => attrType.IsInstanceOf(x.GetType())).ToList();
+                   : [.. propertyAttrs.Where(x => attrType.IsInstanceOf(x.GetType()))];
     }
 
     /// <summary>
@@ -396,7 +396,7 @@ public static class PlatformExtensions
         }
 
         runtimeAttrs.AddRange(attrs.Cast<Attribute>());
-        return runtimeAttrs.Cast<object>().ToArray();
+        return [.. runtimeAttrs.Cast<object>()];
     }
 
     /// <summary>
@@ -434,7 +434,7 @@ public static class PlatformExtensions
         }
 
         runtimeAttrs.AddRange(attrs.Cast<Attribute>());
-        return runtimeAttrs.Cast<object>().ToArray();
+        return [.. runtimeAttrs.Cast<object>()];
     }
 
     /// <summary>
@@ -535,7 +535,7 @@ public static class PlatformExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static object[] AllAttributes(this Type type)
     {
-        return type.GetCustomAttributes(true).Union(type.GetRuntimeAttributes()).ToArray();
+        return [.. type.GetCustomAttributes(true).Union(type.GetRuntimeAttributes())];
     }
 
     /// <summary>
@@ -558,7 +558,7 @@ public static class PlatformExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TAttr[] AllAttributes<TAttr>(this ParameterInfo pi)
     {
-        return pi.AllAttributes(typeof(TAttr)).Cast<TAttr>().ToArray();
+        return [.. pi.AllAttributes(typeof(TAttr)).Cast<TAttr>()];
     }
 
     /// <summary>
@@ -570,7 +570,7 @@ public static class PlatformExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TAttr[] AllAttributes<TAttr>(this MemberInfo mi)
     {
-        return mi.AllAttributes(typeof(TAttr)).Cast<TAttr>().ToArray();
+        return [.. mi.AllAttributes(typeof(TAttr)).Cast<TAttr>()];
     }
 
     /// <summary>
@@ -582,7 +582,7 @@ public static class PlatformExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TAttr[] AllAttributes<TAttr>(this FieldInfo fi)
     {
-        return fi.AllAttributes(typeof(TAttr)).Cast<TAttr>().ToArray();
+        return [.. fi.AllAttributes(typeof(TAttr)).Cast<TAttr>()];
     }
 
     /// <summary>
@@ -594,7 +594,7 @@ public static class PlatformExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TAttr[] AllAttributes<TAttr>(this PropertyInfo pi)
     {
-        return pi.AllAttributes(typeof(TAttr)).Cast<TAttr>().ToArray();
+        return [.. pi.AllAttributes(typeof(TAttr)).Cast<TAttr>()];
     }
 
     /// <summary>
@@ -646,10 +646,9 @@ public static class PlatformExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TAttr[] AllAttributes<TAttr>(this Type type)
     {
-        return type.GetCustomAttributes(typeof(TAttr), true)
+        return [.. type.GetCustomAttributes(typeof(TAttr), true)
             .OfType<TAttr>()
-            .Union(type.GetRuntimeAttributes<TAttr>())
-            .ToArray();
+            .Union(type.GetRuntimeAttributes<TAttr>())];
     }
 
     /// <summary>

@@ -703,9 +703,7 @@ public static class ReflectionExtensions
             return [.. propertyInfos];
         }
 
-        return type.GetTypesProperties()
-            .Where(t => t.GetIndexParameters().Length == 0) // ignore indexed properties
-            .ToArray();
+        return [.. type.GetTypesProperties().Where(t => t.GetIndexParameters().Length == 0)];
     }
 
     /// <summary>
@@ -744,9 +742,7 @@ public static class ReflectionExtensions
             return [.. propertyInfos];
         }
 
-        return type.GetTypesPublicProperties()
-            .Where(t => t.GetIndexParameters().Length == 0) // ignore indexed properties
-            .ToArray();
+        return [.. type.GetTypesPublicProperties().Where(t => t.GetIndexParameters().Length == 0)];
     }
 
     /// <summary>
@@ -813,12 +809,12 @@ public static class ReflectionExtensions
 
         if (isDto)
         {
-            return readableProperties.Where(attr =>
-                attr.HasAttribute<DataMemberAttribute>()).ToArray();
+            return [.. readableProperties.Where(attr =>
+                attr.HasAttribute<DataMemberAttribute>())];
         }
 
         // else return those properties that are not decorated with IgnoreDataMember
-        return readableProperties
+        return [.. readableProperties
             .Where(prop => prop.AllAttributes()
                 .All(attr =>
                     {
@@ -826,8 +822,7 @@ public static class ReflectionExtensions
                         return !IgnoreAttributesNamed.Contains(name);
                     }))
             .Where(prop => !(JsConfig.ExcludeTypes.Contains(prop.PropertyType) ||
-                             JsConfig.ExcludeTypeNames.Contains(prop.PropertyType.FullName)))
-            .ToArray();
+                             JsConfig.ExcludeTypeNames.Contains(prop.PropertyType.FullName)))];
     }
 
     /// <summary>
@@ -856,8 +851,8 @@ public static class ReflectionExtensions
     {
         if (type.IsDto())
         {
-            return type.GetAllFields().Where(f =>
-                f.HasAttribute<DataMemberAttribute>()).ToArray();
+            return [.. type.GetAllFields().Where(f =>
+                f.HasAttribute<DataMemberAttribute>())];
         }
 
         var config = JsConfig.GetConfig();
@@ -870,11 +865,10 @@ public static class ReflectionExtensions
         var publicFields = type.GetPublicFields();
 
         // else return those properties that are not decorated with IgnoreDataMember
-        return publicFields
+        return [.. publicFields
             .Where(prop => prop.AllAttributes()
                 .All(attr => !IgnoreAttributesNamed.Contains(attr.GetType().Name)))
-            .Where(prop => !config.ExcludeTypes.Contains(prop.FieldType))
-            .ToArray();
+            .Where(prop => !config.ExcludeTypes.Contains(prop.FieldType))];
     }
 
     /// <summary>

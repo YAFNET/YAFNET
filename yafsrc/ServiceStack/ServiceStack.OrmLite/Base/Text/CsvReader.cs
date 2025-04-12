@@ -362,7 +362,7 @@ public static class CsvReader<T>
     /// <returns>List&lt;T&gt;.</returns>
     private static List<T> GetSingleRow(IEnumerable<string> rows, Type recordType)
     {
-        return rows.Select(value => recordType == typeof(string) ? (T)(object)value : TypeSerializer.DeserializeFromString<T>(value)).ToList();
+        return [.. rows.Select(value => recordType == typeof(string) ? (T)(object)value : TypeSerializer.DeserializeFromString<T>(value))];
     }
 
     /// <summary>

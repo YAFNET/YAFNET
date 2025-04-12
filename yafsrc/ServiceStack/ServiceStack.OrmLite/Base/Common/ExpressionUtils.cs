@@ -129,18 +129,18 @@ public static class ExpressionUtils
             var array = CachedExpressionCompiler.Evaluate(member);
             if (array is IEnumerable<string> strEnum)
             {
-                return strEnum.ToArray();
+                return [.. strEnum];
             }
         }
 
         if (expr.Body is NewExpression newExpr)
         {
-            return newExpr.Arguments.OfType<MemberExpression>().Select(x => x.Member.Name).ToArray();
+            return [.. newExpr.Arguments.OfType<MemberExpression>().Select(x => x.Member.Name)];
         }
 
         if (expr.Body is MemberInitExpression init)
         {
-            return init.Bindings.Select(x => x.Member.Name).ToArray();
+            return [.. init.Bindings.Select(x => x.Member.Name)];
         }
 
         if (expr.Body is NewArrayExpression newArray)
@@ -148,7 +148,7 @@ public static class ExpressionUtils
             var constantExprs = newArray.Expressions.OfType<ConstantExpression>().ToList();
             if (newArray.Expressions.Count == constantExprs.Count)
             {
-                return constantExprs.Select(x => x.Value.ToString()).ToArray();
+                return [.. constantExprs.Select(x => x.Value.ToString())];
             }
 
             var array = CachedExpressionCompiler.Evaluate(newArray);

@@ -657,6 +657,6 @@ static internal class ReadExpressionCommandExtensions
             ret.Add(to);
         }
 
-        return ret.ToArray();
+        return [.. ret];
     }
 }

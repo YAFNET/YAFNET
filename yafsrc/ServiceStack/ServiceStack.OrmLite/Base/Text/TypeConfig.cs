@@ -171,7 +171,7 @@ public static class TypeConfig<T>
         var properties = excludedProperties.Length > 0
                              ? config.Type.GetSerializableProperties().Where(x => !excludedProperties.Contains(x.Name))
                              : config.Type.GetSerializableProperties();
-        Properties = properties.Where(x => x.GetIndexParameters().Length == 0).ToArray();
+        Properties = [.. properties.Where(x => x.GetIndexParameters().Length == 0)];
 
         Fields = [.. config.Type.GetSerializableFields()];
 

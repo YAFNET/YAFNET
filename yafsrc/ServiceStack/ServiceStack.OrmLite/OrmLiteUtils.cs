@@ -357,7 +357,7 @@ public static class OrmLiteUtils
                 while (reader.Read())
                 {
                     var tupleArgs = reader.ToMultiTuple(dialectProvider, modelIndexCaches, genericArgs, values);
-                    var tuple = activator(tupleArgs.ToArray());
+                    var tuple = activator([.. tupleArgs]);
                     to.Add((T)tuple);
                 }
             }
@@ -1680,7 +1680,7 @@ public static class OrmLiteUtils
     /// <returns>string[].</returns>
     public static string[] AllAnonFields(this Type type)
     {
-        return type.GetPublicProperties().Select(x => x.Name).ToArray();
+        return [.. type.GetPublicProperties().Select(x => x.Name)];
     }
 
     /// <summary>

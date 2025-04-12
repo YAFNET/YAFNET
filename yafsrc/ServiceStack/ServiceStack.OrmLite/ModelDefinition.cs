@@ -466,18 +466,18 @@ public class ModelDefinition
     /// </summary>
     public void AfterInit()
     {
-        this.FieldDefinitionsArray = this.FieldDefinitions.ToArray();
-        this.FieldDefinitionsWithAliases = this.FieldDefinitions.Where(x => x.Alias != null).ToArray();
+        this.FieldDefinitionsArray = [.. this.FieldDefinitions];
+        this.FieldDefinitionsWithAliases = [.. this.FieldDefinitions.Where(x => x.Alias != null)];
 
-        this.IgnoredFieldDefinitionsArray = this.IgnoredFieldDefinitions.ToArray();
+        this.IgnoredFieldDefinitionsArray = [.. this.IgnoredFieldDefinitions];
 
         var allItems = new List<FieldDefinition>(this.FieldDefinitions);
         allItems.AddRange(this.IgnoredFieldDefinitions);
-        this.AllFieldDefinitionsArray = allItems.ToArray();
-        this.ReferenceFieldDefinitionsArray = allItems.Where(x => x.IsReference).ToArray();
+        this.AllFieldDefinitionsArray = [.. allItems];
+        this.ReferenceFieldDefinitionsArray = [.. allItems.Where(x => x.IsReference)];
         this.ReferenceFieldNames = new HashSet<string>(this.ReferenceFieldDefinitionsArray.Select(x => x.Name), StringComparer.OrdinalIgnoreCase);
 
-        this.AutoIdFields = this.GetAutoIdFieldDefinitions().ToArray();
+        this.AutoIdFields = [.. this.GetAutoIdFieldDefinitions()];
 
         OrmLiteConfig.OnModelDefinitionInit?.Invoke(this);
     }

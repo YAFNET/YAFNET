@@ -169,7 +169,7 @@ static internal class OrmLiteUtilExtensionsAsync
                 return await dialectProvider.ReaderEach(reader, () =>
                 {
                     var tupleArgs = reader.ToMultiTuple(dialectProvider, modelIndexCaches, genericArgs, values);
-                    var tuple = activator(tupleArgs.ToArray());
+                    var tuple = activator([.. tupleArgs]);
                     return (T)tuple;
                 }, token).ConfigAwait();
             }

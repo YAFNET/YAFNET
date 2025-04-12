@@ -824,7 +824,7 @@ public abstract partial class SqlExpression<T> : ISqlExpression
             selectDef = typeof(TModel).GetModelDefinition();
             if (selectDef != this.modelDef && this.tableDefs.Contains(selectDef))
             {
-                orderedDefs = this.tableDefs.ToList(); // clone
+                orderedDefs = [.. this.tableDefs]; // clone
                 orderedDefs.Remove(selectDef);
                 orderedDefs.Insert(0, selectDef);
             }

@@ -21,7 +21,7 @@
     "grunt-zip": "^1.0.0",
     "postcss": "^8.5.3",
     "sass": "^1.86.3",
-    "webpack": "^5.98.0",
+    "webpack": "^5.99.5",
     "webpack-merge": "^6.0.1"
   },
   "dependencies": {

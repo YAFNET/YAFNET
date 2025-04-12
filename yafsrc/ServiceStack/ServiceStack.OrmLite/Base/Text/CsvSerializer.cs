@@ -618,7 +618,7 @@ public static class CsvSerializer<T>
             var writers = WriteType<T, JsvTypeSerializer>.PropertyWriters;
             if (writers != null)
             {
-                Properties = writers.Select(x => (x.propertyName, x.PropertyType)).ToArray();
+                Properties = [.. writers.Select(x => (x.propertyName, x.PropertyType))];
             }
         }
     }

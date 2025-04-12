@@ -773,7 +773,7 @@ public static class AutoMappingUtils
     /// <returns>System.Object[].</returns>
     public static object[] CreateDefaultValues(IEnumerable<Type> types, Dictionary<Type, int> recursionInfo)
     {
-        return types.Select(type => CreateDefaultValue(type, recursionInfo)).ToArray();
+        return [.. types.Select(type => CreateDefaultValue(type, recursionInfo))];
     }
 
     /// <summary>

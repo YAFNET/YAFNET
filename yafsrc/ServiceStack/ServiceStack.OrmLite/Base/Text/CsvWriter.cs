@@ -329,7 +329,7 @@ public class CsvWriter<T>
     /// <returns>List&lt;System.String&gt;.</returns>
     private static List<string> GetSingleRow(IEnumerable<T> records, Type recordType)
     {
-        return records.Select(value => recordType == typeof(string) ? value as string : TypeSerializer.SerializeToString(value)).ToList();
+        return [.. records.Select(value => recordType == typeof(string) ? value as string : TypeSerializer.SerializeToString(value))];
     }
 
     /// <summary>

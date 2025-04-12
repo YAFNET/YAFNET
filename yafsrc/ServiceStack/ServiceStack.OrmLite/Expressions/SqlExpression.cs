@@ -2647,7 +2647,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     {
         this.Reset(this.Sep = string.Empty, this.useFieldName = false);
         var fieldList = this.Visit(fields);
-        this.InsertFields = fieldList.ToString().Split(',').Select(f => f.Trim()).ToList();
+        this.InsertFields = [.. fieldList.ToString().Split(',').Select(f => f.Trim())];
         return this;
     }
 

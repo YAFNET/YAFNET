@@ -445,7 +445,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     public List<T> GetList<T>(IDbCommand dbCmd)
     {
         this.Filter(dbCmd);
-        return (from object result in this.GetResults<T>(dbCmd) select (T)result).ToList();
+        return [.. (from object result in this.GetResults<T>(dbCmd) select (T)result)];
     }
 
     /// <summary>
@@ -593,7 +593,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     public List<T> GetColumn<T>(IDbCommand dbCmd)
     {
         this.Filter(dbCmd);
-        return (from object result in this.GetColumnResults<T>(dbCmd).Safe() select (T)result).ToList();
+        return [.. (from object result in this.GetColumnResults<T>(dbCmd).Safe() select (T)result)];
     }
 
     /// <summary>
@@ -643,7 +643,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>List&lt;KeyValuePair&lt;K, V&gt;&gt;.</returns>
     public List<KeyValuePair<K, V>> GetKeyValuePairs<K, V>(IDbCommand dbCmd)
     {
-        return this.GetDictionary<K, V>(dbCmd).ToList();
+        return [.. this.GetDictionary<K, V>(dbCmd)];
     }
 
     /// <summary>

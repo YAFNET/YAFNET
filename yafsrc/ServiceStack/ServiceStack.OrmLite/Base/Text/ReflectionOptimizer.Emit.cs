@@ -523,7 +523,7 @@ public static class DynamicProxy
             methodInfo.Name,
             MethodAttributes.Public | MethodAttributes.Virtual,
             methodInfo.ReturnType,
-            methodInfo.GetParameters().Select(p => p.GetType()).ToArray()
+            [.. methodInfo.GetParameters().Select(p => p.GetType())]
         );
         var methodILGen = methodBuilder.GetILGenerator();
         if (methodInfo.ReturnType == typeof(void))

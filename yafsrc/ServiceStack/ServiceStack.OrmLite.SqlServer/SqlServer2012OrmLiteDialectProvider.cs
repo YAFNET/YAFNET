@@ -105,7 +105,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     public override List<string> ToCreateSequenceStatements(Type tableType)
     {
         var modelDef = GetModel(tableType);
-        return this.SequenceList(tableType).Select(seq => $"CREATE SEQUENCE {this.Sequence(this.NamingStrategy.GetSchemaName(modelDef), seq)} AS BIGINT START WITH 1 INCREMENT BY 1 NO CACHE;").ToList();
+        return [.. this.SequenceList(tableType).Select(seq => $"CREATE SEQUENCE {this.Sequence(this.NamingStrategy.GetSchemaName(modelDef), seq)} AS BIGINT START WITH 1 INCREMENT BY 1 NO CACHE;")];
     }
 
     /// <summary>

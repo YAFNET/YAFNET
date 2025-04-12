@@ -70,6 +70,8 @@ public static class IApplicationBuilderExtensions
     {
         app.UseAntiXssMiddleware();
 
+        app.UseSecurityHeader();
+
         app.UseStaticFiles();
 
         app.UseSession();

@@ -202,7 +202,7 @@ public static class XLinqExtensions
     /// <returns>List&lt;System.String&gt;.</returns>
     public static List<string> GetValues(this IEnumerable<XElement> els)
     {
-        return els.Select(el => el.Value).ToList();
+        return [.. els.Select(el => el.Value)];
     }
 
     /// <summary>

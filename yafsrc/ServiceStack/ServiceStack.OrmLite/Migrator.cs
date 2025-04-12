@@ -299,7 +299,7 @@ public class Migrator
 
             // Remove completed migrations
             completedMigrations = migrationTypes.Any(x => x.Name == lastRun.Name)
-                ? migrationTypes.TakeWhile(x => x.Name != lastRun.Name).ToList()
+                ? [.. migrationTypes.TakeWhile(x => x.Name != lastRun.Name)]
                 : [];
 
             // Make sure we don't rerun any migrations that have already been run

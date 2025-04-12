@@ -111,7 +111,7 @@ public static class EnumerableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static List<To> Map<To, From>(this IEnumerable<From> items, Func<From, To> converter)
     {
-        return items == null ? [] : items.Select(converter).ToList();
+        return items == null ? [] : [.. items.Select(converter)];
     }
 
     /// <summary>
@@ -124,7 +124,7 @@ public static class EnumerableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static List<To> Map<To>(this IEnumerable items, Func<object, To> converter)
     {
-        return items == null ? [] : (from object item in items select converter(item)).ToList();
+        return items == null ? [] : [.. (from object item in items select converter(item))];
     }
 
     /// <summary>
