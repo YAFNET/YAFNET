@@ -73,18 +73,18 @@
 
   <ItemGroup>
 	<PackageReference Include="HtmlProperties" Version="1.0.0" />
-	<PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="9.0.3" />
-	<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="9.0.3" />
-	<PackageReference Include="Microsoft.AspNetCore.Identity.UI" version="9.0.3" />
-	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" version="9.0.3" />
-	<PackageReference Include="SonarAnalyzer.CSharp" Version="10.7.0.110445">
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="9.0.4" />
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="9.0.4" />
+	<PackageReference Include="Microsoft.AspNetCore.Identity.UI" version="9.0.4" />
+	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" version="9.0.4" />
+	<PackageReference Include="SonarAnalyzer.CSharp" Version="10.8.0.113526">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
 	<PackageReference Include="YAFNET.Core" Version="4.0.0" />
 	<PackageReference Include="YAFNET.Types" Version="4.0.0" />
 	<PackageReference Include="YAFNET.Web" Version="4.0.0" />
-	<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" version="9.0.3" />
+	<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" version="9.0.4" />
   </ItemGroup>
 
 </Project>
