@@ -72,7 +72,7 @@ public class BannedUserAgentsModel : AdminPage
     {
         this.PageBoardContext.PageLinks.AddAdminIndex();
 
-        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_USERAGENTS", "TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_BANNED_USERAGENTS", "TITLE"), string.Empty);
     }
 
     /// <summary>
