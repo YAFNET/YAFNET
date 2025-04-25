@@ -779,14 +779,14 @@ public static class JavaScriptBlocks
                  
                          if (listBox.scrollTop >= scrollableHeight) {
                              const resultsPerPage = 15 * 2,
-                                 choices = topicsSelect.__store.choices,
+                                 choices = topicsSelect._store.choices,
                  
                                  lastItem = choices[choices.length - 1],
                  
                                  currentPage = lastItem.customProperties.page,
                  
                                  total = lastItem.customProperties.page == 0
-                                     ? topicsSelect.__store.choices.length
+                                     ? topicsSelect._store.choices.length
                                      : resultsPerPage;
                  
                  
@@ -947,14 +947,14 @@ public static class JavaScriptBlocks
                  
                          if (listBox.scrollTop >= scrollableHeight) {
                              const resultsPerPage = 15 * 2,
-                                 choices = forumsSelect.__store.choices,
+                                 choices = forumsSelect._store.choices,
                  
                                  lastItem = choices[choices.length - 1],
                  
                                  currentPage = lastItem.customProperties.page,
                  
                                  total = lastItem.customProperties.page == 0
-                                     ? forumsSelect.__store.choices.length
+                                     ? forumsSelect._store.choices.length
                                      : resultsPerPage;
                  
                              if (total < lastItem.customProperties.total) {
@@ -1422,14 +1422,14 @@ public static class JavaScriptBlocks
                  
                          if (listBox.scrollTop >= scrollableHeight) {
                              const resultsPerPage = 15 * 2,
-                                 choices = userSelect.__store.choices,
+                                 choices = userSelect._store.choices,
                  
                                  lastItem = choices[choices.length - 1],
                  
                                  currentPage = lastItem.customProperties.page,
                  
                                  total = lastItem.customProperties.page == 0
-                                     ? userSelect.__store.choices.length
+                                     ? userSelect._store.choices.length
                                      : resultsPerPage;
                  
                  
