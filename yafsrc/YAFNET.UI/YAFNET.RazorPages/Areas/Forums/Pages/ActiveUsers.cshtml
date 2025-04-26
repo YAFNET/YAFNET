@@ -26,12 +26,12 @@
                                         @Html.LocalizedText("SHOW"):
                                     </div>
                                     <select asp-for="@Model.Size"
-                                            asp-items="Model.PageSizeList"
-                                            title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                            aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                            class="form-select"
-                                            onchange="this.form.submit();"></select>
-                                
+                                    asp-items="Model.PageSizeList"
+                                    title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                    aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                    class="form-select"
+                                    onchange="this.form.submit();"></select>
+
                                 </div>
                             </div>
                         </form>
@@ -46,9 +46,9 @@
                             <div class="d-flex w-100 justify-content-between text-break">
                                 <h5 class="mb-1">
                                     @Html.UserLink(user.UserID,
-                                        Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.UserDisplayName : user.UserName,
-                                        user.Suspended, user.UserStyle,
-                                        false, true, false, "", user.ActiveFlags.IsCrawler ? user.Browser : string.Empty)
+                                                 Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.UserDisplayName : user.UserName,
+                                                 user.Suspended, user.UserStyle,
+                                                 false, true, false, "", user.ActiveFlags.IsCrawler ? user.Browser : string.Empty)
 
                                     @if (user.IsActiveExcluded)
                                     {

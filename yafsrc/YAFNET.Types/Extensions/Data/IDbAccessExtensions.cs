@@ -284,10 +284,10 @@ public static class IDbAccessExtensions
     /// Returns true if the Query returns any records that match the supplied SqlExpression, E.g:
     /// <para>db.Exists(db.From&lt;Person&gt;().Where(x =&gt; x.Age &lt; 50))</para>
     /// </summary>
-    public async static Task<bool> ExistsAsync<T>(this IDbAccess dbAccess, Expression<Func<T, bool>> where = null)
+    public static Task<bool> ExistsAsync<T>(this IDbAccess dbAccess, Expression<Func<T, bool>> where = null)
         where T : class, IEntity, new()
     {
-        return await dbAccess.ExecuteAsync(
+        return dbAccess.ExecuteAsync(
             db => db.ExistsAsync(OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where)));
     }
 

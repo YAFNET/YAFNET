@@ -74,8 +74,6 @@ public class BBCodesModel : AdminPage
     /// </summary>
     public IActionResult OnGet()
     {
-        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
-
         this.BindData();
 
         return this.Page();
@@ -174,6 +172,8 @@ public class BBCodesModel : AdminPage
     /// </summary>
     private void BindData()
     {
+        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
+
         var list = this.GetRepository<BBCode>().ListPaged(
             this.PageBoardContext.PageBoardID,
             this.PageBoardContext.PageIndex,

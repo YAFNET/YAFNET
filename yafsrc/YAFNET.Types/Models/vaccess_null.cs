@@ -30,7 +30,6 @@ namespace YAF.Types.Models;
 ///     A class which represents the yaf_vaccess_null views.
 /// </summary>
 [Serializable]
-
 [Alias("vaccess_null")]
 public class VaccessNull : IEntity
 {

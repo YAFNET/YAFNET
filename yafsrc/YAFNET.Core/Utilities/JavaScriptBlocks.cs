@@ -1100,9 +1100,7 @@ public static class JavaScriptBlocks
                          if (listBox.scrollTop >= scrollableHeight) {
                              const resultsPerPage = 15 * 2,
                                  choices = forumsSelect._store.choices,
-                 
                                  lastItem = choices[choices.length - 1],
-                 
                                  currentPage = lastItem.customProperties.page,
                  
                                  total = lastItem.customProperties.page == 0

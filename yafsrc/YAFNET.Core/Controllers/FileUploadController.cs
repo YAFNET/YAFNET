@@ -38,7 +38,6 @@ using Types.Models;
 
 using YAF.Types.Objects;
 
-using System.Linq;
 using System.Threading.Tasks;
 
 using SixLabors.ImageSharp;
@@ -99,18 +98,7 @@ public class FileUpload : ForumBaseController
 
             var extension = Path.GetExtension(fileName).Replace(".", string.Empty).ToLower();
 
-            if (!allowedExtensions.Contains(extension))
-            {
-                statuses.Add(
-                    new FilesUploadStatus
-                    {
-                        error = "Invalid File"
-                    });
-
-                return await Task.FromResult<ActionResult<List<FilesUploadStatus>>>(statuses);
-            }
-
-            if (!MimeTypes.FileMatchContentType(file))
+            if (!allowedExtensions.Contains(extension) || !MimeTypes.FileMatchContentType(file))
             {
                 statuses.Add(
                     new FilesUploadStatus

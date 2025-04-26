@@ -24,6 +24,8 @@
 
 using System.Threading.Tasks;
 
+using YAF.Types.Interfaces.Identity;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -72,7 +74,7 @@ public class BannedUserAgentsModel : AdminPage
     {
         this.PageBoardContext.PageLinks.AddAdminIndex();
 
-        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_USERAGENTS", "TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_BANNED_USERAGENTS", "TITLE"), string.Empty);
     }
 
     /// <summary>
@@ -82,6 +84,8 @@ public class BannedUserAgentsModel : AdminPage
     {
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
         this.BindData();
+
+
     }
 
     /// <summary>

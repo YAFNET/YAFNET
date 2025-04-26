@@ -53,7 +53,7 @@ public class ForumController : ForumBaseController
     [ValidateAntiForgeryToken]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SelectPagedGroupOptions))]
     [HttpPost("GetForums")]
-    public Task<ActionResult<SelectPagedGroupOptions>> GetForums([FromRoute] SearchTopic searchTopic)
+    public Task<ActionResult<SelectPagedGroupOptions>> GetForums([FromBody] SearchTopic searchTopic)
     {
         if (searchTopic.SearchTerm.IsSet())
         {

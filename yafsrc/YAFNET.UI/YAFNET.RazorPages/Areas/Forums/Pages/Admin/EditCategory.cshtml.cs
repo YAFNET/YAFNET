@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -162,7 +164,7 @@ public class EditCategoryModel : AdminPage
     /// Binds the data as new category.
     /// </summary>
     /// <returns>IActionResult.</returns>
-    private IActionResult BindNew()
+    private PageResult BindNew()
     {
         // Currently creating a New Category, and autofill the Category Sort Order + 1
         var sortOrder = 1;

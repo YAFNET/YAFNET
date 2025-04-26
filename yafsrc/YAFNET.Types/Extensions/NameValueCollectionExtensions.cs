@@ -70,7 +70,7 @@ public static class NameValueCollectionExtensions
         string paramName)
     {
         return collection[paramName] is null
-                   ? Enumerable.Empty<string>()
+                   ? []
                    : collection[paramName].Split(',').AsEnumerable();
     }
 

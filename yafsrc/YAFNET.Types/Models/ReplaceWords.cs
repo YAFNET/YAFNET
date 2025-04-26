@@ -30,7 +30,6 @@ namespace YAF.Types.Models;
 /// A class which represents the Replace_Words table.
 /// </summary>
 [Serializable]
-
 [Alias("Replace_Words")]
 public class ReplaceWords : IEntity, IHaveBoardID, IHaveID
 {

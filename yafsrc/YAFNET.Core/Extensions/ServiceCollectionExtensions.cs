@@ -196,7 +196,7 @@ public static class ServiceCollectionExtensionsExtensions
         if (boardConfig.GoogleClientSecret.IsSet() && boardConfig.GoogleClientID.IsSet())
         {
             authenticationBuilder.AddGoogle(
-                AuthService.google.ToString(),
+                nameof(AuthService.google),
                 options =>
                 {
                     options.ClientId = boardConfig.GoogleClientID;
@@ -212,7 +212,7 @@ public static class ServiceCollectionExtensionsExtensions
         if (boardConfig.FacebookSecretKey.IsSet() && boardConfig.FacebookAPIKey.IsSet())
         {
             authenticationBuilder.AddFacebook(
-                AuthService.facebook.ToString(),
+                nameof(AuthService.facebook),
                 options =>
                 {
                     options.ClientId = boardConfig.FacebookAPIKey;

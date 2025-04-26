@@ -19,44 +19,54 @@
                             @Html.IconHeader("comments","ADMINMENU","admin_forums")
                         </div>
                         <div class="col-auto">
-                            <div class="btn-toolbar" role="toolbar">
-
-                                <div class="btn-group btn-group-sm me-2 mb-1" role="group" aria-label="tools">
-                                    <button class="dropdown-toggle"
-                                            bs-toggle="dropdown"
-                                            button-size="Small"
-                                            button-style="Secondary"
-                                            Icon="tools"
-                                            text-localized-tag="TOOLS"></button>
-                                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-                                        <button class="dropdown-item"
-                                                Icon="arrow-down-a-z"
-                                                asp-page-handler="SortCategoriesAscending"
-                                                return-confirm-tag="CONFIRM_SORTING"
-                                                button-style="None"
-                                                text-localized-tag="SORT_CATEGORIES_ASC"></button>
-                                        <button class="dropdown-item"
-                                                Icon="arrow-down-z-a"
-                                                asp-page-handler="SortCategoriesDescending"
-                                                return-confirm-tag="CONFIRM_SORTING"
-                                                button-style="None"
-                                                text-localized-tag="SORT_CATEGORIES_DESC"></button>
-                                        <div class="dropdown-divider"></div>
-                                        <button class="dropdown-item"
-                                                Icon="arrow-down-a-z"
-                                                asp-page-handler="SortForumsAscending"
-                                                return-confirm-tag="CONFIRM_SORTING"
-                                                button-style="None"
-                                                text-localized-tag="SORT_FORUMS_ASC"></button>
-                                        <button class="dropdown-item"
-                                                Icon="arrow-down-z-a"
-                                                asp-page-handler="SortForumsDescending"
-                                                return-confirm-tag="CONFIRM_SORTING"
-                                                button-style="None"
-                                                text-localized-tag="SORT_FORUMS_DESC"></button>
-                                    </div>
-                                </div>
-                            </div>
+	                        <div class="btn-toolbar" role="toolbar">
+		                        <div class="btn-group btn-group-sm me-2 mb-1" role="group" aria-label="tools">
+			                        <div class="input-group input-group-sm me-2" role="group">
+				                        <div class="input-group-text">
+					                        @Html.LocalizedText("SHOW"):
+				                        </div>
+				                        <select asp-for="@Model.Size"
+				                                asp-items="Model.PageSizeList"
+				                                title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+				                                aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+				                                class="form-select"
+				                                onchange="this.form.submit();"></select>
+			                        </div>
+			                        <button class="dropdown-toggle"
+			                                bs-toggle="dropdown"
+			                                button-size="Small"
+			                                button-style="Secondary"
+			                                Icon="tools"
+			                                text-localized-tag="TOOLS"></button>
+			                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+				                        <button class="dropdown-item"
+				                                Icon="arrow-down-a-z"
+				                                asp-page-handler="SortCategoriesAscending"
+				                                return-confirm-tag="CONFIRM_SORTING"
+				                                button-style="None"
+				                                text-localized-tag="SORT_CATEGORIES_ASC"></button>
+				                        <button class="dropdown-item"
+				                                Icon="arrow-down-z-a"
+				                                asp-page-handler="SortCategoriesDescending"
+				                                return-confirm-tag="CONFIRM_SORTING"
+				                                button-style="None"
+				                                text-localized-tag="SORT_CATEGORIES_DESC"></button>
+				                        <div class="dropdown-divider"></div>
+				                        <button class="dropdown-item"
+				                                Icon="arrow-down-a-z"
+				                                asp-page-handler="SortForumsAscending"
+				                                return-confirm-tag="CONFIRM_SORTING"
+				                                button-style="None"
+				                                text-localized-tag="SORT_FORUMS_ASC"></button>
+				                        <button class="dropdown-item"
+				                                Icon="arrow-down-z-a"
+				                                asp-page-handler="SortForumsDescending"
+				                                return-confirm-tag="CONFIRM_SORTING"
+				                                button-style="None"
+				                                text-localized-tag="SORT_FORUMS_DESC"></button>
+			                        </div>
+		                        </div>
+	                        </div>
                         </div>
                     </div>
                 </div>
@@ -259,7 +269,7 @@
     </div>
     <div class="row justify-content-end">
         <div class="col-auto">
-            <pager page-size="20"
+            <pager page-size="@Model.Size"
                    count="@Model.Get<ISessionService>().GetPageData<IList<Tuple<Category, Forum>>>().Count">
             </pager>
         </div>

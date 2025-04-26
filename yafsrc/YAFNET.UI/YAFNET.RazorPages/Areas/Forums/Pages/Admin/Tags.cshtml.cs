@@ -40,8 +40,11 @@ using YAF.Types.Models;
 /// </summary>
 public class TagsModel : AdminPage
 {
-    [BindProperty]
-    public List<Tag> List { get; set; }
+    /// <summary>
+    /// Gets or sets the list.
+    /// </summary>
+    /// <value>The list.</value>
+    [BindProperty] public List<Tag> List { get; set; }
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "TagsModel" /> class.
@@ -65,20 +68,9 @@ public class TagsModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public  void OnGet()
+    public void OnGet()
     {
-        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
-
-        // bind data to controls
-        this.BindData();
-    }
-
-    /// <summary>
-    /// The pager top_ page change.
-    /// </summary>
-    protected void PagerTopPageChange()
-    {
-        // rebind
+       // bind data to controls
         this.BindData();
     }
 
@@ -107,9 +99,12 @@ public class TagsModel : AdminPage
     /// </summary>
     private void BindData()
     {
-         var currentPageIndex = this.PageBoardContext.PageIndex;
+        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value),
+            nameof(SelectListItem.Text));
 
-         // list event for this board
+        var currentPageIndex = this.PageBoardContext.PageIndex;
+
+        // list event for this board
         this.List = this.GetRepository<Tag>().GetPaged(
             x => x.BoardID == this.PageBoardContext.PageBoardID,
             currentPageIndex,

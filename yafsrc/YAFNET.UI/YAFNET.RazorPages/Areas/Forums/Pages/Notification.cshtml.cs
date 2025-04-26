@@ -114,22 +114,18 @@ public class NotificationModel : ForumPageRegistered
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet()
+    public void OnGet()
     {
         this.BindData();
-
-        return this.Page();
     }
 
     /// <summary>
     /// Called when [post update].
     /// </summary>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostUpdate()
+    public void OnPost()
     {
         this.BindData();
-
-        return this.Page();
     }
 
     /// <summary>

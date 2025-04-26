@@ -66,8 +66,6 @@ public class LanguagesModel : AdminPage
     /// </summary>
     public void OnGet()
     {
-        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
-
         this.BindData();
     }
 
@@ -84,6 +82,8 @@ public class LanguagesModel : AdminPage
     /// </summary>
     private void BindData()
     {
+        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
+
         var pager = new Paging { CurrentPageIndex = this.PageBoardContext.PageIndex, PageSize = this.Size };
 
         var cultures = StaticDataHelper.LanguageFiles().ToList();

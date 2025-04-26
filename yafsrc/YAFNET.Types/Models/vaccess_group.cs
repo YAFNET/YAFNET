@@ -30,7 +30,6 @@ namespace YAF.Types.Models;
 ///     A class which represents the yaf_vaccess_group views.
 /// </summary>
 [Serializable]
-
 [Alias("vaccess_group")]
 public class VaccessGroup : IEntity, IHaveBoardID
 {
