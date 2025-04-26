@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces;
 
 using System.Collections.Generic;
@@ -46,7 +47,6 @@ public static class IPagerExtensions
     /// <returns>
     /// The <see cref="IEnumerable{T}"/>.
     /// </returns>
-    [Obsolete("Use sql paging instead")]
     public static IList<T> GetPaged<T>(this IList<T> list, IPager pager)
     {
         pager.Count = list.Count;
@@ -58,10 +58,10 @@ public static class IPagerExtensions
     /// The page count.
     /// </summary>
     /// <param name="pager">
-    /// The pager. 
+    /// The pager.
     /// </param>
     /// <returns>
-    /// The <see cref="int"/> . 
+    /// The <see cref="int"/> .
     /// </returns>
     public static int PageCount(this IPager pager)
     {
@@ -89,10 +89,10 @@ public static class IPagerExtensions
     /// The skip index.
     /// </summary>
     /// <param name="pager">
-    /// The pager. 
+    /// The pager.
     /// </param>
     /// <returns>
-    /// The <see cref="int"/> . 
+    /// The <see cref="int"/> .
     /// </returns>
     public static int SkipIndex(this IPager pager)
     {

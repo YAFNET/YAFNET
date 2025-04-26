@@ -113,8 +113,6 @@ public static class ForumRepositoryExtensions
         string imageUrl,
         string styles)
     {
-        
-
         if (parentId is 0)
         {
             parentId = null;
@@ -191,8 +189,6 @@ public static class ForumRepositoryExtensions
     /// </returns>
     public static bool IsParentsChecker(this IRepository<Forum> repository, int forumId)
     {
-        
-
         return repository.Exists(f => f.ParentID == forumId);
     }
 
@@ -212,8 +208,6 @@ public static class ForumRepositoryExtensions
         this IRepository<Forum> repository,
         int boardId)
     {
-        
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
 
         expression.LeftJoin<Category, Forum>((category, forum) => category.ID == forum.CategoryID)
@@ -244,8 +238,6 @@ public static class ForumRepositoryExtensions
         int boardId,
         int userId)
     {
-        
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
         expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
@@ -270,14 +262,12 @@ public static class ForumRepositoryExtensions
     /// The category ID.
     /// </param>
     /// <returns>
-    /// Returns Sorted Forums 
+    /// Returns Sorted Forums
     /// </returns>
     public static List<ForumSorted> ListAllFromCategory(
         this IRepository<Forum> repository,
         int categoryId)
     {
-        
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
         expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
@@ -326,8 +316,6 @@ public static class ForumRepositoryExtensions
         int userId,
         string searchTerm)
     {
-        
-
         var list = BoardContext.Current.Get<IDataCache>().GetOrSet(
             string.Format(Constants.Cache.ForumJump, BoardContext.Current.PageUserID.ToString()),
             () => repository.ListAllWithAccess(boardId, userId),
@@ -360,8 +348,6 @@ public static class ForumRepositoryExtensions
         int userId,
         int forumId)
     {
-        
-
         var list = BoardContext.Current.Get<IDataCache>().GetOrSet(
             string.Format(Constants.Cache.ForumJump, BoardContext.Current.PageUserID.ToString()),
             () => repository.ListAllWithAccess(boardId, userId),
@@ -402,8 +388,6 @@ public static class ForumRepositoryExtensions
         int pageSize,
         out Paging pager)
     {
-        
-
         pager = new Paging { CurrentPageIndex = pageIndex, PageSize = pageSize };
 
         var forums = BoardContext.Current.Get<IDataCache>().GetOrSet(
@@ -456,8 +440,6 @@ public static class ForumRepositoryExtensions
         int pageIndex, 
         int pageSize)
     {
-        
-
         return repository.DbAccess.Execute(
             db =>
                 {

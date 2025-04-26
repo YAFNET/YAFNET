@@ -19,6 +19,16 @@
                         <div class="btn-toolbar" role="toolbar">
                            
                             <div class="btn-group btn-group-sm me-2 mb-1" role="group" aria-label="tools">
+	                            <div class="input-group input-group-sm me-2" role="group">
+		                            <div class="input-group-text">
+			                            <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
+		                            </div>
+		                            <asp:DropDownList runat="server" ID="PageSize"
+		                                              AutoPostBack="True"
+		                                              OnSelectedIndexChanged="PageSizeSelectedIndexChanged"
+		                                              CssClass="form-select">
+		                            </asp:DropDownList>
+	                            </div>
                                 <YAF:ThemeButton runat="server"
                                                  CssClass="dropdown-toggle"
                                                  DataToggle="dropdown"

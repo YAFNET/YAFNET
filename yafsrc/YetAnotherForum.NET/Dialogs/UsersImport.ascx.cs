@@ -143,7 +143,7 @@ public partial class UsersImport : BaseUserControl
             {
                 var dr = usersTable.NewRow();
                 var regex = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
-                dr.ItemArray = (string[])regex.Split(streamReader.ReadLine());
+                dr.ItemArray = regex.Split(streamReader.ReadLine());
 
                 usersTable.Rows.Add(dr);
             }

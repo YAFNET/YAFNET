@@ -37,9 +37,8 @@ public partial class EditUsersGroups : BaseUserControl
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
-    
     public Tuple<User, AspNetUsers, Rank, VAccess> User { get; set; }
-	
+
     /// <summary>
     /// Handles page load event.
     /// </summary>
@@ -101,18 +100,19 @@ public partial class EditUsersGroups : BaseUserControl
                 continue;
             }
 
-            // add/remove user from roles in membership provider
-            if (isChecked && !this.Get<IAspNetRolesHelper>().IsUserInRole(this.User.Item2, roleName))
+            switch (isChecked)
             {
-                this.Get<IAspNetRolesHelper>().AddUserToRole(this.User.Item2, roleName);
+                // add/remove user from roles in membership provider
+                case true when !this.Get<IAspNetRolesHelper>().IsUserInRole(this.User.Item2, roleName):
+                    this.Get<IAspNetRolesHelper>().AddUserToRole(this.User.Item2, roleName);
 
-                addedRoles.Add(roleName);
-            }
-            else if (!isChecked && this.Get<IAspNetRolesHelper>().IsUserInRole(this.User.Item2, roleName))
-            {
-                this.Get<IAspNetRolesHelper>().RemoveUserFromRole(this.User.Item2.Id, roleName);
+                    addedRoles.Add(roleName);
+                    break;
+                case false when this.Get<IAspNetRolesHelper>().IsUserInRole(this.User.Item2, roleName):
+                    this.Get<IAspNetRolesHelper>().RemoveUserFromRole(this.User.Item2.Id, roleName);
 
-                removedRoles.Add(roleName);
+                    removedRoles.Add(roleName);
+                    break;
             }
         }
 

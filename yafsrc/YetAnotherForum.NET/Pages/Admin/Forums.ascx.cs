@@ -133,6 +133,20 @@ public partial class Forums : AdminPage
             return;
         }
 
+        this.PageSize.DataSource = StaticDataHelper.PageEntries();
+        this.PageSize.DataTextField = "Name";
+        this.PageSize.DataValueField = "Value";
+        this.PageSize.DataBind();
+
+        try
+        {
+            this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
+        }
+        catch (Exception)
+        {
+            this.PageSize.SelectedValue = "5";
+        }
+
         this.BindData();
     }
 
@@ -281,7 +295,7 @@ public partial class Forums : AdminPage
 
                 this.GetRepository<Forum>().ReOrderAllDescending(forums);
             });
-            
+
         this.PageBoardContext.Notify(
             this.GetText("ADMIN_FORUMS", "MSG_SORTING_FORUMS"),
             MessageTypes.warning);
@@ -305,7 +319,8 @@ public partial class Forums : AdminPage
     /// </summary>
     private void BindData()
     {
-        this.PagerTop.PageSize = 20;
+        var baseSize = this.PageSize.SelectedValue.ToType<int>();
+        this.PagerTop.PageSize = baseSize;
 
         this.ListAll = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID).GetPaged(this.PagerTop);
 
