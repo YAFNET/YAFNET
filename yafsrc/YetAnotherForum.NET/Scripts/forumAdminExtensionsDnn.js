@@ -10,7 +10,7 @@
 })(this, function init($, undefined) {
     "use strict";
     const exports = {};
-    const VERSION = "6.0.2";
+    const VERSION = "6.0.3";
     exports.VERSION = VERSION;
     const locales = {
         en: {
@@ -768,8 +768,8 @@
             }
         }
         if (minValid && maxValid) {
-            if (max <= min) {
-                throw new Error('"max" must be greater than "min". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-max for more information.');
+            if (max < min) {
+                throw new Error('"max" must be greater than or equal to "min". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-max for more information.');
             } else {
                 result = true;
             }
@@ -1086,14 +1086,14 @@ function deepExtend(out, ...arguments_) {
 
 var DarkEditable = function(m) {
     "use strict";
-    var _ = Object.defineProperty;
-    var g = (m, r, a) => r in m ? _(m, r, {
+    var g = Object.defineProperty;
+    var _ = (m, r, a) => r in m ? g(m, r, {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: a
     }) : m[r] = a;
-    var i = (m, r, a) => g(m, typeof r != "symbol" ? r + "" : r, a);
+    var i = (m, r, a) => _(m, typeof r != "symbol" ? r + "" : r, a);
     var r = document.createElement("style");
     r.textContent = `.dark-editable-element{border-bottom:dashed 1px #0088cc;text-decoration:none;cursor:pointer}.dark-editable-element-disabled{border-bottom:none;cursor:default}.dark-editable-element-empty{font-style:italic;color:#d14}.dark-editable{max-width:none}.dark-editable-loader{font-size:5px;left:50%;top:50%;width:1em;height:1em;border-radius:50%;position:relative;text-indent:-9999em;-webkit-animation:load5 1.1s infinite ease;animation:load5 1.1s infinite ease;-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0)}@-webkit-keyframes load5{0%,to{box-shadow:0 -2.6em #000,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #00000080,-1.8em -1.8em #000000b3}12.5%{box-shadow:0 -2.6em #000000b3,1.8em -1.8em #000,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #00000080}25%{box-shadow:0 -2.6em #00000080,1.8em -1.8em #000000b3,2.5em 0 #000,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}37.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #00000080,2.5em 0 #000000b3,1.75em 1.75em #000,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}50%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #00000080,1.75em 1.75em #000000b3,0 2.5em #000,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}62.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #00000080,0 2.5em #000000b3,-1.8em 1.8em #000,-2.6em 0 #0003,-1.8em -1.8em #0003}75%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #00000080,-1.8em 1.8em #000000b3,-2.6em 0 #000,-1.8em -1.8em #0003}87.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #00000080,-2.6em 0 #000000b3,-1.8em -1.8em #000}}@keyframes load5{0%,to{box-shadow:0 -2.6em #000,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #00000080,-1.8em -1.8em #000000b3}12.5%{box-shadow:0 -2.6em #000000b3,1.8em -1.8em #000,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #00000080}25%{box-shadow:0 -2.6em #00000080,1.8em -1.8em #000000b3,2.5em 0 #000,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}37.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #00000080,2.5em 0 #000000b3,1.75em 1.75em #000,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}50%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #00000080,1.75em 1.75em #000000b3,0 2.5em #000,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}62.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #00000080,0 2.5em #000000b3,-1.8em 1.8em #000,-2.6em 0 #0003,-1.8em -1.8em #0003}75%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #00000080,-1.8em 1.8em #000000b3,-2.6em 0 #000,-1.8em -1.8em #0003}87.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #00000080,-2.6em 0 #000000b3,-1.8em -1.8em #000}}
 /*$vite$:1*/`, document.head.appendChild(r);
@@ -1135,13 +1135,15 @@ var DarkEditable = function(m) {
             i(this, "popover", null);
         }
         init() {
-            this.popover = new m.Popover(this.context.element, {
+            const t = {
                 container: "body",
                 content: this.context.typeElement.create(),
                 html: !0,
                 customClass: "dark-editable",
                 title: this.context.options.title
-            }), this.context.element.addEventListener("show.bs.popover", () => {
+            };
+            this.popover = new m.Popover(this.context.element, Object.assign(t, this.context.options.popoverOptions)), 
+            this.context.element.addEventListener("show.bs.popover", () => {
                 this.event_show();
             }), this.context.element.addEventListener("shown.bs.popover", () => {
                 this.event_shown();
@@ -1149,10 +1151,10 @@ var DarkEditable = function(m) {
                 this.event_hide();
             }), this.context.element.addEventListener("hidden.bs.popover", () => {
                 this.event_hidden();
-            }), document.addEventListener("click", t => {
-                const s = t.target;
-                if (this.popover && s === this.popover.tip || s === this.context.element) return;
-                let n = s.parentNode;
+            }), document.addEventListener("click", s => {
+                const o = s.target;
+                if (this.popover && o === this.popover.tip || o === this.context.element) return;
+                let n = o.parentNode;
                 for (;n; ) {
                     if (n === this.popover.tip) return;
                     n = n.parentNode;
@@ -1229,14 +1231,14 @@ var DarkEditable = function(m) {
                 const s = this.getValue();
                 if (this.context.options.send && this.context.options.id && this.context.options.url && this.context.getValue() !== s) {
                     this.showLoad();
-                    let n;
+                    let o;
                     try {
-                        const o = await this.ajax(s);
-                        o.ok ? n = await this.context.success(o, s) : n = await this.context.error(o, s) || `${o.status} ${o.statusText}`;
-                    } catch (o) {
-                        console.error(o), n = o;
+                        const n = await this.ajax(s);
+                        n.ok ? o = await this.context.success(n, s) : o = await this.context.error(n, s) || `${n.status} ${n.statusText}`;
+                    } catch (n) {
+                        console.error(n), o = n;
                     }
-                    n ? (this.setError(n), this.showError()) : (this.setError(""), 
+                    o ? (this.setError(o), this.showError()) : (this.setError(""), 
                     this.hideError(), this.context.setValue(this.getValue()), this.context.modeElement.hide(), 
                     this.initText()), this.hideLoad();
                 } else this.context.setValue(this.getValue()), this.context.modeElement.hide(), 
@@ -1275,23 +1277,23 @@ var DarkEditable = function(m) {
             this.load && (this.load.style.display = "block");
         }
         ajax(e) {
-            var o;
+            var n;
             let t = this.context.options.url;
             if (!t) throw new Error("URL is required!");
             if (!this.context.options.id) throw new Error("pk is required!");
             if (!this.context.options.name) throw new Error("Name is required!");
             const s = new FormData();
             if (s.append("id", this.context.options.id), s.append("name", this.context.options.name), 
-            s.append("value", e), ((o = this.context.options.ajaxOptions) == null ? void 0 : o.method) === "GET") {
-                const d = [];
-                s.forEach((y, v) => {
-                    d.push(`${v}=${y}`);
-                }), t += "?" + d.join("&");
+            s.append("value", e), ((n = this.context.options.ajaxOptions) == null ? void 0 : n.method) === "GET") {
+                const l = [];
+                s.forEach((E, v) => {
+                    l.push(`${v}=${E}`);
+                }), t += "?" + l.join("&");
             }
-            const n = {
+            const o = {
                 ...this.context.options.ajaxOptions
             };
-            return n.body = s, fetch(t, n);
+            return o.body = s, fetch(t, o);
         }
         async successResponse(e, t) {}
         async errorResponse(e, t) {}
@@ -1329,8 +1331,14 @@ var DarkEditable = function(m) {
     class x extends c {
         create() {
             const e = this.createElement("input");
-            return e.type = typeof this.context.options.type == "string" ? this.context.options.type : "text", 
-            this.createContainer(e);
+            e.type = typeof this.context.options.type == "string" ? this.context.options.type : "text";
+            const {
+                options: t = {}
+            } = this.context;
+            e.type = typeof t.type == "string" ? t.type : "text";
+            const s = t.attributes || {}, o = [ "step", "min", "max", "minlength", "maxlength", "pattern", "placeholder", "required", "readonly", "disabled", "autocomplete", "autofocus", "name", "value" ];
+            for (const [ n, l ] of Object.entries(s)) o.includes(n) && l !== void 0 && e.setAttribute(n, String(l));
+            return this.createContainer(e);
         }
     }
     class b extends c {
@@ -1360,30 +1368,30 @@ var DarkEditable = function(m) {
             this.context.get_opt("source", []), this.context.options && typeof this.context.options.source == "string" && this.context.options.source !== "" && (this.context.options.source = JSON.parse(this.context.options.source));
         }
     }
-    class l extends c {
+    class d extends c {
         create() {
             const e = this.createElement("input");
             return e.type = "date", this.createContainer(e);
         }
         initText() {
-            return this.context.getValue() === "" ? (this.context.element.innerHTML = this.context.options.emptytext || "", 
-            !0) : (this.context.element.innerHTML = this.context.getValue(), !1);
+            const e = this.context.getValue();
+            return e === "" ? (this.context.element.innerHTML = this.context.options.emptytext || "", 
+            !0) : (this.context.element.innerHTML = e, !1);
         }
         initOptions() {
-            this.context.get_opt("format", "YYYY-MM-DD"), this.context.get_opt("viewformat", "YYYY-MM-DD");
+            this.context.setValue(this.context.getValue());
         }
     }
-    class w extends l {
+    class w extends d {
         create() {
             const e = this.createElement("input");
             return e.type = "datetime-local", this.createContainer(e);
         }
         initOptions() {
-            this.context.get_opt("format", "YYYY-MM-DD HH:mm"), this.context.get_opt("viewformat", "YYYY-MM-DD HH:mm"), 
             this.context.setValue(this.context.getValue());
         }
     }
-    class E {
+    class y {
         constructor(e, t = {}) {
             i(this, "element");
             i(this, "options");
@@ -1396,8 +1404,8 @@ var DarkEditable = function(m) {
             this.init_style(), this.options.disabled && this.disable(), this.element.dispatchEvent(new CustomEvent("init"));
         }
         get_opt(e, t) {
-            var s, n;
-            this.options[e] = ((s = this.element.dataset) == null ? void 0 : s[e]) ?? ((n = this.options) == null ? void 0 : n[e]) ?? t;
+            var s, o;
+            return this.options[e] = ((s = this.element.dataset) == null ? void 0 : s[e]) ?? ((o = this.options) == null ? void 0 : o[e]) ?? t;
         }
         get_opt_bool(e, t) {
             if (this.get_opt(e, t), typeof this.options[e] != "boolean") {
@@ -1413,7 +1421,7 @@ var DarkEditable = function(m) {
             }
         }
         init_options() {
-            var e, t, s, n, o;
+            var e, t, s, o, n;
             this.get_opt("value", this.element.innerHTML), this.get_opt("name", this.element.id), 
             this.get_opt("id", null), this.get_opt("title", ""), this.get_opt("type", "text"), 
             this.get_opt("emptytext", "Empty"), this.get_opt("placeholder", this.element.getAttribute("placeholder")), 
@@ -1427,7 +1435,8 @@ var DarkEditable = function(m) {
             }, this.options.ajaxOptions), this.get_opt_bool("send", !0), this.get_opt_bool("disabled", !1), 
             this.get_opt_bool("required", !1), this.get_opt_bool("showbuttons", !0), 
             (t = this.options) != null && t.success && typeof ((s = this.options) == null ? void 0 : s.success) == "function" && (this.success = this.options.success), 
-            (n = this.options) != null && n.error && typeof ((o = this.options) == null ? void 0 : o.error) == "function" && (this.error = this.options.error);
+            (o = this.options) != null && o.error && typeof ((n = this.options) == null ? void 0 : n.error) == "function" && (this.error = this.options.error), 
+            this.get_opt("attributes", {}), this.get_opt("popoverOptions", {});
         }
         init_text() {
             const e = "dark-editable-element-empty";
@@ -1468,7 +1477,7 @@ var DarkEditable = function(m) {
                 return new f(this);
 
               case "date":
-                return new l(this);
+                return new d(this);
 
               case "datetime":
                 return new w(this);
@@ -1496,7 +1505,7 @@ var DarkEditable = function(m) {
             return this.options.value ?? "";
         }
     }
-    return E;
+    return y;
 }(bootstrap);
 
 document.addEventListener("DOMContentLoaded", function() {

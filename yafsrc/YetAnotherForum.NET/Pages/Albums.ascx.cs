@@ -82,11 +82,4 @@ public partial class Albums : ForumPage
         // Initialize the Album List control.
         this.AlbumList1.User = user;
     }
-
-    /// <summary>
-    /// Create the Page links.
-    /// </summary>
-    public override void CreatePageLinks()
-    {
-    }
 }
