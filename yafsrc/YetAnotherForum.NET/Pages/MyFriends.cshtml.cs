@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
 namespace YAF.Pages;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -210,7 +212,7 @@ public class FriendsModel : ForumPageRegistered
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private IActionResult BindData()
+    private PageResult BindData()
     {
         this.FriendListModes = new SelectList(
             StaticDataHelper.FriendListModes(),

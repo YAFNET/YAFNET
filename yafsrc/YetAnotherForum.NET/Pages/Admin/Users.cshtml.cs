@@ -263,8 +263,6 @@ public class UsersModel : AdminPage
 
         this.Ranks = new SelectList(ranks, nameof(Rank.ID), nameof(Rank.Name));
 
-        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
-
         this.BindData();
     }
 

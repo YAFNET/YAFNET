@@ -80,10 +80,6 @@ public class BannedEmailsModel : AdminPage
     /// </summary>
     public void OnGet()
     {
-        this.PageSizeList = new SelectList(
-            StaticDataHelper.PageEntries(),
-            nameof(SelectListItem.Value),
-            nameof(SelectListItem.Text));
         this.BindData();
     }
 
@@ -209,6 +205,11 @@ public class BannedEmailsModel : AdminPage
     /// </summary>
     private void BindData()
     {
+        this.PageSizeList = new SelectList(
+            StaticDataHelper.PageEntries(),
+            nameof(SelectListItem.Value),
+            nameof(SelectListItem.Text));
+
         var searchText = this.SearchInput;
 
         List<BannedEmail> bannedList;

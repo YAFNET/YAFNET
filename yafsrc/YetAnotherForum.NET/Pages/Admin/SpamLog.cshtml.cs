@@ -162,9 +162,6 @@ public class SpamLogModel : AdminPage
     {
         this.Input = new SpamLogInputModel();
 
-        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value),
-            nameof(SelectListItem.Text));
-
         var ci = this.Get<ILocalization>().Culture;
 
         if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
@@ -205,6 +202,9 @@ public class SpamLogModel : AdminPage
     /// </summary>
     private void BindData()
     {
+        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value),
+            nameof(SelectListItem.Text));
+
         var currentPageIndex = this.PageBoardContext.PageIndex;
 
         var sinceDate = DateTime.UtcNow.AddDays(-this.PageBoardContext.BoardSettings.EventLogMaxDays);

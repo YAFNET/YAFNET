@@ -24,6 +24,10 @@
 
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+using YAF.Core.Helpers;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -73,7 +77,7 @@ public class ForumsModel : AdminPage
     /// </summary>
     public void OnGet()
     {
-        this.Get<ISessionService>().SetPageData(this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID));
+       this.Get<ISessionService>().SetPageData(this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID));
 
         this.BindData();
     }
@@ -190,16 +194,26 @@ public class ForumsModel : AdminPage
     }
 
     /// <summary>
+    /// The page size on selected index changed.
+    /// </summary>
+    public void OnPost()
+    {
+        this.BindData();
+    }
+
+    /// <summary>
     /// Binds the data.
     /// </summary>
     private void BindData()
     {
+        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
+
         var listAll = this.Get<ISessionService>().GetPageData<IList<Tuple<Category, Forum>>>();
 
         var pager = new Paging
                     {
                         CurrentPageIndex = this.PageBoardContext.PageIndex,
-                        PageSize = 20, Count = listAll.Count
+                        PageSize = this.Size, Count = listAll.Count
                     };
 
         this.CategoryList = [.. listAll.GetPaged(pager).Select(x => x.Item1).DistinctBy(x => x.Name)];
