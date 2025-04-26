@@ -284,14 +284,7 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
                             file.ContentLength,
                             file.ContentType);
 
-                        using var fs = new FileStream($"{previousDirectory}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload", FileMode.Create, FileAccess.ReadWrite);
-                        byte[] fileData;
-                        using (var binaryReader = new BinaryReader(file.InputStream))
-                        {
-                            fileData = binaryReader.ReadBytes(file.ContentLength);
-                        }
-
-                        fs.Write(fileData, 0, fileData.Length);
+                        file.SaveAs($"{previousDirectory}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload");
                     }
                     else
                     {
