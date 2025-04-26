@@ -40,19 +40,20 @@ function createForumSelectTemplates(template) {
 
     return {
         item: function ({ classNames }, data) {
-            return template(
-                `
+	        return template(
+		        `
                                  <div class="${String(classNames.item)} ${String(data.highlighted
-                    ? classNames.highlightedState
-                    : classNames.itemSelectable)}"
+			        ? classNames.highlightedState
+			        : classNames.itemSelectable)} ${String(data.placeholder ? classNames.placeholder : '')}"
                                       data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
                                       ${String(data.active ? 'aria-selected="true"' : '')} ${String(data.disabled
-                        ? 'aria-disabled="true"'
-                        : '')}>
-                                    <span><i class="fas fa-fw fa-comments text-secondary me-1"></i>${String(data.label)}</span>
+			        ? 'aria-disabled="true"'
+			        : '')}>
+                                    <span><i class="fas fa-fw fa-comments text-secondary me-1"></i>${String(data.label)
+		        }</span>
                                  </div>
                                 `
-            );
+	        );
         },
         choice: function ({ classNames }, data) {
             return template(
