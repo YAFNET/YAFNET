@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
 	  <RootNamespace>YAF.Core</RootNamespace>
@@ -11,7 +11,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
-    <PackageReference Include="FarsiLibrary.Core" Version="2.8.0" />
+    <PackageReference Include="FarsiLibrary.Core" Version="2.8.1" />
     <PackageReference Include="GoogleAuthenticator" Version="3.2.0" />
     <PackageReference Include="HtmlProperties" Version="1.0.0" />
     <PackageReference Include="Lucene.Net" Version="4.8.0-beta00017" />
