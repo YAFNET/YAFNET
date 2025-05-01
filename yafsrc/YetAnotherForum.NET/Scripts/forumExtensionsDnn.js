@@ -7743,7 +7743,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
-    const placeHolder = document.getElementById("PostAlbumsListPlaceholder"), list = placeHolder.querySelector("ul"), yafUserId = placeHolder.dataset.userid, pagedResults = {}, ajaxUrl = placeHolder.dataset.url + "api/Album/GetAlbumImages";
+    const placeHolder = document.getElementById("PostAlbumsListPlaceholder"), list = placeHolder.querySelector(".AlbumsList"), yafUserId = placeHolder.dataset.userid, pagedResults = {}, ajaxUrl = placeHolder.dataset.url + "api/Album/GetAlbumImages";
     pagedResults.UserId = yafUserId;
     pagedResults.PageSize = pageSize;
     pagedResults.PageNumber = pageNumber;
@@ -7755,13 +7755,13 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
             "Content-Type": "application/json;charset=utf-8"
         }
     }).then(res => res.json()).then(data => {
-        empty(list);
+        list.innerHTML = "";
         document.getElementById("PostAlbumsLoader").style.display = "none";
         data.AttachmentList.forEach(dataItem => {
-            var li = document.createElement("li");
-            li.classList.add("list-group-item");
-            li.classList.add("list-group-item-action");
-            li.style.whiteSpace = "nowrap";
+            var li = document.createElement("div");
+            li.classList.add("col-6");
+            li.classList.add("col-sm-4");
+            li.classList.add("p-1");
             li.style.cursor = "pointer";
             li.setAttribute("onclick", dataItem.OnClick);
             li.innerHTML = dataItem.IconImage;
@@ -7781,7 +7781,7 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
 }
 
 function getPaginationData(pageSize, pageNumber, isPageChange) {
-    const placeHolder = document.getElementById("PostAttachmentListPlaceholder"), list = placeHolder.querySelector("ul"), yafUserId = placeHolder.dataset.userid, pagedResults = {}, ajaxUrl = placeHolder.dataset.url + "api/Attachment/GetAttachments";
+    const placeHolder = document.getElementById("PostAttachmentListPlaceholder"), list = placeHolder.querySelector(".AttachmentList"), yafUserId = placeHolder.dataset.userid, pagedResults = {}, ajaxUrl = placeHolder.dataset.url + "api/Attachment/GetAttachments";
     pagedResults.UserId = yafUserId;
     pagedResults.PageSize = pageSize;
     pagedResults.PageNumber = pageNumber;
@@ -7793,21 +7793,21 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
             "Content-Type": "application/json;charset=utf-8"
         }
     }).then(res => res.json()).then(data => {
-        empty(list);
+        list.innerHTML = "";
         document.getElementById("PostAttachmentLoader").style.display = "none";
         if (data.AttachmentList.length === 0) {
-            const li = document.createElement("li");
+            const li = document.createElement("div");
+            li.classList.add("col");
             if (noText) {
                 noAttachmentsText = noText;
             }
-            li.innerHTML = `<li><div class="alert alert-info text-break" role="alert" style="white-space:normal;width:200px">${noAttachmentsText}</div></li>`;
+            li.innerHTML = `<div class="alert alert-info text-break" role="alert" style="white-space:normal;width:200px">${noAttachmentsText}</div>`;
             list.appendChild(li);
         }
         data.AttachmentList.forEach(dataItem => {
-            var li = document.createElement("li");
-            li.classList.add("list-group-item");
-            li.classList.add("list-group-item-action");
-            li.style.whiteSpace = "nowrap";
+            var li = document.createElement("div");
+            li.classList.add("col-6");
+            li.classList.add("col-sm-4");
             li.style.cursor = "pointer";
             li.setAttribute("onclick", dataItem.OnClick);
             li.innerHTML = dataItem.IconImage;
@@ -7815,10 +7815,6 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
         });
         renderAttachPreview(".attachments-preview");
         setPageNumber(pageSize, pageNumber, data.TotalRecords, document.getElementById("AttachmentsListPager"), "Attachments", "getPaginationData");
-        if (isPageChange && document.querySelector(".attachments-toggle") != null) {
-            const toggleBtn = document.querySelector(".attachments-toggle"), dropdownEl = new bootstrap.Dropdown(toggleBtn);
-            dropdownEl.toggle();
-        }
     }).catch(function(error) {
         console.log(error);
         document.getElementById("PostAttachmentLoader").style.display = "none";
@@ -8233,7 +8229,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             label = json.label === undefined ? data.label : json.label;
                         }
                         return template(`
-                                 <div class="${String(classNames.item)} ${String(data.highlighted ? classNames.highlightedState : classNames.itemSelectable)}"
+                                 <div class="${String(classNames.item)} ${String(data.highlighted ? classNames.highlightedState : classNames.itemSelectable)} ${String(data.placeholder ? classNames.placeholder : "")}"
                                       data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
                                       ${String(removeItemButton ? "data-deletable" : "")}
                                       ${String(data.active ? 'aria-selected="true"' : "")} ${String(data.disabled ? 'aria-disabled="true"' : "")}>

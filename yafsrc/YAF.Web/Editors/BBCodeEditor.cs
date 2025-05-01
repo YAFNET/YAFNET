@@ -40,11 +40,6 @@ using YAF.Web.Controls;
 public class BBCodeEditor : TextEditor
 {
     /// <summary>
-    ///   The Attachments list menu.
-    /// </summary>
-    private AttachmentsPopMenu popMenuAttachments;
-
-    /// <summary>
     ///   The Album list menu.
     /// </summary>
     private AlbumListPopMenu popMenuAlbums;
@@ -129,13 +124,6 @@ public class BBCodeEditor : TextEditor
     /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the server control content.</param>
     override protected void Render(HtmlTextWriter writer)
     {
-        if (this.PageBoardContext.UploadAccess)
-        {
-            // add PopMenu Attachments to this mix...
-            this.popMenuAttachments = new AttachmentsPopMenu();
-            this.Controls.Add(this.popMenuAttachments);
-        }
-
         if (this.PageBoardContext.BoardSettings.EnableAlbum && this.PageBoardContext.NumAlbums > 0)
         {
             // add PopMenu Albums to this mix...
@@ -301,17 +289,11 @@ public class BBCodeEditor : TextEditor
             // add drop down for optional "extra" codes...
             writer.WriteLine(
                 """
-                <button type="button" class="btn btn-primary dropdown-toggle attachments-toggle" title="{0}"
-                                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn btn-primary" title="{0}" data-bs-toggle="modal" data-bs-target="#UploadDialog">
                                   <i class="fa fa-paperclip fa-fw"></i></button>
                 """,
                 this.GetText("COMMON", "ATTACH_BBCODE"));
 
-            writer.Write("<div class=\"dropdown-menu\">");
-
-            this.popMenuAttachments.RenderControl(writer);
-
-            writer.Write("</div>");
             writer.Write("</div>");
         }
 

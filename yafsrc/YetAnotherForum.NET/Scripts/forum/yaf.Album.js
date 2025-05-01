@@ -1,6 +1,6 @@
 ﻿function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
     const placeHolder = document.getElementById('PostAlbumsListPlaceholder'),
-        list = placeHolder.querySelector('ul'),
+        list = placeHolder.querySelector('.AlbumsList'),
         yafUserId = placeHolder.dataset.userid,
         pagedResults = {},
         ajaxUrl = placeHolder.dataset.url + 'api/Album/GetAlbumImages';
@@ -18,18 +18,19 @@
         }
     }).then(res => res.json()).then(data => {
 
-        empty(list);
+	    list.innerHTML = '';
 
         document.getElementById('PostAlbumsLoader').style.display = 'none';
 
         data.AttachmentList.forEach((dataItem) => {
-            var li = document.createElement('li');
+            var li = document.createElement('div');
 
-            li.classList.add('list-group-item');
-            li.classList.add('list-group-item-action');
+            li.classList.add('col-6');
+            li.classList.add('col-sm-4');
+            li.classList.add('p-1');
 
-            li.style.whiteSpace = 'nowrap';
             li.style.cursor = 'pointer';
+
             li.setAttribute('onclick', dataItem.OnClick);
 
             li.innerHTML = dataItem.IconImage;

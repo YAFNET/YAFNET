@@ -85,12 +85,12 @@ public class AlbumListPopMenu : BaseControl, IPostBackEventHandler
         sb.Append("</div>");
         sb.Append("<div id=\"AlbumsListBox\" class=\"content\">");
         sb.AppendFormat(
-            "<div id=\"PostAlbumsListPlaceholder\" data-url=\"{0}\" data-userid=\"{1}\" data-notext=\"{2}\" style=\"clear: both;\">",
+            "<div id=\"PostAlbumsListPlaceholder\" data-url=\"{0}\" data-userid=\"{1}\" data-notext=\"{2}\">",
             BoardInfo.ForumClientFileRoot,
             BoardContext.Current.PageUserID,
             this.Get<ILocalization>().GetText("ATTACHMENTS", "NO_ATTACHMENTS"));
-        sb.Append("<ul class=\"AlbumsList list-group\">");
-        sb.Append("</ul>");
+        sb.Append("<div class=\"AlbumsList row\">");
+        sb.Append("</div>");
         sb.Append("</div>");
 
         sb.Append("</div>");

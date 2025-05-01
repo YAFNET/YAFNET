@@ -1,6 +1,6 @@
 ﻿function getPaginationData(pageSize, pageNumber, isPageChange) {
     const placeHolder = document.getElementById('PostAttachmentListPlaceholder'),
-        list = placeHolder.querySelector('ul'),
+        list = placeHolder.querySelector('.AttachmentList'),
         yafUserId = placeHolder.dataset.userid,
         pagedResults = {},
         ajaxUrl = placeHolder.dataset.url + 'api/Attachment/GetAttachments';
@@ -18,30 +18,32 @@
         }
     }).then(res => res.json()).then(data => {
 
-        empty(list);
+	    list.innerHTML = '';
 
         document.getElementById('PostAttachmentLoader').style.display = 'none';
 
         if (data.AttachmentList.length === 0) {
-            const li = document.createElement('li');
+            const li = document.createElement('div');
+
+            li.classList.add('col');
 
             if (noText) {
 	            noAttachmentsText = noText;
             }
 
-            li.innerHTML = `<li><div class="alert alert-info text-break" role="alert" style="white-space:normal;width:200px">${noAttachmentsText}</div></li>`;
+            li.innerHTML = `<div class="alert alert-info text-break" role="alert" style="white-space:normal;width:200px">${noAttachmentsText}</div>`;
 
             list.appendChild(li);
         }
 
         data.AttachmentList.forEach((dataItem) => {
-            var li = document.createElement('li');
+            var li = document.createElement('div');
 
-            li.classList.add('list-group-item');
-            li.classList.add('list-group-item-action');
+            li.classList.add('col-6');
+            li.classList.add('col-sm-4');
 
-            li.style.whiteSpace = 'nowrap';
             li.style.cursor = 'pointer';
+
             li.setAttribute('onclick', dataItem.OnClick);
 
             li.innerHTML = dataItem.IconImage;
@@ -57,13 +59,6 @@
             document.getElementById('AttachmentsListPager'),
             'Attachments',
             'getPaginationData');
-
-        if (isPageChange && document.querySelector('.attachments-toggle') != null) {
-            const toggleBtn = document.querySelector('.attachments-toggle'),
-                dropdownEl = new bootstrap.Dropdown(toggleBtn);
-
-            dropdownEl.toggle();
-        }
     }).catch(function (error) {
         console.log(error);
         document.getElementById('PostAttachmentLoader').style.display = 'none';

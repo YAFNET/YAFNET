@@ -85,7 +85,6 @@ yafEditor.prototype.FormatText = function (command, option) {
              </div></form>
                  `,
                         callback: function (result) {
-                            console.log('1');
                             if (result) {
                                 const url = document.getElementById('url').value,
                                     desc = document.getElementById('desc').value;
@@ -143,7 +142,6 @@ yafEditor.prototype.FormatText = function (command, option) {
               </div></form>
                   `,
                     callback: function (result) {
-                        console.log('2');
                         if (result) {
                             const url = document.getElementById('url').value,
                                 desc = document.getElementById('desc').value;

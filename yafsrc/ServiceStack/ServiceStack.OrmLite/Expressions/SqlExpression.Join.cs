@@ -489,12 +489,21 @@ public abstract partial class SqlExpression<T> : ISqlExpression
         var parentDef = sourceDef;
         var childDef = targetDef;
 
-        var refField = parentDef.GetRefFieldDefIfExists(childDef);
-        if (refField == null)
+        var refField = parentDef.GetExplicitRefFieldDefIfExists(childDef);
+        if (refField == null && childDef.GetExplicitRefFieldDefIfExists(parentDef) != null)
         {
             parentDef = targetDef;
             childDef = sourceDef;
-            refField = parentDef.GetRefFieldDefIfExists(childDef);
+            refField = parentDef.GetExplicitRefFieldDefIfExists(childDef);
+        }
+        else
+        {
+            refField = parentDef.GetRefFieldDefIfExists(childDef); if (refField == null)
+            {
+                parentDef = targetDef;
+                childDef = sourceDef;
+                refField = parentDef.GetRefFieldDefIfExists(childDef);
+            }
         }
 
         if (refField == null)
