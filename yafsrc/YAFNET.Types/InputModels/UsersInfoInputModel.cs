@@ -90,18 +90,6 @@ public class UsersInfoInputModel
     public string Joined { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this instance is facebook user.
-    /// </summary>
-    /// <value><c>true</c> if this instance is facebook user; otherwise, <c>false</c>.</value>
-    public bool IsFacebookUser { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether this instance is google user.
-    /// </summary>
-    /// <value><c>true</c> if this instance is google user; otherwise, <c>false</c>.</value>
-    public bool IsGoogleUser { get; set; }
-
-    /// <summary>
     /// Gets or sets the last visit.
     /// </summary>
     /// <value>The last visit.</value>

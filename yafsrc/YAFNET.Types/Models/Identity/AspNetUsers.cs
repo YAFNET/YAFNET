@@ -325,12 +325,6 @@ public class AspNetUsers<TKey> : IEntity, IHasId<TKey>
     public int Profile_Gender { get; set; }
 
     /// <summary>
-    /// Gets or sets Google Id
-    /// </summary>
-    [StringLength(255)]
-    public string Profile_GoogleId { get; set; }
-
-    /// <summary>
     /// Gets or sets Homepage.
     /// </summary>
     [StringLength(255)]
@@ -341,12 +335,6 @@ public class AspNetUsers<TKey> : IEntity, IHasId<TKey>
     /// </summary>
     [StringLength(400)]
     public string Profile_Facebook { get; set; }
-
-    /// <summary>
-    /// Gets or sets Facebook.
-    /// </summary>
-    [StringLength(400)]
-    public string Profile_FacebookId { get; set; }
 
     /// <summary>
     /// Gets or sets Interests.

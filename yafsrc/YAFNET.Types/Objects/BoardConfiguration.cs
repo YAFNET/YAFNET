@@ -79,29 +79,6 @@ public class BoardConfiguration
     public string DatabaseOwner { get; set; }
 
     /// <summary>
-    /// Gets or sets the google client ID.
-    /// </summary>
-    /// <value>
-    /// The google client ID.
-    /// </value>
-    public string GoogleClientID { get; set; }
-
-    /// <summary>
-    /// Gets or sets the google client secret.
-    /// </summary>
-    public string GoogleClientSecret { get; set; }
-
-    /// <summary>
-    ///     Gets or sets Facebook API Key.
-    /// </summary>
-    public string FacebookAPIKey { get; set; }
-
-    /// <summary>
-    ///     Gets or sets Facebook Secret Key.
-    /// </summary>
-    public string FacebookSecretKey { get; set; }
-
-    /// <summary>
     ///     Gets or sets a value indicating whether Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within Root Example : true /false
     /// </summary>
     public bool MultiBoardFolders { get; set; }

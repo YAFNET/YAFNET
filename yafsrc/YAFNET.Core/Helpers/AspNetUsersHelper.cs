@@ -1129,8 +1129,6 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                                                  u.LastVisit,
                                                  u.NumPosts,
                                                  IsGuest = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
-                                                 a.Profile_GoogleId,
-                                                 a.Profile_FacebookId,
                                                  RankName = r.Name,
                                                  TotalRows = Sql.Custom($"({countTotalSql})")
                                              });
@@ -1315,8 +1313,6 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                                                  u.LastVisit,
                                                  u.NumPosts,
                                                  IsGuest = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
-                                                 a.Profile_GoogleId,
-                                                 a.Profile_FacebookId,
                                                  RankName = r.Name,
                                                  TotalRows = Sql.Custom($"({countTotalSql})")
                                              });

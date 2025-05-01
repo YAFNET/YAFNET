@@ -3331,22 +3331,6 @@
             "#text": "Bekräftelselösenordet matchar inte"
           },
           {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Facebook-användare:"
-          },
-          {
-            "@tag": "FACEBOOK_USER_HELP",
-            "#text": "Anger om användaren är inloggad via Facebook."
-          },
-          {
-            "@tag": "GOOGLE_USER",
-            "#text": "Google Användare:"
-          },
-          {
-            "@tag": "GOOGLE_USER_HELP",
-            "#text": "Anger om användaren är inloggad via Google."
-          },
-          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Döda användare och förbjuda"
           },
@@ -4293,14 +4277,6 @@
           {
             "@tag": "ENABLE_RETWEET_MSG_HELP",
             "#text": "Aktiverar/avaktiverar Retweet-knappen, där användaren kan retweeta ett ämnesmeddelande."
-          },
-          {
-            "@tag": "ENABLE_SSO",
-            "#text": "Aktivera enkel inloggning:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Om du kryssar i denna ruta kan användarna logga in på ett befintligt konto via Facebook och/eller Twitter. För att aktivera den för Facebook måste du ställa in värdena YAF.FacebookAPIKey och YAF.FacebookSecretKey och för Twitter YAF.TwitterConsumerKey och YAF.TwitterConsumerSecret i app.config (AppSettings)."
           },
           {
             "@tag": "ENABLE_USERREPUTATION",
@@ -6542,10 +6518,6 @@
           {
             "@tag": "EXPORT_XML",
             "#text": "Exportera alla användare som Xml"
-          },
-          {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Facebook-användare"
           },
           {
             "@tag": "FILTER",
@@ -11174,30 +11146,6 @@
             "#text": "Logga in eller registrera dig med {0}"
           },
           {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Anslut ett befintligt forumkonto till ditt {0}-konto Du måste först logga in på forumet. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>E-postadressen på Facebook måste matcha forumanvändarens e-postadress för att användaren ska kunna anslutas.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Google e-postadress måste matcha forumanvändarens e-postadress för att ansluta användaren.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Logga in eller registrera dig med {0} eller anslut ett befintligt användarkonto med {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Logga in med ett användarkonto som är anslutet till {0}. Om inget konto hittas skapas automatiskt ett nytt konto i forumet."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Kunde inte få access_token!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Automatisk inloggning:"
           },
@@ -11208,10 +11156,6 @@
           {
             "@tag": "CAPS_LOCK",
             "#text": "Caps Lock är på"
-          },
-          {
-            "@tag": "CONNECT_VIA",
-            "#text": "Eller anslut via"
           },
           {
             "@tag": "EMAIL",
@@ -11260,50 +11204,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Skicka lösenord"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Single Sign On är för närvarande inaktiverat av administratören!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Enkel inloggning är avaktiverad för den användaren och du måste aktivera den i dina profilinställningar för att kunna använda funktionen."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Facebook-inloggningen misslyckades, användaren finns inte eller kontot är inte anslutet."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Facebook-inloggningen misslyckades, ett användarkonto med samma e-postadress som Facebook-kontot finns redan, försök ansluta ditt forumkonto istället."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Facebook-inloggningen misslyckades eftersom användaren inte har angett någon e-postadress för kontot."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Nya registreringar är inaktiverade."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Google-inloggningen misslyckades, användaren finns inte eller kontot är inte anslutet."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Google-inloggningen misslyckades, ett användarkonto med samma e-postadress som Google-kontot finns redan, försök ansluta ditt forumkonto istället."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
           },
           {
             "@tag": "TITLE",
@@ -14373,14 +14273,6 @@
           {
             "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_TEXT",
             "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Google Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Google)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",

@@ -161,8 +161,6 @@ public class UsersInfoModel : AdminPage
         this.Input.IsExcludedFromActiveUsers = this.EditUser.Item1.UserFlags.IsActiveExcluded;
         this.Input.Moderated = this.EditUser.Item1.UserFlags.Moderated;
         this.Input.Joined = this.EditUser.Item1.Joined.ToString(CultureInfo.InvariantCulture);
-        this.Input.IsFacebookUser = this.EditUser.Item2.Profile_FacebookId.IsSet();
-        this.Input.IsGoogleUser = this.EditUser.Item2.Profile_GoogleId.IsSet();
         this.Input.LastVisit = this.EditUser.Item1.LastVisit.ToString(CultureInfo.InvariantCulture);
         this.Input.RankID = this.EditUser.Item1.RankID;
 

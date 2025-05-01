@@ -186,24 +186,6 @@
                                         <strong>@Html.LocalizedText("ADMIN_USERS", "LAST_VISIT"):</strong>
                                         @Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(user.LastVisit))
                                     </li>
-
-                                    @if (user.Profile_FacebookId.IsSet())
-                                    {
-                                        <li class="list-inline-item">
-                                            <span title="@Html.LocalizedText("ADMIN_EDITUSER", "FACEBOOK_USER_HELP")">
-                                                @Html.Icon("facebook", "text-info", "fab")
-                                            </span>
-                                        </li>
-                                    }
-                                    
-                                    @if (user.Profile_GoogleId.IsSet())
-                                    {
-                                        <li class="list-inline-item">
-                                            <span title="@Html.LocalizedText("ADMIN_EDITUSER", "GOOGLE_USER_HELP")">
-                                                @Html.Icon("google", "text-info", "fab")
-                                            </span>
-                                        </li>
-                                    }
                                 </ul>
                             </p>
                             <small>

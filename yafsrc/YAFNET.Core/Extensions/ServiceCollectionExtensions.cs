@@ -25,7 +25,6 @@
 using System;
 using System.Threading.RateLimiting;
 
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -178,7 +177,7 @@ public static class ServiceCollectionExtensionsExtensions
     public static IServiceCollection AddYafAuthentication(this IServiceCollection services,
         IConfiguration configuration)
     {
-        var boardConfig = configuration.GetSection("BoardConfiguration").Get<BoardConfiguration>();
+       
 
         var authenticationBuilder = services.AddAuthentication();
 
@@ -192,44 +191,6 @@ public static class ServiceCollectionExtensionsExtensions
                 options.AccessDeniedPath = "/Info";
                 options.SlidingExpiration = true;
             });
-
-        if (boardConfig.GoogleClientSecret.IsSet() && boardConfig.GoogleClientID.IsSet())
-        {
-            authenticationBuilder.AddGoogle(
-                nameof(AuthService.google),
-                options =>
-                {
-                    options.ClientId = boardConfig.GoogleClientID;
-                    options.ClientSecret = boardConfig.GoogleClientSecret;
-                    options.SignInScheme = IdentityConstants.ExternalScheme;
-
-                    options.ClaimActions.MapJsonKey("urn:google:email", "email", "string");
-                    options.ClaimActions.MapJsonKey("urn:google:id", "id", "string");
-                    options.ClaimActions.MapJsonKey("urn:google:name", "name", "string");
-                });
-        }
-
-        if (boardConfig.FacebookSecretKey.IsSet() && boardConfig.FacebookAPIKey.IsSet())
-        {
-            authenticationBuilder.AddFacebook(
-                nameof(AuthService.facebook),
-                options =>
-                {
-                    options.ClientId = boardConfig.FacebookAPIKey;
-                    options.ClientSecret = boardConfig.FacebookSecretKey;
-                    options.SignInScheme = IdentityConstants.ExternalScheme;
-
-                    options.Scope.Add("email");
-
-                    options.Fields.Add("name");
-                    options.Fields.Add("email");
-
-                    options.ClaimActions.MapJsonKey("urn:facebook:email", "email", "string");
-                    options.ClaimActions.MapJsonKey("urn:facebook:id", "id", "string");
-                    options.ClaimActions.MapJsonKey("urn:facebook:name", "name", "string");
-                });
-        }
-
 
         return services;
     }

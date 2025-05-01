@@ -521,10 +521,8 @@ public class EditProfileModel : ProfilePage
         user.Profile_Birthday = userProfile.Birthday;
         user.Profile_Blog = userProfile.Blog;
         user.Profile_Gender = userProfile.Gender;
-        user.Profile_GoogleId = userProfile.GoogleId;
         user.Profile_Homepage = userProfile.Homepage;
         user.Profile_Facebook = userProfile.Facebook;
-        user.Profile_FacebookId = userProfile.FacebookId;
         user.Profile_Interests = userProfile.Interests;
         user.Profile_Location = userProfile.Location;
         user.Profile_Country = userProfile.Country;

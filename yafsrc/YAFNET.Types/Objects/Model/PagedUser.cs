@@ -95,16 +95,6 @@ public class PagedUser
     public bool? IsGuest { get; set; }
 
     /// <summary>
-    /// Gets or sets Google Id
-    /// </summary>
-    public string Profile_GoogleId { get; set; }
-
-    /// <summary>
-    /// Gets or sets Facebook.
-    /// </summary>
-    public string Profile_FacebookId { get; set; }
-
-    /// <summary>
     /// Gets or sets the rank name.
     /// </summary>
     public string RankName { get; set; }

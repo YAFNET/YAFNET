@@ -3323,22 +3323,6 @@
             "#text": "Bestätigungs Passwort stimmt nicht überein"
           },
           {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Facebook Benutzer:"
-          },
-          {
-            "@tag": "FACEBOOK_USER_HELP",
-            "#text": "Gibt an ob der Benutzer über Facebook angemeldet ist."
-          },
-          {
-            "@tag": "GOOGLE_USER",
-            "#text": "Google Benutzer:"
-          },
-          {
-            "@tag": "GOOGLE_USER_HELP",
-            "#text": "Gibt an ob der Benutzer über Google angemeldet ist."
-          },
-          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Benutzer töten und sperren"
           },
@@ -4285,14 +4269,6 @@
           {
             "@tag": "ENABLE_RETWEET_MSG_HELP",
             "#text": "Aktiviert / deaktiviert den Retweet Button, wo der Benutzer ein Beitrag retweeten kann."
-          },
-          {
-            "@tag": "ENABLE_SSO",
-            "#text": "Single Sign On Aktivieren:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Wenn diese Option aktiviert ist, können Benutzer sich über Facebook und/oder Twitter anmelden. Um diese Funktion zu aktivieren müssen die Parameter YAF.FacebookAPIKey und YAF.FacebookSecretKey angegeben werden, und für Twitter YAF.TwitterConsumerKey und YAF.TwitterConsumerSecret Werte in der app.config (AppSettings) Datei."
           },
           {
             "@tag": "ENABLE_USERREPUTATION",
@@ -6534,10 +6510,6 @@
           {
             "@tag": "EXPORT_XML",
             "#text": "All Benutzer als XML Exportieren"
-          },
-          {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Facebook Benutzer"
           },
           {
             "@tag": "FILTER",
@@ -11158,30 +11130,6 @@
             "#text": "Anmelden oder registrieren über {0}"
           },
           {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Einen vorhandes Forumkonto mit einem {0} Konto Verbinden. Sie müssen Sich dazu zunächst im Forum anmelden."
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>Die Facebook Benutzer Email Adress muss mit der Forum Benutzer Email Adresse übereinstimmen um das Konto zu verbinden.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Die Google Benutzer Email Adress muss mit der Forum Benutzer Email Adresse übereinstimmen um das Konto zu verbinden.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Anmelden oder registrieren über {0} oder ein bestehendes Konto mit {0} verbinden."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Mit einem Konto anmelden das mit {0} verbunden ist. Oder wenn kein Konto gefunden wurde wird automatisch ein neues Erstellt."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Zugriffstoken nicht erhalten!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Login merken"
           },
@@ -11192,10 +11140,6 @@
           {
             "@tag": "CAPS_LOCK",
             "#text": "Feststelltaste ist eingeschaltet"
-          },
-          {
-            "@tag": "CONNECT_VIA",
-            "#text": "Oder verbinden Sie sich über"
           },
           {
             "@tag": "EMAIL",
@@ -11244,50 +11188,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Passwort zusenden"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Single Sign On ist derzeit vom Administrator deaktiviert!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Single Sign On ist deaktiviert für diesen Benutzer, um diese Funktion zu aktivieren müssen Sie diese in den Profil Einstellungen aktivieren."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Die Facebook Anmeldung ist fehlgeschlagen, ein Benutzer mit diesem Namen existiert nicht, oder das Konto ist nicht verbunden."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Der Facebook-Login ist fehlgeschlagen, ein Benutzerkonto mit der gleichen E-Mail-Adresse wie das Facebook-Konto existiert bereits, bitte versuchen Sie stattdessen, sich mit Ihrem Forumskonto zu verbinden."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Der Facebook-Login ist fehlgeschlagen, da der Benutzer keine E-Mail-Adresse für das Konto angegeben hat."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "Die Email adress muss mit der Forum Email Adress identisch sein!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Registrierungen sind nicht erlaubt."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Die Google Anmeldung ist fehlgeschlagen, ein Benutzer mit diesem Namen existiert nicht, oder das Konto ist nicht verbunden."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Der Google-Login ist fehlgeschlagen, ein Benutzerkonto mit der gleichen E-Mail-Adresse wie das Google-Konto existiert bereits, bitte versuchen Sie stattdessen, sich mit Ihrem Forumskonto zu verbinden."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "Die Email adress muss mit der Forum Email Adress identisch sein!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "Die Facebook Benutzer is nicht verbunden oder wurde nicht gefunden!"
           },
           {
             "@tag": "TITLE",
@@ -14357,14 +14257,6 @@
           {
             "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_TEXT",
             "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Google Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Google)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",

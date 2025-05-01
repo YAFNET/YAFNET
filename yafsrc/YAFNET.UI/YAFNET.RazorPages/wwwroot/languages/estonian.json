@@ -3331,22 +3331,6 @@
             "#text": "Kinnitusparool ei ühti"
           },
           {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Facebooki kasutaja:"
-          },
-          {
-            "@tag": "FACEBOOK_USER_HELP",
-            "#text": "Näitab, kas Kasutaja on Facebooki kaudu sisse logitud."
-          },
-          {
-            "@tag": "GOOGLE_USER",
-            "#text": "Google'i kasutaja:"
-          },
-          {
-            "@tag": "GOOGLE_USER_HELP",
-            "#text": "Näitab, kas Kasutaja on Google'i kaudu sisse logitud."
-          },
-          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Tapa kasutaja ja blokeeri"
           },
@@ -4293,14 +4277,6 @@
           {
             "@tag": "ENABLE_RETWEET_MSG_HELP",
             "#text": "Lubab/keelab Retweet Button, kus Kasutaja saab teemateate uuesti sättida."
-          },
-          {
-            "@tag": "ENABLE_SSO",
-            "#text": "Ühekordse sisselogimise lubamine:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Kui see on märgitud, saavad kasutajad Facebooki ja/või Twitteri kaudu olemasolevale kontole sisse logida. "
           },
           {
             "@tag": "ENABLE_USERREPUTATION",
@@ -6542,10 +6518,6 @@
           {
             "@tag": "EXPORT_XML",
             "#text": "Ekspordi kõik kasutajad XML-vormingus"
-          },
-          {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Facebooki kasutaja"
           },
           {
             "@tag": "FILTER",
@@ -11174,30 +11146,6 @@
             "#text": "Logige sisse või registreeruge teenusega {0}"
           },
           {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Ühendage olemasoleva foorumi konto oma {0} kontoga. Esmalt peate foorumite kaudu sisse logima. "
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>Kasutaja ühendamiseks peab Facebooki e-posti aadress ühtima foorumi kasutaja e-posti aadressiga.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Kasutaja ühendamiseks peab Google'i e-posti aadress ühtima foorumi kasutaja e-posti aadressiga.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Logige sisse või registreeruge kontoga {0} või ühendage olemasolev kasutajakonto teenusega {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Logige sisse kasutajakontoga, mis on ühendatud teenusega {0}. "
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Access_token ei saanud hankida!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Jäta mind meelde"
           },
@@ -11208,10 +11156,6 @@
           {
             "@tag": "CAPS_LOCK",
             "#text": "Caps Lock on sisse lülitatud"
-          },
-          {
-            "@tag": "CONNECT_VIA",
-            "#text": "Või Ühendage kaudu"
           },
           {
             "@tag": "EMAIL",
@@ -11260,50 +11204,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Saada parool"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Administraator on ühekordse sisselogimise hetkel deaktiveerinud!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Selle kasutaja jaoks on ühekordne sisselogimine deaktiveeritud, selle funktsiooni kasutamiseks peate selle oma profiili seadetes aktiveerima."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Facebooki sisselogimine ebaõnnestus, kasutajat pole olemas või konto pole ühendatud."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Facebooki sisselogimine ebaõnnestus, Facebooki kontoga sama e-posti aadressiga kasutajakonto on juba olemas, proovige selle asemel ühendada oma foorumi konto."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Facebooki sisselogimine ebaõnnestus, kuna kasutaja ei anna konto jaoks e-posti aadressi."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Uued registreerimised on keelatud."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Google'i sisselogimine ebaõnnestus, kasutajat pole olemas või konto pole ühendatud."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Google'i sisselogimine ebaõnnestus, Google'i kontoga sama e-posti aadressiga kasutajakonto on juba olemas, proovige selle asemel ühendada oma foorumi konto."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
           },
           {
             "@tag": "TITLE",
@@ -14385,14 +14285,6 @@
           {
             "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_TEXT",
             "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Google Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Google)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",

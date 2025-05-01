@@ -3323,22 +3323,6 @@
             "#text": "Hasło potwierdzające nie jest zgodne"
           },
           {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Użytkownik Facebooka:"
-          },
-          {
-            "@tag": "FACEBOOK_USER_HELP",
-            "#text": "Wskazuje, czy użytkownik jest zalogowany przez Facebooka."
-          },
-          {
-            "@tag": "GOOGLE_USER",
-            "#text": "Użytkownik Google:"
-          },
-          {
-            "@tag": "GOOGLE_USER_HELP",
-            "#text": "Wskazuje, czy użytkownik jest zalogowany przez Google."
-          },
-          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Zabij użytkownika i zbanuj"
           },
@@ -4285,14 +4269,6 @@
           {
             "@tag": "ENABLE_RETWEET_MSG_HELP",
             "#text": "Włącza/wyłącza przycisk Retweet, za pomocą którego użytkownik może ponownie wysłać wiadomość do tematu."
-          },
-          {
-            "@tag": "ENABLE_SSO",
-            "#text": "Włącz funkcję Single Sign On:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Jeśli opcja jest zaznaczona, użytkownicy będą mogli logować się do istniejącego konta przez Facebooka i/lub Twittera. Aby włączyć to dla Facebooka należy ustawić wartości YAF.FacebookAPIKey i YAF.FacebookSecretKey, a dla Twittera YAF.TwitterConsumerKey i YAF.TwitterConsumerSecret w app.config (AppSettings)."
           },
           {
             "@tag": "ENABLE_USERREPUTATION",
@@ -6534,10 +6510,6 @@
           {
             "@tag": "EXPORT_XML",
             "#text": "Eksportuj wszystkich użytkowników jako Xml"
-          },
-          {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Użytkownik Facebooka"
           },
           {
             "@tag": "FILTER",
@@ -11162,30 +11134,6 @@
             "#text": "Zaloguj się lub zarejestruj przez {0}"
           },
           {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Aby połączyć istniejące konto {0} z forum musisz się najpierw zalogować. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>E-mail na Facebooku musi być taki sam, jak e-mail w profilu użytkownika na forum, aby móc połączyć.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Adres e-mail Google musi być taki sam, jak adres e-mail użytkownika na forum, aby móc połączyć.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Zaloguj się lub zarejestruj przez {0} lub połącz istniejące konto z {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Zaloguj się z konta użytkownika, który jest połączony z {0}. Lub jeśli nie można znaleźć nowe konto zostanie automatycznie utworzone na forum."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Brak dostępu!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Zapamiętaj mnie"
           },
@@ -11196,10 +11144,6 @@
           {
             "@tag": "CAPS_LOCK",
             "#text": "Caps Lock jest włączony"
-          },
-          {
-            "@tag": "CONNECT_VIA",
-            "#text": "Lub Połącz się za pomocą"
           },
           {
             "@tag": "EMAIL",
@@ -11248,50 +11192,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Wyślij hasło"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Pojedyncze logowanie jest wyłączone przez administratora!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Pojedyncze logowanie jest wyłączone dla tego użytkownika. Możesz je aktywować w ustawieniach profilu."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Logowanie przez Facebooka nie powiodło się. Użytkownik nie istnieje, albo nie jest połączony."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Logowanie na Facebooku nie powiodło się, konto użytkownika o tym samym adresie e-mail co konto na Facebooku już istnieje, spróbuj zamiast tego połączyć się z kontem na forum."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Logowanie na Facebooku nie powiodło się, ponieważ użytkownik nie podał adresu e-mail dla konta."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "Adres e-mail na Facebooku musi być taki sam, jak adres e-mail na forum!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Rejestracja jest zablokowana."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Logowanie przez Google nie powiodło się. Użytkownik nie istnieje, albo nie jest połączony"
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Logowanie przez Google nie powiodło się, konto użytkownika o takim samym adresie e-mail jak konto Google już istnieje, spróbuj połączyć się z kontem na forum."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "Adres e-mail Google musi być taki sam, jak adres e-mail na forum!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "Konto użytkownika jest niepołączone, lub nie istnieje."
           },
           {
             "@tag": "TITLE",
@@ -14361,14 +14261,6 @@
           {
             "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_TEXT",
             "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Google Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Google)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",

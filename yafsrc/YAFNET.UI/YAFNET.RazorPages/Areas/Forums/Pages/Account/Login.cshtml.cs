@@ -35,7 +35,6 @@ using MimeKit;
 
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
-using YAF.Core.Identity.Owin;
 using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
@@ -113,30 +112,6 @@ public class LoginModel : AccountPage
         this.Input = new LoginInputModel();
 
         return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Handle External Login
-    /// </summary>
-    /// <param name="auth">
-    /// The provider name.
-    /// </param>
-    /// <param name="handler">
-    /// The handler.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
-    public async Task<IActionResult> OnGetCallbackAsync(string auth = null, string handler = null)
-    {
-        if (auth.IsSet() && handler.IsSet() && this.PageBoardContext.BoardSettings.AllowSingleSignOn)
-        {
-            return await this.HandleExternalLoginAsync(auth);
-        }
-
-        return this.Get<ISessionService>().InfoMessage.IsSet()
-                   ? this.PageBoardContext.Notify(this.Get<ISessionService>().InfoMessage, MessageTypes.danger)
-                   : this.Page();
     }
 
     /// <summary>
@@ -303,46 +278,5 @@ public class LoginModel : AccountPage
         await verifyEmail.SendEmailAsync(new MailboxAddress(this.Input.UserName, checkMail.Email), subject);
 
         return this.PageBoardContext.Notify(this.GetText("LOGIN", "MSG_MESSAGE_SEND"), MessageTypes.success);
-    }
-
-    /// <summary>
-    /// handle external login if provider exist in Query String
-    /// </summary>
-    /// <param name="auth">
-    /// The Provider Name.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
-    private async Task<IActionResult> HandleExternalLoginAsync(string auth)
-    {
-        var loginAuth = auth.ToEnum<AuthService>();
-
-        (string Message, AspNetUsers User) user = (string.Empty, null);
-
-        switch (loginAuth)
-        {
-            case AuthService.facebook:
-            {
-                var facebookAuth = new Facebook();
-                user = await facebookAuth.LoginOrCreateUserAsync();
-            }
-
-                break;
-            case AuthService.google:
-            {
-                var googleAuth = new Google();
-                user = await googleAuth.LoginOrCreateUserAsync();
-            }
-
-                break;
-        }
-
-        if (user.Message.IsSet() && user.User != null)
-        {
-            return this.PageBoardContext.Notify(user.Message, MessageTypes.warning);
-        }
-
-        return await this.Get<IAspNetUsersHelper>().SignInExternalAsync(user.User);
     }
 }

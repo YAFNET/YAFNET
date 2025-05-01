@@ -3323,22 +3323,6 @@
             "#text": "La confirmación de contraseña no coincide"
           },
           {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Usuario de Facebook:"
-          },
-          {
-            "@tag": "FACEBOOK_USER_HELP",
-            "#text": "Indica si el usuario está conectado vía Facebook."
-          },
-          {
-            "@tag": "GOOGLE_USER",
-            "#text": "Usuario de Google:"
-          },
-          {
-            "@tag": "GOOGLE_USER_HELP",
-            "#text": "Indica si el usuario está conectado vía Google."
-          },
-          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Matar al usuario y prohibirlo"
           },
@@ -4285,14 +4269,6 @@
           {
             "@tag": "ENABLE_RETWEET_MSG_HELP",
             "#text": "Activa/desactiva el botón de Retweetear con el que el usurio puede retweetear el mensaje de un tema."
-          },
-          {
-            "@tag": "ENABLE_SSO",
-            "#text": "Activar el servicio de sesión único:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Si está activado, los usuarios podrán iniciar sesión con una cuenta existente en Facebook y/o Twitter. Para activarlo para Facebook necesitas configurar los valores de YAF.FacebookAPIKey y YAF.FacebookSecretKey, y para Twitter YAF.TwitterConsumerKey y YAF.TwitterConsumerSecret en el app.config (AppSettings)."
           },
           {
             "@tag": "ENABLE_USERREPUTATION",
@@ -6534,10 +6510,6 @@
           {
             "@tag": "EXPORT_XML",
             "#text": "Exportar todos los usuarios como XML"
-          },
-          {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Usuario de Facebook"
           },
           {
             "@tag": "FILTER",
@@ -11158,30 +11130,6 @@
             "#text": "Ingresa o regístrate con {0}"
           },
           {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Conecta una cuenta existente en el foro con tu cuenta de {0} Antes necesitas ingresar en el foro. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>El email de Facebook debe coincidir con el email del foro para conectar el usuario.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>El email de Google debe coincidir con el email del foro para conectar el usuario.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Ingresa o regístrate con {0} o conecta una cuenta de usuario existente con {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Ingresar con una cuenta de usuario que está conectado con {0}. O si no se encuentra una cuenta, una nueva será creada automáticamente en los foros."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "No se ha podido autorizar la contraseña."
-          },
-          {
             "@tag": "AUTO",
             "#text": "Iniciar sesión automaticamente:"
           },
@@ -11192,10 +11140,6 @@
           {
             "@tag": "CAPS_LOCK",
             "#text": "El bloqueo de mayúsculas está activado"
-          },
-          {
-            "@tag": "CONNECT_VIA",
-            "#text": "O conéctese a través de"
           },
           {
             "@tag": "EMAIL",
@@ -11244,50 +11188,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Enviar contraseña"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "El inicio de sesión único no está disponible en estos momentos."
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "El inicio de sesión único no está disponible para este usuario, necesitas activarlo en tu configuración de cuenta para usarlo en el futuro."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "El ingreso en Facebook ha fallado, el usuario no existe o la cuenta no está activada."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "El inicio de sesión en Facebook ha fallado, ya existe una cuenta de usuario con la misma dirección de correo electrónico que la cuenta de Facebook, por favor, intenta conectar tu cuenta del foro en su lugar."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "El inicio de sesión de Facebook falló, porque el usuario no proporciona una dirección de correo electrónico para la cuenta."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "La cuenta de email de Facebook debe coincidir con la cuenta de email del foro."
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Nuevos registros están desactivados."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "El ingreso en Google ha fallado, el usuario no existe o la cuenta no está activada."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "El inicio de sesión de Google ha fallado, ya existe una cuenta de usuario con la misma dirección de correo electrónico que la cuenta de Google, por favor, intente conectar su cuenta del foro en su lugar."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "La dirección de email de Google debe coincidir con la dirección de email del foro."
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "La cuenta de usuario no está activa o no ha sido encontrada."
           },
           {
             "@tag": "TITLE",
@@ -14357,14 +14257,6 @@
           {
             "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_TEXT",
             "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Google Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Google)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",

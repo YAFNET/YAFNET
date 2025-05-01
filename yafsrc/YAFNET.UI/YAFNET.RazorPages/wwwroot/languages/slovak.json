@@ -3331,22 +3331,6 @@
             "#text": "Potvrdzovacie heslo sa nezhoduje"
           },
           {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Používateľ Facebooku:"
-          },
-          {
-            "@tag": "FACEBOOK_USER_HELP",
-            "#text": "Označuje, či je používateľ prihlásený cez Facebook."
-          },
-          {
-            "@tag": "GOOGLE_USER",
-            "#text": "Používateľ Google:"
-          },
-          {
-            "@tag": "GOOGLE_USER_HELP",
-            "#text": "Označuje, či je používateľ prihlásený prostredníctvom služby Google."
-          },
-          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Zabiť používateľa a zakázať"
           },
@@ -4293,14 +4277,6 @@
           {
             "@tag": "ENABLE_RETWEET_MSG_HELP",
             "#text": "Zapnutie/vypnutie tlačidla Retweet, pomocou ktorého môže používateľ retweetovať správu témy."
-          },
-          {
-            "@tag": "ENABLE_SSO",
-            "#text": "Povolenie jednotného prihlásenia:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Ak je táto možnosť začiarknutá, používatelia sa budú môcť prihlásiť do existujúceho konta prostredníctvom Facebooku a/alebo Twitteru. Ak to chcete povoliť pre Facebook, musíte nastaviť hodnoty YAF.FacebookAPIKey a YAF.FacebookSecretKey a pre Twitter hodnoty YAF.TwitterConsumerKey a YAF.TwitterConsumerSecret v súbore app.config (AppSettings)."
           },
           {
             "@tag": "ENABLE_USERREPUTATION",
@@ -6542,10 +6518,6 @@
           {
             "@tag": "EXPORT_XML",
             "#text": "Exportovať všetkých používateľov ako Xml"
-          },
-          {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Používateľ Facebooku"
           },
           {
             "@tag": "FILTER",
@@ -11174,30 +11146,6 @@
             "#text": "Prihláste sa alebo sa zaregistrujte pomocou {0}"
           },
           {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Pripojenie existujúceho konta na fóre k vášmu kontu {0} Najprv sa musíte prihlásiť cez fórum. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>Emailová adresa na Facebooku sa musí zhodovať s e-mailovou adresou používateľa fóra, aby bolo možné používateľa pripojiť.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Emailová adresa Google sa musí zhodovať s e-mailovou adresou používateľa fóra, aby bolo možné používateľa pripojiť.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Prihláste sa alebo sa zaregistrujte pomocou {0} alebo pripojte existujúce používateľské konto pomocou {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Prihláste sa pomocou používateľského konta, ktoré je pripojené k {0}. Alebo ak sa nenájde žiadne konto, automaticky sa vytvorí nové konto na fóre."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Nepodarilo sa získať access_token!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Automatické prihlásenie:"
           },
@@ -11208,10 +11156,6 @@
           {
             "@tag": "CAPS_LOCK",
             "#text": "Caps Lock je zapnutý"
-          },
-          {
-            "@tag": "CONNECT_VIA",
-            "#text": "Alebo sa pripojte prostredníctvom"
           },
           {
             "@tag": "EMAIL",
@@ -11260,50 +11204,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Poslať heslo"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Jednotné prihlásenie je v súčasnosti deaktivované správcom!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Jednotné prihlásenie je pre tohto používateľa deaktivované, ak chcete túto funkciu používať, musíte ju aktivovať v nastaveniach profilu."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Prihlásenie na Facebook zlyhalo, používateľ neexistuje alebo konto nie je pripojené."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Prihlásenie na Facebook zlyhalo, používateľské konto s rovnakou e-mailovou adresou ako facebookové konto už existuje, skúste sa namiesto toho pripojiť k vášmu kontu na fóre."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Prihlásenie na Facebook zlyhalo, pretože používateľ nezadal e-mailovú adresu pre konto."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Nové registrácie sú zakázané."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Prihlásenie do služby Google zlyhalo, používateľ neexistuje alebo účet nie je pripojený."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Prihlásenie do služby Google zlyhalo, používateľské konto s rovnakou e-mailovou adresou ako konto Google už existuje, skúste sa namiesto toho pripojiť k svojmu kontu na fóre."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
           },
           {
             "@tag": "TITLE",
@@ -14373,14 +14273,6 @@
           {
             "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_TEXT",
             "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Google Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Google)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",

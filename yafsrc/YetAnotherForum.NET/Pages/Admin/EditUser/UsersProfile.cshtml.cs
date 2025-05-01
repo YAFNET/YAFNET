@@ -515,10 +515,8 @@ public class UsersProfileModel : AdminPage
         this.EditUser.Item2.Profile_Birthday = userProfile.Birthday;
         this.EditUser.Item2.Profile_Blog = userProfile.Blog;
         this.EditUser.Item2.Profile_Gender = userProfile.Gender;
-        this.EditUser.Item2.Profile_GoogleId = userProfile.GoogleId;
         this.EditUser.Item2.Profile_Homepage = userProfile.Homepage;
         this.EditUser.Item2.Profile_Facebook = userProfile.Facebook;
-        this.EditUser.Item2.Profile_FacebookId = userProfile.FacebookId;
         this.EditUser.Item2.Profile_Interests = userProfile.Interests;
         this.EditUser.Item2.Profile_Location = userProfile.Location;
         this.EditUser.Item2.Profile_Country = userProfile.Country;

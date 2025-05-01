@@ -80,36 +80,6 @@
                                     text-localized-tag="FORUM_LOGIN"></button>
                         </div>
                     </form>
-                    @if (Current.BoardSettings.AllowSingleSignOn)
-                    {
-                        <section>
-                            <form asp-controller="LoginBox" asp-action="Auth">
-                                <div class="d-grid gap-2">
-                                    @{
-                                        var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-                                        if (loginProviders.HasItems())
-                                        {
-                                            @foreach (var provider in loginProviders)
-                                            {
-                                                <button type="submit"
-                                                        asp-route-auth="@provider.Name"
-                                                        button-style="None"
-                                                        button-size="Small"
-                                                        class="@Html.Raw($"btn btn-social btn-{provider.Name} me-1 mb-1")"
-                                                        icon="@provider.Name"
-                                                        icon-css-class="fab"
-                                                        text-localized-tag="AUTH_CONNECT"
-                                                        title-localized-tag="AUTH_CONNECT"
-                                                        text-param0="@provider.DisplayName"
-                                                        title-param0="@provider.DisplayName">
-                                                </button>
-                                            }
-                                        }
-                                    }
-                                </div>
-                            </form>
-                        </section>
-                    }
                 </div>
             </div>
 

@@ -3331,22 +3331,6 @@
             "#text": "Onay şifresi eşleşmiyor"
           },
           {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Facebook Kullanıcısı:"
-          },
-          {
-            "@tag": "FACEBOOK_USER_HELP",
-            "#text": "Kullanıcının Facebook üzerinden giriş yapıp yapmadığını gösterir."
-          },
-          {
-            "@tag": "GOOGLE_USER",
-            "#text": "Google Kullanıcısı:"
-          },
-          {
-            "@tag": "GOOGLE_USER_HELP",
-            "#text": "Kullanıcının Google üzerinden giriş yapıp yapmadığını gösterir."
-          },
-          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Kullanıcıyı Öldür ve Yasakla"
           },
@@ -4293,14 +4277,6 @@
           {
             "@tag": "ENABLE_RETWEET_MSG_HELP",
             "#text": "Kullanıcının bir konu mesajını yeniden tweetleyebileceği Retweet Düğmesini etkinleştirir/devre dışı bırakır."
-          },
-          {
-            "@tag": "ENABLE_SSO",
-            "#text": "Tek Oturum Açmayı Etkinleştirin:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "İşaretlenirse, kullanıcılar Facebook ve/veya Twitter üzerinden mevcut bir hesaba Giriş yapabilecektir. Facebook için Etkinleştirmek için app.config (AppSettings) içinde YAF.FacebookAPIKey ve YAF.FacebookSecretKey Değerlerini ve Twitter için YAF.TwitterConsumerKey ve YAF.TwitterConsumerSecret Değerlerini ayarlamanız gerekir."
           },
           {
             "@tag": "ENABLE_USERREPUTATION",
@@ -6542,10 +6518,6 @@
           {
             "@tag": "EXPORT_XML",
             "#text": "Tüm Kullanıcı(lar)ı Xml Olarak Dışa Aktar"
-          },
-          {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Facebook Kullanıcısı"
           },
           {
             "@tag": "FILTER",
@@ -11174,30 +11146,6 @@
             "#text": "{0} ile Giriş Yapın veya Kaydolun"
           },
           {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Mevcut bir forum hesabını {0} hesabınıza bağlayın Önce forumlar üzerinden giriş yapmanız gerekir. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>Kullanıcıyı bağlamak için Facebook e-posta adresi forum kullanıcısının e-posta adresiyle eşleşmelidir</strong>."
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Kullanıcıyı bağlamak için Google e-posta adresi forum kullanıcısının e-posta adresiyle eşleşmelidir</strong>."
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Giriş yapın veya {0} ile Kaydolun veya {0} ile mevcut bir Kullanıcı Hesabına bağlanın."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "{0} ile bağlı bir kullanıcı Hesabı ile giriş yapın. Veya hiçbir hesap bulunamazsa, forumlarda otomatik olarak yeni bir hesap oluşturulacaktır."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Access_token alınamadı!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Beni Hatırla?"
           },
@@ -11208,10 +11156,6 @@
           {
             "@tag": "CAPS_LOCK",
             "#text": "Caps Lock açık"
-          },
-          {
-            "@tag": "CONNECT_VIA",
-            "#text": "Veya şu yolla bağlanın"
           },
           {
             "@tag": "EMAIL",
@@ -11260,50 +11204,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Şifre Gönder"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Single Sign On şu anda Yönetici tarafından devre dışı bırakılmıştır!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Tek Oturum Açma bu Kullanıcı için devre dışı bırakılmıştır, bu özelliği kullanmak için Profil Ayarlarınızda etkinleştirmeniz gerekir."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Facebook Girişi başarısız oldu, Kullanıcı mevcut değil veya hesap bağlı değil."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Facebook Girişi başarısız oldu, facebook hesabıyla aynı e-posta adresine sahip bir kullanıcı hesabı zaten mevcut, lütfen bunun yerine forum hesabınıza bağlanmayı deneyin."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Kullanıcı hesap için bir e-posta adresi sağlamadığından Facebook Girişi başarısız oldu."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Yeni Kayıtlar devre dışı bırakıldı."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Google Oturum Açma başarısız oldu, Kullanıcı mevcut değil veya hesap bağlı değil."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Google Girişi başarısız oldu, Google hesabıyla aynı e-posta adresine sahip bir kullanıcı hesabı zaten mevcut, lütfen bunun yerine forum hesabınıza bağlanmayı deneyin."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
           },
           {
             "@tag": "TITLE",
@@ -14373,14 +14273,6 @@
           {
             "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_TEXT",
             "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Google Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Google)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",

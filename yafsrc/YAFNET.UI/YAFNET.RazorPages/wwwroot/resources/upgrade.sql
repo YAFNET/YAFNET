@@ -42,12 +42,8 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetUsers](
     [Profile_Birthday] DateTime NULL,
     [Profile_Blog] NVARCHAR (255) NULL,
     [Profile_Gender] INT NULL,
-    [Profile_GoogleId] NVARCHAR (255) NULL,
     [Profile_Homepage] NVARCHAR (255) NULL,
     [Profile_Facebook] NVARCHAR (400) NULL,
-    [Profile_FacebookId] NVARCHAR (400) NULL,
-    [Profile_Twitter] NVARCHAR (400) NULL,
-    [Profile_TwitterId] NVARCHAR (400) NULL,
     [Profile_Interests] NVARCHAR (4000) NULL,
     [Profile_Location] NVARCHAR (255) NULL,
     [Profile_Country] NVARCHAR (2) NULL,
@@ -118,33 +114,9 @@ begin
 end
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='GoogleId')
-begin
-    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add GoogleId nvarchar(255)  Null
-end
-GO
-
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Facebook')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Facebook nvarchar(255)  Null
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='FacebookId')
-begin
-    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add FacebookId nvarchar(255)  Null
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Twitter')
-begin
-    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Twitter nvarchar(255) Null
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='TwitterId')
-begin
-    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add TwitterId nvarchar(255) Null
 end
 GO
 
@@ -276,12 +248,8 @@ GO
        Profile_Birthday,
        Profile_Blog,
        Profile_Gender,
-       Profile_GoogleId,
        Profile_Homepage,
        Profile_Facebook,
-       Profile_FacebookId,
-       Profile_Twitter,
-       Profile_TwitterId,
        Profile_Interests,
        Profile_Location,
        Profile_Country,
@@ -323,12 +291,8 @@ GO
       p.Birthday,
       p.Blog,
       p.Gender,
-      p.GoogleId,
       p.Homepage,
       p.Facebook,
-      p.FacebookId,
-      p.Twitter,
-      p.TwitterId,
       p.Interests,
       p.Location,
       p.Country,
