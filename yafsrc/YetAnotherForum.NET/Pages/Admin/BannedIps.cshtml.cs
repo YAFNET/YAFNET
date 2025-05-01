@@ -81,8 +81,7 @@ public class BannedIpsModel : AdminPage
     /// </summary>
     public void OnGet()
     {
-        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
-        this.BindData();
+         this.BindData();
     }
 
     /// <summary>
@@ -256,7 +255,9 @@ public class BannedIpsModel : AdminPage
     /// </summary>
     private void BindData()
     {
-       var searchText = this.SearchInput;
+        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
+
+        var searchText = this.SearchInput;
 
         List<BannedIP> bannedList;
 

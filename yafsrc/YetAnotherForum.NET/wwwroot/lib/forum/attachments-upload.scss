@@ -1,17 +1,8 @@
 ﻿/* Attachments List Drop Down */
-
-#AttachmentsListPager {
-    padding: 0 5px 0 5px;
-}
-
 .AlbumsList,
 .AttachmentList {
-    list-style: none;
-    padding: 0px 5px 4px 5px;
-    margin: -5px 0px 26px 0px;
-
     span {
-        width: 200px;
+        width: 100px;
         display: inline-block;
         white-space: nowrap;
         overflow: hidden;
@@ -19,68 +10,8 @@
         -o-text-overflow: ellipsis;
         text-overflow: ellipsis;
     }
-
-    .attachment-icon {
-        vertical-align: top;
-        padding-right: 5px;
-    }
-
     img {
-        width: 40px;
-        height: 40px;
-        vertical-align: top;
-        padding-right: 5px;
+        max-width: 100px;
+        max-height: 100px;
     }
 }
-
-.UploadNewFileLine {
-  text-align: center;
-  display: block;
-}
-
-.OpenUploadDialog {
-    margin-top: -25px;
-}
-
-#dropzone {
-  text-align: center;
-}
-
-/* Attachments Upload Dialog */
-div#UploadDialog {
-    z-index: 50000!important;
-}
-
-#UploadFilesBox {
-  min-width: 480px;
-  width: 480px;
-  float: left;
-  overflow: auto;
-  padding: 5px;
-  margin-bottom: 5px;
-  margin-top: 5px;
-  max-height: 295px;
-
-  ul {
-      width:450px;
-  }
-}
-
-#fileupload {
-  .preview {
-    min-width: 80px;
-    display: block;
-  }
-  .name {
-    width: 288px;
-    word-break: break-all;
-    font-weight: bold;
-  }
-  .size {
-    font-style: italic;
-  }
-  .error {
-    color: red;
-  }
-}
-

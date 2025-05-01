@@ -11,50 +11,67 @@
         JavaScriptBlocks.FileUploadLoadJs(Current.Get<IUrlHelper>().Action("Upload", "FileUpload")));
 }
 
-<div class="modal fade" id="UploadDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">
-                    @Html.LocalizedText("ATTACHMENTS", "UPLOAD_TITLE")
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h4>
-                    @Html.LocalizedText("ATTACHMENTS", "SELECT_FILE")
-                </h4>
-                <div id="drop-area" class="card link-light bg-dark mb-3 text-center">
-                    <div class="card-body">
-                        <form class="my-form">
-                            <p class="card-text">@Html.LocalizedText("ATTACHMENTS", "DROP_HERE")</p>
+<div class="modal fade" id="UploadDialog" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">
+					@Html.LocalizedText("ATTACHMENTS", "TITLE")
+				</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="card mb-3">
+					<div class="card-body">
+						<h5 class="card-title">@Html.LocalizedText("ATTACHMENTS", "UPLOAD_TITLE")</h5>
+						<form class="my-form link-light bg-dark text-center rounded" id="drop-area">
+							<p class="card-text">@Html.LocalizedText("ATTACHMENTS", "DROP_HERE")</p>
 
-                            <span class="btn btn-success fileinput-button m-1">
-                                <i class="fa fa-plus fa-fw"></i>&nbsp;@Html.LocalizedText("ATTACHMENTS","ADD_FILES")
-                                <input type="file" id="fileElem" multiple>
-                            </span>
-                        </form>
-                    </div>
-                    <div class="progress m-2" role="progressbar" id="progress-bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar" style="width: 0%"></div>
-                    </div>
-                    <ul class="list-group" id="gallery"></ul>
-                </div>
-                <div class="modal-footer">
-                    @if (Current.BoardSettings.MaxFileSize > 0)
-                    {
-                        <alert type="warning">
-                            @(Current.Get<ILocalization>().GetTextFormatted("UPLOAD_NOTE", (Current.BoardSettings.MaxFileSize / 1024).ToString()))
-                        </alert>
-                    }
-                    <div class="alert alert-info" role="alert">
-                        <strong>
-                            @Html.LocalizedText("ALLOWED_EXTENSIONS")
-                        </strong>
-                        @(Current.BoardSettings.AllowedFileExtensions.Replace(",", ", "))
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+							<span class="btn btn-success fileinput-button m-1">
+								<i class="fa fa-plus fa-fw"></i>&nbsp;@Html.LocalizedText("ATTACHMENTS", "ADD_FILES")
+								<input type="file" id="fileElem" multiple />
+							</span>
+						</form>
+						<div class="progress m-2" role="progressbar" id="progress-bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+							<div class="progress-bar" style="width: 0%"></div>
+						</div>
+						<ul class="list-group" id="gallery"></ul>
+						@if (Current.BoardSettings.MaxFileSize > 0)
+						{
+							<alert type="warning">
+								@(Current.Get<ILocalization>().GetTextFormatted("UPLOAD_NOTE", (Current.BoardSettings.MaxFileSize / 1024).ToString()))
+							</alert>
+						}
+						<div class="alert alert-info" role="alert">
+							<strong>
+								@Html.LocalizedText("ALLOWED_EXTENSIONS")
+							</strong>
+							@(Current.BoardSettings.AllowedFileExtensions.Replace(",", ", "))
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">@Html.LocalizedText("ATTACHMENTS", "CURRENT_UPLOADS")</h5>
+						<form>
+							<div id="AttachmentsListPager"></div>
+							<div id="PostAttachmentLoader" class="text-center">
+								<div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
+							</div>
+							<div id="AttachmentsListBox">
+								<div id="PostAttachmentListPlaceholder" data-notext="@Html.LocalizedText("ATTACHMENTS", "NO_ATTACHMENTS")" style="clear: both; ">
+									<div class="container">
+										<div class="AttachmentList row"></div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" icon="times" data-bs-dismiss="modal" text-localized-tag="CLOSE_TEXT"></button>
+			</div>
+		</div>
+	</div>
 </div>

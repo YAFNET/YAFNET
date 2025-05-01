@@ -585,7 +585,13 @@ public static class JavaScriptBlocks
                                              {{{editorId}}}.FormatText(style,option);
                                     }
                                     function insertAttachment(id,url) {
-                                             {{{editorId}}}.FormatText("attach", id);
+                                        {{{editorId}}}.FormatText("attach", id);
+                                        
+                                        var modal = bootstrap.Modal.getInstance(document.getElementById('UploadDialog'));
+                  
+                                        if (modal && modal._isShown) {
+                                            modal.hide();
+                                        }
                                     }
                                     
                   mentions({id: '{{{editorId}}}',
@@ -639,6 +645,12 @@ public static class JavaScriptBlocks
                      }
                      function insertAttachment(id, url) {
                          sceditor.instance(textarea).insert(`[attach]${id}[/attach]`);
+                         
+                         var modal = bootstrap.Modal.getInstance(document.getElementById('UploadDialog'));
+                         
+                         if (modal && modal._isShown) {
+                             modal.hide();
+                         }
                      }
                      
                      function toggleMode() {

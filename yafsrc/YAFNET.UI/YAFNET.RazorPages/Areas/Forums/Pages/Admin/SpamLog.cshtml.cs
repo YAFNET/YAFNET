@@ -30,7 +30,7 @@ namespace YAF.Pages.Admin;
 using System.Collections.Generic;
 using System.Globalization;
 
-using FarsiLibrary.Utils;
+using FarsiLibrary.Core.Utils;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 

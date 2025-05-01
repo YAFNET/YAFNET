@@ -15262,7 +15262,7 @@ function createForumSelectTemplates(template) {
             classNames
         }, data) {
             return template(`
-                                 <div class="${String(classNames.item)} ${String(data.highlighted ? classNames.highlightedState : classNames.itemSelectable)}"
+                                 <div class="${String(classNames.item)} ${String(data.highlighted ? classNames.highlightedState : classNames.itemSelectable)} ${String(data.placeholder ? classNames.placeholder : "")}"
                                       data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
                                       ${String(data.active ? 'aria-selected="true"' : "")} ${String(data.disabled ? 'aria-disabled="true"' : "")}>
                                     <span><i class="fas fa-fw fa-comments text-secondary me-1"></i>${String(data.label)}</span>
@@ -15467,7 +15467,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
-    const placeHolder = document.getElementById("PostAlbumsListPlaceholder"), list = document.querySelector("#PostAlbumsListPlaceholder ul"), yafUserId = placeHolder.dataset.userid, pagedResults = {}, ajaxUrl = "/api/Album/GetAlbumImages";
+    const placeHolder = document.getElementById("PostAlbumsListPlaceholder"), list = document.querySelector(".AlbumsList"), yafUserId = placeHolder.dataset.userid, pagedResults = {}, ajaxUrl = "/api/Album/GetAlbumImages";
     pagedResults.UserId = yafUserId;
     pagedResults.PageSize = pageSize;
     pagedResults.PageNumber = pageNumber;
@@ -15480,13 +15480,13 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
             RequestVerificationToken: document.querySelector('input[name="__RequestVerificationToken"]').value
         }
     }).then(res => res.json()).then(data => {
-        empty(list);
+        list.innerHTML = "";
         document.getElementById("PostAlbumsLoader").style.display = "none";
         data.attachmentList.forEach(dataItem => {
-            var li = document.createElement("li");
-            li.classList.add("list-group-item");
-            li.classList.add("list-group-item-action");
-            li.style.whiteSpace = "nowrap";
+            var li = document.createElement("div");
+            li.classList.add("col-6");
+            li.classList.add("col-sm-4");
+            li.classList.add("p-1");
             li.style.cursor = "pointer";
             li.setAttribute("onclick", dataItem.onClick);
             li.innerHTML = dataItem.iconImage;
@@ -15756,7 +15756,7 @@ function loadSelectMenus() {
                             label = json.label === undefined ? data.label : json.label;
                         }
                         return template(`
-                                 <div class="${String(classNames.item)} ${String(data.highlighted ? classNames.highlightedState : classNames.itemSelectable)}"
+                                 <div class="${String(classNames.item)} ${String(data.highlighted ? classNames.highlightedState : classNames.itemSelectable)} ${String(data.placeholder ? classNames.placeholder : "")}"
                                       data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
                                       ${String(removeItemButton ? "data-deletable" : "")}
                                       ${String(data.active ? 'aria-selected="true"' : "")} ${String(data.disabled ? 'aria-disabled="true"' : "")}>

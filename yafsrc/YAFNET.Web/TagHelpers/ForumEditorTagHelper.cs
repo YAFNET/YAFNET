@@ -472,11 +472,10 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                                         Attributes =
                                             {
                                                 [HtmlAttribute.Type] = HtmlTag.Button,
-                                                [HtmlAttribute.Class] = "btn btn-primary dropdown-toggle attachments-toggle",
+                                                [HtmlAttribute.Class] = "btn btn-primary",
                                                 [HtmlAttribute.Title] = this.GetText("COMMON", "ATTACH_BBCODE"),
-                                                ["data-bs-toggle"] = "dropdown",
-                                                ["aria-haspopup"] = "true",
-                                                [HtmlAttribute.AriaExpanded] = "false"
+                                                ["data-bs-toggle"] = "modal",
+                                                ["data-bs-target"] = "#UploadDialog"
                                             }
                                     };
             content.AppendHtml(toggleButton3.RenderStartTag());
@@ -485,13 +484,6 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             content.AppendHtml(icon3);
 
             content.AppendHtml(toggleButton3.RenderEndTag());
-
-            var dropDownMenu2 = new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "dropdown-menu" } };
-            content.AppendHtml(dropDownMenu2.RenderStartTag());
-
-            this.RenderAttachmentsDropDown(content);
-
-            content.AppendHtml(dropDownMenu2.RenderEndTag());
 
             content.AppendHtml(group5.RenderEndTag());
         }
@@ -786,101 +778,17 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         content.AppendHtml(placeHolderTag.RenderStartTag());
 
         // List
-        var listTag = new TagBuilder(HtmlTag.Ul) { Attributes = { [HtmlAttribute.Class] = "AttachmentList list-group" } };
-        content.AppendHtml(listTag);
+        var divContainerTag = new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "container" } };
+        var listTag = new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "AlbumsList row" } };
+
+        content.AppendHtml(divContainerTag.RenderStartTag());
+        content.AppendHtml(listTag.RenderStartTag());
+
+
+        content.AppendHtml(listTag.RenderEndTag());
+        content.AppendHtml(divContainerTag.RenderEndTag());
 
         content.AppendHtml(placeHolderTag.RenderEndTag());
-
-        content.AppendHtml(listBoxTag.RenderEndTag());
-
-        content.AppendHtml(menuTag.RenderEndTag());
-    }
-
-    /// <summary>
-    /// Renders the attachments drop down.
-    /// </summary>
-    /// <param name="content">The content.</param>
-    private void RenderAttachmentsDropDown(HtmlContentBuilder content)
-    {
-        var menuTag =
-            new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "AttachmentListMenu dropdown-item" } };
-
-        content.AppendHtml(menuTag.RenderStartTag());
-
-        var listBoxTag =
-            new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "content", [HtmlAttribute.Id] = "AttachmentsListBox" } };
-
-        content.AppendHtml(listBoxTag.RenderStartTag());
-
-        // Pager
-        var pagerTag =
-            new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Id] = "AttachmentsListPager" } };
-        content.AppendHtml(pagerTag);
-
-        // Loading box
-        var loaderTag =
-            new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Id] = "PostAttachmentLoader", [HtmlAttribute.Class] = "text-center" } };
-        content.AppendHtml(loaderTag.RenderStartTag());
-
-        var spanTag =
-            new TagBuilder(HtmlTag.Span);
-        content.AppendHtml(spanTag.RenderStartTag());
-        content.Append(this.Get<ILocalization>().GetText("COMMON", "LOADING"));
-        content.AppendHtml(spanTag.RenderEndTag());
-
-        var divTag =
-            new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "fa-3x" } };
-        content.AppendHtml(divTag.RenderStartTag());
-        var iconLoadTag =
-            new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = "fas fa-spinner fa-pulse" } };
-        content.AppendHtml(iconLoadTag);
-        content.AppendHtml(divTag.RenderEndTag());
-
-        content.AppendHtml(loaderTag.RenderEndTag());
-
-        var placeHolderTag = new TagBuilder(HtmlTag.Div)
-                                 {
-                                     Attributes =
-                                         {
-                                             [HtmlAttribute.Id] = "PostAttachmentListPlaceholder",
-                                             ["data-notext"] =
-                                                 this.Get<ILocalization>().GetText("ATTACHMENTS", "NO_ATTACHMENTS"),
-                                             [HtmlAttribute.Style] = "clear: both;"
-                                         }
-                                 };
-        content.AppendHtml(placeHolderTag.RenderStartTag());
-
-        // List
-        var listTag = new TagBuilder(HtmlTag.Ul) { Attributes = { [HtmlAttribute.Class] = "AttachmentList list-group" } };
-        content.AppendHtml(listTag);
-
-        content.AppendHtml(placeHolderTag.RenderEndTag());
-
-        // Upload Button
-        var uploadDivTag = new TagBuilder(HtmlTag.Div)
-                                 {
-                                     Attributes =
-                                         {
-                                             [HtmlAttribute.Class] = "OpenUploadDialog mt-1 d-grid gap-2"
-                                         }
-                                 };
-        content.AppendHtml(uploadDivTag.RenderStartTag());
-
-        var uploadButtonTag = new TagBuilder(HtmlTag.Button)
-                                  {
-                                      Attributes =
-                                          {
-                                              [HtmlAttribute.Type] = HtmlTag.Button,
-                                              [HtmlAttribute.Class] = "btn btn-primary btn-sm",
-                                              ["data-bs-toggle"] = "modal",
-                                              ["data-bs-target"] = "#UploadDialog"
-                                          }
-                                  };
-        content.AppendHtml(uploadButtonTag.RenderStartTag());
-        content.Append(this.GetText("ATTACHMENTS", "UPLOAD_NEW"));
-        content.AppendHtml(uploadButtonTag.RenderEndTag());
-
-        content.AppendHtml(uploadDivTag.RenderEndTag());
 
         content.AppendHtml(listBoxTag.RenderEndTag());
 

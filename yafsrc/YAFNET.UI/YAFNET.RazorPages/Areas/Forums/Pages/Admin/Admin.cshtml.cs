@@ -28,7 +28,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using FarsiLibrary.Utils;
+using FarsiLibrary.Core.Utils;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 

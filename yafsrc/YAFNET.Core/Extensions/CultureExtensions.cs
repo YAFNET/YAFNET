@@ -26,7 +26,7 @@ namespace YAF.Core.Extensions;
 
 using System;
 
-using FarsiLibrary.Utils;
+using FarsiLibrary.Core.Utils;
 
 /// <summary>
 /// The culture extensions.

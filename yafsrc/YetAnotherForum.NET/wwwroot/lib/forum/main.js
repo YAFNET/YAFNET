@@ -176,7 +176,7 @@ function loadSelectMenus() {
                                 `
                                  <div class="${String(classNames.item)} ${String(data.highlighted
                                     ? classNames.highlightedState
-                                    : classNames.itemSelectable)}"
+                                     : classNames.itemSelectable)} ${String(data.placeholder ? classNames.placeholder : '')}"
                                       data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
                                       ${String(removeItemButton ? 'data-deletable' : '')}
                                       ${String(data.active ? 'aria-selected="true"' : '')} ${String(data.disabled
