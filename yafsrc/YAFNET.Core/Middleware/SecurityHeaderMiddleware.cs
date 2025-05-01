@@ -66,8 +66,9 @@ public class SecurityHeaderMiddleware
 
         context.Response.Headers.Append("Referrer-Policy", "no-referrer");
 
+        var csp = $"{context.Request.BaseUrl()};";
         context.Response.Headers.Append("Content-Security-Policy",
-            "default-src 'self'");
+            new[] { csp });
 
         return this.next.Invoke(context);
     }
