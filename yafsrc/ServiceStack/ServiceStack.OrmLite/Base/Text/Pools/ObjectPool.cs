@@ -115,8 +115,8 @@ public class ObjectPool<T> where T : class
                 {
                     var trace = GetTrace();
 
-                    // If you are seeing this message it means that object has been allocated from the pool 
-                    // and has not been returned back. This is not critical, but turns pool into rather 
+                    // If you are seeing this message it means that object has been allocated from the pool
+                    // and has not been returned back. This is not critical, but turns pool into rather
                     // inefficient kind of "new".
                     Debug.WriteLine($"TRACEOBJECTPOOLLEAKS_BEGIN\nPool detected potential leaking of {typeof(T)}. \n Location of the leak: \n {GetTrace()} TRACEOBJECTPOOLLEAKS_END");
                 }
@@ -158,7 +158,7 @@ public class ObjectPool<T> where T : class
     public T Allocate()
     {
         // PERF: Examine the first element. If that fails, AllocateSlow will look at the remaining elements.
-        // Note that the initial read is optimistically not synchronized. That is intentional. 
+        // Note that the initial read is optimistically not synchronized. That is intentional.
         // We will interlock only when we have a candidate. in a worst case we may miss some
         // recently returned objects. Not a big deal.
         var inst = this._firstItem;
@@ -189,7 +189,7 @@ public class ObjectPool<T> where T : class
 
         for (var i = 0; i < items.Length; i++)
         {
-            // Note that the initial read is optimistically not synchronized. That is intentional. 
+            // Note that the initial read is optimistically not synchronized. That is intentional.
             // We will interlock only when we have a candidate. in a worst case we may miss some
             // recently returned objects. Not a big deal.
             var inst = items[i].Value;
@@ -219,7 +219,7 @@ public class ObjectPool<T> where T : class
 
         if (this._firstItem == null)
         {
-            // Intentionally not using interlocked here. 
+            // Intentionally not using interlocked here.
             // In a worst case scenario two objects may be stored into same slot.
             // It is very unlikely to happen and will only mean that one of the objects will get collected.
             this._firstItem = obj;
@@ -241,7 +241,7 @@ public class ObjectPool<T> where T : class
         {
             if (items[i].Value == null)
             {
-                // Intentionally not using interlocked here. 
+                // Intentionally not using interlocked here.
                 // In a worst case scenario two objects may be stored into same slot.
                 // It is very unlikely to happen and will only mean that one of the objects will get collected.
                 items[i].Value = obj;

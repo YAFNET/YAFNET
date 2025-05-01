@@ -23,12 +23,12 @@ using System.Threading.Tasks;
 public interface IOrmLiteDialectProvider
 {
     /// <summary>
-    /// Configure Provider with connection string options 
+    /// Configure Provider with connection string options
     /// </summary>
     void Init(string connectionString);
 
     /// <summary>
-    /// Register custom value type converter  
+    /// Register custom value type converter
     /// </summary>
     void RegisterConverter<T>(IOrmLiteConverter converter);
 

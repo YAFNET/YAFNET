@@ -153,7 +153,7 @@ public static class JsvWriter<T>
 
         CacheFn = typeof(T) == typeof(object)
                       ? JsvWriter.WriteLateBoundObject
-                      : JsvWriter.Instance.GetWriteFn<T>(); 
+                      : JsvWriter.Instance.GetWriteFn<T>();
         JsConfig.AddUniqueType(typeof(T));
     }
 

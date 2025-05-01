@@ -320,7 +320,7 @@ public static class OrmLiteWriteApi
     }
 
     /// <summary>
-    /// Uses the most optimal approach to bulk insert multiple rows for each RDBMS provider 
+    /// Uses the most optimal approach to bulk insert multiple rows for each RDBMS provider
     /// </summary>
     public static void BulkInsert<T>(this IDbConnection dbConn, IEnumerable<T> objs, BulkInsertConfig config = null)
     {

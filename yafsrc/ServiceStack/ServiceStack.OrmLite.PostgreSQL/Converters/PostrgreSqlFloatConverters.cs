@@ -50,7 +50,7 @@ public class PostrgreSqlDecimalConverter : DecimalConverter
     /// <summary>
     /// Initializes a new instance of the <see cref="PostrgreSqlDecimalConverter" /> class.
     /// </summary>
-    public PostrgreSqlDecimalConverter() 
+    public PostrgreSqlDecimalConverter()
         : base(38, 6) {}
 
     /// <summary>

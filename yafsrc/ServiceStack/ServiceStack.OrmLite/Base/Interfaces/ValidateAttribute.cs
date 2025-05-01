@@ -104,7 +104,7 @@ public class ValidateRequestAttribute : AttributeBase, IValidateRule, IReflectAt
         set => this.Condition = ValidateAttribute.Combine("||", value);
     }
 }
-//Default ITypeValidator defined in ValidateScripts 
+//Default ITypeValidator defined in ValidateScripts
 /// <summary>
 /// Class ValidateIsAuthenticatedAttribute.
 /// Implements the <see cref="ServiceStack.ValidateRequestAttribute" />

@@ -24,7 +24,7 @@ public class Net7PclExport : NetStandardPclExport
     public Net7PclExport()
     {
         this.PlatformName = Platforms.Net7;
-        ReflectionOptimizer.Instance = EmitReflectionOptimizer.Provider;            
+        ReflectionOptimizer.Instance = EmitReflectionOptimizer.Provider;
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public class Net7PclExport : NetStandardPclExport
         {
             return DeserializeDynamic<TSerializer>.ParseStringSpan;
         }
-            
+
         return null;
     }
 }

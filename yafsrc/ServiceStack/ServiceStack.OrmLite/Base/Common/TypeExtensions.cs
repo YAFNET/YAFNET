@@ -97,7 +97,7 @@ public static class TypeExtensions
         }
 
         var properties = type.GetProperties();
-        
+
         if (!properties.IsEmpty())
         {
             foreach (var p in properties)

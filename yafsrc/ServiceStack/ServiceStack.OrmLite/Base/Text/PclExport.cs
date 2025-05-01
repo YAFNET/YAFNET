@@ -436,7 +436,7 @@ public abstract class PclExport
     /// Begins the thread affinity.
     /// </summary>
     public virtual void BeginThreadAffinity() { }
-    
+
     /// <summary>
     /// Ends the thread affinity.
     /// </summary>

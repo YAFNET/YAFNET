@@ -293,7 +293,7 @@ public static class AutoMappingUtils
             {
                 return mi;
             }
-        } 
+        }
 
         return Array.Find(toType.GetMethods(BindingFlags.Public | BindingFlags.Static),
             mi => mi.Name == "op_Implicit" && mi.ReturnType == toType &&

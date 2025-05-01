@@ -726,7 +726,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         {
             return this.GetQuotedName(this.NamingStrategy.GetTableName(tableName));
         }
-        
+
         var escapedSchema = this.NamingStrategy.GetSchemaName(schema).Replace(".", "\".\"");
 
         return
@@ -3870,7 +3870,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual string SqlRandom => "RAND()";
 
     // Async API's, should be overriden by Dialect Providers to use .ConfigureAwait(false)
-    // Default impl below uses TaskAwaiter shim in async.cs    
+    // Default impl below uses TaskAwaiter shim in async.cs
 
     /// <summary>
     /// Gets a value indicating whether [supports asynchronous].

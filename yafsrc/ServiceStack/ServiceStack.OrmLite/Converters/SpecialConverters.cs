@@ -330,7 +330,7 @@ public class RowVersionConverter : OrmLiteConverter
                 return OrmLiteUtils.ConvertToULong(bytes);
             }
 
-            // an SQL row version has to be declared as either byte[] OR ulong... 
+            // an SQL row version has to be declared as either byte[] OR ulong...
             throw new Exception("Rowversion property must be declared as either byte[] or ulong");
         }
 

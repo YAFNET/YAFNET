@@ -186,7 +186,7 @@ internal sealed class Helpers
     [System.Diagnostics.Conditional("DEBUG")]
     static internal void DebugAssert(bool condition)
     {
-#if DEBUG   
+#if DEBUG
         if (!condition && System.Diagnostics.Debugger.IsAttached)
         {
             System.Diagnostics.Debugger.Break();

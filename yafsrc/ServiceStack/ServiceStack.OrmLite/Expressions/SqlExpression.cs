@@ -3318,7 +3318,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             }
 
             var leftEnum = left as EnumMemberAccess;
-            //The real type should be read when a non-direct member is accessed. For example Sql.TableAlias(x.State, "p"),alias conversion should be performed when "x.State" is an enum 
+            //The real type should be read when a non-direct member is accessed. For example Sql.TableAlias(x.State, "p"),alias conversion should be performed when "x.State" is an enum
             if (leftEnum == null && left is PartialSqlString pss && pss.EnumMember != null)
             {
                 leftEnum = pss.EnumMember;
@@ -3390,7 +3390,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         return operand switch
         {
             "MOD" or "COALESCE" => new PartialSqlString(GetCoalesceExpression(b, left.ToString(), right.ToString())),
-            _ => new PartialSqlString("(" + left + separator + operand + separator + right + ")"),
+            _ => new PartialSqlString("(" + left + separator + operand + separator + right + ")")
         };
     }
 

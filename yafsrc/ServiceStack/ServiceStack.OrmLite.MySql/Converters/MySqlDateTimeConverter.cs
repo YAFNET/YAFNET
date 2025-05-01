@@ -28,7 +28,7 @@ public class MySqlDateTimeConverter : MySqlDateTimeConverterBase
         {
             return time.GetDateTime();
         }
-        
+
         return base.FromDbValue(value);
     }
 }

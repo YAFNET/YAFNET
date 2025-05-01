@@ -32,7 +32,7 @@ public static class IdUtils<T>
 
 #if !SL5 && !IOS && !XBOX
 #if NET9_0_OR_GREATER
-            var hasIdInterfaces = typeof(T).GetTypeInfo().ImplementedInterfaces.Where(t => t.GetTypeInfo().IsGenericType 
+            var hasIdInterfaces = typeof(T).GetTypeInfo().ImplementedInterfaces.Where(t => t.GetTypeInfo().IsGenericType
                 && t.GetTypeInfo().GetGenericTypeDefinition() == typeof(IHasId<>)).ToArray();
 #else
         var hasIdInterfaces = typeof(T).FindInterfaces(
@@ -144,7 +144,7 @@ static internal class HasId<TEntity>
             GetIdFn = HasPropertyId<TEntity>.GetId;
 #else
 #if NET9_0_OR_GREATER
-        var hasIdInterfaces = typeof(TEntity).GetTypeInfo().ImplementedInterfaces.Where(t => t.GetTypeInfo().IsGenericType 
+        var hasIdInterfaces = typeof(TEntity).GetTypeInfo().ImplementedInterfaces.Where(t => t.GetTypeInfo().IsGenericType
                 && t.GetTypeInfo().GetGenericTypeDefinition() == typeof(IHasId<>)).ToArray();
 #else
         var hasIdInterfaces = typeof(TEntity).FindInterfaces(

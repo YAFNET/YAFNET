@@ -1490,7 +1490,7 @@ namespace ServiceStack.OrmLite.SqlServer
                         sbReturningColumns.Append(',');
                     }
 
-                    sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));  
+                    sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));
                 }
 
                 if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)

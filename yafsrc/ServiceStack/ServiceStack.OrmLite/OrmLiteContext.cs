@@ -99,7 +99,7 @@ public class OrmLiteContext
                 this.localContextItems.Value = items ??= new ConcurrentDictionary<object, object>();
             }
 
-#else                
+#else
         try
         {
             if (UseThreadStatic)
@@ -132,8 +132,8 @@ public class OrmLiteContext
         else
         {
 #if NET9_0_OR_GREATER
-            this.localContextItems.Value = new ConcurrentDictionary<object, object>();                
-#else                
+            this.localContextItems.Value = new ConcurrentDictionary<object, object>();
+#else
             CallContext.FreeNamedDataSlot(_key);
 #endif
         }
@@ -213,7 +213,7 @@ public class OrmLiteContext
         set => SetItem("OrmLiteState", value);
     }
 
-    // Only used when using OrmLite API's against a native IDbConnection (i.e. not from DbFactory) 
+    // Only used when using OrmLite API's against a native IDbConnection (i.e. not from DbFactory)
     /// <summary>
     /// Gets or sets the ts transaction.
     /// </summary>

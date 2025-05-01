@@ -3214,7 +3214,7 @@ public static class DynamicNumber
             int singleDigit = strValue[0];
             if (singleDigit is >= '0' and <= '9')
             {
-                result = singleDigit - 48; // 0 
+                result = singleDigit - 48; // 0
                 return true;
             }
             return false;

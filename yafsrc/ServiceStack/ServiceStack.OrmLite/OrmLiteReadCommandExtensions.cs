@@ -1827,6 +1827,24 @@ public static class OrmLiteReadCommandExtensions
     }
 
     /// <summary>
+    /// Gets the explicit reference field definition if exists.
+    /// </summary>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="refModelDef">The reference model definition.</param>
+    /// <returns>ServiceStack.OrmLite.FieldDefinition.</returns>
+    public static FieldDefinition GetExplicitRefFieldDefIfExists(this ModelDefinition modelDef,
+        ModelDefinition refModelDef)
+    {
+        var refField = refModelDef.FieldDefinitions.FirstOrDefault(x =>
+                           x.ForeignKey != null && x.ForeignKey.ReferenceType == modelDef.ModelType &&
+                           modelDef.IsRefField(x))
+                       ?? refModelDef.FieldDefinitions.FirstOrDefault(x =>
+                           x.ForeignKey != null && x.ForeignKey.ReferenceType == modelDef.ModelType);
+
+        return refField;
+    }
+
+    /// <summary>
     /// Gets the reference field definition if exists.
     /// </summary>
     /// <param name="modelDef">The model definition.</param>
@@ -1834,13 +1852,8 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>FieldDefinition.</returns>
     public static FieldDefinition GetRefFieldDefIfExists(this ModelDefinition modelDef, ModelDefinition refModelDef)
     {
-        var refField =
-            refModelDef.FieldDefinitions.FirstOrDefault(
-                x => x.ForeignKey != null && x.ForeignKey.ReferenceType == modelDef.ModelType &&
-                     modelDef.IsRefField(x)) ??
-            refModelDef.FieldDefinitions.FirstOrDefault(
-                x => x.ForeignKey != null && x.ForeignKey.ReferenceType == modelDef.ModelType) ??
-            refModelDef.FieldDefinitions.FirstOrDefault(modelDef.IsRefField);
+        var refField = GetExplicitRefFieldDefIfExists(modelDef, refModelDef)
+                       ?? refModelDef.FieldDefinitions.FirstOrDefault(modelDef.IsRefField);
 
         return refField;
     }

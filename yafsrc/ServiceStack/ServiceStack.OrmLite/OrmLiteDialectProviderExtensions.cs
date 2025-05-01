@@ -166,7 +166,7 @@ public static class OrmLiteDialectProviderExtensions
             return dialect.GetQuotedColumnName(tableDef, fieldName);
         }
 
-        return dialect.GetQuotedTableName(tableAlias) //aliases shouldn't have schemas 
+        return dialect.GetQuotedTableName(tableAlias) //aliases shouldn't have schemas
                + "." +
                dialect.GetQuotedColumnName(fieldName);
     }

@@ -127,7 +127,7 @@ public static class DeserializeListWithElements<TSerializer>
             to.Add(listValue.Value());
             if (Serializer.EatItemSeperatorOrMapEndChar(value, ref i) && i == valueLength)
             {
-                // If we ate a separator and we are at the end of the value, 
+                // If we ate a separator and we are at the end of the value,
                 // it means the last element is empty => add default
                 to.Add(null);
             }
@@ -280,7 +280,7 @@ public static class DeserializeListWithElements<T, TSerializer>
 
                     if (Serializer.EatItemSeperatorOrMapEndChar(value, ref i) && i == valueLength)
                     {
-                        // If we ate a separator and we are at the end of the value, 
+                        // If we ate a separator and we are at the end of the value,
                         // it means the last element is empty => add default
                         to.Add(default);
                         continue;
@@ -295,7 +295,7 @@ public static class DeserializeListWithElements<T, TSerializer>
             }
         }
 
-        //TODO: 8-10-2011 -- this CreateInstance call should probably be moved over to ReflectionExtensions, 
+        //TODO: 8-10-2011 -- this CreateInstance call should probably be moved over to ReflectionExtensions,
         //but not sure how you'd like to go about caching constructors with parameters -- I would probably build a NewExpression, .Compile to a LambdaExpression and cache
         return isReadOnly ? (ICollection<T>)Activator.CreateInstance(createListType, to) : to;
     }
