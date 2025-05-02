@@ -70,7 +70,7 @@ public static class IApplicationBuilderExtensions
     {
         app.UseAntiXssMiddleware();
 
-        app.UseSecurityHeader();
+        app.UseSecurityHeader(serviceLocator.Get<BoardConfiguration>());
 
         app.UseStaticFiles();
 

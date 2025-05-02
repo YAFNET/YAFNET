@@ -25,7 +25,7 @@
 namespace YAF.Configuration;
 
 /// <summary>
-///     Static class that access the app settings in the web.config file
+/// Static class that access the app settings in the web.config file
 /// </summary>
 public static class Config
 {

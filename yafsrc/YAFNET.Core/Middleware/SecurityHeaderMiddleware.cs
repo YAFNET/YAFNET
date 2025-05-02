@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using YAF.Types.Objects;
+
 namespace YAF.Core.Middleware;
 
 using System;
@@ -40,13 +42,20 @@ public class SecurityHeaderMiddleware
     private readonly RequestDelegate next;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AntiXssMiddleware" /> class.
+    /// The board configuration
+    /// </summary>
+    private readonly BoardConfiguration boardConfig;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SecurityHeaderMiddleware"/> class.
     /// </summary>
     /// <param name="requestDelegate">The request delegate.</param>
-    /// <exception cref="System.ArgumentNullException">requestDelegate</exception>
-    public SecurityHeaderMiddleware(RequestDelegate requestDelegate)
+    /// <param name="boardConfiguration">The board configuration.</param>
+    /// <exception cref="ArgumentNullException">requestDelegate</exception>
+    public SecurityHeaderMiddleware(RequestDelegate requestDelegate, BoardConfiguration boardConfiguration)
     {
         this.next = requestDelegate ?? throw new ArgumentNullException(nameof(requestDelegate));
+        this.boardConfig = boardConfiguration;
     }
 
     /// <summary>
@@ -56,17 +65,13 @@ public class SecurityHeaderMiddleware
     /// <returns>Task.</returns>
     public Task InvokeAsync(HttpContext context)
     {
-        context.Response.Headers.Append("X-Frame-Options", "SAMEORIGIN");
+        context.Response.Headers.Append("X-Frame-Options", this.boardConfig.XFrameOptions);
 
-        context.Response.Headers.Append("X-Permitted-Cross-Domain-Policies", "none");
+        context.Response.Headers.Append("X-Content-Type-Options", this.boardConfig.XContentTypeOptions);
 
-        context.Response.Headers.Append("X-Xss-Protection", "1; mode=block");
+        context.Response.Headers.Append("Referrer-Policy", this.boardConfig.ReferrerPolicy);
 
-        context.Response.Headers.Append("X-Content-Type-Options", "nosniff");
-
-        context.Response.Headers.Append("Referrer-Policy", "no-referrer");
-
-        var csp = $"{context.Request.BaseUrl()};";
+        var csp = $"{this.boardConfig.ContentSecurityPolicy} {context.Request.BaseUrl()};";
         context.Response.Headers.Append("Content-Security-Policy",
             new[] { csp });
 
@@ -80,12 +85,14 @@ public class SecurityHeaderMiddleware
 public static class SecurityHeaderMiddlewareExtension
 {
     /// <summary>
-    /// Uses the security header middleware.
+    /// Uses the security header.
     /// </summary>
     /// <param name="builder">The builder.</param>
+    /// <param name="boardConfiguration">The board configuration.</param>
     /// <returns>IApplicationBuilder.</returns>
-    public static IApplicationBuilder UseSecurityHeader(this IApplicationBuilder builder)
+    public static IApplicationBuilder UseSecurityHeader(this IApplicationBuilder builder,
+        BoardConfiguration boardConfiguration)
     {
-        return builder.UseMiddleware<SecurityHeaderMiddleware>();
+        return builder.UseMiddleware<SecurityHeaderMiddleware>(boardConfiguration);
     }
 }
