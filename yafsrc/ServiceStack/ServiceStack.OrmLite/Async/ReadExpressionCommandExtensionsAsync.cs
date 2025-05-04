@@ -488,7 +488,7 @@ static internal class ReadExpressionCommandExtensionsAsync
     /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
     static internal Task<List<T>> LoadSelectAsync<T>(this IDbCommand dbCmd, SqlExpression<T> expression = null, IEnumerable<string> include = null, CancellationToken token = default)
     {
-        return dbCmd.LoadListWithReferences<T, T>(expression, include, token);
+        return dbCmd.LoadListWithReferencesAsync<T, T>(expression, include, token);
     }
 
     /// <summary>
@@ -503,7 +503,7 @@ static internal class ReadExpressionCommandExtensionsAsync
     /// <returns>Task&lt;List&lt;Into&gt;&gt;.</returns>
     static internal Task<List<Into>> LoadSelectAsync<Into, From>(this IDbCommand dbCmd, SqlExpression<From> expression, IEnumerable<string> include = null, CancellationToken token = default)
     {
-        return dbCmd.LoadListWithReferences<Into, From>(expression, include, token);
+        return dbCmd.LoadListWithReferencesAsync<Into, From>(expression, include, token);
     }
 
     /// <summary>
@@ -518,7 +518,7 @@ static internal class ReadExpressionCommandExtensionsAsync
     static internal Task<List<T>> LoadSelectAsync<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> predicate, IEnumerable<string> include = null, CancellationToken token = default)
     {
         var expr = dbCmd.GetDialectProvider().SqlExpression<T>().Where(predicate);
-        return dbCmd.LoadListWithReferences<T, T>(expr, include, token);
+        return dbCmd.LoadListWithReferencesAsync<T, T>(expr, include, token);
     }
 
     /// <summary>

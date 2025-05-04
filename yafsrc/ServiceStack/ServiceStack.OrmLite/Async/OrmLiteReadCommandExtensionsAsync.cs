@@ -868,7 +868,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
     /// <param name="include">The include.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>List&lt;Into&gt;.</returns>
-    async static internal Task<List<Into>> LoadListWithReferences<Into, From>(this IDbCommand dbCmd, SqlExpression<From> expr = null, IEnumerable<string> include = null, CancellationToken token = default)
+    async static internal Task<List<Into>> LoadListWithReferencesAsync<Into, From>(this IDbCommand dbCmd, SqlExpression<From> expr = null, IEnumerable<string> include = null, CancellationToken token = default)
     {
         var loadList = new LoadListAsync<Into, From>(dbCmd, expr);
 

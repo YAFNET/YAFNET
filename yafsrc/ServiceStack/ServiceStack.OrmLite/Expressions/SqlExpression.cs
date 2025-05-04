@@ -4862,7 +4862,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     protected virtual object VisitSqlMethodCall(MethodCallExpression m)
     {
         var args = this.VisitInSqlExpressionList(m.Arguments);
-        var quotedColName = args[0]; 
+        var quotedColName = args[0];
         var columnEnumMemberAccess = args[0] as EnumMemberAccess;
         args.RemoveAt(0);
 

@@ -240,19 +240,19 @@ public class Diagnostics
     /// Gets or sets the servicestack.
     /// </summary>
     /// <value>The servicestack.</value>
-    private DiagnosticListener servicestack { get; set; } = new(Listeners.ServiceStack);
+    private DiagnosticListener servicestack { get; } = new(Listeners.ServiceStack);
 
     /// <summary>
     /// Gets or sets the ormlite.
     /// </summary>
     /// <value>The ormlite.</value>
-    private DiagnosticListener ormlite { get; set; } = new(Listeners.OrmLite);
+    private DiagnosticListener ormlite { get; } = new(Listeners.OrmLite);
 
     /// <summary>
     /// Gets or sets the redis.
     /// </summary>
     /// <value>The redis.</value>
-    private DiagnosticListener redis { get; set; } = new(Listeners.Redis);
+    private DiagnosticListener redis { get; } = new(Listeners.Redis);
 
     /// <summary>
     /// Gets the service stack.

@@ -28,13 +28,13 @@ public class ProfiledProviderFactory : DbProviderFactory
     /// Gets the profiler.
     /// </summary>
     /// <value>The profiler.</value>
-    protected IDbProfiler Profiler { get; private set; }
+    protected IDbProfiler Profiler { get; }
 
     /// <summary>
     /// Gets the wrapped factory.
     /// </summary>
     /// <value>The wrapped factory.</value>
-    protected DbProviderFactory WrappedFactory { get; private set; }
+    protected DbProviderFactory WrappedFactory { get; }
 
     /// <summary>
     /// proxy

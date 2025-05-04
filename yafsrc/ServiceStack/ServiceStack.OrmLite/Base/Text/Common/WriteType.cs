@@ -333,7 +333,7 @@ static internal class WriteType<T, TSerializer>
     /// <summary>
     /// Struct TypePropertyWriter
     /// </summary>
-    internal struct TypePropertyWriter
+    readonly internal struct TypePropertyWriter
     {
         /// <summary>
         /// Gets the name of the property.

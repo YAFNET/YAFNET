@@ -348,8 +348,6 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         var group3 = CreateBtnGroupTag();
         content.AppendHtml(group3.RenderStartTag());
 
-        RenderButton(content, "setStyle('email','')", this.GetText("COMMON", "TT_EMAIL"), "envelope");
-
         RenderButton(content, "setStyle('createlink','')", this.GetText("COMMON", "TT_CREATELINK"), "link");
 
         RenderButton(content, "setStyle('quote','')", this.GetText("COMMON", "TT_QUOTE"), "quote-left");
@@ -487,6 +485,14 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
             content.AppendHtml(group5.RenderEndTag());
         }
+
+        // Group Note
+        var groupNote = CreateBtnGroupTag();
+        content.AppendHtml(groupNote.RenderStartTag());
+
+        RenderButton(content, "setStyle('createNote','')", this.GetText("COMMON", "TT_NOTE"), "note-sticky");
+
+        content.AppendHtml(groupNote.RenderEndTag());
 
         // Group 6
         var group6 = CreateBtnGroupTag();

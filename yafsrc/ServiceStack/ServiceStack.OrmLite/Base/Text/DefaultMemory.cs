@@ -704,7 +704,7 @@ public sealed class DefaultMemory : MemoryProvider
         var chars = value.ToArray();
         var bytesCount = Encoding.UTF8.GetBytes(chars, 0, chars.Length, bytes, 0);
         // now do the write async - this returns to the pool
-        return WriteAsyncAndReturn(stream, bytes, 0, bytesCount, token);
+        return WriteAsyncAndReturnAsync(stream, bytes, 0, bytesCount, token);
     }
 
     /// <summary>
@@ -715,7 +715,7 @@ public sealed class DefaultMemory : MemoryProvider
     /// <param name="offset">The offset.</param>
     /// <param name="count">The count.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    private async static Task WriteAsyncAndReturn(Stream stream, byte[] bytes, int offset, int count, CancellationToken token)
+    private async static Task WriteAsyncAndReturnAsync(Stream stream, byte[] bytes, int offset, int count, CancellationToken token)
     {
         try
         {

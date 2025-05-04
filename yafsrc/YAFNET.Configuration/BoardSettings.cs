@@ -1804,16 +1804,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets AcceptedHTML.
-    /// </summary>
-    public string AcceptedHTML
-    {
-        get => this.Registry.GetValue("AcceptedHTML", "br,hr,b,i,u,a,div,ol,ul,li,blockquote,img,span,p,em,strong,font,pre,h1,h2,h3,h4,h5,h6,address");
-
-        set => this.Registry.SetValue("AcceptedHTML", value.ToLower());
-    }
-
-    /// <summary>
     /// Gets or sets the allowed file extensions.
     /// </summary>
     public string AllowedFileExtensions

@@ -79,7 +79,7 @@ public class BoardConfiguration
     public string DatabaseOwner { get; set; }
 
     /// <summary>
-    ///     Gets or sets a value indicating whether Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within Root Example : true /false
+    ///     Gets or sets a value indicating whether Boolean to force uploads, and images, themes etc. from a specific BoardID folder within Root Example : true /false
     /// </summary>
     public bool MultiBoardFolders { get; set; }
 

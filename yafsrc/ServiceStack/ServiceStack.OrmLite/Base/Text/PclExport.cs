@@ -212,47 +212,6 @@ public abstract class PclExport
     }
 
     /// <summary>
-    /// Gets the request stream.
-    /// </summary>
-    /// <param name="webRequest">The web request.</param>
-    /// <returns>Stream.</returns>
-    public virtual Stream GetRequestStream(WebRequest webRequest)
-    {
-        var streamAsync = webRequest.GetRequestStreamAsync();
-        streamAsync.Wait();
-        return streamAsync.Result;
-    }
-
-    /// <summary>
-    /// Gets the response.
-    /// </summary>
-    /// <param name="webRequest">The web request.</param>
-    /// <returns>WebResponse.</returns>
-    public virtual WebResponse GetResponse(WebRequest webRequest)
-    {
-        try
-        {
-            var responseAsync = webRequest.GetResponseAsync();
-            responseAsync.Wait();
-            return responseAsync.Result;
-        }
-        catch (Exception ex)
-        {
-            throw ex.UnwrapIfSingleException();
-        }
-    }
-
-    /// <summary>
-    /// Gets the response asynchronous.
-    /// </summary>
-    /// <param name="webRequest">The web request.</param>
-    /// <returns>Task&lt;WebResponse&gt;.</returns>
-    public virtual Task<WebResponse> GetResponseAsync(WebRequest webRequest)
-    {
-        return webRequest.GetResponseAsync();
-    }
-
-    /// <summary>
     /// Sets the user agent.
     /// </summary>
     /// <param name="httpReq">The HTTP req.</param>

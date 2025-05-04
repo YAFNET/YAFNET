@@ -68,7 +68,7 @@ public static class DeserializeType<TSerializer>
     /// <summary>
     /// Struct StringToTypeContext
     /// </summary>
-    internal struct StringToTypeContext
+    readonly internal struct StringToTypeContext
     {
         /// <summary>
         /// The type configuration

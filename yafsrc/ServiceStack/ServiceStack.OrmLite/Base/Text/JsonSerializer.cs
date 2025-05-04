@@ -28,11 +28,6 @@ public static class JsonSerializer
     }
 
     /// <summary>
-    /// The buffer size
-    /// </summary>
-    public static int BufferSize { get; } = 1024;
-
-    /// <summary>
     /// Gets or sets the on serialize.
     /// </summary>
     /// <value>The on serialize.</value>
@@ -47,19 +42,6 @@ public static class JsonSerializer
     public static T DeserializeFromString<T>(string value)
     {
         return JsonReader<T>.Parse(value) is T obj ? obj : default;
-    }
-
-    /// <summary>
-    /// Deserializes from span.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <param name="value">The value.</param>
-    /// <returns>System.Object.</returns>
-    public static object DeserializeFromSpan(Type type, ReadOnlySpan<char> value)
-    {
-        return value.IsEmpty
-                   ? null
-                   : JsonReader.GetParseSpanFn(type)(value);
     }
 
     /// <summary>
@@ -140,52 +122,6 @@ public static class JsonSerializer
     }
 
     /// <summary>
-    /// Serializes to stream.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="value">The value.</param>
-    /// <param name="stream">The stream.</param>
-    public static void SerializeToStream<T>(T value, Stream stream)
-    {
-        if (value == null)
-        {
-            return;
-        }
-
-        if (typeof(T) == typeof(object))
-        {
-            SerializeToStream(value, value.GetType(), stream);
-        }
-        else if (typeof(T).IsAbstract || typeof(T).IsInterface)
-        {
-            var prevState = JsState.IsWritingDynamic;
-            JsState.IsWritingDynamic = false;
-            SerializeToStream(value, value.GetType(), stream);
-            JsState.IsWritingDynamic = prevState;
-        }
-        else
-        {
-            var writer = new StreamWriter(stream, JsConfig.UTF8Encoding, BufferSize, true);
-            WriteObjectToWriter(value, JsonWriter<T>.GetRootObjectWriteFn(value), writer);
-            writer.Flush();
-        }
-    }
-
-    /// <summary>
-    /// Serializes to stream.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="type">The type.</param>
-    /// <param name="stream">The stream.</param>
-    public static void SerializeToStream(object value, Type type, Stream stream)
-    {
-        OnSerialize?.Invoke(value);
-        var writer = new StreamWriter(stream, JsConfig.UTF8Encoding, BufferSize, true);
-        WriteObjectToWriter(value, JsonWriter.GetWriteFn(type), writer);
-        writer.Flush();
-    }
-
-    /// <summary>
     /// Writes the object to writer.
     /// </summary>
     /// <param name="value">The value.</param>
@@ -207,103 +143,6 @@ public static class JsonSerializer
             var indentJson = json.IndentJson();
             writer.Write(indentJson);
         }
-    }
-
-    /// <summary>
-    /// Deserializes from stream.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="stream">The stream.</param>
-    /// <returns>T.</returns>
-    public static T DeserializeFromStream<T>(Stream stream)
-    {
-        return (T)MemoryProvider.Instance.Deserialize(stream, typeof(T), DeserializeFromSpan);
-    }
-
-    /// <summary>
-    /// Deserializes from stream.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <param name="stream">The stream.</param>
-    /// <returns>System.Object.</returns>
-    public static object DeserializeFromStream(Type type, Stream stream)
-    {
-        return MemoryProvider.Instance.Deserialize(stream, type, DeserializeFromSpan);
-    }
-
-    /// <summary>
-    /// Deserializes the response.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="webRequest">The web request.</param>
-    /// <returns>T.</returns>
-    public static T DeserializeResponse<T>(WebRequest webRequest)
-    {
-        using var webRes = PclExport.Instance.GetResponse(webRequest);
-        using var stream = webRes.GetResponseStream();
-        return DeserializeFromStream<T>(stream);
-    }
-
-    /// <summary>
-    /// Deserializes the response.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="type">The type.</param>
-    /// <param name="webRequest">The web request.</param>
-    /// <returns>System.Object.</returns>
-    public static object DeserializeResponse<T>(Type type, WebRequest webRequest)
-    {
-        using var webRes = PclExport.Instance.GetResponse(webRequest);
-        using var stream = webRes.GetResponseStream();
-        return DeserializeFromStream(type, stream);
-    }
-
-    /// <summary>
-    /// Deserializes the request.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="webRequest">The web request.</param>
-    /// <returns>T.</returns>
-    public static T DeserializeRequest<T>(WebRequest webRequest)
-    {
-        using var webRes = PclExport.Instance.GetResponse(webRequest);
-        return DeserializeResponse<T>(webRes);
-    }
-
-    /// <summary>
-    /// Deserializes the request.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <param name="webRequest">The web request.</param>
-    /// <returns>System.Object.</returns>
-    public static object DeserializeRequest(Type type, WebRequest webRequest)
-    {
-        using var webRes = PclExport.Instance.GetResponse(webRequest);
-        return DeserializeResponse(type, webRes);
-    }
-
-    /// <summary>
-    /// Deserializes the response.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="webResponse">The web response.</param>
-    /// <returns>T.</returns>
-    public static T DeserializeResponse<T>(WebResponse webResponse)
-    {
-        using var stream = webResponse.GetResponseStream();
-        return DeserializeFromStream<T>(stream);
-    }
-
-    /// <summary>
-    /// Deserializes the response.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <param name="webResponse">The web response.</param>
-    /// <returns>System.Object.</returns>
-    public static object DeserializeResponse(Type type, WebResponse webResponse)
-    {
-        using var stream = webResponse.GetResponseStream();
-        return DeserializeFromStream(type, stream);
     }
 }
 
