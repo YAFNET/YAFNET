@@ -526,6 +526,20 @@ namespace ServiceStack.OrmLite
         }
 
         /// <summary>
+        /// Delete all rows provided.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="rows">The rows.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        static internal Task<int> DeleteAllAsync<T>(this IDbCommand dbCmd, IEnumerable<T> rows, CancellationToken token)
+        {
+            var ids = rows.Map(x => x.GetId());
+            return dbCmd.DeleteByIdsAsync<T>(ids, null, token: token);
+        }
+
+        /// <summary>
         /// Deletes all asynchronous.
         /// </summary>
         /// <param name="dbCmd">The database command.</param>
