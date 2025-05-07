@@ -25,7 +25,6 @@
 namespace YAF.Core.Context.Start;
 
 using System;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 using Microsoft.AspNet.Identity;
@@ -33,8 +32,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.DataProtection;
-using Microsoft.Owin.Security.Facebook;
-using Microsoft.Owin.Security.Google;
 
 using Owin;
 
@@ -82,156 +79,5 @@ public partial class Startup
         DataProtectionProvider = app.GetDataProtectionProvider();
 
         app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-
-        if (Config.FacebookSecretKey.IsSet() && Config.FacebookAPIKey.IsSet())
-        {
-            RegisterFacebookMiddleWare(app);
-        }
-
-        if (Config.GoogleClientSecret.IsSet() && Config.GoogleClientID.IsSet())
-        {
-            RegisterGoogleMiddleWare(app);
-        }
-
-        /*if (Config.GitHubClientSecret.IsSet() && Config.GitHubClientID.IsSet())
-        {
-            RegisterGitHubMiddleWare(app);
-        }
-
-        if (Config.MicrosoftAccountClientSecret.IsSet() && Config.MicrosoftAccountClientID.IsSet())
-        {
-            RegisterMicrosoftAccountMiddleWare(app);
-        }*/
     }
-
-    /// <summary>
-    /// Register facebook Authentication.
-    /// </summary>
-    /// <param name="app">
-    /// The app builder.
-    /// </param>
-    private static void RegisterFacebookMiddleWare(IAppBuilder app)
-    {
-        var options = new FacebookAuthenticationOptions
-                          {
-                              AppId = Config.FacebookAPIKey,
-                              AppSecret = Config.FacebookSecretKey,
-                              Provider = new FacebookAuthenticationProvider
-                                             {
-                                                 OnAuthenticated = context =>
-                                                     {
-                                                         context.Identity.AddClaim(
-                                                             new Claim("urn:facebook:email", context.Email, "XmlSchemaString", "Facebook"));
-                                                         context.Identity.AddClaim(
-                                                             new Claim("urn:facebook:id", context.Id, "XmlSchemaString", "Facebook"));
-                                                         context.Identity.AddClaim(
-                                                             new Claim("urn:facebook:name", context.Name, "XmlSchemaString", "Facebook"));
-
-                                                         return Task.FromResult(0);
-                                                     }
-                                             }
-                          };
-
-        app.UseFacebookAuthentication(options);
-    }
-
-    /// <summary>
-    /// Register Google Authentication.
-    /// </summary>
-    /// <param name="app">
-    /// The app builder.
-    /// </param>
-    private static void RegisterGoogleMiddleWare(IAppBuilder app)
-    {
-        var options = new GoogleOAuth2AuthenticationOptions
-                          {
-                              ClientId = Config.GoogleClientID,
-                              ClientSecret = Config.GoogleClientSecret,
-                              Provider = new GoogleOAuth2AuthenticationProvider
-                                             {
-                                                 OnAuthenticated = context =>
-                                                     {
-                                                         context.Identity.AddClaim(
-                                                             new Claim("urn:google:email", context.Email, "XmlSchemaString", "Google"));
-                                                         context.Identity.AddClaim(
-                                                             new Claim("urn:google:id", context.Id, "XmlSchemaString", "Google"));
-                                                         context.Identity.AddClaim(
-                                                             new Claim("urn:google:name", context.Name, "XmlSchemaString", "Google"));
-
-                                                         return Task.FromResult(0);
-                                                     }
-                                             }
-                          };
-
-        app.UseGoogleAuthentication(options);
-    }
-
-    /*
-
-    /// <summary>
-    /// Register GitHub Authentication.
-    /// </summary>
-    /// <param name="app">
-    /// The app builder.
-    /// </param>
-    private static void RegisterGitHubMiddleWare(IAppBuilder app)
-    {
-        var options = new GitHubAuthenticationOptions
-        {
-            ClientId = Config.GitHubClientID,
-            ClientSecret = Config.GitHubClientSecret,
-            Provider = new GitHubAuthenticationProvider
-            {
-                OnAuthenticated = context =>
-                {
-                    BoardContext.Current.Get<ILogger>().Info(context.Email);
-                    context.Identity.AddClaim(
-                        new Claim("urn:github:email", context.Email, "XmlSchemaString", "GitHub"));
-                    context.Identity.AddClaim(
-                        new Claim("urn:github:id", context.Id, "XmlSchemaString", "GitHub"));
-                    context.Identity.AddClaim(
-                        new Claim("urn:github:name", context.Name, "XmlSchemaString", "GitHub"));
-                    context.Identity.AddClaim(
-                        new Claim("urn:github:username", context.UserName, "XmlSchemaString", "GitHub"));
-                    context.Identity.AddClaim(
-                        new Claim("urn:github:link", context.Link, "XmlSchemaString", "GitHub"));
-
-                    return Task.FromResult(0);
-                }
-            }
-        };
-
-        app.UseGitHubAuthentication(options);
-    }
-
-    /// <summary>
-    /// Register MicrosoftAccount Authentication.
-    /// </summary>
-    /// <param name="app">
-    /// The app builder.
-    /// </param>
-    private static void RegisterMicrosoftAccountMiddleWare(IAppBuilder app)
-    {
-        var options = new MicrosoftAccountAuthenticationOptions
-        {
-            ClientId = Config.MicrosoftAccountClientID,
-            ClientSecret = Config.MicrosoftAccountClientSecret,
-            Provider = new MicrosoftAccountAuthenticationProvider
-            {
-                OnAuthenticated = context =>
-                {
-                    context.Identity.AddClaim(
-                        new Claim("urn:microsoft:email", context.Email, "XmlSchemaString", "Microsoft"));
-                    context.Identity.AddClaim(
-                        new Claim("urn:microsoft:id", context.Id, "XmlSchemaString", "Microsoft"));
-                    context.Identity.AddClaim(
-                        new Claim("urn:microsoft:name", context.Name, "XmlSchemaString", "Microsoft"));
-
-                    return Task.FromResult(0);
-                }
-            }
-        };
-
-        app.UseMicrosoftAccountAuthentication(options);
-    }*/
 }

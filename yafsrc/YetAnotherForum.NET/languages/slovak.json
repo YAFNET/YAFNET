@@ -4291,14 +4291,6 @@
             "#text": "Zapnutie/vypnutie tlačidla Retweet, pomocou ktorého môže používateľ retweetovať správu témy."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Povolenie jednotného prihlásenia:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Ak je táto možnosť začiarknutá, používatelia sa budú môcť prihlásiť do existujúceho konta prostredníctvom Facebooku a/alebo Twitteru. Ak to chcete povoliť pre Facebook, musíte nastaviť hodnoty YAF.FacebookAPIKey a YAF.FacebookSecretKey a pre Twitter hodnoty YAF.TwitterConsumerKey a YAF.TwitterConsumerSecret v súbore app.config (AppSettings)."
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "Používanie systému reputácie:"
           },
@@ -8138,6 +8130,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -11154,34 +11154,6 @@
             "#text": "Vaše konto ešte nie je schválené, pretože ste nepotvrdili svoj e-mail. Prosím, overte ho, aby ste sa mohli prihlásiť."
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Prihláste sa alebo sa zaregistrujte pomocou {0}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Pripojenie existujúceho konta na fóre k vášmu kontu {0} Najprv sa musíte prihlásiť cez fórum. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>Emailová adresa na Facebooku sa musí zhodovať s e-mailovou adresou používateľa fóra, aby bolo možné používateľa pripojiť.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Emailová adresa Google sa musí zhodovať s e-mailovou adresou používateľa fóra, aby bolo možné používateľa pripojiť.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Prihláste sa alebo sa zaregistrujte pomocou {0} alebo pripojte existujúce používateľské konto pomocou {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Prihláste sa pomocou používateľského konta, ktoré je pripojené k {0}. Alebo ak sa nenájde žiadne konto, automaticky sa vytvorí nové konto na fóre."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Nepodarilo sa získať access_token!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Automatické prihlásenie:"
           },
@@ -11244,50 +11216,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Poslať heslo"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Jednotné prihlásenie je v súčasnosti deaktivované správcom!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Jednotné prihlásenie je pre tohto používateľa deaktivované, ak chcete túto funkciu používať, musíte ju aktivovať v nastaveniach profilu."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Prihlásenie na Facebook zlyhalo, používateľ neexistuje alebo konto nie je pripojené."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Prihlásenie na Facebook zlyhalo, používateľské konto s rovnakou e-mailovou adresou ako facebookové konto už existuje, skúste sa namiesto toho pripojiť k vášmu kontu na fóre."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Prihlásenie na Facebook zlyhalo, pretože používateľ nezadal e-mailovú adresu pre konto."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Nové registrácie sú zakázané."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Prihlásenie do služby Google zlyhalo, používateľ neexistuje alebo účet nie je pripojený."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Prihlásenie do služby Google zlyhalo, používateľské konto s rovnakou e-mailovou adresou ako konto Google už existuje, skúste sa namiesto toho pripojiť k svojmu kontu na fóre."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
           },
           {
             "@tag": "TITLE",
@@ -12985,18 +12913,6 @@
             "#text": "Zdieľať na Tumblr"
           },
           {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Navštívte profil {0} na Twitteri"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Ukončiť sledovanie tejto témy"
           },
@@ -13176,10 +13092,6 @@
             "#text": "Pohlavie:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Profil Google+:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Skupiny:"
           },
@@ -13330,10 +13242,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Téma:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Názov Twitter:"
           },
           {
             "@tag": "USERNAME",
@@ -14536,10 +14444,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

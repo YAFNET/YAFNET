@@ -4283,14 +4283,6 @@
             "#text": "Zet de Retweet Knop aan of uit, waarmee de gebruiker een bericht kan retweeten."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Zet Single Sign On aan:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Wanneer aangevinkt, kunnen gebruikers inloggen op een bestaand account via Facebook en/of Twitter. Om het voor Facebook aan te zetten zijn er  YAF.FacebookAPIKey en YAF.FacebookSecretKey gegevens nodig, en voor Twitter YAF.TwitterConsumerKey en YAF.TwitterConsumerSecret gegevens in de app.config (AppSettings)."
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "Gebruik het Reputatie Systeem:"
           },
@@ -8130,6 +8122,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -11138,34 +11138,6 @@
             "#text": "Je account is nog niet goedgekeurd omdat je je e-mail niet hebt gevalideerd. "
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Log in of registreer met {0}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Verbind een bestaande forums-account met uw {0}-account. U moet eerst inloggen via de forums. "
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>Het Facebook-e-mailadres moet overeenkomen met het e-mailadres van de forumgebruiker om verbinding te maken met de gebruiker.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Het e-mailadres van Google moet overeenkomen met het e-mailadres van de forumgebruiker om verbinding te maken met de gebruiker.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Log in of registreer met {0} of verbind een bestaand gebruikersaccount met {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Log in met een gebruikersaccount dat is verbonden met {0}. "
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Kan access_token niet ophalen!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Automatisch inloggen"
           },
@@ -11228,50 +11200,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Wachtwoord verzenden"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Single Sign On is momenteel uitgeschakeld door de Beheerder!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Single Sign On is uitgeschakeld voor die gebruiker, je moet het in je profiel activeren.."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "De Facebook-aanmelding is mislukt, de gebruiker bestaat niet of het account is niet verbonden."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "De Facebook-aanmelding is mislukt, er bestaat al een gebruikersaccount met hetzelfde e-mailadres als de Facebook-account. Probeer in plaats daarvan uw forumaccount te verbinden."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "De Facebook-aanmelding is mislukt, omdat de gebruiker geen e-mailadres voor het account opgeeft."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Nieuwe registraties zijn uitgeschakeld."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "De Google Login is mislukt, de gebruiker bestaat niet of het account is niet gekoppeld."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Het inloggen bij Google is mislukt, er bestaat al een gebruikersaccount met hetzelfde e-mailadres als het Google-account. Probeer in plaats daarvan uw forumaccount te koppelen."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "Het Facebook ID komt niet overeen!"
           },
           {
             "@tag": "TITLE",
@@ -12969,14 +12897,6 @@
             "#text": "Deel op Tumblr"
           },
           {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Bezoek het Twitter profiel van {0}"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Topic niet meer volgen"
           },
@@ -13156,10 +13076,6 @@
             "#text": "Geslacht:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Google+ profiel:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Groepen:"
           },
@@ -13310,10 +13226,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Onderwerp:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter Naam:"
           },
           {
             "@tag": "USERNAME",
@@ -14516,10 +14428,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n      Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email address to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

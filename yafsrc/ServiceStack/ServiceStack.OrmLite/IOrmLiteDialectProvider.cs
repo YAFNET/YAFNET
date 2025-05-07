@@ -1024,6 +1024,8 @@ public interface IOrmLiteDialectProvider
     /// <returns>System.String.</returns>
     string ToCreateIndexStatement<T>(Expression<Func<T, object>> field, string indexName = null, bool unique = false);
 
+    string ToDropIndexStatement<T>(string indexName);
+
     //Async
     /// <summary>
     /// Gets a value indicating whether [supports asynchronous].

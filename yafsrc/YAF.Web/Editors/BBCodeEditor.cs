@@ -92,7 +92,9 @@ public class BBCodeEditor : TextEditor
                 this.GetText("COMMON", "TT_IMAGE_TITLE"),
                 this.GetText("COMMON", "TT_IMAGE_DESC"),
                 this.GetText("COMMON", "TT_DESCRIPTION"),
-                this.GetText("COMMON", "TT_MEDIA")));
+                this.GetText("COMMON", "TT_MEDIA"),
+                this.GetText("COMMON", "TT_NOTE"),
+                this.GetText("COMMON", "TT_NOTE_TYPE")));
 
         if (this.UserCanUpload && this.AllowsUploads)
         {
@@ -258,6 +260,13 @@ public class BBCodeEditor : TextEditor
 
         writer.Write("<div class=\"btn-group btn-group-sm me-2 mb-2\" role =\"group\">");
 
+        RenderButton(writer, "setStyle('createNote','')", this.GetText("COMMON", "TT_NOTE"), "note-sticky");
+
+        writer.Write("</div>");
+
+        writer.Write("<div class=\"btn-group btn-group-sm me-2 mb-2\" role =\"group\">");
+
+
         RenderButton(writer, "setStyle('img','')", this.GetText("COMMON", "TT_IMAGE"), "image");
 
          if (this.Get<BoardSettings>().EnableAlbum && this.PageBoardContext.NumAlbums > 0
@@ -293,7 +302,9 @@ public class BBCodeEditor : TextEditor
                                   <i class="fa fa-paperclip fa-fw"></i></button>
                 """,
                 this.GetText("COMMON", "ATTACH_BBCODE"));
-
+        }
+        else
+        {
             writer.Write("</div>");
         }
 

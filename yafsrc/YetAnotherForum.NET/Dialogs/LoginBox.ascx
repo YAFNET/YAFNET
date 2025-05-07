@@ -103,11 +103,6 @@
                                          TextLocalizedTag="FORUM_LOGIN"
                                          OnClick="SignIn"/>
                     </div>
-                    <asp:PlaceHolder runat="server" ID="OpenAuthProvidersHolder" Visible="False">
-                        <section>
-                            <YAF:OpenAuthProviders runat="server" ID="OpenAuthLogin" />
-                        </section>
-                    </asp:PlaceHolder>
                 </div>
                 </ContentTemplate>
             </asp:UpdatePanel>

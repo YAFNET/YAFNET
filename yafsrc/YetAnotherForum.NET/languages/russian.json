@@ -4283,14 +4283,6 @@
             "#text": "Делает доступной кнопку ретвита и пользователь может проретвитить сообщение."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Включить единую регистрацию в Facebook:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Если включено, то пользователи смогут входить в свой аккаунт через аккаунт Facebook и/или Twitter.Чтобы включить это для Facebook необходимо установить значения YAF.FacebookAPIKey и YAF.FacebookSecretKey, а для Twitter YAF.TwitterConsumerKey и YAF.TwitterConsumerSecret Values в app.config (AppSettings)."
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "Использовать систему репутации:"
           },
@@ -8130,6 +8122,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -11138,34 +11138,6 @@
             "#text": "Ваша учетная запись еще не утверждена, поскольку вы не подтвердили свой адрес электронной почты. Пожалуйста, подтвердите его, чтобы вы могли войти в систему."
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Войдите или зарегистрируйтесь с помощью {0}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Подключение существующего аккаунта на форумах к вашему аккаунту {0} Сначала вам нужно войти в систему через форумы. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>Адрес электронной почты Facebook должен совпадать с адресом электронной почты пользователя форума для подключения пользователя.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Адрес электронной почты Google должен совпадать с адресом электронной почты пользователя форума для подключения пользователя.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Войдите или зарегистрируйтесь с помощью {0} или подключите существующую учетную запись пользователя с помощью {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Войдите с учетной записью пользователя, связанного с {0}. Или, если учетная запись не найдена, будет автоматически создана новая учетная запись на форумах."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Не удалось получить access_token!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Запомните меня"
           },
@@ -11228,50 +11200,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Отправить пароль"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Единая регистрация выключена администратором форума!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Единая регистрация отключена, Вам необходимо включить её в своём профиле."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Facebook Login failed, User does not exist, or the account is not connected."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Facebook Login failed, an user account with the same email address as the facebook account already exists, please try to connect you your forum account instead."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Вход в Facebook не удался, поскольку пользователь не указал адрес электронной почты для учетной записи."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Новые регистрации отключены."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Вход в Google не удался, пользователь не существует, или аккаунт не подключен."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Вход в Google не удался, аккаунт пользователя с таким же адресом электронной почты, как и аккаунт Google, уже существует, пожалуйста, попробуйте подключить вместо него свой аккаунт на форуме."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "Неверный ID пользователя Facebook !"
           },
           {
             "@tag": "TITLE",
@@ -12969,14 +12897,6 @@
             "#text": "Поделиться на Tumblr"
           },
           {
-            "@tag": "TWITTER",
-            "#text": "Твиттер"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Посетите профиль {0} в Твиттере"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Не отслеживать эту тему"
           },
@@ -13156,10 +13076,6 @@
             "#text": "Пол:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Профиль Google+:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Группы:"
           },
@@ -13310,10 +13226,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Тема:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Имя в Твиттере:"
           },
           {
             "@tag": "USERNAME",
@@ -14516,10 +14428,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Зравствуйте, {user}.\r\n\r\n     Вы были успешно зарегистрированы на форуме {forumname} через Твиттер :\r\n\r\n      Имя пользователя: {user}\r\n    Автоматический пароль: {pass}\r\n      Email пользователя: {email} (Пожалуйста измените адрес на свой настоящий адрес, чтобы получать сообщения E-Mail)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

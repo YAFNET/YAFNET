@@ -148,32 +148,6 @@ public static class Config
     public static bool EnableURLRewriting => GetConfigValueAsBool("YAF.EnableUrlRewriting", true);
 
     /// <summary>
-    /// Gets the google client ID.
-    /// </summary>
-    /// <value>
-    /// The google client ID.
-    /// </value>
-    public static string GoogleClientID => GetConfigValueAsString("YAF.GoogleClientID");
-
-    /// <summary>
-    /// Gets the google client secret.
-    /// </summary>
-    /// <value>
-    /// The google client secret.
-    /// </value>
-    public static string GoogleClientSecret => GetConfigValueAsString("YAF.GoogleClientSecret");
-
-    /// <summary>
-    ///     Gets Facebook API Key.
-    /// </summary>
-    public static string FacebookAPIKey => GetConfigValueAsString("YAF.FacebookAPIKey");
-
-    /// <summary>
-    ///     Gets Facebook Secret Key.
-    /// </summary>
-    public static string FacebookSecretKey => GetConfigValueAsString("YAF.FacebookSecretKey");
-
-    /// <summary>
     ///     Gets a value indicating whether Used for Url Rewriting -- default is "default.aspx" -- used to define what the forum file name is for URLs.
     /// </summary>
     public static string ForceScriptName => GetConfigValueAsString("YAF.ForceScriptName") ?? "default.aspx";

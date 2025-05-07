@@ -84,7 +84,9 @@ public class BBCodeEditorBasic : TextEditor
                 this.GetText("COMMON", "TT_IMAGE_TITLE"),
                 this.GetText("COMMON", "TT_IMAGE_DESC"),
                 this.GetText("COMMON", "TT_DESCRIPTION"),
-                this.GetText("COMMON", "MEDIA")));
+                this.GetText("COMMON", "MEDIA"),
+                this.GetText("COMMON", "TT_NOTE"),
+                this.GetText("COMMON", "TT_NOTE_TYPE")));
 
         // register custom YafBBCode javascript (if there is any)
         // this call is supposed to be after editor load since it may use

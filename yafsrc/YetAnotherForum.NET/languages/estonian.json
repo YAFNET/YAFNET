@@ -4291,14 +4291,6 @@
             "#text": "Lubab/keelab Retweet Button, kus Kasutaja saab teemateate uuesti sättida."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Ühekordse sisselogimise lubamine:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Kui see on märgitud, saavad kasutajad Facebooki ja/või Twitteri kaudu olemasolevale kontole sisse logida. "
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "Kasutage mainesüsteemi:"
           },
@@ -8138,6 +8130,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -11154,34 +11154,6 @@
             "#text": "Teie konto pole veel kinnitatud, kuna te pole oma e-posti kinnitanud. "
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Logige sisse või registreeruge teenusega {0}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Ühendage olemasoleva foorumi konto oma {0} kontoga. Esmalt peate foorumite kaudu sisse logima. "
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>Kasutaja ühendamiseks peab Facebooki e-posti aadress ühtima foorumi kasutaja e-posti aadressiga.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Kasutaja ühendamiseks peab Google'i e-posti aadress ühtima foorumi kasutaja e-posti aadressiga.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Logige sisse või registreeruge kontoga {0} või ühendage olemasolev kasutajakonto teenusega {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Logige sisse kasutajakontoga, mis on ühendatud teenusega {0}. "
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Access_token ei saanud hankida!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Jäta mind meelde"
           },
@@ -11244,50 +11216,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Saada parool"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Administraator on ühekordse sisselogimise hetkel deaktiveerinud!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Selle kasutaja jaoks on ühekordne sisselogimine deaktiveeritud, selle funktsiooni kasutamiseks peate selle oma profiili seadetes aktiveerima."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Facebooki sisselogimine ebaõnnestus, kasutajat pole olemas või konto pole ühendatud."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Facebooki sisselogimine ebaõnnestus, Facebooki kontoga sama e-posti aadressiga kasutajakonto on juba olemas, proovige selle asemel ühendada oma foorumi konto."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Facebooki sisselogimine ebaõnnestus, kuna kasutaja ei anna konto jaoks e-posti aadressi."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Uued registreerimised on keelatud."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Google'i sisselogimine ebaõnnestus, kasutajat pole olemas või konto pole ühendatud."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Google'i sisselogimine ebaõnnestus, Google'i kontoga sama e-posti aadressiga kasutajakonto on juba olemas, proovige selle asemel ühendada oma foorumi konto."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
           },
           {
             "@tag": "TITLE",
@@ -12985,18 +12913,6 @@
             "#text": "Jaga Tumblris"
           },
           {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Külastage kasutaja {0} Twitteri profiili"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Lõpeta selle teema jälgimine"
           },
@@ -13176,10 +13092,6 @@
             "#text": "Sugu:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Google+ profiil:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Grupid:"
           },
@@ -13330,10 +13242,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Teema:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitteri nimi:"
           },
           {
             "@tag": "USERNAME",
@@ -14548,10 +14456,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

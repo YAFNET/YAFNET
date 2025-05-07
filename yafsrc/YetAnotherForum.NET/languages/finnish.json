@@ -4291,14 +4291,6 @@
             "#text": "Ottaa käyttöön tai poistaa käytöstä Retweet-painikkeen, jolla käyttäjä voi lähettää aiheeseen liittyvän viestin uudelleen."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Ota käyttöön Single Sign On:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Jos tämä valitaan, käyttäjät voivat kirjautua olemassa olevaan tiliin Facebookin ja/tai Twitterin kautta. Facebookin käyttöönotto edellyttää YAF.FacebookAPIKey- ja YAF.FacebookSecretKey-arvojen määrittämistä ja Twitterin YAF.TwitterConsumerKey- ja YAF.TwitterConsumerSecret-arvojen määrittämistä app.configissa (AppSettings)."
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "Käytä mainejärjestelmää:"
           },
@@ -8138,6 +8130,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -11154,34 +11154,6 @@
             "#text": "Tiliäsi ei ole vielä hyväksytty, koska et ole vahvistanut sähköpostiosoitettasi. Vahvista, jotta voit kirjautua sisään."
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Kirjaudu sisään tai rekisteröidy {0}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Yhdistä olemassa oleva foorumitili {0}-tiliisi Sinun on kirjauduttava sisään ensin foorumeilla. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>Facebook-sähköpostiosoitteen on vastattava foorumin käyttäjän sähköpostiosoitetta, jotta käyttäjä voidaan yhdistää.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Googlen sähköpostiosoitteen on vastattava foorumin käyttäjän sähköpostiosoitetta, jotta käyttäjä voidaan yhdistää.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Kirjaudu sisään tai rekisteröidy {0} tai yhdistä olemassa oleva käyttäjätili {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Kirjaudu sisään käyttäjätilillä, joka on yhdistetty {0}. Tai jos tiliä ei löydy, uusi tili luodaan automaattisesti foorumeille."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Access_tokeniä ei saatu!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Kirjaudu automaattisesti:"
           },
@@ -11244,50 +11216,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Lähetä salasana"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Järjestelmänvalvoja on poistanut Single Sign On -toiminnon käytöstä!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Single Sign On on poistettu käytöstä kyseisen käyttäjän osalta, sinun on aktivoitava se profiiliasetuksissasi, jotta voit käyttää tätä ominaisuutta."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Facebook-sisäänkirjautuminen epäonnistui, Käyttäjää ei ole olemassa tai tiliä ei ole yhdistetty."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Facebook-sisäänkirjautuminen epäonnistui, käyttäjätili, jolla on sama sähköpostiosoite kuin Facebook-tilillä, on jo olemassa, yritä yhdistää sinut foorumitilillesi sen sijaan."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Facebook-sisäänkirjautuminen epäonnistui, koska käyttäjä ei ole antanut sähköpostiosoitetta tiliä varten."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Uudet rekisteröinnit on poistettu käytöstä."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Google-kirjautuminen epäonnistui, Käyttäjää ei ole olemassa tai tiliä ei ole yhdistetty."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Google-sisäänkirjautuminen epäonnistui, käyttäjätili, jolla on sama sähköpostiosoite kuin Google-tilillä, on jo olemassa, yritä yhdistää sinut foorumitilillesi sen sijaan."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
           },
           {
             "@tag": "TITLE",
@@ -12985,18 +12913,6 @@
             "#text": "Jaa Tumblrissa"
           },
           {
-            "@tag": "TWITTER",
-            "#text": "Viserrys"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Vieraile {0}:n Twitter-profiilissa"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Lopeta aiheen seuranta"
           },
@@ -13176,10 +13092,6 @@
             "#text": "Sukupuoli:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Google+-profiili:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Ryhmät:"
           },
@@ -13330,10 +13242,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Aihe:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter-nimi:"
           },
           {
             "@tag": "USERNAME",
@@ -14536,10 +14444,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

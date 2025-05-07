@@ -774,6 +774,17 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     }
 
     /// <summary>
+    /// Create Drop Index statement.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="indexName">Name of the index.</param>
+    /// <returns>System.String.</returns>
+    public override string ToDropIndexStatement<T>(string indexName)
+    {
+        return $"DROP INDEX {GetQuotedName(indexName)} ON {GetQuotedTableName(typeof(T))}";
+    }
+
+    /// <summary>
     /// Gets the column definition.
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>

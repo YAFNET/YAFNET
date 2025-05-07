@@ -4291,14 +4291,6 @@
             "#text": "Kullanıcının bir konu mesajını yeniden tweetleyebileceği Retweet Düğmesini etkinleştirir/devre dışı bırakır."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Tek Oturum Açmayı Etkinleştirin:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "İşaretlenirse, kullanıcılar Facebook ve/veya Twitter üzerinden mevcut bir hesaba Giriş yapabilecektir. Facebook için Etkinleştirmek için app.config (AppSettings) içinde YAF.FacebookAPIKey ve YAF.FacebookSecretKey Değerlerini ve Twitter için YAF.TwitterConsumerKey ve YAF.TwitterConsumerSecret Değerlerini ayarlamanız gerekir."
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "İtibar Sistemini Kullanın:"
           },
@@ -8138,6 +8130,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -11154,34 +11154,6 @@
             "#text": "E-postanızı doğrulamadığınız için hesabınız henüz onaylanmadı. Giriş yapabilmek için lütfen doğrulayın."
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "{0} ile Giriş Yapın veya Kaydolun"
-          },
-          {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Mevcut bir forum hesabını {0} hesabınıza bağlayın Önce forumlar üzerinden giriş yapmanız gerekir. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>Kullanıcıyı bağlamak için Facebook e-posta adresi forum kullanıcısının e-posta adresiyle eşleşmelidir</strong>."
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Kullanıcıyı bağlamak için Google e-posta adresi forum kullanıcısının e-posta adresiyle eşleşmelidir</strong>."
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Giriş yapın veya {0} ile Kaydolun veya {0} ile mevcut bir Kullanıcı Hesabına bağlanın."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "{0} ile bağlı bir kullanıcı Hesabı ile giriş yapın. Veya hiçbir hesap bulunamazsa, forumlarda otomatik olarak yeni bir hesap oluşturulacaktır."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Access_token alınamadı!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Beni Hatırla?"
           },
@@ -11244,50 +11216,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Şifre Gönder"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Single Sign On şu anda Yönetici tarafından devre dışı bırakılmıştır!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Tek Oturum Açma bu Kullanıcı için devre dışı bırakılmıştır, bu özelliği kullanmak için Profil Ayarlarınızda etkinleştirmeniz gerekir."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Facebook Girişi başarısız oldu, Kullanıcı mevcut değil veya hesap bağlı değil."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Facebook Girişi başarısız oldu, facebook hesabıyla aynı e-posta adresine sahip bir kullanıcı hesabı zaten mevcut, lütfen bunun yerine forum hesabınıza bağlanmayı deneyin."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Kullanıcı hesap için bir e-posta adresi sağlamadığından Facebook Girişi başarısız oldu."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Yeni Kayıtlar devre dışı bırakıldı."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Google Oturum Açma başarısız oldu, Kullanıcı mevcut değil veya hesap bağlı değil."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Google Girişi başarısız oldu, Google hesabıyla aynı e-posta adresine sahip bir kullanıcı hesabı zaten mevcut, lütfen bunun yerine forum hesabınıza bağlanmayı deneyin."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
           },
           {
             "@tag": "TITLE",
@@ -12985,18 +12913,6 @@
             "#text": "Tumblr'da Paylaş"
           },
           {
-            "@tag": "TWITTER",
-            "#text": "heyecan"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "{0} adlı kullanıcının Twitter profilini ziyaret edin"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Konuyu izlemeyi bırak"
           },
@@ -13176,10 +13092,6 @@
             "#text": "Cinsiyetinizi Seçiniz"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Google+ Profili:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Gruplar:"
           },
@@ -13330,10 +13242,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Konu:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter Adı:"
           },
           {
             "@tag": "USERNAME",
@@ -14536,10 +14444,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

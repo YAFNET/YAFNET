@@ -3430,6 +3430,17 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     }
 
     /// <summary>
+    /// Create Drop Index statement.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="indexName">Name of the index.</param>
+    /// <returns>System.String.</returns>
+    public virtual string ToDropIndexStatement<T>(string indexName)
+    {
+        return $"DROP INDEX IF EXISTS {GetQuotedName(indexName)};";
+    }
+
+    /// <summary>
     /// Fks the option to string.
     /// </summary>
     /// <param name="option">The option.</param>

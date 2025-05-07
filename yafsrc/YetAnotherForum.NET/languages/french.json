@@ -4291,14 +4291,6 @@
             "#text": "Active/désactive le bouton \"Retweet\", grâce auquel l'utilisateur peut retweeter un message du sujet."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Activez l'authentification unique :"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Si cette case est cochée, les utilisateurs pourront se connecter à un compte existant via Facebook et/ou Twitter. Pour l'activer pour Facebook, vous devez configurer les valeurs YAF.FacebookAPIKey et YAF.FacebookSecretKey, et pour Twitter les valeurs YAF.TwitterConsumerKey et YAF.TwitterConsumerSecret dans l'app.config (AppSettings)."
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "Utilisez le système de réputation :"
           },
@@ -8138,6 +8130,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -11154,34 +11154,6 @@
             "#text": "Votre compte n'est pas encore approuvé car vous n'avez pas validé votre email. Veuillez le vérifier pour pouvoir vous connecter."
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Se connecter ou s'inscrire avec {0}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Connecter un compte existant sur les forums avec votre compte {0} Vous devez d'abord vous connecter sur les forums. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>L'adresse électronique Facebook doit correspondre à l'adresse électronique de l'utilisateur du forum pour connecter l'utilisateur.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>L'adresse e-mail de Google doit correspondre à l'adresse e-mail de l'utilisateur du forum pour connecter l'utilisateur.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Connectez-vous ou enregistrez-vous avec {0} ou connectez un compte utilisateur existant avec {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Connectez-vous avec un compte utilisateur qui est connecté avec {0}. Ou si aucun compte n'est trouvé, un nouveau compte sera automatiquement créé dans les forums."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Impossible d'obtenir l'access_token !"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Reconnexion automatique&nbsp;:"
           },
@@ -11244,50 +11216,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Envoyer le mot de passe"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Le Single Sign On est actuellement désactivé par l'administrateur !"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "L'authentification unique est désactivée pour cet utilisateur, vous devez l'activer dans vos paramètres de profil pour utiliser cette fonction."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "La connexion Facebook a échoué, l'utilisateur n'existe pas ou le compte n'est pas connecté."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "La connexion Facebook a échoué, un compte utilisateur avec la même adresse e-mail que le compte facebook existe déjà, veuillez essayer de vous connecter à votre compte forum à la place."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "La connexion Facebook a échoué, car l'utilisateur n'a pas fourni d'adresse électronique pour le compte."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Les nouvelles inscriptions sont désactivées."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "La connexion Google a échoué, l'utilisateur n'existe pas ou le compte n'est pas connecté."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "La connexion Google a échoué, un compte utilisateur avec la même adresse e-mail que le compte Google existe déjà, veuillez essayer de vous connecter à votre compte du forum à la place."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
           },
           {
             "@tag": "TITLE",
@@ -12985,18 +12913,6 @@
             "#text": "Partager sur Tumblr"
           },
           {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Visitez le profil Twitter de {0}"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Ne plus surveiller ce sujet"
           },
@@ -13176,10 +13092,6 @@
             "#text": "Sexe&nbsp;:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Profil Google+ :"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Groupes&nbsp;:"
           },
@@ -13330,10 +13242,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Sujet&nbsp;:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Nom de Twitter :"
           },
           {
             "@tag": "USERNAME",
@@ -14536,10 +14444,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

@@ -4291,14 +4291,6 @@
             "#text": "Aktiverar/avaktiverar Retweet-knappen, där användaren kan retweeta ett ämnesmeddelande."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Aktivera enkel inloggning:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Om du kryssar i denna ruta kan användarna logga in på ett befintligt konto via Facebook och/eller Twitter. För att aktivera den för Facebook måste du ställa in värdena YAF.FacebookAPIKey och YAF.FacebookSecretKey och för Twitter YAF.TwitterConsumerKey och YAF.TwitterConsumerSecret i app.config (AppSettings)."
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "Använd systemet för anseende:"
           },
@@ -8138,6 +8130,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -11154,34 +11154,6 @@
             "#text": "Ditt konto är inte godkänt ännu eftersom du inte har bekräftat din e-postadress. Vänligen verifiera det så att du kan logga in."
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Logga in eller registrera dig med {0}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Anslut ett befintligt forumkonto till ditt {0}-konto Du måste först logga in på forumet. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>E-postadressen på Facebook måste matcha forumanvändarens e-postadress för att användaren ska kunna anslutas.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Google e-postadress måste matcha forumanvändarens e-postadress för att ansluta användaren.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Logga in eller registrera dig med {0} eller anslut ett befintligt användarkonto med {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Logga in med ett användarkonto som är anslutet till {0}. Om inget konto hittas skapas automatiskt ett nytt konto i forumet."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Kunde inte få access_token!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Automatisk inloggning:"
           },
@@ -11244,50 +11216,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Skicka lösenord"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Single Sign On är för närvarande inaktiverat av administratören!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Enkel inloggning är avaktiverad för den användaren och du måste aktivera den i dina profilinställningar för att kunna använda funktionen."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Facebook-inloggningen misslyckades, användaren finns inte eller kontot är inte anslutet."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Facebook-inloggningen misslyckades, ett användarkonto med samma e-postadress som Facebook-kontot finns redan, försök ansluta ditt forumkonto istället."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Facebook-inloggningen misslyckades eftersom användaren inte har angett någon e-postadress för kontot."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Nya registreringar är inaktiverade."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Google-inloggningen misslyckades, användaren finns inte eller kontot är inte anslutet."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Google-inloggningen misslyckades, ett användarkonto med samma e-postadress som Google-kontot finns redan, försök ansluta ditt forumkonto istället."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
           },
           {
             "@tag": "TITLE",
@@ -12985,18 +12913,6 @@
             "#text": "Dela på Tumblr"
           },
           {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Besök {0}s Twitterprofil"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Avbryt prenumeration på denna konversation"
           },
@@ -13176,10 +13092,6 @@
             "#text": "Kön:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Google+ profil:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Grupper:"
           },
@@ -13330,10 +13242,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Konversation:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter-namn:"
           },
           {
             "@tag": "USERNAME",
@@ -14536,10 +14444,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

@@ -4283,14 +4283,6 @@
             "#text": "Activa/desactiva el botón de Retweetear con el que el usurio puede retweetear el mensaje de un tema."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Activar el servicio de sesión único:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Si está activado, los usuarios podrán iniciar sesión con una cuenta existente en Facebook y/o Twitter. Para activarlo para Facebook necesitas configurar los valores de YAF.FacebookAPIKey y YAF.FacebookSecretKey, y para Twitter YAF.TwitterConsumerKey y YAF.TwitterConsumerSecret en el app.config (AppSettings)."
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "Usar sistema de reputación:"
           },
@@ -8130,6 +8122,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -11138,34 +11138,6 @@
             "#text": "Su cuenta no está aprobada todavía porque no ha validado su correo electrónico. Por favor, verifícalo para poder iniciar sesión."
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Ingresa o regístrate con {0}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Conecta una cuenta existente en el foro con tu cuenta de {0} Antes necesitas ingresar en el foro. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>El email de Facebook debe coincidir con el email del foro para conectar el usuario.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>El email de Google debe coincidir con el email del foro para conectar el usuario.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Ingresa o regístrate con {0} o conecta una cuenta de usuario existente con {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Ingresar con una cuenta de usuario que está conectado con {0}. O si no se encuentra una cuenta, una nueva será creada automáticamente en los foros."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "No se ha podido autorizar la contraseña."
-          },
-          {
             "@tag": "AUTO",
             "#text": "Iniciar sesión automaticamente:"
           },
@@ -11228,50 +11200,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Enviar contraseña"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "El inicio de sesión único no está disponible en estos momentos."
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "El inicio de sesión único no está disponible para este usuario, necesitas activarlo en tu configuración de cuenta para usarlo en el futuro."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "El ingreso en Facebook ha fallado, el usuario no existe o la cuenta no está activada."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "El inicio de sesión en Facebook ha fallado, ya existe una cuenta de usuario con la misma dirección de correo electrónico que la cuenta de Facebook, por favor, intenta conectar tu cuenta del foro en su lugar."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "El inicio de sesión de Facebook falló, porque el usuario no proporciona una dirección de correo electrónico para la cuenta."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "La cuenta de email de Facebook debe coincidir con la cuenta de email del foro."
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Nuevos registros están desactivados."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "El ingreso en Google ha fallado, el usuario no existe o la cuenta no está activada."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "El inicio de sesión de Google ha fallado, ya existe una cuenta de usuario con la misma dirección de correo electrónico que la cuenta de Google, por favor, intente conectar su cuenta del foro en su lugar."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "La dirección de email de Google debe coincidir con la dirección de email del foro."
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "La cuenta de usuario no está activa o no ha sido encontrada."
           },
           {
             "@tag": "TITLE",
@@ -12969,14 +12897,6 @@
             "#text": "Compartir en Tumblr"
           },
           {
-            "@tag": "TWITTER",
-            "#text": "Gorjeo"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Visitar el perfil de Twitter de {0}"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Dejar de vigilar este tema"
           },
@@ -13156,10 +13076,6 @@
             "#text": "Género:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Perfil de Google+:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Grupos:"
           },
@@ -13310,10 +13226,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Tema:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Nombre en Twitter:"
           },
           {
             "@tag": "USERNAME",
@@ -14516,10 +14428,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\nHola {user}.\r\n\r\nTe has registrado correctamente en el foro {forumname} usando tu cuenta de Twitter:\r\n\r\nNombre de Usuario: {user}\r\nContraseña autogenerada: {pass}\r\nEmail de usuario: {email} (Por favor, cambia tu email a tu dirección real para poder recibir emails)\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

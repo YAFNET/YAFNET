@@ -4291,14 +4291,6 @@
             "#text": "Įjungiamas / išjungiamas \"Retweet\" mygtukas, kuriuo Naudotojas gali retweetinti temos žinutę."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Įjunkite vieną prisijungimą:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Jei pažymėta, naudotojai galės prisijungti prie esamos paskyros per \"Facebook\" ir (arba) \"Twitter\". Norėdami įjungti \"Facebook\", turite nustatyti YAF.FacebookAPIKey ir YAF.FacebookSecretKey vertes, o \"Twitter\" - YAF.TwitterConsumerKey ir YAF.TwitterConsumerSecret vertes app.config (AppSettings)."
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "Naudokite reputacijos sistemą:"
           },
@@ -8138,6 +8130,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -11154,34 +11154,6 @@
             "#text": "Jūsų paskyra dar nepatvirtinta, nes nepatvirtinote savo el. pašto. Patvirtinkite, kad galėtumėte prisijungti."
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Prisijunkite arba užsiregistruokite su {0}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Sujungti esamą forumų paskyrą su savo {0} paskyra Pirmiausia turite prisijungti prie forumų. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>\"Facebook\" el. pašto adresas turi sutapti su forumo naudotojo el. pašto adresu, kad naudotojas būtų prijungtas.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>\"Google\" el. pašto adresas turi sutapti su forumo naudotojo el. pašto adresu, kad naudotojas būtų prijungtas.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Prisijunkite arba užsiregistruokite naudodami {0} arba prijunkite esamą naudotojo paskyrą naudodami {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Prisijunkite naudodami naudotojo paskyrą, kuri yra prijungta prie {0}. Arba, jei paskyra nerandama, nauja paskyra forume bus sukurta automatiškai."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Nepavyko gauti access_token!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Automatinis prisijungimas: "
           },
@@ -11244,50 +11216,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Siųsti slaptažodį "
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Administratorius šiuo metu yra išjungęs vieną prisijungimą!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Vienkartinis prisijungimas šiam naudotojui yra išjungtas, norėdami naudotis šia funkcija, turite ją įjungti savo profilio nustatymuose."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Prisijungti prie \"Facebook\" nepavyko, vartotojas neegzistuoja arba paskyra neprijungta."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Prisijungti prie \"Facebook\" nepavyko, vartotojo paskyra su tuo pačiu el. pašto adresu, kaip ir \"Facebook\" paskyra, jau egzistuoja, vietoj jos pabandykite prisijungti prie savo forumo paskyros."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Prisijungti prie \"Facebook\" nepavyko, nes naudotojas nepateikė paskyros el. pašto adreso."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Naujos registracijos yra išjungtos."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Prisijungti prie \"Google\" nepavyko, vartotojas neegzistuoja arba paskyra neprijungta."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Prisijungti prie \"Google\" nepavyko, vartotojo paskyra su tuo pačiu el. pašto adresu, kaip ir \"Google\" paskyra, jau egzistuoja, vietoj jos bandykite prisijungti prie savo forumo paskyros."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
           },
           {
             "@tag": "TITLE",
@@ -12985,18 +12913,6 @@
             "#text": "Dalytis Tumblr"
           },
           {
-            "@tag": "TWITTER",
-            "#text": "\"Twitter\""
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Aplankykite {0}'s Twitter profilį"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Nebestebėti šią temą "
           },
@@ -13176,10 +13092,6 @@
             "#text": "Lytis: "
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "\"Google+\" profilis:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Grupės: "
           },
@@ -13330,10 +13242,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Tema: "
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "\"Twitter\" vardas:"
           },
           {
             "@tag": "USERNAME",
@@ -14536,10 +14444,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

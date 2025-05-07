@@ -128,26 +128,6 @@
         <asp:TextBox CssClass="form-control" ID="LastVisit" runat="server" Enabled="False" />
     </div>
 </div>
-<div class="row">
-    <div class="mb-3 col-md-4">
-        <YAF:HelpLabel ID="HelpLabel12" runat="server" 
-                       AssociatedControlID="IsFacebookUser"
-                       LocalizedTag="FACEBOOK_USER" LocalizedPage="ADMIN_EDITUSER" />
-         
-        <div class="form-check form-switch">
-            <asp:CheckBox Text="&nbsp;" runat="server" ID="IsFacebookUser" Enabled="false" />
-        </div>
-    </div>
-    <div class="mb-3 col-md-4">
-        <YAF:HelpLabel ID="HelpLabel14" runat="server" 
-                       AssociatedControlID="IsGoogleUser"
-                       LocalizedTag="Google_USER" LocalizedPage="ADMIN_EDITUSER" />
-         
-        <div class="form-check form-switch">
-            <asp:CheckBox Text="&nbsp;" runat="server" ID="IsGoogleUser" Enabled="false" />
-        </div>
-    </div>
-</div>
 <div class="text-lg-center">
     <YAF:ThemeButton ID="Save" runat="server" 
                      Type="Primary"

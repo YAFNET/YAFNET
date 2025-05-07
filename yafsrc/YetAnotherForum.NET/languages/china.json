@@ -4291,14 +4291,6 @@
             "#text": "启用/禁用转推按钮，用户可以在其中转推主题消息。"
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "启用单点登录："
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "如果选中，用户将能够通过 Facebook 和/或 Twitter 登录现有帐户。"
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "使用信誉系统："
           },
@@ -8138,6 +8130,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -11154,34 +11154,6 @@
             "#text": "您的帐户尚未获得批准，因为您尚未验证您的电子邮件。"
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "使用 {0} 登录或注册"
-          },
-          {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "将现有论坛帐户与您的 {0} 帐户连接 您需要先通过论坛登录。 "
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>Facebook 电子邮件地址必须与论坛用户电子邮件地址匹配才能连接用户。</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Google 电子邮件地址必须与论坛用户电子邮件地址相匹配才能连接用户。</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "使用 {0} 登录或注册，或将现有用户帐户连接到 {0}。"
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "使用与 {0} 连接的用户帐户登录。"
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "无法获取 access_token！"
-          },
-          {
             "@tag": "AUTO",
             "#text": "自动登录:"
           },
@@ -11244,50 +11216,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "发送密码"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "单点登录当前已被管理员禁用！"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "该用户的单点登录已停用，您需要在个人资料设置中激活它才能使用该功能。"
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Facebook 登录失败，用户不存在，或帐户未连接。"
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Facebook 登录失败，与 facebook 帐户具有相同电子邮件地址的用户帐户已存在，请尝试连接您的论坛帐户。"
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Facebook 登录失败，因为用户没有提供帐户的电子邮件地址。"
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "新注册被禁用。"
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Google 登录失败，用户不存在，或帐户未连接。"
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Google 登录失败，与 Google 帐户具有相同电子邮件地址的用户帐户已存在，请尝试连接您的论坛帐户。"
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
           },
           {
             "@tag": "TITLE",
@@ -12985,18 +12913,6 @@
             "#text": "在 Tumblr 上分享"
           },
           {
-            "@tag": "TWITTER",
-            "#text": "推特"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "访问 {0} 的 Twitter 个人资料"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "取消订阅"
           },
@@ -13176,10 +13092,6 @@
             "#text": "性别:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Google+ 个人资料："
-          },
-          {
             "@tag": "GROUPS",
             "#text": "组:"
           },
@@ -13330,10 +13242,6 @@
           {
             "@tag": "TOPIC",
             "#text": "话题:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "推特名称："
           },
           {
             "@tag": "USERNAME",
@@ -14536,10 +14444,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n      Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email address to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

@@ -26,7 +26,6 @@ namespace YAF.Pages.Account;
 
 using System.Net.Mail;
 
-using YAF.Core.Identity.Owin;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 using YAF.Web.Controls;
@@ -62,18 +61,12 @@ public partial class Login : AccountPage
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (this.Get<HttpRequestBase>().QueryString.Exists("auth")
-            && this.PageBoardContext.BoardSettings.AllowSingleSignOn)
-        {
-            this.HandleExternalLogin();
-        }
-
         if (this.IsPostBack)
         {
             return;
         }
 
-       this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             "loadLoginValidatorFormJs",
             JavaScriptBlocks.FormValidatorJs(this.LoginButton.ClientID));
 
@@ -89,8 +82,6 @@ public partial class Login : AccountPage
         {
             this.RegisterLink.Visible = true;
         }
-
-        this.OpenAuthProvidersHolder.Visible = this.PageBoardContext.BoardSettings.AllowSingleSignOn;
 
         this.DataBind();
     }
@@ -266,45 +257,6 @@ public partial class Login : AccountPage
         else
         {
             this.Get<LinkBuilder>().Redirect(ForumPages.Board);
-        }
-    }
-
-    /// <summary>
-    ///  handle external login if provider exist in Query String
-    /// </summary>
-    private void HandleExternalLogin()
-    {
-        var providerName = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<string>("auth");
-
-        var loginAuth = (AuthService)Enum.Parse(typeof(AuthService), providerName, true);
-
-        var message = string.Empty;
-
-        switch (loginAuth)
-        {
-            case AuthService.facebook:
-                {
-                    var facebookAuth = new Facebook();
-                    facebookAuth.LoginOrCreateUser(out message);
-                }
-
-                break;
-            case AuthService.google:
-                {
-                    var googleAuth = new Google();
-                    googleAuth.LoginOrCreateUser(out message);
-                }
-
-                break;
-        }
-
-        if (message.IsSet())
-        {
-            this.PageBoardContext.Notify(message, MessageTypes.warning);
-        }
-        else
-        {
-            this.Get<IAspNetUsersHelper>().SignInExternal();
         }
     }
 }

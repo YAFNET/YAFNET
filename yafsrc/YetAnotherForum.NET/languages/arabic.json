@@ -4283,14 +4283,6 @@
             "#text": "لتمكين / تعطيل زر إعادة التغريد ، حيث يمكن للمستخدم إعادة تغريد رسالة موضوع."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "تمكين تسجيل الدخول الأحادي:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "إذا تم تحديده ، فسيتمكن المستخدمون من تسجيل الدخول إلى حساب موجود عبر Facebook و / أو Twitter. "
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "استخدام نظام السمعة:"
           },
@@ -8126,6 +8118,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -11134,34 +11134,6 @@
             "#text": "لم تتم الموافقة على حسابك حتى الآن لأنك لم تتحقق من صحة البريد الإلكتروني الخاص بك. "
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Login or Register with {0}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "ربط حساب منتديات موجود بحساب {0} الخاص بك. تحتاج إلى تسجيل الدخول من خلال المنتديات أولاً. "
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong> يجب أن يتطابق عنوان البريد الإلكتروني في Facebook مع عنوان البريد الإلكتروني لمستخدم المنتدى لتوصيل المستخدم. </ strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong> يجب أن يتطابق عنوان البريد الإلكتروني في Google مع عنوان البريد الإلكتروني لمستخدم المنتدى لتوصيل المستخدم. </ strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "تسجيل الدخول أو التسجيل باستخدام {0} أو ربط حساب مستخدم موجود بـ {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "تسجيل الدخول بحساب مستخدم متصل بـ {0}. "
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "تعذر الحصول على access_token!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "تذكرني"
           },
@@ -11224,50 +11196,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "إرسال كلمة المرور"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "تم إلغاء تنشيط الدخول الموحد حاليًا بواسطة المسؤول!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "تم إلغاء تنشيط الدخول الموحد لهذا المستخدم ، تحتاج إلى تنشيطه في إعدادات ملف التعريف الخاص بك لاستخدام هذه الميزة."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "فشل تسجيل الدخول إلى Facebook أو المستخدم غير موجود أو الحساب غير متصل."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "فشل تسجيل الدخول إلى Facebook ، حساب مستخدم بنفس عنوان البريد الإلكتروني مثل حساب facebook موجود بالفعل ، يرجى محاولة توصيل حساب المنتدى الخاص بك بدلاً من ذلك."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "فشل تسجيل الدخول إلى Facebook ، لأن المستخدم لا يقدم عنوان بريد إلكتروني للحساب."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "التسجيلات الجديدة معطلة."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "فشل تسجيل الدخول إلى Google أو المستخدم غير موجود أو الحساب غير متصل."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "فشل تسجيل الدخول إلى Google ، حساب المستخدم بنفس عنوان البريد الإلكتروني مثل حساب Google موجود بالفعل ، يرجى محاولة توصيل حساب المنتدى الخاص بك بدلاً من ذلك."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
           },
           {
             "@tag": "TITLE",
@@ -12965,14 +12893,6 @@
             "#text": "انشر على Tumblr"
           },
           {
-            "@tag": "TWITTER",
-            "#text": "تويتر"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "قم بزيارة الملف الشخصي لـ {0} على Twitter"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "الموضيع التي لم تشاهد"
           },
@@ -13152,10 +13072,6 @@
             "#text": "الجنس:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "الملف الشخصي في Google+:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "مجموعات :"
           },
@@ -13306,10 +13222,6 @@
           {
             "@tag": "TOPIC",
             "#text": "الموضوع:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "اسم تويتر:"
           },
           {
             "@tag": "USERNAME",
@@ -14512,10 +14424,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n      Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email address to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

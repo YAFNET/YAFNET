@@ -285,42 +285,6 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.TextBox LastVisit;
 
         /// <summary>
-        /// HelpLabel12 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel12;
-
-        /// <summary>
-        /// IsFacebookUser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox IsFacebookUser;
-
-        /// <summary>
-        /// HelpLabel14 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel14;
-
-        /// <summary>
-        /// IsGoogleUser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox IsGoogleUser;
-
-        /// <summary>
         /// Save control.
         /// </summary>
         /// <remarks>

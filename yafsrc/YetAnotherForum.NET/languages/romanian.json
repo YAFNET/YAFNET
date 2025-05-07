@@ -4291,14 +4291,6 @@
             "#text": "Activează/dezactivează butonul Retweet, prin care utilizatorul poate retweet un mesaj din subiect."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Activați Single Sign On:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Dacă se bifează această opțiune, utilizatorii vor putea să se conecteze la un cont existent prin intermediul Facebook și/sau Twitter. Pentru a o activa pentru Facebook, trebuie să configurați valorile YAF.FacebookAPIKey și YAF.FacebookSecretKey, iar pentru Twitter valorile YAF.TwitterConsumerKey și YAF.TwitterConsumerSecret în app.config (AppSettings)."
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "Utilizați sistemul de reputație:"
           },
@@ -8138,6 +8130,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -11154,34 +11154,6 @@
             "#text": "Contul dvs. nu este încă aprobat deoarece nu v-ați validat e-mailul. Vă rugăm să verificați pentru a vă putea autentifica."
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Autentificare sau înregistrare cu {0}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Conectați un cont de forum existent cu contul dvs. {0} Trebuie să vă conectați mai întâi prin intermediul forumurilor. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>Adresa de e-mail Facebook trebuie să se potrivească cu adresa de e-mail a utilizatorului forumului pentru a conecta utilizatorul.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Adresa de e-mail Google trebuie să se potrivească cu adresa de e-mail a utilizatorului forumului pentru a conecta utilizatorul.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Conectați-vă sau înregistrați-vă cu {0} sau conectați un cont de utilizator existent cu {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Conectați-vă cu un cont de utilizator conectat la {0}. Sau, dacă nu se găsește niciun cont, se va crea automat un cont nou în forum."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Nu s-a putut obține access_token!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Intrare automata:"
           },
@@ -11244,50 +11216,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Trimite parola"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Single Sign On este în prezent dezactivat de către Administrator!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Conectarea unică este dezactivată pentru acel utilizator, trebuie să o activați în setările profilului dvs. pentru a utiliza această funcție."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Autentificarea Facebook a eșuat, utilizatorul nu există sau contul nu este conectat."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Conectarea la Facebook a eșuat, există deja un cont de utilizator cu aceeași adresă de e-mail ca și contul de Facebook, vă rugăm să încercați să vă conectați la contul dvs. de forum."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Autentificarea Facebook a eșuat, deoarece utilizatorul nu a furnizat o adresă de e-mail pentru cont."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Înregistrările noi sunt dezactivate."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Autentificarea Google a eșuat, Utilizatorul nu există sau contul nu este conectat."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Autentificarea Google a eșuat, există deja un cont de utilizator cu aceeași adresă de e-mail ca și contul Google, vă rugăm să încercați să vă conectați la contul dvs. de forum."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
           },
           {
             "@tag": "TITLE",
@@ -12985,18 +12913,6 @@
             "#text": "Partajează pe Tumblr"
           },
           {
-            "@tag": "TWITTER",
-            "#text": "Stare de nervozitate"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Vizitează profilul de Twitter al lui {0}"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Dezarhivați acest subiect"
           },
@@ -13176,10 +13092,6 @@
             "#text": "Sex:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Profilul Google+:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Grupuri:"
           },
@@ -13330,10 +13242,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Tema:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Nume Twitter:"
           },
           {
             "@tag": "USERNAME",
@@ -14536,10 +14444,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

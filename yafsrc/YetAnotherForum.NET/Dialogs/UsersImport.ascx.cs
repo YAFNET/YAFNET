@@ -212,11 +212,6 @@ public partial class UsersImport : BaseUserControl
             }
         }
 
-        if (row.Table.Columns.Contains("GoogleId") && ((string)row["GoogleId"]).IsSet())
-        {
-            userProfile.GoogleId = (string)row["GoogleId"];
-        }
-
         if (row.Table.Columns.Contains("Location") && ((string)row["Location"]).IsSet())
         {
             userProfile.Location = (string)row["Location"];
@@ -262,11 +257,6 @@ public partial class UsersImport : BaseUserControl
             userProfile.Facebook = (string)row["Facebook"];
         }
 
-        if (row.Table.Columns.Contains("FacebookId") && ((string)row["FacebookId"]).IsSet())
-        {
-            userProfile.FacebookId = (string)row["FacebookId"];
-        }
-
         var user = new AspNetUsers
                        {
                            Id = Guid.NewGuid().ToString(),
@@ -279,10 +269,8 @@ public partial class UsersImport : BaseUserControl
                            Profile_Birthday = userProfile.Birthday,
                            Profile_Blog = userProfile.Blog,
                            Profile_Gender = userProfile.Gender,
-                           Profile_GoogleId = userProfile.GoogleId,
                            Profile_Homepage = userProfile.Homepage,
                            Profile_Facebook = userProfile.Facebook,
-                           Profile_FacebookId = userProfile.FacebookId,
                            Profile_Interests = userProfile.Interests,
                            Profile_Location = userProfile.Location,
                            Profile_Country = userProfile.Country,

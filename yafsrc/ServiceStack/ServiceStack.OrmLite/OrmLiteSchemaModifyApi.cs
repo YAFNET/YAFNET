@@ -535,6 +535,14 @@ public static class OrmLiteSchemaModifyApi
 
         dbConn.ExecuteSql(command);
     }
+    /*
+    public static void DropIndex<T>(this IDbConnection dbConn, string indexName)
+    {
+        var provider = dbConn.GetDialectProvider();
+    
+        var command = provider.ToDropIndexStatement<T>(indexName);
+        dbConn.ExecuteSql(command);
+    }*/
 
     /// <summary>
     /// Creates the index of the view.

@@ -123,24 +123,6 @@ namespace YAF.Dialogs
         protected global::YAF.Web.Controls.ThemeButton LoginButton;
 
         /// <summary>
-        /// OpenAuthProvidersHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder OpenAuthProvidersHolder;
-
-        /// <summary>
-        /// OpenAuthLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.OpenAuthProviders OpenAuthLogin;
-
-        /// <summary>
         /// RegisterLink control.
         /// </summary>
         /// <remarks>

@@ -637,10 +637,8 @@ public partial class EditUsersProfile : BaseUserControl
         this.User.Item2.Profile_Birthday = userProfile.Birthday;
         this.User.Item2.Profile_Blog = userProfile.Blog;
         this.User.Item2.Profile_Gender = userProfile.Gender;
-        this.User.Item2.Profile_GoogleId = userProfile.GoogleId;
         this.User.Item2.Profile_Homepage = userProfile.Homepage;
         this.User.Item2.Profile_Facebook = userProfile.Facebook;
-        this.User.Item2.Profile_FacebookId = userProfile.FacebookId;
         this.User.Item2.Profile_Interests = userProfile.Interests;
         this.User.Item2.Profile_Location = userProfile.Location;
         this.User.Item2.Profile_Country = userProfile.Country;

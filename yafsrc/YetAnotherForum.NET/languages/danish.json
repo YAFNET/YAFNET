@@ -4291,14 +4291,6 @@
             "#text": "Aktiverer/deaktiverer retweet-knappen, hvor brugeren kan retweete en emnebesked."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Aktiver Single Sign On:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Hvis markeret, vil brugere være i stand til at logge ind på en eksisterende konto via Facebook og/eller Twitter. "
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "Brug omdømmesystem:"
           },
@@ -8138,6 +8130,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -11154,34 +11154,6 @@
             "#text": "Din konto er ikke godkendt endnu, fordi du ikke har valideret din e-mail. "
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Log på eller tilmeld dig med {0}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Forbind en eksisterende fora-konto med din {0}-konto. Du skal først logge ind via foraene. "
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>Facebook-e-mailadressen skal matche forumbrugerens e-mailadresse for at forbinde brugeren.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Google-e-mailadressen skal matche forumbrugerens e-mailadresse for at forbinde brugeren.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Log på eller tilmeld dig med {0}, eller tilslut en eksisterende brugerkonto med {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Log på med en brugerkonto, der er forbundet med {0}. "
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Kunne ikke hente access_token!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Husk mig"
           },
@@ -11244,50 +11216,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Send adgangskode"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Single Sign On er i øjeblikket deaktiveret af administratoren!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Single Sign On er deaktiveret for denne bruger, du skal aktivere det i dine profilindstillinger for at bruge denne funktion."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Facebook-login mislykkedes, brugeren eksisterer ikke, eller kontoen er ikke forbundet."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Facebook-login mislykkedes, en brugerkonto med samme e-mail-adresse som facebook-kontoen eksisterer allerede, prøv venligst at oprette forbindelse til din forumkonto i stedet."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Facebook-login mislykkedes, fordi brugeren ikke angiver en e-mailadresse til kontoen."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Nye registreringer er deaktiveret."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Google-login mislykkedes, brugeren eksisterer ikke, eller kontoen er ikke forbundet."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Google-login mislykkedes, en brugerkonto med den samme e-mailadresse som Google-kontoen eksisterer allerede, prøv venligst at oprette forbindelse til din forumkonto i stedet."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
           },
           {
             "@tag": "TITLE",
@@ -12985,18 +12913,6 @@
             "#text": "Del på Tumblr"
           },
           {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Besøg {0}s Twitter-profil"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Følg ikke dette emne mere"
           },
@@ -13176,10 +13092,6 @@
             "#text": "Køn:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Google+ profil:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Grupper:"
           },
@@ -13330,10 +13242,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Emne:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter navn:"
           },
           {
             "@tag": "USERNAME",
@@ -14536,10 +14444,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n      Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email address to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",
