@@ -569,18 +569,23 @@ public static class JavaScriptBlocks
     /// <param name="urlImageDescription">The URL image description.</param>
     /// <param name="description">The description.</param>
     /// <param name="mediaTitle">The media title.</param>
+    /// <param name="insertNote">The insert note.</param>
+    /// <param name="typeTitle">The type title.</param>
     /// <returns>System.String.</returns>
     public static string CreateEditorJs(
-        string editorId,
-        string urlTitle,
-        string urlDescription,
-        string urlImageTitle,
-        string urlImageDescription,
-        string description,
-        string mediaTitle)
+            string editorId,
+            string urlTitle,
+            string urlDescription,
+            string urlImageTitle,
+            string urlImageDescription,
+            string description,
+            string mediaTitle,
+            string insertNote,
+            string typeTitle)
     {
         return $$$"""
-                  var {{{editorId}}}=new yafEditor("{{{editorId}}}", "{{{urlTitle}}}", "{{{urlDescription}}}", "{{{urlImageTitle}}}", "{{{urlImageDescription}}}", "{{{description}}}", "{{{mediaTitle}}}");
+                  var {{{editorId}}}=new yafEditor("{{{editorId}}}", "{{{urlTitle}}}", "{{{urlDescription}}}", "{{{urlImageTitle}}}", "{{{urlImageDescription}}}", "{{{description}}}", 
+                                                   "{{{mediaTitle}}}", "{{{insertNote}}}", "{{{typeTitle}}}");
                                     function setStyle(style,option) {
                                              {{{editorId}}}.FormatText(style,option);
                                     }

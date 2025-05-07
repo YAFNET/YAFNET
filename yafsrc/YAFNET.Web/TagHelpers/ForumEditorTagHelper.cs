@@ -173,7 +173,9 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                         this.GetText("COMMON", "TT_IMAGE_TITLE"),
                         this.GetText("COMMON", "TT_IMAGE_DESC"),
                         this.GetText("COMMON", "TT_DESCRIPTION"),
-                        this.GetText("COMMON", "TT_MEDIA")));
+                        this.GetText("COMMON", "TT_MEDIA"),
+                        this.GetText("COMMON", "TT_NOTE"),
+                        this.GetText("COMMON", "TT_NOTE_TYPE")));
                 break;
             case EditorMode.Sql:
                 {

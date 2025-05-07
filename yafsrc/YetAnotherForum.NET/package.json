@@ -4,7 +4,7 @@
   "versionNuget": "4.0.0",
   "private": true,
   "devDependencies": {
-    "@babel/preset-env": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
     "@lodder/grunt-postcss": "^3.1.1",
     "@w8tcha/grunt-dev-update": "^2.3.4",
     "autoprefixer": "^10.4.21",
@@ -21,7 +21,7 @@
     "grunt-zip": "^1.0.0",
     "postcss": "^8.5.3",
     "sass": "^1.87.0",
-    "webpack": "^5.99.7",
+    "webpack": "^5.99.8",
     "webpack-merge": "^6.0.1"
   },
   "dependencies": {
@@ -29,7 +29,7 @@
     "@microsoft/signalr": "^8.0.7",
     "@yafnet/sceditor": "^3.2.10",
     "bootbox": "^6.0.3",
-    "bootstrap": "^5.3.5",
+    "bootstrap": "^5.3.6",
     "bootswatch": "^5.3.5",
     "bs5-lightbox": "^1.8.5",
     "choices.js": "^11.1.0",

@@ -64,12 +64,28 @@ public class EditForumModel : AdminPage
     /// </summary>
     public SelectList AccessMaskList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the forum images.
+    /// </summary>
+    /// <value>The forum images.</value>
     public List<SelectListItem> ForumImages { get; set; }
 
+    /// <summary>
+    /// Gets or sets the categories.
+    /// </summary>
+    /// <value>The categories.</value>
     public SelectList Categories { get; set; }
 
+    /// <summary>
+    /// Gets or sets the parent forums.
+    /// </summary>
+    /// <value>The parent forums.</value>
     public List<SelectListItem> ParentForums { get; set; }
 
+    /// <summary>
+    /// Gets or sets the themes.
+    /// </summary>
+    /// <value>The themes.</value>
     public IReadOnlyCollection<SelectListItem> Themes { get; set; }
 
     /// <summary>

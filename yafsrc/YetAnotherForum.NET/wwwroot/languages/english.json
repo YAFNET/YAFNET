@@ -8062,6 +8062,14 @@
             "#text": "Unordered List"
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Quote"
           },

@@ -8212,6 +8212,14 @@
           {
             "@tag": "YES",
             "#text": "Da"
+          },
+          {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
           }
         ]
       },

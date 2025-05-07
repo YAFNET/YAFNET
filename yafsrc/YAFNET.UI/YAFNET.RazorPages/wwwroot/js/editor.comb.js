@@ -1,5 +1,7 @@
-var yafEditor = function(name, urlTitle, urlDescription, urlImageTitle, urlImageDescription, description, mediaTitle) {
+var yafEditor = function(name, urlTitle, urlDescription, urlImageTitle, urlImageDescription, description, mediaTitle, insertNote, typeTitle) {
     this.Name = name;
+    this.InsertNote = insertNote;
+    this.TypeTitle = typeTitle;
     this.UrlTitle = urlTitle;
     this.UrlDescription = urlDescription;
     this.UrlImageTitle = urlImageTitle;
@@ -138,6 +140,38 @@ yafEditor.prototype.FormatText = function(command, option) {
       case "removeFormat":
         if (getCurrentSelection(textObj)) {
             removeFormat(textObj);
+        }
+        break;
+
+      case "createNote":
+        {
+            bootbox.confirm({
+                title: this.InsertNote,
+                message: `<form><div class="mb-3">
+                                 <label for="type" class="form-label">${this.TypeTitle}</label> 
+                                 <select class="form-select" id="type" aria-label="note type">
+                                     <option value="primary">primary</option>
+                                     <option value="secondary">secondary</option>
+                                     <option value="success">success</option>
+                                     <option value="danger">danger</option>
+                                     <option value="warning">warning</option>
+                                     <option value="info">info</option>
+                                     <option value="light">light</option>
+                                     <option value="dark">dark</option>
+                                 </select>
+                             </div>
+                             <div class="mb-3">
+                                 <label for="txt" class="form-label">${this.InsertNote}</label>
+                                 <textarea cols="20" rows="7" id="txt" class="form-control textarea-input"></textarea>
+                             </div></form>
+                                 `,
+                callback: function(result) {
+                    if (result) {
+                        const type = document.getElementById("type").value, txt = document.getElementById("txt").value;
+                        replaceSelection(textObj, `[note=${type}]${txt}[/note]`);
+                    }
+                }
+            });
         }
         break;
 
