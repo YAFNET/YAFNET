@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion />
     <TargetFramework>net9.0</TargetFramework>
@@ -23,7 +23,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
 	  <PackageReference Include="NUnit" Version="4.3.2" />
-	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.8.0.113526">
+	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.9.0.115408">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
