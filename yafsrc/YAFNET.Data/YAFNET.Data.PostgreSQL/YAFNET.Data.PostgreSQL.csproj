@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -28,7 +28,7 @@
     <ProjectReference Include="..\..\YAFNET.Types\YAFNET.Types.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="8.2.1" />
+    <PackageReference Include="Autofac" Version="8.3.0" />
     <PackageReference Include="Npgsql" Version="9.0.3" />
   </ItemGroup>
 </Project>
