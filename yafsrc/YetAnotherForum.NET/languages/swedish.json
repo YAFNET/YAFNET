@@ -1208,7 +1208,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Du kan hitta en lista över e-postadresser för skräppostbotar på StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, som kan importeras här."
+            "#text": "Du kan hitta en lista över e-postadresser för skräppostbotar på StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, som kan importeras här."
           },
           {
             "@tag": "TITLE",
@@ -1355,7 +1355,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Du kan hitta en lista över Spam Bot Ips på StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, som kan importeras här."
+            "#text": "Du kan hitta en lista över Spam Bot Ips på StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, som kan importeras här."
           },
           {
             "@tag": "TITLE",
@@ -1474,7 +1474,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Du kan hitta en lista över användarnamn för Spam Bot på StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, som kan importeras här."
+            "#text": "Du kan hitta en lista över användarnamn för Spam Bot på StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, som kan importeras här."
           },
           {
             "@tag": "TITLE",
@@ -5480,7 +5480,7 @@
           },
           {
             "@tag": "STOPFORUMSPAM_KEY_HELP",
-            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https//www.stopforumspam.com/signup\">Sign Up here<a>."
+            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https://www.stopforumspam.com/signup\">Sign Up here<a>."
           },
           {
             "@tag": "STYLED_NICKS",

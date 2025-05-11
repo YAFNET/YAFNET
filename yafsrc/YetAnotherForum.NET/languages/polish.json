@@ -1208,7 +1208,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Listę adresów e-mail Spam Botów można znaleźć na stronie StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https///www.stopforumspam.com/downloads/</a>, którą można zaimportować tutaj."
+            "#text": "Listę adresów e-mail Spam Botów można znaleźć na stronie StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https///www.stopforumspam.com/downloads/</a>, którą można zaimportować tutaj."
           },
           {
             "@tag": "TITLE",
@@ -1355,7 +1355,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Listę Spam Bot Ips można znaleźć na stronie StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, którą można zaimportować tutaj."
+            "#text": "Listę Spam Bot Ips można znaleźć na stronie StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, którą można zaimportować tutaj."
           },
           {
             "@tag": "TITLE",
@@ -1474,7 +1474,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Listę nazw użytkowników Spam Bota można znaleźć na stronie StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https///www.stopforumspam.com/downloads/</a>, którą można zaimportować tutaj."
+            "#text": "Listę nazw użytkowników Spam Bota można znaleźć na stronie StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https///www.stopforumspam.com/downloads/</a>, którą można zaimportować tutaj."
           },
           {
             "@tag": "TITLE",
@@ -5472,7 +5472,7 @@
           },
           {
             "@tag": "STOPFORUMSPAM_KEY_HELP",
-            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https//www.stopforumspam.com/signup\">Sign Up here<a>."
+            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https://www.stopforumspam.com/signup\">Sign Up here<a>."
           },
           {
             "@tag": "STYLED_NICKS",

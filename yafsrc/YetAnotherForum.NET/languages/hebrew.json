@@ -1208,7 +1208,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "תוכל למצוא רשימה של כתובות דואר אלקטרוני של בוט ספאם ב-StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a> , שניתן לייבא לכאן."
+            "#text": "תוכל למצוא רשימה של כתובות דואר אלקטרוני של בוט ספאם ב-StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a> , שניתן לייבא לכאן."
           },
           {
             "@tag": "TITLE",
@@ -1355,7 +1355,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "אתה יכול למצוא רשימה של Ips של בוט ספאם ב-StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a> , שניתן לייבא לכאן."
+            "#text": "אתה יכול למצוא רשימה של Ips של בוט ספאם ב-StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a> , שניתן לייבא לכאן."
           },
           {
             "@tag": "TITLE",
@@ -1474,7 +1474,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "אתה יכול למצוא רשימה של שמות משתמש של בוט ספאם ב-StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a> , שניתן לייבא לכאן."
+            "#text": "אתה יכול למצוא רשימה של שמות משתמש של בוט ספאם ב-StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a> , שניתן לייבא לכאן."
           },
           {
             "@tag": "TITLE",
@@ -5480,7 +5480,7 @@
           },
           {
             "@tag": "STOPFORUMSPAM_KEY_HELP",
-            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https//www.stopforumspam.com/signup\">Sign Up here<a>."
+            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https://www.stopforumspam.com/signup\">Sign Up here<a>."
           },
           {
             "@tag": "STYLED_NICKS",
