@@ -1204,7 +1204,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Zoznam e-mailových adries spamových botov nájdete na stránke StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, ktorú môžete importovať sem."
+            "#text": "Zoznam e-mailových adries spamových botov nájdete na stránke StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, ktorú môžete importovať sem."
           },
           {
             "@tag": "TITLE",
@@ -1359,7 +1359,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Na stránke StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a> nájdete zoznam IPS spamových botov, ktoré môžete importovať sem."
+            "#text": "Na stránke StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a> nájdete zoznam IPS spamových botov, ktoré môžete importovať sem."
           },
           {
             "@tag": "TITLE",
@@ -1478,7 +1478,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Zoznam používateľských mien Spam Botov nájdete na stránke StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, ktorú môžete importovať sem."
+            "#text": "Zoznam používateľských mien Spam Botov nájdete na stránke StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, ktorú môžete importovať sem."
           },
           {
             "@tag": "TITLE",
@@ -5452,7 +5452,7 @@
           },
           {
             "@tag": "STOPFORUMSPAM_KEY_HELP",
-            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https//www.stopforumspam.com/signup\">Sign Up here<a>."
+            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https://www.stopforumspam.com/signup\">Sign Up here<a>."
           },
           {
             "@tag": "STYLED_NICKS",
@@ -8094,6 +8094,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -8212,14 +8220,6 @@
           {
             "@tag": "YES",
             "#text": "Áno"
-          },
-          {
-            "@tag": "TT_NOTE",
-            "#text": "Insert Note"
-          },
-          {
-            "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
           }
         ]
       },
@@ -9729,10 +9729,6 @@
           {
             "@tag": "BAD_FACEBOOK",
             "#text": "Zadali ste nesprávnu adresu URL ako profil na Facebooku."
-          },
-          {
-            "@tag": "BAD_GOOGLE",
-            "#text": "Ako adresu URL profilu Google ste zadali nezákonnú hodnotu."
           },
           {
             "@tag": "BAD_HOME",
@@ -12963,10 +12959,6 @@
           {
             "@tag": "GENDER",
             "#text": "Pohlavie:"
-          },
-          {
-            "@tag": "GOOGLE",
-            "#text": "Profil Google+:"
           },
           {
             "@tag": "GROUPS",

@@ -1204,7 +1204,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Вы можете найти список адресов электронной почты спам-ботов на сайте StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, который можно импортировать здесь."
+            "#text": "Вы можете найти список адресов электронной почты спам-ботов на сайте StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, который можно импортировать здесь."
           },
           {
             "@tag": "TITLE",
@@ -1359,7 +1359,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "На сайте StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a> вы можете найти список Ips спам-ботов, который можно импортировать здесь."
+            "#text": "На сайте StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a> вы можете найти список Ips спам-ботов, который можно импортировать здесь."
           },
           {
             "@tag": "TITLE",
@@ -1478,7 +1478,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Список имен пользователей спам-ботов можно найти на сайте StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, который можно импортировать здесь."
+            "#text": "Список имен пользователей спам-ботов можно найти на сайте StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, который можно импортировать здесь."
           },
           {
             "@tag": "TITLE",
@@ -5444,7 +5444,7 @@
           },
           {
             "@tag": "STOPFORUMSPAM_KEY_HELP",
-            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https//www.stopforumspam.com/signup\">Sign Up here<a>."
+            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https://www.stopforumspam.com/signup\">Sign Up here<a>."
           },
           {
             "@tag": "STYLED_NICKS",
@@ -8086,6 +8086,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -8204,14 +8212,6 @@
           {
             "@tag": "YES",
             "#text": "Да"
-          },
-          {
-            "@tag": "TT_NOTE",
-            "#text": "Insert Note"
-          },
-          {
-            "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
           }
         ]
       },
@@ -9721,10 +9721,6 @@
           {
             "@tag": "BAD_FACEBOOK",
             "#text": "Вы вели недопустимый идентификатор профиля Facebook."
-          },
-          {
-            "@tag": "BAD_GOOGLE",
-            "#text": "Вы ввели недопустимое значение в качестве URL профиля Google."
           },
           {
             "@tag": "BAD_HOME",
@@ -12947,10 +12943,6 @@
           {
             "@tag": "GENDER",
             "#text": "Пол:"
-          },
-          {
-            "@tag": "GOOGLE",
-            "#text": "Профиль Google+:"
           },
           {
             "@tag": "GROUPS",

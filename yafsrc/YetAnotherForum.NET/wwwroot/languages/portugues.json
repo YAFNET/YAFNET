@@ -1204,7 +1204,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Pode encontrar uma lista de endereços de e-mail Spam Bot em StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, que podem ser importados aqui."
+            "#text": "Pode encontrar uma lista de endereços de e-mail Spam Bot em StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, que podem ser importados aqui."
           },
           {
             "@tag": "TITLE",
@@ -1359,7 +1359,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Pode encontrar uma lista de Spam Bot Ips no StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https///www.stopforumspam.com/downloads/</a>, que pode ser importada aqui."
+            "#text": "Pode encontrar uma lista de Spam Bot Ips no StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https///www.stopforumspam.com/downloads/</a>, que pode ser importada aqui."
           },
           {
             "@tag": "TITLE",
@@ -1478,7 +1478,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Pode encontrar uma lista de nomes de utilizador de Spam Bot no StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, que pode ser importada aqui."
+            "#text": "Pode encontrar uma lista de nomes de utilizador de Spam Bot no StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, que pode ser importada aqui."
           },
           {
             "@tag": "TITLE",
@@ -5452,7 +5452,7 @@
           },
           {
             "@tag": "STOPFORUMSPAM_KEY_HELP",
-            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https//www.stopforumspam.com/signup\">Sign Up here<a>."
+            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https://www.stopforumspam.com/signup\">Sign Up here<a>."
           },
           {
             "@tag": "STYLED_NICKS",
@@ -8094,6 +8094,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -8212,14 +8220,6 @@
           {
             "@tag": "YES",
             "#text": "Sim"
-          },
-          {
-            "@tag": "TT_NOTE",
-            "#text": "Insert Note"
-          },
-          {
-            "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
           }
         ]
       },
@@ -9729,10 +9729,6 @@
           {
             "@tag": "BAD_FACEBOOK",
             "#text": "Introduziu um URL incorrecto como Perfil do Facebook."
-          },
-          {
-            "@tag": "BAD_GOOGLE",
-            "#text": "Introduziu um valor ilegal como URL do Perfil Google."
           },
           {
             "@tag": "BAD_HOME",
@@ -12963,10 +12959,6 @@
           {
             "@tag": "GENDER",
             "#text": "Sexo:"
-          },
-          {
-            "@tag": "GOOGLE",
-            "#text": "Perfil Google+:"
           },
           {
             "@tag": "GROUPS",

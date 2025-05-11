@@ -1204,7 +1204,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "شما می توانید لیستی از ربات های اسپم ایمیل را در StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>بیابید، که می تواند اینجا درون‌ریزی شوند"
+            "#text": "شما می توانید لیستی از ربات های اسپم ایمیل را در StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>بیابید، که می تواند اینجا درون‌ریزی شوند"
           },
           {
             "@tag": "TITLE",
@@ -1359,7 +1359,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "لیست آی پی های اسپم را از سایت  StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, و پیدا کرده و وارد انجمن کنید."
+            "#text": "لیست آی پی های اسپم را از سایت  StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, و پیدا کرده و وارد انجمن کنید."
           },
           {
             "@tag": "TITLE",
@@ -1478,7 +1478,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "لیست آی پی های اسپم را از سایت  StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, و پیدا کرده و وارد انجمن کنید."
+            "#text": "لیست آی پی های اسپم را از سایت  StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, و پیدا کرده و وارد انجمن کنید."
           },
           {
             "@tag": "TITLE",
@@ -5444,7 +5444,7 @@
           },
           {
             "@tag": "STOPFORUMSPAM_KEY_HELP",
-            "#text": "برای گزارش یک کاربر به عنوان ربات، به یک کلید API StopForumSpam.com نیاز دارید <a href=\"https//www.stopforumspam.com/signup\">اینجا ثبت نام کنید<a>."
+            "#text": "برای گزارش یک کاربر به عنوان ربات، به یک کلید API StopForumSpam.com نیاز دارید <a href=\"https://www.stopforumspam.com/signup\">اینجا ثبت نام کنید<a>."
           },
           {
             "@tag": "STYLED_NICKS",
@@ -8082,6 +8082,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -8200,14 +8208,6 @@
           {
             "@tag": "YES",
             "#text": "بلی"
-          },
-          {
-            "@tag": "TT_NOTE",
-            "#text": "Insert Note"
-          },
-          {
-            "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
           }
         ]
       },
@@ -9717,10 +9717,6 @@
           {
             "@tag": "BAD_FACEBOOK",
             "#text": "آدرس نمایه فیسبوک را نادرست وارد کرده اید."
-          },
-          {
-            "@tag": "BAD_GOOGLE",
-            "#text": "آدرس نمایه گوگل شامل یک مقدار نامعتبر است."
           },
           {
             "@tag": "BAD_HOME",
@@ -12943,10 +12939,6 @@
           {
             "@tag": "GENDER",
             "#text": "جنسیت:"
-          },
-          {
-            "@tag": "GOOGLE",
-            "#text": "نمایه +Google:"
           },
           {
             "@tag": "GROUPS",

@@ -1204,7 +1204,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Puteți găsi o listă de adrese de e-mail Spam Bot pe StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, care poate fi importată aici."
+            "#text": "Puteți găsi o listă de adrese de e-mail Spam Bot pe StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, care poate fi importată aici."
           },
           {
             "@tag": "TITLE",
@@ -1359,7 +1359,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Puteți găsi o listă de Spam Bot Ips pe StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, care poate fi importată aici."
+            "#text": "Puteți găsi o listă de Spam Bot Ips pe StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, care poate fi importată aici."
           },
           {
             "@tag": "TITLE",
@@ -1478,7 +1478,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Puteți găsi o listă de nume de utilizatori Spam Bot pe StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, care poate fi importată aici."
+            "#text": "Puteți găsi o listă de nume de utilizatori Spam Bot pe StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, care poate fi importată aici."
           },
           {
             "@tag": "TITLE",
@@ -5452,7 +5452,7 @@
           },
           {
             "@tag": "STOPFORUMSPAM_KEY_HELP",
-            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https//www.stopforumspam.com/signup\">Sign Up here<a>."
+            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https://www.stopforumspam.com/signup\">Sign Up here<a>."
           },
           {
             "@tag": "STYLED_NICKS",
@@ -8094,6 +8094,14 @@
             "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -8212,14 +8220,6 @@
           {
             "@tag": "YES",
             "#text": "Da"
-          },
-          {
-            "@tag": "TT_NOTE",
-            "#text": "Insert Note"
-          },
-          {
-            "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
           }
         ]
       },
@@ -9729,10 +9729,6 @@
           {
             "@tag": "BAD_FACEBOOK",
             "#text": "Ați introdus o adresă URL incorectă ca profil Facebook."
-          },
-          {
-            "@tag": "BAD_GOOGLE",
-            "#text": "Ați introdus o valoare ilegală ca URL de profil Google."
           },
           {
             "@tag": "BAD_HOME",
@@ -12963,10 +12959,6 @@
           {
             "@tag": "GENDER",
             "#text": "Sex:"
-          },
-          {
-            "@tag": "GOOGLE",
-            "#text": "Profilul Google+:"
           },
           {
             "@tag": "GROUPS",
