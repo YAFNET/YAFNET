@@ -1204,7 +1204,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Puteți găsi o listă de adrese de e-mail Spam Bot pe StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, care poate fi importată aici."
+            "#text": "Puteți găsi o listă de adrese de e-mail Spam Bot pe StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, care poate fi importată aici."
           },
           {
             "@tag": "TITLE",
@@ -1359,7 +1359,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Puteți găsi o listă de Spam Bot Ips pe StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, care poate fi importată aici."
+            "#text": "Puteți găsi o listă de Spam Bot Ips pe StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, care poate fi importată aici."
           },
           {
             "@tag": "TITLE",
@@ -1478,7 +1478,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Puteți găsi o listă de nume de utilizatori Spam Bot pe StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, care poate fi importată aici."
+            "#text": "Puteți găsi o listă de nume de utilizatori Spam Bot pe StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, care poate fi importată aici."
           },
           {
             "@tag": "TITLE",
@@ -5452,7 +5452,7 @@
           },
           {
             "@tag": "STOPFORUMSPAM_KEY_HELP",
-            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https//www.stopforumspam.com/signup\">Sign Up here<a>."
+            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https://www.stopforumspam.com/signup\">Sign Up here<a>."
           },
           {
             "@tag": "STYLED_NICKS",

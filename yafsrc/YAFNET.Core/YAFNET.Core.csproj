@@ -40,7 +40,7 @@
     <ProjectReference Include="..\YAFNET.Types\YAFNET.Types.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="8.2.1" />
+    <PackageReference Include="Autofac" Version="8.3.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="10.9.0.115408">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

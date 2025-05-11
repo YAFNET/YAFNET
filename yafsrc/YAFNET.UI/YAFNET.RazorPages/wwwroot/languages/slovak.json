@@ -1204,7 +1204,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Zoznam e-mailových adries spamových botov nájdete na stránke StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, ktorú môžete importovať sem."
+            "#text": "Zoznam e-mailových adries spamových botov nájdete na stránke StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, ktorú môžete importovať sem."
           },
           {
             "@tag": "TITLE",
@@ -1359,7 +1359,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Na stránke StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a> nájdete zoznam IPS spamových botov, ktoré môžete importovať sem."
+            "#text": "Na stránke StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a> nájdete zoznam IPS spamových botov, ktoré môžete importovať sem."
           },
           {
             "@tag": "TITLE",
@@ -1478,7 +1478,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Zoznam používateľských mien Spam Botov nájdete na stránke StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, ktorú môžete importovať sem."
+            "#text": "Zoznam používateľských mien Spam Botov nájdete na stránke StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, ktorú môžete importovať sem."
           },
           {
             "@tag": "TITLE",
@@ -5452,7 +5452,7 @@
           },
           {
             "@tag": "STOPFORUMSPAM_KEY_HELP",
-            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https//www.stopforumspam.com/signup\">Sign Up here<a>."
+            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https://www.stopforumspam.com/signup\">Sign Up here<a>."
           },
           {
             "@tag": "STYLED_NICKS",
