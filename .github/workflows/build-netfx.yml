@@ -20,7 +20,7 @@ jobs:
       uses: NuGet/setup-nuget@v2
       
     - name: Restore Packages
-      run: nuget restore ./yafsrc/YAF.NET-SqlServer.sln
+      run: nuget restore ./yafsrc/YAF.NET-SqlServer.slnx
 
     - name: Build Solution
-      run: msbuild ./yafsrc/YAF.NET-SqlServer.sln -t:rebuild -property:Configuration=Release
+      run: msbuild ./yafsrc/YAF.NET-SqlServer.slnx -t:rebuild -property:Configuration=Release

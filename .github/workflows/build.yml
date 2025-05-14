@@ -28,10 +28,10 @@ jobs:
         run: npm install
       - name: Install dependencies
         working-directory: ./
-        run: dotnet restore ./yafsrc/YAF.NET-SqlServer.sln
+        run: dotnet restore ./yafsrc/YAF.NET-SqlServer.slnx
       - name: Build
         working-directory: ./
-        run: dotnet build ./yafsrc/YAF.NET-SqlServer.sln
+        run: dotnet build ./yafsrc/YAF.NET-SqlServer.slnx
       - name: Test
         working-directory: ./
-        run: dotnet test ./yafsrc/YAF.NET-SqlServer.sln
+        run: dotnet test ./yafsrc/YAF.NET-SqlServer.slnx
