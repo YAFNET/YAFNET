@@ -1,0 +1,57 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="Mixed Platforms" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Extras/">
+    <File Path="../CHANGES.md" />
+    <File Path="../LICENSE.md" />
+    <File Path="../README.md" />
+    <File Path="build.bat" />
+    <File Path="BuildPackages.bat" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="../tests/YAF.Tests.CoreTests/YAF.Tests.CoreTests.csproj" />
+  </Folder>
+  <Folder Name="/Third-Party Libs/" />
+  <Folder Name="/Third-Party Libs/Lucene.Net/">
+    <File Path="Lucene.Net/Directory.Build.props" />
+    <File Path="Lucene.Net/Directory.Build.targets" />
+    <Project Path="Lucene.Net/Lucene.Net.Analysis.Common/YAF.Lucene.Net.Analysis.Common.csproj" />
+    <Project Path="Lucene.Net/Lucene.Net.Highlighter/YAF.Lucene.Net.Highlighter.csproj" />
+    <Project Path="Lucene.Net/Lucene.Net.Queries/YAF.Lucene.Net.Queries.csproj" />
+    <Project Path="Lucene.Net/Lucene.Net.QueryParser/YAF.Lucene.Net.QueryParser.csproj" />
+    <Project Path="Lucene.Net/Lucene.Net/YAF.Lucene.Net.csproj" />
+  </Folder>
+  <Folder Name="/Third-Party Libs/ServiceStack/">
+    <File Path="ServiceStack/Directory.Build.props" />
+    <Project Path="ServiceStack/ServiceStack.OrmLite.PostgreSQL/ServiceStack.OrmLite.PostgreSQL.csproj" />
+    <Project Path="ServiceStack/ServiceStack.OrmLite/ServiceStack.OrmLite.csproj" />
+  </Folder>
+  <Folder Name="/YAF.Data/">
+    <Project Path="YAF.Data/YAF.Data.PostgreSQL/YAF.Data.PostgreSQL.csproj" />
+  </Folder>
+  <Project Path="YAF.Configuration/YAF.Configuration.csproj" />
+  <Project Path="YAF.Core/YAF.Core.csproj">
+    <Build Solution="*|x86" Project="false" />
+  </Project>
+  <Project Path="YAF.Types/YAF.Types.csproj">
+    <Build Solution="*|x86" Project="false" />
+  </Project>
+  <Project Path="YAF.UrlRewriter/YAF.UrlRewriter.csproj" />
+  <Project Path="YAF.Web/YAF.Web.csproj">
+    <Build Solution="*|x86" Project="false" />
+  </Project>
+  <Project Path="YetAnotherForum.NET/YAF-PostgreSQL.csproj">
+    <BuildDependency Project="YAF.UrlRewriter/YAF.UrlRewriter.csproj" />
+    <BuildDependency Project="YAF.Web/YAF.Web.csproj" />
+    <Build Solution="*|x86" Project="false" />
+  </Project>
+  <Properties Name="MonoDevelopProperties">
+    <Property Name="StartupItem" Value="ServiceStack.OrmLite.Sqlite\ServiceStack.OrmLite.Sqlite.csproj" />
+  </Properties>
+</Solution>
