@@ -1,0 +1,22 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/YAFNET.Tests.CoreTests/YAFNET.Tests.CoreTests.csproj" />
+  </Folder>
+  <Folder Name="/Third-Party Libs/" />
+  <Folder Name="/Third-Party Libs/ServiceStack/">
+    <File Path="ServiceStack/Directory.Build.props" />
+    <Project Path="ServiceStack/ServiceStack.OrmLite.MySql/ServiceStack.OrmLite.MySql.Core.csproj" />
+    <Project Path="ServiceStack/ServiceStack.OrmLite/ServiceStack.OrmLite.Core.csproj" />
+  </Folder>
+  <Folder Name="/YAFNET.Data/">
+    <Project Path="YAFNET.Data/YAFNET.Data.MySql/YAFNET.Data.MySql.csproj" />
+  </Folder>
+  <Project Path="YAFNET.Configuration/YAFNET.Configuration.csproj" />
+  <Project Path="YAFNET.Core/YAFNET.Core.csproj" />
+  <Project Path="YAFNET.Types/YAFNET.Types.csproj" />
+  <Project Path="YAFNET.Web/YAFNET.Web.csproj" />
+  <Project Path="YetAnotherForum.NET/YAF-MySql.csproj" />
+</Solution>
