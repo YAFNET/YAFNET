@@ -308,25 +308,25 @@ module.exports = function(grunt) {
 			deploySqlServer: {
 				command: [
 					'@echo off',
-					'dotnet publish /p:Configuration=Release ../YAF.NET-SqlServer.sln'
+					'dotnet publish /p:Configuration=Release ../YAF.NET-SqlServer.slnx'
 				].join('&&')
 			},
 			deployMySql: {
 				command: [
 					'@echo off',
-					'dotnet publish /p:Configuration=Release ../YAF.NET-MySql.sln'
+					'dotnet publish /p:Configuration=Release ../YAF.NET-MySql.slnx'
 				].join('&&')
 			},
 			deployPostgreSQL: {
 				command: [
 					'@echo off',
-					'dotnet publish /p:Configuration=Release ../YAF.NET-PostgreSQL.sln'
+					'dotnet publish /p:Configuration=Release ../YAF.NET-PostgreSQL.slnx'
 				].join('&&')
 			},
 			deploySqlite: {
 				command: [
 					'@echo off',
-					'dotnet publish /p:Configuration=Release ../YAF.NET-Sqlite.sln'
+					'dotnet publish /p:Configuration=Release ../YAF.NET-Sqlite.slnx'
 				].join('&&')
 			},
 			emailTemplates: {
