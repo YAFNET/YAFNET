@@ -34,7 +34,7 @@ public static class DeserializeArrayWithElements<TSerializer>
     /// <summary>
     /// The signature
     /// </summary>
-    private readonly static Type[] signature = { typeof(ReadOnlySpan<char>), typeof(ParseStringSpanDelegate) };
+    private readonly static Type[] signature = [typeof(ReadOnlySpan<char>), typeof(ParseStringSpanDelegate)];
 
     /// <summary>
     /// Gets the parse string span function.
@@ -85,7 +85,7 @@ public static class DeserializeArrayWithElements<T, TSerializer>
     public static T[] ParseGenericArray(ReadOnlySpan<char> value, ParseStringSpanDelegate elementParseFn)
     {
         if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsNullOrEmpty())
-            return value.IsEmpty ? null : Array.Empty<T>();
+            return value.IsEmpty ? null : [];
 
         if (value[0] == JsWriter.MapStartChar)
         {

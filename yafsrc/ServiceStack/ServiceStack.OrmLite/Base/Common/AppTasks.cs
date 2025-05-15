@@ -85,7 +85,7 @@ public class AppTasks
                     var appTask = appTaskWithArgs.LeftPart(':');
                     var args = appTaskWithArgs.IndexOf(':') >= 0
                         ? appTaskWithArgs.RightPart(':').Split(',')
-                        : Array.Empty<string>();
+                        : [];
 
                     if (!tasks.TryGetValue(appTask, out var taskFn))
                     {

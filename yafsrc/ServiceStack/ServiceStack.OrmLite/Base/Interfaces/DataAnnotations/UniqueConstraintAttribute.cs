@@ -22,7 +22,7 @@ public class UniqueConstraintAttribute : AttributeBase
     /// </summary>
     public UniqueConstraintAttribute()
     {
-        this.FieldNames = new List<string>();
+        this.FieldNames = [];
     }
 
     /// <summary>

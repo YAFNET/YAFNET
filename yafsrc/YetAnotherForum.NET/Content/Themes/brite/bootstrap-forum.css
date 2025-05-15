@@ -13619,6 +13619,11 @@ textarea.form-control-lg {
           transform: translate(0, 0);
 }
 
+[data-bs-theme=dark] .btn-link,
+[data-bs-theme=dark] .btn-link:hover {
+  color: #fff;
+}
+
 a {
   font-weight: 500;
 }
@@ -13758,6 +13763,34 @@ a {
   color: #fff;
 }
 
+[data-bs-theme=dark] .nav-tabs .nav-link,
+[data-bs-theme=dark] .nav-pills .nav-link {
+  --bs-nav-link-color: #fff;
+}
+[data-bs-theme=dark] .nav-tabs .nav-link:hover, [data-bs-theme=dark] .nav-tabs .nav-link:focus,
+[data-bs-theme=dark] .nav-pills .nav-link:hover,
+[data-bs-theme=dark] .nav-pills .nav-link:focus {
+  --bs-nav-link-hover-color: #fff;
+}
+[data-bs-theme=dark] .page-link {
+  --bs-pagination-color: #fff;
+}
+[data-bs-theme=dark] .page-link:hover {
+  --bs-pagination-hover-color: #fff;
+}
+[data-bs-theme=dark] .nav-underline .nav-link {
+  --bs-nav-link-color: #fff;
+}
+[data-bs-theme=dark] .nav-underline .nav-link:hover, [data-bs-theme=dark] .nav-underline .nav-link:focus {
+  --bs-nav-link-hover-color: #fff;
+}
+[data-bs-theme=dark] .breadcrumb a {
+  color: #fff;
+}
+[data-bs-theme=dark] .breadcrumb-item.active {
+  --bs-breadcrumb-item-active-color: #fff;
+}
+
 .alert {
   color: #000;
   border: 2px solid #000;
@@ -13827,6 +13860,10 @@ a {
 .vr {
   width: 2px;
   background-color: #000;
+}
+
+[data-bs-theme=dark] .toast-header {
+  --bs-toast-header-color: #fff;
 }
 
 /* ===============================

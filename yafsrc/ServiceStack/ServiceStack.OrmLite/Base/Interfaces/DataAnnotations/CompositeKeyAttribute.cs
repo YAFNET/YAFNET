@@ -22,7 +22,7 @@ public class CompositeKeyAttribute : AttributeBase
     /// </summary>
     public CompositeKeyAttribute()
     {
-        this.FieldNames = new List<string>();
+        this.FieldNames = [];
     }
 
     /// <summary>

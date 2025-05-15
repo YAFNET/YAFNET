@@ -118,7 +118,7 @@ public static class ExpressionUtils
         if (expr.Body is MemberExpression member)
         {
             if (member.Member.DeclaringType.IsAssignableFrom(typeof(T)))
-                return new[] { member.Member.Name };
+                return [member.Member.Name];
 
             var array = CachedExpressionCompiler.Evaluate(member);
             if (array is IEnumerable<string> strEnum)
@@ -148,7 +148,7 @@ public static class ExpressionUtils
         {
             member = unary.Operand as MemberExpression;
             if (member != null)
-                return new[] { member.Member.Name };
+                return [member.Member.Name];
         }
 
         throw new ArgumentException("Invalid Fields List Expression: " + expr);

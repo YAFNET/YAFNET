@@ -500,8 +500,9 @@ public sealed class DefaultMemory : MemoryProvider
     /// <summary>
     /// The lo16
     /// </summary>
-    private readonly static byte[] lo16 = {
-                                                  255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+    private readonly static byte[] lo16 =
+    [
+        255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -512,13 +513,14 @@ public sealed class DefaultMemory : MemoryProvider
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 10, 11, 12,
                                                   13, 14, 15
-                                              };
+    ];
 
     /// <summary>
     /// The hi16
     /// </summary>
-    private readonly static byte[] hi16 = {
-                                                  255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+    private readonly static byte[] hi16 =
+    [
+        255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -529,7 +531,7 @@ public sealed class DefaultMemory : MemoryProvider
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 160, 176, 192,
                                                   208, 224, 240
-                                              };
+    ];
 
     /// <summary>
     /// Parses the unique identifier.

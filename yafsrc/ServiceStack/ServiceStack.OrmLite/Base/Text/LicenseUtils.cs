@@ -411,7 +411,7 @@ public static class LicenseUtils
     /// <summary>
     /// The revoked subs
     /// </summary>
-    private readonly static int[] revokedSubs = { 4018, 4019, 4041, 4331, 4581 };
+    private readonly static int[] revokedSubs = [4018, 4019, 4041, 4331, 4581];
 
     /// <summary>
     /// Class __ActivatedLicense.

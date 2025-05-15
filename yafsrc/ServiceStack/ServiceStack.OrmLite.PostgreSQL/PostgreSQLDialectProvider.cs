@@ -165,9 +165,8 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <summary>
     /// The reserved words
     /// </summary>
-    public static HashSet<string> ReservedWords = new(new[]
-                                                          {
-                                                              "ALL",
+    public static HashSet<string> ReservedWords = new([
+        "ALL",
                                                               "ANALYSE",
                                                               "ANALYZE",
                                                               "AND",
@@ -249,7 +248,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                                                               "VERBOSE",
                                                               "WHEN",
                                                               "WHERE"
-                                                          }, StringComparer.OrdinalIgnoreCase);
+    ], StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
     /// Gets the column definition.

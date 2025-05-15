@@ -30,7 +30,7 @@ public class TextNode
     /// </summary>
     public TextNode()
     {
-        Children = new List<TextNode>();
+        Children = [];
     }
 
     /// <summary>
@@ -419,7 +419,7 @@ public static class StringUtils
     /// <summary>
     /// The block chars
     /// </summary>
-    static char[] blockChars = new[] { '<', '>' };
+    static char[] blockChars = ['<', '>'];
     /// <summary>
     /// Parses the type into nodes.
     /// </summary>

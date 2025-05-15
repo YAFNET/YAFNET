@@ -33,7 +33,7 @@ public class DeserializeTypeUtils
         var typeConstructor = GetTypeStringConstructor(type);
         if (typeConstructor != null)
         {
-            return value => typeConstructor.Invoke(new object[] { value.ToString() });
+            return value => typeConstructor.Invoke([value.ToString()]);
         }
 
         return null;

@@ -873,7 +873,7 @@ namespace ServiceStack.OrmLite.Base.Text
                 il.MarkLabel(next);
             }
             il.Emit(OpCodes.Ldstr, "name");
-            il.Emit(OpCodes.Newobj, typeof(ArgumentOutOfRangeException).GetConstructor(new Type[] { typeof(string) }));
+            il.Emit(OpCodes.Newobj, typeof(ArgumentOutOfRangeException).GetConstructor([typeof(string)]));
             il.Emit(OpCodes.Throw);
         }
         /// <summary>
@@ -889,7 +889,7 @@ namespace ServiceStack.OrmLite.Base.Text
             if (type.IsValueType)
             {
                 il.Emit(OpCodes.Ldstr, "Write is not supported for structs");
-                il.Emit(OpCodes.Newobj, typeof(NotSupportedException).GetConstructor(new Type[] { typeof(string) }));
+                il.Emit(OpCodes.Newobj, typeof(NotSupportedException).GetConstructor([typeof(string)]));
                 il.Emit(OpCodes.Throw);
             }
             else
@@ -937,14 +937,15 @@ namespace ServiceStack.OrmLite.Base.Text
                     il.MarkLabel(next);
                 }
                 il.Emit(OpCodes.Ldstr, "name");
-                il.Emit(OpCodes.Newobj, typeof(ArgumentOutOfRangeException).GetConstructor(new Type[] { typeof(string) }));
+                il.Emit(OpCodes.Newobj, typeof(ArgumentOutOfRangeException).GetConstructor([typeof(string)]));
                 il.Emit(OpCodes.Throw);
             }
         }
         /// <summary>
         /// The strinq equals
         /// </summary>
-        private readonly static MethodInfo strinqEquals = typeof(string).GetMethod("op_Equality", new Type[] { typeof(string), typeof(string) });
+        private readonly static MethodInfo strinqEquals = typeof(string).GetMethod("op_Equality", [typeof(string), typeof(string)
+        ]);
 
         /// <summary>
         /// Class DelegateAccessor. This class cannot be inherited.
@@ -1032,8 +1033,8 @@ namespace ServiceStack.OrmLite.Base.Text
             ILGenerator il;
             if (!IsFullyPublic(type))
             {
-                DynamicMethod dynGetter = new(type.FullName + "_get", typeof(object), new Type[] { typeof(object), typeof(string) }, type, true),
-                    dynSetter = new(type.FullName + "_set", null, new Type[] { typeof(object), typeof(string), typeof(object) }, type, true);
+                DynamicMethod dynGetter = new(type.FullName + "_get", typeof(object), [typeof(object), typeof(string)], type, true),
+                    dynSetter = new(type.FullName + "_set", null, [typeof(object), typeof(string), typeof(object)], type, true);
                 WriteGetter(dynGetter.GetILGenerator(), type, props, fields, true);
                 WriteSetter(dynSetter.GetILGenerator(), type, props, fields, true);
                 DynamicMethod dynCtor = null;
@@ -1063,12 +1064,14 @@ namespace ServiceStack.OrmLite.Base.Text
             tb.DefineDefaultConstructor(MethodAttributes.Public);
             PropertyInfo indexer = typeof(TypeAccessor).GetProperty("Item");
             MethodInfo baseGetter = indexer.GetGetMethod(), baseSetter = indexer.GetSetMethod();
-            MethodBuilder body = tb.DefineMethod(baseGetter.Name, baseGetter.Attributes & ~MethodAttributes.Abstract, typeof(object), new Type[] { typeof(object), typeof(string) });
+            MethodBuilder body = tb.DefineMethod(baseGetter.Name, baseGetter.Attributes & ~MethodAttributes.Abstract, typeof(object),
+                [typeof(object), typeof(string)]);
             il = body.GetILGenerator();
             WriteGetter(il, type, props, fields, false);
             tb.DefineMethodOverride(body, baseGetter);
 
-            body = tb.DefineMethod(baseSetter.Name, baseSetter.Attributes & ~MethodAttributes.Abstract, null, new Type[] { typeof(object), typeof(string), typeof(object) });
+            body = tb.DefineMethod(baseSetter.Name, baseSetter.Attributes & ~MethodAttributes.Abstract, null, [typeof(object), typeof(string), typeof(object)
+            ]);
             il = body.GetILGenerator();
             WriteSetter(il, type, props, fields, false);
             tb.DefineMethodOverride(body, baseSetter);

@@ -177,7 +177,7 @@ public sealed class RuntimeReflectionOptimizer : ReflectionOptimizer
         if (propertySetMethod == null) return null;
 
         return (o, convertedValue) =>
-            propertySetMethod.Invoke(o, new[] { convertedValue });
+            propertySetMethod.Invoke(o, [convertedValue]);
     }
 
     /// <summary>
@@ -192,7 +192,7 @@ public sealed class RuntimeReflectionOptimizer : ReflectionOptimizer
         if (propertySetMethod == null) return null;
 
         return (o, convertedValue) =>
-            propertySetMethod.Invoke(o, new[] { convertedValue });
+            propertySetMethod.Invoke(o, [convertedValue]);
     }
 
 
@@ -388,7 +388,7 @@ public sealed class ExpressionReflectionOptimizer : ReflectionOptimizer
         catch //fallback for Android
         {
             return (o, convertedValue) =>
-                propertySetMethod.Invoke(o, new[] { convertedValue });
+                propertySetMethod.Invoke(o, [convertedValue]);
         }
     }
 
@@ -409,7 +409,7 @@ public sealed class ExpressionReflectionOptimizer : ReflectionOptimizer
         {
             var mi = propertyInfo.GetSetMethod(true);
             return (o, convertedValue) =>
-                mi.Invoke(o, new[] { convertedValue });
+                mi.Invoke(o, [convertedValue]);
         }
     }
 

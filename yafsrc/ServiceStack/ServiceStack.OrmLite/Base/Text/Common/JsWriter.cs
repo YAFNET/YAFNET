@@ -90,7 +90,8 @@ public static class JsWriter
     /// <summary>
     /// The escape chars
     /// </summary>
-    public readonly static char[] EscapeChars = { QuoteChar, MapKeySeperator, ItemSeperator, MapStartChar, MapEndChar, ListStartChar, ListEndChar, ReturnChar, LineFeedChar };
+    public readonly static char[] EscapeChars = [QuoteChar, MapKeySeperator, ItemSeperator, MapStartChar, MapEndChar, ListStartChar, ListEndChar, ReturnChar, LineFeedChar
+    ];
 
     /// <summary>
     /// The length from largest character

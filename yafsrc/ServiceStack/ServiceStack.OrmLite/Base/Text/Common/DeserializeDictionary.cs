@@ -355,7 +355,8 @@ public static class DeserializeDictionary<TSerializer>
     /// <summary>
     /// The signature
     /// </summary>
-    private readonly static Type[] signature = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate), typeof(ParseStringSpanDelegate) };
+    private readonly static Type[] signature = [typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate), typeof(ParseStringSpanDelegate)
+    ];
 
     /// <summary>
     /// Parses the type of the dictionary.

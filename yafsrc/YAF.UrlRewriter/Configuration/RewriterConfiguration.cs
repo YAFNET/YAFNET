@@ -62,15 +62,15 @@ public class RewriterConfiguration : IRewriterConfiguration
         this.ActionParserFactory.Add(new NotImplementedActionParser());
 
         // Initialise the condition parser pipeline with our standard conditions.
-        this.ConditionParserPipeline = new ConditionParserPipeline
-                                           {
-                                               new AddressConditionParser(),
-                                               new HeaderMatchConditionParser(),
-                                               new MethodConditionParser(),
-                                               new PropertyMatchConditionParser(),
-                                               new ExistsConditionParser(),
-                                               new UrlMatchConditionParser()
-                                           };
+        this.ConditionParserPipeline =
+        [
+            new AddressConditionParser(),
+            new HeaderMatchConditionParser(),
+            new MethodConditionParser(),
+            new PropertyMatchConditionParser(),
+            new ExistsConditionParser(),
+            new UrlMatchConditionParser()
+        ];
 
         // Initialise the transform factory with our standard transforms.
         this.TransformFactory = new TransformFactory();

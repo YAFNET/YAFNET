@@ -275,7 +275,7 @@ public static class PlatformExtensions
     public static Type AddAttributes(this Type type, params Attribute[] attrs)
     {
         if (!typeAttributesMap.TryGetValue(type, out var typeAttrs))
-            typeAttributesMap[type] = typeAttrs = new List<Attribute>();
+            typeAttributesMap[type] = typeAttrs = [];
 
         typeAttrs.AddRange(attrs);
         return type;
@@ -292,7 +292,7 @@ public static class PlatformExtensions
     {
         var key = propertyInfo.UniqueKey();
         if (!propertyAttributesMap.TryGetValue(key, out var propertyAttrs))
-            propertyAttributesMap[key] = propertyAttrs = new List<Attribute>();
+            propertyAttributesMap[key] = propertyAttrs = [];
 
         propertyAttrs.AddRange(attrs);
 
@@ -311,7 +311,7 @@ public static class PlatformExtensions
         var key = propertyInfo.UniqueKey();
 
         if (!propertyAttributesMap.TryGetValue(key, out var propertyAttrs))
-            propertyAttributesMap[key] = propertyAttrs = new List<Attribute>();
+            propertyAttributesMap[key] = propertyAttrs = [];
 
         propertyAttrs.RemoveAll(x => x.GetType() == attr.GetType());
 
@@ -329,7 +329,7 @@ public static class PlatformExtensions
     public static List<TAttr> GetAttributes<TAttr>(this PropertyInfo propertyInfo)
     {
         return !propertyAttributesMap.TryGetValue(propertyInfo.UniqueKey(), out var propertyAttrs)
-                   ? new List<TAttr>()
+                   ? []
                    : propertyAttrs.OfType<TAttr>().ToList();
     }
 
@@ -341,7 +341,7 @@ public static class PlatformExtensions
     public static List<Attribute> GetAttributes(this PropertyInfo propertyInfo)
     {
         return !propertyAttributesMap.TryGetValue(propertyInfo.UniqueKey(), out var propertyAttrs)
-                   ? new List<Attribute>()
+                   ? []
                    : propertyAttrs.ToList();
     }
 
@@ -354,7 +354,7 @@ public static class PlatformExtensions
     public static List<Attribute> GetAttributes(this PropertyInfo propertyInfo, Type attrType)
     {
         return !propertyAttributesMap.TryGetValue(propertyInfo.UniqueKey(), out var propertyAttrs)
-                   ? new List<Attribute>()
+                   ? []
                    : propertyAttrs.Where(x => attrType.IsInstanceOf(x.GetType())).ToList();
     }
 
@@ -849,7 +849,7 @@ public static class PlatformExtensions
         /// <summary>
         /// The fields
         /// </summary>
-        public readonly List<ObjectDictionaryFieldDefinition> Fields = new();
+        public readonly List<ObjectDictionaryFieldDefinition> Fields = [];
         /// <summary>
         /// The fields map
         /// </summary>

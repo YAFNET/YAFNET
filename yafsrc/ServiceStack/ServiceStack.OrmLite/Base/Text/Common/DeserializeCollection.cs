@@ -157,7 +157,7 @@ static internal class DeserializeCollection<TSerializer>
     /// <summary>
     /// The arguments
     /// </summary>
-    static Type[] arguments = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate) };
+    static Type[] arguments = [typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate)];
 
     /// <summary>
     /// Parses the type of the collection.

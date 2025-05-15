@@ -75,36 +75,36 @@ public static class JsonUtils
     /// <summary>
     /// Micro-optimization keep pre-built char arrays saving a .ToCharArray() + function call (see .net implementation of .Write(string))
     /// </summary>
-    private readonly static char[] EscapedBackslash = { EscapeChar, EscapeChar };
+    private readonly static char[] EscapedBackslash = [EscapeChar, EscapeChar];
     /// <summary>
     /// The escaped tab
     /// </summary>
-    private readonly static char[] EscapedTab = { EscapeChar, 't' };
+    private readonly static char[] EscapedTab = [EscapeChar, 't'];
     /// <summary>
     /// The escaped carriage return
     /// </summary>
-    private readonly static char[] EscapedCarriageReturn = { EscapeChar, 'r' };
+    private readonly static char[] EscapedCarriageReturn = [EscapeChar, 'r'];
     /// <summary>
     /// The escaped line feed
     /// </summary>
-    private readonly static char[] EscapedLineFeed = { EscapeChar, 'n' };
+    private readonly static char[] EscapedLineFeed = [EscapeChar, 'n'];
     /// <summary>
     /// The escaped form feed
     /// </summary>
-    private readonly static char[] EscapedFormFeed = { EscapeChar, 'f' };
+    private readonly static char[] EscapedFormFeed = [EscapeChar, 'f'];
     /// <summary>
     /// The escaped backspace
     /// </summary>
-    private readonly static char[] EscapedBackspace = { EscapeChar, 'b' };
+    private readonly static char[] EscapedBackspace = [EscapeChar, 'b'];
     /// <summary>
     /// The escaped quote
     /// </summary>
-    private readonly static char[] EscapedQuote = { EscapeChar, QuoteChar };
+    private readonly static char[] EscapedQuote = [EscapeChar, QuoteChar];
 
     /// <summary>
     /// The white space chars
     /// </summary>
-    public readonly static char[] WhiteSpaceChars = { ' ', TabChar, CarriageReturnChar, LineFeedChar };
+    public readonly static char[] WhiteSpaceChars = [' ', TabChar, CarriageReturnChar, LineFeedChar];
 
     /// <summary>
     /// Determines whether [is white space] [the specified c].

@@ -178,27 +178,24 @@ public class RouteAttribute : AttributeBase, IReflectAttributeConverter
             {
                 return new ReflectAttribute
                            {
-                               ConstructorArgs = new List<KeyValuePair<PropertyInfo, object>> {
-                                                         new(GetType().GetProperty(nameof(Path)), Path),
-                                                         new(GetType().GetProperty(nameof(Verbs)), Verbs)
-                               }
+                               ConstructorArgs =
+                               [
+                                   new(this.GetType().GetProperty(nameof(this.Path)), this.Path),
+                                   new(this.GetType().GetProperty(nameof(this.Verbs)), this.Verbs)
+                               ]
                            };
             }
 
             return new ReflectAttribute
                        {
-                           ConstructorArgs = new List<KeyValuePair<PropertyInfo, object>> {
-                                                     new(GetType().GetProperty(nameof(Path)), Path)
-                           }
+                           ConstructorArgs = [new(this.GetType().GetProperty(nameof(this.Path)), this.Path)]
                        };
         }
 
         // Otherwise return Property Args
         var to = new ReflectAttribute
                      {
-                         PropertyArgs = new List<KeyValuePair<PropertyInfo, object>> {
-                                                new(GetType().GetProperty(nameof(Path)), Path)
-                         }
+                         PropertyArgs = [new(this.GetType().GetProperty(nameof(this.Path)), this.Path)]
                      };
         if (Verbs != null)
             to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(Verbs)), Verbs));

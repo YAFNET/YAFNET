@@ -203,7 +203,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
 
         // get the rules engine from the creator...
         var ruleEngine = this.ProcessReplaceRuleFactory(
-            new[] { true /*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow });
+            [true /*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow]);
 
         // see if the rules are already populated...
         if (!ruleEngine.HasRules)

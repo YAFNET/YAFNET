@@ -60,7 +60,7 @@ public class PathInfo
     public PathInfo(string actionName, List<string> arguments, Dictionary<string, string> options)
     {
         this.ActionName = actionName;
-        this.Arguments = arguments ?? new List<string>();
+        this.Arguments = arguments ?? [];
         this.Options = options ?? new Dictionary<string, string>();
     }
 
@@ -88,7 +88,7 @@ public class PathInfo
     /// <returns>PathInfo.</returns>
     public static PathInfo Parse(string pathUri)
     {
-        var actionParts = pathUri.Split(new[] { "://" }, StringSplitOptions.None);
+        var actionParts = pathUri.Split(["://"], StringSplitOptions.None);
         var controllerName = actionParts.Length == 2
                                  ? actionParts[0]
                                  : null;

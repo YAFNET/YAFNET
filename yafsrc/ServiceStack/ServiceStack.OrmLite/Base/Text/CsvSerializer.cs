@@ -256,7 +256,7 @@ public class CsvSerializer
                 var pi = ciParams.First();
                 if (pi.ParameterType.IsAssignableFrom(typeof(T)))
                 {
-                    var to = ci.Invoke(new[] { results });
+                    var to = ci.Invoke([results]);
                     return (T)to;
                 }
             }
@@ -284,7 +284,7 @@ public class CsvSerializer
                 var pi = ciParams.First();
                 if (pi.ParameterType.IsAssignableFrom(type))
                 {
-                    var to = ci.Invoke(new[] { results });
+                    var to = ci.Invoke([results]);
                     return to;
                 }
             }
@@ -337,7 +337,7 @@ public static class CsvSerializer<T>
     /// </summary>
     /// <value>The properties.</value>
     public static (string PropertyName, Type PropertyType)[] Properties { get; } =
-        Array.Empty<(string PropertyName, Type PropertyType)>();
+        [];
 
     /// <summary>
     /// Writes the function.

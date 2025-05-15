@@ -42,7 +42,8 @@ public static class DeserializeListWithElements<TSerializer>
     /// <summary>
     /// The signature
     /// </summary>
-    private readonly static Type[] signature = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate) };
+    private readonly static Type[] signature = [typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate)
+    ];
 
     /// <summary>
     /// Gets the list type parse string span function.
@@ -117,7 +118,7 @@ public static class DeserializeListWithElements<TSerializer>
     public static List<string> ParseStringList(ReadOnlySpan<char> value)
     {
         if ((value = StripList(value)).IsNullOrEmpty())
-            return value.IsEmpty ? null : new List<string>();
+            return value.IsEmpty ? null : [];
 
         var to = new List<string>();
         var valueLength = value.Length;
@@ -147,7 +148,7 @@ public static class DeserializeListWithElements<TSerializer>
     public static List<int> ParseIntList(ReadOnlySpan<char> value)
     {
         if ((value = StripList(value)).IsNullOrEmpty())
-            return value.IsEmpty ? null : new List<int>();
+            return value.IsEmpty ? null : [];
 
         var to = new List<int>();
         var valueLength = value.Length;
@@ -171,7 +172,7 @@ public static class DeserializeListWithElements<TSerializer>
     public static List<byte> ParseByteList(ReadOnlySpan<char> value)
     {
         if ((value = StripList(value)).IsNullOrEmpty())
-            return value.IsEmpty ? null : new List<byte>();
+            return value.IsEmpty ? null : [];
 
         var to = new List<byte>();
         var valueLength = value.Length;

@@ -36,7 +36,7 @@
     <PackageReference Include="Microsoft.AspNet.Identity.Owin" Version="2.2.4" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.3.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.WebHost" Version="5.3.0" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.5" />
     <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.2.2" />
     <PackageReference Include="Microsoft.Owin.Security" Version="4.2.2" />
     <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.2.2" />
@@ -48,10 +48,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.4">
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.5">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
-    <PackageReference Include="System.Runtime.Caching" Version="9.0.4">
+    <PackageReference Include="System.Runtime.Caching" Version="9.0.5">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.6.3">
@@ -80,7 +80,7 @@
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="8.2.1" />
+    <PackageReference Include="Autofac" Version="8.3.0" />
     <PackageReference Include="Farsi.Library" Version="2.7.0" />
   </ItemGroup>
 </Project>

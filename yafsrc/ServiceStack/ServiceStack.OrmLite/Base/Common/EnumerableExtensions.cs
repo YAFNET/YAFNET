@@ -219,7 +219,7 @@ public static class EnumerableExtensions
     /// <param name="items">The items.</param>
     /// <returns>HashSet&lt;T&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static HashSet<T> ToSet<T>(this IEnumerable<T> items) => new(items);
+    public static HashSet<T> ToSet<T>(this IEnumerable<T> items) => [..items];
 
     /// <summary>
     /// Eaches the specified action.
@@ -287,7 +287,7 @@ public static class EnumerableExtensions
     public static List<To> Map<To, From>(this IEnumerable<From> items, Func<From, To> converter)
     {
         if (items == null)
-            return new List<To>();
+            return [];
 
         var list = new List<To>();
         foreach (var item in items)
@@ -307,7 +307,7 @@ public static class EnumerableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static List<To> Map<To>(this IEnumerable items, Func<object, To> converter)
     {
-        return items == null ? new List<To>() : (from object item in items select converter(item)).ToList();
+        return items == null ? [] : (from object item in items select converter(item)).ToList();
     }
 
     /// <summary>

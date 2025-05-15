@@ -27,7 +27,7 @@ static internal class TypeHelper
     /// <returns>The object</returns>
     public static object Activate(string fullTypeName, object[] args)
     {
-        var components = fullTypeName.Split(new[] { ',' }, 2);
+        var components = fullTypeName.Split([','], 2);
         if (components.Length != 2)
         {
             throw new ArgumentOutOfRangeException(

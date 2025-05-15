@@ -1184,7 +1184,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
     /// <summary>
     /// The empty array
     /// </summary>
-    private readonly static byte[] emptyArray = Array.Empty<byte>();
+    private readonly static byte[] emptyArray = [];
 
     /// <summary>
     /// All of these blocks must be the same size

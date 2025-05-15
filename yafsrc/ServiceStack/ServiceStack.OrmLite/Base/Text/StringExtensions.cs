@@ -380,8 +380,8 @@ public static class StringExtensions
         if (strVal == null) return TypeConstants.EmptyStringArray;
         var pos = strVal.IndexOf(needle);
         return pos == -1
-                   ? new[] { strVal }
-                   : new[] { strVal.Substring(0, pos), strVal.Substring(pos + 1) };
+                   ? [strVal]
+                   : [strVal.Substring(0, pos), strVal.Substring(pos + 1)];
     }
 
     /// <summary>
@@ -395,8 +395,8 @@ public static class StringExtensions
         if (strVal == null) return TypeConstants.EmptyStringArray;
         var pos = strVal.IndexOf(needle, StringComparison.OrdinalIgnoreCase);
         return pos == -1
-                   ? new[] { strVal }
-                   : new[] { strVal.Substring(0, pos), strVal.Substring(pos + needle.Length) };
+                   ? [strVal]
+                   : [strVal.Substring(0, pos), strVal.Substring(pos + needle.Length)];
     }
 
     /// <summary>
@@ -410,8 +410,8 @@ public static class StringExtensions
         if (strVal == null) return TypeConstants.EmptyStringArray;
         var pos = strVal.LastIndexOf(needle);
         return pos == -1
-                   ? new[] { strVal }
-                   : new[] { strVal.Substring(0, pos), strVal.Substring(pos + 1) };
+                   ? [strVal]
+                   : [strVal.Substring(0, pos), strVal.Substring(pos + 1)];
     }
 
     /// <summary>
@@ -425,8 +425,8 @@ public static class StringExtensions
         if (strVal == null) return TypeConstants.EmptyStringArray;
         var pos = strVal.LastIndexOf(needle, StringComparison.OrdinalIgnoreCase);
         return pos == -1
-                   ? new[] { strVal }
-                   : new[] { strVal.Substring(0, pos), strVal.Substring(pos + needle.Length) };
+                   ? [strVal]
+                   : [strVal.Substring(0, pos), strVal.Substring(pos + needle.Length)];
     }
 
     /// <summary>
@@ -886,7 +886,7 @@ public static class StringExtensions
     /// <summary>
     /// The system type chars
     /// </summary>
-    private readonly static char[] SystemTypeChars = { '<', '>', '+' };
+    private readonly static char[] SystemTypeChars = ['<', '>', '+'];
 
     /// <summary>
     /// Determines whether [is user type] [the specified type].

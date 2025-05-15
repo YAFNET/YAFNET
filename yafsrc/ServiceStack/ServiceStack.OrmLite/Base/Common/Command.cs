@@ -37,7 +37,7 @@ public class Command
     /// Gets the arguments.
     /// </summary>
     /// <value>The arguments.</value>
-    public List<ReadOnlyMemory<char>> Args { get; internal set; } = new();
+    public List<ReadOnlyMemory<char>> Args { get; internal set; } = [];
 
     /// <summary>
     /// Gets or sets the suffix.

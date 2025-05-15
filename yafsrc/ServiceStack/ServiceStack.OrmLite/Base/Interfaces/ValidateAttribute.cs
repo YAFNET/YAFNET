@@ -58,7 +58,7 @@ public class ValidateRequestAttribute : AttributeBase, IValidateRule, IReflectAt
     [Ignore]
     public string[] Conditions
     {
-        get => new[] { Condition };
+        get => [Condition];
         set => Condition = ValidateAttribute.Combine("&&", value);
     }
 
@@ -115,7 +115,7 @@ public class ValidateRequestAttribute : AttributeBase, IValidateRule, IReflectAt
         var to = new ReflectAttribute
                      {
                          Name = "ValidateRequest",
-                         PropertyArgs = new List<KeyValuePair<PropertyInfo, object>>()
+                         PropertyArgs = []
                      };
         if (!string.IsNullOrEmpty(Validator))
             to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(Validator)), Validator));
@@ -295,7 +295,7 @@ public class ValidateAttribute : AttributeBase, IValidateRule, IReflectAttribute
         var to = new ReflectAttribute
                      {
                          Name = "Validate",
-                         PropertyArgs = new List<KeyValuePair<PropertyInfo, object>>()
+                         PropertyArgs = []
                      };
         if (!string.IsNullOrEmpty(Validator))
             to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(Validator)), Validator));

@@ -83,7 +83,7 @@ public abstract class PclExport
         var mi = type.GetMethod("Configure");
         if (mi != null)
         {
-            mi.Invoke(null, Array.Empty<object>());
+            mi.Invoke(null, []);
         }
 
         return true;
@@ -123,7 +123,7 @@ public abstract class PclExport
     /// <summary>
     /// The dir seps
     /// </summary>
-    public readonly static char[] DirSeps = { '\\', '/' };
+    public readonly static char[] DirSeps = ['\\', '/'];
 
     /// <summary>
     /// The platform name
@@ -296,7 +296,7 @@ public abstract class PclExport
     /// <returns>Assembly[].</returns>
     public virtual Assembly[] GetAllAssemblies()
     {
-        return Array.Empty<Assembly>();
+        return [];
     }
 
     /// <summary>

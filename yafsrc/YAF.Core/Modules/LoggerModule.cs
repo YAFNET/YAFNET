@@ -51,12 +51,11 @@ public class LoggingModule : BaseModule
             {
                 var t = e.Component.Activator.LimitType;
                 e.Parameters = e.Parameters.Union(
-                    new[]
-                        {
-                            new ResolvedParameter(
+                [
+                    new ResolvedParameter(
                                 (p, i) => p.ParameterType == typeof(ILoggerService),
                                 (p, i) => i.Resolve<ILoggerProvider>().Create(t))
-                        });
+                ]);
             });
         builder.Register(c => c.Resolve<ILoggerProvider>().Create(null)).SingleInstance();
     }

@@ -40,7 +40,7 @@ public static class PathUtils
     /// <summary>
     /// The slashes
     /// </summary>
-    private readonly static char[] Slashes = { '/', '\\' };
+    private readonly static char[] Slashes = ['/', '\\'];
 
     /// <summary>
     /// Trims the end if.
@@ -132,6 +132,6 @@ public static class PathUtils
     /// <returns>List&lt;To&gt;.</returns>
     static internal List<To> Map<To>(System.Collections.IEnumerable items, Func<object, To> converter)
     {
-        return items == null ? new List<To>() : (from object item in items select converter(item)).ToList();
+        return items == null ? [] : (from object item in items select converter(item)).ToList();
     }
 }

@@ -63,8 +63,8 @@ namespace ServiceStack.OrmLite.Base.Text
             var returnType = typeof(object);
 
             return !memberInfo.DeclaringType.IsInterface
-                ? new DynamicMethod(name, returnType, new[] { typeof(T) }, memberInfo.DeclaringType, true)
-                : new DynamicMethod(name, returnType, new[] { typeof(T) }, memberInfo.Module, true);
+                ? new DynamicMethod(name, returnType, [typeof(T)], memberInfo.DeclaringType, true)
+                : new DynamicMethod(name, returnType, [typeof(T)], memberInfo.Module, true);
         }
 
         /// <summary>
@@ -272,7 +272,7 @@ namespace ServiceStack.OrmLite.Base.Text
         /// <summary>
         /// The dynamic get method arguments
         /// </summary>
-        readonly static Type[] DynamicGetMethodArgs = { typeof(object) };
+        readonly static Type[] DynamicGetMethodArgs = [typeof(object)];
 
         /// <summary>
         /// Creates the dynamic get method.
@@ -354,7 +354,7 @@ namespace ServiceStack.OrmLite.Base.Text
         /// <summary>
         /// The dynamic set method arguments
         /// </summary>
-        readonly static Type[] DynamicSetMethodArgs = { typeof(object), typeof(object) };
+        readonly static Type[] DynamicSetMethodArgs = [typeof(object), typeof(object)];
 
         /// <summary>
         /// Creates the dynamic set method.
@@ -449,7 +449,7 @@ namespace ServiceStack.OrmLite.Base.Text
             var ctorBuilder = typeBuilder.DefineConstructor(
                 MethodAttributes.Public,
                 CallingConventions.Standard,
-                new Type[] { });
+                []);
             var ilGenerator = ctorBuilder.GetILGenerator();
             ilGenerator.Emit(OpCodes.Ret);
 
@@ -508,7 +508,7 @@ namespace ServiceStack.OrmLite.Base.Text
             {
                 if (methodInfo.ReturnType.IsValueType || methodInfo.ReturnType.IsEnum)
                 {
-                    MethodInfo getMethod = typeof(Activator).GetMethod("CreateInstance", new[] { typeof(Type) });
+                    MethodInfo getMethod = typeof(Activator).GetMethod("CreateInstance", [typeof(Type)]);
                     LocalBuilder lb = methodILGen.DeclareLocal(methodInfo.ReturnType);
                     methodILGen.Emit(OpCodes.Ldtoken, lb.LocalType);
                     methodILGen.Emit(OpCodes.Call, typeof(Type).GetMethod("GetTypeFromHandle"));
@@ -550,7 +550,7 @@ namespace ServiceStack.OrmLite.Base.Text
             //Setter
             MethodBuilder backingSet = typeBuilder.DefineMethod("set_" + propertyName, MethodAttributes.Public |
                 MethodAttributes.SpecialName | MethodAttributes.Virtual |
-                MethodAttributes.HideBySig, null, new[] { propertyType });
+                MethodAttributes.HideBySig, null, [propertyType]);
 
             ILGenerator setIl = backingSet.GetILGenerator();
 

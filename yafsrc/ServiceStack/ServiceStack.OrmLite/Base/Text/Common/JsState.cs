@@ -60,7 +60,7 @@ static internal class JsState
     /// The in serializer FNS
     /// </summary>
     [ThreadStatic]
-    static internal HashSet<Type> InSerializerFns = new();
+    static internal HashSet<Type> InSerializerFns = [];
 
     /// <summary>
     /// Registers the serializer.
@@ -68,7 +68,7 @@ static internal class JsState
     /// <typeparam name="T"></typeparam>
     static internal void RegisterSerializer<T>()
     {
-        InSerializerFns ??= new HashSet<Type>();
+        InSerializerFns ??= [];
 
         InSerializerFns.Add(typeof(T));
     }
@@ -107,7 +107,7 @@ static internal class JsState
     /// <typeparam name="T"></typeparam>
     static internal void RegisterDeserializer<T>()
     {
-        InDeserializerFns ??= new HashSet<Type>();
+        InDeserializerFns ??= [];
 
         InDeserializerFns.Add(typeof(T));
     }

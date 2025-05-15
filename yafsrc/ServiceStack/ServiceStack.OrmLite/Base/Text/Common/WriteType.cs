@@ -649,7 +649,7 @@ static internal class WriteType<T, TSerializer>
     /// <summary>
     /// The array brackets
     /// </summary>
-    private readonly static char[] ArrayBrackets = { '[', ']' };
+    private readonly static char[] ArrayBrackets = ['[', ']'];
 
     /// <summary>
     /// Writes the complex query string properties.

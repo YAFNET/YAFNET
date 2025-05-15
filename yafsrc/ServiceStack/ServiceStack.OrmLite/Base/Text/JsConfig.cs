@@ -460,14 +460,14 @@ public static class JsConfig
         set => Config.AssertNotInit().AssumeUtc = value;
     }
 
-    static internal HashSet<Type> HasSerializeFn = new();
+    static internal HashSet<Type> HasSerializeFn = [];
 
-    static internal HashSet<Type> HasIncludeDefaultValue = new();
+    static internal HashSet<Type> HasIncludeDefaultValue = [];
 
     /// <summary>
     /// 
     /// </summary>
-    public static HashSet<Type> TreatValueAsRefTypes = new();
+    public static HashSet<Type> TreatValueAsRefTypes = [];
 
     /// <summary>
     /// If set to true, Interface types will be preferred over concrete types when serializing.
@@ -533,22 +533,22 @@ public static class JsConfig
     /// <summary>
     /// 
     /// </summary>
-    public static HashSet<string> AllowRuntimeTypeWithAttributesNamed { get; set; } = new();
+    public static HashSet<string> AllowRuntimeTypeWithAttributesNamed { get; set; } = [];
 
     /// <summary>
     /// 
     /// </summary>
-    public static HashSet<string> AllowRuntimeTypeWithInterfacesNamed { get; set; } = new();
+    public static HashSet<string> AllowRuntimeTypeWithInterfacesNamed { get; set; } = [];
 
     /// <summary>
     /// 
     /// </summary>
-    public static HashSet<string> AllowRuntimeTypeInTypes { get; set; } = new();
+    public static HashSet<string> AllowRuntimeTypeInTypes { get; set; } = [];
 
     /// <summary>
     /// 
     /// </summary>
-    public static HashSet<string> AllowRuntimeTypeInTypesWithNamespaces { get; set; } = new();
+    public static HashSet<string> AllowRuntimeTypeInTypesWithNamespaces { get; set; } = [];
 
     /// <summary>
     /// 
@@ -584,41 +584,41 @@ public static class JsConfig
         Env.StrictMode = false;
         Config.Reset();
         AutoMappingUtils.Reset();
-        HasSerializeFn = new HashSet<Type>();
-        HasIncludeDefaultValue = new HashSet<Type>();
-        TreatValueAsRefTypes = new HashSet<Type> { typeof(KeyValuePair<,>) };
-        __uniqueTypes = new HashSet<Type>();
+        HasSerializeFn = [];
+        HasIncludeDefaultValue = [];
+        TreatValueAsRefTypes = [typeof(KeyValuePair<,>)];
+        __uniqueTypes = [];
 
         // Called when writing each string, too expensive to maintain as scoped config
         AllowRuntimeInterfaces = true;
         AllowRuntimeType = null;
-        AllowRuntimeTypeWithAttributesNamed = new HashSet<string>
-                                                  {
-                                                      nameof(SerializableAttribute),
-                                                      nameof(DataContractAttribute),
-                                                      nameof(RuntimeSerializableAttribute)
-                                                  };
-        AllowRuntimeTypeWithInterfacesNamed = new HashSet<string>
-                                                  {
-                                                      "IConvertible",
-                                                      "ISerializable",
-                                                      "IRuntimeSerializable",
-                                                      "IMeta",
-                                                      "IReturn`1",
-                                                      "IReturnVoid",
-                                                      "IVerb",
-                                                      "ICrud",
-                                                      "IMeta",
-                                                      "IAuthTokens",
-                                                      "IHasResponseStatus",
-                                                      "IHasId`1"
-                                                  };
-        AllowRuntimeTypeInTypesWithNamespaces = new HashSet<string>
-                                                    {
-                                                        "ServiceStack.Auth",
-                                                        "ServiceStack.Messaging"
-                                                    };
-        AllowRuntimeTypeInTypes = new();
+        AllowRuntimeTypeWithAttributesNamed =
+        [
+            nameof(SerializableAttribute),
+            nameof(DataContractAttribute),
+            nameof(RuntimeSerializableAttribute)
+        ];
+        AllowRuntimeTypeWithInterfacesNamed =
+        [
+            "IConvertible",
+            "ISerializable",
+            "IRuntimeSerializable",
+            "IMeta",
+            "IReturn`1",
+            "IReturnVoid",
+            "IVerb",
+            "ICrud",
+            "IMeta",
+            "IAuthTokens",
+            "IHasResponseStatus",
+            "IHasId`1"
+        ];
+        AllowRuntimeTypeInTypesWithNamespaces =
+        [
+            "ServiceStack.Auth",
+            "ServiceStack.Messaging"
+        ];
+        AllowRuntimeTypeInTypes = [];
         PlatformExtensions.ClearRuntimeAttributes();
         ReflectionExtensions.Reset();
         JsState.Reset();
@@ -636,7 +636,7 @@ public static class JsConfig
         methodInfo.Invoke(null, null);
     }
 
-    static internal HashSet<Type> __uniqueTypes = new();
+    static internal HashSet<Type> __uniqueTypes = [];
     static internal int __uniqueTypesCount;
 
     static internal void AddUniqueType(Type type)
@@ -648,7 +648,7 @@ public static class JsConfig
         do
         {
             snapshot = __uniqueTypes;
-            newTypes = new HashSet<Type>(__uniqueTypes) { type };
+            newTypes = [..__uniqueTypes, type];
             __uniqueTypesCount = newTypes.Count;
 
         }

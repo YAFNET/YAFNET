@@ -23,7 +23,7 @@ public class HttpRequestConfig
     public string[]? TransferEncoding { get; set; }
     public NameValue? Authorization { get; set; }
     public LongRange? Range { get; set; }
-    public List<NameValue> Headers { get; set; } = new();
+    public List<NameValue> Headers { get; set; } = [];
     public void SetRange(long from, long? to = null) => this.Range = new(from, to);
     public record NameValue(string Name, string Value)
     {

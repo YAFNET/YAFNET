@@ -71,7 +71,7 @@ public class EmitCodeAttribute : AttributeBase
     /// </summary>
     /// <param name="lang">The language.</param>
     /// <param name="statement">The statement.</param>
-    public EmitCodeAttribute(Lang lang, string statement) : this(lang, new[] { statement }) { }
+    public EmitCodeAttribute(Lang lang, string statement) : this(lang, [statement]) { }
     /// <summary>
     /// Initializes a new instance of the <see cref="EmitCodeAttribute"/> class.
     /// </summary>

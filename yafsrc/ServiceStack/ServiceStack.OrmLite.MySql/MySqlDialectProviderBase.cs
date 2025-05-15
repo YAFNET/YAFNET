@@ -84,9 +84,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <summary>
     /// The reserved words
     /// </summary>
-    public static HashSet<string> ReservedWords = new(new[]
-                                                          {
-                                                              "ACCESSIBLE",
+    public static HashSet<string> ReservedWords = new([
+        "ACCESSIBLE",
                                                               "ADD",
                                                               "ALL",
                                                               "ALTER",
@@ -348,7 +347,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
                                                               "XOR",
                                                               "YEAR_MONTH",
                                                               "ZEROFILL"
-                                                          }, StringComparer.OrdinalIgnoreCase);
+    ], StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
     /// Initializes the specified connection string.
@@ -845,7 +844,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>System.String.</returns>
     public override string SqlCurrency(string fieldOrValue, string currencySymbol)
     {
-        return this.SqlConcat(new[] { $"'{currencySymbol}'", $"cast({fieldOrValue} as decimal(15,2))" });
+        return this.SqlConcat([$"'{currencySymbol}'", $"cast({fieldOrValue} as decimal(15,2))"]);
     }
 
     /// <summary>

@@ -81,7 +81,8 @@ static internal class DeserializeKeyValuePair<TSerializer>
     /// <summary>
     /// The signature
     /// </summary>
-    readonly static Type[] signature = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate), typeof(ParseStringSpanDelegate) };
+    readonly static Type[] signature = [typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate), typeof(ParseStringSpanDelegate)
+    ];
 
     /// <summary>
     /// Parses the type of the key value pair.

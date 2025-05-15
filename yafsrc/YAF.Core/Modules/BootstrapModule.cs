@@ -51,7 +51,7 @@ public class BootstrapModule : BaseModule
         this.RegisterBaseModules<IModule>(
             builder,
             [Assembly.GetExecutingAssembly()],
-            new[] { typeof(BootstrapModule) });
+            [typeof(BootstrapModule)]);
 
         // register all the modules in scanned assemblies
         this.RegisterBaseModules<IModule>(builder, ExtensionAssemblies);

@@ -168,38 +168,6 @@ public class BBCode : IBBCode, IHaveServiceLocator
         return workingMessage;
     }
 
-    /*
-    /// <summary>
-    /// Converts a message containing BBCode to HTML appropriate for editing in a rich text editor.
-    /// </summary>
-    /// <remarks>
-    /// BBCode quotes are not converted to HTML.  "[quote]...[/quote]" will remain in the string
-    ///   returned, as to appear in plain text in rich text editors.
-    /// </remarks>
-    /// <param name="message">
-    /// String containing the body of the message to convert
-    /// </param>
-    /// <returns>
-    /// The converted text
-    /// </returns>
-    [Obsolete]
-    public string ConvertBBCodeToHtmlForEdit(string message)
-    {
-        // get the rules engine from the creator...
-        var ruleEngine = this.ProcessReplaceRulesFactory(
-            new[] { false, true, this.Get<BoardSettings>().UseNoFollowLinks, true });
-
-        if (!ruleEngine.HasRules)
-        {
-            // NOTE : Do not convert BBQuotes, BBCodes and Custom BBCodes to HTML when editing -- "[quote]...[/quote]", and [code]..[/code] will remain in plaintext in the rich text editor
-            this.CreateBBCodeRules(ruleEngine, true, this.Get<BoardSettings>().UseNoFollowLinks, false, true);
-        }
-
-        ruleEngine.Process(ref message);
-
-        return message;
-    }*/
-
     /// <summary>
     /// Converts a message containing HTML to YAF BBCode for editing in a rich BBCode editor.
     /// </summary>
@@ -217,10 +185,9 @@ public class BBCode : IBBCode, IHaveServiceLocator
 
         // get the rules engine from the creator...
         var ruleEngine = this.ProcessReplaceRulesFactory(
-            new[]
-                {
-                    DoFormatting, TargetBlankOverride, this.Get<BoardSettings>().UseNoFollowLinks, ForBBCodeEditing
-                });
+        [
+            DoFormatting, TargetBlankOverride, this.Get<BoardSettings>().UseNoFollowLinks, ForBBCodeEditing
+        ]);
 
         if (!ruleEngine.HasRules)
         {
@@ -1000,7 +967,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
     public string MakeHtml(string inputString, bool doFormatting, bool targetBlankOverride)
     {
         var ruleEngine = this.ProcessReplaceRulesFactory(
-            new[] { doFormatting, targetBlankOverride, this.Get<BoardSettings>().UseNoFollowLinks });
+            [doFormatting, targetBlankOverride, this.Get<BoardSettings>().UseNoFollowLinks]);
 
         if (!ruleEngine.HasRules)
         {

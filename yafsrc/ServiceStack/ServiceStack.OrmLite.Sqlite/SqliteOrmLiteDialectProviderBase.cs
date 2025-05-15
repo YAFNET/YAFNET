@@ -512,7 +512,8 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <param name="fieldOrValue">The field or value.</param>
     /// <param name="currencySymbol">The currency symbol.</param>
     /// <returns>System.String.</returns>
-    public override string SqlCurrency(string fieldOrValue, string currencySymbol) => SqlConcat(new []{ "'" + currencySymbol + "'", "printf(\"%.2f\", " + fieldOrValue + ")" });
+    public override string SqlCurrency(string fieldOrValue, string currencySymbol) => SqlConcat(["'" + currencySymbol + "'", "printf(\"%.2f\", " + fieldOrValue + ")"
+    ]);
 
     /// <summary>
     /// SQLs the bool.
