@@ -22,7 +22,7 @@
 			<dependency id="YAFNET.Types" version="4.0.0" exclude="Build,Analyzers" />
 			<dependency id="Autofac" version="8.3.0" exclude="Build,Analyzers" />
 			<dependency id="MySql.Data" version="9.3.0" exclude="Build,Analyzers" />
-			<dependency id="System.ComponentModel.Composition" version="9.0.4" exclude="Build,Analyzers" />
+			<dependency id="System.ComponentModel.Composition" version="9.0.5" exclude="Build,Analyzers" />
 		</group>
     </dependencies>
     <references>
