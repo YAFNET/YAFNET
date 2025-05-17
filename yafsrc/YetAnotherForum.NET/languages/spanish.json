@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "Vistas Lista de agentes de usuario prohibidos"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "Ediciones de agentes de usuario prohibidos"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "Importa agentes de usuario prohibidos"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -990,7 +990,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete attachment(s)?"
+            "#text": "¿Eliminar el accesorio (s)?"
           },
           {
             "@tag": "TITLE",
@@ -1003,35 +1003,35 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "Agregar nuevo UserAgent"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "No hay usuarios"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "Actualmente no hay usuario prohibido. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "Importar usuario (s)"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "Mascarilla"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "¡El usuario prohibido ya existe!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "El usuariogente se eliminó correctamente"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "UserAgent de usuario prohibido"
           }
         ]
       },
@@ -1044,19 +1044,19 @@
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "El agente de usuario para prohibir. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "Debe definir un agente de usuario."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "Agregar usuario prohibido"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "Editar usuario prohibido"
           }
         ]
       },
@@ -1065,35 +1065,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Importar lista de usuarios"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Lista de importaciones"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "No pudo importar! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Seleccione el archivo de importación:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "Debe ser *.txt archivo que contiene un usuariogent en cada línea"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "Nada importado: no se encontró ningún nuevo usuario en la carga."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} Nuevos usuarios importados con éxito."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "Importar usuario (s)"
           }
         ]
       },
@@ -1106,11 +1106,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "No hay direcciones de correo electrónico prohibidas"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "Actualmente no hay direcciones de correo electrónico prohibidas. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1229,11 +1229,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "No hay direcciones IP prohibidas"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "Actualmente no hay direcciones IP prohibidas. "
           },
           {
             "@tag": "EXPORT",
@@ -1372,11 +1372,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "Sin nombres prohibidos"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "Actualmente no hay nombres de usuario prohibidos. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1767,11 +1767,11 @@
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
+            "#text": "Tamaño de página predeterminado"
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
+            "#text": "El tamaño de página predeterminado para listas para nuevos usuarios."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -1957,7 +1957,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "¿Eliminar permanentemente este foro, incluidos todos los temas, encuestas, archivos adjuntos y mensajes asociados con él?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -3565,7 +3565,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "Copiar al portapapeles"
           },
           {
             "@tag": "DELETE_ALL",
@@ -3755,7 +3755,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "roles"
+            "#text": "Roles"
           },
           {
             "@tag": "UNLINKABLE",
@@ -4084,7 +4084,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4292,11 +4292,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "Habilitar editor Wysiwyg"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "Configuración para habilitar/deshabilitar el editor Wysiwyg BBCode"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "Modo de ingresar al editor"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "Nuevo"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "Las líneas están rotas con"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Establece el comportamiento de la tecla ENTER, como si el"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -5068,11 +5084,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "Desplácese hasta la primera publicación."
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "Si habilita se desplaza a la primera publicación no leída/o primera publicación nueva al abrir un tema"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5751,11 +5767,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "Sin medallas"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "Actualmente no hay medallas. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5879,11 +5895,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "No hay definiciones de perfil personalizadas"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "Actualmente no hay definiciones de perfil personalizadas. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6153,11 +6169,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "No hay palabras reemplazar"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "Actualmente no hay palabras de reemplazo. "
           },
           {
             "@tag": "EXPORT",
@@ -6364,11 +6380,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "Sin palabras de verificación de spam"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "Actualmente no hay palabras de verificación de spam. "
           },
           {
             "@tag": "EXPORT",
@@ -6724,7 +6740,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "Usuarios prohibidos"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -6772,7 +6788,7 @@
           },
           {
             "@tag": "ADMIN_GROUPS",
-            "#text": "roles"
+            "#text": "Roles"
           },
           {
             "@tag": "ADMIN_HOSTSETTINGS",
@@ -7283,7 +7299,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "Solicitud de amistad eliminada."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7675,7 +7691,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "PARA CARACTERES:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7791,7 +7807,7 @@
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "G"
+            "#text": "GRAMO"
           },
           {
             "@tag": "FORMAT_TIME",
@@ -7875,7 +7891,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "Insertar medios"
           },
           {
             "@tag": "MENU",
@@ -7959,7 +7975,7 @@
           },
           {
             "@tag": "OK",
-            "#text": "OK"
+            "#text": "DE ACUERDO"
           },
           {
             "@tag": "OR",
@@ -8027,7 +8043,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "Selección de tamaño de página"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8067,7 +8083,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "Copie el texto seleccionado (CTRL C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8079,11 +8095,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "Corta el texto seleccionado (CTRL X)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "Descripción"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8095,11 +8111,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "Ingrese la descripción de la imagen:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "Ingrese la URL de la imagen:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8119,19 +8135,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "Pegue la URL de los medios en la entrada (por ejemplo, un video de YouTube, una lista de reproducción de Spotify o una imagen de Instagram)."
           },
           {
             "@tag": "TT_NOTE",
-            "#text": "Insert Note"
+            "#text": "Nota de insertar"
           },
           {
             "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
+            "#text": "Tipo de nota"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "Paste (CTRL V)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8139,15 +8155,15 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "Redo (Ctrl Y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "Eliminar formato"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "Seleccionar todo"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8155,15 +8171,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "Deshacer (CTRL Z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "Ingrese la descripción de la URL:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "Ingrese URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8297,7 +8313,7 @@
           },
           {
             "@tag": "AO",
-            "#text": "angola"
+            "#text": "Angola"
           },
           {
             "@tag": "AQ",
@@ -8333,11 +8349,11 @@
           },
           {
             "@tag": "BB",
-            "#text": "barbados"
+            "#text": "Barbados"
           },
           {
             "@tag": "BD",
-            "#text": "bangladesh"
+            "#text": "Bangladesh"
           },
           {
             "@tag": "BE",
@@ -8381,7 +8397,7 @@
           },
           {
             "@tag": "BS",
-            "#text": "bahamas"
+            "#text": "Bahamas"
           },
           {
             "@tag": "BT",
@@ -8489,7 +8505,7 @@
           },
           {
             "@tag": "DM",
-            "#text": "Dominica"
+            "#text": "Dominio"
           },
           {
             "@tag": "DO",
@@ -8797,7 +8813,7 @@
           },
           {
             "@tag": "ME",
-            "#text": "montenegro"
+            "#text": "Montenegro"
           },
           {
             "@tag": "MG",
@@ -8957,7 +8973,7 @@
           },
           {
             "@tag": "PN",
-            "#text": "pitcairn"
+            "#text": "Pitcairn"
           },
           {
             "@tag": "PR",
@@ -9113,7 +9129,7 @@
           },
           {
             "@tag": "TO",
-            "#text": "tonga"
+            "#text": "Tonga"
           },
           {
             "@tag": "TP",
@@ -9197,7 +9213,7 @@
           },
           {
             "@tag": "WS",
-            "#text": "samoa"
+            "#text": "Samoa"
           },
           {
             "@tag": "YE",
@@ -9884,7 +9900,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
+            "#text": "Seleccione el modo de tema:"
           },
           {
             "@tag": "TIMEZONE",
@@ -10129,96 +10145,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Agénero"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Andrógino"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigénero"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgénero"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "De mujer a hombre"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Género fluido"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Género no conforme"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "género queer"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Cuestionamiento de género"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersexualidad"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Hombre a mujer"
-          },
-          {
             "@tag": "MAN",
             "#text": "Hombre"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "No binario"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Otros"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangénero"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "trans"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfemenino"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgénero"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Hombre transgénero"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculino"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transexual"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Mujer transgénero"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Dos espíritus"
           },
           {
             "@tag": "WOMAN",
@@ -11001,7 +10933,7 @@
           },
           {
             "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+            "#text": "Yaf.net tiene acceso de escritura a"
           },
           {
             "@tag": "PERMISSIONUPLOAD",
@@ -12087,7 +12019,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "Tienes {0} Mensajes privados: {1} en Innumory y {2} en Outbox. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12232,11 +12164,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "Votación vinculada"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "Don"
           },
           {
             "@tag": "POLLHEADER",
@@ -12276,7 +12208,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "¡La encuesta fue eliminada!"
           }
         ]
       },
@@ -12478,7 +12410,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "BLOG"
+            "#text": "Blog"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12574,7 +12506,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "Www"
           },
           {
             "@tag": "HOME_TITLE",
@@ -13270,7 +13202,7 @@
           },
           {
             "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
+            "#text": "Recuperación de contraseña para foro {0}"
           },
           {
             "@tag": "SUCCESS",
@@ -13339,7 +13271,7 @@
           },
           {
             "@tag": "RGN_CH_NE",
-            "#text": "Neuchâtel"
+            "#text": "Nuevo"
           },
           {
             "@tag": "RGN_CH_NW",
@@ -13375,7 +13307,7 @@
           },
           {
             "@tag": "RGN_CH_UR",
-            "#text": "uri"
+            "#text": "Uri"
           },
           {
             "@tag": "RGN_CH_VD",
@@ -13387,7 +13319,7 @@
           },
           {
             "@tag": "RGN_CH_ZG",
-            "#text": "Zug"
+            "#text": "Zugar"
           },
           {
             "@tag": "RGN_CH_ZH",
@@ -13469,7 +13401,7 @@
         "Resource": [
           {
             "@tag": "RGN_US_AK",
-            "#text": "Alaska"
+            "#text": "Abajo"
           },
           {
             "@tag": "RGN_US_AL",
@@ -13477,7 +13409,7 @@
           },
           {
             "@tag": "RGN_US_AR",
-            "#text": "Arkansas"
+            "#text": "Arkansa"
           },
           {
             "@tag": "RGN_US_AS",
@@ -13625,7 +13557,7 @@
           },
           {
             "@tag": "RGN_US_OK",
-            "#text": "Oklahoma"
+            "#text": "Oklahola"
           },
           {
             "@tag": "RGN_US_OR",
@@ -14480,11 +14412,11 @@
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "Oscuro"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "Luz"
           }
         ]
       },

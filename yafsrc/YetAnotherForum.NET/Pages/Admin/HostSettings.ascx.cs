@@ -360,6 +360,9 @@ public partial class HostSettings : AdminPage
             new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_1"), "1"));
         this.SendWelcomeNotificationAfterRegister.Items.Add(
             new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_2"), "2"));
+
+        this.EditorEnterMode.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "ENTER_MODE_0"), "0"));
+        this.EditorEnterMode.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "ENTER_MODE_1"), "1"));
     }
 
     /// <summary>

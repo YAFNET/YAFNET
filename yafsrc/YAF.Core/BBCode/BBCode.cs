@@ -836,9 +836,14 @@ public class BBCode : IBBCode, IHaveServiceLocator
             // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
             ruleEngine.AddRule(horizontalLineRule);
 
-            //ruleEngine.AddRule(isEditMode ? breakRule : new SingleRegexReplaceRule(@"\r\n", "<p>", Options));
-
-            ruleEngine.AddRule( breakRule );
+            if (this.Get<BoardSettings>().EditorEnterMode is EnterMode.Br)
+            {
+                ruleEngine.AddRule(breakRule);
+            }
+            else
+            {
+                ruleEngine.AddRule(isEditMode ? breakRule : new SingleRegexReplaceRule(@"\r\n", "<p>", Options));
+            }
 
             if (!isEditMode)
             {
@@ -846,9 +851,9 @@ public class BBCode : IBBCode, IHaveServiceLocator
                                      "\n\n",
                                      "<br /><br />",
                                      RegexOptions.IgnoreCase | RegexOptions.Multiline)
-                                     {
-                                         RuleRank = horizontalLineRule.RuleRank + 2
-                                     };
+                {
+                    RuleRank = horizontalLineRule.RuleRank + 2
+                };
 
                 ruleEngine.AddRule(breakRule2);
             }

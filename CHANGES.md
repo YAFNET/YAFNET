@@ -1,6 +1,12 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.2.9
+* [NEW] added support for note bbcode
+* [NEW] added host setting to set the enter mode for editor (line break)
+* redesigned attachment upload/selection dialog
+* bug fixes
+
 # YetAnotherForum.NET v3.2.8
 * [NEW] Board Setting to set the default page size
 * [FIXED #1371] paste from clipboard and drag & drop in the SCEditor

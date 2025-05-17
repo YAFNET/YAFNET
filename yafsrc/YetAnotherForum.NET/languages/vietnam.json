@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "Lượt xem danh sách đại lý người dùng bị cấm"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "Chỉnh sửa các tác nhân người dùng bị cấm"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "Nhập khẩu đại lý người dùng bị cấm"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -990,7 +990,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete attachment(s)?"
+            "#text": "Xóa (các) tệp đính kèm?"
           },
           {
             "@tag": "TITLE",
@@ -1003,35 +1003,35 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "Thêm người dùng mới"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "Không có người dùng"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "Hiện tại không có người dùng bị cấm. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "Nhập (các) người dùng"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "Mặt nạ"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "Người dùng bị cấm đã tồn tại!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "Người dùng đã bị xóa thành công"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "Người dùng bị cấm"
           }
         ]
       },
@@ -1040,23 +1040,23 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "Useragent:"
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "Đại lý người dùng để cấm. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "Bạn phải xác định một tác nhân người dùng."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "Thêm người dùng bị cấm"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "Chỉnh sửa người dùng bị cấm"
           }
         ]
       },
@@ -1065,35 +1065,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Nhập danh sách người dùng"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Danh sách nhập khẩu"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Không nhập khẩu! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Chọn Nhập tệp:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "Phải là *.txt tệp chứa một người dùng trên mỗi dòng"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "Không có gì nhập: Không có người dùng mới nào được tìm thấy trong tải lên."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} Người dùng mới được nhập thành công."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "Nhập (các) người dùng"
           }
         ]
       },
@@ -1106,11 +1106,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "Không có địa chỉ email bị cấm"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "Hiện tại không có địa chỉ email bị cấm. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1229,11 +1229,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "Không có địa chỉ IP bị cấm"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "Hiện tại không có địa chỉ IP bị cấm. "
           },
           {
             "@tag": "EXPORT",
@@ -1372,11 +1372,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "Không có tên bị cấm"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "Hiện tại không có tên người dùng bị cấm. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1608,7 +1608,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "OnClick JS:"
+            "#text": "Onclick JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -1767,11 +1767,11 @@
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
+            "#text": "Kích thước trang mặc định"
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
+            "#text": "Kích thước trang mặc định cho danh sách cho người dùng mới."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -1957,7 +1957,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "Xóa vĩnh viễn diễn đàn này bao gồm tất cả các chủ đề, cuộc thăm dò, đính kèm và thông điệp liên quan đến nó?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -3573,7 +3573,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "Sao chép vào bảng tạm"
           },
           {
             "@tag": "DELETE_ALL",
@@ -4092,7 +4092,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4300,11 +4300,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "Bật trình soạn thảo Wysiwyg"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "Cài đặt để bật/tắt trình soạn thảo WYSIWYG BBCode"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "Biên tập viên vào chế độ"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "Mới"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "Các dòng bị phá vỡ với"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Đặt hành vi của khóa nhập, như liệu"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -4692,7 +4708,7 @@
           },
           {
             "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Log ViewState Exceptions:"
+            "#text": "Nhật ký ViewState Exception:"
           },
           {
             "@tag": "LOG_VIEWSTATEERROR_HELP",
@@ -5076,11 +5092,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "Cuộn đến chưa đọc/Bài đầu tiên"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "Nếu được bật, nó sẽ cuộn vào bài đăng chưa đọc đầu tiên/hoặc bài đăng mới đầu tiên khi mở một chủ đề"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5759,11 +5775,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "Không có huy chương"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "Hiện tại không có huy chương. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5887,11 +5903,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "Không có định nghĩa hồ sơ tùy chỉnh"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "Hiện tại không có định nghĩa hồ sơ tùy chỉnh. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6161,11 +6177,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "Không thay thế từ"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "Hiện tại không có từ thay thế. "
           },
           {
             "@tag": "EXPORT",
@@ -6372,11 +6388,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "Không có thư rác kiểm tra từ"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "Hiện tại không có từ kiểm tra thư rác. "
           },
           {
             "@tag": "EXPORT",
@@ -6512,7 +6528,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Task Manger"
+            "#text": "Nhiệm vụ máng cỏ"
           }
         ]
       },
@@ -6732,7 +6748,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "Người dùng bị cấm"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -7291,7 +7307,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "Yêu cầu kết bạn."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7683,7 +7699,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "Các ký tự còn lại:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7883,7 +7899,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "Chèn phương tiện"
           },
           {
             "@tag": "MENU",
@@ -8035,7 +8051,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "Lựa chọn kích thước trang"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8075,7 +8091,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "Sao chép văn bản đã chọn (Ctrl C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8087,11 +8103,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "Cắt văn bản đã chọn (Ctrl x)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "Sự miêu tả"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8103,11 +8119,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "Nhập mô tả hình ảnh:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "Nhập URL hình ảnh:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8127,19 +8143,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "Dán URL phương tiện vào đầu vào (ví dụ: video YouTube, danh sách phát Spotify hoặc hình ảnh Instagram)."
           },
           {
             "@tag": "TT_NOTE",
-            "#text": "Insert Note"
+            "#text": "Chèn ghi chú"
           },
           {
             "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
+            "#text": "Loại ghi chú"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "Dán (Ctrl V)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8147,15 +8163,15 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "Màu đỏ (ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "Loại bỏ định dạng"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "Chọn tất cả"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8163,15 +8179,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "Hoàn tác (Ctrl Z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "Nhập mô tả URL:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "Nhập URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8281,7 +8297,7 @@
           },
           {
             "@tag": "AF",
-            "#text": "Afganistan"
+            "#text": "Afghanistan"
           },
           {
             "@tag": "AG",
@@ -8317,7 +8333,7 @@
           },
           {
             "@tag": "AS",
-            "#text": "American Samoa"
+            "#text": "Samoa Mỹ"
           },
           {
             "@tag": "AT",
@@ -8369,7 +8385,7 @@
           },
           {
             "@tag": "BJ",
-            "#text": "Benin"
+            "#text": "Bén"
           },
           {
             "@tag": "BM",
@@ -8469,7 +8485,7 @@
           },
           {
             "@tag": "CV",
-            "#text": "Cape Verde"
+            "#text": "Mũi xanh"
           },
           {
             "@tag": "CX",
@@ -8609,7 +8625,7 @@
           },
           {
             "@tag": "GQ",
-            "#text": "Equatorial Guinea"
+            "#text": "Guinea xích đạo"
           },
           {
             "@tag": "GR",
@@ -8757,7 +8773,7 @@
           },
           {
             "@tag": "LC",
-            "#text": "Saint Lucia"
+            "#text": "Thánh Lucia"
           },
           {
             "@tag": "LI",
@@ -8777,7 +8793,7 @@
           },
           {
             "@tag": "LT",
-            "#text": "Lithuania"
+            "#text": "Litva"
           },
           {
             "@tag": "LU",
@@ -8789,7 +8805,7 @@
           },
           {
             "@tag": "LY",
-            "#text": "Libyan Arab Jamahiriya"
+            "#text": "Libya Arab Jamahiriya"
           },
           {
             "@tag": "MA",
@@ -8865,7 +8881,7 @@
           },
           {
             "@tag": "MW",
-            "#text": "Malawi"
+            "#text": "Ma -rốc"
           },
           {
             "@tag": "MX",
@@ -8885,11 +8901,11 @@
           },
           {
             "@tag": "NC",
-            "#text": "New Caledonia"
+            "#text": "Caledonia mới"
           },
           {
             "@tag": "NE",
-            "#text": "Niger"
+            "#text": "Nigeria"
           },
           {
             "@tag": "NF",
@@ -8929,7 +8945,7 @@
           },
           {
             "@tag": "OM",
-            "#text": "Oman"
+            "#text": "Ô -man"
           },
           {
             "@tag": "PA",
@@ -9029,7 +9045,7 @@
           },
           {
             "@tag": "SH",
-            "#text": "St. Helena"
+            "#text": "Thánh Helena"
           },
           {
             "@tag": "SI",
@@ -9892,7 +9908,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
+            "#text": "Chọn chế độ chủ đề:"
           },
           {
             "@tag": "TIMEZONE",
@@ -10137,96 +10153,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Người định tuổi"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Giới tính"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Người chuyển giới"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Từ nữ đến nam"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Giới tính linh hoạt"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Giới tính không phù hợp"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Đặt câu hỏi về giới tính"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Nam sang nữ"
-          },
-          {
             "@tag": "MAN",
             "#text": "Người đàn ông"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "Phi nhị phân"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Khác"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trrans"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Chuyển giới"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Người chuyển giới"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Chuyển đổi giới tính"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Người phụ nữ chuyển giới"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Hai tinh thần"
           },
           {
             "@tag": "WOMAN",
@@ -10589,7 +10521,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
+            "#text": "AOL Messenger tức thời"
           }
         ]
       },
@@ -11017,7 +10949,7 @@
           },
           {
             "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+            "#text": "Yaf.net có quyền truy cập ghi vào"
           },
           {
             "@tag": "PERMISSIONUPLOAD",
@@ -12103,7 +12035,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "Bạn có {0} Tin nhắn riêng: {1} trong hộp thư đến và {2} trong hộp thư đi. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12248,11 +12180,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "Bỏ qua bỏ phiếu"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "Giảng viên đại học"
           },
           {
             "@tag": "POLLHEADER",
@@ -12292,7 +12224,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "Thăm dò ý kiến ​​đã được gỡ bỏ!"
           }
         ]
       },
@@ -12494,7 +12426,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "BLOG"
+            "#text": "Blog"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12590,7 +12522,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "Www"
           },
           {
             "@tag": "HOME_TITLE",
@@ -13286,7 +13218,7 @@
           },
           {
             "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
+            "#text": "Truy xuất mật khẩu cho diễn đàn {0}"
           },
           {
             "@tag": "SUCCESS",
@@ -13311,11 +13243,11 @@
           },
           {
             "@tag": "RGN_CH_AI",
-            "#text": "Appenzell Inner-Rhodes"
+            "#text": "Appenzell bên trong-Rhodes"
           },
           {
             "@tag": "RGN_CH_AR",
-            "#text": "Appenzell Outer-Rhodes"
+            "#text": "Appenzell bên ngoài-RHODES"
           },
           {
             "@tag": "RGN_CH_BE",
@@ -13331,7 +13263,7 @@
           },
           {
             "@tag": "RGN_CH_FR",
-            "#text": "Fribourg"
+            "#text": "Friborg"
           },
           {
             "@tag": "RGN_CH_GE",
@@ -13343,7 +13275,7 @@
           },
           {
             "@tag": "RGN_CH_GR",
-            "#text": "Grisons"
+            "#text": "Xám"
           },
           {
             "@tag": "RGN_CH_JU",
@@ -13355,7 +13287,7 @@
           },
           {
             "@tag": "RGN_CH_NE",
-            "#text": "Neuchâtel"
+            "#text": "Mới"
           },
           {
             "@tag": "RGN_CH_NW",
@@ -13367,7 +13299,7 @@
           },
           {
             "@tag": "RGN_CH_SG",
-            "#text": "St. Gallen"
+            "#text": "Thánh Gallen"
           },
           {
             "@tag": "RGN_CH_SH",
@@ -13432,11 +13364,11 @@
           },
           {
             "@tag": "RGN_DE_BW",
-            "#text": "Baden-Württemberg"
+            "#text": "BADEN-W"
           },
           {
             "@tag": "RGN_DE_HE",
-            "#text": "Hessen"
+            "#text": "Hesse"
           },
           {
             "@tag": "RGN_DE_HH",
@@ -13448,7 +13380,7 @@
           },
           {
             "@tag": "RGN_DE_NI",
-            "#text": "Lower Saxony"
+            "#text": "Sachsen thấp hơn"
           },
           {
             "@tag": "RGN_DE_NRW",
@@ -13485,7 +13417,7 @@
         "Resource": [
           {
             "@tag": "RGN_US_AK",
-            "#text": "Alaska"
+            "#text": "Xuống"
           },
           {
             "@tag": "RGN_US_AL",
@@ -13493,11 +13425,11 @@
           },
           {
             "@tag": "RGN_US_AR",
-            "#text": "Arkansas"
+            "#text": "Arkansa"
           },
           {
             "@tag": "RGN_US_AS",
-            "#text": "American Samoa"
+            "#text": "Samoa Mỹ"
           },
           {
             "@tag": "RGN_US_AZ",
@@ -13521,7 +13453,7 @@
           },
           {
             "@tag": "RGN_US_DE",
-            "#text": "Delaware"
+            "#text": "Del biết"
           },
           {
             "@tag": "RGN_US_FL",
@@ -13641,7 +13573,7 @@
           },
           {
             "@tag": "RGN_US_OK",
-            "#text": "Oklahoma"
+            "#text": "Oklahola"
           },
           {
             "@tag": "RGN_US_OR",
@@ -13705,7 +13637,7 @@
           },
           {
             "@tag": "RGN_US_WY",
-            "#text": "Wyoming"
+            "#text": "Kazakhstan"
           }
         ]
       },
@@ -14492,15 +14424,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Auto"
+            "#text": "Tự động"
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "Tối tăm"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "Ánh sáng"
           }
         ]
       },

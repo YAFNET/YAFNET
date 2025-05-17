@@ -6,10 +6,9 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v9.0": {
-      "YAFNET.LanguageManager/1.0.3": {
+      "YAFNET.LanguageManager/1.0.4": {
         "dependencies": {
           "DeepL.net": "1.15.0",
-          "Google.Cloud.Translate.V3": "3.9.0",
           "Newtonsoft.Json": "13.0.3",
           "Nito.AsyncEx": "5.1.2",
           "SonarAnalyzer.CSharp": "10.9.0.115408"
@@ -30,191 +29,9 @@
           }
         }
       },
-      "Google.Api.CommonProtos/2.16.0": {
-        "dependencies": {
-          "Google.Protobuf": "3.28.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Google.Api.CommonProtos.dll": {
-            "assemblyVersion": "2.16.0.0",
-            "fileVersion": "2.16.0.0"
-          }
-        }
-      },
-      "Google.Api.Gax/4.9.0": {
-        "dependencies": {
-          "Microsoft.Bcl.AsyncInterfaces": "6.0.0",
-          "Newtonsoft.Json": "13.0.3",
-          "System.Diagnostics.DiagnosticSource": "6.0.1"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Google.Api.Gax.dll": {
-            "assemblyVersion": "4.9.0.0",
-            "fileVersion": "4.9.0.0"
-          }
-        }
-      },
-      "Google.Api.Gax.Grpc/4.9.0": {
-        "dependencies": {
-          "Google.Api.CommonProtos": "2.16.0",
-          "Google.Api.Gax": "4.9.0",
-          "Google.Apis.Auth": "1.68.0",
-          "Grpc.Auth": "2.66.0",
-          "Grpc.Core.Api": "2.66.0",
-          "Grpc.Net.Client": "2.66.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Google.Api.Gax.Grpc.dll": {
-            "assemblyVersion": "4.9.0.0",
-            "fileVersion": "4.9.0.0"
-          }
-        }
-      },
-      "Google.Apis/1.68.0": {
-        "dependencies": {
-          "Google.Apis.Core": "1.68.0"
-        },
-        "runtime": {
-          "lib/net6.0/Google.Apis.dll": {
-            "assemblyVersion": "1.68.0.0",
-            "fileVersion": "1.68.0.0"
-          }
-        }
-      },
-      "Google.Apis.Auth/1.68.0": {
-        "dependencies": {
-          "Google.Apis": "1.68.0",
-          "Google.Apis.Core": "1.68.0",
-          "System.Management": "7.0.2"
-        },
-        "runtime": {
-          "lib/net6.0/Google.Apis.Auth.dll": {
-            "assemblyVersion": "1.68.0.0",
-            "fileVersion": "1.68.0.0"
-          }
-        }
-      },
-      "Google.Apis.Core/1.68.0": {
-        "dependencies": {
-          "Newtonsoft.Json": "13.0.3"
-        },
-        "runtime": {
-          "lib/net6.0/Google.Apis.Core.dll": {
-            "assemblyVersion": "1.68.0.0",
-            "fileVersion": "1.68.0.0"
-          }
-        }
-      },
-      "Google.Cloud.Iam.V1/3.3.0": {
-        "dependencies": {
-          "Google.Api.Gax.Grpc": "4.9.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Google.Cloud.Iam.V1.dll": {
-            "assemblyVersion": "3.3.0.0",
-            "fileVersion": "3.3.0.0"
-          }
-        }
-      },
-      "Google.Cloud.Location/2.3.0": {
-        "dependencies": {
-          "Google.Api.Gax.Grpc": "4.9.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Google.Cloud.Location.dll": {
-            "assemblyVersion": "2.3.0.0",
-            "fileVersion": "2.3.0.0"
-          }
-        }
-      },
-      "Google.Cloud.Translate.V3/3.9.0": {
-        "dependencies": {
-          "Google.Api.Gax.Grpc": "4.9.0",
-          "Google.Cloud.Iam.V1": "3.3.0",
-          "Google.Cloud.Location": "2.3.0",
-          "Google.LongRunning": "3.3.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Google.Cloud.Translate.V3.dll": {
-            "assemblyVersion": "3.9.0.0",
-            "fileVersion": "3.9.0.0"
-          }
-        }
-      },
-      "Google.LongRunning/3.3.0": {
-        "dependencies": {
-          "Google.Api.Gax.Grpc": "4.9.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Google.LongRunning.dll": {
-            "assemblyVersion": "3.3.0.0",
-            "fileVersion": "3.3.0.0"
-          }
-        }
-      },
-      "Google.Protobuf/3.28.2": {
-        "runtime": {
-          "lib/net5.0/Google.Protobuf.dll": {
-            "assemblyVersion": "3.28.2.0",
-            "fileVersion": "3.28.2.0"
-          }
-        }
-      },
-      "Grpc.Auth/2.66.0": {
-        "dependencies": {
-          "Google.Apis.Auth": "1.68.0",
-          "Grpc.Core.Api": "2.66.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Grpc.Auth.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.66.0.0"
-          }
-        }
-      },
-      "Grpc.Core.Api/2.66.0": {
-        "runtime": {
-          "lib/netstandard2.1/Grpc.Core.Api.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.66.0.0"
-          }
-        }
-      },
-      "Grpc.Net.Client/2.66.0": {
-        "dependencies": {
-          "Grpc.Net.Common": "2.66.0",
-          "Microsoft.Extensions.Logging.Abstractions": "6.0.0"
-        },
-        "runtime": {
-          "lib/net8.0/Grpc.Net.Client.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.66.0.0"
-          }
-        }
-      },
-      "Grpc.Net.Common/2.66.0": {
-        "dependencies": {
-          "Grpc.Core.Api": "2.66.0"
-        },
-        "runtime": {
-          "lib/net8.0/Grpc.Net.Common.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.66.0.0"
-          }
-        }
-      },
-      "Microsoft.Bcl.AsyncInterfaces/6.0.0": {
-        "runtime": {
-          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
-            "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.21.52210"
-          }
-        }
-      },
       "Microsoft.Extensions.DependencyInjection/5.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0"
         },
         "runtime": {
           "lib/net5.0/Microsoft.Extensions.DependencyInjection.dll": {
@@ -223,19 +40,19 @@
           }
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/6.0.0": {
+      "Microsoft.Extensions.DependencyInjection.Abstractions/5.0.0": {
         "runtime": {
-          "lib/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
-            "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.21.52210"
+          "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
           }
         }
       },
       "Microsoft.Extensions.Http/5.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0",
           "Microsoft.Extensions.Logging": "5.0.0",
-          "Microsoft.Extensions.Logging.Abstractions": "6.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "5.0.0",
           "Microsoft.Extensions.Options": "5.0.0"
         },
         "runtime": {
@@ -261,8 +78,8 @@
       "Microsoft.Extensions.Logging/5.0.0": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "5.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
-          "Microsoft.Extensions.Logging.Abstractions": "6.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "5.0.0",
           "Microsoft.Extensions.Options": "5.0.0"
         },
         "runtime": {
@@ -272,17 +89,17 @@
           }
         }
       },
-      "Microsoft.Extensions.Logging.Abstractions/6.0.0": {
+      "Microsoft.Extensions.Logging.Abstractions/5.0.0": {
         "runtime": {
-          "lib/net6.0/Microsoft.Extensions.Logging.Abstractions.dll": {
-            "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.21.52210"
+          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
           }
         }
       },
       "Microsoft.Extensions.Options/5.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0",
           "Microsoft.Extensions.Primitives": "5.0.0"
         },
         "runtime": {
@@ -424,45 +241,12 @@
         }
       },
       "SonarAnalyzer.CSharp/10.9.0.115408": {},
-      "System.CodeDom/7.0.0": {
-        "runtime": {
-          "lib/net7.0/System.CodeDom.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.51805"
-          }
-        }
-      },
       "System.Collections.Immutable/1.7.1": {},
-      "System.Diagnostics.DiagnosticSource/6.0.1": {
-        "dependencies": {
-          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
-        }
-      },
-      "System.Management/7.0.2": {
-        "dependencies": {
-          "System.CodeDom": "7.0.0"
-        },
-        "runtime": {
-          "lib/net7.0/System.Management.dll": {
-            "assemblyVersion": "7.0.0.2",
-            "fileVersion": "7.0.723.27404"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/win/lib/net7.0/System.Management.dll": {
-            "rid": "win",
-            "assetType": "runtime",
-            "assemblyVersion": "7.0.0.2",
-            "fileVersion": "7.0.723.27404"
-          }
-        }
-      },
-      "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
       "System.Text.Json/5.0.2": {}
     }
   },
   "libraries": {
-    "YAFNET.LanguageManager/1.0.3": {
+    "YAFNET.LanguageManager/1.0.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -474,118 +258,6 @@
       "path": "deepl.net/1.15.0",
       "hashPath": "deepl.net.1.15.0.nupkg.sha512"
     },
-    "Google.Api.CommonProtos/2.16.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-37MuZrE9AAqHAdYgFLoTHydAiXDRriQZGVKEg6fr6ASnrY5GtauYXnQrGk5x2K3NmYzEXe+wkpaPVmxjb3NKjg==",
-      "path": "google.api.commonprotos/2.16.0",
-      "hashPath": "google.api.commonprotos.2.16.0.nupkg.sha512"
-    },
-    "Google.Api.Gax/4.9.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-fjHHYcQ99u0ztqwT537rvVtJMdDy6G2VHBZ+F1cBjDGYNVZfrpk40DMQ/OpUGToT9ZGHVirhh3eJ73bw2ANVPQ==",
-      "path": "google.api.gax/4.9.0",
-      "hashPath": "google.api.gax.4.9.0.nupkg.sha512"
-    },
-    "Google.Api.Gax.Grpc/4.9.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ToCx/0cs+wJ9j7vzKRcPAKneJVZrz/s9JhW9QsFx1dar9WzTxawQZ8xTjyieSy8tY0UiYCL1qYkn/iRrklYnSA==",
-      "path": "google.api.gax.grpc/4.9.0",
-      "hashPath": "google.api.gax.grpc.4.9.0.nupkg.sha512"
-    },
-    "Google.Apis/1.68.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-s2MymhdpH+ybZNBeZ2J5uFgFHApBp+QXf9FjZSdM1lk/vx5VqIknJwnaWiuAzXxPrLEkesX0Q+UsiWn39yZ9zw==",
-      "path": "google.apis/1.68.0",
-      "hashPath": "google.apis.1.68.0.nupkg.sha512"
-    },
-    "Google.Apis.Auth/1.68.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-hFx8Qz5bZ4w0hpnn4tSmZaaFpjAMsgVElZ+ZgVLUZ2r9i+AKcoVgwiNfv1pruNS5cCvpXqhKECbruBCfRezPHA==",
-      "path": "google.apis.auth/1.68.0",
-      "hashPath": "google.apis.auth.1.68.0.nupkg.sha512"
-    },
-    "Google.Apis.Core/1.68.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-pAqwa6pfu53UXCR2b7A/PAPXeuVg6L1OFw38WckN27NU2+mf+KTjoEg2YGv/f0UyKxzz7DxF1urOTKg/6dTP9g==",
-      "path": "google.apis.core/1.68.0",
-      "hashPath": "google.apis.core.1.68.0.nupkg.sha512"
-    },
-    "Google.Cloud.Iam.V1/3.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-HNPUaTwVTUQuiWjllxCzTjGjM6wL5LYhny81sdRbRTdzSUTmV5pMQHqz4L3moaApXxZuFlhpFvHXhMJBLKYTkQ==",
-      "path": "google.cloud.iam.v1/3.3.0",
-      "hashPath": "google.cloud.iam.v1.3.3.0.nupkg.sha512"
-    },
-    "Google.Cloud.Location/2.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ABQ4EM7FsOM7tx0cmlkZmHFqH1LeCf4teWPM26UT7mZJzlH4Pk8HUcyi/xEFe3l6LanNFCTHbKT+eOlQ/axkJg==",
-      "path": "google.cloud.location/2.3.0",
-      "hashPath": "google.cloud.location.2.3.0.nupkg.sha512"
-    },
-    "Google.Cloud.Translate.V3/3.9.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-UnlA2HZUhQhEDS6oMfZC9o4xaB9iowzHFQFLLIcsKqz9d6rouoAI1zyWolddRNUKwx3q4SZ+3v8GtDb6QLvd8A==",
-      "path": "google.cloud.translate.v3/3.9.0",
-      "hashPath": "google.cloud.translate.v3.3.9.0.nupkg.sha512"
-    },
-    "Google.LongRunning/3.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-F2SZ83Jo466Wj/s1Z7QhIAmWBXxJZQyXZpcx0P8BR7d6s0FAj67vQjeUPESSJcvsy8AqYiYBhkUr2YpZhTQeHg==",
-      "path": "google.longrunning/3.3.0",
-      "hashPath": "google.longrunning.3.3.0.nupkg.sha512"
-    },
-    "Google.Protobuf/3.28.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Z86ZKAB+v1B/m0LTM+EVamvZlYw/g3VND3/Gs4M/+aDIxa2JE9YPKjDxTpf0gv2sh26hrve3eI03brxBmzn92g==",
-      "path": "google.protobuf/3.28.2",
-      "hashPath": "google.protobuf.3.28.2.nupkg.sha512"
-    },
-    "Grpc.Auth/2.66.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-FRQlhMAcHf0GjAXIfhN6RydfZncLLXNNTOtpLL1bt57kp59vu40faW+dr6Vwl7ef/IUFfF38aiB5jvhAA/9Aow==",
-      "path": "grpc.auth/2.66.0",
-      "hashPath": "grpc.auth.2.66.0.nupkg.sha512"
-    },
-    "Grpc.Core.Api/2.66.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-HsjsQVAHe4hqP4t4rpUnmq+MZvPdyrlPsWF4T5fbMvyP3o/lMV+KVJfDlaNH8+v0aGQTVT3EsDFufbhaWb52cw==",
-      "path": "grpc.core.api/2.66.0",
-      "hashPath": "grpc.core.api.2.66.0.nupkg.sha512"
-    },
-    "Grpc.Net.Client/2.66.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-GwkSsssXFgN9+M2U+UQWdErf61sn1iqgP+2NRBlDXATcP9vlxda0wySxd/eIL8U522+SnyFNUXlvQ5tAzGk9cA==",
-      "path": "grpc.net.client/2.66.0",
-      "hashPath": "grpc.net.client.2.66.0.nupkg.sha512"
-    },
-    "Grpc.Net.Common/2.66.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-YJpQpIvpo0HKlsG6SHwaieyji08qfv0DdEDIewCAA0egQY08637sHOj1netLGUhzBEsCqlGC3e92TZ2uqhxnvw==",
-      "path": "grpc.net.common/2.66.0",
-      "hashPath": "grpc.net.common.2.66.0.nupkg.sha512"
-    },
-    "Microsoft.Bcl.AsyncInterfaces/6.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-UcSjPsst+DfAdJGVDsu346FX0ci0ah+lw3WRtn18NUwEqRt70HaOQ7lI72vy3+1LxtqI3T5GWwV39rQSrCzAeg==",
-      "path": "microsoft.bcl.asyncinterfaces/6.0.0",
-      "hashPath": "microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512"
-    },
     "Microsoft.Extensions.DependencyInjection/5.0.0": {
       "type": "package",
       "serviceable": true,
@@ -593,12 +265,12 @@
       "path": "microsoft.extensions.dependencyinjection/5.0.0",
       "hashPath": "microsoft.extensions.dependencyinjection.5.0.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.DependencyInjection.Abstractions/6.0.0": {
+    "Microsoft.Extensions.DependencyInjection.Abstractions/5.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-xlzi2IYREJH3/m6+lUrQlujzX8wDitm4QGnUu6kUXTQAWPuZY8i+ticFJbzfqaetLA6KR/rO6Ew/HuYD+bxifg==",
-      "path": "microsoft.extensions.dependencyinjection.abstractions/6.0.0",
-      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512"
+      "sha512": "sha512-ORj7Zh81gC69TyvmcUm9tSzytcy8AVousi+IVRAI8nLieQjOFryRusSFh7+aLk16FN9pQNqJAiMd7BTKINK0kA==",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/5.0.0",
+      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Http/5.0.0": {
       "type": "package",
@@ -621,12 +293,12 @@
       "path": "microsoft.extensions.logging/5.0.0",
       "hashPath": "microsoft.extensions.logging.5.0.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Logging.Abstractions/6.0.0": {
+    "Microsoft.Extensions.Logging.Abstractions/5.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/HggWBbTwy8TgebGSX5DBZ24ndhzi93sHUBDvP1IxbZD7FDokYzdAr6+vbWGjw2XAfR2EJ1sfKUotpjHnFWPxA==",
-      "path": "microsoft.extensions.logging.abstractions/6.0.0",
-      "hashPath": "microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512"
+      "sha512": "sha512-NxP6ahFcBnnSfwNBi2KH2Oz8Xl5Sm2krjId/jRR3I7teFphwiUoUeZPwTNA21EX+5PtjqmyAvKaOeBXcJjcH/w==",
+      "path": "microsoft.extensions.logging.abstractions/5.0.0",
+      "hashPath": "microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Options/5.0.0": {
       "type": "package",
@@ -733,40 +405,12 @@
       "path": "sonaranalyzer.csharp/10.9.0.115408",
       "hashPath": "sonaranalyzer.csharp.10.9.0.115408.nupkg.sha512"
     },
-    "System.CodeDom/7.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-GLltyqEsE5/3IE+zYRP5sNa1l44qKl9v+bfdMcwg+M9qnQf47wK3H0SUR/T+3N4JEQXF3vV4CSuuo0rsg+nq2A==",
-      "path": "system.codedom/7.0.0",
-      "hashPath": "system.codedom.7.0.0.nupkg.sha512"
-    },
     "System.Collections.Immutable/1.7.1": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-B43Zsz5EfMwyEbnObwRxW5u85fzJma3lrDeGcSAV1qkhSRTNY5uXAByTn9h9ddNdhM+4/YoLc/CI43umjwIl9Q==",
       "path": "system.collections.immutable/1.7.1",
       "hashPath": "system.collections.immutable.1.7.1.nupkg.sha512"
-    },
-    "System.Diagnostics.DiagnosticSource/6.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-KiLYDu2k2J82Q9BJpWiuQqCkFjRBWVq4jDzKKWawVi9KWzyD0XG3cmfX0vqTQlL14Wi9EufJrbL0+KCLTbqWiQ==",
-      "path": "system.diagnostics.diagnosticsource/6.0.1",
-      "hashPath": "system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512"
-    },
-    "System.Management/7.0.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-/qEUN91mP/MUQmJnM5y5BdT7ZoPuVrtxnFlbJ8a3kBJGhe2wCzBfnPFtK2wTtEEcf3DMGR9J00GZZfg6HRI6yA==",
-      "path": "system.management/7.0.2",
-      "hashPath": "system.management.7.0.2.nupkg.sha512"
-    },
-    "System.Runtime.CompilerServices.Unsafe/6.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
-      "path": "system.runtime.compilerservices.unsafe/6.0.0",
-      "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
     },
     "System.Text.Json/5.0.2": {
       "type": "package",

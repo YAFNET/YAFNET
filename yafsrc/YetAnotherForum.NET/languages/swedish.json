@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "Visningar förbjudna användaragenter"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "Redigeringar förbjudna användaragenter"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "Importerar förbjudna användaragenter"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -990,7 +990,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete attachment(s)?"
+            "#text": "Radera bilagor?"
           },
           {
             "@tag": "TITLE",
@@ -1003,19 +1003,19 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "Lägg till nytt användaragent"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "Inga användare"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "För närvarande finns det ingen förbjuden användare. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "Importera användaragent"
           },
           {
             "@tag": "MASK",
@@ -1023,15 +1023,15 @@
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "Den förbjudna användaren finns redan!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "Användaren raderades framgångsrikt"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "Förbjuden användare"
           }
         ]
       },
@@ -1040,23 +1040,23 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "Användaragent:"
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "Användaragenten att förbjuda. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "Du måste definiera en användaragent."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "Lägg till förbjudet användare"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "Redigera förbjuden användare"
           }
         ]
       },
@@ -1065,35 +1065,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Importera användarlista"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Importlista"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Misslyckades med att importera! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Välj Importera fil:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "Måste vara *.txt -fil som innehåller en användaragent på varje rad"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "Ingenting importerat: Ingen ny användaragent hittades i uppladdningen."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} Nya användaragent (er) importerade framgångsrikt."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "Importera användaragent"
           }
         ]
       },
@@ -1106,11 +1106,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "Inga förbjudna e -postadresser"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "För närvarande finns det inga förbjudna e -postadresser. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1229,11 +1229,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "Inga förbjudna IP -adresser"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "För närvarande finns det inga förbjudna IP -adresser. "
           },
           {
             "@tag": "EXPORT",
@@ -1372,11 +1372,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "Inga förbjudna namn"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "För närvarande finns det inga förbjudna användarnamn. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1702,7 +1702,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "ID"
+            "#text": "Id"
           },
           {
             "@tag": "NAME",
@@ -1767,11 +1767,11 @@
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
+            "#text": "Standardsidor"
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
+            "#text": "Standardsidstorleken för listor för nya användare."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -1957,7 +1957,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "Ta bort detta forum permanent inklusive alla ämnen, omröstningar, bilagor och meddelanden som är associerade med det?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -2248,7 +2248,7 @@
           },
           {
             "@tag": "POST_ACCESS",
-            "#text": "Post Access"
+            "#text": "Åtkomst till"
           },
           {
             "@tag": "POST_ACCESS_HELP",
@@ -3573,7 +3573,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "Kopiera till Urklipp"
           },
           {
             "@tag": "DELETE_ALL",
@@ -4092,7 +4092,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4300,11 +4300,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "Aktivera WYSIWYG -redaktör"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "Inställning för att aktivera/inaktivera WYSIWYG BBCode Editor"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "Editor Enter Mode"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "Ny"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "Linjer är trasiga med"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Ställer in beteendet på Enter -tangenten, som om"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -5076,11 +5092,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "Bläddra till olästa/första inlägget"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "Om det är aktiverat rullar det till det första olästa inlägget/eller första nya inlägget när du öppnar ett ämne"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5436,7 +5452,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "BlogSpam.NET API"
+            "#text": "Blogspam.net API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -5759,11 +5775,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "Inga medaljer"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "För närvarande finns det inga medaljer. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5887,11 +5903,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "Inga anpassade profildefinitioner"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "För närvarande finns det inga anpassade profildefinitioner. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6161,11 +6177,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "Inga ersätt ord"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "För närvarande finns det inga ersättningsord. "
           },
           {
             "@tag": "EXPORT",
@@ -6372,11 +6388,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "Inga skräppostkontrollord"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "För närvarande finns det inga skräppostkontrollord. "
           },
           {
             "@tag": "EXPORT",
@@ -6732,7 +6748,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "Förbjudna användare"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -7291,7 +7307,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "Vänförfrågan tas bort."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7683,7 +7699,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "Karaktärer kvar:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7883,7 +7899,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "Infoga media"
           },
           {
             "@tag": "MENU",
@@ -8035,7 +8051,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "Sidstorleksval"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8075,7 +8091,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "Kopiera den valda texten (CTRL C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8087,11 +8103,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "Klipp ut den valda texten (Ctrl x)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "Beskrivning"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8103,11 +8119,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "Ange bildbeskrivning:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "Ange bild URL:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8127,19 +8143,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "Klistra in mediadressen i ingången (till exempel en YouTube -video, Spotify -spellista eller Instagram -bild)."
           },
           {
             "@tag": "TT_NOTE",
-            "#text": "Insert Note"
+            "#text": "Infoga"
           },
           {
             "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
+            "#text": "Anmärkningstyp"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "Klistra in (Ctrl V)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8147,15 +8163,15 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "Röd (ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "Ta bort formatet"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "Välj alla"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8163,15 +8179,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "Ångra (Ctrl Z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "Ange URL -beskrivning:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "Ange URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8329,7 +8345,7 @@
           },
           {
             "@tag": "AW",
-            "#text": "Aruba"
+            "#text": "Araba"
           },
           {
             "@tag": "AZ",
@@ -8409,7 +8425,7 @@
           },
           {
             "@tag": "BZ",
-            "#text": "Belize"
+            "#text": "Belisera"
           },
           {
             "@tag": "CA",
@@ -8573,7 +8589,7 @@
           },
           {
             "@tag": "GD",
-            "#text": "Grenada"
+            "#text": "Grenad"
           },
           {
             "@tag": "GE",
@@ -8629,7 +8645,7 @@
           },
           {
             "@tag": "GW",
-            "#text": "Guinea-Bissau"
+            "#text": "Guinea-bissau"
           },
           {
             "@tag": "GY",
@@ -8645,7 +8661,7 @@
           },
           {
             "@tag": "HN",
-            "#text": "Honduras"
+            "#text": "Honduror"
           },
           {
             "@tag": "HR",
@@ -8757,7 +8773,7 @@
           },
           {
             "@tag": "LC",
-            "#text": "Saint Lucia"
+            "#text": "Helgon"
           },
           {
             "@tag": "LI",
@@ -8765,7 +8781,7 @@
           },
           {
             "@tag": "LK",
-            "#text": "Sri Lanka"
+            "#text": "Sri lanka"
           },
           {
             "@tag": "LR",
@@ -9073,7 +9089,7 @@
           },
           {
             "@tag": "SV",
-            "#text": "El Salvador"
+            "#text": "Elsalvador"
           },
           {
             "@tag": "SY",
@@ -9097,7 +9113,7 @@
           },
           {
             "@tag": "TG",
-            "#text": "Togo"
+            "#text": "Stam"
           },
           {
             "@tag": "TH",
@@ -9892,7 +9908,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
+            "#text": "Välj temaläge:"
           },
           {
             "@tag": "TIMEZONE",
@@ -10137,96 +10153,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyn"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Kvinnlig till manlig"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Flytande könstillhörighet"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Könsöverskridande"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Frågor om könstillhörighet"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Man till kvinna"
-          },
-          {
             "@tag": "MAN",
             "#text": "Man"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "Icke-binär"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Övriga"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trrans"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminin"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transpersoner"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Transsexuell man"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmaskulin"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transsexuell"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Transsexuell kvinna"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Två andar"
           },
           {
             "@tag": "WOMAN",
@@ -10639,7 +10571,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "XMPP Messenger"
+            "#text": "Xmpp messenger"
           }
         ]
       },
@@ -10905,7 +10837,7 @@
           },
           {
             "@tag": "FORUMURL",
-            "#text": "Forum Base Url Mask"
+            "#text": "Forumbasadress"
           },
           {
             "@tag": "FROMEMAIL",
@@ -11017,7 +10949,7 @@
           },
           {
             "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+            "#text": "Yaf.net har skrivåtkomst till"
           },
           {
             "@tag": "PERMISSIONUPLOAD",
@@ -12103,7 +12035,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "Du har {0} privata meddelanden: {1} i inkorgen och {2} i outbox. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12248,11 +12180,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "Omröstning"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "Don"
           },
           {
             "@tag": "POLLHEADER",
@@ -12292,7 +12224,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "Undersökning togs bort!"
           }
         ]
       },
@@ -12590,7 +12522,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "Www"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12642,7 +12574,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "IP"
+            "#text": "Pruta"
           },
           {
             "@tag": "JOINED",
@@ -12718,7 +12650,7 @@
           },
           {
             "@tag": "PM",
-            "#text": "PM"
+            "#text": "Pm"
           },
           {
             "@tag": "PM_TITLE",
@@ -12986,7 +12918,7 @@
           },
           {
             "@tag": "XMPP",
-            "#text": "XMPP"
+            "#text": "Xmpp"
           },
           {
             "@tag": "XMPP_TITLE",
@@ -13286,7 +13218,7 @@
           },
           {
             "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
+            "#text": "Lösenordshämtning för {0} Forum"
           },
           {
             "@tag": "SUCCESS",
@@ -13331,7 +13263,7 @@
           },
           {
             "@tag": "RGN_CH_FR",
-            "#text": "Fribourg"
+            "#text": "Frisk"
           },
           {
             "@tag": "RGN_CH_GE",
@@ -13355,7 +13287,7 @@
           },
           {
             "@tag": "RGN_CH_NE",
-            "#text": "Neuchâtel"
+            "#text": "Ny"
           },
           {
             "@tag": "RGN_CH_NW",
@@ -13375,7 +13307,7 @@
           },
           {
             "@tag": "RGN_CH_SO",
-            "#text": "Solothurn"
+            "#text": "Soloturn"
           },
           {
             "@tag": "RGN_CH_SZ",
@@ -13403,7 +13335,7 @@
           },
           {
             "@tag": "RGN_CH_ZG",
-            "#text": "Zug"
+            "#text": "Frodig"
           },
           {
             "@tag": "RGN_CH_ZH",
@@ -13420,7 +13352,7 @@
           },
           {
             "@tag": "RGN_DE_BB",
-            "#text": "Brandenburg"
+            "#text": "Barnaburg"
           },
           {
             "@tag": "RGN_DE_BER",
@@ -13432,11 +13364,11 @@
           },
           {
             "@tag": "RGN_DE_BW",
-            "#text": "Baden-Württemberg"
+            "#text": "Baden-W"
           },
           {
             "@tag": "RGN_DE_HE",
-            "#text": "Hessen"
+            "#text": "Hesse"
           },
           {
             "@tag": "RGN_DE_HH",
@@ -13444,7 +13376,7 @@
           },
           {
             "@tag": "RGN_DE_MV",
-            "#text": "Mecklenburg-Vorpommern"
+            "#text": "Mecklenburg-vorpommern"
           },
           {
             "@tag": "RGN_DE_NI",
@@ -13485,15 +13417,15 @@
         "Resource": [
           {
             "@tag": "RGN_US_AK",
-            "#text": "Alaska"
+            "#text": "Ner"
           },
           {
             "@tag": "RGN_US_AL",
-            "#text": "Alabama"
+            "#text": "Albama"
           },
           {
             "@tag": "RGN_US_AR",
-            "#text": "Arkansas"
+            "#text": "Arkansa"
           },
           {
             "@tag": "RGN_US_AS",
@@ -13517,11 +13449,11 @@
           },
           {
             "@tag": "RGN_US_DC",
-            "#text": "District of Columbia"
+            "#text": "Columbia distrikt"
           },
           {
             "@tag": "RGN_US_DE",
-            "#text": "Delaware"
+            "#text": "Lysande"
           },
           {
             "@tag": "RGN_US_FL",
@@ -13545,7 +13477,7 @@
           },
           {
             "@tag": "RGN_US_ID",
-            "#text": "Idaho"
+            "#text": "Pikett"
           },
           {
             "@tag": "RGN_US_IL",
@@ -13553,7 +13485,7 @@
           },
           {
             "@tag": "RGN_US_IN",
-            "#text": "Indiana"
+            "#text": "Indian"
           },
           {
             "@tag": "RGN_US_KS",
@@ -13621,7 +13553,7 @@
           },
           {
             "@tag": "RGN_US_NJ",
-            "#text": "New Jersey"
+            "#text": "Nyttröja"
           },
           {
             "@tag": "RGN_US_NM",
@@ -13641,7 +13573,7 @@
           },
           {
             "@tag": "RGN_US_OK",
-            "#text": "Oklahoma"
+            "#text": "Oklahola"
           },
           {
             "@tag": "RGN_US_OR",
@@ -13665,7 +13597,7 @@
           },
           {
             "@tag": "RGN_US_SD",
-            "#text": "South Dakota"
+            "#text": "Södra dakota"
           },
           {
             "@tag": "RGN_US_TN",
@@ -14492,15 +14424,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Auto"
+            "#text": "Bil"
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "Mörk"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "Ljus"
           }
         ]
       },

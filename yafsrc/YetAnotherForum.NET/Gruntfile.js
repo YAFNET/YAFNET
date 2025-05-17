@@ -156,10 +156,14 @@ module.exports = function(grunt) {
             syncLanguages: {
                 command: [
                     '@echo off',
-                    'cd ..\\Tools\\LanguageManager\\',
-                    'echo update languages',
-                    'SyncLangtoEnglish'
+                    '..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\languages\\ -sync'
                 ].join('&&')
+            },
+            translateLanguages: {
+	            command: [
+		            '@echo off',
+		            '..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\languages\\ -translateGoogle'
+	            ].join('&&')
             },
             emailTemplates: {
                 command: [
@@ -694,6 +698,11 @@ module.exports = function(grunt) {
         [
             'shell:syncLanguages'
         ]);
+
+    grunt.registerTask('translateLanguages',
+	    [
+		    'shell:translateLanguages'
+	    ]);
 
     grunt.registerTask('updateBootstrap',
         [

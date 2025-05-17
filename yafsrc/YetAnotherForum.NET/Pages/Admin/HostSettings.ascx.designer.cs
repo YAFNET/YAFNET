@@ -465,6 +465,24 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox EnableWysiwygEditor;
 
         /// <summary>
+        /// HelpLabel47 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel47;
+
+        /// <summary>
+        /// EditorEnterMode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList EditorEnterMode;
+
+        /// <summary>
         /// HelpLabel5 control.
         /// </summary>
         /// <remarks>

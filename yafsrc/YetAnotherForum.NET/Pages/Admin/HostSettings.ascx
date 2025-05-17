@@ -266,6 +266,14 @@
                                         <asp:CheckBox Text="&nbsp;" ID="EnableWysiwygEditor" runat="server"></asp:CheckBox>
                                     </div>
                                 </div>
+	                            <div class="mb-3 col-md-6">
+		                            <YAF:HelpLabel ID="HelpLabel47" runat="server"
+		                                           AssociatedControlID="EditorEnterMode"
+		                                           LocalizedTag="ENTER_MODE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+		                            <asp:DropDownList CssClass="form-select" ID="EditorEnterMode" runat="server">
+		                            </asp:DropDownList>
+	                            </div>
+                            </div>
                                 <div class="mb-3 col-md-6">
                                     <YAF:HelpLabel ID="HelpLabel5" runat="server"
                                                    AssociatedControlID="UseFileTable"

@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "תצוגות רשימת סוכני משתמש אסורים"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "עריכה סוכני משתמש אסורים"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "יבוא סוכני משתמש אסורים"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -990,7 +990,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete attachment(s)?"
+            "#text": "למחוק קובץ מצורף?"
           },
           {
             "@tag": "TITLE",
@@ -1003,35 +1003,35 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "הוסף useragent חדש"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "אין תושבי משתמש"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "נכון לעכשיו אין Useregent אסור. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "ייבא useragent (ים)"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "מַסֵכָה"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "ה- Useragent האסור כבר קיים!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "המשתמש נמחק בהצלחה"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "אסור על useragent"
           }
         ]
       },
@@ -1040,23 +1040,23 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "Useragent:"
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "סוכן המשתמש לאסור. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "עליך להגדיר סוכן משתמש."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "הוסף UserAgent אסור"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "ערוך אסור על UserAgent"
           }
         ]
       },
@@ -1065,35 +1065,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "ייבא רשימת useragent"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "רשימת יבוא"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "ייבוא ​​נכשל! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "בחר יבוא קובץ:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "חייב להיות *קובץ .txt המכיל useragent אחד בכל שורה"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "שום דבר לא מיובא: לא נמצא שום משתמש חדש בהעלאה."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} userAgent (ים) חדשים מיובאים בהצלחה."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "ייבא useragent (ים)"
           }
         ]
       },
@@ -1106,11 +1106,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "אין כתובות דוא\"ל אסורות"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "נכון לעכשיו אין כתובות דוא\"ל אסורות. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1229,11 +1229,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "אין כתובות IP אסורות"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "נכון לעכשיו אין כתובות IP אסורות. "
           },
           {
             "@tag": "EXPORT",
@@ -1372,11 +1372,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "אין שמות אסורים"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "נכון לעכשיו אין שמות משתמשים אסורים. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1608,7 +1608,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "OnClick JS:"
+            "#text": "Onclick JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -1767,11 +1767,11 @@
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
+            "#text": "גודל עמוד ברירת מחדל"
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
+            "#text": "גודל עמוד ברירת המחדל לרשימות למשתמשים חדשים."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -1957,7 +1957,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "מחק לצמיתות פורום זה כולל כל הנושאים, הסקרים, הקבצים המצורפים וההודעות הקשורים אליו?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -3573,7 +3573,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "העתק ללוח"
           },
           {
             "@tag": "DELETE_ALL",
@@ -4092,7 +4092,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4300,11 +4300,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "אפשר עורך WysiWyg"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "הגדרה כדי לאפשר/להשבית את עורך WysiWyg BBCode"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "עורך כניסה למצב"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "חָדָשׁ"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "הקווים נשברים עם"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "מגדיר את התנהגות מקש Enter, כמו אם"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -5076,11 +5092,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "גלול לפוסט לא נקרא/ראשון"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "אם מופעל אותו גולש לפוסט הראשון שלא נקרא/או הפוסט החדש הראשון בעת ​​פתיחת נושא"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5436,7 +5452,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "BlogSpam.NET API"
+            "#text": "API של BlogSpam.net"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -5759,11 +5775,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "אין מדליות"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "נכון לעכשיו אין מדליות. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5887,11 +5903,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "אין הגדרות פרופיל בהתאמה אישית"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "נכון לעכשיו אין הגדרות פרופיל בהתאמה אישית. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6161,11 +6177,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "לא החלף מילים"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "נכון לעכשיו אין מילים להחליף. "
           },
           {
             "@tag": "EXPORT",
@@ -6372,11 +6388,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "אין דואר זבל בדוק מילים"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "נכון לעכשיו אין מילות בדיקת דואר זבל. "
           },
           {
             "@tag": "EXPORT",
@@ -6732,7 +6748,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "אסור על גורמי משתמש"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -7291,7 +7307,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "בקשת החברים הוסרה."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7687,7 +7703,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "תווים שנותרו:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7791,19 +7807,19 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "D"
+            "#text": "ד"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "d"
+            "#text": "ד"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "F"
+            "#text": "ג"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "G"
+            "#text": "ז"
           },
           {
             "@tag": "FORMAT_TIME",
@@ -7887,7 +7903,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "הכנס מדיה"
           },
           {
             "@tag": "MENU",
@@ -8039,7 +8055,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "בחירת גודל העמוד"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8079,7 +8095,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "העתק את הטקסט שנבחר (Ctrl C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8091,11 +8107,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "חתוך את הטקסט שנבחר (Ctrl x)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "תֵאוּר"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8107,11 +8123,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "הזן תיאור תמונה:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "הזן כתובת אתר תמונה:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8131,19 +8147,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "הדבק את כתובת האתר המדיה בקלט (למשל סרטון YouTube, Spotify Playlist או Instagram Image)."
           },
           {
             "@tag": "TT_NOTE",
-            "#text": "Insert Note"
+            "#text": "הכנס הערה"
           },
           {
             "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
+            "#text": "סוג הערה"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "הדבק (Ctrl V)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8151,15 +8167,15 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "אדום (ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "הסר את הפורמט"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "בחר הכל"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8167,15 +8183,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "בטל (Ctrl Z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "הזן תיאור כתובת אתר:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "הזן כתובת אתר:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9896,7 +9912,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
+            "#text": "בחר במצב הנושא:"
           },
           {
             "@tag": "TIMEZONE",
@@ -10141,96 +10157,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "אג&#39;נדר"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "אנדרוגין"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "ביגנדר"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "סיסג&#39;נדר"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "נקבה לזכר"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "נוזל מגדר"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "מגדר לא תואם"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "ג&#39;נדרקווייר"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "שאלת מגדר"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "אינטרסקס"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "זכר לנקבה"
-          },
-          {
             "@tag": "MAN",
             "#text": "איש"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "לא בינארי"
-          },
-          {
             "@tag": "OTHER",
             "#text": "אַחֵר"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "פנג&#39;נדר"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "טרנס"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "טרנסנשי"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "טרנסג&#39;נדר"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "גבר טרנסג&#39;נדר"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "טרנסגברי"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "טרנססקסואל"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "אישה טרנסג&#39;נדרית"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "שתי רוחות"
           },
           {
             "@tag": "WOMAN",
@@ -11021,7 +10953,7 @@
           },
           {
             "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+            "#text": "ל- yaf.net יש גישה לכתיבה"
           },
           {
             "@tag": "PERMISSIONUPLOAD",
@@ -12107,7 +12039,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "יש לך {0} הודעות פרטיות: {1} בתיבת הדואר הנכנס ו- {2} בתיבת האקבה. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12252,11 +12184,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "הצבעה כבולה"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "דוֹן"
           },
           {
             "@tag": "POLLHEADER",
@@ -12304,7 +12236,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "הסקר הוסר!"
           }
         ]
       },
@@ -12602,7 +12534,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "Www"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12998,7 +12930,7 @@
           },
           {
             "@tag": "XMPP",
-            "#text": "XMPP"
+            "#text": "Xmpp"
           },
           {
             "@tag": "XMPP_TITLE",
@@ -13298,7 +13230,7 @@
           },
           {
             "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
+            "#text": "אחזור סיסמא לפורום {0}"
           },
           {
             "@tag": "SUCCESS",
@@ -13323,11 +13255,11 @@
           },
           {
             "@tag": "RGN_CH_AI",
-            "#text": "Appenzell Inner-Rhodes"
+            "#text": "Appenzell inner-rhodes"
           },
           {
             "@tag": "RGN_CH_AR",
-            "#text": "Appenzell Outer-Rhodes"
+            "#text": "Appenzell uter-rhodes"
           },
           {
             "@tag": "RGN_CH_BE",
@@ -13367,7 +13299,7 @@
           },
           {
             "@tag": "RGN_CH_NE",
-            "#text": "Neuchâtel"
+            "#text": "חָדָשׁ"
           },
           {
             "@tag": "RGN_CH_NW",
@@ -13407,7 +13339,7 @@
           },
           {
             "@tag": "RGN_CH_VD",
-            "#text": "Vaud"
+            "#text": "ווד"
           },
           {
             "@tag": "RGN_CH_VS",
@@ -14504,15 +14436,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Auto"
+            "#text": "רכב"
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "כֵּהֶה"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "אוֹר"
           }
         ]
       },

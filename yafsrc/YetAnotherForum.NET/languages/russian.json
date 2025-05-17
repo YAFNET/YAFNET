@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "Просмотры запрещенные пользовательские агенты список"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "Редакты запрещенных пользовательских агентов"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "Импорт запрещенных пользовательских агентов"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -990,7 +990,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete attachment(s)?"
+            "#text": "Удалить вложения (ы)?"
           },
           {
             "@tag": "TITLE",
@@ -1003,35 +1003,35 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "Добавьте новый пользовательский агистр"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "Нет пользователей"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "В настоящее время нет запрещенного пользователя. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "Импорт пользователя (ы)"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "Маска"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "Запрещенный пользовательский агент уже существует!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "Пользовательский агент был успешно удален"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "Запрещенный пользователем"
           }
         ]
       },
@@ -1040,23 +1040,23 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "Пользовательский агент:"
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "Пользовательский агент запрещает. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "Вы должны определить пользовательский агент."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "Добавить запрещенный пользовательский агент"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "Редактировать запрещенное пользовательское агентство"
           }
         ]
       },
@@ -1065,35 +1065,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Импортируйте список пользователей"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Список импорта"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Не удалось импортировать! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Выберите Импорт Файл:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "Должен быть *.txt -файл, содержащий один пользовательский агент по каждой строке"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "Ничего импортируется: в загрузке не было найдено нового пользователя."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} Новые пользовательские (ы) успешно импортируются."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "Импорт пользователя (ы)"
           }
         ]
       },
@@ -1106,11 +1106,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "Нет запрещенных адресов электронной почты"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "В настоящее время нет запрещенных адресов электронной почты. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1229,11 +1229,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "Нет запрещенных IP -адресов"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "В настоящее время нет запрещенных IP -адресов. "
           },
           {
             "@tag": "EXPORT",
@@ -1372,11 +1372,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "Нет запрещенных имен"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "В настоящее время нет запрещенных имен пользователей. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1767,11 +1767,11 @@
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
+            "#text": "Размер страницы по умолчанию"
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
+            "#text": "Размер страницы по умолчанию для списков для новых пользователей."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -1957,7 +1957,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "Постоянно удалить этот форум, включая все темы, опросы, вложения и связанные с ним сообщения?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -3565,7 +3565,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "Копировать в буфер обмена"
           },
           {
             "@tag": "DELETE_ALL",
@@ -4084,7 +4084,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4292,11 +4292,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "Включить редактор Wysiwyg"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "Настройка для включения/отключения редактора Wysiwyg BBCode"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "Редактор ввода режима"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "Новый"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "Линии сломаны с"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Устанавливает поведение ключа Enter, например,"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -5068,11 +5084,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "Прокрутите до непрочитанного/первого поста"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "Если включено, он прокручивается в первом непрочитанном сообщении/или первом новом сообщении при открытии темы"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5751,11 +5767,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "Нет медалей"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "В настоящее время нет медалей. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5879,11 +5895,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "Нет пользовательских определений профиля"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "В настоящее время нет пользовательских определений профиля. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6153,11 +6169,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "Нет заменить слова"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "В настоящее время нет никаких заменных слов. "
           },
           {
             "@tag": "EXPORT",
@@ -6364,11 +6380,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "Нет справочных слов"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "В настоящее время нет никаких слов проверки спама. "
           },
           {
             "@tag": "EXPORT",
@@ -6724,7 +6740,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "Запретные пользователи"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -7283,7 +7299,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "Запрос на дружбу удалил."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7675,7 +7691,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "Оставшиеся персонажи:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7779,23 +7795,23 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "D"
+            "#text": "Дюймовый"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "d"
+            "#text": "дюймовый"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "F"
+            "#text": "Фон"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "G"
+            "#text": "Глин"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "T"
+            "#text": "Т"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -7875,7 +7891,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "Вставьте СМИ"
           },
           {
             "@tag": "MENU",
@@ -8027,7 +8043,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "Выбор размера страницы"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8067,7 +8083,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "Скопируйте выбранный текст (CTRL C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8079,11 +8095,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "Вырежьте выбранный текст (Ctrl x)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "Описание"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8095,11 +8111,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "Введите описание изображения:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "Введите URL -адрес изображения:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8119,19 +8135,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "Вставьте URL -адрес мультимедиа во вход (например, видео на YouTube, Spotify Playlist или Image Instagram)."
           },
           {
             "@tag": "TT_NOTE",
-            "#text": "Insert Note"
+            "#text": "Вставьте примечание"
           },
           {
             "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
+            "#text": "Примечание типа"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "Вставка (Ctrl v)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8139,15 +8155,15 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "Красный (ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "Удалить формат"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "Выберите все"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8155,15 +8171,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "Отменить (ctrl z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "Введите описание URL:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "Введите URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9884,7 +9900,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
+            "#text": "Выберите режим темы:"
           },
           {
             "@tag": "TIMEZONE",
@@ -10129,96 +10145,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Агендер"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Андрогин"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Бигендер"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "цисгендер"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "От женского к мужскому"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Гендерная текучесть"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Гендерная неконформность"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Гендерквир"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Гендерный вопрос"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Интерсекс"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "От мужчины к женщине"
-          },
-          {
             "@tag": "MAN",
             "#text": "Человек"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "Небинарные"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Другое"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Пангендер"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Транс"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Трансфемин"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Трансгендер"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Трансгендерный человек"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Трансмаскулинный"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Транссексуал"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Женщина-трансгендер"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Двухдуховный"
           },
           {
             "@tag": "WOMAN",
@@ -10749,7 +10681,7 @@
           },
           {
             "@tag": "CONFIGPASSWORD",
-            "#text": "Config Password"
+            "#text": "Конфигурация пароля"
           },
           {
             "@tag": "CONNECTIONDETAILS",
@@ -11001,7 +10933,7 @@
           },
           {
             "@tag": "PERMISSIONAPPDATA",
-            "#text": "YAF.NET Has Write Access to \"~/App_Data\" directory ..."
+            "#text": "Yaf.net имеет доступ к записи"
           },
           {
             "@tag": "PERMISSIONUPLOAD",
@@ -12087,7 +12019,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "У вас есть {0} частные сообщения: {1} в входном ящике и {2} в Opbox. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12232,11 +12164,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "Связанное голосование"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "Дон"
           },
           {
             "@tag": "POLLHEADER",
@@ -12276,7 +12208,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "Опрос был удален!"
           }
         ]
       },
@@ -12574,7 +12506,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "Www"
           },
           {
             "@tag": "HOME_TITLE",
@@ -13270,7 +13202,7 @@
           },
           {
             "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
+            "#text": "Поиск пароля для {0} Форум"
           },
           {
             "@tag": "SUCCESS",
@@ -14476,15 +14408,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Auto"
+            "#text": "Авто"
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "Темный"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "Свет"
           }
         ]
       },
