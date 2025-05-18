@@ -16,7 +16,7 @@
           },
           {
             "@tag": "BECOME_FRIENDS",
-            "#text": "Become Friends"
+            "#text": "Stať sa priateľmi"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "Zobrazy Zoznam zakázaných užívateľských agentov"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "Úpravy zakázaných agentov používateľov"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "Importovať zakázané agenti používateľov"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -986,7 +986,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete attachment(s)?"
+            "#text": "Odstrániť prílohy?"
           },
           {
             "@tag": "TITLE",
@@ -999,35 +999,35 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "Pridajte novú používateľa"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "Žiadne usergenti"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "V súčasnosti nie sú zakázané používateľa. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "Importovať usergent (-y)"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "Maskovať"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "Zakázaný usergent už existuje!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "Usergent bol úspešne odstránený"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "Zakázaný usergent"
           }
         ]
       },
@@ -1036,23 +1036,23 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "Usergent:"
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "Užívateľský agent zakázať. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "Musíte definovať agenta používateľa."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "Pridať zakázané usergent"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "Upraviť zakázané usergent"
           }
         ]
       },
@@ -1061,35 +1061,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Importovať zoznam používateľa"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Zoznam"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Nepodarilo sa im importovať! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Vyberte súbor Import:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "Musí byť *.txt súbor obsahujúci jeden usergent na každom riadku"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "Nič importované: Pri nahrávaní sa nenašiel žiadny nový usergent."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} nové usergent (s) importované úspešne."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "Importovať usergent (-y)"
           }
         ]
       },
@@ -1102,11 +1102,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "Žiadne zakázané e -mailové adresy"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "V súčasnosti neexistujú žiadne zakázané e -mailové adresy. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1225,11 +1225,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "Žiadne zakázané adresy IP"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "V súčasnosti neexistujú žiadne zakázané adresy IP. "
           },
           {
             "@tag": "EXPORT",
@@ -1237,11 +1237,11 @@
           },
           {
             "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
+            "#text": "Importujte čiernu listinu z AupileIpDB"
           },
           {
             "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+            "#text": "Zoznam importu s najnovšími adresami IP1 z AupileIpdb.com"
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1376,11 +1376,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "Žiadne zakázané mená"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "V súčasnosti neexistujú žiadne zakázané používateľské mená. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1706,7 +1706,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "ID"
+            "#text": "Id"
           },
           {
             "@tag": "NAME",
@@ -1771,11 +1771,11 @@
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
+            "#text": "Predvolená veľkosť stránky"
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
+            "#text": "Predvolená veľkosť stránky pre zoznamy pre nových používateľov."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -1961,7 +1961,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "Natrvalo vymazať toto fórum vrátane všetkých tém, prieskumov, príloh a správ, ktoré sú s ním spojené?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -2090,7 +2090,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Digest"
+            "#text": "Tráviť"
           }
         ]
       },
@@ -3561,7 +3561,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "Kopírovať do schránky"
           },
           {
             "@tag": "DELETE_ALL",
@@ -3776,11 +3776,11 @@
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
+            "#text": "Kľúč APUSENIPDB API:"
           },
           {
             "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
+            "#text": "Kľúč API na načítanie čiernej listiny adresy IP."
           },
           {
             "@tag": "ACTIVE_USERTIME",
@@ -4288,11 +4288,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "Povoliť editor WYSIWYG"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "Nastavenie, aby ste povolili/zakázali editor WYSIWYG BBCode Editor"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "Editor Enter režim"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "Nový"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "Čiary sú rozbité s"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Nastaví správanie klávesu Enter, napríklad či"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -5048,11 +5064,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "Prejdite na neprečítané/prvý príspevok"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "Ak je povolený, prechádza na prvý neprečítaný príspevok/alebo prvý nový príspevok pri otvorení témy"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5408,7 +5424,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "BlogSpam.NET API"
+            "#text": "Blogspam.net API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -5702,7 +5718,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Mail"
+            "#text": "Pošta"
           },
           {
             "@tag": "TO_MAIL",
@@ -5731,11 +5747,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "Žiadne medaily"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "V súčasnosti neexistujú žiadne medaily. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5859,11 +5875,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "Žiadne definície vlastného profilu"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "V súčasnosti neexistujú žiadne definície vlastného profilu. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6129,11 +6145,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "Žiadne nahradiť slová"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "V súčasnosti nie sú žiadne slová nahradenia. "
           },
           {
             "@tag": "EXPORT",
@@ -6340,11 +6356,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "Žiadne spamové slová"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "V súčasnosti neexistujú žiadne slová kontroly spamu. "
           },
           {
             "@tag": "EXPORT",
@@ -6696,7 +6712,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "Zakázané používateľa"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -6728,7 +6744,7 @@
           },
           {
             "@tag": "ADMIN_DIGEST",
-            "#text": "Digest"
+            "#text": "Tráviť"
           },
           {
             "@tag": "ADMIN_EVENTLOG",
@@ -6760,7 +6776,7 @@
           },
           {
             "@tag": "ADMIN_MAIL",
-            "#text": "Mail"
+            "#text": "Pošta"
           },
           {
             "@tag": "ADMIN_MEDALS",
@@ -6909,7 +6925,7 @@
           },
           {
             "@tag": "ALBUMS_TITLE",
-            "#text": "{0} Album: {1}"
+            "#text": "{0} album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
@@ -7255,7 +7271,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "Žiadosť o priateľstvo bola odstránená."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7647,7 +7663,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "Zostávajúce znaky:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7743,7 +7759,7 @@
           },
           {
             "@tag": "FONT_NAME",
-            "#text": "Font Name"
+            "#text": "Názov písma"
           },
           {
             "@tag": "FONT_SIZE",
@@ -7771,7 +7787,7 @@
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "T"
+            "#text": "Tón"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -7851,7 +7867,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "Vložiť médiá"
           },
           {
             "@tag": "MENU",
@@ -7935,7 +7951,7 @@
           },
           {
             "@tag": "OK",
-            "#text": "OK"
+            "#text": "V poriadku"
           },
           {
             "@tag": "OR",
@@ -7999,7 +8015,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "Výber veľkosti stránky"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8039,7 +8055,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "Skopírujte vybratý text (Ctrl C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8051,11 +8067,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "Odrežte vybraný text (Ctrl x)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "Opis"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8067,11 +8083,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "Zadajte popis obrázka:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "Zadajte adresu URL obrázka:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8091,11 +8107,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "Vložte mediálnu adresu URL do vstupu (napríklad video YouTube, zoznam skladieb Spotify alebo INSTAGRAM)."
+          },
+          {
+            "@tag": "TT_NOTE",
+            "#text": "Vložiť poznámku"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Typ"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "Pasta (ctrl v)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8103,19 +8127,19 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "Červená (ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "Odstrániť formát"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "Vybrať všetko"
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "Strikethrough"
+            "#text": "Štrajk"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8123,15 +8147,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "UNO (CTRL Z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "Zadajte popis URL:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "Zadajte URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8212,14 +8236,6 @@
           {
             "@tag": "YES",
             "#text": "Áno"
-          },
-          {
-            "@tag": "TT_NOTE",
-            "#text": "Insert Note"
-          },
-          {
-            "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
           }
         ]
       },
@@ -8333,7 +8349,7 @@
           },
           {
             "@tag": "BI",
-            "#text": "Burundi"
+            "#text": "Burz"
           },
           {
             "@tag": "BJ",
@@ -8377,7 +8393,7 @@
           },
           {
             "@tag": "BZ",
-            "#text": "Belize"
+            "#text": "Búda"
           },
           {
             "@tag": "CA",
@@ -8565,7 +8581,7 @@
           },
           {
             "@tag": "GM",
-            "#text": "Gambia"
+            "#text": "Gambie"
           },
           {
             "@tag": "GN",
@@ -8597,7 +8613,7 @@
           },
           {
             "@tag": "GW",
-            "#text": "Guinea-Bissau"
+            "#text": "Guinejský bissau"
           },
           {
             "@tag": "GY",
@@ -8669,7 +8685,7 @@
           },
           {
             "@tag": "JO",
-            "#text": "Jordan"
+            "#text": "Jordánsko"
           },
           {
             "@tag": "JP",
@@ -8789,7 +8805,7 @@
           },
           {
             "@tag": "ML",
-            "#text": "Mali"
+            "#text": "Malica"
           },
           {
             "@tag": "MM",
@@ -8901,7 +8917,7 @@
           },
           {
             "@tag": "PA",
-            "#text": "Panama"
+            "#text": "Panam"
           },
           {
             "@tag": "PE",
@@ -8945,7 +8961,7 @@
           },
           {
             "@tag": "PW",
-            "#text": "Palau"
+            "#text": "Pažerák"
           },
           {
             "@tag": "PY",
@@ -9302,11 +9318,11 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
+            "#text": "Označte všetko ako čítanie"
           },
           {
             "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
+            "#text": "Označte ako čítanie"
           },
           {
             "@tag": "MARKALL",
@@ -9731,10 +9747,6 @@
             "#text": "Zadali ste nesprávnu adresu URL ako profil na Facebooku."
           },
           {
-            "@tag": "BAD_GOOGLE",
-            "#text": "Ako adresu URL profilu Google ste zadali nezákonnú hodnotu."
-          },
-          {
             "@tag": "BAD_HOME",
             "#text": "Zadal ste neplatnú adresu vašej domovskej stránky."
           },
@@ -9860,7 +9872,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
+            "#text": "Vyberte režim témy:"
           },
           {
             "@tag": "TIMEZONE",
@@ -9893,15 +9905,15 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Zakázať autentifikáciu dvoch faktorov"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Zakázať autentifikáciu dvoch faktorov"
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Turn on Two Factor Authentication"
+            "#text": "Zapnite dve faktorové overenie"
           },
           {
             "@tag": "INFO",
@@ -9909,11 +9921,11 @@
           },
           {
             "@tag": "INPUT_CODE",
-            "#text": "Input security code"
+            "#text": "Zadajte bezpečnostný kód"
           },
           {
             "@tag": "SETUP_CODE",
-            "#text": "Setup code"
+            "#text": "Kódovací kód"
           },
           {
             "@tag": "TITLE",
@@ -9921,11 +9933,11 @@
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
-            "#text": "Enable Two Factor Authentication"
+            "#text": "Povoľte autentifikáciu dvoch faktorov"
           },
           {
             "@tag": "WRONG_CODE",
-            "#text": "You have entered the wrong 2FA Code!"
+            "#text": "Zadali ste nesprávny kód 2FA!"
           }
         ]
       },
@@ -10137,96 +10149,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Žena na muža"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Pohlavná premenlivosť"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Rodovo nekonformné"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Spochybňovanie pohlavia"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Muž na ženu"
-          },
-          {
             "@tag": "MAN",
             "#text": "Muž"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "Nebinárne"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Iné"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trrans"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminizácia"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgender"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Transgender muž"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmaskulínny"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transsexuál"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Transrodová žena"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Dvojduch"
           },
           {
             "@tag": "WOMAN",
@@ -10973,7 +10901,7 @@
           },
           {
             "@tag": "NO",
-            "#text": "NO"
+            "#text": "Nie"
           },
           {
             "@tag": "NOTE",
@@ -11219,15 +11147,15 @@
           },
           {
             "@tag": "TWO_FA_INFO",
-            "#text": "Please enter a validation code from your Authenticator app."
+            "#text": "Zadajte validačný kód z vašej aplikácie Authenticator."
           },
           {
             "@tag": "TWO_FA_PLACEHOLDER",
-            "#text": "Validation code: ### ###"
+            "#text": "Validačný kód:"
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "Two-Factor Validation"
+            "#text": "Dvojfaktorová validácia"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -11785,7 +11713,7 @@
           },
           {
             "@tag": "ATOMFEED",
-            "#text": "Atom Feed"
+            "#text": "Kŕmenie atómov"
           },
           {
             "@tag": "BY",
@@ -11898,7 +11826,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Your activity notifications"
+            "#text": "Vaše oznámenia o činnosti"
           }
         ]
       },
@@ -11907,7 +11835,7 @@
         "Resource": [
           {
             "@tag": "CONVERSATION_TITLE",
-            "#text": "Your Conversations"
+            "#text": "Vaše rozhovory"
           },
           {
             "@tag": "TITLE",
@@ -11972,7 +11900,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "Máte {0} súkromné ​​správy: {1} v doručenej schránke a {2} v Outbox. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12117,11 +12045,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "Viazané hlasovanie"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "Dláždiť"
           },
           {
             "@tag": "POLLHEADER",
@@ -12161,7 +12089,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "Anketa bola odstránená!"
           }
         ]
       },
@@ -12343,7 +12271,7 @@
           },
           {
             "@tag": "AIM",
-            "#text": "AIM"
+            "#text": "Cieľ"
           },
           {
             "@tag": "AIM_TITLE",
@@ -12351,7 +12279,7 @@
           },
           {
             "@tag": "ATOMTOPIC",
-            "#text": "Atom Feed"
+            "#text": "Kŕmenie atómov"
           },
           {
             "@tag": "ATTACHMENTINFO",
@@ -12363,7 +12291,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "BLOG"
+            "#text": "Blog"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12439,7 +12367,7 @@
           },
           {
             "@tag": "FACEBOOK",
-            "#text": "Facebook"
+            "#text": "Faceborat"
           },
           {
             "@tag": "FACEBOOK_TITLE",
@@ -12459,7 +12387,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "Www"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12511,7 +12439,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "IP"
+            "#text": "Ip"
           },
           {
             "@tag": "JOINED",
@@ -12965,10 +12893,6 @@
             "#text": "Pohlavie:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Profil Google+:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Skupiny:"
           },
@@ -13204,7 +13128,7 @@
           },
           {
             "@tag": "RGN_CH_FR",
-            "#text": "Fribourg"
+            "#text": "Friborg"
           },
           {
             "@tag": "RGN_CH_GE",
@@ -13216,7 +13140,7 @@
           },
           {
             "@tag": "RGN_CH_GR",
-            "#text": "Grisons"
+            "#text": "Šedý"
           },
           {
             "@tag": "RGN_CH_JU",
@@ -13228,7 +13152,7 @@
           },
           {
             "@tag": "RGN_CH_NE",
-            "#text": "Neuchâtel"
+            "#text": "Nový"
           },
           {
             "@tag": "RGN_CH_NW",
@@ -13248,7 +13172,7 @@
           },
           {
             "@tag": "RGN_CH_SO",
-            "#text": "Solothurn"
+            "#text": "Solothurrn"
           },
           {
             "@tag": "RGN_CH_SZ",
@@ -13260,7 +13184,7 @@
           },
           {
             "@tag": "RGN_CH_TI",
-            "#text": "Ticino"
+            "#text": "Tikári"
           },
           {
             "@tag": "RGN_CH_UR",
@@ -13268,15 +13192,15 @@
           },
           {
             "@tag": "RGN_CH_VD",
-            "#text": "Vaud"
+            "#text": "Chrapľavka"
           },
           {
             "@tag": "RGN_CH_VS",
-            "#text": "Valais"
+            "#text": "Valca"
           },
           {
             "@tag": "RGN_CH_ZG",
-            "#text": "Zug"
+            "#text": "Zaniknúť"
           },
           {
             "@tag": "RGN_CH_ZH",
@@ -13309,7 +13233,7 @@
           },
           {
             "@tag": "RGN_DE_HE",
-            "#text": "Hessen"
+            "#text": "Hesse"
           },
           {
             "@tag": "RGN_DE_HH",
@@ -13366,7 +13290,7 @@
           },
           {
             "@tag": "RGN_US_AR",
-            "#text": "Arkansas"
+            "#text": "Arkansa"
           },
           {
             "@tag": "RGN_US_AS",
@@ -13390,7 +13314,7 @@
           },
           {
             "@tag": "RGN_US_DC",
-            "#text": "District of Columbia"
+            "#text": "Okres Columbia"
           },
           {
             "@tag": "RGN_US_DE",
@@ -13450,7 +13374,7 @@
           },
           {
             "@tag": "RGN_US_ME",
-            "#text": "Maine"
+            "#text": "Main"
           },
           {
             "@tag": "RGN_US_MI",
@@ -13514,7 +13438,7 @@
           },
           {
             "@tag": "RGN_US_OK",
-            "#text": "Oklahoma"
+            "#text": "Oklahola"
           },
           {
             "@tag": "RGN_US_OR",
@@ -13550,11 +13474,11 @@
           },
           {
             "@tag": "RGN_US_UT",
-            "#text": "Utah"
+            "#text": "Mních"
           },
           {
             "@tag": "RGN_US_VA",
-            "#text": "Virginia"
+            "#text": "Virgínia"
           },
           {
             "@tag": "RGN_US_VI",
@@ -14357,11 +14281,11 @@
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "Tmavý"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "Osvetlenie"
           }
         ]
       },
@@ -14583,7 +14507,7 @@
           },
           {
             "@tag": "ATOMFEED",
-            "#text": "Atom Feed"
+            "#text": "Kŕmenie atómov"
           },
           {
             "@tag": "BY",

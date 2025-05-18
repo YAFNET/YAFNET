@@ -159,14 +159,24 @@
 		<input type="text" class="form-control serverTime-Input" asp-for="Input.ServerTimeCorrection"/>
 		<small class="form-text text-body-secondary">@Html.Raw(DateTime.UtcNow)</small>
 	</div>
-	<div class="mb-3">
-		<label class="form-label" info-button="true"
-		       asp-for="Input.EnableWysiwygEditor"
-		       localized-tag="ENABLE_WYSIWYG"></label>
-		<div class="form-check form-switch">
-			<input type="checkbox" class="form-check-input" asp-for="Input.EnableWysiwygEditor"/>
+	<div class="row">
+		<div class="mb-3 col-md-6">
+			<label class="form-label" info-button="true"
+			       asp-for="Input.EnableWysiwygEditor"
+			       localized-tag="ENABLE_WYSIWYG"></label>
+			<div class="form-check form-switch">
+				<input type="checkbox" class="form-check-input" asp-for="Input.EnableWysiwygEditor"/>
+			</div>
+		</div>
+		<div class="mb-3 col-md-6">
+			<label class="form-label" info-button="true"
+			       asp-for="Input.EditorEnterMode"
+			       localized-tag="ENTER_MODE"></label>
+			<select class="form-select" asp-for="Input.EditorEnterMode" asp-items="Model.EditorEnterModeList">
+			</select>
 		</div>
 	</div>
+	
 	<div class="row">
 		<div class="mb-3 col-md-6">
 			<label class="form-label" info-button="true"

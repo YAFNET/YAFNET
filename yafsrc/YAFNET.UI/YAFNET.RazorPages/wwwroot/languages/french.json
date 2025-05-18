@@ -16,7 +16,7 @@
           },
           {
             "@tag": "BECOME_FRIENDS",
-            "#text": "Become Friends"
+            "#text": "Devenir des amis"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "Vues de la liste des agents des utilisateurs interdits"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "Modifications des agents utilisateur interdits"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "Importations d'agents utilisateur interdits"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -735,7 +735,7 @@
           },
           {
             "@tag": "MINUTES",
-            "#text": "{0:N0} minutes"
+            "#text": "{0: n0} minutes"
           },
           {
             "@tag": "PLATFORM",
@@ -986,7 +986,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete attachment(s)?"
+            "#text": "Supprimer les pièces jointes?"
           },
           {
             "@tag": "TITLE",
@@ -999,35 +999,35 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "Ajouter un nouvel userAgent"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "Pas d'utilisateur"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "Actuellement, il n'y a pas d'interdiction d'utilisateur. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "Importer userAgentnt (s)"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "Masque"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "L'utilisateur interdit existe déjà!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "L'utilisateur a été supprimé avec succès"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "Interdit UserAgent"
           }
         ]
       },
@@ -1040,19 +1040,19 @@
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "L'agent utilisateur à interdire. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "Vous devez définir un agent utilisateur."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "Ajouter un userAgent interdit"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "Modifier l'interdiction de l'utilisateur"
           }
         ]
       },
@@ -1061,35 +1061,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Importer la liste UserAgent"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Liste d'importation"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Échec de l'importation! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Sélectionnez Importer Fichier:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "Doit être * .txt fichier contenant un userAgent sur chaque ligne"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "Rien n'a été importé: aucun nouvel userAgent n'a été trouvé dans le téléchargement."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} Nouveau userAgent (S) importé avec succès."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "Importer userAgentnt (s)"
           }
         ]
       },
@@ -1102,11 +1102,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "Aucune adresse e-mail interdite"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "Actuellement, il n'y a pas d'adresse e-mail interdite. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1225,11 +1225,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "Aucune adresse IP interdite"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "Actuellement, il n'y a pas d'adresses IP interdites. "
           },
           {
             "@tag": "EXPORT",
@@ -1237,11 +1237,11 @@
           },
           {
             "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
+            "#text": "Importer la liste noire de Abuselipdb"
           },
           {
             "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+            "#text": "Liste d'importation avec les adresses IP les plus récentes1 sur Abusepdb.com"
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1376,11 +1376,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "Pas de noms interdits"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "Actuellement, il n'y a pas de noms d'utilisateurs interdits. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1771,11 +1771,11 @@
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
+            "#text": "Taille de la page par défaut"
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
+            "#text": "La taille de la page par défaut pour les listes pour les nouveaux utilisateurs."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -1961,7 +1961,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "Supprimer en permanence ce forum, y compris tous les sujets, sondages, pièces jointes et messages qui y sont associés?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -3561,7 +3561,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "Copier dans le presse-papiers"
           },
           {
             "@tag": "DELETE_ALL",
@@ -3776,11 +3776,11 @@
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
+            "#text": "Clé API ABUSEIPDB:"
           },
           {
             "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
+            "#text": "La touche API pour récupérer l'adresse IP Blacklist."
           },
           {
             "@tag": "ACTIVE_USERTIME",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4288,11 +4288,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "Activer l'éditeur WYSIWYG"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "Définition pour activer / désactiver l'éditeur BBCode WYSIWYG"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "Éditeur Entrez le mode"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "Nouveau"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "Les lignes sont brisées avec"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Définit le comportement de la clé Entrée, comme si le"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -5048,11 +5064,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "Faites défiler vers un post non lu"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "Si l'activé fait défiler vers le premier post non lu / ou le premier nouveau message lors de l'ouverture d'un sujet"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5731,11 +5747,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "Pas de médailles"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "Actuellement, il n'y a pas de médailles. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5859,11 +5875,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "Aucune définitions de profil personnalisées"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "Actuellement, il n'y a pas de définitions de profil personnalisées. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6129,11 +6145,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "Pas de remplacement des mots"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "Actuellement, il n'y a pas de mots de remplacement. "
           },
           {
             "@tag": "EXPORT",
@@ -6340,11 +6356,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "Pas de mots de vérification de spam"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "Actuellement, il n'y a pas de mots de contrôle de spam. "
           },
           {
             "@tag": "EXPORT",
@@ -6696,7 +6712,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "Interdiction des utilisateurs"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -6885,7 +6901,7 @@
           },
           {
             "@tag": "ALBUM_IMAGES_NUMBER",
-            "#text": "{0} Image(s)"
+            "#text": "{0} image (s)"
           },
           {
             "@tag": "ALBUM_VIEW",
@@ -6893,7 +6909,7 @@
           },
           {
             "@tag": "ALBUMS",
-            "#text": "Albums"
+            "#text": "Album"
           },
           {
             "@tag": "ALBUMS_HEADER_TEXT",
@@ -7255,7 +7271,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "Demande d'ami supprimée."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7428,7 +7444,7 @@
           },
           {
             "@tag": "BUTTON_RETWEET",
-            "#text": "Retweet"
+            "#text": "Retweeter"
           },
           {
             "@tag": "BUTTON_RETWEET_TT",
@@ -7647,7 +7663,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "Personnages restants:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7743,7 +7759,7 @@
           },
           {
             "@tag": "FONT_NAME",
-            "#text": "Font Name"
+            "#text": "Nom de police"
           },
           {
             "@tag": "FONT_SIZE",
@@ -7851,7 +7867,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "Insérer les supports"
           },
           {
             "@tag": "MENU",
@@ -7947,7 +7963,7 @@
           },
           {
             "@tag": "PAGES",
-            "#text": "pages"
+            "#text": "Pages"
           },
           {
             "@tag": "POST",
@@ -7999,7 +8015,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "Sélection de la taille de la page"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8039,7 +8055,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "Copiez le texte sélectionné (CTRL C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8051,7 +8067,7 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "Coupez le texte sélectionné (Ctrl x)"
           },
           {
             "@tag": "TT_DESCRIPTION",
@@ -8067,11 +8083,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "Entrez la description de l'image:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "Entrez l'URL de l'image:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8091,11 +8107,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "Collez l'URL du média dans l'entrée (par exemple une vidéo YouTube, une liste de lecture Spotify ou une image Instagram)."
+          },
+          {
+            "@tag": "TT_NOTE",
+            "#text": "Insérer"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Type de note"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "Pâte (ctrl v)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8103,15 +8127,15 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "Rouge (ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "Retirer le format"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "Sélectionnez tout"
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
@@ -8123,15 +8147,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "Annuler (Ctrl z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "Entrez une description de l'URL:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "Entrez l'URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8212,14 +8236,6 @@
           {
             "@tag": "YES",
             "#text": "Oui"
-          },
-          {
-            "@tag": "TT_NOTE",
-            "#text": "Insert Note"
-          },
-          {
-            "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
           }
         ]
       },
@@ -8257,7 +8273,7 @@
           },
           {
             "@tag": "AI",
-            "#text": "Anguilla"
+            "#text": "Anguille"
           },
           {
             "@tag": "AL",
@@ -8669,7 +8685,7 @@
           },
           {
             "@tag": "JO",
-            "#text": "Jordan"
+            "#text": "Jordanie"
           },
           {
             "@tag": "JP",
@@ -9302,11 +9318,11 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
+            "#text": "Marquez tout comme lu"
           },
           {
             "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
+            "#text": "Mark comme lu"
           },
           {
             "@tag": "MARKALL",
@@ -9570,7 +9586,7 @@
           },
           {
             "@tag": "ALBUMS",
-            "#text": "Albums"
+            "#text": "Album"
           },
           {
             "@tag": "ALBUMS_COUNT_LIMIT",
@@ -9731,10 +9747,6 @@
             "#text": "Vous avez saisi une URL incorrecte comme profil Facebook."
           },
           {
-            "@tag": "BAD_GOOGLE",
-            "#text": "Vous avez saisi une valeur illégale comme URL du profil Google."
-          },
-          {
             "@tag": "BAD_HOME",
             "#text": "Adresse de votre site invalide."
           },
@@ -9860,7 +9872,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
+            "#text": "Sélectionnez le mode thème:"
           },
           {
             "@tag": "TIMEZONE",
@@ -9893,15 +9905,15 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Désactiver l'authentification à deux facteurs"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Désactiver l'authentification à deux facteurs"
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Turn on Two Factor Authentication"
+            "#text": "Activer l'authentification à deux facteurs"
           },
           {
             "@tag": "INFO",
@@ -9909,11 +9921,11 @@
           },
           {
             "@tag": "INPUT_CODE",
-            "#text": "Input security code"
+            "#text": "Code de sécurité d'entrée"
           },
           {
             "@tag": "SETUP_CODE",
-            "#text": "Setup code"
+            "#text": "Code de configuration"
           },
           {
             "@tag": "TITLE",
@@ -9921,11 +9933,11 @@
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
-            "#text": "Enable Two Factor Authentication"
+            "#text": "Activer l'authentification à deux facteurs"
           },
           {
             "@tag": "WRONG_CODE",
-            "#text": "You have entered the wrong 2FA Code!"
+            "#text": "Vous avez entré le mauvais code 2FA!"
           }
         ]
       },
@@ -10137,96 +10149,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Ordre"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigenre"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgenre"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "De femme à homme"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Fluidité du genre"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Non-conformité de genre"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genre queer"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Questionnement sur le genre"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersexe"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "De l'homme à la femme"
-          },
-          {
             "@tag": "MAN",
             "#text": "Homme"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "Non-binaire"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Autre"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangenre"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trrans"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transféminin"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgenre"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Homme transgenre"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculin"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transsexuel"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Femme transgenre"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Bispirituel"
           },
           {
             "@tag": "WOMAN",
@@ -10339,7 +10267,7 @@
           },
           {
             "@tag": "MYALBUMSTITLE",
-            "#text": "Albums"
+            "#text": "Album"
           },
           {
             "@tag": "MYPICSCONTENT",
@@ -11219,15 +11147,15 @@
           },
           {
             "@tag": "TWO_FA_INFO",
-            "#text": "Please enter a validation code from your Authenticator app."
+            "#text": "Veuillez saisir un code de validation à partir de votre application Authenticator."
           },
           {
             "@tag": "TWO_FA_PLACEHOLDER",
-            "#text": "Validation code: ### ###"
+            "#text": "Code de validation:"
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "Two-Factor Validation"
+            "#text": "Validation à deux facteurs"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -11898,7 +11826,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Your activity notifications"
+            "#text": "Vos notifications d'activité"
           }
         ]
       },
@@ -11907,7 +11835,7 @@
         "Resource": [
           {
             "@tag": "CONVERSATION_TITLE",
-            "#text": "Your Conversations"
+            "#text": "Vos conversations"
           },
           {
             "@tag": "TITLE",
@@ -11972,7 +11900,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "Vous avez {0} messages privés: {1} dans la boîte de réception et {2} dans la boîte d'obstruction. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12117,11 +12045,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "Vote lié"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "Enfiler"
           },
           {
             "@tag": "POLLHEADER",
@@ -12161,7 +12089,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "Le sondage a été supprimé!"
           }
         ]
       },
@@ -12234,7 +12162,7 @@
           },
           {
             "@tag": "NORMAL",
-            "#text": "Normal"
+            "#text": "Normale"
           },
           {
             "@tag": "PERSISTENCY",
@@ -12363,7 +12291,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "BLOG"
+            "#text": "Blog"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12459,7 +12387,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "Www"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12575,7 +12503,7 @@
           },
           {
             "@tag": "NORMAL",
-            "#text": "Normal"
+            "#text": "Normale"
           },
           {
             "@tag": "OPTIONS",
@@ -12906,7 +12834,7 @@
           },
           {
             "@tag": "ALBUMS",
-            "#text": "Albums"
+            "#text": "Album"
           },
           {
             "@tag": "AVATAR",
@@ -12963,10 +12891,6 @@
           {
             "@tag": "GENDER",
             "#text": "Sexe&nbsp;:"
-          },
-          {
-            "@tag": "GOOGLE",
-            "#text": "Profil Google+ :"
           },
           {
             "@tag": "GROUPS",
@@ -13228,7 +13152,7 @@
           },
           {
             "@tag": "RGN_CH_NE",
-            "#text": "Neuchâtel"
+            "#text": "Nouveau"
           },
           {
             "@tag": "RGN_CH_NW",
@@ -13345,7 +13269,7 @@
           },
           {
             "@tag": "RGN_DE_SW",
-            "#text": "Schleswig-Holstein"
+            "#text": "Schleswig-holstein"
           },
           {
             "@tag": "RGN_DE_TH",
@@ -13358,7 +13282,7 @@
         "Resource": [
           {
             "@tag": "RGN_US_AK",
-            "#text": "Alaska"
+            "#text": "Vers le bas"
           },
           {
             "@tag": "RGN_US_AL",
@@ -13366,7 +13290,7 @@
           },
           {
             "@tag": "RGN_US_AR",
-            "#text": "Arkansas"
+            "#text": "Arkansa"
           },
           {
             "@tag": "RGN_US_AS",
@@ -13514,7 +13438,7 @@
           },
           {
             "@tag": "RGN_US_OK",
-            "#text": "Oklahoma"
+            "#text": "Oklahola"
           },
           {
             "@tag": "RGN_US_OR",
@@ -13979,7 +13903,7 @@
           },
           {
             "@tag": "NORMAL",
-            "#text": "Normal"
+            "#text": "Normale"
           },
           {
             "@tag": "ORDERED",
@@ -14357,11 +14281,11 @@
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "Sombre"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "Lumière"
           }
         ]
       },

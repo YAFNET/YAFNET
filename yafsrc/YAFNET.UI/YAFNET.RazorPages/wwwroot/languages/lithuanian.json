@@ -16,7 +16,7 @@
           },
           {
             "@tag": "BECOME_FRIENDS",
-            "#text": "Become Friends"
+            "#text": "Tapk draugais"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "Peržiūrų uždraustų vartotojų agentų sąrašas"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "Redaguoti uždraustus vartotojo agentus"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "Importas uždraudė vartotojo agentus"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -986,7 +986,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete attachment(s)?"
+            "#text": "Ištrinti priedą (-us)?"
           },
           {
             "@tag": "TITLE",
@@ -999,35 +999,35 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "Pridėkite naują „UserAgent“"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "Jokių vartotojų"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "Šiuo metu nėra uždrausto vartotojo. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "Importuokite „UserAgent“ (-us)"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "Kaukė"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "Draudžiamas „UserAgent“ jau egzistuoja!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "„UserAgent“ buvo sėkmingai ištrintas"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "Uždraustas „UserAgent“"
           }
         ]
       },
@@ -1036,23 +1036,23 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "Useragent:"
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "Vartotojo agentas uždrausti. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "Turite apibrėžti vartotojo agentą."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "Pridėkite uždraustą „UserAgent“"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "Redaguoti uždraudė „UserAgent“"
           }
         ]
       },
@@ -1061,35 +1061,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Importuoti „UserAgent“ sąrašą"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Importo sąrašas"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Nepavyko importuoti! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Pasirinkite importo failą:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "Turi būti *.tx"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "Nieko importuota: Įkėlę nerasta jokio naujo vartotojo."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} Sėkmingai importuota nauja (-os) „UserAgent“."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "Importuokite „UserAgent“ (-us)"
           }
         ]
       },
@@ -1102,11 +1102,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "Nėra uždraustų el. Pašto adresų"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "Šiuo metu nėra uždraustų el. Pašto adresų. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1225,11 +1225,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "Nėra uždraustų IP adresų"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "Šiuo metu nėra uždraustų IP adresų. "
           },
           {
             "@tag": "EXPORT",
@@ -1237,11 +1237,11 @@
           },
           {
             "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
+            "#text": "Importuokite juodąjį sąrašą iš „Rusitepdb“"
           },
           {
             "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+            "#text": "Importo sąrašas su naujausiais IP adresais1 iš „RusitePdb.com“"
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1376,11 +1376,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "Nėra uždraustų vardų"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "Šiuo metu nėra uždraustų vartotojo vardų. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1706,7 +1706,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "ID"
+            "#text": "Id"
           },
           {
             "@tag": "NAME",
@@ -1771,11 +1771,11 @@
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
+            "#text": "Numatytasis puslapio dydis"
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
+            "#text": "Numatytasis naujų vartotojų sąrašų puslapio dydis."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -1961,7 +1961,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "Visam laikui ištrinti šį forumą, įskaitant visas su juo susijusius temas, apklausas, priedus ir pranešimus?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -3561,7 +3561,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "Nukopijuokite į mainų sritį"
           },
           {
             "@tag": "DELETE_ALL",
@@ -3776,11 +3776,11 @@
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
+            "#text": "„PaimtiPDB API“ raktas:"
           },
           {
             "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
+            "#text": "API raktas, kad būtų galima nuskaityti IP adresą „BlackList“."
           },
           {
             "@tag": "ACTIVE_USERTIME",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "StopForumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4288,11 +4288,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "Įgalinti „Wysiwyg“ redaktorių"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "Nustatymas įjungti/išjungti „WYSIWYG BBCODE“ redaktorių"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "Redaktoriaus įveskite režimą"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "Nauja"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "Linijos nutrūksta su"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Nustato įvesti klavišo elgesį, pavyzdžiui, ar"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -5048,11 +5064,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "Slinkite į neskaitytą/pirmąjį įrašą"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "Jei įjungta, jis slinks į pirmąjį nepastebėtą įrašą/arba pirmąjį naują įrašą, atidarius temą"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5408,7 +5424,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "BlogSpam.NET API"
+            "#text": "„BlogSpam.NET“ API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -5731,11 +5747,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "Nėra medalių"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "Šiuo metu nėra medalių. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5859,11 +5875,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "Nėra pasirinktinių profilio apibrėžimų"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "Šiuo metu nėra pasirinktinio profilio apibrėžimų. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6129,11 +6145,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "Jokių žodžių"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "Šiuo metu nėra jokių pakeitimų žodžių. "
           },
           {
             "@tag": "EXPORT",
@@ -6340,11 +6356,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "Nėra šlamšto patikrinimo žodžių"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "Šiuo metu nėra šlamšto patikrinimo žodžių. "
           },
           {
             "@tag": "EXPORT",
@@ -6696,7 +6712,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "Uždrausti vartotojų"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -7255,7 +7271,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "Draugo užklausa pašalinta."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7428,7 +7444,7 @@
           },
           {
             "@tag": "BUTTON_RETWEET",
-            "#text": "Retweet"
+            "#text": "Retweetas"
           },
           {
             "@tag": "BUTTON_RETWEET_TT",
@@ -7647,7 +7663,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "Liko personažai:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7743,7 +7759,7 @@
           },
           {
             "@tag": "FONT_NAME",
-            "#text": "Font Name"
+            "#text": "Šrifto vardas"
           },
           {
             "@tag": "FONT_SIZE",
@@ -7851,7 +7867,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "Įterpti laikmeną"
           },
           {
             "@tag": "MENU",
@@ -7999,7 +8015,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "Puslapio dydžio pasirinkimas"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8039,7 +8055,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "Nukopijuokite pasirinktą tekstą (CTRL C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8051,11 +8067,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "Nupjaukite pasirinktą tekstą (CTRL X)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "Aprašymas"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8067,11 +8083,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "Įveskite vaizdo aprašą:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "Įveskite vaizdo URL:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8091,11 +8107,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "Įklijuokite žiniasklaidos URL į įvestį (pavyzdžiui, „YouTube“ vaizdo įrašą, „Spotify“ grojaraštį ar „Instagram“ vaizdą)."
+          },
+          {
+            "@tag": "TT_NOTE",
+            "#text": "Įterpti pastabą"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Pastabos tipas"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "Įklijuokite (CTRL V)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8103,19 +8127,19 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "Raudona (Ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "Pašalinkite formatą"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "Pasirinkite visus"
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "Strikethrough"
+            "#text": "STRIKETHROUGH"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8123,15 +8147,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "Anuliuoti (ctrl z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "Įveskite URL aprašą:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "Įveskite URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8212,14 +8236,6 @@
           {
             "@tag": "YES",
             "#text": "Taip"
-          },
-          {
-            "@tag": "TT_NOTE",
-            "#text": "Insert Note"
-          },
-          {
-            "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
           }
         ]
       },
@@ -8889,7 +8905,7 @@
           },
           {
             "@tag": "NU",
-            "#text": "Niue"
+            "#text": "Niuue"
           },
           {
             "@tag": "NZ",
@@ -9302,11 +9318,11 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
+            "#text": "Pažymėkite visus kaip skaitykite"
           },
           {
             "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
+            "#text": "Pažymėkite kaip skaitykite"
           },
           {
             "@tag": "MARKALL",
@@ -9731,10 +9747,6 @@
             "#text": "Įvedėte neteisingą \"Facebook\" profilio URL adresą."
           },
           {
-            "@tag": "BAD_GOOGLE",
-            "#text": "Įvedėte neteisėtą reikšmę kaip \"Google\" profilio URL."
-          },
-          {
             "@tag": "BAD_HOME",
             "#text": "\r\n      Jūs įvedėte neteisingą adresą jūsų pagrindinį\r\n\r\n      puslapį.\r\n    "
           },
@@ -9860,7 +9872,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
+            "#text": "Pasirinkite temos režimą:"
           },
           {
             "@tag": "TIMEZONE",
@@ -9893,15 +9905,15 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Išjunkite dviejų faktorių autentifikavimą"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Išjunkite dviejų faktorių autentifikavimą"
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Turn on Two Factor Authentication"
+            "#text": "Įjunkite du faktoriaus autentifikavimą"
           },
           {
             "@tag": "INFO",
@@ -9909,11 +9921,11 @@
           },
           {
             "@tag": "INPUT_CODE",
-            "#text": "Input security code"
+            "#text": "Įvesties saugos kodas"
           },
           {
             "@tag": "SETUP_CODE",
-            "#text": "Setup code"
+            "#text": "Sąrankos kodas"
           },
           {
             "@tag": "TITLE",
@@ -9921,11 +9933,11 @@
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
-            "#text": "Enable Two Factor Authentication"
+            "#text": "Įgalinkite dviejų faktorių autentifikavimą"
           },
           {
             "@tag": "WRONG_CODE",
-            "#text": "You have entered the wrong 2FA Code!"
+            "#text": "Jūs įvedėte neteisingą 2FA kodą!"
           }
         ]
       },
@@ -10137,96 +10149,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androginas"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigenderis"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Moteris į vyrą"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Lyčių kintamumas"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Lyties neatitinkantis"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Klausimai dėl lyties"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Interseksualai"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Vyras į Moteris"
-          },
-          {
             "@tag": "MAN",
             "#text": "Žmogus"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "Nebinarinis"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Kita"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trans"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfemininis"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transseksualai"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Transseksualus vyras"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmaskulininis"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transseksualai"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Translytė moteris"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Dvi dvasios"
           },
           {
             "@tag": "WOMAN",
@@ -11219,15 +11147,15 @@
           },
           {
             "@tag": "TWO_FA_INFO",
-            "#text": "Please enter a validation code from your Authenticator app."
+            "#text": "Įveskite patvirtinimo kodą iš savo „Authenticator“ programos."
           },
           {
             "@tag": "TWO_FA_PLACEHOLDER",
-            "#text": "Validation code: ### ###"
+            "#text": "Patvirtinimo kodas:"
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "Two-Factor Validation"
+            "#text": "Dviejų faktorių patvirtinimas"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -11898,7 +11826,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Your activity notifications"
+            "#text": "Jūsų pranešimai apie veiklą"
           }
         ]
       },
@@ -11907,7 +11835,7 @@
         "Resource": [
           {
             "@tag": "CONVERSATION_TITLE",
-            "#text": "Your Conversations"
+            "#text": "Jūsų pokalbiai"
           },
           {
             "@tag": "TITLE",
@@ -11972,7 +11900,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "Jūs turite {0} asmeninius pranešimus: {1} gautuosiuose ir {2} „Outbox“. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12117,11 +12045,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "Įrištas balsavimas"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "Don"
           },
           {
             "@tag": "POLLHEADER",
@@ -12161,7 +12089,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "Apklausa buvo pašalinta!"
           }
         ]
       },
@@ -12459,7 +12387,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "Www"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12965,10 +12893,6 @@
             "#text": "Lytis: "
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "\"Google+\" profilis:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Grupės: "
           },
@@ -13188,7 +13112,7 @@
           },
           {
             "@tag": "RGN_CH_AR",
-            "#text": "Appenzell Outer-Rhodes"
+            "#text": "„Appenzell“ išoriniai-rhodai"
           },
           {
             "@tag": "RGN_CH_BE",
@@ -13212,7 +13136,7 @@
           },
           {
             "@tag": "RGN_CH_GL",
-            "#text": "Glarus"
+            "#text": "Glarusas"
           },
           {
             "@tag": "RGN_CH_GR",
@@ -13228,7 +13152,7 @@
           },
           {
             "@tag": "RGN_CH_NE",
-            "#text": "Neuchâtel"
+            "#text": "Nauja"
           },
           {
             "@tag": "RGN_CH_NW",
@@ -13374,7 +13298,7 @@
           },
           {
             "@tag": "RGN_US_AZ",
-            "#text": "Arizona"
+            "#text": "Arizonoje"
           },
           {
             "@tag": "RGN_US_CA",
@@ -13514,7 +13438,7 @@
           },
           {
             "@tag": "RGN_US_OK",
-            "#text": "Oklahoma"
+            "#text": "Oklahola"
           },
           {
             "@tag": "RGN_US_OR",
@@ -14353,15 +14277,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Auto"
+            "#text": "Automatinis"
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "Tamsu"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "Lengvas"
           }
         ]
       },

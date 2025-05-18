@@ -16,7 +16,7 @@
           },
           {
             "@tag": "BECOME_FRIENDS",
-            "#text": "Become Friends"
+            "#text": "Vrienden worden"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "Bekijkt verboden gebruikersagentenlijst"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "Bewerkingen verboden gebruikersagenten"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "Importeert verboden gebruikersagenten"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -986,7 +986,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete attachment(s)?"
+            "#text": "Bijlage (s) verwijderen?"
           },
           {
             "@tag": "TITLE",
@@ -999,35 +999,35 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "Voeg nieuwe UserAgent toe"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "Geen UserAgents"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "Momenteel zijn er geen verboden UserAgent. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "UserAgent (s) importeren"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "Masker"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "De verboden UserAgent bestaat al!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "De UserAgent is met succes verwijderd"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "Verboden UserAgent"
           }
         ]
       },
@@ -1040,19 +1040,19 @@
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "De gebruikersagent om te verbieden. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "U moet een gebruikersagent definiëren."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "Voeg verbannen UserAgent toe"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "Bewerk verbannen UserAgent"
           }
         ]
       },
@@ -1061,35 +1061,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "UserAgent -lijst importeren"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Importlijst"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Kan niet importeren! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Selecteer Bestand importeren:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "Moet *.txt -bestand zijn met één UserAgent op elke regel"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "Niets geïmporteerd: er werd geen nieuwe UserAgent gevonden in de upload."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} Nieuwe UserAgent (s) met succes geïmporteerd."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "UserAgent (s) importeren"
           }
         ]
       },
@@ -1102,11 +1102,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "Geen verboden e -mailadressen"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "Momenteel zijn er geen verboden e -mailadressen. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1225,11 +1225,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "Geen verboden IP -adressen"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "Momenteel zijn er geen verboden IP -adressen. "
           },
           {
             "@tag": "EXPORT",
@@ -1237,11 +1237,11 @@
           },
           {
             "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
+            "#text": "Importeer zwarte lijst van misbruiktipdb"
           },
           {
             "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+            "#text": "Importlijst met de meest recente IP -adressen1 van misbruiktipdb.com"
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1376,11 +1376,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "Geen verboden namen"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "Momenteel zijn er geen verboden gebruikersnamen. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1771,11 +1771,11 @@
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
+            "#text": "Standaardpaginegrootte"
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
+            "#text": "De standaardpaginegrootte voor lijsten voor nieuwe gebruikers."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -1961,7 +1961,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "Verwijder dit forum permanent, inclusief alle onderwerpen, peilingen, bijlagen en berichten die eraan verbonden zijn?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -3553,7 +3553,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "Kopieer naar klembord"
           },
           {
             "@tag": "DELETE_ALL",
@@ -3768,11 +3768,11 @@
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
+            "#text": "Misbruiktipdb API -sleutel:"
           },
           {
             "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
+            "#text": "De API -toets om het IP -adres op de zwarte lijst op te halen."
           },
           {
             "@tag": "ACTIVE_USERTIME",
@@ -4080,7 +4080,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4280,11 +4280,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "Schakel Wysiwyg -editor in"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "Instelling om de WYSIWYG BBCODE -editor in te schakelen/uit te schakelen"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "Editor Enter -modus"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "Nieuw"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "Lijnen zijn gebroken met"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Stelt het gedrag van de enter -toets in, zoals of de"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -4472,7 +4488,7 @@
           },
           {
             "@tag": "HOST_CACHE",
-            "#text": "cache"
+            "#text": "Stampache"
           },
           {
             "@tag": "HOST_DISPLAY",
@@ -5040,11 +5056,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "Scroll naar ongelezen/eerste bericht"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "Indien ingeschakeld scolt het naar het eerste ongelezen bericht/of eerste nieuwe bericht bij het openen van een onderwerp"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5723,11 +5739,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "Geen medailles"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "Momenteel zijn er geen medailles. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5851,11 +5867,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "Geen aangepaste profieldefinities"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "Momenteel zijn er geen aangepaste profieldefinities. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6121,11 +6137,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "Geen woorden vervangen"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "Momenteel zijn er geen vervangende woorden. "
           },
           {
             "@tag": "EXPORT",
@@ -6332,11 +6348,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "Geen spamcontrole woorden"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "Momenteel zijn er geen spamcontrole woorden. "
           },
           {
             "@tag": "EXPORT",
@@ -6688,7 +6704,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "Verboden gebruikersagents"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -6852,7 +6868,7 @@
           },
           {
             "@tag": "UPGRADE",
-            "#text": "Upgrade"
+            "#text": "Upgraden"
           },
           {
             "@tag": "USERSANDROLES",
@@ -6885,7 +6901,7 @@
           },
           {
             "@tag": "ALBUMS",
-            "#text": "Albums"
+            "#text": "Album"
           },
           {
             "@tag": "ALBUMS_HEADER_TEXT",
@@ -7247,7 +7263,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "Vriendschapsverzoek verwijderd."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7639,7 +7655,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "Resterende karakters:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7735,7 +7751,7 @@
           },
           {
             "@tag": "FONT_NAME",
-            "#text": "Font Name"
+            "#text": "Lettertype -naam"
           },
           {
             "@tag": "FONT_SIZE",
@@ -7751,7 +7767,7 @@
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "d"
+            "#text": "D"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
@@ -7843,7 +7859,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "Plaats media"
           },
           {
             "@tag": "MENU",
@@ -7991,7 +8007,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "Selectie van paginagrootte"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8031,7 +8047,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "Kopieer de geselecteerde tekst (Ctrl C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8043,11 +8059,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "Knip de geselecteerde tekst (Ctrl X)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "Beschrijving"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8059,11 +8075,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "Voer de afbeeldingsbeschrijving in:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "Voer afbeelding URL in:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8083,11 +8099,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "Plak de media -URL in de invoer (bijvoorbeeld een YouTube -video, Spotify -afspeellijst of Instagram -afbeelding)."
+          },
+          {
+            "@tag": "TT_NOTE",
+            "#text": "Noot invoegen"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Noteertype"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "Plakken (Ctrl V)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8095,19 +8119,19 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "Rood (ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "Verwijder het formaat"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "Selecteer alles"
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "Strikethrough"
+            "#text": "Doorstrevend"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8115,15 +8139,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "Ongedaan maken (ctrl z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "Voer URL -beschrijving in:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "Voer URL in:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8204,14 +8228,6 @@
           {
             "@tag": "YES",
             "#text": "Ja"
-          },
-          {
-            "@tag": "TT_NOTE",
-            "#text": "Insert Note"
-          },
-          {
-            "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
           }
         ]
       },
@@ -9025,7 +9041,7 @@
           },
           {
             "@tag": "SR",
-            "#text": "Suriname"
+            "#text": "Aan de hand zijn"
           },
           {
             "@tag": "ST",
@@ -9294,11 +9310,11 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
+            "#text": "Markeer alles zoals gelezen"
           },
           {
             "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
+            "#text": "Markeer als gelezen"
           },
           {
             "@tag": "MARKALL",
@@ -9562,7 +9578,7 @@
           },
           {
             "@tag": "ALBUMS",
-            "#text": "Albums"
+            "#text": "Album"
           },
           {
             "@tag": "ALBUMS_COUNT_LIMIT",
@@ -9723,10 +9739,6 @@
             "#text": "Je hebt een ongeldig Faceboek-profiel opgegeven."
           },
           {
-            "@tag": "BAD_GOOGLE",
-            "#text": "U heeft een ongeldige waarde ingevoerd als Google-profiel-URL."
-          },
-          {
             "@tag": "BAD_HOME",
             "#text": "Je hebt een ongeldig homepage adres ingevoerd."
           },
@@ -9852,7 +9864,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
+            "#text": "Selecteer de themamodus:"
           },
           {
             "@tag": "TIMEZONE",
@@ -9885,15 +9897,15 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Schakel twee factor authenticatie uit"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Schakel twee factor authenticatie uit"
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Turn on Two Factor Authentication"
+            "#text": "Schakel twee factor authenticatie in"
           },
           {
             "@tag": "INFO",
@@ -9901,11 +9913,11 @@
           },
           {
             "@tag": "INPUT_CODE",
-            "#text": "Input security code"
+            "#text": "Voer beveiligingscode in"
           },
           {
             "@tag": "SETUP_CODE",
-            "#text": "Setup code"
+            "#text": "Setup -code"
           },
           {
             "@tag": "TITLE",
@@ -9913,11 +9925,11 @@
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
-            "#text": "Enable Two Factor Authentication"
+            "#text": "Schakel twee factor authenticatie in"
           },
           {
             "@tag": "WRONG_CODE",
-            "#text": "You have entered the wrong 2FA Code!"
+            "#text": "U hebt de verkeerde 2FA -code ingevoerd!"
           }
         ]
       },
@@ -10129,96 +10141,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyn"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Vrouw naar Man"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Geslachtsvloeistof"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Geslacht niet-conform"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Gendervragen"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersekse"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Man naar Vrouw"
-          },
-          {
             "@tag": "MAN",
             "#text": "Man"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "niet-binair"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Ander"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trans"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "transvrouwelijk"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgender"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "transgender man"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "transmannelijk"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "transseksueel"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Transgender vrouw"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Twee-Geest"
           },
           {
             "@tag": "WOMAN",
@@ -10331,7 +10259,7 @@
           },
           {
             "@tag": "MYALBUMSTITLE",
-            "#text": "Albums"
+            "#text": "Album"
           },
           {
             "@tag": "MYPICSCONTENT",
@@ -10573,7 +10501,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
+            "#text": "AOL instant messenger"
           }
         ]
       },
@@ -10889,7 +10817,7 @@
           },
           {
             "@tag": "FORUMURL",
-            "#text": "Forum Base Url Mask"
+            "#text": "Forum Base URL -masker"
           },
           {
             "@tag": "FROMEMAIL",
@@ -11203,15 +11131,15 @@
           },
           {
             "@tag": "TWO_FA_INFO",
-            "#text": "Please enter a validation code from your Authenticator app."
+            "#text": "Voer een validatiecode in vanuit uw Authenticator -app."
           },
           {
             "@tag": "TWO_FA_PLACEHOLDER",
-            "#text": "Validation code: ### ###"
+            "#text": "Validatiecode:"
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "Two-Factor Validation"
+            "#text": "Validatie met twee factoren"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -11882,7 +11810,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Your activity notifications"
+            "#text": "Uw activiteitenmeldingen"
           }
         ]
       },
@@ -11891,7 +11819,7 @@
         "Resource": [
           {
             "@tag": "CONVERSATION_TITLE",
-            "#text": "Your Conversations"
+            "#text": "Uw gesprekken"
           },
           {
             "@tag": "TITLE",
@@ -11956,7 +11884,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "U hebt {0} privéberichten: {1} in inbox en {2} in outbox. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12101,11 +12029,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "Gebonden stemmen"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "Maffiabaas"
           },
           {
             "@tag": "POLLHEADER",
@@ -12145,7 +12073,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "Peiling is verwijderd!"
           }
         ]
       },
@@ -12347,7 +12275,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "BLOG"
+            "#text": "Blog"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12890,7 +12818,7 @@
           },
           {
             "@tag": "ALBUMS",
-            "#text": "Albums"
+            "#text": "Album"
           },
           {
             "@tag": "AVATAR",
@@ -12947,10 +12875,6 @@
           {
             "@tag": "GENDER",
             "#text": "Geslacht:"
-          },
-          {
-            "@tag": "GOOGLE",
-            "#text": "Google+ profiel:"
           },
           {
             "@tag": "GROUPS",
@@ -13188,7 +13112,7 @@
           },
           {
             "@tag": "RGN_CH_FR",
-            "#text": "Fribourg"
+            "#text": "Kraam"
           },
           {
             "@tag": "RGN_CH_GE",
@@ -13212,7 +13136,7 @@
           },
           {
             "@tag": "RGN_CH_NE",
-            "#text": "Neuchâtel"
+            "#text": "Nieuw"
           },
           {
             "@tag": "RGN_CH_NW",
@@ -13289,7 +13213,7 @@
           },
           {
             "@tag": "RGN_DE_BW",
-            "#text": "Baden-Württemberg"
+            "#text": "Baden-W"
           },
           {
             "@tag": "RGN_DE_HE",
@@ -13342,7 +13266,7 @@
         "Resource": [
           {
             "@tag": "RGN_US_AK",
-            "#text": "Alaska"
+            "#text": "Omlaag"
           },
           {
             "@tag": "RGN_US_AL",
@@ -13350,7 +13274,7 @@
           },
           {
             "@tag": "RGN_US_AR",
-            "#text": "Arkansas"
+            "#text": "Arkansa"
           },
           {
             "@tag": "RGN_US_AS",
@@ -13498,7 +13422,7 @@
           },
           {
             "@tag": "RGN_US_OK",
-            "#text": "Oklahoma"
+            "#text": "Oklahola"
           },
           {
             "@tag": "RGN_US_OR",
@@ -14341,11 +14265,11 @@
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "Donker"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "Licht"
           }
         ]
       },

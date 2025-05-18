@@ -16,7 +16,7 @@
           },
           {
             "@tag": "BECOME_FRIENDS",
-            "#text": "Become Friends"
+            "#text": "Devine prieteni"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "Vizualizări lista de agenți utilizatori interzisă"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "Modifică agenții de utilizator interzis"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "Import agenți utilizatori interzisați"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -986,7 +986,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete attachment(s)?"
+            "#text": "Ștergeți atașamentul (e)?"
           },
           {
             "@tag": "TITLE",
@@ -999,35 +999,35 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "Adăugați un nou utilizator"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "Fără utilizatori"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "În prezent, nu există un utilizator interzis. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "Import UserAgent (S)"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "Masca"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "Utilizatorul interzis există deja!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "Utilizatorul a fost șters cu succes"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "Utilizator interzis"
           }
         ]
       },
@@ -1040,19 +1040,19 @@
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "Agentul utilizator să interzică. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "Trebuie să definiți un agent utilizator."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "Adăugați Banned UserAgent"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "Editați Banned UserAgent"
           }
         ]
       },
@@ -1061,35 +1061,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Importați lista de utilizatori"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Lista de import"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Nu a reușit să importe! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Selectați Import Fișier:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "Trebuie să fie *.txt fișier care conține un utilizator pe fiecare linie"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "Nimic importat: nu a fost găsit niciun nou utilizator în încărcare."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} nou UserAgent (e) importat cu succes."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "Import UserAgent (S)"
           }
         ]
       },
@@ -1102,11 +1102,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "Nu există adrese de e -mail interzise"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "În prezent, nu există adrese de e -mail interzise. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1225,11 +1225,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "Nu există adrese IP interzise"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "În prezent, nu există adrese IP interzise. "
           },
           {
             "@tag": "EXPORT",
@@ -1237,11 +1237,11 @@
           },
           {
             "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
+            "#text": "Importați lista neagră din abuzipdb"
           },
           {
             "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+            "#text": "Lista de import cu cele mai recente adrese IP1 de la abuzipdb.com"
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1376,11 +1376,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "Fără nume interzise"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "În prezent, nu există nume de utilizator interzise. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1706,7 +1706,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "ID"
+            "#text": "Id"
           },
           {
             "@tag": "NAME",
@@ -1771,11 +1771,11 @@
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
+            "#text": "Dimensiunea implicită a paginii"
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
+            "#text": "Dimensiunea implicită a paginii pentru liste pentru utilizatorii noi."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -1961,7 +1961,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "Ștergeți permanent acest forum, inclusiv toate subiectele, sondajele, atașamentele și mesajele asociate acestuia?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -2748,7 +2748,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "forum"
+            "#text": "Forum"
           },
           {
             "@tag": "FORUM_MOD",
@@ -3561,7 +3561,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "Copiați în clipboard"
           },
           {
             "@tag": "DELETE_ALL",
@@ -3776,11 +3776,11 @@
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
+            "#text": "Cheie API abuzipdb:"
           },
           {
             "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
+            "#text": "Cheia API pentru a prelua lista neagră a adresei IP."
           },
           {
             "@tag": "ACTIVE_USERTIME",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "StopForumSspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4288,11 +4288,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "Activați editorul Wysiwyg"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "Setare pentru a activa/dezactiva editorul Wysiwyg BBCode"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "Editor Enter Mod"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "Nou"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "Liniile sunt rupte cu"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Stabilește comportamentul cheii Enter, cum ar fi dacă"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -4972,7 +4988,7 @@
           },
           {
             "@tag": "REPLACE_CACHE_TIMEOUT",
-            "#text": "Replace Rules Cache Timeout:"
+            "#text": "Înlocuiți regulile Timeout cache:"
           },
           {
             "@tag": "REPLACE_CACHE_TIMEOUT_HELP",
@@ -5048,11 +5064,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "Derulați la necitit/prima postare"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "Dacă este activat, derulează la prima postare necitită/sau prima postare nouă la deschiderea unui subiect"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5731,11 +5747,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "Fără medalii"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "În prezent, nu există medalii. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5859,11 +5875,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "Fără definiții de profil personalizate"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "În prezent, nu există definiții ale profilului personalizat. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6129,11 +6145,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "Fără cuvinte înlocuite"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "În prezent, nu există cuvinte de înlocuire. "
           },
           {
             "@tag": "EXPORT",
@@ -6340,11 +6356,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "Fără cuvinte de verificare spam"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "În prezent, nu există cuvinte de verificare spam. "
           },
           {
             "@tag": "EXPORT",
@@ -6696,7 +6712,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "Utilizatori interzisi"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -6909,7 +6925,7 @@
           },
           {
             "@tag": "ALBUMS_TITLE",
-            "#text": "{0} Album: {1}"
+            "#text": "{0} album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
@@ -7255,7 +7271,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "Cererea de prietenie eliminată."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7647,7 +7663,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "Personaje rămase:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7743,7 +7759,7 @@
           },
           {
             "@tag": "FONT_NAME",
-            "#text": "Font Name"
+            "#text": "Numele fontului"
           },
           {
             "@tag": "FONT_SIZE",
@@ -7755,11 +7771,11 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "D"
+            "#text": "D."
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "d"
+            "#text": "D."
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
@@ -7851,7 +7867,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "Introduceți media"
           },
           {
             "@tag": "MENU",
@@ -7999,7 +8015,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "Selectarea mărimii paginii"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8039,7 +8055,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "Copiați textul selectat (Ctrl C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8051,11 +8067,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "Tăiați textul selectat (CTRL X)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "Descriere"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8067,11 +8083,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "Introduceți descrierea imaginii:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "Introduceți adresa URL a imaginii:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8091,11 +8107,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "Lipiți URL -ul media în intrare (de exemplu, un videoclip YouTube, Playlist Spotify sau Instagram)."
+          },
+          {
+            "@tag": "TT_NOTE",
+            "#text": "Introduceți notă"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Tip de notă"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "Lipire (Ctrl V)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8103,15 +8127,15 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "Roșu (ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "Scoateți formatul"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "Selectați toate"
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
@@ -8123,15 +8147,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "Anulare (Ctrl Z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "Introduceți URL Descriere:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "Introduceți adresa URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8212,14 +8236,6 @@
           {
             "@tag": "YES",
             "#text": "Da"
-          },
-          {
-            "@tag": "TT_NOTE",
-            "#text": "Insert Note"
-          },
-          {
-            "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
           }
         ]
       },
@@ -9262,7 +9278,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "forum"
+            "#text": "Forum"
           },
           {
             "@tag": "GO_LAST_POST",
@@ -9302,11 +9318,11 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
+            "#text": "Marcați totul ca citit"
           },
           {
             "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
+            "#text": "Mark ca citit"
           },
           {
             "@tag": "MARKALL",
@@ -9731,10 +9747,6 @@
             "#text": "Ați introdus o adresă URL incorectă ca profil Facebook."
           },
           {
-            "@tag": "BAD_GOOGLE",
-            "#text": "Ați introdus o valoare ilegală ca URL de profil Google."
-          },
-          {
             "@tag": "BAD_HOME",
             "#text": "Ai introdus o adresa  gresita pentru pagina personala."
           },
@@ -9860,7 +9872,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
+            "#text": "Selectați modul temă:"
           },
           {
             "@tag": "TIMEZONE",
@@ -9893,15 +9905,15 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Dezactivați autentificarea cu doi factori"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Dezactivați autentificarea cu doi factori"
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Turn on Two Factor Authentication"
+            "#text": "Porniți autentificarea cu doi factori"
           },
           {
             "@tag": "INFO",
@@ -9909,11 +9921,11 @@
           },
           {
             "@tag": "INPUT_CODE",
-            "#text": "Input security code"
+            "#text": "Cod de securitate de intrare"
           },
           {
             "@tag": "SETUP_CODE",
-            "#text": "Setup code"
+            "#text": "Cod de configurare"
           },
           {
             "@tag": "TITLE",
@@ -9921,11 +9933,11 @@
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
-            "#text": "Enable Two Factor Authentication"
+            "#text": "Activați autentificarea cu doi factori"
           },
           {
             "@tag": "WRONG_CODE",
-            "#text": "You have entered the wrong 2FA Code!"
+            "#text": "Ați introdus codul 2FA greșit!"
           }
         ]
       },
@@ -10137,96 +10149,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgin"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgen"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "De la femeie la bărbat"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Fluiditate de gen"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Nonconformitate de gen"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Chestionarea de gen"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "De la bărbat la femeie"
-          },
-          {
             "@tag": "MAN",
             "#text": "Omul"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "Non-binare"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Altele"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trans"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminin"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgender"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Bărbat transgender"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculin"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transsexual"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Femeie transsexuală"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Două spirite"
           },
           {
             "@tag": "WOMAN",
@@ -11219,15 +11147,15 @@
           },
           {
             "@tag": "TWO_FA_INFO",
-            "#text": "Please enter a validation code from your Authenticator app."
+            "#text": "Vă rugăm să introduceți un cod de validare din aplicația dvs. Authenticator."
           },
           {
             "@tag": "TWO_FA_PLACEHOLDER",
-            "#text": "Validation code: ### ###"
+            "#text": "Cod de validare:"
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "Two-Factor Validation"
+            "#text": "Validare cu doi factori"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -11597,7 +11525,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "forum"
+            "#text": "Forum"
           },
           {
             "@tag": "REPORTED",
@@ -11785,7 +11713,7 @@
           },
           {
             "@tag": "ATOMFEED",
-            "#text": "Atom Feed"
+            "#text": "Feed atom"
           },
           {
             "@tag": "BY",
@@ -11898,7 +11826,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Your activity notifications"
+            "#text": "Notificările dvs. de activitate"
           }
         ]
       },
@@ -11907,7 +11835,7 @@
         "Resource": [
           {
             "@tag": "CONVERSATION_TITLE",
-            "#text": "Your Conversations"
+            "#text": "Conversațiile tale"
           },
           {
             "@tag": "TITLE",
@@ -11972,7 +11900,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "Aveți {0} Mesaje private: {1} în căsuța de e -mail și {2} în caseta de ieșire. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12117,11 +12045,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "Votare legată"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "Don"
           },
           {
             "@tag": "POLLHEADER",
@@ -12161,7 +12089,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "Sondajul a fost eliminat!"
           }
         ]
       },
@@ -12351,7 +12279,7 @@
           },
           {
             "@tag": "ATOMTOPIC",
-            "#text": "Atom Feed"
+            "#text": "Feed atom"
           },
           {
             "@tag": "ATTACHMENTINFO",
@@ -12363,7 +12291,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "BLOG"
+            "#text": "Blog"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12459,7 +12387,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "Www"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12511,7 +12439,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "IP"
+            "#text": "Ip"
           },
           {
             "@tag": "JOINED",
@@ -12965,10 +12893,6 @@
             "#text": "Sex:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Profilul Google+:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Grupuri:"
           },
@@ -13070,7 +12994,7 @@
           },
           {
             "@tag": "SOCIAL_MEDIA",
-            "#text": "Social Media"
+            "#text": "Social media"
           },
           {
             "@tag": "STATISTICS",
@@ -13204,7 +13128,7 @@
           },
           {
             "@tag": "RGN_CH_FR",
-            "#text": "Fribourg"
+            "#text": "FRIBORG"
           },
           {
             "@tag": "RGN_CH_GE",
@@ -13216,7 +13140,7 @@
           },
           {
             "@tag": "RGN_CH_GR",
-            "#text": "Grisons"
+            "#text": "Gri"
           },
           {
             "@tag": "RGN_CH_JU",
@@ -13228,7 +13152,7 @@
           },
           {
             "@tag": "RGN_CH_NE",
-            "#text": "Neuchâtel"
+            "#text": "Nou"
           },
           {
             "@tag": "RGN_CH_NW",
@@ -13240,7 +13164,7 @@
           },
           {
             "@tag": "RGN_CH_SG",
-            "#text": "St. Gallen"
+            "#text": "Sf. Gallen"
           },
           {
             "@tag": "RGN_CH_SH",
@@ -13305,11 +13229,11 @@
           },
           {
             "@tag": "RGN_DE_BW",
-            "#text": "Baden-Württemberg"
+            "#text": "Baden-W"
           },
           {
             "@tag": "RGN_DE_HE",
-            "#text": "Hessen"
+            "#text": "Hesse"
           },
           {
             "@tag": "RGN_DE_HH",
@@ -13358,7 +13282,7 @@
         "Resource": [
           {
             "@tag": "RGN_US_AK",
-            "#text": "Alaska"
+            "#text": "Jos"
           },
           {
             "@tag": "RGN_US_AL",
@@ -13366,7 +13290,7 @@
           },
           {
             "@tag": "RGN_US_AR",
-            "#text": "Arkansas"
+            "#text": "Arkansa"
           },
           {
             "@tag": "RGN_US_AS",
@@ -13514,7 +13438,7 @@
           },
           {
             "@tag": "RGN_US_OK",
-            "#text": "Oklahoma"
+            "#text": "Oklahola"
           },
           {
             "@tag": "RGN_US_OR",
@@ -14158,7 +14082,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "forum"
+            "#text": "Forum"
           },
           {
             "@tag": "FORUMS",
@@ -14357,11 +14281,11 @@
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "Întuneric"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "Aprinde"
           }
         ]
       },
@@ -14378,7 +14302,7 @@
           },
           {
             "@tag": "ADMIN",
-            "#text": "Admin"
+            "#text": "Administrator"
           },
           {
             "@tag": "ADMIN_TITLE",
@@ -14583,7 +14507,7 @@
           },
           {
             "@tag": "ATOMFEED",
-            "#text": "Atom Feed"
+            "#text": "Feed atom"
           },
           {
             "@tag": "BY",
@@ -14595,7 +14519,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "forum"
+            "#text": "Forum"
           },
           {
             "@tag": "FORUMUSERS",
@@ -14675,7 +14599,7 @@
           },
           {
             "@tag": "RSSFEED",
-            "#text": "RSS Feed"
+            "#text": "Hrană RSS"
           },
           {
             "@tag": "SEARCH_FORUM",

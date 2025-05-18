@@ -16,7 +16,7 @@
           },
           {
             "@tag": "BECOME_FRIENDS",
-            "#text": "Become Friends"
+            "#text": "دوست شوید"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "نمایش لیست نمایندگان کاربر ممنوع"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "ویرایش نمایندگان کاربر ممنوع است"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "واردات نمایندگان کاربر ممنوع را وارد می کند"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -986,7 +986,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete attachment(s)?"
+            "#text": "ضمیمه (ها) را حذف کنید؟"
           },
           {
             "@tag": "TITLE",
@@ -999,35 +999,35 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "UserAgent جدید اضافه کنید"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "بدون کاربر"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "در حال حاضر هیچ کاربری ممنوع وجود ندارد. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "وارد کردن UserAgent (بازدید کنندگان)"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "ماسک"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "کاربر ممنوع در حال حاضر وجود دارد!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "UserAgent با موفقیت حذف شد"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "UserAgent ممنوع"
           }
         ]
       },
@@ -1040,19 +1040,19 @@
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "نماینده کاربر ممنوع است. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "شما باید یک عامل کاربر را تعریف کنید."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "UserAgent ممنوع را اضافه کنید"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "ویرایش UserAgent ممنوع"
           }
         ]
       },
@@ -1061,35 +1061,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "لیست UserAgent را وارد کنید"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "لیست واردات"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "واردات نشد! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "پرونده واردات را انتخاب کنید:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "باید پرونده *.txt باشد که حاوی یک کاربر در هر خط است"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "هیچ چیز وارداتی: هیچ کاربر جدیدی در آپلود پیدا نشده است."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} UserAgent جدید (های) جدید با موفقیت وارد می شود."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "وارد کردن UserAgent (بازدید کنندگان)"
           }
         ]
       },
@@ -1102,11 +1102,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "بدون آدرس ایمیل ممنوع"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "در حال حاضر هیچ آدرس ایمیل ممنوع وجود ندارد. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1225,11 +1225,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "بدون آدرس IP ممنوع"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "در حال حاضر هیچ آدرس IP ممنوع وجود ندارد. "
           },
           {
             "@tag": "EXPORT",
@@ -1237,11 +1237,11 @@
           },
           {
             "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
+            "#text": "وارد کردن لیست سیاه از سوء استفاده"
           },
           {
             "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+            "#text": "لیست واردات با جدیدترین آدرس های IP 1 از mostipdb.com"
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1376,11 +1376,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "نام ممنوع"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "در حال حاضر هیچ نام کاربری ممنوع وجود ندارد. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1771,11 +1771,11 @@
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
+            "#text": "اندازه صفحه پیش فرض"
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
+            "#text": "اندازه صفحه پیش فرض برای لیست برای کاربران جدید."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -3553,7 +3553,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "در کلیپ بورد کپی کنید"
           },
           {
             "@tag": "DELETE_ALL",
@@ -3768,11 +3768,11 @@
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
+            "#text": "کلید MASPTIONIPDB API:"
           },
           {
             "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
+            "#text": "کلید API برای بازیابی لیست سیاه آدرس IP."
           },
           {
             "@tag": "ACTIVE_USERTIME",
@@ -4080,7 +4080,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4280,11 +4280,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "ویرایشگر Wysiwyg را فعال کنید"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "تنظیم برای فعال کردن/غیرفعال کردن ویرایشگر BBCode Wysiwyg"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "ویرایشگر حالت را وارد کنید"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "جدید"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "خطوط با"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "رفتار کلید enter را تنظیم می کند ، مانند اینکه آیا"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -5040,11 +5056,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "پیمایش به خوانده نشده/اولین پست"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "در صورت فعال کردن آن به اولین پست خوانده نشده/یا اولین پست جدید هنگام باز کردن یک موضوع ، پیمایش می شود"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5723,11 +5739,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "بدون مدال"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "در حال حاضر هیچ مدال وجود ندارد. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5851,11 +5867,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "بدون تعاریف مشخصات سفارشی"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "در حال حاضر هیچ تعریف مشخصات سفارشی وجود ندارد. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6121,11 +6137,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "بدون کلمات جایگزین"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "در حال حاضر هیچ کلمات جایگزینی وجود ندارد. "
           },
           {
             "@tag": "EXPORT",
@@ -6332,11 +6348,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "بدون اسپم کلمات را بررسی کنید"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "در حال حاضر هیچ کلمه چک هرزنامه وجود ندارد. "
           },
           {
             "@tag": "EXPORT",
@@ -6688,7 +6704,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "کاربران ممنوع"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -7635,7 +7651,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "شخصیت های باقی مانده:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7731,7 +7747,7 @@
           },
           {
             "@tag": "FONT_NAME",
-            "#text": "Font Name"
+            "#text": "نام فونت"
           },
           {
             "@tag": "FONT_SIZE",
@@ -7743,23 +7759,23 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "D"
+            "#text": "د"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "d"
+            "#text": "د"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "F"
+            "#text": "ج"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "G"
+            "#text": "جف"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "T"
+            "#text": "حرف"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -7839,7 +7855,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "رسانه را وارد کنید"
           },
           {
             "@tag": "MENU",
@@ -7987,7 +8003,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "انتخاب اندازه صفحه"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8027,7 +8043,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "متن انتخاب شده (Ctrl C) را کپی کنید"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8039,11 +8055,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "متن انتخاب شده را برش دهید (Ctrl X)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "شرح"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8055,11 +8071,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "توضیحات تصویر را وارد کنید:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "URL تصویر را وارد کنید:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8079,11 +8095,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "URL رسانه را در ورودی قرار دهید (به عنوان مثال یک فیلم YouTube ، لیست پخش Spotify یا تصویر اینستاگرام)."
+          },
+          {
+            "@tag": "TT_NOTE",
+            "#text": "توجه داشته باشید"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "نوع توجه"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "خمیر (ctrl v)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8091,19 +8115,19 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "قرمز (ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "حذف قالب"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "همه را انتخاب کنید"
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "Strikethrough"
+            "#text": "چیز جالب"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8111,15 +8135,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "UNDO (CTRL Z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "توضیحات URL را وارد کنید:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "URL را وارد کنید:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8200,14 +8224,6 @@
           {
             "@tag": "YES",
             "#text": "بلی"
-          },
-          {
-            "@tag": "TT_NOTE",
-            "#text": "Insert Note"
-          },
-          {
-            "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
           }
         ]
       },
@@ -9290,11 +9306,11 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
+            "#text": "همه را به عنوان خوانده شده علامت گذاری کنید"
           },
           {
             "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
+            "#text": "علامت گذاری به عنوان خوانده شده"
           },
           {
             "@tag": "MARKALL",
@@ -9719,10 +9735,6 @@
             "#text": "آدرس نمایه فیسبوک را نادرست وارد کرده اید."
           },
           {
-            "@tag": "BAD_GOOGLE",
-            "#text": "آدرس نمایه گوگل شامل یک مقدار نامعتبر است."
-          },
-          {
             "@tag": "BAD_HOME",
             "#text": "آدرسی که به عنوان صفحه خانگی خود وارد کرده اید اشتباه می باشد."
           },
@@ -9848,7 +9860,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
+            "#text": "حالت تم را انتخاب کنید:"
           },
           {
             "@tag": "TIMEZONE",
@@ -9881,15 +9893,15 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "احراز هویت دو عامل را غیرفعال کنید"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "احراز هویت دو عامل را غیرفعال کنید"
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Turn on Two Factor Authentication"
+            "#text": "احراز هویت دو عامل را روشن کنید"
           },
           {
             "@tag": "INFO",
@@ -9897,11 +9909,11 @@
           },
           {
             "@tag": "INPUT_CODE",
-            "#text": "Input security code"
+            "#text": "کد امنیتی ورودی"
           },
           {
             "@tag": "SETUP_CODE",
-            "#text": "Setup code"
+            "#text": "رمز تنظیم"
           },
           {
             "@tag": "TITLE",
@@ -9909,11 +9921,11 @@
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
-            "#text": "Enable Two Factor Authentication"
+            "#text": "احراز هویت دو عامل را فعال کنید"
           },
           {
             "@tag": "WRONG_CODE",
-            "#text": "You have entered the wrong 2FA Code!"
+            "#text": "شما کد 2FA اشتباه را وارد کرده اید!"
           }
         ]
       },
@@ -10125,96 +10137,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "عامل"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "آندروژن"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "دوجنسی"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "سیسجندر"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "زن به مرد"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "مایع جنسی"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "جنسیت ناسازگار"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "جندرکویر"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "پرسش از جنسیت"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "اینترسکس"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "مرد به زن"
-          },
-          {
             "@tag": "MAN",
             "#text": "مرد"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "غیر باینری"
-          },
-          {
             "@tag": "OTHER",
             "#text": "دیگر"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "پانگندر"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "ترنس"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "ترانس زنانه"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "تغییر جنسیت"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "مرد ترنسجندر"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "فرامردانه"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "ترنس سکشوال"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "زن ترنسجندر"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "دو روح"
           },
           {
             "@tag": "WOMAN",
@@ -11199,15 +11127,15 @@
           },
           {
             "@tag": "TWO_FA_INFO",
-            "#text": "Please enter a validation code from your Authenticator app."
+            "#text": "لطفاً یک کد اعتبار سنجی را از برنامه تأیید کننده خود وارد کنید."
           },
           {
             "@tag": "TWO_FA_PLACEHOLDER",
-            "#text": "Validation code: ### ###"
+            "#text": "کد اعتبار سنجی:"
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "Two-Factor Validation"
+            "#text": "اعتبار سنجی دو عاملی"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -11878,7 +11806,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Your activity notifications"
+            "#text": "اعلان های فعالیت شما"
           }
         ]
       },
@@ -11887,7 +11815,7 @@
         "Resource": [
           {
             "@tag": "CONVERSATION_TITLE",
-            "#text": "Your Conversations"
+            "#text": "مکالمات شما"
           },
           {
             "@tag": "TITLE",
@@ -12097,11 +12025,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "رأی دادن"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "دانستن"
           },
           {
             "@tag": "POLLHEADER",
@@ -12141,7 +12069,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "نظرسنجی حذف شد!"
           }
         ]
       },
@@ -12943,10 +12871,6 @@
           {
             "@tag": "GENDER",
             "#text": "جنسیت:"
-          },
-          {
-            "@tag": "GOOGLE",
-            "#text": "نمایه +Google:"
           },
           {
             "@tag": "GROUPS",
@@ -14333,15 +14257,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Auto"
+            "#text": "خودرو"
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "تاریک"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "سبک"
           }
         ]
       },
