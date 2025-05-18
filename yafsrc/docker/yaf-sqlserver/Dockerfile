@@ -10,7 +10,7 @@ WORKDIR /src
 COPY ["ServiceStack/Directory.Build.props", "ServiceStack/"]
 COPY ["YetAnotherForum.NET/YAF-SqlServer.csproj", "YetAnotherForum.NET/"]
 
-COPY ["YAF.NET-SqlServer.sln", ""]
+COPY ["YAF.NET-SqlServer.slnx", ""]
 COPY ["YAFNET.Core/YAFNET.Core.csproj", "YAFNET.Core/"]
 COPY ["Tests/YAFNET.Tests.AdminTests/YAFNET.Tests.AdminTests.csproj", "Tests/YAFNET.Tests.AdminTests/"]
 COPY ["Tests/YAFNET.Tests.CoreTests/YAFNET.Tests.CoreTests.csproj", "Tests/YAFNET.Tests.CoreTests/"]
@@ -22,7 +22,7 @@ COPY ["YAFNET.Types/YAFNET.Types.csproj", "YAFNET.Types/"]
 COPY ["YAFNET.Data/YAFNET.Data.SqlServer/YAFNET.Data.SqlServer.csproj", "YAFNET.Data/YAFNET.Data.SqlServer/"]
 COPY ["ServiceStack/ServiceStack.OrmLite.SqlServer/ServiceStack.OrmLite.SqlServer.Core.csproj", "ServiceStack/ServiceStack.OrmLite.SqlServer/"]
 COPY ["YAFNET.Web/YAFNET.Web.csproj", "YAFNET.Web/"]
-RUN dotnet restore "YAF.NET-SqlServer.sln"
+RUN dotnet restore "YAF.NET-SqlServer.slnx"
 COPY . .
 WORKDIR "/src/YetAnotherForum.NET"
 
