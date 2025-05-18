@@ -16,11 +16,8 @@ jobs:
       with:
         vs-version: '17'
 
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v2
-      
     - name: Restore Packages
-      run: nuget restore ./yafsrc/YAF.NET-SqlServer.slnx
+      run: dotnet restore ./yafsrc/YAF.NET-SqlServer.slnx
 
     - name: Build Solution
       run: msbuild ./yafsrc/YAF.NET-SqlServer.slnx -t:rebuild -property:Configuration=Release
