@@ -248,7 +248,7 @@
                                 <small class="form-text text-body-secondary"><%# DateTime.UtcNow %></small>
                             </div>
                             <asp:PlaceHolder runat="server" ID="SSLSettings">
-                                <div class="mb-3 col-md-6">
+                                <div class="mb-3">
                                     <YAF:HelpLabel ID="HelpLabel71" runat="server"
                                                    AssociatedControlID="RequireSSL"
                                                    LocalizedTag="SSL_REQUIRE" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -274,22 +274,23 @@
 		                            </asp:DropDownList>
 	                            </div>
                             </div>
-                                <div class="mb-3 col-md-6">
-                                    <YAF:HelpLabel ID="HelpLabel5" runat="server"
-                                                   AssociatedControlID="UseFileTable"
-                                                   LocalizedTag="FILE_TABLE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                    <div class="form-check form-switch">
-                                        <asp:CheckBox Text="&nbsp;" ID="UseFileTable" runat="server"></asp:CheckBox>
-                                    </div>
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <YAF:HelpLabel ID="HelpLabel7" runat="server"
-                                                   AssociatedControlID="ShowCookieConsent"
-                                                   LocalizedTag="SHOW_COOKIECONSET" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                    <div class="form-check form-switch">
-                                        <asp:CheckBox Text="&nbsp;" ID="ShowCookieConsent" runat="server"></asp:CheckBox>
-                                    </div>
-                                </div>
+                            <div class="row">
+	                            <div class="mb-3 col-md-6">
+		                            <YAF:HelpLabel ID="HelpLabel5" runat="server"
+		                                           AssociatedControlID="UseFileTable"
+		                                           LocalizedTag="FILE_TABLE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+		                            <div class="form-check form-switch">
+			                            <asp:CheckBox Text="&nbsp;" ID="UseFileTable" runat="server"></asp:CheckBox>
+		                            </div>
+	                            </div>
+	                            <div class="mb-3 col-md-6">
+		                            <YAF:HelpLabel ID="HelpLabel7" runat="server"
+		                                           AssociatedControlID="ShowCookieConsent"
+		                                           LocalizedTag="SHOW_COOKIECONSET" LocalizedPage="ADMIN_HOSTSETTINGS" />
+		                            <div class="form-check form-switch">
+			                            <asp:CheckBox Text="&nbsp;" ID="ShowCookieConsent" runat="server"></asp:CheckBox>
+		                            </div>
+	                            </div>
                             </div>
                             <div class="mb-3">
                                 <YAF:HelpLabel ID="HelpLabel6" runat="server"
@@ -649,7 +650,7 @@
                 <YAF:ThemeButton ID="Save" runat="server"  Type="Primary" OnClick="SaveClick"
                              Icon="save" TextLocalizedTag="SAVE_SETTINGS" TextLocalizedPage="ADMIN_HOSTSETTINGS">
                 </YAF:ThemeButton>
-            </div>
+                </div>
                 </div>
             </div>
             <div class="tab-pane fade" id="View2" role="tabpanel">

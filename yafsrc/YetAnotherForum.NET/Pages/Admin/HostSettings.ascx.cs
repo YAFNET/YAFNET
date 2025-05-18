@@ -31,7 +31,7 @@ using YAF.Types.Interfaces.Data;
 public partial class HostSettings : AdminPage
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="HostSettings"/> class. 
+    /// Initializes a new instance of the <see cref="HostSettings"/> class.
     /// </summary>
     public HostSettings()
         : base("ADMIN_HOSTSETTINGS", ForumPages.Admin_HostSettings)
@@ -269,43 +269,7 @@ public partial class HostSettings : AdminPage
                     }
                 });
 
-        // handle double fields...
-        settingCollection.SettingsDouble.Keys.ForEach(
-            name =>
-                {
-                    var control = this.HostSettingsTabs.FindControlRecursive(name);
-
-                    switch (control)
-                    {
-                        case TextBox box when settingCollection.SettingsDouble[name].CanWrite:
-                            {
-                                var value = box.Text.Trim();
-                                double i;
-
-                                if (value.IsNotSet())
-                                {
-                                    i = 0;
-                                }
-                                else
-                                {
-                                    double.TryParse(value, out i);
-                                }
-
-                                settingCollection.SettingsDouble[name].SetValue(
-                                    this.PageBoardContext.BoardSettings,
-                                    i,
-                                    null);
-                                break;
-                            }
-
-                        case DropDownList list when settingCollection.SettingsDouble[name].CanWrite:
-                            settingCollection.SettingsDouble[name].SetValue(
-                                this.PageBoardContext.BoardSettings,
-                                Convert.ToDouble(list.SelectedItem.Value),
-                                null);
-                            break;
-                    }
-                });
+        this.PageBoardContext.BoardSettings.EditorEnterMode = this.EditorEnterMode.SelectedValue.ToEnum<EnterMode>();
 
         // save the settings to the database
         this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
@@ -458,39 +422,6 @@ public partial class HostSettings : AdminPage
                     }
                 });
 
-        // handle double fields...
-        settingCollection.SettingsDouble.Keys.ForEach(
-            name =>
-                {
-                    var control = this.HostSettingsTabs.FindControlRecursive(name);
-
-                    switch (control)
-                    {
-                        case TextBox box when settingCollection.SettingsDouble[name].CanRead:
-                            box.CssClass = "form-control";
-
-                            // get the value from the property...
-                            box.Text = settingCollection.SettingsDouble[name]
-                                .GetValue(this.PageBoardContext.BoardSettings, null).ToString();
-                            break;
-
-                        case DropDownList list when settingCollection.SettingsDouble[name].CanRead:
-                            {
-                                var listItem = list.Items.FindByValue(
-                                    settingCollection.SettingsDouble[name].GetValue(
-                                        this.PageBoardContext.BoardSettings,
-                                        null).ToString());
-
-                                if (listItem != null)
-                                {
-                                    listItem.Selected = true;
-                                }
-
-                                break;
-                            }
-                    }
-                });
-
         // special field handling...
         this.AvatarSize.Text = this.PageBoardContext.BoardSettings.AvatarSize != 0
                                    ? this.PageBoardContext.BoardSettings.AvatarSize.ToString()
@@ -502,6 +433,8 @@ public partial class HostSettings : AdminPage
         this.AlbumImagesSizeMax.Text = this.PageBoardContext.BoardSettings.AlbumImagesSizeMax != 0
                                            ? this.PageBoardContext.BoardSettings.AlbumImagesSizeMax.ToString()
                                            : string.Empty;
+
+        this.EditorEnterMode.SelectedValue = this.PageBoardContext.BoardSettings.EditorEnterMode.ToInt().ToString();
 
         this.SQLVersion.Text = this.HtmlEncode(this.Get<IDbAccess>().GetSQLVersion());
 
