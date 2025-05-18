@@ -2021,6 +2021,16 @@ public class BoardSettings
     }
 
     /// <summary>
+    /// Gets or sets the editor enter mode.
+    /// </summary>
+    /// <value>The editor enter mode.</value>
+    public EnterMode EditorEnterMode {
+        get => this.RegistryBoard.GetValue("EditorEnterMode", EnterMode.Br);
+
+        set => this.RegistryBoard.SetValue("EditorEnterMode", value);
+    }
+
+    /// <summary>
     /// Gets or sets the RegistryDictionaryOverride.
     /// </summary>
     public RegistryDictionaryOverride Registry { get; set; }

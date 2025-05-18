@@ -16,7 +16,7 @@
           },
           {
             "@tag": "BECOME_FRIENDS",
-            "#text": "Become Friends"
+            "#text": "Tulla ystäviksi"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "Näkymät kielletyt käyttäjäagenttiluettelon"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "Muokkaukset kielletyt käyttäjäagentit"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "Tuonti kielletyt käyttäjäagentit"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -986,7 +986,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete attachment(s)?"
+            "#text": "Poista liitetiedot?"
           },
           {
             "@tag": "TITLE",
@@ -999,35 +999,35 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "Lisää uusi käyttäjäagentti"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "Ei käyttäjät"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "Tällä hetkellä ei ole kiellettyä käyttäjäagenttia. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "Tuo käyttäjäagentti (t)"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "Naamio"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "Kielletty käyttäjäagentti on jo olemassa!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "Käyttäjäagentti poistettiin onnistuneesti"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "Kielletty käyttäjäagentti"
           }
         ]
       },
@@ -1036,23 +1036,23 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "Käyttäjä:"
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "Käyttäjäagentti kieltää. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "Sinun on määritettävä käyttäjäagentti."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "Lisää kielletty käyttäjäagentti"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "Muokkaa kielletty käyttäjäagentti"
           }
         ]
       },
@@ -1061,35 +1061,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Tuo käyttäjäluettelo"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Tuontiluettelo"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Tuonnin epäonnistuminen! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Valitse tuontitiedosto:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "Täytyy olla *.txt -tiedosto, joka sisältää yhden käyttäjän edustajan jokaiselle riville"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "Mikään tuodut: Lähetyksestä ei löytynyt uutta käyttäjäagenttia."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} uusi käyttäjäagentti (t) tuodaan onnistuneesti."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "Tuo käyttäjäagentti (t)"
           }
         ]
       },
@@ -1102,11 +1102,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "Ei kiellettyjä sähköpostiosoitteita"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "Tällä hetkellä ei ole kiellettyjä sähköpostiosoitteita. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1225,11 +1225,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "Ei kiellettyjä IP -osoitteita"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "Tällä hetkellä ei ole kiellettyjä IP -osoitteita. "
           },
           {
             "@tag": "EXPORT",
@@ -1237,11 +1237,11 @@
           },
           {
             "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
+            "#text": "Tuo musta lista väärinkäytöksestä"
           },
           {
             "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+            "#text": "Tuo luettelo viimeisimpien IP -osoitteiden1 kanssa"
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1376,11 +1376,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "Ei kiellettyjä nimiä"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "Tällä hetkellä ei ole kiellettyjä käyttäjiä. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1612,7 +1612,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "OnClick JS:"
+            "#text": "Onclick JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -1706,7 +1706,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "ID"
+            "#text": "Henkilöllisyystodistus"
           },
           {
             "@tag": "NAME",
@@ -1771,11 +1771,11 @@
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
+            "#text": "Oletussivun koko"
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
+            "#text": "Uusien käyttäjien luetteloiden oletussivun koko."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -1961,7 +1961,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "Poista tämä foorumi pysyvästi, mukaan lukien kaikki siihen liittyvät aiheet, kyselyt, liitteet ja viestit?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -2519,7 +2519,7 @@
         "Resource": [
           {
             "@tag": "ACCESS_MASK",
-            "#text": "Access Mask"
+            "#text": "Pääsymaski"
           },
           {
             "@tag": "CATEGORY",
@@ -3561,7 +3561,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "Kopioi leikepöydälle"
           },
           {
             "@tag": "DELETE_ALL",
@@ -3776,11 +3776,11 @@
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
+            "#text": "VIRSSIPDB API -AVAIN:"
           },
           {
             "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
+            "#text": "API -avain IP -osoitteen mustan listan hakemiseksi."
           },
           {
             "@tag": "ACTIVE_USERTIME",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4288,11 +4288,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "Ota WYSIWYG -editorille käyttöön"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "WYSIWYG BBCODE -editorin asettaminen/poistaminen käytöstä"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "Editor Enter -tila"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "Uusi"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "Linjat ovat rikki"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Asettaa Enter -avaimen käyttäytymisen, kuten onko"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -5048,11 +5064,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "Vieritä lukemattomaan/ensimmäiseen viestiin"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "Jos se käytti, se vierittää ensimmäiseen lukemattomaan viestiin/tai ensimmäiseen uuteen viestiin aiheen avattaessa"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5408,7 +5424,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "BlogSpam.NET API"
+            "#text": "Blogspam.net API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -5731,11 +5747,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "Ei mitaleja"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "Tällä hetkellä ei ole mitaleja. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5859,11 +5875,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "Ei mukautettuja profiilin määritelmiä"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "Tällä hetkellä ei ole mukautettuja profiilin määritelmiä. "
           },
           {
             "@tag": "NEW_DEF",
@@ -5880,7 +5896,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Web Profiler"
+            "#text": "Verkkoprofiilit"
           }
         ]
       },
@@ -6129,11 +6145,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "Ei korvaa sanoja"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "Tällä hetkellä ei ole korvaavia sanoja. "
           },
           {
             "@tag": "EXPORT",
@@ -6340,11 +6356,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "Ei roskapostia tarkista sanoja"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "Tällä hetkellä ei ole roskapostiarkistussanoja. "
           },
           {
             "@tag": "EXPORT",
@@ -6696,7 +6712,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "Kielletyt käyttäjät"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -6784,7 +6800,7 @@
           },
           {
             "@tag": "ADMIN_PROFILER",
-            "#text": "Web Profiler"
+            "#text": "Verkkoprofiilit"
           },
           {
             "@tag": "ADMIN_PRUNE",
@@ -7255,7 +7271,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "Ystäväpyyntö poistettu."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7647,7 +7663,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "Jäljellä olevat merkit:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7743,7 +7759,7 @@
           },
           {
             "@tag": "FONT_NAME",
-            "#text": "Font Name"
+            "#text": "Fontin nimi"
           },
           {
             "@tag": "FONT_SIZE",
@@ -7851,7 +7867,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "Lisätä media"
           },
           {
             "@tag": "MENU",
@@ -7935,7 +7951,7 @@
           },
           {
             "@tag": "OK",
-            "#text": "OK"
+            "#text": "Hyvä"
           },
           {
             "@tag": "OR",
@@ -7999,7 +8015,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "Sivun kokoinen valinta"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8039,7 +8055,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "Kopioi valittu teksti (Ctrl C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8051,11 +8067,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "Leikkaa valittu teksti (Ctrl X)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "Kuvaus"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8067,11 +8083,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "Kirjoita kuvan kuvaus:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "Syötä kuvan URL:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8091,19 +8107,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "Liitä media -URL -osoitteeseen syötteeseen (esimerkiksi YouTube -video, Spotify -soittolista tai Instagram -kuva)."
           },
           {
             "@tag": "TT_NOTE",
-            "#text": "Insert Note"
+            "#text": "Lisää muistiinpano"
           },
           {
             "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
+            "#text": "Muistiinpanotyyppi"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "Liitä (Ctrl V)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8111,19 +8127,19 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "Punainen (ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "Poista muoto"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "Valitse kaikki"
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "Strikethrough"
+            "#text": "Aukko"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8131,15 +8147,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "Kumoa (Ctrl Z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "Kirjoita URL -osoitteen kuvaus:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "Syötä URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8341,7 +8357,7 @@
           },
           {
             "@tag": "BM",
-            "#text": "Bermuda"
+            "#text": "Bermudaa"
           },
           {
             "@tag": "BN",
@@ -8465,7 +8481,7 @@
           },
           {
             "@tag": "DM",
-            "#text": "Dominica"
+            "#text": "Domina"
           },
           {
             "@tag": "DO",
@@ -8605,7 +8621,7 @@
           },
           {
             "@tag": "HK",
-            "#text": "Hong Kong"
+            "#text": "Hongkong"
           },
           {
             "@tag": "HM",
@@ -8725,7 +8741,7 @@
           },
           {
             "@tag": "LC",
-            "#text": "Saint Lucia"
+            "#text": "Pyhä Lucia"
           },
           {
             "@tag": "LI",
@@ -8889,7 +8905,7 @@
           },
           {
             "@tag": "NU",
-            "#text": "Niue"
+            "#text": "Nieen"
           },
           {
             "@tag": "NZ",
@@ -8945,7 +8961,7 @@
           },
           {
             "@tag": "PW",
-            "#text": "Palau"
+            "#text": "Palu"
           },
           {
             "@tag": "PY",
@@ -8953,7 +8969,7 @@
           },
           {
             "@tag": "QA",
-            "#text": "Qatar"
+            "#text": "Qatari"
           },
           {
             "@tag": "RE",
@@ -9033,7 +9049,7 @@
           },
           {
             "@tag": "SR",
-            "#text": "Suriname"
+            "#text": "Surinimi"
           },
           {
             "@tag": "ST",
@@ -9181,7 +9197,7 @@
           },
           {
             "@tag": "YT",
-            "#text": "Mayotte"
+            "#text": "Mayotti"
           },
           {
             "@tag": "ZA",
@@ -9302,11 +9318,11 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
+            "#text": "Merkitse kaikki luetuksi"
           },
           {
             "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
+            "#text": "Merkitse luettavaksi"
           },
           {
             "@tag": "MARKALL",
@@ -9856,7 +9872,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
+            "#text": "Valitse teematila:"
           },
           {
             "@tag": "TIMEZONE",
@@ -9889,15 +9905,15 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Poista kaksi tekijän todennusta käytöstä"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Poista kaksi tekijän todennusta käytöstä"
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Turn on Two Factor Authentication"
+            "#text": "Kytke kaksi tekijän todennusta päälle"
           },
           {
             "@tag": "INFO",
@@ -9905,11 +9921,11 @@
           },
           {
             "@tag": "INPUT_CODE",
-            "#text": "Input security code"
+            "#text": "Syötä suojauskoodi"
           },
           {
             "@tag": "SETUP_CODE",
-            "#text": "Setup code"
+            "#text": "Asennuskoodi"
           },
           {
             "@tag": "TITLE",
@@ -9917,11 +9933,11 @@
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
-            "#text": "Enable Two Factor Authentication"
+            "#text": "Ota kaksi tekijän todennusta"
           },
           {
             "@tag": "WRONG_CODE",
-            "#text": "You have entered the wrong 2FA Code!"
+            "#text": "Olet kirjoittanut väärän 2FA -koodin!"
           }
         ]
       },
@@ -10133,96 +10149,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyynit"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cis-sukupuolinen"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Naisesta mieheksi"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Sukupuoli Fluid"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Sukupuoleen sopeutumaton"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Sukupuolen kyseenalaistaminen"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersukupuoliset"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Miehestä naiseksi"
-          },
-          {
             "@tag": "MAN",
             "#text": "Mies"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "Ei-binäärinen"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Muut"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trans"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminiininen"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transsukupuoliset"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Transsukupuolinen mies"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmaskuliininen"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transseksuaali"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Transsukupuolinen nainen"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Kaksihenkinen"
           },
           {
             "@tag": "WOMAN",
@@ -11215,15 +11147,15 @@
           },
           {
             "@tag": "TWO_FA_INFO",
-            "#text": "Please enter a validation code from your Authenticator app."
+            "#text": "Anna validointikoodi todennussovelluksesta."
           },
           {
             "@tag": "TWO_FA_PLACEHOLDER",
-            "#text": "Validation code: ### ###"
+            "#text": "Validointikoodi:"
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "Two-Factor Validation"
+            "#text": "Kahden tekijän validointi"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -11894,7 +11826,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Your activity notifications"
+            "#text": "Aktiviteettisi ilmoitukset"
           }
         ]
       },
@@ -11903,7 +11835,7 @@
         "Resource": [
           {
             "@tag": "CONVERSATION_TITLE",
-            "#text": "Your Conversations"
+            "#text": "Keskustelut"
           },
           {
             "@tag": "TITLE",
@@ -11968,7 +11900,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "Sinulla on {0} yksityisiä viestejä: {1} postilaatikossa ja {2} Outboxissa. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12113,11 +12045,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "Sidottu äänestys"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "Ei"
           },
           {
             "@tag": "POLLHEADER",
@@ -12157,7 +12089,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "Kysely poistettiin!"
           }
         ]
       },
@@ -12339,7 +12271,7 @@
           },
           {
             "@tag": "AIM",
-            "#text": "AIM"
+            "#text": "Tavoitella"
           },
           {
             "@tag": "AIM_TITLE",
@@ -12455,7 +12387,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "Www"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12507,7 +12439,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "IP"
+            "#text": "IP -IP"
           },
           {
             "@tag": "JOINED",
@@ -13180,7 +13112,7 @@
           },
           {
             "@tag": "RGN_CH_AR",
-            "#text": "Appenzell Outer-Rhodes"
+            "#text": "Appenzell-ulko-rhoodit"
           },
           {
             "@tag": "RGN_CH_BE",
@@ -13196,7 +13128,7 @@
           },
           {
             "@tag": "RGN_CH_FR",
-            "#text": "Fribourg"
+            "#text": "Friborg"
           },
           {
             "@tag": "RGN_CH_GE",
@@ -13204,11 +13136,11 @@
           },
           {
             "@tag": "RGN_CH_GL",
-            "#text": "Glarus"
+            "#text": "Välinpitäjä"
           },
           {
             "@tag": "RGN_CH_GR",
-            "#text": "Grisons"
+            "#text": "Harmaa"
           },
           {
             "@tag": "RGN_CH_JU",
@@ -13220,7 +13152,7 @@
           },
           {
             "@tag": "RGN_CH_NE",
-            "#text": "Neuchâtel"
+            "#text": "Uusi"
           },
           {
             "@tag": "RGN_CH_NW",
@@ -13252,7 +13184,7 @@
           },
           {
             "@tag": "RGN_CH_TI",
-            "#text": "Ticino"
+            "#text": "Tikino"
           },
           {
             "@tag": "RGN_CH_UR",
@@ -13260,7 +13192,7 @@
           },
           {
             "@tag": "RGN_CH_VD",
-            "#text": "Vaud"
+            "#text": "Vaudi"
           },
           {
             "@tag": "RGN_CH_VS",
@@ -13293,15 +13225,15 @@
           },
           {
             "@tag": "RGN_DE_BRE",
-            "#text": "Bremen"
+            "#text": "Bremenit"
           },
           {
             "@tag": "RGN_DE_BW",
-            "#text": "Baden-Württemberg"
+            "#text": "Baden-W"
           },
           {
             "@tag": "RGN_DE_HE",
-            "#text": "Hessen"
+            "#text": "Hesse"
           },
           {
             "@tag": "RGN_DE_HH",
@@ -13309,7 +13241,7 @@
           },
           {
             "@tag": "RGN_DE_MV",
-            "#text": "Mecklenburg-Vorpommern"
+            "#text": "Mecklenburg-Vorpomnern"
           },
           {
             "@tag": "RGN_DE_NI",
@@ -13358,7 +13290,7 @@
           },
           {
             "@tag": "RGN_US_AR",
-            "#text": "Arkansas"
+            "#text": "Arkansa"
           },
           {
             "@tag": "RGN_US_AS",
@@ -13382,7 +13314,7 @@
           },
           {
             "@tag": "RGN_US_DC",
-            "#text": "District of Columbia"
+            "#text": "Columbian piiri"
           },
           {
             "@tag": "RGN_US_DE",
@@ -13506,7 +13438,7 @@
           },
           {
             "@tag": "RGN_US_OK",
-            "#text": "Oklahoma"
+            "#text": "Oklahola"
           },
           {
             "@tag": "RGN_US_OR",
@@ -14349,11 +14281,11 @@
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "Tumma"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "Valaistus"
           }
         ]
       },

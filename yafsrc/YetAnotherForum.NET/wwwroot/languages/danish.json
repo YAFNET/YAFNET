@@ -16,7 +16,7 @@
           },
           {
             "@tag": "BECOME_FRIENDS",
-            "#text": "Become Friends"
+            "#text": "Bliv venner"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "Visninger forbudt brugeragenterliste"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "Redigeringer forbudte brugeragenter"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "Import forbudte brugeragenter"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -986,7 +986,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete attachment(s)?"
+            "#text": "Slet tilknytning (er)?"
           },
           {
             "@tag": "TITLE",
@@ -999,35 +999,35 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "Tilføj ny brugeragent"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "Ingen brugeragenter"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "I øjeblikket er der ingen forbudt brugeragent. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "Importer brugeragent (r)"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "Maske"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "Den forbudte UserAgent findes allerede!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "UserAgenten blev med succes slettet"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "Forbudt UserAgent"
           }
         ]
       },
@@ -1036,23 +1036,23 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "Useragent:"
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "Brugeragenten til at forbyde. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "Du skal definere en brugeragent."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "Tilføj forbudt brugeragent"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "Rediger forbudt brugeragent"
           }
         ]
       },
@@ -1061,35 +1061,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Importer brugeragentliste"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Importliste"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Kunne ikke importere! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Vælg importfil:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "Skal være *.txt -fil, der indeholder en brugeragent på hver linje"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "Intet importeret: Ingen ny brugeragent blev fundet i upload."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} Nye brugeragent (r) importeret med succes."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "Importer brugeragent (r)"
           }
         ]
       },
@@ -1102,11 +1102,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "Ingen forbudte e -mail -adresser"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "I øjeblikket er der ingen forbudte e -mail -adresser. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1225,11 +1225,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "Ingen forbudte IP -adresser"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "I øjeblikket er der ingen forbudte IP -adresser. "
           },
           {
             "@tag": "EXPORT",
@@ -1237,11 +1237,11 @@
           },
           {
             "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
+            "#text": "Importer sortliste fra MisbrugIPDB"
           },
           {
             "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+            "#text": "Importliste med de seneste IP -adresser1 fra MisbrugIPDB.com"
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1376,11 +1376,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "Ingen forbudte navne"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "I øjeblikket er der ingen forbudte brugernavne. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1706,7 +1706,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "ID"
+            "#text": "Id"
           },
           {
             "@tag": "NAME",
@@ -1771,11 +1771,11 @@
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
+            "#text": "Standard sidestørrelse"
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
+            "#text": "Standardstørrelsen for lister til nye brugere."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -1961,7 +1961,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "Slet permanent dette forum inklusive alle emner, afstemninger, vedhæftede filer og meddelelser, der er knyttet til det?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -3561,7 +3561,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "Kopier til udklipsholder"
           },
           {
             "@tag": "DELETE_ALL",
@@ -3776,11 +3776,11 @@
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
+            "#text": "MisbrugIPDB API -nøgle:"
           },
           {
             "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
+            "#text": "API -nøglen til at hente IP -adressen sortlisten."
           },
           {
             "@tag": "ACTIVE_USERTIME",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4288,11 +4288,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "Aktivér WYSIWYG -redaktør"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "Indstilling for at aktivere/deaktivere WYSIWYG BBCODE -editoren"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "Editor Enter Mode"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "Ny"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "Linjer er brudt med"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Indstiller opførelsen af ​​Enter -tasten, ligesom om"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -4356,7 +4372,7 @@
           },
           {
             "@tag": "FORUM_EMAIL",
-            "#text": "Forum email:"
+            "#text": "Forum E -mail:"
           },
           {
             "@tag": "FORUM_EMAIL_HELP",
@@ -5048,11 +5064,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "Rul til ulæst/første indlæg"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "Hvis det er aktiveret, ruller det til det første ulæste indlæg/eller første nye indlæg, når du åbner et emne"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5408,7 +5424,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "BlogSpam.NET API"
+            "#text": "Blogspam.net API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -5731,11 +5747,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "Ingen medaljer"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "I øjeblikket er der ingen medaljer. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5859,11 +5875,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "Ingen tilpassede profildefinitioner"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "I øjeblikket er der ingen brugerdefinerede profildefinitioner. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6129,11 +6145,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "Ingen udskift ord"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "I øjeblikket er der ingen erstatningsord. "
           },
           {
             "@tag": "EXPORT",
@@ -6340,11 +6356,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "Ingen spam -kontrolord"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "I øjeblikket er der ingen spam -kontrolord. "
           },
           {
             "@tag": "EXPORT",
@@ -6696,7 +6712,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "Forbudte brugeragenter"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -6893,7 +6909,7 @@
           },
           {
             "@tag": "ALBUMS",
-            "#text": "Albums"
+            "#text": "Album"
           },
           {
             "@tag": "ALBUMS_HEADER_TEXT",
@@ -7255,7 +7271,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "Venanmodning fjernet."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7647,7 +7663,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "Tegn tilbage:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7743,7 +7759,7 @@
           },
           {
             "@tag": "FONT_NAME",
-            "#text": "Font Name"
+            "#text": "Fontnavn"
           },
           {
             "@tag": "FONT_SIZE",
@@ -7851,7 +7867,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "Indsæt medier"
           },
           {
             "@tag": "MENU",
@@ -7999,7 +8015,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "Valg af sidestørrelse"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8039,7 +8055,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "Kopier den valgte tekst (CTRL C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8051,11 +8067,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "Klip den valgte tekst (CTRL X)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "Beskrivelse"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8067,11 +8083,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "Indtast billedbeskrivelse:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "Indtast billed -URL:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8091,19 +8107,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "Indsæt medie -URL'en i input (for eksempel en YouTube -video, Spotify playliste eller Instagram -billede)."
           },
           {
             "@tag": "TT_NOTE",
-            "#text": "Insert Note"
+            "#text": "Indsæt note"
           },
           {
             "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
+            "#text": "BEMÆRK TYPE"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "Pasta (ctrl v)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8111,15 +8127,15 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "Rød (ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "Fjern format"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "Vælg alle"
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
@@ -8131,15 +8147,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "Fortryd (ctrl z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "Indtast URL -beskrivelse:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "Indtast URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9302,11 +9318,11 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
+            "#text": "Marker alle som læst"
           },
           {
             "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
+            "#text": "Mark som læst"
           },
           {
             "@tag": "MARKALL",
@@ -9570,7 +9586,7 @@
           },
           {
             "@tag": "ALBUMS",
-            "#text": "Albums"
+            "#text": "Album"
           },
           {
             "@tag": "ALBUMS_COUNT_LIMIT",
@@ -9856,7 +9872,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
+            "#text": "Vælg temasilstand:"
           },
           {
             "@tag": "TIMEZONE",
@@ -9889,15 +9905,15 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Deaktiver to faktorgodkendelse"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Deaktiver to faktorgodkendelse"
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Turn on Two Factor Authentication"
+            "#text": "Tænd for to faktorgodkendelse"
           },
           {
             "@tag": "INFO",
@@ -9905,11 +9921,11 @@
           },
           {
             "@tag": "INPUT_CODE",
-            "#text": "Input security code"
+            "#text": "Input sikkerhedskode"
           },
           {
             "@tag": "SETUP_CODE",
-            "#text": "Setup code"
+            "#text": "Opsætningskode"
           },
           {
             "@tag": "TITLE",
@@ -9917,11 +9933,11 @@
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
-            "#text": "Enable Two Factor Authentication"
+            "#text": "Aktivér to faktorgodkendelse"
           },
           {
             "@tag": "WRONG_CODE",
-            "#text": "You have entered the wrong 2FA Code!"
+            "#text": "Du er indtastet den forkerte 2FA -kode!"
           }
         ]
       },
@@ -10133,96 +10149,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyn"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Ciskønnet"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Kvinde til Mand"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Kønsvæske"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Køn afvigende"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Kønsspørgsmål"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Mand til Kvinde"
-          },
-          {
             "@tag": "MAN",
             "#text": "Mand"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "Ikke-binær"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Andet"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trrans"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminin"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transkønnet"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Transkønnet mand"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmaskulin"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transseksuel"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Transkønnet kvinde"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "To-ånder"
           },
           {
             "@tag": "WOMAN",
@@ -10335,7 +10267,7 @@
           },
           {
             "@tag": "MYALBUMSTITLE",
-            "#text": "Albums"
+            "#text": "Album"
           },
           {
             "@tag": "MYPICSCONTENT",
@@ -10901,7 +10833,7 @@
           },
           {
             "@tag": "FORUMURL",
-            "#text": "Forum Base Url Mask"
+            "#text": "Forum Base URL -maske"
           },
           {
             "@tag": "FROMEMAIL",
@@ -11215,15 +11147,15 @@
           },
           {
             "@tag": "TWO_FA_INFO",
-            "#text": "Please enter a validation code from your Authenticator app."
+            "#text": "Indtast en valideringskode fra din Authenticator -app."
           },
           {
             "@tag": "TWO_FA_PLACEHOLDER",
-            "#text": "Validation code: ### ###"
+            "#text": "Valideringskode:"
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "Two-Factor Validation"
+            "#text": "To-faktor validering"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -11894,7 +11826,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Your activity notifications"
+            "#text": "Dine aktivitetsmeddelelser"
           }
         ]
       },
@@ -11903,7 +11835,7 @@
         "Resource": [
           {
             "@tag": "CONVERSATION_TITLE",
-            "#text": "Your Conversations"
+            "#text": "Dine samtaler"
           },
           {
             "@tag": "TITLE",
@@ -11968,7 +11900,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "Du har {0} private meddelelser: {1} i indbakke og {2} i outbox. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12113,11 +12045,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "Bundet afstemning"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "Don"
           },
           {
             "@tag": "POLLHEADER",
@@ -12157,7 +12089,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "Afstemning blev fjernet!"
           }
         ]
       },
@@ -12359,7 +12291,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "BLOG"
+            "#text": "Blog"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12455,7 +12387,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "Www"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12507,7 +12439,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "IP"
+            "#text": "Ip"
           },
           {
             "@tag": "JOINED",
@@ -12902,7 +12834,7 @@
           },
           {
             "@tag": "ALBUMS",
-            "#text": "Albums"
+            "#text": "Album"
           },
           {
             "@tag": "AVATAR",
@@ -13220,7 +13152,7 @@
           },
           {
             "@tag": "RGN_CH_NE",
-            "#text": "Neuchâtel"
+            "#text": "Ny"
           },
           {
             "@tag": "RGN_CH_NW",
@@ -13297,11 +13229,11 @@
           },
           {
             "@tag": "RGN_DE_BW",
-            "#text": "Baden-Württemberg"
+            "#text": "Baden-W"
           },
           {
             "@tag": "RGN_DE_HE",
-            "#text": "Hessen"
+            "#text": "Hesse"
           },
           {
             "@tag": "RGN_DE_HH",
@@ -13350,7 +13282,7 @@
         "Resource": [
           {
             "@tag": "RGN_US_AK",
-            "#text": "Alaska"
+            "#text": "Ned"
           },
           {
             "@tag": "RGN_US_AL",
@@ -13358,7 +13290,7 @@
           },
           {
             "@tag": "RGN_US_AR",
-            "#text": "Arkansas"
+            "#text": "Arkansa"
           },
           {
             "@tag": "RGN_US_AS",
@@ -13506,7 +13438,7 @@
           },
           {
             "@tag": "RGN_US_OK",
-            "#text": "Oklahoma"
+            "#text": "Oklahola"
           },
           {
             "@tag": "RGN_US_OR",
@@ -14349,11 +14281,11 @@
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "Mørk"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "Lys"
           }
         ]
       },

@@ -802,7 +802,14 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
             ruleEngine.AddRule(horizontalLineRule);
 
-            ruleEngine.AddRule(isEditMode ? breakRule : new SingleRegexReplaceRule(@"\r\n", "<p>", Options));
+            if (this.Get<BoardSettings>().EditorEnterMode is EnterMode.Br)
+            {
+                ruleEngine.AddRule(breakRule);
+            }
+            else
+            {
+                ruleEngine.AddRule(isEditMode ? breakRule : new SingleRegexReplaceRule(@"\r\n", "<p>", Options));
+            }
 
             if (!isEditMode)
             {

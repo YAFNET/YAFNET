@@ -1014,6 +1014,12 @@ public class HostSettingsInputModel
     public int AvatarHeight { get; set; }
 
     /// <summary>
+    /// Gets or sets the editor enter mode.
+    /// </summary>
+    /// <value>The editor enter mode.</value>
+    public int EditorEnterMode { get; set; }
+
+    /// <summary>
     /// Gets or sets the last tab identifier.
     /// </summary>
     /// <value>The last tab identifier.</value>

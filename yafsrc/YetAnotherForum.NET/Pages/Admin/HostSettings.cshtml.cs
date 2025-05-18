@@ -166,6 +166,13 @@ public class HostSettingsModel : AdminPage
     public List<SelectListItem> ShowShareTopicToList { get; set; }
 
     /// <summary>
+    /// Gets or sets the editor enter mode list.
+    /// </summary>
+    /// <value>The editor enter mode list.</value>
+    [BindProperty]
+    public List<SelectListItem> EditorEnterModeList { get; set; }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="HostSettingsModel" /> class.
     /// </summary>
     public HostSettingsModel()
@@ -356,6 +363,8 @@ public class HostSettingsModel : AdminPage
                 }
             });
 
+        this.PageBoardContext.BoardSettings.EditorEnterMode = this.Input.EditorEnterMode.ToEnum<EnterMode>();
+
         // save the settings to the database
         this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
 
@@ -483,6 +492,16 @@ public class HostSettingsModel : AdminPage
                     "WELCOME_NOTIFICATION_2"),
                 "2")
         ];
+
+        this.EditorEnterModeList =
+        [
+            new SelectListItem(this.GetText("ADMIN_HOSTSETTINGS", "ENTER_MODE_0"), "0"),
+            new SelectListItem(
+                this.GetText(
+                    "ADMIN_HOSTSETTINGS",
+                    "ENTER_MODE_1"),
+                "1")
+        ];
     }
 
 
@@ -585,6 +604,8 @@ public class HostSettingsModel : AdminPage
         this.Input.AlbumImagesSizeMax = this.PageBoardContext.BoardSettings.AlbumImagesSizeMax != 0
                                             ? this.PageBoardContext.BoardSettings.AlbumImagesSizeMax.ToString()
                                             : string.Empty;
+
+        this.Input.EditorEnterMode = this.PageBoardContext.BoardSettings.EditorEnterMode.ToInt();
 
         this.Input.SQLVersion = this.HtmlEncode(this.Get<IDbAccess>().GetSQLVersion());
 

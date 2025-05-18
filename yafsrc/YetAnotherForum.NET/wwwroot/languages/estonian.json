@@ -16,7 +16,7 @@
           },
           {
             "@tag": "BECOME_FRIENDS",
-            "#text": "Become Friends"
+            "#text": "Sõbraks saama"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "Vaated keelatud kasutajaagentide nimekirja"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "Muudavad keelatud kasutajaagendid"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "Import keelatud kasutajaagendid"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -986,7 +986,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete attachment(s)?"
+            "#text": "Kustuta kinnitus (d)?"
           },
           {
             "@tag": "TITLE",
@@ -999,19 +999,19 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "Lisage uus kasutajaagent"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "Pole kasutajaagente"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "Praegu pole keelatud kasutajaagenti. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "Impordi kasutajaagenti (id)"
           },
           {
             "@tag": "MASK",
@@ -1019,15 +1019,15 @@
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "Keelatud kasutajaagent on juba olemas!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "Kasutajaliige kustutati edukalt"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "Keelatud kasutajaagent"
           }
         ]
       },
@@ -1036,23 +1036,23 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "Kasutajaagent:"
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "Kasutajaagent keelustamiseks. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "Peate määratlema kasutajaagendi."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "Lisage keelatud kasutajaagent"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "Redigeerige keelatud kasutajaagenti"
           }
         ]
       },
@@ -1061,35 +1061,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Importige kasutajaagentide nimekiri"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Impordinimekiri"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Impordist ei õnnestunud! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Valige impordifail:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "Peab olema *.txt -fail, mis sisaldab igas reas ühte kasutajaagenti"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "Midagi imporditud: üleslaadimisest ei leitud uut kasutajaagenti."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} Uus kasutajaagent (S) imporditi edukalt."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "Impordi kasutajaagenti (id)"
           }
         ]
       },
@@ -1102,11 +1102,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "Keelatud e -posti aadresse pole"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "Praegu pole keelatud e -posti aadresse. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1225,11 +1225,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "IP -aadresse pole keelatud"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "Praegu pole keelatud IP -aadresse. "
           },
           {
             "@tag": "EXPORT",
@@ -1237,11 +1237,11 @@
           },
           {
             "@tag": "IMPORT_BLACKLIST",
-            "#text": "Import Blacklist from AbuseIpDb"
+            "#text": "Importige musta nimekirja kuritarvitamisest"
           },
           {
             "@tag": "IMPORT_BLACKLIST_HELP",
-            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
+            "#text": "Impordiloend koos viimaste IP -aadressidega1 saidilt kuritipdb.com"
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1376,11 +1376,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "Keelatud nimesid pole"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "Praegu pole keelatud kasutajanimesid. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1612,7 +1612,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "OnClick JS:"
+            "#text": "Onclick JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -1706,7 +1706,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "ID"
+            "#text": "Isikutunnistus"
           },
           {
             "@tag": "NAME",
@@ -1771,11 +1771,11 @@
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
+            "#text": "Vaikelehe suurus"
           },
           {
             "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
+            "#text": "Uute kasutajate loendite vaikekülje suurus."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -1961,7 +1961,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "Kustutage see foorum püsivalt, sealhulgas kõik teemad, küsitlused, manused ja sellega seotud sõnumid?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -2054,7 +2054,7 @@
           },
           {
             "@tag": "FORCE_SEND",
-            "#text": "Force Digest Send"
+            "#text": "Force Digest Saada"
           },
           {
             "@tag": "GENERATE_DIGEST",
@@ -2691,7 +2691,7 @@
           },
           {
             "@tag": "SORT_ORDER",
-            "#text": "SortOrder:"
+            "#text": "Blackorder:"
           },
           {
             "@tag": "SORT_ORDER_HELP",
@@ -3561,7 +3561,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "Kopeeri lõikelauale"
           },
           {
             "@tag": "DELETE_ALL",
@@ -3776,11 +3776,11 @@
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",
-            "#text": "AbuseIpDb API Key:"
+            "#text": "AGUILIPDB API -võti:"
           },
           {
             "@tag": "ABUSEIPDB_APIKEY_HELP",
-            "#text": "The API Key to retrieve the ip address blacklist."
+            "#text": "API võti IP -aadressi musta nimekirja hankimiseks."
           },
           {
             "@tag": "ACTIVE_USERTIME",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4288,11 +4288,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "Luba Wysiwyg toimetaja"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "Seadistus WYSIWYG BBCODE redigeerija lubamiseks/keelamiseks"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "Toimetaja sisestusrežiim"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "Uus"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "Jooned on katki"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Seab sisestusklahvi käitumise, näiteks kas"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -4880,11 +4896,11 @@
           },
           {
             "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Max. File Size for User Poll Images:"
+            "#text": "Max. "
           },
           {
             "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Define the Max. File Size in Kilo Bytes for an User Poll Image."
+            "#text": "Määrake max. "
           },
           {
             "@tag": "POPULAR_DAYS",
@@ -5048,11 +5064,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "Kerige lugemata/esimese postituse juurde"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "Kui see on lubatud, kerib see teema avamisel esimese lugemata postituse/või esimese uue postituse"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5408,7 +5424,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "BlogSpam.NET API"
+            "#text": "Blogspam.net API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -5702,7 +5718,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Mail"
+            "#text": "Post"
           },
           {
             "@tag": "TO_MAIL",
@@ -5731,11 +5747,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "Medalit pole"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "Praegu pole medaleid. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5859,11 +5875,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "Ei ole kohandatud profiili määratlusi"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "Praegu pole kohandatud profiili määratlusi. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6129,11 +6145,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "Ei asenda sõnu"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "Praegu pole sõnumeid. "
           },
           {
             "@tag": "EXPORT",
@@ -6340,11 +6356,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "Ükski rämpsposti ei kontrolli sõnu"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "Praegu pole rämpsposti kontrollsõnu. "
           },
           {
             "@tag": "EXPORT",
@@ -6696,7 +6712,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "Keelatud kasutajaagendid"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -6760,7 +6776,7 @@
           },
           {
             "@tag": "ADMIN_MAIL",
-            "#text": "Mail"
+            "#text": "Post"
           },
           {
             "@tag": "ADMIN_MEDALS",
@@ -6909,7 +6925,7 @@
           },
           {
             "@tag": "ALBUMS_TITLE",
-            "#text": "{0} Album: {1}"
+            "#text": "{0} album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
@@ -7255,7 +7271,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "Sõbrataotlus eemaldati."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7647,7 +7663,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "Tegelased jäävad:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7743,7 +7759,7 @@
           },
           {
             "@tag": "FONT_NAME",
-            "#text": "Font Name"
+            "#text": "Fondi nimi"
           },
           {
             "@tag": "FONT_SIZE",
@@ -7851,7 +7867,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "Sisestage meediat"
           },
           {
             "@tag": "MENU",
@@ -7999,7 +8015,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "Lehe suurusvalik"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8039,7 +8055,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "Kopeeri valitud tekst (Ctrl C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8051,11 +8067,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "Lõika valitud tekst (Ctrl x)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "Kirjeldus"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8067,11 +8083,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "Sisestage pildi kirjeldus:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "Sisestage pildi URL:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8091,19 +8107,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "Kleepige meediumi URL sisendisse (näiteks YouTube'i video, Spotify esitusloend või Instagrami pilt)."
           },
           {
             "@tag": "TT_NOTE",
-            "#text": "Insert Note"
+            "#text": "Sisestage märkus"
           },
           {
             "@tag": "TT_NOTE_TYPE",
-            "#text": "Note Type"
+            "#text": "MÄRKUSE TÜÜP"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "Pasta (Ctrl V)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8111,19 +8127,19 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "Punane (ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "Eemaldage vorming"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "Valige kõik"
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "Strikethrough"
+            "#text": "Löök"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8131,15 +8147,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "Taane (Ctrl Z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "Sisestage URL -i kirjeldus:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "Sisestage URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8309,7 +8325,7 @@
           },
           {
             "@tag": "BB",
-            "#text": "Barbados"
+            "#text": "Barbadod"
           },
           {
             "@tag": "BD",
@@ -8345,7 +8361,7 @@
           },
           {
             "@tag": "BN",
-            "#text": "Brunei Darussalam"
+            "#text": "Brunei Daussalam"
           },
           {
             "@tag": "BO",
@@ -8569,7 +8585,7 @@
           },
           {
             "@tag": "GN",
-            "#text": "Guinea"
+            "#text": "Merisea"
           },
           {
             "@tag": "GP",
@@ -8597,7 +8613,7 @@
           },
           {
             "@tag": "GW",
-            "#text": "Guinea-Bissau"
+            "#text": "Merisea-bissau"
           },
           {
             "@tag": "GY",
@@ -8801,7 +8817,7 @@
           },
           {
             "@tag": "MO",
-            "#text": "Macau"
+            "#text": "Makau"
           },
           {
             "@tag": "MP",
@@ -8809,7 +8825,7 @@
           },
           {
             "@tag": "MQ",
-            "#text": "Martinique"
+            "#text": "Martiniik"
           },
           {
             "@tag": "MR",
@@ -8945,7 +8961,7 @@
           },
           {
             "@tag": "PW",
-            "#text": "Palau"
+            "#text": "Paula"
           },
           {
             "@tag": "PY",
@@ -9033,7 +9049,7 @@
           },
           {
             "@tag": "SR",
-            "#text": "Suriname"
+            "#text": "Surinanimi"
           },
           {
             "@tag": "ST",
@@ -9089,7 +9105,7 @@
           },
           {
             "@tag": "TO",
-            "#text": "Tonga"
+            "#text": "Tong"
           },
           {
             "@tag": "TP",
@@ -9302,11 +9318,11 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
+            "#text": "Märkige kõik nii loetud"
           },
           {
             "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
+            "#text": "Märkige lugemisena"
           },
           {
             "@tag": "MARKALL",
@@ -9856,7 +9872,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
+            "#text": "Valige teemarežiim:"
           },
           {
             "@tag": "TIMEZONE",
@@ -9889,15 +9905,15 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Keelake kahe teguri autentimine"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Keelake kahe teguri autentimine"
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Turn on Two Factor Authentication"
+            "#text": "Lülitage sisse kaks teguri autentimist"
           },
           {
             "@tag": "INFO",
@@ -9905,11 +9921,11 @@
           },
           {
             "@tag": "INPUT_CODE",
-            "#text": "Input security code"
+            "#text": "Sisendi turvakood"
           },
           {
             "@tag": "SETUP_CODE",
-            "#text": "Setup code"
+            "#text": "Seadistuskood"
           },
           {
             "@tag": "TITLE",
@@ -9917,11 +9933,11 @@
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
-            "#text": "Enable Two Factor Authentication"
+            "#text": "Luba kahe teguri autentimine"
           },
           {
             "@tag": "WRONG_CODE",
-            "#text": "You have entered the wrong 2FA Code!"
+            "#text": "Olete sisestanud vale 2FA koodi!"
           }
         ]
       },
@@ -10133,96 +10149,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgüün"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Emasest meheks"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Sooline vedelik"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Sugu mittevastav"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Sooline küsitlus"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Interseksuaal"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Meesest naiseks"
-          },
-          {
             "@tag": "MAN",
             "#text": "Mees"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "Mittebinaarne"
-          },
-          {
             "@tag": "OTHER",
             "#text": "muud"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trans"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminiinne"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transsooline"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Transsooline mees"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmaskuliinne"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transseksuaal"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Transsooline naine"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Kahe Vaimuga"
           },
           {
             "@tag": "WOMAN",
@@ -11215,15 +11147,15 @@
           },
           {
             "@tag": "TWO_FA_INFO",
-            "#text": "Please enter a validation code from your Authenticator app."
+            "#text": "Sisestage oma autentimisrakendusest valideerimiskood."
           },
           {
             "@tag": "TWO_FA_PLACEHOLDER",
-            "#text": "Validation code: ### ###"
+            "#text": "Valideerimiskood:"
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "Two-Factor Validation"
+            "#text": "Kahefaktoriline valideerimine"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -11894,7 +11826,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Your activity notifications"
+            "#text": "Teie tegevuse teatised"
           }
         ]
       },
@@ -11903,7 +11835,7 @@
         "Resource": [
           {
             "@tag": "CONVERSATION_TITLE",
-            "#text": "Your Conversations"
+            "#text": "Teie vestlused"
           },
           {
             "@tag": "TITLE",
@@ -11968,7 +11900,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "Teil on {0} privaatsõnumid: {1} postkastis ja {2} Outboxis. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12113,11 +12045,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "Seotud hääletamine"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "Don"
           },
           {
             "@tag": "POLLHEADER",
@@ -12157,7 +12089,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "Küsitlus eemaldati!"
           }
         ]
       },
@@ -12455,7 +12387,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "Www"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12507,7 +12439,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "IP"
+            "#text": "Ip"
           },
           {
             "@tag": "JOINED",
@@ -12583,7 +12515,7 @@
           },
           {
             "@tag": "PM",
-            "#text": "PM"
+            "#text": "Peaminister"
           },
           {
             "@tag": "PM_TITLE",
@@ -13192,11 +13124,11 @@
           },
           {
             "@tag": "RGN_CH_BS",
-            "#text": "Basel"
+            "#text": "Baseel"
           },
           {
             "@tag": "RGN_CH_FR",
-            "#text": "Fribourg"
+            "#text": "Friborg"
           },
           {
             "@tag": "RGN_CH_GE",
@@ -13208,7 +13140,7 @@
           },
           {
             "@tag": "RGN_CH_GR",
-            "#text": "Grisons"
+            "#text": "Hall"
           },
           {
             "@tag": "RGN_CH_JU",
@@ -13220,7 +13152,7 @@
           },
           {
             "@tag": "RGN_CH_NE",
-            "#text": "Neuchâtel"
+            "#text": "Uus"
           },
           {
             "@tag": "RGN_CH_NW",
@@ -13232,7 +13164,7 @@
           },
           {
             "@tag": "RGN_CH_SG",
-            "#text": "St. Gallen"
+            "#text": "Püha gallen"
           },
           {
             "@tag": "RGN_CH_SH",
@@ -13240,7 +13172,7 @@
           },
           {
             "@tag": "RGN_CH_SO",
-            "#text": "Solothurn"
+            "#text": "Soolotüür"
           },
           {
             "@tag": "RGN_CH_SZ",
@@ -13297,11 +13229,11 @@
           },
           {
             "@tag": "RGN_DE_BW",
-            "#text": "Baden-Württemberg"
+            "#text": "Baden-W"
           },
           {
             "@tag": "RGN_DE_HE",
-            "#text": "Hessen"
+            "#text": "Hesse"
           },
           {
             "@tag": "RGN_DE_HH",
@@ -13350,7 +13282,7 @@
         "Resource": [
           {
             "@tag": "RGN_US_AK",
-            "#text": "Alaska"
+            "#text": "Alla"
           },
           {
             "@tag": "RGN_US_AL",
@@ -13358,7 +13290,7 @@
           },
           {
             "@tag": "RGN_US_AR",
-            "#text": "Arkansas"
+            "#text": "Arkansa"
           },
           {
             "@tag": "RGN_US_AS",
@@ -13506,7 +13438,7 @@
           },
           {
             "@tag": "RGN_US_OK",
-            "#text": "Oklahoma"
+            "#text": "Oklahola"
           },
           {
             "@tag": "RGN_US_OR",
@@ -13522,7 +13454,7 @@
           },
           {
             "@tag": "RGN_US_RI",
-            "#text": "Rhode Island"
+            "#text": "Rhode saar"
           },
           {
             "@tag": "RGN_US_SC",
@@ -14357,15 +14289,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Auto"
+            "#text": "Automaatne"
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "Tume"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "Hele"
           }
         ]
       },
@@ -14418,7 +14350,7 @@
           },
           {
             "@tag": "HOST",
-            "#text": "Host"
+            "#text": "Võõrustaja"
           },
           {
             "@tag": "HOST_TITLE",

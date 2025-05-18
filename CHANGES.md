@@ -1,8 +1,15 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v4.0.1
+* [NEW] added support for note bbcode
+* [NEW] added host setting to set the enter mode for editor (line break)
+* [FIXED] paste text in the editor
+* redesigned attachment upload/selection dialog
+* bug fixes
+
 # YetAnotherForum.NET v4.0.0
-* Converted Project to .NET 8 (ASP.NET Core)
+* Converted Project to .NET 9 (ASP.NET Core)
 * Real-time Notifications for Watched Topics/Forums
 * Real-time Notifications for Replies
 * Real-time Notifications for Quoting
@@ -10,6 +17,12 @@ YetAnotherForum.NET Changelog
 * Real-time Notifications for Received Thanks
 * Replaced Private Messages with real-time user chat
 * Two Factor Authentication
+
+# YetAnotherForum.NET v3.2.9
+* [NEW] added support for note bbcode
+* [NEW] added host setting to set the enter mode for editor (line break)
+* redesigned attachment upload/selection dialog
+* bug fixes
 
 # YetAnotherForum.NET v3.2.8
 * [NEW] Board Setting to set the default page size

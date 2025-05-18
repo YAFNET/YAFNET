@@ -4279,6 +4279,22 @@
             "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
           },
           {
+	          "@tag": "ENTER_MODE",
+	          "#text": "Editor Enter Mode"
+          },
+          {
+	          "@tag": "ENTER_MODE_HELP",
+	          "#text": "Sets the behavior of the Enter key, like whether the 'br'' or an empty 'p' element is to be used as a paragraph separator when indenting text."
+          },
+          {
+	          "@tag": "ENTER_MODE_0",
+	          "#text": "New 'p' paragraphs are created."
+          },
+          {
+	          "@tag": "ENTER_MODE_1",
+	          "#text": "Lines are broken with 'br' elements."
+          },
+          {
             "@tag": "EVENTLOG_MAX_DAYS",
             "#text": "Max number of days for event log"
           },
@@ -4583,8 +4599,8 @@
             "#text": "Set it to get details about IPs whereabouts as web page."
           },
           {
-	          "@tag": "ABUSEIPDB_APIKEY",
-	          "#text": "AbuseIpDb API Key:"
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
           },
           {
             "@tag": "ABUSEIPDB_APIKEY_HELP",
@@ -10125,96 +10141,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Female to Male"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Gender Fluid"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Gender Nonconforming"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Gender Questioning"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Male to Female"
-          },
-          {
             "@tag": "MAN",
             "#text": "Man"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "Non-binary"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Other"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trrans"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgender"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Transgender Man"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transsexual"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Transgender Woman"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
           },
           {
             "@tag": "WOMAN",
