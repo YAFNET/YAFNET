@@ -1,5 +1,8 @@
 ﻿namespace GitHubReleaser.Model;
 
+/// <summary>
+/// Class ErrorHandler.
+/// </summary>
 internal class ErrorHandler
 {
     public static void Log(string errorMessage)

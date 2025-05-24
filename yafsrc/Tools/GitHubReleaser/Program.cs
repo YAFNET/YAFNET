@@ -27,7 +27,7 @@ internal class Program
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "error");
+            Log.Error(ex, "Error during release process");
             return 100;
         }
     }

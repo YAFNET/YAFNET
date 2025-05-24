@@ -24,118 +24,21 @@ internal class ChangelogManager
     {
         var changeLog = string.Empty;
 
-        if (File.Exists(this.releaser.Settings.ChangeLogFile))
+        if (!File.Exists(this.releaser.Settings.ChangeLogFile))
         {
-            var changeLogFull = await File.ReadAllTextAsync(this.releaser.Settings.ChangeLogFile);
-
-            var currentVersion = "v" + this.releaser.VersionMilestone;
-
-            changeLog = changeLogFull[(changeLogFull.IndexOf(currentVersion, StringComparison.Ordinal) + currentVersion.Length)..];
-
-            changeLog = changeLog.Remove(changeLog.IndexOf("# ", StringComparison.Ordinal));
+            return changeLog;
         }
+
+        var changeLogFull = await File.ReadAllTextAsync(this.releaser.Settings.ChangeLogFile);
+
+        var currentVersion = "v" + this.releaser.VersionMilestone;
+
+        changeLog = changeLogFull[(changeLogFull.IndexOf(currentVersion, StringComparison.Ordinal) + currentVersion.Length)..];
+
+        changeLog = changeLog.Remove(changeLog.IndexOf("# ", StringComparison.Ordinal));
 
         return changeLog;
     }
-
-    /*private async Task<string> GetReleaseChangelogAsync()
-    {
-        DateTimeOffset? lastReleaseCreatedDate = null;
-        if (this._releaser.Settings.IsPreRelease)
-        {
-            var releases = await this._releaser.Client.Repository.Release.GetAll(this._releaser.Account, this._releaser.Repo);
-            var lastRelease = releases.MaxBy(obj => obj.CreatedAt.DateTime);
-            if (lastRelease != null)
-            {
-                lastReleaseCreatedDate = lastRelease.PublishedAt;
-            }
-        }
-
-        var repository = await this._releaser.Client.Repository.Get(this._releaser.Account, this._releaser.Repo);
-        var allIssues = await this._releaser.Client.Issue.GetAllForRepository(repository.Id,
-                            new RepositoryIssueRequest
-                                {
-                                    State = ItemStateFilter.Closed 
-                                });
-        var issuesWithLabel = new List<IssueWithLabel>();
-        foreach (var issue in allIssues)
-        {
-            if (issue.Milestone == null)
-            {
-                continue;
-            }
-
-            if (!issue.Milestone.Title.Equals(this._releaser.VersionMilestone))
-            {
-                continue;
-            }
-
-            if (this._releaser.Settings.IssueFilterLabel != null)
-            {
-                if (issue.Labels.Any(obj => obj.Name.ToLower().Equals(this._releaser.Settings.IssueFilterLabel.ToLower())))
-                {
-                    continue;
-                }
-            }
-
-            if (lastReleaseCreatedDate != null)
-            {
-                if (issue.ClosedAt <= lastReleaseCreatedDate)
-                {
-                    continue;
-                }
-            }
-
-            // Filter by issue label
-            if (this._releaser.Settings.IssueLabels != null && this._releaser.Settings.IssueLabels.Any())
-            {
-                foreach (var label in issue.Labels)
-                {
-                    this._releaser.Settings.IssueLabels.TryGetValue(label.Name, out var labelHeader);
-                    if (labelHeader != null)
-                    {
-                        issuesWithLabel.Add(new IssueWithLabel(labelHeader, issue));
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                issuesWithLabel.Add(new IssueWithLabel(null, issue));
-            }
-        }
-
-        // Build changelog text
-        var issueGroups = issuesWithLabel.GroupBy(obj => obj.Label).OrderBy(obj => obj.Key);
-        var changelog = this.GetChangelogFromIssues(issueGroups);
-
-        if (this._releaser.Settings.IsPreRelease)
-        {
-            changelog = Alert + Environment.NewLine + changelog;
-        }
-
-        return changelog;
-    }
-
-    private string GetChangelogFromIssues(IEnumerable<IGrouping<string, IssueWithLabel>> issueGroups)
-    {
-        Log.Information("Issues:");
-        var sb = new StringBuilder();
-        foreach (var issueGroup in issueGroups)
-        {
-            sb.AppendLine();
-            sb.AppendLine($"#### {issueGroup.Key}:");
-            Console.WriteLine($"\t{issueGroup.Key}");
-            foreach (var issueWithLabel in issueGroup.OrderBy(obj => obj.Issue.Title))
-            {
-                sb.AppendLine($"- [{issueWithLabel.Issue.Title}]({issueWithLabel.Issue.HtmlUrl})");
-                Console.WriteLine($"\t\t{issueWithLabel.Issue.Title}");
-            }
-        }
-
-        var changelog = sb.ToString().Trim();
-        return changelog;
-    }*/
 
     async internal Task SetAsync()
     {
