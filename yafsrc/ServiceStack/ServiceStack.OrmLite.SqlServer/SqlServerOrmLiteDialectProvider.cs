@@ -912,8 +912,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <returns>System.String.</returns>
         public override string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn)
         {
-            var modelName = this.NamingStrategy.GetTableName(table);
-            var objectName = $"{modelName}.{oldColumn}";
+            var objectName = $"{GetQuotedTableName(table, schema)}.{GetQuotedColumnName(oldColumn)}";
 
             return
                 $"EXEC sp_rename {this.GetQuotedValue(objectName)}, {this.GetQuotedValue(fieldDef.FieldName)}, {this.GetQuotedValue("COLUMN")};";
@@ -929,8 +928,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <returns>System.String.</returns>
         public override string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn)
         {
-            var modelName = this.NamingStrategy.GetTableName(table);
-            var objectName = $"{modelName}.{this.GetQuotedColumnName(oldColumn)}";
+            var objectName = $"{GetQuotedTableName(table, schema)}.{GetQuotedColumnName(oldColumn)}";
             return $"EXEC sp_rename {this.GetQuotedValue(objectName)}, {this.GetQuotedColumnName(newColumn)}, 'COLUMN';";
         }
 

@@ -464,7 +464,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// </summary>
     public void Dispose()
     {
-        Dispose(true);
+        this.Dispose(true);
         GC.SuppressFinalize(this);
     }
 
