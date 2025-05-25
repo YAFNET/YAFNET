@@ -74,10 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(toolTip => {
-        return new bootstrap.Tooltip(toolTip);
-    });
-
     document.querySelectorAll('.attachedImage').forEach(imageLink => {
         var messageId = imageLink.parentNode.id;
 
@@ -86,6 +82,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function loadSelectMenus() {
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(toolTip => {
+        return new bootstrap.Tooltip(toolTip);
+    });
+
     document.querySelectorAll('.dropdown-menu a.dropdown-toggle').forEach(menu => {
         menu.addEventListener('click', (event) => {
             var $el = menu, $subMenu = $el.nextElementSibling;
