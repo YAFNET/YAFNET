@@ -48,6 +48,6 @@
     <PackageReference Include="System.Linq.Async" Version="6.0.1" />
     <PackageReference Include="System.Runtime.Caching" Version="9.0.5" />
     <PackageReference Include="System.ServiceModel.Syndication" Version="9.0.5" />
-    <PackageReference Include="UAParser.Core" Version="4.0.4" />
+    <PackageReference Include="UAParser.Core" Version="4.0.5" />
   </ItemGroup>
 </Project>

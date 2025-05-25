@@ -36,6 +36,7 @@
 		<PackageIcon>yaf.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+		<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(MSBuildProjectDirectory)/../../../CHANGES.md"))</PackageReleaseNotes>
 		<Authors>Ingo Herbote</Authors>
 	</PropertyGroup>
 

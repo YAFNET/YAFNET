@@ -68,8 +68,8 @@
 
     if (multiQuoteVisible)
     {
-        Current.InlineElements.InsertJsBlock("MultiQuoteButtonJs", JavaScriptBlocks.MultiQuoteButtonJs);
-        Current.InlineElements.InsertJsBlock("MultiQuoteCallbackSuccessJS", JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
+        Current.InlineElements.InsertJsBlock(nameof(JavaScriptBlocks.MultiQuoteButtonJs), JavaScriptBlocks.MultiQuoteButtonJs);
+        Current.InlineElements.InsertJsBlock(nameof(JavaScriptBlocks.MultiQuoteCallbackSuccessJs), JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
     }
 
     if (Current.BoardSettings.EnableUserReputation)

@@ -381,8 +381,7 @@ public class HostSettingsModel : AdminPage
         var dropDownLists = new List<SelectListItem>();
 
         dropDownLists.AddRange(
-            localizations.Select((t, i) => new SelectListItem(this.GetText("ADMIN_HOSTSETTINGS", t), i.ToString()))
-                .ToArray());
+            [.. localizations.Select((t, i) => new SelectListItem(this.GetText("ADMIN_HOSTSETTINGS", t), i.ToString()))]);
 
         this.PostsFeedAccessList = dropDownLists;
         this.AllowCreateTopicsSameNameList = dropDownLists;

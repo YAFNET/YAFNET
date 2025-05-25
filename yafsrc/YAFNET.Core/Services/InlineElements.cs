@@ -88,6 +88,9 @@ public class InlineElements
     /// </param>
     private void AddItem(InlineItem script)
     {
-        this.Items.Add(script);
+        if (this.Items.All(item => item.Name != script.Name))
+        {
+            this.Items.Add(script);
+        }
     }
 }

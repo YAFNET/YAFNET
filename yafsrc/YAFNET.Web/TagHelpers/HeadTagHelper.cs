@@ -51,17 +51,19 @@ public class HeadTagHelper : TagHelper, IHaveServiceLocator
         // Inject Internal Stylesheet
         items.ForEach(
             script =>
+            {
+                if (script.IsInjected || script.Type != InlineType.Css)
                 {
-                    if (!script.IsInjected && script.Type == InlineType.Css)
-                    {
-                        output
-                            .PostContent
-                            .AppendHtml("<style>")
-                            .AppendHtml(script.Code)
-                            .AppendHtml("</style>");
+                    return;
+                }
 
-                        script.IsInjected = true;
-                    }
-                });
+                output
+                    .PostContent
+                    .AppendHtml("<style>")
+                    .AppendHtml(script.Code)
+                    .AppendHtml("</style>");
+
+                script.IsInjected = true;
+            });
     }
 }
