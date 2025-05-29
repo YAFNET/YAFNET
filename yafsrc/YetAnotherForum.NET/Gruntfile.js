@@ -91,27 +91,6 @@ module.exports = function(grunt) {
         },
 
         replace: {
-            bootswatch: {
-                options: {
-                    usePrefix: false,
-                    patterns: [
-                        {
-                            match:
-                                'box-shadow: 0 0 2px rgba($color, .9), 0 0 4px rgba($color, .4), 0 0 1rem rgba($color, .3), 0 0 4rem rgba($color, .1);',
-                            replacement:
-                                'box-shadow: 0 0 2px RGBA($color, .9), 0 0 4px RGBA($color, .4), 0 0 1rem RGBA($color, .3), 0 0 4rem RGBA($color, .1);'
-                        }
-                    ]
-                },
-                files: [
-                    {
-                        expand: true,
-                        flatten: true,
-                        src: ['Content/Themes/vapor/_bootswatch.scss'],
-                        dest: 'Content/Themes/vapor/'
-                    }
-                ]
-            },
             fontAwesome: {
                 options: {
                     usePrefix: false,
@@ -519,7 +498,9 @@ module.exports = function(grunt) {
         sass: {
 	        options: {
 		        implementation: sass,
-		        sourceMap: false
+                sourceMap: false,
+                api: 'modern',
+                silenceDeprecations: ['color-functions', 'mixed-decls', 'global-builtin', 'import','legacy-js-api']
 	        },
             installWizard: {
                 files: {
@@ -716,7 +697,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('updateBootswatchThemes',
         [
-            'copy:bootswatchThemes', 'replace:bootswatch'
+            'copy:bootswatchThemes'
         ]);
 
     grunt.registerTask('updateFlagIcons',

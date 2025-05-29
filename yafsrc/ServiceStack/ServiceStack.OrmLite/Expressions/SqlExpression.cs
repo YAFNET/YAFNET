@@ -1241,12 +1241,16 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
     public virtual SqlExpression<T> WhereExists(ISqlExpression subSelect)
     {
-        return AppendToWhere("AND", FormatFilter($"EXISTS ({subSelect.ToSelectStatement()})"));
+        var sql = subSelect.ToSelectStatement(QueryType.Select);
+        var mergedSql = DialectProvider.MergeParamsIntoSql(sql, subSelect.Params);
+        return AppendToWhere("AND", FormatFilter($"EXISTS ({mergedSql})"));
     }
 
     public virtual SqlExpression<T> WhereNotExists(ISqlExpression subSelect)
     {
-        return AppendToWhere("AND", FormatFilter($"NOT EXISTS ({subSelect.ToSelectStatement()})"));
+        var sql = subSelect.ToSelectStatement(QueryType.Select);
+        var mergedSql = DialectProvider.MergeParamsIntoSql(sql, subSelect.Params);
+        return AppendToWhere("AND", FormatFilter($"NOT EXISTS ({mergedSql})"));
     }
 
     /// <summary>
@@ -4255,7 +4259,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <param name="memberName">Name of the member.</param>
     /// <returns>string.</returns>
     protected virtual string GetQuotedColumnName(ModelDefinition tableDef, string memberName) => // Always call if no tableAlias to exec overrides
-        this.GetQuotedColumnName(tableDef, null, memberName);
+        this.GetQuotedColumnName(tableDef, tableDef == modelDef ? TableAlias : null, memberName);
 
     /// <summary>
     /// Gets the name of the quoted column.

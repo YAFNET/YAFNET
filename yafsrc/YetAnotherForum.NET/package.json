@@ -17,15 +17,15 @@
 		"grunt-sass": "^4.0.0",
 		"grunt-shell": "^4.0.0",
 		"grunt-webpack": "^7.0.0",
-		"postcss": "^8.5.3",
+		"postcss": "^8.5.4",
 		"sass": "^1.89.0",
-		"webpack": "^5.99.8",
+		"webpack": "^5.99.9",
 		"webpack-merge": "^6.0.1"
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-free": "^6.7.2",
 		"@yafnet/sceditor": "^3.2.10",
-		"bootbox": "^6.0.3",
+		"bootbox": "^6.0.4",
 		"bootstrap": "^5.3.6",
 		"bootswatch": "^5.3.6",
 		"bs5-lightbox": "^1.8.5",

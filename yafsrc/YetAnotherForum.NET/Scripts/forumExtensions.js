@@ -4971,7 +4971,7 @@
 })(this, function init($, undefined) {
     "use strict";
     const exports = {};
-    const VERSION = "6.0.3";
+    const VERSION = "6.0.4";
     exports.VERSION = VERSION;
     const locales = {
         en: {
@@ -5413,13 +5413,11 @@
             if (options.required) {
                 input.required = true;
             }
-            if (options.inputType !== "date") {
-                if (options.step) {
-                    if (options.step === "any" || !isNaN(options.step) && parseFloat(options.step) > 0) {
-                        input.setAttribute("step", options.step);
-                    } else {
-                        throw new Error('"step" must be a valid positive number or the value "any". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-step for more information.');
-                    }
+            if (options.step) {
+                if (options.step === "any" || !isNaN(options.step) && parseFloat(options.step) > 0) {
+                    input.setAttribute("step", options.step);
+                } else {
+                    throw new Error('"step" must be a valid positive number or the value "any". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-step for more information.');
                 }
             }
             if (minAndMaxAreValid(options.inputType, options.min, options.max)) {

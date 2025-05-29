@@ -70,19 +70,13 @@ public class BoardSettingCollection
         this.settings.Where(x => x.PropertyType == typeof(int)).ToDictionary(x => x.Name, x => x);
 
     /// <summary>
-    /// Gets SettingsDouble.
-    /// </summary>
-    public Dictionary<string, PropertyInfo> SettingsDouble =>
-        this.settings.Where(x => x.PropertyType == typeof(double)).ToDictionary(x => x.Name, x => x);
-
-    /// <summary>
     /// Gets SettingsOther.
     /// </summary>
     public Dictionary<string, PropertyInfo> SettingsOther
     {
         get
         {
-            var excludeTypes = new List<Type> { typeof(string), typeof(bool), typeof(int), typeof(double) };
+            var excludeTypes = new List<Type> { typeof(string), typeof(bool), typeof(int) };
 
             return this.settings.Where(x => !excludeTypes.Contains(x.PropertyType))
                 .ToDictionary(x => x.Name, x => x);

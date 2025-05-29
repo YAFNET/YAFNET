@@ -10,7 +10,7 @@
         "dependencies": {
           "Octokit": "14.0.0",
           "Serilog.Sinks.Console": "6.0.0",
-          "SonarAnalyzer.CSharp": "10.7.0.110445"
+          "SonarAnalyzer.CSharp": "10.10.0.116381"
         },
         "runtime": {
           "GitHubReleaser.dll": {}
@@ -43,7 +43,7 @@
           }
         }
       },
-      "SonarAnalyzer.CSharp/10.7.0.110445": {}
+      "SonarAnalyzer.CSharp/10.10.0.116381": {}
     }
   },
   "libraries": {
@@ -73,12 +73,12 @@
       "path": "serilog.sinks.console/6.0.0",
       "hashPath": "serilog.sinks.console.6.0.0.nupkg.sha512"
     },
-    "SonarAnalyzer.CSharp/10.7.0.110445": {
+    "SonarAnalyzer.CSharp/10.10.0.116381": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-U4v2LWopxADYkUv7Z5CX7ifKMdDVqHb7a1bzppIQnQi4WQR6z1Zi5rDkCHlVYGEd1U/WMz1IJCU8OmFZLJpVig==",
-      "path": "sonaranalyzer.csharp/10.7.0.110445",
-      "hashPath": "sonaranalyzer.csharp.10.7.0.110445.nupkg.sha512"
+      "sha512": "sha512-HkJuI8dBE64BF7ySlfN8t/lQ91E/pgiQPvOS51lIKKy3/IJiwHHqQ4dkI6gixDkKBDK7lImvvNa0ECH+I0PqmA==",
+      "path": "sonaranalyzer.csharp/10.10.0.116381",
+      "hashPath": "sonaranalyzer.csharp.10.10.0.116381.nupkg.sha512"
     }
   }
 }

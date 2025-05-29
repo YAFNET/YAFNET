@@ -22,7 +22,7 @@ $outrun: false !default;
 }
 
 @mixin box-shadow($color) {
-  box-shadow: 0 0 2px RGBA($color, .9), 0 0 4px RGBA($color, .4), 0 0 1rem RGBA($color, .3), 0 0 4rem RGBA($color, .1);
+  box-shadow: 0 0 2px rgba($color, .9), 0 0 4px rgba($color, .4), 0 0 1rem rgba($color, .3), 0 0 4rem rgba($color, .1);
 }
 
 @mixin box-shadow-lg($color) {

@@ -8,27 +8,27 @@
     ".NETCoreApp,Version=v9.0": {
       "BootstrapEmail.Cli/1.0.0": {
         "dependencies": {
-          "BootstrapEmail.Net": "1.5.4",
+          "BootstrapEmail.Net": "1.5.5",
           "CommandLineParser": "2.9.1",
-          "SonarAnalyzer.CSharp": "10.6.0.109712"
+          "SonarAnalyzer.CSharp": "10.10.0.116381"
         },
         "runtime": {
           "BootstrapEmail.Cli.dll": {}
         }
       },
-      "AngleSharp/1.2.0": {
+      "AngleSharp/1.3.0": {
         "runtime": {
           "lib/net8.0/AngleSharp.dll": {
-            "assemblyVersion": "1.2.0.0",
-            "fileVersion": "1.2.0.0"
+            "assemblyVersion": "1.3.0.0",
+            "fileVersion": "1.3.0.0"
           }
         }
       },
-      "Citizen17.DartSass/2.7.0": {
+      "Citizen17.DartSass/2.8.0": {
         "runtime": {
           "lib/net8.0/Citizen17.DartSass.dll": {
-            "assemblyVersion": "2.7.0.0",
-            "fileVersion": "2.7.0.0"
+            "assemblyVersion": "2.8.0.0",
+            "fileVersion": "2.8.0.0"
           }
         }
       },
@@ -40,18 +40,18 @@
           }
         }
       },
-      "DartSass.Native.win-x64/1.85.0": {},
-      "HtmlAgilityPack/1.11.72": {
+      "DartSass.Native.win-x64/1.89.0": {},
+      "HtmlAgilityPack/1.12.1": {
         "runtime": {
-          "lib/netstandard2.0/HtmlAgilityPack.dll": {
-            "assemblyVersion": "1.11.72.0",
-            "fileVersion": "1.11.72.0"
+          "lib/net8.0/HtmlAgilityPack.dll": {
+            "assemblyVersion": "1.12.1.0",
+            "fileVersion": "1.12.1.0"
           }
         }
       },
       "PreMailer.Net/2.6.0": {
         "dependencies": {
-          "AngleSharp": "1.2.0"
+          "AngleSharp": "1.3.0"
         },
         "runtime": {
           "lib/netstandard2.0/PreMailer.Net.dll": {
@@ -60,19 +60,19 @@
           }
         }
       },
-      "SonarAnalyzer.CSharp/10.6.0.109712": {},
-      "BootstrapEmail.Net/1.5.4": {
+      "SonarAnalyzer.CSharp/10.10.0.116381": {},
+      "BootstrapEmail.Net/1.5.5": {
         "dependencies": {
-          "AngleSharp": "1.2.0",
-          "Citizen17.DartSass": "2.7.0",
-          "DartSass.Native.win-x64": "1.85.0",
-          "HtmlAgilityPack": "1.11.72",
+          "AngleSharp": "1.3.0",
+          "Citizen17.DartSass": "2.8.0",
+          "DartSass.Native.win-x64": "1.89.0",
+          "HtmlAgilityPack": "1.12.1",
           "PreMailer.Net": "2.6.0"
         },
         "runtime": {
           "BootstrapEmail.Net.dll": {
-            "assemblyVersion": "1.5.4.0",
-            "fileVersion": "1.5.4.0"
+            "assemblyVersion": "1.5.5.0",
+            "fileVersion": "1.5.5.0"
           }
         }
       }
@@ -84,19 +84,19 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AngleSharp/1.2.0": {
+    "AngleSharp/1.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-uF/PzSCVcb+b2nqVvHZbOqexoJ9R6QLjonugPf0PQl+0h7YKaFZeXyspctbHe5HGlx7/Iuk5BErtk+t63ac/ZA==",
-      "path": "anglesharp/1.2.0",
-      "hashPath": "anglesharp.1.2.0.nupkg.sha512"
+      "sha512": "sha512-iHzfn4cK6CmhuURNdEpmSQCq5/HZFldEpkbnmqT9My8+6l2Sz3F+NxoqRA8z/jTkWB+SAu5boRdp4v/WtyjuIQ==",
+      "path": "anglesharp/1.3.0",
+      "hashPath": "anglesharp.1.3.0.nupkg.sha512"
     },
-    "Citizen17.DartSass/2.7.0": {
+    "Citizen17.DartSass/2.8.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-GVpKtDWLdFowQ7Zut3kShQARE/W3oeaPp0cT5WkXarI9xGvuah5m8h2OBAo+srALuzn1RIkquAVBWPpRIVyWuw==",
-      "path": "citizen17.dartsass/2.7.0",
-      "hashPath": "citizen17.dartsass.2.7.0.nupkg.sha512"
+      "sha512": "sha512-rua2hMznNbD9MmJ61259nkzzjP5KFnzqqOGDxCqqz+oLHfOmiYrejPiok1322X2LYF+3U/sCUbzxofH+dpuKOQ==",
+      "path": "citizen17.dartsass/2.8.0",
+      "hashPath": "citizen17.dartsass.2.8.0.nupkg.sha512"
     },
     "CommandLineParser/2.9.1": {
       "type": "package",
@@ -105,19 +105,19 @@
       "path": "commandlineparser/2.9.1",
       "hashPath": "commandlineparser.2.9.1.nupkg.sha512"
     },
-    "DartSass.Native.win-x64/1.85.0": {
+    "DartSass.Native.win-x64/1.89.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-piQZmUiysHH2ymVfSNICFKvkc0xU5boeD/MbYmZSrW5s0GhJApLRfB0Q9ohL7pjmtFudiabjdH4nrMWvGVZrsw==",
-      "path": "dartsass.native.win-x64/1.85.0",
-      "hashPath": "dartsass.native.win-x64.1.85.0.nupkg.sha512"
+      "sha512": "sha512-llQddCaF4A3nD9Qm4qMhueVjZx81J3SjdWvOvj92wT8pKpriiXqHjJhkFo06WeHNSgzYROeuFuQKBChpXs9lDw==",
+      "path": "dartsass.native.win-x64/1.89.0",
+      "hashPath": "dartsass.native.win-x64.1.89.0.nupkg.sha512"
     },
-    "HtmlAgilityPack/1.11.72": {
+    "HtmlAgilityPack/1.12.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-RNLgXxTFdIGFI+o5l8c2aJ2L5StIRn9Uv8HKR76p7QP4ZUL26wzpWUCWh08xWUdkL2kocl+Xhv6VUu0rA1npVg==",
-      "path": "htmlagilitypack/1.11.72",
-      "hashPath": "htmlagilitypack.1.11.72.nupkg.sha512"
+      "sha512": "sha512-SP6/2Y26CXtxjXn0Wwsom9Ek35SNWKHEu/IWhNEFejBSSVWWXPRSlpqpBSYWv1SQhYFnwMO01xVbEdK3iRR4hg==",
+      "path": "htmlagilitypack/1.12.1",
+      "hashPath": "htmlagilitypack.1.12.1.nupkg.sha512"
     },
     "PreMailer.Net/2.6.0": {
       "type": "package",
@@ -126,14 +126,14 @@
       "path": "premailer.net/2.6.0",
       "hashPath": "premailer.net.2.6.0.nupkg.sha512"
     },
-    "SonarAnalyzer.CSharp/10.6.0.109712": {
+    "SonarAnalyzer.CSharp/10.10.0.116381": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-fMwoXhlmFrcIYLpmCZOPXQkKwQD6WoFsmkZp8FZ7RJ9Db+ELUg56qh1X4Vy2nU7ZOWmuAMDOMosYxiQKNLBWtw==",
-      "path": "sonaranalyzer.csharp/10.6.0.109712",
-      "hashPath": "sonaranalyzer.csharp.10.6.0.109712.nupkg.sha512"
+      "sha512": "sha512-HkJuI8dBE64BF7ySlfN8t/lQ91E/pgiQPvOS51lIKKy3/IJiwHHqQ4dkI6gixDkKBDK7lImvvNa0ECH+I0PqmA==",
+      "path": "sonaranalyzer.csharp/10.10.0.116381",
+      "hashPath": "sonaranalyzer.csharp.10.10.0.116381.nupkg.sha512"
     },
-    "BootstrapEmail.Net/1.5.4": {
+    "BootstrapEmail.Net/1.5.5": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

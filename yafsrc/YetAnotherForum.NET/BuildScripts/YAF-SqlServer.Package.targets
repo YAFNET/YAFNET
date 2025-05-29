@@ -137,6 +137,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\cyborg\bootstrap-forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\cosmo\bootstrap-forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\cerulean\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\brite\bootstrap-forum.css" />
     </ItemGroup>
 
     <ItemGroup>
@@ -165,7 +166,7 @@
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.browser" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.asax" />
-      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.jpg" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.png" />
 	  <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.json" Exclude="$(MSBuildProjectDirectory)\Content\themes\**\*.*;$(MSBuildProjectDirectory)\node_modules\**;$(MSBuildProjectDirectory)\**\package.json;$(MSBuildProjectDirectory)\**\package-lock.json" />
     </ItemGroup>
 

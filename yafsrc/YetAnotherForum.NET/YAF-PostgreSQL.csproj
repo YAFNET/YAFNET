@@ -1774,6 +1774,10 @@
     <Content Include="Content\images\InstallBackground.jpg" />
     <Content Include="Content\prism.css" />
     <Content Include="Content\sceditor.min.css" />
+    <Content Include="Content\Themes\brite\bootstrap-forum.css" />
+    <Content Include="Content\Themes\brite\bootstrap-forum.min.css" />
+    <Content Include="Content\Themes\brite\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\brite\EmailTemplate.html" />
     <Content Include="Content\Themes\cerulean\bootstrap-email.scss" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
@@ -2965,6 +2969,12 @@
     <Content Include="Content\Themes\yeti\bootstrap_email.json" />
     <Content Include="Content\Themes\zephyr\bootstrap_email-digest.json" />
     <Content Include="Content\Themes\zephyr\bootstrap_email.json" />
+    <Content Include="Content\Themes\brite\bootstrap-email.scss" />
+    <Content Include="Content\Themes\brite\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\brite\bootstrap_email-digest.json" />
+    <Content Include="Content\Themes\brite\bootstrap_email.json" />
+    <Content Include="Content\Themes\brite\_bootswatch.scss" />
+    <Content Include="Content\Themes\brite\_variables.scss" />
     <None Include="package.json" />
     <Content Include="Resources\mimeTypes.json" />
     <Content Include="Scripts\bs5-lightbox\.babelrc" />
@@ -3071,7 +3081,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
