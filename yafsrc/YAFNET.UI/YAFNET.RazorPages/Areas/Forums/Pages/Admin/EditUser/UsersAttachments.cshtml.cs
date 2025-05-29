@@ -24,6 +24,8 @@
 
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
 namespace YAF.Pages.Admin.EditUser;
 
 using System.Collections.Generic;
@@ -97,16 +99,20 @@ public class UsersAttachmentsModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostDeleteSelectedAsync()
     {
-       var items = this.Attachments.Where(x => x.Selected).Select(x => x.ID).ToList();
+        var items = this.Attachments.Where(x => x.Selected).Select(x => x.ID).ToList();
 
-        if (items.Count != 0)
+        if (items.Count == 0)
         {
-            await this.GetRepository<Attachment>().DeleteByIdsAsync(items);
-
-            this.PageBoardContext.SessionNotify(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
+            return this.Get<ILinkBuilder>()
+                .Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View11" });
         }
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View11" });
+        await this.GetRepository<Attachment>().DeleteByIdsAsync(items);
+
+        this.PageBoardContext.SessionNotify(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
+
+        return this.Get<ILinkBuilder>()
+            .Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View11" });
     }
 
     /// <summary>
@@ -145,7 +151,7 @@ public class UsersAttachmentsModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private IActionResult BindData(int userId)
+    private PageResult BindData(int userId)
     {
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 

@@ -670,7 +670,9 @@ module.exports = function(grunt) {
 		sass: {
 			options: {
 				implementation: sass,
-				sourceMap: false
+				sourceMap: false,
+				api: 'modern',
+				silenceDeprecations: ['color-functions', 'mixed-decls', 'global-builtin', 'import','legacy-js-api']   
 			},
 			installWizard: {
 				files: {

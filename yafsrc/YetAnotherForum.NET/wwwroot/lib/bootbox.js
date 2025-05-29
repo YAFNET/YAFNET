@@ -1,6 +1,6 @@
 /*! @preserve
  * bootbox.js
- * version: 6.0.3
+ * version: 6.0.4
  * author: Nick Payne <nick@kurai.co.uk>
  * license: MIT
  * http://bootboxjs.com/
@@ -23,7 +23,7 @@
 
         const exports = {};
 
-        const VERSION = '6.0.3';
+        const VERSION = '6.0.4';
         exports.VERSION = VERSION;
 
         const locales = {
@@ -102,7 +102,7 @@
             relatedTarget: null,
             // The size of the modal to generate
             size: null,
-            // A unique indentifier for this modal
+            // A unique identifier for this modal
             id: null
         };
 
@@ -727,18 +727,14 @@
                     input.required = true;
                 }
 
-                // These input types have extra attributes which affect their input validation.
-                // Warning: For most browsers, date inputs are buggy in their implementation of 'step', so this attribute will have no effect. Therefore, we don't set the attribute for date inputs.
-                // @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date#Setting_maximum_and_minimum_dates
-                if (options.inputType !== 'date') {
-                    if (options.step) {
-                        if (options.step === 'any' || (!isNaN(options.step) && parseFloat(options.step) > 0)) {
-                            input.setAttribute('step', options.step);
-                        } else {
-                            throw new Error(
-                                '"step" must be a valid positive number or the value "any". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-step for more information.');
-                        }
-                    }
+                
+                if (options.step) {
+	                if (options.step === 'any' || (!isNaN(options.step) && parseFloat(options.step) > 0)) {
+		                input.setAttribute('step', options.step);
+	                } else {
+		                throw new Error(
+			                '"step" must be a valid positive number or the value "any". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-step for more information.');
+	                }
                 }
 
                 if (minAndMaxAreValid(options.inputType, options.min, options.max)) {
@@ -926,7 +922,7 @@
             // ...and replace it with one focusing our input, if possible
             promptDialog.addEventListener('shown.bs.modal',
                 function() {
-                    // Need the closure here since input isn'tcan object otherwise
+                    // Need the closure here since input isn't can object otherwise
                     input.focus();
                 });
 
