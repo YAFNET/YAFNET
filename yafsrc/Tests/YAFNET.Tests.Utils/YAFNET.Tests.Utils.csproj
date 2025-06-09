@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion />
     <TargetFramework>net9.0</TargetFramework>
@@ -16,7 +16,7 @@
     <PackageReference Include="Microsoft.Playwright" Version="1.52.0" />
     <PackageReference Include="netDumbster" Version="3.1.1" />
 	  <PackageReference Include="NUnit" Version="4.3.2" />
-	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.10.0.116381">
+	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.11.0.117924">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
