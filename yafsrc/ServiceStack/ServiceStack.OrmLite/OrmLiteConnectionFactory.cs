@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
 using ServiceStack.Data;
@@ -119,7 +120,9 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// Gets the orm lite connection.
     /// </summary>
     /// <value>The orm lite connection.</value>
-    private OrmLiteConnection OrmLiteConnection => this.ormLiteConnection ??= new OrmLiteConnection(this);
+    private OrmLiteConnection OrmLiteConnection => ormLiteConnection ??= DialectProvider != null
+        ? DialectProvider.CreateOrmLiteConnection(this)
+        : new OrmLiteConnection(this);
 
     /// <summary>
     /// Creates the database connection.
@@ -134,7 +137,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
         }
 
         var connection = this.AutoDisposeConnection
-                             ? new OrmLiteConnection(this)
+                             ? DialectProvider.CreateOrmLiteConnection(this)
                              : this.OrmLiteConnection;
 
         return connection;
@@ -174,6 +177,23 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
                                        ? new OrmLiteConnection(factory)
                                        : factory.OrmLiteConnection;
         return connection;
+    }
+
+    /// <summary>
+    /// Creates the database with write lock.
+    /// </summary>
+    /// <param name="namedConnection">The named connection.</param>
+    /// <returns>DbConnection.</returns>
+    /// <exception cref="KeyNotFoundException">No factory registered is named " + namedConnection</exception>
+    public DbConnection CreateDbWithWriteLock(string namedConnection = null)
+    {
+        var factory = this;
+        if (namedConnection != null && !NamedConnections.TryGetValue(namedConnection, out factory))
+        {
+            throw new KeyNotFoundException("No factory registered is named " + namedConnection);
+        }
+
+        return new SingleWriterDbConnection(factory, Locks.GetDbLock(namedConnection));
     }
 
     /// <summary>
@@ -238,10 +258,8 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
             throw new ArgumentNullException(nameof(connectionString));
         }
 
-        var connection = new OrmLiteConnection(this)
-                             {
-                                 ConnectionString = connectionString
-                             };
+        var connection = DialectProvider.CreateOrmLiteConnection(this);
+        connection.ConnectionString = connectionString;
 
         connection.Open();
 
@@ -262,10 +280,8 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
             throw new ArgumentNullException(nameof(connectionString));
         }
 
-        var connection = new OrmLiteConnection(this)
-                             {
-                                 ConnectionString = connectionString
-                             };
+        var connection = DialectProvider.CreateOrmLiteConnection(this);
+        connection.ConnectionString = connectionString;
 
         await connection.OpenAsync(token).ConfigAwait();
 
@@ -401,7 +417,8 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// <param name="connectionFactory">The connection factory.</param>
     public virtual void RegisterConnection(string namedConnection, OrmLiteConnectionFactory connectionFactory)
     {
-        NamedConnections[namedConnection] = connectionFactory;
+        NamedConnections[namedConnection] = connectionFactory; 
+        Locks.AddLock(namedConnection);
     }
 }
 

@@ -671,7 +671,7 @@ static internal class WriteExpressionCommandExtensions
     {
         dbCmd.InitInsertOnly(insertFields);
 
-        return selectIdentity ? dbCmd.ExecLongScalar(dbCmd.CommandText + dbCmd.GetDialectProvider().GetLastInsertIdSqlSuffix<T>()) : dbCmd.ExecuteNonQuery();
+        return selectIdentity ? dbCmd.ExecLongScalar(dbCmd.CommandText + dbCmd.GetDialectProvider().GetLastInsertIdSqlSuffix<T>()) : dbCmd.ExecNonQuery();
     }
 
     /// <summary>

@@ -171,7 +171,7 @@ public static class OrmLiteConfig
     /// <exception cref="System.NotImplementedException"></exception>
     public static void SetCommandTimeout(this IDbConnection db, int? commandTimeout)
     {
-        if (!(db is OrmLiteConnection ormLiteConn))
+        if (db is not OrmLiteConnection ormLiteConn)
         {
             throw new NotImplementedException(string.Format(RequiresOrmLiteConnection, "CommandTimeout"));
         }

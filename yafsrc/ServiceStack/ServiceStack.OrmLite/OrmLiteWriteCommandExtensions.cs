@@ -1723,7 +1723,7 @@ public static class OrmLiteWriteCommandExtensions
     {
         var dialectProvider = dbCmd.GetDialectProvider();
         dialectProvider.PrepareStoredProcedureStatement(dbCmd, obj);
-        dbCmd.ExecuteNonQuery();
+        dbCmd.ExecNonQuery();
     }
 
     /// <summary>

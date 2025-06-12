@@ -32,6 +32,14 @@ public interface IOrmLiteDialectProvider
     /// Register custom value type converter  
     /// </summary>
     void RegisterConverter<T>(IOrmLiteConverter converter);
+    
+    /// <summary>
+    /// Used to create an OrmLiteConnection
+    /// </summary>
+    /// <param name="factory"></param>
+    /// <param name="namedConnection"></param>
+    /// <returns></returns>
+    OrmLiteConnection CreateOrmLiteConnection(OrmLiteConnectionFactory factory, string namedConnection = null);
 
     void InitConnection(IDbConnection dbConn);
 

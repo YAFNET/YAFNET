@@ -60,6 +60,34 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     }
 
     /// <summary>
+    /// Enable Write Ahead Logging (PRAGMA journal_mode=WAL)
+    /// </summary>
+    public bool EnableWal {
+        get => ConnectionCommands.Contains(SqlitePragmas.EnableForeignKeys);
+        set {
+            if (value)
+            {
+                ConnectionCommands.AddIfNotExists(SqlitePragmas.EnableForeignKeys);
+            }
+            else
+            {
+                ConnectionCommands.Remove(SqlitePragmas.DisableForeignKeys);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Whether to use UTC for DateTime fields
+    /// </summary>
+    public bool UseUtc {
+        set => ((OrmLite.Converters.DateTimeConverter)this.GetConverter<DateTime>()).DateStyle = value
+            ? DateTimeKind.Utc
+            : DateTimeKind.Unspecified;
+    }
+
+    public bool EnableWriterLock { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the password.
     /// </summary>
     /// <value>The password.</value>
@@ -308,6 +336,18 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         ConnectionStringFilter?.Invoke(connString);
 
         return CreateConnection(StringBuilderCache.ReturnAndFree(connString));
+    }
+
+    public override OrmLiteConnection CreateOrmLiteConnection(OrmLiteConnectionFactory factory, string namedConnection = null)
+    {
+        var conn = base.CreateOrmLiteConnection(factory, namedConnection);
+        if (EnableWriterLock)
+        {
+            conn.WriteLock = namedConnection == null
+                ? Locks.AppDb
+                : Locks.GetDbLock(namedConnection);
+        }
+        return conn;
     }
 
     /// <summary>

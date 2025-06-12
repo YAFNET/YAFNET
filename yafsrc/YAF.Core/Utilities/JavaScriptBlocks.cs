@@ -593,21 +593,17 @@ public static class JavaScriptBlocks
     /// </returns>
     public static string CodeMirrorSqlLoadJs(string editorId, string mime)
     {
-        return $$$"""
+        return $$"""
                   window.onload = function() {
-                    window.editor = CodeMirror.fromTextArea(document.getElementById('{{{editorId}}}'), {
-                      mode: "{{{mime}}}",
+                    window.editor = CodeMirror.fromTextArea(document.getElementById('{{editorId}}'), {
+                      mode: "{{mime}}",
                       indentWithTabs: true,
                       smartIndent: true,
                       lineNumbers: true,
                       matchBrackets : true,
                       theme: "monokai",
                       autofocus: true,
-                      extraKeys: {"Ctrl-Space": "autocomplete"},
-                      hintOptions: {tables: {
-                        users: ["name", "score", "birthDate"],
-                        countries: ["name", "population", "size"]
-                      }}
+                      extraKeys: {"Ctrl-Space": "autocomplete"}
                     });
                   };
                   """;

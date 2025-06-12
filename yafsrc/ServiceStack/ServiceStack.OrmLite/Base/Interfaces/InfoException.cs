@@ -5,7 +5,7 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-using JetBrains.Annotations;
+#nullable enable
 using System;
 
 namespace ServiceStack;
@@ -15,7 +15,7 @@ namespace ServiceStack;
 /// </summary>
 public class InfoException : Exception
 {
-    public InfoException(string message) : base(message) { }
+    public InfoException(string? message) : base(message) { }
 
     public override string ToString() => Message;
 }

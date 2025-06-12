@@ -4,6 +4,8 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
+#nullable enable
 using System.Data;
 using ServiceStack.Data;
 
@@ -96,6 +98,14 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <returns>The number of rows affected.</returns>
     public int ExecuteNonQuery()
     {
+        var writeLock = dbConn.WriteLock;
+        if (writeLock != null)
+        {
+            lock (writeLock)
+            {
+                return dbCmd.ExecuteNonQuery();
+            }
+        }
         return dbCmd.ExecuteNonQuery();
     }
 
@@ -122,7 +132,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// Executes the query, and returns the first column of the first row in the resultset returned by the query. Extra columns or rows are ignored.
     /// </summary>
     /// <returns>The first column of the first row in the resultset.</returns>
-    public object ExecuteScalar()
+    public object? ExecuteScalar()
     {
         return dbCmd.ExecuteScalar();
     }
@@ -131,7 +141,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// Gets or sets the <see cref="T:System.Data.IDbConnection" /> used by this instance of the <see cref="T:System.Data.IDbCommand" />.
     /// </summary>
     /// <value>The connection.</value>
-    public IDbConnection Connection
+    public IDbConnection? Connection
     {
         get => dbCmd.Connection;
         set => dbCmd.Connection = value;
@@ -149,7 +159,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// Gets or sets the text command to run against the data source.
     /// </summary>
     /// <value>The command text.</value>
-    public string CommandText
+    public string? CommandText
     {
         get => dbCmd.CommandText;
         set => dbCmd.CommandText = value;

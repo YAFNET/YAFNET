@@ -138,6 +138,13 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     }
 
     /// <summary>
+    /// Use JSON for serializing Complex Types
+    /// </summary>
+    public virtual bool UseJson {
+        set => StringSerializer = value ? new JsonStringSerializer() : new JsvStringSerializer();
+    }
+
+    /// <summary>
     /// Gets the column type definition.
     /// </summary>
     /// <param name="columnType">Type of the column.</param>
@@ -1023,6 +1030,17 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual string GenerateComment(in string text)
     {
         return $"-- {text}";
+    }
+
+    /// <summary>
+    /// Creates the ormlite connection.
+    /// </summary>
+    /// <param name="factory">The factory.</param>
+    /// <param name="namedConnection">The named connection.</param>
+    /// <returns>ServiceStack.OrmLite.OrmLiteConnection.</returns>
+    public virtual OrmLiteConnection CreateOrmLiteConnection(OrmLiteConnectionFactory factory, string namedConnection = null)
+    {
+        return new OrmLiteConnection(factory);
     }
 
     public virtual void InitConnection(IDbConnection dbConn)

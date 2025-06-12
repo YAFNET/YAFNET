@@ -4,6 +4,8 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
+#nullable enable
 using System.Data;
 using System.Data.Common;
 using System.Threading;
@@ -15,7 +17,6 @@ namespace ServiceStack.OrmLite;
 
 using ServiceStack.Logging;
 using System;
-using System.Drawing;
 
 /// <summary>
 /// Wrapper IDbConnection class to allow for connection sharing, mocking, etc.
@@ -31,16 +32,16 @@ public class OrmLiteConnection
     /// Gets or sets the transaction.
     /// </summary>
     /// <value>The transaction.</value>
-    public IDbTransaction Transaction { get; set; }
+    public IDbTransaction? Transaction { get; set; }
     /// <summary>
     /// Gets the database transaction.
     /// </summary>
     /// <value>The database transaction.</value>
-    public IDbTransaction DbTransaction => Transaction;
+    public IDbTransaction? DbTransaction => Transaction;
     /// <summary>
     /// The database connection
     /// </summary>
-    private IDbConnection dbConnection;
+    private IDbConnection? dbConnection;
 
     /// <summary>
     /// Gets the dialect provider.
@@ -58,6 +59,7 @@ public class OrmLiteConnection
     /// <value>The command timeout.</value>
     public int? CommandTimeout { get; set; }
     public Guid ConnectionId { get; set; }
+    public object? WriteLock { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="OrmLiteConnection"/> class.
@@ -75,7 +77,7 @@ public class OrmLiteConnection
     /// <param name="factory">The factory.</param>
     /// <param name="connection">The connection.</param>
     /// <param name="transaction">The transaction.</param>
-    public OrmLiteConnection(OrmLiteConnectionFactory factory, IDbConnection connection, IDbTransaction transaction = null)
+    public OrmLiteConnection(OrmLiteConnectionFactory factory, IDbConnection connection, IDbTransaction? transaction = null)
         : this(factory)
     {
         this.dbConnection = connection;
@@ -108,7 +110,16 @@ public class OrmLiteConnection
             return;
         }
 
-        dbConnection?.Dispose();
+        try
+        {
+            dbConnection?.Dispose();
+        }
+        catch (Exception e)
+        {
+            LogManager.GetLogger(GetType()).Error("Failed to Dispose()", e);
+            Console.WriteLine(e);
+        }
+
         dbConnection = null;
     }
 
@@ -144,7 +155,7 @@ public class OrmLiteConnection
 
         var id = Diagnostics.OrmLite.WriteConnectionCloseBefore(dbConnection);
         var connectionId = dbConnection.GetConnectionId();
-        Exception e = null;
+        Exception? e = null;
         try
         {
             dbConnection.Close();
@@ -209,7 +220,7 @@ public class OrmLiteConnection
         }
 
         var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(dbConn);
-        Exception e = null;
+        Exception? e = null;
 
         try
         {
@@ -256,7 +267,7 @@ public class OrmLiteConnection
         if (dbConn.State == ConnectionState.Closed)
         {
             var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(dbConn);
-            Exception e = null;
+            Exception? e = null;
 
             try
             {
@@ -291,12 +302,12 @@ public class OrmLiteConnection
     /// <summary>
     /// The connection string
     /// </summary>
-    private string connectionString;
+    private string? connectionString;
     /// <summary>
     /// Gets or sets the string used to open a database.
     /// </summary>
     /// <value>The connection string.</value>
-    public string ConnectionString
+    public string? ConnectionString
     {
         get => connectionString ?? Factory.ConnectionString;
         set => connectionString = value;
@@ -367,6 +378,6 @@ public static class OrmLiteConnectionUtils
     /// </summary>
     /// <param name="db">The database.</param>
     /// <returns>IDbTransaction.</returns>
-    public static IDbTransaction GetTransaction(this IDbConnection db) =>
+    public static IDbTransaction? GetTransaction(this IDbConnection db) =>
         db is IHasDbTransaction setDb ? setDb.DbTransaction : null;
 }

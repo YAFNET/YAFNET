@@ -4,6 +4,9 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
+#nullable enable
+
 using System;
 using System.Data;
 using ServiceStack.Data;
@@ -43,6 +46,9 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     /// <value>The database connection.</value>
     public IDbConnection Db => db;
 
+    private object? writeLock = null;
+    public object? WriteLock => writeLock;
+
     public static OrmLiteTransaction Create(IDbConnection db, IsolationLevel? isolationLevel = null)
     {
         var dbTrans = isolationLevel != null
@@ -64,6 +70,7 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     {
         this.db = db;
         this.Transaction = transaction;
+        writeLock = db.GetWriteLock();
 
         //If OrmLite managed connection assign to connection, otherwise use OrmLiteContext
         if (this.db is ISetDbTransaction ormLiteConn)
@@ -83,7 +90,17 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     {
         try
         {
-            Transaction.Dispose();
+            if (writeLock != null)
+            {
+                lock (writeLock)
+                {
+                    Transaction.Dispose();
+                }
+            }
+            else
+            {
+                Transaction.Dispose();
+            }
         }
         finally
         {
@@ -105,11 +122,21 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     {
         var isolationLevel = Transaction.IsolationLevel;
         var id = Diagnostics.OrmLite.WriteTransactionCommitBefore(isolationLevel, db);
-        Exception e = null;
+        Exception? e = null;
 
         try
         {
-            Transaction.Commit();
+            if (writeLock != null)
+            {
+                lock (writeLock)
+                {
+                    Transaction.Commit();
+                }
+            }
+            else
+            {
+                Transaction.Commit();
+            }
         }
         catch (Exception ex)
         {
@@ -136,11 +163,21 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     {
         var isolationLevel = Transaction.IsolationLevel;
         var id = Diagnostics.OrmLite.WriteTransactionRollbackBefore(isolationLevel, db, null);
-        Exception e = null;
+        Exception? e = null;
 
         try
         {
-            Transaction.Rollback();
+            if (writeLock != null)
+            {
+                lock (writeLock)
+                {
+                    Transaction.Rollback();
+                }
+            }
+            else
+            {
+                Transaction.Rollback();
+            }
         }
         catch (Exception ex)
         {
