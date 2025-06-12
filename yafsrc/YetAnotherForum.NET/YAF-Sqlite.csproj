@@ -3048,7 +3048,6 @@ del *.xml
 
 xcopy "$(SolutionDir)YAF.Data\YAF.Data.Sqlite\bin\Debug\net481\x64\SQLite.Interop.dll" "$(OutputDir)" /y /f</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <PropertyGroup>
     <Extension>zip</Extension>
