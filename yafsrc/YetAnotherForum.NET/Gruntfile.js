@@ -376,8 +376,8 @@ module.exports = function(grunt) {
                 src: [
                     'Scripts/bootstrap.bundle.js',
                     'Scripts/bootbox.js',
-                    'Scripts/dark-editable.js',
-                    'Scripts/bootstrap-notify.js',
+                    'node_modules/@w8tcha/dark-editable/dist/dark-editable.iife.js',
+                    'node_modules/@w8tcha/bootstrap-notify/dist/bootstrap-notify.iife.js',
                     'Scripts/forum/bootstrap-touchspin.js',
                     'Scripts/choices/assets/scripts/choices.js',
                     'Scripts/bs5-lightbox/dist/index.bundle.min.js',
@@ -405,8 +405,8 @@ module.exports = function(grunt) {
                 },
                 src: [
                     'Scripts/bootbox.js',
-                    'Scripts/dark-editable.js',
-                    'Scripts/bootstrap-notify.js',
+                    'node_modules/@w8tcha/dark-editable/dist/dark-editable.iife.js',
+                    'node_modules/@w8tcha/bootstrap-notify/dist/bootstrap-notify.iife.js',
                     'Scripts/forum/bootstrap-touchspin.js',
                     'Scripts/choices/assets/scripts/choices.js',
                     'Scripts/bs5-lightbox/dist/index.bundle.min.js',
@@ -435,8 +435,8 @@ module.exports = function(grunt) {
                 src: [
                     'Scripts/bootstrap.bundle.js',
                     'Scripts/bootbox.js',
-                    'Scripts/dark-editable.js',
-                    'Scripts/bootstrap-notify.js',
+                    'node_modules/@w8tcha/dark-editable/dist/dark-editable.iife.js',
+                    'node_modules/@w8tcha/bootstrap-notify/dist/bootstrap-notify.iife.js',
                     'Scripts/forum/bootstrap-touchspin.js',
                     'Scripts/choices/assets/scripts/choices.js',
                     'Scripts/bs5-lightbox/dist/index.bundle.min.js',
@@ -461,8 +461,8 @@ module.exports = function(grunt) {
                 },
                 src: [
                     'Scripts/bootbox.js',
-                    'Scripts/bootstrap-notify.js',
-                    'Scripts/dark-editable.js',
+                    'node_modules/@w8tcha/bootstrap-notify/dist/bootstrap-notify.iife.js',
+                    'node_modules/@w8tcha/dark-editable/dist/dark-editable.iife.js',
                     'Scripts/forum/bootstrap-touchspin.js',
                     'Scripts/choices/assets/scripts/choices.js',
                     'Scripts/bs5-lightbox/dist/index.bundle.min.js',

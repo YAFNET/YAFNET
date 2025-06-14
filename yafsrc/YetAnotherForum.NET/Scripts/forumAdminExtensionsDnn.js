@@ -1038,23 +1038,23 @@ var Notify = function(c) {
     return v;
 }(bootstrap);
 
-var DarkEditable = function(m) {
+var DarkEditable = function(a) {
     "use strict";
-    var g = Object.defineProperty;
-    var _ = (m, r, a) => r in m ? g(m, r, {
+    var v = Object.defineProperty;
+    var _ = (a, i, r) => i in a ? v(a, i, {
         enumerable: !0,
         configurable: !0,
         writable: !0,
-        value: a
-    }) : m[r] = a;
-    var i = (m, r, a) => _(m, typeof r != "symbol" ? r + "" : r, a);
-    var r = document.createElement("style");
-    r.textContent = `.dark-editable-element{border-bottom:dashed 1px #0088cc;text-decoration:none;cursor:pointer}.dark-editable-element-disabled{border-bottom:none;cursor:default}.dark-editable-element-empty{font-style:italic;color:#d14}.dark-editable{max-width:none}.dark-editable-loader{font-size:5px;left:50%;top:50%;width:1em;height:1em;border-radius:50%;position:relative;text-indent:-9999em;-webkit-animation:load5 1.1s infinite ease;animation:load5 1.1s infinite ease;-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0)}@-webkit-keyframes load5{0%,to{box-shadow:0 -2.6em #000,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #00000080,-1.8em -1.8em #000000b3}12.5%{box-shadow:0 -2.6em #000000b3,1.8em -1.8em #000,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #00000080}25%{box-shadow:0 -2.6em #00000080,1.8em -1.8em #000000b3,2.5em 0 #000,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}37.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #00000080,2.5em 0 #000000b3,1.75em 1.75em #000,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}50%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #00000080,1.75em 1.75em #000000b3,0 2.5em #000,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}62.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #00000080,0 2.5em #000000b3,-1.8em 1.8em #000,-2.6em 0 #0003,-1.8em -1.8em #0003}75%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #00000080,-1.8em 1.8em #000000b3,-2.6em 0 #000,-1.8em -1.8em #0003}87.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #00000080,-2.6em 0 #000000b3,-1.8em -1.8em #000}}@keyframes load5{0%,to{box-shadow:0 -2.6em #000,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #00000080,-1.8em -1.8em #000000b3}12.5%{box-shadow:0 -2.6em #000000b3,1.8em -1.8em #000,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #00000080}25%{box-shadow:0 -2.6em #00000080,1.8em -1.8em #000000b3,2.5em 0 #000,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}37.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #00000080,2.5em 0 #000000b3,1.75em 1.75em #000,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}50%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #00000080,1.75em 1.75em #000000b3,0 2.5em #000,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}62.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #00000080,0 2.5em #000000b3,-1.8em 1.8em #000,-2.6em 0 #0003,-1.8em -1.8em #0003}75%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #00000080,-1.8em 1.8em #000000b3,-2.6em 0 #000,-1.8em -1.8em #0003}87.5%{box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #00000080,-2.6em 0 #000000b3,-1.8em -1.8em #000}}
-/*$vite$:1*/`, document.head.appendChild(r);
-    class a {
+        value: r
+    }) : a[i] = r;
+    var n = (a, i, r) => _(a, typeof i != "symbol" ? i + "" : i, r);
+    var i = document.createElement("style");
+    i.textContent = `.dark-editable-element{border-bottom:dashed 1px #0088cc;text-decoration:none;cursor:pointer}.dark-editable-element-disabled{border-bottom:none;cursor:default}.dark-editable-element-empty{font-style:italic;color:#d14}.dark-editable{max-width:none}.dark-editable-loader{font-size:5px;left:50%;top:50%;width:1em;height:1em;border-radius:50%;position:relative;text-indent:-9999em;-webkit-animation:load5 1.1s infinite ease;animation:load5 1.1s infinite ease;-webkit-transform:translateZ(0);transform:translateZ(0)}@-webkit-keyframes load5{0%,to{-webkit-box-shadow:0em -2.6em 0em 0em #000000,1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.5),-1.8em -1.8em 0 0em rgba(0,0,0,.7);box-shadow:0 -2.6em #000,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #00000080,-1.8em -1.8em #000000b3}12.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.7),1.8em -1.8em 0 0em #000000,2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.5);box-shadow:0 -2.6em #000000b3,1.8em -1.8em #000,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #00000080}25%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.5),1.8em -1.8em 0 0em rgba(0,0,0,.7),2.5em 0em 0 0em #000000,1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #00000080,1.8em -1.8em #000000b3,2.5em 0 #000,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}37.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.5),2.5em 0em 0 0em rgba(0,0,0,.7),1.75em 1.75em 0 0em #000000,0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #00000080,2.5em 0 #000000b3,1.75em 1.75em #000,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}50%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.5),1.75em 1.75em 0 0em rgba(0,0,0,.7),0em 2.5em 0 0em #000000,-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #00000080,1.75em 1.75em #000000b3,0 2.5em #000,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}62.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.5),0em 2.5em 0 0em rgba(0,0,0,.7),-1.8em 1.8em 0 0em #000000,-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #00000080,0 2.5em #000000b3,-1.8em 1.8em #000,-2.6em 0 #0003,-1.8em -1.8em #0003}75%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.5),-1.8em 1.8em 0 0em rgba(0,0,0,.7),-2.6em 0em 0 0em #000000,-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #00000080,-1.8em 1.8em #000000b3,-2.6em 0 #000,-1.8em -1.8em #0003}87.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.5),-2.6em 0em 0 0em rgba(0,0,0,.7),-1.8em -1.8em 0 0em #000000;box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #00000080,-2.6em 0 #000000b3,-1.8em -1.8em #000}}@keyframes load5{0%,to{-webkit-box-shadow:0em -2.6em 0em 0em #000000,1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.5),-1.8em -1.8em 0 0em rgba(0,0,0,.7);box-shadow:0 -2.6em #000,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #00000080,-1.8em -1.8em #000000b3}12.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.7),1.8em -1.8em 0 0em #000000,2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.5);box-shadow:0 -2.6em #000000b3,1.8em -1.8em #000,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #00000080}25%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.5),1.8em -1.8em 0 0em rgba(0,0,0,.7),2.5em 0em 0 0em #000000,1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #00000080,1.8em -1.8em #000000b3,2.5em 0 #000,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}37.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.5),2.5em 0em 0 0em rgba(0,0,0,.7),1.75em 1.75em 0 0em #000000,0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #00000080,2.5em 0 #000000b3,1.75em 1.75em #000,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}50%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.5),1.75em 1.75em 0 0em rgba(0,0,0,.7),0em 2.5em 0 0em #000000,-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #00000080,1.75em 1.75em #000000b3,0 2.5em #000,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}62.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.5),0em 2.5em 0 0em rgba(0,0,0,.7),-1.8em 1.8em 0 0em #000000,-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #00000080,0 2.5em #000000b3,-1.8em 1.8em #000,-2.6em 0 #0003,-1.8em -1.8em #0003}75%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.5),-1.8em 1.8em 0 0em rgba(0,0,0,.7),-2.6em 0em 0 0em #000000,-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #00000080,-1.8em 1.8em #000000b3,-2.6em 0 #000,-1.8em -1.8em #0003}87.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.5),-2.6em 0em 0 0em rgba(0,0,0,.7),-1.8em -1.8em 0 0em #000000;box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #00000080,-2.6em 0 #000000b3,-1.8em -1.8em #000}}
+/*$vite$:1*/`, document.head.appendChild(i);
+    class r {
         constructor(e) {
-            i(this, "context");
-            if (this.constructor === a) throw new Error("It's abstract class");
+            n(this, "context");
+            if (this.constructor === r) throw new Error("It's abstract class");
             this.context = e;
         }
         event_show() {
@@ -1083,10 +1083,10 @@ var DarkEditable = function(m) {
             throw new Error("Method `hide` not define!");
         }
     }
-    class p extends a {
+    class p extends r {
         constructor() {
             super(...arguments);
-            i(this, "popover", null);
+            n(this, "popover", null);
         }
         init() {
             const t = {
@@ -1096,7 +1096,7 @@ var DarkEditable = function(m) {
                 customClass: "dark-editable",
                 title: this.context.options.title
             };
-            this.popover = new m.Popover(this.context.element, Object.assign(t, this.context.options.popoverOptions)), 
+            this.popover = new a.Popover(this.context.element, Object.assign(t, this.context.options.popoverOptions)), 
             this.context.element.addEventListener("show.bs.popover", () => {
                 this.event_show();
             }), this.context.element.addEventListener("shown.bs.popover", () => {
@@ -1108,10 +1108,10 @@ var DarkEditable = function(m) {
             }), document.addEventListener("click", s => {
                 const o = s.target;
                 if (this.popover && o === this.popover.tip || o === this.context.element) return;
-                let n = o.parentNode;
-                for (;n; ) {
-                    if (n === this.popover.tip) return;
-                    n = n.parentNode;
+                let m = o.parentNode;
+                for (;m; ) {
+                    if (m === this.popover.tip) return;
+                    m = m.parentNode;
                 }
                 this.hide();
             });
@@ -1126,7 +1126,7 @@ var DarkEditable = function(m) {
             this.popover && this.popover.hide();
         }
     }
-    class u extends a {
+    class b extends r {
         init() {
             const e = () => {
                 if (!this.context.options.disabled) {
@@ -1149,12 +1149,12 @@ var DarkEditable = function(m) {
     }
     class c {
         constructor(e) {
-            i(this, "context");
-            i(this, "element", null);
-            i(this, "error", null);
-            i(this, "form", null);
-            i(this, "load", null);
-            i(this, "buttons", {
+            n(this, "context");
+            n(this, "element", null);
+            n(this, "error", null);
+            n(this, "form", null);
+            n(this, "load", null);
+            n(this, "buttons", {
                 success: null,
                 cancel: null
             });
@@ -1187,10 +1187,10 @@ var DarkEditable = function(m) {
                     this.showLoad();
                     let o;
                     try {
-                        const n = await this.ajax(s);
-                        n.ok ? o = await this.context.success(n, s) : o = await this.context.error(n, s) || `${n.status} ${n.statusText}`;
-                    } catch (n) {
-                        console.error(n), o = n;
+                        const m = await this.ajax(s);
+                        m.ok ? o = await this.context.success(m, s) : o = await this.context.error(m, s) || `${m.status} ${m.statusText}`;
+                    } catch (m) {
+                        console.error(m), o = m;
                     }
                     o ? (this.setError(o), this.showError()) : (this.setError(""), 
                     this.hideError(), this.context.setValue(this.getValue()), this.context.modeElement.hide(), 
@@ -1231,17 +1231,17 @@ var DarkEditable = function(m) {
             this.load && (this.load.style.display = "block");
         }
         ajax(e) {
-            var n;
+            var m;
             let t = this.context.options.url;
             if (!t) throw new Error("URL is required!");
             if (!this.context.options.id) throw new Error("pk is required!");
             if (!this.context.options.name) throw new Error("Name is required!");
             const s = new FormData();
             if (s.append("id", this.context.options.id), s.append("name", this.context.options.name), 
-            s.append("value", e), ((n = this.context.options.ajaxOptions) == null ? void 0 : n.method) === "GET") {
+            s.append("value", e), ((m = this.context.options.ajaxOptions) == null ? void 0 : m.method) === "GET") {
                 const l = [];
-                s.forEach((E, v) => {
-                    l.push(`${v}=${E}`);
+                s.forEach((y, E) => {
+                    l.push(`${E}=${y}`);
                 }), t += "?" + l.join("&");
             }
             const o = {
@@ -1282,7 +1282,7 @@ var DarkEditable = function(m) {
             return this.element ? this.element.value : "";
         }
     }
-    class x extends c {
+    class u extends c {
         create() {
             const e = this.createElement("input");
             e.type = typeof this.context.options.type == "string" ? this.context.options.type : "text";
@@ -1291,17 +1291,17 @@ var DarkEditable = function(m) {
             } = this.context;
             e.type = typeof t.type == "string" ? t.type : "text";
             const s = t.attributes || {}, o = [ "step", "min", "max", "minlength", "maxlength", "pattern", "placeholder", "required", "readonly", "disabled", "autocomplete", "autofocus", "name", "value" ];
-            for (const [ n, l ] of Object.entries(s)) o.includes(n) && l !== void 0 && e.setAttribute(n, String(l));
+            for (const [ m, l ] of Object.entries(s)) o.includes(m) && l !== void 0 && e.setAttribute(m, String(l));
             return this.createContainer(e);
         }
     }
-    class b extends c {
+    class g extends c {
         create() {
             const e = this.createElement("textarea");
             return this.createContainer(e);
         }
     }
-    class f extends c {
+    class x extends c {
         create() {
             const e = this.createElement("select");
             return this.context.options.source && Array.isArray(this.context.options.source) && this.context.options.source.forEach(t => {
@@ -1345,12 +1345,12 @@ var DarkEditable = function(m) {
             this.context.setValue(this.context.getValue());
         }
     }
-    class y {
+    class f {
         constructor(e, t = {}) {
-            i(this, "element");
-            i(this, "options");
-            i(this, "typeElement");
-            i(this, "modeElement");
+            n(this, "element");
+            n(this, "options");
+            n(this, "typeElement");
+            n(this, "modeElement");
             this.element = e, this.options = {
                 ...t
             }, this.init_options(), this.typeElement = this.route_type(), this.typeElement.initOptions(), 
@@ -1375,7 +1375,7 @@ var DarkEditable = function(m) {
             }
         }
         init_options() {
-            var e, t, s, o, n;
+            var e, t, s, o, m;
             this.get_opt("value", this.element.innerHTML), this.get_opt("name", this.element.id), 
             this.get_opt("id", null), this.get_opt("title", ""), this.get_opt("type", "text"), 
             this.get_opt("emptytext", "Empty"), this.get_opt("placeholder", this.element.getAttribute("placeholder")), 
@@ -1389,7 +1389,7 @@ var DarkEditable = function(m) {
             }, this.options.ajaxOptions), this.get_opt_bool("send", !0), this.get_opt_bool("disabled", !1), 
             this.get_opt_bool("required", !1), this.get_opt_bool("showbuttons", !0), 
             (t = this.options) != null && t.success && typeof ((s = this.options) == null ? void 0 : s.success) == "function" && (this.success = this.options.success), 
-            (o = this.options) != null && o.error && typeof ((n = this.options) == null ? void 0 : n.error) == "function" && (this.error = this.options.error), 
+            (o = this.options) != null && o.error && typeof ((m = this.options) == null ? void 0 : m.error) == "function" && (this.error = this.options.error), 
             this.get_opt("attributes", {}), this.get_opt("popoverOptions", {});
         }
         init_text() {
@@ -1408,7 +1408,7 @@ var DarkEditable = function(m) {
                 return new p(this);
 
               case "inline":
-                return new u(this);
+                return new b(this);
             }
         }
         route_type() {
@@ -1422,13 +1422,13 @@ var DarkEditable = function(m) {
               case "number":
               case "range":
               case "time":
-                return new x(this);
+                return new u(this);
 
               case "textarea":
-                return new b(this);
+                return new g(this);
 
               case "select":
-                return new f(this);
+                return new x(this);
 
               case "date":
                 return new d(this);
@@ -1459,7 +1459,7 @@ var DarkEditable = function(m) {
             return this.options.value ?? "";
         }
     }
-    return y;
+    return f;
 }(bootstrap);
 
 document.addEventListener("DOMContentLoaded", function() {

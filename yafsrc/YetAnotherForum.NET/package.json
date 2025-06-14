@@ -26,6 +26,7 @@
 	"dependencies": {
 		"@fortawesome/fontawesome-free": "^6.7.2",
 		"@w8tcha/bootstrap-notify": "^5.0.2",
+		"@w8tcha/dark-editable": "github:w8tcha/dark-editable",
 		"@yafnet/sceditor": "^3.2.10",
 		"bootbox": "^6.0.4",
 		"bootstrap": "^5.3.6",
@@ -33,9 +34,11 @@
 		"bs5-lightbox": "^1.8.5",
 		"choices.js": "^11.1.0",
 		"codemirror": "^5.65.19",
-		"dark-editable": "^2.1.5",
 		"flag-icons": "^7.5.0",
 		"long-press-event": "^2.5.0",
 		"prismjs": "^1.30.0"
+	},
+	"scripts": {
+		"build": "grunt"
 	}
 }
