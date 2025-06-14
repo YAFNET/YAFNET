@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -155,7 +155,7 @@ public class EditSettingsModel : ProfilePage
     /// </summary>
     public async Task<IActionResult> OnPostAsync()
     {
-        if (this.Email != this.PageBoardContext.PageUser.Email)
+        if (this.Email != null && this.Email != this.PageBoardContext.PageUser.Email)
         {
             var newEmail = this.Email.Trim();
 
