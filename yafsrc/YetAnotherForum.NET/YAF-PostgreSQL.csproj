@@ -1079,7 +1079,6 @@
       <DependentUpon>bootstrap.scss</DependentUpon>
     </Content>
     <Content Include="Content\codemirror.min.css" />
-    <Content Include="Content\dark-editable.css" />
     <Content Include="Content\favicons\android-chrome-144x144.png" />
     <Content Include="Content\favicons\apple-touch-icon.png" />
     <Content Include="Content\favicons\browserconfig.xml" />
@@ -1377,7 +1376,6 @@
     <Content Include="Content\flag-icons\flag-icons.scss" />
     <Content Include="Content\flag-icons\LICENSE.md" />
     <Content Include="Content\flags\LICENSE.md" />
-    <Content Include="Content\bootstrap-notify.css" />
     <Content Include="Content\flags\1x1\ad.svg" />
     <Content Include="Content\flags\1x1\ae.svg" />
     <Content Include="Content\flags\1x1\af.svg" />
@@ -2415,7 +2413,6 @@
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\bootbox.js" />
-    <Content Include="Scripts\bootstrap-notify.js" />
     <None Include="Content\forum-admin.scss" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js">
@@ -2430,7 +2427,6 @@
     <Content Include="Scripts\choices\assets\scripts\choices.min.js" />
     <Content Include="Scripts\choices\assets\scripts\choices.min.js.LICENSE.txt" />
     <Content Include="Scripts\codemirror.min.js" />
-    <Content Include="Scripts\dark-editable.js" />
     <Content Include="Scripts\fileUploader.js" />
     <Content Include="Scripts\fileUploader.min.js" />
     <Content Include="Scripts\forum\bootstrap-touchspin.js" />
@@ -3080,7 +3076,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
