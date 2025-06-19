@@ -36,7 +36,7 @@
                                          MaxLength="5"
                                          CssClass="form-control"
                                          TextMode="Number"
-                                         data-min="1"/>
+                                         data-min="0"/>
                             <div class="invalid-feedback">
                                 <YAF:LocalizedLabel runat="server"
                                                     LocalizedTag="MSG_NUMBER_SORT" />
