@@ -207,7 +207,7 @@
 											            Model.GetText("LINKBACK_TOPIC"),
 											            Model.GetText("LINKBACK_TOPIC_PROMT"),
 											            Model.GetText("CANCEL"),
-											            Model.GetText("OK"),
+											            Model.GetText("COPY_TO_CLIPBOARD"),
 											            topicUrl))"></a>
 								</div>
 							}
@@ -428,7 +428,7 @@
 
 @section Scripts {
 
-    <script>
+    <script type="module">
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ForumModsPopoverJs(
             $"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
 

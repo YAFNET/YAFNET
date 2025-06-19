@@ -115,8 +115,6 @@
 @section Scripts {
     @if (Model.AlbumUser.ID == Model.PageBoardContext.PageUserID)
     {
-        <script>
-            @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.AlbumEditCaptionJs))
-        </script>
+	    <script src="~/js/albums.min.js" asp-append-version="true" defer></script>
     }
 }

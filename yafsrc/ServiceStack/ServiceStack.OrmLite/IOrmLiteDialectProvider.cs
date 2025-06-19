@@ -33,6 +33,14 @@ public interface IOrmLiteDialectProvider
     void RegisterConverter<T>(IOrmLiteConverter converter);
 
     /// <summary>
+    /// Used to create an OrmLiteConnection
+    /// </summary>
+    /// <param name="factory"></param>
+    /// <param name="namedConnection"></param>
+    /// <returns></returns>
+    OrmLiteConnection CreateOrmLiteConnection(OrmLiteConnectionFactory factory, string namedConnection = null);
+
+    /// <summary>
     /// Initializes the connection.
     /// </summary>
     /// <param name="dbConn">The database connection.</param>
@@ -43,6 +51,24 @@ public interface IOrmLiteDialectProvider
     /// </summary>
     /// <value>The on open connection.</value>
     Action<IDbConnection> OnOpenConnection { get; set; }
+
+    /// <summary>
+    /// Gets or sets the on dispose connection.
+    /// </summary>
+    /// <value>The on dispose connection.</value>
+    Action<IDbConnection> OnDisposeConnection { get; set; }
+
+    /// <summary>
+    /// Gets or sets the on before execute non query.
+    /// </summary>
+    /// <value>The on before execute non query.</value>
+    Action<IDbCommand> OnBeforeExecuteNonQuery { get; set; }
+
+    /// <summary>
+    /// Gets or sets the on after execute non query.
+    /// </summary>
+    /// <value>The on after execute non query.</value>
+    Action<IDbCommand> OnAfterExecuteNonQuery { get; set; }
 
     /// <summary>
     /// Gets or sets the execute filter.

@@ -15,22 +15,8 @@ namespace ServiceStack.Data;
 /// Implements the <see cref="ServiceStack.Data.IDbConnectionFactory" />
 /// </summary>
 /// <seealso cref="ServiceStack.Data.IDbConnectionFactory" />
-public class DbConnectionFactory : IDbConnectionFactory
+public class DbConnectionFactory(Func<IDbConnection> connectionFactoryFn) : IDbConnectionFactory
 {
-    /// <summary>
-    /// The connection factory function
-    /// </summary>
-    private readonly Func<IDbConnection> connectionFactoryFn;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DbConnectionFactory" /> class.
-    /// </summary>
-    /// <param name="connectionFactoryFn">The connection factory function.</param>
-    public DbConnectionFactory(Func<IDbConnection> connectionFactoryFn)
-    {
-        this.connectionFactoryFn = connectionFactoryFn;
-    }
-
     /// <summary>
     /// Opens the database connection.
     /// </summary>
@@ -48,7 +34,7 @@ public class DbConnectionFactory : IDbConnectionFactory
     /// <returns>IDbConnection.</returns>
     public IDbConnection CreateDbConnection()
     {
-        return this.connectionFactoryFn();
+        return connectionFactoryFn();
     }
 }
 #endif

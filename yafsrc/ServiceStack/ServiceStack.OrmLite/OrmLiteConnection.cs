@@ -5,12 +5,14 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
+#nullable enable
 using System.Data;
 using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
 
 using ServiceStack.Data;
+using ServiceStack.Model;
 using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite;
@@ -23,7 +25,7 @@ using System;
 /// Wrapper IDbConnection class to allow for connection sharing, mocking, etc.
 /// </summary>
 public class OrmLiteConnection
-    : IDbConnection, IHasDbConnection, IHasDbTransaction, ISetDbTransaction, IHasDialectProvider
+    : IDbConnection, IHasDbConnection, IHasDbTransaction, ISetDbTransaction, IHasDialectProvider, IHasName
 {
     /// <summary>
     /// The factory
@@ -31,21 +33,27 @@ public class OrmLiteConnection
     public readonly OrmLiteConnectionFactory Factory;
 
     /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    /// <value>The name.</value>
+    public string? Name { get; set; }
+
+    /// <summary>
     /// Gets or sets the transaction.
     /// </summary>
     /// <value>The transaction.</value>
-    public IDbTransaction Transaction { get; set; }
+    public IDbTransaction? Transaction { get; set; }
 
     /// <summary>
     /// Gets the database transaction.
     /// </summary>
     /// <value>The database transaction.</value>
-    public IDbTransaction DbTransaction => this.Transaction;
+    public IDbTransaction? DbTransaction => this.Transaction;
 
     /// <summary>
     /// The database connection
     /// </summary>
-    private IDbConnection dbConnection;
+    private IDbConnection? dbConnection;
 
     /// <summary>
     /// Gets the dialect provider.
@@ -57,13 +65,15 @@ public class OrmLiteConnection
     /// Gets or sets the last command text.
     /// </summary>
     /// <value>The last command text.</value>
-    public string LastCommandText { get; set; }
+    public string? LastCommandText { get; set; }
 
     /// <summary>
     /// Gets or sets the last command.
     /// </summary>
     /// <value>The last command.</value>
-    public IDbCommand LastCommand { get; set; }
+    public IDbCommand? LastCommand { get; set; }
+
+    public string? NamedConnection { get; set; }
 
     /// <summary>
     /// Gets or sets the wait time before terminating the attempt to execute a command and generating an error(in seconds).
@@ -75,6 +85,7 @@ public class OrmLiteConnection
     /// </summary>
     /// <value>The connection identifier.</value>
     public Guid ConnectionId { get; set; }
+    public object? WriteLock { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="OrmLiteConnection" /> class.
@@ -92,7 +103,7 @@ public class OrmLiteConnection
     /// <param name="factory">The factory.</param>
     /// <param name="connection">The connection.</param>
     /// <param name="transaction">The transaction.</param>
-    public OrmLiteConnection(OrmLiteConnectionFactory factory, IDbConnection connection, IDbTransaction transaction = null)
+    public OrmLiteConnection(OrmLiteConnectionFactory factory, IDbConnection connection, IDbTransaction? transaction = null)
         : this(factory)
     {
         this.dbConnection = connection;
@@ -126,7 +137,17 @@ public class OrmLiteConnection
             return;
         }
 
-        this.dbConnection.Dispose();
+        try
+        {
+            DialectProvider.OnDisposeConnection?.Invoke(this);
+            dbConnection?.Dispose();
+        }
+        catch (Exception e)
+        {
+            LogManager.GetLogger(GetType()).Error("Failed to Dispose()", e);
+            Console.WriteLine(e);
+        }
+
         this.dbConnection = null;
     }
 
@@ -163,9 +184,10 @@ public class OrmLiteConnection
         var id = Diagnostics.OrmLite.WriteConnectionCloseBefore(this.dbConnection);
         var connectionId = this.dbConnection.GetConnectionId();
 
-        Exception e = null;
+        Exception? e = null;
         try
         {
+            DialectProvider.OnDisposeConnection?.Invoke(this);
             this.dbConnection.Close();
         }
         catch (Exception ex)
@@ -228,7 +250,7 @@ public class OrmLiteConnection
         }
 
         var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(dbConn);
-        Exception e = null;
+        Exception? e = null;
 
         try
         {
@@ -239,7 +261,7 @@ public class OrmLiteConnection
                 dbConn = this.Factory.ConnectionFilter(dbConn);
             }
 
-            this.DialectProvider.InitConnection(dbConn);
+            this.DialectProvider.InitConnection(this);
         }
         catch (Exception ex)
         {
@@ -275,7 +297,7 @@ public class OrmLiteConnection
         if (dbConn.State == ConnectionState.Closed)
         {
             var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(dbConn);
-            Exception e = null;
+            Exception? e = null;
 
             try
             {
@@ -286,7 +308,7 @@ public class OrmLiteConnection
                     dbConn = this.Factory.ConnectionFilter(dbConn);
                 }
 
-                this.DialectProvider.InitConnection(dbConn);
+                this.DialectProvider.InitConnection(this);
             }
             catch (Exception ex)
             {
@@ -310,13 +332,13 @@ public class OrmLiteConnection
     /// <summary>
     /// The connection string
     /// </summary>
-    private string connectionString;
+    private string? connectionString;
 
     /// <summary>
     /// Gets or sets the string used to open a database.
     /// </summary>
     /// <value>The connection string.</value>
-    public string ConnectionString {
+    public string? ConnectionString {
         get => this.connectionString ?? this.Factory.ConnectionString;
         set => this.connectionString = value;
     }
@@ -388,7 +410,7 @@ public static class OrmLiteConnectionUtils
     /// </summary>
     /// <param name="db">The database.</param>
     /// <returns>IDbTransaction.</returns>
-    public static IDbTransaction GetTransaction(this IDbConnection db)
+    public static IDbTransaction? GetTransaction(this IDbConnection db)
     {
         return db is IHasDbTransaction setDb ? setDb.DbTransaction : null;
     }

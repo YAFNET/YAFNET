@@ -19,10 +19,10 @@
 		<group targetFramework="net9.0">
 			<dependency id="GoogleAuthenticator" version="3.2.0" exclude="Build,Analyzers" />
 			<dependency id="MailKit" version="4.12.1" exclude="Build,Analyzers" />
-			<dependency id="Microsoft.AspNetCore.Mvc.NewtonsoftJson" version="9.0.5" exclude="Build,Analyzers" />
+			<dependency id="Microsoft.AspNetCore.Mvc.NewtonsoftJson" version="9.0.6" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.CSharp" version="4.7.0" exclude="Build,Analyzers" />
 			<dependency id="Newtonsoft.Json" version="13.0.3" exclude="Build,Analyzers" />
-			<dependency id="System.Runtime.Caching" version="9.0.5" exclude="Build,Analyzers" />
+			<dependency id="System.Runtime.Caching" version="9.0.6" exclude="Build,Analyzers" />
 		</group>
     </dependencies>
     <references>

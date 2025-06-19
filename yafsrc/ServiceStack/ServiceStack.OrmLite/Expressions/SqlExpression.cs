@@ -1298,7 +1298,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
     public virtual SqlExpression<T> WhereExists(ISqlExpression subSelect)
     {
-        return this.AppendToWhere("AND", this.FormatFilter($"EXISTS ({subSelect.ToSelectStatement()})"));
+        var sql = subSelect.ToSelectStatement(QueryType.Select);
+        var mergedSql = DialectProvider.MergeParamsIntoSql(sql, subSelect.Params);
+        return AppendToWhere("AND", FormatFilter($"EXISTS ({mergedSql})"));
     }
 
     /// <summary>
@@ -1308,7 +1310,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
     public virtual SqlExpression<T> WhereNotExists(ISqlExpression subSelect)
     {
-        return this.AppendToWhere("AND", this.FormatFilter($"NOT EXISTS ({subSelect.ToSelectStatement()})"));
+        var sql = subSelect.ToSelectStatement(QueryType.Select);
+        var mergedSql = DialectProvider.MergeParamsIntoSql(sql, subSelect.Params);
+        return AppendToWhere("AND", FormatFilter($"NOT EXISTS ({mergedSql})"));
     }
 
     /// <summary>
@@ -4485,7 +4489,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     protected virtual string GetQuotedColumnName(ModelDefinition tableDef, string memberName)
     {
         // Always call if no tableAlias to exec overrides
-        return this.GetQuotedColumnName(tableDef, null, memberName);
+        return this.GetQuotedColumnName(tableDef, tableDef == modelDef ? TableAlias : null, memberName);
     }
 
     /// <summary>

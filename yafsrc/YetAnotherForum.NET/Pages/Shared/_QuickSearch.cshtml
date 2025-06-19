@@ -10,19 +10,20 @@
 
 @if (Current.BoardSettings.ShowQuickSearch && BoardContext.Current.Get<IPermissions>().Check(Current.BoardSettings.SearchPermissions))
 {
-    <script>
-    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.DoQuickSearchJs(Current.Get<ILinkBuilder>().GetLink(ForumPages.Search))))
-</script>
+	<script>
+		@Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.DoQuickSearchJs(Current.Get<ILinkBuilder>().GetLink(ForumPages.Search))))
+	</script>
 
     <div class="d-flex">
 
-            <input id="QuickSearch" class="form-control me-2" type="search"
-                   placeholder="@Html.LocalizedText("TOOLBAR", "SEARCHKEYWORD")"/>
-            <button type="submit" 
-                    button-style="OutlineInfo" 
-                    title-localized-tag="SEARCH"
-                    onclick="quickSearch()" 
-                    icon="search">
-            </button>
+		<input id="QuickSearch" class="form-control me-2" type="search" onkeydown="@Html.Raw(JavaScriptBlocks.ClickOnEnterJs("QuickSearchBtn"))"
+	           placeholder="@Html.LocalizedText("TOOLBAR", "SEARCHKEYWORD")"/>
+	    <button type="submit"
+				id="QuickSearchBtn"
+	            button-style="OutlineInfo"
+	            title-localized-tag="SEARCH"
+	            onclick="quickSearch()"
+	            icon="search">
+	    </button>
     </div>
 }

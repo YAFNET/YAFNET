@@ -194,18 +194,17 @@ public static class StringExtensions
 
         var sb = new StringBuilder();
 
-        objList.ForEachFirst(
-            (x, isFirst) =>
+        objList.ForEachFirst((x, isFirst) =>
+        {
+            if (!isFirst)
             {
-                if (!isFirst)
-                {
-                    // append delimiter if this isn't the first string
-                    sb.Append(delimiter);
-                }
+                // append delimiter if this isn't the first string
+                sb.Append(delimiter);
+            }
 
-                // append string...
-                sb.Append(x);
-            });
+            // append string...
+            sb.Append(x);
+        });
 
         return sb.ToString();
     }
@@ -225,16 +224,15 @@ public static class StringExtensions
     {
         var sb = new StringBuilder();
 
-        input.ForEachChar(
-            c =>
+        input.ForEachChar(c =>
+        {
+            if (!char.IsWhiteSpace(c) && !char.IsLetterOrDigit(c) && c != '_')
             {
-                if (!char.IsWhiteSpace(c) && !char.IsLetterOrDigit(c) && c != '_')
-                {
-                    sb.Append('\\');
-                }
+                sb.Append('\\');
+            }
 
-                sb.Append(c);
-            });
+            sb.Append(c);
+        });
 
         return sb.ToString();
     }
@@ -324,7 +322,8 @@ public static class StringExtensions
     /// </returns>
     public static string PersianNumberToEnglish(this string persianString)
     {
-        var lettersDictionary = new Dictionary<string, string> {
+        var lettersDictionary = new Dictionary<string, string>
+        {
             ["۰"] = "0",
             ["۱"] = "1",
             ["۲"] = "2",

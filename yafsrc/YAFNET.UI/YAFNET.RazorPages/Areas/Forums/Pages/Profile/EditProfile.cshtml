@@ -6,13 +6,6 @@
 
 @model YAF.Pages.Profile.EditProfileModel
 
-@section StyleSheets {
-    @if (Model.PageBoardContext.BoardSettings.UseFarsiCalender && Model.IsFarsiCulture)
-    {
-        @await Html.PartialAsync("_DateTimePickerStylesSheetsPartial")
-    }
-}
-
 <div class="row">
 <div class="col-sm-auto">
     <profileMenu></profileMenu>

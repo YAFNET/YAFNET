@@ -5,6 +5,7 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
+#nullable enable
 namespace ServiceStack;
 
 using System.Collections.Generic;
@@ -25,14 +26,16 @@ public class ReflectAttribute
     /// </summary>
     /// <value>The name.</value>
     public string Name { get; set; }
+
     /// <summary>
     /// Gets or sets the constructor arguments.
     /// </summary>
     /// <value>The constructor arguments.</value>
-    public List<KeyValuePair<PropertyInfo, object>> ConstructorArgs { get; set; }
+    public List<KeyValuePair<PropertyInfo, object>>? ConstructorArgs { get; set; }
+
     /// <summary>
     /// Gets or sets the property arguments.
     /// </summary>
     /// <value>The property arguments.</value>
-    public List<KeyValuePair<PropertyInfo, object>> PropertyArgs { get; set; }
+    public List<KeyValuePair<PropertyInfo, object>>? PropertyArgs { get; set; }
 }

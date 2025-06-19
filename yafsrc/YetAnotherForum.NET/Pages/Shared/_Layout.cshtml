@@ -18,10 +18,8 @@
     ViewBag.CdvVersion = Current.BoardSettings.CdvVersion;
 
     #if DEBUG
-    ViewBag.ForumJs = Current.CurrentForumPage.IsAdminPage ? "forumAdminExtensions" : "forumExtensions";
     ViewBag.ForumCss = Current.CurrentForumPage.IsAdminPage ? "forum-admin" : "forum";
     #else
-    ViewBag.ForumJs = Current.CurrentForumPage.IsAdminPage ? "forumAdminExtensions.min" : "forumExtensions.min";
     ViewBag.ForumCss = Current.CurrentForumPage.IsAdminPage ? "forum-admin.min" : "forum.min";
     #endif
 
@@ -202,7 +200,7 @@
     </div>
 </div>
 
-<script src="@(Current.Get<BoardInfo>().GetUrlToScripts($"{ViewBag.ForumJs}.js?v={ViewBag.CdvVersion}"))"></script>
+    <script src="@(Current.Get<BoardInfo>().GetUrlToScripts($"forumExtensions.min.js?v={ViewBag.CdvVersion}"))"></script>
 
 
 @await RenderSectionAsync("Scripts", required: false)
@@ -218,9 +216,10 @@
 <script>
     @if (Current.Get<IPermissions>().Check(Current.BoardSettings.ProfileViewPermissions) || Current.BoardSettings.EnableUserInfoHoverCards)
     {
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.HoverCardJs()))
+	    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.HoverCardJs()))
     }
-    </script>
+    
+</script>
     <scripts></scripts>
 </body>
 </html>

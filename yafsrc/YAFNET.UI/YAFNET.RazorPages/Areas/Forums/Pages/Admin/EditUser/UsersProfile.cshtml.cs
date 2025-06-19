@@ -299,6 +299,21 @@ public class UsersProfileModel : AdminPage
     }
 
     /// <summary>
+    /// Get Location via IP Address
+    /// </summary>
+    public async Task OnPostGetLocationAsync()
+    {
+        var userIpLocator = await this.Get<IIpInfoService>().GetUserIpLocatorAsync(this.Request.GetUserRealIPAddress());
+
+        this.LoadCountriesAndRegions(userIpLocator.CountryCode);
+
+        if (userIpLocator.CityName.IsSet() && !userIpLocator.CityName.Equals("-"))
+        {
+            this.Input.City = userIpLocator.CityName;
+        }
+    }
+
+    /// <summary>
     /// Binds the data.
     /// </summary>
     private IActionResult BindData(int userId)

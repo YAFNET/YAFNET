@@ -62,6 +62,44 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     }
 
     /// <summary>
+    /// Enable Write Ahead Logging (PRAGMA journal_mode=WAL)
+    /// </summary>
+    public bool EnableWal {
+        get => OneTimeConnectionCommands.Contains(SqlitePragmas.JournalModeWal);
+        set {
+            if (value)
+            {
+                OneTimeConnectionCommands.AddIfNotExists(SqlitePragmas.JournalModeWal);
+            }
+            else
+            {
+                OneTimeConnectionCommands.Remove(SqlitePragmas.JournalModeWal);
+            }
+        }
+    }
+
+    /// <summary>
+    /// PRAGMA busy_timeout
+    /// </summary>
+    public TimeSpan BusyTimeout {
+        set {
+            ConnectionCommands.RemoveAll(x => x.StartsWith("PRAGMA busy_timeout"));
+            ConnectionCommands.Add(SqlitePragmas.BusyTimeout(value));
+        }
+    }
+
+    /// <summary>
+    /// Whether to use UTC for DateTime fields
+    /// </summary>
+    public bool UseUtc {
+        set => ((OrmLite.Converters.DateTimeConverter)this.GetConverter<DateTime>()).DateStyle = value
+            ? DateTimeKind.Utc
+            : DateTimeKind.Unspecified;
+    }
+
+    public bool EnableWriterLock { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the password.
     /// </summary>
     /// <value>The password.</value>
@@ -164,16 +202,16 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <value><c>true</c> if [enable foreign keys]; otherwise, <c>false</c>.</value>
     public bool EnableForeignKeys
     {
-        get => this.ConnectionCommands.Contains(SqlitePragmas.EnableForeignKeys);
+        get => this.OneTimeConnectionCommands.Contains(SqlitePragmas.EnableForeignKeys);
         set
         {
             if (value)
             {
-                this.ConnectionCommands.AddIfNotExists(SqlitePragmas.EnableForeignKeys);
+                this.OneTimeConnectionCommands.AddIfNotExists(SqlitePragmas.EnableForeignKeys);
             }
             else
             {
-                this.ConnectionCommands.Remove(SqlitePragmas.DisableForeignKeys);
+                this.OneTimeConnectionCommands.Remove(SqlitePragmas.DisableForeignKeys);
             }
         }
     }
@@ -330,6 +368,18 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         this.ConnectionStringFilter?.Invoke(connString);
 
         return this.CreateConnection(StringBuilderCache.ReturnAndFree(connString));
+    }
+
+    public override OrmLiteConnection CreateOrmLiteConnection(OrmLiteConnectionFactory factory, string namedConnection = null)
+    {
+        var conn = base.CreateOrmLiteConnection(factory, namedConnection);
+        if (EnableWriterLock)
+        {
+            conn.WriteLock = namedConnection == null
+                ? Locks.AppDb
+                : Locks.GetDbLock(namedConnection);
+        }
+        return conn;
     }
 
     /// <summary>
@@ -901,6 +951,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
 /// </summary>
 public static class SqlitePragmas
 {
+    public const string JournalModeWal = "PRAGMA journal_mode=WAL;";
     /// <summary>
     /// The enable foreign keys
     /// </summary>
@@ -909,6 +960,7 @@ public static class SqlitePragmas
     /// The disable foreign keys
     /// </summary>
     public const string DisableForeignKeys = "PRAGMA foreign_keys=OFF;";
+    public static string BusyTimeout(TimeSpan timeout) => $"PRAGMA busy_timeout={(int)timeout.TotalMilliseconds};";
 }
 
 /// <summary>

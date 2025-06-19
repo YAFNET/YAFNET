@@ -9,17 +9,11 @@
 
 @{
     ViewBag.CdvVersion = Current.BoardSettings.CdvVersion;
-
-    #if DEBUG
-    ViewBag.ForumJs = Current.CurrentForumPage.IsAdminPage ? "forumAdminExtensions" : "forumExtensions";
-    #else
-    ViewBag.ForumJs = Current.CurrentForumPage.IsAdminPage ? "forumAdminExtensions.min" : "forumExtensions.min";
-    #endif
 }
 
 @RenderBody()
 
-<script src="@(Current.Get<BoardInfo>().GetUrlToScripts($"{ViewBag.ForumJs}.js?v={ViewBag.CdvVersion}")))"></script>
+<script src="@(Current.Get<BoardInfo>().GetUrlToScripts($"forumExtensions.min.js?v={ViewBag.CdvVersion}")))"></script>
 
 
 @await Html.PartialAsync("_ToastMessages")

@@ -808,7 +808,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             }
             else
             {
-                ruleEngine.AddRule(isEditMode ? breakRule : new SingleRegexReplaceRule(@"\r\n", "<p>", Options));
+                ruleEngine.AddRule(isEditMode ? breakRule : new SingleRegexReplaceRule("\r\n", "</p>", Options));
             }
 
             if (!isEditMode)

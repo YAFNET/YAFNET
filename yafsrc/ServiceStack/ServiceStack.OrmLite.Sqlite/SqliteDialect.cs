@@ -25,4 +25,10 @@ public static class SqliteDialect
     /// </summary>
     /// <value>The instance.</value>
     public static SqliteOrmLiteDialectProvider Instance => SqliteOrmLiteDialectProvider.Instance;
+
+    /// <summary>
+    /// Creates this instance.
+    /// </summary>
+    /// <returns>SqliteOrmLiteDialectProviderBase.</returns>
+    public static SqliteOrmLiteDialectProviderBase Create() => new SqliteOrmLiteDialectProvider();
 }

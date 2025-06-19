@@ -5,7 +5,10 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 #if !SL5
+using System;
 using System.Data;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ServiceStack.Data;
 
@@ -33,33 +36,26 @@ public interface IDbConnectionFactory
 /// <seealso cref="ServiceStack.Data.IDbConnectionFactory" />
 public interface IDbConnectionFactoryExtended : IDbConnectionFactory
 {
-    /// <summary>
-    /// Opens the database connection.
-    /// </summary>
-    /// <param name="namedConnection">The named connection.</param>
-    /// <returns>IDbConnection.</returns>
+    IDbConnection OpenDbConnection(Action<IDbConnection> configure);
+    Task<IDbConnection> OpenDbConnectionAsync(CancellationToken token = default);
+    Task<IDbConnection> OpenDbConnectionAsync(Action<IDbConnection> configure, CancellationToken token = default);
+
     IDbConnection OpenDbConnection(string namedConnection);
+    IDbConnection OpenDbConnection(string namedConnection, Action<IDbConnection> configure);
+    Task<IDbConnection> OpenDbConnectionAsync(string namedConnection, CancellationToken token = default);
+    Task<IDbConnection> OpenDbConnectionAsync(string namedConnection, Action<IDbConnection> configure, CancellationToken token = default);
 
-    /// <summary>
-    /// Opens the database connection string.
-    /// </summary>
-    /// <param name="connectionString">The connection string.</param>
-    /// <returns>IDbConnection.</returns>
     IDbConnection OpenDbConnectionString(string connectionString);
-    /// <summary>
-    /// Opens the database connection string.
-    /// </summary>
-    /// <param name="connectionString">The connection string.</param>
-    /// <param name="providerName">Name of the provider.</param>
-    /// <returns>IDbConnection.</returns>
-    IDbConnection OpenDbConnectionString(string connectionString, string providerName);
+    IDbConnection OpenDbConnectionString(string connectionString, Action<IDbConnection> configure);
+    Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, CancellationToken token = default);
+    Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, Action<IDbConnection> configure, CancellationToken token = default);
 
-    /// <summary>
-    /// Uses the specified connection.
-    /// </summary>
-    /// <param name="connection">The connection.</param>
-    /// <param name="trans">The trans.</param>
-    /// <returns>IDbConnection.</returns>
+    IDbConnection OpenDbConnectionString(string connectionString, string providerName);
+    IDbConnection OpenDbConnectionString(string connectionString, string providerName, Action<IDbConnection> configure);
+
+    Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, string providerName, CancellationToken token = default);
+    Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, string providerName, Action<IDbConnection> configure, CancellationToken token = default);
+
     IDbConnection Use(IDbConnection connection, IDbTransaction trans = null);
 }
 #endif

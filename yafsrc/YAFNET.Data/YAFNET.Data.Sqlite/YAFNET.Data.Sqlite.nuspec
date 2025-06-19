@@ -22,7 +22,7 @@
 			<dependency id="YAFNET.Types" version="4.0.0" exclude="Build,Analyzers" />
 			<dependency id="Autofac" version="8.3.0" exclude="Build,Analyzers" />
 			<dependency id="System.Data.SQLite.Core" version="1.0.119" exclude="Build,Analyzers" />
-			<dependency id="System.ComponentModel.Composition" version="9.0.5" exclude="Build,Analyzers" />
+			<dependency id="System.ComponentModel.Composition" version="9.0.6" exclude="Build,Analyzers" />
 		</group>
     </dependencies>
     <references>

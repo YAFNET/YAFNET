@@ -5,6 +5,7 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
+#nullable enable
 using System;
 
 namespace ServiceStack;
@@ -18,7 +19,7 @@ public class InfoException : Exception
     /// Initializes a new instance of the <see cref="InfoException"/> class.
     /// </summary>
     /// <param name="message">The message that describes the error.</param>
-    public InfoException(string message) : base(message) { }
+    public InfoException(string? message) : base(message) { }
 
     /// <summary>
     /// Returns a <see cref="string" /> that represents this instance.

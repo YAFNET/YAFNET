@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjï¿½rnar Henden
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -54,15 +54,31 @@ public class EditSettingsModel : ProfilePage
     {
     }
 
+    /// <summary>
+    /// Gets or sets the two factor key.
+    /// </summary>
+    /// <value>The two factor key.</value>
     [BindProperty]
     public string TwoFactorKey { get; set; }
 
+    /// <summary>
+    /// Gets or sets the barcode image URL.
+    /// </summary>
+    /// <value>The barcode image URL.</value>
     [BindProperty]
     public string BarcodeImageUrl { get; set; }
 
+    /// <summary>
+    /// Gets or sets the setup code.
+    /// </summary>
+    /// <value>The setup code.</value>
     [BindProperty]
     public string SetupCode { get; set; }
 
+    /// <summary>
+    /// Gets or sets the input code.
+    /// </summary>
+    /// <value>The input code.</value>
     [BindProperty]
     public string InputCode { get; set; }
 

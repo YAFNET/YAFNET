@@ -1,5 +1,4 @@
 @page "{u:int}/{tab=View1}/{handler?}"
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using YAF.Core.Context
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
@@ -8,16 +7,8 @@
 @using YAF.Types.Interfaces
 @using YAF.Types.Objects
 @using YAF.Web.HtmlHelpers
-@using YAF.Web.TagHelpers
 
 @inject BoardContext Current
-
-@section StyleSheets {
-    @if (Model.PageBoardContext.BoardSettings.UseFarsiCalender && Model.CurrentCultureInfo.IsFarsiCulture())
-    {
-        @await Html.PartialAsync("_DateTimePickerStylesSheetsPartial")
-    }
-}
 
 @model EditUserModel
 

@@ -5,7 +5,7 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-
+#nullable enable
 using System;
 
 namespace ServiceStack;
@@ -18,15 +18,7 @@ namespace ServiceStack;
 public class AttributeBase : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AttributeBase" /> class.
-    /// </summary>
-    public AttributeBase()
-    {
-        this.typeId = Guid.NewGuid();
-    }
-
-    /// <summary>
     /// The type identifier
     /// </summary>
-    readonly protected Guid typeId; //Hack required to give Attributes unique identity
+    readonly protected Guid typeId = Guid.NewGuid(); //Hack required to give Attributes unique identity
 }

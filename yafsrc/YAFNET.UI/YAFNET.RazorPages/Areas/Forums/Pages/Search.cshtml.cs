@@ -45,10 +45,22 @@ public class SearchModel : ForumPage
     [BindProperty]
     public SearchInputModel Input { get; set; }
 
+    /// <summary>
+    /// Gets or sets the search what list.
+    /// </summary>
+    /// <value>The search what list.</value>
     public List<SelectListItem> SearchWhatList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the title only list.
+    /// </summary>
+    /// <value>The title only list.</value>
     public List<SelectListItem> TitleOnlyList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the results per page list.
+    /// </summary>
+    /// <value>The results per page list.</value>
     public List<SelectListItem> ResultsPerPageList { get; set; }
 
     /// <summary>
@@ -77,8 +89,6 @@ public class SearchModel : ForumPage
     public IActionResult OnGet(string search = null, string forum = null, string postedBy = null, string tag = null)
     {
         this.Input = new SearchInputModel();
-
-        var doSearch = false;
 
         // Load result dropdown
         this.ResultsPerPageList = [
@@ -120,7 +130,6 @@ public class SearchModel : ForumPage
         if (searchString.IsSet() && searchString.Length < 50)
         {
             this.Input.SearchInput = HttpUtility.UrlDecode(searchString);
-            doSearch = true;
         }
 
         if (searchString.IsSet())
@@ -138,19 +147,11 @@ public class SearchModel : ForumPage
         if (postedBy.IsSet() && postedBy.Length < 50)
         {
             this.Input.SearchStringFromWho = HttpUtility.UrlDecode(postedBy);
-            doSearch = true;
         }
 
         if (tag.IsSet())
         {
             this.Input.SearchStringTag = HttpUtility.UrlDecode(tag);
-            doSearch = true;
-        }
-
-        if (doSearch)
-        {
-            this.PageBoardContext.RegisterJsBlock(
-                JavaScriptBlocks.DoSearchJs);
         }
 
         return this.Page();

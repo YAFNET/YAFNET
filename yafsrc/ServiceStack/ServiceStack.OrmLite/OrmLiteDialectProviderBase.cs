@@ -130,6 +130,13 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     }
 
     /// <summary>
+    /// Use JSON for serializing Complex Types
+    /// </summary>
+    public virtual bool UseJson {
+        set => StringSerializer = value ? new JsonStringSerializer() : new JsvStringSerializer();
+    }
+
+    /// <summary>
     /// Gets the column type definition.
     /// </summary>
     /// <param name="columnType">Type of the column.</param>
@@ -223,6 +230,24 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <value>The on open connection.</value>
     public Action<IDbConnection> OnOpenConnection { get; set; }
+
+    /// <summary>
+    /// Gets or sets the on dispose connection.
+    /// </summary>
+    /// <value>The on dispose connection.</value>
+    public Action<IDbConnection> OnDisposeConnection { get; set; }
+
+    /// <summary>
+    /// Gets or sets the on before execute non query.
+    /// </summary>
+    /// <value>The on before execute non query.</value>
+    public Action<IDbCommand> OnBeforeExecuteNonQuery { get; set; }
+
+    /// <summary>
+    /// Gets or sets the on after execute non query.
+    /// </summary>
+    /// <value>The on after execute non query.</value>
+    public Action<IDbCommand> OnAfterExecuteNonQuery { get; set; }
 
     /// <summary>
     /// The one time connection commands run
@@ -1054,6 +1079,20 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual string GenerateComment(in string text)
     {
         return $"-- {text}";
+    }
+
+    /// <summary>
+    /// Creates the ormlite connection.
+    /// </summary>
+    /// <param name="factory">The factory.</param>
+    /// <param name="namedConnection">The named connection.</param>
+    /// <returns>ServiceStack.OrmLite.OrmLiteConnection.</returns>
+    public virtual OrmLiteConnection CreateOrmLiteConnection(OrmLiteConnectionFactory factory, string namedConnection = null)
+    {
+        return new OrmLiteConnection(factory)
+        {
+            NamedConnection = namedConnection
+        };
     }
 
     /// <summary>
