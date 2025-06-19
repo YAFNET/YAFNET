@@ -286,9 +286,6 @@ function replaceSelection(input, replaceString) {
         const selectionEnd = input.selectionEnd;
         input.value = input.value.substring(0, selectionStart) + replaceString + input.value.substring(selectionEnd);
         if (selectionStart != selectionEnd) setSelectionRange(input, selectionStart, selectionStart + replaceString.length); else setCaretToPos(input, selectionStart + replaceString.length);
-    } else if (document.selection) {
-        input.focus();
-        document.selection.createRange().text = replaceString;
     } else {
         input.value += replaceString;
         input.focus();
@@ -321,16 +318,6 @@ function wrapSelection(input, preString, postString) {
         } else {
             setCaretToPos(input, selectionStart + preString.length);
         }
-    } else if (document.selection) {
-        const sel = document.selection.createRange().text;
-        if (sel) {
-            document.selection.createRange().text = preString + sel + postString;
-            input.focus();
-        } else {
-            input.value += preString;
-            input.focus();
-            input.value += postString;
-        }
     } else {
         input.value += preString;
         input.focus();
@@ -342,9 +329,6 @@ function wrapSelection(input, preString, postString) {
 function getCurrentSelection(input) {
     if (input.setSelectionRange) {
         return input.selectionStart != input.selectionEnd;
-    } else if (document.selection) {
-        const range = document.selection.createRange();
-        return range.parentElement() == input && range.text != "";
     } else {
         return false;
     }

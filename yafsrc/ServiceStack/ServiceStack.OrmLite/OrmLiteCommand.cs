@@ -30,6 +30,12 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     private readonly OrmLiteConnection dbConn;
 
     /// <summary>
+    /// Gets the orm lite connection.
+    /// </summary>
+    /// <value>The orm lite connection.</value>
+    public OrmLiteConnection OrmLiteConnection => dbConn;
+
+    /// <summary>
     /// The database command
     /// </summary>
     private readonly IDbCommand dbCmd;
@@ -99,12 +105,16 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     public int ExecuteNonQuery()
     {
         var writeLock = dbConn.WriteLock;
+        int ret;
         if (writeLock != null)
         {
+            DialectProvider.OnBeforeWriteLock?.Invoke(this);
             lock (writeLock)
             {
-                return dbCmd.ExecuteNonQuery();
+                ret = dbCmd.ExecuteNonQuery();
             }
+            DialectProvider.OnAfterWriteLock?.Invoke(this);
+            return ret;
         }
         return dbCmd.ExecuteNonQuery();
     }

@@ -11,6 +11,7 @@ using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
 using ServiceStack.Data;
+using ServiceStack.Model;
 using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite;
@@ -22,12 +23,17 @@ using System;
 /// Wrapper IDbConnection class to allow for connection sharing, mocking, etc.
 /// </summary>
 public class OrmLiteConnection
-    : IDbConnection, IHasDbConnection, IHasDbTransaction, ISetDbTransaction, IHasDialectProvider
+    : IDbConnection, IHasDbConnection, IHasDbTransaction, ISetDbTransaction, IHasDialectProvider, IHasName
 {
     /// <summary>
     /// The factory
     /// </summary>
     public readonly OrmLiteConnectionFactory Factory;
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    /// <value>The name.</value>
+    public string? Name { get; set; }
     /// <summary>
     /// Gets or sets the transaction.
     /// </summary>
@@ -53,6 +59,10 @@ public class OrmLiteConnection
     /// </summary>
     /// <value>The last command text.</value>
     public string LastCommandText { get; set; }
+
+    public IDbCommand? LastCommand { get; set; }
+
+    public string? NamedConnection { get; set; }
     /// <summary>
     /// Gets or sets the command timeout.
     /// </summary>
@@ -112,6 +122,7 @@ public class OrmLiteConnection
 
         try
         {
+            DialectProvider.OnDisposeConnection?.Invoke(this);
             dbConnection?.Dispose();
         }
         catch (Exception e)
@@ -158,6 +169,7 @@ public class OrmLiteConnection
         Exception? e = null;
         try
         {
+            DialectProvider.OnDisposeConnection?.Invoke(this);
             dbConnection.Close();
         }
         catch (Exception ex)

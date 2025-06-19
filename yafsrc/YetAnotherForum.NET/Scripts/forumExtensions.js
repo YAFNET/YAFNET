@@ -506,7 +506,7 @@
             }
         }
     }
-    const VERSION = "5.3.6";
+    const VERSION = "5.3.7";
     class BaseComponent extends Config {
         constructor(element, config) {
             super();
@@ -4195,6 +4195,7 @@
                 if (trigger === "click") {
                     EventHandler.on(this._element, this.constructor.eventName(EVENT_CLICK$1), this._config.selector, event => {
                         const context = this._initializeOnDelegatedTarget(event);
+                        context._activeTrigger[TRIGGER_CLICK] = !(context._isShown() && context._activeTrigger[TRIGGER_CLICK]);
                         context.toggle();
                     });
                 } else if (trigger !== TRIGGER_MANUAL) {

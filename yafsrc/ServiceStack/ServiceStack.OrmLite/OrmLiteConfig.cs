@@ -158,6 +158,15 @@ public static class OrmLiteConfig
         }
     }
 
+    public static IDbConnection WithName(this IDbConnection db, string name)
+    {
+        if (db is OrmLiteConnection ormLiteConn)
+        {
+            ormLiteConn.Name = name;
+        }
+        return db;
+    }
+
     /// <summary>
     /// The requires orm lite connection
     /// </summary>

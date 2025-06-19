@@ -48,6 +48,9 @@ public interface IOrmLiteDialectProvider
     /// </summary>
     /// <value>The on open connection.</value>
     Action<IDbConnection> OnOpenConnection { get; set; }
+    Action<IDbConnection> OnDisposeConnection { get; set; }
+    Action<IDbCommand> OnBeforeWriteLock { get; set; }
+    Action<IDbCommand> OnAfterWriteLock { get; set; }
 
     /// <summary>
     /// Gets or sets the execute filter.

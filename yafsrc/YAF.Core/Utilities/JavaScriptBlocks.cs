@@ -933,9 +933,10 @@ public static class JavaScriptBlocks
                  };
 
                  forumsSelect.setChoices(function () {
-                     return loadForumChoiceOptions(forumQuery, "{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Forum/GetForums", {{selectHiddenValue}}) });
-
-                 {{selectHiddenJs}}
+                     {{selectHiddenJs}}
+                 
+                     return loadForumChoiceOptions(forumQuery, "{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Forum/GetForums", {{selectHiddenValue}}) 
+                 });
 
                  forumsSelect.passedElement.element.addEventListener("search", function (event) {
                  

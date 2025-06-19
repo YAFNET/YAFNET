@@ -237,6 +237,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <value>The on open connection.</value>
     public Action<IDbConnection> OnOpenConnection { get; set; }
+    public Action<IDbConnection> OnDisposeConnection { get; set; }
+    public Action<IDbCommand> OnBeforeWriteLock { get; set; }
+    public Action<IDbCommand> OnAfterWriteLock { get; set; }
 
     /// <summary>
     /// The one time connection commands run
@@ -1040,7 +1043,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>ServiceStack.OrmLite.OrmLiteConnection.</returns>
     public virtual OrmLiteConnection CreateOrmLiteConnection(OrmLiteConnectionFactory factory, string namedConnection = null)
     {
-        return new OrmLiteConnection(factory);
+        return new OrmLiteConnection(factory)
+        {
+            NamedConnection = namedConnection
+        };
     }
 
     public virtual void InitConnection(IDbConnection dbConn)
