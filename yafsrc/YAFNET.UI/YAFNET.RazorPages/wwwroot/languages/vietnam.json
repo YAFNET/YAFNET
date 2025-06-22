@@ -833,7 +833,7 @@
           },
           {
             "@tag": "ADMIN_EMAIL",
-            "#text": "E-mail"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "ADMIN_IPADRESS",
@@ -1036,7 +1036,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "Useragent:"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "MASK_HELP",
@@ -1612,7 +1612,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "Onclick JS:"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -7444,7 +7444,7 @@
           },
           {
             "@tag": "BUTTON_RETWEET",
-            "#text": "Retweet"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "BUTTON_RETWEET_TT",
@@ -7787,7 +7787,7 @@
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "T"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -8139,7 +8139,7 @@
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "Strikethrough"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8257,7 +8257,7 @@
         "Resource": [
           {
             "@tag": "AD",
-            "#text": "Andorra"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "AE",
@@ -8273,15 +8273,15 @@
           },
           {
             "@tag": "AI",
-            "#text": "Anguilla"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "AL",
-            "#text": "Albania"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "AM",
-            "#text": "Armenia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "AN",
@@ -8289,7 +8289,7 @@
           },
           {
             "@tag": "AO",
-            "#text": "Angola"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "AQ",
@@ -8297,7 +8297,7 @@
           },
           {
             "@tag": "AR",
-            "#text": "Argentina"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "AS",
@@ -8313,11 +8313,11 @@
           },
           {
             "@tag": "AW",
-            "#text": "Aruba"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "AZ",
-            "#text": "Azerbaijan"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "BA",
@@ -8325,11 +8325,11 @@
           },
           {
             "@tag": "BB",
-            "#text": "Barbados"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "BD",
-            "#text": "Bangladesh"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "BE",
@@ -8337,7 +8337,7 @@
           },
           {
             "@tag": "BF",
-            "#text": "Burkina Faso"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "BG",
@@ -8345,11 +8345,11 @@
           },
           {
             "@tag": "BH",
-            "#text": "Bahrain"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "BI",
-            "#text": "Burundi"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "BJ",
@@ -8357,7 +8357,7 @@
           },
           {
             "@tag": "BM",
-            "#text": "Bermuda"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "BN",
@@ -8365,19 +8365,19 @@
           },
           {
             "@tag": "BO",
-            "#text": "Bolivia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "BR",
-            "#text": "Brazil"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "BS",
-            "#text": "Bahamas"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "BT",
-            "#text": "Bhutan"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "BV",
@@ -8385,19 +8385,19 @@
           },
           {
             "@tag": "BW",
-            "#text": "Botswana"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "BY",
-            "#text": "Belarus"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "BZ",
-            "#text": "Belize"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "CA",
-            "#text": "Canada"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "CC",
@@ -8413,7 +8413,7 @@
           },
           {
             "@tag": "CG",
-            "#text": "Congo"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "CH",
@@ -8429,11 +8429,11 @@
           },
           {
             "@tag": "CL",
-            "#text": "Chile"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "CM",
-            "#text": "Cameroon"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "CN",
@@ -8441,15 +8441,15 @@
           },
           {
             "@tag": "CO",
-            "#text": "Colombia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "CR",
-            "#text": "Costa Rica"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "CU",
-            "#text": "Cuba"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "CV",
@@ -8473,7 +8473,7 @@
           },
           {
             "@tag": "DJ",
-            "#text": "Djibouti"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "DK",
@@ -8481,7 +8481,7 @@
           },
           {
             "@tag": "DM",
-            "#text": "Dominica"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "DO",
@@ -8489,15 +8489,15 @@
           },
           {
             "@tag": "DZ",
-            "#text": "Algeria"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "EC",
-            "#text": "Ecuador"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "EE",
-            "#text": "Estonia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "EG",
@@ -8509,7 +8509,7 @@
           },
           {
             "@tag": "ER",
-            "#text": "Eritrea"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "ES",
@@ -8517,7 +8517,7 @@
           },
           {
             "@tag": "ET",
-            "#text": "Ethiopia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "FI",
@@ -8525,7 +8525,7 @@
           },
           {
             "@tag": "FJ",
-            "#text": "Fiji"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "FK",
@@ -8549,7 +8549,7 @@
           },
           {
             "@tag": "GA",
-            "#text": "Gabon"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "GB",
@@ -8557,11 +8557,11 @@
           },
           {
             "@tag": "GD",
-            "#text": "Grenada"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "GE",
-            "#text": "Georgia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "GF",
@@ -8569,27 +8569,27 @@
           },
           {
             "@tag": "GH",
-            "#text": "Ghana"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "GI",
-            "#text": "Gibraltar"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "GL",
-            "#text": "Greenland"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "GM",
-            "#text": "Gambia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "GN",
-            "#text": "Guinea"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "GP",
-            "#text": "Guadeloupe"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "GQ",
@@ -8605,7 +8605,7 @@
           },
           {
             "@tag": "GT",
-            "#text": "Guatemala"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "GU",
@@ -8613,11 +8613,11 @@
           },
           {
             "@tag": "GW",
-            "#text": "Guinea-Bissau"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "GY",
-            "#text": "Guyana"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "HK",
@@ -8629,19 +8629,19 @@
           },
           {
             "@tag": "HN",
-            "#text": "Honduras"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "HR",
-            "#text": "Croatia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "HT",
-            "#text": "Haiti"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "HU",
-            "#text": "Hungary"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "ID",
@@ -8681,11 +8681,11 @@
           },
           {
             "@tag": "JM",
-            "#text": "Jamaica"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "JO",
-            "#text": "Jordan"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "JP",
@@ -8693,11 +8693,11 @@
           },
           {
             "@tag": "KE",
-            "#text": "Kenya"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "KG",
-            "#text": "Kyrgyzstan"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "KH",
@@ -8705,11 +8705,11 @@
           },
           {
             "@tag": "KI",
-            "#text": "Kiribati"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "KM",
-            "#text": "Comoros"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "KN",
@@ -8729,7 +8729,7 @@
           },
           {
             "@tag": "KZ",
-            "#text": "Kazakhstan"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "LA",
@@ -8737,7 +8737,7 @@
           },
           {
             "@tag": "LB",
-            "#text": "Lebanon"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "LC",
@@ -8745,19 +8745,19 @@
           },
           {
             "@tag": "LI",
-            "#text": "Liechtenstein"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "LK",
-            "#text": "Sri Lanka"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "LR",
-            "#text": "Liberia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "LS",
-            "#text": "Lesotho"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "LT",
@@ -8765,11 +8765,11 @@
           },
           {
             "@tag": "LU",
-            "#text": "Luxembourg"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "LV",
-            "#text": "Latvia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "LY",
@@ -8781,7 +8781,7 @@
           },
           {
             "@tag": "MC",
-            "#text": "Monaco"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "MD",
@@ -8789,11 +8789,11 @@
           },
           {
             "@tag": "ME",
-            "#text": "Montenegro"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "MG",
-            "#text": "Madagascar"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "MH",
@@ -8801,11 +8801,11 @@
           },
           {
             "@tag": "MK",
-            "#text": "Macedonia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "ML",
-            "#text": "Mali"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "MM",
@@ -8825,27 +8825,27 @@
           },
           {
             "@tag": "MQ",
-            "#text": "Martinique"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "MR",
-            "#text": "Mauretania"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "MS",
-            "#text": "Montserrat"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "MT",
-            "#text": "Malta"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "MU",
-            "#text": "Mauritius"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "MV",
-            "#text": "Maldives"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "MW",
@@ -8853,19 +8853,19 @@
           },
           {
             "@tag": "MX",
-            "#text": "Mexico"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "MY",
-            "#text": "Malaysia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "MZ",
-            "#text": "Mozambique"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "NA",
-            "#text": "Namibia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "NC",
@@ -8877,15 +8877,15 @@
           },
           {
             "@tag": "NF",
-            "#text": "Norfolk Islan"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "NG",
-            "#text": "Nigeria"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "NI",
-            "#text": "Nicaragua"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "NL",
@@ -8901,15 +8901,15 @@
           },
           {
             "@tag": "NR",
-            "#text": "Nauru"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "NU",
-            "#text": "Niue"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "NZ",
-            "#text": "New Zealand"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "OM",
@@ -8917,11 +8917,11 @@
           },
           {
             "@tag": "PA",
-            "#text": "Panama"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "PE",
-            "#text": "Peru"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "PF",
@@ -8929,7 +8929,7 @@
           },
           {
             "@tag": "PG",
-            "#text": "Papua New Guinea"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "PH",
@@ -8937,7 +8937,7 @@
           },
           {
             "@tag": "PK",
-            "#text": "Pakistan"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "PL",
@@ -8949,11 +8949,11 @@
           },
           {
             "@tag": "PN",
-            "#text": "Pitcairn"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "PR",
-            "#text": "Puerto Rico"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "PT",
@@ -8961,15 +8961,15 @@
           },
           {
             "@tag": "PW",
-            "#text": "Palau"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "PY",
-            "#text": "Paraguay"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "QA",
-            "#text": "Qatar"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RE",
@@ -8977,7 +8977,7 @@
           },
           {
             "@tag": "RO",
-            "#text": "Romania"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RU",
@@ -8985,7 +8985,7 @@
           },
           {
             "@tag": "RW",
-            "#text": "Rwanda"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "SA",
@@ -8997,11 +8997,11 @@
           },
           {
             "@tag": "SC",
-            "#text": "Seychelles"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "SD",
-            "#text": "Sudan"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "SE",
@@ -9009,7 +9009,7 @@
           },
           {
             "@tag": "SG",
-            "#text": "Singapore"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "SH",
@@ -9017,7 +9017,7 @@
           },
           {
             "@tag": "SI",
-            "#text": "Slovenia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "SJ",
@@ -9029,19 +9029,19 @@
           },
           {
             "@tag": "SL",
-            "#text": "Sierra Leone"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "SM",
-            "#text": "San Marino"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "SN",
-            "#text": "Senegal"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "SO",
-            "#text": "Somalia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "SP",
@@ -9049,7 +9049,7 @@
           },
           {
             "@tag": "SR",
-            "#text": "Suriname"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "ST",
@@ -9057,7 +9057,7 @@
           },
           {
             "@tag": "SV",
-            "#text": "El Salvador"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "SY",
@@ -9065,7 +9065,7 @@
           },
           {
             "@tag": "SZ",
-            "#text": "Swaziland"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "TC",
@@ -9073,7 +9073,7 @@
           },
           {
             "@tag": "TD",
-            "#text": "Chad"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "TF",
@@ -9089,23 +9089,23 @@
           },
           {
             "@tag": "TJ",
-            "#text": "Tajikistan"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "TK",
-            "#text": "Tokelau"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "TM",
-            "#text": "Turkmenistan"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "TN",
-            "#text": "Tunisia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "TO",
-            "#text": "Tonga"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "TP",
@@ -9121,7 +9121,7 @@
           },
           {
             "@tag": "TV",
-            "#text": "Tuvalu"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "TW",
@@ -9133,11 +9133,11 @@
           },
           {
             "@tag": "UA",
-            "#text": "Ukraine"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "UG",
-            "#text": "Uganda"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "UM",
@@ -9149,7 +9149,7 @@
           },
           {
             "@tag": "UY",
-            "#text": "Uruguay"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "UZ",
@@ -9165,7 +9165,7 @@
           },
           {
             "@tag": "VE",
-            "#text": "Venezuela"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "VG",
@@ -9181,7 +9181,7 @@
           },
           {
             "@tag": "VU",
-            "#text": "Vanuatu"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "WF",
@@ -9189,15 +9189,15 @@
           },
           {
             "@tag": "WS",
-            "#text": "Samoa"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "YE",
-            "#text": "Yemen"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "YT",
-            "#text": "Mayotte"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "ZA",
@@ -9205,11 +9205,11 @@
           },
           {
             "@tag": "ZM",
-            "#text": "Zambia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "ZW",
-            "#text": "Zimbabwe"
+            "#text": "Vi-Vn"
           }
         ]
       },
@@ -9917,7 +9917,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "INPUT_CODE",
@@ -10542,7 +10542,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "E-mail"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "TITLE2",
@@ -10567,7 +10567,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "XMPP Messenger"
+            "#text": "Vi-Vn"
           }
         ]
       },
@@ -12291,7 +12291,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "Blog"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12367,7 +12367,7 @@
           },
           {
             "@tag": "FACEBOOK",
-            "#text": "Facebook"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "FACEBOOK_TITLE",
@@ -12439,7 +12439,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "IP"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "JOINED",
@@ -12787,7 +12787,7 @@
           },
           {
             "@tag": "XMPP",
-            "#text": "XMPP"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "XMPP_TITLE",
@@ -12862,7 +12862,7 @@
           },
           {
             "@tag": "EMAIL",
-            "#text": "E-mail:"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "ENDS",
@@ -13050,7 +13050,7 @@
           },
           {
             "@tag": "WEBLOG",
-            "#text": "Blog:"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "WEBSITE",
@@ -13104,7 +13104,7 @@
         "Resource": [
           {
             "@tag": "RGN_CH_AG",
-            "#text": "Aargau"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_AI",
@@ -13116,7 +13116,7 @@
           },
           {
             "@tag": "RGN_CH_BE",
-            "#text": "Bern"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_BL",
@@ -13124,7 +13124,7 @@
           },
           {
             "@tag": "RGN_CH_BS",
-            "#text": "Basel"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_FR",
@@ -13132,11 +13132,11 @@
           },
           {
             "@tag": "RGN_CH_GE",
-            "#text": "Geneva"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_GL",
-            "#text": "Glarus"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_GR",
@@ -13144,11 +13144,11 @@
           },
           {
             "@tag": "RGN_CH_JU",
-            "#text": "Jura"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_LU",
-            "#text": "Lucerne"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_NE",
@@ -13156,11 +13156,11 @@
           },
           {
             "@tag": "RGN_CH_NW",
-            "#text": "Nidwalden"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_OW",
-            "#text": "Obwalden"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_SG",
@@ -13168,23 +13168,23 @@
           },
           {
             "@tag": "RGN_CH_SH",
-            "#text": "Schaffhausen"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_SO",
-            "#text": "Solothurn"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_SZ",
-            "#text": "Schwyz"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_TG",
-            "#text": "Thurgau"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_TI",
-            "#text": "Ticino"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_UR",
@@ -13192,19 +13192,19 @@
           },
           {
             "@tag": "RGN_CH_VD",
-            "#text": "Vaud"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_VS",
-            "#text": "Valais"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_ZG",
-            "#text": "Zug"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_CH_ZH",
-            "#text": "Zurich"
+            "#text": "Vi-Vn"
           }
         ]
       },
@@ -13213,19 +13213,19 @@
         "Resource": [
           {
             "@tag": "RGN_DE_BA",
-            "#text": "Bavaria"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_DE_BB",
-            "#text": "Brandenburg"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_DE_BER",
-            "#text": "Berlin"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_DE_BRE",
-            "#text": "Bremen"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_DE_BW",
@@ -13237,11 +13237,11 @@
           },
           {
             "@tag": "RGN_DE_HH",
-            "#text": "Hamburg"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_DE_MV",
-            "#text": "Mecklenburg-Vorpommern"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_DE_NI",
@@ -13253,7 +13253,7 @@
           },
           {
             "@tag": "RGN_DE_RP",
-            "#text": "Rhineland-Palatinate"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_DE_SA",
@@ -13261,7 +13261,7 @@
           },
           {
             "@tag": "RGN_DE_SAA",
-            "#text": "Saarland"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_DE_SACH",
@@ -13269,11 +13269,11 @@
           },
           {
             "@tag": "RGN_DE_SW",
-            "#text": "Schleswig-Holstein"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_DE_TH",
-            "#text": "Thuringia"
+            "#text": "Vi-Vn"
           }
         ]
       },
@@ -13286,7 +13286,7 @@
           },
           {
             "@tag": "RGN_US_AL",
-            "#text": "Alabama"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_AR",
@@ -13298,19 +13298,19 @@
           },
           {
             "@tag": "RGN_US_AZ",
-            "#text": "Arizona"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_CA",
-            "#text": "California"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_CO",
-            "#text": "Colorado"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_CT",
-            "#text": "Connecticut"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_DC",
@@ -13322,11 +13322,11 @@
           },
           {
             "@tag": "RGN_US_FL",
-            "#text": "Florida"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_GA",
-            "#text": "Georgia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_GU",
@@ -13334,59 +13334,59 @@
           },
           {
             "@tag": "RGN_US_HI",
-            "#text": "Hawaii"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_IA",
-            "#text": "Iowa"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_ID",
-            "#text": "Idaho"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_IL",
-            "#text": "Illinois"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_IN",
-            "#text": "Indiana"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_KS",
-            "#text": "Kansas"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_KY",
-            "#text": "Kentucky"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_LA",
-            "#text": "Louisiana"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_MA",
-            "#text": "Massachusetts"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_MD",
-            "#text": "Maryland"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_ME",
-            "#text": "Maine"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_MI",
-            "#text": "Michigan"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_MN",
-            "#text": "Minnesota"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_MO",
-            "#text": "Missouri"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_MP",
@@ -13394,11 +13394,11 @@
           },
           {
             "@tag": "RGN_US_MS",
-            "#text": "Mississippi"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_MT",
-            "#text": "Montana"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_NC",
@@ -13410,7 +13410,7 @@
           },
           {
             "@tag": "RGN_US_NE",
-            "#text": "Nebraska"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_NH",
@@ -13422,11 +13422,11 @@
           },
           {
             "@tag": "RGN_US_NM",
-            "#text": "New Mexico"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_NV",
-            "#text": "Nevada"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_NY",
@@ -13434,7 +13434,7 @@
           },
           {
             "@tag": "RGN_US_OH",
-            "#text": "Ohio"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_OK",
@@ -13442,15 +13442,15 @@
           },
           {
             "@tag": "RGN_US_OR",
-            "#text": "Oregon"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_PA",
-            "#text": "Pennsylvania"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_PR",
-            "#text": "Puerto Rico"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_RI",
@@ -13466,19 +13466,19 @@
           },
           {
             "@tag": "RGN_US_TN",
-            "#text": "Tennessee"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_TX",
-            "#text": "Texas"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_UT",
-            "#text": "Utah"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_VA",
-            "#text": "Virginia"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_VI",
@@ -13486,15 +13486,15 @@
           },
           {
             "@tag": "RGN_US_VT",
-            "#text": "Vermont"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_WA",
-            "#text": "Washington"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_WI",
-            "#text": "Wisconsin"
+            "#text": "Vi-Vn"
           },
           {
             "@tag": "RGN_US_WV",

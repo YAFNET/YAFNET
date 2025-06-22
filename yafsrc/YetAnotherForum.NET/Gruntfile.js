@@ -5,17 +5,18 @@
  * Try: http://24ways.org/2013/grunt-is-not-weird-and-hard/
  */
 
-const lightBoxWebpackConfig = require('./wwwroot/lib/bs5-lightbox/webpack.cdn.js');
+const webpackConfig = require('./webpack.config.js');
 const sass = require('sass');
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
+	require('@lodder/time-grunt')(grunt);
 	// CONFIGURATION
 	grunt.initConfig({
 		secret: grunt.file.readJSON('../secret.json'),
 		pkg: grunt.file.readJSON('package.json'),
 
 		webpack: {
-			lightBox: lightBoxWebpackConfig
+			main: webpackConfig
 		},
 
 		copy: {
@@ -26,18 +27,6 @@ module.exports = function(grunt) {
 						src: '**/*.scss',
 						cwd: 'node_modules/bootstrap/scss',
 						dest: 'wwwroot/lib/bootstrap/'
-					},
-					{
-						expand: true,
-						src: '**/bootstrap.bundle.js',
-						cwd: 'node_modules/bootstrap/dist/js/',
-						dest: 'wwwroot/lib/'
-					},
-					{
-						expand: true,
-						src: '**/bootstrap.bundle.min.js',
-						cwd: 'node_modules/bootstrap/dist/js/',
-						dest: 'wwwroot/lib/'
 					}
 				]
 			},
@@ -62,29 +51,6 @@ module.exports = function(grunt) {
 				files: [
 					// includes files within path
 					{ expand: true, src: '**/*.scss', cwd: 'node_modules/bootswatch/dist', dest: 'wwwroot/lib/themes/' }
-				]
-			},
-			mdsDateTimePicker: {
-				files: [
-					// includes files within path
-					{
-						expand: true,
-						src: 'mds.bs.datetimepicker.style.css',
-						cwd: 'node_modules/md.bootstrappersiandatetimepicker/dist',
-						dest: 'wwwroot/css/',
-						rename: function(path) {
-							return path + 'mds.datetimepicker.min.css';
-						}
-					},
-					{
-						expand: true,
-						src: 'mds.bs.datetimepicker.js',
-						cwd: 'node_modules/md.bootstrappersiandatetimepicker/dist',
-						dest: 'wwwroot/js/',
-						rename: function(path) {
-							return path + 'mds.datetimepicker.min.js';
-						}
-					}
 				]
 			},
 			flagIcons: {
@@ -173,28 +139,6 @@ module.exports = function(grunt) {
 		},
 
 		replace: {
-			bootswatch: {
-				options: {
-					usePrefix: false,
-					patterns: [
-						{
-							match:
-								'box-shadow: 0 0 2px rgba($color, .9), 0 0 4px rgba($color, .4), 0 0 1rem rgba($color, .3), 0 0 4rem rgba($color, .1);',
-							replacement:
-								'box-shadow: 0 0 2px RGBA($color, .9), 0 0 4px RGBA($color, .4), 0 0 1rem RGBA($color, .3), 0 0 4rem RGBA($color, .1);'
-						}
-					]
-				},
-				files: [
-					{
-						expand: true,
-						flatten: true,
-						src: ['wwwroot/lib/themes/vapor/_bootswatch.scss'],
-						dest: 'wwwroot/lib/themes/vapor/'
-					}
-				]
-			},
-
 			flagIcons: {
 				options: {
 					usePrefix: false,
@@ -496,63 +440,6 @@ module.exports = function(grunt) {
 
 		// Minimize JS
 		uglify: {
-			themeSelector: {
-				options: {
-					sourceMap: false,
-					output: { beautify: true },
-					mangle: false,
-					compress: false
-				},
-				src: [
-					'wwwroot/lib/bootstrap/color-modes.js'
-				],
-				dest: 'wwwroot/js/themeSelector.min.js'
-			},
-			installWizard: {
-				options: {
-					sourceMap: false,
-					output: { beautify: true },
-					mangle: false,
-					compress: false
-				},
-				src: [
-					'wwwroot/lib/bootstrap.bundle.js',
-					'wwwroot/lib/forum/installWizard.js'
-				],
-				dest: 'wwwroot/js/InstallWizard.comb.js'
-			},
-
-			codeMirror: {
-				options: {
-					sourceMap: false,
-					output: { beautify: true },
-					mangle: false,
-					compress: false
-				},
-				src: [
-					'node_modules/codemirror/lib/codemirror.js',
-					'node_modules/codemirror/mode/sql/sql.js',
-					'node_modules/codemirror/addon/edit/matchbrackets.js',
-					'node_modules/codemirror/addon/hint/show-hint.js',
-					'node_modules/codemirror/addon/hint/sql-hint.js'
-				],
-				dest: 'wwwroot/js/codemirror.min.js'
-			},
-			yafEditor: {
-				options: {
-					sourceMap: false,
-					output: { beautify: true },
-					mangle: false,
-					compress: false
-				},
-				src: [
-					'wwwroot/lib/editor/editor.js',
-					'wwwroot/lib/editor/undoManager.js',
-					'wwwroot/lib/editor/autoCloseTags.js',
-					'wwwroot/lib/editor/mentions.js'
-				],
-				dest: 'wwwroot/js/editor.comb.js'
-			},
 			SCEditor: {
 				options: {
 					sourceMap: false,
@@ -586,84 +473,6 @@ module.exports = function(grunt) {
 						dest: 'wwwroot/js/sceditor'
 					}
 				]
-			},
-			forumExtensions: {
-				options: {
-					sourceMap: false,
-					output: { beautify: true },
-					mangle: false,
-					compress: false
-				},
-				src: [
-					'wwwroot/lib/bootstrap.bundle.js',
-					'wwwroot/lib/bootbox.js',
-					'wwwroot/lib/dark-editable.js',
-					'wwwroot/lib/bootstrap-notify.js',
-					'wwwroot/lib/forum/bootstrap-touchspin.js',
-					'wwwroot/lib/choices/assets/scripts/choices.js',
-					'wwwroot/lib/bs5-lightbox/dist/index.bundle.min.js',
-					'wwwroot/lib/forum/hoverCard.js',
-					'wwwroot/lib/prism.js',
-					'node_modules/long-press-event/src/long-press-event.js',
-					'node_modules/@microsoft/signalr/dist/browser/signalr.js',
-					'wwwroot/lib/forum/utilities.js',
-					'wwwroot/lib/forum/albums.js',
-					'wwwroot/lib/forum/attachments.js',
-					'wwwroot/lib/forum/notify.js',
-					'wwwroot/lib/forum/searchResults.js',
-					'wwwroot/lib/forum/similarTitles.js',
-					'wwwroot/lib/forum/paging.js',
-					'wwwroot/lib/forum/main.js',
-					'wwwroot/lib/forum/modals.js',
-					'wwwroot/lib/forum/notificationHub.js',
-					'wwwroot/lib/forum/contextMenu.js',
-					'wwwroot/lib/forum/chatHub.js',
-					'wwwroot/lib/form-serialize/index.js'
-				],
-				dest: 'wwwroot/js/forumExtensions.js'
-			},
-			forumAdminExtensions: {
-				options: {
-					sourceMap: false,
-					output: { beautify: true },
-					mangle: false,
-					compress: false
-				},
-				src: [
-					'wwwroot/lib/bootstrap.bundle.js',
-					'wwwroot/lib/bootbox.js',
-					'wwwroot/lib/dark-editable.js',
-					'wwwroot/lib/bootstrap-notify.js',
-					'wwwroot/lib/forum/bootstrap-touchspin.js',
-					'wwwroot/lib/choices/assets/scripts/choices.js',
-					'wwwroot/lib/bs5-lightbox/dist/index.bundle.min.js',
-					'wwwroot/lib/forum/hoverCard.js',
-					'wwwroot/lib/prism.js',
-					'node_modules/long-press-event/src/long-press-event.js',
-					'node_modules/@microsoft/signalr/dist/browser/signalr.js',
-					'wwwroot/lib/forum/utilities.js',
-					'wwwroot/lib/forum/albums.js',
-					'wwwroot/lib/forum/notify.js',
-					'wwwroot/lib/forum/paging.js',
-					'wwwroot/lib/forum/main.js',
-					'wwwroot/lib/forum/modals.js',
-					'wwwroot/lib/forum/notificationHub.js',
-					'wwwroot/lib/forum/contextMenu.js',
-					'wwwroot/lib/form-serialize/index.js'
-				],
-				dest: 'wwwroot/js/forumAdminExtensions.js'
-			},
-			minify: {
-				files: {
-					"wwwroot/js/themeSelector.min.js": 'wwwroot/js/themeSelector.min.js',
-					"wwwroot/js/editor.min.js": 'wwwroot/js/editor.comb.js',
-					"wwwroot/js/InstallWizard.comb.min.js": 'wwwroot/js/InstallWizard.comb.js',
-					"wwwroot/js/codemirror.min.js": 'wwwroot/js/codemirror.min.js',
-					"wwwroot/js/fileUploader.min.js": 'wwwroot/lib/fileUploader.js',
-					"wwwroot/js/forumExtensions.min.js": 'wwwroot/js/forumExtensions.js',
-					"wwwroot/js/forumAdminExtensions.min.js": 'wwwroot/js/forumAdminExtensions.js'
-
-				}
 			}
 		},
 
@@ -753,15 +562,6 @@ module.exports = function(grunt) {
 
 		// CSS Minify
 		cssmin: {
-			codeMirror: {
-				files: {
-					"wwwroot/css/codemirror.min.css": [
-						'node_modules/codemirror/lib/codemirror.css',
-						'node_modules/codemirror/theme/monokai.css',
-						'node_modules/codemirror/addon/hint/show-hint.css'
-					]
-				}
-			},
 			other: {
 				files: {
 					"wwwroot/css/InstallWizard.min.css": 'wwwroot/css/InstallWizard.css',
@@ -867,7 +667,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default',
 		[
-			'webpack:lightBox', 'uglify', 'sass', 'postcss', 'cssmin'
+			'webpack', 'uglify', 'sass', 'postcss', 'cssmin'
 		]);
 
 	grunt.registerTask('updatePackages',
@@ -897,7 +697,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('updateBootswatchThemes',
 		[
-			'copy:bootswatchThemes', 'replace:bootswatch'
+			'copy:bootswatchThemes'
 		]);
 
 	grunt.registerTask('updateFlagIcons',

@@ -3,13 +3,6 @@
 @using YAF.Web.HtmlHelpers
 @model RunSqlModel
 
-@section StyleSheets {
-    @if (Model.PageBoardContext.UploadAccess)
-    {
-        @await Html.PartialAsync("_CodeMirrorStylesSheetsPartial")
-    }
-}
-
 <form method="post" class="needs-validation" novalidate>
     <div class="row">
         <div class="col-xl-12">

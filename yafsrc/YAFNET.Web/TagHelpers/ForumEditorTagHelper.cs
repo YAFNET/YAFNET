@@ -27,8 +27,6 @@ namespace YAF.Web.TagHelpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-using ServiceStack.OrmLite;
-
 using YAF.Types.Extensions;
 
 /// <summary>
@@ -177,23 +175,6 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                         this.GetText("COMMON", "TT_NOTE"),
                         this.GetText("COMMON", "TT_NOTE_TYPE")));
                 break;
-            case EditorMode.Sql:
-                {
-                    var serverName = OrmLiteConfig.DialectProvider.SQLServerName();
-
-                    var mime = serverName switch
-                        {
-                            "Microsoft SQL Server" => "text/x-mssql",
-                            "MySQL" => "text/x-mysql",
-                            "PostgreSQL" => "text/x-pgsql",
-                            _ => "text/x-sql"
-                        };
-
-                    BoardContext.Current.InlineElements.InsertJsBlock(
-                        nameof(JavaScriptBlocks.CodeMirrorSqlLoadJs),
-                        JavaScriptBlocks.CodeMirrorSqlLoadJs(this.AspFor.Name.Replace(".", "_"), mime));
-                    break;
-                }
         }
 
         if (this.EditorMode != EditorMode.SCEditor)
@@ -693,7 +674,10 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         content.AppendHtml(containerCardBody.RenderEndTag());
 
-        this.RenderFooter(content);
+        if (this.EditorMode is not EditorMode.Sql)
+        {
+            this.RenderFooter(content);
+        }
 
         content.AppendHtml(containerCardDiv.RenderEndTag());
 

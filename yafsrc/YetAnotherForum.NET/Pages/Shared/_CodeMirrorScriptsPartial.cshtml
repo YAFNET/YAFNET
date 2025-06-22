@@ -4,4 +4,4 @@
 
 @inject BoardContext Current
 
-<script src="@(Current.Get<BoardInfo>().GetUrlToScripts("codemirror.min.js"))"></script>
+<script src="@(Current.Get<BoardInfo>().GetUrlToScripts("codemirror.min.js"))" defer></script>

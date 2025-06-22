@@ -4080,7 +4080,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "ru"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -9909,7 +9909,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+            "#text": "ru"
           },
           {
             "@tag": "INPUT_CODE",
@@ -12423,7 +12423,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "IP"
+            "#text": "ru"
           },
           {
             "@tag": "JOINED",
@@ -12771,7 +12771,7 @@
           },
           {
             "@tag": "XMPP",
-            "#text": "XMPP"
+            "#text": "ru"
           },
           {
             "@tag": "XMPP_TITLE",

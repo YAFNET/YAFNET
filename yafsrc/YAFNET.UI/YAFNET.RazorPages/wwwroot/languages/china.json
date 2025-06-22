@@ -1706,7 +1706,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "ID"
+            "#text": "ZH-CN"
           },
           {
             "@tag": "NAME",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "stopforumspam.com"
+            "#text": "ZH-CN"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -5424,7 +5424,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "Blogspam.net API"
+            "#text": "ZH-CN"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -7771,23 +7771,23 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "d"
+            "#text": "ZH-CN"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "d"
+            "#text": "ZH-CN"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "f"
+            "#text": "ZH-CN"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "g"
+            "#text": "ZH-CN"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "t"
+            "#text": "ZH-CN"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -9917,7 +9917,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+            "#text": "ZH-CN"
           },
           {
             "@tag": "INPUT_CODE",
@@ -12367,7 +12367,7 @@
           },
           {
             "@tag": "FACEBOOK",
-            "#text": "Facebook"
+            "#text": "ZH-CN"
           },
           {
             "@tag": "FACEBOOK_TITLE",
@@ -12787,7 +12787,7 @@
           },
           {
             "@tag": "XMPP",
-            "#text": "xmpp"
+            "#text": "ZH-CN"
           },
           {
             "@tag": "XMPP_TITLE",

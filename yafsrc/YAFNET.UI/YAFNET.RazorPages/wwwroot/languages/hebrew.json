@@ -1036,7 +1036,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "Useragent:"
+            "#text": "he"
           },
           {
             "@tag": "MASK_HELP",
@@ -1612,7 +1612,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "Onclick JS:"
+            "#text": "he"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "he"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -7791,7 +7791,7 @@
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "T"
+            "#text": "he"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -8143,7 +8143,7 @@
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "Strikethrough"
+            "#text": "he"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -9921,7 +9921,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+            "#text": "he"
           },
           {
             "@tag": "INPUT_CODE",
@@ -10571,7 +10571,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "XMPP Messenger"
+            "#text": "he"
           }
         ]
       },
@@ -12451,7 +12451,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "IP"
+            "#text": "he"
           },
           {
             "@tag": "JOINED",
@@ -12799,7 +12799,7 @@
           },
           {
             "@tag": "XMPP",
-            "#text": "Xmpp"
+            "#text": "he"
           },
           {
             "@tag": "XMPP_TITLE",
@@ -13120,7 +13120,7 @@
           },
           {
             "@tag": "RGN_CH_AI",
-            "#text": "Appenzell inner-rhodes"
+            "#text": "he"
           },
           {
             "@tag": "RGN_CH_AR",

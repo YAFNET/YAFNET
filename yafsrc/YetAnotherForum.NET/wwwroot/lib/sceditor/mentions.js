@@ -1,4 +1,4 @@
-﻿function mentions(opts = {}) {
+﻿function mentions1(opts = {}) {
     opts = Object.assign({},
         {
             lookup: 'lookup',
