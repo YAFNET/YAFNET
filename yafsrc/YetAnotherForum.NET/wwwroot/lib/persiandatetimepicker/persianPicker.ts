@@ -2,9 +2,9 @@
 import 'bootstrap';
 
 // Custom JS imports
-import { MdsPersianDateTimePicker, MdsPersianDateTimePickerSetting } from '../../../node_modules/md.bootstrappersiandatetimepicker/src/mds.bs.datetimepicker';
+import { MdsPersianDateTimePicker, MdsPersianDateTimePickerSetting } from './datetimepicker';
 
-import '../../../node_modules/md.bootstrappersiandatetimepicker/dist/mds.datetimepicker.min.css';
+import '../../../node_modules/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.style.css';
 
 var input = document.getElementById('Input_Birthday') as HTMLInputElement;
 

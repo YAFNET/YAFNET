@@ -1,4 +1,6 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
+﻿import * as Utilities from '../forum/utilities';
+
+document.addEventListener('DOMContentLoaded', () => {
 	if (document.querySelector('.searchSimilarTopics') != null) {
 
 		const input = document.querySelector('.searchSimilarTopics') as HTMLInputElement;
@@ -30,7 +32,7 @@
 						}
 					}).then(res => res.json()).then(data => {
 
-					empty(placeHolder);
+					Utilities.empty(placeHolder);
 
 					placeHolder.classList.remove('list-group');
 

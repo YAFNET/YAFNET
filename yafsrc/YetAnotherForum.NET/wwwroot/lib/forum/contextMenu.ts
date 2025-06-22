@@ -184,10 +184,6 @@ export function goToURL(messageId: number, input: string, url: string): void {
     window.location.href = `${url}&q=${messageId}&text=${encodeURIComponent(input)}`;
 }
 
-export function copyToClipBoard(input: string): void {
-    navigator.clipboard.writeText(input);
-}
-
 export function searchText(input: string): void {
     const a = document.createElement('a');
     a.target = '_blank';
@@ -211,5 +207,4 @@ function getSelectedMessageText(): string {
 const _global = (window /* browser */ || global /* node */) as any;
 
 _global.goToURL = goToURL;
-_global.copyToClipBoard = copyToClipBoard;
 _global.searchText = searchText;

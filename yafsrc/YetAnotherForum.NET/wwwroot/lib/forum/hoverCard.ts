@@ -1,5 +1,6 @@
 ﻿import * as bootstrap from 'bootstrap';
 
+const _global = (window /* browser */ || global /* node */) as any;
 function userCardContent(pop: HTMLElement, delay: number): void {
     const popover = new bootstrap.Popover(pop, {
         delay: {
@@ -41,4 +42,4 @@ function userCardContent(pop: HTMLElement, delay: number): void {
     });
 }
 
-window.userCardContent = userCardContent;
+_global.userCardContent = userCardContent;

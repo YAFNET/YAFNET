@@ -1,4 +1,5 @@
 ﻿import * as bootstrap from 'bootstrap';
+import * as Utilities from '../forum/utilities';
 
 const _global = (window /* browser */ || global /* node */) as any;
 
@@ -72,7 +73,7 @@ function loadModal(modal: any, placeholderElement: HTMLDivElement) {
 	modal._element.addEventListener('shown.bs.modal', (event: Event) => {
 		const target = event.target as HTMLElement;
 		if (target.id === 'LoginBox') {
-			togglePassword();
+			Utilities.togglePassword();
 
 			const form = document.querySelector('.modal.show')?.querySelector('form') as HTMLFormElement;
 			form.addEventListener('submit', (e: Event) => {

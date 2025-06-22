@@ -1,9 +1,15 @@
 @charset "UTF-8";
 /* PrismJS 1.30.0
-https://prismjs.com/download.html#themes=prism-okaidia&languages=markup+css+clike+javascript */
-code[class*=language-], pre[class*=language-] {
+https://prismjs.com/download.html?#themes=prism-okaidia&languages=markup+css+clike+javascript+aspnet+bash+basic+c+csharp+cpp+css-extras+git+java+json+python+scss+sql+vbnet+visual-basic&plugins=line-highlight+line-numbers+autolinker+normalize-whitespace+toolbar+copy-to-clipboard */
+/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
+code[class*=language-],
+pre[class*=language-] {
   color: #f8f8f2;
-  background: 0 0;
+  background: none;
   text-shadow: 0 1px rgba(0, 0, 0, 0.3);
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   font-size: 1em;
@@ -20,6 +26,7 @@ code[class*=language-], pre[class*=language-] {
   hyphens: none;
 }
 
+/* Code blocks */
 pre[class*=language-] {
   padding: 1em;
   margin: 0.5em 0;
@@ -27,17 +34,22 @@ pre[class*=language-] {
   border-radius: 0.3em;
 }
 
-:not(pre) > code[class*=language-], pre[class*=language-] {
+:not(pre) > code[class*=language-],
+pre[class*=language-] {
   background: #272822;
 }
 
+/* Inline code */
 :not(pre) > code[class*=language-] {
   padding: 0.1em;
   border-radius: 0.3em;
   white-space: normal;
 }
 
-.token.cdata, .token.comment, .token.doctype, .token.prolog {
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
   color: #8292a2;
 }
 
@@ -49,23 +61,41 @@ pre[class*=language-] {
   opacity: 0.7;
 }
 
-.token.constant, .token.deleted, .token.property, .token.symbol, .token.tag {
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
   color: #f92672;
 }
 
-.token.boolean, .token.number {
+.token.boolean,
+.token.number {
   color: #ae81ff;
 }
 
-.token.attr-name, .token.builtin, .token.char, .token.inserted, .token.selector, .token.string {
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
   color: #a6e22e;
 }
 
-.language-css .token.string, .style .token.string, .token.entity, .token.operator, .token.url, .token.variable {
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
   color: #f8f8f2;
 }
 
-.token.atrule, .token.attr-value, .token.class-name, .token.function {
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
   color: #e6db74;
 }
 
@@ -73,12 +103,14 @@ pre[class*=language-] {
   color: #66d9ef;
 }
 
-.token.important, .token.regex {
+.token.regex,
+.token.important {
   color: #fd971f;
 }
 
-.token.bold, .token.important {
-  font-weight: 700;
+.token.important,
+.token.bold {
+  font-weight: bold;
 }
 
 .token.italic {
@@ -89,75 +121,186 @@ pre[class*=language-] {
   cursor: help;
 }
 
-.animated {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
 }
 
-@media (print), (prefers-reduced-motion: reduce) {
-  .animated {
-    -webkit-animation-duration: 1ms !important;
-    animation-duration: 1ms !important;
-    -webkit-transition-duration: 1ms !important;
-    transition-duration: 1ms !important;
-    -webkit-animation-iteration-count: 1 !important;
-    animation-iteration-count: 1 !important;
-  }
-}
-@-webkit-keyframes fadeInDown {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-  to {
-    opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-  to {
-    opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-.fadeInDown {
-  -webkit-animation-name: fadeInDown;
-  animation-name: fadeInDown;
+.line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em; /* Same as .prism’s padding-top */
+  background: hsla(24, 20%, 50%, 0.08);
+  background: -webkit-gradient(linear, left top, right top, color-stop(70%, hsla(24, 20%, 50%, 0.1)), to(hsla(24, 20%, 50%, 0)));
+  background: linear-gradient(to right, hsla(24, 20%, 50%, 0.1) 70%, hsla(24, 20%, 50%, 0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
 }
 
-@-webkit-keyframes fadeOutUp {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-}
-@keyframes fadeOutUp {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
+@media print {
+  .line-highlight {
+    /*
+     * This will prevent browsers from replacing the background color with white.
+     * It's necessary because the element is layered on top of the displayed code.
+     */
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
   }
 }
-.fadeOutUp {
-  -webkit-animation-name: fadeOutUp;
-  animation-name: fadeOutUp;
+.line-highlight:before,
+.line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: 0.4em;
+  left: 0.6em;
+  min-width: 1em;
+  padding: 0 0.5em;
+  background-color: hsla(24, 20%, 50%, 0.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: 0.3em;
+  border-radius: 999px;
+  text-shadow: none;
+  -webkit-box-shadow: 0 1px white;
+          box-shadow: 0 1px white;
+}
+
+.line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: 0.4em;
+}
+
+.line-numbers .line-highlight:before,
+.line-numbers .line-highlight:after {
+  content: none;
+}
+
+pre[id].linkable-line-numbers span.line-numbers-rows {
+  pointer-events: all;
+}
+
+pre[id].linkable-line-numbers span.line-numbers-rows > span:before {
+  cursor: pointer;
+}
+
+pre[id].linkable-line-numbers span.line-numbers-rows > span:hover:before {
+  background-color: rgba(128, 128, 128, 0.2);
+}
+
+pre[class*=language-].line-numbers {
+  position: relative;
+  padding-left: 3.8em;
+  counter-reset: linenumber;
+}
+
+pre[class*=language-].line-numbers > code {
+  position: relative;
+  white-space: inherit;
+}
+
+.line-numbers .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  font-size: 100%;
+  left: -3.8em;
+  width: 3em; /* works for line-numbers below 1000 lines */
+  letter-spacing: -1px;
+  border-right: 1px solid #999;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.line-numbers-rows > span {
+  display: block;
+  counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+  content: counter(linenumber);
+  color: #999;
+  display: block;
+  padding-right: 0.8em;
+  text-align: right;
+}
+
+.token a {
+  color: inherit;
+}
+
+div.code-toolbar {
+  position: relative;
+}
+
+div.code-toolbar > .toolbar {
+  position: absolute;
+  z-index: 10;
+  top: 0.3em;
+  right: 0.2em;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+
+div.code-toolbar:hover > .toolbar {
+  opacity: 1;
+}
+
+/* Separate line b/c rules are thrown out if selector is invalid.
+   IE11 and old Edge versions don't support :focus-within. */
+div.code-toolbar:focus-within > .toolbar {
+  opacity: 1;
+}
+
+div.code-toolbar > .toolbar > .toolbar-item {
+  display: inline-block;
+}
+
+div.code-toolbar > .toolbar > .toolbar-item > a {
+  cursor: pointer;
+}
+
+div.code-toolbar > .toolbar > .toolbar-item > button {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  -webkit-user-select: none; /* for button */
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+div.code-toolbar > .toolbar > .toolbar-item > a,
+div.code-toolbar > .toolbar > .toolbar-item > button,
+div.code-toolbar > .toolbar > .toolbar-item > span {
+  color: #bbb;
+  font-size: 0.8em;
+  padding: 0 0.5em;
+  background: #f5f2f0;
+  background: rgba(224, 224, 224, 0.2);
+  -webkit-box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
+  border-radius: 0.5em;
+}
+
+div.code-toolbar > .toolbar > .toolbar-item > a:hover,
+div.code-toolbar > .toolbar > .toolbar-item > a:focus,
+div.code-toolbar > .toolbar > .toolbar-item > button:hover,
+div.code-toolbar > .toolbar > .toolbar-item > button:focus,
+div.code-toolbar > .toolbar > .toolbar-item > span:hover,
+div.code-toolbar > .toolbar > .toolbar-item > span:focus {
+  color: inherit;
+  text-decoration: none;
 }
 
 /*!
@@ -10879,9 +11022,11 @@ readers do not read off random characters that represent icons */
   width: 1.333333em;
   line-height: 1em;
 }
+
 .fi:before {
   content: " ";
 }
+
 .fi.fis {
   width: 1em;
 }
@@ -10889,6 +11034,7 @@ readers do not read off random characters that represent icons */
 .fi-xx {
   background-image: url(flags/4x3/xx.svg);
 }
+
 .fi-xx.fis {
   background-image: url(flags/1x1/xx.svg);
 }
@@ -10896,6 +11042,7 @@ readers do not read off random characters that represent icons */
 .fi-ad {
   background-image: url(flags/4x3/ad.svg);
 }
+
 .fi-ad.fis {
   background-image: url(flags/1x1/ad.svg);
 }
@@ -10903,6 +11050,7 @@ readers do not read off random characters that represent icons */
 .fi-ae {
   background-image: url(flags/4x3/ae.svg);
 }
+
 .fi-ae.fis {
   background-image: url(flags/1x1/ae.svg);
 }
@@ -10910,6 +11058,7 @@ readers do not read off random characters that represent icons */
 .fi-af {
   background-image: url(flags/4x3/af.svg);
 }
+
 .fi-af.fis {
   background-image: url(flags/1x1/af.svg);
 }
@@ -10917,6 +11066,7 @@ readers do not read off random characters that represent icons */
 .fi-ag {
   background-image: url(flags/4x3/ag.svg);
 }
+
 .fi-ag.fis {
   background-image: url(flags/1x1/ag.svg);
 }
@@ -10924,6 +11074,7 @@ readers do not read off random characters that represent icons */
 .fi-ai {
   background-image: url(flags/4x3/ai.svg);
 }
+
 .fi-ai.fis {
   background-image: url(flags/1x1/ai.svg);
 }
@@ -10931,6 +11082,7 @@ readers do not read off random characters that represent icons */
 .fi-al {
   background-image: url(flags/4x3/al.svg);
 }
+
 .fi-al.fis {
   background-image: url(flags/1x1/al.svg);
 }
@@ -10938,6 +11090,7 @@ readers do not read off random characters that represent icons */
 .fi-am {
   background-image: url(flags/4x3/am.svg);
 }
+
 .fi-am.fis {
   background-image: url(flags/1x1/am.svg);
 }
@@ -10945,6 +11098,7 @@ readers do not read off random characters that represent icons */
 .fi-ao {
   background-image: url(flags/4x3/ao.svg);
 }
+
 .fi-ao.fis {
   background-image: url(flags/1x1/ao.svg);
 }
@@ -10952,6 +11106,7 @@ readers do not read off random characters that represent icons */
 .fi-aq {
   background-image: url(flags/4x3/aq.svg);
 }
+
 .fi-aq.fis {
   background-image: url(flags/1x1/aq.svg);
 }
@@ -10959,6 +11114,7 @@ readers do not read off random characters that represent icons */
 .fi-ar {
   background-image: url(flags/4x3/ar.svg);
 }
+
 .fi-ar.fis {
   background-image: url(flags/1x1/ar.svg);
 }
@@ -10966,6 +11122,7 @@ readers do not read off random characters that represent icons */
 .fi-as {
   background-image: url(flags/4x3/as.svg);
 }
+
 .fi-as.fis {
   background-image: url(flags/1x1/as.svg);
 }
@@ -10973,6 +11130,7 @@ readers do not read off random characters that represent icons */
 .fi-at {
   background-image: url(flags/4x3/at.svg);
 }
+
 .fi-at.fis {
   background-image: url(flags/1x1/at.svg);
 }
@@ -10980,6 +11138,7 @@ readers do not read off random characters that represent icons */
 .fi-au {
   background-image: url(flags/4x3/au.svg);
 }
+
 .fi-au.fis {
   background-image: url(flags/1x1/au.svg);
 }
@@ -10987,6 +11146,7 @@ readers do not read off random characters that represent icons */
 .fi-aw {
   background-image: url(flags/4x3/aw.svg);
 }
+
 .fi-aw.fis {
   background-image: url(flags/1x1/aw.svg);
 }
@@ -10994,6 +11154,7 @@ readers do not read off random characters that represent icons */
 .fi-ax {
   background-image: url(flags/4x3/ax.svg);
 }
+
 .fi-ax.fis {
   background-image: url(flags/1x1/ax.svg);
 }
@@ -11001,6 +11162,7 @@ readers do not read off random characters that represent icons */
 .fi-az {
   background-image: url(flags/4x3/az.svg);
 }
+
 .fi-az.fis {
   background-image: url(flags/1x1/az.svg);
 }
@@ -11008,6 +11170,7 @@ readers do not read off random characters that represent icons */
 .fi-ba {
   background-image: url(flags/4x3/ba.svg);
 }
+
 .fi-ba.fis {
   background-image: url(flags/1x1/ba.svg);
 }
@@ -11015,6 +11178,7 @@ readers do not read off random characters that represent icons */
 .fi-bb {
   background-image: url(flags/4x3/bb.svg);
 }
+
 .fi-bb.fis {
   background-image: url(flags/1x1/bb.svg);
 }
@@ -11022,6 +11186,7 @@ readers do not read off random characters that represent icons */
 .fi-bd {
   background-image: url(flags/4x3/bd.svg);
 }
+
 .fi-bd.fis {
   background-image: url(flags/1x1/bd.svg);
 }
@@ -11029,6 +11194,7 @@ readers do not read off random characters that represent icons */
 .fi-be {
   background-image: url(flags/4x3/be.svg);
 }
+
 .fi-be.fis {
   background-image: url(flags/1x1/be.svg);
 }
@@ -11036,6 +11202,7 @@ readers do not read off random characters that represent icons */
 .fi-bf {
   background-image: url(flags/4x3/bf.svg);
 }
+
 .fi-bf.fis {
   background-image: url(flags/1x1/bf.svg);
 }
@@ -11043,6 +11210,7 @@ readers do not read off random characters that represent icons */
 .fi-bg {
   background-image: url(flags/4x3/bg.svg);
 }
+
 .fi-bg.fis {
   background-image: url(flags/1x1/bg.svg);
 }
@@ -11050,6 +11218,7 @@ readers do not read off random characters that represent icons */
 .fi-bh {
   background-image: url(flags/4x3/bh.svg);
 }
+
 .fi-bh.fis {
   background-image: url(flags/1x1/bh.svg);
 }
@@ -11057,6 +11226,7 @@ readers do not read off random characters that represent icons */
 .fi-bi {
   background-image: url(flags/4x3/bi.svg);
 }
+
 .fi-bi.fis {
   background-image: url(flags/1x1/bi.svg);
 }
@@ -11064,6 +11234,7 @@ readers do not read off random characters that represent icons */
 .fi-bj {
   background-image: url(flags/4x3/bj.svg);
 }
+
 .fi-bj.fis {
   background-image: url(flags/1x1/bj.svg);
 }
@@ -11071,6 +11242,7 @@ readers do not read off random characters that represent icons */
 .fi-bl {
   background-image: url(flags/4x3/bl.svg);
 }
+
 .fi-bl.fis {
   background-image: url(flags/1x1/bl.svg);
 }
@@ -11078,6 +11250,7 @@ readers do not read off random characters that represent icons */
 .fi-bm {
   background-image: url(flags/4x3/bm.svg);
 }
+
 .fi-bm.fis {
   background-image: url(flags/1x1/bm.svg);
 }
@@ -11085,6 +11258,7 @@ readers do not read off random characters that represent icons */
 .fi-bn {
   background-image: url(flags/4x3/bn.svg);
 }
+
 .fi-bn.fis {
   background-image: url(flags/1x1/bn.svg);
 }
@@ -11092,6 +11266,7 @@ readers do not read off random characters that represent icons */
 .fi-bo {
   background-image: url(flags/4x3/bo.svg);
 }
+
 .fi-bo.fis {
   background-image: url(flags/1x1/bo.svg);
 }
@@ -11099,6 +11274,7 @@ readers do not read off random characters that represent icons */
 .fi-bq {
   background-image: url(flags/4x3/bq.svg);
 }
+
 .fi-bq.fis {
   background-image: url(flags/1x1/bq.svg);
 }
@@ -11106,6 +11282,7 @@ readers do not read off random characters that represent icons */
 .fi-br {
   background-image: url(flags/4x3/br.svg);
 }
+
 .fi-br.fis {
   background-image: url(flags/1x1/br.svg);
 }
@@ -11113,6 +11290,7 @@ readers do not read off random characters that represent icons */
 .fi-bs {
   background-image: url(flags/4x3/bs.svg);
 }
+
 .fi-bs.fis {
   background-image: url(flags/1x1/bs.svg);
 }
@@ -11120,6 +11298,7 @@ readers do not read off random characters that represent icons */
 .fi-bt {
   background-image: url(flags/4x3/bt.svg);
 }
+
 .fi-bt.fis {
   background-image: url(flags/1x1/bt.svg);
 }
@@ -11127,6 +11306,7 @@ readers do not read off random characters that represent icons */
 .fi-bv {
   background-image: url(flags/4x3/bv.svg);
 }
+
 .fi-bv.fis {
   background-image: url(flags/1x1/bv.svg);
 }
@@ -11134,6 +11314,7 @@ readers do not read off random characters that represent icons */
 .fi-bw {
   background-image: url(flags/4x3/bw.svg);
 }
+
 .fi-bw.fis {
   background-image: url(flags/1x1/bw.svg);
 }
@@ -11141,6 +11322,7 @@ readers do not read off random characters that represent icons */
 .fi-by {
   background-image: url(flags/4x3/by.svg);
 }
+
 .fi-by.fis {
   background-image: url(flags/1x1/by.svg);
 }
@@ -11148,6 +11330,7 @@ readers do not read off random characters that represent icons */
 .fi-bz {
   background-image: url(flags/4x3/bz.svg);
 }
+
 .fi-bz.fis {
   background-image: url(flags/1x1/bz.svg);
 }
@@ -11155,6 +11338,7 @@ readers do not read off random characters that represent icons */
 .fi-ca {
   background-image: url(flags/4x3/ca.svg);
 }
+
 .fi-ca.fis {
   background-image: url(flags/1x1/ca.svg);
 }
@@ -11162,6 +11346,7 @@ readers do not read off random characters that represent icons */
 .fi-cc {
   background-image: url(flags/4x3/cc.svg);
 }
+
 .fi-cc.fis {
   background-image: url(flags/1x1/cc.svg);
 }
@@ -11169,6 +11354,7 @@ readers do not read off random characters that represent icons */
 .fi-cd {
   background-image: url(flags/4x3/cd.svg);
 }
+
 .fi-cd.fis {
   background-image: url(flags/1x1/cd.svg);
 }
@@ -11176,6 +11362,7 @@ readers do not read off random characters that represent icons */
 .fi-cf {
   background-image: url(flags/4x3/cf.svg);
 }
+
 .fi-cf.fis {
   background-image: url(flags/1x1/cf.svg);
 }
@@ -11183,6 +11370,7 @@ readers do not read off random characters that represent icons */
 .fi-cg {
   background-image: url(flags/4x3/cg.svg);
 }
+
 .fi-cg.fis {
   background-image: url(flags/1x1/cg.svg);
 }
@@ -11190,6 +11378,7 @@ readers do not read off random characters that represent icons */
 .fi-ch {
   background-image: url(flags/4x3/ch.svg);
 }
+
 .fi-ch.fis {
   background-image: url(flags/1x1/ch.svg);
 }
@@ -11197,6 +11386,7 @@ readers do not read off random characters that represent icons */
 .fi-ci {
   background-image: url(flags/4x3/ci.svg);
 }
+
 .fi-ci.fis {
   background-image: url(flags/1x1/ci.svg);
 }
@@ -11204,6 +11394,7 @@ readers do not read off random characters that represent icons */
 .fi-ck {
   background-image: url(flags/4x3/ck.svg);
 }
+
 .fi-ck.fis {
   background-image: url(flags/1x1/ck.svg);
 }
@@ -11211,6 +11402,7 @@ readers do not read off random characters that represent icons */
 .fi-cl {
   background-image: url(flags/4x3/cl.svg);
 }
+
 .fi-cl.fis {
   background-image: url(flags/1x1/cl.svg);
 }
@@ -11218,6 +11410,7 @@ readers do not read off random characters that represent icons */
 .fi-cm {
   background-image: url(flags/4x3/cm.svg);
 }
+
 .fi-cm.fis {
   background-image: url(flags/1x1/cm.svg);
 }
@@ -11225,6 +11418,7 @@ readers do not read off random characters that represent icons */
 .fi-cn {
   background-image: url(flags/4x3/cn.svg);
 }
+
 .fi-cn.fis {
   background-image: url(flags/1x1/cn.svg);
 }
@@ -11232,6 +11426,7 @@ readers do not read off random characters that represent icons */
 .fi-co {
   background-image: url(flags/4x3/co.svg);
 }
+
 .fi-co.fis {
   background-image: url(flags/1x1/co.svg);
 }
@@ -11239,6 +11434,7 @@ readers do not read off random characters that represent icons */
 .fi-cr {
   background-image: url(flags/4x3/cr.svg);
 }
+
 .fi-cr.fis {
   background-image: url(flags/1x1/cr.svg);
 }
@@ -11246,6 +11442,7 @@ readers do not read off random characters that represent icons */
 .fi-cu {
   background-image: url(flags/4x3/cu.svg);
 }
+
 .fi-cu.fis {
   background-image: url(flags/1x1/cu.svg);
 }
@@ -11253,6 +11450,7 @@ readers do not read off random characters that represent icons */
 .fi-cv {
   background-image: url(flags/4x3/cv.svg);
 }
+
 .fi-cv.fis {
   background-image: url(flags/1x1/cv.svg);
 }
@@ -11260,6 +11458,7 @@ readers do not read off random characters that represent icons */
 .fi-cw {
   background-image: url(flags/4x3/cw.svg);
 }
+
 .fi-cw.fis {
   background-image: url(flags/1x1/cw.svg);
 }
@@ -11267,6 +11466,7 @@ readers do not read off random characters that represent icons */
 .fi-cx {
   background-image: url(flags/4x3/cx.svg);
 }
+
 .fi-cx.fis {
   background-image: url(flags/1x1/cx.svg);
 }
@@ -11274,6 +11474,7 @@ readers do not read off random characters that represent icons */
 .fi-cy {
   background-image: url(flags/4x3/cy.svg);
 }
+
 .fi-cy.fis {
   background-image: url(flags/1x1/cy.svg);
 }
@@ -11281,6 +11482,7 @@ readers do not read off random characters that represent icons */
 .fi-cz {
   background-image: url(flags/4x3/cz.svg);
 }
+
 .fi-cz.fis {
   background-image: url(flags/1x1/cz.svg);
 }
@@ -11288,6 +11490,7 @@ readers do not read off random characters that represent icons */
 .fi-de {
   background-image: url(flags/4x3/de.svg);
 }
+
 .fi-de.fis {
   background-image: url(flags/1x1/de.svg);
 }
@@ -11295,6 +11498,7 @@ readers do not read off random characters that represent icons */
 .fi-dj {
   background-image: url(flags/4x3/dj.svg);
 }
+
 .fi-dj.fis {
   background-image: url(flags/1x1/dj.svg);
 }
@@ -11302,6 +11506,7 @@ readers do not read off random characters that represent icons */
 .fi-dk {
   background-image: url(flags/4x3/dk.svg);
 }
+
 .fi-dk.fis {
   background-image: url(flags/1x1/dk.svg);
 }
@@ -11309,6 +11514,7 @@ readers do not read off random characters that represent icons */
 .fi-dm {
   background-image: url(flags/4x3/dm.svg);
 }
+
 .fi-dm.fis {
   background-image: url(flags/1x1/dm.svg);
 }
@@ -11316,6 +11522,7 @@ readers do not read off random characters that represent icons */
 .fi-do {
   background-image: url(flags/4x3/do.svg);
 }
+
 .fi-do.fis {
   background-image: url(flags/1x1/do.svg);
 }
@@ -11323,6 +11530,7 @@ readers do not read off random characters that represent icons */
 .fi-dz {
   background-image: url(flags/4x3/dz.svg);
 }
+
 .fi-dz.fis {
   background-image: url(flags/1x1/dz.svg);
 }
@@ -11330,6 +11538,7 @@ readers do not read off random characters that represent icons */
 .fi-ec {
   background-image: url(flags/4x3/ec.svg);
 }
+
 .fi-ec.fis {
   background-image: url(flags/1x1/ec.svg);
 }
@@ -11337,6 +11546,7 @@ readers do not read off random characters that represent icons */
 .fi-ee {
   background-image: url(flags/4x3/ee.svg);
 }
+
 .fi-ee.fis {
   background-image: url(flags/1x1/ee.svg);
 }
@@ -11344,6 +11554,7 @@ readers do not read off random characters that represent icons */
 .fi-eg {
   background-image: url(flags/4x3/eg.svg);
 }
+
 .fi-eg.fis {
   background-image: url(flags/1x1/eg.svg);
 }
@@ -11351,6 +11562,7 @@ readers do not read off random characters that represent icons */
 .fi-eh {
   background-image: url(flags/4x3/eh.svg);
 }
+
 .fi-eh.fis {
   background-image: url(flags/1x1/eh.svg);
 }
@@ -11358,6 +11570,7 @@ readers do not read off random characters that represent icons */
 .fi-er {
   background-image: url(flags/4x3/er.svg);
 }
+
 .fi-er.fis {
   background-image: url(flags/1x1/er.svg);
 }
@@ -11365,6 +11578,7 @@ readers do not read off random characters that represent icons */
 .fi-es {
   background-image: url(flags/4x3/es.svg);
 }
+
 .fi-es.fis {
   background-image: url(flags/1x1/es.svg);
 }
@@ -11372,6 +11586,7 @@ readers do not read off random characters that represent icons */
 .fi-et {
   background-image: url(flags/4x3/et.svg);
 }
+
 .fi-et.fis {
   background-image: url(flags/1x1/et.svg);
 }
@@ -11379,6 +11594,7 @@ readers do not read off random characters that represent icons */
 .fi-fi {
   background-image: url(flags/4x3/fi.svg);
 }
+
 .fi-fi.fis {
   background-image: url(flags/1x1/fi.svg);
 }
@@ -11386,6 +11602,7 @@ readers do not read off random characters that represent icons */
 .fi-fj {
   background-image: url(flags/4x3/fj.svg);
 }
+
 .fi-fj.fis {
   background-image: url(flags/1x1/fj.svg);
 }
@@ -11393,6 +11610,7 @@ readers do not read off random characters that represent icons */
 .fi-fk {
   background-image: url(flags/4x3/fk.svg);
 }
+
 .fi-fk.fis {
   background-image: url(flags/1x1/fk.svg);
 }
@@ -11400,6 +11618,7 @@ readers do not read off random characters that represent icons */
 .fi-fm {
   background-image: url(flags/4x3/fm.svg);
 }
+
 .fi-fm.fis {
   background-image: url(flags/1x1/fm.svg);
 }
@@ -11407,6 +11626,7 @@ readers do not read off random characters that represent icons */
 .fi-fo {
   background-image: url(flags/4x3/fo.svg);
 }
+
 .fi-fo.fis {
   background-image: url(flags/1x1/fo.svg);
 }
@@ -11414,6 +11634,7 @@ readers do not read off random characters that represent icons */
 .fi-fr {
   background-image: url(flags/4x3/fr.svg);
 }
+
 .fi-fr.fis {
   background-image: url(flags/1x1/fr.svg);
 }
@@ -11421,6 +11642,7 @@ readers do not read off random characters that represent icons */
 .fi-ga {
   background-image: url(flags/4x3/ga.svg);
 }
+
 .fi-ga.fis {
   background-image: url(flags/1x1/ga.svg);
 }
@@ -11428,6 +11650,7 @@ readers do not read off random characters that represent icons */
 .fi-gb {
   background-image: url(flags/4x3/gb.svg);
 }
+
 .fi-gb.fis {
   background-image: url(flags/1x1/gb.svg);
 }
@@ -11435,6 +11658,7 @@ readers do not read off random characters that represent icons */
 .fi-gd {
   background-image: url(flags/4x3/gd.svg);
 }
+
 .fi-gd.fis {
   background-image: url(flags/1x1/gd.svg);
 }
@@ -11442,6 +11666,7 @@ readers do not read off random characters that represent icons */
 .fi-ge {
   background-image: url(flags/4x3/ge.svg);
 }
+
 .fi-ge.fis {
   background-image: url(flags/1x1/ge.svg);
 }
@@ -11449,6 +11674,7 @@ readers do not read off random characters that represent icons */
 .fi-gf {
   background-image: url(flags/4x3/gf.svg);
 }
+
 .fi-gf.fis {
   background-image: url(flags/1x1/gf.svg);
 }
@@ -11456,6 +11682,7 @@ readers do not read off random characters that represent icons */
 .fi-gg {
   background-image: url(flags/4x3/gg.svg);
 }
+
 .fi-gg.fis {
   background-image: url(flags/1x1/gg.svg);
 }
@@ -11463,6 +11690,7 @@ readers do not read off random characters that represent icons */
 .fi-gh {
   background-image: url(flags/4x3/gh.svg);
 }
+
 .fi-gh.fis {
   background-image: url(flags/1x1/gh.svg);
 }
@@ -11470,6 +11698,7 @@ readers do not read off random characters that represent icons */
 .fi-gi {
   background-image: url(flags/4x3/gi.svg);
 }
+
 .fi-gi.fis {
   background-image: url(flags/1x1/gi.svg);
 }
@@ -11477,6 +11706,7 @@ readers do not read off random characters that represent icons */
 .fi-gl {
   background-image: url(flags/4x3/gl.svg);
 }
+
 .fi-gl.fis {
   background-image: url(flags/1x1/gl.svg);
 }
@@ -11484,6 +11714,7 @@ readers do not read off random characters that represent icons */
 .fi-gm {
   background-image: url(flags/4x3/gm.svg);
 }
+
 .fi-gm.fis {
   background-image: url(flags/1x1/gm.svg);
 }
@@ -11491,6 +11722,7 @@ readers do not read off random characters that represent icons */
 .fi-gn {
   background-image: url(flags/4x3/gn.svg);
 }
+
 .fi-gn.fis {
   background-image: url(flags/1x1/gn.svg);
 }
@@ -11498,6 +11730,7 @@ readers do not read off random characters that represent icons */
 .fi-gp {
   background-image: url(flags/4x3/gp.svg);
 }
+
 .fi-gp.fis {
   background-image: url(flags/1x1/gp.svg);
 }
@@ -11505,6 +11738,7 @@ readers do not read off random characters that represent icons */
 .fi-gq {
   background-image: url(flags/4x3/gq.svg);
 }
+
 .fi-gq.fis {
   background-image: url(flags/1x1/gq.svg);
 }
@@ -11512,6 +11746,7 @@ readers do not read off random characters that represent icons */
 .fi-gr {
   background-image: url(flags/4x3/gr.svg);
 }
+
 .fi-gr.fis {
   background-image: url(flags/1x1/gr.svg);
 }
@@ -11519,6 +11754,7 @@ readers do not read off random characters that represent icons */
 .fi-gs {
   background-image: url(flags/4x3/gs.svg);
 }
+
 .fi-gs.fis {
   background-image: url(flags/1x1/gs.svg);
 }
@@ -11526,6 +11762,7 @@ readers do not read off random characters that represent icons */
 .fi-gt {
   background-image: url(flags/4x3/gt.svg);
 }
+
 .fi-gt.fis {
   background-image: url(flags/1x1/gt.svg);
 }
@@ -11533,6 +11770,7 @@ readers do not read off random characters that represent icons */
 .fi-gu {
   background-image: url(flags/4x3/gu.svg);
 }
+
 .fi-gu.fis {
   background-image: url(flags/1x1/gu.svg);
 }
@@ -11540,6 +11778,7 @@ readers do not read off random characters that represent icons */
 .fi-gw {
   background-image: url(flags/4x3/gw.svg);
 }
+
 .fi-gw.fis {
   background-image: url(flags/1x1/gw.svg);
 }
@@ -11547,6 +11786,7 @@ readers do not read off random characters that represent icons */
 .fi-gy {
   background-image: url(flags/4x3/gy.svg);
 }
+
 .fi-gy.fis {
   background-image: url(flags/1x1/gy.svg);
 }
@@ -11554,6 +11794,7 @@ readers do not read off random characters that represent icons */
 .fi-hk {
   background-image: url(flags/4x3/hk.svg);
 }
+
 .fi-hk.fis {
   background-image: url(flags/1x1/hk.svg);
 }
@@ -11561,6 +11802,7 @@ readers do not read off random characters that represent icons */
 .fi-hm {
   background-image: url(flags/4x3/hm.svg);
 }
+
 .fi-hm.fis {
   background-image: url(flags/1x1/hm.svg);
 }
@@ -11568,6 +11810,7 @@ readers do not read off random characters that represent icons */
 .fi-hn {
   background-image: url(flags/4x3/hn.svg);
 }
+
 .fi-hn.fis {
   background-image: url(flags/1x1/hn.svg);
 }
@@ -11575,6 +11818,7 @@ readers do not read off random characters that represent icons */
 .fi-hr {
   background-image: url(flags/4x3/hr.svg);
 }
+
 .fi-hr.fis {
   background-image: url(flags/1x1/hr.svg);
 }
@@ -11582,6 +11826,7 @@ readers do not read off random characters that represent icons */
 .fi-ht {
   background-image: url(flags/4x3/ht.svg);
 }
+
 .fi-ht.fis {
   background-image: url(flags/1x1/ht.svg);
 }
@@ -11589,6 +11834,7 @@ readers do not read off random characters that represent icons */
 .fi-hu {
   background-image: url(flags/4x3/hu.svg);
 }
+
 .fi-hu.fis {
   background-image: url(flags/1x1/hu.svg);
 }
@@ -11596,6 +11842,7 @@ readers do not read off random characters that represent icons */
 .fi-id {
   background-image: url(flags/4x3/id.svg);
 }
+
 .fi-id.fis {
   background-image: url(flags/1x1/id.svg);
 }
@@ -11603,6 +11850,7 @@ readers do not read off random characters that represent icons */
 .fi-ie {
   background-image: url(flags/4x3/ie.svg);
 }
+
 .fi-ie.fis {
   background-image: url(flags/1x1/ie.svg);
 }
@@ -11610,6 +11858,7 @@ readers do not read off random characters that represent icons */
 .fi-il {
   background-image: url(flags/4x3/il.svg);
 }
+
 .fi-il.fis {
   background-image: url(flags/1x1/il.svg);
 }
@@ -11617,6 +11866,7 @@ readers do not read off random characters that represent icons */
 .fi-im {
   background-image: url(flags/4x3/im.svg);
 }
+
 .fi-im.fis {
   background-image: url(flags/1x1/im.svg);
 }
@@ -11624,6 +11874,7 @@ readers do not read off random characters that represent icons */
 .fi-in {
   background-image: url(flags/4x3/in.svg);
 }
+
 .fi-in.fis {
   background-image: url(flags/1x1/in.svg);
 }
@@ -11631,6 +11882,7 @@ readers do not read off random characters that represent icons */
 .fi-io {
   background-image: url(flags/4x3/io.svg);
 }
+
 .fi-io.fis {
   background-image: url(flags/1x1/io.svg);
 }
@@ -11638,6 +11890,7 @@ readers do not read off random characters that represent icons */
 .fi-iq {
   background-image: url(flags/4x3/iq.svg);
 }
+
 .fi-iq.fis {
   background-image: url(flags/1x1/iq.svg);
 }
@@ -11645,6 +11898,7 @@ readers do not read off random characters that represent icons */
 .fi-ir {
   background-image: url(flags/4x3/ir.svg);
 }
+
 .fi-ir.fis {
   background-image: url(flags/1x1/ir.svg);
 }
@@ -11652,6 +11906,7 @@ readers do not read off random characters that represent icons */
 .fi-is {
   background-image: url(flags/4x3/is.svg);
 }
+
 .fi-is.fis {
   background-image: url(flags/1x1/is.svg);
 }
@@ -11659,6 +11914,7 @@ readers do not read off random characters that represent icons */
 .fi-it {
   background-image: url(flags/4x3/it.svg);
 }
+
 .fi-it.fis {
   background-image: url(flags/1x1/it.svg);
 }
@@ -11666,6 +11922,7 @@ readers do not read off random characters that represent icons */
 .fi-je {
   background-image: url(flags/4x3/je.svg);
 }
+
 .fi-je.fis {
   background-image: url(flags/1x1/je.svg);
 }
@@ -11673,6 +11930,7 @@ readers do not read off random characters that represent icons */
 .fi-jm {
   background-image: url(flags/4x3/jm.svg);
 }
+
 .fi-jm.fis {
   background-image: url(flags/1x1/jm.svg);
 }
@@ -11680,6 +11938,7 @@ readers do not read off random characters that represent icons */
 .fi-jo {
   background-image: url(flags/4x3/jo.svg);
 }
+
 .fi-jo.fis {
   background-image: url(flags/1x1/jo.svg);
 }
@@ -11687,6 +11946,7 @@ readers do not read off random characters that represent icons */
 .fi-jp {
   background-image: url(flags/4x3/jp.svg);
 }
+
 .fi-jp.fis {
   background-image: url(flags/1x1/jp.svg);
 }
@@ -11694,6 +11954,7 @@ readers do not read off random characters that represent icons */
 .fi-ke {
   background-image: url(flags/4x3/ke.svg);
 }
+
 .fi-ke.fis {
   background-image: url(flags/1x1/ke.svg);
 }
@@ -11701,6 +11962,7 @@ readers do not read off random characters that represent icons */
 .fi-kg {
   background-image: url(flags/4x3/kg.svg);
 }
+
 .fi-kg.fis {
   background-image: url(flags/1x1/kg.svg);
 }
@@ -11708,6 +11970,7 @@ readers do not read off random characters that represent icons */
 .fi-kh {
   background-image: url(flags/4x3/kh.svg);
 }
+
 .fi-kh.fis {
   background-image: url(flags/1x1/kh.svg);
 }
@@ -11715,6 +11978,7 @@ readers do not read off random characters that represent icons */
 .fi-ki {
   background-image: url(flags/4x3/ki.svg);
 }
+
 .fi-ki.fis {
   background-image: url(flags/1x1/ki.svg);
 }
@@ -11722,6 +11986,7 @@ readers do not read off random characters that represent icons */
 .fi-km {
   background-image: url(flags/4x3/km.svg);
 }
+
 .fi-km.fis {
   background-image: url(flags/1x1/km.svg);
 }
@@ -11729,6 +11994,7 @@ readers do not read off random characters that represent icons */
 .fi-kn {
   background-image: url(flags/4x3/kn.svg);
 }
+
 .fi-kn.fis {
   background-image: url(flags/1x1/kn.svg);
 }
@@ -11736,6 +12002,7 @@ readers do not read off random characters that represent icons */
 .fi-kp {
   background-image: url(flags/4x3/kp.svg);
 }
+
 .fi-kp.fis {
   background-image: url(flags/1x1/kp.svg);
 }
@@ -11743,6 +12010,7 @@ readers do not read off random characters that represent icons */
 .fi-kr {
   background-image: url(flags/4x3/kr.svg);
 }
+
 .fi-kr.fis {
   background-image: url(flags/1x1/kr.svg);
 }
@@ -11750,6 +12018,7 @@ readers do not read off random characters that represent icons */
 .fi-kw {
   background-image: url(flags/4x3/kw.svg);
 }
+
 .fi-kw.fis {
   background-image: url(flags/1x1/kw.svg);
 }
@@ -11757,6 +12026,7 @@ readers do not read off random characters that represent icons */
 .fi-ky {
   background-image: url(flags/4x3/ky.svg);
 }
+
 .fi-ky.fis {
   background-image: url(flags/1x1/ky.svg);
 }
@@ -11764,6 +12034,7 @@ readers do not read off random characters that represent icons */
 .fi-kz {
   background-image: url(flags/4x3/kz.svg);
 }
+
 .fi-kz.fis {
   background-image: url(flags/1x1/kz.svg);
 }
@@ -11771,6 +12042,7 @@ readers do not read off random characters that represent icons */
 .fi-la {
   background-image: url(flags/4x3/la.svg);
 }
+
 .fi-la.fis {
   background-image: url(flags/1x1/la.svg);
 }
@@ -11778,6 +12050,7 @@ readers do not read off random characters that represent icons */
 .fi-lb {
   background-image: url(flags/4x3/lb.svg);
 }
+
 .fi-lb.fis {
   background-image: url(flags/1x1/lb.svg);
 }
@@ -11785,6 +12058,7 @@ readers do not read off random characters that represent icons */
 .fi-lc {
   background-image: url(flags/4x3/lc.svg);
 }
+
 .fi-lc.fis {
   background-image: url(flags/1x1/lc.svg);
 }
@@ -11792,6 +12066,7 @@ readers do not read off random characters that represent icons */
 .fi-li {
   background-image: url(flags/4x3/li.svg);
 }
+
 .fi-li.fis {
   background-image: url(flags/1x1/li.svg);
 }
@@ -11799,6 +12074,7 @@ readers do not read off random characters that represent icons */
 .fi-lk {
   background-image: url(flags/4x3/lk.svg);
 }
+
 .fi-lk.fis {
   background-image: url(flags/1x1/lk.svg);
 }
@@ -11806,6 +12082,7 @@ readers do not read off random characters that represent icons */
 .fi-lr {
   background-image: url(flags/4x3/lr.svg);
 }
+
 .fi-lr.fis {
   background-image: url(flags/1x1/lr.svg);
 }
@@ -11813,6 +12090,7 @@ readers do not read off random characters that represent icons */
 .fi-ls {
   background-image: url(flags/4x3/ls.svg);
 }
+
 .fi-ls.fis {
   background-image: url(flags/1x1/ls.svg);
 }
@@ -11820,6 +12098,7 @@ readers do not read off random characters that represent icons */
 .fi-lt {
   background-image: url(flags/4x3/lt.svg);
 }
+
 .fi-lt.fis {
   background-image: url(flags/1x1/lt.svg);
 }
@@ -11827,6 +12106,7 @@ readers do not read off random characters that represent icons */
 .fi-lu {
   background-image: url(flags/4x3/lu.svg);
 }
+
 .fi-lu.fis {
   background-image: url(flags/1x1/lu.svg);
 }
@@ -11834,6 +12114,7 @@ readers do not read off random characters that represent icons */
 .fi-lv {
   background-image: url(flags/4x3/lv.svg);
 }
+
 .fi-lv.fis {
   background-image: url(flags/1x1/lv.svg);
 }
@@ -11841,6 +12122,7 @@ readers do not read off random characters that represent icons */
 .fi-ly {
   background-image: url(flags/4x3/ly.svg);
 }
+
 .fi-ly.fis {
   background-image: url(flags/1x1/ly.svg);
 }
@@ -11848,6 +12130,7 @@ readers do not read off random characters that represent icons */
 .fi-ma {
   background-image: url(flags/4x3/ma.svg);
 }
+
 .fi-ma.fis {
   background-image: url(flags/1x1/ma.svg);
 }
@@ -11855,6 +12138,7 @@ readers do not read off random characters that represent icons */
 .fi-mc {
   background-image: url(flags/4x3/mc.svg);
 }
+
 .fi-mc.fis {
   background-image: url(flags/1x1/mc.svg);
 }
@@ -11862,6 +12146,7 @@ readers do not read off random characters that represent icons */
 .fi-md {
   background-image: url(flags/4x3/md.svg);
 }
+
 .fi-md.fis {
   background-image: url(flags/1x1/md.svg);
 }
@@ -11869,6 +12154,7 @@ readers do not read off random characters that represent icons */
 .fi-me {
   background-image: url(flags/4x3/me.svg);
 }
+
 .fi-me.fis {
   background-image: url(flags/1x1/me.svg);
 }
@@ -11876,6 +12162,7 @@ readers do not read off random characters that represent icons */
 .fi-mf {
   background-image: url(flags/4x3/mf.svg);
 }
+
 .fi-mf.fis {
   background-image: url(flags/1x1/mf.svg);
 }
@@ -11883,6 +12170,7 @@ readers do not read off random characters that represent icons */
 .fi-mg {
   background-image: url(flags/4x3/mg.svg);
 }
+
 .fi-mg.fis {
   background-image: url(flags/1x1/mg.svg);
 }
@@ -11890,6 +12178,7 @@ readers do not read off random characters that represent icons */
 .fi-mh {
   background-image: url(flags/4x3/mh.svg);
 }
+
 .fi-mh.fis {
   background-image: url(flags/1x1/mh.svg);
 }
@@ -11897,6 +12186,7 @@ readers do not read off random characters that represent icons */
 .fi-mk {
   background-image: url(flags/4x3/mk.svg);
 }
+
 .fi-mk.fis {
   background-image: url(flags/1x1/mk.svg);
 }
@@ -11904,6 +12194,7 @@ readers do not read off random characters that represent icons */
 .fi-ml {
   background-image: url(flags/4x3/ml.svg);
 }
+
 .fi-ml.fis {
   background-image: url(flags/1x1/ml.svg);
 }
@@ -11911,6 +12202,7 @@ readers do not read off random characters that represent icons */
 .fi-mm {
   background-image: url(flags/4x3/mm.svg);
 }
+
 .fi-mm.fis {
   background-image: url(flags/1x1/mm.svg);
 }
@@ -11918,6 +12210,7 @@ readers do not read off random characters that represent icons */
 .fi-mn {
   background-image: url(flags/4x3/mn.svg);
 }
+
 .fi-mn.fis {
   background-image: url(flags/1x1/mn.svg);
 }
@@ -11925,6 +12218,7 @@ readers do not read off random characters that represent icons */
 .fi-mo {
   background-image: url(flags/4x3/mo.svg);
 }
+
 .fi-mo.fis {
   background-image: url(flags/1x1/mo.svg);
 }
@@ -11932,6 +12226,7 @@ readers do not read off random characters that represent icons */
 .fi-mp {
   background-image: url(flags/4x3/mp.svg);
 }
+
 .fi-mp.fis {
   background-image: url(flags/1x1/mp.svg);
 }
@@ -11939,6 +12234,7 @@ readers do not read off random characters that represent icons */
 .fi-mq {
   background-image: url(flags/4x3/mq.svg);
 }
+
 .fi-mq.fis {
   background-image: url(flags/1x1/mq.svg);
 }
@@ -11946,6 +12242,7 @@ readers do not read off random characters that represent icons */
 .fi-mr {
   background-image: url(flags/4x3/mr.svg);
 }
+
 .fi-mr.fis {
   background-image: url(flags/1x1/mr.svg);
 }
@@ -11953,6 +12250,7 @@ readers do not read off random characters that represent icons */
 .fi-ms {
   background-image: url(flags/4x3/ms.svg);
 }
+
 .fi-ms.fis {
   background-image: url(flags/1x1/ms.svg);
 }
@@ -11960,6 +12258,7 @@ readers do not read off random characters that represent icons */
 .fi-mt {
   background-image: url(flags/4x3/mt.svg);
 }
+
 .fi-mt.fis {
   background-image: url(flags/1x1/mt.svg);
 }
@@ -11967,6 +12266,7 @@ readers do not read off random characters that represent icons */
 .fi-mu {
   background-image: url(flags/4x3/mu.svg);
 }
+
 .fi-mu.fis {
   background-image: url(flags/1x1/mu.svg);
 }
@@ -11974,6 +12274,7 @@ readers do not read off random characters that represent icons */
 .fi-mv {
   background-image: url(flags/4x3/mv.svg);
 }
+
 .fi-mv.fis {
   background-image: url(flags/1x1/mv.svg);
 }
@@ -11981,6 +12282,7 @@ readers do not read off random characters that represent icons */
 .fi-mw {
   background-image: url(flags/4x3/mw.svg);
 }
+
 .fi-mw.fis {
   background-image: url(flags/1x1/mw.svg);
 }
@@ -11988,6 +12290,7 @@ readers do not read off random characters that represent icons */
 .fi-mx {
   background-image: url(flags/4x3/mx.svg);
 }
+
 .fi-mx.fis {
   background-image: url(flags/1x1/mx.svg);
 }
@@ -11995,6 +12298,7 @@ readers do not read off random characters that represent icons */
 .fi-my {
   background-image: url(flags/4x3/my.svg);
 }
+
 .fi-my.fis {
   background-image: url(flags/1x1/my.svg);
 }
@@ -12002,6 +12306,7 @@ readers do not read off random characters that represent icons */
 .fi-mz {
   background-image: url(flags/4x3/mz.svg);
 }
+
 .fi-mz.fis {
   background-image: url(flags/1x1/mz.svg);
 }
@@ -12009,6 +12314,7 @@ readers do not read off random characters that represent icons */
 .fi-na {
   background-image: url(flags/4x3/na.svg);
 }
+
 .fi-na.fis {
   background-image: url(flags/1x1/na.svg);
 }
@@ -12016,6 +12322,7 @@ readers do not read off random characters that represent icons */
 .fi-nc {
   background-image: url(flags/4x3/nc.svg);
 }
+
 .fi-nc.fis {
   background-image: url(flags/1x1/nc.svg);
 }
@@ -12023,6 +12330,7 @@ readers do not read off random characters that represent icons */
 .fi-ne {
   background-image: url(flags/4x3/ne.svg);
 }
+
 .fi-ne.fis {
   background-image: url(flags/1x1/ne.svg);
 }
@@ -12030,6 +12338,7 @@ readers do not read off random characters that represent icons */
 .fi-nf {
   background-image: url(flags/4x3/nf.svg);
 }
+
 .fi-nf.fis {
   background-image: url(flags/1x1/nf.svg);
 }
@@ -12037,6 +12346,7 @@ readers do not read off random characters that represent icons */
 .fi-ng {
   background-image: url(flags/4x3/ng.svg);
 }
+
 .fi-ng.fis {
   background-image: url(flags/1x1/ng.svg);
 }
@@ -12044,6 +12354,7 @@ readers do not read off random characters that represent icons */
 .fi-ni {
   background-image: url(flags/4x3/ni.svg);
 }
+
 .fi-ni.fis {
   background-image: url(flags/1x1/ni.svg);
 }
@@ -12051,6 +12362,7 @@ readers do not read off random characters that represent icons */
 .fi-nl {
   background-image: url(flags/4x3/nl.svg);
 }
+
 .fi-nl.fis {
   background-image: url(flags/1x1/nl.svg);
 }
@@ -12058,6 +12370,7 @@ readers do not read off random characters that represent icons */
 .fi-no {
   background-image: url(flags/4x3/no.svg);
 }
+
 .fi-no.fis {
   background-image: url(flags/1x1/no.svg);
 }
@@ -12065,6 +12378,7 @@ readers do not read off random characters that represent icons */
 .fi-np {
   background-image: url(flags/4x3/np.svg);
 }
+
 .fi-np.fis {
   background-image: url(flags/1x1/np.svg);
 }
@@ -12072,6 +12386,7 @@ readers do not read off random characters that represent icons */
 .fi-nr {
   background-image: url(flags/4x3/nr.svg);
 }
+
 .fi-nr.fis {
   background-image: url(flags/1x1/nr.svg);
 }
@@ -12079,6 +12394,7 @@ readers do not read off random characters that represent icons */
 .fi-nu {
   background-image: url(flags/4x3/nu.svg);
 }
+
 .fi-nu.fis {
   background-image: url(flags/1x1/nu.svg);
 }
@@ -12086,6 +12402,7 @@ readers do not read off random characters that represent icons */
 .fi-nz {
   background-image: url(flags/4x3/nz.svg);
 }
+
 .fi-nz.fis {
   background-image: url(flags/1x1/nz.svg);
 }
@@ -12093,6 +12410,7 @@ readers do not read off random characters that represent icons */
 .fi-om {
   background-image: url(flags/4x3/om.svg);
 }
+
 .fi-om.fis {
   background-image: url(flags/1x1/om.svg);
 }
@@ -12100,6 +12418,7 @@ readers do not read off random characters that represent icons */
 .fi-pa {
   background-image: url(flags/4x3/pa.svg);
 }
+
 .fi-pa.fis {
   background-image: url(flags/1x1/pa.svg);
 }
@@ -12107,6 +12426,7 @@ readers do not read off random characters that represent icons */
 .fi-pe {
   background-image: url(flags/4x3/pe.svg);
 }
+
 .fi-pe.fis {
   background-image: url(flags/1x1/pe.svg);
 }
@@ -12114,6 +12434,7 @@ readers do not read off random characters that represent icons */
 .fi-pf {
   background-image: url(flags/4x3/pf.svg);
 }
+
 .fi-pf.fis {
   background-image: url(flags/1x1/pf.svg);
 }
@@ -12121,6 +12442,7 @@ readers do not read off random characters that represent icons */
 .fi-pg {
   background-image: url(flags/4x3/pg.svg);
 }
+
 .fi-pg.fis {
   background-image: url(flags/1x1/pg.svg);
 }
@@ -12128,6 +12450,7 @@ readers do not read off random characters that represent icons */
 .fi-ph {
   background-image: url(flags/4x3/ph.svg);
 }
+
 .fi-ph.fis {
   background-image: url(flags/1x1/ph.svg);
 }
@@ -12135,6 +12458,7 @@ readers do not read off random characters that represent icons */
 .fi-pk {
   background-image: url(flags/4x3/pk.svg);
 }
+
 .fi-pk.fis {
   background-image: url(flags/1x1/pk.svg);
 }
@@ -12142,6 +12466,7 @@ readers do not read off random characters that represent icons */
 .fi-pl {
   background-image: url(flags/4x3/pl.svg);
 }
+
 .fi-pl.fis {
   background-image: url(flags/1x1/pl.svg);
 }
@@ -12149,6 +12474,7 @@ readers do not read off random characters that represent icons */
 .fi-pm {
   background-image: url(flags/4x3/pm.svg);
 }
+
 .fi-pm.fis {
   background-image: url(flags/1x1/pm.svg);
 }
@@ -12156,6 +12482,7 @@ readers do not read off random characters that represent icons */
 .fi-pn {
   background-image: url(flags/4x3/pn.svg);
 }
+
 .fi-pn.fis {
   background-image: url(flags/1x1/pn.svg);
 }
@@ -12163,6 +12490,7 @@ readers do not read off random characters that represent icons */
 .fi-pr {
   background-image: url(flags/4x3/pr.svg);
 }
+
 .fi-pr.fis {
   background-image: url(flags/1x1/pr.svg);
 }
@@ -12170,6 +12498,7 @@ readers do not read off random characters that represent icons */
 .fi-ps {
   background-image: url(flags/4x3/ps.svg);
 }
+
 .fi-ps.fis {
   background-image: url(flags/1x1/ps.svg);
 }
@@ -12177,6 +12506,7 @@ readers do not read off random characters that represent icons */
 .fi-pt {
   background-image: url(flags/4x3/pt.svg);
 }
+
 .fi-pt.fis {
   background-image: url(flags/1x1/pt.svg);
 }
@@ -12184,6 +12514,7 @@ readers do not read off random characters that represent icons */
 .fi-pw {
   background-image: url(flags/4x3/pw.svg);
 }
+
 .fi-pw.fis {
   background-image: url(flags/1x1/pw.svg);
 }
@@ -12191,6 +12522,7 @@ readers do not read off random characters that represent icons */
 .fi-py {
   background-image: url(flags/4x3/py.svg);
 }
+
 .fi-py.fis {
   background-image: url(flags/1x1/py.svg);
 }
@@ -12198,6 +12530,7 @@ readers do not read off random characters that represent icons */
 .fi-qa {
   background-image: url(flags/4x3/qa.svg);
 }
+
 .fi-qa.fis {
   background-image: url(flags/1x1/qa.svg);
 }
@@ -12205,6 +12538,7 @@ readers do not read off random characters that represent icons */
 .fi-re {
   background-image: url(flags/4x3/re.svg);
 }
+
 .fi-re.fis {
   background-image: url(flags/1x1/re.svg);
 }
@@ -12212,6 +12546,7 @@ readers do not read off random characters that represent icons */
 .fi-ro {
   background-image: url(flags/4x3/ro.svg);
 }
+
 .fi-ro.fis {
   background-image: url(flags/1x1/ro.svg);
 }
@@ -12219,6 +12554,7 @@ readers do not read off random characters that represent icons */
 .fi-rs {
   background-image: url(flags/4x3/rs.svg);
 }
+
 .fi-rs.fis {
   background-image: url(flags/1x1/rs.svg);
 }
@@ -12226,6 +12562,7 @@ readers do not read off random characters that represent icons */
 .fi-ru {
   background-image: url(flags/4x3/ru.svg);
 }
+
 .fi-ru.fis {
   background-image: url(flags/1x1/ru.svg);
 }
@@ -12233,6 +12570,7 @@ readers do not read off random characters that represent icons */
 .fi-rw {
   background-image: url(flags/4x3/rw.svg);
 }
+
 .fi-rw.fis {
   background-image: url(flags/1x1/rw.svg);
 }
@@ -12240,6 +12578,7 @@ readers do not read off random characters that represent icons */
 .fi-sa {
   background-image: url(flags/4x3/sa.svg);
 }
+
 .fi-sa.fis {
   background-image: url(flags/1x1/sa.svg);
 }
@@ -12247,6 +12586,7 @@ readers do not read off random characters that represent icons */
 .fi-sb {
   background-image: url(flags/4x3/sb.svg);
 }
+
 .fi-sb.fis {
   background-image: url(flags/1x1/sb.svg);
 }
@@ -12254,6 +12594,7 @@ readers do not read off random characters that represent icons */
 .fi-sc {
   background-image: url(flags/4x3/sc.svg);
 }
+
 .fi-sc.fis {
   background-image: url(flags/1x1/sc.svg);
 }
@@ -12261,6 +12602,7 @@ readers do not read off random characters that represent icons */
 .fi-sd {
   background-image: url(flags/4x3/sd.svg);
 }
+
 .fi-sd.fis {
   background-image: url(flags/1x1/sd.svg);
 }
@@ -12268,6 +12610,7 @@ readers do not read off random characters that represent icons */
 .fi-se {
   background-image: url(flags/4x3/se.svg);
 }
+
 .fi-se.fis {
   background-image: url(flags/1x1/se.svg);
 }
@@ -12275,6 +12618,7 @@ readers do not read off random characters that represent icons */
 .fi-sg {
   background-image: url(flags/4x3/sg.svg);
 }
+
 .fi-sg.fis {
   background-image: url(flags/1x1/sg.svg);
 }
@@ -12282,6 +12626,7 @@ readers do not read off random characters that represent icons */
 .fi-sh {
   background-image: url(flags/4x3/sh.svg);
 }
+
 .fi-sh.fis {
   background-image: url(flags/1x1/sh.svg);
 }
@@ -12289,6 +12634,7 @@ readers do not read off random characters that represent icons */
 .fi-si {
   background-image: url(flags/4x3/si.svg);
 }
+
 .fi-si.fis {
   background-image: url(flags/1x1/si.svg);
 }
@@ -12296,6 +12642,7 @@ readers do not read off random characters that represent icons */
 .fi-sj {
   background-image: url(flags/4x3/sj.svg);
 }
+
 .fi-sj.fis {
   background-image: url(flags/1x1/sj.svg);
 }
@@ -12303,6 +12650,7 @@ readers do not read off random characters that represent icons */
 .fi-sk {
   background-image: url(flags/4x3/sk.svg);
 }
+
 .fi-sk.fis {
   background-image: url(flags/1x1/sk.svg);
 }
@@ -12310,6 +12658,7 @@ readers do not read off random characters that represent icons */
 .fi-sl {
   background-image: url(flags/4x3/sl.svg);
 }
+
 .fi-sl.fis {
   background-image: url(flags/1x1/sl.svg);
 }
@@ -12317,6 +12666,7 @@ readers do not read off random characters that represent icons */
 .fi-sm {
   background-image: url(flags/4x3/sm.svg);
 }
+
 .fi-sm.fis {
   background-image: url(flags/1x1/sm.svg);
 }
@@ -12324,6 +12674,7 @@ readers do not read off random characters that represent icons */
 .fi-sn {
   background-image: url(flags/4x3/sn.svg);
 }
+
 .fi-sn.fis {
   background-image: url(flags/1x1/sn.svg);
 }
@@ -12331,6 +12682,7 @@ readers do not read off random characters that represent icons */
 .fi-so {
   background-image: url(flags/4x3/so.svg);
 }
+
 .fi-so.fis {
   background-image: url(flags/1x1/so.svg);
 }
@@ -12338,6 +12690,7 @@ readers do not read off random characters that represent icons */
 .fi-sr {
   background-image: url(flags/4x3/sr.svg);
 }
+
 .fi-sr.fis {
   background-image: url(flags/1x1/sr.svg);
 }
@@ -12345,6 +12698,7 @@ readers do not read off random characters that represent icons */
 .fi-ss {
   background-image: url(flags/4x3/ss.svg);
 }
+
 .fi-ss.fis {
   background-image: url(flags/1x1/ss.svg);
 }
@@ -12352,6 +12706,7 @@ readers do not read off random characters that represent icons */
 .fi-st {
   background-image: url(flags/4x3/st.svg);
 }
+
 .fi-st.fis {
   background-image: url(flags/1x1/st.svg);
 }
@@ -12359,6 +12714,7 @@ readers do not read off random characters that represent icons */
 .fi-sv {
   background-image: url(flags/4x3/sv.svg);
 }
+
 .fi-sv.fis {
   background-image: url(flags/1x1/sv.svg);
 }
@@ -12366,6 +12722,7 @@ readers do not read off random characters that represent icons */
 .fi-sx {
   background-image: url(flags/4x3/sx.svg);
 }
+
 .fi-sx.fis {
   background-image: url(flags/1x1/sx.svg);
 }
@@ -12373,6 +12730,7 @@ readers do not read off random characters that represent icons */
 .fi-sy {
   background-image: url(flags/4x3/sy.svg);
 }
+
 .fi-sy.fis {
   background-image: url(flags/1x1/sy.svg);
 }
@@ -12380,6 +12738,7 @@ readers do not read off random characters that represent icons */
 .fi-sz {
   background-image: url(flags/4x3/sz.svg);
 }
+
 .fi-sz.fis {
   background-image: url(flags/1x1/sz.svg);
 }
@@ -12387,6 +12746,7 @@ readers do not read off random characters that represent icons */
 .fi-tc {
   background-image: url(flags/4x3/tc.svg);
 }
+
 .fi-tc.fis {
   background-image: url(flags/1x1/tc.svg);
 }
@@ -12394,6 +12754,7 @@ readers do not read off random characters that represent icons */
 .fi-td {
   background-image: url(flags/4x3/td.svg);
 }
+
 .fi-td.fis {
   background-image: url(flags/1x1/td.svg);
 }
@@ -12401,6 +12762,7 @@ readers do not read off random characters that represent icons */
 .fi-tf {
   background-image: url(flags/4x3/tf.svg);
 }
+
 .fi-tf.fis {
   background-image: url(flags/1x1/tf.svg);
 }
@@ -12408,6 +12770,7 @@ readers do not read off random characters that represent icons */
 .fi-tg {
   background-image: url(flags/4x3/tg.svg);
 }
+
 .fi-tg.fis {
   background-image: url(flags/1x1/tg.svg);
 }
@@ -12415,6 +12778,7 @@ readers do not read off random characters that represent icons */
 .fi-th {
   background-image: url(flags/4x3/th.svg);
 }
+
 .fi-th.fis {
   background-image: url(flags/1x1/th.svg);
 }
@@ -12422,6 +12786,7 @@ readers do not read off random characters that represent icons */
 .fi-tj {
   background-image: url(flags/4x3/tj.svg);
 }
+
 .fi-tj.fis {
   background-image: url(flags/1x1/tj.svg);
 }
@@ -12429,6 +12794,7 @@ readers do not read off random characters that represent icons */
 .fi-tk {
   background-image: url(flags/4x3/tk.svg);
 }
+
 .fi-tk.fis {
   background-image: url(flags/1x1/tk.svg);
 }
@@ -12436,6 +12802,7 @@ readers do not read off random characters that represent icons */
 .fi-tl {
   background-image: url(flags/4x3/tl.svg);
 }
+
 .fi-tl.fis {
   background-image: url(flags/1x1/tl.svg);
 }
@@ -12443,6 +12810,7 @@ readers do not read off random characters that represent icons */
 .fi-tm {
   background-image: url(flags/4x3/tm.svg);
 }
+
 .fi-tm.fis {
   background-image: url(flags/1x1/tm.svg);
 }
@@ -12450,6 +12818,7 @@ readers do not read off random characters that represent icons */
 .fi-tn {
   background-image: url(flags/4x3/tn.svg);
 }
+
 .fi-tn.fis {
   background-image: url(flags/1x1/tn.svg);
 }
@@ -12457,6 +12826,7 @@ readers do not read off random characters that represent icons */
 .fi-to {
   background-image: url(flags/4x3/to.svg);
 }
+
 .fi-to.fis {
   background-image: url(flags/1x1/to.svg);
 }
@@ -12464,6 +12834,7 @@ readers do not read off random characters that represent icons */
 .fi-tr {
   background-image: url(flags/4x3/tr.svg);
 }
+
 .fi-tr.fis {
   background-image: url(flags/1x1/tr.svg);
 }
@@ -12471,6 +12842,7 @@ readers do not read off random characters that represent icons */
 .fi-tt {
   background-image: url(flags/4x3/tt.svg);
 }
+
 .fi-tt.fis {
   background-image: url(flags/1x1/tt.svg);
 }
@@ -12478,6 +12850,7 @@ readers do not read off random characters that represent icons */
 .fi-tv {
   background-image: url(flags/4x3/tv.svg);
 }
+
 .fi-tv.fis {
   background-image: url(flags/1x1/tv.svg);
 }
@@ -12485,6 +12858,7 @@ readers do not read off random characters that represent icons */
 .fi-tw {
   background-image: url(flags/4x3/tw.svg);
 }
+
 .fi-tw.fis {
   background-image: url(flags/1x1/tw.svg);
 }
@@ -12492,6 +12866,7 @@ readers do not read off random characters that represent icons */
 .fi-tz {
   background-image: url(flags/4x3/tz.svg);
 }
+
 .fi-tz.fis {
   background-image: url(flags/1x1/tz.svg);
 }
@@ -12499,6 +12874,7 @@ readers do not read off random characters that represent icons */
 .fi-ua {
   background-image: url(flags/4x3/ua.svg);
 }
+
 .fi-ua.fis {
   background-image: url(flags/1x1/ua.svg);
 }
@@ -12506,6 +12882,7 @@ readers do not read off random characters that represent icons */
 .fi-ug {
   background-image: url(flags/4x3/ug.svg);
 }
+
 .fi-ug.fis {
   background-image: url(flags/1x1/ug.svg);
 }
@@ -12513,6 +12890,7 @@ readers do not read off random characters that represent icons */
 .fi-um {
   background-image: url(flags/4x3/um.svg);
 }
+
 .fi-um.fis {
   background-image: url(flags/1x1/um.svg);
 }
@@ -12520,6 +12898,7 @@ readers do not read off random characters that represent icons */
 .fi-us {
   background-image: url(flags/4x3/us.svg);
 }
+
 .fi-us.fis {
   background-image: url(flags/1x1/us.svg);
 }
@@ -12527,6 +12906,7 @@ readers do not read off random characters that represent icons */
 .fi-uy {
   background-image: url(flags/4x3/uy.svg);
 }
+
 .fi-uy.fis {
   background-image: url(flags/1x1/uy.svg);
 }
@@ -12534,6 +12914,7 @@ readers do not read off random characters that represent icons */
 .fi-uz {
   background-image: url(flags/4x3/uz.svg);
 }
+
 .fi-uz.fis {
   background-image: url(flags/1x1/uz.svg);
 }
@@ -12541,6 +12922,7 @@ readers do not read off random characters that represent icons */
 .fi-va {
   background-image: url(flags/4x3/va.svg);
 }
+
 .fi-va.fis {
   background-image: url(flags/1x1/va.svg);
 }
@@ -12548,6 +12930,7 @@ readers do not read off random characters that represent icons */
 .fi-vc {
   background-image: url(flags/4x3/vc.svg);
 }
+
 .fi-vc.fis {
   background-image: url(flags/1x1/vc.svg);
 }
@@ -12555,6 +12938,7 @@ readers do not read off random characters that represent icons */
 .fi-ve {
   background-image: url(flags/4x3/ve.svg);
 }
+
 .fi-ve.fis {
   background-image: url(flags/1x1/ve.svg);
 }
@@ -12562,6 +12946,7 @@ readers do not read off random characters that represent icons */
 .fi-vg {
   background-image: url(flags/4x3/vg.svg);
 }
+
 .fi-vg.fis {
   background-image: url(flags/1x1/vg.svg);
 }
@@ -12569,6 +12954,7 @@ readers do not read off random characters that represent icons */
 .fi-vi {
   background-image: url(flags/4x3/vi.svg);
 }
+
 .fi-vi.fis {
   background-image: url(flags/1x1/vi.svg);
 }
@@ -12576,6 +12962,7 @@ readers do not read off random characters that represent icons */
 .fi-vn {
   background-image: url(flags/4x3/vn.svg);
 }
+
 .fi-vn.fis {
   background-image: url(flags/1x1/vn.svg);
 }
@@ -12583,6 +12970,7 @@ readers do not read off random characters that represent icons */
 .fi-vu {
   background-image: url(flags/4x3/vu.svg);
 }
+
 .fi-vu.fis {
   background-image: url(flags/1x1/vu.svg);
 }
@@ -12590,6 +12978,7 @@ readers do not read off random characters that represent icons */
 .fi-wf {
   background-image: url(flags/4x3/wf.svg);
 }
+
 .fi-wf.fis {
   background-image: url(flags/1x1/wf.svg);
 }
@@ -12597,6 +12986,7 @@ readers do not read off random characters that represent icons */
 .fi-ws {
   background-image: url(flags/4x3/ws.svg);
 }
+
 .fi-ws.fis {
   background-image: url(flags/1x1/ws.svg);
 }
@@ -12604,6 +12994,7 @@ readers do not read off random characters that represent icons */
 .fi-ye {
   background-image: url(flags/4x3/ye.svg);
 }
+
 .fi-ye.fis {
   background-image: url(flags/1x1/ye.svg);
 }
@@ -12611,6 +13002,7 @@ readers do not read off random characters that represent icons */
 .fi-yt {
   background-image: url(flags/4x3/yt.svg);
 }
+
 .fi-yt.fis {
   background-image: url(flags/1x1/yt.svg);
 }
@@ -12618,6 +13010,7 @@ readers do not read off random characters that represent icons */
 .fi-za {
   background-image: url(flags/4x3/za.svg);
 }
+
 .fi-za.fis {
   background-image: url(flags/1x1/za.svg);
 }
@@ -12625,6 +13018,7 @@ readers do not read off random characters that represent icons */
 .fi-zm {
   background-image: url(flags/4x3/zm.svg);
 }
+
 .fi-zm.fis {
   background-image: url(flags/1x1/zm.svg);
 }
@@ -12632,6 +13026,7 @@ readers do not read off random characters that represent icons */
 .fi-zw {
   background-image: url(flags/4x3/zw.svg);
 }
+
 .fi-zw.fis {
   background-image: url(flags/1x1/zw.svg);
 }
@@ -12639,6 +13034,7 @@ readers do not read off random characters that represent icons */
 .fi-arab {
   background-image: url(flags/4x3/arab.svg);
 }
+
 .fi-arab.fis {
   background-image: url(flags/1x1/arab.svg);
 }
@@ -12646,6 +13042,7 @@ readers do not read off random characters that represent icons */
 .fi-asean {
   background-image: url(flags/4x3/asean.svg);
 }
+
 .fi-asean.fis {
   background-image: url(flags/1x1/asean.svg);
 }
@@ -12653,6 +13050,7 @@ readers do not read off random characters that represent icons */
 .fi-cefta {
   background-image: url(flags/4x3/cefta.svg);
 }
+
 .fi-cefta.fis {
   background-image: url(flags/1x1/cefta.svg);
 }
@@ -12660,6 +13058,7 @@ readers do not read off random characters that represent icons */
 .fi-cp {
   background-image: url(flags/4x3/cp.svg);
 }
+
 .fi-cp.fis {
   background-image: url(flags/1x1/cp.svg);
 }
@@ -12667,6 +13066,7 @@ readers do not read off random characters that represent icons */
 .fi-dg {
   background-image: url(flags/4x3/dg.svg);
 }
+
 .fi-dg.fis {
   background-image: url(flags/1x1/dg.svg);
 }
@@ -12674,6 +13074,7 @@ readers do not read off random characters that represent icons */
 .fi-eac {
   background-image: url(flags/4x3/eac.svg);
 }
+
 .fi-eac.fis {
   background-image: url(flags/1x1/eac.svg);
 }
@@ -12681,6 +13082,7 @@ readers do not read off random characters that represent icons */
 .fi-es-ct {
   background-image: url(flags/4x3/es-ct.svg);
 }
+
 .fi-es-ct.fis {
   background-image: url(flags/1x1/es-ct.svg);
 }
@@ -12688,6 +13090,7 @@ readers do not read off random characters that represent icons */
 .fi-es-ga {
   background-image: url(flags/4x3/es-ga.svg);
 }
+
 .fi-es-ga.fis {
   background-image: url(flags/1x1/es-ga.svg);
 }
@@ -12695,6 +13098,7 @@ readers do not read off random characters that represent icons */
 .fi-es-pv {
   background-image: url(flags/4x3/es-pv.svg);
 }
+
 .fi-es-pv.fis {
   background-image: url(flags/1x1/es-pv.svg);
 }
@@ -12702,6 +13106,7 @@ readers do not read off random characters that represent icons */
 .fi-eu {
   background-image: url(flags/4x3/eu.svg);
 }
+
 .fi-eu.fis {
   background-image: url(flags/1x1/eu.svg);
 }
@@ -12709,6 +13114,7 @@ readers do not read off random characters that represent icons */
 .fi-gb-eng {
   background-image: url(flags/4x3/gb-eng.svg);
 }
+
 .fi-gb-eng.fis {
   background-image: url(flags/1x1/gb-eng.svg);
 }
@@ -12716,6 +13122,7 @@ readers do not read off random characters that represent icons */
 .fi-gb-nir {
   background-image: url(flags/4x3/gb-nir.svg);
 }
+
 .fi-gb-nir.fis {
   background-image: url(flags/1x1/gb-nir.svg);
 }
@@ -12723,6 +13130,7 @@ readers do not read off random characters that represent icons */
 .fi-gb-sct {
   background-image: url(flags/4x3/gb-sct.svg);
 }
+
 .fi-gb-sct.fis {
   background-image: url(flags/1x1/gb-sct.svg);
 }
@@ -12730,6 +13138,7 @@ readers do not read off random characters that represent icons */
 .fi-gb-wls {
   background-image: url(flags/4x3/gb-wls.svg);
 }
+
 .fi-gb-wls.fis {
   background-image: url(flags/1x1/gb-wls.svg);
 }
@@ -12737,6 +13146,7 @@ readers do not read off random characters that represent icons */
 .fi-ic {
   background-image: url(flags/4x3/ic.svg);
 }
+
 .fi-ic.fis {
   background-image: url(flags/1x1/ic.svg);
 }
@@ -12744,6 +13154,7 @@ readers do not read off random characters that represent icons */
 .fi-pc {
   background-image: url(flags/4x3/pc.svg);
 }
+
 .fi-pc.fis {
   background-image: url(flags/1x1/pc.svg);
 }
@@ -12751,6 +13162,7 @@ readers do not read off random characters that represent icons */
 .fi-sh-ac {
   background-image: url(flags/4x3/sh-ac.svg);
 }
+
 .fi-sh-ac.fis {
   background-image: url(flags/1x1/sh-ac.svg);
 }
@@ -12758,6 +13170,7 @@ readers do not read off random characters that represent icons */
 .fi-sh-hl {
   background-image: url(flags/4x3/sh-hl.svg);
 }
+
 .fi-sh-hl.fis {
   background-image: url(flags/1x1/sh-hl.svg);
 }
@@ -12765,6 +13178,7 @@ readers do not read off random characters that represent icons */
 .fi-sh-ta {
   background-image: url(flags/4x3/sh-ta.svg);
 }
+
 .fi-sh-ta.fis {
   background-image: url(flags/1x1/sh-ta.svg);
 }
@@ -12772,6 +13186,7 @@ readers do not read off random characters that represent icons */
 .fi-un {
   background-image: url(flags/4x3/un.svg);
 }
+
 .fi-un.fis {
   background-image: url(flags/1x1/un.svg);
 }
@@ -12779,6 +13194,7 @@ readers do not read off random characters that represent icons */
 .fi-xk {
   background-image: url(flags/4x3/xk.svg);
 }
+
 .fi-xk.fis {
   background-image: url(flags/1x1/xk.svg);
 }

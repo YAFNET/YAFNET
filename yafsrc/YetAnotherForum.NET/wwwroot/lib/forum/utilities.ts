@@ -268,6 +268,10 @@ export function bootboxShareTopic(title: string, message: string, cancel: string
 	bootbox.prompt(options);
 };
 
+export function copyToClipBoard(input: string): void {
+	navigator.clipboard.writeText(input);
+}
+
 const _global = (window /* browser */ || global /* node */) as any;
 
 _global.createTagsSelectTemplates = createTagsSelectTemplates;
@@ -277,3 +281,4 @@ _global.loadChoiceOptions = loadChoiceOptions;
 _global.errorLog = errorLog; 
 _global.bootboxShareTopic = bootboxShareTopic;
 _global.togglePassword = togglePassword;
+_global.copyToClipBoard = copyToClipBoard;

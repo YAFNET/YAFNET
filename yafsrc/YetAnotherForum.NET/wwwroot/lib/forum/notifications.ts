@@ -1,5 +1,7 @@
 ﻿import * as bootstrap from 'bootstrap';
 import { PagedResults } from './interfaces/PagedResults';
+import * as Utilities from '../forum/utilities';
+import { setPageNumber } from './paging';
 
 export function getNotifyData(
     pageSize: number,
@@ -27,7 +29,7 @@ export function getNotifyData(
     })
         .then((res) => res.json())
         .then((data: { attachmentList: { fileName: string }[]; totalRecords: number }) => {
-            empty(list);
+            Utilities.empty(list);
 
             (document.getElementById('Loader') as HTMLElement).style.display = 'none';
 
@@ -50,7 +52,7 @@ export function getNotifyData(
                     pageSize,
                     pageNumber,
                     data.totalRecords,
-                    document.getElementById('NotifyListPager') as HTMLElement,
+                    document.getElementById('NotifyListPager') as HTMLDivElement,
                     'Notifications',
                     'getNotifyData'
                 );
