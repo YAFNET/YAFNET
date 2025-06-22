@@ -25,6 +25,13 @@
     <ProjectReference Include="..\YAFNET.Web\YAFNET.Web.csproj" />
   </ItemGroup>
   
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+	</PropertyGroup>
+  
   <ItemGroup>
 	  <Content Remove="wwwroot\Search_Data\**" />
 	  <Content Remove="node_modules\**" />
