@@ -34,6 +34,12 @@
 yafEditor.prototype.FormatText = function(command, option) {
 	var textObj = document.getElementById(this.Name);
 	switch (command) {
+	case 'undo':
+		document.execCommand('undo');
+		break;
+	case 'redo':
+		document.execCommand('redo');
+		break;
 	case 'bold':
 		wrapSelection(textObj, '[b]', '[/b]');
 		break;

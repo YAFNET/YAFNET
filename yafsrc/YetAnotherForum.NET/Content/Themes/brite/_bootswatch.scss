@@ -1,4 +1,4 @@
-// Brite 5.3.6
+// Brite 5.3.7
 // Bootswatch
 
 
@@ -105,6 +105,10 @@
   .btn {
     margin-left: 0;
   }
+
+  > .btn.active {
+    z-index: 0;
+  }
 }
 
 .btn-group,
@@ -199,6 +203,16 @@ a {
 
 // Navs
 
+.nav {
+  &:not(.nav-tabs, .nav-pills) {
+    .nav-link {
+      &.active {
+        font-weight: 700;
+      }
+    }
+  }
+}
+
 .nav-tabs {
   gap: 4px;
   padding: .4rem .4rem calc(.4rem + 2px);
@@ -289,7 +303,7 @@ a {
     }
   }
 
-  .nav-underline {
+  .nav {
     .nav-link {
       --#{$prefix}nav-link-color: #fff;
 

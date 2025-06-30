@@ -1,4 +1,4 @@
-// Lux 5.3.6
+// Lux 5.3.7
 // Bootswatch
 
 
@@ -278,5 +278,27 @@ th {
   .h5,
   .h6 {
     color: inherit;
+  }
+}
+
+.modal-dialog {
+  box-shadow: var(--bs-box-shadow);
+}
+
+.popover {
+  --bs-popover-border-color: transparent;
+  box-shadow: var(--bs-box-shadow);
+
+  .popover-arrow {
+    --bs-popover-border-width: 1px;
+  }
+}
+
+
+@include color-mode(dark) {
+  .modal-content,
+  .popover,
+  .toast {
+    background-color: lighten($gray-900, 5%);
   }
 }
