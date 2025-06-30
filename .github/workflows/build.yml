@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         dotnet-version: [ '9.0.x' ]
-        node-version: [21.x]
+        node-version: [latest]
 
     steps:
       - uses: actions/checkout@v4
