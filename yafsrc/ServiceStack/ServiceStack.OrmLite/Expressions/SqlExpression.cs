@@ -1406,7 +1406,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         }
         else
         {
-            if (this.WhereExpression[this.WhereExpression.Length - 1] != ')')
+            if (this.WhereExpression[^1] != ')')
             {
                 throw new NotSupportedException("Invalid whereExpression Expression with Ensure Conditions");
             }
@@ -4982,7 +4982,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             }
 
             // regex replace doesn't work when param is at end of string "AND a = :0"
-            var lastChar = subSelect[subSelect.Length - 1];
+            var lastChar = subSelect[^1];
             if (!(char.IsWhiteSpace(lastChar) || lastChar == ')'))
             {
                 subSelect += " ";

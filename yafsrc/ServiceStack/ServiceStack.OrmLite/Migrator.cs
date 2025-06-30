@@ -693,7 +693,8 @@ public class Migrator
                     }
                 }
 
-                if (migrationName == nextRun.Name)
+                // Only continue if nextRun.Name is after migrationName
+                if (string.Compare(nextRun.Name, migrationName, StringComparison.Ordinal) <= 0)
                 {
                     break;
                 }

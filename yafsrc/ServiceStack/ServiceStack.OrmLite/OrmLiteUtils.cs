@@ -1225,7 +1225,7 @@ public static class OrmLiteUtils
             var parts = token.SplitOnLast('.');
             if (parts.Length > 1)
             {
-                sb.Append(" " + parts[parts.Length - 1]);
+                sb.Append(" " + parts[^1]);
             }
             else
             {

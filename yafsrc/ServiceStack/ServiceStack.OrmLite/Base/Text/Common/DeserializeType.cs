@@ -137,7 +137,7 @@ public static class DeserializeType<TSerializer>
         if (config.ConvertObjectTypesIntoStringDictionary && !strType.IsNullOrEmpty())
         {
             var firstChar = strType[0];
-            var endChar = strType[strType.Length - 1];
+            var endChar = strType[^1];
             switch (firstChar)
             {
                 case JsWriter.MapStartChar when endChar == JsWriter.MapEndChar:
@@ -297,8 +297,8 @@ public static class DeserializeType<TSerializer>
             // YYYY-MM-DDThh:mm:ss-02:00
             if (value.Length > 14 && value[10] == 'T' &&
                 (value.EndsWithInvariant("Z")
-                 || value[value.Length - 6] == '+'
-                 || value[value.Length - 6] == '-'))
+                 || value[^6] == '+'
+                 || value[^6] == '-'))
             {
                 return DateTimeSerializer.ParseShortestXsdDateTime(value);
             }

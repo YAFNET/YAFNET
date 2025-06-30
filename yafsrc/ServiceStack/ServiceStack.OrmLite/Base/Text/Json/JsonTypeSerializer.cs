@@ -859,7 +859,7 @@ public struct JsonTypeSerializer
             return value;
         }
 
-        if (value[0] == JsonUtils.QuoteChar && value[value.Length - 1] == JsonUtils.QuoteChar)
+        if (value[0] == JsonUtils.QuoteChar && value[^1] == JsonUtils.QuoteChar)
         {
             return value.Slice(1, value.Length - 2);
         }

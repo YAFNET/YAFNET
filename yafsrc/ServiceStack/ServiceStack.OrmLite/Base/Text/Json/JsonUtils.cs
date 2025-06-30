@@ -302,7 +302,7 @@ public static class JsonUtils
     {
         return !value.IsNullOrEmpty()
                && value[0] == '{'
-               && value[value.Length - 1] == '}';
+               && value[^1] == '}';
     }
 
     /// <summary>
@@ -315,7 +315,7 @@ public static class JsonUtils
     {
         return !value.IsNullOrEmpty()
                && value[0] == '['
-               && value[value.Length - 1] == ']';
+               && value[^1] == ']';
     }
 
 }
