@@ -82,7 +82,10 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     public TimeSpan BusyTimeout {
         set {
             ConnectionCommands.RemoveAll(x => x.StartsWith("PRAGMA busy_timeout"));
-            ConnectionCommands.Add(SqlitePragmas.BusyTimeout(value));
+            if (value > TimeSpan.Zero)
+            {
+                ConnectionCommands.Add(SqlitePragmas.BusyTimeout(value));
+            }
         }
     }
 
@@ -95,7 +98,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
             : DateTimeKind.Unspecified;
     }
 
-    public bool EnableWriterLock { get; set; } = true;
+    public bool EnableWriterLock { get; set; }
 
     /// <summary>
     /// Gets or sets the password.
