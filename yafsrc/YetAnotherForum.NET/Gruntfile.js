@@ -8,7 +8,8 @@
 const lightBoxWebpackConfig = require('./Scripts/bs5-lightbox/webpack.cdn.js');
 const sass = require('sass');
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
+	require('@lodder/time-grunt')(grunt);
     // CONFIGURATION
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -19,23 +20,6 @@ module.exports = function(grunt) {
         },
 
         copy: {
-            bootstrap: {
-                files: [
-                    { expand: true, src: '**/*.scss', cwd: 'node_modules/bootstrap/scss', dest: 'Content/bootstrap/' },
-                    {
-                        expand: true,
-                        src: '**/bootstrap.bundle.js',
-                        cwd: 'node_modules/bootstrap/dist/js/',
-                        dest: 'Scripts/'
-                    },
-                    {
-                        expand: true,
-                        src: '**/bootstrap.bundle.min.js',
-                        cwd: 'node_modules/bootstrap/dist/js/',
-                        dest: 'Scripts/'
-                    }
-                ]
-            },
             bootswatchThemes: {
                 files: [
                     { expand: true, src: '**/*.scss', cwd: 'node_modules/bootswatch/dist', dest: 'Content/Themes/' }
@@ -291,7 +275,7 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    'Scripts/bootstrap.bundle.js',
+                    'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
                     'Scripts/forum/InstallWizard.js'
                 ],
                 dest: 'Scripts/InstallWizard.comb.js'
@@ -323,7 +307,6 @@ module.exports = function(grunt) {
                 },
                 src: [
                     'Scripts/editor/editor.js',
-                    'Scripts/editor/undoManager.js',
                     'Scripts/editor/autoCloseTags.js',
                     'Scripts/editor/mentions.js'
                 ],
@@ -374,8 +357,8 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    'Scripts/bootstrap.bundle.js',
-                    'Scripts/bootbox.js',
+                    'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
+                    'node_modules/@w8tcha/bootbox/dist/bootbox.iife.js',
                     'node_modules/@w8tcha/dark-editable/dist/dark-editable.iife.js',
                     'node_modules/@w8tcha/bootstrap-notify/dist/bootstrap-notify.iife.js',
                     'Scripts/forum/bootstrap-touchspin.js',
@@ -404,7 +387,7 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    'Scripts/bootbox.js',
+	                'node_modules/@w8tcha/bootbox/dist/bootbox.iife.js',
                     'node_modules/@w8tcha/dark-editable/dist/dark-editable.iife.js',
                     'node_modules/@w8tcha/bootstrap-notify/dist/bootstrap-notify.iife.js',
                     'Scripts/forum/bootstrap-touchspin.js',
@@ -433,8 +416,8 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    'Scripts/bootstrap.bundle.js',
-                    'Scripts/bootbox.js',
+                    'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
+                    'node_modules/@w8tcha/bootbox/dist/bootbox.iife.js',
                     'node_modules/@w8tcha/dark-editable/dist/dark-editable.iife.js',
                     'node_modules/@w8tcha/bootstrap-notify/dist/bootstrap-notify.iife.js',
                     'Scripts/forum/bootstrap-touchspin.js',
@@ -460,7 +443,7 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    'Scripts/bootbox.js',
+	                'node_modules/@w8tcha/bootbox/dist/bootbox.iife.js',
                     'node_modules/@w8tcha/bootstrap-notify/dist/bootstrap-notify.iife.js',
                     'node_modules/@w8tcha/dark-editable/dist/dark-editable.iife.js',
                     'Scripts/forum/bootstrap-touchspin.js',

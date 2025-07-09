@@ -1,29 +1,238 @@
-(function(root, factory) {
+var bootbox = function(b, j) {
     "use strict";
-    if (typeof define === "function" && define.amd) {
-        define([ "bootstrap" ], factory);
-    } else if (typeof exports === "object") {
-        module.exports = factory(require("bootstrap"));
-    } else {
-        root.bootbox = factory(root.bootstrap);
-    }
-})(this, function init($, undefined) {
-    "use strict";
-    const exports = {};
-    const VERSION = "6.0.4";
-    exports.VERSION = VERSION;
-    const locales = {
-        en: {
-            OK: "OK",
-            CANCEL: "Cancel",
-            CONFIRM: "OK"
+    function B(t) {
+        const e = Object.create(null, {
+            [Symbol.toStringTag]: {
+                value: "Module"
+            }
+        });
+        if (t) {
+            for (const o in t) if (o !== "default") {
+                const a = Object.getOwnPropertyDescriptor(t, o);
+                Object.defineProperty(e, o, a.get ? a : {
+                    enumerable: !0,
+                    get: () => t[o]
+                });
+            }
         }
-    };
-    const templates = {
+        return e.default = t, Object.freeze(e);
+    }
+    const v = B(j), P = {
+        OK: "موافق",
+        CANCEL: "الغاء",
+        CONFIRM: "تأكيد"
+    }, H = {
+        OK: "OK",
+        CANCEL: "İmtina et",
+        CONFIRM: "Təsdiq et"
+    }, V = {
+        OK: "Ок",
+        CANCEL: "Отказ",
+        CONFIRM: "Потвърждавам"
+    }, D = {
+        OK: "OK",
+        CANCEL: "Zrušit",
+        CONFIRM: "Potvrdit"
+    }, _ = {
+        OK: "OK",
+        CANCEL: "Annuller",
+        CONFIRM: "Accepter"
+    }, z = {
+        OK: "OK",
+        CANCEL: "Abbrechen",
+        CONFIRM: "Akzeptieren"
+    }, $ = {
+        OK: "Εντάξει",
+        CANCEL: "Ακύρωση",
+        CONFIRM: "Επιβεβαίωση"
+    }, U = {
+        OK: "OK",
+        CANCEL: "Cancel",
+        CONFIRM: "OK"
+    }, G = {
+        OK: "OK",
+        CANCEL: "Cancelar",
+        CONFIRM: "Aceptar"
+    }, W = {
+        OK: "OK",
+        CANCEL: "Katkesta",
+        CONFIRM: "OK"
+    }, Z = {
+        OK: "OK",
+        CANCEL: "Ezeztatu",
+        CONFIRM: "Onartu"
+    }, J = {
+        OK: "قبول",
+        CANCEL: "لغو",
+        CONFIRM: "تایید"
+    }, X = {
+        OK: "OK",
+        CANCEL: "Peruuta",
+        CONFIRM: "OK"
+    }, Q = {
+        OK: "OK",
+        CANCEL: "Annuler",
+        CONFIRM: "Confirmer"
+    }, Y = {
+        OK: "אישור",
+        CANCEL: "ביטול",
+        CONFIRM: "אישור"
+    }, ee = {
+        OK: "OK",
+        CANCEL: "Odustani",
+        CONFIRM: "Potvrdi"
+    }, te = {
+        OK: "OK",
+        CANCEL: "Mégsem",
+        CONFIRM: "Megerősít"
+    }, oe = {
+        OK: "OK",
+        CANCEL: "Batal",
+        CONFIRM: "OK"
+    }, re = {
+        OK: "OK",
+        CANCEL: "Annulla",
+        CONFIRM: "Conferma"
+    }, ae = {
+        OK: "OK",
+        CANCEL: "キャンセル",
+        CONFIRM: "OK"
+    }, ne = {
+        OK: "OK",
+        CANCEL: "გაუქმება",
+        CONFIRM: "დადასტურება"
+    }, le = {
+        OK: "OK",
+        CANCEL: "취소",
+        CONFIRM: "확인"
+    }, ie = {
+        OK: "Gerai",
+        CANCEL: "Atšaukti",
+        CONFIRM: "Patvirtinti"
+    }, ce = {
+        OK: "Labi",
+        CANCEL: "Atcelt",
+        CONFIRM: "Apstiprināt"
+    }, se = {
+        OK: "OK",
+        CANCEL: "Annuleren",
+        CONFIRM: "Accepteren"
+    }, ue = {
+        OK: "OK",
+        CANCEL: "Avbryt",
+        CONFIRM: "OK"
+    }, de = {
+        OK: "OK",
+        CANCEL: "Anuluj",
+        CONFIRM: "Potwierdź"
+    }, fe = {
+        OK: "OK",
+        CANCEL: "Cancelar",
+        CONFIRM: "Confirmar"
+    }, be = {
+        OK: "OK",
+        CANCEL: "Cancelar",
+        CONFIRM: "Sim"
+    }, pe = {
+        OK: "OK",
+        CANCEL: "Отмена",
+        CONFIRM: "Применить"
+    }, me = {
+        OK: "OK",
+        CANCEL: "Zrušiť",
+        CONFIRM: "Potvrdiť"
+    }, Oe = {
+        OK: "OK",
+        CANCEL: "Prekliči",
+        CONFIRM: "Potrdi"
+    }, he = {
+        OK: "OK",
+        CANCEL: "Anulo",
+        CONFIRM: "Prano"
+    }, Ce = {
+        OK: "OK",
+        CANCEL: "Avbryt",
+        CONFIRM: "OK"
+    }, ve = {
+        OK: "Sawa",
+        CANCEL: "Ghairi",
+        CONFIRM: "Thibitisha"
+    }, ye = {
+        OK: "சரி",
+        CANCEL: "ரத்து செய்",
+        CONFIRM: "உறுதி செய்"
+    }, we = {
+        OK: "ตกลง",
+        CANCEL: "ยกเลิก",
+        CONFIRM: "ยืนยัน"
+    }, ge = {
+        OK: "Tamam",
+        CANCEL: "İptal",
+        CONFIRM: "Onayla"
+    }, Ee = {
+        OK: "OK",
+        CANCEL: "Відміна",
+        CONFIRM: "Прийняти"
+    }, Ne = {
+        OK: "OK",
+        CANCEL: "Hủy bỏ",
+        CONFIRM: "Xác nhận"
+    }, Ae = {
+        OK: "OK",
+        CANCEL: "取消",
+        CONFIRM: "确认"
+    }, Le = {
+        OK: "OK",
+        CANCEL: "取消",
+        CONFIRM: "確認"
+    }, ke = "6.0.6", Ke = {
+        ar: P,
+        az: H,
+        bgBG: V,
+        cs: D,
+        da: _,
+        de: z,
+        el: $,
+        en: U,
+        es: G,
+        et: W,
+        eu: Z,
+        fa: J,
+        fi: X,
+        fr: Q,
+        he: Y,
+        hr: ee,
+        hu: te,
+        id: oe,
+        it: re,
+        ja: ae,
+        ka: ne,
+        ko: le,
+        lt: ie,
+        lv: ce,
+        nl: se,
+        no: ue,
+        pl: de,
+        pt: fe,
+        ptBR: be,
+        ru: pe,
+        sk: me,
+        sl: Oe,
+        sq: he,
+        sv: Ce,
+        sw: ve,
+        ta: ye,
+        th: we,
+        tr: ge,
+        uk: Ee,
+        vi: Ne,
+        zhCN: Ae,
+        zhTW: Le
+    }, xe = {
         dialog: '<div class="bootbox modal" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="bootbox-body"></div></div></div></div></div>',
         header: '<div class="modal-header"><h5 class="modal-title"></h5></div>',
         footer: '<div class="modal-footer"></div>',
-        closeButton: '<button type="button" class="bootbox-close-button close btn-close" aria-hidden="true" aria-label="Close"></button>',
+        closeButton: '<button type="button" class="bootbox-close-button close btn-close" aria-label="Close"></button>',
         form: '<form class="bootbox-form"></form>',
         button: '<button type="button" class="btn"></button>',
         option: '<option value=""></option>',
@@ -41,781 +250,445 @@
             password: '<input class="bootbox-input bootbox-input-password form-control" autocomplete="off" type="password" />',
             range: '<input class="bootbox-input bootbox-input-range form-control-range" autocomplete="off" type="range" />'
         }
-    };
-    const defaults = {
+    }, Me = {
         locale: "en",
         backdrop: "static",
-        animate: true,
+        animate: !0,
         className: null,
-        closeButton: true,
-        show: true,
+        closeButton: !0,
+        show: !0,
         container: "body",
         value: "",
         inputType: "text",
         errorMessage: null,
-        swapButtonOrder: false,
-        centerVertical: false,
-        multiple: false,
-        scrollable: false,
-        reusable: false,
+        swapButtonOrder: !1,
+        centerVertical: !1,
+        multiple: !1,
+        scrollable: !1,
+        reusable: !1,
         relatedTarget: null,
         size: null,
         id: null
     };
-    exports.locales = function(name) {
-        return name ? locales[name] : locales;
-    };
-    exports.addLocale = function(name, values) {
-        [ "OK", "CANCEL", "CONFIRM" ].forEach((v, _) => {
-            if (!values[v]) {
-                throw new Error(`Please supply a translation for "${v}"`);
-            }
-        });
-        locales[name] = {
-            OK: values.OK,
-            CANCEL: values.CANCEL,
-            CONFIRM: values.CONFIRM
+    function x(t) {
+        return /([01][0-9]|2[0-3]):[0-5][0-9]?:[0-5][0-9]/.test(t);
+    }
+    function M(t) {
+        return /(\d{4})-(\d{2})-(\d{2})/.test(t);
+    }
+    function g(t, e) {
+        if (typeof e == "string" && typeof t[e] == "function") t[e](); else {
+            const o = typeof e == "string" ? new Event(e, {
+                bubbles: !0
+            }) : e;
+            t.dispatchEvent(o);
+        }
+    }
+    const Ie = ke, y = Ke, m = xe, h = Me;
+    function Se(t) {
+        return y[t];
+    }
+    function Fe(t, e) {
+        [ "OK", "CANCEL", "CONFIRM" ].forEach((o, a) => {
+            if (!e[o]) throw new Error(`Please supply a translation for "${o}"`);
+        }), y[t] = {
+            OK: e.OK,
+            CANCEL: e.CANCEL,
+            CONFIRM: e.CONFIRM
         };
-        return exports;
-    };
-    exports.removeLocale = function(name) {
-        if (name !== "en") {
-            delete locales[name];
-        } else {
-            throw new Error('"en" is used as the default and fallback locale and cannot be removed.');
-        }
-        return exports;
-    };
-    exports.setLocale = function(name) {
-        return exports.setDefaults("locale", name);
-    };
-    exports.setDefaults = function() {
-        let values = {};
-        if (arguments.length === 2) {
-            values[arguments[0]] = arguments[1];
-        } else {
-            values = arguments[0];
-        }
-        Object.assign(defaults, values);
-        return exports;
-    };
-    exports.hideAll = function() {
-        document.querySelectorAll(".bootbox").forEach(box => {
-            bootstrap.Modal.getInstance(box).hide();
+    }
+    function Re(t) {
+        if (t !== "en") delete y[t]; else throw new Error('"en" is used as the default and fallback locale and cannot be removed.');
+    }
+    function qe(t) {
+        return t && (t = t.replace("-", "")), I("locale", t);
+    }
+    function I(...t) {
+        let e = {};
+        t.length === 2 ? e[t[0]] = t[1] : e = t[0], Object.assign(h, e);
+    }
+    function Te() {
+        document.querySelectorAll(".bootbox").forEach(t => {
+            const e = v.Modal.getInstance(t);
+            e && e.hide();
         });
-        return exports;
-    };
-    exports.init = function(_$) {
-        return init(_$ || $);
-    };
-    exports.dialog = function(options) {
-        if (bootstrap.Modal === undefined) {
-            throw new Error('"bootstrap.Modal" is not defined; please double check you have included the Bootstrap JavaScript library. See https://getbootstrap.com/docs/5.3/getting-started/introduction/ for more details.');
-        }
-        options = sanitize(options);
-        if (bootstrap.Modal.VERSION) {
-            options.fullBootstrapVersion = bootstrap.Modal.VERSION;
-            let i = options.fullBootstrapVersion.indexOf(".");
-            options.bootstrap = options.fullBootstrapVersion.substring(0, i);
-        } else {
-            options.bootstrap = "2";
-            options.fullBootstrapVersion = "2.3.2";
-            console.warn("Bootbox will *mostly* work with Bootstrap 2, but we do not officially support it. Please upgrade, if possible.");
-        }
-        let dialog = generateElement(templates.dialog);
-        let innerDialog = dialog.querySelector(".modal-dialog");
-        let body = dialog.querySelector(".modal-body");
-        let header = generateElement(templates.header);
-        let footer = generateElement(templates.footer);
-        let buttons = options.buttons;
-        let callbacks = {
-            onEscape: options.onEscape
-        };
-        if (typeof options.message === "string") {
-            body.querySelector(".bootbox-body").innerHTML = options.message;
-        } else {
-            body.querySelector(".bootbox-body").append(options.message);
-        }
-        if (getKeyLength(options.buttons) > 0) {
-            for (const [ key, b ] of Object.entries(buttons)) {
-                let button = generateElement(templates.button);
-                button.dataset.bbHandler = key;
-                var classNames = b.className.split(" ");
-                classNames.forEach(name => {
-                    button.classList.add(name);
-                });
-                switch (key) {
+    }
+    function S(t) {
+        return S();
+    }
+    function E(t) {
+        if (v.Modal === void 0) throw new Error('"bootstrap.Modal" is not defined; please double check you have included the Bootstrap JavaScript library. See https://getbootstrap.com/docs/5.3/getting-started/introduction/ for more details.');
+        t = ze(t);
+        let e = p(m.dialog), o = e.querySelector(".modal-dialog"), a = e.querySelector(".modal-body"), r = p(m.header), n = p(m.footer), i = t.buttons;
+        t.messageForm ? a.querySelector(".bootbox-body").append(t.messageForm) : typeof t.message == "string" ? a.querySelector(".bootbox-body").innerHTML = t.message : a.querySelector(".bootbox-body").append(t.message);
+        let u = {};
+        if (typeof t.onEscape == "function" && (u.onEscape = t.onEscape), T(t.buttons) > 0) {
+            for (const [ l, d ] of Object.entries(i)) {
+                let O = p(m.button);
+                O.dataset.bbHandler = l;
+                var C = d.className.split(" ");
+                switch (C.forEach(L => {
+                    O.classList.add(L);
+                }), l) {
                   case "ok":
                   case "confirm":
-                    button.classList.add("bootbox-accept");
+                    O.classList.add("bootbox-accept");
                     break;
 
                   case "cancel":
-                    button.classList.add("bootbox-cancel");
+                    O.classList.add("bootbox-cancel");
                     break;
                 }
-                button.innerHTML = b.label;
-                if (b.id) {
-                    button.setAttribute({
-                        id: b.id
-                    });
-                }
-                if (b.disabled === true) {
-                    button.disabled = true;
-                }
-                footer.append(button);
-                callbacks[key] = b.callback;
+                O.innerHTML = d.label, d.id && O.setAttribute("id", d.id), d.disabled === !0 && (O.disabled = !0), 
+                n.append(O), typeof d.callback == "function" && (u[l] = d.callback);
             }
-            body.after(footer);
+            a.after(n);
         }
-        if (options.animate === true) {
-            dialog.classList.add("fade");
-        }
-        if (options.className) {
-            options.className.split(" ").forEach(name => {
-                dialog.classList.add(name);
-            });
-        }
-        if (options.id) {
-            dialog.setAttribute({
-                id: options.id
-            });
-        }
-        if (options.size) {
-            if (options.fullBootstrapVersion.substring(0, 3) < "3.1") {
-                console.warn(`"size" requires Bootstrap 3.1.0 or higher. You appear to be using ${options.fullBootstrapVersion}. Please upgrade to use this option.`);
-            }
-            switch (options.size) {
-              case "small":
-              case "sm":
-                innerDialog.classList.add("modal-sm");
-                break;
+        if (t.animate === !0 && e.classList.add("fade"), t.className && t.className.split(" ").forEach(l => {
+            e.classList.add(l);
+        }), t.id && e.setAttribute("id", t.id), t.size) switch (t.size) {
+          case "small":
+          case "sm":
+            o.classList.add("modal-sm");
+            break;
 
-              case "large":
-              case "lg":
-                innerDialog.classList.add("modal-lg");
-                break;
+          case "large":
+          case "lg":
+            o.classList.add("modal-lg");
+            break;
 
-              case "extra-large":
-              case "xl":
-                innerDialog.classList.add("modal-xl");
-                if (options.fullBootstrapVersion.substring(0, 3) < "4.2") {
-                    console.warn(`Using size "xl"/"extra-large" requires Bootstrap 4.2.0 or higher. You appear to be using ${options.fullBootstrapVersion}. Please upgrade to use this option.`);
-                }
-                break;
-            }
+          case "extra-large":
+          case "xl":
+            o.classList.add("modal-xl");
+            break;
         }
-        if (options.scrollable) {
-            innerDialog.classList.add("modal-dialog-scrollable");
-            if (options.fullBootstrapVersion.substring(0, 3) < "4.3") {
-                console.warn(`Using "scrollable" requires Bootstrap 4.3.0 or higher. You appear to be using ${options.fullBootstrapVersion}. Please upgrade to use this option.`);
+        if (t.scrollable && o.classList.add("modal-dialog-scrollable"), t.title || t.closeButton) {
+            if (t.title ? r.querySelector(".modal-title").innerHTML = t.title : r.classList.add("border-0"), 
+            t.closeButton) {
+                let l = p(m.closeButton);
+                r.append(l);
             }
+            a.before(r);
         }
-        if (options.title || options.closeButton) {
-            if (options.title) {
-                header.querySelector(".modal-title").innerHTML = options.title;
-            } else {
-                header.classList.add("border-0");
-            }
-            if (options.closeButton) {
-                let closeButton = generateElement(templates.closeButton);
-                if (options.bootstrap < 5) {
-                    closeButton.innerHTML = "&#215;";
-                }
-                if (options.bootstrap < 4) {
-                    header.prepend(closeButton);
-                } else {
-                    header.append(closeButton);
-                }
-            }
-            body.before(header);
-        }
-        if (options.centerVertical) {
-            innerDialog.classList.add("modal-dialog-centered");
-            if (options.fullBootstrapVersion < "4.0.0") {
-                console.warn(`"centerVertical" requires Bootstrap 4.0.0-beta.3 or higher. You appear to be using ${options.fullBootstrapVersion}. Please upgrade to use this option.`);
-            }
-        }
-        if (!options.reusable) {
-            dialog.addEventListener("hide.bs.modal", function() {
-                dialog.removeEventListener("escape.close.bb", null);
-                dialog.removeEventListener("click", null);
-            }, {
-                once: true
-            });
-            dialog.addEventListener("hidden.bs.modal", function() {
-                dialog.remove();
-                dialog = null;
-            }, {
-                once: true
+        if (t.centerVertical && o.classList.add("modal-dialog-centered"), t.reusable || (e.addEventListener("hide.bs.modal", l => {
+            l.target === e && (e.removeEventListener("escape.close.bb", () => {}), 
+            e.removeEventListener("click", () => {}));
+        }, {
+            once: !0
+        }), e.addEventListener("hidden.bs.modal", l => {
+            l.target === e && e.remove();
+        }, {
+            once: !0
+        })), t.onHide) if (typeof t.onHide == "function") e.addEventListener("hide.bs.modal", t.onHide); else throw new Error('Argument supplied to "onHide" must be a function');
+        if (t.onHidden) if (typeof t.onHidden == "function") e.addEventListener("hidden.bs.modal", t.onHidden); else throw new Error('Argument supplied to "onHidden" must be a function');
+        if (t.onShow) if (typeof t.onShow == "function") A(e, "show.bs.modal", t.onShow); else throw new Error('Argument supplied to "onShow" must be a function');
+        if (e.addEventListener("shown.bs.modal", q), t.onShown) if (typeof t.onShown == "function") A(e, "shown.bs.modal", t.onShown); else throw new Error('Argument supplied to "onShown" must be a function');
+        if (t.backdrop === !0) {
+            let l = !1;
+            A(e, "mousedown", d => {
+                d.stopPropagation(), l = !0;
+            }, ".modal-content"), A(e, "click.dismiss.bs.modal", d => {
+                l || d.target !== d.currentTarget || g(e, "escape.close.bb");
             });
         }
-        if (options.onHide) {
-            if (typeof options.onHide === "function") {
-                dialog.addEventListener("hide.bs.modal", options.onHide);
-            } else {
-                throw new Error('Argument supplied to "onHide" must be a function');
+        e.addEventListener("escape.close.bb", l => {
+            u.onEscape && K(l, e, u.onEscape);
+        }), e.addEventListener("click", l => {
+            if (l.target.nodeName.toLowerCase() === "button" && !l.target.classList.contains("disabled")) {
+                const d = l.target.dataset.bbHandler;
+                d !== void 0 && K(l, e, u[d]);
             }
-        }
-        if (options.onHidden) {
-            if (typeof options.onHidden === "function") {
-                dialog.addEventListener("hidden.bs.modal", options.onHidden);
-            } else {
-                throw new Error('Argument supplied to "onHidden" must be a function');
-            }
-        }
-        if (options.onShow) {
-            if (typeof options.onShow === "function") {
-                addEventListener(dialog, "show.bs.modal", options.onShow);
-            } else {
-                throw new Error('Argument supplied to "onShow" must be a function');
-            }
-        }
-        dialog.addEventListener("shown.bs.modal", {
-            dialog: dialog
-        }, focusPrimaryButton);
-        if (options.onShown) {
-            if (typeof options.onShown === "function") {
-                addEventListener(dialog, "shown.bs.modal", options.onShown);
-            } else {
-                throw new Error('Argument supplied to "onShown" must be a function');
-            }
-        }
-        if (options.backdrop === true) {
-            let startedOnBody = false;
-            addEventListener(dialog, "mousedown", function(e) {
-                e.stopPropagation();
-                startedOnBody = true;
-            });
-            addEventListener(dialog, "click.dismiss.bs.modal", function(e) {
-                if (startedOnBody || e.target !== e.currentTarget) {
-                    return;
-                }
-                trigger(dialog, "escape.close.bb");
-            });
-        }
-        dialog.addEventListener("escape.close.bb", function(e) {
-            if (callbacks.onEscape) {
-                processCallback(e, dialog, callbacks.onEscape);
-            }
+        }), document.addEventListener("click", l => {
+            l.target.closest(".bootbox-close-button") && K(l, e, u.onEscape);
+        }), e.addEventListener("keyup", l => {
+            (l.which === 27 || l.detail.which === 27) && g(e, "escape.close.bb");
+        }), typeof t.container == "object" ? t.container.append(e) : document.querySelector(t.container)?.append(e);
+        const w = new v.Modal(e, {
+            backdrop: t.backdrop,
+            keyboard: !1
         });
-        dialog.addEventListener("click", e => {
-            if (e.target.nodeName.toLowerCase() === "button" && !e.target.classList.contains("disabled")) {
-                const callbackKey = e.target.dataset.bbHandler;
-                if (callbackKey !== undefined) {
-                    processCallback(e, dialog, callbacks[callbackKey]);
-                }
+        return t.show && (t.relatedTarget ? w.show(t.relatedTarget) : w.show()), 
+        e;
+    }
+    function je(...t) {
+        const e = k("alert", [ "ok" ], [ "message", "callback" ], t);
+        if (e.callback && typeof e.callback != "function") throw new Error('alert requires the "callback" property to be a function when provided');
+        return e.buttons.ok.callback = e.onEscape = function() {
+            return typeof e.callback == "function" ? e.callback.call(this) : !0;
+        }, E(e);
+    }
+    function Be(...t) {
+        let e;
+        if (e = k("confirm", [ "cancel", "confirm" ], [ "message", "callback" ], t), 
+        typeof e.callback != "function") throw new Error("confirm requires a callback");
+        let o = e.buttons.cancel, a = e.buttons.confirm;
+        return a || (e.buttons.confirm = N("confirm", e.locale), a = e.buttons.confirm), 
+        o || (e.buttons.cancel = N("cancel", e.locale), o = e.buttons.cancel), o.callback = e.onEscape = function() {
+            return e.callback?.call(this, null);
+        }, a.callback = function() {
+            return e.callback?.call(this, !0);
+        }, e.buttons.cancel = o, e.buttons.confirm = a, E(e);
+    }
+    function Pe(...t) {
+        let e, o, a, r, n, i;
+        a = p(m.form), e = k("prompt", [ "cancel", "confirm" ], [ "title", "callback" ], t), 
+        e.value || (e.value = h.value), e.inputType || (e.inputType = h.inputType), 
+        n = e.show === void 0 ? h.show : e.show, e.show = !1;
+        var u = e.buttons.cancel;
+        u || (e.buttons.cancel = N("cancel", e.locale), u = e.buttons.cancel), u.callback = e.onEscape = function() {
+            return e.callback?.call(this, null);
+        }, e.buttons.cancel = u;
+        var C = e.buttons.confirm;
+        if (C || (e.buttons.confirm = N("confirm", e.locale), C = e.buttons.confirm), 
+        C.callback = function() {
+            let s;
+            if (a.classList.add("was-validated"), e.inputType === "checkbox") {
+                const c = Array.from(r.querySelectorAll('input[type="checkbox"]:checked'));
+                if (s = Array.from(c).map(f => f.value), e.required === !0 && c.length === 0) return !1;
+            } else if (e.inputType === "radio") s = r.querySelector('input[type="radio"]:checked').value; else {
+                let c = r;
+                if (c.setCustomValidity(""), c.checkValidity && !c.checkValidity()) return e.errorMessage && c.setCustomValidity(e.errorMessage), 
+                c.reportValidity && c.reportValidity(), !1;
+                e.inputType === "select" && e.multiple === !0 ? s = Array.from(r.querySelectorAll("option:checked")).map(f => f.value) : s = c.value;
             }
-        });
-        document.addEventListener("click", e => {
-            if (e.target.closest(".bootbox-close-button")) {
-                processCallback(e, dialog, callbacks.onEscape);
+            return e.callback?.call(this, s);
+        }, e.buttons.confirm = C, !e.title) throw new Error("prompt requires a title");
+        if (typeof e.callback != "function") throw new Error("prompt requires a callback");
+        var w = m.inputs;
+        if (!w[e.inputType]) throw new Error("Invalid prompt type");
+        switch (r = p(w[e.inputType]), e.inputType !== "textarea" && r.addEventListener("keydown", function(s) {
+            if (s.key === "Enter") {
+                s.preventDefault();
+                var c = o.querySelector(".bootbox-accept");
+                g(c, "click");
             }
-        });
-        dialog.addEventListener("keyup", function(e) {
-            if (e.which === 27) {
-                trigger(dialog, "escape.close.bb");
-            }
-        });
-        if (typeof options.container === "object") {
-            options.container.append(dialog);
-        } else {
-            document.querySelector(options.container).append(dialog);
-        }
-        const modal = new bootstrap.Modal(dialog, {
-            backdrop: options.backdrop,
-            keyboard: false,
-            show: false
-        });
-        if (options.show) {
-            modal.show(options.relatedTarget);
-        }
-        return dialog;
-    };
-    exports.alert = function() {
-        let options;
-        options = mergeDialogOptions("alert", [ "ok" ], [ "message", "callback" ], arguments);
-        if (options.callback && typeof options.callback !== "function") {
-            throw new Error('alert requires the "callback" property to be a function when provided');
-        }
-        options.buttons.ok.callback = options.onEscape = function() {
-            if (typeof options.callback === "function") {
-                return options.callback.call(this);
-            }
-            return true;
-        };
-        return exports.dialog(options);
-    };
-    exports.confirm = function() {
-        let options;
-        options = mergeDialogOptions("confirm", [ "cancel", "confirm" ], [ "message", "callback" ], arguments);
-        if (typeof options.callback !== "function") {
-            throw new Error("confirm requires a callback");
-        }
-        options.buttons.cancel.callback = options.onEscape = function() {
-            return options.callback.call(this, false);
-        };
-        options.buttons.confirm.callback = function() {
-            return options.callback.call(this, true);
-        };
-        return exports.dialog(options);
-    };
-    exports.prompt = function() {
-        let options;
-        let promptDialog;
-        let form;
-        let input;
-        let shouldShow;
-        let inputOptions;
-        form = generateElement(templates.form);
-        options = mergeDialogOptions("prompt", [ "cancel", "confirm" ], [ "title", "callback" ], arguments);
-        if (!options.value) {
-            options.value = defaults.value;
-        }
-        if (!options.inputType) {
-            options.inputType = defaults.inputType;
-        }
-        shouldShow = options.show === undefined ? defaults.show : options.show;
-        options.show = false;
-        options.buttons.cancel.callback = options.onEscape = function() {
-            return options.callback.call(this, null);
-        };
-        options.buttons.confirm.callback = function() {
-            let value;
-            if (options.inputType === "checkbox") {
-                const checkedInputs = Array.from(input.querySelectorAll('input[type="checkbox"]:checked'));
-                value = Array.from(checkedInputs).map(function(e) {
-                    return e.value;
-                });
-                if (options.required === true && checkedInputs.length === 0) {
-                    return false;
-                }
-            } else if (options.inputType === "radio") {
-                value = input.querySelector('input[type="radio"]:checked').value;
-            } else {
-                value = input.value;
-            }
-            return options.callback.call(this, value);
-        };
-        if (!options.title) {
-            throw new Error("prompt requires a title");
-        }
-        if (typeof options.callback !== "function") {
-            throw new Error("prompt requires a callback");
-        }
-        if (!templates.inputs[options.inputType]) {
-            throw new Error("Invalid prompt type");
-        }
-        input = generateElement(templates.inputs[options.inputType]);
-        switch (options.inputType) {
+        }), e.inputType) {
           case "text":
           case "textarea":
           case "email":
           case "password":
-            input.value = options.value;
-            if (options.placeholder) {
-                input.setAttribute("placeholder", options.placeholder);
-            }
-            if (options.pattern) {
-                input.setAttribute("pattern", options.pattern);
-            }
-            if (options.maxlength) {
-                input.setAttribute("maxlength", options.maxlength);
-            }
-            if (options.required) {
-                input.required = true;
-            }
-            if (options.rows && !isNaN(parseInt(options.rows))) {
-                if (options.inputType === "textarea") {
-                    input.setAttribute("rows", options.rows);
-                }
-            }
+            r.value = e.value.toString(), e.placeholder && r.setAttribute("placeholder", e.placeholder), 
+            e.pattern && r.setAttribute("pattern", e.pattern), e.maxlength && r.setAttribute("maxlength", e.maxlength.toString()), 
+            e.required && (r.required = !0), e.inputType === "textarea" && e.rows && !isNaN(parseInt(e.rows.toString())) && r.setAttribute("rows", e.rows.toString());
             break;
 
           case "date":
           case "time":
           case "number":
           case "range":
-            input.value = options.value;
-            if (options.placeholder) {
-                input.setAttribute("placeholder", options.placeholder);
-            }
-            if (options.pattern) {
-                input.setAttribute("pattern", options.pattern);
-            } else {
-                if (options.inputType === "date") {
-                    input.setAttribute("pattern", "d{4}-d{2}-d{2}");
-                } else if (options.inputType === "time") {
-                    input.setAttribute("pattern", "d{2}:d{2}");
-                }
-            }
-            if (options.required) {
-                input.required = true;
-            }
-            if (options.step) {
-                if (options.step === "any" || !isNaN(options.step) && parseFloat(options.step) > 0) {
-                    input.setAttribute("step", options.step);
-                } else {
-                    throw new Error('"step" must be a valid positive number or the value "any". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-step for more information.');
-                }
-            }
-            if (minAndMaxAreValid(options.inputType, options.min, options.max)) {
-                if (options.min !== undefined) {
-                    input.setAttribute("min", options.min);
-                }
-                if (options.max !== undefined) {
-                    input.setAttribute("max", options.max);
-                }
-            }
+            if (r.value = e.value.toString(), e.placeholder && r.setAttribute("placeholder", e.placeholder), 
+            e.pattern ? r.setAttribute("pattern", e.pattern) : e.inputType === "date" ? r.setAttribute("pattern", "d{4}-d{2}-d{2}") : e.inputType === "time" && r.setAttribute("pattern", "d{2}:d{2}"), 
+            e.required && (r.required = !0), e.step) if (typeof e.step == "string" && (e.step === "any" || parseFloat(e.step) > 0)) r.setAttribute("step", e.step); else if (typeof e.step == "number" && !isNaN(e.step) && e.step > 0) r.setAttribute("step", e.step.toString()); else throw new Error('"step" must be a valid positive number or the value "any". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-step for more information.');
+            $e(e.inputType, e.min, e.max) && (e.min !== void 0 && r.setAttribute("min", e.min.toString()), 
+            e.max !== void 0 && r.setAttribute("max", e.max.toString()));
             break;
 
           case "select":
-            var groups = {};
-            inputOptions = options.inputOptions || [];
-            if (!Array.isArray(inputOptions)) {
-                throw new Error("Please pass an array of input options");
-            }
-            if (!inputOptions.length) {
-                throw new Error('prompt with "inputType" set to "select" requires at least one option');
-            }
-            if (options.required) {
-                input.required = true;
-            }
-            if (options.multiple) {
-                input.multiple = true;
-            }
-            for (const [ , option ] of Object.entries(inputOptions)) {
-                let elem = input;
-                if (option.value === undefined || option.text === undefined) {
-                    throw new Error('each option needs a "value" property and a "text" property');
-                }
-                if (option.group) {
-                    if (!groups[option.group]) {
-                        var groupElement = generateElement("<optgroup />");
-                        groupElement.setAttribute("label", option.group);
-                        groups[option.group] = groupElement;
+            var l = {};
+            if (i = e.inputOptions || [], !Array.isArray(i)) throw new Error("Please pass an array of input options");
+            if (!i.length) throw new Error('prompt with "inputType" set to "select" requires at least one option');
+            e.required && (r.required = !0), e.multiple && (r.multiple = !0);
+            for (const [ , s ] of Object.entries(i)) {
+                let c = r;
+                if (s.value === void 0 || s.text === void 0) throw new Error('each option needs a "value" property and a "text" property');
+                if (s.group) {
+                    if (!l[s.group]) {
+                        var d = p("<optgroup />");
+                        d.setAttribute("label", s.group), l[s.group] = {
+                            Content: d
+                        };
                     }
-                    elem = groups[option.group];
+                    c = l[s.group].Content;
                 }
-                let o = generateElement(templates.option);
-                o.setAttribute("value", option.value);
-                o.textContent = option.text;
-                elem.append(o);
+                let f = p(m.option);
+                f.setAttribute("value", s.value), f.textContent = s.text, c.append(f);
             }
-            for (const [ key, group ] of Object.entries(groups)) {
-                input.append(group);
-            }
-            input.value = options.value;
-            if (options.bootstrap < 5) {
-                input.classList.remove("form-select");
-                input.classList.add("form-control");
-            }
+            for (const [ s, c ] of Object.entries(l)) r.append(c.Content);
+            r.value = e.value.toString();
             break;
 
           case "checkbox":
-            var checkboxValues = Array.isArray(options.value) ? options.value : [ options.value ];
-            inputOptions = options.inputOptions || [];
-            if (!inputOptions.length) {
-                throw new Error('prompt with "inputType" set to "checkbox" requires at least one option');
-            }
-            input = generateElement('<div class="bootbox-checkbox-list"></div>');
-            for (const [ _, option ] of Object.entries(inputOptions)) {
-                if (option.value === undefined || option.text === undefined) {
-                    throw new Error('each option needs a "value" property and a "text" property');
-                }
-                let checkbox = generateElement(templates.inputs[options.inputType]);
-                checkbox.querySelector("input").setAttribute("value", option.value);
-                checkbox.querySelector("label").append(`\n${option.text}`);
-                for (const [ key, value ] of Object.entries(checkboxValues)) {
-                    if (value === option.value) {
-                        checkbox.querySelector("input").checked = true;
-                    }
-                }
-                input.append(checkbox);
+            var O = Array.isArray(e.value) ? e.value : [ e.value ];
+            if (i = e.inputOptions || [], !i.length) throw new Error('prompt with "inputType" set to "checkbox" requires at least one option');
+            r = p('<div class="bootbox-checkbox-list"></div>');
+            for (const [ s, c ] of Object.entries(i)) {
+                if (c.value === void 0 || c.text === void 0) throw new Error('each option needs a "value" property and a "text" property');
+                let f = p(m.inputs[e.inputType]);
+                f.querySelector("input")?.setAttribute("value", c.value), f.querySelector("label")?.append(`
+${c.text}`);
+                for (const [ We, Ge ] of Object.entries(O)) Ge === c.value && f.querySelector("input")?.setAttribute("checked", "true");
+                r.append(f);
             }
             break;
 
           case "radio":
-            if (options.value !== undefined && Array.isArray(options.value)) {
-                throw new Error('prompt with "inputType" set to "radio" requires a single, non-array value for "value"');
+            if (e.value !== void 0 && Array.isArray(e.value)) throw new Error('prompt with "inputType" set to "radio" requires a single, non-array value for "value"');
+            if (i = e.inputOptions || [], !i.length) throw new Error('prompt with "inputType" set to "radio" requires at least one option');
+            r = p('<div class="bootbox-radiobutton-list"></div>');
+            var L = !0;
+            for (const [ s, c ] of Object.entries(i)) {
+                if (c.value === void 0 || c.text === void 0) throw new Error('each option needs a "value" property and a "text" property');
+                let f = p(m.inputs[e.inputType]);
+                f.querySelector("input")?.setAttribute("value", c.value), f.querySelector("label")?.append(`
+${c.text}`), e.value !== void 0 && c.value === e.value && (f.querySelector("input").checked = !0, 
+                L = !1), r.append(f);
             }
-            inputOptions = options.inputOptions || [];
-            if (!inputOptions.length) {
-                throw new Error('prompt with "inputType" set to "radio" requires at least one option');
-            }
-            input = generateElement('<div class="bootbox-radiobutton-list"></div>');
-            var checkFirstRadio = true;
-            for (const [ _, option ] of Object.entries(inputOptions)) {
-                if (option.value === undefined || option.text === undefined) {
-                    throw new Error('each option needs a "value" property and a "text" property');
-                }
-                let radio = generateElement(templates.inputs[options.inputType]);
-                radio.querySelector("input").setAttribute("value", option.value);
-                radio.querySelector("label").append(`\n${option.text}`);
-                if (options.value !== undefined) {
-                    if (option.value === options.value) {
-                        radio.querySelector("input").checked = true;
-                        checkFirstRadio = false;
-                    }
-                }
-                input.append(radio);
-            }
-            if (checkFirstRadio) {
-                input.querySelector('input[type="radio"]').setAttribute("checked", true);
-            }
+            L && r.querySelector('input[type="radio"]')?.setAttribute("checked", "true");
             break;
         }
-        form.append(input);
-        form.addEventListener("submit", function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            promptDialog.querySelector(".bootbox-accept").click();
+        if (a.append(r), a.addEventListener("submit", s => {
+            s.preventDefault(), s.stopPropagation(), a.classList.remove("was-validated"), 
+            o.querySelector(".bootbox-accept")?.click();
+        }), e.message && e.message.trim() !== "") {
+            let s = p(m.promptMessage).innerHTML = e.message;
+            a.prepend(s), e.messageForm = a;
+        } else e.messageForm = a;
+        o = E(e), o.removeEventListener("shown.bs.modal", q), o.addEventListener("shown.bs.modal", () => {
+            r.focus();
         });
-        if (options.message && options.message.trim() !== "") {
-            let message = generateElement(templates.promptMessage).innerHTML = options.message;
-            form.prepend(message);
-            options.message = form;
-        } else {
-            options.message = form;
-        }
-        promptDialog = exports.dialog(options);
-        promptDialog.removeEventListener("shown.bs.modal", focusPrimaryButton);
-        promptDialog.addEventListener("shown.bs.modal", function() {
-            input.focus();
-        });
-        const modal = new bootstrap.Modal(promptDialog);
-        if (shouldShow === true) {
-            modal.show();
-        }
-        return promptDialog;
-    };
-    function deepExtend(out, ...arguments_) {
-        if (!out) {
-            return {};
-        }
-        for (const obj of arguments_) {
-            if (!obj) {
-                continue;
-            }
-            for (const [ key, value ] of Object.entries(obj)) {
-                switch (Object.prototype.toString.call(value)) {
-                  case "[object Object]":
-                    out[key] = out[key] || {};
-                    out[key] = deepExtend(out[key], value);
-                    break;
-
-                  case "[object Array]":
-                    out[key] = deepExtend(new Array(value.length), value);
-                    break;
-
-                  default:
-                    out[key] = value;
-                }
-            }
-        }
-        return out;
+        const Ue = new v.Modal(o);
+        return n === !0 && Ue.show(), o;
     }
-    function mapArguments(args, properties) {
-        const argsLength = args.length;
-        let options = {};
-        if (argsLength < 1 || argsLength > 2) {
-            throw new Error("Invalid argument length");
-        }
-        if (argsLength === 2 || typeof args[0] === "string") {
-            options[properties[0]] = args[0];
-            options[properties[1]] = args[1];
-        } else {
-            options = args[0];
-        }
-        return options;
-    }
-    function mergeArguments(defaults, args, properties) {
-        return deepExtend({}, defaults, mapArguments(args, properties));
-    }
-    function mergeDialogOptions(className, labels, properties, args) {
-        let locale;
-        if (args && args[0]) {
-            locale = args[0].locale || defaults.locale;
-            const swapButtons = args[0].swapButtonOrder || defaults.swapButtonOrder;
-            if (swapButtons) {
-                labels = labels.reverse();
-            }
-        }
-        const baseOptions = {
-            className: `bootbox-${className}`,
-            buttons: createLabels(labels, locale)
+    function F(...t) {
+        const e = {};
+        let o = !1, a = 0;
+        const r = t.length;
+        Object.prototype.toString.call(t[0]) === "[object Boolean]" && (o = t[0], 
+        a++);
+        const n = i => {
+            for (const u in i) Object.prototype.hasOwnProperty.call(i, u) && (o && Object.prototype.toString.call(i[u]) === "[object Object]" ? e[u] = F(!0, e[u], i[u]) : e[u] = i[u]);
         };
-        return validateButtons(mergeArguments(baseOptions, args, properties), labels);
-    }
-    function validateButtons(options, buttons) {
-        const allowedButtons = {};
-        for (const [ key, value ] of Object.entries(buttons)) {
-            allowedButtons[value] = true;
+        for (;a < r; a++) {
+            const i = t[a];
+            n(i);
         }
-        for (const [ key, value ] of Object.entries(options.buttons)) {
-            if (allowedButtons[key] === undefined) {
-                throw new Error(`button key "${key}" is not allowed (options are ${buttons.join(" ")})`);
-            }
-        }
-        return options;
+        return e;
     }
-    function createLabels(labels, locale) {
-        const buttons = {};
-        for (let i = 0, j = labels.length; i < j; i++) {
-            const argument = labels[i];
-            const key = argument.toLowerCase();
-            const value = argument.toUpperCase();
-            buttons[key] = {
-                label: getText(value, locale)
+    function He(t, e) {
+        const o = t.length;
+        let a = {};
+        if (o < 1 || o > 2) throw new Error("Invalid argument length");
+        return o === 2 || typeof t[0] == "string" ? (a[e[0]] = t[0], a[e[1]] = t[1]) : a = t[0], 
+        a;
+    }
+    function Ve(t, e, o) {
+        return F({}, t, He(e, o));
+    }
+    function k(t, e, o, a) {
+        let r;
+        a && a[0] && (r = a[0].locale || h.locale, (a[0].swapButtonOrder || h.swapButtonOrder) && (e = e.reverse()));
+        const n = {
+            className: `bootbox-${t}`,
+            buttons: _e(e, r),
+            show: !0,
+            closeButton: !0,
+            animate: !0,
+            locale: "en",
+            swapButtonOrder: !1,
+            scrollable: !1,
+            reusable: !1,
+            centerVertical: !1
+        };
+        return De(Ve(n, a, o), e);
+    }
+    function De(t, e) {
+        const o = {};
+        for (const [ a, r ] of Object.entries(e)) o[r] = !0;
+        for (const [ a ] of Object.entries(t.buttons)) if (o[a] === void 0) throw new Error(`button key "${a}" is not allowed (options are ${e.join(" ")})`);
+        return t;
+    }
+    function _e(t, e) {
+        const o = {};
+        for (let a = 0, r = t.length; a < r; a++) {
+            const n = t[a], i = n.toLowerCase(), u = n.toUpperCase();
+            o[i] = {
+                label: R(u, e),
+                className: ""
             };
         }
-        return buttons;
+        return o;
     }
-    function getText(key, locale) {
-        const labels = locales[locale];
-        return labels ? labels[key] : locales.en[key];
+    function N(t, e) {
+        return {
+            label: R(t.toUpperCase(), e),
+            className: ""
+        };
     }
-    function sanitize(options) {
-        let buttons;
-        let total;
-        if (typeof options !== "object") {
-            throw new Error("Please supply an object of options");
+    function R(t, e) {
+        const o = y[e];
+        return o ? o[t] : y.en[t];
+    }
+    function ze(t) {
+        let e, o;
+        if (!t.message && !t.messageForm) throw new Error('"message" option must not be null or an empty string.');
+        t = Object.assign({}, h, t), t.backdrop ? t.backdrop = typeof t.backdrop == "string" && t.backdrop.toLowerCase() === "static" ? "static" : !0 : t.backdrop = t.backdrop === !1 || t.backdrop === 0 ? !1 : "static", 
+        t.buttons || (t.buttons = {}), e = t.buttons, o = T(e);
+        let a = 0;
+        for (let [ r, n ] of Object.entries(e)) {
+            if (typeof n == "function" && (n = e[r] = {
+                callback: n,
+                label: "",
+                className: ""
+            }), Object.prototype.toString.call(n).replace(/^\[object (.+)\]$/, "$1").toLowerCase() !== "object") throw new Error(`button with key "${r}" must be an object`);
+            if (n.label || (n.label = r), !n.className) {
+                let i = !1;
+                t.swapButtonOrder ? i = a === 0 : i = a === o - 1, o <= 2 && i ? n.className = "btn-primary" : n.className = "btn-secondary";
+            }
+            a++;
         }
-        if (!options.message) {
-            throw new Error('"message" option must not be null or an empty string.');
-        }
-        options = Object.assign({}, defaults, options);
-        if (!options.backdrop) {
-            options.backdrop = options.backdrop === false || options.backdrop === 0 ? false : "static";
+        return t;
+    }
+    function q(t) {
+        const e = t?.data?.dialog?.querySelector(".bootbox-accept");
+        e && g(e, "focus");
+    }
+    function T(t) {
+        return Object.keys(t).length;
+    }
+    function K(t, e, o) {
+        t.stopPropagation(), t.preventDefault(), !(typeof o == "function" && o.call(e, t) === !1) && e && v.Modal.getInstance(e)?.hide();
+    }
+    function $e(t, e, o) {
+        let a = !1, r = !0, n = !0;
+        if (t === "date") e !== void 0 && !(r = M(e)) ? console.warn('Invalid "min" date format for input type "date".') : o !== void 0 && !(n = M(o)) && console.warn('Invalid "max" date format for input type "date".'); else if (t === "time") {
+            if (e !== void 0 && !(r = x(e))) throw new Error('"min" is not a valid time.');
+            if (o !== void 0 && !(n = x(o))) throw new Error('"max" is not a valid time.');
         } else {
-            options.backdrop = typeof options.backdrop === "string" && options.backdrop.toLowerCase() === "static" ? "static" : true;
+            if (e !== void 0 && isNaN(Number(e))) throw r = !1, new Error('"min" must be a valid number.');
+            if (o !== void 0 && isNaN(Number(o))) throw n = !1, new Error('"max" must be a valid number.');
         }
-        if (!options.buttons) {
-            options.buttons = {};
+        if (r && n) {
+            if (typeof e == "number" && typeof o == "number" && o < e) throw new Error('"max" must be greater than or equal to "min".');
+            if (typeof e == "string" && typeof o == "string" && o < e) throw new Error('"max" must be greater than or equal to "min".');
+            a = !0;
         }
-        buttons = options.buttons;
-        total = getKeyLength(buttons);
-        var index = 0;
-        for (var [ key, button ] of Object.entries(buttons)) {
-            if (typeof button === "function") {
-                button = buttons[key] = {
-                    callback: button
-                };
-            }
-            if (Object.prototype.toString.call(button).replace(/^\[object (.+)\]$/, "$1").toLowerCase() !== "object") {
-                throw new Error(`button with key "${key}" must be an object`);
-            }
-            if (!button.label) {
-                button.label = key;
-            }
-            if (!button.className) {
-                let isPrimary = false;
-                if (options.swapButtonOrder) {
-                    isPrimary = index === 0;
-                } else {
-                    isPrimary = index === total - 1;
-                }
-                if (total <= 2 && isPrimary) {
-                    button.className = "btn-primary";
-                } else {
-                    button.className = "btn-secondary btn-default";
-                }
-            }
-            index++;
-        }
-        return options;
+        return a;
     }
-    function getKeyLength(obj) {
-        return Object.keys(obj).length;
+    function p(t) {
+        const e = document.createElement("template");
+        return e.innerHTML = t.trim(), e.content.children[0];
     }
-    function focusPrimaryButton(e) {
-        trigger(e.data.dialog.querySelector(".bootbox-accept").first(), "focus");
-    }
-    function processCallback(e, dialog, callback) {
-        e.stopPropagation();
-        e.preventDefault();
-        const preserveDialog = typeof callback === "function" && callback.call(dialog, e) === false;
-        if (!preserveDialog && dialog) {
-            bootstrap.Modal.getInstance(dialog).hide();
-        }
-    }
-    function minAndMaxAreValid(type, min, max) {
-        let result = false;
-        let minValid = true;
-        let maxValid = true;
-        if (type === "date") {
-            if (min !== undefined && !(minValid = dateIsValid(min))) {
-                console.warn('Browsers which natively support the "date" input type expect date values to be of the form "YYYY-MM-DD" (see ISO-8601 https://www.iso.org/iso-8601-date-and-time-format.html). Bootbox does not enforce this rule, but your min value may not be enforced by this browser.');
-            } else if (max !== undefined && !(maxValid = dateIsValid(max))) {
-                console.warn('Browsers which natively support the "date" input type expect date values to be of the form "YYYY-MM-DD" (see ISO-8601 https://www.iso.org/iso-8601-date-and-time-format.html). Bootbox does not enforce this rule, but your max value may not be enforced by this browser.');
-            }
-        } else if (type === "time") {
-            if (min !== undefined && !(minValid = timeIsValid(min))) {
-                throw new Error('"min" is not a valid time. See https://www.w3.org/TR/2012/WD-html-markup-20120315/datatypes.html#form.data.time for more information.');
-            } else if (max !== undefined && !(maxValid = timeIsValid(max))) {
-                throw new Error('"max" is not a valid time. See https://www.w3.org/TR/2012/WD-html-markup-20120315/datatypes.html#form.data.time for more information.');
-            }
-        } else {
-            if (min !== undefined && isNaN(min)) {
-                minValid = false;
-                throw new Error('"min" must be a valid number. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-min for more information.');
-            }
-            if (max !== undefined && isNaN(max)) {
-                maxValid = false;
-                throw new Error('"max" must be a valid number. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-max for more information.');
-            }
-        }
-        if (minValid && maxValid) {
-            if (max < min) {
-                throw new Error('"max" must be greater than or equal to "min". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-max for more information.');
-            } else {
-                result = true;
-            }
-        }
-        return result;
-    }
-    function timeIsValid(value) {
-        return /([01][0-9]|2[0-3]):[0-5][0-9]?:[0-5][0-9]/.test(value);
-    }
-    function dateIsValid(value) {
-        return /(\d{4})-(\d{2})-(\d{2})/.test(value);
-    }
-    function trigger(el, eventType) {
-        if (typeof eventType === "string" && typeof el[eventType] === "function") {
-            el[eventType]();
-        } else {
-            const event = typeof eventType === "string" ? new Event(eventType, {
-                bubbles: true
-            }) : eventType;
-            el.dispatchEvent(event);
-        }
-    }
-    function generateElement(html) {
-        const template = document.createElement("template");
-        template.innerHTML = html.trim();
-        return template.content.children[0];
-    }
-    function addEventListener(el, eventName, eventHandler, selector) {
-        if (selector) {
-            const wrappedHandler = e => {
-                if (!e.target) return;
-                const el = e.target.closest(selector);
-                if (el) {
-                    eventHandler.call(el, e);
-                }
+    function A(t, e, o, a) {
+        if (a) {
+            const r = n => {
+                if (!n.target) return;
+                const i = n.target.closest(a);
+                i && o.call(i, n);
             };
-            el.addEventListener(eventName, wrappedHandler);
-            return wrappedHandler;
+            return t.addEventListener(e, r), r;
         } else {
-            const wrappedHandler = e => {
-                eventHandler.call(el, e);
+            const r = n => {
+                o.call(t, n);
             };
-            el.addEventListener(eventName, wrappedHandler);
-            return wrappedHandler;
+            return t.addEventListener(e, r), r;
         }
     }
-    return exports;
-});
+    return b.VERSION = Ie, b.addLocale = Fe, b.alert = je, b.confirm = Be, b.dialog = E, 
+    b.getLocale = Se, b.hideAll = Te, b.init = S, b.prompt = Pe, b.removeLocale = Re, 
+    b.setDefaults = I, b.setLocale = qe, Object.defineProperty(b, Symbol.toStringTag, {
+        value: "Module"
+    }), b;
+}({}, bootstrap);
 
 var Notify = function(c) {
     "use strict";
@@ -1038,37 +911,45 @@ var Notify = function(c) {
     return v;
 }(bootstrap);
 
-var DarkEditable = function(a) {
+var DarkEditable = function(l) {
     "use strict";
-    var v = Object.defineProperty;
-    var _ = (a, i, r) => i in a ? v(a, i, {
-        enumerable: !0,
-        configurable: !0,
-        writable: !0,
-        value: r
-    }) : a[i] = r;
-    var n = (a, i, r) => _(a, typeof i != "symbol" ? i + "" : i, r);
-    var i = document.createElement("style");
-    i.textContent = `.dark-editable-element{border-bottom:dashed 1px #0088cc;text-decoration:none;cursor:pointer}.dark-editable-element-disabled{border-bottom:none;cursor:default}.dark-editable-element-empty{font-style:italic;color:#d14}.dark-editable{max-width:none}.dark-editable-loader{font-size:5px;left:50%;top:50%;width:1em;height:1em;border-radius:50%;position:relative;text-indent:-9999em;-webkit-animation:load5 1.1s infinite ease;animation:load5 1.1s infinite ease;-webkit-transform:translateZ(0);transform:translateZ(0)}@-webkit-keyframes load5{0%,to{-webkit-box-shadow:0em -2.6em 0em 0em #000000,1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.5),-1.8em -1.8em 0 0em rgba(0,0,0,.7);box-shadow:0 -2.6em #000,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #00000080,-1.8em -1.8em #000000b3}12.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.7),1.8em -1.8em 0 0em #000000,2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.5);box-shadow:0 -2.6em #000000b3,1.8em -1.8em #000,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #00000080}25%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.5),1.8em -1.8em 0 0em rgba(0,0,0,.7),2.5em 0em 0 0em #000000,1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #00000080,1.8em -1.8em #000000b3,2.5em 0 #000,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}37.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.5),2.5em 0em 0 0em rgba(0,0,0,.7),1.75em 1.75em 0 0em #000000,0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #00000080,2.5em 0 #000000b3,1.75em 1.75em #000,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}50%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.5),1.75em 1.75em 0 0em rgba(0,0,0,.7),0em 2.5em 0 0em #000000,-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #00000080,1.75em 1.75em #000000b3,0 2.5em #000,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}62.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.5),0em 2.5em 0 0em rgba(0,0,0,.7),-1.8em 1.8em 0 0em #000000,-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #00000080,0 2.5em #000000b3,-1.8em 1.8em #000,-2.6em 0 #0003,-1.8em -1.8em #0003}75%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.5),-1.8em 1.8em 0 0em rgba(0,0,0,.7),-2.6em 0em 0 0em #000000,-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #00000080,-1.8em 1.8em #000000b3,-2.6em 0 #000,-1.8em -1.8em #0003}87.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.5),-2.6em 0em 0 0em rgba(0,0,0,.7),-1.8em -1.8em 0 0em #000000;box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #00000080,-2.6em 0 #000000b3,-1.8em -1.8em #000}}@keyframes load5{0%,to{-webkit-box-shadow:0em -2.6em 0em 0em #000000,1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.5),-1.8em -1.8em 0 0em rgba(0,0,0,.7);box-shadow:0 -2.6em #000,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #00000080,-1.8em -1.8em #000000b3}12.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.7),1.8em -1.8em 0 0em #000000,2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.5);box-shadow:0 -2.6em #000000b3,1.8em -1.8em #000,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #00000080}25%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.5),1.8em -1.8em 0 0em rgba(0,0,0,.7),2.5em 0em 0 0em #000000,1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #00000080,1.8em -1.8em #000000b3,2.5em 0 #000,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}37.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.5),2.5em 0em 0 0em rgba(0,0,0,.7),1.75em 1.75em 0 0em #000000,0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #00000080,2.5em 0 #000000b3,1.75em 1.75em #000,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}50%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.5),1.75em 1.75em 0 0em rgba(0,0,0,.7),0em 2.5em 0 0em #000000,-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #00000080,1.75em 1.75em #000000b3,0 2.5em #000,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}62.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.5),0em 2.5em 0 0em rgba(0,0,0,.7),-1.8em 1.8em 0 0em #000000,-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #00000080,0 2.5em #000000b3,-1.8em 1.8em #000,-2.6em 0 #0003,-1.8em -1.8em #0003}75%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.5),-1.8em 1.8em 0 0em rgba(0,0,0,.7),-2.6em 0em 0 0em #000000,-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #00000080,-1.8em 1.8em #000000b3,-2.6em 0 #000,-1.8em -1.8em #0003}87.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.5),-2.6em 0em 0 0em rgba(0,0,0,.7),-1.8em -1.8em 0 0em #000000;box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #00000080,-2.6em 0 #000000b3,-1.8em -1.8em #000}}
-/*$vite$:1*/`, document.head.appendChild(i);
+    var h = document.createElement("style");
+    h.textContent = `.dark-editable-element{border-bottom:dashed 1px #0088cc;text-decoration:none;cursor:pointer}.dark-editable-element-disabled{border-bottom:none;cursor:default}.dark-editable-element-empty{font-style:italic;color:#d14}.dark-editable{max-width:none}.dark-editable-loader{font-size:5px;left:50%;top:50%;width:1em;height:1em;border-radius:50%;position:relative;text-indent:-9999em;-webkit-animation:load5 1.1s infinite ease;animation:load5 1.1s infinite ease;-webkit-transform:translateZ(0);transform:translateZ(0)}@-webkit-keyframes load5{0%,to{-webkit-box-shadow:0em -2.6em 0em 0em #000000,1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.5),-1.8em -1.8em 0 0em rgba(0,0,0,.7);box-shadow:0 -2.6em #000,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #00000080,-1.8em -1.8em #000000b3}12.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.7),1.8em -1.8em 0 0em #000000,2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.5);box-shadow:0 -2.6em #000000b3,1.8em -1.8em #000,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #00000080}25%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.5),1.8em -1.8em 0 0em rgba(0,0,0,.7),2.5em 0em 0 0em #000000,1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #00000080,1.8em -1.8em #000000b3,2.5em 0 #000,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}37.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.5),2.5em 0em 0 0em rgba(0,0,0,.7),1.75em 1.75em 0 0em #000000,0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #00000080,2.5em 0 #000000b3,1.75em 1.75em #000,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}50%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.5),1.75em 1.75em 0 0em rgba(0,0,0,.7),0em 2.5em 0 0em #000000,-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #00000080,1.75em 1.75em #000000b3,0 2.5em #000,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}62.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.5),0em 2.5em 0 0em rgba(0,0,0,.7),-1.8em 1.8em 0 0em #000000,-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #00000080,0 2.5em #000000b3,-1.8em 1.8em #000,-2.6em 0 #0003,-1.8em -1.8em #0003}75%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.5),-1.8em 1.8em 0 0em rgba(0,0,0,.7),-2.6em 0em 0 0em #000000,-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #00000080,-1.8em 1.8em #000000b3,-2.6em 0 #000,-1.8em -1.8em #0003}87.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.5),-2.6em 0em 0 0em rgba(0,0,0,.7),-1.8em -1.8em 0 0em #000000;box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #00000080,-2.6em 0 #000000b3,-1.8em -1.8em #000}}@keyframes load5{0%,to{-webkit-box-shadow:0em -2.6em 0em 0em #000000,1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.5),-1.8em -1.8em 0 0em rgba(0,0,0,.7);box-shadow:0 -2.6em #000,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #00000080,-1.8em -1.8em #000000b3}12.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.7),1.8em -1.8em 0 0em #000000,2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.5);box-shadow:0 -2.6em #000000b3,1.8em -1.8em #000,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #00000080}25%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.5),1.8em -1.8em 0 0em rgba(0,0,0,.7),2.5em 0em 0 0em #000000,1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #00000080,1.8em -1.8em #000000b3,2.5em 0 #000,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}37.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.5),2.5em 0em 0 0em rgba(0,0,0,.7),1.75em 1.75em 0 0em #000000,0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #00000080,2.5em 0 #000000b3,1.75em 1.75em #000,0 2.5em #0003,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}50%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.5),1.75em 1.75em 0 0em rgba(0,0,0,.7),0em 2.5em 0 0em #000000,-1.8em 1.8em 0 0em rgba(0,0,0,.2),-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #00000080,1.75em 1.75em #000000b3,0 2.5em #000,-1.8em 1.8em #0003,-2.6em 0 #0003,-1.8em -1.8em #0003}62.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.5),0em 2.5em 0 0em rgba(0,0,0,.7),-1.8em 1.8em 0 0em #000000,-2.6em 0em 0 0em rgba(0,0,0,.2),-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #00000080,0 2.5em #000000b3,-1.8em 1.8em #000,-2.6em 0 #0003,-1.8em -1.8em #0003}75%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.5),-1.8em 1.8em 0 0em rgba(0,0,0,.7),-2.6em 0em 0 0em #000000,-1.8em -1.8em 0 0em rgba(0,0,0,.2);box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #00000080,-1.8em 1.8em #000000b3,-2.6em 0 #000,-1.8em -1.8em #0003}87.5%{-webkit-box-shadow:0em -2.6em 0em 0em rgba(0,0,0,.2),1.8em -1.8em 0 0em rgba(0,0,0,.2),2.5em 0em 0 0em rgba(0,0,0,.2),1.75em 1.75em 0 0em rgba(0,0,0,.2),0em 2.5em 0 0em rgba(0,0,0,.2),-1.8em 1.8em 0 0em rgba(0,0,0,.5),-2.6em 0em 0 0em rgba(0,0,0,.7),-1.8em -1.8em 0 0em #000000;box-shadow:0 -2.6em #0003,1.8em -1.8em #0003,2.5em 0 #0003,1.75em 1.75em #0003,0 2.5em #0003,-1.8em 1.8em #00000080,-2.6em 0 #000000b3,-1.8em -1.8em #000}}
+/*$vite$:1*/`, document.head.appendChild(h);
     class r {
+        context;
         constructor(e) {
-            n(this, "context");
             if (this.constructor === r) throw new Error("It's abstract class");
             this.context = e;
         }
         event_show() {
             if (this.context.typeElement.hideError(), !this.context.typeElement.element) throw new Error("Element is missing!");
-            this.context.typeElement.element.value = this.context.getValue(), this.context.element.dispatchEvent(new CustomEvent("show"));
+            this.context.typeElement.element.value = this.context.getValue(), this.context.element.dispatchEvent(new CustomEvent("show", {
+                detail: {
+                    DarkEditable: this.context
+                }
+            }));
         }
         event_shown() {
-            this.context.element.dispatchEvent(new CustomEvent("shown"));
+            this.context.element.dispatchEvent(new CustomEvent("shown", {
+                detail: {
+                    DarkEditable: this.context
+                }
+            }));
         }
         event_hide() {
-            this.context.element.dispatchEvent(new CustomEvent("hide"));
+            this.context.element.dispatchEvent(new CustomEvent("hide", {
+                detail: {
+                    DarkEditable: this.context
+                }
+            }));
         }
         event_hidden() {
-            this.context.element.dispatchEvent(new CustomEvent("hidden"));
+            this.context.element.dispatchEvent(new CustomEvent("hidden", {
+                detail: {
+                    DarkEditable: this.context
+                }
+            }));
         }
         init() {
             throw new Error("Method `init` not define!");
@@ -1083,20 +964,17 @@ var DarkEditable = function(a) {
             throw new Error("Method `hide` not define!");
         }
     }
-    class p extends r {
-        constructor() {
-            super(...arguments);
-            n(this, "popover", null);
-        }
+    class d extends r {
+        popover = null;
         init() {
-            const t = {
+            const e = {
                 container: "body",
                 content: this.context.typeElement.create(),
                 html: !0,
                 customClass: "dark-editable",
                 title: this.context.options.title
             };
-            this.popover = new a.Popover(this.context.element, Object.assign(t, this.context.options.popoverOptions)), 
+            this.popover = new l.Popover(this.context.element, Object.assign(e, this.context.options.popoverOptions)), 
             this.context.element.addEventListener("show.bs.popover", () => {
                 this.event_show();
             }), this.context.element.addEventListener("shown.bs.popover", () => {
@@ -1105,10 +983,10 @@ var DarkEditable = function(a) {
                 this.event_hide();
             }), this.context.element.addEventListener("hidden.bs.popover", () => {
                 this.event_hidden();
-            }), document.addEventListener("click", s => {
-                const o = s.target;
-                if (this.popover && o === this.popover.tip || o === this.context.element) return;
-                let m = o.parentNode;
+            }), document.addEventListener("click", t => {
+                const s = t.target;
+                if (this.popover && s === this.popover.tip || s === this.context.element) return;
+                let m = s.parentNode;
                 for (;m; ) {
                     if (m === this.popover.tip) return;
                     m = m.parentNode;
@@ -1147,18 +1025,18 @@ var DarkEditable = function(a) {
             }, 100);
         }
     }
-    class c {
+    class n {
+        context;
+        element = null;
+        error = null;
+        form = null;
+        load = null;
+        buttons = {
+            success: null,
+            cancel: null
+        };
         constructor(e) {
-            n(this, "context");
-            n(this, "element", null);
-            n(this, "error", null);
-            n(this, "form", null);
-            n(this, "load", null);
-            n(this, "buttons", {
-                success: null,
-                cancel: null
-            });
-            if (this.constructor === c) throw new Error("It's abstract class");
+            if (this.constructor === n) throw new Error("It's abstract class");
             this.context = e;
         }
         create() {
@@ -1185,19 +1063,23 @@ var DarkEditable = function(a) {
                 const s = this.getValue();
                 if (this.context.options.send && this.context.options.id && this.context.options.url && this.context.getValue() !== s) {
                     this.showLoad();
-                    let o;
+                    let m;
                     try {
-                        const m = await this.ajax(s);
-                        m.ok ? o = await this.context.success(m, s) : o = await this.context.error(m, s) || `${m.status} ${m.statusText}`;
-                    } catch (m) {
-                        console.error(m), o = m;
+                        const o = await this.ajax(s);
+                        o.ok ? m = await this.context.success(o, s) : m = await this.context.error(o, s) || `${o.status} ${o.statusText}`;
+                    } catch (o) {
+                        console.error(o), m = o;
                     }
-                    o ? (this.setError(o), this.showError()) : (this.setError(""), 
+                    m ? (this.setError(m), this.showError()) : (this.setError(""), 
                     this.hideError(), this.context.setValue(this.getValue()), this.context.modeElement.hide(), 
                     this.initText()), this.hideLoad();
                 } else this.context.setValue(this.getValue()), this.context.modeElement.hide(), 
                 this.initText();
-                this.context.element.dispatchEvent(new CustomEvent("save"));
+                this.context.element.dispatchEvent(new CustomEvent("save", {
+                    detail: {
+                        DarkEditable: this.context
+                    }
+                }));
             }), e;
         }
         createContainerLoad() {
@@ -1231,23 +1113,22 @@ var DarkEditable = function(a) {
             this.load && (this.load.style.display = "block");
         }
         ajax(e) {
-            var m;
             let t = this.context.options.url;
             if (!t) throw new Error("URL is required!");
             if (!this.context.options.id) throw new Error("pk is required!");
             if (!this.context.options.name) throw new Error("Name is required!");
             const s = new FormData();
             if (s.append("id", this.context.options.id), s.append("name", this.context.options.name), 
-            s.append("value", e), ((m = this.context.options.ajaxOptions) == null ? void 0 : m.method) === "GET") {
-                const l = [];
-                s.forEach((y, E) => {
-                    l.push(`${E}=${y}`);
-                }), t += "?" + l.join("&");
+            s.append("value", e), this.context.options.ajaxOptions?.method === "GET") {
+                const o = [];
+                s.forEach((a, f) => {
+                    o.push(`${f}=${a}`);
+                }), t += "?" + o.join("&");
             }
-            const o = {
+            const m = {
                 ...this.context.options.ajaxOptions
             };
-            return o.body = s, fetch(t, o);
+            return m.body = s, fetch(t, m);
         }
         async successResponse(e, t) {}
         async errorResponse(e, t) {}
@@ -1282,7 +1163,7 @@ var DarkEditable = function(a) {
             return this.element ? this.element.value : "";
         }
     }
-    class u extends c {
+    class p extends n {
         create() {
             const e = this.createElement("input");
             e.type = typeof this.context.options.type == "string" ? this.context.options.type : "text";
@@ -1290,18 +1171,18 @@ var DarkEditable = function(a) {
                 options: t = {}
             } = this.context;
             e.type = typeof t.type == "string" ? t.type : "text";
-            const s = t.attributes || {}, o = [ "step", "min", "max", "minlength", "maxlength", "pattern", "placeholder", "required", "readonly", "disabled", "autocomplete", "autofocus", "name", "value" ];
-            for (const [ m, l ] of Object.entries(s)) o.includes(m) && l !== void 0 && e.setAttribute(m, String(l));
+            const s = t.attributes || {}, m = [ "step", "min", "max", "minlength", "maxlength", "pattern", "placeholder", "required", "readonly", "disabled", "autocomplete", "autofocus", "name", "value" ];
+            for (const [ o, a ] of Object.entries(s)) m.includes(o) && a !== void 0 && e.setAttribute(o, String(a));
             return this.createContainer(e);
         }
     }
-    class g extends c {
+    class u extends n {
         create() {
             const e = this.createElement("textarea");
             return this.createContainer(e);
         }
     }
-    class x extends c {
+    class x extends n {
         create() {
             const e = this.createElement("select");
             return this.context.options.source && Array.isArray(this.context.options.source) && this.context.options.source.forEach(t => {
@@ -1322,7 +1203,7 @@ var DarkEditable = function(a) {
             this.context.get_opt("source", []), this.context.options && typeof this.context.options.source == "string" && this.context.options.source !== "" && (this.context.options.source = JSON.parse(this.context.options.source));
         }
     }
-    class d extends c {
+    class c extends n {
         create() {
             const e = this.createElement("input");
             return e.type = "date", this.createContainer(e);
@@ -1336,7 +1217,7 @@ var DarkEditable = function(a) {
             this.context.setValue(this.context.getValue());
         }
     }
-    class w extends d {
+    class g extends c {
         create() {
             const e = this.createElement("input");
             return e.type = "datetime-local", this.createContainer(e);
@@ -1345,21 +1226,24 @@ var DarkEditable = function(a) {
             this.context.setValue(this.context.getValue());
         }
     }
-    class f {
+    class w {
+        element;
+        options;
+        typeElement;
+        modeElement;
         constructor(e, t = {}) {
-            n(this, "element");
-            n(this, "options");
-            n(this, "typeElement");
-            n(this, "modeElement");
             this.element = e, this.options = {
                 ...t
             }, this.init_options(), this.typeElement = this.route_type(), this.typeElement.initOptions(), 
             this.modeElement = this.route_mode(), this.modeElement.init(), this.setValue(this.element.innerHTML), 
-            this.init_style(), this.options.disabled && this.disable(), this.element.dispatchEvent(new CustomEvent("init"));
+            this.init_style(), this.options.disabled && this.disable(), this.element.dispatchEvent(new CustomEvent("init", {
+                detail: {
+                    DarkEditable: this
+                }
+            }));
         }
         get_opt(e, t) {
-            var s, o;
-            return this.options[e] = ((s = this.element.dataset) == null ? void 0 : s[e]) ?? ((o = this.options) == null ? void 0 : o[e]) ?? t;
+            return this.options[e] = this.element.dataset?.[e] ?? this.options?.[e] ?? t;
         }
         get_opt_bool(e, t) {
             if (this.get_opt(e, t), typeof this.options[e] != "boolean") {
@@ -1375,7 +1259,6 @@ var DarkEditable = function(a) {
             }
         }
         init_options() {
-            var e, t, s, o, m;
             this.get_opt("value", this.element.innerHTML), this.get_opt("name", this.element.id), 
             this.get_opt("id", null), this.get_opt("title", ""), this.get_opt("type", "text"), 
             this.get_opt("emptytext", "Empty"), this.get_opt("placeholder", this.element.getAttribute("placeholder")), 
@@ -1384,12 +1267,12 @@ var DarkEditable = function(a) {
                 method: "POST",
                 dataType: "text",
                 headers: {
-                    RequestVerificationToken: (e = document.querySelector('input[name="__RequestVerificationToken"]')) == null ? void 0 : e.value
+                    RequestVerificationToken: document.querySelector('input[name="__RequestVerificationToken"]')?.value
                 }
             }, this.options.ajaxOptions), this.get_opt_bool("send", !0), this.get_opt_bool("disabled", !1), 
             this.get_opt_bool("required", !1), this.get_opt_bool("showbuttons", !0), 
-            (t = this.options) != null && t.success && typeof ((s = this.options) == null ? void 0 : s.success) == "function" && (this.success = this.options.success), 
-            (o = this.options) != null && o.error && typeof ((m = this.options) == null ? void 0 : m.error) == "function" && (this.error = this.options.error), 
+            this.options?.success && typeof this.options?.success == "function" && (this.success = this.options.success), 
+            this.options?.error && typeof this.options?.error == "function" && (this.error = this.options.error), 
             this.get_opt("attributes", {}), this.get_opt("popoverOptions", {});
         }
         init_text() {
@@ -1405,7 +1288,7 @@ var DarkEditable = function(a) {
                 throw new Error(`Mode ${this.options.mode} not found!`);
 
               case "popup":
-                return new p(this);
+                return new d(this);
 
               case "inline":
                 return new b(this);
@@ -1422,19 +1305,19 @@ var DarkEditable = function(a) {
               case "number":
               case "range":
               case "time":
-                return new u(this);
+                return new p(this);
 
               case "textarea":
-                return new g(this);
+                return new u(this);
 
               case "select":
                 return new x(this);
 
               case "date":
-                return new d(this);
+                return new c(this);
 
               case "datetime":
-                return new w(this);
+                return new g(this);
             }
             throw new Error("Undefined type");
         }
@@ -1458,8 +1341,11 @@ var DarkEditable = function(a) {
         getValue() {
             return this.options.value ?? "";
         }
+        getOption(e) {
+            return this.options[e] ?? null;
+        }
     }
-    return f;
+    return w;
 }(bootstrap);
 
 document.addEventListener("DOMContentLoaded", function() {
