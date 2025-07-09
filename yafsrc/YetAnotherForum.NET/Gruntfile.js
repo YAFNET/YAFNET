@@ -620,7 +620,7 @@ module.exports = function (grunt) {
 				options: {
 					reportUpdated: true,
 					updateType: 'force',
-					semver: true,
+					//semver: true,
 					packages: {
 						devDependencies: true, //only check for devDependencies
 						dependencies: true

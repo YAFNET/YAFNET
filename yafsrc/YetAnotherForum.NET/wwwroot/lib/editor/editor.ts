@@ -1,6 +1,6 @@
 ﻿import * as bootstrap from 'bootstrap';
 import AutoCloseTags from './autoCloseTags';
-import bootbox from '../bootbox.js';
+import * as bootbox from '@w8tcha/bootbox';
 import Mentions from './mentions';
 import IMentionOptions from './interfaces/IMentionOptions';
 

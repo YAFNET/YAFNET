@@ -1757,13 +1757,26 @@ public static class JavaScriptBlocks
     public static string ToggleDiffSelectionJs(string message)
     {
         return $$"""
-                 function toggleSelection(source) {
-                     if (document.querySelectorAll(".form-check-input:checked").length > 2) {
-                     source.checked = false;
-                     bootbox.alert("{{message}}");
-                     }
-                 }
-                 """;
+                  function toggleSelection(source) {
+                      if (document.querySelectorAll(".form-check-input:checked").length > 2) {
+                      source.checked = false;
+                      
+                      new Notify({
+                      title: "{{BoardContext.Current.BoardSettings.Name}}",
+                      message: '{{message}}',
+                      icon: "fa fa-exclamation-triangle"
+                  },
+                  {
+                      type: 'warning',
+                      element: '#diffContent',
+                      position: null,
+                      placement: { from: "top", align: "center" },
+                      delay: {{BoardContext.Current.BoardSettings.MessageNotifcationDuration}} * 1000
+                  });
+                      
+                      }
+                  }
+                  """;
     }
 
     /// <summary>

@@ -1,7 +1,8 @@
 ﻿import * as bootstrap from 'bootstrap';
-import bootbox from '../bootbox.js';
+import * as bootbox from '@w8tcha/bootbox';
 import { Options } from 'choices.js';
 import { Exception } from 'sass';
+import { ReturnParams } from './interfaces/ReturnParams';
 
 
 export function createTagsSelectTemplates(this: any, template: (templateString: string) => string) {
@@ -94,11 +95,9 @@ export function createForumSelectTemplates(this: any, template: (html: string) =
 	};
 }
 
-interface RetrurnParams {
-	Page: string, total: string, url: number;
-}
 
-export function loadForumChoiceOptions(params: RetrurnParams, url:string, selectedForumId: string) {
+
+export function loadForumChoiceOptions(params: ReturnParams, url:string, selectedForumId: string) {
 	return fetch(
 		url,
 		{
@@ -129,7 +128,7 @@ export function loadForumChoiceOptions(params: RetrurnParams, url:string, select
 		})));
 }
 
-export function loadChoiceOptions(params: RetrurnParams, url:string) {
+export function loadChoiceOptions(params: ReturnParams, url:string) {
 	return fetch(
 		url,
 		{

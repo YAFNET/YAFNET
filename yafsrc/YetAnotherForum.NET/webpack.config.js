@@ -22,7 +22,8 @@ module.exports = [
 		},
 		externals: {
 			bootstrap: 'bootstrap',
-			'microsoft/signalr': 'microsoft/signalr'
+			'microsoft/signalr': 'microsoft/signalr',
+			'w8tcha/bootbox': '@w8tcha/bootbox'
 		},
 		devtool: 'source-map',
 		mode: 'development',

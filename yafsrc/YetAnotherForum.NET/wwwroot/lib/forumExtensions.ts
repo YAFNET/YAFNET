@@ -11,7 +11,7 @@ import Lightbox from './bs5-lightbox/index.js';
 import './prism.js';
 import Notify from '@w8tcha/bootstrap-notify';
 
-import bootbox from './bootbox.js';
+import * as bootbox from '@w8tcha/bootbox';
 import './forum/bootstrap-touchspin';
 import './forum/hoverCard';
 import 'long-press-event';
@@ -29,7 +29,6 @@ _global.bootstrap = bootstrap;
 _global.Choices = Choices;
 _global.Notify = Notify;
 _global.loadSelectMenus = loadSelectMenus;
-_global.bootbox = bootbox;
 
 // Generic Functions
 document.addEventListener('DOMContentLoaded', () => {
