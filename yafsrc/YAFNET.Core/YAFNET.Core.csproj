@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="8.3.0" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.13.0.120203">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.14.0.120626">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

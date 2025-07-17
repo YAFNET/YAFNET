@@ -5,7 +5,7 @@
 	<AssemblyVersion>4.0.0</AssemblyVersion>
 	<FileVersion>4.0.0</FileVersion>
     <LangVersion>latest</LangVersion>
-	<Copyright>Copyright &#169; YetAnotherForum.NET</Copyright>
+	<Copyright>Copyright © YetAnotherForum.NET</Copyright>
 	<PackageTags>forums;yaf;yaf.net;YetAnotherForum.net;forum</PackageTags>
 	<PackageProjectUrl>https://yetanotherforum.net/</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/YAFNET/YAFNET</RepositoryUrl>
