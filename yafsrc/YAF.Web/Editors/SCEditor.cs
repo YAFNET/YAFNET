@@ -73,7 +73,7 @@ public class SCEditor : TextEditor
     {
         base.Editor_PreRender(sender, e);
 
-        this.PageBoardContext.PageElements.AddScriptReference("SCEditor", "sceditor/sceditor.comb.min.js");
+        this.PageBoardContext.PageElements.AddScriptReference("SCEditor", "sceditor/sceditor.min.js");
 
         this.PageBoardContext.PageElements.RegisterCssIncludeContent("sceditor.min.css");
 

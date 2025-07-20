@@ -41,6 +41,11 @@ public class MediaBBCodeModule : BBCodeControl
     {
         var url = this.Parameters["inner"];
 
+        if (!ValidationHelper.IsValidURL(url))
+        {
+            return;
+        }
+
         var response = this.Get<IOEmbed>().Embed(url, this.Get<HttpRequestBase>().Url.Host);
 
         if (response == null)
