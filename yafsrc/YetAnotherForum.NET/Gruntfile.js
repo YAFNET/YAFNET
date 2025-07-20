@@ -74,13 +74,13 @@ module.exports = function (grunt) {
 					{
 						expand: true,
 						src: '**/*.css',
-						cwd: 'node_modules/@yafnet/sceditor/minified/themes',
+						cwd: 'node_modules/@yafnet/sceditor/dist',
 						dest: 'wwwroot/css/'
 					}, {
 						expand: true,
 						src: '**/*.js',
-						cwd: 'node_modules/@yafnet/sceditor/languages',
-						dest: 'wwwroot/js/sceditor/languages/'
+						cwd: 'node_modules/@yafnet/sceditor/dist',
+						dest: 'wwwroot/js/sceditor/'
 					}
 				]
 			},
@@ -440,24 +440,6 @@ module.exports = function (grunt) {
 
 		// Minimize JS
 		uglify: {
-			SCEditor: {
-				options: {
-					sourceMap: false,
-					output: { beautify: true },
-					mangle: false,
-					compress: false
-				},
-				src: [
-					'node_modules/@yafnet/sceditor/minified/sceditor.min.js',
-					'node_modules/@yafnet/sceditor/minified/formats/bbcode.js',
-					'node_modules/@yafnet/sceditor/minified/icons/fontawesome.js',
-					'node_modules/@yafnet/sceditor/minified/plugins/dragdrop.js',
-					'node_modules/@yafnet/sceditor/minified/plugins/undo.js',
-					'node_modules/@yafnet/sceditor/minified/plugins/plaintext.js',
-					'wwwroot/lib/sceditor/mentions.js'
-				],
-				dest: 'wwwroot/js/sceditor/sceditor.min.js'
-			},
 			SCEditorLanguages: {
 				options: {
 					warnings: true,
@@ -620,7 +602,7 @@ module.exports = function (grunt) {
 				options: {
 					reportUpdated: true,
 					updateType: 'force',
-					//semver: true,
+					semver: false,
 					packages: {
 						devDependencies: true, //only check for devDependencies
 						dependencies: true

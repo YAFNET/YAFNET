@@ -119,3 +119,15 @@
     direction: ltr;
     cursor: pointer;
 }
+
+// user medals
+.popover-user {
+    .list-inline {
+        display: inline !important;
+
+        img {
+            max-height: 16px;
+            max-width: 16px;
+        }
+    }
+}

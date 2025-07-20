@@ -7,7 +7,7 @@ import * as Attachments from './forum/attachments';
 import * as Albums from './forum/albums';
 import * as Notifications from './forum/notifications';
 import Choices from './choices/assets/scripts/choices.js';
-import Lightbox from './bs5-lightbox/index.js';
+import Lightbox from '@w8tcha/bs5-lightbox';
 import './prism.js';
 import Notify from '@w8tcha/bootstrap-notify';
 
