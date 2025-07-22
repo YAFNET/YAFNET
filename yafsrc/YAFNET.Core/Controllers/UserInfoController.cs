@@ -126,7 +126,8 @@ public class UserInfo : ForumBaseController
                                    Location = location,
                                    Joined =
                                        $"{this.GetText("PROFILE", "JOINED")} {this.Get<IDateTimeService>().FormatDateLong(user.Item1.Joined)}",
-                                   Online = userIsOnline
+                                   Online = userIsOnline,
+                                   Medals = this.Get<IUserMedalService>().GetUserMedals(userId)
                                };
 
             if (this.Get<BoardSettings>().EnableUserReputation)

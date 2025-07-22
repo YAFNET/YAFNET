@@ -71,14 +71,6 @@ public class ForumUserInfo
     public string HomePage { get; set; }
 
     /// <summary>
-    /// Gets or sets the profile link.
-    /// </summary>
-    /// <value>
-    /// The profile link.
-    /// </value>
-    public string ProfileLink { get; set; }
-
-    /// <summary>
     /// Gets or sets the posts.
     /// </summary>
     /// <value>
@@ -127,10 +119,10 @@ public class ForumUserInfo
     public bool Online { get; set; }
 
     /// <summary>
-    /// Gets or sets the action buttons.
+    /// Gets or sets the medals.
     /// </summary>
     /// <value>
-    /// The action buttons.
+    /// The medals.
     /// </value>
-    public string ActionButtons { get; set; }
+    public string Medals { get; set; }
 }

@@ -1,4 +1,4 @@
-﻿﻿import { Modal, Popover } from "bootstrap";
+﻿﻿import { Modal, Popover } from 'bootstrap';
 
 export class MdsPersianDateTimePicker {
   constructor(element: Element, setting: MdsPersianDateTimePickerSetting) {
@@ -27,7 +27,7 @@ export class MdsPersianDateTimePicker {
 
     this.guid = MdsPersianDateTimePicker.newGuid();
     this.element = element;
-    this.element.setAttribute("data-mds-dtp-guid", this.guid);
+    this.element.setAttribute('data-mds-dtp-guid', this.guid);
     MdsPersianDateTimePickerData.set(this.guid, this);
 
     this.initializeBsPopover(setting);
@@ -453,17 +453,17 @@ data-bs-toggle="dropdown" aria-expanded="false">
     // آپشن هایی که باید همان لحظه تغییر اعمال شوند
 
     if (setting.disabled) {
-      this.element.setAttribute("disabled", '');
+      this.element.setAttribute('disabled', '');
     } else {
-      this.element.removeAttribute("disabled");
+      this.element.removeAttribute('disabled');
     }
     if (setting.toDate || setting.fromDate) {
       setting.rangeSelector = false;
-      this.element.setAttribute("data-mds-dtp-group", setting.groupId);
+      this.element.setAttribute('data-mds-dtp-group', setting.groupId);
       if (setting.toDate)
-        this.element.setAttribute("data-to-date", 'true');
+        this.element.setAttribute('data-to-date', 'true');
       else if (setting.fromDate)
-        this.element.setAttribute("data-from-date", 'true');
+        this.element.setAttribute('data-from-date', 'true');
     }
     if (!setting.rangeSelector) {
       setting.rangeSelectorMonthsToShow = [0, 0];
@@ -1037,7 +1037,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
         modalDialogElement.classList.remove('modal-xl');
       }
     } else {
-      console.warn("mds.bs.datetimepicker: element with `data-mds-dtp-guid` selector not found !")
+      console.warn('mds.bs.datetimepicker: element with `data-mds-dtp-guid` selector not found !')
     }
   }
   private getYearsBoxBodyHtml(setting: MdsPersianDateTimePickerSetting, yearToStart: number): MdsPersianDateTimePickerYearToSelect {
@@ -1176,7 +1176,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
       numberOfDaysInCurrentMonth = 0,
       numberOfDaysInPreviousMonth = 0,
       tr = document.createElement('TR'),
-      td = document.createElement("TD"),
+      td = document.createElement('TD'),
       daysHtml = '',
       currentDateNumber = 0,
       previousMonthDateNumber = 0,
@@ -1756,7 +1756,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
     if (!setting.inLine && updatePopoverContent && !setting.modalMode) {
       const popover = this.getBsPopoverInstance();
       if (!popover) {
-        console.error("mds.bs.datetimepicker: `BsPopoverInstance` is null!");
+        console.error('mds.bs.datetimepicker: `BsPopoverInstance` is null!');
         return;
       }
       setTimeout(() => {
@@ -1771,14 +1771,14 @@ data-bs-toggle="dropdown" aria-expanded="false">
     if (containerElement == null) {
       containerElement = element.closest('[data-mds-dtp-guid]');
       if (containerElement == null) {
-        console.error("mds.bs.datetimepicker: `data-mds-dtp-guid` element not found !")
+        console.error('mds.bs.datetimepicker: `data-mds-dtp-guid` element not found !')
         return;
       }
       if (setting.modalMode)
         containerElement = containerElement.querySelector('[data-name="mds-dtp-body"]');
     }
     if (!containerElement) {
-      console.error("mds.bs.datetimepicker: `data-mds-dtp-guid` element not found!")
+      console.error('mds.bs.datetimepicker: `data-mds-dtp-guid` element not found!')
       return;
     }
     this.setPopoverHeaderHtml(element, setting, dtpInlineHeader.trim());
@@ -2016,7 +2016,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
     } else if (this.bsModal != null) {
       const modalElement = this.getModal();
       if (modalElement == null) {
-        console.error("mds.bs.datetimepicker: `modalElement` not found!");
+        console.error('mds.bs.datetimepicker: `modalElement` not found!');
         return;
       }
       modalElement.addEventListener('shown.bs.modal', this.popoverOrModalShownEvent);
@@ -2133,7 +2133,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
    */
   enable(): void {
     this.setting.disabled = false;
-    this.element.removeAttribute("disabled");
+    this.element.removeAttribute('disabled');
     MdsPersianDateTimePickerData.set(this.guid, this);
     if (this.bsPopover != null)
       this.bsPopover.enable();
@@ -2143,7 +2143,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
    */
   disable(): void {
     this.setting.disabled = true;
-    this.element.setAttribute("disabled", '');
+    this.element.setAttribute('disabled', '');
     MdsPersianDateTimePickerData.set(this.guid, this);
     if (this.bsPopover != null)
       this.bsPopover.disable();

@@ -25,7 +25,6 @@
 namespace YAF.Pages;
 
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -34,10 +33,8 @@ using Microsoft.Extensions.Logging;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
-using YAF.Types.Flags;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
@@ -344,7 +341,7 @@ public class UserProfileModel : ForumPage
         // Show User Medals
         if (this.PageBoardContext.BoardSettings.ShowMedals)
         {
-            this.ShowUserMedals();
+            this.Medals = this.Get<IUserMedalService>().GetUserMedals(userId);
         }
 
         this.AddPageLinks(this.CombinedUser.Item1.DisplayOrUserName());
@@ -403,50 +400,6 @@ public class UserProfileModel : ForumPage
         }
 
         this.Friends = this.GetRepository<Buddy>().GetAllFriends(this.CombinedUser.Item1.ID);
-    }
-
-    /// <summary>
-    /// Show the user medals.
-    /// </summary>
-    private void ShowUserMedals()
-    {
-        var key = string.Format(Constants.Cache.UserMedals, this.CombinedUser.Item1.ID);
-
-        // get the medals cached...
-        var userMedals = this.DataCache.GetOrSet(
-            key,
-            () => this.GetRepository<Medal>().ListUserMedals(this.CombinedUser.Item1.ID),
-            TimeSpan.FromMinutes(10));
-
-        if (userMedals.Count == 0)
-        {
-            return;
-        }
-
-        var ribbonBar = new StringBuilder();
-        var medals = new StringBuilder();
-
-        userMedals.ForEach(
-            medal =>
-            {
-                var flags = new MedalFlags(medal.Flags);
-
-                // skip hidden medals
-                if (flags.AllowHiding && medal.Hide)
-                {
-                    return;
-                }
-
-                var title = $"{medal.Name}{(flags.ShowMessage ? $": {medal.Message}" : string.Empty)}";
-
-                ribbonBar.AppendFormat(
-                    "<li class=\"list-inline-item\"><img src=\"/{2}/{0}\" alt=\"{1}\" title=\"{1}\" data-bs-toggle=\"tooltip\"></li>",
-                    medal.MedalURL,
-                    title,
-                    this.Get<BoardFolders>().Medals);
-            });
-
-        this.Medals = $"<ul class=\"list-inline\">{ribbonBar}{medals}</ul>";
     }
 
     /// <summary>
