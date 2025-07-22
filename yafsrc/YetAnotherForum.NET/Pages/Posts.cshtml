@@ -427,7 +427,10 @@
 </div>
 
 @section Scripts {
-
+	@if (showQuickReply)
+	{
+		<script src="@(Model.Get<BoardInfo>().GetUrlToScripts("editor.min.js"))" defer></script>
+	}
     <script type="module">
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ForumModsPopoverJs(
             $"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
