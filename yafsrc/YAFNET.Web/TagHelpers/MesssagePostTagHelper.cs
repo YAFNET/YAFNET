@@ -371,7 +371,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         var icon = new TagBuilder(HtmlTag.I);
 
-        icon.AddCssClass("fa fa-edit fa-fw text-secondary");
+        icon.AddCssClass("fa fa-edit text-secondary");
 
         alert.InnerHtml.AppendHtml(icon);
 
@@ -409,7 +409,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
             var iconHistory = new TagBuilder(HtmlTag.I);
 
-            iconHistory.AddCssClass("fa fa-history fa-fw me-1");
+            iconHistory.AddCssClass("fa fa-history me-1");
 
             link.InnerHtml.AppendHtml(iconHistory);
 
@@ -449,7 +449,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         var icon = new TagBuilder(HtmlTag.I);
 
-        icon.AddCssClass("fa fa-check fa-fw me-1");
+        icon.AddCssClass("fa fa-check me-1");
 
         link.InnerHtml.AppendHtml(icon);
         link.InnerHtml.Append(this.GetText("GO_TO_ANSWER"));

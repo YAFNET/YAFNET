@@ -153,7 +153,7 @@
 
                                         var link = BoardContext.Current.Get<ILinkBuilder>().GetMessageLink(activity.Item3, activity.Item1.MessageID.Value);
 
-                                        var topicLink = $"<a href=\"{link}\" role=\"button\"><i class=\"far fa-comment fa-fw  me-1\"></i><span class=\"ms-1\">{activity.Item3.TopicName}</span></a>";
+                                        var topicLink = $"<a href=\"{link}\" role=\"button\"><i class=\"far fa-comment  me-1\"></i><span class=\"ms-1\">{activity.Item3.TopicName}</span></a>";
 
                                         if (activity.Item1.ActivityFlags.ReceivedThanks)
                                         {

@@ -77,7 +77,7 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         dropDownButton.MergeAttribute(HtmlAttribute.AriaExpanded, "false");
 
         var icon = new TagBuilder(HtmlTag.I);
-        icon.AddCssClass("fa fa-cogs fa-fw me-1");
+        icon.AddCssClass("fa fa-cogs me-1");
 
         dropDownButton.InnerHtml.AppendHtml(icon);
         dropDownButton.InnerHtml.Append(this.GetText("CONTROL_PANEL"));

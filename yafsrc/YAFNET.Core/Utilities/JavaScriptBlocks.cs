@@ -430,9 +430,9 @@ public static class JavaScriptBlocks
                       
                           button.addEventListener("click", event => {
                               if (button.getAttribute("aria-expanded") === "false") {
-                                  button.innerHTML = '<i class="fa fa-caret-square-down fa-fw"></i>&nbsp;{{showText}}';
+                                  button.innerHTML = '<i class="fa fa-caret-square-down"></i>&nbsp;{{showText}}';
                               } else {
-                                  button.innerHTML = '<i class="fa fa-caret-square-up fa-fw"></i>&nbsp;{{hideText}}';
+                                  button.innerHTML = '<i class="fa fa-caret-square-up"></i>&nbsp;{{hideText}}';
                               }
                           });
                       });
@@ -614,11 +614,11 @@ public static class JavaScriptBlocks
                          locale: '{{{locale}}}',
                          toolbar: '{{{toolbar}}}',
                          root: '',
-                         plugins: 'plaintext,dragdrop,undo',
+                         plugins: 'plaintext,dragdrop,undo,mentions',
                          styles: [{{{styles}}}],
                          extensionsUrl: '{{{extensionsUrl}}}',
                          albumsPreviewUrl: '/api/Albums/GetImagePreview?imageId=',
-                         onToggleMode: toggleMode
+                         mentionsUrl: '/api/User/GetMentionUsers?users={q}'
                          {{{dragDropJs}}}
                      });
                      
@@ -634,17 +634,6 @@ public static class JavaScriptBlocks
                              modal.hide();
                          }
                      }
-                     
-                     function toggleMode() {
-                         mentions({
-                             element: sceditor.instance(textarea),
-                             lookup: 'user',
-                             url: '/api/User/GetMentionUsers?users={q}',
-                             onclick: function (data) { sceditor.instance(textarea).insert(`[userlink]${data.name}[/userlink]`); }
-                         });
-                     }
-                     
-                     toggleMode();        
                     
                      """;
     }

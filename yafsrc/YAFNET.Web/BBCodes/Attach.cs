@@ -68,7 +68,7 @@ public class Attach : BBCodeControl
         if (!PageContext.DownloadAccess)
         {
             stringBuilder.Append(
-                $"""<i class="fa fa-file fa-fw"></i>&nbsp;{attachment.FileName} <span class="badge text-bg-warning" role="alert">{this.GetText("ATTACH_NO")}</span>""");
+                $"""<i class="fa fa-file"></i>&nbsp;{attachment.FileName} <span class="badge text-bg-warning" role="alert">{this.GetText("ATTACH_NO")}</span>""");
 
             return Task.CompletedTask;
         }
@@ -120,7 +120,7 @@ public class Attach : BBCodeControl
 
             stringBuilder.AppendFormat(
                 """
-                <i class="fa fa-file fa-fw"></i>&nbsp;
+                <i class="fa fa-file"></i>&nbsp;
                                          <a href="{0}">{1}</a>
                                          <span>{2}</span>
                 """,

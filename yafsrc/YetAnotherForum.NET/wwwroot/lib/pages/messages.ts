@@ -103,11 +103,11 @@ function openPrivateChatCard(chatHub: any, userId: string, ctrId: string, userNa
     $div.dataset.avatar = avatarUrl;
     $div.innerHTML = `<div class="card-header"><div class="row justify-content-between align-items-center">
                           <div class="col-auto"><h3 class="card-title">${userName}</h3></div> 
-                          <div class="col-auto"><button id="deleteConversation" class="btn btn-danger" type="button"><i class="fas fa-trash fa-fw"></i></button>  </div></div></div>
+                          <div class="col-auto"><button id="deleteConversation" class="btn btn-danger" type="button"><i class="fas fa-trash"></i></button>  </div></div></div>
                       <div class="card-body"> <div id="divMessage" class="direct-chat-messages"></div>  </div>
                       <div class="card-footer">  <div class="input-group mb-0">
                           <input type="text" id="txtPrivateMessage" name="message" placeholder="Type Message ..." class="form-control"  />
-                          <button type="button" id="btnSendMessage" class="btn btn-primary"><i class="fas fa-paper-plane fa-fw"></i></button>
+                          <button type="button" id="btnSendMessage" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
                       </div>`;
 
     // Text card event on Enter Button

@@ -97,7 +97,7 @@
         {
             @Html.Raw(
 	            JsAndCssHelper.CompressJavaScript(
-		            JavaScriptBlocks.ForumModsPopoverJs($"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
+		            JavaScriptBlocks.ForumModsPopoverJs($"<i class=\"fa fa-user-secret text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
         }
 
         @Html.Raw(

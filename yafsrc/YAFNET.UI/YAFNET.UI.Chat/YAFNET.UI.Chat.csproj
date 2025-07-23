@@ -51,7 +51,7 @@
 
   <ItemGroup>
 	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.7" />
-	<PackageReference Include="SonarAnalyzer.CSharp" Version="10.14.0.120626">
+	<PackageReference Include="SonarAnalyzer.CSharp" Version="10.15.0.120848">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>

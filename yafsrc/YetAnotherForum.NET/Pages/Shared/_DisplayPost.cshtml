@@ -100,9 +100,9 @@
     if (!postData.PostDeleted && !postData.IsLocked)
     {
         // Register Javascript
-        const string addThankBoxHtml = "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.messageID + ');\" onclick=\"this.blur();\" title=' + response.title + '><i class=\"fas fa-heart text-danger fa-fw\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.text + '</span></a>'";
+        const string addThankBoxHtml = "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.messageID + ');\" onclick=\"this.blur();\" title=' + response.title + '><i class=\"fas fa-heart text-danger\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.text + '</span></a>'";
 
-        const string removeThankBoxHtml = "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.messageID + ');\" onclick=\"this.blur();\" title=' + response.title + '><i class=\"far fa-heart fa-fw\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.text + '</span></a>'";
+        const string removeThankBoxHtml = "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.messageID + ');\" onclick=\"this.blur();\" title=' + response.title + '><i class=\"far fa-heart\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.text + '</span></a>'";
 
         var thanksJs = $"{JavaScriptBlocks.AddThanksJs(removeThankBoxHtml)}{Environment.NewLine}{JavaScriptBlocks.RemoveThanksJs(addThankBoxHtml)}";
 

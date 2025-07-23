@@ -350,7 +350,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                                 };
         content.AppendHtml(toggleButton1.RenderStartTag());
 
-        var icon1 = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = "fa fa-code fa-fw" } };
+        var icon1 = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = "fa fa-code" } };
         content.AppendHtml(icon1);
 
         content.AppendHtml(toggleButton1.RenderEndTag());
@@ -426,7 +426,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                                     };
             content.AppendHtml(toggleButton2.RenderStartTag());
 
-            var icon2 = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = "fa fa-images fa-fw" } };
+            var icon2 = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = "fa fa-images" } };
             content.AppendHtml(icon2);
 
             content.AppendHtml(toggleButton2.RenderEndTag());
@@ -461,7 +461,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                                     };
             content.AppendHtml(toggleButton3.RenderStartTag());
 
-            var icon3 = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = "fa fa-paperclip fa-fw" } };
+            var icon3 = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = "fa fa-paperclip" } };
             content.AppendHtml(icon3);
 
             content.AppendHtml(toggleButton3.RenderEndTag());
@@ -545,7 +545,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                         content.AppendHtml(item.RenderStartTag());
 
                         var icon = new TagBuilder(HtmlTag.I) {
-                            Attributes = { [HtmlAttribute.Class] = $"fab fa-{row.Name.ToLower()} fa-fw" }
+                            Attributes = { [HtmlAttribute.Class] = $"fab fa-{row.Name.ToLower()}" }
                         };
 
                         content.AppendHtml(icon);
@@ -567,7 +567,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             };
             content.AppendHtml(toggleButton4.RenderStartTag());
 
-            var icon4 = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = "fa fa-plug fa-fw" } };
+            var icon4 = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = "fa fa-plug" } };
             content.AppendHtml(icon4);
 
             content.AppendHtml(toggleButton4.RenderEndTag());
@@ -1018,7 +1018,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         string icon,
         string id = null)
     {
-        var iconTag = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = $"fa fa-{icon} fa-fw" } };
+        var iconTag = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = $"fa fa-{icon}" } };
 
         var button = new TagBuilder(HtmlTag.Button)
                          {

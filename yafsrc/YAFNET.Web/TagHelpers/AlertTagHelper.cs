@@ -134,7 +134,7 @@ public class AlertTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
         {
             var iconTag = new TagBuilder(HtmlTag.I);
 
-            iconTag.AddCssClass($"fa fa-{this.Icon} fa-fw {this.IconTextColor} me-1");
+            iconTag.AddCssClass($"fa fa-{this.Icon} {this.IconTextColor} me-1");
 
             output.Content.AppendHtml(iconTag);
         }

@@ -284,7 +284,7 @@ function getSearchResultsData(pageNumber: number): void {
                                         <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
                                         <i class="fa fa-clock fa-badge text-secondary"></i>
                                     </span>
-                                    ${posted} ${dataItem.posted} <i class="fa fa-user fa-fw text-secondary"></i>${by} ${
+                                    ${posted} ${dataItem.posted} <i class="fa fa-user text-secondary"></i>${by} ${
 							useDisplayName ? dataItem.userDisplayName : dataItem.userName}${tags}
                                 </small>
                             </div>

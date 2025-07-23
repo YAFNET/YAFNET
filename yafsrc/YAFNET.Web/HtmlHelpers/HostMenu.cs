@@ -111,7 +111,7 @@ public static class HostMenuHtmlHelper
         // Icon
         var iconTag = new TagBuilder(HtmlTag.I);
 
-        iconTag.AddCssClass($"fas fa-{iconName} fa-fw me-1");
+        iconTag.AddCssClass($"fas fa-{iconName} me-1");
 
         iconTag.TagRenderMode = TagRenderMode.Normal;
 

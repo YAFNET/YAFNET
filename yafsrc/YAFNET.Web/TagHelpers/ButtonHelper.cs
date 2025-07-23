@@ -397,11 +397,11 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
         // space separator only for icon + text
         if (this.TextLocalizedTag.IsSet() || this.Text.IsSet())
         {
-            iconTag.AddCssClass($"{iconCssClass} fa-{this.Icon} fa-fw {iconColorClass} me-1");
+            iconTag.AddCssClass($"{iconCssClass} fa-{this.Icon} {iconColorClass} me-1");
         }
         else
         {
-            iconTag.AddCssClass($"{iconCssClass} fa-{this.Icon} fa-fw {iconColorClass}");
+            iconTag.AddCssClass($"{iconCssClass} fa-{this.Icon} {iconColorClass}");
         }
 
         iconTag.TagRenderMode = TagRenderMode.Normal;

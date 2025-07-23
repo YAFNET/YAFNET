@@ -124,7 +124,7 @@ forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
                         <a href="@forum.RemoteURL"
                            title="@Html.Raw(Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM"))"
                            target="_blank">
-                            @Html.HtmlEncode(forum.Forum)&nbsp;<i class="fas fa-external-link-alt fa-fw"></i>
+                            @Html.HtmlEncode(forum.Forum)&nbsp;<i class="fas fa-external-link-alt"></i>
                         </a>
                     }
                     else

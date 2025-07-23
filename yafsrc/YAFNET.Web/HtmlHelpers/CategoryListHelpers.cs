@@ -168,7 +168,7 @@ public static class CategoryListHelpers
 
                 var icon = new TagBuilder(HtmlTag.I);
 
-                icon.AddCssClass("fas fa-external-link-alt fa-fw ms-1");
+                icon.AddCssClass("fas fa-external-link-alt ms-1");
 
                 link.InnerHtml.AppendHtml(icon);
             }

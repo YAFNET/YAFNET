@@ -88,7 +88,7 @@ public static class RssFeedLinkHtmlHelper
 
             var icon = new TagBuilder(HtmlTag.I);
 
-            icon.AddCssClass("fa fa-rss-square fa-fw");
+            icon.AddCssClass("fa fa-rss-square");
 
             // Render Icon
             link.InnerHtml.AppendHtml(icon);

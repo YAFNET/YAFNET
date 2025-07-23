@@ -39,14 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             const link = document.createElement('a');
                             link.classList.add('dropdown-item', 'item-selected-quoting');
                             link.href = `javascript:goToURL('${messageId}','${selectedText}','${contextMenu.dataset.url} ')`;
-                            link.innerHTML = `<i class="fas fa-quote-left fa-fw"></i>&nbsp;${contextMenu.dataset.quote}`;
+                            link.innerHTML = `<i class="fas fa-quote-left"></i>&nbsp;${contextMenu.dataset.quote}`;
                             contextMenu.appendChild(link);
                         }
 
                         const linkSearch = document.createElement('a');
                         linkSearch.classList.add('dropdown-item', 'item-search');
                         linkSearch.href = `javascript:copyToClipBoard('${selectedText}')`;
-                        linkSearch.innerHTML = `<i class="fas fa-clipboard fa-fw"></i>&nbsp;${contextMenu.dataset.copy}`;
+                        linkSearch.innerHTML = `<i class="fas fa-clipboard"></i>&nbsp;${contextMenu.dataset.copy}`;
                         contextMenu.appendChild(linkSearch);
 
                         const divider = document.createElement('div');
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const linkSelected = document.createElement('a');
                         linkSelected.classList.add('dropdown-item','item-search');
                         linkSelected.href = `javascript:searchText('${selectedText}')`;
-                        linkSelected.innerHTML = `<i class="fas fa-search fa-fw"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
+                        linkSelected.innerHTML = `<i class="fas fa-search"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
                         contextMenu.appendChild(linkSelected);
                     }
                 }
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                             link.classList.add('dropdown-item', 'item-selected-quoting');
                             link.href = `javascript:goToURL('${messageId}','${selectedText}','${contextMenu.dataset.url} ')`;
-                            link.innerHTML = `<i class="fas fa-quote-left fa-fw"></i>&nbsp;${contextMenu.dataset.quote}`;
+                            link.innerHTML = `<i class="fas fa-quote-left"></i>&nbsp;${contextMenu.dataset.quote}`;
 
                             contextMenu.appendChild(link);
                         }
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         linkSearch.classList.add('dropdown-item','item-search');
                         linkSearch.href = `javascript:copyToClipBoard('${selectedText}')`;
-                        linkSearch.innerHTML = `<i class="fas fa-clipboard fa-fw"></i>&nbsp;${contextMenu.dataset.copy}`;
+                        linkSearch.innerHTML = `<i class="fas fa-clipboard"></i>&nbsp;${contextMenu.dataset.copy}`;
 
                         contextMenu.appendChild(linkSearch);
 
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         linkSelected.classList.add('dropdown-item','item-search');
                         linkSelected.href = `javascript:searchText('${selectedText}')`;
-                        linkSelected.innerHTML = `<i class="fas fa-search fa-fw"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
+                        linkSelected.innerHTML = `<i class="fas fa-search"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
                         contextMenu.appendChild(linkSelected);
                     }
                 }
