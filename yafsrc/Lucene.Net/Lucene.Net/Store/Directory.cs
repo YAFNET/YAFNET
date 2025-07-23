@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// A <see cref="Directory"/> is a flat list of files.  Files may be written once, when they
@@ -196,7 +196,7 @@ namespace YAF.Lucene.Net.Store
         {
             IndexOutput os = null;
             IndexInput @is = null;
-            Exception priorException = null; // LUCENENET: No need to cast to IOExcpetion
+            Exception priorException = null; // LUCENENET: No need to cast to IOException
             try
             {
                 os = to.CreateOutput(dest, context);

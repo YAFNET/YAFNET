@@ -1,19 +1,54 @@
-﻿/*!
- * Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com
+/*!
+ * Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
- * Copyright 2023 Fonticons, Inc.
+ * Copyright 2025 Fonticons, Inc.
  */
- 
+// Font Awesome core compile (Web Fonts-based)
+// -------------------------
+@use 'variables' as v;
+
 @import "fontawesome";
 @import "solid";
 @import "brands";
 @import "regular";
 
 /* Extensions */
-.fa-badge {
+.#{v.$css-prefix}-stack-badge {
+    display: inline-block;
+    height: 1.5em;
+    line-height: 1.5em;
+    position: relative;
+    vertical-align: v.$stack-vertical-align;
+    width: 1.25em;
+}
+.#{v.$css-prefix}-stack-badge-1x,
+.#{v.$css-prefix}-stack-badge-2x {
+    left: 0;
     position: absolute;
-    right: 16%;
-    bottom: 15%;
+    text-align: left;
+    width: 100%;
+    z-index: var(--#{v.$css-prefix}-stack-z-index, #{v.$stack-z-index});
+}
+
+.#{v.$css-prefix}-badge {
+    position: absolute;
+    left: 20%;
+    bottom: 5%;
     font-size: 70%;
     text-shadow: -0.12ex 0 var(--bs-light-border-subtle), -0.1ex -0.1ex var(--bs-light-border-subtle), 0 -0.12ex var(--bs-light-border-subtle), 0.1ex -0.1ex var(--bs-light-border-subtle), 0.12ex 0 var(--bs-light-border-subtle), 0.1ex 0.1ex var(--bs-light-border-subtle), 0 0.12ex var(--bs-light-border-subtle), -0.1ex 0.1ex var(--bs-light-border-subtle);
+}
+
+.#{v.$css-prefix}-stack-editor-button {
+    display: inline;
+    line-height: inherit;
+}
+
+.#{v.$css-prefix}-badge-editor-button {
+    position: absolute;
+    right: -14px;
+    top: 4px;
+}
+
+.#{v.$css-prefix}-stack-1x-editor-button {
+    top: -4px;
 }

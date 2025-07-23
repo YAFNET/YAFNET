@@ -490,11 +490,11 @@ public static class JavaScriptBlocks
                      locale: '{{locale}}',
                      toolbar: '{{toolbar}}',
                      root: '{{root}}',
-                     plugins: 'plaintext,dragdrop,undo',
+                     plugins: 'plaintext,dragdrop,undo,mentions',
                      albumsPreviewUrl: '/resource.ashx?imgprv=',
                    	 styles: [{{styles}}],
                    	 extensionsUrl: '{{extensionsUrl}}',
-                     onToggleMode: toggleMode
+                     mentionsUrl: '{{BoardInfo.ForumClientFileRoot}}resource.ashx?users={q}'
                    	 {{dragDropJs}}
                    });
                    
@@ -506,21 +506,10 @@ public static class JavaScriptBlocks
                        
                        var modal = bootstrap.Modal.getInstance(document.getElementById('UploadDialog'));
                    
-                   if (modal && modal._isShown) {
-                       modal.hide();
+                       if (modal && modal._isShown) {
+                           modal.hide();
+                       }
                    }
-                   }
-                   
-                   function toggleMode() {
-                       mentions({
-                           element: sceditor.instance(textarea),
-                           lookup: 'user',
-                           url: '{{BoardInfo.ForumClientFileRoot}}resource.ashx?users={q}',
-                           onclick: function(data) { sceditor.instance(textarea).insert(`[userlink]${data.name}[/userlink]`); }
-                       });
-                   }
-                   
-                   toggleMode();
                    """;
     }
 

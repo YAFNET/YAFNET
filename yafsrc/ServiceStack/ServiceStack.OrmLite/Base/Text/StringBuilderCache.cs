@@ -73,15 +73,20 @@ public static class StringBuilderCacheAlt
     /// Allocates this instance.
     /// </summary>
     /// <returns>StringBuilder.</returns>
-    public static StringBuilder Allocate()
+    public static StringBuilder Allocate(int capacity)
     {
         var ret = cache;
         if (ret == null)
-            return new StringBuilder();
+            return new StringBuilder(capacity);
 
         ret.Length = 0;
         cache = null;  //don't re-issue cached instance until it's freed
         return ret;
+    }
+
+    public static StringBuilder Allocate()
+    {
+        return Allocate(16); // 16 is the default capacity for StringBuilder
     }
 
     /// <summary>

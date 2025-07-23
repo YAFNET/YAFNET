@@ -27,7 +27,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IBits = Lucene.Net.Util.IBits;
 
     /// <summary>
     /// An <see cref="AtomicReader"/> which reads multiple, parallel indexes.  Each index
@@ -288,7 +288,7 @@ namespace YAF.Lucene.Net.Index
             UninterruptableMonitor.Enter(this);
             try
             {
-                Exception ioe = null; // LUCENENET: No need to cast to IOExcpetion
+                Exception ioe = null; // LUCENENET: No need to cast to IOException
                 foreach (AtomicReader reader in completeReaderSet)
                 {
                     try

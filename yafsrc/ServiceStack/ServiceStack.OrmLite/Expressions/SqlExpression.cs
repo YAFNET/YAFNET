@@ -5213,6 +5213,21 @@ public class SelectItemExpression : SelectItem
 /// <seealso cref="ServiceStack.OrmLite.SelectItem" />
 public class SelectItemColumn : SelectItem
 {
+    private FieldDefinition fieldDef;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SelectItemColumn" /> class.
+    /// </summary>
+    /// <param name="dialectProvider">The dialect provider.</param>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <param name="quotedTableAlias">The quoted table alias.</param>
+    public SelectItemColumn(IOrmLiteDialectProvider dialectProvider, FieldDefinition fieldDef, string quotedTableAlias = null)
+            : base(dialectProvider, null)
+    {
+        this.fieldDef = fieldDef;
+        QuotedTableAlias = quotedTableAlias;
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="SelectItemColumn"/> class.
     /// </summary>
@@ -5251,7 +5266,9 @@ public class SelectItemColumn : SelectItem
     /// <returns>string.</returns>
     public override string ToString()
     {
-        var text = this.DialectProvider.GetQuotedColumnName(this.ColumnName);
+        var text = fieldDef != null
+            ? DialectProvider.GetQuotedColumnName(fieldDef)
+            : DialectProvider.GetQuotedColumnName(ColumnName);
 
         if (!string.IsNullOrEmpty(this.QuotedTableAlias))
         {
@@ -5419,7 +5436,7 @@ public static class DbDataParameterExtensions
             p.Value = DBNull.Value;
         }
 
-        // Can't check DbType in PostgreSQL before p.Value is assinged
+        // Can't check DbType in PostgreSQL before p.Value is assigned
         if (p.Value is string strValue && strValue.Length > p.Size)
         {
             var stringConverter = dialectProvider.GetStringConverter();

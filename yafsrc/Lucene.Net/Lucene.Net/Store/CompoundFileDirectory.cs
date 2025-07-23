@@ -25,10 +25,10 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using CodecUtil = Lucene.Net.Codecs.CodecUtil;
+    using CorruptIndexException = Lucene.Net.Index.CorruptIndexException;
+    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Class for accessing a compound stream.
@@ -140,7 +140,7 @@ namespace YAF.Lucene.Net.Store
         /// Helper method that reads CFS entries from an input stream </summary>
         private static IDictionary<string, FileEntry> ReadEntries(IndexInputSlicer handle, Directory dir, string name)
         {
-            Exception priorE = null; // LUCENENET: No need to cast to IOExcpetion
+            Exception priorE = null; // LUCENENET: No need to cast to IOException
             IndexInput stream = null;
             ChecksumIndexInput entriesStream = null;
             // read the first VInt. If it is negative, it's the version number
