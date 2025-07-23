@@ -89,7 +89,7 @@ public class NotifyController : ApiController, IHaveServiceLocator
                                                 this.Get<LinkBuilder>().GetLink(
                                                     ForumPages.Posts,
                                                     new { m = activity.MessageID.Value, name = topic.TopicName }),
-                                            Text = $@"<i class=""fas fa-comment fa-fw me-1""></i>{topic.TopicName}"
+                                            Text = $@"<i class=""fas fa-comment me-1""></i>{topic.TopicName}"
                                         };
 
                     var name = this.Get<IUserDisplayName>().GetNameById(activity.FromUserID.Value);

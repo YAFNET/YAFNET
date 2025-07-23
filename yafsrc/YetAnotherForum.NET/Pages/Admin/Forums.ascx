@@ -80,7 +80,7 @@
             <ItemTemplate>
                 <li class="list-group-item list-group-item-action active list-group-item-menu">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1"><i class="fa fa-folder fa-fw pe-1"></i><%# this.HtmlEncode(((Category)Container.DataItem).Name)%></h5>
+                    <h5 class="mb-1"><i class="fa fa-folder pe-1"></i><%# this.HtmlEncode(((Category)Container.DataItem).Name)%></h5>
                     <small class="d-none d-md-block">
                         <YAF:LocalizedLabel runat="server"
                                             LocalizedTag="SORT_ORDER">
@@ -146,7 +146,7 @@
                         <li class="list-group-item list-group-item-action list-group-item-menu">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
-                                    <i class="fa fa-comments fa-fw me-2"></i><%# ((YAF.Types.Models.Forum)Container.DataItem).ParentID.HasValue ? "---" : "-" %> <%# this.HtmlEncode(((YAF.Types.Models.Forum)Container.DataItem).Name) %>
+                                    <i class="fa fa-comments me-2"></i><%# ((YAF.Types.Models.Forum)Container.DataItem).ParentID.HasValue ? "---" : "-" %> <%# this.HtmlEncode(((YAF.Types.Models.Forum)Container.DataItem).Name) %>
                                 </h5>
                                 <small class="d-none d-md-block">
                                     <YAF:LocalizedLabel runat="server" LocalizedTag="SORT_ORDER" />&nbsp;

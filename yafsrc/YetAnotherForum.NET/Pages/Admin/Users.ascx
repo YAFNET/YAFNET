@@ -289,7 +289,7 @@
                     <YAF:Alert runat="server" ID="NoInfo"
                                Type="info"
                                Visible="False">
-                        <i class="fa fa-exclamation-triangle fa-fw"></i>
+                        <i class="fa fa-exclamation-triangle"></i>
                         <YAF:LocalizedLabel runat="server"
                                             LocalizedTag="NO_ENTRY"></YAF:LocalizedLabel>
                     </YAF:Alert>

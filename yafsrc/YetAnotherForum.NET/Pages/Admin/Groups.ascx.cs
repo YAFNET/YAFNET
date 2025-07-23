@@ -34,7 +34,7 @@ using YAF.Types.Models;
 public partial class Groups : AdminPage
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Groups"/> class. 
+    /// Initializes a new instance of the <see cref="Groups"/> class.
     /// </summary>
     public Groups()
         : base("ADMIN_GROUPS", ForumPages.Admin_Groups)
@@ -77,7 +77,7 @@ public partial class Groups : AdminPage
     }
 
     /// <summary>
-    /// Get a user friendly item name.
+    /// Get a user-friendly item name.
     /// </summary>
     /// <param name="enabled">
     /// The enabled.
@@ -114,7 +114,6 @@ public partial class Groups : AdminPage
     /// <returns>
     /// String "Linked" when role is linked to YAF roles, "Un-linkable" otherwise.
     /// </returns>
-    
     protected string GetLinkedStatus(Group currentRow)
     {
         // check whether role is Guests role, which can't be linked
@@ -262,10 +261,13 @@ public partial class Groups : AdminPage
         this.availableRoles.Clear();
 
         // get all provider roles
-        (from role in this.Get<IAspNetRolesHelper>().GetAllRoles()
-         let rows = groups.Select(g => g.Name == role)
-         where groups.Count == 0
-         select role).ForEach(role1 => this.availableRoles.Add(role1));
+        var roles = this.Get<IAspNetRolesHelper>().GetAllRoles();
+
+        foreach (var role in roles.Where(role =>
+                     groups.All(g => !string.Equals(g.Name, role, StringComparison.CurrentCultureIgnoreCase))))
+        {
+            this.availableRoles.Add(role);
+        }
 
         // check if there are any roles for syncing
         if (this.availableRoles.Count > 0 && !Config.IsDotNetNuke)

@@ -19,7 +19,7 @@
                 <li class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">
-                            <i class="fa fa-user-secret fa-fw"></i>&nbsp;
+                            <i class="fa fa-user-secret"></i>&nbsp;
                             <%# this.HtmlEncode(this.PageBoardContext.BoardSettings.EnableDisplayName ? this.Eval("DisplayName") : this.Eval("Name"))%>
                         </h5>
                     </div>

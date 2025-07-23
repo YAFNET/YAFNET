@@ -155,7 +155,7 @@ public partial class UserMenu : BaseUserControl
                        {
                            ToolTip = linkToolTip,
                            NavigateUrl = linkUrl,
-                           Text = icon.IsSet() ? $"<i class=\"fa fa-{icon} fa-fw\"></i>&nbsp;{linkText}" : linkText,
+                           Text = icon.IsSet() ? $"<i class=\"fa fa-{icon}\"></i>&nbsp;{linkText}" : linkText,
                            CssClass = cssClass
                        };
 
@@ -171,7 +171,7 @@ public partial class UserMenu : BaseUserControl
             link.Controls.Add(
                 new LiteralControl(
                     icon.IsSet()
-                        ? $"<i class=\"fa fa-{icon} fa-fw\"></i>&nbsp;{linkText}&nbsp;"
+                        ? $"<i class=\"fa fa-{icon}\"></i>&nbsp;{linkText}&nbsp;"
                         : $"{linkText}&nbsp;"));
 
             var unreadLabel = new Label { CssClass = "badge text-bg-danger", ToolTip = unreadText, Text = unread };

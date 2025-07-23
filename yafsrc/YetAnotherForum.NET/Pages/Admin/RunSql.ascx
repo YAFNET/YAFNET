@@ -36,7 +36,7 @@
         <div class="col-xl-12">
                     <div class="card mb-3">
                         <div class="card-header">
-                             <i class="fa fa-rocket fa-fw"></i>&nbsp;Result
+                             <i class="fa fa-rocket"></i>&nbsp;Result
                         </div>
                         <div class="card-body">
                             <asp:TextBox ID="txtResult" runat="server" TextMode="MultiLine"

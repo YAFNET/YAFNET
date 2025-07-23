@@ -103,7 +103,7 @@ public class BaseReportedPosts : BaseUserControl
                         this.GetText("REPORTEDBY"));
 
                     writer.Write(
-                        @"<a class=""btn btn-secondary btn-sm ms-2"" href=""{1}""><i class=""fa fa-envelope fa-fw""></i>&nbsp;{2} {0}</a>",
+                        @"<a class=""btn btn-secondary btn-sm ms-2"" href=""{1}""><i class=""fa fa-envelope""></i>&nbsp;{2} {0}</a>",
                         reporterName,
                         this.Get<LinkBuilder>().GetLink(
                             ForumPages.PostPrivateMessage,

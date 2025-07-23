@@ -278,9 +278,9 @@ public static class JavaScriptBlocks
                      document.querySelectorAll('a[data-bs-toggle="collapse"]').forEach(button => {
                          button.addEventListener("click", event => {
                              if (button.getAttribute("aria-expanded") === "false") {
-                                 button.innerHTML = '<i class="fa fa-caret-square-down fa-fw"></i>&nbsp;{{showText}}';
+                                 button.innerHTML = '<i class="fa fa-caret-square-down"></i>&nbsp;{{showText}}';
                              } else {
-                                 button.innerHTML = '<i class="fa fa-caret-square-up fa-fw"></i>&nbsp;{{hideText}}';
+                                 button.innerHTML = '<i class="fa fa-caret-square-up"></i>&nbsp;{{hideText}}';
                              }
                          });
                      });

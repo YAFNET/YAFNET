@@ -584,7 +584,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
         {
             var iconColorClass = this.IconColor.IsSet() ? $" {this.IconColor}" : this.IconColor;
 
-            writer.Write("<i class=\"{2} fa-{0} fa-fw{1}\"></i>", this.Icon, iconColorClass, this.IconCssClass);
+            writer.Write("<i class=\"{2} fa-{0}{1}\"></i>", this.Icon, iconColorClass, this.IconCssClass);
         }
 
         if (this.TextLocalizedTag.IsSet() || this.Text.IsSet())

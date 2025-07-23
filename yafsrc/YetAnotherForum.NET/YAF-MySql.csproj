@@ -1699,14 +1699,11 @@
     <Content Include="Content\fontawesome\solid.scss" />
     <Content Include="Content\fontawesome\v4-shims.scss" />
     <Content Include="Content\fontawesome\_animated.scss" />
-    <Content Include="Content\fontawesome\_bordered-pulled.scss" />
     <Content Include="Content\fontawesome\_core.scss" />
-    <Content Include="Content\fontawesome\_fixed-width.scss" />
     <Content Include="Content\fontawesome\_icons.scss" />
     <Content Include="Content\fontawesome\_list.scss" />
     <Content Include="Content\fontawesome\_mixins.scss" />
     <Content Include="Content\fontawesome\_rotated-flipped.scss" />
-    <Content Include="Content\fontawesome\_screen-reader.scss" />
     <Content Include="Content\fontawesome\_shims.scss" />
     <Content Include="Content\fontawesome\_stacked.scss" />
     <Content Include="Content\fontawesome\_variables.scss" />
@@ -1757,6 +1754,12 @@
     <Content Include="Content\bootstrap-email\scss\variables\_utilities.scss" />
     <Content Include="Content\bootstrap-email\scss\_helpers.scss" />
     <Content Include="Content\bootstrap-email\scss\_reboot_head.scss" />
+    <Content Include="Content\forum-admin.css.map" />
+    <Content Include="Content\forum.css.map" />
+    <Content Include="Content\fontawesome\_bordered.scss" />
+    <Content Include="Content\fontawesome\_fa.scss" />
+    <Content Include="Content\fontawesome\_pulled.scss" />
+    <Content Include="Content\fontawesome\_widths.scss" />
     <None Include="Content\forum\attachments-upload.scss" />
     <None Include="Content\forum\cookie-alert.scss" />
     <Content Include="Content\InstallWizard.css">
@@ -2408,12 +2411,7 @@
     <Content Include="Resources\EmailTemplate.html" />
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="robots.txt" />
-    <Content Include="Scripts\bootbox.js" />
     <None Include="Content\forum-admin.scss" />
-    <Content Include="Scripts\bootstrap.bundle.js" />
-    <Content Include="Scripts\bootstrap.bundle.min.js">
-      <DependentUpon>bootstrap.bundle.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\bs5-lightbox\dist\index.bundle.min.js" />
     <Content Include="Scripts\bs5-lightbox\index.js" />
     <Content Include="Scripts\bs5-lightbox\webpack.cdn.js" />
@@ -2852,12 +2850,10 @@
     <Content Include="Content\forum\social-icons.scss" />
     <Content Include="Content\forum\button-scroll.scss" />
     <Content Include="Content\forum\sidebar-help.scss" />
+    <Content Include="Content\InstallWizard.css.map" />
     <None Include="Content\InstallWizard.scss" />
-    <Content Include="Content\webfonts\fa-brands-400.ttf" />
     <Content Include="Content\webfonts\fa-brands-400.woff2" />
-    <Content Include="Content\webfonts\fa-regular-400.ttf" />
     <Content Include="Content\webfonts\fa-regular-400.woff2" />
-    <Content Include="Content\webfonts\fa-solid-900.ttf" />
     <Content Include="Content\webfonts\fa-solid-900.woff2" />
     <None Include="Content\forum.scss" />
     <Content Include="recommended.web.config">
@@ -2902,12 +2898,10 @@
     <Content Include="Scripts\sceditor\languages\tw.js" />
     <Content Include="Scripts\sceditor\languages\uk.js" />
     <Content Include="Scripts\sceditor\languages\vi.js" />
-    <Content Include="Scripts\sceditor\mentions.js" />
-    <Content Include="Scripts\sceditor\sceditor.comb.min.js" />
+    <Content Include="Scripts\sceditor\sceditor.min.js" />
     <Content Include="Scripts\themeSelector.min.js" />
     <Content Include="UrlRewriter.config" />
     <Content Include="Content\netStack.scss" />
-    <Content Include="Content\webfonts\fa-v4compatibility.ttf" />
     <Content Include="Content\webfonts\fa-v4compatibility.woff2" />
     <Content Include="Content\Themes\cerulean\bootstrap_email-digest.json" />
     <Content Include="Content\Themes\cerulean\bootstrap_email.json" />

@@ -49,7 +49,7 @@ public partial class ForumModeratorList : BaseUserControl
 
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             "ForumModsPopoverJs",
-            JavaScriptBlocks.ForumModsPopoverJs($"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{this.GetText("DEFAULT", "MODERATORS")} ..."));
+            JavaScriptBlocks.ForumModsPopoverJs($"<i class=\"fa fa-user-secret text-secondary\"></i>&nbsp;{this.GetText("DEFAULT", "MODERATORS")} ..."));
 
         var content = new StringBuilder();
 

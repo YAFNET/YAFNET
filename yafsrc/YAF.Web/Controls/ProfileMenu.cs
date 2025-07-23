@@ -42,7 +42,7 @@ public class ProfileMenu : BaseControl
 
         htmlDropDown.Append(
             @"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-bs-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
-        htmlDropDown.AppendFormat(@"<i class=""fa fa-cogs fa-fw""></i>&nbsp;{0}", this.GetText("CONTROL_PANEL"));
+        htmlDropDown.AppendFormat(@"<i class=""fa fa-cogs""></i>&nbsp;{0}", this.GetText("CONTROL_PANEL"));
         htmlDropDown.Append(@"</button>");
 
         htmlDropDown.Append(

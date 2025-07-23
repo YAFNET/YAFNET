@@ -188,7 +188,7 @@ public class BBCodeEditorBasic : TextEditor
         writer.WriteLine(
             """
             <button type="button" class="btn btn-primary btn-sm" onclick="{2}" title="{1}"{3}>
-                              <i class="fa fa-{0} fa-fw"></i></button>
+                              <i class="fa fa-{0}"></i></button>
             """,
             icon,
             title,

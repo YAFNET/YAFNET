@@ -53,7 +53,7 @@
 
                                 link.href = `javascript:goToURL('${messageId}','${selectedText}','${contextMenu.dataset.url} ')`;
 
-                                link.innerHTML = `<i class="fas fa-quote-left fa-fw"></i>&nbsp;${contextMenu.dataset.quote}`;
+                                link.innerHTML = `<i class="fas fa-quote-left"></i>&nbsp;${contextMenu.dataset.quote}`;
 
                                 contextMenu.appendChild(link);
                             }
@@ -65,7 +65,7 @@
 
                             linkSearch.href = `javascript:copyToClipBoard('${selectedText}')`;
 
-                            linkSearch.innerHTML = `<i class="fas fa-clipboard fa-fw"></i>&nbsp;${contextMenu.dataset.copy}`;
+                            linkSearch.innerHTML = `<i class="fas fa-clipboard"></i>&nbsp;${contextMenu.dataset.copy}`;
 
                             contextMenu.appendChild(linkSearch);
 
@@ -83,7 +83,7 @@
 
                             linkSelected.href = `javascript:searchText('${selectedText}')`;
 
-                            linkSelected.innerHTML = `<i class="fas fa-search fa-fw"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
+                            linkSelected.innerHTML = `<i class="fas fa-search"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
 
                             contextMenu.appendChild(linkSelected);
                         }
@@ -139,7 +139,7 @@
 
                             link.href = `javascript:goToURL('${messageId}','${selectedText}','${contextMenu.dataset.url} ')`;
 
-                            link.innerHTML = `<i class="fas fa-quote-left fa-fw"></i>&nbsp;${contextMenu.dataset.quote}`;
+                            link.innerHTML = `<i class="fas fa-quote-left"></i>&nbsp;${contextMenu.dataset.quote}`;
 
                             contextMenu.appendChild(link);
                         }
@@ -151,7 +151,7 @@
 
                         linkSearch.href = `javascript:copyToClipBoard('${selectedText}')`;
 
-                        linkSearch.innerHTML = `<i class="fas fa-clipboard fa-fw"></i>&nbsp;${contextMenu.dataset.copy}`;
+                        linkSearch.innerHTML = `<i class="fas fa-clipboard"></i>&nbsp;${contextMenu.dataset.copy}`;
 
                         contextMenu.appendChild(linkSearch);
 
@@ -169,7 +169,7 @@
 
                         linkSelected.href = `javascript:searchText('${selectedText}')`;
 
-                        linkSelected.innerHTML = `<i class="fas fa-search fa-fw"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
+                        linkSelected.innerHTML = `<i class="fas fa-search"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
 
                         contextMenu.appendChild(linkSelected);
                     }

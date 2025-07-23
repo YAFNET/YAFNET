@@ -24,7 +24,7 @@
 					      <p class="card-text"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "DROP_HERE") %></p>
 
 					      <span class="btn btn-success fileinput-button m-1">
-						      <i class="fa fa-plus fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedPage="ATTACHMENTS" LocalizedTag="ADD_FILES" />
+						      <i class="fa fa-plus"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedPage="ATTACHMENTS" LocalizedTag="ADD_FILES" />
 						      <input type="file" id="fileElem" multiple>
 					      </span>
 				      </div>

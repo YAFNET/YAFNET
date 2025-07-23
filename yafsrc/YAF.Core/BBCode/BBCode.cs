@@ -540,7 +540,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
                     new Regex(
                         @"\[email=(?<email>[^\]]*)\](?<inner>([^""\r\n\]\[]+?))\[/email\]",
                         Options | RegexOptions.Compiled),
-                    "<a href=\"mailto:${email}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>",
+                    "<a href=\"mailto:${email}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>",
                     ["email"]));
 
             ruleEngine.AddRule(
@@ -556,7 +556,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
                     new Regex(
                         @"\[url\=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^javascript:])([^""\r\n\]\[]*?))\](?<inner>(.+?))\[/url\]",
                         Options | RegexOptions.Compiled),
-                    "<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
+                    "<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
                     [
                         "url", "http"
@@ -570,7 +570,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
                     new Regex(
                         @"\[url\](?<http>(http://)|(https://)|(ftp://)|(ftps://)|(mailto:))?(?<inner>([^javascript:])(.+?))\[/url\]",
                         Options | RegexOptions.Compiled),
-                    "<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
+                    "<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
                     [
                         "http"
@@ -585,7 +585,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
                     new Regex(
                         """^(?!.*youtu).*(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!")(?<!href=")(?<!src=")(?<inner>(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)""",
                         RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled),
-                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
+                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
                     [
                         "before"
@@ -597,7 +597,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
                     new Regex(
                         """^(?!.*youtu).*(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?!youtu)(?<!href=")(?<!src=")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~/(/)$]*[^.<|^.\[])?)""",
                         RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled),
-                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
+                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
                     [
                         "before"

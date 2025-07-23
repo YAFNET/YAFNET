@@ -26,7 +26,7 @@
                           ${String(data.active ? 'aria-selected="true"' : '')} ${String(data.disabled
                     ? 'aria-disabled="true"'
                     : '')}>
-                        <i class="fas fa-fw fa-tag align-middle me-1"></i>${String(label)}
+                        <i class="fas fa-tag align-middle me-1"></i>${String(label)}
                         ${String(removeItemButton ? `<button type="button" class="${String(classNames.button)}" aria-label="Remove item: '${String(data.value)}'" data-button="">Remove item</button>` : '')}
                      </div>
                     `
@@ -49,7 +49,7 @@ function createForumSelectTemplates(template) {
                                       ${String(data.active ? 'aria-selected="true"' : '')} ${String(data.disabled
                         ? 'aria-disabled="true"'
                         : '')}>
-                                    <span><i class="fas fa-fw fa-comments text-secondary me-1"></i>${String(data.label)}</span>
+                                    <span><i class="fas fa-comments text-secondary me-1"></i>${String(data.label)}</span>
                                  </div>
                                 `
             );
@@ -64,7 +64,7 @@ function createForumSelectTemplates(template) {
                     : 'data-choice-selectable')}
                                       data-id="${String(data.id)}" data-value="${String(data.value)}"
                                       ${String(data.groupId > 0 ? 'role="treeitem"' : 'role="option"')}>
-                                      <span><i class="fas fa-comments fa-fw text-secondary me-1"></i>${String(
+                                      <span><i class="fas fa-comments text-secondary me-1"></i>${String(
                     data.label)}</span>
                                  </div>
                                  `
@@ -78,7 +78,7 @@ function createForumSelectTemplates(template) {
                 : 'data-choice-selectable')}
                           data-id="${String(data.id)}" data-value="${String(data.value)}"
                           ${String(data.groupId > 0 ? 'role="treeitem"' : 'role="option"')}>
-                          <span><i class="fas fa-fw fa-folder text-warning me-1"></i>${String(data.label)}</span>
+                          <span><i class="fas fa-folder text-warning me-1"></i>${String(data.label)}</span>
                      </div>
                      `);
         }

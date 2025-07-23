@@ -95,7 +95,7 @@
                  <li class="list-group-item list-group-item-action list-group-item-menu">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1 text-break">
-                        <i class="fa fa-users fa-fw"></i>&nbsp;<%# this.Eval( "Name" ) %>
+                        <i class="fa fa-users"></i>&nbsp;<%# this.Eval( "Name" ) %>
                     </h5>
                     <small class="text-body-secondary">
                         <%# this.GetLinkedStatus((YAF.Types.Models.Group)Container.DataItem )%>

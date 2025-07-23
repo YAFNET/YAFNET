@@ -151,7 +151,7 @@ public partial class Header : BaseUserControl
                            TitleLocalizedPage = "TOOLBAR",
                            NavigateUrl = linkUrl,
                            Text = icon.IsSet()
-                                      ? $"<i class=\"fa fa-{icon} fa-fw\"></i>&nbsp;{linkText}"
+                                      ? $"<i class=\"fa fa-{icon}\"></i>&nbsp;{linkText}"
                                       : linkText,
                            CssClass = cssClass
                        };

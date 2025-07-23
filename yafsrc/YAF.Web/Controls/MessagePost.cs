@@ -216,12 +216,12 @@ public class MessagePost : MessageBase
         var messageHistoryButton =
             $@"<hr />
                    <p class=""mb-0""><a href=""{this.Get<LinkBuilder>().GetLink(ForumPages.MessageHistory, new { m = messageId.Value })}"" class=""btn btn-secondary btn-sm me-1"">
-                         <i class=""fa fa-history fa-fw""></i>{this.GetText("MESSAGEHISTORY", "TITLE")}
+                         <i class=""fa fa-history""></i>{this.GetText("MESSAGEHISTORY", "TITLE")}
                       </a></p>";
 
         writer.Write(
             @"<div class=""alert alert-secondary mt-1"" role=""alert"">
-                      <i class=""fa fa-edit fa-fw text-secondary""></i>{0} {1}
+                      <i class=""fa fa-edit text-secondary""></i>{0} {1}
                       &nbsp;{2}&nbsp;|&nbsp;<em>{3}</em> {4}</div>",
             this.GetText("EDITED"),
             whoChanged,
@@ -240,7 +240,7 @@ public class MessagePost : MessageBase
     {
         writer.Write(
             @"<div class=""alert alert-success alert-dismissible fade show"" role=""alert"">
-                      <a title=""{0}"" href=""{1}""><i class=""fa fa-check fa-fw""></i>{0}</a>
+                      <a title=""{0}"" href=""{1}""><i class=""fa fa-check""></i>{0}</a>
                       <button type=""button"" class=""btn-close"" data-bs-dismiss=""alert"" aria-label=""Close"">
                       </button></div>",
             this.GetText("GO_TO_ANSWER"),

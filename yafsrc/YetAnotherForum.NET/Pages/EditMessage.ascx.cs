@@ -173,7 +173,7 @@ public partial class EditMessage : ForumPage
 
             normal.Attributes.Add(
                 "data-custom-properties",
-                $$"""{ "label": "<i class='far fa-comment fa-fw me-1'></i>{{this.GetText("normal")}}" }""");
+                $$"""{ "label": "<i class='far fa-comment me-1'></i>{{this.GetText("normal")}}" }""");
 
             this.Priority.Items.Add(normal);
 
@@ -181,7 +181,7 @@ public partial class EditMessage : ForumPage
 
             sticky.Attributes.Add(
                 "data-custom-properties",
-                $$"""{ "label": "<i class='fas fa-thumbtack fa-fw me-1'></i>{{this.GetText("sticky")}}" }""");
+                $$"""{ "label": "<i class='fas fa-thumbtack me-1'></i>{{this.GetText("sticky")}}" }""");
 
             this.Priority.Items.Add(sticky);
 
@@ -189,7 +189,7 @@ public partial class EditMessage : ForumPage
 
             announcement.Attributes.Add(
                 "data-custom-properties",
-                $$"""{ "label": "<i class='fas fa-bullhorn fa-fw me-1'></i>{{this.GetText("announcement")}}" }""");
+                $$"""{ "label": "<i class='fas fa-bullhorn me-1'></i>{{this.GetText("announcement")}}" }""");
 
             this.Priority.Items.Add(announcement);
 

@@ -64,7 +64,7 @@ public class Attach : BBCodeControl
         if (!this.PageBoardContext.DownloadAccess)
         {
             writer.Write(
-                """<i class="fa fa-file fa-fw"></i>&nbsp;{0} <span class="badge text-bg-warning" role="alert">{1}</span>""",
+                """<i class="fa fa-file"></i>&nbsp;{0} <span class="badge text-bg-warning" role="alert">{1}</span>""",
                 attachment.FileName,
                 this.GetText("ATTACH_NO"));
 
@@ -128,7 +128,7 @@ public class Attach : BBCodeControl
 
             writer.Write(
                 """
-                <i class="fa fa-file fa-fw"></i>&nbsp;
+                <i class="fa fa-file"></i>&nbsp;
                                          <a href="{0}resource.ashx?a={1}&b={4}">{2}</a>
                                          <span>{3}</span>
                 """,

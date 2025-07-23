@@ -52,7 +52,7 @@ public partial class EditUsersResetPass : BaseUserControl
     protected void Page_Load(object sender, EventArgs e)
     {
         this.ChangePassword.Text =
-            $"<i class=\"fa fa-key fa-fw\"></i>&nbsp;{this.GetText("ADMIN_EDITUSER", "CHANGE_PASS")}";
+            $"<i class=\"fa fa-key\"></i>&nbsp;{this.GetText("ADMIN_EDITUSER", "CHANGE_PASS")}";
 
         if (this.IsPostBack)
         {

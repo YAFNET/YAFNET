@@ -61,7 +61,7 @@ public static class DropDownListExtensions
 
                     item.Attributes.Add(
                         "data-custom-properties",
-                        $$"""{ "label": "<i class='fas fa-{{row.Icon}} fa-fw text-secondary me-1'></i>{{row.Forum}}", "url": "{{row.ForumLink}}" }""");
+                        $$"""{ "label": "<i class='fas fa-{{row.Icon}} text-secondary me-1'></i>{{row.Forum}}", "url": "{{row.ForumLink}}" }""");
 
                     dropDownList.Items.Add(item);
                 });

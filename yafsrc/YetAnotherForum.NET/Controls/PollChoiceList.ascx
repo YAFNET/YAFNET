@@ -25,7 +25,7 @@
                         <asp:Label id="YourChoice" visible="false" runat="server" 
                                    CssClass="badge text-bg-success"
                                    ToolTip='<%# this.GetText("POLLEDIT", "POLL_VOTED") %>'>
-                            <i class="fa fa-check-circle fa-fw"></i>&nbsp;<%# this.GetText("POLLEDIT", "POLL_VOTED") %>
+                            <i class="fa fa-check-circle"></i>&nbsp;<%# this.GetText("POLLEDIT", "POLL_VOTED") %>
                         </asp:Label>
                     </small>
                 </div>

@@ -2732,9 +2732,9 @@ document.addEventListener("DOMContentLoaded", function() {
     function _defineProperty(e, r, t) {
         return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
             value: t,
-            enumerable: !0,
-            configurable: !0,
-            writable: !0
+            enumerable: true,
+            configurable: true,
+            writable: true
         }) : e[r] = t, e;
     }
     function ownKeys(e, r) {
@@ -2750,7 +2750,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function _objectSpread2(e) {
         for (var r = 1; r < arguments.length; r++) {
             var t = null != arguments[r] ? arguments[r] : {};
-            r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+            r % 2 ? ownKeys(Object(t), true).forEach(function(r) {
                 _defineProperty(e, r, t[r]);
             }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
                 Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
@@ -2762,7 +2762,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if ("object" != typeof t || !t) return t;
         var e = t[Symbol.toPrimitive];
         if (void 0 !== e) {
-            var i = e.call(t, r || "default");
+            var i = e.call(t, r);
             if ("object" != typeof i) return i;
             throw new TypeError("@@toPrimitive must return a primitive value.");
         }
@@ -2775,13 +2775,12 @@ document.addEventListener("DOMContentLoaded", function() {
     function isArray(value) {
         return !Array.isArray ? getTag(value) === "[object Array]" : Array.isArray(value);
     }
-    const INFINITY = 1 / 0;
     function baseToString(value) {
         if (typeof value == "string") {
             return value;
         }
         let result = value + "";
-        return result == "0" && 1 / value == -INFINITY ? "-0" : result;
+        return result == "0" && 1 / value == -Infinity ? "-0" : result;
     }
     function toString(value) {
         return value == null ? "" : baseToString(value);
@@ -2810,7 +2809,6 @@ document.addEventListener("DOMContentLoaded", function() {
     function getTag(value) {
         return value == null ? value === undefined ? "[object Undefined]" : "[object Null]" : Object.prototype.toString.call(value);
     }
-    const EXTENDED_SEARCH_UNAVAILABLE = "Extended search is not available";
     const INCORRECT_INDEX_TYPE = "Incorrect 'index' type";
     const LOGICAL_SEARCH_INVALID_QUERY_FOR_KEY = key => `Invalid value for key ${key}`;
     const PATTERN_LENGTH_TOO_LARGE = max => `Pattern length exceeds max of ${max}.`;
@@ -2919,6 +2917,7 @@ document.addEventListener("DOMContentLoaded", function() {
     };
     const BasicOptions = {
         isCaseSensitive: false,
+        ignoreDiacritics: false,
         includeScore: false,
         keys: [],
         shouldSort: true,
@@ -3281,6 +3280,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         return mask;
     }
+    const stripDiacritics = String.prototype.normalize ? str => str.normalize("NFD").replace(/[\u0300-\u036F\u0483-\u0489\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7\u06E8\u06EA-\u06ED\u0711\u0730-\u074A\u07A6-\u07B0\u07EB-\u07F3\u07FD\u0816-\u0819\u081B-\u0823\u0825-\u0827\u0829-\u082D\u0859-\u085B\u08D3-\u08E1\u08E3-\u0903\u093A-\u093C\u093E-\u094F\u0951-\u0957\u0962\u0963\u0981-\u0983\u09BC\u09BE-\u09C4\u09C7\u09C8\u09CB-\u09CD\u09D7\u09E2\u09E3\u09FE\u0A01-\u0A03\u0A3C\u0A3E-\u0A42\u0A47\u0A48\u0A4B-\u0A4D\u0A51\u0A70\u0A71\u0A75\u0A81-\u0A83\u0ABC\u0ABE-\u0AC5\u0AC7-\u0AC9\u0ACB-\u0ACD\u0AE2\u0AE3\u0AFA-\u0AFF\u0B01-\u0B03\u0B3C\u0B3E-\u0B44\u0B47\u0B48\u0B4B-\u0B4D\u0B56\u0B57\u0B62\u0B63\u0B82\u0BBE-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCD\u0BD7\u0C00-\u0C04\u0C3E-\u0C44\u0C46-\u0C48\u0C4A-\u0C4D\u0C55\u0C56\u0C62\u0C63\u0C81-\u0C83\u0CBC\u0CBE-\u0CC4\u0CC6-\u0CC8\u0CCA-\u0CCD\u0CD5\u0CD6\u0CE2\u0CE3\u0D00-\u0D03\u0D3B\u0D3C\u0D3E-\u0D44\u0D46-\u0D48\u0D4A-\u0D4D\u0D57\u0D62\u0D63\u0D82\u0D83\u0DCA\u0DCF-\u0DD4\u0DD6\u0DD8-\u0DDF\u0DF2\u0DF3\u0E31\u0E34-\u0E3A\u0E47-\u0E4E\u0EB1\u0EB4-\u0EB9\u0EBB\u0EBC\u0EC8-\u0ECD\u0F18\u0F19\u0F35\u0F37\u0F39\u0F3E\u0F3F\u0F71-\u0F84\u0F86\u0F87\u0F8D-\u0F97\u0F99-\u0FBC\u0FC6\u102B-\u103E\u1056-\u1059\u105E-\u1060\u1062-\u1064\u1067-\u106D\u1071-\u1074\u1082-\u108D\u108F\u109A-\u109D\u135D-\u135F\u1712-\u1714\u1732-\u1734\u1752\u1753\u1772\u1773\u17B4-\u17D3\u17DD\u180B-\u180D\u1885\u1886\u18A9\u1920-\u192B\u1930-\u193B\u1A17-\u1A1B\u1A55-\u1A5E\u1A60-\u1A7C\u1A7F\u1AB0-\u1ABE\u1B00-\u1B04\u1B34-\u1B44\u1B6B-\u1B73\u1B80-\u1B82\u1BA1-\u1BAD\u1BE6-\u1BF3\u1C24-\u1C37\u1CD0-\u1CD2\u1CD4-\u1CE8\u1CED\u1CF2-\u1CF4\u1CF7-\u1CF9\u1DC0-\u1DF9\u1DFB-\u1DFF\u20D0-\u20F0\u2CEF-\u2CF1\u2D7F\u2DE0-\u2DFF\u302A-\u302F\u3099\u309A\uA66F-\uA672\uA674-\uA67D\uA69E\uA69F\uA6F0\uA6F1\uA802\uA806\uA80B\uA823-\uA827\uA880\uA881\uA8B4-\uA8C5\uA8E0-\uA8F1\uA8FF\uA926-\uA92D\uA947-\uA953\uA980-\uA983\uA9B3-\uA9C0\uA9E5\uAA29-\uAA36\uAA43\uAA4C\uAA4D\uAA7B-\uAA7D\uAAB0\uAAB2-\uAAB4\uAAB7\uAAB8\uAABE\uAABF\uAAC1\uAAEB-\uAAEF\uAAF5\uAAF6\uABE3-\uABEA\uABEC\uABED\uFB1E\uFE00-\uFE0F\uFE20-\uFE2F]/g, "") : str => str;
     class BitapSearch {
         constructor(pattern, {
             location = Config.location,
@@ -3290,6 +3290,7 @@ document.addEventListener("DOMContentLoaded", function() {
             findAllMatches = Config.findAllMatches,
             minMatchCharLength = Config.minMatchCharLength,
             isCaseSensitive = Config.isCaseSensitive,
+            ignoreDiacritics = Config.ignoreDiacritics,
             ignoreLocation = Config.ignoreLocation
         } = {}) {
             this.options = {
@@ -3300,9 +3301,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 findAllMatches: findAllMatches,
                 minMatchCharLength: minMatchCharLength,
                 isCaseSensitive: isCaseSensitive,
+                ignoreDiacritics: ignoreDiacritics,
                 ignoreLocation: ignoreLocation
             };
-            this.pattern = isCaseSensitive ? pattern : pattern.toLowerCase();
+            pattern = isCaseSensitive ? pattern : pattern.toLowerCase();
+            pattern = ignoreDiacritics ? stripDiacritics(pattern) : pattern;
+            this.pattern = pattern;
             this.chunks = [];
             if (!this.pattern.length) {
                 return;
@@ -3334,11 +3338,11 @@ document.addEventListener("DOMContentLoaded", function() {
         searchIn(text) {
             const {
                 isCaseSensitive,
+                ignoreDiacritics,
                 includeMatches
             } = this.options;
-            if (!isCaseSensitive) {
-                text = text.toLowerCase();
-            }
+            text = isCaseSensitive ? text : text.toLowerCase();
+            text = ignoreDiacritics ? stripDiacritics(text) : text;
             if (this.pattern === text) {
                 let result = {
                     isMatch: true,
@@ -3554,6 +3558,7 @@ document.addEventListener("DOMContentLoaded", function() {
             findAllMatches = Config.findAllMatches,
             minMatchCharLength = Config.minMatchCharLength,
             isCaseSensitive = Config.isCaseSensitive,
+            ignoreDiacritics = Config.ignoreDiacritics,
             ignoreLocation = Config.ignoreLocation
         } = {}) {
             super(pattern);
@@ -3565,6 +3570,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 findAllMatches: findAllMatches,
                 minMatchCharLength: minMatchCharLength,
                 isCaseSensitive: isCaseSensitive,
+                ignoreDiacritics: ignoreDiacritics,
                 ignoreLocation: ignoreLocation
             });
         }
@@ -3651,6 +3657,7 @@ document.addEventListener("DOMContentLoaded", function() {
     class ExtendedSearch {
         constructor(pattern, {
             isCaseSensitive = Config.isCaseSensitive,
+            ignoreDiacritics = Config.ignoreDiacritics,
             includeMatches = Config.includeMatches,
             minMatchCharLength = Config.minMatchCharLength,
             ignoreLocation = Config.ignoreLocation,
@@ -3662,6 +3669,7 @@ document.addEventListener("DOMContentLoaded", function() {
             this.query = null;
             this.options = {
                 isCaseSensitive: isCaseSensitive,
+                ignoreDiacritics: ignoreDiacritics,
                 includeMatches: includeMatches,
                 minMatchCharLength: minMatchCharLength,
                 findAllMatches: findAllMatches,
@@ -3670,7 +3678,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 threshold: threshold,
                 distance: distance
             };
-            this.pattern = isCaseSensitive ? pattern : pattern.toLowerCase();
+            pattern = isCaseSensitive ? pattern : pattern.toLowerCase();
+            pattern = ignoreDiacritics ? stripDiacritics(pattern) : pattern;
+            this.pattern = pattern;
             this.query = parseQuery(this.pattern, this.options);
         }
         static condition(_, options) {
@@ -3686,9 +3696,11 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             const {
                 includeMatches,
-                isCaseSensitive
+                isCaseSensitive,
+                ignoreDiacritics
             } = this.options;
             text = isCaseSensitive ? text : text.toLowerCase();
+            text = ignoreDiacritics ? stripDiacritics(text) : text;
             let numMatches = 0;
             let allIndices = [];
             let totalScore = 0;
@@ -3882,9 +3894,7 @@ document.addEventListener("DOMContentLoaded", function() {
     class Fuse {
         constructor(docs, options = {}, index) {
             this.options = _objectSpread2(_objectSpread2({}, Config), options);
-            if (this.options.useExtendedSearch && !true) {
-                throw new Error(EXTENDED_SEARCH_UNAVAILABLE);
-            }
+            if (this.options.useExtendedSearch && false);
             this._keyStore = new KeyStore(this.options.keys);
             this.setCollection(docs, index);
         }
@@ -4135,7 +4145,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return matches;
         }
     }
-    Fuse.version = "7.0.0";
+    Fuse.version = "7.1.0";
     Fuse.createIndex = createIndex;
     Fuse.parseIndex = parseIndex;
     Fuse.config = Config;
@@ -6247,308 +6257,192 @@ document.addEventListener("DOMContentLoaded", function() {
     return Choices;
 });
 
-!function() {
+var lightbox = function(y) {
     "use strict";
-    var t = {
-        d: function(e, n) {
-            for (var a in n) t.o(n, a) && !t.o(e, a) && Object.defineProperty(e, a, {
-                enumerable: !0,
-                get: n[a]
-            });
-        },
-        o: function(t, e) {
-            return Object.prototype.hasOwnProperty.call(t, e);
-        }
-    }, e = {};
-    t.d(e, {
-        default: function() {
-            return d;
-        }
-    });
-    var n = window.bootstrap;
-    function a(t) {
-        return a = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(t) {
-            return typeof t;
-        } : function(t) {
-            return t && "function" == typeof Symbol && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t;
-        }, a(t);
-    }
-    function r(t) {
-        return function(t) {
-            if (Array.isArray(t)) return i(t);
-        }(t) || function(t) {
-            if ("undefined" != typeof Symbol && null != t[Symbol.iterator] || null != t["@@iterator"]) return Array.from(t);
-        }(t) || o(t) || function() {
-            throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-        }();
-    }
-    function o(t, e) {
-        if (t) {
-            if ("string" == typeof t) return i(t, e);
-            var n = {}.toString.call(t).slice(8, -1);
-            return "Object" === n && t.constructor && (n = t.constructor.name), 
-            "Map" === n || "Set" === n ? Array.from(t) : "Arguments" === n || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n) ? i(t, e) : void 0;
-        }
-    }
-    function i(t, e) {
-        (null == e || e > t.length) && (e = t.length);
-        for (var n = 0, a = Array(e); n < e; n++) a[n] = t[n];
-        return a;
-    }
-    function s(t, e) {
-        for (var n = 0; n < e.length; n++) {
-            var a = e[n];
-            a.enumerable = a.enumerable || !1, a.configurable = !0, "value" in a && (a.writable = !0), 
-            Object.defineProperty(t, l(a.key), a);
-        }
-    }
-    function l(t) {
-        var e = function(t, e) {
-            if ("object" != a(t) || !t) return t;
-            var n = t[Symbol.toPrimitive];
-            if (void 0 !== n) {
-                var r = n.call(t, e || "default");
-                if ("object" != a(r)) return r;
-                throw new TypeError("@@toPrimitive must return a primitive value.");
+    function f(l) {
+        const t = Object.create(null, {
+            [Symbol.toStringTag]: {
+                value: "Module"
             }
-            return ("string" === e ? String : Number)(t);
-        }(t, "string");
-        return "symbol" == a(e) ? e : e + "";
+        });
+        if (l) {
+            for (const e in l) if (e !== "default") {
+                const a = Object.getOwnPropertyDescriptor(l, e);
+                Object.defineProperty(t, e, a.get ? a : {
+                    enumerable: !0,
+                    get: () => l[e]
+                });
+            }
+        }
+        return t.default = l, Object.freeze(t);
     }
-    var c = {
-        Modal: n.Modal,
-        Carousel: n.Carousel
-    }, u = function() {
-        function t(e) {
-            var n = this, a = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
-            !function(t, e) {
-                if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
-            }(this, t), this.hash = this.randomHash(), this.settings = Object.assign(Object.assign(Object.assign({}, c.Modal.Default), c.Carousel.Default), {
+    const r = f(y);
+    class i {
+        hash;
+        settings;
+        modalOptions;
+        carouselOptions;
+        el;
+        src;
+        sources;
+        type;
+        carouselElement;
+        modalElement;
+        modal;
+        carousel;
+        static allowedEmbedTypes = [ "embed", "youtube", "vimeo", "instagram", "url" ];
+        static allowedMediaTypes = [ ...i.allowedEmbedTypes, "image", "html" ];
+        static defaultSelector = '[data-toggle="lightbox"]';
+        constructor(t, e = {}) {
+            this.hash = this.randomHash(), this.settings = Object.assign({}, r.Modal.Default, r.Carousel.Default, {
                 interval: !1,
                 target: '[data-toggle="lightbox"]',
                 gallery: "",
                 size: "xl",
                 constrain: !0
-            }), this.settings = Object.assign(Object.assign({}, this.settings), a), 
-            this.modalOptions = n.setOptionsFromSettings(c.Modal.Default), this.carouselOptions = n.setOptionsFromSettings(c.Carousel.Default), 
-            "string" == typeof e && (this.settings.target = e, e = document.querySelector(this.settings.target)), 
-            this.el = e, this.type = e.dataset.type || "", e.dataset.size && (this.settings.size = e.dataset.size), 
-            this.src = this.getSrc(e), this.sources = this.getGalleryItems(), this.createCarousel(), 
+            }, e), this.modalOptions = this.setOptionsFromSettings(r.Modal.Default), 
+            this.carouselOptions = this.setOptionsFromSettings(r.Carousel.Default), 
+            typeof t == "string" && (this.settings.target = t, t = document.querySelector(t)), 
+            this.el = t, this.type = t.dataset.type || "", t.dataset.size && (this.settings.size = t.dataset.size), 
+            this.src = this.getSrc(t), this.sources = this.getGalleryItems(), this.createCarousel(), 
             this.createModal();
         }
-        return e = t, n = [ {
-            key: "show",
-            value: function() {
-                document.body.appendChild(this.modalElement), this.modal.show();
-            }
-        }, {
-            key: "hide",
-            value: function() {
-                this.modal.hide();
-            }
-        }, {
-            key: "setOptionsFromSettings",
-            value: function(t) {
-                var e = this;
-                return Object.keys(t).reduce(function(t, n) {
-                    return Object.assign(t, (a = {}, r = n, o = e.settings[n], (r = l(r)) in a ? Object.defineProperty(a, r, {
-                        value: o,
-                        enumerable: !0,
-                        configurable: !0,
-                        writable: !0
-                    }) : a[r] = o, a));
-                    var a, r, o;
-                }, {});
-            }
-        }, {
-            key: "getSrc",
-            value: function(t) {
-                var e = t.dataset.src || t.dataset.remote || t.href || "http://via.placeholder.com/1600x900";
-                if ("html" === t.dataset.type) return e;
-                /\:\/\//.test(e) || (e = window.location.origin + e);
-                var n = new URL(e);
-                return (t.dataset.footer || t.dataset.caption) && n.searchParams.set("caption", t.dataset.footer || t.dataset.caption), 
-                n.toString();
-            }
-        }, {
-            key: "getGalleryItems",
-            value: function() {
-                var t, e = this;
-                if (this.settings.gallery) {
-                    if (Array.isArray(this.settings.gallery)) return this.settings.gallery;
-                    t = this.settings.gallery;
-                } else this.el.dataset.gallery && (t = this.el.dataset.gallery);
-                return t ? r(new Set(Array.from(document.querySelectorAll('[data-gallery="'.concat(t, '"]')), function(t) {
-                    return "".concat(t.dataset.type ? t.dataset.type : "").concat(e.getSrc(t));
-                }))) : [ "".concat(this.type ? this.type : "").concat(this.src) ];
-            }
-        }, {
-            key: "getYoutubeId",
-            value: function(t) {
-                if (!t) return !1;
-                var e = t.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/);
-                return !(!e || 11 !== e[2].length) && e[2];
-            }
-        }, {
-            key: "getYoutubeLink",
-            value: function(t) {
-                var e = this.getYoutubeId(t);
-                if (!e) return !1;
-                var n = t.split("?"), a = n.length > 1 ? "?" + n[1] : "";
-                return "https://www.youtube.com/embed/".concat(e).concat(a);
-            }
-        }, {
-            key: "getInstagramEmbed",
-            value: function(t) {
-                if (/instagram/.test(t)) return t += /\/embed$/.test(t) ? "" : "/embed", 
-                '<iframe src="'.concat(t, '" class="start-50 translate-middle-x" style="max-width: 500px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>');
-            }
-        }, {
-            key: "isEmbed",
-            value: function(e) {
-                var n = new RegExp("(" + t.allowedEmbedTypes.join("|") + ")").test(e), a = /\.(png|jpe?g|gif|svg|webp)/i.test(e) || "image" === this.el.dataset.type;
-                return n || !a;
-            }
-        }, {
-            key: "createCarousel",
-            value: function() {
-                var e = this, n = document.createElement("template"), a = t.allowedMediaTypes.join("|"), r = this.sources.map(function(t, n) {
-                    t = t.replace(/\/$/, "");
-                    var r = new RegExp("^(".concat(a, ")"), "i"), o = /^html/.test(t), i = /^image/.test(t);
-                    r.test(t) && (t = t.replace(r, ""));
-                    var s = e.settings.constrain ? "mw-100 mh-100 h-auto w-auto m-auto top-0 end-0 bottom-0 start-0" : "h-100 w-100", l = new URLSearchParams(t.split("?")[1]), c = "", u = t;
-                    if (l.get("caption")) {
-                        try {
-                            (u = new URL(t)).searchParams.delete("caption"), u = u.toString();
-                        } catch (e) {
-                            u = t;
-                        }
-                        c = '<div class="carousel-caption d-none d-md-block" style="z-index:2"><p class="bg-secondary rounded">'.concat(l.get("caption"), "</p></div>");
-                    }
-                    var d = '<img src="'.concat(u, '" class="d-block ').concat(s, ' img-fluid" style="z-index: 1; object-fit: contain;" />'), h = "", m = e.getInstagramEmbed(t), b = e.getYoutubeLink(t);
-                    return e.isEmbed(t) && !i && (b && (t = b, h = 'title="YouTube video player" frameborder="0" allow="accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture"'), 
-                    d = m || '<img src="'.concat(t, '" ').concat(h, ' class="d-block mw-100 mh-100 h-auto w-auto m-auto top-0 end-0 bottom-0 start-0 img-fluid" style="z-index: 1; object-fit: contain;" />')), 
-                    o && (d = t), '\n\t\t\t\t<div class="carousel-item '.concat(n ? "" : "active", '" style="min-height: 100px">\n\t\t\t\t\t').concat('<div class="position-absolute top-50 start-50 translate-middle text-white"><div class="spinner-border" style="width: 3rem height: 3rem" role="status"></div></div>', '\n\t\t\t\t\t<div class="ratio ratio-16x9" style="background-color: #000;">').concat(d, "</div>\n\t\t\t\t\t").concat(c, "\n\t\t\t\t</div>");
-                }).join(""), o = this.sources.length < 2 ? "" : '\n\t\t\t<button id="#lightboxCarousel-'.concat(this.hash, '-prev" class="carousel-control-prev" type="button" data-bs-target="#lightboxCarousel-').concat(this.hash, '" data-bs-slide="prev">\n\t\t\t\t<span class="btn btn-secondary carousel-control-prev-icon" aria-hidden="true"></span>\n\t\t\t\t<span class="visually-hidden">Previous</span>\n\t\t\t</button>\n\t\t\t<button id="#lightboxCarousel-').concat(this.hash, '-next" class="carousel-control-next" type="button" data-bs-target="#lightboxCarousel-').concat(this.hash, '" data-bs-slide="next">\n\t\t\t\t<span class="btn btn-secondary carousel-control-next-icon" aria-hidden="true"></span>\n\t\t\t\t<span class="visually-hidden">Next</span>\n\t\t\t</button>'), i = "lightbox-carousel carousel slide";
-                "fullscreen" === this.settings.size && (i += " position-absolute w-100 translate-middle top-50 start-50");
-                var s = '\n\t\t\t<div class="carousel-indicators" style="bottom: -40px">\n\t\t\t\t'.concat(this.sources.map(function(t, n) {
-                    return '\n\t\t\t\t\t<button type="button" data-bs-target="#lightboxCarousel-'.concat(e.hash, '" data-bs-slide-to="').concat(n, '" class="').concat(0 === n ? "active" : "", '" aria-current="').concat(0 === n ? "true" : "false", '" aria-label="Slide ').concat(n + 1, '"></button>\n\t\t\t\t');
-                }).join(""), "\n\t\t\t</div>"), l = '\n\t\t\t<div id="lightboxCarousel-'.concat(this.hash, '" class="').concat(i, '" data-bs-ride="carousel" data-bs-interval="').concat(this.carouselOptions.interval, '">\n\t\t\t    <div class="carousel-inner">\n\t\t\t\t\t').concat(r, "\n\t\t\t\t</div>\n\t\t\t    ").concat(s, "\n\t\t\t\t").concat(o, "\n\t\t\t</div>");
-                n.innerHTML = l.trim(), this.carouselElement = n.content.firstChild;
-                var u = Object.assign(Object.assign({}, this.carouselOptions), {
-                    keyboard: !1
-                });
-                this.carousel = new c.Carousel(this.carouselElement, u);
-                var d = this.type && "image" !== this.type ? this.type + this.src : this.src;
-                return this.carousel.to(this.findGalleryItemIndex(this.sources, d)), 
-                !0 === this.carouselOptions.keyboard && document.addEventListener("keydown", function(t) {
-                    if ("ArrowLeft" === t.code) {
-                        var n = document.getElementById("#lightboxCarousel-".concat(e.hash, "-prev"));
-                        return n && n.click(), !1;
-                    }
-                    if ("ArrowRight" === t.code) {
-                        var a = document.getElementById("#lightboxCarousel-".concat(e.hash, "-next"));
-                        return a && a.click(), !1;
-                    }
-                }), this.carousel;
-            }
-        }, {
-            key: "findGalleryItemIndex",
-            value: function(t, e) {
-                var n, a = 0, r = function(t, e) {
-                    var n = "undefined" != typeof Symbol && t[Symbol.iterator] || t["@@iterator"];
-                    if (!n) {
-                        if (Array.isArray(t) || (n = o(t)) || e && t && "number" == typeof t.length) {
-                            n && (t = n);
-                            var a = 0, r = function() {};
-                            return {
-                                s: r,
-                                n: function() {
-                                    return a >= t.length ? {
-                                        done: !0
-                                    } : {
-                                        done: !1,
-                                        value: t[a++]
-                                    };
-                                },
-                                e: function(t) {
-                                    throw t;
-                                },
-                                f: r
-                            };
-                        }
-                        throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-                    }
-                    var i, s = !0, l = !1;
-                    return {
-                        s: function() {
-                            n = n.call(t);
-                        },
-                        n: function() {
-                            var t = n.next();
-                            return s = t.done, t;
-                        },
-                        e: function(t) {
-                            l = !0, i = t;
-                        },
-                        f: function() {
-                            try {
-                                s || null == n.return || n.return();
-                            } finally {
-                                if (l) throw i;
-                            }
-                        }
-                    };
-                }(t);
-                try {
-                    for (r.s(); !(n = r.n()).done; ) {
-                        if (n.value.includes(e)) return a;
-                        a++;
-                    }
-                } catch (t) {
-                    r.e(t);
-                } finally {
-                    r.f();
+        show() {
+            document.body.appendChild(this.modalElement), this.modal.show();
+        }
+        hide() {
+            this.modal.hide();
+        }
+        setOptionsFromSettings(t) {
+            return Object.keys(t).reduce((e, a) => Object.assign(e, {
+                [a]: this.settings[a]
+            }), {});
+        }
+        getSrc(t) {
+            let e = t.dataset.src || t.dataset.remote || t.href || "https://placehold.co/1600x900";
+            if (t.dataset.type === "html" || t.dataset.type === "image") return e;
+            /https?:\/\//.test(e) || (e = window.location.origin + e);
+            const a = new URL(e);
+            return (t.dataset.footer || t.dataset.caption) && a.searchParams.set("caption", t.dataset.footer || t.dataset.caption || ""), 
+            a.toString();
+        }
+        getGalleryItems() {
+            let t;
+            if (this.settings.gallery) {
+                if (Array.isArray(this.settings.gallery)) return this.settings.gallery;
+                t = this.settings.gallery;
+            } else this.el.dataset.gallery && (t = this.el.dataset.gallery);
+            return t ? [ ...new Set(Array.from(document.querySelectorAll(`[data-gallery="${t}"]`), a => {
+                const o = a;
+                return `${o.dataset.type || ""}${this.getSrc(o)}`;
+            })) ] : [ `${this.type || ""}${this.src}` ];
+        }
+        getYoutubeId(t) {
+            const e = t.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/);
+            return e && e[2].length === 11 ? e[2] : !1;
+        }
+        getYoutubeLink(t) {
+            const e = this.getYoutubeId(t);
+            if (!e) return !1;
+            const a = t.split("?"), o = a.length > 1 ? `?${a[1]}` : "";
+            return `https://www.youtube.com/embed/${e}${o}`;
+        }
+        getInstagramEmbed(t) {
+            if (/instagram/.test(t)) return t += /\/embed$/.test(t) ? "" : "/embed", 
+            `<iframe src="${t}" class="start-50 translate-middle-x" style="max-width: 500px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
+        }
+        isEmbed(t) {
+            const a = new RegExp(`(${i.allowedEmbedTypes.join("|")})`).test(t), o = /\.(png|jpe?g|gif|svg|webp)/i.test(t) || this.el.dataset.type === "image";
+            return a || !o;
+        }
+        createCarousel() {
+            const t = document.createElement("template"), e = i.allowedMediaTypes.join("|"), a = this.sources.map((s, n) => {
+                s = s.replace(/\/$/, "");
+                const h = new RegExp(`^(${e})`, "i"), x = /^html/.test(s), E = /^image/.test(s);
+                h.test(s) && (s = s.replace(h, ""));
+                const S = this.settings.constrain ? "mw-100 mh-100 h-auto w-auto m-auto top-0 end-0 bottom-0 start-0" : "h-100 w-100", u = new URLSearchParams(s.split("?")[1]);
+                let m = "", d = s;
+                if (u.get("caption")) try {
+                    let b = new URL(s);
+                    b.searchParams.delete("caption"), d = b.toString(), m = `<div class="carousel-caption d-none d-md-block" style="z-index:2"><p class="bg-secondary rounded">${u.get("caption")}</p></div>`;
+                } catch {
+                    d = s;
                 }
-                return 0;
-            }
-        }, {
-            key: "createModal",
-            value: function() {
-                var t = this, e = document.createElement("template"), n = '\n\t\t\t<div class="modal lightbox fade" id="lightboxModal-'.concat(this.hash, '" tabindex="-1" aria-hidden="true">\n\t\t\t\t<div class="modal-dialog modal-dialog-centered modal-').concat(this.settings.size, '">\n\t\t\t\t\t<div class="modal-content border-0 bg-transparent">\n\t\t\t\t\t\t<div class="modal-body p-0">\n\t\t\t\t\t\t\t<button type="button" class="btn-close position-absolute p-3" data-bs-dismiss="modal" aria-label="Close" style="top: -15px;right:-40px"></button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>');
-                return e.innerHTML = n.trim(), this.modalElement = e.content.firstChild, 
-                this.modalElement.querySelector(".modal-body").appendChild(this.carouselElement), 
-                this.modalElement.addEventListener("hidden.bs.modal", function() {
-                    return t.modalElement.remove();
-                }), this.modalElement.querySelector("[data-bs-dismiss]").addEventListener("click", function() {
-                    return t.modal.hide();
-                }), this.modal = new c.Modal(this.modalElement, this.modalOptions), 
-                this.modal;
-            }
-        }, {
-            key: "randomHash",
-            value: function() {
-                var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 8;
-                return Array.from({
-                    length: t
-                }, function() {
-                    return Math.floor(36 * Math.random()).toString(36);
-                }).join("");
-            }
-        } ], n && s(e.prototype, n), a && s(e, a), Object.defineProperty(e, "prototype", {
-            writable: !1
-        }), e;
-        var e, n, a;
-    }();
-    u.allowedEmbedTypes = [ "embed", "youtube", "vimeo", "instagram", "url" ], u.allowedMediaTypes = [].concat(r(u.allowedEmbedTypes), [ "image", "html" ]), 
-    u.defaultSelector = '[data-toggle="lightbox"]', u.initialize = function(t) {
-        t.preventDefault(), new u(this).show();
-    }, document.querySelectorAll(u.defaultSelector).forEach(function(t) {
-        return t.addEventListener("click", u.initialize);
-    }), "undefined" != typeof window && window.bootstrap && (window.bootstrap.Lightbox = u);
-    var d = u;
-    window.Lightbox = e.default;
-}();
+                let c = `<img src="${d}" class="d-block ${S} img-fluid" style="z-index: 1; object-fit: contain;" />`, p = "";
+                const C = this.getInstagramEmbed(s), g = this.getYoutubeLink(s);
+                return this.isEmbed(s) && !E && (g && (s = g, p = 'title="YouTube video player" frameborder="0" allow="accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture"'), 
+                c = C || `<img src="${s}" ${p} class="d-block mw-100 mh-100 h-auto w-auto m-auto top-0 end-0 bottom-0 start-0 img-fluid" style="z-index: 1; object-fit: contain;" />`), 
+                x && (c = s), `
+          <div class="carousel-item ${n ? "" : "active"}" style="min-height: 100px">
+            <div class="position-absolute top-50 start-50 translate-middle text-white"><div class="spinner-border" style="width: 3rem; height: 3rem" role="status"></div></div>
+            <div class="ratio ratio-16x9" style="background-color: #000;">${c}</div>
+            ${m}
+          </div>`;
+            }).join(""), o = this.sources.length < 2 ? "" : `
+        <button id="#lightboxCarousel-${this.hash}-prev" class="carousel-control-prev" type="button" data-bs-target="#lightboxCarousel-${this.hash}" data-bs-slide="prev">
+          <span class="btn btn-primary carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button id="#lightboxCarousel-${this.hash}-next" class="carousel-control-next" type="button" data-bs-target="#lightboxCarousel-${this.hash}" data-bs-slide="next">
+          <span class="btn btn-primary carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>`, v = `
+      <div class="carousel-indicators" style="bottom: -40px">
+        ${this.sources.map((s, n) => `
+            <button type="button" data-bs-target="#lightboxCarousel-${this.hash}" data-bs-slide-to="${n}" class="${n === 0 ? "active" : ""}" aria-current="${n === 0 ? "true" : "false"}" aria-label="Slide ${n + 1}"></button>`).join("")}
+      </div>`;
+            t.innerHTML = `
+      <div id="lightboxCarousel-${this.hash}" class="lightbox-carousel carousel slide" data-bs-ride="carousel" data-bs-interval="${this.carouselOptions.interval}">
+        <div class="carousel-inner">${a}</div>
+        ${v}
+        ${o}
+      </div>`.trim(), this.carouselElement = t.content.firstChild;
+            const w = {
+                ...this.carouselOptions,
+                keyboard: !1
+            };
+            this.carousel = new r.Carousel(this.carouselElement, w);
+            const $ = this.type && this.type !== "image" ? this.type + this.src : this.src;
+            return this.carousel.to(this.findGalleryItemIndex(this.sources, $)), 
+            this.carouselOptions.keyboard === !0 && document.addEventListener("keydown", s => {
+                if (s.code === "ArrowLeft") return document.getElementById(`#lightboxCarousel-${this.hash}-prev`)?.click(), 
+                !1;
+                if (s.code === "ArrowRight") return document.getElementById(`#lightboxCarousel-${this.hash}-next`)?.click(), 
+                !1;
+            }), this.carousel;
+        }
+        findGalleryItemIndex(t, e) {
+            return t.findIndex(a => a.includes(e)) || 0;
+        }
+        createModal() {
+            const t = document.createElement("template");
+            return t.innerHTML = `
+      <div class="modal lightbox fade" id="lightboxModal-${this.hash}" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-${this.settings.size}">
+          <div class="modal-content border-0 bg-transparent">
+            <div class="modal-body p-0">
+              <button type="button" class="btn-close position-absolute p-3" data-bs-dismiss="modal" aria-label="Close" style="top: -15px;right:-40px"></button>
+            </div>
+          </div>
+        </div>
+      </div>`.trim(), this.modalElement = t.content.firstChild, this.modalElement.querySelector(".modal-body")?.appendChild(this.carouselElement), 
+            this.modalElement.addEventListener("hidden.bs.modal", () => this.modalElement.remove()), 
+            this.modalElement.querySelector("[data-bs-dismiss]")?.addEventListener("click", () => this.modal.hide()), 
+            this.modal = new r.Modal(this.modalElement, this.modalOptions), this.modal;
+        }
+        randomHash(t = 8) {
+            return Array.from({
+                length: t
+            }, () => Math.floor(Math.random() * 36).toString(36)).join("");
+        }
+        static initialize(t) {
+            t.preventDefault(), new i(this).show();
+        }
+    }
+    return document.querySelectorAll(i.defaultSelector).forEach(l => l.addEventListener("click", i.initialize)), 
+    typeof window < "u" && window.bootstrap && (window.bootstrap.Lightbox = i), 
+    i;
+}(bootstrap);
 
 function userCardContent(pop, delay) {
     const popover = new bootstrap.Popover(pop, {
@@ -9525,7 +9419,7 @@ function createTagsSelectTemplates(template) {
                           data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
                           ${String(removeItemButton ? "data-deletable" : "")}
                           ${String(data.active ? 'aria-selected="true"' : "")} ${String(data.disabled ? 'aria-disabled="true"' : "")}>
-                        <i class="fas fa-fw fa-tag align-middle me-1"></i>${String(label)}
+                        <i class="fas fa-tag align-middle me-1"></i>${String(label)}
                         ${String(removeItemButton ? `<button type="button" class="${String(classNames.button)}" aria-label="Remove item: '${String(data.value)}'" data-button="">Remove item</button>` : "")}
                      </div>
                     `);
@@ -9543,7 +9437,7 @@ function createForumSelectTemplates(template) {
                                  <div class="${String(classNames.item)} ${String(data.highlighted ? classNames.highlightedState : classNames.itemSelectable)} ${String(data.placeholder ? classNames.placeholder : "")}"
                                       data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
                                       ${String(data.active ? 'aria-selected="true"' : "")} ${String(data.disabled ? 'aria-disabled="true"' : "")}>
-                                    <span><i class="fas fa-fw fa-comments text-secondary me-1"></i>${String(data.label)}</span>
+                                    <span><i class="fas fa-comments text-secondary me-1"></i>${String(data.label)}</span>
                                  </div>
                                 `);
         },
@@ -9555,7 +9449,7 @@ function createForumSelectTemplates(template) {
                                       data-select-text="${String(itemSelectText)}" data-choice ${String(data.disabled ? 'data-choice-disabled aria-disabled="true"' : "data-choice-selectable")}
                                       data-id="${String(data.id)}" data-value="${String(data.value)}"
                                       ${String(data.groupId > 0 ? 'role="treeitem"' : 'role="option"')}>
-                                      <span><i class="fas fa-comments fa-fw text-secondary me-1"></i>${String(data.label)}</span>
+                                      <span><i class="fas fa-comments text-secondary me-1"></i>${String(data.label)}</span>
                                  </div>
                                  `);
         },
@@ -9567,7 +9461,7 @@ function createForumSelectTemplates(template) {
                           data-select-text="${String(itemSelectText)}" data-choice ${String(data.disabled ? 'data-choice-disabled aria-disabled="true"' : "data-choice-selectable")}
                           data-id="${String(data.id)}" data-value="${String(data.value)}"
                           ${String(data.groupId > 0 ? 'role="treeitem"' : 'role="option"')}>
-                          <span><i class="fas fa-fw fa-folder text-warning me-1"></i>${String(data.label)}</span>
+                          <span><i class="fas fa-folder text-warning me-1"></i>${String(data.label)}</span>
                      </div>
                      `);
         }
@@ -10160,14 +10054,14 @@ document.addEventListener("DOMContentLoaded", function() {
                             link.classList.add("dropdown-item");
                             link.classList.add("item-selected-quoting");
                             link.href = `javascript:goToURL('${messageId}','${selectedText}','${contextMenu.dataset.url} ')`;
-                            link.innerHTML = `<i class="fas fa-quote-left fa-fw"></i>&nbsp;${contextMenu.dataset.quote}`;
+                            link.innerHTML = `<i class="fas fa-quote-left"></i>&nbsp;${contextMenu.dataset.quote}`;
                             contextMenu.appendChild(link);
                         }
                         const linkSearch = document.createElement("a");
                         linkSearch.classList.add("dropdown-item");
                         linkSearch.classList.add("item-search");
                         linkSearch.href = `javascript:copyToClipBoard('${selectedText}')`;
-                        linkSearch.innerHTML = `<i class="fas fa-clipboard fa-fw"></i>&nbsp;${contextMenu.dataset.copy}`;
+                        linkSearch.innerHTML = `<i class="fas fa-clipboard"></i>&nbsp;${contextMenu.dataset.copy}`;
                         contextMenu.appendChild(linkSearch);
                         const divider = document.createElement("div");
                         divider.classList.add("dropdown-divider");
@@ -10177,7 +10071,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         linkSelected.classList.add("dropdown-item");
                         linkSelected.classList.add("item-search");
                         linkSelected.href = `javascript:searchText('${selectedText}')`;
-                        linkSelected.innerHTML = `<i class="fas fa-search fa-fw"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
+                        linkSelected.innerHTML = `<i class="fas fa-search"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
                         contextMenu.appendChild(linkSelected);
                     }
                 }
@@ -10213,14 +10107,14 @@ document.addEventListener("DOMContentLoaded", function() {
                         link.classList.add("dropdown-item");
                         link.classList.add("item-selected-quoting");
                         link.href = `javascript:goToURL('${messageId}','${selectedText}','${contextMenu.dataset.url} ')`;
-                        link.innerHTML = `<i class="fas fa-quote-left fa-fw"></i>&nbsp;${contextMenu.dataset.quote}`;
+                        link.innerHTML = `<i class="fas fa-quote-left"></i>&nbsp;${contextMenu.dataset.quote}`;
                         contextMenu.appendChild(link);
                     }
                     const linkSearch = document.createElement("a");
                     linkSearch.classList.add("dropdown-item");
                     linkSearch.classList.add("item-search");
                     linkSearch.href = `javascript:copyToClipBoard('${selectedText}')`;
-                    linkSearch.innerHTML = `<i class="fas fa-clipboard fa-fw"></i>&nbsp;${contextMenu.dataset.copy}`;
+                    linkSearch.innerHTML = `<i class="fas fa-clipboard"></i>&nbsp;${contextMenu.dataset.copy}`;
                     contextMenu.appendChild(linkSearch);
                     const divider = document.createElement("div");
                     divider.classList.add("dropdown-divider");
@@ -10230,7 +10124,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     linkSelected.classList.add("dropdown-item");
                     linkSelected.classList.add("item-search");
                     linkSelected.href = `javascript:searchText('${selectedText}')`;
-                    linkSelected.innerHTML = `<i class="fas fa-search fa-fw"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
+                    linkSelected.innerHTML = `<i class="fas fa-search"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
                     contextMenu.appendChild(linkSelected);
                 }
             }

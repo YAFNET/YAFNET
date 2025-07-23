@@ -76,7 +76,7 @@
 </div>
 <asp:PlaceHolder id="InfoPlaceHolder" runat="server" Visible="false">
     <YAF:Alert runat="server" Dismissing="False" Type="success">
-        <i class="fa fa-check fa-fw me-1"></i>
+        <i class="fa fa-check me-1"></i>
         <YAF:LocalizedLabel ID="NoCountInfo" 
                             LocalizedTag="NOMODERATION" 
                             LocalizedPage="MODERATE" 

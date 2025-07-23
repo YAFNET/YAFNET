@@ -26,7 +26,7 @@
                                                                         this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Profile_EditAvatar ||
                                                                         this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Profile_EditSignature  ||
                                                                         this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Profile_Subscriptions  ||
-                                                                        this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Profile_BlockOptions  ? " active" : ""%>"><i class="fa fa-user-cog fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server"
+                                                                        this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Profile_BlockOptions  ? " active" : ""%>"><i class="fa fa-user-cog"></i>&nbsp;<YAF:LocalizedLabel runat="server"
                                                                            LocalizedTag="MYSETTINGS" LocalizedPage="TOOLBAR"></YAF:LocalizedLabel></a>
             <div class="dropdown-menu">
                 <asp:PlaceHolder runat="server" ID="MySettings"></asp:PlaceHolder>

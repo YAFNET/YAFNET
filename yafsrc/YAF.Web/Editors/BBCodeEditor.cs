@@ -158,7 +158,7 @@ public class BBCodeEditor : TextEditor
             """
             <button type="button" class="btn btn-primary dropdown-toggle" title="{0}"
                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fa fa-font fa-fw"></i> {0}</button>
+                              <i class="fa fa-font"></i> {0}</button>
             """,
             this.GetText("COMMON", "FONT_COLOR"));
 
@@ -190,7 +190,7 @@ public class BBCodeEditor : TextEditor
             """
             <button type="button" class="btn btn-primary dropdown-toggle" title="{0}"
                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fa fa-font fa-fw"></i> {0}</button>
+                              <i class="fa fa-font"></i> {0}</button>
             """,
             this.GetText("COMMON", "FONT_SIZE"));
 
@@ -223,7 +223,7 @@ public class BBCodeEditor : TextEditor
             """
             <button type="button" class="btn btn-primary dropdown-toggle" title="{0}"
                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fa fa-code fa-fw"></i></button>
+                              <i class="fa fa-code"></i></button>
             """,
             this.GetText("COMMON", "TT_CODE"));
 
@@ -277,7 +277,7 @@ public class BBCodeEditor : TextEditor
                  """
                  <button type="button" class="btn btn-primary dropdown-toggle albums-toggle" title="{0}"
                                      data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-images fa-fw"></i></button>
+                                <i class="fa fa-images"></i></button>
                  """,
                  this.GetText("COMMON", "ALBUMIMG_CODE"));
 
@@ -299,7 +299,7 @@ public class BBCodeEditor : TextEditor
             writer.WriteLine(
                 """
                 <button type="button" class="btn btn-primary" title="{0}" data-bs-toggle="modal" data-bs-target="#UploadDialog">
-                                  <i class="fa fa-paperclip fa-fw"></i></button>
+                                  <i class="fa fa-paperclip"></i></button>
                 """,
                 this.GetText("COMMON", "ATTACH_BBCODE"));
         }
@@ -365,7 +365,7 @@ public class BBCodeEditor : TextEditor
                             writer.WriteLine(
                                 """
                                 <button type="button" class="btn btn-primary" onclick="{2}" title="{1}"{3}>
-                                              <i class="fab fa-{0} fa-fw"></i></button>
+                                              <i class="fab fa-{0}"></i></button>
                                 """,
                                 row.Name.ToLower(),
                                 this.Get<IBBCode>().LocalizeCustomBBCodeElement(row.Description.Trim()),
@@ -379,7 +379,7 @@ public class BBCodeEditor : TextEditor
                 """
                 <div class="btn-group btn-group-sm" role="group"><button type="button" class="btn btn-primary dropdown-toggle" title="{0}"
                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fa fa-plug fa-fw"></i></button>
+                              <i class="fa fa-plug"></i></button>
                 """,
                 this.GetText("COMMON", "CUSTOM_BBCODE"));
 
@@ -498,7 +498,7 @@ public class BBCodeEditor : TextEditor
         writer.WriteLine(
             """
             <button type="button" class="btn btn-primary" onclick="{2}" title="{1}"{3}>
-                              <i class="fa fa-{0} fa-fw"></i></button>
+                              <i class="fa fa-{0}"></i></button>
             """,
             icon,
             title,
