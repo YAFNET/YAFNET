@@ -12,28 +12,35 @@
                     @Html.IconHeader("globe","ADMIN_EDITBOARD","TITLE")
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="mb-3 col-md-6">
-                            <input type="hidden" asp-for="Input.Id" value="@Model.Input.Id" />
-                            <label class="form-label" info-button="true"
-                                   asp-for="Input.Name"
-                                   localized-tag="NAME" localized-page="ADMIN_EDITBOARD"></label>
-                            <input type="text" asp-for="Input.Name"
-                                   required="required"
-                                   class="form-control"/>
-                            <div class="invalid-feedback">
-                                @Html.LocalizedText("MSG_NAME_BOARD")
-                            </div>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label class="form-label" info-button="true"
-                                   asp-for="Input.Culture"
-                                   localized-tag="CULTURE" localized-page="ADMIN_EDITBOARD"></label>
-                            <select asp-for="Input.Culture"
-                                    asp-items="Model.Cultures"
-                                    class="select2-select"></select>
-                        </div>
-                    </div>
+	                <div class="row">
+		                <div class="mb-3 col-md-6">
+			                <input type="hidden" asp-for="Input.Id" value="@Model.Input.Id" />
+			                <label class="form-label" info-button="true"
+			                       asp-for="Input.Name"
+			                       localized-tag="NAME" localized-page="ADMIN_EDITBOARD"></label>
+			                <input type="text" asp-for="Input.Name"
+			                       required="required"
+			                       class="form-control"/>
+			                <div class="invalid-feedback">
+				                @Html.LocalizedText("MSG_NAME_BOARD")
+			                </div>
+		                </div>
+		                <div class="mb-3 col-md-6">
+			                <label class="form-label" info-button="true"
+			                       asp-for="Input.Culture"
+			                       localized-tag="CULTURE" localized-page="ADMIN_EDITBOARD"></label>
+			                <select asp-for="Input.Culture"
+			                        asp-items="Model.Cultures"
+			                        class="select2-select"></select>
+		                </div>
+	                </div>
+	                <div class="mb-3">
+		                <label class="form-label" info-button="true"
+		                       asp-for="Input.Description"
+		                       localized-tag="DESCRIPTION" localized-page="ADMIN_EDITBOARD"></label>
+		                <textarea asp-for="Input.Description" rows="3" maxlength="255"
+		                       class="form-control"></textarea>
+	                </div>
 
                     @if (Model.Input.Id == 0)
                     {

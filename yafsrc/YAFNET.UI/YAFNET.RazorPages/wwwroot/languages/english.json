@@ -2356,6 +2356,14 @@
             "#text": "The passwords don't match."
           },
           {
+	          "@tag": "DESCRIPTION",
+	          "#text": "Description:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "The board description used in the meta description tag."
+          },
+          {
             "@tag": "NAME",
             "#text": "Name:"
           },
@@ -10670,6 +10678,10 @@
           {
             "@tag": "ADMINPASSWORD2",
             "#text": "Verify Password"
+          },
+          {
+	          "@tag": "BOARD_DESCRIPTION",
+	          "#text": "Enter a description for the new board"
           },
           {
             "@tag": "BOARDNAME",

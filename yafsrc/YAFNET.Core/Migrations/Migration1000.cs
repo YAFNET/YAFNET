@@ -29,7 +29,7 @@ using ServiceStack.DataAnnotations;
 using YAF.Types.Models;
 
 /// <summary>
-/// Version 94 Migrations
+/// Version 1000 Migrations
 /// </summary>
 [Description("Remove pm limit columns from Group and Rank table")]
 public class Migration1000 : MigrationBase

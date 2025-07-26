@@ -104,7 +104,7 @@
     <div class="row justify-content-end">
 	    <div class="col-auto">
 		    <pager page-size="@Model.Size"
-		           count="!Model.List.NullOrEmpty() ? Model.GetRepository<Tag>().GetByBoardId().Count : 0">
+		           count="@Model.Count">
 		    </pager>
 	    </div>
     </div> 

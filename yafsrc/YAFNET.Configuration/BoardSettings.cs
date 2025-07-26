@@ -36,6 +36,7 @@ public class BoardSettings
     {
         this.BoardId = 0;
         this.Name = string.Empty;
+        this.Description = string.Empty;
         this.Registry = [];
         this.RegistryBoard = [];
 
@@ -48,16 +49,19 @@ public class BoardSettings
     /// </summary>
     /// <param name="boardId">The board identifier.</param>
     /// <param name="boardName">Name of the board.</param>
+    /// <param name="boardDescription">The description of the board.</param>
     /// <param name="registry">The registry.</param>
     /// <param name="registryBoard">The registry board.</param>
     public BoardSettings(
         int boardId,
         string boardName,
+        string boardDescription,
         RegistryDictionaryOverride registry,
         RegistryDictionary registryBoard)
     {
         this.BoardId = boardId;
         this.Name = boardName;
+        this.Description = boardDescription;
         this.Registry = registry;
         this.RegistryBoard = registryBoard;
 
@@ -171,10 +175,16 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets Name.
-    /// individual board settings
+    /// Gets or sets the board name.
     /// </summary>
+    /// <value>The board name.</value>
     public string Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets the board description.
+    /// </summary>
+    /// <value>The board description.</value>
+    public string Description { get; set; }
 
     /// <summary>
     /// Gets or sets the title template.

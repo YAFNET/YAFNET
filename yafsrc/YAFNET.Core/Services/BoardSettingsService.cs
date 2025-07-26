@@ -102,7 +102,7 @@ public class BoardSettingsService : IHaveServiceLocator
                     }
                 });
 
-        return new BoardSettings(boardId, board.Name, registry, registryBoard);
+        return new BoardSettings(boardId, board.Name, board.Description, registry, registryBoard);
     }
 
     /// <summary>

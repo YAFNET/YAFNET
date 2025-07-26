@@ -11,25 +11,32 @@
                 @Html.IconHeader("cogs","ADMIN_BOARDSETTINGS","BOARD_SETUP")
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="mb-3 col-md-6">
-                        <label class="form-label" info-button="true" 
-                               asp-for="Input.Name"
-                               localized-tag="BOARD_NAME" localized-page="ADMIN_BOARDSETTINGS"></label>
-                        <input type="text" asp-for="Input.Name" required="required" 
-                               class="form-control" />
-                        <div class="invalid-feedback">
-                            @Html.LocalizedText("MSG_NAME_BOARD")
-                        </div>
-                    </div>
-                    <div class="mb-3 col-md-6">
-                        <label class="form-label" info-button="true" 
-                               asp-for="Input.ForumEmail"
-                               localized-tag="FORUM_EMAIL" localized-page="ADMIN_HOSTSETTINGS"></label>
-                        <input type="text" asp-for="Input.ForumEmail"  
-                               class="form-control" />
-                    </div>
-                </div>
+	            <div class="row">
+		            <div class="mb-3 col-md-6">
+			            <label class="form-label" info-button="true" 
+			                   asp-for="Input.Name"
+			                   localized-tag="BOARD_NAME" localized-page="ADMIN_BOARDSETTINGS"></label>
+			            <input type="text" asp-for="Input.Name" required="required" 
+			                   class="form-control" />
+			            <div class="invalid-feedback">
+				            @Html.LocalizedText("MSG_NAME_BOARD")
+			            </div>
+		            </div>
+		            <div class="mb-3 col-md-6">
+			            <label class="form-label" info-button="true" 
+			                   asp-for="Input.ForumEmail"
+			                   localized-tag="FORUM_EMAIL" localized-page="ADMIN_HOSTSETTINGS"></label>
+			            <input type="text" asp-for="Input.ForumEmail"  
+			                   class="form-control" />
+		            </div>
+	            </div>
+	            <div class="mb-3">
+		            <label class="form-label" info-button="true"
+		                   asp-for="Input.Description"
+		                   localized-tag="DESCRIPTION" localized-page="ADMIN_EDITBOARD"></label>
+		            <textarea asp-for="Input.Description" rows="3" maxlength="255"
+		                       class="form-control"></textarea>
+	            </div>
                 <div class="mb-3">
                     <label class="form-label" info-button="true" 
                            asp-for="Input.BoardLogo"

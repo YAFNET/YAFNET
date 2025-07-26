@@ -4,7 +4,10 @@ YetAnotherForum.NET Changelog
 # YetAnotherForum.NET v4.0.1
 * [NEW] added support for note bbcode
 * [NEW] added host setting to set the enter mode for editor (line break)
+* [NEW] show user medals in hover cards
+* [NEW] Set meta description for the board via Settings
 * [FIXED] paste text in the editor
+* [FIXED] sitemap url
 * redesigned attachment upload/selection dialog
 * bug fixes
 

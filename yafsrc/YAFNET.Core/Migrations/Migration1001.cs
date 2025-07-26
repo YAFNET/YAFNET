@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,34 +22,26 @@
  * under the License.
  */
 
+namespace YAF.Core.Migrations;
+
 using ServiceStack.DataAnnotations;
 
-namespace YAF.Types.Models;
+using YAF.Types.Models;
 
 /// <summary>
-/// The board.
+/// Version 1001 Migrations
 /// </summary>
-[Serializable]
-public class Board : IEntity, IHaveID
+[Description("Adds Description to the board table")]
+public class Migration1001 : MigrationBase
 {
     /// <summary>
-    /// Gets or sets the board id.
+    /// Migrations
     /// </summary>
-    [AutoIncrement]
-    [Alias("BoardID")]
-    public int ID { get; set; }
-
-    /// <summary>
-    /// Gets or sets the board name.
-    /// </summary>
-    [Required]
-    [StringLength(50)]
-    public string Name { get; set; }
-
-    /// <summary>
-    /// Gets or sets the board description.
-    /// </summary>
-    /// <value>The description.</value>
-    [StringLength(255)]
-    public string Description { get; set; }
+    public override void Up()
+    {
+        if (!this.Db.ColumnExists<Board>(x => x.Description))
+        {
+            this.Db.AddColumn<Board>(x => x.Description);
+        }
+    }
 }

@@ -35,7 +35,7 @@ using YAF.Core.Model;
 using YAF.Types.Models;
 
 /// <summary>
-///     The install upgrade service.
+///     The install service.
 /// </summary>
 public class InstallService : IHaveServiceLocator
 {
@@ -100,6 +100,9 @@ public class InstallService : IHaveServiceLocator
     /// <param name="forumName">
     /// The forum name.
     /// </param>
+    /// <param name="forumDescription">
+    /// Description of the board.
+    /// </param>
     /// <param name="culture">
     /// The culture.
     /// </param>
@@ -113,7 +116,7 @@ public class InstallService : IHaveServiceLocator
     /// The forum base URL mask.
     /// </param>
     /// <param name="adminUserName">
-    /// The admin user name.
+    /// The admin username.
     /// </param>
     /// <param name="adminEmail">
     /// The admin email.
@@ -124,6 +127,7 @@ public class InstallService : IHaveServiceLocator
     public void InitializeForum(
         Guid applicationId,
         string forumName,
+        string forumDescription,
         string culture,
         string forumEmail,
         string forumLogo,
@@ -133,7 +137,7 @@ public class InstallService : IHaveServiceLocator
         string adminProviderUserKey)
     {
         ArgumentNullException.ThrowIfNull(forumName);
-        ArgumentNullException.ThrowIfNull(forumName);
+        ArgumentNullException.ThrowIfNull(forumEmail);
         ArgumentNullException.ThrowIfNull(culture);
         ArgumentNullException.ThrowIfNull(forumLogo);
         ArgumentNullException.ThrowIfNull(forumBaseUrlMask);
@@ -161,6 +165,7 @@ public class InstallService : IHaveServiceLocator
 
         var boardId = this.GetRepository<Board>().Create(
             forumName,
+            forumDescription,
             forumEmail,
             culture,
             langFile,

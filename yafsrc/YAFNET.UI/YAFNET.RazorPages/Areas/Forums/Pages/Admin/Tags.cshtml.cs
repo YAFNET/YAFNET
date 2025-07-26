@@ -25,6 +25,8 @@
 
 using System.Threading.Tasks;
 
+using YAF.Types.Extensions;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -44,7 +46,15 @@ public class TagsModel : AdminPage
     /// Gets or sets the list.
     /// </summary>
     /// <value>The list.</value>
-    [BindProperty] public List<Tag> List { get; set; }
+    [BindProperty]
+    public List<Tag> List { get; set; }
+
+    /// <summary>
+    /// Gets or sets the count.
+    /// </summary>
+    /// <value>The count.</value>
+    [BindProperty]
+    public int Count { get; set; }
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "TagsModel" /> class.
@@ -68,18 +78,18 @@ public class TagsModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public void OnGet()
+    public Task OnGetAsync()
     {
-       // bind data to controls
-        this.BindData();
+        // bind data to controls
+        return this.BindDataAsync();
     }
 
     /// <summary>
     /// The page size on selected index changed.
     /// </summary>
-    public void OnPost()
+    public Task OnPostAsync()
     {
-        this.BindData();
+        return this.BindDataAsync();
     }
 
     /// <summary>
@@ -97,7 +107,7 @@ public class TagsModel : AdminPage
     /// <summary>
     /// Populates data source and binds data to controls.
     /// </summary>
-    private void BindData()
+    private async Task BindDataAsync()
     {
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value),
             nameof(SelectListItem.Text));
@@ -109,5 +119,14 @@ public class TagsModel : AdminPage
             x => x.BoardID == this.PageBoardContext.PageBoardID,
             currentPageIndex,
             this.Size);
+
+        this.Count = 0;
+
+        if (!this.List.NullOrEmpty())
+        {
+            var tags =  await this.GetRepository<Tag>().GetByBoardIdAsync();
+
+            this.Count = tags.Count;
+        }
     }
 }

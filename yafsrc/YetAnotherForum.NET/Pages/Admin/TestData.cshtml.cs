@@ -57,20 +57,52 @@ public class TestDataModel : AdminPage
     [BindProperty]
     public TestDataInputModel Input { get; set; }
 
+    /// <summary>
+    /// Gets or sets the categories.
+    /// </summary>
+    /// <value>The categories.</value>
     public SelectList Categories { get; set; }
 
+    /// <summary>
+    /// Gets or sets the forums start masks.
+    /// </summary>
+    /// <value>The forums start masks.</value>
     public SelectList ForumsStartMasks { get; set; }
 
+    /// <summary>
+    /// Gets or sets the board list.
+    /// </summary>
+    /// <value>The board list.</value>
     public SelectList BoardList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the forums parent list.
+    /// </summary>
+    /// <value>The forums parent list.</value>
     public SelectList ForumsParentList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the topics forum list.
+    /// </summary>
+    /// <value>The topics forum list.</value>
     public SelectList TopicsForumList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the posts forum list.
+    /// </summary>
+    /// <value>The posts forum list.</value>
     public SelectList PostsForumList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the posts topics list.
+    /// </summary>
+    /// <value>The posts topics list.</value>
     public SelectList PostsTopicsList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the topic priorities.
+    /// </summary>
+    /// <value>The topic priorities.</value>
     public List<SelectListItem> TopicPriorities { get; set; }
 
     /// <summary>
@@ -182,6 +214,9 @@ public class TestDataModel : AdminPage
 #endif
     }
 
+    /// <summary>
+    /// Called when [post].
+    /// </summary>
     public void OnPost()
     {
         this.BindData();
@@ -248,7 +283,7 @@ public class TestDataModel : AdminPage
     }
 
     /// <summary>
-    /// The create boards.
+    /// Create the board(s).
     /// </summary>
     /// <returns>
     /// The number of created boards.
@@ -281,6 +316,7 @@ public class TestDataModel : AdminPage
 
             var newBoardId = this.GetRepository<Board>().Create(
                 boardName,
+                "",
                 this.PageBoardContext.BoardSettings.ForumEmail,
                 "en-US",
                 "english.json",
@@ -311,17 +347,7 @@ public class TestDataModel : AdminPage
         var numMessages = this.Input.CategoriesMessagesNumber;
         var numCategories = this.Input.CategoriesNumber;
 
-        if (numForums < 0)
-        {
-            return NoCategories;
-        }
-
-        if (numTopics < 0)
-        {
-            return NoCategories;
-        }
-
-        if (numMessages < 0)
+        if (numForums < 0 || numTopics < 0 || numMessages < 0)
         {
             return NoCategories;
         }

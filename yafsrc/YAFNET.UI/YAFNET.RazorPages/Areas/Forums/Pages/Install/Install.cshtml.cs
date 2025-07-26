@@ -201,6 +201,7 @@ public class InstallModel : InstallPage
     /// Loads the installation finish page.
     /// </summary>
     /// <param name="forumName">Name of the forum.</param>
+    /// <param name="forumDescription">Description of the board.</param>
     /// <param name="cultures">The cultures.</param>
     /// <param name="forumEmailAddress">The forum email address.</param>
     /// <param name="forumBaseUrlMask">The forum base URL mask.</param>
@@ -210,6 +211,7 @@ public class InstallModel : InstallPage
     /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostInstallFinishedAsync(
         string forumName,
+        string forumDescription,
         string cultures,
         string forumEmailAddress,
         string forumBaseUrlMask,
@@ -219,7 +221,8 @@ public class InstallModel : InstallPage
     {
         var result =
             await
-                this.CreateForumAsync(forumName, cultures, forumEmailAddress, forumBaseUrlMask, userName, adminEmail, password1);
+                this.CreateForumAsync(forumName, forumDescription, cultures, forumEmailAddress, forumBaseUrlMask,
+                    userName, adminEmail, password1);
 
         if (!result.Result)
         {
@@ -258,6 +261,7 @@ public class InstallModel : InstallPage
     /// Create forum as an asynchronous operation.
     /// </summary>
     /// <param name="forumName">Name of the forum.</param>
+    /// <param name="forumDescription">Description of the board.</param>
     /// <param name="cultures">The cultures.</param>
     /// <param name="forumEmailAddress">The forum email address.</param>
     /// <param name="forumBaseUrlMask">The forum base URL mask.</param>
@@ -267,6 +271,7 @@ public class InstallModel : InstallPage
     /// <returns>A Task&lt;Tuple`2&gt; representing the asynchronous operation.</returns>
     private async Task<(bool Result, string Message)> CreateForumAsync(
         string forumName,
+        string forumDescription,
         string cultures,
         string forumEmailAddress,
         string forumBaseUrlMask,
@@ -324,6 +329,7 @@ public class InstallModel : InstallPage
             this.InstallService.InitializeForum(
                 applicationId,
                 forumName,
+                forumDescription,
                 cultures,
                 forumEmailAddress,
                 "YAFLogo.svg",

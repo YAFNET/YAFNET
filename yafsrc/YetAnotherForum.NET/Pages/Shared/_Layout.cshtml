@@ -17,12 +17,7 @@
 @{
     ViewBag.CdvVersion = Current.BoardSettings.CdvVersion;
 
-    #if DEBUG
-    ViewBag.ForumCss = Current.CurrentForumPage.IsAdminPage ? "forum-admin" : "forum";
-    #else
     ViewBag.ForumCss = Current.CurrentForumPage.IsAdminPage ? "forum-admin.min" : "forum.min";
-    #endif
-
     ViewBag.PageName = Current.CurrentForumPage.PageName.ToString();
 }
 
@@ -46,7 +41,7 @@
     <link href="~/favicons/favicon.ico" rel="shortcut icon" />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="msapplication-config" content="/favicons/browserconfig.xml" />
-    <meta name="description" content="YetAnotherForum.NET -- A bulletin board system written in .NET" />
+    @Html.DescriptionMetaTag()
     @Html.RssFeedLink(RssFeeds.LatestPosts)
     @Html.CanonicalMetaTag()
 </head>

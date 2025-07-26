@@ -86,6 +86,7 @@ public class EditBoardModel : AdminPage
     /// <param name="adminPassword">The admin password.</param>
     /// <param name="adminEmail">The admin email.</param>
     /// <param name="boardName">The board name.</param>
+    /// <param name="boardDescription">Description of the board.</param>
     /// <param name="createUserAndRoles">Create user and roles.</param>
     /// <returns>Returns if the board was created or not</returns>
     private async Task<(bool Result, IdentityError Error)> CreateBoardAsync(
@@ -93,6 +94,7 @@ public class EditBoardModel : AdminPage
         string adminPassword,
         string adminEmail,
         string boardName,
+        string boardDescription,
         bool createUserAndRoles)
     {
         int newBoardId;
@@ -129,7 +131,7 @@ public class EditBoardModel : AdminPage
             this.Get<IAspNetRolesHelper>().AddUserToRole(user, "Administrators");
 
             // Create Board
-            newBoardId = this.DbCreateBoard(boardName, langFile, user);
+            newBoardId = this.DbCreateBoard(boardName, boardDescription, langFile, user);
         }
         else
         {
@@ -137,7 +139,7 @@ public class EditBoardModel : AdminPage
             var newAdmin = this.PageBoardContext.MembershipUser;
 
             // Create Board
-            newBoardId = this.DbCreateBoard(boardName, langFile, newAdmin);
+            newBoardId = this.DbCreateBoard(boardName, boardDescription,langFile, newAdmin);
         }
 
         if (newBoardId <= 0 || !this.Get<BoardConfiguration>().MultiBoardFolders)
@@ -196,6 +198,7 @@ public class EditBoardModel : AdminPage
             this.Input.Id = board.ID;
 
             this.Input.Name = board.Name;
+            this.Input.Description = board.Description;
         }
         else
         {
@@ -228,7 +231,8 @@ public class EditBoardModel : AdminPage
             cult.Where(dataRow => dataRow.CultureTag == this.Input.Culture).ForEach(row => langFile = row.CultureFile);
 
             // Save current board settings
-            this.GetRepository<Board>().Save(b.Value, this.Input.Name.Trim(), langFile, this.Input.Culture);
+            this.GetRepository<Board>().Save(b.Value, this.Input.Name.Trim(), this.Input.Description.Trim(), langFile,
+                this.Input.Culture);
         }
         else
         {
@@ -243,6 +247,7 @@ public class EditBoardModel : AdminPage
                     this.Input.UserPass1,
                     this.Input.UserEmail.Trim(),
                     this.Input.Name.Trim(),
+                    this.Input.Description.Trim(),
                     true);
 
                 boardCreated = result.Result;
@@ -251,7 +256,7 @@ public class EditBoardModel : AdminPage
             else
             {
                 // create admin user from logged-in user...
-                var result = await this.CreateBoardAsync(null, null, null, this.Input.Name.Trim(), false);
+                var result = await this.CreateBoardAsync(null, null, null, this.Input.Name.Trim(), this.Input.Description.Trim(), false);
 
                 boardCreated = result.Result;
                 error = result.Error;
@@ -277,6 +282,9 @@ public class EditBoardModel : AdminPage
     /// <param name="boardName">
     /// Name of the board.
     /// </param>
+    /// <param name="boardDescription">
+    /// Description of the board.
+    /// </param>
     /// <param name="langFile">
     /// The language file.
     /// </param>
@@ -286,10 +294,11 @@ public class EditBoardModel : AdminPage
     /// <returns>
     /// Returns the New Board ID
     /// </returns>
-    private int DbCreateBoard(string boardName, string langFile, AspNetUsers newAdmin)
+    private int DbCreateBoard(string boardName, string boardDescription, string langFile, AspNetUsers newAdmin)
     {
         var newBoardId = this.GetRepository<Board>().Create(
             boardName,
+            boardDescription,
             this.PageBoardContext.BoardSettings.ForumEmail,
             this.Input.Culture,
             langFile,

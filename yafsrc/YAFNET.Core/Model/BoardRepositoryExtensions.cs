@@ -43,6 +43,9 @@ public static class BoardRepositoryExtensions
     /// <param name="boardName">
     /// The board name.
     /// </param>
+    /// <param name="boardDescription">
+    /// Description of the board.
+    /// </param>
     /// <param name="boardEmail">
     /// The board Email.
     /// </param>
@@ -53,7 +56,7 @@ public static class BoardRepositoryExtensions
     /// The language file.
     /// </param>
     /// <param name="userName">
-    /// The user name.
+    /// The username.
     /// </param>
     /// <param name="userEmail">
     /// The user email.
@@ -73,6 +76,7 @@ public static class BoardRepositoryExtensions
     public static int Create(
         this IRepository<Board> repository,
         string boardName,
+        string boardDescription,
         string boardEmail,
         string culture,
         string languageFile,
@@ -83,7 +87,7 @@ public static class BoardRepositoryExtensions
         string rolePrefix)
     {
         // -- Board
-        var newBoardId = repository.Insert(new Board { Name = boardName });
+        var newBoardId = repository.Insert(new Board { Name = boardName, Description = boardDescription });
 
         BoardContext.Current.GetRepository<Registry>().Save("culture", culture);
         BoardContext.Current.GetRepository<Registry>().Save("language", languageFile);
@@ -434,19 +438,21 @@ public static class BoardRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="boardId">The board id.</param>
     /// <param name="name">The name.</param>
+    /// <param name="description">Description of the board.</param>
     /// <param name="languageFile">The language file.</param>
     /// <param name="culture">The culture.</param>
     public static void Save(
         this IRepository<Board> repository,
         int boardId,
         string name,
+        string description,
         string languageFile,
         string culture)
     {
         BoardContext.Current.GetRepository<Registry>().Save("culture", culture, boardId);
         BoardContext.Current.GetRepository<Registry>().Save("language", languageFile, boardId);
 
-        repository.UpdateOnly(() => new Board { Name = name }, board => board.ID == boardId);
+        repository.UpdateOnly(() => new Board { Name = name, Description = description }, board => board.ID == boardId);
 
         repository.FireUpdated(boardId);
     }

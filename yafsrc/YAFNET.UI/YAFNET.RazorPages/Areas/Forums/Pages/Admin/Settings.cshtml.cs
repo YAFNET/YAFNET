@@ -138,6 +138,7 @@ public class SettingsModel : AdminPage
         this.GetRepository<Board>().Save(
             this.PageBoardContext.PageBoardID,
             this.Input.Name,
+            this.Input.Description,
             languageFile,
             this.Input.Culture);
 
@@ -199,6 +200,7 @@ public class SettingsModel : AdminPage
         var boardSettings = this.PageBoardContext.BoardSettings;
 
         this.Input.Name = board.Name;
+        this.Input.Description = board.Description;
 
         this.Input.CdvVersion = boardSettings.CdvVersion.ToString();
 

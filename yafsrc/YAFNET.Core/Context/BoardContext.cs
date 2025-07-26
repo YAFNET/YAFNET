@@ -222,7 +222,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// </summary>
     public void Dispose()
     {
-        Dispose(true);
+        this.Dispose(true);
         GC.SuppressFinalize(this);
     }
 
