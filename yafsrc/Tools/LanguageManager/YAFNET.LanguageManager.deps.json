@@ -9,7 +9,7 @@
       "YAFNET.LanguageManager/1.0.5": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.3",
-          "SonarAnalyzer.CSharp": "10.10.0.116381"
+          "SonarAnalyzer.CSharp": "10.15.0.120848"
         },
         "runtime": {
           "YAFNET.LanguageManager.dll": {}
@@ -23,7 +23,7 @@
           }
         }
       },
-      "SonarAnalyzer.CSharp/10.10.0.116381": {}
+      "SonarAnalyzer.CSharp/10.15.0.120848": {}
     }
   },
   "libraries": {
@@ -39,12 +39,12 @@
       "path": "newtonsoft.json/13.0.3",
       "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
     },
-    "SonarAnalyzer.CSharp/10.10.0.116381": {
+    "SonarAnalyzer.CSharp/10.15.0.120848": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-HkJuI8dBE64BF7ySlfN8t/lQ91E/pgiQPvOS51lIKKy3/IJiwHHqQ4dkI6gixDkKBDK7lImvvNa0ECH+I0PqmA==",
-      "path": "sonaranalyzer.csharp/10.10.0.116381",
-      "hashPath": "sonaranalyzer.csharp.10.10.0.116381.nupkg.sha512"
+      "sha512": "sha512-1hM3HVRl5jdC/ZBDu+G7CCYLXRGe/QaP01Zy+c9ETPhY7lWD8g8HiefY6sGaH0T3CJ4wAy0/waGgQTh0TYy0oQ==",
+      "path": "sonaranalyzer.csharp/10.15.0.120848",
+      "hashPath": "sonaranalyzer.csharp.10.15.0.120848.nupkg.sha512"
     }
   }
 }

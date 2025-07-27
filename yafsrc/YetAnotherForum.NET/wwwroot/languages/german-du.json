@@ -2450,6 +2450,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Überprüfen Sie das Kennwort."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "D"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "M"
           }
         ]
       },
@@ -11042,6 +11050,10 @@
           {
             "@tag": "YES",
             "#text": "JA"
+          },
+          {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

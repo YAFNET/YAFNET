@@ -1036,7 +1036,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "he"
+            "#text": "Useragent:"
           },
           {
             "@tag": "MASK_HELP",
@@ -1612,7 +1612,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "he"
+            "#text": "Onclick JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -2450,6 +2450,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "אמת את הסיסמה."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "ד"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "מ '"
           }
         ]
       },
@@ -4088,7 +4096,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "he"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -7791,7 +7799,7 @@
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "he"
+            "#text": "T"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -8143,7 +8151,7 @@
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "he"
+            "#text": "Strikethrough"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -9921,7 +9929,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "he"
+            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
             "@tag": "INPUT_CODE",
@@ -10571,7 +10579,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "he"
+            "#text": "XMPP Messenger"
           }
         ]
       },
@@ -11062,6 +11070,10 @@
           {
             "@tag": "YES",
             "#text": "כן"
+          },
+          {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
           }
         ]
       },
@@ -12451,7 +12463,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "he"
+            "#text": "IP"
           },
           {
             "@tag": "JOINED",
@@ -12799,7 +12811,7 @@
           },
           {
             "@tag": "XMPP",
-            "#text": "he"
+            "#text": "Xmpp"
           },
           {
             "@tag": "XMPP_TITLE",
@@ -13120,7 +13132,7 @@
           },
           {
             "@tag": "RGN_CH_AI",
-            "#text": "he"
+            "#text": "Appenzell inner-rhodes"
           },
           {
             "@tag": "RGN_CH_AR",

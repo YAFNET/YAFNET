@@ -2450,6 +2450,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "אמת את הסיסמה."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "ד"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "מ '"
           }
         ]
       },
@@ -11062,6 +11070,10 @@
           {
             "@tag": "YES",
             "#text": "כן"
+          },
+          {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

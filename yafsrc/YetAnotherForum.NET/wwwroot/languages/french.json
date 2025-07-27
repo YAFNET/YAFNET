@@ -2450,6 +2450,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Vérifiez le mot de passe."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Décrire:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "M"
           }
         ]
       },
@@ -11058,6 +11066,10 @@
           {
             "@tag": "YES",
             "#text": "OUI"
+          },
+          {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

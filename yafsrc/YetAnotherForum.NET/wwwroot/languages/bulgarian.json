@@ -1952,7 +1952,7 @@
           },
           {
             "@tag": "YES",
-            "#text": "Да"
+            "#text": "Yes"
           }
         ]
       },
@@ -2324,14 +2324,6 @@
             "#text": "bg"
           },
           {
-            "@tag": "DESCRIPTION",
-            "#text": "BG"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "BG"
-          },
-          {
             "@tag": "HEADER2",
             "#text": "bg"
           },
@@ -2458,6 +2450,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "bg"
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "BG"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "BG"
           }
         ]
       },
@@ -3416,7 +3416,7 @@
           },
           {
             "@tag": "PASS_REQUIREMENT",
-            "#text": "{0} Минимална дължина. "
+            "#text": "{0} minimum length. {1} minimum non-alphanumeric characters ($#@!)."
           },
           {
             "@tag": "PASSWORD_REQUIREMENTS",
@@ -7767,7 +7767,7 @@
           },
           {
             "@tag": "FOR",
-            "#text": "За"
+            "#text": "For"
           },
           {
             "@tag": "FORMAT_DATE_LONG",
@@ -8235,7 +8235,7 @@
           },
           {
             "@tag": "YES",
-            "#text": "Да"
+            "#text": "Yes"
           }
         ]
       },
@@ -10150,7 +10150,7 @@
         "Resource": [
           {
             "@tag": "MAN",
-            "#text": "Човек"
+            "#text": "Man"
           },
           {
             "@tag": "OTHER",
@@ -10680,10 +10680,6 @@
             "#text": "bg"
           },
           {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "BG"
-          },
-          {
             "@tag": "BOARDNAME",
             "#text": "bg"
           },
@@ -11053,7 +11049,11 @@
           },
           {
             "@tag": "YES",
-            "#text": "Да"
+            "#text": "YES"
+          },
+          {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "BG"
           }
         ]
       },
@@ -11147,7 +11147,7 @@
           },
           {
             "@tag": "TWO_FA_PLACEHOLDER",
-            "#text": "Код за валидиране:"
+            "#text": "Validation code: ### ###"
           },
           {
             "@tag": "TWO_FA_VALIDATION",
@@ -11172,7 +11172,7 @@
         "Resource": [
           {
             "@tag": "ALL",
-            "#text": "Всички"
+            "#text": "All"
           },
           {
             "@tag": "AVATAR",
@@ -11338,7 +11338,7 @@
           },
           {
             "@tag": "OLD",
-            "#text": "Стар"
+            "#text": "Old"
           },
           {
             "@tag": "ORIGINALMESSAGE",
@@ -12259,7 +12259,7 @@
         "Resource": [
           {
             "@tag": "AD_SIGNATURE",
-            "#text": "Реклами"
+            "#text": "Ads"
           },
           {
             "@tag": "AD_USERNAME",
@@ -12267,7 +12267,7 @@
           },
           {
             "@tag": "AIM",
-            "#text": "Цел"
+            "#text": "AIM"
           },
           {
             "@tag": "AIM_TITLE",
@@ -12383,7 +12383,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "Www"
+            "#text": "WWW"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12719,7 +12719,7 @@
           },
           {
             "@tag": "USERGENDER_MAS",
-            "#text": "Човек"
+            "#text": "Man"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -13184,7 +13184,7 @@
           },
           {
             "@tag": "RGN_CH_UR",
-            "#text": "Ури"
+            "#text": "Uri"
           },
           {
             "@tag": "RGN_CH_VD",
@@ -14499,7 +14499,7 @@
         "Resource": [
           {
             "@tag": "ALL",
-            "#text": "Всички"
+            "#text": "All"
           },
           {
             "@tag": "ATOMFEED",

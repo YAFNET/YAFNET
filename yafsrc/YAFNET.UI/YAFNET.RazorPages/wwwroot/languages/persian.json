@@ -1036,7 +1036,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "fa"
+            "#text": "UserAgent:"
           },
           {
             "@tag": "MASK_HELP",
@@ -1612,7 +1612,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "fa"
+            "#text": "OnClick JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -2450,6 +2450,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "کلمه عبور را مجددا وارد نمایید."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "د"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "وت"
           }
         ]
       },
@@ -4080,7 +4088,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "fa"
+            "#text": "stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -9905,7 +9913,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "fa"
+            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
             "@tag": "INPUT_CODE",
@@ -11038,6 +11046,10 @@
           {
             "@tag": "YES",
             "#text": "بله"
+          },
+          {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
           }
         ]
       },
@@ -12767,7 +12779,7 @@
           },
           {
             "@tag": "XMPP",
-            "#text": "fa"
+            "#text": "XMPP"
           },
           {
             "@tag": "XMPP_TITLE",

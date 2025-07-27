@@ -2450,6 +2450,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Zweryfikuj hasło."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "z"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Powiedział"
           }
         ]
       },
@@ -11046,6 +11054,10 @@
           {
             "@tag": "YES",
             "#text": "TAK"
+          },
+          {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

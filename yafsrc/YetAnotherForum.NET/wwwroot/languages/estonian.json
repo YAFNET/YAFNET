@@ -2450,6 +2450,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Kinnitage parool."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "kirjeldada:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Määratleb kirjelduse aastal"
           }
         ]
       },
@@ -11058,6 +11066,10 @@
           {
             "@tag": "YES",
             "#text": "JAH"
+          },
+          {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Sisestage uue kirjeldus"
           }
         ]
       },

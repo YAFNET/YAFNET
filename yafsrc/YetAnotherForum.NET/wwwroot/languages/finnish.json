@@ -2450,6 +2450,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Tarkista salasana."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Kuvaile:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "M"
           }
         ]
       },
@@ -11058,6 +11066,10 @@
           {
             "@tag": "YES",
             "#text": "JOO"
+          },
+          {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Kirjoita uusi kuvaus"
           }
         ]
       },

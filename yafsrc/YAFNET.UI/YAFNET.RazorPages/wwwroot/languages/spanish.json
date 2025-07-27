@@ -1036,7 +1036,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "es"
+            "#text": "UserAgent:"
           },
           {
             "@tag": "MASK_HELP",
@@ -1940,7 +1940,7 @@
           },
           {
             "@tag": "NO",
-            "#text": "es"
+            "#text": "No"
           },
           {
             "@tag": "SAVE",
@@ -2450,6 +2450,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Confirmar la contraseña."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Z."
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Dicho"
           }
         ]
       },
@@ -3743,7 +3751,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "es"
+            "#text": "Roles"
           },
           {
             "@tag": "UNLINKABLE",
@@ -4080,7 +4088,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "es"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -6752,7 +6760,7 @@
           },
           {
             "@tag": "ADMIN_GROUPS",
-            "#text": "es"
+            "#text": "Roles"
           },
           {
             "@tag": "ADMIN_HOSTSETTINGS",
@@ -7763,15 +7771,15 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "es"
+            "#text": "D"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "es"
+            "#text": "d"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "es"
+            "#text": "F"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
@@ -7779,7 +7787,7 @@
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "es"
+            "#text": "T"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -7891,7 +7899,7 @@
           },
           {
             "@tag": "NO",
-            "#text": "es"
+            "#text": "No"
           },
           {
             "@tag": "NONE",
@@ -8249,7 +8257,7 @@
         "Resource": [
           {
             "@tag": "AD",
-            "#text": "es"
+            "#text": "Andorra"
           },
           {
             "@tag": "AE",
@@ -8269,11 +8277,11 @@
           },
           {
             "@tag": "AL",
-            "#text": "es"
+            "#text": "Albania"
           },
           {
             "@tag": "AM",
-            "#text": "es"
+            "#text": "Armenia"
           },
           {
             "@tag": "AN",
@@ -8281,7 +8289,7 @@
           },
           {
             "@tag": "AO",
-            "#text": "es"
+            "#text": "Angola"
           },
           {
             "@tag": "AQ",
@@ -8289,7 +8297,7 @@
           },
           {
             "@tag": "AR",
-            "#text": "es"
+            "#text": "Argentina"
           },
           {
             "@tag": "AS",
@@ -8297,15 +8305,15 @@
           },
           {
             "@tag": "AT",
-            "#text": "es"
+            "#text": "Austria"
           },
           {
             "@tag": "AU",
-            "#text": "es"
+            "#text": "Australia"
           },
           {
             "@tag": "AW",
-            "#text": "es"
+            "#text": "Aruba"
           },
           {
             "@tag": "AZ",
@@ -8317,11 +8325,11 @@
           },
           {
             "@tag": "BB",
-            "#text": "es"
+            "#text": "Barbados"
           },
           {
             "@tag": "BD",
-            "#text": "es"
+            "#text": "Bangladesh"
           },
           {
             "@tag": "BE",
@@ -8329,11 +8337,11 @@
           },
           {
             "@tag": "BF",
-            "#text": "es"
+            "#text": "Burkina Faso"
           },
           {
             "@tag": "BG",
-            "#text": "es"
+            "#text": "Bulgaria"
           },
           {
             "@tag": "BH",
@@ -8341,7 +8349,7 @@
           },
           {
             "@tag": "BI",
-            "#text": "es"
+            "#text": "Burundi"
           },
           {
             "@tag": "BJ",
@@ -8353,11 +8361,11 @@
           },
           {
             "@tag": "BN",
-            "#text": "es"
+            "#text": "Brunei Darussalam"
           },
           {
             "@tag": "BO",
-            "#text": "es"
+            "#text": "Bolivia"
           },
           {
             "@tag": "BR",
@@ -8365,7 +8373,7 @@
           },
           {
             "@tag": "BS",
-            "#text": "es"
+            "#text": "Bahamas"
           },
           {
             "@tag": "BT",
@@ -8405,7 +8413,7 @@
           },
           {
             "@tag": "CG",
-            "#text": "es"
+            "#text": "Congo"
           },
           {
             "@tag": "CH",
@@ -8421,7 +8429,7 @@
           },
           {
             "@tag": "CL",
-            "#text": "es"
+            "#text": "Chile"
           },
           {
             "@tag": "CM",
@@ -8433,15 +8441,15 @@
           },
           {
             "@tag": "CO",
-            "#text": "es"
+            "#text": "Colombia"
           },
           {
             "@tag": "CR",
-            "#text": "es"
+            "#text": "Costa Rica"
           },
           {
             "@tag": "CU",
-            "#text": "es"
+            "#text": "Cuba"
           },
           {
             "@tag": "CV",
@@ -8485,11 +8493,11 @@
           },
           {
             "@tag": "EC",
-            "#text": "es"
+            "#text": "Ecuador"
           },
           {
             "@tag": "EE",
-            "#text": "es"
+            "#text": "Estonia"
           },
           {
             "@tag": "EG",
@@ -8501,7 +8509,7 @@
           },
           {
             "@tag": "ER",
-            "#text": "es"
+            "#text": "Eritrea"
           },
           {
             "@tag": "ES",
@@ -8553,7 +8561,7 @@
           },
           {
             "@tag": "GE",
-            "#text": "es"
+            "#text": "Georgia"
           },
           {
             "@tag": "GF",
@@ -8561,11 +8569,11 @@
           },
           {
             "@tag": "GH",
-            "#text": "es"
+            "#text": "Ghana"
           },
           {
             "@tag": "GI",
-            "#text": "es"
+            "#text": "Gibraltar"
           },
           {
             "@tag": "GL",
@@ -8573,11 +8581,11 @@
           },
           {
             "@tag": "GM",
-            "#text": "es"
+            "#text": "Gambia"
           },
           {
             "@tag": "GN",
-            "#text": "es"
+            "#text": "Guinea"
           },
           {
             "@tag": "GP",
@@ -8597,11 +8605,11 @@
           },
           {
             "@tag": "GT",
-            "#text": "es"
+            "#text": "Guatemala"
           },
           {
             "@tag": "GU",
-            "#text": "es"
+            "#text": "Guam"
           },
           {
             "@tag": "GW",
@@ -8613,7 +8621,7 @@
           },
           {
             "@tag": "HK",
-            "#text": "es"
+            "#text": "Hong Kong"
           },
           {
             "@tag": "HM",
@@ -8621,7 +8629,7 @@
           },
           {
             "@tag": "HN",
-            "#text": "es"
+            "#text": "Honduras"
           },
           {
             "@tag": "HR",
@@ -8637,7 +8645,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "es"
+            "#text": "Indonesia"
           },
           {
             "@tag": "IE",
@@ -8645,11 +8653,11 @@
           },
           {
             "@tag": "IL",
-            "#text": "es"
+            "#text": "Israel"
           },
           {
             "@tag": "IN",
-            "#text": "es"
+            "#text": "India"
           },
           {
             "@tag": "IO",
@@ -8673,7 +8681,7 @@
           },
           {
             "@tag": "JM",
-            "#text": "es"
+            "#text": "Jamaica"
           },
           {
             "@tag": "JO",
@@ -8697,7 +8705,7 @@
           },
           {
             "@tag": "KI",
-            "#text": "es"
+            "#text": "Kiribati"
           },
           {
             "@tag": "KM",
@@ -8725,7 +8733,7 @@
           },
           {
             "@tag": "LA",
-            "#text": "es"
+            "#text": "Laos"
           },
           {
             "@tag": "LB",
@@ -8737,15 +8745,15 @@
           },
           {
             "@tag": "LI",
-            "#text": "es"
+            "#text": "Liechtenstein"
           },
           {
             "@tag": "LK",
-            "#text": "es"
+            "#text": "Sri Lanka"
           },
           {
             "@tag": "LR",
-            "#text": "es"
+            "#text": "Liberia"
           },
           {
             "@tag": "LS",
@@ -8781,11 +8789,11 @@
           },
           {
             "@tag": "ME",
-            "#text": "es"
+            "#text": "Montenegro"
           },
           {
             "@tag": "MG",
-            "#text": "es"
+            "#text": "Madagascar"
           },
           {
             "@tag": "MH",
@@ -8793,7 +8801,7 @@
           },
           {
             "@tag": "MK",
-            "#text": "es"
+            "#text": "macedonia"
           },
           {
             "@tag": "ML",
@@ -8805,7 +8813,7 @@
           },
           {
             "@tag": "MN",
-            "#text": "es"
+            "#text": "Mongolia"
           },
           {
             "@tag": "MO",
@@ -8825,11 +8833,11 @@
           },
           {
             "@tag": "MS",
-            "#text": "es"
+            "#text": "Montserrat"
           },
           {
             "@tag": "MT",
-            "#text": "es"
+            "#text": "Malta"
           },
           {
             "@tag": "MU",
@@ -8853,11 +8861,11 @@
           },
           {
             "@tag": "MZ",
-            "#text": "es"
+            "#text": "Mozambique"
           },
           {
             "@tag": "NA",
-            "#text": "es"
+            "#text": "Namibia"
           },
           {
             "@tag": "NC",
@@ -8873,11 +8881,11 @@
           },
           {
             "@tag": "NG",
-            "#text": "es"
+            "#text": "Nigeria"
           },
           {
             "@tag": "NI",
-            "#text": "es"
+            "#text": "Nicaragua"
           },
           {
             "@tag": "NL",
@@ -8889,15 +8897,15 @@
           },
           {
             "@tag": "NP",
-            "#text": "es"
+            "#text": "Nepal"
           },
           {
             "@tag": "NR",
-            "#text": "es"
+            "#text": "Nauru"
           },
           {
             "@tag": "NU",
-            "#text": "es"
+            "#text": "Niue"
           },
           {
             "@tag": "NZ",
@@ -8941,15 +8949,15 @@
           },
           {
             "@tag": "PN",
-            "#text": "es"
+            "#text": "Pitcairn"
           },
           {
             "@tag": "PR",
-            "#text": "es"
+            "#text": "Puerto Rico"
           },
           {
             "@tag": "PT",
-            "#text": "es"
+            "#text": "Portugal"
           },
           {
             "@tag": "PW",
@@ -8957,7 +8965,7 @@
           },
           {
             "@tag": "PY",
-            "#text": "es"
+            "#text": "Paraguay"
           },
           {
             "@tag": "QA",
@@ -8989,7 +8997,7 @@
           },
           {
             "@tag": "SC",
-            "#text": "es"
+            "#text": "Seychelles"
           },
           {
             "@tag": "SD",
@@ -9025,19 +9033,19 @@
           },
           {
             "@tag": "SM",
-            "#text": "es"
+            "#text": "San Marino"
           },
           {
             "@tag": "SN",
-            "#text": "es"
+            "#text": "Senegal"
           },
           {
             "@tag": "SO",
-            "#text": "es"
+            "#text": "Somalia"
           },
           {
             "@tag": "SP",
-            "#text": "es"
+            "#text": "Serbia"
           },
           {
             "@tag": "SR",
@@ -9049,7 +9057,7 @@
           },
           {
             "@tag": "SV",
-            "#text": "es"
+            "#text": "El Salvador"
           },
           {
             "@tag": "SY",
@@ -9065,7 +9073,7 @@
           },
           {
             "@tag": "TD",
-            "#text": "es"
+            "#text": "Chad"
           },
           {
             "@tag": "TF",
@@ -9085,7 +9093,7 @@
           },
           {
             "@tag": "TK",
-            "#text": "es"
+            "#text": "Tokelau"
           },
           {
             "@tag": "TM",
@@ -9097,7 +9105,7 @@
           },
           {
             "@tag": "TO",
-            "#text": "es"
+            "#text": "Tonga"
           },
           {
             "@tag": "TP",
@@ -9113,7 +9121,7 @@
           },
           {
             "@tag": "TV",
-            "#text": "es"
+            "#text": "Tuvalu"
           },
           {
             "@tag": "TW",
@@ -9129,7 +9137,7 @@
           },
           {
             "@tag": "UG",
-            "#text": "es"
+            "#text": "Uganda"
           },
           {
             "@tag": "UM",
@@ -9141,7 +9149,7 @@
           },
           {
             "@tag": "UY",
-            "#text": "es"
+            "#text": "Uruguay"
           },
           {
             "@tag": "UZ",
@@ -9157,7 +9165,7 @@
           },
           {
             "@tag": "VE",
-            "#text": "es"
+            "#text": "Venezuela"
           },
           {
             "@tag": "VG",
@@ -9173,7 +9181,7 @@
           },
           {
             "@tag": "VU",
-            "#text": "es"
+            "#text": "Vanuatu"
           },
           {
             "@tag": "WF",
@@ -9181,15 +9189,15 @@
           },
           {
             "@tag": "WS",
-            "#text": "es"
+            "#text": "Samoa"
           },
           {
             "@tag": "YE",
-            "#text": "es"
+            "#text": "Yemen"
           },
           {
             "@tag": "YT",
-            "#text": "es"
+            "#text": "Mayotte"
           },
           {
             "@tag": "ZA",
@@ -9197,7 +9205,7 @@
           },
           {
             "@tag": "ZM",
-            "#text": "es"
+            "#text": "Zambia"
           },
           {
             "@tag": "ZW",
@@ -9635,7 +9643,7 @@
         "Resource": [
           {
             "@tag": "AVATAR",
-            "#text": "es"
+            "#text": "Avatar"
           },
           {
             "@tag": "AVATARCURRENT",
@@ -9909,7 +9917,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "es"
+            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
             "@tag": "INPUT_CODE",
@@ -10040,7 +10048,7 @@
         "Resource": [
           {
             "@tag": "ERROR",
-            "#text": "es"
+            "#text": "Error"
           },
           {
             "@tag": "INFORMATION",
@@ -10753,7 +10761,7 @@
           },
           {
             "@tag": "ERROR",
-            "#text": "es"
+            "#text": "Error"
           },
           {
             "@tag": "ERRORBOARDINSTALLED",
@@ -10885,7 +10893,7 @@
           },
           {
             "@tag": "NO",
-            "#text": "es"
+            "#text": "NO"
           },
           {
             "@tag": "NOTE",
@@ -11042,6 +11050,10 @@
           {
             "@tag": "YES",
             "#text": "SÍ"
+          },
+          {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
           }
         ]
       },
@@ -11164,7 +11176,7 @@
           },
           {
             "@tag": "AVATAR",
-            "#text": "es"
+            "#text": "Avatar"
           },
           {
             "@tag": "INVALIDPOSTSVALUE",
@@ -12146,7 +12158,7 @@
           },
           {
             "@tag": "NORMAL",
-            "#text": "es"
+            "#text": "Normal"
           },
           {
             "@tag": "PERSISTENCY",
@@ -12275,7 +12287,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "es"
+            "#text": "Blog"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12351,7 +12363,7 @@
           },
           {
             "@tag": "FACEBOOK",
-            "#text": "es"
+            "#text": "Facebook"
           },
           {
             "@tag": "FACEBOOK_TITLE",
@@ -12423,7 +12435,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "es"
+            "#text": "IP"
           },
           {
             "@tag": "JOINED",
@@ -12487,7 +12499,7 @@
           },
           {
             "@tag": "NORMAL",
-            "#text": "es"
+            "#text": "Normal"
           },
           {
             "@tag": "OPTIONS",
@@ -12691,7 +12703,7 @@
           },
           {
             "@tag": "TOTAL",
-            "#text": "es"
+            "#text": "Total"
           },
           {
             "@tag": "TUMBLR_TOPIC",
@@ -12771,7 +12783,7 @@
           },
           {
             "@tag": "XMPP",
-            "#text": "es"
+            "#text": "XMPP"
           },
           {
             "@tag": "XMPP_TITLE",
@@ -12822,7 +12834,7 @@
           },
           {
             "@tag": "AVATAR",
-            "#text": "es"
+            "#text": "Avatar"
           },
           {
             "@tag": "BIRTHDAY",
@@ -13034,7 +13046,7 @@
           },
           {
             "@tag": "WEBLOG",
-            "#text": "es"
+            "#text": "Blog:"
           },
           {
             "@tag": "WEBSITE",
@@ -13128,7 +13140,7 @@
           },
           {
             "@tag": "RGN_CH_JU",
-            "#text": "es"
+            "#text": "Jura"
           },
           {
             "@tag": "RGN_CH_LU",
@@ -13140,11 +13152,11 @@
           },
           {
             "@tag": "RGN_CH_NW",
-            "#text": "es"
+            "#text": "Nidwalden"
           },
           {
             "@tag": "RGN_CH_OW",
-            "#text": "es"
+            "#text": "Obwalden"
           },
           {
             "@tag": "RGN_CH_SG",
@@ -13152,15 +13164,15 @@
           },
           {
             "@tag": "RGN_CH_SH",
-            "#text": "es"
+            "#text": "Schaffhausen"
           },
           {
             "@tag": "RGN_CH_SO",
-            "#text": "es"
+            "#text": "Solothurn"
           },
           {
             "@tag": "RGN_CH_SZ",
-            "#text": "es"
+            "#text": "Schwyz"
           },
           {
             "@tag": "RGN_CH_TG",
@@ -13176,11 +13188,11 @@
           },
           {
             "@tag": "RGN_CH_VD",
-            "#text": "es"
+            "#text": "Vaud"
           },
           {
             "@tag": "RGN_CH_VS",
-            "#text": "es"
+            "#text": "Valais"
           },
           {
             "@tag": "RGN_CH_ZG",
@@ -13209,7 +13221,7 @@
           },
           {
             "@tag": "RGN_DE_BRE",
-            "#text": "es"
+            "#text": "Bremen"
           },
           {
             "@tag": "RGN_DE_BW",
@@ -13253,7 +13265,7 @@
           },
           {
             "@tag": "RGN_DE_SW",
-            "#text": "es"
+            "#text": "Schleswig-Holstein"
           },
           {
             "@tag": "RGN_DE_TH",
@@ -13270,7 +13282,7 @@
           },
           {
             "@tag": "RGN_US_AL",
-            "#text": "es"
+            "#text": "Alabama"
           },
           {
             "@tag": "RGN_US_AR",
@@ -13282,19 +13294,19 @@
           },
           {
             "@tag": "RGN_US_AZ",
-            "#text": "es"
+            "#text": "Arizona"
           },
           {
             "@tag": "RGN_US_CA",
-            "#text": "es"
+            "#text": "California"
           },
           {
             "@tag": "RGN_US_CO",
-            "#text": "es"
+            "#text": "Colorado"
           },
           {
             "@tag": "RGN_US_CT",
-            "#text": "es"
+            "#text": "Connecticut"
           },
           {
             "@tag": "RGN_US_DC",
@@ -13302,19 +13314,19 @@
           },
           {
             "@tag": "RGN_US_DE",
-            "#text": "es"
+            "#text": "Delaware"
           },
           {
             "@tag": "RGN_US_FL",
-            "#text": "es"
+            "#text": "Florida"
           },
           {
             "@tag": "RGN_US_GA",
-            "#text": "es"
+            "#text": "Georgia"
           },
           {
             "@tag": "RGN_US_GU",
-            "#text": "es"
+            "#text": "Guam"
           },
           {
             "@tag": "RGN_US_HI",
@@ -13322,27 +13334,27 @@
           },
           {
             "@tag": "RGN_US_IA",
-            "#text": "es"
+            "#text": "Iowa"
           },
           {
             "@tag": "RGN_US_ID",
-            "#text": "es"
+            "#text": "Idaho"
           },
           {
             "@tag": "RGN_US_IL",
-            "#text": "es"
+            "#text": "Illinois"
           },
           {
             "@tag": "RGN_US_IN",
-            "#text": "es"
+            "#text": "Indiana"
           },
           {
             "@tag": "RGN_US_KS",
-            "#text": "es"
+            "#text": "Kansas"
           },
           {
             "@tag": "RGN_US_KY",
-            "#text": "es"
+            "#text": "Kentucky"
           },
           {
             "@tag": "RGN_US_LA",
@@ -13350,23 +13362,23 @@
           },
           {
             "@tag": "RGN_US_MA",
-            "#text": "es"
+            "#text": "Massachusetts"
           },
           {
             "@tag": "RGN_US_MD",
-            "#text": "es"
+            "#text": "Maryland"
           },
           {
             "@tag": "RGN_US_ME",
-            "#text": "es"
+            "#text": "Maine"
           },
           {
             "@tag": "RGN_US_MI",
-            "#text": "es"
+            "#text": "Michigan"
           },
           {
             "@tag": "RGN_US_MN",
-            "#text": "es"
+            "#text": "Minnesota"
           },
           {
             "@tag": "RGN_US_MO",
@@ -13382,7 +13394,7 @@
           },
           {
             "@tag": "RGN_US_MT",
-            "#text": "es"
+            "#text": "Montana"
           },
           {
             "@tag": "RGN_US_NC",
@@ -13394,7 +13406,7 @@
           },
           {
             "@tag": "RGN_US_NE",
-            "#text": "es"
+            "#text": "Nebraska"
           },
           {
             "@tag": "RGN_US_NH",
@@ -13410,7 +13422,7 @@
           },
           {
             "@tag": "RGN_US_NV",
-            "#text": "es"
+            "#text": "Nevada"
           },
           {
             "@tag": "RGN_US_NY",
@@ -13418,7 +13430,7 @@
           },
           {
             "@tag": "RGN_US_OH",
-            "#text": "es"
+            "#text": "Ohio"
           },
           {
             "@tag": "RGN_US_OK",
@@ -13434,11 +13446,11 @@
           },
           {
             "@tag": "RGN_US_PR",
-            "#text": "es"
+            "#text": "Puerto Rico"
           },
           {
             "@tag": "RGN_US_RI",
-            "#text": "es"
+            "#text": "Rhode Island"
           },
           {
             "@tag": "RGN_US_SC",
@@ -13454,15 +13466,15 @@
           },
           {
             "@tag": "RGN_US_TX",
-            "#text": "es"
+            "#text": "Texas"
           },
           {
             "@tag": "RGN_US_UT",
-            "#text": "es"
+            "#text": "Utah"
           },
           {
             "@tag": "RGN_US_VA",
-            "#text": "es"
+            "#text": "Virginia"
           },
           {
             "@tag": "RGN_US_VI",
@@ -13470,15 +13482,15 @@
           },
           {
             "@tag": "RGN_US_VT",
-            "#text": "es"
+            "#text": "Vermont"
           },
           {
             "@tag": "RGN_US_WA",
-            "#text": "es"
+            "#text": "Washington"
           },
           {
             "@tag": "RGN_US_WI",
-            "#text": "es"
+            "#text": "Wisconsin"
           },
           {
             "@tag": "RGN_US_WV",
@@ -13486,7 +13498,7 @@
           },
           {
             "@tag": "RGN_US_WY",
-            "#text": "es"
+            "#text": "Wyoming"
           }
         ]
       },
@@ -13887,7 +13899,7 @@
           },
           {
             "@tag": "NORMAL",
-            "#text": "es"
+            "#text": "Normal"
           },
           {
             "@tag": "ORDERED",
@@ -14261,7 +14273,7 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "es"
+            "#text": "Auto"
           },
           {
             "@tag": "DARK",

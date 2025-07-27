@@ -1706,7 +1706,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "ZH-CN"
+            "#text": "ID"
           },
           {
             "@tag": "NAME",
@@ -2450,6 +2450,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "验证密码。"
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "描述："
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "定义描述标志中使用的绘画的描述。"
           }
         ]
       },
@@ -4088,7 +4096,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "ZH-CN"
+            "#text": "stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -5424,7 +5432,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "ZH-CN"
+            "#text": "Blogspam.net API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -7771,23 +7779,23 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "ZH-CN"
+            "#text": "d"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "ZH-CN"
+            "#text": "d"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "ZH-CN"
+            "#text": "f"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "ZH-CN"
+            "#text": "g"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "ZH-CN"
+            "#text": "t"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -9917,7 +9925,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "ZH-CN"
+            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
             "@tag": "INPUT_CODE",
@@ -11058,6 +11066,10 @@
           {
             "@tag": "YES",
             "#text": "是"
+          },
+          {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "أدخل وصفًا للوحة الجديدة"
           }
         ]
       },
@@ -12367,7 +12379,7 @@
           },
           {
             "@tag": "FACEBOOK",
-            "#text": "ZH-CN"
+            "#text": "Facebook"
           },
           {
             "@tag": "FACEBOOK_TITLE",
@@ -12787,7 +12799,7 @@
           },
           {
             "@tag": "XMPP",
-            "#text": "ZH-CN"
+            "#text": "xmpp"
           },
           {
             "@tag": "XMPP_TITLE",

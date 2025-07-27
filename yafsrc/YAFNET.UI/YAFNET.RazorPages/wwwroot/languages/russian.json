@@ -2450,6 +2450,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Проверить пароль."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Z."
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Он сказал"
           }
         ]
       },
@@ -4080,7 +4088,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "ru"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -9909,7 +9917,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "ru"
+            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
             "@tag": "INPUT_CODE",
@@ -11042,6 +11050,10 @@
           {
             "@tag": "YES",
             "#text": "ДА"
+          },
+          {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
           }
         ]
       },
@@ -12423,7 +12435,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "ru"
+            "#text": "IP"
           },
           {
             "@tag": "JOINED",
@@ -12771,7 +12783,7 @@
           },
           {
             "@tag": "XMPP",
-            "#text": "ru"
+            "#text": "XMPP"
           },
           {
             "@tag": "XMPP_TITLE",

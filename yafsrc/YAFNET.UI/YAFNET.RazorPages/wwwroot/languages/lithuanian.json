@@ -1036,7 +1036,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "lt"
+            "#text": "Useragent:"
           },
           {
             "@tag": "MASK_HELP",
@@ -1706,7 +1706,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "LT"
+            "#text": "Id"
           },
           {
             "@tag": "NAME",
@@ -2450,6 +2450,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Patikrinkite slaptažodį."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "D"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "ir"
           }
         ]
       },
@@ -4088,7 +4096,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "lt"
+            "#text": "StopForumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -7771,23 +7779,23 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "lt"
+            "#text": "D"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "lt"
+            "#text": "d"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "lt"
+            "#text": "F"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "lt"
+            "#text": "G"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "lt"
+            "#text": "T"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -8139,7 +8147,7 @@
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "lt"
+            "#text": "STRIKETHROUGH"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8289,7 +8297,7 @@
           },
           {
             "@tag": "AO",
-            "#text": "lt"
+            "#text": "Angola"
           },
           {
             "@tag": "AQ",
@@ -8297,7 +8305,7 @@
           },
           {
             "@tag": "AR",
-            "#text": "lt"
+            "#text": "Argentina"
           },
           {
             "@tag": "AS",
@@ -8313,7 +8321,7 @@
           },
           {
             "@tag": "AW",
-            "#text": "lt"
+            "#text": "Aruba"
           },
           {
             "@tag": "AZ",
@@ -8557,7 +8565,7 @@
           },
           {
             "@tag": "GD",
-            "#text": "lt"
+            "#text": "Grenada"
           },
           {
             "@tag": "GE",
@@ -8837,7 +8845,7 @@
           },
           {
             "@tag": "MT",
-            "#text": "lt"
+            "#text": "Malta"
           },
           {
             "@tag": "MU",
@@ -8901,7 +8909,7 @@
           },
           {
             "@tag": "NR",
-            "#text": "lt"
+            "#text": "Nauru"
           },
           {
             "@tag": "NU",
@@ -8917,11 +8925,11 @@
           },
           {
             "@tag": "PA",
-            "#text": "lt"
+            "#text": "Panama"
           },
           {
             "@tag": "PE",
-            "#text": "lt"
+            "#text": "Peru"
           },
           {
             "@tag": "PF",
@@ -8961,7 +8969,7 @@
           },
           {
             "@tag": "PW",
-            "#text": "lt"
+            "#text": "Palau"
           },
           {
             "@tag": "PY",
@@ -9093,7 +9101,7 @@
           },
           {
             "@tag": "TK",
-            "#text": "lt"
+            "#text": "Tokelau"
           },
           {
             "@tag": "TM",
@@ -9105,7 +9113,7 @@
           },
           {
             "@tag": "TO",
-            "#text": "lt"
+            "#text": "Tonga"
           },
           {
             "@tag": "TP",
@@ -9121,7 +9129,7 @@
           },
           {
             "@tag": "TV",
-            "#text": "lt"
+            "#text": "Tuvalu"
           },
           {
             "@tag": "TW",
@@ -9137,7 +9145,7 @@
           },
           {
             "@tag": "UG",
-            "#text": "lt"
+            "#text": "Uganda"
           },
           {
             "@tag": "UM",
@@ -9181,7 +9189,7 @@
           },
           {
             "@tag": "VU",
-            "#text": "lt"
+            "#text": "Vanuatu"
           },
           {
             "@tag": "WF",
@@ -9189,7 +9197,7 @@
           },
           {
             "@tag": "WS",
-            "#text": "lt"
+            "#text": "Samoa"
           },
           {
             "@tag": "YE",
@@ -9917,7 +9925,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "lt"
+            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
             "@tag": "INPUT_CODE",
@@ -11058,6 +11066,10 @@
           {
             "@tag": "YES",
             "#text": "TAIP"
+          },
+          {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
           }
         ]
       },
@@ -12439,7 +12451,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "lt"
+            "#text": "IP"
           },
           {
             "@tag": "JOINED",
@@ -12787,7 +12799,7 @@
           },
           {
             "@tag": "XMPP",
-            "#text": "lt"
+            "#text": "XMPP"
           },
           {
             "@tag": "XMPP_TITLE",
@@ -13144,7 +13156,7 @@
           },
           {
             "@tag": "RGN_CH_JU",
-            "#text": "lt"
+            "#text": "Jura"
           },
           {
             "@tag": "RGN_CH_LU",
@@ -13172,19 +13184,19 @@
           },
           {
             "@tag": "RGN_CH_SO",
-            "#text": "lt"
+            "#text": "Solothurn"
           },
           {
             "@tag": "RGN_CH_SZ",
-            "#text": "lt"
+            "#text": "Schwyz"
           },
           {
             "@tag": "RGN_CH_TG",
-            "#text": "lt"
+            "#text": "Thurgau"
           },
           {
             "@tag": "RGN_CH_TI",
-            "#text": "lt"
+            "#text": "Ticino"
           },
           {
             "@tag": "RGN_CH_UR",
@@ -13192,7 +13204,7 @@
           },
           {
             "@tag": "RGN_CH_VD",
-            "#text": "lt"
+            "#text": "Vaud"
           },
           {
             "@tag": "RGN_CH_VS",
@@ -13200,7 +13212,7 @@
           },
           {
             "@tag": "RGN_CH_ZG",
-            "#text": "lt"
+            "#text": "Zug"
           },
           {
             "@tag": "RGN_CH_ZH",
@@ -13286,7 +13298,7 @@
           },
           {
             "@tag": "RGN_US_AL",
-            "#text": "lt"
+            "#text": "Alabama"
           },
           {
             "@tag": "RGN_US_AR",
@@ -13322,7 +13334,7 @@
           },
           {
             "@tag": "RGN_US_FL",
-            "#text": "lt"
+            "#text": "Florida"
           },
           {
             "@tag": "RGN_US_GA",
@@ -13350,7 +13362,7 @@
           },
           {
             "@tag": "RGN_US_IN",
-            "#text": "lt"
+            "#text": "Indiana"
           },
           {
             "@tag": "RGN_US_KS",
@@ -13398,7 +13410,7 @@
           },
           {
             "@tag": "RGN_US_MT",
-            "#text": "lt"
+            "#text": "Montana"
           },
           {
             "@tag": "RGN_US_NC",
@@ -13410,7 +13422,7 @@
           },
           {
             "@tag": "RGN_US_NE",
-            "#text": "lt"
+            "#text": "Nebraska"
           },
           {
             "@tag": "RGN_US_NH",
@@ -13426,7 +13438,7 @@
           },
           {
             "@tag": "RGN_US_NV",
-            "#text": "lt"
+            "#text": "Nevada"
           },
           {
             "@tag": "RGN_US_NY",

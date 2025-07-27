@@ -2450,6 +2450,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "کلمه عبور را مجددا وارد نمایید."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "د"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "وت"
           }
         ]
       },
@@ -11038,6 +11046,10 @@
           {
             "@tag": "YES",
             "#text": "بله"
+          },
+          {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

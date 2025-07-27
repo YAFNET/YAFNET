@@ -2450,6 +2450,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Ověřte heslo."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "popsat:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Definuje popis výkresu použitého v logu popisu."
           }
         ]
       },
@@ -11062,6 +11070,10 @@
           {
             "@tag": "YES",
             "#text": "ANO"
+          },
+          {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Zadejte popis nového obrazu"
           }
         ]
       },

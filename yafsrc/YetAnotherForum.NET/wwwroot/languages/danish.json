@@ -2450,6 +2450,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Bekræft adgangskoden."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "beskrive:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Definerer en beskrivelse i"
           }
         ]
       },
@@ -11058,6 +11066,10 @@
           {
             "@tag": "YES",
             "#text": "JA"
+          },
+          {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Indtast beskrivelsen af den nye"
           }
         ]
       },
