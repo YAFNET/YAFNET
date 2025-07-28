@@ -252,16 +252,9 @@ public class UsersSettingsModel : AdminPage
                 themeFile = user.Item1.ThemeFile;
             }
 
-            if (this.Themes.Any(x => x.Value == themeFile))
+            if (this.Themes.Any(x => x.Value == themeFile) || this.Themes.Any(x => x.Value == "yaf"))
             {
                 this.Input.Theme = themeFile;
-            }
-            else
-            {
-                if (this.Themes.Any(x => x.Value == "yaf"))
-                {
-                    this.Input.Theme = themeFile;
-                }
             }
         }
 

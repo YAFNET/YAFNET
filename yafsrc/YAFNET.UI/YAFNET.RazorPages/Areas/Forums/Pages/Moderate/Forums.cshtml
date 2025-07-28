@@ -133,7 +133,7 @@
                             icon="arrows-alt"
                             button-style="Primary"></button>
                     <div class="dropdown-menu">
-                        <div class="px-4 py-3 dropdown-sm">
+                        <div class="px-4 py-3 dropdown-sm w-100">
                             <div class="mb-3">
                                 <label for="ForumList" class="form-label" localized-tag="select_forum">
                                 </label>
@@ -187,7 +187,7 @@
 
 
 @section Scripts {
-
+	<script src="~/js/choices.min.js" asp-append-version="true"></script>
     <script>
 
         @Html.Raw(JsAndCssHelper.CompressJavaScript(

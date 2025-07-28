@@ -80,7 +80,7 @@
                                        localized-page="REGISTER" localized-tag="CONFIRM_PASSWORD">
                                 </label>
                                 <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" required />
-                                <div class="invalid-feedback">
+                                <div class="invalid-feedback" id="PasswordInvalid">
                                     @Html.LocalizedText("REGISTER", "RETYPE_PASSWORD")
                                 </div>
                             </div>

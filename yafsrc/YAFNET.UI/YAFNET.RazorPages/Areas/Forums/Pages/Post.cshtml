@@ -428,6 +428,7 @@
 </div>
 
 @section Scripts {
+	<script src="~/js/post.min.js" asp-append-version="true" defer></script>
 	@if (showQuickReply)
 	{
 		<script src="@(Model.Get<BoardInfo>().GetUrlToScripts("editor.min.js"))" defer></script>

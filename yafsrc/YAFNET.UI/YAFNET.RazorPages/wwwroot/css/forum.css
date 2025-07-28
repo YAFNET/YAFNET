@@ -13484,24 +13484,6 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
   vertical-align: middle;
 }
 
-.blockquote-custom-icon {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  position: absolute;
-  top: -20px;
-  left: 50px;
-}
-
 .popover-body-scrollable {
   max-height: 200px;
   overflow-y: scroll;
@@ -13511,10 +13493,6 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
   position: absolute;
   top: 8px;
   left: 16px;
-}
-
-.tab-content {
-  padding-top: 10px;
 }
 
 .preview .img-thumbnail {

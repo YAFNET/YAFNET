@@ -204,9 +204,13 @@
     </div>
 </div>
 <div class="row justify-content-end">
-    <div class="col-auto">
-        <pager page-size="@Model.Size"
-               count="@(!Model.UserList.NullOrEmpty() ? this.Model.UserList.FirstOrDefault().TotalRows : 0)">
-        </pager>
-    </div>
+	<div class="col-auto">
+		<pager page-size="@Model.Size"
+		       count="@(!Model.UserList.NullOrEmpty() ? this.Model.UserList.FirstOrDefault().TotalRows : 0)">
+		</pager>
+	</div>
 </div>
+
+@section Scripts {
+	<script src="~/js/choices.min.js" asp-append-version="true"></script>
+}
