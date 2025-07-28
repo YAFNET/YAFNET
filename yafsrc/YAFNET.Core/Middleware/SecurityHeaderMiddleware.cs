@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.IO;
+
 using YAF.Types.Objects;
 
 namespace YAF.Core.Middleware;
@@ -30,6 +32,7 @@ using System;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 
 /// <summary>
 /// Class SecurityHeaderMiddleware.
@@ -65,6 +68,11 @@ public class SecurityHeaderMiddleware
     /// <returns>Task.</returns>
     public Task InvokeAsync(HttpContext context)
     {
+        if (Path.GetExtension(context.Request.Path).IsSet())
+        {
+            return this.next.Invoke(context);
+        }
+
         context.Response.Headers.Append("X-Frame-Options", this.boardConfig.XFrameOptions);
 
         context.Response.Headers.Append("X-Content-Type-Options", this.boardConfig.XContentTypeOptions);
