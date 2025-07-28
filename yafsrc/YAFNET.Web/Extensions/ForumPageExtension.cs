@@ -100,8 +100,8 @@ public static class ForumPageExtensions
                     {
                         title.Append(
                             BoardContext.Current.Get<ILocalization>().GetTextFormatted(
-                                "IM_XMPP",
-                                "TITLE",
+                                "DELETE_ACCOUNT",
+                                "TITLE", 
                                 BoardContext.Current.PageUser.DisplayOrUserName()));
                     }
 
@@ -110,7 +110,7 @@ public static class ForumPageExtensions
                     {
                         title.Append(
                             BoardContext.Current.Get<ILocalization>().GetTextFormatted(
-                                "DELETE_ACCOUNT",
+                                "IM_XMPP",
                                 "TITLE",
                                 BoardContext.Current.PageUser.DisplayOrUserName()));
                     }
