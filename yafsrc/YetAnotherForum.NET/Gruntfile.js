@@ -438,26 +438,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// Minimize JS
-		uglify: {
-			SCEditorLanguages: {
-				options: {
-					warnings: true,
-					compress: true,
-					mangle: true
-				},
-				files: [
-					{
-						expand: true,
-						filter: 'isFile',
-						cwd: 'wwwroot/js/sceditor/',
-						src: 'languages/**.js',
-						dest: 'wwwroot/js/sceditor'
-					}
-				]
-			}
-		},
-
 		sass: {
 			options: {
 				implementation: sass,
@@ -637,7 +617,6 @@ module.exports = function (grunt) {
 	// PLUGINS
 	grunt.loadNpmTasks('@lodder/grunt-postcss');
 	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('@w8tcha/grunt-dev-update');
 	grunt.loadNpmTasks('grunt-sass');
@@ -649,7 +628,7 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('default',
 		[
-			'webpack', 'uglify', 'sass', 'postcss', 'cssmin'
+			'webpack', 'sass', 'postcss', 'cssmin'
 		]);
 
 	grunt.registerTask('updatePackages',
@@ -695,11 +674,6 @@ module.exports = function (grunt) {
 	grunt.registerTask('emailTemplates',
 		[
 			'shell:emailTemplates', 'shell:emailDigestTemplates'
-		]);
-
-	grunt.registerTask('js',
-		[
-			'uglify'
 		]);
 
 	grunt.registerTask('css',

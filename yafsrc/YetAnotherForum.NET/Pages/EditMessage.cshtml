@@ -98,7 +98,7 @@
                     @if (Model.PageBoardContext.PageTopic.UserID == Model.PageBoardContext.PageMessage.UserID || Model.PageBoardContext.ForumModeratorAccess)
                     {
                         <div class="mb-3">
-                            <label asp-for="Input.TagsValue" class="form-label" localized-page="POSTMESSAGE" localized-tag="TAGS">
+                            <label for="Tags" class="form-label" localized-page="POSTMESSAGE" localized-tag="TAGS">
                             </label>
                             <select id="Tags" multiple="multiple" class="form-control"></select>
                             <input type="hidden" asp-for="Input.TagsValue" value="@Model.Input.TagsValue"/>
@@ -174,7 +174,7 @@
 </form>
 
 @section Scripts {
-    
+	<script src="~/js/choices.min.js" asp-append-version="true"></script>
 	@if (Model.PageBoardContext.PageTopic.UserID == Model.PageBoardContext.PageMessage.UserID || Model.PageBoardContext.ForumModeratorAccess)
 	{
 		<script>

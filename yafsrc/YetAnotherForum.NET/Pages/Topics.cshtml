@@ -267,7 +267,7 @@
 </div>
 
 @section Scripts {
-
+	<script src="~/js/choices.min.js" asp-append-version="true"></script>
     <script>
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ForumModsPopoverJs(
                     $"<i class=\"fa fa-user-secret text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))

@@ -785,7 +785,7 @@
                 label: unwrapStringForRaw(group.label) || group.value,
                 active: !!choices.length,
                 disabled: !!group.disabled,
-                choices: choices
+                choices: choices,
             };
             return result_2;
         }
@@ -804,7 +804,7 @@
             highlighted: false,
             labelClass: stringToHtmlClass(choice.labelClass),
             labelDescription: choice.labelDescription,
-            customProperties: choice.customProperties
+            customProperties: choice.customProperties,
         };
         return result;
     };
@@ -3260,6 +3260,7 @@
             inp.autocomplete = 'off';
             inp.autocapitalize = 'off';
             inp.spellcheck = false;
+            inp.name = 'search';
             inp.setAttribute('aria-autocomplete', 'list');
             if (placeholderValue) {
                 inp.setAttribute('aria-label', placeholderValue);

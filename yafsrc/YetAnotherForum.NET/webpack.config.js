@@ -7,13 +7,15 @@ module.exports = [
 	{
 		entry: {
 			albums: './wwwroot/lib/pages/albums.ts',
-			messages: './wwwroot/lib/pages/messages.ts',
-			search: './wwwroot/lib/pages/search.ts',
-			persianPicker: './wwwroot/lib/persiandatetimepicker/persianPicker.ts',
-			fileUploader: './wwwroot/lib/fileUploader.ts',
-			themeSelector: './wwwroot/lib/bootstrap/themeSelector.ts',
+			choices: './wwwroot/lib/choices/choices.ts',
+			codemirror: './wwwroot/lib/codemirror.ts',
 			editor: './wwwroot/lib/editor/editor.ts',
-			codemirror: './wwwroot/lib/codemirror.ts'
+			fileUploader: './wwwroot/lib/fileUploader.ts',
+			messages: './wwwroot/lib/pages/messages.ts',
+			persianPicker: './wwwroot/lib/persiandatetimepicker/persianPicker.ts',
+			post: './wwwroot/lib/pages/post.ts',
+			search: './wwwroot/lib/pages/search.ts',
+			themeSelector: './wwwroot/lib/bootstrap/themeSelector.ts'
 		},
 		output: {
 			filename: '[name].min.js',
@@ -26,7 +28,7 @@ module.exports = [
 			'w8tcha/bootbox': '@w8tcha/bootbox'
 		},
 		devtool: 'source-map',
-		mode: 'development',
+		mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
 		resolve: {
 			extensions: ['.ts', '.js'],
 			extensionAlias: { '.js': ['.js', '.ts'] }
@@ -54,14 +56,6 @@ module.exports = [
 					test: /\.ts$/i,
 					use: ['ts-loader'],
 					exclude: /node_modules/
-				},
-				{
-					test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
-					type: 'asset'
-				},
-				{
-					test: /\.(eot|woff(2)?|ttf|otf|svg)$/i,
-					type: 'asset'
 				}
 			]
 		}
@@ -75,7 +69,7 @@ module.exports = [
 			clean: false
 		},
 		devtool: 'source-map',
-		mode: 'development',
+		mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
 		resolve: {
 			extensions: ['.ts', '.js'],
 			extensionAlias: { '.js': ['.js', '.ts'] }
@@ -107,14 +101,6 @@ module.exports = [
 					test: /\.ts$/i,
 					use: ['ts-loader'],
 					exclude: /node_modules/
-				},
-				{
-					test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
-					type: 'asset'
-				},
-				{
-					test: /\.(eot|woff(2)?|ttf|otf|svg)$/i,
-					type: 'asset'
 				}
 			]
 		}
@@ -128,7 +114,7 @@ module.exports = [
 			clean: false
 		},
 		devtool: 'source-map',
-		mode: 'development',
+		mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
 		resolve: {
 			extensions: ['.ts', '.js'],
 			extensionAlias: { '.js': ['.js', '.ts'] }
@@ -153,17 +139,12 @@ module.exports = [
 		module: {
 			rules: [
 				{
+					test: /\.css$/i,
+					use: ['style-loader', 'css-loader']
+				}, {
 					test: /\.ts$/i,
 					use: ['ts-loader'],
 					exclude: /node_modules/
-				},
-				{
-					test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
-					type: 'asset'
-				},
-				{
-					test: /\.(eot|woff(2)?|ttf|otf|svg)$/i,
-					type: 'asset'
 				}
 			]
 		}
