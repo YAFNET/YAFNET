@@ -14,23 +14,17 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
+	                    <div class="mb-3 col-md-4">
+		                    <div class="form-check form-switch">
+			                    <input asp-for="@Model.PageBoardContext.BoardSettings.AllowDigestEmail" class="form-check-input" role="switch" />
+			                    <label class="form-check-label" asp-for="@Model.PageBoardContext.BoardSettings.AllowDigestEmail"
+			                           localized-tag="DIGEST_ENABLED" localized-page="ADMIN_DIGEST"></label>
+		                    </div>
+	                    </div>
                         <div class="mb-3 col-md-4">
-                            <label class="form-label"
-                                   localized-tag="DIGEST_ENABLED" localized-page="ADMIN_DIGEST"></label>
-                            <span class="badge text-bg-secondary">
-                                @Html.LocalizedText("COMMON", Model.PageBoardContext.BoardSettings.AllowDigestEmail ? "YES" : "NO")
-                            </span>
-                        </div>
-                        <div class="mb-3 col-md-4">
-                            <label class="form-label" 
-                                   localized-tag="DIGEST_LAST" localized-page="ADMIN_DIGEST"></label>
-                            <span class="badge text-bg-secondary">
-                                @Html.Raw(Model.PageBoardContext.BoardSettings.LastDigestSend.IsNotSet()
-                                              ? Model.GetText("ADMIN_DIGEST", "DIGEST_NEVER")
-                                              : Convert.ToDateTime(
-                                                  Model.PageBoardContext.BoardSettings.LastDigestSend,
-                                                  CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture))
-                            </span>
+	                        <label class="form-label" 
+	                               localized-tag="DIGEST_LAST" localized-page="ADMIN_DIGEST" asp-for="LastSend"></label>
+	                        <input type="text" class="form-control" asp-for="LastSend" disabled>
                         </div>
                     </div>
                 </div>

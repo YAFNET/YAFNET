@@ -55,14 +55,14 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label"
+                    <label class="form-label" info-button="true"
                            asp-for="Input.Theme"
                            localized-tag="BOARD_THEME" localized-page="ADMIN_BOARDSETTINGS"></label>
                     <select asp-for="Input.Theme" asp-items="Model.Themes" class="select2-select"></select>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-md-6">
-                        <label class="form-label"
+	                    <label class="form-label" info-button="true"
                                asp-for="Input.ShowTopic"
                                localized-tag="BOARD_TOPIC_DEFAULT"
                                localized-page="ADMIN_BOARDSETTINGS"></label>
@@ -70,7 +70,7 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label"
+	                    <label class="form-label" info-button="true"
                                asp-for="Input.Culture"
                                localized-tag="BOARD_CULTURE" localized-page="ADMIN_BOARDSETTINGS"></label>
                         <select asp-for="Input.Culture" asp-items="Model.Cultures" class="select2-select">
@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label"
+                        <label class="form-label" info-button="true"
                            asp-for="Input.DefaultNotificationSetting"
                            localized-tag="BOARD_DEFAULT_NOTIFICATION"
                            localized-page="ADMIN_BOARDSETTINGS"></label>
@@ -107,7 +107,7 @@
                         <input type="text" asp-for="Input.DefaultPageSize" class="form-control" type="number" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label"
+                        <label class="form-label" info-button="true"
                            asp-for="Input.NotificationOnUserRegisterEmailList"
                            localized-tag="BOARD_EMAIL_ONREGISTER"
                            localized-page="ADMIN_BOARDSETTINGS"></label>
@@ -115,7 +115,7 @@
                 </div>
                 <div class="row">
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" 
+                            <label class="form-label" info-button="true"
                                asp-for="Input.EmailModeratorsOnModeratedPost"
                                localized-tag="BOARD_EMAIL_MODS"
                                localized-page="ADMIN_BOARDSETTINGS"></label>
@@ -135,7 +135,7 @@
                 </div>
                 <div class="row">
                     <div class="mb-3 col-md-6">
-                        <label class="form-label"
+                            <label class="form-label" info-button="true"
                                asp-for="Input.AllowDigestEmail"
                                localized-tag="BOARD_ALLOW_DIGEST"
                                localized-page="ADMIN_BOARDSETTINGS"></label>
@@ -144,7 +144,7 @@
                         </div>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" 
+                            <label class="form-label" info-button="true"
                                asp-for="Input.DefaultSendDigestEmail"
                                localized-tag="BOARD_DIGEST_NEWUSERS"
                                localized-page="ADMIN_BOARDSETTINGS"></label>

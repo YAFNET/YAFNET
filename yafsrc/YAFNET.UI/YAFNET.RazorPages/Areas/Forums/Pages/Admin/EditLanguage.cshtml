@@ -49,9 +49,7 @@
                                 {
                                     <tr>
                                         <td>
-                                            <label asp-for="Locals[index].ResourceName" class="form-label">
-                                                @Html.Raw(Model.Locals[index].ResourceName)
-                                            </label>
+	                                        @Html.Raw(Model.Locals[index].ResourceName)
                                         </td>
                                         <td>
                                             <input type="hidden" asp-for="Locals[index].ResourceName" value="@Model.Locals[index].ResourceName"/>

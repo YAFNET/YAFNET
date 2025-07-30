@@ -161,9 +161,10 @@
                                        Text="@Html.Raw(Model.HtmlEncode(user.DisplayName))"></a>)
                                 </h5>
                                 <small class="d-none d-md-block">
-                                    <label class="form-label fw-bold" localized-tag="TITLE_SUSPENDED" localized-page="INFO">
-                                    </label>
-                                            <span class="@Html.Raw(user.Suspended.HasValue ? "badge text-bg-danger" : "badge text-bg-success")">
+	                                <strong>
+		                                @Html.LocalizedText("INFO", "TITLE_SUSPENDED")
+	                                </strong>
+	                                <span class="@Html.Raw(user.Suspended.HasValue ? "badge text-bg-danger" : "badge text-bg-success")">
                                         @Html.Raw(Model.GetSuspendedString(user.Suspended.ToString()))
                                     </span>
                                 </small>

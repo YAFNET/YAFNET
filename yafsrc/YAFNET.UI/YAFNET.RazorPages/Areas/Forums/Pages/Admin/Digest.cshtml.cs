@@ -23,6 +23,8 @@
  * under the License.
  */
 
+using System.Globalization;
+
 using Microsoft.Extensions.Logging;
 
 namespace YAF.Pages.Admin;
@@ -45,6 +47,13 @@ public class DigestModel : AdminPage
     /// </summary>
     [BindProperty]
     public string TextSendEmail { get; set; }
+
+    /// <summary>
+    /// Gets or sets the last send.
+    /// </summary>
+    /// <value>The last send.</value>
+    [BindProperty]
+    public string LastSend { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DigestModel"/> class.
@@ -75,10 +84,20 @@ public class DigestModel : AdminPage
     }
 
     /// <summary>
+    /// Called when [get].
+    /// </summary>
+    public void OnGet()
+    {
+       this.BindData();
+    }
+
+    /// <summary>
     /// Send Test Digest
     /// </summary>
     public async Task<IActionResult> OnPostTestSendAsync()
     {
+        this.BindData();
+
         if (!this.TextSendEmail.IsSet())
         {
             return this.PageBoardContext.Notify(this.GetText("ADMIN_DIGEST", "MSG_VALID_MAIL"), MessageTypes.danger);
@@ -111,5 +130,17 @@ public class DigestModel : AdminPage
                 string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR"), ex),
                 MessageTypes.danger);
         }
+    }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    private void BindData()
+    {
+        this.LastSend = this.PageBoardContext.BoardSettings.LastDigestSend.IsNotSet()
+            ? this.GetText("ADMIN_DIGEST", "DIGEST_NEVER")
+            : Convert.ToDateTime(
+                this.PageBoardContext.BoardSettings.LastDigestSend,
+                CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
     }
 }

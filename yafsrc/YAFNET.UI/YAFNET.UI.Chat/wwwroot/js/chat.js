@@ -1,4 +1,4 @@
-var connection = new signalR.HubConnectionBuilder().withUrl('/allChatHub').build();
+var connection = new signalR.HubConnectionBuilder().withUrl('/allChatHub').configureLogging(signalR.LogLevel.Error).build();
 
 //Disable the send button until connection is established.
 document.getElementById('sendButton').disabled = true;

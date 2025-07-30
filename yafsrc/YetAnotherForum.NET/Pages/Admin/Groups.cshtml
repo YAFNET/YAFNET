@@ -93,8 +93,8 @@
                                     <p>
                                         @if (role.Description.IsSet())
                                         {
-                                            <label class="form-label me-3" localized-tag="DESCRIPTION" localized-page="ADMIN_EDITGROUP">
-                                            </label>@Html.Raw(role.Description)
+                                            @Html.LocalizedText("ADMIN_EDITGROUP", "DESCRIPTION")
+                                            @Html.Raw(role.Description)
                                         }
 
                                         <ul class="list-inline">
@@ -154,16 +154,16 @@
                                                 }
                                             </li>
                                             <li class="list-inline-item">
-                                                <label class="form-label" localized-tag="SIGNATURE_LENGTH" localized-page="ADMIN_EDITGROUP" )></label>
+	                                            @Html.LocalizedText("ADMIN_EDITGROUP", "SIGNATURE_LENGTH")
                                                 <span class="@Html.Raw(Model.GetItemColorString(role.UsrSigChars.ToString()) )">
                                                     @Html.Raw(role.UsrSigChars.ToString().IsSet() ? role.UsrSigChars : Model.GetItemName(false) )
                                                 </span>
                                             </li>
                                             <li class="list-inline-item">
-                                                <label class="form-label" localized-tag="SIG_BBCODES" localized-page="ADMIN_EDITGROUP"></label>
-                                                <span class="@Html.Raw(Model.GetItemColorString(role.UsrSigBBCodes) )">
-                                                    @Html.Raw(role.UsrSigBBCodes.IsSet() ? role.UsrSigBBCodes : Model.GetItemName(false) )
-                                                </span>
+                                                @Html.LocalizedText("ADMIN_EDITGROUP", "SIG_BBCODES")
+	                                            <span class="@Html.Raw(Model.GetItemColorString(role.UsrSigBBCodes))">
+		                                            @Html.Raw(role.UsrSigBBCodes.IsSet() ? role.UsrSigBBCodes : Model.GetItemName(false))
+	                                            </span>
                                             </li>
                                         </ul>
                                     </p>

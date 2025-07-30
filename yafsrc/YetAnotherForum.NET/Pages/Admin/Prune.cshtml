@@ -24,7 +24,7 @@
                     <div class="mb-3">
                         <label class="form-label" ID="LocalizedLabel4"
                                localized-tag="PRUNE_FORUM" localized-page="ADMIN_PRUNE"
-                               asp-for="Input.ForumListSelected"></label>
+                               asp-for="Input.ForumListSelected" info-button="true"></label>
                         <select id="ForumList" name="forumList"></select>
                         <input type="hidden" asp-for="Input.ForumListSelected" Value="@Model.Input.ForumListSelected"/>
                     </div>
@@ -32,7 +32,7 @@
                         <div class="mb-3 col-md-4">
                             <label class="form-label" ID="LocalizedLabel3"
                                    localized-tag="PRUNE_DAYS" localized-page="ADMIN_PRUNE"
-                                   asp-for="Input.Days"></label>
+                                   asp-for="Input.Days" info-button="true"></label>
                             <div class="input-group">
                                 <input type="number" asp-for="Input.Days"
                                        class="form-control"/>
@@ -44,7 +44,7 @@
                         <div class="mb-3 col-md-4">
                             <label class="form-label" ID="LocalizedLabel2"
                                    localized-tag="PRUNE_PERMANENT" localized-page="ADMIN_PRUNE"
-                                   asp-for="Input.PermanentDelete"></label>
+                                   asp-for="Input.PermanentDelete" info-button="true"></label>
                             <div class="form-check form-switch">
                                 <input type="checkbox" asp-for="Input.PermanentDelete"
                                        class="form-check-input"/>
@@ -60,7 +60,7 @@
                                 asp-page-handler="Commit"
                                 Icon="trash"
                                 text-localized-tag="PRUNE_START"
-                                return-confirm-tag="CONFIRM_DELETE">
+                                return-confirm-tag="CONFIRM_PRUNE">
                         </button>
                     </div>
                 }
@@ -71,13 +71,14 @@
 </form>
 
 @section Scripts {
+	<script src="~/js/choices.min.js" asp-append-version="true"></script>
     <script>
         @Html.Raw(JsAndCssHelper.CompressJavaScript(
             JavaScriptBlocks.SelectForumsLoadJs(
                 "ForumList",
-                Model.GetText("ADMIN_PRUNE", "PRUNE_FORUM"),
+                            Model.GetText("PRUNE_FORUM_HELP"),
                 false,
-                false,
+                true,
                 "Input_ForumListSelected")))
             
     </script>
