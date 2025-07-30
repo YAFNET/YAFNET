@@ -22,6 +22,7 @@ const _global = (window /* browser */ || global /* node */) as any;
 
 _global.bootstrap = bootstrap;
 _global.Notify = Notify;
+_global.bootbox = bootbox;
 
 // Generic Functions
 document.addEventListener('DOMContentLoaded', () => {
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.querySelectorAll<HTMLElement>('.dropdown-menu a.dropdown-toggle').forEach(menu => {
-	    menu.addEventListener('click', (event: MouseEvent) => {
+	    menu.addEventListener('click', (event: Event) => {
 		    const $el = menu as HTMLElement;
 		    const $subMenu = $el.nextElementSibling as HTMLElement;
 
@@ -90,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		    }
 	    }
 
-	    function scrollToTop(e: MouseEvent): void {
+	    function scrollToTop(e: Event): void {
 		    e.preventDefault();
 
 		    // Scroll to top logic

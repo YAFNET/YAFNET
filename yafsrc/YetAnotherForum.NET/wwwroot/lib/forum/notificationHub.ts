@@ -2,7 +2,7 @@
 
 const connection = new signalR.HubConnectionBuilder()
 	.withUrl('/NotificationHub')
-	.withAutomaticReconnect()
+	.withAutomaticReconnect().configureLogging(signalR.LogLevel.Error)
 	.build();
 
 connection.on('newActivityAsync', (alerts: number) => {

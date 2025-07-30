@@ -1,6 +1,6 @@
 ﻿import * as signalR from '@microsoft/signalr';
 
-const chatHub = new signalR.HubConnectionBuilder().withUrl('/chatHub').build();
+const chatHub = new signalR.HubConnectionBuilder().withUrl('/chatHub').configureLogging(signalR.LogLevel.Error).build();
 
 chatHub.start().then(() => {
 	registerEvents();
