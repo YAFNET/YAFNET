@@ -1,4 +1,4 @@
-﻿import Choices from './choices.js';
+﻿import Choices from './assets/scripts/choices.js';
 import * as bootstrap from 'bootstrap';
 
 import { Options } from 'choices.js';
