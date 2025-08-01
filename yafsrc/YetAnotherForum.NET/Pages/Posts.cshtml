@@ -427,10 +427,10 @@
 </div>
 
 @section Scripts {
-	<script src="~/js/post.min.js" asp-append-version="true" defer></script>
+    @await Html.PartialAsync("_PostScriptsPartial")
 	@if (showQuickReply)
 	{
-		<script src="@(Model.Get<BoardInfo>().GetUrlToScripts("editor.min.js"))" defer></script>
+		@await Html.PartialAsync("_EditorScriptsPartial")
 	}
     <script type="module">
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ForumModsPopoverJs(

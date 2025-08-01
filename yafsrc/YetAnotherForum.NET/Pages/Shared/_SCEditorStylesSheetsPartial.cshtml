@@ -1,7 +1,2 @@
-@using YAF.Core.Context
-@using YAF.Core.Services
-@using YAF.Types.Interfaces
 
-@inject BoardContext Current
-
-<link rel="stylesheet" href="@(Current.Get<BoardInfo>().GetUrlToCss("sceditor.min.css"))" />
+<link rel="stylesheet" href="~/css/sceditor.min.css" asp-append-version="true" />

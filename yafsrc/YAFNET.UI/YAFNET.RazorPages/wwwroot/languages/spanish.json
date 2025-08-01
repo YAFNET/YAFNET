@@ -1874,18 +1874,6 @@
             "#text": "El tablero por defecto muestra una selección de temas."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "Versión CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Aumentar la versión de CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "Versión de CRM, aumentar el número para forzar una recarga del navegador de todos los archivos Java Script y CSS"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Colapsado"
           },
@@ -2324,6 +2312,14 @@
             "#text": "La cultura del tablero."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Z."
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Dicho"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Información del nuevo superusuario"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Confirmar la contraseña."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Z."
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Dicho"
           }
         ]
       },
@@ -10680,6 +10668,10 @@
             "#text": "Verificar contraseña"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Ingrese el nombre de la nueva Junta"
           },
@@ -11050,10 +11042,6 @@
           {
             "@tag": "YES",
             "#text": "SÍ"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

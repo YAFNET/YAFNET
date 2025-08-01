@@ -1874,18 +1874,6 @@
             "#text": "Die Standard Themen Ansicht."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM-Version"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "CRM-Version erhöhen"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM Version, Nummer erhöhen, um ein Neuladen aller Java Script und CSS Dateien im Browser zu erzwingen"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Zusammengeklappt"
           },
@@ -2324,6 +2312,14 @@
             "#text": "Die Sprache des Boards."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "D"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "M"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Information für den neuen Systemverwalter"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Überprüfen Sie das Kennwort."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "D"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "M"
           }
         ]
       },
@@ -10680,6 +10668,10 @@
             "#text": "Passwort bestätigen"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Geben Sie den Namen des neuen Boards ein"
           },
@@ -11050,10 +11042,6 @@
           {
             "@tag": "YES",
             "#text": "JA"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

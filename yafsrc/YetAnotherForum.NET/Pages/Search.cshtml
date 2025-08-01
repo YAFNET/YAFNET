@@ -94,8 +94,8 @@
 </div>
 
 @section Scripts {
-	<script src="~/js/choices.min.js" asp-append-version="true"></script>
-	<script src="~/js/post.min.js" asp-append-version="true" defer></script>
+    @await Html.PartialAsync("_ChoicesScriptsPartial")
+    @await Html.PartialAsync("_PostScriptsPartial")
     <script src="~/js/search.min.js" asp-append-version="true" defer></script>
     <script>
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SelectForumsLoadJs(

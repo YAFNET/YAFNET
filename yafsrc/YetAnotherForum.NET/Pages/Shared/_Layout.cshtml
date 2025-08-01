@@ -15,8 +15,6 @@
 @inject BoardContext Current
 
 @{
-    ViewBag.CdvVersion = Current.BoardSettings.CdvVersion;
-
     ViewBag.ForumCss = Current.CurrentForumPage.IsAdminPage ? "forum-admin.min" : "forum.min";
     ViewBag.PageName = Current.CurrentForumPage.PageName.ToString();
 }
@@ -27,10 +25,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@Html.Raw(Current.CurrentForumPage.GeneratePageTitle())</title>
-    <link rel="stylesheet" href="@Html.Raw($"{Current.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}?v={ViewBag.CdvVersion}")"
+    <link rel="stylesheet" href="@Html.Raw($"{Current.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}")" asp-append-version="true"
           type="text/css" />
-    <link rel="stylesheet"
-          href="~/css/@Html.Raw($"{ViewBag.ForumCss}.css?v={ViewBag.CdvVersion}")" />
+    <link rel="stylesheet" href="~/css/@Html.Raw($"{ViewBag.ForumCss}.css")" asp-append-version="true" />
     @await RenderSectionAsync("StyleSheets", required: false)
     <script src="~/js/themeSelector.min.js"></script>
     <link href="~/favicons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
@@ -196,7 +193,7 @@
     </div>
 </div>
 
-    <script src="@(Current.Get<BoardInfo>().GetUrlToScripts($"forumExtensions.min.js?v={ViewBag.CdvVersion}"))"></script>
+<script src="~/js/forumExtensions.min.js" asp-append-version="true"></script>
 
 
 @await RenderSectionAsync("Scripts", required: false)
@@ -216,6 +213,5 @@
     }
     
 </script>
-    <scripts></scripts>
 </body>
 </html>

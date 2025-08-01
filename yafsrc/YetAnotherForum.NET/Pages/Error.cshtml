@@ -1,9 +1,7 @@
 ﻿@page
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using YAF.Core.Context
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
-@using YAF.Web.TagHelpers
 @model ErrorModel
 
 @{
@@ -17,7 +15,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="@Html.Raw($"{BoardContext.Current.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}")" />
 	
-	<script src="~/js/themeSelector.min.js"></script>
+	<script src="~/js/themeSelector.min.js" asp-append-version="true"></script>
 </head>
 <body>
 
@@ -46,6 +44,6 @@
 		<a asp-page="Index" class="btn btn-primary btn-lg" role="button"><i class="fa fa-home"></i> Try Again</a>
 	</div>
 </div>
-	<script src="~/js/forumExtensions.min.js"></script>
+	<script src="~/js/forumExtensions.min.js" asp-append-version="true"></script>
 </body>
 </html>

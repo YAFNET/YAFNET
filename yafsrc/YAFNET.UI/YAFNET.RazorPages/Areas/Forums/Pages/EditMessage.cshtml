@@ -174,7 +174,7 @@
 </form>
 
 @section Scripts {
-	<script src="~/js/choices.min.js" asp-append-version="true"></script>
+    @await Html.PartialAsync("_ChoicesScriptsPartial")
 	@if (Model.PageBoardContext.PageTopic.UserID == Model.PageBoardContext.PageMessage.UserID || Model.PageBoardContext.ForumModeratorAccess)
 	{
 		<script>

@@ -1,29 +1,13 @@
-@using YAF.Configuration
 @using YAF.Core.Context
-@using YAF.Core.Helpers
-@using YAF.Core.Services
-@using YAF.Types.Extensions
-@using YAF.Types.Interfaces
 
 @inject BoardContext Current
 
 @if (Current.BoardSettings.EnableWysiwygEditor)
 {
-    <script src="@(Current.Get<BoardInfo>().GetUrlToScripts("sceditor/sceditor.min.js"))"></script>
-
-    var language = BoardContext.Current.PageUser.Culture.IsSet()
-        ? BoardContext.Current.PageUser.Culture[..2]
-        : Current.Get<BoardSettings>().Culture[..2];
-
-    if (ValidationHelper.IsNumeric(language))
-    {
-        language = Current.Get<BoardSettings>().Culture;
-    }
-
-    <script src="@(Current.Get<BoardInfo>().GetUrlToScripts($"sceditor/languages/{language}.js"))"></script>
+    <script src="~/js/sceditor/sceditor.min.js"></script>
 }
 else
 {
-    <script src="@(Current.Get<BoardInfo>().GetUrlToScripts("editor.min.js"))"></script>
+	@await Html.PartialAsync("_EditorScriptsPartial")
 }
 

@@ -1874,18 +1874,6 @@
             "#text": "La scheda predefinita mostra la selezione dell'intervallo degli argomenti."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "Versione CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Aumentare la versione del CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "Versione CRM, aumentare il numero per forzare il ricaricamento di tutti i file Java Script e CSS da parte del browser"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Crollato"
           },
@@ -2324,6 +2312,14 @@
             "#text": "La cultura del consiglio di amministrazione."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "D"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "da"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "New Administrator Information"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Verificare la password."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "D"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "da"
           }
         ]
       },
@@ -10680,6 +10668,10 @@
             "#text": "Verifica la password"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Inserisci il nome della nuova scheda"
           },
@@ -11050,10 +11042,6 @@
           {
             "@tag": "YES",
             "#text": "SÌ"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

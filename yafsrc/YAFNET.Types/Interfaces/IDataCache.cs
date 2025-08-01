@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Types.Interfaces;
 
 /// <summary>
@@ -44,6 +46,16 @@ public interface IDataCache : IObjectStore
     /// <returns>
     /// </returns>
     T GetOrSet<T>(string key, Func<T> getValue, TimeSpan timeout);
+
+    /// <summary>
+    /// Gets or Sets the Data Cache Item.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="key">The key.</param>
+    /// <param name="getValue">The get value.</param>
+    /// <param name="timeout">The timeout.</param>
+    /// <returns>Task&lt;T&gt;.</returns>
+    Task<T> GetOrSetAsync<T>(string key, Func<Task<T>> getValue, TimeSpan timeout);
 
     /// <summary>
     /// Sets a cache value with a timeout.

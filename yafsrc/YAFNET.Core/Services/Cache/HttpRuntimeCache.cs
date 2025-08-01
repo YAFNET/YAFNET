@@ -27,6 +27,7 @@ namespace YAF.Core.Services.Cache;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Caching;
+using System.Threading.Tasks;
 
 /// <summary>
 /// The http runtime cache -- uses HttpRuntime cache to store cache information.
@@ -121,6 +122,40 @@ public class HttpRuntimeCache : IDataCache
     /// <param name="getValue">
     /// The get value.
     /// </param>
+    /// <returns>
+    /// </returns>
+    public T GetOrSet<T>(string key, Func<T> getValue)
+    {
+        ArgumentNullException.ThrowIfNull(key);
+        ArgumentNullException.ThrowIfNull(getValue);
+
+        return this.GetOrSetInternal(
+            key,
+            getValue,
+            c =>
+            {
+                var cacheItemPolicy = new CacheItemPolicy
+                {
+                    AbsoluteExpiration = ObjectCache.InfiniteAbsoluteExpiration,
+                    SlidingExpiration = ObjectCache.NoSlidingExpiration,
+                    Priority = CacheItemPriority.Default,
+                    RemovedCallback = k => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
+                };
+                MemoryCache.Default.Add(
+                    new CacheItem(this.CreateKey(key)) { Value = c },
+                    cacheItemPolicy);
+            });
+    }
+
+    /// <summary>
+    /// The get or set.
+    /// </summary>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <param name="getValue">
+    /// The get value.
+    /// </param>
     /// <param name="timeout">
     /// The timeout.
     /// </param>
@@ -149,17 +184,14 @@ public class HttpRuntimeCache : IDataCache
     }
 
     /// <summary>
-    /// The get or set.
+    /// Gets or Sets the Data Cache Item.
     /// </summary>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <param name="getValue">
-    /// The get value.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public T GetOrSet<T>(string key, Func<T> getValue)
+    /// <typeparam name="T"></typeparam>
+    /// <param name="key">The key.</param>
+    /// <param name="getValue">The get value.</param>
+    /// <param name="timeout">The timeout.</param>
+    /// <returns>Task&lt;T&gt;.</returns>
+    public Task<T> GetOrSetAsync<T>(string key, Func<Task<T>> getValue, TimeSpan timeout)
     {
         ArgumentNullException.ThrowIfNull(key);
         ArgumentNullException.ThrowIfNull(getValue);
@@ -168,18 +200,17 @@ public class HttpRuntimeCache : IDataCache
             key,
             getValue,
             c =>
+            {
+                var cacheItemPolicy = new CacheItemPolicy
                 {
-                    var cacheItemPolicy = new CacheItemPolicy
-                                              {
-                                                  AbsoluteExpiration = ObjectCache.InfiniteAbsoluteExpiration,
-                                                  SlidingExpiration = ObjectCache.NoSlidingExpiration,
-                                                  Priority = CacheItemPriority.Default,
-                                                  RemovedCallback = k => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
-                                              };
-                    MemoryCache.Default.Add(
-                        new CacheItem(this.CreateKey(key)) { Value = c },
-                        cacheItemPolicy);
-                });
+                    AbsoluteExpiration = DateTime.UtcNow + timeout,
+                    Priority = CacheItemPriority.Default,
+                    RemovedCallback = (k) => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
+                };
+                MemoryCache.Default.Add(
+                    new CacheItem(this.CreateKey(key)) { Value = c },
+                    cacheItemPolicy);
+            });
     }
 
     /// <summary>

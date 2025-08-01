@@ -61,5 +61,5 @@
 
 
 @section Scripts {
-    <script src="@(Current.Get<BoardInfo>().GetUrlToScripts("editor.min.js"))"></script>
+    @await Html.PartialAsync("_EditorScriptsPartial")
 }

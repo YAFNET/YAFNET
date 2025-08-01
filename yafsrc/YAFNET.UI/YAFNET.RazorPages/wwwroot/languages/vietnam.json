@@ -1874,18 +1874,6 @@
             "#text": "Bảng mặc định hiển thị lựa chọn khoảng thời gian chủ đề."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "Phiên bản CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Tăng phiên bản CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "Phiên bản CRM, tăng số lượng để Buộc trình duyệt tải lại tất cả các tệp Java Script và CSS"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Đã thu gọn"
           },
@@ -2324,6 +2312,14 @@
             "#text": "Văn hóa của hội đồng quản trị."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Z."
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Thuận lợi"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Thông tin về Superuser mới"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Xác minh mật khẩu."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Z."
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Thuận lợi"
           }
         ]
       },
@@ -10696,6 +10684,10 @@
             "#text": "Xác nhận lại mật khẩu"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Nhập tên của Hội đồng quản trị mới"
           },
@@ -11066,10 +11058,6 @@
           {
             "@tag": "YES",
             "#text": "VÂNG"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

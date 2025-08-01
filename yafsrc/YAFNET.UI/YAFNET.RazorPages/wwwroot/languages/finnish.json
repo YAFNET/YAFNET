@@ -1874,18 +1874,6 @@
             "#text": "Oletusarvoinen taulun näytön aiheen aikavälivalinta."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM-versio"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "CRM-version lisääminen"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM-versio, lisää numeroa pakottaaksesi selaimen lataamaan uudelleen kaikki Java-skripti- ja CSS-tiedostot."
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Romahtanut"
           },
@@ -2324,6 +2312,14 @@
             "#text": "Hallituksen kulttuuri."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Kuvaile:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "M"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Uuden pääkäyttäjän tiedot"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Tarkista salasana."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Kuvaile:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "M"
           }
         ]
       },
@@ -10696,6 +10684,10 @@
             "#text": "Vahvista salasana"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Kirjoita uusi kuvaus"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Kirjoita uuden hallituksen nimi"
           },
@@ -11066,10 +11058,6 @@
           {
             "@tag": "YES",
             "#text": "JOO"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Kirjoita uusi kuvaus"
           }
         ]
       },

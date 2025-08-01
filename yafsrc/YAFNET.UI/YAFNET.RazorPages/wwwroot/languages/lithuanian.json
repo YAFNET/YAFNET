@@ -1874,18 +1874,6 @@
             "#text": "Pagal numatytuosius nustatymus lentoje rodomas temos intervalo pasirinkimas."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM versija"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Padidinti CRM versiją"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM versija, padidinkite skaičių, jei norite priversti naršyklę iš naujo įkelti visus \"Java Script\" ir CSS failus"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Sugriuvęs"
           },
@@ -2324,6 +2312,14 @@
             "#text": "Valdybos kultūra."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "D"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "ir"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Naujo vyriausiojo naudotojo informacija"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Patikrinkite slaptažodį."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "D"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "ir"
           }
         ]
       },
@@ -10696,6 +10684,10 @@
             "#text": "Patvirtinkite slaptažodį"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Įveskite naujos valdybos pavadinimą"
           },
@@ -11066,10 +11058,6 @@
           {
             "@tag": "YES",
             "#text": "TAIP"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

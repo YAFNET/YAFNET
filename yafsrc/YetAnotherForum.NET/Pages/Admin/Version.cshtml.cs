@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using YAF.Core.Extensions;
@@ -76,13 +78,12 @@ public class VersionModel : AdminPage
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         try
         {
-            var version = this.Get<IDataCache>().GetOrSet(
-                "LatestVersion",
-                () => this.Get<ILatestInformationService>().GetLatestVersionAsync().Result,
+            var version = await this.Get<IDataCache>().GetOrSetAsync(
+                "LatestVersion", () => this.Get<ILatestInformationService>().GetLatestVersionAsync(),
                 TimeSpan.FromDays(1));
 
             string lastVersion = version.Version;

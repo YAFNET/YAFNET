@@ -1874,18 +1874,6 @@
             "#text": "De standaard board topic interval selectie."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM-versie"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "CRM-versie verhogen"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM-versie, verhoog het aantal om een ​​browser opnieuw te laden van alle Java-script- en CSS-bestanden"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Ingestort"
           },
@@ -2324,6 +2312,14 @@
             "#text": "De Cultuurinstelling van het board."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "beschrijven:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Definieert een beschrijving in"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Nieuwe Beheerdersinformatie"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Controleer het wachtwoord."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "beschrijven:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Definieert een beschrijving in"
           }
         ]
       },
@@ -10680,6 +10668,10 @@
             "#text": "Bevestig wachtwoord"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Voer de beschrijving van het nieuwe in"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Voer de naam van het nieuwe bord in"
           },
@@ -11050,10 +11042,6 @@
           {
             "@tag": "YES",
             "#text": "JA"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Voer de beschrijving van het nieuwe in"
           }
         ]
       },

@@ -48,6 +48,15 @@ public class HeadTagHelper : TagHelper, IHaveServiceLocator
     {
         var items = BoardContext.Current.InlineElements.Items;
 
+        var count = items.Count(x => x.Type == InlineType.Css);
+
+        if (count > 0)
+        {
+            output
+                .PostContent
+                .AppendHtml("<style>");
+        }
+
         // Inject Internal Stylesheet
         items.ForEach(
             script =>
@@ -59,11 +68,16 @@ public class HeadTagHelper : TagHelper, IHaveServiceLocator
 
                 output
                     .PostContent
-                    .AppendHtml("<style>")
-                    .AppendHtml(script.Code)
-                    .AppendHtml("</style>");
+                    .AppendHtml(script.Code);
 
                 script.IsInjected = true;
             });
+
+        if (count > 0)
+        {
+            output
+                .PostContent
+                .AppendHtml("</style>");
+        }
     }
 }

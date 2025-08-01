@@ -1874,18 +1874,6 @@
             "#text": "O quadro padrão mostra a selecção de intervalos de tópicos."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "Versão CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Aumentar a versão CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "Versão CRM, aumentar o número para forçar um navegador a recarregar todos os ficheiros Java Script e CSS"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Colapsou"
           },
@@ -2324,6 +2312,14 @@
             "#text": "A cultura do conselho."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "z"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Ele disse"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Nova informação do super-utilizador"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Verificar a palavra-passe."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "z"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Ele disse"
           }
         ]
       },
@@ -10696,6 +10684,10 @@
             "#text": "verifique a senha"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Digite o nome da nova diretoria"
           },
@@ -11066,10 +11058,6 @@
           {
             "@tag": "YES",
             "#text": "SIM"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

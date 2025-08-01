@@ -164,23 +164,6 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" info-button="true" 
-                           asp-for="Input.CdvVersion"
-                           localized-tag="CdvVersion"
-                           localized-page="ADMIN_BOARDSETTINGS"></label>
-                    <div class="input-group">
-                        <input type="text" asp-for="Input.CdvVersion"  
-                               class="form-control" disabled="disabled"/>
-                        <button asp-page-handler="IncreaseVersion"
-                            class="float-end"
-                            button-style="Info"
-                            Icon="file-code"
-                            text-localized-tag="CDVVERSION_BUTTON"
-                            title-localized-tag="CDVVERSION_HELP">
-                        </button>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" info-button="true" 
                            asp-for="Input.ForumDefaultAccessMask"
                            localized-tag="FORUM_DEFAULT_ACCESSMASK"
                            localized-page="ADMIN_BOARDSETTINGS"></label>
@@ -202,6 +185,6 @@
 </form>
 
 @section Scripts {
-	<script src="~/js/choices.min.js" asp-append-version="true"></script>
+    @await Html.PartialAsync("_ChoicesScriptsPartial")
     @await Html.PartialAsync("_ValidationScriptPartial")
 }

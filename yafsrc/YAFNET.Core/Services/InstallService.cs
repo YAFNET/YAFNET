@@ -217,8 +217,6 @@ public class InstallService : IHaveServiceLocator
         this.GetRepository<Registry>().Save("version", this.Get<BoardInfo>().AppVersion.ToString());
         this.GetRepository<Registry>().Save("versionname", this.Get<BoardInfo>().AppVersionName);
 
-        this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
-
         return true;
     }
 

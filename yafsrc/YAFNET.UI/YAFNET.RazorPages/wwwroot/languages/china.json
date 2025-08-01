@@ -1874,18 +1874,6 @@
             "#text": "默认板显示主题间隔选择。"
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "客户关系管理版本"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "增加CRM版本"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM 版本，增加数量以强制浏览器重新加载所有 Java 脚本和 CSS 文件"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "折叠"
           },
@@ -2324,6 +2312,14 @@
             "#text": "董事会文化。"
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "描述："
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "定义描述标志中使用的绘画的描述。"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "新的超级用户信息"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "验证密码。"
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "描述："
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "定义描述标志中使用的绘画的描述。"
           }
         ]
       },
@@ -10696,6 +10684,10 @@
             "#text": "验证密码"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "أدخل وصفًا للوحة الجديدة"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "输入新董事会的名称"
           },
@@ -11066,10 +11058,6 @@
           {
             "@tag": "YES",
             "#text": "是"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "أدخل وصفًا للوحة الجديدة"
           }
         ]
       },

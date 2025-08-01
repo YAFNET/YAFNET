@@ -24,10 +24,9 @@
     <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
 
     <div class="mb-3">
-        <label localized-tag="IP_ADDRESSES" localized-page="ADMIN_EDITUSER">
-        </label>
+	    @Html.LocalizedText("ADMIN_EDITUSER", "IP_ADDRESSES")
         
-        @foreach (var address in Model.IpAddresses.Take(5))
+	    @foreach (var address in Model.IpAddresses.Take(5))
         {
             <a href="@(string.Format(Current.BoardSettings.IPInfoPageURL, address))" target="_blank" rel="noopener"
                title="@Html.LocalizedText("COMMON", "TT_IPDETAILS")">
@@ -82,8 +81,7 @@
     }
 
     <div class="mb-3">
-        <label class="form-label" localized-tag="DELETE_POSTS_USER" localized-page="ADMIN_EDITUSER">
-        </label>
+	    @Html.LocalizedText("ADMIN_EDITUSER", "DELETE_POSTS_USER")
         <strong>
             @Model.AllPostsByUser.Count()
         </strong> (<a target="_blank"text-localized-tag="VIEW_ALL" text-localized-page="ADMIN_EDITUSER" button-style="None" 

@@ -1874,18 +1874,6 @@
             "#text": "Standardtavlen viser valg af emneinterval."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM-version"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Forøg CRM-version"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM-version, øg antallet for at tvinge en browsergenindlæsning af alle Java Script- og CSS-filer"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Kollapsede"
           },
@@ -2324,6 +2312,14 @@
             "#text": "Bestyrelsens kultur."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "beskrive:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Definerer en beskrivelse i"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Ny superbrugerinformation"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Bekræft adgangskoden."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "beskrive:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Definerer en beskrivelse i"
           }
         ]
       },
@@ -10696,6 +10684,10 @@
             "#text": "Bekræft adgangskode"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Indtast beskrivelsen af den nye"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Indtast navnet på det nye bestyrelse"
           },
@@ -11066,10 +11058,6 @@
           {
             "@tag": "YES",
             "#text": "JA"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Indtast beskrivelsen af den nye"
           }
         ]
       },

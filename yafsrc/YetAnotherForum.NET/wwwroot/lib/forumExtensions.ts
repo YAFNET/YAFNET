@@ -10,13 +10,10 @@ import * as bootbox from '@w8tcha/bootbox';
 import './forum/bootstrap-touchspin';
 import './forum/hoverCard';
 import 'long-press-event';
-
-
 import './forum/paging';
 import './forum/modals';
 import './forum/notificationHub';
 import './forum/contextMenu';
-import './form-serialize/index.js';
 
 const _global = (window /* browser */ || global /* node */) as any;
 

@@ -1874,18 +1874,6 @@
             "#text": "Интервал в котором отображать темы по умолчанию."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "Версия CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Увеличить версию CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "Версия CRM, увеличьте число для принудительной перезагрузки браузера всех файлов Java Script и CSS"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Разрушенный"
           },
@@ -2324,6 +2312,14 @@
             "#text": "Культура и язык конференции."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Z."
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Он сказал"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Информация о новом администраторе"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Проверить пароль."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Z."
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Он сказал"
           }
         ]
       },
@@ -10680,6 +10668,10 @@
             "#text": "подтвердите пароль"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Введите название новой доски"
           },
@@ -11050,10 +11042,6 @@
           {
             "@tag": "YES",
             "#text": "ДА"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

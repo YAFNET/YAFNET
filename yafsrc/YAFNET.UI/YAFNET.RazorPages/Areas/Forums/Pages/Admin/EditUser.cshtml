@@ -120,7 +120,7 @@
 
 
 @section Scripts {
-	<script src="~/js/choices.min.js" asp-append-version="true"></script>
+    @await Html.PartialAsync("_ChoicesScriptsPartial")
     <script>
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.BootstrapTabsLoadJs("EditUserTabs", "LastTab")));
 
@@ -145,6 +145,6 @@
     {
         @await Html.PartialAsync("_DateTimePickerScriptsPartial")
     }
-    
-    <script src="@(Current.Get<BoardInfo>().GetUrlToScripts("editor.min.js"))"></script>
+
+    @await Html.PartialAsync("_EditorScriptsPartial")
 }

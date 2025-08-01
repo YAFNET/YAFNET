@@ -48,6 +48,15 @@ public class HtmlTagHelper : TagHelper, IHaveServiceLocator
     {
         var items = BoardContext.Current.InlineElements.Items;
 
+        var count = items.Count(x => x.Type == InlineType.Script);
+
+        if (count > 0)
+        {
+            output
+                .PostContent
+                .AppendHtml("<script>");
+        }
+
         // Inject Inline Scripts
         items.ForEach(
             script =>
@@ -56,12 +65,17 @@ public class HtmlTagHelper : TagHelper, IHaveServiceLocator
                     {
                         output
                             .PostContent
-                            .AppendHtml("<script>")
-                            .AppendHtml(script.Code)
-                            .AppendHtml("</script>");
+                            .AppendHtml(script.Code);
                     }
 
                     script.IsInjected = true;
                 });
+
+        if (count > 0)
+        {
+            output
+                .PostContent
+                .AppendHtml("</script>");
+        }
     }
 }

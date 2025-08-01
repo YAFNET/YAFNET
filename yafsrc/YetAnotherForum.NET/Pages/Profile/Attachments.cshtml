@@ -87,5 +87,5 @@
 </div>
 
 @section Scripts {
-	<script src="~/js/post.min.js" asp-append-version="true" defer></script>
+	@await Html.PartialAsync("_PostScriptsPartial")
 }

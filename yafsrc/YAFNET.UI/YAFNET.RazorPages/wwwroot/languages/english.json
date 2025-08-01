@@ -1874,18 +1874,6 @@
             "#text": "The default board show topic interval selection."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM Version"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Increase CRM Version"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Collapsed"
           },

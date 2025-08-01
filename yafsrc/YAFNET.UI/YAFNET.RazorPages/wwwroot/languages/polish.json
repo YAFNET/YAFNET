@@ -1874,18 +1874,6 @@
             "#text": "Domyślne ustawienie pokazywania tematów."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "Wersja CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Zwiększanie wersji CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "Wersja CRM, zwiększ liczbę, aby wymusić przeładowanie przeglądarki wszystkimi plikami Java Script i CSS."
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Zawalona strona"
           },
@@ -2324,6 +2312,14 @@
             "#text": "Kultura zarządu."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "z"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Powiedział"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Informacje o nowym superużytkowniku"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Zweryfikuj hasło."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "z"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Powiedział"
           }
         ]
       },
@@ -10684,6 +10672,10 @@
             "#text": "Zweryfikuj hasło"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Wpisz nazwę nowej planszy"
           },
@@ -11054,10 +11046,6 @@
           {
             "@tag": "YES",
             "#text": "TAK"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

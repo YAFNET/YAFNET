@@ -139,7 +139,7 @@ public class AdminModel : AdminPage
 
             await verifyEmail.SendEmailAsync(new MailboxAddress(userUnApproved.DisplayOrUserName(), checkMail.Email), subject);
 
-            this.BindData(p, p2);
+            await this.BindDataAsync(p, p2);
 
             return this.PageBoardContext.Notify(this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"), MessageTypes.success);
         }
@@ -150,7 +150,7 @@ public class AdminModel : AdminPage
 
         await this.Get<ISendNotification>().SendVerificationEmailAsync(user, userUnApproved.Email, userFound.ID);
 
-        this.BindData(p, p2);
+        await this.BindDataAsync(p, p2);
 
         return this.Page();
     }
@@ -166,7 +166,7 @@ public class AdminModel : AdminPage
     {
         await this.Get<IAspNetUsersHelper>().DeleteUserAsync(id);
 
-        this.BindData(p, p2);
+        await this.BindDataAsync(p, p2);
     }
 
     /// <summary>
@@ -180,7 +180,7 @@ public class AdminModel : AdminPage
     {
         await this.Get<IAspNetUsersHelper>().ApproveUserAsync(id);
 
-        this.BindData(p, p2);
+        await this.BindDataAsync(p, p2);
     }
 
     /// <summary>
@@ -195,7 +195,7 @@ public class AdminModel : AdminPage
 
         await this.Get<IAspNetUsersHelper>().DeleteAllUnapprovedAsync(DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
 
-        this.BindData(p, p2);
+        await this.BindDataAsync(p, p2);
     }
 
     /// <summary>
@@ -208,15 +208,15 @@ public class AdminModel : AdminPage
     {
         await this.Get<IAspNetUsersHelper>().ApproveAllAsync();
 
-        this.BindData(p, p2);
+        await this.BindDataAsync(p, p2);
     }
 
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public void OnGet(int p, int p2)
+    public Task OnGetAsync(int p, int p2)
     {
-        this.BindData(p, p2);
+        return this.BindDataAsync(p, p2);
     }
 
     /// <summary>
@@ -224,21 +224,20 @@ public class AdminModel : AdminPage
     /// </summary>
     /// <param name="p">The p.</param>
     /// <param name="p2">The p2.</param>
-    public void OnPost(int p, int p2)
+    public Task OnPostAsync(int p, int p2)
     {
-        this.BindData(p, p2);
+        return this.BindDataAsync(p, p2);
     }
 
     /// <summary>
     /// Shows the upgrade message.
     /// </summary>
-    private void ShowUpgradeMessage()
+    private async Task ShowUpgradeMessageAsync()
     {
         try
         {
-            var version = this.Get<IDataCache>().GetOrSet(
-                "LatestVersion",
-                () => this.Get<ILatestInformationService>().GetLatestVersionAsync().Result,
+            var version = await this.Get<IDataCache>().GetOrSetAsync(
+                "LatestVersion", () => this.Get<ILatestInformationService>().GetLatestVersionAsync(),
                 TimeSpan.FromDays(1));
 
             var latestVersion = (DateTime)version.VersionDate;
@@ -294,7 +293,7 @@ public class AdminModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData(int p, int p2)
+    private async Task BindDataAsync(int p, int p2)
     {
         this.Input = new AdminInputModel {
                                         SelectedBoardId = this.PageBoardContext.PageBoardID,
@@ -313,7 +312,7 @@ public class AdminModel : AdminPage
 
         this.BindBoardsList();
 
-        this.ShowUpgradeMessage();
+        await this.ShowUpgradeMessageAsync();
 
         this.BindUnverifiedUsers(p2);
 

@@ -1874,18 +1874,6 @@
             "#text": "Standardvalet för intervallet för brädutställningen."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM-version"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Öka CRM-versionen"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM-version, öka antalet för att tvinga fram en omladdning av alla Java Script- och CSS-filer i webbläsaren."
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Kollapsad"
           },
@@ -2324,6 +2312,14 @@
             "#text": "Styrelsens kultur."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Z."
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Gynnsam"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Information om ny superanvändare"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Kontrollera lösenordet."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Z."
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Gynnsam"
           }
         ]
       },
@@ -10696,6 +10684,10 @@
             "#text": "Verifiera lösenord"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Ange namnet på det nya styrelsen"
           },
@@ -11066,10 +11058,6 @@
           {
             "@tag": "YES",
             "#text": "JA"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

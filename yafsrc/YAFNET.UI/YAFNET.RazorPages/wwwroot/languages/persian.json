@@ -1874,18 +1874,6 @@
             "#text": "تابلو پیش فرض فاصله انتخاب موضوع را نمایش می دهد."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM ویرایش"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "افزایش نسخه CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "نسخه CRM، شماره را افزایش می دهد تا مرورگر تمامی فایلهای جاوا اسکریپت و CSS را مجدداً بارگذاری کند."
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "جمع شده"
           },
@@ -2324,6 +2312,14 @@
             "#text": "فرهنگ تابلو."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "د"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "وت"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "اطلاعات مدیر ارشد جدید."
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "کلمه عبور را مجددا وارد نمایید."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "د"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "وت"
           }
         ]
       },
@@ -10676,6 +10664,10 @@
             "#text": "تائید رمز عبور"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "نام هیئت مدیره جدید را وارد کنید"
           },
@@ -11046,10 +11038,6 @@
           {
             "@tag": "YES",
             "#text": "بله"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

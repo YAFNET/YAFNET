@@ -600,16 +600,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets the cdv version.
-    /// </summary>
-    public int CdvVersion
-    {
-        get => this.Registry.GetValue("CdvVersion", 1);
-
-        set => this.Registry.SetValue("CdvVersion", value);
-    }
-
-    /// <summary>
     /// Gets or sets the allowed number of URLs before the message is flagged as spam.
     /// </summary>
     /// <value>

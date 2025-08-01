@@ -134,7 +134,7 @@
 
                                     if (!activity.Item1.FromUserID.HasValue)
                                     {
-                                        return;
+                                        continue;
                                     }
 
                                     var userLink = Html.UserLink(activity.Item1.FromUserID.Value, activity.Item2.DisplayOrUserName(), activity.Item2.Suspended, activity.Item2.UserStyle);
@@ -148,7 +148,7 @@
                                     {
                                         if (!activity.Item1.MessageID.HasValue)
                                         {
-                                            return;
+	                                        continue;
                                         }
 
                                         var link = BoardContext.Current.Get<ILinkBuilder>().GetMessageLink(activity.Item3, activity.Item1.MessageID.Value);

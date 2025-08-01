@@ -1874,18 +1874,6 @@
             "#text": "לוח ברירת המחדל מציג את בחירת מרווחי הנושא."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "גרסת CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "הגדל את גרסת ה-CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "גרסת CRM, הגדל מספר כדי לאלץ טעינה מחדש של דפדפן של כל קבצי Java Script ו-CSS"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "תצוגה מכווצת"
           },
@@ -2324,6 +2312,14 @@
             "#text": "תרבות המועצה."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "ד"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "מ '"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "מידע חדש על משתמשי-על"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "אמת את הסיסמה."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "ד"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "מ '"
           }
         ]
       },
@@ -10700,6 +10688,10 @@
             "#text": "אמת את הסיסמה"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "הזן את שם הלוח החדש"
           },
@@ -11070,10 +11062,6 @@
           {
             "@tag": "YES",
             "#text": "כן"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

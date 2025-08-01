@@ -1874,18 +1874,6 @@
             "#text": "La sélection par défaut de l'intervalle des sujets d'affichage du tableau."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "Version CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Augmenter la version du CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "Version CRM, augmenter le nombre pour forcer un rechargement du navigateur de tous les fichiers Java Script et CSS."
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Effondré"
           },
@@ -2324,6 +2312,14 @@
             "#text": "La culture du conseil."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Décrire:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "M"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Informations sur le nouveau superutilisateur"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Vérifiez le mot de passe."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Décrire:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "M"
           }
         ]
       },
@@ -10696,6 +10684,10 @@
             "#text": "vérifier le mot de passe"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Entrez le nom du nouveau conseil"
           },
@@ -11066,10 +11058,6 @@
           {
             "@tag": "YES",
             "#text": "OUI"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

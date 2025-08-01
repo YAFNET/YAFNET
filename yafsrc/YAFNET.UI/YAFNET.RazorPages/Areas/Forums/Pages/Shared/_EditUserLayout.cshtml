@@ -2,18 +2,13 @@
 @using YAF.Types.Interfaces
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
-@using YAF.Core.Services
 @using YAF.Core.Utilities
 
 @inject BoardContext Current
 
-@{
-    ViewBag.CdvVersion = Current.BoardSettings.CdvVersion;
-}
-
 @RenderBody()
 
-<script src="@(Current.Get<BoardInfo>().GetUrlToScripts($"forumExtensions.min.js?v={ViewBag.CdvVersion}")))"></script>
+<script src="~/js/forumExtensions.min.js" asp-append-version="true"></script>
 
 
 @await Html.PartialAsync("_ToastMessages")
@@ -27,5 +22,3 @@
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.HoverCardJs()))
     }
 </script>
-
-<scripts></scripts>

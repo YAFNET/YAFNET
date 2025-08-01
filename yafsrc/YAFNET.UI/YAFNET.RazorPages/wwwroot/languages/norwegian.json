@@ -1874,18 +1874,6 @@
             "#text": "Standardtavlen viser valg av emneintervall."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM versjon"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Øk CRM-versjonen"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM-versjon, øk antallet for å tvinge nettleseren på nytt av alle Java Script- og CSS-filer"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Kollapset"
           },
@@ -2324,6 +2312,14 @@
             "#text": "Styrets kultur."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "D"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "og"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Ny superbrukerinformasjon"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Bekreft passordet."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "D"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "og"
           }
         ]
       },
@@ -10696,6 +10684,10 @@
             "#text": "Bekreft passord"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Skriv inn navnet på det nye styret"
           },
@@ -11066,10 +11058,6 @@
           {
             "@tag": "YES",
             "#text": "JA"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

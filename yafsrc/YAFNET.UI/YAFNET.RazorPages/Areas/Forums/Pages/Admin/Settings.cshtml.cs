@@ -178,17 +178,6 @@ public class SettingsModel : AdminPage
     }
 
     /// <summary>
-    /// Increases the CDV version on click.
-    /// </summary>
-    public Task OnPostIncreaseVersionAsync()
-    {
-        this.PageBoardContext.BoardSettings.CdvVersion++;
-        this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
-
-        return this.BindDataAsync();
-    }
-
-    /// <summary>
     /// Binds the data.
     /// </summary>
     private async Task BindDataAsync()
@@ -201,8 +190,6 @@ public class SettingsModel : AdminPage
 
         this.Input.Name = board.Name;
         this.Input.Description = board.Description;
-
-        this.Input.CdvVersion = boardSettings.CdvVersion.ToString();
 
         this.Themes = StaticDataHelper.Themes();
 

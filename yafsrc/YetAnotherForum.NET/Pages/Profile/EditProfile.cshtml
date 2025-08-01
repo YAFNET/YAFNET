@@ -243,7 +243,7 @@
 </div>
 
 @section Scripts {
-	<script src="~/js/choices.min.js" asp-append-version="true"></script>
+    @await Html.PartialAsync("_ChoicesScriptsPartial")
     @await Html.PartialAsync("_ValidationScriptPartial")
     
     @if (Model.PageBoardContext.BoardSettings.UseFarsiCalender && Model.IsFarsiCulture)

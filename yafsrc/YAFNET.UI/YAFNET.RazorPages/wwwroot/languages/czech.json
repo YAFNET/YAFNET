@@ -1874,18 +1874,6 @@
             "#text": "Výchozí deska zobrazuje výběr intervalu tématu."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "Verze CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Zvýšit verzi CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "Verze CRM, zvyšte počet, abyste vynutili opětovné načtení prohlížeče všech souborů Java Script a CSS"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Zhroucený"
           },
@@ -2324,6 +2312,14 @@
             "#text": "Kultura desky."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "popsat:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Definuje popis výkresu použitého v logu popisu."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Nové informace o superuživateli"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Ověřte heslo."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "popsat:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Definuje popis výkresu použitého v logu popisu."
           }
         ]
       },
@@ -10700,6 +10688,10 @@
             "#text": "potvrďte heslo"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Zadejte popis nového obrazu"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Zadejte název nové rady"
           },
@@ -11070,10 +11062,6 @@
           {
             "@tag": "YES",
             "#text": "ANO"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Zadejte popis nového obrazu"
           }
         ]
       },

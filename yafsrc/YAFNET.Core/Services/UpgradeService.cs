@@ -179,15 +179,6 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
         this.AddOrUpdateExtensions();
 
-        try
-        {
-            this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
-        }
-        catch (Exception)
-        {
-            this.GetRepository<Registry>().Save("cdvversion", 1);
-        }
-
         this.Get<IDataCache>().Remove(Constants.Cache.Version);
 
         this.GetRepository<Registry>().Save("version", this.Get<BoardInfo>().AppVersion.ToString());

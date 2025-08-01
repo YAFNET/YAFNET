@@ -1,6 +1,8 @@
 ﻿import * as bootstrap from 'bootstrap';
 import * as Utilities from '../forum/utilities';
 
+import {serialize} from '../form-serialize/index.js';
+
 const _global = (window /* browser */ || global /* node */) as any;
 
 document.addEventListener('DOMContentLoaded',

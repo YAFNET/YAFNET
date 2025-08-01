@@ -1874,18 +1874,6 @@
             "#text": "Predvolený výber intervalu zobrazenia témy na nástenke."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "Verzia CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Zvýšenie verzie CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "Verzia CRM, zvýšenie čísla na vynútenie opätovného načítania všetkých súborov Java Script a CSS v prehliadači"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Zrútené stránky"
           },
@@ -2324,6 +2312,14 @@
             "#text": "Kultúra rady."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Z."
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Povedal"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Informácie o novom superpoužívateľovi"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Overte heslo."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Z."
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Povedal"
           }
         ]
       },
@@ -10696,6 +10684,10 @@
             "#text": "Overte heslo"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Zadajte názov novej rady"
           },
@@ -11066,10 +11058,6 @@
           {
             "@tag": "YES",
             "#text": "ÁNO"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

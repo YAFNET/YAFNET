@@ -1874,18 +1874,6 @@
             "#text": "Varsayılan pano gösterisi konu aralığı seçimi."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM Sürümü"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "CRM Sürümünü Artırın"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM Sürümü, tüm Java Script ve CSS Dosyalarının Tarayıcı tarafından yeniden yüklenmesini zorlamak için sayıyı artırın"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Çökmüş"
           },
@@ -2324,6 +2312,14 @@
             "#text": "Yönetim Kurulu Kültürü."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Z."
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Elverişli"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Yeni Süper Kullanıcı Bilgileri"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Şifreyi doğrulayın."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Z."
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Elverişli"
           }
         ]
       },
@@ -10696,6 +10684,10 @@
             "#text": "Şifreyi Doğrula"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Yeni Kurulun adını girin"
           },
@@ -11066,10 +11058,6 @@
           {
             "@tag": "YES",
             "#text": "EVET"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

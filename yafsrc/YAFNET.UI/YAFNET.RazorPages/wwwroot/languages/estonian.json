@@ -1874,18 +1874,6 @@
             "#text": "Vaikimisi tahvel näitab teemade intervalli valikut."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM-i versioon"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Suurendage CRM-i versiooni"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM-i versioon, suurendage arvu, et sundida brauseri uuesti laadima kõik Java skripti- ja CSS-failid"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Varises kokku"
           },
@@ -2324,6 +2312,14 @@
             "#text": "Juhatuse kultuur."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "kirjeldada:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Määratleb kirjelduse aastal"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Uus superkasutaja teave"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Kinnitage parool."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "kirjeldada:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Määratleb kirjelduse aastal"
           }
         ]
       },
@@ -10696,6 +10684,10 @@
             "#text": "Kinnita parool"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Sisestage uue kirjeldus"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Sisestage uue juhatuse nimi"
           },
@@ -11066,10 +11058,6 @@
           {
             "@tag": "YES",
             "#text": "JAH"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Sisestage uue kirjeldus"
           }
         ]
       },

@@ -1874,18 +1874,6 @@
             "#text": "Selecția implicită a intervalului de selecție a subiectului de afișare a bordului."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "Versiunea CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Creșteți versiunea CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "Versiunea CRM, creșteți numărul pentru a forța reîncărcarea în browser a tuturor fișierelor Java Script și CSS"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Prăbușit"
           },
@@ -2324,6 +2312,14 @@
             "#text": "Cultura consiliului de administrație."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Z."
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "A spus el"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Informații despre noul superutilizator"
           },
@@ -2450,14 +2446,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Verificați parola."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Z."
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "A spus el"
           }
         ]
       },
@@ -10696,6 +10684,10 @@
             "#text": "Verifică parola"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Écrivez une nouvelle description"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Introduceți numele noului consiliu"
           },
@@ -11066,10 +11058,6 @@
           {
             "@tag": "YES",
             "#text": "DA"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

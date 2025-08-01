@@ -167,8 +167,8 @@
 </form>
 
 @section Scripts {
-	<script src="~/js/choices.min.js" asp-append-version="true"></script>
-	<script src="~/js/post.min.js" asp-append-version="true" defer></script>
+    @await Html.PartialAsync("_ChoicesScriptsPartial")
+    @await Html.PartialAsync("_PostScriptsPartial")
     <script>
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.GetBoardTagsJs("Tags", "Input_TagsValue")))
     </script>

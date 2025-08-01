@@ -126,12 +126,6 @@ public class SettingsInputModel
     public int DigestSendEveryXHours { get; set; }
 
     /// <summary>
-    /// Gets or sets the CDV version.
-    /// </summary>
-    /// <value>The CDV version.</value>
-    public string CdvVersion { get; set; }
-
-    /// <summary>
     /// Gets or sets the forum default access mask.
     /// </summary>
     /// <value>The forum default access mask.</value>
