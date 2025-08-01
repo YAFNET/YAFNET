@@ -351,12 +351,8 @@ public static class OrmLiteConfig
     /// <value>The execute filter.</value>
     public static IOrmLiteExecFilter ExecFilter
     {
-        get
-        {
-            if (execFilter == null)
-            {
-                execFilter = new OrmLiteExecFilter();
-            }
+        get {
+            execFilter ??= new OrmLiteExecFilter();
 
             return dialectProvider != null
                        ? dialectProvider.ExecFilter ?? execFilter

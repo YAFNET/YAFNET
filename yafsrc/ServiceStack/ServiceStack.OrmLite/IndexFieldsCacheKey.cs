@@ -21,13 +21,13 @@ public class IndexFieldsCacheKey
     /// Gets the model definition.
     /// </summary>
     /// <value>The model definition.</value>
-    public ModelDefinition ModelDefinition { get; private set; }
+    public ModelDefinition ModelDefinition { get; }
 
     /// <summary>
     /// Gets the dialect.
     /// </summary>
     /// <value>The dialect.</value>
-    public IOrmLiteDialectProvider Dialect { get; private set; }
+    public IOrmLiteDialectProvider Dialect { get; }
 
     /// <summary>
     /// Gets the fields.
@@ -52,7 +52,7 @@ public class IndexFieldsCacheKey
             this.hashCode = 17;
             this.hashCode = this.hashCode * 23 + this.ModelDefinition.GetHashCode();
             this.hashCode = this.hashCode * 23 + this.Dialect.GetHashCode();
-            hashCode = hashCode * 23 + Fields.GetHashCode();
+            this.hashCode = this.hashCode * 23 + this.Fields.GetHashCode();
         }
     }
 

@@ -455,8 +455,8 @@ public class FieldDefinition
             CustomSelect = this.CustomSelect,
             BelongToModelName = this.BelongToModelName,
             IsReference = this.IsReference,
-            ReferenceRefId = ReferenceRefId,
-            ReferenceSelfId = ReferenceSelfId,
+            ReferenceRefId = this.ReferenceRefId,
+            ReferenceSelfId = this.ReferenceSelfId,
             FieldReference = this.FieldReference,
             CustomFieldDefinition = this.CustomFieldDefinition,
             IsRefType = this.IsRefType

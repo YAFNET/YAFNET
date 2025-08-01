@@ -15,9 +15,8 @@ public static class MySqlConfiguration
 
     public static MySqlDialectProvider UseMySql(this OrmLiteConfigOptions config, string? connectionString, Action<MySqlDialectProvider>? configure=null)
     {
-        if (connectionString == null)
-            throw new ArgumentNullException(nameof(connectionString));
-        
+        ArgumentNullException.ThrowIfNull(connectionString);
+
         var dialect = Configure(new MySqlDialectProvider());
         configure?.Invoke(dialect);
         config.Init(connectionString, dialect);
@@ -27,9 +26,8 @@ public static class MySqlConfiguration
     public static OrmLiteConfigurationBuilder AddMySql(this OrmLiteConfigurationBuilder builder, 
         string namedConnection, string? connectionString, Action<MySqlDialectProvider>? configure=null)
     {
-        if (connectionString == null)
-            throw new ArgumentNullException(nameof(connectionString));
-        
+        ArgumentNullException.ThrowIfNull(connectionString);
+
         var dialect = Configure(new MySqlDialectProvider());
         configure?.Invoke(dialect);
         builder.DbFactory.RegisterConnection(namedConnection, connectionString, dialect);

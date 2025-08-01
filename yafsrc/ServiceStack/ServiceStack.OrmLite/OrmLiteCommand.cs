@@ -7,6 +7,7 @@
 
 #nullable enable
 using System.Data;
+
 using ServiceStack.Data;
 
 namespace ServiceStack.OrmLite;
@@ -25,25 +26,17 @@ using System;
 public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
 {
     /// <summary>
-    /// The database connection
-    /// </summary>
-    private readonly OrmLiteConnection dbConn;
-
-    /// <summary>
     /// Gets the orm lite connection.
     /// </summary>
     /// <value>The orm lite connection.</value>
-    public OrmLiteConnection OrmLiteConnection => dbConn;
+    public OrmLiteConnection OrmLiteConnection { get; }
 
-    /// <summary>
-    /// The database command
-    /// </summary>
-    private readonly IDbCommand dbCmd;
     /// <summary>
     /// Gets the dialect provider.
     /// </summary>
     /// <value>The dialect provider.</value>
     public IOrmLiteDialectProvider DialectProvider { get; set; }
+
     /// <summary>
     /// Gets a value indicating whether this instance is disposed.
     /// </summary>
@@ -57,8 +50,8 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <param name="dbCmd">The database command.</param>
     public OrmLiteCommand(OrmLiteConnection dbConn, IDbCommand dbCmd)
     {
-        this.dbConn = dbConn ?? throw new ArgumentNullException(nameof(dbConn));
-        this.dbCmd = dbCmd ?? throw new ArgumentNullException(nameof(dbCmd));
+        this.OrmLiteConnection = dbConn ?? throw new ArgumentNullException(nameof(dbConn));
+        this.DbCommand = dbCmd ?? throw new ArgumentNullException(nameof(dbCmd));
         this.DialectProvider = dbConn.GetDialectProvider();
     }
 
@@ -66,7 +59,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// Gets the connection identifier.
     /// </summary>
     /// <value>The connection identifier.</value>
-    public Guid ConnectionId => this.dbConn.ConnectionId;
+    public Guid ConnectionId => this.OrmLiteConnection.ConnectionId;
 
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -74,7 +67,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     public void Dispose()
     {
         this.IsDisposed = true;
-        this.dbCmd.Dispose();
+        this.DbCommand.Dispose();
     }
 
     /// <summary>
@@ -82,7 +75,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// </summary>
     public void Prepare()
     {
-        this.dbCmd.Prepare();
+        this.DbCommand.Prepare();
     }
 
     /// <summary>
@@ -90,7 +83,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// </summary>
     public void Cancel()
     {
-        this.dbCmd.Cancel();
+        this.DbCommand.Cancel();
     }
 
     /// <summary>
@@ -99,7 +92,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <returns>An <see langword="IDbDataParameter" /> object.</returns>
     public IDbDataParameter CreateParameter()
     {
-        return this.dbCmd.CreateParameter();
+        return this.DbCommand.CreateParameter();
     }
 
     /// <summary>
@@ -108,22 +101,24 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <returns>The number of rows affected.</returns>
     public int ExecuteNonQuery()
     {
-        DialectProvider.OnBeforeExecuteNonQuery?.Invoke(this);
+        this.DialectProvider.OnBeforeExecuteNonQuery?.Invoke(this);
         try
         {
-            var writeLock = dbConn.WriteLock;
-            if (writeLock != null)
+            var writeLock = this.OrmLiteConnection.WriteLock;
+            if (writeLock == null)
             {
-                lock (writeLock)
-                {
-                    return dbCmd.ExecuteNonQuery();
-                }
+                return this.DbCommand.ExecuteNonQuery();
             }
-            return dbCmd.ExecuteNonQuery();
+
+            lock (writeLock)
+            {
+                return this.DbCommand.ExecuteNonQuery();
+            }
+
         }
         finally
         {
-            DialectProvider.OnAfterExecuteNonQuery?.Invoke(this);
+            this.DialectProvider.OnAfterExecuteNonQuery?.Invoke(this);
         }
     }
 
@@ -133,7 +128,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <returns>An <see cref="T:System.Data.IDataReader" /> object.</returns>
     public IDataReader ExecuteReader()
     {
-        return this.dbCmd.ExecuteReader();
+        return this.DbCommand.ExecuteReader();
     }
 
     /// <summary>
@@ -143,7 +138,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <returns>An <see cref="T:System.Data.IDataReader" /> object.</returns>
     public IDataReader ExecuteReader(CommandBehavior behavior)
     {
-        return this.dbCmd.ExecuteReader(behavior);
+        return this.DbCommand.ExecuteReader(behavior);
     }
 
     /// <summary>
@@ -152,73 +147,72 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <returns>The first column of the first row in the resultset.</returns>
     public object? ExecuteScalar()
     {
-        return this.dbCmd.ExecuteScalar();
+        return this.DbCommand.ExecuteScalar();
     }
 
     /// <summary>
     /// Gets or sets the <see cref="T:System.Data.IDbConnection" /> used by this instance of the <see cref="T:System.Data.IDbCommand" />.
     /// </summary>
     /// <value>The connection.</value>
-    public IDbConnection? Connection
-    {
-        get => this.dbCmd.Connection;
-        set => this.dbCmd.Connection = value;
+    public IDbConnection? Connection {
+        get => this.DbCommand.Connection;
+        set => this.DbCommand.Connection = value;
     }
+
     /// <summary>
     /// Gets or sets the transaction within which the <see langword="Command" /> object of a .NET Framework data provider executes.
     /// </summary>
     /// <value>The transaction.</value>
-    public IDbTransaction? Transaction
-    {
-        get => this.dbCmd.Transaction;
-        set => this.dbCmd.Transaction = value;
+    public IDbTransaction? Transaction {
+        get => this.DbCommand.Transaction;
+        set => this.DbCommand.Transaction = value;
     }
+
     /// <summary>
     /// Gets or sets the text command to run against the data source.
     /// </summary>
     /// <value>The command text.</value>
-    public string? CommandText
-    {
-        get => this.dbCmd.CommandText;
-        set => this.dbCmd.CommandText = value;
+    public string? CommandText {
+        get => this.DbCommand.CommandText;
+        set => this.DbCommand.CommandText = value;
     }
+
     /// <summary>
     /// Gets or sets the wait time before terminating the attempt to execute a command and generating an error.
     /// </summary>
     /// <value>The command timeout.</value>
-    public int CommandTimeout
-    {
-        get => this.dbCmd.CommandTimeout;
-        set => this.dbCmd.CommandTimeout = value;
+    public int CommandTimeout {
+        get => this.DbCommand.CommandTimeout;
+        set => this.DbCommand.CommandTimeout = value;
     }
+
     /// <summary>
     /// Indicates or specifies how the <see cref="P:System.Data.IDbCommand.CommandText" /> property is interpreted.
     /// </summary>
     /// <value>The type of the command.</value>
-    public CommandType CommandType
-    {
-        get => this.dbCmd.CommandType;
-        set => this.dbCmd.CommandType = value;
+    public CommandType CommandType {
+        get => this.DbCommand.CommandType;
+        set => this.DbCommand.CommandType = value;
     }
+
     /// <summary>
     /// Gets the <see cref="T:System.Data.IDataParameterCollection" />.
     /// </summary>
     /// <value>The parameters.</value>
-    public IDataParameterCollection Parameters => this.dbCmd.Parameters;
+    public IDataParameterCollection Parameters => this.DbCommand.Parameters;
 
     /// <summary>
     /// Gets or sets how command results are applied to the <see cref="T:System.Data.DataRow" /> when used by the <see cref="M:System.Data.IDataAdapter.Update(System.Data.DataSet)" /> method of a <see cref="T:System.Data.Common.DbDataAdapter" />.
     /// </summary>
     /// <value>The updated row source.</value>
-    public UpdateRowSource UpdatedRowSource
-    {
-        get => this.dbCmd.UpdatedRowSource;
-        set => this.dbCmd.UpdatedRowSource = value;
+    public UpdateRowSource UpdatedRowSource {
+        get => this.DbCommand.UpdatedRowSource;
+        set => this.DbCommand.UpdatedRowSource = value;
     }
 
     /// <summary>
     /// Gets the database command.
     /// </summary>
     /// <value>The database command.</value>
-    public IDbCommand DbCommand => this.dbCmd;
+    public IDbCommand DbCommand { get; }
 }

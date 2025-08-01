@@ -109,7 +109,7 @@ public class OrmLiteConnection
         this.dbConnection = connection;
         if (transaction != null)
         {
-            Transaction = transaction;
+            this.Transaction = transaction;
         }
     }
 
@@ -139,12 +139,12 @@ public class OrmLiteConnection
 
         try
         {
-            DialectProvider.OnDisposeConnection?.Invoke(this);
-            dbConnection?.Dispose();
+            this.DialectProvider.OnDisposeConnection?.Invoke(this);
+            this.dbConnection?.Dispose();
         }
         catch (Exception e)
         {
-            LogManager.GetLogger(GetType()).Error("Failed to Dispose()", e);
+            LogManager.GetLogger(this.GetType()).Error("Failed to Dispose()", e);
             Console.WriteLine(e);
         }
 
@@ -187,7 +187,7 @@ public class OrmLiteConnection
         Exception? e = null;
         try
         {
-            DialectProvider.OnDisposeConnection?.Invoke(this);
+            this.DialectProvider.OnDisposeConnection?.Invoke(this);
             this.dbConnection.Close();
         }
         catch (Exception ex)

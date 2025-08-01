@@ -44,9 +44,8 @@ public class AliasNamingStrategy : OrmLiteNamingStrategyBase
     /// <returns>System.String.</returns>
     public override string GetTableName(string name)
     {
-        string alias;
         return this.UseNamingStrategy != null
-                   ? this.UseNamingStrategy.GetTableName(this.TableAliases.TryGetValue(name, out alias) ? alias : name)
+                   ? this.UseNamingStrategy.GetTableName(this.TableAliases.TryGetValue(name, out var alias) ? alias : name)
                    : base.GetTableName(this.TableAliases.TryGetValue(name, out alias) ? alias : name);
     }
 
@@ -57,9 +56,8 @@ public class AliasNamingStrategy : OrmLiteNamingStrategyBase
     /// <returns>System.String.</returns>
     public override string GetColumnName(string name)
     {
-        string alias;
         return this.UseNamingStrategy != null
-                   ? this.UseNamingStrategy.GetColumnName(this.ColumnAliases.TryGetValue(name, out alias) ? alias : name)
+                   ? this.UseNamingStrategy.GetColumnName(this.ColumnAliases.TryGetValue(name, out var alias) ? alias : name)
                    : base.GetColumnName(this.ColumnAliases.TryGetValue(name, out alias) ? alias : name);
     }
 }

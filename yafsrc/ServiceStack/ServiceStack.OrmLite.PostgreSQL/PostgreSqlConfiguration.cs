@@ -15,9 +15,8 @@ public static class PostgreSqlConfiguration
 
     public static PostgreSqlDialectProvider UsePostgres(this OrmLiteConfigOptions config, string? connectionString, Action<PostgreSqlDialectProvider>? configure=null)
     {
-        if (connectionString == null)
-            throw new ArgumentNullException(nameof(connectionString));
-        
+        ArgumentNullException.ThrowIfNull(connectionString);
+
         var dialect = Configure(new PostgreSqlDialectProvider());
         configure?.Invoke(dialect);
         config.Init(connectionString, dialect);
@@ -27,9 +26,8 @@ public static class PostgreSqlConfiguration
     public static OrmLiteConfigurationBuilder AddPostgres(this OrmLiteConfigurationBuilder builder, 
         string namedConnection, string? connectionString, Action<PostgreSqlDialectProvider>? configure=null)
     {
-        if (connectionString == null)
-            throw new ArgumentNullException(nameof(connectionString));
-        
+        ArgumentNullException.ThrowIfNull(connectionString);
+
         var dialect = Configure(new PostgreSqlDialectProvider());
         configure?.Invoke(dialect);
         builder.DbFactory.RegisterConnection(namedConnection, connectionString, dialect);

@@ -57,7 +57,7 @@ public class ForeignKeyConstraint
     /// Gets the name of the foreign key.
     /// </summary>
     /// <value>The name of the foreign key.</value>
-    public string ForeignKeyName { get; private set; }
+    public string ForeignKeyName { get; }
 
     /// <summary>
     /// Gets the name of the foreign key.

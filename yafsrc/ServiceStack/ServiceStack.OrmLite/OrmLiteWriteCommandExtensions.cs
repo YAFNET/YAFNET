@@ -571,10 +571,7 @@ public static class OrmLiteWriteCommandExtensions
     {
         if (!OrmLiteConfig.DeoptimizeReader)
         {
-            if (values == null)
-            {
-                values = new object[reader.FieldCount];
-            }
+            values ??= new object[reader.FieldCount];
 
             try
             {
@@ -700,10 +697,7 @@ public static class OrmLiteWriteCommandExtensions
         var count = 0;
         try
         {
-            if (dbCmd.Transaction == null)
-            {
-                dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
-            }
+            dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
 
             var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -865,10 +859,7 @@ public static class OrmLiteWriteCommandExtensions
         var count = 0;
         try
         {
-            if (dbCmd.Transaction == null)
-            {
-                dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
-            }
+            dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
 
             var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -1374,10 +1365,7 @@ public static class OrmLiteWriteCommandExtensions
 
         try
         {
-            if (dbCmd.Transaction == null)
-            {
-                dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
-            }
+            dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
 
             var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -1422,10 +1410,7 @@ public static class OrmLiteWriteCommandExtensions
 
         try
         {
-            if (dbCmd.Transaction == null)
-            {
-                dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
-            }
+            dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
 
             var dialectProvider = dbCmd.GetDialectProvider();
 

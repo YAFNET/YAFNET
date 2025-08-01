@@ -47,8 +47,7 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     /// <value>The database connection.</value>
     public IDbConnection Db => this.db;
 
-    private object? writeLock = null;
-    public object? WriteLock => this.writeLock;
+    public object? WriteLock { get; } = null;
 
     /// <summary>
     /// Creates the specified database.
@@ -77,7 +76,7 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     {
         this.db = db;
         this.Transaction = transaction;
-        this.writeLock = db.GetWriteLock();
+        this.WriteLock = db.GetWriteLock();
 
         //If OrmLite managed connection assign to connection, otherwise use OrmLiteContext
         if (this.db is ISetDbTransaction ormLiteConn)
@@ -97,9 +96,9 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     {
         try
         {
-            if (this.writeLock != null)
+            if (this.WriteLock != null)
             {
-                lock (this.writeLock)
+                lock (this.WriteLock)
                 {
                     this.Transaction.Dispose();
                 }
@@ -133,9 +132,9 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
 
         try
         {
-            if (this.writeLock != null)
+            if (this.WriteLock != null)
             {
-                lock (this.writeLock)
+                lock (this.WriteLock)
                 {
                     this.Transaction.Commit();
                 }
@@ -174,9 +173,9 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
 
         try
         {
-            if (this.writeLock != null)
+            if (this.WriteLock != null)
             {
-                lock (this.writeLock)
+                lock (this.WriteLock)
                 {
                     this.Transaction.Rollback();
                 }

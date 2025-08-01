@@ -1299,8 +1299,8 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     public virtual SqlExpression<T> WhereExists(ISqlExpression subSelect)
     {
         var sql = subSelect.ToSelectStatement(QueryType.Select);
-        var mergedSql = DialectProvider.MergeParamsIntoSql(sql, subSelect.Params);
-        return AppendToWhere("AND", FormatFilter($"EXISTS ({mergedSql})"));
+        var mergedSql = this.DialectProvider.MergeParamsIntoSql(sql, subSelect.Params);
+        return this.AppendToWhere("AND", this.FormatFilter($"EXISTS ({mergedSql})"));
     }
 
     /// <summary>
@@ -1311,8 +1311,8 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     public virtual SqlExpression<T> WhereNotExists(ISqlExpression subSelect)
     {
         var sql = subSelect.ToSelectStatement(QueryType.Select);
-        var mergedSql = DialectProvider.MergeParamsIntoSql(sql, subSelect.Params);
-        return AppendToWhere("AND", FormatFilter($"NOT EXISTS ({mergedSql})"));
+        var mergedSql = this.DialectProvider.MergeParamsIntoSql(sql, subSelect.Params);
+        return this.AppendToWhere("AND", this.FormatFilter($"NOT EXISTS ({mergedSql})"));
     }
 
     /// <summary>
@@ -3110,7 +3110,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             case ExpressionType.Call:
                 return this.VisitMethodCall(exp as MethodCallExpression);
             case ExpressionType.Invoke:
-                return VisitInvocation(exp as InvocationExpression);
+                return this.VisitInvocation(exp as InvocationExpression);
             case ExpressionType.New:
                 return this.VisitNew(exp as NewExpression);
             case ExpressionType.NewArrayInit:
@@ -3393,7 +3393,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
         return operand switch
         {
-            "MOD" or "COALESCE" => new PartialSqlString(GetCoalesceExpression(b, left.ToString(), right.ToString())),
+            "MOD" or "COALESCE" => new PartialSqlString(this.GetCoalesceExpression(b, left.ToString(), right.ToString())),
             _ => new PartialSqlString("(" + left + separator + operand + separator + right + ")")
         };
     }
@@ -4270,7 +4270,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>System.Object.</returns>
     protected virtual object VisitInvocation(InvocationExpression m)
     {
-        return EvaluateExpression(m);
+        return this.EvaluateExpression(m);
     }
 
     /// <summary>
@@ -4489,7 +4489,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     protected virtual string GetQuotedColumnName(ModelDefinition tableDef, string memberName)
     {
         // Always call if no tableAlias to exec overrides
-        return this.GetQuotedColumnName(tableDef, tableDef == modelDef ? TableAlias : null, memberName);
+        return this.GetQuotedColumnName(tableDef, tableDef == this.modelDef ? this.TableAlias : null, memberName);
     }
 
     /// <summary>
@@ -5358,7 +5358,7 @@ public class EnumMemberAccess : PartialSqlString
     /// Gets the type of the enum.
     /// </summary>
     /// <value>The type of the enum.</value>
-    public Type EnumType { get; private set; }
+    public Type EnumType { get; }
 }
 
 /// <summary>
@@ -5470,7 +5470,7 @@ public class SelectItemColumn : SelectItem
             : base(dialectProvider, null)
     {
         this.fieldDef = fieldDef;
-        QuotedTableAlias = quotedTableAlias;
+        this.QuotedTableAlias = quotedTableAlias;
     }
 
     /// <summary>
@@ -5511,9 +5511,9 @@ public class SelectItemColumn : SelectItem
     /// <returns>string.</returns>
     public override string ToString()
     {
-        var text = fieldDef != null
-            ? DialectProvider.GetQuotedColumnName(fieldDef)
-            : DialectProvider.GetQuotedColumnName(ColumnName);
+        var text = this.fieldDef != null
+            ? this.DialectProvider.GetQuotedColumnName(this.fieldDef)
+            : this.DialectProvider.GetQuotedColumnName(this.ColumnName);
 
         if (!string.IsNullOrEmpty(this.QuotedTableAlias))
         {

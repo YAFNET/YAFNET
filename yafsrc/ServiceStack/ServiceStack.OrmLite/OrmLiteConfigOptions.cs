@@ -22,12 +22,12 @@ public class OrmLiteConfigOptions
     
     public void Init(string connectionString, IOrmLiteDialectProvider dialectProvider)
     {
-        if (DbFactory != null)
+        if (this.DbFactory != null)
         {
             throw new InvalidOperationException("DbFactory is already set");
         }
 
-        DbFactory = new OrmLiteConnectionFactory(connectionString, dialectProvider);
+        this.DbFactory = new OrmLiteConnectionFactory(connectionString, dialectProvider);
     }
 }
 
@@ -37,7 +37,7 @@ public class OrmLiteConfigurationBuilder(IDbConnectionFactory dbFactory)
     
     public OrmLiteConfigurationBuilder AddConnection(string name, string? connectionString, IOrmLiteDialectProvider? dialectProvider = null)
     {
-        DbFactory.RegisterConnection(name, connectionString, dialectProvider ?? OrmLiteConfig.DialectProvider);
+        this.DbFactory.RegisterConnection(name, connectionString, dialectProvider ?? OrmLiteConfig.DialectProvider);
         return this;
     }
 }

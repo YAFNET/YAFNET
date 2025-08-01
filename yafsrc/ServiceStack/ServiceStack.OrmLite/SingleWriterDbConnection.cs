@@ -20,7 +20,7 @@ public class SingleWriterDbConnection : DbConnection, IHasWriteLock
     public OrmLiteConnectionFactory? Factory { get; }
     public object WriteLock { get; }
 
-    public DbConnection Db => db ??= (DbConnection)ConnectionString.ToDbConnection(Factory!.DialectProvider);
+    public DbConnection Db => this.db ??= (DbConnection)this.ConnectionString.ToDbConnection(this.Factory!.DialectProvider);
 
     public SingleWriterDbConnection(DbConnection db, object writeLock)
     {
@@ -31,7 +31,7 @@ public class SingleWriterDbConnection : DbConnection, IHasWriteLock
 
     public SingleWriterDbConnection(OrmLiteConnectionFactory factory, object writeLock)
     {
-        Factory = factory;
+        this.Factory = factory;
         this.WriteLock = writeLock;
         this.connectionString = factory.ConnectionString;
     }
@@ -40,25 +40,27 @@ public class SingleWriterDbConnection : DbConnection, IHasWriteLock
 
     override protected DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
     {
-        Transaction = Db.BeginTransaction(isolationLevel);
-        return new SingleWriterTransaction(this, Transaction, isolationLevel);
+        this.Transaction = this.Db.BeginTransaction(isolationLevel);
+        return new SingleWriterTransaction(this, this.Transaction, isolationLevel);
     }
 
     public override void Close()
     {
-        Db.Close();
+        this.Db.Close();
     }
 
     public override void ChangeDatabase(string databaseName)
     {
-        Db.ChangeDatabase(databaseName);
+        this.Db.ChangeDatabase(databaseName);
     }
 
     public override void Open()
     {
-        var dbConn = Db;
+        var dbConn = this.Db;
         if (dbConn.State == ConnectionState.Broken)
+        {
             dbConn.Close();
+        }
 
         if (dbConn.State == ConnectionState.Closed)
         {
@@ -67,13 +69,15 @@ public class SingleWriterDbConnection : DbConnection, IHasWriteLock
             try
             {
                 dbConn.Open();
-                if (Factory != null)
+                if (this.Factory != null)
                 {
                     //so the internal connection is wrapped for example by miniprofiler
-                    if (Factory.ConnectionFilter != null)
-                        dbConn = (DbConnection)Factory.ConnectionFilter(dbConn);
+                    if (this.Factory.ConnectionFilter != null)
+                    {
+                        dbConn = (DbConnection)this.Factory.ConnectionFilter(dbConn);
+                    }
 
-                    Factory.DialectProvider.InitConnection(this);
+                    this.Factory.DialectProvider.InitConnection(this);
                 }
             }
             catch (Exception ex)
@@ -84,37 +88,41 @@ public class SingleWriterDbConnection : DbConnection, IHasWriteLock
             finally
             {
                 if (e != null)
+                {
                     Diagnostics.OrmLite.WriteConnectionOpenError(id, dbConn, e);
+                }
                 else
+                {
                     Diagnostics.OrmLite.WriteConnectionOpenAfter(id, dbConn);
+                }
             }
         }
     }
 
     private string connectionString;
     public override string ConnectionString {
-        get => connectionString;
-        set => connectionString = value;
+        get => this.connectionString;
+        set => this.connectionString = value;
     }
 
-    public override string Database => Db.Database;
-    public override ConnectionState State => Db.State;
-    public override string? DataSource => Db.DataSource;
-    public override string? ServerVersion => Db.ServerVersion;
+    public override string Database => this.Db.Database;
+    public override ConnectionState State => this.Db.State;
+    public override string? DataSource => this.Db.DataSource;
+    public override string? ServerVersion => this.Db.ServerVersion;
 
     override protected DbCommand CreateDbCommand()
     {
-        var dbCmd = Db.CreateCommand();
-        return new SingleWriterDbCommand(this, dbCmd, WriteLock);
+        var dbCmd = this.Db.CreateCommand();
+        return new SingleWriterDbCommand(this, dbCmd, this.WriteLock);
     }
 
     override protected void Dispose(bool disposing)
     {
         if (disposing)
         {
-            db?.Close();
-            db?.Dispose();
-            db = null;
+            this.db?.Close();
+            this.db?.Dispose();
+            this.db = null;
         }
         base.Dispose(disposing);
     }
@@ -122,7 +130,7 @@ public class SingleWriterDbConnection : DbConnection, IHasWriteLock
 
 public class SingleWriterDbCommand(SingleWriterDbConnection db, DbCommand cmd, object writeLock) : DbCommand
 {
-    SingleWriterDbConnection Db = db;
+    private readonly SingleWriterDbConnection Db = db;
 
     public override void Prepare()
     {
@@ -157,8 +165,8 @@ public class SingleWriterDbCommand(SingleWriterDbConnection db, DbCommand cmd, o
     override protected DbParameterCollection DbParameterCollection => cmd.Parameters;
 
     override protected DbTransaction? DbTransaction {
-        get => Db.Transaction;
-        set => Db.Transaction = value;
+        get => this.Db.Transaction;
+        set => this.Db.Transaction = value;
     }
 
     public override bool DesignTimeVisible {
@@ -206,12 +214,16 @@ public class SingleWriterDbCommand(SingleWriterDbConnection db, DbCommand cmd, o
 
 public static class SingleWriterExtensions
 {
-    public static DbConnection WithWriteLock(this IDbConnection db, object writeLock) => db switch
+    public static DbConnection WithWriteLock(this IDbConnection db, object writeLock)
     {
-        SingleWriterDbConnection writeLockConn => writeLockConn,
-        OrmLiteConnection ormConn => new SingleWriterDbConnection((DbConnection)ormConn.ToDbConnection(), writeLock),
-        _ => new SingleWriterDbConnection((DbConnection)db, writeLock)
-    };
+        return db switch
+        {
+            SingleWriterDbConnection writeLockConn => writeLockConn,
+            OrmLiteConnection ormConn =>
+                new SingleWriterDbConnection((DbConnection)ormConn.ToDbConnection(), writeLock),
+            _ => new SingleWriterDbConnection((DbConnection)db, writeLock)
+        };
+    }
 
     /// <summary>
     /// Open a DB connection with a SingleWriter Lock 
@@ -252,12 +264,12 @@ public class SingleWriterTransaction(SingleWriterDbConnection dbConnection, DbTr
 
     public override void Commit()
     {
-        Transaction.Commit();
+        this.Transaction.Commit();
     }
 
     public override void Rollback()
     {
-        Transaction.Rollback();
+        this.Transaction.Rollback();
     }
 
     override protected void Dispose(bool disposing)

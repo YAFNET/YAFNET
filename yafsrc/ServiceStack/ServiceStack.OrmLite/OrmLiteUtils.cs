@@ -905,10 +905,7 @@ public static class OrmLiteUtils
     public static string SqlInParams<T>(this T[] values, IOrmLiteDialectProvider dialect = null)
     {
         var sb = StringBuilderCache.Allocate();
-        if (dialect == null)
-        {
-            dialect = OrmLiteConfig.DialectProvider;
-        }
+        dialect ??= OrmLiteConfig.DialectProvider;
 
         for (var i = 0; i < values.Length; i++)
         {

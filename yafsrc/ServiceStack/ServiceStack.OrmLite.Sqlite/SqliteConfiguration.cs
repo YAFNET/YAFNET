@@ -19,9 +19,8 @@ public static class SqliteConfiguration
 
     public static SqliteOrmLiteDialectProviderBase UseSqlite(this OrmLiteConfigOptions config, string? connectionString, Action<SqliteOrmLiteDialectProviderBase>? configure=null)
     {
-        if (connectionString == null)
-            throw new ArgumentNullException(nameof(connectionString));
-        
+        ArgumentNullException.ThrowIfNull(connectionString);
+
         var dialect = Configure(SqliteDialect.Create());
         configure?.Invoke(dialect);
         config.Init(connectionString, dialect);
@@ -31,9 +30,8 @@ public static class SqliteConfiguration
     public static OrmLiteConfigurationBuilder AddSqlite(this OrmLiteConfigurationBuilder builder, 
         string namedConnection, string? connectionString, Action<SqliteOrmLiteDialectProviderBase>? configure=null)
     {
-        if (connectionString == null)
-            throw new ArgumentNullException(nameof(connectionString));
-        
+        ArgumentNullException.ThrowIfNull(connectionString);
+
         var dialect = Configure(SqliteDialect.Create());
         configure?.Invoke(dialect);
         builder.DbFactory.RegisterConnection(namedConnection, connectionString, dialect);

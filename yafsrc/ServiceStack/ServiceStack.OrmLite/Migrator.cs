@@ -576,19 +576,19 @@ public class Migrator
     /// <returns>ServiceStack.AppTaskResult.</returns>
     public AppTaskResult Rerun(string? migrationName)
     {
-        Revert(migrationName, throwIfError: true);
+        this.Revert(migrationName, throwIfError: true);
         if (migrationName is Last or All)
         {
-            return Run(throwIfError: true);
+            return this.Run(throwIfError: true);
         }
 
-        var migrationType = MigrationTypes.FirstOrDefault(x => x.Name == migrationName);
+        var migrationType = this.MigrationTypes.FirstOrDefault(x => x.Name == migrationName);
         if (migrationType == null)
         {
             throw new InfoException($"Could not find Migration '{migrationName}' to rerun, aborting.");
         }
 
-        var migration = Run(DbFactory, migrationType, x => x.Up());
+        var migration = Run(this.DbFactory, migrationType, x => x.Up());
         return new AppTaskResult([migration]);
     }
 

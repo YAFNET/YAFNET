@@ -8,7 +8,6 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace ServiceStack;
 
@@ -29,16 +28,16 @@ public static class Workers
 /// </summary>
 public static class Locks
 {
-    public readonly static Lock AppDb = new();
-    public readonly static Lock JobsDb = new();
+    public readonly static object AppDb = new();
+    public readonly static object JobsDb = new();
 
-    public static Dictionary<string, Lock> Workers { get; } = new()
+    public static Dictionary<string, object> Workers { get; } = new()
     {
         [ServiceStack.Workers.AppDb] = AppDb,
         [ServiceStack.Workers.JobsDb] = JobsDb
     };
 
-    public static Dictionary<string, Lock> NamedConnections { get; } = new();
+    public static Dictionary<string, object> NamedConnections { get; } = new();
 
     public static void AddLock(string name)
     {
@@ -46,17 +45,17 @@ public static class Locks
         {
             ServiceStack.Workers.AppDb => AppDb,
             ServiceStack.Workers.JobsDb => JobsDb,
-            _ => new Lock()
+            _ => new object()
         };
     }
 
-    public static Lock? TryGetLock(string worker)
+    public static object? TryGetLock(string worker)
     {
         return Workers.GetValueOrDefault(worker);
 
     }
 
-    public static Lock GetDbLock(string? namedConnection = null)
+    public static object GetDbLock(string? namedConnection = null)
     {
         return namedConnection != null
             ? NamedConnections.TryGetValue(namedConnection, out var oLock)

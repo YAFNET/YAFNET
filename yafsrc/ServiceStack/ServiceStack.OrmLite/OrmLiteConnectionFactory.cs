@@ -120,8 +120,8 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// Gets the orm lite connection.
     /// </summary>
     /// <value>The orm lite connection.</value>
-    private OrmLiteConnection OrmLiteConnection => ormLiteConnection ??= DialectProvider != null
-        ? DialectProvider.CreateOrmLiteConnection(this)
+    private OrmLiteConnection OrmLiteConnection => this.ormLiteConnection ??= this.DialectProvider != null
+        ? this.DialectProvider.CreateOrmLiteConnection(this)
         : new OrmLiteConnection(this);
 
     /// <summary>
@@ -137,7 +137,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
         }
 
         var connection = this.AutoDisposeConnection
-                             ? DialectProvider.CreateOrmLiteConnection(this)
+                             ? this.DialectProvider.CreateOrmLiteConnection(this)
                              : this.OrmLiteConnection;
 
         return connection;
@@ -206,7 +206,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     }
     public virtual IDbConnection OpenDbConnection(Action<IDbConnection> configure)
     {
-        var connection = CreateDbConnection();
+        var connection = this.CreateDbConnection();
         configure(connection);
         connection.Open();
         return connection;
@@ -232,7 +232,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
 
     public async virtual Task<IDbConnection> OpenDbConnectionAsync(Action<IDbConnection> configure, CancellationToken token = default)
     {
-        var connection = CreateDbConnection();
+        var connection = this.CreateDbConnection();
         configure(connection);
         if (connection is OrmLiteConnection ormliteConn)
         {
@@ -240,7 +240,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
             return connection;
         }
 
-        await DialectProvider.OpenAsync(connection, token).ConfigAwait();
+        await this.DialectProvider.OpenAsync(connection, token).ConfigAwait();
         return connection;
     }
 
@@ -272,7 +272,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
             return connection;
         }
 
-        await DialectProvider.OpenAsync(connection, token).ConfigAwait();
+        await this.DialectProvider.OpenAsync(connection, token).ConfigAwait();
         return connection;
     }
 
@@ -287,7 +287,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     {
         ArgumentNullException.ThrowIfNull(connectionString);
 
-        var connection = DialectProvider.CreateOrmLiteConnection(this);
+        var connection = this.DialectProvider.CreateOrmLiteConnection(this);
         connection.ConnectionString = connectionString;
 
         connection.Open();
@@ -297,10 +297,9 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
 
     public virtual IDbConnection OpenDbConnectionString(string connectionString, Action<IDbConnection> configure)
     {
-        if (connectionString == null)
-            throw new ArgumentNullException(nameof(connectionString));
+        ArgumentNullException.ThrowIfNull(connectionString);
 
-        var connection = DialectProvider.CreateOrmLiteConnection(this);
+        var connection = this.DialectProvider.CreateOrmLiteConnection(this);
         connection.ConnectionString = connectionString;
         configure(connection);
 
@@ -319,7 +318,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     {
         ArgumentNullException.ThrowIfNull(connectionString);
 
-        var connection = DialectProvider.CreateOrmLiteConnection(this);
+        var connection = this.DialectProvider.CreateOrmLiteConnection(this);
         connection.ConnectionString = connectionString;
 
         await connection.OpenAsync(token).ConfigAwait();
@@ -329,10 +328,9 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
 
     public async virtual Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, Action<IDbConnection> configure, CancellationToken token = default)
     {
-        if (connectionString == null)
-            throw new ArgumentNullException(nameof(connectionString));
+        ArgumentNullException.ThrowIfNull(connectionString);
 
-        var connection = DialectProvider.CreateOrmLiteConnection(this);
+        var connection = this.DialectProvider.CreateOrmLiteConnection(this);
         connection.ConnectionString = connectionString;
         configure(connection);
 
@@ -367,27 +365,29 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
 
     public virtual IDbConnection OpenDbConnectionString(string connectionString, string providerName, Action<IDbConnection> configure)
     {
-        if (connectionString == null)
-            throw new ArgumentNullException(nameof(connectionString));
-        if (providerName == null)
-            throw new ArgumentNullException(nameof(providerName));
+        ArgumentNullException.ThrowIfNull(connectionString);
+
+        ArgumentNullException.ThrowIfNull(providerName);
 
         if (!DialectProviders.TryGetValue(providerName, out var dialectProvider))
+        {
             throw new ArgumentException($"{providerName} is not a registered DialectProvider");
+        }
 
         var dbFactory = new OrmLiteConnectionFactory(connectionString, dialectProvider, setGlobalDialectProvider: false);
         return dbFactory.OpenDbConnection(configure);
     }
 
-    public virtual async Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, string providerName, Action<IDbConnection> configure, CancellationToken token = default)
+    public async virtual Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, string providerName, Action<IDbConnection> configure, CancellationToken token = default)
     {
-        if (connectionString == null)
-            throw new ArgumentNullException(nameof(connectionString));
-        if (providerName == null)
-            throw new ArgumentNullException(nameof(providerName));
+        ArgumentNullException.ThrowIfNull(connectionString);
+
+        ArgumentNullException.ThrowIfNull(providerName);
 
         if (!DialectProviders.TryGetValue(providerName, out var dialectProvider))
+        {
             throw new ArgumentException($"{providerName} is not a registered DialectProvider");
+        }
 
         var dbFactory = new OrmLiteConnectionFactory(connectionString, dialectProvider, setGlobalDialectProvider: false);
 

@@ -1231,14 +1231,8 @@ namespace ServiceStack.OrmLite.SqlServer
                 }
             }
 
-            foreach (var fieldDef in modelDef.AutoIdFields)
+            foreach (var fieldDef in modelDef.AutoIdFields.Where(fieldDef => !fieldDefs.Contains(fieldDef)))
             {
-                // need to include any AutoId fields that weren't included
-                if (fieldDefs.Contains(fieldDef))
-                {
-                    continue;
-                }
-
                 if (sbReturningColumns.Length > 0)
                 {
                     sbReturningColumns.Append(',');

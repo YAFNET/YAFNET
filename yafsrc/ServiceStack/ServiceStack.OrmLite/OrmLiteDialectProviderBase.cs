@@ -133,7 +133,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// Use JSON for serializing Complex Types
     /// </summary>
     public virtual bool UseJson {
-        set => StringSerializer = value ? new JsonStringSerializer() : new JsvStringSerializer();
+        set => this.StringSerializer = value ? new JsonStringSerializer() : new JsvStringSerializer();
     }
 
     /// <summary>
