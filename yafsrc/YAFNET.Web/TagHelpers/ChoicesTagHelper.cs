@@ -31,7 +31,7 @@ public class ChoicesTagHelper : TagHelper
     private const string ItemsAttributeName = "asp-list";
 
     /// <summary>
-    /// The place holder attribute name
+    /// The placeholder attribute name
     /// </summary>
     private const string PlaceHolderAttributeName = "placeholder";
 

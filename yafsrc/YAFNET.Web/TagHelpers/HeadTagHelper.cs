@@ -25,7 +25,7 @@
 namespace YAF.Web.TagHelpers;
 
 /// <summary>
-/// The body direction helper.
+/// Helper to inject inline styles in to the head tag
 /// </summary>
 [HtmlTargetElement("head")]
 public class HeadTagHelper : TagHelper, IHaveServiceLocator

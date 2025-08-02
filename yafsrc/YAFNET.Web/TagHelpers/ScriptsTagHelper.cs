@@ -25,10 +25,10 @@
 namespace YAF.Web.TagHelpers;
 
 /// <summary>
-/// The body direction helper.
+/// Helper to inject the inline scripts in to the body tag
 /// </summary>
 [HtmlTargetElement("body")]
-public class HtmlTagHelper : TagHelper, IHaveServiceLocator
+public class ScriptsTagHelper : TagHelper, IHaveServiceLocator
 {
     /// <summary>
     ///   Gets or sets ServiceLocator.
