@@ -22,35 +22,60 @@
  * under the License.
  */
 
-using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using YAF.Core.Context;
 using YAF.Core.Extensions;
 
-namespace YAF;
+var builder = WebApplication.CreateBuilder(args);
 
-/// <summary>
-/// Class Program.
-/// </summary>
-public static class Program
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+builder.Host.ConfigureYafLogging();
+
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
-    /// <summary>
-    /// Defines the entry point of the application.
-    /// </summary>
-    /// <param name="args">
-    /// The arguments.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
-    public static Task Main(string[] args)
-    {
-        var host = Host.CreateDefaultBuilder(args).UseAutofacServiceProviderFactory()
-            .ConfigureYafLogging()
-            .ConfigureWebHostDefaults(webHostBuilder => webHostBuilder.UseStartup<Startup>()).Build();
+    containerBuilder.RegisterYafModules();
+});
 
-        return host.RunAsync();
-    }
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AddPageRoute("/SiteMap", "Sitemap.xml");
+});
+
+builder.Services.AddYafCore(builder.Configuration);
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
 }
+else
+{
+    app.UseExceptionHandler("/Error");
+
+    app.UseHsts();
+}
+
+app.RegisterAutofac();
+
+app.UseYafCore(BoardContext.Current.ServiceLocator, app.Environment);
+
+app.UseRobotsTxt(app.Environment);
+
+app.MapRazorPages();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllers();
+
+app.MapYafHubs();
+
+await app.RunAsync();
