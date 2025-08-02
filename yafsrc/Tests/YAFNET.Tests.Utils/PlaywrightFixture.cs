@@ -24,6 +24,8 @@
 
 using System.Diagnostics.CodeAnalysis;
 
+using YAF.ViewComponents;
+
 namespace YAF.Tests.Utils;
 
 using System;
@@ -76,7 +78,7 @@ public class PlaywrightFixture
 
         // Create the host factory with the App class as parameter and the
         // url we are going to use.
-        var hostFactory = new WebTestingHostFactory<Startup>();
+        var hostFactory = new WebTestingHostFactory<CultureSwitcherViewComponent>();
 
         hostFactory
             // Override host configuration to mock stuff if required.
