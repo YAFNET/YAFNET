@@ -53,67 +53,59 @@
 ## Getting Started
 
 ### Program.cs
-In the `Program.cs` add `UseAutofacServiceProviderFactory` and `ConfigureYafLogging` to the `IHostBuilder`.
+In the `Program.cs` add the following.
 
 ``` csharp
- var host = Host.CreateDefaultBuilder(args).UseAutofacServiceProviderFactory()
-     .ConfigureYafLogging()
-     .ConfigureWebHostDefaults(webHostBuilder => webHostBuilder.UseStartup<Startup>()).Build();
+ var builder = WebApplication.CreateBuilder(args);
 
- return host.RunAsync();
-```
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
-### Startup.cs
-You add the YAF.NET services and the YAF.NET UI in the Startup.cs of your application.
+builder.Host.ConfigureYafLogging();
 
-``` csharp
-public void ConfigureServices(IServiceCollection services)
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
-    ...
-	services.AddRazorPages(options =>
-    {
-      options.Conventions.AddPageRoute("/SiteMap", "Sitemap.xml");
-    }).AddYafRazorPages(this.Environment);
-	
-    services.AddYafCore(this.Configuration);
-    ...
-}
+    containerBuilder.RegisterYafModules();
+});
 
-/// <summary>
-/// Configures the container.
-/// </summary>
-/// <param name="builder">The builder.</param>
-public void ConfigureContainer(ContainerBuilder builder)
+builder.Services.AddRazorPages(options =>
 {
-    builder.RegisterYafModules();
-}
+    options.Conventions.AddAreaPageRoute("Forums", "/SiteMap", "/Sitemap.xml");
+}).AddYafRazorPages(builder.Environment);
 
-public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-{
+builder.Services.AddYafCore(builder.Configuration);
 
-    app.RegisterAutofac();
+// only needed for blazor
+builder.Services.AddServerSideBlazor();
 
-    app.UseAntiXssMiddleware();
+var app = builder.Build();
 
-    app.UseStaticFiles();
+....
 
-    app.UseSession();
+app.RegisterAutofac();
 
-    app.UseYafCore(this.ServiceLocator, env);
+app.UseAntiXssMiddleware();
 
-    app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapRazorPages();
-        endpoints.MapAreaControllerRoute(
-            name: "default", 
-            areaName:"Forums",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
-        endpoints.MapControllers();
+app.UseStaticFiles();
 
-        endpoints.MapYafHubs();
-    });
-    ...
-}
+app.UseSession();
+
+app.UseYafCore(BoardContext.Current.ServiceLocator, app.Environment);
+
+app.UseRobotsTxt(app.Environment);
+
+app.MapRazorPages();
+
+app.MapAreaControllerRoute(
+    name: "default",
+    areaName: "Forums",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllers();
+
+app.MapHub<NotificationHub>("/NotificationHub");
+app.MapHub<ChatHub>("/ChatHub");
+
+await app.RunAsync();
 ```
 
 Now the Forum is ready and you can add a link to your `_Layout.cshtml`

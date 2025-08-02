@@ -14,26 +14,21 @@ Chat UI for [YAF.NET](https://yetanotherforum.net)
 > dotnet add package YAFNET.YAFNET.UI.Chat
 ```
 
-2. Add the `ChatHub` to the `Startup.cs`
+2. Add the `ChatHub` to the `Program.cs`
 ``` csharp
- app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapRazorPages();
+app.MapRazorPages();
 
-            endpoints.MapAreaControllerRoute(
-                name: "default",
-                areaName:"Forums",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapAreaControllerRoute(
+    name: "default",
+    areaName: "Forums",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            endpoints.MapControllers();
+app.MapControllers();
 
-            // other YAF Hubs
-            endpoints.MapHub<NotificationHub>("/NotificationHub");
-            endpoints.MapHub<ChatHub>("/ChatHub");
+app.MapHub<NotificationHub>("/NotificationHub");
+app.MapHub<ChatHub>("/ChatHub");
 
-            // YAF Chat Hub
-            endpoints.MapHub<AllChatHub>("/AllChatHub");
-        });
+app.MapHub<AllChatHub>("/AllChatHub");
 ```
 
 ## Community Support Forum
