@@ -44,7 +44,7 @@
 </head>
 <body id="YafBody">
     <a title="@Html.Raw(Current.Get<ILocalization>().GetText("TOOLBAR", "FORUM_TITLE"))" asp-page="@ForumPages.Index.GetPageName()">
-    <img alt="board logo" src="@Html.Raw($"/{Current.Get<BoardFolders>().Logos}/{Current.BoardSettings.ForumLogo}")" class="my-3" />
+    <img alt="board logo" src="@Html.Raw($"/{Current.Get<BoardFolders>().Logos}/{Current.BoardSettings.ForumLogo}")" class="my-3" loading="lazy"  />
 </a>
 <div class="yafnet">
     <div class="page-@ViewBag.PageName">

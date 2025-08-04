@@ -1,6 +1,8 @@
 ﻿import * as Utilities from '../forum/utilities';
 import { Modal } from 'bootstrap';
 
+const _global = (window /* browser */ || global /* node */) as any;
+
 function setSearchPageNumber(pageSize: number, pageNumber: number, total: number): void {
 		const pages = Math.ceil(total / pageSize),
 			pagerHolderTop = document.getElementById('SearchResultsPagerTop') as HTMLDivElement,
@@ -296,6 +298,11 @@ function getSearchResultsData(pageNumber: number): void {
 					});
 
 					setSearchPageNumber(pageSize, pageNumber, data.totalRecords);
+
+					// Gallery
+					document.querySelectorAll<HTMLElement>('[data-toggle="lightbox"]').forEach(element => {
+						element.addEventListener('click', _global.bootstrap.Lightbox.initialize);
+					});
 				}
 			}).catch((error: any) => {
 				console.log(error);

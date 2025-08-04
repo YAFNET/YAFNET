@@ -46,11 +46,12 @@
             {
                 <div class="col">
                     <div class="card mb-4 shadow-sm">
-                        <a href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Album, new { u = album.UserID, a = album.ID }))"
-                           target="_parent" title="@Html.HtmlEncode(album.Title)" bs-toggle="tooltip">
-                            <img title="@Html.HtmlEncode(album.Title)" alt="@Html.Raw(album.ID)" class="card-img-top"
-                                 src='@Html.Raw(Model.Get<IUrlHelper>().Action("GetAlbumCover", "Albums" , new { albumId=album.ID, coverId=album.CoverImageID ?? 0 }))' />
-                        </a>
+	                    <a href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Album, new { u = album.UserID, a = album.ID }))"
+	                       target="_parent" title="@Html.HtmlEncode(album.Title)" bs-toggle="tooltip">
+		                    <img title="@Html.HtmlEncode(album.Title)" alt="@Html.Raw(album.ID)" class="card-img-top"
+		                         src='@Html.Raw(Model.Get<IUrlHelper>().Action("GetAlbumCover", "Albums" , new { albumId=album.ID, coverId=album.CoverImageID ?? 0 }))' />
+                            
+	                    </a>
                         <div class="card-body">
                             <p class="card-text">
                                 @if (Model.AlbumUser.ID != Model.PageBoardContext.PageUserID)
