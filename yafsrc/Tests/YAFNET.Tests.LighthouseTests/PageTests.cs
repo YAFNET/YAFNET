@@ -25,46 +25,40 @@
 using LighthousePlaywright.Net;
 using LighthousePlaywright.Net.Objects;
 
-namespace YAF.Tests.AdminTests;
+namespace YAF.Tests.LighthouseTests;
 
 /// <summary>
 /// The pages test
 /// </summary>
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
-public class PageTests : TestBase
+public class PageTests : Setup
 {
     /// <summary>
     /// Basic test to check if all admin pages load without error
     /// </summary>
     [Test]
-    public Task PagePerformanceTest()
+    public async Task PagePerformanceTest()
     {
-        return this.Base.PlaywrightFixture.GotoPageAsync(
-            this.Base.TestSettings.TestForumUrl,
-            async _ =>
+        var lh = new Lighthouse(new Options
+        {
+            Reports = new Reports
             {
-                var lh = new Lighthouse(new Options
+                Formats = new Formats
                 {
-                    Reports = new Reports
-                    {
-                        Formats = new Formats
-                        {
-                            Html = true
-                        }
-                    }
-                });
+                    Html = true
+                }
+            }
+        });
 
-                var res = await lh.RunAsync($"{this.Base.TestSettings.TestForumUrl}");
+        var res = await lh.RunAsync($"{this.TestSettings.TestForumUrl}");
 
-                Assert.That(res.Accessibility > 0.9m, Is.True, $"Value was: {res.Accessibility}");
+        Assert.That(res.Accessibility > 0.9m, Is.True, $"Value was: {res.Accessibility}");
 
-                Assert.That(res.BestPractices > 0.9m, Is.True, $"Value was: {res.BestPractices}");
+        Assert.That(res.BestPractices > 0.9m, Is.True, $"Value was: {res.BestPractices}");
 
-                Assert.That(res.Seo > 0.9m, Is.True, $"Value was: {res.Seo}");
+        Assert.That(res.Seo > 0.9m, Is.True, $"Value was: {res.Seo}");
 
-                Assert.That(res.Performance > 0.6m, Is.True, $"Value was: {res.Performance}");
-            },
-            this.BrowserType);
+        Assert.That(res.Performance > 0.6m, Is.True, $"Value was: {res.Performance}");
     }
 }

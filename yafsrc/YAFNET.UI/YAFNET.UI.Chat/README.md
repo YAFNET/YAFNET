@@ -25,9 +25,11 @@ app.MapAreaControllerRoute(
 
 app.MapControllers();
 
+// other YAF Hubs
 app.MapHub<NotificationHub>("/NotificationHub");
 app.MapHub<ChatHub>("/ChatHub");
 
+// YAF Chat Hub
 app.MapHub<AllChatHub>("/AllChatHub");
 ```
 

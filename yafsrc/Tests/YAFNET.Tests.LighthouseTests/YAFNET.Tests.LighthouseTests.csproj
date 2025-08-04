@@ -3,8 +3,8 @@
     <ProductVersion />
     <TargetFramework>net9.0</TargetFramework>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <RootNamespace>YAF.Tests.AdminTests</RootNamespace>
-    <AssemblyName>YAF.Tests.AdminTests</AssemblyName>
+    <RootNamespace>YAF.Tests.LighthouseTests</RootNamespace>
+    <AssemblyName>YAF.Tests.LighthouseTests</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>
