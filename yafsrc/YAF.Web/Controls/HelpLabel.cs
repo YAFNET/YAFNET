@@ -128,8 +128,8 @@ public class HelpLabel : BaseControl, ILocalizationSupport
 
         var label = new HtmlGenericControl("label");
 
-        label.Attributes.Add(HtmlTextWriterAttribute.For.ToString(), associatedControlID);
-        label.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "form-label");
+        label.Attributes.Add(nameof(HtmlTextWriterAttribute.For), associatedControlID);
+        label.Attributes.Add(nameof(HtmlTextWriterAttribute.Class), "form-label");
 
         label.Controls.Add(new Literal { Text = text });
 
@@ -149,9 +149,9 @@ public class HelpLabel : BaseControl, ILocalizationSupport
         label.Controls.Add(new Literal { Text = "&nbsp;" });
 
         var button = new HtmlGenericControl("button");
-        button.Attributes.Add(HtmlTextWriterAttribute.Type.ToString(), "button");
-        button.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "btn btn-sm");
-        button.Attributes.Add(HtmlTextWriterAttribute.Title.ToString(), tooltip);
+        button.Attributes.Add(nameof(HtmlTextWriterAttribute.Type), "button");
+        button.Attributes.Add(nameof(HtmlTextWriterAttribute.Class), "btn btn-sm");
+        button.Attributes.Add(nameof(HtmlTextWriterAttribute.Title), tooltip);
 
         button.Attributes.Add("data-bs-toggle", "tooltip");
         button.Attributes.Add("data-bs-html", "true");

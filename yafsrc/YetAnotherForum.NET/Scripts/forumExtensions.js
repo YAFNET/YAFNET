@@ -9395,6 +9395,7 @@ document.addEventListener("DOMContentLoaded", function() {
             inp.autocomplete = "off";
             inp.autocapitalize = "off";
             inp.spellcheck = false;
+            inp.name = "search";
             inp.setAttribute("aria-autocomplete", "list");
             if (placeholderValue) {
                 inp.setAttribute("aria-label", placeholderValue);
@@ -14825,6 +14826,10 @@ function getSearchResultsData(pageNumber) {
                     placeHolder.appendChild(item);
                 });
                 setSearchPageNumber(pageSize, pageNumber, data.TotalRecords);
+                for (const el of document.querySelectorAll('[data-toggle="lightbox"]')) {
+                    const lightBox = window.bootstrap.Lightbox;
+                    el.addEventListener("click", lightBox.initialize);
+                }
             }
         }).catch(function(error) {
             console.log(error);

@@ -54,8 +54,8 @@ public class TransformFactory
     /// <returns>The transform object.</returns>
     public IRewriteTransform GetTransform(string name)
     {
-        return this._transforms.ContainsKey(name)
-                   ? this._transforms[name]
+        return this._transforms.TryGetValue(name, out var transform)
+                   ? transform
                    : null;
     }
 

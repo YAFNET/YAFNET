@@ -78,61 +78,61 @@ public class EmptyState : BaseControl
         }
 
         // Render Main Div
-        writer.WriteBeginTag(HtmlTextWriterTag.Div.ToString());
+        writer.WriteBeginTag(nameof(HtmlTextWriterTag.Div));
 
         writer.WriteAttribute(
-            HtmlTextWriterAttribute.Class.ToString(),
+            nameof(HtmlTextWriterAttribute.Class),
             "px-3 py-4 my-4 text-center");
 
         writer.Write(HtmlTextWriter.TagRightChar);
 
         // Render Icon
-        writer.WriteBeginTag(HtmlTextWriterTag.I.ToString());
+        writer.WriteBeginTag(nameof(HtmlTextWriterTag.I));
 
         writer.WriteAttribute(
-            HtmlTextWriterAttribute.Class.ToString(),
+            nameof(HtmlTextWriterAttribute.Class),
             $"fa fa-{this.Icon} fa-5x");
 
         writer.Write(HtmlTextWriter.TagRightChar);
 
-        writer.WriteEndTag(HtmlTextWriterTag.I.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.I));
 
         // Render Header
-        writer.WriteBeginTag(HtmlTextWriterTag.H1.ToString());
+        writer.WriteBeginTag(nameof(HtmlTextWriterTag.H1));
 
         writer.WriteAttribute(
-            HtmlTextWriterAttribute.Class.ToString(),
+            nameof(HtmlTextWriterAttribute.Class),
             "display-5 fw-bold");
 
         writer.Write(HtmlTextWriter.TagRightChar);
 
         writer.Write(this.GetText(this.HeaderTextPage, this.HeaderTextTag));
 
-        writer.WriteEndTag(HtmlTextWriterTag.H1.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.H1));
 
         // Render Message
-        writer.WriteBeginTag(HtmlTextWriterTag.Div.ToString());
+        writer.WriteBeginTag(nameof(HtmlTextWriterTag.Div));
 
         writer.WriteAttribute(
-            HtmlTextWriterAttribute.Class.ToString(),
+            nameof(HtmlTextWriterAttribute.Class),
             "col-lg-12 mx-auto");
 
         writer.Write(HtmlTextWriter.TagRightChar);
 
-        writer.WriteBeginTag(HtmlTextWriterTag.P.ToString());
+        writer.WriteBeginTag(nameof(HtmlTextWriterTag.P));
 
         writer.WriteAttribute(
-            HtmlTextWriterAttribute.Class.ToString(),
+            nameof(HtmlTextWriterAttribute.Class),
             "lead mb-3");
 
         writer.Write(HtmlTextWriter.TagRightChar);
 
         writer.Write(this.GetText(this.MessageTextPage, this.MessageTextTag));
 
-        writer.WriteEndTag(HtmlTextWriterTag.P.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.P));
 
-        writer.WriteEndTag(HtmlTextWriterTag.Div.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.Div));
 
-        writer.WriteEndTag(HtmlTextWriterTag.Div.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.Div));
     }
 }

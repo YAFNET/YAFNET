@@ -69,7 +69,7 @@ public class AlphaSort : BaseControl
         base.OnLoad(e);
 
         var buttonGroup = new HtmlGenericControl("div");
-        buttonGroup.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "btn-group mb-3 d-none d-md-block");
+        buttonGroup.Attributes.Add(nameof(HtmlTextWriterAttribute.Class), "btn-group mb-3 d-none d-md-block");
 
         this.Controls.Add(buttonGroup);
 

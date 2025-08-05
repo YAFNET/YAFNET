@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using System;
@@ -52,7 +53,7 @@ public static class BoardRepositoryExtensions
     /// The language file.
     /// </param>
     /// <param name="userName">
-    /// The user name.
+    /// The username.
     /// </param>
     /// <param name="userEmail">
     /// The user email.
@@ -81,8 +82,6 @@ public static class BoardRepositoryExtensions
         bool isHostAdmin,
         string rolePrefix)
     {
-        
-
         // -- Board
         var newBoardId = repository.Insert(new Board { Name = boardName });
 
@@ -367,8 +366,6 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
     /// </returns>
     public static BoardStat PostStats(this IRepository<Board> repository, int boardId, bool showNoCountPosts)
     {
-        
-
         var data = repository.DbAccess.Execute(
             db =>
                 {
@@ -452,8 +449,6 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
         string languageFile,
         string culture)
     {
-        
-
         BoardContext.Current.GetRepository<Registry>().Save("culture", culture, boardId);
         BoardContext.Current.GetRepository<Registry>().Save("language", languageFile, boardId);
 
@@ -476,8 +471,6 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
     /// </returns>
     public static BoardStat Stats(this IRepository<Board> repository, int boardId)
     {
-        
-
         return repository.DbAccess.Execute(
             db =>
                 {
@@ -556,8 +549,6 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
     /// </param>
     public static void DeleteBoard(this IRepository<Board> repository, int boardId)
     {
-        
-
         // --- Delete all forums of the board
         var forums = BoardContext.Current.GetRepository<Forum>().ListAll(boardId);
 

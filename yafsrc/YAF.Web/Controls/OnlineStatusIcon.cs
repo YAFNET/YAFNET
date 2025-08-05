@@ -66,27 +66,27 @@ public class OnlineStatusIcon : BaseControl
             TimeSpan.FromMilliseconds(BoardContext.Current.BoardSettings.OnlineStatusCacheTimeout));
 
         writer.BeginRender();
-        writer.WriteBeginTag(HtmlTextWriterTag.Span.ToString());
+        writer.WriteBeginTag(nameof(HtmlTextWriterTag.Span));
 
         if (this.Suspended.HasValue)
         {
             // suspended
-            writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-warning user-suspended me-1");
-            writer.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetTextFormatted("USERSUSPENDED", this.Suspended.Value));
+            writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Class), "align-middle text-warning user-suspended me-1");
+            writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Title), this.GetTextFormatted("USERSUSPENDED", this.Suspended.Value));
         }
         else
         {
             if (activeUsers.Exists(x => x.UserID == this.UserId && !x.IsActiveExcluded))
             {
                 // online
-                writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-success user-online me-1");
-                writer.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USERONLINESTATUS"));
+                writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Class), "align-middle text-success user-online me-1");
+                writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Title), this.GetText("USERONLINESTATUS"));
             }
             else
             {
                 // offline
-                writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-danger user-offline me-1");
-                writer.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USEROFFLINESTATUS"));
+                writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Class), "align-middle text-danger user-offline me-1");
+                writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Title), this.GetText("USEROFFLINESTATUS"));
             }
         }
 
@@ -96,7 +96,7 @@ public class OnlineStatusIcon : BaseControl
 
         // render the optional controls (if any)
         base.Render(writer);
-        writer.WriteEndTag(HtmlTextWriterTag.Span.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.Span));
         writer.EndRender();
     }
 }

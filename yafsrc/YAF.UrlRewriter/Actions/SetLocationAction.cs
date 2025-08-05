@@ -25,7 +25,7 @@ public abstract class SetLocationAction : IRewriteAction
 
     /// <summary>
     /// The location to set.  This can include replacements referencing the matched pattern,
-    /// for example $1, $2, ... $n and ${group} as well as ${ServerVariable} and mapping, e.g., 
+    /// for example $1, $2, ... $n and ${group} as well as ${ServerVariable} and mapping, e.g.,
     /// ${MapName:$1}.
     /// </summary>
     public string Location { get; }

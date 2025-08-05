@@ -241,24 +241,24 @@ public partial class Help : ForumPage
             reader.Close();
         }
 
-        foreach (var helpPage in helpNavigation.SelectMany(category => category.HelpPages))
+        foreach (var helpPage in helpNavigation.SelectMany(category => category.HelpPages).Select(helpPage => helpPage.HelpPage))
         {
-            var helpContent = helpPage.HelpPage switch {
+            var helpContent = helpPage switch {
                     "RECOVER" => this.GetTextFormatted(
-                        $"{helpPage.HelpPage}CONTENT",
+                        $"{helpPage}CONTENT",
                         this.Get<LinkBuilder>().GetLink(ForumPages.Account_ForgotPassword)),
-                    "BBCODES" => this.GetTextFormatted($"{helpPage.HelpPage}CONTENT", BoardInfo.ForumBaseUrl),
+                    "BBCODES" => this.GetTextFormatted($"{helpPage}CONTENT", BoardInfo.ForumBaseUrl),
                     "POSTING" => this.GetTextFormatted(
-                        $"{helpPage.HelpPage}CONTENT",
+                        $"{helpPage}CONTENT",
                         this.Get<LinkBuilder>().GetLink(ForumPages.Help, new {faq = "bbcodes" })),
-                    _ => this.GetText($"{helpPage.HelpPage}CONTENT")
+                    _ => this.GetText($"{helpPage}CONTENT")
                 };
 
             this.helpContents.Add(
                 new HelpContent
                     {
-                        HelpPage = helpPage.HelpPage,
-                        Title = this.GetText($"{helpPage.HelpPage}TITLE"),
+                        HelpPage = helpPage,
+                        Title = this.GetText($"{helpPage}TITLE"),
                         Content = helpContent
                     });
         }

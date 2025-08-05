@@ -451,11 +451,11 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
 
         writer.BeginRender();
         writer.WriteBeginTag("a");
-        writer.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
+        writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Id), this.ClientID);
 
         var uniqueId = this.UniqueID;
 
-        writer.WriteAttribute(HtmlTextWriterAttribute.Name.ToString(), uniqueId);
+        writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Name), uniqueId);
 
         var actionClass = GetAttributeValue(this.Type);
 
@@ -480,7 +480,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
             cssClass.AppendFormat(" {0}", this.CssClass);
         }
 
-        writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), cssClass.ToString());
+        writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Class), cssClass.ToString());
 
         if (title.IsSet())
         {
@@ -592,7 +592,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
             writer.WriteBeginTag("span");
 
             writer.WriteAttribute(
-                HtmlTextWriterAttribute.Class.ToString(),
+                nameof(HtmlTextWriterAttribute.Class),
                 this.IconMobileOnly ? "ms-1 d-none d-lg-inline-block" : "ms-1");
 
             writer.Write(HtmlTextWriter.TagRightChar);

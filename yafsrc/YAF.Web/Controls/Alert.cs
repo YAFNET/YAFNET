@@ -66,12 +66,12 @@ public class Alert : BaseControl
             return;
         }
 
-        writer.WriteBeginTag(HtmlTextWriterTag.Div.ToString());
+        writer.WriteBeginTag(nameof(HtmlTextWriterTag.Div));
 
         var cssClass = this.CssClass.IsSet() ? $" {this.CssClass}" : string.Empty;
 
         writer.WriteAttribute(
-            HtmlTextWriterAttribute.Class.ToString(),
+            nameof(HtmlTextWriterAttribute.Class),
             this.Dismissing
                 ? $"text-break alert alert-{this.Type} alert-dismissible fade show{cssClass}"
                 : $"text-break alert alert-{this.Type}{cssClass}");
@@ -88,6 +88,6 @@ public class Alert : BaseControl
             writer.Write("</button>");
         }
 
-        writer.WriteEndTag(HtmlTextWriterTag.Div.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.Div));
     }
 }

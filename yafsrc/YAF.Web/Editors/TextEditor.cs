@@ -75,6 +75,12 @@ public class TextEditor : ForumEditor
     public override bool AllowsUploads => false;
 
     /// <summary>
+    /// Gets or sets the name of the class.
+    /// </summary>
+    /// <value>The name of the class.</value>
+    public override string ClassName { get; set; } = "form-control";
+
+    /// <summary>
     /// Handles the PreRender event of the Editor control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -92,8 +98,8 @@ public class TextEditor : ForumEditor
         this.PreRender += this.Editor_PreRender;
 
         this.TextAreaControl = new HtmlTextArea { ID = "YafTextEditor", Rows = 15, Cols = 100 };
-        this.TextAreaControl.Attributes.Add("class", "form-control");
-        this.TextAreaControl.Attributes.Add("maxlength", this.MaxCharacters.ToString());
+        this.TextAreaControl.Attributes.Add(nameof(HtmlTextWriterAttribute.Class), this.ClassName);
+        this.TextAreaControl.Attributes.Add(nameof(HtmlTextWriterAttribute.Maxlength), this.MaxCharacters.ToString());
 
         this.AddEditorControl(this.TextAreaControl);
 

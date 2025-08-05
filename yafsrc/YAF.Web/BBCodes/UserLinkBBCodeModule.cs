@@ -75,7 +75,7 @@ public class UserLinkBBCodeModule : BBCodeControl
 
             writer.WriteAttribute("href", this.Get<LinkBuilder>().GetUserProfileLink(boardUser.ID, boardUser.DisplayOrUserName()));
 
-            writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "link-light");
+            writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Class), "link-light");
 
             writer.Write(HtmlTextWriter.TagRightChar);
 

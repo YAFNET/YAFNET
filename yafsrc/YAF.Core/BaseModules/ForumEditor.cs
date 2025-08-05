@@ -80,6 +80,8 @@ public abstract class ForumEditor : BaseControl, IEditorModule
     /// </value>
     public virtual bool UserCanUpload { get; set; }
 
+    public virtual string ClassName { get; set; }
+
     /// <summary>
     /// The add editor control.
     /// </summary>

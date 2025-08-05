@@ -26,7 +26,7 @@ public sealed class StaticMappingTransform : IRewriteTransform
     private readonly StringDictionary map;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="StaticMappingTransform"/> class. 
+    /// Initializes a new instance of the <see cref="StaticMappingTransform"/> class.
     /// Default constructor.
     /// </summary>
     /// <param name="name">

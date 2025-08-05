@@ -569,36 +569,6 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// The CodeMirror SQL Load JS.
-    /// </summary>
-    /// <param name="editorId">
-    /// The editor Id.
-    /// </param>
-    /// <param name="mime">
-    /// The mime.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static string CodeMirrorSqlLoadJs(string editorId, string mime)
-    {
-        return $$"""
-                  window.onload = function() {
-                    window.editor = CodeMirror.fromTextArea(document.getElementById('{{editorId}}'), {
-                      mode: "{{mime}}",
-                      indentWithTabs: true,
-                      smartIndent: true,
-                      lineNumbers: true,
-                      matchBrackets : true,
-                      theme: "monokai",
-                      autofocus: true,
-                      extraKeys: {"Ctrl-Space": "autocomplete"}
-                    });
-                  };
-                  """;
-    }
-
-    /// <summary>
     /// Gets the Editor File Auto Upload JavaScript.
     /// </summary>
     /// <param name="fileUploaderUrl">

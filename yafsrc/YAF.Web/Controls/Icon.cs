@@ -121,7 +121,7 @@ public class Icon : BaseControl
     /// </param>
     private void RenderNormalIcon(HtmlTextWriter writer)
     {
-        writer.WriteBeginTag(HtmlTextWriterTag.I.ToString());
+        writer.WriteBeginTag(nameof(HtmlTextWriterTag.I));
 
         var className = this.IconType.IsSet() ? $"fa-fw {this.IconType} me-1" : "fa-fw me-1";
 
@@ -136,12 +136,12 @@ public class Icon : BaseControl
         }
 
         writer.WriteAttribute(
-            HtmlTextWriterAttribute.Class.ToString(),
+            nameof(HtmlTextWriterAttribute.Class),
             $"{this.IconStyle} fa-{this.IconName} {className}");
 
         writer.Write(HtmlTextWriter.TagRightChar);
 
-        writer.WriteEndTag(HtmlTextWriterTag.I.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.I));
     }
 
     /// <summary>
@@ -153,13 +153,13 @@ public class Icon : BaseControl
     private void RenderIconBadge(HtmlTextWriter writer)
     {
         // Render Stack Icons
-        writer.WriteBeginTag(HtmlTextWriterTag.Span.ToString());
+        writer.WriteBeginTag(nameof(HtmlTextWriterTag.Span));
 
-        writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "fa-stack me-1");
+        writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Class), "fa-stack me-1");
 
         writer.Write(HtmlTextWriter.TagRightChar);
 
-        writer.WriteBeginTag(HtmlTextWriterTag.I.ToString());
+        writer.WriteBeginTag(nameof(HtmlTextWriterTag.I));
 
         var className = this.IconType.IsSet() ? $"fa-stack-1x {this.IconType}" : "fa-stack-1x";
 
@@ -169,22 +169,22 @@ public class Icon : BaseControl
         }
 
         writer.WriteAttribute(
-            HtmlTextWriterAttribute.Class.ToString(),
+            nameof(HtmlTextWriterAttribute.Class),
             $"{this.IconStyle} fa-{this.IconName} {className}");
 
         writer.Write(HtmlTextWriter.TagRightChar);
 
-        writer.WriteEndTag(HtmlTextWriterTag.I.ToString());
-        writer.WriteBeginTag(HtmlTextWriterTag.I.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.I));
+        writer.WriteBeginTag(nameof(HtmlTextWriterTag.I));
 
         writer.WriteAttribute(
-            HtmlTextWriterAttribute.Class.ToString(),
+            nameof(HtmlTextWriterAttribute.Class),
             $"fa fa-{this.IconNameBadge} fa-badge {this.IconBadgeType}");
 
         writer.Write(HtmlTextWriter.TagRightChar);
-        writer.WriteEndTag(HtmlTextWriterTag.I.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.I));
 
-        writer.WriteEndTag(HtmlTextWriterTag.Span.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.Span));
     }
 
     /// <summary>
@@ -196,18 +196,18 @@ public class Icon : BaseControl
     private void RenderIconStack(HtmlTextWriter writer)
     {
         // Render Stack Icons
-        writer.WriteBeginTag(HtmlTextWriterTag.Span.ToString());
+        writer.WriteBeginTag(nameof(HtmlTextWriterTag.Span));
 
         if (this.IconStackSize.IsNotSet())
         {
             this.IconStackSize = "fa-2x";
         }
 
-        writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), $"fa-stack {this.IconStackSize} me-1");
+        writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Class), $"fa-stack {this.IconStackSize} me-1");
 
         writer.Write(HtmlTextWriter.TagRightChar);
 
-        writer.WriteBeginTag(HtmlTextWriterTag.I.ToString());
+        writer.WriteBeginTag(nameof(HtmlTextWriterTag.I));
 
         var className = this.IconType.IsSet() ? $"fa-stack-2x {this.IconType}" : "fa-stack-2x";
 
@@ -217,22 +217,22 @@ public class Icon : BaseControl
         }
 
         writer.WriteAttribute(
-            HtmlTextWriterAttribute.Class.ToString(),
+            nameof(HtmlTextWriterAttribute.Class),
             $"{this.IconStyle} fa-{this.IconName} {className}");
 
         writer.Write(HtmlTextWriter.TagRightChar);
 
-        writer.WriteEndTag(HtmlTextWriterTag.I.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.I));
 
-        writer.WriteBeginTag(HtmlTextWriterTag.I.ToString());
+        writer.WriteBeginTag(nameof(HtmlTextWriterTag.I));
 
         writer.WriteAttribute(
-            HtmlTextWriterAttribute.Class.ToString(),
+            nameof(HtmlTextWriterAttribute.Class),
             $"fa fa-{this.IconStackName} fa-stack-1x {this.IconStackType}");
 
         writer.Write(HtmlTextWriter.TagRightChar);
-        writer.WriteEndTag(HtmlTextWriterTag.I.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.I));
 
-        writer.WriteEndTag(HtmlTextWriterTag.Span.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.Span));
     }
 }

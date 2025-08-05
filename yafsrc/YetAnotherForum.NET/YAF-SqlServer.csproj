@@ -1078,7 +1078,6 @@
     <Content Include="Content\bootstrap\bootstrap.css">
       <DependentUpon>bootstrap.scss</DependentUpon>
     </Content>
-    <Content Include="Content\codemirror.min.css" />
     <Content Include="Content\favicons\android-chrome-144x144.png" />
     <Content Include="Content\favicons\apple-touch-icon.png" />
     <Content Include="Content\favicons\browserconfig.xml" />
@@ -2969,6 +2968,7 @@
     <Content Include="Resources\mimeTypes.json" />
     <Content Include="Scripts\bs5-lightbox\.babelrc" />
     <Content Include="Scripts\bs5-lightbox\dist\index.bundle.min.js.map" />
+    <Content Include="Scripts\codemirror.min.js.map" />
     <None Include="web.config">
       <SubType>Designer</SubType>
     </None>
@@ -3010,6 +3010,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\codemirror.ts" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Package|AnyCPU'">
     <OutputPath>bin\</OutputPath>
@@ -3070,7 +3073,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

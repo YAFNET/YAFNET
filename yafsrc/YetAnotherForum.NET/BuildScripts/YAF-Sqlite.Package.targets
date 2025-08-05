@@ -68,10 +68,6 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\ForumExtensionsDnn.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\ForumExtensionsDnn.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\forum\yaf.hoverCard.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bs5-lightbox\index.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bs5-lightbox\dist\index.bundle.min.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bs5-lightbox\webpack.cdn.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bs5-lightbox\webpack.common.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.bundle.js" />
@@ -90,13 +86,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\editor\undoManager.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\editor\editor.comb.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\editor\editor.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\sceditor\formats\bbcode.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\sceditor\icons\fontawesome.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\sceditor\plugins\*.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\sceditor\sceditor.min.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\sceditor\mentions.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap\**\*.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\dark-editable.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\InstallWizard.css" />

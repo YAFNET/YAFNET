@@ -13520,14 +13520,6 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
   margin: 0;
 }
 
-.gotoPageForm {
-  z-index: 99999;
-}
-
-.bootstrap-touchspin {
-  width: 250px;
-}
-
 .pre-scrollable {
   overflow: auto;
   white-space: pre-line;

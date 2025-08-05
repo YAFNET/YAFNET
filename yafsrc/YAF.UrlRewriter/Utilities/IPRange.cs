@@ -97,8 +97,8 @@ public sealed class IPRange
     /// <summary>
     /// Compares two IPAddresses.
     /// Less than zero {left} is less than {right}.
-    ///	Zero {left} equals {right}. 
-    ///	Greater than zero {left} is greater than {right}. 
+    ///	Zero {left} equals {right}.
+    ///	Greater than zero {left} is greater than {right}.
     /// </summary>
     /// <param name="left"></param>
     /// <param name="right"></param>

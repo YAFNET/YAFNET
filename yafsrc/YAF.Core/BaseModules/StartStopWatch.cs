@@ -59,7 +59,7 @@ public class StartStopWatch : IHandleEvent<ForumPageInitEvent>, IHandleEvent<For
     public void Handle(ForumPageInitEvent @event)
     {
         // start the stop watch on init...
-        this.stopWatch.Start();      
+        this.stopWatch.Start();
     }
 
     /// <summary>

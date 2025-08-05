@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using ServiceStack.OrmLite;
-
 namespace YAF.Web.Editors;
 
 /// <summary>
@@ -42,6 +40,12 @@ public class CodeMirrorSqlEditor : TextEditor
     }
 
     /// <summary>
+    /// Gets the name of the class.
+    /// </summary>
+    /// <value>The name of the class.</value>
+    public override string ClassName => "sql-editor";
+
+    /// <summary>
     /// Handles the PreRender event of the Editor control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -49,23 +53,5 @@ public class CodeMirrorSqlEditor : TextEditor
     override protected void Editor_PreRender(object sender, EventArgs e)
     {
         this.PageBoardContext.PageElements.AddScriptReference("codemirror", "codemirror.min.js");
-
-        this.PageBoardContext.PageElements.RegisterCssIncludeContent("codemirror.min.css");
-
-        var serverName = OrmLiteConfig.DialectProvider.SQLServerName();
-
-        var mime = serverName switch
-        {
-            "Microsoft SQL Server" => "text/x-mssql",
-            "MySQL" => "text/x-mysql",
-            "PostgreSQL" => "text/x-pgsql",
-            _ => "text/x-sql"
-        };
-
-        this.PageBoardContext.PageElements.RegisterJsBlock(
-            nameof(JavaScriptBlocks.CodeMirrorSqlLoadJs),
-            JavaScriptBlocks.CodeMirrorSqlLoadJs(
-                this.TextAreaControl.ClientID,
-                mime));
     }
 }

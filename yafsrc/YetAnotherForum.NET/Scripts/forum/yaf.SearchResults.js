@@ -158,6 +158,12 @@
                 });
 
                 setSearchPageNumber(pageSize, pageNumber, data.TotalRecords);
+
+                // Gallery
+                for (const el of document.querySelectorAll('[data-toggle="lightbox"]')) {
+                    const lightBox = window.bootstrap.Lightbox;
+                    el.addEventListener('click', lightBox.initialize);
+                }
             }
         }).catch(function(error) {
             console.log(error);

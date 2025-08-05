@@ -35,9 +35,9 @@ public class ActionParserFactory
 
         IList<IRewriteActionParser> list;
 
-        if (this._parsers.ContainsKey(parser.Name))
+        if (this._parsers.TryGetValue(parser.Name, out var parser1))
         {
-            list = this._parsers[parser.Name];
+            list = parser1;
         }
         else
         {
@@ -55,8 +55,8 @@ public class ActionParserFactory
     /// <returns>A list of parsers</returns>
     public IList<IRewriteActionParser> GetParsers(string verb)
     {
-        return this._parsers.ContainsKey(verb)
-                   ? this._parsers[verb]
+        return this._parsers.TryGetValue(verb, out var parser)
+                   ? parser
                    : null;
     }
 

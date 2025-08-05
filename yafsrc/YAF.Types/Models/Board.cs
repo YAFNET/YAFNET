@@ -30,14 +30,14 @@ namespace YAF.Types.Models;
 public class Board : IEntity, IHaveID
 {
     /// <summary>
-    /// Gets or sets the id.
+    /// Gets or sets the board id.
     /// </summary>
     [AutoIncrement]
     [Alias("BoardID")]
     public int ID { get; set; }
 
     /// <summary>
-    /// Gets or sets the name.
+    /// Gets or sets the board name.
     /// </summary>
     [Required]
     [StringLength(50)]

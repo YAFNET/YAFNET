@@ -116,7 +116,6 @@ public class OrmLiteConnection
 
         if (dbConnection == null)
         {
-            LogManager.GetLogger(GetType()).WarnFormat("No dbConnection to Dispose()");
             return;
         }
 

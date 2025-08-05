@@ -86,11 +86,6 @@ public class SCEditor : TextEditor
             language = this.PageBoardContext.BoardSettings.Culture;
         }
 
-        if (language != "en")
-        {
-            this.PageBoardContext.PageElements.AddScriptReference("SCEditorLanguage", $"sceditor/languages/{language}.js");
-        }
-
         var albums = string.Empty;
         var attachments = string.Empty;
 

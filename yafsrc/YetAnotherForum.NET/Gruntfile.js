@@ -5,7 +5,7 @@
  * Try: http://24ways.org/2013/grunt-is-not-weird-and-hard/
  */
 
-const lightBoxWebpackConfig = require('./Scripts/bs5-lightbox/webpack.cdn.js');
+const webpackConfig = require('./webpack.config.js');
 const sass = require('sass');
 
 module.exports = function (grunt) {
@@ -14,9 +14,8 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-
         webpack: {
-            lightBox: lightBoxWebpackConfig
+	        main: webpackConfig
         },
 
         copy: {
@@ -62,13 +61,13 @@ module.exports = function (grunt) {
 		            {
 			            expand: true,
 			            src: '**/*.css',
-			            cwd: 'node_modules/@yafnet/sceditor/minified/themes',
+			            cwd: 'node_modules/@yafnet/sceditor/dist',
 			            dest: 'Content/'
 		            }, {
 			            expand: true,
 			            src: '**/*.js',
-			            cwd: 'node_modules/@yafnet/sceditor/languages',
-			            dest: 'Scripts/sceditor/languages/'
+			            cwd: 'node_modules/@yafnet/sceditor/dist',
+			            dest: 'Scripts/sceditor'
 		            }
 	            ]
             }
@@ -281,23 +280,6 @@ module.exports = function (grunt) {
                 dest: 'Scripts/InstallWizard.comb.js'
             },
 
-            codeMirror: {
-                options: {
-                    sourceMap: false,
-                    output: { beautify: true },
-                    mangle: false,
-                    compress: false
-                },
-                src: [
-                    'node_modules/codemirror/lib/codemirror.js',
-                    'node_modules/codemirror/mode/sql/sql.js',
-                    'node_modules/codemirror/addon/edit/matchbrackets.js',
-                    'node_modules/codemirror/addon/hint/show-hint.js',
-                    'node_modules/codemirror/addon/hint/sql-hint.js'
-                ],
-                dest: 'Scripts/codemirror.min.js'
-            },
-
             yafEditor: {
                 options: {
                     sourceMap: false,
@@ -311,25 +293,6 @@ module.exports = function (grunt) {
                     'Scripts/editor/mentions.js'
                 ],
                 dest: 'Scripts/editor/editor.comb.js'
-            },
-
-            SCEditor: {
-                options: {
-                    sourceMap: false,
-                    output: { beautify: true },
-                    mangle: false,
-                    compress: false
-                },
-                src: [
-                    'node_modules/@yafnet/sceditor/minified/sceditor.min.js',
-                    'node_modules/@yafnet/sceditor/minified/formats/bbcode.js',
-                    'node_modules/@yafnet/sceditor/minified/icons/fontawesome.js',
-                    'node_modules/@yafnet/sceditor/minified/plugins/dragdrop.js',
-                    'node_modules/@yafnet/sceditor/minified/plugins/undo.js',
-                    'node_modules/@yafnet/sceditor/minified/plugins/plaintext.js',
-                    'Scripts/sceditor/mentions.js'
-                ],
-                dest: 'Scripts/sceditor/sceditor.comb.min.js'
             },
 
             SCEditorLanguages: {
@@ -363,7 +326,7 @@ module.exports = function (grunt) {
                     'node_modules/@w8tcha/bootstrap-notify/dist/bootstrap-notify.iife.js',
                     'Scripts/forum/bootstrap-touchspin.js',
                     'Scripts/choices/assets/scripts/choices.js',
-                    'Scripts/bs5-lightbox/dist/index.bundle.min.js',
+                    'node_modules/@w8tcha/bs5-lightbox/dist/bs5-lightbox.iife.js',
                     'Scripts/forum/yaf.hoverCard.js',
                     'Scripts/prism.js',
                     'node_modules/long-press-event/src/long-press-event.js',
@@ -392,7 +355,7 @@ module.exports = function (grunt) {
                     'node_modules/@w8tcha/bootstrap-notify/dist/bootstrap-notify.iife.js',
                     'Scripts/forum/bootstrap-touchspin.js',
                     'Scripts/choices/assets/scripts/choices.js',
-                    'Scripts/bs5-lightbox/dist/index.bundle.min.js',
+	                'node_modules/@w8tcha/bs5-lightbox/dist/bs5-lightbox.iife.js',
                     'Scripts/forum/yaf.hoverCard.js',
                     'Scripts/prism.js',
                     'node_modules/long-press-event/src/long-press-event.js',
@@ -422,7 +385,7 @@ module.exports = function (grunt) {
                     'node_modules/@w8tcha/bootstrap-notify/dist/bootstrap-notify.iife.js',
                     'Scripts/forum/bootstrap-touchspin.js',
                     'Scripts/choices/assets/scripts/choices.js',
-                    'Scripts/bs5-lightbox/dist/index.bundle.min.js',
+                    'node_modules/@w8tcha/bs5-lightbox/dist/bs5-lightbox.iife.js',
                     'Scripts/forum/yaf.hoverCard.js',
                     'Scripts/prism.js',
                     'node_modules/long-press-event/src/long-press-event.js',
@@ -448,7 +411,7 @@ module.exports = function (grunt) {
                     'node_modules/@w8tcha/dark-editable/dist/dark-editable.iife.js',
                     'Scripts/forum/bootstrap-touchspin.js',
                     'Scripts/choices/assets/scripts/choices.js',
-                    'Scripts/bs5-lightbox/dist/index.bundle.min.js',
+	                'node_modules/@w8tcha/bs5-lightbox/dist/bs5-lightbox.iife.js',
                     'Scripts/forum/yaf.hoverCard.js',
                     'Scripts/prism.js',
                     'node_modules/long-press-event/src/long-press-event.js',
@@ -464,10 +427,8 @@ module.exports = function (grunt) {
             minify: {
                 files: {
                     "Scripts/themeSelector.min.js": 'Scripts/themeSelector.min.js',
-                    "Scripts/sceditor/sceditor.comb.min.js": 'Scripts/sceditor/sceditor.comb.min.js',
                     "Scripts/editor/editor.min.js": 'Scripts/editor/editor.comb.js',
                     "Scripts/InstallWizard.comb.min.js": 'Scripts/InstallWizard.comb.js',
-                    "Scripts/codemirror.min.js": 'Scripts/codemirror.min.js',
                     "Scripts/fileUploader.min.js": 'Scripts/fileUploader.js',
                     "Scripts/forumExtensions.min.js": 'Scripts/forumExtensions.js',
                     "Scripts/forumExtensionsDnn.min.js": 'Scripts/forumExtensionsDnn.js',
@@ -561,15 +522,6 @@ module.exports = function (grunt) {
 
         // CSS Minify
         cssmin: {
-            codeMirror: {
-                files: {
-                    "Content/codemirror.min.css": [
-                        'node_modules/codemirror/lib/codemirror.css',
-                        'node_modules/codemirror/theme/monokai.css',
-                        'node_modules/codemirror/addon/hint/show-hint.css'
-                    ]
-                }
-            },
             other: {
                 files: {
                     "Content/InstallWizard.min.css": 'Content/InstallWizard.css',
@@ -646,11 +598,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-file-append');
-    grunt.loadNpmTasks('grunt-webpack');
 
     grunt.registerTask('default',
         [
-            'devUpdate', 'webpack:lightBox', 'uglify', 'sass', 'postcss', 'cssmin'
+            'devUpdate', 'uglify', 'sass', 'postcss', 'cssmin'
         ]);
 
     grunt.registerTask('updatePackages',

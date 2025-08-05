@@ -118,13 +118,13 @@ public class IconLegend : BaseControl
             {
                 // add row
                 row = new HtmlGenericControl("div");
-                row.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "row");
+                row.Attributes.Add(nameof(HtmlTextWriterAttribute.Class), "row");
                 table.Controls.Add(row);
             }
 
             // add column
             var col = new HtmlGenericControl("div");
-            col.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "col");
+            col.Attributes.Add(nameof(HtmlTextWriterAttribute.Class), "col");
             row.Controls.Add(col);
 
             // add the themed icons

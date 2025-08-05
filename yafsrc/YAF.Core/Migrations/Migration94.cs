@@ -29,7 +29,7 @@ namespace YAF.Core.Migrations;
 using ServiceStack.DataAnnotations;
 
 /// <summary>
-/// Version 93 Migrations
+/// Version 94 Migrations
 /// </summary>
 [Description("Increase user profile field interests to 4000.")]
 public class Migration94 : MigrationBase

@@ -110,31 +110,31 @@ public class TopicContainer : BaseControl
 
         if (!this.AllowSelection)
         {
-            writer.WriteBeginTag(HtmlTextWriterTag.Div.ToString());
-            writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "row");
+            writer.WriteBeginTag(nameof(HtmlTextWriterTag.Div));
+            writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Class), "row");
             writer.Write(HtmlTextWriter.TagRightChar);
 
-            writer.WriteBeginTag(HtmlTextWriterTag.Div.ToString());
-            writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "col-md-8");
+            writer.WriteBeginTag(nameof(HtmlTextWriterTag.Div));
+            writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Class), "col-md-8");
             writer.Write(HtmlTextWriter.TagRightChar);
 
-            writer.WriteBeginTag(HtmlTextWriterTag.H5.ToString());
+            writer.WriteBeginTag(nameof(HtmlTextWriterTag.H5));
             writer.Write(HtmlTextWriter.TagRightChar);
         }
 
-        writer.WriteBeginTag(HtmlTextWriterTag.A.ToString());
+        writer.WriteBeginTag(nameof(HtmlTextWriterTag.A));
 
-        writer.WriteAttribute(HtmlTextWriterAttribute.Tabindex.ToString(), "0");
-        writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "topic-icon-legend-popvover");
+        writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Tabindex), "0");
+        writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Class), "topic-icon-legend-popvover");
         writer.WriteAttribute("role", "button");
         writer.WriteAttribute("data-bs-toggle", "popover");
-        writer.WriteAttribute(HtmlTextWriterAttribute.Href.ToString(), "#!");
+        writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Href), "#!");
 
         writer.Write(HtmlTextWriter.TagRightChar);
 
         this.GetTopicIcon(this.TopicItem, lastRead).RenderControl(writer);
 
-        writer.WriteEndTag(HtmlTextWriterTag.A.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.A));
 
         this.RenderPriorityMessage(writer, this.TopicItem);
 
@@ -232,7 +232,7 @@ public class TopicContainer : BaseControl
             this.PageBoardContext.BoardSettings.PostsPerPage,
             this.TopicItem.LinkTopicID);
 
-        writer.WriteEndTag(HtmlTextWriterTag.H5.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.H5));
 
         var topicDescription = HtmlTagHelper.StripHtml(this.TopicItem.Description);
 
@@ -241,7 +241,7 @@ public class TopicContainer : BaseControl
             writer.Write($"<h6 class=\"card-subtitle text-body-secondary\">{topicDescription}</h6>");
         }
 
-        writer.WriteEndTag(HtmlTextWriterTag.Div.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.Div));
 
         if (this.TopicItem.LastMessageID.HasValue)
         {
@@ -303,10 +303,10 @@ public class TopicContainer : BaseControl
 
             gotoLastPost.RenderControl(writer);
 
-            writer.WriteEndTag(HtmlTextWriterTag.Div.ToString());
+            writer.WriteEndTag(nameof(HtmlTextWriterTag.Div));
         }
 
-        writer.WriteEndTag(HtmlTextWriterTag.Div.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.Div));
     }
 
     /// <summary>
@@ -335,9 +335,9 @@ public class TopicContainer : BaseControl
             return;
         }
 
-        writer.WriteBeginTag(HtmlTextWriterTag.Div.ToString());
+        writer.WriteBeginTag(nameof(HtmlTextWriterTag.Div));
 
-        writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "btn-group btn-group-sm ms-2");
+        writer.WriteAttribute(nameof(HtmlTextWriterAttribute.Class), "btn-group btn-group-sm ms-2");
 
         writer.WriteAttribute("role", "group");
 
@@ -380,7 +380,7 @@ public class TopicContainer : BaseControl
             }
         }
 
-        writer.WriteEndTag(HtmlTextWriterTag.Div.ToString());
+        writer.WriteEndTag(nameof(HtmlTextWriterTag.Div));
     }
 
     /// <summary>

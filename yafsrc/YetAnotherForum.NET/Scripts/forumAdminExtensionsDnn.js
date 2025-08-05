@@ -4433,6 +4433,7 @@ document.addEventListener("DOMContentLoaded", function() {
             inp.autocomplete = "off";
             inp.autocapitalize = "off";
             inp.spellcheck = false;
+            inp.name = "search";
             inp.setAttribute("aria-autocomplete", "list");
             if (placeholderValue) {
                 inp.setAttribute("aria-label", placeholderValue);

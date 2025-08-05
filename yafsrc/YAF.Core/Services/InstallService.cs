@@ -113,7 +113,7 @@ public class InstallService : IHaveServiceLocator
     /// The forum base URL mask.
     /// </param>
     /// <param name="adminUserName">
-    /// The admin user name.
+    /// The admin username.
     /// </param>
     /// <param name="adminEmail">
     /// The admin email.

@@ -147,19 +147,19 @@ public class UserLabel : BaseControl
     {
         if (this.ClientID.IsSet())
         {
-            output.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
+            output.WriteAttribute(nameof(HtmlTextWriterAttribute.Id), this.ClientID);
         }
 
         if (this.Style.IsSet() && this.PageBoardContext.BoardSettings.UseStyledNicks)
         {
             var style = this.Get<IStyleTransform>().Decode(this.Style);
 
-            output.WriteAttribute(HtmlTextWriterAttribute.Style.ToString(), this.HtmlEncode(style));
+            output.WriteAttribute(nameof(HtmlTextWriterAttribute.Style), this.HtmlEncode(style));
         }
 
         if (this.CssClass.IsSet())
         {
-            output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), this.CssClass);
+            output.WriteAttribute(nameof(HtmlTextWriterAttribute.Class), this.CssClass);
         }
     }
 }
