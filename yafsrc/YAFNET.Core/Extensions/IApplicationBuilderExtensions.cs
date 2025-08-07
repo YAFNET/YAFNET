@@ -23,22 +23,18 @@
  */
 
 using System;
-
-using Microsoft.Extensions.Options;
-
-using YAF.Types.Objects;
-
-using Microsoft.AspNetCore.Builder;
-
 using System.IO;
 
 using Autofac.Extensions.DependencyInjection;
 
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 using YAF.Core.Middleware;
 using YAF.Types;
+using YAF.Types.Objects;
 
 namespace YAF.Core.Extensions;
 
@@ -55,8 +51,6 @@ public static class IApplicationBuilderExtensions
     {
         GlobalContainer.AutoFacContainer = app.ApplicationServices.GetAutofacRoot();
 
-        //GlobalContainer.AutoFacContainer.Resolve<IInjectServices>().Inject(this);
-
         ServiceLocatorAccess.CurrentServiceProvider = GlobalContainer.AutoFacContainer.Resolve<IServiceLocator>();
     }
 
@@ -72,7 +66,13 @@ public static class IApplicationBuilderExtensions
 
         app.UseSecurityHeader(serviceLocator.Get<BoardConfiguration>());
 
-        app.UseStaticFiles();
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            OnPrepareResponse = ctx =>
+            {
+                ctx.Context.Response.Headers.CacheControl = "max-age: 31536000";
+            }
+        });
 
         app.UseSession();
 
@@ -120,6 +120,8 @@ public static class IApplicationBuilderExtensions
 
         var localizationOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value;
         app.UseRequestLocalization(localizationOptions);
+
+        app.UseResponseCaching();
 
         app.UseAuthentication();
         app.UseAuthorization();

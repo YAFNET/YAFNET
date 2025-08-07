@@ -2,7 +2,6 @@
 @using YAF.Core.Context
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
-@using YAF.Core.Services
 @using YAF.Core.Utilities
 @using YAF.Types.Interfaces
 @using YAF.Types.Objects
@@ -11,6 +10,10 @@
 @inject BoardContext Current
 
 @model EditUserModel
+
+@section StyleSheets {
+	@await Html.PartialAsync("_FlagIconsStylesSheetsPartial")
+}
 
 @{
     var editUser = Model.EditUser;

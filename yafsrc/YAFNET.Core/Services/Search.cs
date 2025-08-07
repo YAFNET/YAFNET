@@ -720,7 +720,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         formattedMessage = await this.Get<IBBCodeService>().FormatMessageWithCustomBBCodeAsync(
                                formattedMessage,
-                               new MessageFlags(flags),
+                               messageFlags,
                                doc.Get("UserId").ToType<int>(),
                                doc.Get("MessageId").ToType<int>());
 

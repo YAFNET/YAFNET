@@ -6,6 +6,10 @@
 
 @model YAF.Pages.Profile.EditProfileModel
 
+@section StyleSheets {
+    @await Html.PartialAsync("_FlagIconsStylesSheetsPartial")
+}
+
 <div class="row">
 <div class="col-sm-auto">
     <profileMenu></profileMenu>

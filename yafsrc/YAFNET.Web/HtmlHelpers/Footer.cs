@@ -131,6 +131,8 @@ public static class FooterHtmlHelper
     /// </param>
     private static void RenderGeneratedAndDebug(HtmlContentBuilder content)
     {
+        BoardContext.Current.Get<IStopWatch>().Stop();
+
         if (BoardContext.Current.BoardSettings.ShowPageGenerationTime)
         {
             var generatedTag = new TagBuilder(HtmlTag.P);

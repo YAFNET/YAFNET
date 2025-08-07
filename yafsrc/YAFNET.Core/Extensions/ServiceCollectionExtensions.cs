@@ -123,13 +123,15 @@ public static class ServiceCollectionExtensionsExtensions
 
         services.AddControllers();
 
+        services.AddResponseCaching();
+
         services.AddSignalR();
 
         services.AddYafExtensions();
 
         services.AddYafIdentityOptions();
 
-        services.AddYafAuthentication(configuration);
+        services.AddYafAuthentication();
 
         services.AddYafInstallLanguages();
 
@@ -172,13 +174,9 @@ public static class ServiceCollectionExtensionsExtensions
     /// Adds the yaf Authentication.
     /// </summary>
     /// <param name="services">The services.</param>
-    /// <param name="configuration"></param>
     /// <returns>IServiceCollection.</returns>
-    public static IServiceCollection AddYafAuthentication(this IServiceCollection services,
-        IConfiguration configuration)
+    public static IServiceCollection AddYafAuthentication(this IServiceCollection services)
     {
-       
-
         var authenticationBuilder = services.AddAuthentication();
 
         authenticationBuilder.AddCookie(

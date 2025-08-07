@@ -445,19 +445,24 @@ module.exports = function (grunt) {
 				api: 'modern',
 				silenceDeprecations: ['color-functions', 'mixed-decls', 'global-builtin', 'import','legacy-js-api']   
 			},
+			flagIcons: {
+				files: {
+					"wwwroot/css/flag-icons.min.css": 'wwwroot/lib/flag-icons/flag-icons.scss'
+				}
+			},
 			installWizard: {
 				files: {
-					"wwwroot/css/InstallWizard.css": 'wwwroot/lib/InstallWizard.scss'
+					"wwwroot/css/InstallWizard.min.css": 'wwwroot/lib/InstallWizard.scss'
 				}
 			},
 			forum: {
 				files: {
-					"wwwroot/css/forum.css": 'wwwroot/lib/forum.scss'
+					"wwwroot/css/forum.min.css": 'wwwroot/lib/forum.scss'
 				}
 			},
 			forumAdmin: {
 				files: {
-					"wwwroot/css/forum-admin.css": 'wwwroot/lib/forum-admin.scss'
+					"wwwroot/css/forum-admin.min.css": 'wwwroot/lib/forum-admin.scss'
 				}
 			},
 			bootstrap: {
@@ -467,35 +472,35 @@ module.exports = function (grunt) {
 			},
 			themes: {
 				files: {
-					"wwwroot/css/themes/zephyr/bootstrap-forum.css": 'wwwroot/lib/themes/zephyr/bootstrap-forum.scss',
-					"wwwroot/css/themes/yaf/bootstrap-forum.css": 'wwwroot/lib/themes/yaf/bootstrap-forum.scss',
-					"wwwroot/css/themes/yeti/bootstrap-forum.css": 'wwwroot/lib/themes/yeti/bootstrap-forum.scss',
-					"wwwroot/css/themes/vapor/bootstrap-forum.css": 'wwwroot/lib/themes/vapor/bootstrap-forum.scss',
-					"wwwroot/css/themes/united/bootstrap-forum.css": 'wwwroot/lib/themes/united/bootstrap-forum.scss',
-					"wwwroot/css/themes/superhero/bootstrap-forum.css":
+					"wwwroot/css/themes/zephyr/bootstrap-forum.min.css": 'wwwroot/lib/themes/zephyr/bootstrap-forum.scss',
+					"wwwroot/css/themes/yaf/bootstrap-forum.min.css": 'wwwroot/lib/themes/yaf/bootstrap-forum.scss',
+					"wwwroot/css/themes/yeti/bootstrap-forum.min.css": 'wwwroot/lib/themes/yeti/bootstrap-forum.scss',
+					"wwwroot/css/themes/vapor/bootstrap-forum.min.css": 'wwwroot/lib/themes/vapor/bootstrap-forum.scss',
+					"wwwroot/css/themes/united/bootstrap-forum.min.css": 'wwwroot/lib/themes/united/bootstrap-forum.scss',
+					"wwwroot/css/themes/superhero/bootstrap-forum.min.css":
 						'wwwroot/lib/themes/superhero/bootstrap-forum.scss',
-					"wwwroot/css/themes/spacelab/bootstrap-forum.css":
+					"wwwroot/css/themes/spacelab/bootstrap-forum.min.css":
 						'wwwroot/lib/themes/spacelab/bootstrap-forum.scss',
-					"wwwroot/css/themes/solar/bootstrap-forum.css": 'wwwroot/lib/themes/solar/bootstrap-forum.scss',
-					"wwwroot/css/themes/slate/bootstrap-forum.css": 'wwwroot/lib/themes/slate/bootstrap-forum.scss',
-					"wwwroot/css/themes/sketchy/bootstrap-forum.css": 'wwwroot/lib/themes/sketchy/bootstrap-forum.scss',
-					"wwwroot/css/themes/simplex/bootstrap-forum.css": 'wwwroot/lib/themes/simplex/bootstrap-forum.scss',
-					"wwwroot/css/themes/sandstone/bootstrap-forum.css":
+					"wwwroot/css/themes/solar/bootstrap-forum.min.css": 'wwwroot/lib/themes/solar/bootstrap-forum.scss',
+					"wwwroot/css/themes/slate/bootstrap-forum.min.css": 'wwwroot/lib/themes/slate/bootstrap-forum.scss',
+					"wwwroot/css/themes/sketchy/bootstrap-forum.min.css": 'wwwroot/lib/themes/sketchy/bootstrap-forum.scss',
+					"wwwroot/css/themes/simplex/bootstrap-forum.min.css": 'wwwroot/lib/themes/simplex/bootstrap-forum.scss',
+					"wwwroot/css/themes/sandstone/bootstrap-forum.min.css":
 						'wwwroot/lib/themes/sandstone/bootstrap-forum.scss',
-					"wwwroot/css/themes/quartz/bootstrap-forum.css": 'wwwroot/lib/themes/quartz/bootstrap-forum.scss',
-					"wwwroot/css/themes/pulse/bootstrap-forum.css": 'wwwroot/lib/themes/pulse/bootstrap-forum.scss',
-					"wwwroot/css/themes/morph/bootstrap-forum.css": 'wwwroot/lib/themes/morph/bootstrap-forum.scss',
-					"wwwroot/css/themes/minty/bootstrap-forum.css": 'wwwroot/lib/themes/minty/bootstrap-forum.scss',
-					"wwwroot/css/themes/materia/bootstrap-forum.css": 'wwwroot/lib/themes/materia/bootstrap-forum.scss',
-					"wwwroot/css/themes/lux/bootstrap-forum.css": 'wwwroot/lib/themes/lux/bootstrap-forum.scss',
-					"wwwroot/css/themes/lumen/bootstrap-forum.css": 'wwwroot/lib/themes/lumen/bootstrap-forum.scss',
-					"wwwroot/css/themes/litera/bootstrap-forum.css": 'wwwroot/lib/themes/litera/bootstrap-forum.scss',
-					"wwwroot/css/themes/journal/bootstrap-forum.css": 'wwwroot/lib/themes/journal/bootstrap-forum.scss',
-					"wwwroot/css/themes/flatly/bootstrap-forum.css": 'wwwroot/lib/themes/flatly/bootstrap-forum.scss',
-					"wwwroot/css/themes/darkly/bootstrap-forum.css": 'wwwroot/lib/themes/darkly/bootstrap-forum.scss',
-					"wwwroot/css/themes/cyborg/bootstrap-forum.css": 'wwwroot/lib/themes/cyborg/bootstrap-forum.scss',
-					"wwwroot/css/themes/cosmo/bootstrap-forum.css": 'wwwroot/lib/themes/cosmo/bootstrap-forum.scss',
-					"wwwroot/css/themes/cerulean/bootstrap-forum.css":
+					"wwwroot/css/themes/quartz/bootstrap-forum.min.css": 'wwwroot/lib/themes/quartz/bootstrap-forum.scss',
+					"wwwroot/css/themes/pulse/bootstrap-forum.min.css": 'wwwroot/lib/themes/pulse/bootstrap-forum.scss',
+					"wwwroot/css/themes/morph/bootstrap-forum.min.css": 'wwwroot/lib/themes/morph/bootstrap-forum.scss',
+					"wwwroot/css/themes/minty/bootstrap-forum.min.css": 'wwwroot/lib/themes/minty/bootstrap-forum.scss',
+					"wwwroot/css/themes/materia/bootstrap-forum.min.css": 'wwwroot/lib/themes/materia/bootstrap-forum.scss',
+					"wwwroot/css/themes/lux/bootstrap-forum.min.css": 'wwwroot/lib/themes/lux/bootstrap-forum.scss',
+					"wwwroot/css/themes/lumen/bootstrap-forum.min.css": 'wwwroot/lib/themes/lumen/bootstrap-forum.scss',
+					"wwwroot/css/themes/litera/bootstrap-forum.min.css": 'wwwroot/lib/themes/litera/bootstrap-forum.scss',
+					"wwwroot/css/themes/journal/bootstrap-forum.min.css": 'wwwroot/lib/themes/journal/bootstrap-forum.scss',
+					"wwwroot/css/themes/flatly/bootstrap-forum.min.css": 'wwwroot/lib/themes/flatly/bootstrap-forum.scss',
+					"wwwroot/css/themes/darkly/bootstrap-forum.min.css": 'wwwroot/lib/themes/darkly/bootstrap-forum.scss',
+					"wwwroot/css/themes/cyborg/bootstrap-forum.min.css": 'wwwroot/lib/themes/cyborg/bootstrap-forum.scss',
+					"wwwroot/css/themes/cosmo/bootstrap-forum.min.css": 'wwwroot/lib/themes/cosmo/bootstrap-forum.scss',
+					"wwwroot/css/themes/cerulean/bootstrap-forum.min.css":
 						'wwwroot/lib/themes/cerulean/bootstrap-forum.scss'
 				}
 			}
@@ -508,14 +513,17 @@ module.exports = function (grunt) {
 					require('autoprefixer')({ overrideBrowserslist: 'last 2 versions' })
 				]
 			},
+			flagIcons: {
+				src: 'wwwroot/css/flag-icons.min.css'
+			},
 			installWizard: {
-				src: 'wwwroot/css/InstallWizard.css'
+				src: 'wwwroot/css/InstallWizard.min.css'
 			},
 			forum: {
-				src: 'wwwroot/css/forum.css'
+				src: 'wwwroot/css/forum.min.css'
 			},
 			forumAdmin: {
-				src: 'wwwroot/css/forum-admin.css'
+				src: 'wwwroot/css/forum-admin.min.css'
 			},
 			themes: {
 				src: 'wwwroot/css/themes/**/*.css'
@@ -526,54 +534,55 @@ module.exports = function (grunt) {
 		cssmin: {
 			other: {
 				files: {
-					"wwwroot/css/InstallWizard.min.css": 'wwwroot/css/InstallWizard.css',
-					"wwwroot/css/forum.min.css": 'wwwroot/css/forum.css',
-					"wwwroot/css/forum-admin.min.css": 'wwwroot/css/forum-admin.css'
+					"wwwroot/css/InstallWizard.min.css": 'wwwroot/css/InstallWizard.min.css',
+					"wwwroot/css/flag-icons.min.css": 'wwwroot/css/flag-icons.min.css',
+					"wwwroot/css/forum.min.css": 'wwwroot/css/forum.min.css',
+					"wwwroot/css/forum-admin.min.css": 'wwwroot/css/forum-admin.min.css'
 				}
 			},
 			themes: {
 				files: {
 					"wwwroot/css/themes/zephyr/bootstrap-forum.min.css":
-						'wwwroot/css/themes/zephyr/bootstrap-forum.css',
-					"wwwroot/css/themes/yaf/bootstrap-forum.min.css": 'wwwroot/css/themes/yaf/bootstrap-forum.css',
-					"wwwroot/css/themes/yeti/bootstrap-forum.min.css": 'wwwroot/css/themes/yeti/bootstrap-forum.css',
-					"wwwroot/css/themes/vapor/bootstrap-forum.min.css": 'wwwroot/css/themes/vapor/bootstrap-forum.css',
+						'wwwroot/css/themes/zephyr/bootstrap-forum.min.css',
+					"wwwroot/css/themes/yaf/bootstrap-forum.min.css": 'wwwroot/css/themes/yaf/bootstrap-forum.min.css',
+					"wwwroot/css/themes/yeti/bootstrap-forum.min.css": 'wwwroot/css/themes/yeti/bootstrap-forum.min.css',
+					"wwwroot/css/themes/vapor/bootstrap-forum.min.css": 'wwwroot/css/themes/vapor/bootstrap-forum.min.css',
 					"wwwroot/css/themes/united/bootstrap-forum.min.css":
-						'wwwroot/css/themes/united/bootstrap-forum.css',
+						'wwwroot/css/themes/united/bootstrap-forum.min.css',
 					"wwwroot/css/themes/superhero/bootstrap-forum.min.css":
-						'wwwroot/css/themes/superhero/bootstrap-forum.css',
+						'wwwroot/css/themes/superhero/bootstrap-forum.min.css',
 					"wwwroot/css/themes/spacelab/bootstrap-forum.min.css":
-						'wwwroot/css/themes/spacelab/bootstrap-forum.css',
-					"wwwroot/css/themes/solar/bootstrap-forum.min.css": 'wwwroot/css/themes/solar/bootstrap-forum.css',
-					"wwwroot/css/themes/slate/bootstrap-forum.min.css": 'wwwroot/css/themes/slate/bootstrap-forum.css',
+						'wwwroot/css/themes/spacelab/bootstrap-forum.min.css',
+					"wwwroot/css/themes/solar/bootstrap-forum.min.css": 'wwwroot/css/themes/solar/bootstrap-forum.min.css',
+					"wwwroot/css/themes/slate/bootstrap-forum.min.css": 'wwwroot/css/themes/slate/bootstrap-forum.min.css',
 					"wwwroot/css/themes/sketchy/bootstrap-forum.min.css":
-						'wwwroot/css/themes/sketchy/bootstrap-forum.css',
+						'wwwroot/css/themes/sketchy/bootstrap-forum.min.css',
 					"wwwroot/css/themes/simplex/bootstrap-forum.min.css":
-						'wwwroot/css/themes/simplex/bootstrap-forum.css',
+						'wwwroot/css/themes/simplex/bootstrap-forum.min.css',
 					"wwwroot/css/themes/sandstone/bootstrap-forum.min.css":
-						'wwwroot/css/themes/sandstone/bootstrap-forum.css',
+						'wwwroot/css/themes/sandstone/bootstrap-forum.min.css',
 					"wwwroot/css/themes/quartz/bootstrap-forum.min.css":
-						'wwwroot/css/themes/quartz/bootstrap-forum.css',
-					"wwwroot/css/themes/pulse/bootstrap-forum.min.css": 'wwwroot/css/themes/pulse/bootstrap-forum.css',
-					"wwwroot/css/themes/morph/bootstrap-forum.min.css": 'wwwroot/css/themes/morph/bootstrap-forum.css',
-					"wwwroot/css/themes/minty/bootstrap-forum.min.css": 'wwwroot/css/themes/minty/bootstrap-forum.css',
+						'wwwroot/css/themes/quartz/bootstrap-forum.min.css',
+					"wwwroot/css/themes/pulse/bootstrap-forum.min.css": 'wwwroot/css/themes/pulse/bootstrap-forum.min.css',
+					"wwwroot/css/themes/morph/bootstrap-forum.min.css": 'wwwroot/css/themes/morph/bootstrap-forum.min.css',
+					"wwwroot/css/themes/minty/bootstrap-forum.min.css": 'wwwroot/css/themes/minty/bootstrap-forum.min.css',
 					"wwwroot/css/themes/materia/bootstrap-forum.min.css":
-						'wwwroot/css/themes/materia/bootstrap-forum.css',
-					"wwwroot/css/themes/lux/bootstrap-forum.min.css": 'wwwroot/css/themes/lux/bootstrap-forum.css',
-					"wwwroot/css/themes/lumen/bootstrap-forum.min.css": 'wwwroot/css/themes/lumen/bootstrap-forum.css',
+						'wwwroot/css/themes/materia/bootstrap-forum.min.css',
+					"wwwroot/css/themes/lux/bootstrap-forum.min.css": 'wwwroot/css/themes/lux/bootstrap-forum.min.css',
+					"wwwroot/css/themes/lumen/bootstrap-forum.min.css": 'wwwroot/css/themes/lumen/bootstrap-forum.min.css',
 					"wwwroot/css/themes/litera/bootstrap-forum.min.css":
-						'wwwroot/css/themes/litera/bootstrap-forum.css',
+						'wwwroot/css/themes/litera/bootstrap-forum.min.css',
 					"wwwroot/css/themes/journal/bootstrap-forum.min.css":
-						'wwwroot/css/themes/journal/bootstrap-forum.css',
+						'wwwroot/css/themes/journal/bootstrap-forum.min.css',
 					"wwwroot/css/themes/flatly/bootstrap-forum.min.css":
-						'wwwroot/css/themes/flatly/bootstrap-forum.css',
+						'wwwroot/css/themes/flatly/bootstrap-forum.min.css',
 					"wwwroot/css/themes/darkly/bootstrap-forum.min.css":
-						'wwwroot/css/themes/darkly/bootstrap-forum.css',
+						'wwwroot/css/themes/darkly/bootstrap-forum.min.css',
 					"wwwroot/css/themes/cyborg/bootstrap-forum.min.css":
-						'wwwroot/css/themes/cyborg/bootstrap-forum.css',
-					"wwwroot/css/themes/cosmo/bootstrap-forum.min.css": 'wwwroot/css/themes/cosmo/bootstrap-forum.css',
+						'wwwroot/css/themes/cyborg/bootstrap-forum.min.css',
+					"wwwroot/css/themes/cosmo/bootstrap-forum.min.css": 'wwwroot/css/themes/cosmo/bootstrap-forum.min.css',
 					"wwwroot/css/themes/cerulean/bootstrap-forum.min.css":
-						'wwwroot/css/themes/cerulean/bootstrap-forum.css'
+						'wwwroot/css/themes/cerulean/bootstrap-forum.min.css'
 				}
 			}
 		},
