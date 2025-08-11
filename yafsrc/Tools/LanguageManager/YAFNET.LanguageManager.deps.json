@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v9.0": {
-      "YAFNET.LanguageManager/1.0.6": {
+      "YAFNET.LanguageManager/1.0.7": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.3",
           "SonarAnalyzer.CSharp": "10.15.0.120848"
@@ -27,7 +27,7 @@
     }
   },
   "libraries": {
-    "YAFNET.LanguageManager/1.0.6": {
+    "YAFNET.LanguageManager/1.0.7": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
