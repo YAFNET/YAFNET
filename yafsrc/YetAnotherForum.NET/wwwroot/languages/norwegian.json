@@ -880,6 +880,10 @@
             "#text": "Styret startet:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Brukerleser (er)"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Godkjenne denne brukeren?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Vil du slette alle ikke-godkjente brukere som er mer enn det angitte antallet dager gamle?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "Brukerland (er)"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Land"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Antall brukere:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Brukerplattform (er)"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Innlegg per dag:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Nye registreringer"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Nye brukerregistreringer etter måned"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Denne statistikken teller ikke slettede emner og innlegg."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Brukerstatistikk"
           },
           {
             "@tag": "TITLE",
@@ -1874,18 +1902,6 @@
             "#text": "Standardtavlen viser valg av emneintervall."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM versjon"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Øk CRM-versjonen"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM-versjon, øk antallet for å tvinge nettleseren på nytt av alle Java Script- og CSS-filer"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Kollapset"
           },
@@ -2453,11 +2469,11 @@
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "D"
+            "#text": "Beskrivelse:"
           },
           {
             "@tag": "DESCRIPTION_HELP",
-            "#text": "og"
+            "#text": "Tavlebeskrivelsen som brukes i metabeskrivelsesmerket."
           }
         ]
       },
@@ -7497,6 +7513,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "januar"
+          },
+          {
+            "@tag": "10",
+            "#text": "oktober"
+          },
+          {
+            "@tag": "11",
+            "#text": "november"
+          },
+          {
+            "@tag": "12",
+            "#text": "desember"
+          },
+          {
+            "@tag": "2",
+            "#text": "februar"
+          },
+          {
+            "@tag": "3",
+            "#text": "mars"
+          },
+          {
+            "@tag": "4",
+            "#text": "april"
+          },
+          {
+            "@tag": "5",
+            "#text": "mai"
+          },
+          {
+            "@tag": "6",
+            "#text": "Juni"
+          },
+          {
+            "@tag": "7",
+            "#text": "juli"
+          },
+          {
+            "@tag": "8",
+            "#text": "august"
+          },
+          {
+            "@tag": "9",
+            "#text": "september"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10696,6 +10765,10 @@
             "#text": "Bekreft passord"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Skriv inn en beskrivelse for det nye styret"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Skriv inn navnet på det nye styret"
           },
@@ -11066,10 +11139,6 @@
           {
             "@tag": "YES",
             "#text": "JA"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

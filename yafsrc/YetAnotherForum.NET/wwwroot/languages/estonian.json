@@ -880,6 +880,10 @@
             "#text": "Juhatus alustas:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Kasutajabrauser (id)"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Kas kinnitada see kasutaja?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Kas kustutada kõik kinnitamata kasutajad, kes on rohkem kui määratud arv päevi vanad?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "Kasutajariigid (d)"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Maa"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Kasutajate arv:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Kasutajaplatvorm (d)"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Postitused päevas:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Uued registreerimised"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Uued kasutaja registreerimised pärast m"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "See statistika ei arvesta kustutatud teemasid ja postitusi."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Kasutajastatistika"
           },
           {
             "@tag": "TITLE",
@@ -1874,18 +1902,6 @@
             "#text": "Vaikimisi tahvel näitab teemade intervalli valikut."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM-i versioon"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Suurendage CRM-i versiooni"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM-i versioon, suurendage arvu, et sundida brauseri uuesti laadima kõik Java skripti- ja CSS-failid"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Varises kokku"
           },
@@ -2453,11 +2469,11 @@
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "kirjeldada:"
+            "#text": "Kirjeldus:"
           },
           {
             "@tag": "DESCRIPTION_HELP",
-            "#text": "Määratleb kirjelduse aastal"
+            "#text": "Laua kirjeldus, mida kasutatakse meta kirjelduses sildis."
           }
         ]
       },
@@ -7497,6 +7513,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "Jaanuar"
+          },
+          {
+            "@tag": "10",
+            "#text": "Oktoober"
+          },
+          {
+            "@tag": "11",
+            "#text": "november"
+          },
+          {
+            "@tag": "12",
+            "#text": "detsember"
+          },
+          {
+            "@tag": "2",
+            "#text": "Veebruar"
+          },
+          {
+            "@tag": "3",
+            "#text": "märgid"
+          },
+          {
+            "@tag": "4",
+            "#text": "aprill"
+          },
+          {
+            "@tag": "5",
+            "#text": "major"
+          },
+          {
+            "@tag": "6",
+            "#text": "Juuni"
+          },
+          {
+            "@tag": "7",
+            "#text": "Juuli"
+          },
+          {
+            "@tag": "8",
+            "#text": "augustus"
+          },
+          {
+            "@tag": "9",
+            "#text": "september"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10696,6 +10765,10 @@
             "#text": "Kinnita parool"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Sisestage uue tahvli kirjeldus"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Sisestage uue juhatuse nimi"
           },
@@ -11066,10 +11139,6 @@
           {
             "@tag": "YES",
             "#text": "JAH"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Sisestage uue kirjeldus"
           }
         ]
       },

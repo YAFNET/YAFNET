@@ -880,6 +880,10 @@
             "#text": "Il consiglio è iniziato:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Browser utente / i"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Approvare questo utente?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Cancellare tutti gli utenti non approvati da oltre un certo numero di giorni?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "Paese utente / i"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Paese"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Numero di utenti:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Piattaforme utente / i"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Messaggi al giorno:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Nuove registrazioni"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Nuove registrazioni degli utenti per mese"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Queste statistiche non tengono conto degli argomenti e dei post cancellati."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Statistiche dell'utente"
           },
           {
             "@tag": "TITLE",
@@ -1874,18 +1902,6 @@
             "#text": "La scheda predefinita mostra la selezione dell'intervallo degli argomenti."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "Versione CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Aumentare la versione del CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "Versione CRM, aumentare il numero per forzare il ricaricamento di tutti i file Java Script e CSS da parte del browser"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Crollato"
           },
@@ -2453,11 +2469,11 @@
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "D"
+            "#text": "Descrizione:"
           },
           {
             "@tag": "DESCRIPTION_HELP",
-            "#text": "da"
+            "#text": "La descrizione della scheda utilizzata nel tag meta descrizione."
           }
         ]
       },
@@ -7489,6 +7505,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "Gennaio"
+          },
+          {
+            "@tag": "10",
+            "#text": "ottobre"
+          },
+          {
+            "@tag": "11",
+            "#text": "novembre"
+          },
+          {
+            "@tag": "12",
+            "#text": "Dicembre"
+          },
+          {
+            "@tag": "2",
+            "#text": "Febbraio"
+          },
+          {
+            "@tag": "3",
+            "#text": "Marzo"
+          },
+          {
+            "@tag": "4",
+            "#text": "aprile"
+          },
+          {
+            "@tag": "5",
+            "#text": "Maggio"
+          },
+          {
+            "@tag": "6",
+            "#text": "Giugno"
+          },
+          {
+            "@tag": "7",
+            "#text": "Luglio"
+          },
+          {
+            "@tag": "8",
+            "#text": "agosto"
+          },
+          {
+            "@tag": "9",
+            "#text": "settembre"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10680,6 +10749,10 @@
             "#text": "Verifica la password"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Immettere una descrizione per la nuova scheda"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Inserisci il nome della nuova scheda"
           },
@@ -11050,10 +11123,6 @@
           {
             "@tag": "YES",
             "#text": "SÌ"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

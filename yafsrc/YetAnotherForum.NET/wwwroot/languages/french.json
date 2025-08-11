@@ -880,6 +880,10 @@
             "#text": "Le conseil a commencé :"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Navigateur d'utilisateurs (s)"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Approuver cet utilisateur ?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Supprimer tous les utilisateurs non approuvés depuis plus du nombre de jours spécifié ?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "Pays utilisateur (s)"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Pays"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Nombre d'utilisateurs :"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Plate-forme utilisateur (s)"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Messages par jour :"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Nouvelles inscriptions"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Nouvelles inscriptions des utilisateurs par mois"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Ces statistiques ne tiennent pas compte des sujets et des messages supprimés."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Statistiques des utilisateurs"
           },
           {
             "@tag": "TITLE",
@@ -1874,18 +1902,6 @@
             "#text": "La sélection par défaut de l'intervalle des sujets d'affichage du tableau."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "Version CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Augmenter la version du CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "Version CRM, augmenter le nombre pour forcer un rechargement du navigateur de tous les fichiers Java Script et CSS."
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Effondré"
           },
@@ -2453,11 +2469,11 @@
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "Décrire:"
+            "#text": "Description:"
           },
           {
             "@tag": "DESCRIPTION_HELP",
-            "#text": "M"
+            "#text": "La description de la carte utilisée dans la balise Meta Description."
           }
         ]
       },
@@ -7497,6 +7513,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "Janvier"
+          },
+          {
+            "@tag": "10",
+            "#text": "Octobre"
+          },
+          {
+            "@tag": "11",
+            "#text": "Novembre"
+          },
+          {
+            "@tag": "12",
+            "#text": "Décembre"
+          },
+          {
+            "@tag": "2",
+            "#text": "Février"
+          },
+          {
+            "@tag": "3",
+            "#text": "Mars"
+          },
+          {
+            "@tag": "4",
+            "#text": "Avril"
+          },
+          {
+            "@tag": "5",
+            "#text": "Peut"
+          },
+          {
+            "@tag": "6",
+            "#text": "Juin"
+          },
+          {
+            "@tag": "7",
+            "#text": "Juillet"
+          },
+          {
+            "@tag": "8",
+            "#text": "Août"
+          },
+          {
+            "@tag": "9",
+            "#text": "Septembre"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10696,6 +10765,10 @@
             "#text": "vérifier le mot de passe"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Entrez une description de la nouvelle carte"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Entrez le nom du nouveau conseil"
           },
@@ -11066,10 +11139,6 @@
           {
             "@tag": "YES",
             "#text": "OUI"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

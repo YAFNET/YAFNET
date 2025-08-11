@@ -880,6 +880,10 @@
             "#text": "O Conselho de Administração começou:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Navegador de usuários (s)"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Aprovar este Utilizador?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Eliminar todos os Utilizadores não aprovados com mais do que o número de dias especificado?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "País (s) de usuário (s)"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "País"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Número de utilizadores:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Plataforma (s) de usuário (s)"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Mensagens por dia:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Novos registros"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Novos registros de usuário por mês"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Estas estatísticas não contam os tópicos e posts eliminados."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Estatísticas do usuário"
           },
           {
             "@tag": "TITLE",
@@ -1874,18 +1902,6 @@
             "#text": "O quadro padrão mostra a selecção de intervalos de tópicos."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "Versão CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Aumentar a versão CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "Versão CRM, aumentar o número para forçar um navegador a recarregar todos os ficheiros Java Script e CSS"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Colapsou"
           },
@@ -2453,11 +2469,11 @@
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "z"
+            "#text": "Descrição:"
           },
           {
             "@tag": "DESCRIPTION_HELP",
-            "#text": "Ele disse"
+            "#text": "A descrição da placa usada na tag Meta Descrição."
           }
         ]
       },
@@ -7497,6 +7513,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "Janeiro"
+          },
+          {
+            "@tag": "10",
+            "#text": "outubro"
+          },
+          {
+            "@tag": "11",
+            "#text": "novembro"
+          },
+          {
+            "@tag": "12",
+            "#text": "dezembro"
+          },
+          {
+            "@tag": "2",
+            "#text": "Fevereiro"
+          },
+          {
+            "@tag": "3",
+            "#text": "Marchar"
+          },
+          {
+            "@tag": "4",
+            "#text": "abril"
+          },
+          {
+            "@tag": "5",
+            "#text": "Poderia"
+          },
+          {
+            "@tag": "6",
+            "#text": "Junho"
+          },
+          {
+            "@tag": "7",
+            "#text": "Julho"
+          },
+          {
+            "@tag": "8",
+            "#text": "Agosto"
+          },
+          {
+            "@tag": "9",
+            "#text": "Setembro"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10696,6 +10765,10 @@
             "#text": "verifique a senha"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Digite uma descrição para a nova placa"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Digite o nome da nova diretoria"
           },
@@ -11066,10 +11139,6 @@
           {
             "@tag": "YES",
             "#text": "SIM"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

@@ -880,6 +880,10 @@
             "#text": "Board gestart:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Gebruikersbrowser (s)"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Deze gebruiker goedkeuren?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Alle niet-goedgekeurde gebruikers verwijderen die ouder zijn dan het aantal gegeven dagen?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "Gebruikersland (s)"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Land"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Aantal leden:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Gebruikersplatform (s)"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Posts per dag:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Nieuwe registraties"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Nieuwe gebruikersregistraties na m"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Deze cijfers tellen niet de verwijderde topics en posts mee."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Gebruikersstatistieken"
           },
           {
             "@tag": "TITLE",
@@ -1874,18 +1902,6 @@
             "#text": "De standaard board topic interval selectie."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM-versie"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "CRM-versie verhogen"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM-versie, verhoog het aantal om een ​​browser opnieuw te laden van alle Java-script- en CSS-bestanden"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Ingestort"
           },
@@ -2453,11 +2469,11 @@
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "beschrijven:"
+            "#text": "Beschrijving:"
           },
           {
             "@tag": "DESCRIPTION_HELP",
-            "#text": "Definieert een beschrijving in"
+            "#text": "De bordbeschrijving die wordt gebruikt in de meta -beschrijvingstag."
           }
         ]
       },
@@ -7489,6 +7505,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "Januari"
+          },
+          {
+            "@tag": "10",
+            "#text": "oktober"
+          },
+          {
+            "@tag": "11",
+            "#text": "november"
+          },
+          {
+            "@tag": "12",
+            "#text": "december"
+          },
+          {
+            "@tag": "2",
+            "#text": "Februari"
+          },
+          {
+            "@tag": "3",
+            "#text": "marts"
+          },
+          {
+            "@tag": "4",
+            "#text": "april"
+          },
+          {
+            "@tag": "5",
+            "#text": "maj"
+          },
+          {
+            "@tag": "6",
+            "#text": "juni"
+          },
+          {
+            "@tag": "7",
+            "#text": "juli"
+          },
+          {
+            "@tag": "8",
+            "#text": "augustus"
+          },
+          {
+            "@tag": "9",
+            "#text": "september"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10680,6 +10749,10 @@
             "#text": "Bevestig wachtwoord"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Voer een beschrijving in voor het nieuwe bord"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Voer de naam van het nieuwe bord in"
           },
@@ -11050,10 +11123,6 @@
           {
             "@tag": "YES",
             "#text": "JA"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Voer de beschrijving van het nieuwe in"
           }
         ]
       },

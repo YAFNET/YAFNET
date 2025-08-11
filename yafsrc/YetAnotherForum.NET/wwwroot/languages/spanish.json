@@ -880,6 +880,10 @@
             "#text": "Inicio del tablón:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Navegador de usuarios"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "¿Aprobar este usuario?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "¿Eliminar todos los usuario no aprobados que tengan más de los días de antigüedad especificados?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "País (s) de usuario"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "País"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Número de usuarios:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Plataforma (s) de usuario"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Publicaciones por día:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Nuevos registros"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Nuevos registros de usuario por mes"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Estas estadísticas no contabilizan temas y publicaciones eliminadas."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Estadísticas de usuario"
           },
           {
             "@tag": "TITLE",
@@ -1874,18 +1902,6 @@
             "#text": "El tablero por defecto muestra una selección de temas."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "Versión CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Aumentar la versión de CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "Versión de CRM, aumentar el número para forzar una recarga del navegador de todos los archivos Java Script y CSS"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Colapsado"
           },
@@ -2453,11 +2469,11 @@
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "Z."
+            "#text": "Descripción:"
           },
           {
             "@tag": "DESCRIPTION_HELP",
-            "#text": "Dicho"
+            "#text": "La descripción de la junta utilizada en la etiqueta Meta Descripción."
           }
         ]
       },
@@ -7489,6 +7505,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "Enero"
+          },
+          {
+            "@tag": "10",
+            "#text": "Octubre"
+          },
+          {
+            "@tag": "11",
+            "#text": "Noviembre"
+          },
+          {
+            "@tag": "12",
+            "#text": "Diciembre"
+          },
+          {
+            "@tag": "2",
+            "#text": "Febrero"
+          },
+          {
+            "@tag": "3",
+            "#text": "Marzo"
+          },
+          {
+            "@tag": "4",
+            "#text": "Abril"
+          },
+          {
+            "@tag": "5",
+            "#text": "Puede"
+          },
+          {
+            "@tag": "6",
+            "#text": "Junio"
+          },
+          {
+            "@tag": "7",
+            "#text": "Julio"
+          },
+          {
+            "@tag": "8",
+            "#text": "Agosto"
+          },
+          {
+            "@tag": "9",
+            "#text": "Septiembre"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10680,6 +10749,10 @@
             "#text": "Verificar contraseña"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Ingrese una descripción para la nueva placa"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Ingrese el nombre de la nueva Junta"
           },
@@ -11050,10 +11123,6 @@
           {
             "@tag": "YES",
             "#text": "SÍ"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

@@ -880,6 +880,10 @@
             "#text": "Board begonnen:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Benutzerbrowser (en)"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Diesen Benutzer genehmigen?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Alle nicht bestätigten Benutzer löschen die älter als die spezifizierte Anzahl an Tagen sind?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "Benutzerland (en)"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Land"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Anzahl der Benutzer:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Benutzerplattform (en)"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Beiträge pro Tag:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Neue Registrierungen"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Neue Benutzerregistrierungen bis Monat"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Diese Statistiken zählen nicht für gelöschte Themen und Beiträge."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Benutzerstatistik"
           },
           {
             "@tag": "TITLE",
@@ -1874,18 +1902,6 @@
             "#text": "Die Standard Themen Ansicht."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM-Version"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "CRM-Version erhöhen"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM Version, Nummer erhöhen, um ein Neuladen aller Java Script und CSS Dateien im Browser zu erzwingen"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Zusammengeklappt"
           },
@@ -2453,11 +2469,11 @@
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "D"
+            "#text": "Beschreibung:"
           },
           {
             "@tag": "DESCRIPTION_HELP",
-            "#text": "M"
+            "#text": "Die im Meta -Beschreibungs -Tag verwendete Boardbeschreibung."
           }
         ]
       },
@@ -7489,6 +7505,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "Januar"
+          },
+          {
+            "@tag": "10",
+            "#text": "Oktober"
+          },
+          {
+            "@tag": "11",
+            "#text": "November"
+          },
+          {
+            "@tag": "12",
+            "#text": "Dezember"
+          },
+          {
+            "@tag": "2",
+            "#text": "Februar"
+          },
+          {
+            "@tag": "3",
+            "#text": "Marsch"
+          },
+          {
+            "@tag": "4",
+            "#text": "April"
+          },
+          {
+            "@tag": "5",
+            "#text": "Mai"
+          },
+          {
+            "@tag": "6",
+            "#text": "Juni"
+          },
+          {
+            "@tag": "7",
+            "#text": "Juli"
+          },
+          {
+            "@tag": "8",
+            "#text": "August"
+          },
+          {
+            "@tag": "9",
+            "#text": "September"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10680,6 +10749,10 @@
             "#text": "Passwort bestätigen"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Geben Sie eine Beschreibung für das neue Board ein"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Geben Sie den Namen des neuen Boards ein"
           },
@@ -11050,10 +11123,6 @@
           {
             "@tag": "YES",
             "#text": "JA"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

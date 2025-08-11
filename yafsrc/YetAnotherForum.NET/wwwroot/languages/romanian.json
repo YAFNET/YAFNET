@@ -880,6 +880,10 @@
             "#text": "Consiliul a început:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Browser (e) utilizator"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Aprobați acest utilizator?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Ștergeți toți Utilizatorii neaprobați mai vechi de numărul specificat de zile?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "Țara utilizatorilor (țările)"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Ţară"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Numărul de utilizatori:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Platforma (platformele) utilizator"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Posturi pe zi:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Înregistrări noi"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Înregistrări noi de utilizator pe lună"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Aceste statistici nu iau în considerare subiectele și mesajele șterse."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Statistici ale utilizatorilor"
           },
           {
             "@tag": "TITLE",
@@ -1874,18 +1902,6 @@
             "#text": "Selecția implicită a intervalului de selecție a subiectului de afișare a bordului."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "Versiunea CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Creșteți versiunea CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "Versiunea CRM, creșteți numărul pentru a forța reîncărcarea în browser a tuturor fișierelor Java Script și CSS"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Prăbușit"
           },
@@ -2453,11 +2469,11 @@
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "Z."
+            "#text": "Descriere:"
           },
           {
             "@tag": "DESCRIPTION_HELP",
-            "#text": "A spus el"
+            "#text": "Descrierea plăcii folosită în eticheta Meta Descriere."
           }
         ]
       },
@@ -7497,6 +7513,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "ianuarie"
+          },
+          {
+            "@tag": "10",
+            "#text": "octombrie"
+          },
+          {
+            "@tag": "11",
+            "#text": "noiembrie"
+          },
+          {
+            "@tag": "12",
+            "#text": "decembrie"
+          },
+          {
+            "@tag": "2",
+            "#text": "februarie"
+          },
+          {
+            "@tag": "3",
+            "#text": "martie"
+          },
+          {
+            "@tag": "4",
+            "#text": "aprilie"
+          },
+          {
+            "@tag": "5",
+            "#text": "mai"
+          },
+          {
+            "@tag": "6",
+            "#text": "iunie"
+          },
+          {
+            "@tag": "7",
+            "#text": "iulie"
+          },
+          {
+            "@tag": "8",
+            "#text": "august"
+          },
+          {
+            "@tag": "9",
+            "#text": "septembrie"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10696,6 +10765,10 @@
             "#text": "Verifică parola"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Introduceți o descriere pentru noul tablou"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Introduceți numele noului consiliu"
           },
@@ -11066,10 +11139,6 @@
           {
             "@tag": "YES",
             "#text": "DA"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

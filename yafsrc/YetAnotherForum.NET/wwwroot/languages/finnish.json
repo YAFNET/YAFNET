@@ -880,6 +880,10 @@
             "#text": "Hallitus aloitti:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Käyttäjän selain (t)"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Hyväksy tämä käyttäjä?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Poistaa kaikki hyväksymättömät käyttäjät, jotka ovat yli tietyn määrän päiviä vanhoja?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "Käyttäjämaa (t)"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Maa"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Käyttäjien määrä:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Käyttäjäalusta (t)"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Viestejä päivässä:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Uudet rekisteröinnit"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Uudet käyttäjän rekisteröinnit kuukausittain"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Näissä tilastoissa ei oteta huomioon poistettuja aiheita ja viestejä."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Käyttäjätilastot"
           },
           {
             "@tag": "TITLE",
@@ -1874,18 +1902,6 @@
             "#text": "Oletusarvoinen taulun näytön aiheen aikavälivalinta."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM-versio"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "CRM-version lisääminen"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM-versio, lisää numeroa pakottaaksesi selaimen lataamaan uudelleen kaikki Java-skripti- ja CSS-tiedostot."
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Romahtanut"
           },
@@ -2453,11 +2469,11 @@
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "Kuvaile:"
+            "#text": "Kuvaus:"
           },
           {
             "@tag": "DESCRIPTION_HELP",
-            "#text": "M"
+            "#text": "Metakuvaustunnisteessa käytetty levyn kuvaus."
           }
         ]
       },
@@ -7497,6 +7513,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "tammikuu"
+          },
+          {
+            "@tag": "10",
+            "#text": "lokakuu"
+          },
+          {
+            "@tag": "11",
+            "#text": "marraskuu"
+          },
+          {
+            "@tag": "12",
+            "#text": "joulukuu"
+          },
+          {
+            "@tag": "2",
+            "#text": "helmikuu"
+          },
+          {
+            "@tag": "3",
+            "#text": "Maaliskuu"
+          },
+          {
+            "@tag": "4",
+            "#text": "huhtikuu"
+          },
+          {
+            "@tag": "5",
+            "#text": "Toukokuu"
+          },
+          {
+            "@tag": "6",
+            "#text": "Kesäkuu"
+          },
+          {
+            "@tag": "7",
+            "#text": "heinäkuu"
+          },
+          {
+            "@tag": "8",
+            "#text": "elokuu"
+          },
+          {
+            "@tag": "9",
+            "#text": "syyskuu"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10696,6 +10765,10 @@
             "#text": "Vahvista salasana"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Kirjoita kuvaus uudelle taululle"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Kirjoita uuden hallituksen nimi"
           },
@@ -11066,10 +11139,6 @@
           {
             "@tag": "YES",
             "#text": "JOO"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Kirjoita uusi kuvaus"
           }
         ]
       },

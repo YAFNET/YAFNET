@@ -880,6 +880,10 @@
             "#text": "Styrelsen startade:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Användarwebbläsare"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Godkänna den här användaren?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Ta bort alla icke-godkända användare som är äldre än det angivna antalet dagar?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "Användarland (er)"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Land"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Antal användare:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Användarplattform (er)"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Inlägg per dag:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Nya registreringar"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Nya användarregistreringar efter månad"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Statistiken omfattar inte raderade ämnen och inlägg."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Användarstatistik"
           },
           {
             "@tag": "TITLE",
@@ -1874,18 +1902,6 @@
             "#text": "Standardvalet för intervallet för brädutställningen."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM-version"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Öka CRM-versionen"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM-version, öka antalet för att tvinga fram en omladdning av alla Java Script- och CSS-filer i webbläsaren."
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Kollapsad"
           },
@@ -2453,11 +2469,11 @@
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "Z."
+            "#text": "Beskrivning:"
           },
           {
             "@tag": "DESCRIPTION_HELP",
-            "#text": "Gynnsam"
+            "#text": "Brädbeskrivningen som används i metabeskrivningstaggen."
           }
         ]
       },
@@ -7497,6 +7513,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "Januari"
+          },
+          {
+            "@tag": "10",
+            "#text": "Oktober"
+          },
+          {
+            "@tag": "11",
+            "#text": "November"
+          },
+          {
+            "@tag": "12",
+            "#text": "December"
+          },
+          {
+            "@tag": "2",
+            "#text": "Februari"
+          },
+          {
+            "@tag": "3",
+            "#text": "Marsch"
+          },
+          {
+            "@tag": "4",
+            "#text": "April"
+          },
+          {
+            "@tag": "5",
+            "#text": "Kan"
+          },
+          {
+            "@tag": "6",
+            "#text": "Juni"
+          },
+          {
+            "@tag": "7",
+            "#text": "Juli"
+          },
+          {
+            "@tag": "8",
+            "#text": "Augusti"
+          },
+          {
+            "@tag": "9",
+            "#text": "September"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10696,6 +10765,10 @@
             "#text": "Verifiera lösenord"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Ange en beskrivning för det nya brädet"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Ange namnet på det nya styrelsen"
           },
@@ -11066,10 +11139,6 @@
           {
             "@tag": "YES",
             "#text": "JA"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

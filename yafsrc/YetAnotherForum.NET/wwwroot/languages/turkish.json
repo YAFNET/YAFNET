@@ -880,6 +880,10 @@
             "#text": "Kurul başladı:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Kullanıcı tarayıcısı (lar)"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Bu Kullanıcıyı Onaylıyor musunuz?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Belirtilen gün sayısından daha eski tüm onaylanmamış Kullanıcıları sil?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "Kullanıcı Ülkesi (ler)"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Ülke"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Kullanıcı sayısı:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Kullanıcı platformu (lar)"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Günlük gönderiler:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Yeni Kayıtlar"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Aylara göre yeni kullanıcı kayıtları"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Bu istatistikler silinen konuları ve gönderileri saymamaktadır."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Kullanıcı İstatistikleri"
           },
           {
             "@tag": "TITLE",
@@ -1874,18 +1902,6 @@
             "#text": "Varsayılan pano gösterisi konu aralığı seçimi."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "CRM Sürümü"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "CRM Sürümünü Artırın"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM Sürümü, tüm Java Script ve CSS Dosyalarının Tarayıcı tarafından yeniden yüklenmesini zorlamak için sayıyı artırın"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Çökmüş"
           },
@@ -2453,11 +2469,11 @@
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "Z."
+            "#text": "Tanım:"
           },
           {
             "@tag": "DESCRIPTION_HELP",
-            "#text": "Elverişli"
+            "#text": "Meta açıklama etiketinde kullanılan kart açıklaması."
           }
         ]
       },
@@ -7497,6 +7513,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "Ocak"
+          },
+          {
+            "@tag": "10",
+            "#text": "Ekim"
+          },
+          {
+            "@tag": "11",
+            "#text": "Kasım"
+          },
+          {
+            "@tag": "12",
+            "#text": "Aralık"
+          },
+          {
+            "@tag": "2",
+            "#text": "Şubat"
+          },
+          {
+            "@tag": "3",
+            "#text": "Mart"
+          },
+          {
+            "@tag": "4",
+            "#text": "Nisan"
+          },
+          {
+            "@tag": "5",
+            "#text": "Mayıs"
+          },
+          {
+            "@tag": "6",
+            "#text": "Haziran"
+          },
+          {
+            "@tag": "7",
+            "#text": "Temmuz"
+          },
+          {
+            "@tag": "8",
+            "#text": "Ağustos"
+          },
+          {
+            "@tag": "9",
+            "#text": "Eylül"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10696,6 +10765,10 @@
             "#text": "Şifreyi Doğrula"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Yeni kurul için bir açıklama girin"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Yeni Kurulun adını girin"
           },
@@ -11066,10 +11139,6 @@
           {
             "@tag": "YES",
             "#text": "EVET"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
           }
         ]
       },

@@ -880,6 +880,10 @@
             "#text": "Deska zahájena:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Prohlížeč uživatelů"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Schválit tohoto uživatele?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Smazat všechny neschválené uživatele starší než zadaný počet dní?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "Uživatelská země (y)"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Země"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Počet uživatelů:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Uživatelská platforma"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Příspěvky za den:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Nové registrace"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Nové registrace uživatele podle měsíce"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Tyto statistiky nepočítají smazaná témata a příspěvky."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Statistiky uživatele"
           },
           {
             "@tag": "TITLE",
@@ -1874,18 +1902,6 @@
             "#text": "Výchozí deska zobrazuje výběr intervalu tématu."
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "Verze CRM"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "Zvýšit verzi CRM"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "Verze CRM, zvyšte počet, abyste vynutili opětovné načtení prohlížeče všech souborů Java Script a CSS"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "Zhroucený"
           },
@@ -2453,11 +2469,11 @@
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "popsat:"
+            "#text": "Popis:"
           },
           {
             "@tag": "DESCRIPTION_HELP",
-            "#text": "Definuje popis výkresu použitého v logu popisu."
+            "#text": "Popis desky použité ve značce Meta Description."
           }
         ]
       },
@@ -7497,6 +7513,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "leden"
+          },
+          {
+            "@tag": "10",
+            "#text": "říjen"
+          },
+          {
+            "@tag": "11",
+            "#text": "listopad"
+          },
+          {
+            "@tag": "12",
+            "#text": "prosinec"
+          },
+          {
+            "@tag": "2",
+            "#text": "únor"
+          },
+          {
+            "@tag": "3",
+            "#text": "Pochod"
+          },
+          {
+            "@tag": "4",
+            "#text": "duben"
+          },
+          {
+            "@tag": "5",
+            "#text": "květen"
+          },
+          {
+            "@tag": "6",
+            "#text": "červen"
+          },
+          {
+            "@tag": "7",
+            "#text": "červenec"
+          },
+          {
+            "@tag": "8",
+            "#text": "srpen"
+          },
+          {
+            "@tag": "9",
+            "#text": "září"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10700,6 +10769,10 @@
             "#text": "potvrďte heslo"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Zadejte popis nové desky"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "Zadejte název nové rady"
           },
@@ -11070,10 +11143,6 @@
           {
             "@tag": "YES",
             "#text": "ANO"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Zadejte popis nového obrazu"
           }
         ]
       },

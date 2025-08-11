@@ -880,6 +880,10 @@
             "#text": "董事会开始："
           },
           {
+            "@tag": "BROWSER",
+            "#text": "消费者浏览器"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "批准此用户？"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "删除超过指定天数的所有未批准用户？"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "消费者国家"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "国家"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "用户数:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "用户平台（平台）"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "每日发帖量:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "新记录"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "按月按新用户记录"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "这些统计数据不包括已删除的主题和帖子。"
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "用户统计"
           },
           {
             "@tag": "TITLE",
@@ -1874,18 +1902,6 @@
             "#text": "默认板显示主题间隔选择。"
           },
           {
-            "@tag": "CDVVERSION",
-            "#text": "客户关系管理版本"
-          },
-          {
-            "@tag": "CDVVERSION_BUTTON",
-            "#text": "增加CRM版本"
-          },
-          {
-            "@tag": "CDVVERSION_HELP",
-            "#text": "CRM 版本，增加数量以强制浏览器重新加载所有 Java 脚本和 CSS 文件"
-          },
-          {
             "@tag": "COLLAPSED",
             "#text": "折叠"
           },
@@ -2457,7 +2473,7 @@
           },
           {
             "@tag": "DESCRIPTION_HELP",
-            "#text": "定义描述标志中使用的绘画的描述。"
+            "#text": "元描述标签中使用的板说明。"
           }
         ]
       },
@@ -7497,6 +7513,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "一月"
+          },
+          {
+            "@tag": "10",
+            "#text": "十月"
+          },
+          {
+            "@tag": "11",
+            "#text": "十一月"
+          },
+          {
+            "@tag": "12",
+            "#text": "十二月"
+          },
+          {
+            "@tag": "2",
+            "#text": "二月"
+          },
+          {
+            "@tag": "3",
+            "#text": "他走路"
+          },
+          {
+            "@tag": "4",
+            "#text": "四月"
+          },
+          {
+            "@tag": "5",
+            "#text": "或许"
+          },
+          {
+            "@tag": "6",
+            "#text": "六月"
+          },
+          {
+            "@tag": "7",
+            "#text": "七月"
+          },
+          {
+            "@tag": "8",
+            "#text": "八月"
+          },
+          {
+            "@tag": "9",
+            "#text": "九月"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10696,6 +10765,10 @@
             "#text": "验证密码"
           },
           {
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "输入新董事会的描述"
+          },
+          {
             "@tag": "BOARDNAME",
             "#text": "输入新董事会的名称"
           },
@@ -11066,10 +11139,6 @@
           {
             "@tag": "YES",
             "#text": "是"
-          },
-          {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "أدخل وصفًا للوحة الجديدة"
           }
         ]
       },
