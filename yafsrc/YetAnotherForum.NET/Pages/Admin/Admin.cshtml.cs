@@ -80,12 +80,6 @@ public class AdminModel : AdminPage
     public string UpdateHighlight { get; set; }
 
     /// <summary>
-    /// Gets or sets the boards.
-    /// </summary>
-    /// <value>The boards.</value>
-    public SelectList Boards { get; set; }
-
-    /// <summary>
     /// Gets or sets the pageSize List.
     /// </summary>
     public SelectList UnverifiedPageSizeList { get; set; }
@@ -274,21 +268,6 @@ public class AdminModel : AdminPage
         this.ActiveUserList = activeUsers;
     }
 
-    /// <summary>
-    /// Bind list of boards to drop down
-    /// </summary>
-    private void BindBoardsList()
-    {
-        // only if user is host admin, otherwise boards' list is hidden
-        if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
-        {
-            return;
-        }
-
-        var boards = this.GetRepository<Board>().GetAll();
-
-        this.Boards = new SelectList(boards, nameof(Board.ID), nameof(Board.Name), this.PageBoardContext.PageBoardID);
-    }
 
     /// <summary>
     /// Binds the data.
@@ -296,7 +275,6 @@ public class AdminModel : AdminPage
     private async Task BindDataAsync(int p, int p2)
     {
         this.Input = new AdminInputModel {
-                                        SelectedBoardId = this.PageBoardContext.PageBoardID,
                                         UnverifiedPageSize = this.PageBoardContext.PageUser.PageSize
                                     };
 
@@ -310,14 +288,12 @@ public class AdminModel : AdminPage
             nameof(SelectListItem.Value),
             nameof(SelectListItem.Text));
 
-        this.BindBoardsList();
-
         await this.ShowUpgradeMessageAsync();
 
         this.BindUnverifiedUsers(p2);
 
         // get stats for current board, selected board or all boards (see function)
-        var data = this.GetRepository<Board>().Stats(this.Input.SelectedBoardId);
+        var data = this.GetRepository<Board>().Stats(this.PageBoardContext.PageBoardID);
 
         this.Input.NumCategories = data.Categories;
         this.Input.NumForums = data.Forums;
