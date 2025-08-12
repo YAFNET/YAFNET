@@ -295,23 +295,6 @@ module.exports = function (grunt) {
                 dest: 'Scripts/editor/editor.comb.js'
             },
 
-            SCEditorLanguages: {
-	            options: {
-		            warnings: true,
-		            compress: true,
-		            mangle: true
-	            },
-	            files: [
-		            {
-			            expand: true,
-			            filter: 'isFile',
-                        cwd: 'Scripts/sceditor/',
-			            src: 'languages/**.js',
-                        dest: 'Scripts/sceditor'
-		            }
-	            ]
-            },
-
             forumExtensions: {
                 options: {
                     sourceMap: false,
@@ -598,6 +581,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-file-append');
+	grunt.loadNpmTasks('grunt-webpack');
 
     grunt.registerTask('default',
         [

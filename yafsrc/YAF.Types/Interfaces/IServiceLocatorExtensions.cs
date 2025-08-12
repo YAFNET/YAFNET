@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces;
 
 using System.Collections.Generic;
@@ -43,8 +44,6 @@ public static class IServiceLocatorExtensions
     /// </returns>
     public static TService Get<TService>(this IServiceLocator serviceLocator)
     {
-        
-
         return (TService)serviceLocator.Get(typeof(TService));
     }
 
@@ -64,9 +63,6 @@ public static class IServiceLocatorExtensions
     /// </returns>
     public static TService Get<TService>(this IServiceLocator serviceLocator, string named)
     {
-        
-        
-
         return (TService)serviceLocator.Get(typeof(TService), named);
     }
 
@@ -124,8 +120,6 @@ public static class IServiceLocatorExtensions
     /// </returns>
     public static TService Get<TService>(this IHaveServiceLocator haveLocator)
     {
-        
-
         return haveLocator.ServiceLocator.Get<TService>();
     }
 
@@ -205,8 +199,6 @@ public static class IServiceLocatorExtensions
     public static IRepository<T> GetRepository<T>(this IHaveServiceLocator serviceLocator)
         where T : IEntity
     {
-        
-
         return serviceLocator.Get<IRepository<T>>();
     }
 
@@ -226,8 +218,6 @@ public static class IServiceLocatorExtensions
     /// </returns>
     public static bool TryGet<TService>(this IServiceLocator serviceLocator, out TService instance)
     {
-        
-
         instance = default;
 
         if (!serviceLocator.TryGet(typeof(TService), out var tempInstance))
@@ -259,9 +249,6 @@ public static class IServiceLocatorExtensions
     public static bool TryGet<TService>(
         this IServiceLocator serviceLocator, string named, out TService instance)
     {
-        
-        
-
         instance = default;
 
         if (!serviceLocator.TryGet(typeof(TService), named, out var tempInstance))
@@ -290,8 +277,6 @@ public static class IServiceLocatorExtensions
     /// </returns>
     public static bool TryGet<TService>(this IHaveServiceLocator haveLocator, out TService instance)
     {
-        
-
         return haveLocator.ServiceLocator.TryGet(out instance);
     }
 
@@ -315,9 +300,6 @@ public static class IServiceLocatorExtensions
     public static bool TryGet<TService>(
         this IHaveServiceLocator haveLocator, string named, out TService instance)
     {
-        
-        
-
         return haveLocator.ServiceLocator.TryGet(named, out instance);
     }
 }
