@@ -31,7 +31,7 @@ using YAF.Types.Models;
 /// <summary>
 /// Version 1001 Migrations
 /// </summary>
-[Description("Adds Description to the board table")]
+[Description("Adds Description to the board table, and adds the Referer and Country column to the Active table. Imports old PM from YAF 3 in to the new private message system")]
 public class Migration1001 : MigrationBase
 {
     /// <summary>
@@ -43,5 +43,57 @@ public class Migration1001 : MigrationBase
         {
             this.Db.AddColumn<Board>(x => x.Description);
         }
+
+        if (!this.Db.ColumnExists<Active>(x => x.Referer))
+        {
+            this.Db.AddColumn<Active>(x => x.Referer);
+        }
+
+        if (!this.Db.ColumnExists<Active>(x => x.Country))
+        {
+            this.Db.AddColumn<Active>(x => x.Country);
+        }
+
+        if (!this.Db.TableExists<PMessage>())
+        {
+            return;
+        }
+
+        this.ImportOldMessages();
+    }
+
+    /// <summary>
+    /// Imports old PM from YAF 3 in to the new private message system
+    /// </summary>
+    private void ImportOldMessages()
+    {
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<PMessage>();
+
+        expression.Join<UserPMessage>((a, b) => a.ID == b.PMessageID);
+
+        var oldMessages = this.Db.SelectMulti<PMessage, UserPMessage>(expression);
+
+        // Import Messages
+        foreach (var oldMessage in oldMessages)
+        {
+            var flags = new PrivateMessageFlags
+            {
+                IsRead = true
+            };
+
+            this.Db.Insert(
+                new PrivateMessage
+                {
+                    Body = oldMessage.Item1.Body,
+                    Created = oldMessage.Item1.Created,
+                    Flags = flags.BitValue,
+                    FromUserId = oldMessage.Item1.FromUserID,
+                    ToUserId = oldMessage.Item2.UserID
+                });
+        }
+
+        // Delete old tables
+        this.Db.DropTable<UserPMessage>();
+        this.Db.DropTable<PMessage>();
     }
 }
