@@ -67,16 +67,16 @@ public static class UserRepositoryExtensions
         if (rankInfo.Item2.BoardID != rankInfo.Item1.BoardID)
         {
             // -- get highest rank user can get
-            newRank = BoardContext.Current.GetRepository<Rank>().Get(
-                x => x.BoardID == rankInfo.Item2.BoardID && (x.Flags & 2) == 2 &&
-                     x.MinPosts <= rankInfo.Item1.NumPosts).MaxBy(x => x.MinPosts);
+            newRank = BoardContext.Current.GetRepository<Rank>().Get(x =>
+                x.BoardID == rankInfo.Item2.BoardID && (x.Flags & 2) == 2 &&
+                x.MinPosts <= rankInfo.Item1.NumPosts).MaxBy(x => x.MinPosts);
         }
         else
         {
             // -- See if user got enough posts for next ladder group
-            newRank = BoardContext.Current.GetRepository<Rank>().Get(
-                x => x.BoardID == rankInfo.Item2.BoardID && (x.Flags & 2) == 2 &&
-                     x.MinPosts <= rankInfo.Item1.NumPosts && x.MinPosts == rankInfo.Item2.MinPosts).MaxBy(x => x.MinPosts);
+            newRank = BoardContext.Current.GetRepository<Rank>().Get(x =>
+                x.BoardID == rankInfo.Item2.BoardID && (x.Flags & 2) == 2 &&
+                x.MinPosts <= rankInfo.Item1.NumPosts && x.MinPosts == rankInfo.Item2.MinPosts).MaxBy(x => x.MinPosts);
         }
 
         if (newRank != null)
@@ -98,8 +98,7 @@ public static class UserRepositoryExtensions
     {
         var users = repository.Get(u => u.BoardID == boardId);
 
-        users.ForEach(
-            user => repository.UpdateStyle(user.ID));
+        users.ForEach(user => repository.UpdateStyle(user.ID));
     }
 
     /// <summary>
@@ -143,7 +142,8 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static long BoardMembers(this IRepository<User> repository, int boardId)
     {
-        return repository.Count(u => u.BoardID == boardId && (u.Flags & 4) != 4 && (u.Flags & 32) != 32 && (u.Flags & 2) == 2);
+        return repository.Count(u =>
+            u.BoardID == boardId && (u.Flags & 4) != 4 && (u.Flags & 32) != 32 && (u.Flags & 2) == 2);
     }
 
     /// <summary>
@@ -160,17 +160,16 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static User Latest(this IRepository<User> repository, int boardId)
     {
-        return repository.DbAccess.Execute(
-            db =>
-                {
-                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+        return repository.DbAccess.Execute(db =>
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-                    expression.Where<User>(u => (u.Flags & 4) != 4 && (u.Flags & 2) == 2 && u.BoardID == boardId);
+            expression.Where<User>(u => (u.Flags & 4) != 4 && (u.Flags & 2) == 2 && u.BoardID == boardId);
 
-                    expression.OrderByDescending<User>(u => u.Joined).Take(1);
+            expression.OrderByDescending<User>(u => u.Joined).Take(1);
 
-                    return db.Connection.Single(expression);
-                });
+            return db.Connection.Single(expression);
+        });
     }
 
     /// <summary>
@@ -253,36 +252,35 @@ public static class UserRepositoryExtensions
         DateTime startDate,
         int displayNumber)
     {
-        return repository.DbAccess.Execute(
-            db =>
-                {
-                    var provider = OrmLiteConfig.DialectProvider;
-                    var expression = provider.SqlExpression<User>();
+        return repository.DbAccess.Execute(db =>
+        {
+            var provider = OrmLiteConfig.DialectProvider;
+            var expression = provider.SqlExpression<User>();
 
-                    expression.CustomJoin(
-                            $"""
-                              inner join (select m.{expression.Column<Message>(x => x.UserID)} as ID,
-                                                                              Count(m.{expression.Column<Message>(x => x.UserID)}) as {provider.GetQuotedName("NumOfPosts")}
-                                                                        from {expression.Table<Message>()} m
-                                                                        where m.{expression.Column<Message>(x => x.Posted)} >= {OrmLiteConfig.DialectProvider.GetQuotedValue(startDate, startDate.GetType())}
-                                                                        and (m.{expression.Column<Message>(x => x.Flags)} & 16) = 16
-                                                                        and (m.{expression.Column<Message>(x => x.Flags)} & 8) != 8
-                                                                        group by m.{expression.Column<Message>(x => x.UserID)}
-                                                                      ) as counter on {expression.Column<User>(u => u.ID, true)} = counter.ID
-                             """)
-                        .Where<User>(u => u.BoardID == boardId && u.ID != guestUserId).Select(
-                            $"""
-                             counter.ID,
-                                                         {expression.Column<User>(u => u.Name, true)},
-                                                         {expression.Column<User>(u => u.DisplayName, true)},
-                                                         {expression.Column<User>(u => u.Suspended, true)},
-                                                         {expression.Column<User>(u => u.UserStyle, true)},
-                                                         counter.{provider.GetQuotedName("NumOfPosts")}
-                             """).Take(displayNumber);
+            expression.CustomJoin(
+                    $"""
+                      inner join (select m.{expression.Column<Message>(x => x.UserID)} as ID,
+                                                                      Count(m.{expression.Column<Message>(x => x.UserID)}) as {provider.GetQuotedName("NumOfPosts")}
+                                                                from {expression.Table<Message>()} m
+                                                                where m.{expression.Column<Message>(x => x.Posted)} >= {OrmLiteConfig.DialectProvider.GetQuotedValue(startDate, startDate.GetType())}
+                                                                and (m.{expression.Column<Message>(x => x.Flags)} & 16) = 16
+                                                                and (m.{expression.Column<Message>(x => x.Flags)} & 8) != 8
+                                                                group by m.{expression.Column<Message>(x => x.UserID)}
+                                                              ) as counter on {expression.Column<User>(u => u.ID, true)} = counter.ID
+                     """)
+                .Where<User>(u => u.BoardID == boardId && u.ID != guestUserId).Select(
+                    $"""
+                     counter.ID,
+                                                 {expression.Column<User>(u => u.Name, true)},
+                                                 {expression.Column<User>(u => u.DisplayName, true)},
+                                                 {expression.Column<User>(u => u.Suspended, true)},
+                                                 {expression.Column<User>(u => u.UserStyle, true)},
+                                                 counter.{provider.GetQuotedName("NumOfPosts")}
+                     """).Take(displayNumber);
 
-                    return db.Connection
-                        .Select<LastActive>(expression).OrderByDescending(x => x.NumOfPosts).ToList();
-                });
+            return db.Connection
+                .Select<LastActive>(expression).OrderByDescending(x => x.NumOfPosts).ToList();
+        });
     }
 
     /// <summary>
@@ -370,11 +368,11 @@ public static class UserRepositoryExtensions
     {
         repository.UpdateOnly(
             () => new User
-                      {
-                          BoardID = boardId,
-                          Flags = flags,
-                          RankID = rankId
-                      },
+            {
+                BoardID = boardId,
+                Flags = flags,
+                RankID = rankId
+            },
             u => u.ID == userId);
     }
 
@@ -474,8 +472,8 @@ public static class UserRepositoryExtensions
 
         if (existingUser == null)
         {
-            user = repository.GetSingle(
-                u => u.BoardID == boardId && (u.ProviderUserKey == providerUserKey || u.Name == userName));
+            user = repository.GetSingle(u =>
+                u.BoardID == boardId && (u.ProviderUserKey == providerUserKey || u.Name == userName));
         }
         else
         {
@@ -507,11 +505,11 @@ public static class UserRepositoryExtensions
             {
                 repository.UpdateOnly(
                     () => new User
-                              {
-                                  DisplayName = displayName,
-                                  Email = email,
-                                  Flags = flags.BitValue
-                              },
+                    {
+                        DisplayName = displayName,
+                        Email = email,
+                        Flags = flags.BitValue
+                    },
                     u => u.ID == user.ID);
             }
         }
@@ -527,20 +525,20 @@ public static class UserRepositoryExtensions
 
             userId = repository.Insert(
                 new User
-                    {
-                        BoardID = boardId,
-                        RankID = rankId,
-                        Name = userName,
-                        DisplayName = displayName,
-                        Email = email,
-                        Joined = DateTime.UtcNow,
-                        LastVisit = DateTime.UtcNow,
-                        NumPosts = 0,
-                        TimeZone = TimeZoneInfo.Local.Id,
-                        Flags = approvedFlag,
-                        ProviderUserKey = providerUserKey,
-                        PageSize = pageSize
-                    });
+                {
+                    BoardID = boardId,
+                    RankID = rankId,
+                    Name = userName,
+                    DisplayName = displayName,
+                    Email = email,
+                    Joined = DateTime.UtcNow,
+                    LastVisit = DateTime.UtcNow,
+                    NumPosts = 0,
+                    TimeZone = TimeZoneInfo.Local.Id,
+                    Flags = approvedFlag,
+                    ProviderUserKey = providerUserKey,
+                    PageSize = pageSize
+                });
         }
 
         return userId;
@@ -571,10 +569,12 @@ public static class UserRepositoryExtensions
             () => new Topic { UserName = user.Name, UserDisplayName = user.DisplayName, UserID = guestUserId },
             u => u.UserID == user.ID);
         BoardContext.Current.GetRepository<Topic>().UpdateOnly(
-            () => new Topic { LastUserName = user.Name, LastUserDisplayName = user.DisplayName, LastUserID = guestUserId },
+            () => new Topic
+                { LastUserName = user.Name, LastUserDisplayName = user.DisplayName, LastUserID = guestUserId },
             u => u.LastUserID == user.ID);
         BoardContext.Current.GetRepository<Forum>().UpdateOnly(
-            () => new Forum { LastUserName = user.Name, LastUserDisplayName = user.DisplayName, LastUserID = guestUserId },
+            () => new Forum
+                { LastUserName = user.Name, LastUserDisplayName = user.DisplayName, LastUserID = guestUserId },
             u => u.LastUserID == user.ID);
 
         BoardContext.Current.GetRepository<Active>().Delete(x => x.UserID == user.ID);
@@ -590,7 +590,8 @@ public static class UserRepositoryExtensions
             BoardContext.Current.GetRepository<PMessage>().Delete(x => x.FromUserID == user.ID);
         }
 
-        BoardContext.Current.GetRepository<Thanks>().Delete(x => x.ThanksFromUserID == user.ID || x.ThanksToUserID == user.ID);
+        BoardContext.Current.GetRepository<Thanks>()
+            .Delete(x => x.ThanksFromUserID == user.ID || x.ThanksToUserID == user.ID);
         BoardContext.Current.GetRepository<Buddy>().Delete(x => x.FromUserID == user.ID);
         BoardContext.Current.GetRepository<Buddy>().Delete(x => x.ToUserID == user.ID);
         BoardContext.Current.GetRepository<Attachment>().Delete(x => x.UserID == user.ID);
@@ -603,11 +604,10 @@ public static class UserRepositoryExtensions
         // -- Delete user albums
         var albums = BoardContext.Current.GetRepository<UserAlbum>().ListByUser(user.ID);
 
-        albums.ForEach(
-            album =>
-            {
-                BoardContext.Current.GetRepository<UserAlbumImage>().Delete(x => x.AlbumID == album.ID);
-            });
+        albums.ForEach(album =>
+        {
+            BoardContext.Current.GetRepository<UserAlbumImage>().Delete(x => x.AlbumID == album.ID);
+        });
 
         BoardContext.Current.GetRepository<UserAlbum>().Delete(x => x.UserID == user.ID);
 
@@ -674,14 +674,13 @@ public static class UserRepositoryExtensions
         var users = repository.Get(u => u.BoardID == boardId && (u.Flags & 2) != 2)
             .Where(u => (DateTime.UtcNow - u.Joined).Days > days);
 
-        users.ForEach(
-            u =>
-                {
-                    BoardContext.Current.GetRepository<EventLog>().Delete(x => x.UserID == u.ID);
-                    BoardContext.Current.GetRepository<CheckEmail>().Delete(x => x.UserID == u.ID);
-                    BoardContext.Current.GetRepository<UserGroup>().Delete(x => x.UserID == u.ID);
-                    BoardContext.Current.GetRepository<User>().DeleteById(u.ID);
-                });
+        users.ForEach(u =>
+        {
+            BoardContext.Current.GetRepository<EventLog>().Delete(x => x.UserID == u.ID);
+            BoardContext.Current.GetRepository<CheckEmail>().Delete(x => x.UserID == u.ID);
+            BoardContext.Current.GetRepository<UserGroup>().Delete(x => x.UserID == u.ID);
+            BoardContext.Current.GetRepository<User>().DeleteById(u.ID);
+        });
     }
 
     /// <summary>
@@ -706,21 +705,24 @@ public static class UserRepositoryExtensions
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchTopic>();
 
-        expression.Join<User>((a, b) => b.ID == a.UserID).Where<WatchTopic, User>(
-            (a, b) => b.ID != userId && b.NotificationType != 10 &&
-                      a.TopicID == topicId && (b.Flags & 2) == 2 && (b.Flags & 4) != 4 && (b.Flags & 32) != 32).Select<User>(x => x);
+        expression.Join<User>((a, b) => b.ID == a.UserID).Where<WatchTopic, User>((a, b) => b.ID != userId &&
+                b.NotificationType != 10 &&
+                a.TopicID == topicId && (b.Flags & 2) == 2 && (b.Flags & 4) != 4 && (b.Flags & 32) != 32)
+            .Select<User>(x => x);
 
         var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<WatchForum>();
 
         expression2.Join<User>((a, b) => b.ID == a.UserID).Join<Topic>((a, c) => c.ForumID == a.ForumID)
-            .Where<WatchForum, User, Topic>(
-                (a, b, c) => b.ID != userId && b.NotificationType != 10 &&
-                             c.ID == topicId && (b.Flags & 2) == 2 && (b.Flags & 4) != 4 && (b.Flags & 32) != 32).Select<User>(x => x);
+            .Where<WatchForum, User, Topic>((a, b, c) => b.ID != userId && b.NotificationType != 10 &&
+                                                         c.ID == topicId && (b.Flags & 2) == 2 && (b.Flags & 4) != 4 &&
+                                                         (b.Flags & 32) != 32).Select<User>(x => x);
 
-        return [.. repository.DbAccess.Execute(
-                db => db.Connection.Select<User>(
+        return
+        [
+            .. repository.DbAccess.Execute(db => db.Connection.Select<User>(
                     $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}"))
-            .DistinctBy(x => x.ID)];
+                .DistinctBy(x => x.ID)
+        ];
     }
 
     /// <summary>
@@ -740,8 +742,7 @@ public static class UserRepositoryExtensions
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
         expression.Join<UserGroup>((u, b) => b.UserID == u.ID).Join<UserGroup, Group>((b, c) => c.ID == b.GroupID)
-            .Where<User, UserGroup, Group>(
-                (a, b, c) => b.GroupID == groupId && (c.Flags & 2) == 0 && a.Email != null)
+            .Where<User, UserGroup, Group>((a, b, c) => b.GroupID == groupId && (c.Flags & 2) == 0 && a.Email != null)
             .Select(u => new { u.Email });
 
         return repository.DbAccess.Execute(db => db.Connection.SqlList<string>(expression));
@@ -765,8 +766,8 @@ public static class UserRepositoryExtensions
     public static User GetUserByProviderKey(this IRepository<User> repository, int? boardId, string providerUserKey)
     {
         return boardId == null
-                   ? repository.GetSingle(u => u.ProviderUserKey == providerUserKey)
-                   : repository.GetSingle(u => u.BoardID == boardId && u.ProviderUserKey == providerUserKey);
+            ? repository.GetSingle(u => u.ProviderUserKey == providerUserKey)
+            : repository.GetSingle(u => u.BoardID == boardId && u.ProviderUserKey == providerUserKey);
     }
 
     /// <summary>
@@ -789,23 +790,23 @@ public static class UserRepositoryExtensions
         int userId,
         int boardId)
     {
-        var groupMax = repository.DbAccess.Execute(
-            db => db.Connection.Single<(int maxAlbum, int maxAlbumImages)>(
-                db.Connection.From<User>().Join<UserGroup>((a, b) => b.UserID == a.ID)
-                    .Join<UserGroup, Group>((b, c) => c.ID == b.GroupID)
-                    .Where(a => a.ID == userId && a.BoardID == boardId).Select<Group>(
-                        c => new { MaxAlbum = Sql.Max(c.UsrAlbums), MaxAlbumImages = Sql.Max(c.UsrAlbumImages) })));
+        var groupMax = repository.DbAccess.Execute(db => db.Connection.Single<(int maxAlbum, int maxAlbumImages)>(
+            db.Connection.From<User>().Join<UserGroup>((a, b) => b.UserID == a.ID)
+                .Join<UserGroup, Group>((b, c) => c.ID == b.GroupID)
+                .Where(a => a.ID == userId && a.BoardID == boardId).Select<Group>(c =>
+                    new { MaxAlbum = Sql.Max(c.UsrAlbums), MaxAlbumImages = Sql.Max(c.UsrAlbumImages) })));
 
-        var rankMax = repository.DbAccess.Execute(
-            db => db.Connection.Single<(int maxAlbum, int maxAlbumImages)>(
-                db.Connection.From<User>().Join<Rank>((a, b) => b.ID == a.RankID)
-                    .Where(a => a.ID == userId && a.BoardID == boardId).Select<Rank>(
-                        b => new { MaxAlbum = b.UsrAlbums, MaxAlbumImages = b.UsrAlbumImages })));
+        var rankMax = repository.DbAccess.Execute(db => db.Connection.Single<(int maxAlbum, int maxAlbumImages)>(
+            db.Connection.From<User>().Join<Rank>((a, b) => b.ID == a.RankID)
+                .Where(a => a.ID == userId && a.BoardID == boardId).Select<Rank>(b =>
+                    new { MaxAlbum = b.UsrAlbums, MaxAlbumImages = b.UsrAlbumImages })));
 
         dynamic data = new ExpandoObject();
 
         data.UserAlbum = groupMax.maxAlbum > rankMax.maxAlbum ? groupMax.maxAlbum : rankMax.maxAlbum;
-        data.UserAlbumImages = groupMax.maxAlbumImages > rankMax.maxAlbumImages ? groupMax.maxAlbumImages : rankMax.maxAlbumImages;
+        data.UserAlbumImages = groupMax.maxAlbumImages > rankMax.maxAlbumImages
+            ? groupMax.maxAlbumImages
+            : rankMax.maxAlbumImages;
 
         return data;
     }
@@ -830,18 +831,16 @@ public static class UserRepositoryExtensions
         int userId,
         int boardId)
     {
-        var groupMax = repository.DbAccess.Execute(
-            db => db.Connection.Single<(string usrSigBBCodes, int usrSigChars)>(
-                db.Connection.From<User>().Join<UserGroup>((a, b) => b.UserID == a.ID)
-                    .Join<UserGroup, Group>((b, c) => c.ID == b.GroupID)
-                    .Where(a => a.ID == userId && a.BoardID == boardId).Select<Group>(
-                        c => new { UsrSigBBCodes = Sql.Max(c.UsrSigBBCodes), UsrSigChars = Sql.Max(c.UsrSigChars) })));
+        var groupMax = repository.DbAccess.Execute(db => db.Connection.Single<(string usrSigBBCodes, int usrSigChars)>(
+            db.Connection.From<User>().Join<UserGroup>((a, b) => b.UserID == a.ID)
+                .Join<UserGroup, Group>((b, c) => c.ID == b.GroupID)
+                .Where(a => a.ID == userId && a.BoardID == boardId).Select<Group>(c =>
+                    new { UsrSigBBCodes = Sql.Max(c.UsrSigBBCodes), UsrSigChars = Sql.Max(c.UsrSigChars) })));
 
-        var rankMax = repository.DbAccess.Execute(
-            db => db.Connection.Single<(string usrSigBBCodes, int usrSigChars)>(
-                db.Connection.From<User>().Join<Rank>((a, b) => b.ID == a.RankID)
-                    .Where(a => a.ID == userId && a.BoardID == boardId).Select<Rank>(
-                        b => new { b.UsrSigBBCodes, b.UsrSigChars })));
+        var rankMax = repository.DbAccess.Execute(db => db.Connection.Single<(string usrSigBBCodes, int usrSigChars)>(
+            db.Connection.From<User>().Join<Rank>((a, b) => b.ID == a.RankID)
+                .Where(a => a.ID == userId && a.BoardID == boardId)
+                .Select<Rank>(b => new { b.UsrSigBBCodes, b.UsrSigChars })));
 
         dynamic data = new ExpandoObject();
 
@@ -856,7 +855,9 @@ public static class UserRepositoryExtensions
 
         if (rankMax.usrSigBBCodes.IsSet() && groupMax.usrSigBBCodes.IsSet())
         {
-            data.UsrSigBBCodes = groupMax.usrSigBBCodes.Length > rankMax.usrSigBBCodes.Length ? groupMax.usrSigBBCodes : rankMax.usrSigBBCodes;
+            data.UsrSigBBCodes = groupMax.usrSigBBCodes.Length > rankMax.usrSigBBCodes.Length
+                ? groupMax.usrSigBBCodes
+                : rankMax.usrSigBBCodes;
         }
         else
         {
@@ -898,161 +899,154 @@ public static class UserRepositoryExtensions
         bool showUnreadPMs,
         bool showUserAlbums)
     {
-        return repository.DbAccess.Execute(
-            db =>
+        return repository.DbAccess.Execute(db =>
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+            expression.Where<User>(u => u.ID == userId);
+
+            // -- moderate Posts
+            var moderatePostsExpression = OrmLiteConfig.DialectProvider.SqlExpression<Message>()
+                .Join<Topic>((a, b) => b.ID == a.TopicID).Join<Topic, Forum>((b, c) => c.ID == b.ForumID)
+                .Join<Forum, Category>((c, d) => d.ID == c.CategoryID)
+                .Join<Topic, ActiveAccess>((b, access) => access.ForumID == b.ForumID);
+
+            moderatePostsExpression.Where<Message, Topic, Forum, Category, ActiveAccess>((a, b, c, d, access) =>
+                (a.Flags & 128) == 128 && (a.Flags & 8) != 8 && (b.Flags & 8) != 8 &&
+                d.BoardID == boardId && access.ModeratorAccess && access.UserID == userId ||
+                (a.Flags & 16) != 16 && (a.Flags & 8) != 8 && (b.Flags & 8) != 8 &&
+                d.BoardID == boardId && (d.Flags & 1) == 1 && access.ModeratorAccess &&
+                access.UserID == userId);
+
+            var moderatePostsSql = moderatePostsExpression.Select(Sql.Count("1"))
+                .ToMergedParamsSelectStatement();
+
+            var countAlbumsSql = "0";
+
+            if (showUserAlbums)
             {
-                var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+                // -- count Albums
+                var countAlbumsExpression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbum>();
 
-                expression.Where<User>(u => u.ID == userId);
+                countAlbumsExpression.Where(u => u.UserID == userId);
 
-                // -- moderate Posts
-                var moderatePostsExpression = OrmLiteConfig.DialectProvider.SqlExpression<Message>()
-                    .Join<Topic>((a, b) => b.ID == a.TopicID).Join<Topic, Forum>((b, c) => c.ID == b.ForumID)
-                    .Join<Forum, Category>((c, d) => d.ID == c.CategoryID)
-                    .Join<Topic, ActiveAccess>((b, access) => access.ForumID == b.ForumID);
+                countAlbumsSql = countAlbumsExpression.Select(Sql.Count("1"))
+                    .ToMergedParamsSelectStatement();
+            }
 
-                moderatePostsExpression.Where<Message, Topic, Forum, Category, ActiveAccess>(
-                    (a, b, c, d, access) =>
-                        (a.Flags & 128) == 128 && (a.Flags & 8) != 8 && (b.Flags & 8) != 8 &&
-                        d.BoardID == boardId && access.ModeratorAccess && access.UserID == userId ||
-                        (a.Flags & 16) != 16 && (a.Flags & 8) != 8 && (b.Flags & 8) != 8 &&
-                        d.BoardID == boardId && (d.Flags & 1) == 1 && access.ModeratorAccess &&
-                        access.UserID == userId);
+            // -- count ReceivedThanks
+            var countThanksExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
-                var moderatePostsSql = moderatePostsExpression.Select(Sql.Count("1"))
+            countThanksExpression.Where(a => a.UserID == userId && (a.Flags & 1024) == 1024 && a.Notification);
+
+            var countThanksSql = countThanksExpression.Select(Sql.Count("1"))
+                .ToMergedParamsSelectStatement();
+
+            // -- count Mention
+            var countMentionExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
+
+            countMentionExpression.Where(a => a.UserID == userId && (a.Flags & 512) == 512 && a.Notification);
+
+            var countMentionSql = countMentionExpression.Select(Sql.Count("1"))
+                .ToMergedParamsSelectStatement();
+
+            // -- count Quoted
+            var countQuotedExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
+
+            countQuotedExpression.Where(a => a.UserID == userId && (a.Flags & 1024) == 1024 && a.Notification);
+
+            var countQuotedSql = countQuotedExpression.Select(Sql.Count("1"))
+                .ToMergedParamsSelectStatement();
+
+            // -- count Watch Topics
+            var countWatchTopicsExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
+
+            countWatchTopicsExpression.Where(a => a.UserID == userId && a.Notification &&
+                                                  ((a.Flags & 8192) == 8192 || (a.Flags & 16384) == 16384));
+
+            var countWatchTopicsSql = countWatchTopicsExpression.Select(Sql.Count("1"))
+                .ToMergedParamsSelectStatement();
+
+            var countUnreadSql = "0";
+
+            if (showUnreadPMs)
+            {
+                // -- count Unread
+                var countUnreadExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
+
+                countUnreadExpression.Where(x => x.ToUserId == userId && (x.Flags & 1) != 1);
+
+                countUnreadSql = countUnreadExpression.Select(Sql.Count("1"))
+                    .ToMergedParamsSelectStatement();
+            }
+
+            var countBuddiesSql = "0";
+            var lastBuddySql = "null";
+
+            if (showPendingBuddies)
+            {
+                // -- count Buddies
+                var countBuddiesExpression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
+
+                countBuddiesExpression.Where(x => x.ToUserID == userId && x.Approved == false);
+
+                countBuddiesSql = countBuddiesExpression.Select(Sql.Count("1"))
                     .ToMergedParamsSelectStatement();
 
-                var countAlbumsSql = "0";
+                // -- last Buddy
+                var lastBuddyExpression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>()
+                    .OrderByDescending<Buddy>(x => x.Requested).Limit(1);
 
-                if (showUserAlbums)
-                {
-                    // -- count Albums
-                    var countAlbumsExpression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbum>();
+                lastBuddyExpression.Where(x => x.ToUserID == userId && x.Approved == false);
 
-                    countAlbumsExpression.Where(u => u.UserID == userId);
-
-                    countAlbumsSql = countAlbumsExpression.Select(Sql.Count("1"))
-                        .ToMergedParamsSelectStatement();
-                }
-
-                // -- count ReceivedThanks
-                var countThanksExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
-
-                countThanksExpression.Where(
-                    a => a.UserID == userId && (a.Flags & 1024) == 1024 && a.Notification);
-
-                var countThanksSql = countThanksExpression.Select(Sql.Count("1"))
+                lastBuddySql = lastBuddyExpression
+                    .Select(lastBuddyExpression.Column<Buddy>(x => x.Requested))
                     .ToMergedParamsSelectStatement();
+            }
 
-                // -- count Mention
-                var countMentionExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
+            // -- has Buddies
+            var hasBuddiesExpression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
 
-                countMentionExpression.Where(
-                    a => a.UserID == userId && (a.Flags & 512) == 512 && a.Notification);
+            hasBuddiesExpression.Where(x => x.FromUserID == userId || x.ToUserID == userId).Limit(1);
 
-                var countMentionSql = countMentionExpression.Select(Sql.Count("1"))
-                    .ToMergedParamsSelectStatement();
+            var hasBuddiesSql = hasBuddiesExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
-                // -- count Quoted
-                var countQuotedExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
+            // -- has Private Messages
+            var hasPmsExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
 
-                countQuotedExpression.Where(
-                    a => a.UserID == userId && (a.Flags & 1024) == 1024 && a.Notification);
+            hasPmsExpression.Where(x =>
+                    x.FromUserId == userId && (x.Flags & 2) != 2 || x.ToUserId == userId && (x.Flags & 4) != 4)
+                .Limit(1);
 
-                var countQuotedSql = countQuotedExpression.Select(Sql.Count("1"))
-                    .ToMergedParamsSelectStatement();
+            var hasPmsSql = hasPmsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
-                // -- count Watch Topics
-                var countWatchTopicsExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
-
-                countWatchTopicsExpression.Where(
-                    a => a.UserID == userId && a.Notification &&
-                         ((a.Flags & 8192) == 8192 || (a.Flags & 16384) == 16384));
-
-                var countWatchTopicsSql = countWatchTopicsExpression.Select(Sql.Count("1"))
-                    .ToMergedParamsSelectStatement();
-
-                var countUnreadSql = "0";
-
-                if (showUnreadPMs)
-                {
-                    // -- count Unread
-                    var countUnreadExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
-
-                    countUnreadExpression.Where(
-                        x => x.ToUserId == userId && (x.Flags & 1) != 1);
-
-                    countUnreadSql = countUnreadExpression.Select(Sql.Count("1"))
-                        .ToMergedParamsSelectStatement();
-                }
-
-                var countBuddiesSql = "0";
-                var lastBuddySql = "null";
-
-                if (showPendingBuddies)
-                {
-                    // -- count Buddies
-                    var countBuddiesExpression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
-
-                    countBuddiesExpression.Where(x => x.ToUserID == userId && x.Approved == false);
-
-                    countBuddiesSql = countBuddiesExpression.Select(Sql.Count("1"))
-                        .ToMergedParamsSelectStatement();
-
-                    // -- last Buddy
-                    var lastBuddyExpression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>()
-                        .OrderByDescending<Buddy>(x => x.Requested).Limit(1);
-
-                    lastBuddyExpression.Where(x => x.ToUserID == userId && x.Approved == false);
-
-                    lastBuddySql = lastBuddyExpression
-                        .Select(lastBuddyExpression.Column<Buddy>(x => x.Requested))
-                        .ToMergedParamsSelectStatement();
-                }
-
-                // -- has Buddies
-                var hasBuddiesExpression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
-
-                hasBuddiesExpression.Where(x => x.FromUserID == userId || x.ToUserID == userId).Limit(1);
-
-                var hasBuddiesSql = hasBuddiesExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
-
-                // -- has Private Messages
-                var hasPmsExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
-
-                hasPmsExpression.Where(x =>
-                        x.FromUserId == userId && (x.Flags & 2) != 2 || x.ToUserId == userId && (x.Flags & 4) != 4)
-                    .Limit(1);
-
-                var hasPmsSql = hasPmsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
-
-                expression.Take(1).Select<User>(
-                    a => new {
-                        a.ProviderUserKey,
-                        a.Suspended,
-                        a.SuspendedReason,
-                        TimeZoneUser = a.TimeZone,
-                        IsGuest =
-                            Sql.Custom<bool>(
-                                $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
-                        ModeratePosts = Sql.Custom($"({moderatePostsSql})"),
-                        WatchTopic = Sql.Custom($"({countWatchTopicsSql})"),
-                        ReceivedThanks = Sql.Custom($"({countThanksSql})"),
-                        Mention = Sql.Custom($"({countMentionSql})"),
-                        Quoted = Sql.Custom($"({countQuotedSql})"),
-                        UnreadPrivate = Sql.Custom($"({countUnreadSql})"),
-                        PendingBuddies = Sql.Custom($"({countBuddiesSql})"),
-                        LastPendingBuddies = Sql.Custom($"({lastBuddySql})"),
-                        NumAlbums = Sql.Custom($"({countAlbumsSql})"),
-                        UserHasBuddies =
-                            Sql.Custom(
-                                $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(hasBuddiesSql, 0)})"),
-                        UserHasPrivateConversations = Sql.Custom(
-                            $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(hasPmsSql, 0)})")
-                    });
-
-                return db.Connection.Single<UserLazyData>(expression);
+            expression.Take(1).Select<User>(a => new
+            {
+                a.ProviderUserKey,
+                a.Suspended,
+                a.SuspendedReason,
+                TimeZoneUser = a.TimeZone,
+                IsGuest =
+                    Sql.Custom<bool>(
+                        $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
+                ModeratePosts = Sql.Custom($"({moderatePostsSql})"),
+                WatchTopic = Sql.Custom($"({countWatchTopicsSql})"),
+                ReceivedThanks = Sql.Custom($"({countThanksSql})"),
+                Mention = Sql.Custom($"({countMentionSql})"),
+                Quoted = Sql.Custom($"({countQuotedSql})"),
+                UnreadPrivate = Sql.Custom($"({countUnreadSql})"),
+                PendingBuddies = Sql.Custom($"({countBuddiesSql})"),
+                LastPendingBuddies = Sql.Custom($"({lastBuddySql})"),
+                NumAlbums = Sql.Custom($"({countAlbumsSql})"),
+                UserHasBuddies =
+                    Sql.Custom(
+                        $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(hasBuddiesSql, 0)})"),
+                UserHasPrivateConversations = Sql.Custom(
+                    $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(hasPmsSql, 0)})")
             });
+
+            return db.Connection.Single<UserLazyData>(expression);
+        });
     }
 
     /// <summary>
@@ -1106,15 +1100,15 @@ public static class UserRepositoryExtensions
 
         repository.UpdateOnly(
             () => new User
-                      {
-                          Activity = activity,
-                          TimeZone = timeZone,
-                          LanguageFile = languageFile,
-                          ThemeFile = themeFile,
-                          Culture = culture,
-                          Flags = flags.BitValue,
-                          PageSize = pageSize
-                      },
+            {
+                Activity = activity,
+                TimeZone = timeZone,
+                LanguageFile = languageFile,
+                ThemeFile = themeFile,
+                Culture = culture,
+                Flags = flags.BitValue,
+                PageSize = pageSize
+            },
             u => u.ID == userId);
     }
 
@@ -1155,9 +1149,9 @@ public static class UserRepositoryExtensions
 
         repository.UpdateOnly(
             () => new User
-                      {
-                          DisplayName = displayName
-                      },
+            {
+                DisplayName = displayName
+            },
             u => u.ID == user.ID);
 
         // -- here we sync a new display name everywhere
@@ -1257,11 +1251,11 @@ public static class UserRepositoryExtensions
     {
         repository.UpdateOnly(
             () => new User
-                      {
-                          AutoWatchTopics = autoWatchTopics,
-                          NotificationType = notificationType,
-                          DailyDigest = dailyDigest
-                      },
+            {
+                AutoWatchTopics = autoWatchTopics,
+                NotificationType = notificationType,
+                DailyDigest = dailyDigest
+            },
             u => u.ID == userId);
     }
 
@@ -1283,9 +1277,9 @@ public static class UserRepositoryExtensions
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-        expression.Join<VAccess>((u, v) => v.UserID == u.ID).Where<VAccess, User>(
-            (v, u) => u.BoardID == (boardId ?? repository.BoardID) && (u.Flags & 4) != 4 && v.IsAdmin > 0 &&
-                      v.ForumID == 0).OrderBy<User>(u => u.DisplayName);
+        expression.Join<VAccess>((u, v) => v.UserID == u.ID).Where<VAccess, User>((v, u) =>
+            u.BoardID == (boardId ?? repository.BoardID) && (u.Flags & 4) != 4 && v.IsAdmin > 0 &&
+            v.ForumID == 0).OrderBy<User>(u => u.DisplayName);
 
         return repository.DbAccess.Execute(db => db.Connection.Select(expression));
     }
@@ -1383,34 +1377,34 @@ public static class UserRepositoryExtensions
     {
         var timeSinceLastLogin = DateTime.UtcNow.AddMinutes(0 - 60 * 24 * 30);
 
-        var users = repository.DbAccess.Execute(
-            db =>
-                {
-                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+        var users = repository.DbAccess.Execute(db =>
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-                    expression.Where<User>(
-                        u => (u.Flags & 2) == 2 && u.BoardID == repository.BoardID && (u.Flags & 4) != 4 &&
-                             timeSinceLastLogin < u.LastVisit);
+            expression.Where<User>(u => (u.Flags & 2) == 2 && u.BoardID == repository.BoardID && (u.Flags & 4) != 4 &&
+                                        timeSinceLastLogin < u.LastVisit);
 
-                    expression.OrderBy(u => u.LastVisit);
+            expression.OrderBy(u => u.LastVisit);
 
-                    expression.Select<User>(
-                        u => new
-                                 {
-                                     UserID = u.ID,
-                                     UserName = u.Name,
-                                     UserDisplayName = u.DisplayName,
-                                     IsCrawler = 0,
-                                     UserCount = 1,
-                                     IsActiveExcluded = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&16")})"),
-                                     IsGuest = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
-                                     u.UserStyle,
-                                     u.Suspended,
-                                     u.LastVisit
-                                 });
+            expression.Select<User>(u => new
+            {
+                UserID = u.ID,
+                UserName = u.Name,
+                UserDisplayName = u.DisplayName,
+                IsCrawler = 0,
+                UserCount = 1,
+                IsActiveExcluded =
+                    Sql.Custom<bool>(
+                        $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&16")})"),
+                IsGuest = Sql.Custom<bool>(
+                    $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
+                u.UserStyle,
+                u.Suspended,
+                u.LastVisit
+            });
 
-                    return db.Connection.Select<ActiveUser>(expression);
-                });
+            return db.Connection.Select<ActiveUser>(expression);
+        });
 
         return users;
     }
@@ -1427,65 +1421,73 @@ public static class UserRepositoryExtensions
     public static List<SimpleModerator> GetForumModerators(
         this IRepository<User> repository)
     {
-        return repository.DbAccess.Execute(
-            db =>
+        return repository.DbAccess.Execute(db =>
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+
+            expression.Join<ForumAccess>((f, a) => a.ForumID == f.ID)
+                .Join<ForumAccess, Group>((a, b) => b.ID == a.GroupID)
+                .Join<ForumAccess, AccessMask>((a, c) => c.ID == a.AccessMaskID)
+                .Where<Group, AccessMask>((b, c) => b.BoardID == repository.BoardID && (c.Flags & 64) != 0)
+                .Select<Forum, ForumAccess, Group>((f, a, b) => new
                 {
-                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
-
-                    expression.Join<ForumAccess>((f, a) => a.ForumID == f.ID)
-                        .Join<ForumAccess, Group>((a, b) => b.ID == a.GroupID)
-                        .Join<ForumAccess, AccessMask>((a, c) => c.ID == a.AccessMaskID)
-                        .Where<Group, AccessMask>((b, c) => b.BoardID == repository.BoardID && (c.Flags & 64) != 0)
-                        .Select<Forum, ForumAccess, Group>(
-                            (f, a, b) => new
-                                             {
-                                                 CategoryID = Sql.Custom("NULL"),
-                                                 CategoryName = Sql.Custom("NULL"),
-                                                 a.ForumID,
-                                                 ForumName = f.Name,
-                                                 f.ParentID,
-                                                 ModeratorID = a.GroupID,
-                                                 b.Name,
-                                                 Email = b.Name,
-                                                 ModeratorBlockFlags = 0,
-                                                 Avatar = b.Name,
-                                                 AvatarImage = Sql.Custom("NULL"),
-                                                 DisplayName = b.Name,
-                                                 b.Style,
-                                                 IsGroup = 1,
-                                                 Suspended = Sql.Custom("NULL")
-                                             });
-
-                    var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<User>();
-
-                    expression2
-                        .Join<VaccessGroup>((usr, access) => access.UserID == usr.ID)
-                        .Join<VaccessGroup, Forum>((access, f) => f.ID == access.ForumID)
-                        .Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
-                        .Where<VaccessGroup, User>((x, u) => x.ModeratorAccess > 0 && u.BoardID == repository.BoardID)
-                        .Select<User, VaccessGroup, Forum, Category>(
-                            (usr, access, f, c) => new
-                                                       {
-                                                           CategoryID = c.ID,
-                                                           CategoryName = c.Name,
-                                                           access.ForumID,
-                                                           ForumName = f.Name,
-                                                           f.ParentID,
-                                                           ModeratorID = usr.ID,
-                                                           usr.Name,
-                                                           usr.Email,
-                                                           ModeratorBlockFlags = usr.BlockFlags,
-                                                           usr.Avatar,
-                                                           AvtatarImage = usr.AvatarImage,
-                                                           usr.DisplayName,
-                                                           Style = usr.UserStyle,
-                                                           IsGroup = 0,
-                                                           usr.Suspended
-                                                       });
-
-                    return db.Connection.Select<SimpleModerator>(
-                            $"{expression.ToMergedParamsSelectStatement()} union all {expression2.ToMergedParamsSelectStatement()}")
-                        .OrderByDescending(x => x.IsGroup).ThenBy(x => x.Name).ToList();
+                    CategoryID = Sql.Custom("NULL"),
+                    CategoryName = Sql.Custom("NULL"),
+                    a.ForumID,
+                    ForumName = f.Name,
+                    f.ParentID,
+                    ModeratorID = a.GroupID,
+                    b.Name,
+                    Email = b.Name,
+                    ModeratorBlockFlags = 0,
+                    Avatar = b.Name,
+                    AvatarImage = Sql.Custom("NULL"),
+                    DisplayName = b.Name,
+                    b.Style,
+                    IsGroup = 1,
+                    Suspended = Sql.Custom("NULL")
                 });
+
+            var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+            expression2
+                .Join<VaccessGroup>((usr, access) => access.UserID == usr.ID)
+                .Join<VaccessGroup, Forum>((access, f) => f.ID == access.ForumID)
+                .Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+                .Where<VaccessGroup, User>((x, u) => x.ModeratorAccess > 0 && u.BoardID == repository.BoardID)
+                .Select<User, VaccessGroup, Forum, Category>((usr, access, f, c) => new
+                {
+                    CategoryID = c.ID,
+                    CategoryName = c.Name,
+                    access.ForumID,
+                    ForumName = f.Name,
+                    f.ParentID,
+                    ModeratorID = usr.ID,
+                    usr.Name,
+                    usr.Email,
+                    ModeratorBlockFlags = usr.BlockFlags,
+                    usr.Avatar,
+                    AvtatarImage = usr.AvatarImage,
+                    usr.DisplayName,
+                    Style = usr.UserStyle,
+                    IsGroup = 0,
+                    usr.Suspended
+                });
+
+            return db.Connection.Select<SimpleModerator>(
+                    $"{expression.ToMergedParamsSelectStatement()} union all {expression2.ToMergedParamsSelectStatement()}")
+                .OrderByDescending(x => x.IsGroup).ThenBy(x => x.Name).ToList();
+        });
+    }
+
+    /// <summary>
+    /// Gets the registered users by month.
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="boardId">The board identifier.</param>
+    /// <returns>System.Collections.Generic.List&lt;YAF.Types.Models.User&gt;.</returns>
+    public static List<User> GetRegisteredUsersByMonth(this IRepository<User> repository, int boardId)
+    {
+        return repository.Get(a => a.BoardID == boardId && a.Joined > DateTime.UtcNow - TimeSpan.FromDays(730));
     }
 }

@@ -123,6 +123,18 @@ public class ActiveUser
     public string Location { get; set; }
 
     /// <summary>
+    /// Gets or sets the referer.
+    /// </summary>
+    /// <value>The referer.</value>
+    public string Referer { get; set; }
+
+    /// <summary>
+    /// Gets or sets the country.
+    /// </summary>
+    /// <value>The country.</value>
+    public string Country { get; set; }
+
+    /// <summary>
     /// Gets or sets the forum identifier.
     /// </summary>
     /// <value>The forum identifier.</value>

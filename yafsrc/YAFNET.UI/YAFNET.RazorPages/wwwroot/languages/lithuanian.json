@@ -880,6 +880,10 @@
             "#text": "Valdyba pradėjo darbą:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Vartotojo naršyklė (-os)"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Patvirtinti šį naudotoją?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Ištrinti visus nepatvirtintus Naudotojus, kurie yra senesni nei nurodytas dienų skaičius?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "Vartotojo šalis (-os)"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Šalis"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Naudotojų skaičius:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Vartotojo platforma (-os)"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Pranešimai per dieną:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Naujos registracijos"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Nauji vartotojų registracijos pagal mėnesį"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Į šią statistiką neįskaičiuojamos ištrintos temos ir pranešimai."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Vartotojo statistika"
           },
           {
             "@tag": "TITLE",
@@ -2312,14 +2340,6 @@
             "#text": "Valdybos kultūra."
           },
           {
-            "@tag": "DESCRIPTION",
-            "#text": "D"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "ir"
-          },
-          {
             "@tag": "HEADER2",
             "#text": "Naujo vyriausiojo naudotojo informacija"
           },
@@ -2446,6 +2466,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Patikrinkite slaptažodį."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Aprašymas:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Plokštės aprašymas, naudojamas META aprašymo žymoje."
           }
         ]
       },
@@ -7485,6 +7513,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "Sausis"
+          },
+          {
+            "@tag": "10",
+            "#text": "Spalio mėn"
+          },
+          {
+            "@tag": "11",
+            "#text": "Lapkritis"
+          },
+          {
+            "@tag": "12",
+            "#text": "Gruodis"
+          },
+          {
+            "@tag": "2",
+            "#text": "Vasaris"
+          },
+          {
+            "@tag": "3",
+            "#text": "Marzo"
+          },
+          {
+            "@tag": "4",
+            "#text": "Balandis"
+          },
+          {
+            "@tag": "5",
+            "#text": "Maggio"
+          },
+          {
+            "@tag": "6",
+            "#text": "Birželio mėn"
+          },
+          {
+            "@tag": "7",
+            "#text": "Liepa"
+          },
+          {
+            "@tag": "8",
+            "#text": "Rugpjūčio mėn"
+          },
+          {
+            "@tag": "9",
+            "#text": "Rugsėjis"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10685,7 +10766,7 @@
           },
           {
             "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
+            "#text": "Įveskite naujos lentos aprašą"
           },
           {
             "@tag": "BOARDNAME",

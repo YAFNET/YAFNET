@@ -880,6 +880,10 @@
             "#text": "Hội đồng quản trị bắt đầu:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Trình duyệt người dùng"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Phê duyệt Người dùng này?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Xóa tất cả Người dùng chưa được phê duyệt nhiều hơn số ngày đã chỉ định?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "(Các) người dùng"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Quốc gia"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Số lượng người dùng:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "(Các) nền tảng người dùng"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Bài viết mỗi ngày:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Đăng ký mới"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Đăng ký người dùng mới theo tháng"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Các thống kê này không tính các chủ đề và bài đăng đã bị xóa."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Thống kê người dùng"
           },
           {
             "@tag": "TITLE",
@@ -2312,14 +2340,6 @@
             "#text": "Văn hóa của hội đồng quản trị."
           },
           {
-            "@tag": "DESCRIPTION",
-            "#text": "Z."
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Thuận lợi"
-          },
-          {
             "@tag": "HEADER2",
             "#text": "Thông tin về Superuser mới"
           },
@@ -2446,6 +2466,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Xác minh mật khẩu."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Sự miêu tả:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Mô tả bảng được sử dụng trong thẻ mô tả meta."
           }
         ]
       },
@@ -7485,6 +7513,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "Tháng Một"
+          },
+          {
+            "@tag": "10",
+            "#text": "Tháng Mười"
+          },
+          {
+            "@tag": "11",
+            "#text": "Tháng mười một"
+          },
+          {
+            "@tag": "12",
+            "#text": "Tháng 12"
+          },
+          {
+            "@tag": "2",
+            "#text": "Tháng hai"
+          },
+          {
+            "@tag": "3",
+            "#text": "Bước đều"
+          },
+          {
+            "@tag": "4",
+            "#text": "Tháng tư"
+          },
+          {
+            "@tag": "5",
+            "#text": "Có thể"
+          },
+          {
+            "@tag": "6",
+            "#text": "Tháng sáu"
+          },
+          {
+            "@tag": "7",
+            "#text": "Tháng bảy"
+          },
+          {
+            "@tag": "8",
+            "#text": "Tháng tám"
+          },
+          {
+            "@tag": "9",
+            "#text": "Tháng 9"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10685,7 +10766,7 @@
           },
           {
             "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
+            "#text": "Nhập mô tả cho bảng mới"
           },
           {
             "@tag": "BOARDNAME",

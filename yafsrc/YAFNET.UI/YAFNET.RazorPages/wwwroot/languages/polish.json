@@ -880,6 +880,10 @@
             "#text": "Forum wystartowało:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Przeglądarka użytkownika (y)"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Aktywować tego użytkownika?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Usunąć wszystkich niezaakceptowanych użytkowników starszych niż wybrana ilość dni?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "Kraj użytkownika (y)"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Kraj"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Liczba użytkowników:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Platforma użytkowników (y)"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Postów na dzień:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Nowe rejestracje"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Nowe rejestracje użytkowników według miesiąca"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Te statystyki nie zawierają usuniętych tematów i postów."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Statystyka użytkownika"
           },
           {
             "@tag": "TITLE",
@@ -2312,14 +2340,6 @@
             "#text": "Kultura zarządu."
           },
           {
-            "@tag": "DESCRIPTION",
-            "#text": "z"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Powiedział"
-          },
-          {
             "@tag": "HEADER2",
             "#text": "Informacje o nowym superużytkowniku"
           },
@@ -2446,6 +2466,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Zweryfikuj hasło."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Opis:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Opis tablicy użyty w znaczniku opisu meta."
           }
         ]
       },
@@ -7477,6 +7505,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "Styczeń"
+          },
+          {
+            "@tag": "10",
+            "#text": "Październik"
+          },
+          {
+            "@tag": "11",
+            "#text": "Listopad"
+          },
+          {
+            "@tag": "12",
+            "#text": "Grudzień"
+          },
+          {
+            "@tag": "2",
+            "#text": "Luty"
+          },
+          {
+            "@tag": "3",
+            "#text": "marzec"
+          },
+          {
+            "@tag": "4",
+            "#text": "Kwiecień"
+          },
+          {
+            "@tag": "5",
+            "#text": "Móc"
+          },
+          {
+            "@tag": "6",
+            "#text": "Czerwiec"
+          },
+          {
+            "@tag": "7",
+            "#text": "Lipiec"
+          },
+          {
+            "@tag": "8",
+            "#text": "Sierpień"
+          },
+          {
+            "@tag": "9",
+            "#text": "Wrzesień"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10673,7 +10754,7 @@
           },
           {
             "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
+            "#text": "Wprowadź opis nowej tablicy"
           },
           {
             "@tag": "BOARDNAME",

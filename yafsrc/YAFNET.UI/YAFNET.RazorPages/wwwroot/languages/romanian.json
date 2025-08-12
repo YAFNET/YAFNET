@@ -880,6 +880,10 @@
             "#text": "Consiliul a început:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Browser (e) utilizator"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Aprobați acest utilizator?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Ștergeți toți Utilizatorii neaprobați mai vechi de numărul specificat de zile?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "Țara utilizatorilor (țările)"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Ţară"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Numărul de utilizatori:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Platforma (platformele) utilizator"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Posturi pe zi:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Înregistrări noi"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Înregistrări noi de utilizator pe lună"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Aceste statistici nu iau în considerare subiectele și mesajele șterse."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Statistici ale utilizatorilor"
           },
           {
             "@tag": "TITLE",
@@ -2312,14 +2340,6 @@
             "#text": "Cultura consiliului de administrație."
           },
           {
-            "@tag": "DESCRIPTION",
-            "#text": "Z."
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "A spus el"
-          },
-          {
             "@tag": "HEADER2",
             "#text": "Informații despre noul superutilizator"
           },
@@ -2446,6 +2466,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Verificați parola."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Descriere:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Descrierea plăcii folosită în eticheta Meta Descriere."
           }
         ]
       },
@@ -7485,6 +7513,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "ianuarie"
+          },
+          {
+            "@tag": "10",
+            "#text": "octombrie"
+          },
+          {
+            "@tag": "11",
+            "#text": "noiembrie"
+          },
+          {
+            "@tag": "12",
+            "#text": "decembrie"
+          },
+          {
+            "@tag": "2",
+            "#text": "februarie"
+          },
+          {
+            "@tag": "3",
+            "#text": "martie"
+          },
+          {
+            "@tag": "4",
+            "#text": "aprilie"
+          },
+          {
+            "@tag": "5",
+            "#text": "mai"
+          },
+          {
+            "@tag": "6",
+            "#text": "iunie"
+          },
+          {
+            "@tag": "7",
+            "#text": "iulie"
+          },
+          {
+            "@tag": "8",
+            "#text": "august"
+          },
+          {
+            "@tag": "9",
+            "#text": "septembrie"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10685,7 +10766,7 @@
           },
           {
             "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
+            "#text": "Introduceți o descriere pentru noul tablou"
           },
           {
             "@tag": "BOARDNAME",

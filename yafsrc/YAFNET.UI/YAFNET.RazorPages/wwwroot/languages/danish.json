@@ -880,6 +880,10 @@
             "#text": "Bestyrelsen startede:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Brugerbrowser (er)"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Vil du godkende denne bruger?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Vil du slette alle ikke-godkendte brugere, der er mere end det angivne antal dage gamle?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "Brugerland (er)"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Land"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Antal brugere:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Brugerplatform (er)"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Indlæg om dagen:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Nye registreringer"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Nye brugerregistreringer efter måned"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Disse statistikker tæller ikke slettede emner og indlæg."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Brugerstatistik"
           },
           {
             "@tag": "TITLE",
@@ -2312,14 +2340,6 @@
             "#text": "Bestyrelsens kultur."
           },
           {
-            "@tag": "DESCRIPTION",
-            "#text": "beskrive:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Definerer en beskrivelse i"
-          },
-          {
             "@tag": "HEADER2",
             "#text": "Ny superbrugerinformation"
           },
@@ -2446,6 +2466,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Bekræft adgangskoden."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Beskrivelse:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Bestyrelsesbeskrivelsen, der bruges i meta -beskrivelsesmærket."
           }
         ]
       },
@@ -7485,6 +7513,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "januar"
+          },
+          {
+            "@tag": "10",
+            "#text": "oktober"
+          },
+          {
+            "@tag": "11",
+            "#text": "november"
+          },
+          {
+            "@tag": "12",
+            "#text": "december"
+          },
+          {
+            "@tag": "2",
+            "#text": "februar"
+          },
+          {
+            "@tag": "3",
+            "#text": "marts"
+          },
+          {
+            "@tag": "4",
+            "#text": "april"
+          },
+          {
+            "@tag": "5",
+            "#text": "maj"
+          },
+          {
+            "@tag": "6",
+            "#text": "juni"
+          },
+          {
+            "@tag": "7",
+            "#text": "juli"
+          },
+          {
+            "@tag": "8",
+            "#text": "august"
+          },
+          {
+            "@tag": "9",
+            "#text": "september"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10685,7 +10766,7 @@
           },
           {
             "@tag": "BOARD_DESCRIPTION",
-            "#text": "Indtast beskrivelsen af den nye"
+            "#text": "Indtast en beskrivelse af det nye bord"
           },
           {
             "@tag": "BOARDNAME",

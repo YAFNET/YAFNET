@@ -10,6 +10,10 @@
 
 @inject BoardContext Current
 
+@section StyleSheets {
+    @await Html.PartialAsync("_FlagIconsStylesSheetsPartial")
+}
+
 <div class="row">
     <div class="col-xl-12">
         <div class="card mb-3">
@@ -94,9 +98,15 @@
                                     @user.Browser
                                 </span>
                                 <span>
-                                    <strong>@Html.LocalizedText("platform")</strong>
-                                    @user.Platform
+	                                <strong>@Html.LocalizedText("platform")</strong>
+	                                @user.Platform
                                 </span>
+                                @if (!user.Country.Equals("--"))
+                                {
+	                                <strong>@Html.LocalizedText("COUNTRY")</strong>
+	                               <span class="@($"fi fi-{user.Country.ToLower()}")" title="@(Model.GetText("COUNTRY", user.Country))"></span>
+                                }
+                               
                             </small>
                         </li>
                     }

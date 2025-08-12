@@ -123,8 +123,6 @@ public static class ServiceCollectionExtensionsExtensions
 
         services.AddControllers();
 
-        services.AddResponseCaching();
-
         services.AddSignalR();
 
         services.AddYafExtensions();

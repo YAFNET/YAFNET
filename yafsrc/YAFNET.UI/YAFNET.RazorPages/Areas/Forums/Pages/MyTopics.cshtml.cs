@@ -51,11 +51,23 @@ public class MyTopicsModel : ForumPageRegistered
     /// </summary>
     private DateTime sinceDate = DateTime.UtcNow;
 
+    /// <summary>
+    /// Gets or sets the topic list.
+    /// </summary>
+    /// <value>The topic list.</value>
     public List<PagedTopic> TopicList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the since select items.
+    /// </summary>
+    /// <value>The since.</value>
     [BindProperty]
     public List<SelectListItem> Since { get; set; }
 
+    /// <summary>
+    /// Gets or sets the topic mode.
+    /// </summary>
+    /// <value>The topic mode.</value>
     [BindProperty]
     public List<SelectListItem> TopicMode { get; set; }
 
@@ -82,10 +94,11 @@ public class MyTopicsModel : ForumPageRegistered
     /// </summary>
     public  void OnGet()
     {
-        this.Input = new MyTopicsInputModel {
-                                        // default since option is "since last visit"
-                                        SinceValue = 0
-                                    };
+        this.Input = new MyTopicsInputModel
+        {
+            // default since option is "since last visit"
+            SinceValue = 0
+        };
 
         this.BindData();
     }
@@ -129,45 +142,22 @@ public class MyTopicsModel : ForumPageRegistered
             this.sinceDate = this.Get<ISessionService>().LastVisit ?? DateTime.UtcNow;
         }
 
-        switch (this.Input.TopicModeValue.ToEnum<TopicListMode>())
+        this.TopicList = this.Input.TopicModeValue.ToEnum<TopicListMode>() switch
         {
-            case TopicListMode.Active:
-                this.TopicList = this.GetRepository<Topic>().ListActivePaged(
-                    this.PageBoardContext.PageUserID,
-                    this.sinceDate,
-                    DateTime.UtcNow,
-                    currentPageIndex,
-                    this.Size,
-                    this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
-                break;
-            case TopicListMode.Unanswered:
-                this.TopicList = this.GetRepository<Topic>().ListUnansweredPaged(
-                    this.PageBoardContext.PageUserID,
-                    this.sinceDate,
-                    DateTime.UtcNow,
-                    currentPageIndex,
-                    this.Size,
-                    this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
-                break;
-            case TopicListMode.Watch:
-                this.TopicList = this.GetRepository<Topic>().ListWatchedPaged(
-                    this.PageBoardContext.PageUserID,
-                    this.sinceDate,
-                    DateTime.UtcNow,
-                    currentPageIndex,
-                    this.Size,
-                    this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
-                break;
-            case TopicListMode.User:
-                this.TopicList = this.GetRepository<Topic>().ListByUserPaged(
-                    this.PageBoardContext.PageUserID,
-                    this.sinceDate,
-                    DateTime.UtcNow,
-                    currentPageIndex,
-                    this.Size,
-                    this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
-                break;
-        }
+            TopicListMode.Active => this.GetRepository<Topic>()
+                .ListActivePaged(this.PageBoardContext.PageUserID, this.sinceDate, DateTime.UtcNow, currentPageIndex,
+                    this.Size, this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase),
+            TopicListMode.Unanswered => this.GetRepository<Topic>()
+                .ListUnansweredPaged(this.PageBoardContext.PageUserID, this.sinceDate, DateTime.UtcNow,
+                    currentPageIndex, this.Size, this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase),
+            TopicListMode.Watch => this.GetRepository<Topic>()
+                .ListWatchedPaged(this.PageBoardContext.PageUserID, this.sinceDate, DateTime.UtcNow, currentPageIndex,
+                    this.Size, this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase),
+            TopicListMode.User => this.GetRepository<Topic>()
+                .ListByUserPaged(this.PageBoardContext.PageUserID, this.sinceDate, DateTime.UtcNow, currentPageIndex,
+                    this.Size, this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase),
+            _ => this.TopicList
+        };
     }
 
     /// <summary>

@@ -173,6 +173,16 @@ public static class Constants
         ///   Admin Page Access List.
         /// </summary>
         public const string AdminPageAccess = "AdminPageAccess{0}";
+
+        /// <summary>
+        /// The geo ip data cache key
+        /// </summary>
+        public const string GeoIpData = "GeoIPData";
+
+        /// <summary>
+        /// The registered users by month data-cache key
+        /// </summary>
+        public const string RegisteredUsersByMonth = "RegisteredUsersByMonth";
     }
 
     /// <summary>

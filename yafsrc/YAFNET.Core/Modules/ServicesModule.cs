@@ -89,6 +89,8 @@ public class ServicesModule : BaseModule
         builder.RegisterType<UserMedalService>().As<IUserMedalService>().InstancePerLifetimeScope().PreserveExistingDefaults();
         builder.RegisterType<IpInfoService>().As<IIpInfoService>().InstancePerLifetimeScope()
             .PreserveExistingDefaults();
+        builder.RegisterType<GeoIpCountryService>().As<IGeoIpCountryService>().InstancePerLifetimeScope()
+            .PreserveExistingDefaults();
         builder.RegisterType<TreatCacheKeyWithBoard>().As<ITreatCacheKey>().InstancePerLifetimeScope()
             .PreserveExistingDefaults();
         builder.RegisterType<CurrentBoardId>().As<IHaveBoardID>().InstancePerLifetimeScope()

@@ -88,6 +88,20 @@ public class Active : IEntity, IHaveBoardID
     public DateTime LastActive { get; set; }
 
     /// <summary>
+    /// Gets or sets the referer.
+    /// </summary>
+    /// <value>The referer.</value>
+    [StringLength(500)]
+    public string Referer { get; set; }
+
+    /// <summary>
+    /// Gets or sets the country.
+    /// </summary>
+    /// <value>The country.</value>
+    [StringLength(100)]
+    public string Country { get; set; }
+
+    /// <summary>
     /// Gets or sets the location.
     /// </summary>
     [StringLength(255)]

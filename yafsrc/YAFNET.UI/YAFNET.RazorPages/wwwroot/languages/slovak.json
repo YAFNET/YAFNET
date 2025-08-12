@@ -880,6 +880,10 @@
             "#text": "Rada začala:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Prehliadač používateľov"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Schváliť tohto používateľa?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Odstrániť všetkých neschválených používateľov starších ako zadaný počet dní?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "Užívateľská krajina"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "Krajina"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Počet používateľov:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Užívateľská platforma"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Príspevky za deň:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Nové registrácie"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Nové registrácie používateľov podľa mesiaca"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Do týchto štatistík sa nezapočítavajú vymazané témy a príspevky."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Štatistika používateľa"
           },
           {
             "@tag": "TITLE",
@@ -2312,14 +2340,6 @@
             "#text": "Kultúra rady."
           },
           {
-            "@tag": "DESCRIPTION",
-            "#text": "Z."
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Povedal"
-          },
-          {
             "@tag": "HEADER2",
             "#text": "Informácie o novom superpoužívateľovi"
           },
@@ -2446,6 +2466,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Overte heslo."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Popis:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Popis dosky použitý v značke Meta Popis."
           }
         ]
       },
@@ -7485,6 +7513,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "Január"
+          },
+          {
+            "@tag": "10",
+            "#text": "Október"
+          },
+          {
+            "@tag": "11",
+            "#text": "November"
+          },
+          {
+            "@tag": "12",
+            "#text": "December"
+          },
+          {
+            "@tag": "2",
+            "#text": "Február"
+          },
+          {
+            "@tag": "3",
+            "#text": "Pochod"
+          },
+          {
+            "@tag": "4",
+            "#text": "Apríl"
+          },
+          {
+            "@tag": "5",
+            "#text": "Mája"
+          },
+          {
+            "@tag": "6",
+            "#text": "Jún"
+          },
+          {
+            "@tag": "7",
+            "#text": "Júl"
+          },
+          {
+            "@tag": "8",
+            "#text": "August"
+          },
+          {
+            "@tag": "9",
+            "#text": "September"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10685,7 +10766,7 @@
           },
           {
             "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
+            "#text": "Zadajte popis novej dosky"
           },
           {
             "@tag": "BOARDNAME",

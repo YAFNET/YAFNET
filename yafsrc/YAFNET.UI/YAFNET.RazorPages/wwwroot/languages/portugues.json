@@ -880,6 +880,10 @@
             "#text": "O Conselho de Administração começou:"
           },
           {
+            "@tag": "BROWSER",
+            "#text": "Navegador de usuários (s)"
+          },
+          {
             "@tag": "CONFIRM_APROVE",
             "#text": "Aprovar este Utilizador?"
           },
@@ -894,6 +898,14 @@
           {
             "@tag": "CONFIRM_DELETE_ALL",
             "#text": "Eliminar todos os Utilizadores não aprovados com mais do que o número de dias especificado?"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "País (s) de usuário (s)"
+          },
+          {
+            "@tag": "COUNTRY",
+            "#text": "País"
           },
           {
             "@tag": "DAYS_AGO",
@@ -956,8 +968,20 @@
             "#text": "Número de utilizadores:"
           },
           {
+            "@tag": "PLATFORM",
+            "#text": "Plataforma (s) de usuário (s)"
+          },
+          {
             "@tag": "POSTS_DAY",
             "#text": "Mensagens por dia:"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "Novos registros"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "Novos registros de usuário por mês"
           },
           {
             "@tag": "SIZE_DATABASE",
@@ -966,6 +990,10 @@
           {
             "@tag": "STATS_DONTCOUNT",
             "#text": "Estas estatísticas não contam os tópicos e posts eliminados."
+          },
+          {
+            "@tag": "STATS_TITLE",
+            "#text": "Estatísticas do usuário"
           },
           {
             "@tag": "TITLE",
@@ -2312,14 +2340,6 @@
             "#text": "A cultura do conselho."
           },
           {
-            "@tag": "DESCRIPTION",
-            "#text": "z"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Ele disse"
-          },
-          {
             "@tag": "HEADER2",
             "#text": "Nova informação do super-utilizador"
           },
@@ -2446,6 +2466,14 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Verificar a palavra-passe."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Descrição:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "A descrição da placa usada na tag Meta Descrição."
           }
         ]
       },
@@ -7485,6 +7513,59 @@
         ]
       },
       {
+        "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "Janeiro"
+          },
+          {
+            "@tag": "10",
+            "#text": "outubro"
+          },
+          {
+            "@tag": "11",
+            "#text": "novembro"
+          },
+          {
+            "@tag": "12",
+            "#text": "dezembro"
+          },
+          {
+            "@tag": "2",
+            "#text": "Fevereiro"
+          },
+          {
+            "@tag": "3",
+            "#text": "Marchar"
+          },
+          {
+            "@tag": "4",
+            "#text": "abril"
+          },
+          {
+            "@tag": "5",
+            "#text": "Poderia"
+          },
+          {
+            "@tag": "6",
+            "#text": "Junho"
+          },
+          {
+            "@tag": "7",
+            "#text": "Julho"
+          },
+          {
+            "@tag": "8",
+            "#text": "Agosto"
+          },
+          {
+            "@tag": "9",
+            "#text": "Setembro"
+          }
+        ]
+      },
+      {
         "@name": "CHANGE_PASSWORD",
         "Resource": [
           {
@@ -10685,7 +10766,7 @@
           },
           {
             "@tag": "BOARD_DESCRIPTION",
-            "#text": "Écrivez une nouvelle description"
+            "#text": "Digite uma descrição para a nova placa"
           },
           {
             "@tag": "BOARDNAME",

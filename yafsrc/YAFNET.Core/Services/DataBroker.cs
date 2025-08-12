@@ -173,6 +173,12 @@ public class DataBroker : IHaveServiceLocator
     /// <param name="location">
     /// The location.
     /// </param>
+    /// <param name="referer">
+    /// The referer.
+    /// </param>
+    /// <param name="country">
+    /// The country.
+    /// </param>
     /// <param name="forumPage">
     /// The forum page name.
     /// </param>
@@ -212,6 +218,8 @@ public class DataBroker : IHaveServiceLocator
         string userKey,
         string ip,
         string location,
+        string referer,
+        string country,
         string forumPage,
         string browser,
         string platform,
@@ -440,6 +448,8 @@ public class DataBroker : IHaveServiceLocator
                             IP = ip,
                             LastActive = DateTime.UtcNow,
                             Location = location,
+                            Referer = referer,
+                            Country = country,
                             ForumID = forumId,
                             TopicID = topicId,
                             Browser = browser,
@@ -459,6 +469,8 @@ public class DataBroker : IHaveServiceLocator
                             IP = ip,
                             LastActive = DateTime.UtcNow,
                             Location = location,
+                            Referer = referer,
+                            Country = country,
                             ForumID = forumId,
                             TopicID = topicId,
                             Browser = browser,
@@ -482,6 +494,8 @@ public class DataBroker : IHaveServiceLocator
                         Login = DateTime.UtcNow,
                         LastActive = DateTime.UtcNow,
                         Location = location,
+                        Referer = referer, 
+                        Country = country,
                         ForumID = forumId,
                         TopicID = topicId,
                         Browser = browser,
@@ -626,7 +640,7 @@ public class DataBroker : IHaveServiceLocator
                         false);
 
                     // filter first...
-                    topics.AddRange(forumTopics.Where(x => x.LastPosted >= timeFrame).ToList());
+                    topics.AddRange([.. forumTopics.Where(x => x.LastPosted >= timeFrame)]);
                 });
 
         return topics;

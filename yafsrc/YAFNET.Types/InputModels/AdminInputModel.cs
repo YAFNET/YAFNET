@@ -42,12 +42,6 @@ public class AdminInputModel
     public int DaysOld { get; set; } = 14;
 
     /// <summary>
-    /// Gets or sets the selected board identifier.
-    /// </summary>
-    /// <value>The selected board identifier.</value>
-    public int SelectedBoardId { get; set; }
-
-    /// <summary>
     /// Gets or sets the number categories.
     /// </summary>
     /// <value>The number categories.</value>

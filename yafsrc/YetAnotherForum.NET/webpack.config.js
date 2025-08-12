@@ -15,7 +15,8 @@ module.exports = [
 			persianPicker: './wwwroot/lib/persiandatetimepicker/persianPicker.ts',
 			post: './wwwroot/lib/pages/post.ts',
 			search: './wwwroot/lib/pages/search.ts',
-			themeSelector: './wwwroot/lib/bootstrap/themeSelector.ts'
+			themeSelector: './wwwroot/lib/bootstrap/themeSelector.ts',
+			'admin-dashboard': './wwwroot/lib/pages/admin-dashboard.ts'
 		},
 		output: {
 			filename: '[name].min.js',

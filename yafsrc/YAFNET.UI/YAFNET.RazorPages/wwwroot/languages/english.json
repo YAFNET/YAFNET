@@ -828,6 +828,34 @@
             "#text": "Approve user"
           },
           {
+            "@tag": "COUNTRY",
+            "#text": "Country"
+          },
+          {
+	          "@tag": "STATS_TITLE",
+	          "#text": "User Statistics"
+          },
+          {
+            "@tag": "COUNTRIES",
+            "#text": "User country(s)"
+          },
+          {
+            "@tag": "BROWSER",
+            "#text": "User browser(s)"
+          },
+          {
+            "@tag": "PLATFORM",
+            "#text": "User platform(s)"
+          },
+          {
+            "@tag": "REGISTRATIONS",
+            "#text": "New registrations"
+          },
+          {
+            "@tag": "REGISTRATIONS_TITLE",
+            "#text": "New user registrations by month"
+          },
+          {
             "@tag": "ADMIN_DELETE",
             "#text": "Delete user"
           },
@@ -989,8 +1017,8 @@
             "#text": "User Attachments"
           },
           {
-	          "@tag": "CONFIRM_DELETE",
-	          "#text": "Delete attachment(s)?"
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Delete attachment(s)?"
           }
         ]
       },
@@ -1770,12 +1798,12 @@
             "#text": "When a new user account is created, what notification setting does it default to?"
           },
           {
-	          "@tag": "BOARD_DEFAULT_PAGESIZE",
-	          "#text": "Default Page Size"
+            "@tag": "BOARD_DEFAULT_PAGESIZE",
+            "#text": "Default Page Size"
           },
           {
-	          "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-	          "#text": "The default page size for lists for new users."
+            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
+            "#text": "The default page size for lists for new users."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -2344,8 +2372,8 @@
             "#text": "The passwords don't match."
           },
           {
-	          "@tag": "DESCRIPTION",
-	          "#text": "Description:"
+            "@tag": "DESCRIPTION",
+            "#text": "Description:"
           },
           {
             "@tag": "DESCRIPTION_HELP",
@@ -4275,20 +4303,20 @@
             "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
           },
           {
-	          "@tag": "ENTER_MODE",
-	          "#text": "Editor Enter Mode"
+            "@tag": "ENTER_MODE",
+            "#text": "Editor Enter Mode"
           },
           {
-	          "@tag": "ENTER_MODE_HELP",
-	          "#text": "Sets the behavior of the Enter key, like whether the 'br'' or an empty 'p' element is to be used as a paragraph separator when indenting text."
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Sets the behavior of the Enter key, like whether the 'br'' or an empty 'p' element is to be used as a paragraph separator when indenting text."
           },
           {
-	          "@tag": "ENTER_MODE_0",
-	          "#text": "New 'p' paragraphs are created."
+            "@tag": "ENTER_MODE_0",
+            "#text": "New 'p' paragraphs are created."
           },
           {
-	          "@tag": "ENTER_MODE_1",
-	          "#text": "Lines are broken with 'br' elements."
+            "@tag": "ENTER_MODE_1",
+            "#text": "Lines are broken with 'br' elements."
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -7595,6 +7623,59 @@
         ]
       },
       {
+	      "@name": "CALENDER",
+        "Resource": [
+          {
+            "@tag": "1",
+            "#text": "January"
+          },
+          {
+            "@tag": "2",
+            "#text": "February"
+          },
+          {
+            "@tag": "3",
+            "#text": "March"
+          },
+          {
+	          "@tag": "4",
+	          "#text": "April"
+          },
+          {
+            "@tag": "5",
+            "#text": "May"
+          },
+          {
+            "@tag": "6",
+            "#text": "Juni"
+          },
+          {
+            "@tag": "7",
+            "#text": "July"
+          },
+          {
+            "@tag": "8",
+            "#text": "August"
+          },
+          {
+            "@tag": "9",
+            "#text": "September"
+          },
+          {
+            "@tag": "10",
+            "#text": "October"
+          },
+          {
+            "@tag": "11",
+            "#text": "November"
+          },
+          {
+            "@tag": "12",
+            "#text": "December"
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {
@@ -10668,8 +10749,8 @@
             "#text": "Verify Password"
           },
           {
-	          "@tag": "BOARD_DESCRIPTION",
-	          "#text": "Enter a description for the new board"
+            "@tag": "BOARD_DESCRIPTION",
+            "#text": "Enter a description for the new board"
           },
           {
             "@tag": "BOARDNAME",
@@ -11817,8 +11898,8 @@
             "#text": "Dark"
           },
           {
-	          "@tag": "AUTO",
-	          "#text": "Auto"
+            "@tag": "AUTO",
+            "#text": "Auto"
           }
         ]
       },
