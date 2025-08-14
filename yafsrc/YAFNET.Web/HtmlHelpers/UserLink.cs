@@ -307,15 +307,15 @@ public static class UserLinkHtmlHelper
                 // online
                 status.AddCssClass("align-middle text-success user-online me-1");
                 status.MergeAttribute("data-bs-title", context.Get<ILocalization>().GetText("USERONLINESTATUS"));
-                status.MergeAttribute("data-bs-toggle", "tooltip");
             }
             else
             {
                 // offline
                 status.AddCssClass("align-middle text-danger user-offline me-1");
                 status.MergeAttribute("data-bs-title", context.Get<ILocalization>().GetText("USEROFFLINESTATUS"));
-                status.MergeAttribute("data-bs-toggle", "tooltip");
             }
+
+            status.MergeAttribute("data-bs-toggle", "tooltip");
         }
 
         var icon = new TagBuilder(HtmlTag.I);

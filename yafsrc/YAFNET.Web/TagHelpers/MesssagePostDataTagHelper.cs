@@ -135,7 +135,6 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
             var formattedMessage = this.Get<IFormatMessage>().Format(
                 this.CurrentMessage.ID,
                 this.HighlightMessage(this.Message, true),
-                this.MessageFlags,
                 false,
                 editedMessageDateTime);
 
@@ -162,8 +161,7 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
         {
             var formattedMessage = this.Get<IFormatMessage>().Format(
                 this.CurrentMessage.ID,
-                this.HighlightMessage(this.Message, true),
-                this.MessageFlags);
+                this.HighlightMessage(this.Message, true));
 
             output.Content.AppendHtml(await this.RenderModulesInBBCodeAsync(
                 formattedMessage,

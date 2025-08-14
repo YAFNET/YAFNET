@@ -155,8 +155,8 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// Gets CustomBBCode.
     /// </summary>
     protected IDictionary<BBCode, Regex> CustomBBCode {
-        get {
-            return this.Get<IObjectStore>().GetOrSet(
+        get =>
+            this.Get<IObjectStore>().GetOrSet(
                 "CustomBBCodeRegExDictionary",
                 () =>
                 {
@@ -167,7 +167,6 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                             codeRow => codeRow,
                             codeRow => new Regex(codeRow.SearchRegex, Options, TimeSpan.FromMilliseconds(100)));
                 });
-        }
     }
 
     /// <summary>
@@ -273,7 +272,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         this.Signature = Core.Helpers.HtmlTagHelper.StripHtml(this.Signature);
 
-        var signatureRendered = this.Get<IFormatMessage>().Format(0, this.Signature, signatureFlags);
+        var signatureRendered = this.Get<IFormatMessage>().Format(0, this.Signature);
 
         cardBody.InnerHtml.AppendHtml(
             await this.RenderModulesInBBCodeAsync(
@@ -298,7 +297,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
 
         var deleteText = HttpUtility.HtmlDecode(this.CurrentMessage.DeleteReason).IsSet()
-                             ? this.Get<IFormatMessage>().RepairHtml(this.CurrentMessage.DeleteReason, true)
+                             ? this.Get<IFormatMessage>().RepairHtml(this.CurrentMessage.DeleteReason)
                              : this.GetText("EDIT_REASON_NA");
 
         // if message was deleted then write that instead of real body
@@ -355,7 +354,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         // reason was specified ?!
         var editReasonText =
-            $"{this.GetText("EDIT_REASON")}: {(HttpUtility.HtmlDecode(editReason).IsSet() ? this.Get<IFormatMessage>().RepairHtml(editReason, true) : this.GetText("EDIT_REASON_NA"))}";
+            $"{this.GetText("EDIT_REASON")}: {(HttpUtility.HtmlDecode(editReason).IsSet() ? this.Get<IFormatMessage>().RepairHtml(editReason) : this.GetText("EDIT_REASON_NA"))}";
 
         // message has been edited
         // show, why the post was edited or deleted?
@@ -485,8 +484,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         {
             var formattedMessage = this.Get<IFormatMessage>().Format(
                 0,
-                this.HighlightMessage(this.Message, true),
-                this.MessageFlags);
+                this.HighlightMessage(this.Message, true));
 
             // tha_watcha : Since HTML message and BBCode can be mixed now, message should be always replace BBCode
             output.Content.AppendHtml(
@@ -527,7 +525,6 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             var formattedMessage = this.Get<IFormatMessage>().Format(
                 this.CurrentMessage.ID,
                 this.HighlightMessage(this.CurrentMessage.MessageText, true),
-                this.MessageFlags,
                 false,
                 editedMessageDateTime);
 
@@ -556,8 +553,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         {
             var formattedMessage = this.Get<IFormatMessage>().Format(
                 this.CurrentMessage.ID,
-                this.HighlightMessage(this.CurrentMessage.MessageText, true),
-                this.MessageFlags);
+                this.HighlightMessage(this.CurrentMessage.MessageText, true));
 
             // tha_watcha : Since HTML message and BBCode can be mixed now, message should be always replace BBCode
             output.Content.AppendHtml(
@@ -633,7 +629,6 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 var customModule = (BBCodeControl)Activator.CreateInstance(module);
 
                 // assign parameters...
-                customModule.CurrentMessageFlags = theseFlags;
                 customModule.DisplayUserID = displayUserId;
                 customModule.MessageID = msgId;
                 customModule.Parameters = paramDic;

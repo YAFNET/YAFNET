@@ -64,11 +64,7 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
     /// <summary>
     /// Gets CustomBBCode.
     /// </summary>
-    protected IDictionary<BBCode, Regex> CustomBBCode
-    {
-        get
-        {
-            return this.Get<IObjectStore>().GetOrSet(
+    protected IDictionary<BBCode, Regex> CustomBBCode => this.Get<IObjectStore>().GetOrSet(
                 "CustomBBCodeRegExDictionary",
                 () =>
                     {
@@ -79,8 +75,6 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
                                 codeRow => codeRow,
                                 codeRow => new Regex(codeRow.SearchRegex, Options, TimeSpan.FromMilliseconds(100)));
                     });
-        }
-    }
 
     /// <summary>
     /// The process.
@@ -118,7 +112,8 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
         // don't allow any HTML on signatures
         var signatureFlags = new MessageFlags { IsHtml = false };
 
-        var signatureRendered = this.Get<IFormatMessage>().Format(0, Core.Helpers.HtmlTagHelper.StripHtml(this.Signature), signatureFlags);
+        var signatureRendered =
+            this.Get<IFormatMessage>().Format(0, Core.Helpers.HtmlTagHelper.StripHtml(this.Signature));
 
         cardBody.InnerHtml.AppendHtml(
             this.RenderModulesInBBCode(
@@ -192,7 +187,6 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
                         var customModule = (BBCodeControl)Activator.CreateInstance(module);
 
                         // assign parameters...
-                        customModule.CurrentMessageFlags = theseFlags;
                         customModule.DisplayUserID = displayUserId;
                         customModule.MessageID = messageId;
                         customModule.Parameters = paramDic;
