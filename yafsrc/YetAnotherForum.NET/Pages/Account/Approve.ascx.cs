@@ -24,6 +24,8 @@
 
 namespace YAF.Pages.Account;
 
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 
 /// <summary>
@@ -84,6 +86,8 @@ public partial class Approve : AccountPage
             this.GetRepository<User>().Approve(userEmail.UserID);
 
             this.GetRepository<CheckEmail>().DeleteById(userEmail.ID);
+
+            this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userEmail.UserID));
 
             // automatically log in created users
             this.Get<IAspNetUsersHelper>().SignIn(user);
