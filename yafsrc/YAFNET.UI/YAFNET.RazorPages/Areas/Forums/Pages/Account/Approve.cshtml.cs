@@ -28,11 +28,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-
 using Microsoft.AspNetCore.Authorization;
-
 using YAF.Core.Extensions;
 using YAF.Core.Model;
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 
@@ -137,6 +137,8 @@ public class ApproveModel : AccountPage
             this.GetRepository<User>().Approve(userEmail.UserID);
 
             await this.GetRepository<CheckEmail>().DeleteByIdAsync(userEmail.ID);
+
+            this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userEmail.UserID));
 
             await this.Get<IAspNetUsersHelper>().SignInAsync(user);
 
