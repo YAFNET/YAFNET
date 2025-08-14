@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 #pragma warning disable S1125
 namespace YAF.Core.Model;
 
@@ -1486,8 +1488,8 @@ public static class UserRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="boardId">The board identifier.</param>
     /// <returns>System.Collections.Generic.List&lt;YAF.Types.Models.User&gt;.</returns>
-    public static List<User> GetRegisteredUsersByMonth(this IRepository<User> repository, int boardId)
+    public static Task<List<User>> GetRegisteredUsersByMonthAsync(this IRepository<User> repository, int boardId)
     {
-        return repository.Get(a => a.BoardID == boardId && a.Joined > DateTime.UtcNow - TimeSpan.FromDays(730));
+        return repository.GetAsync(a => a.BoardID == boardId && a.Joined > DateTime.UtcNow - TimeSpan.FromDays(730));
     }
 }

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System;
@@ -362,9 +364,9 @@ public static class BoardRepositoryExtensions
     /// <returns>
     /// The <see cref="BoardStat"/>.
     /// </returns>
-    public static BoardStat PostStats(this IRepository<Board> repository, int boardId, bool showNoCountPosts)
+    public async static Task<BoardStat> PostStatsAsync(this IRepository<Board> repository, int boardId, bool showNoCountPosts)
     {
-        var data = repository.DbAccess.Execute(
+        var data = await repository.DbAccess.ExecuteAsync(
             db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
@@ -383,7 +385,7 @@ public static class BoardRepositoryExtensions
                     expression.OrderByDescending(a => a.Posted).Limit(1);
 
                     // -- count Posts
-                    var countPostsExpression = db.Connection.From<Message>();
+                    var countPostsExpression = db.From<Message>();
 
                     countPostsExpression.Join<Topic>((a, b) => b.ID == a.TopicID)
                         .Join<Topic, Forum>((b, c) => c.ID == b.ForumID)
@@ -394,7 +396,7 @@ public static class BoardRepositoryExtensions
                     var countPostsSql = countPostsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
                     // -- count Topics
-                    var countTopicsExpression = db.Connection.From<Topic>();
+                    var countTopicsExpression = db.From<Topic>();
 
                     countTopicsExpression.Join<Forum>((a, b) => b.ID == a.ForumID)
                         .Join<Forum, Category>((b, c) => c.ID == b.CategoryID);
@@ -404,7 +406,7 @@ public static class BoardRepositoryExtensions
                     var countTopicsSql = countTopicsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
                     // -- count Forums
-                    var countForumsExpression = db.Connection.From<Forum>();
+                    var countForumsExpression = db.From<Forum>();
 
                     countForumsExpression.Join<Category>((a, b) => b.ID == a.CategoryID);
 
@@ -426,10 +428,10 @@ public static class BoardRepositoryExtensions
                                           LastUserSuspended = e.Suspended
                                       });
 
-                    return db.Connection.Single<BoardStat>(expression);
+                    return db.SingleAsync<BoardStat>(expression);
                 });
 
-        return data ?? repository.Stats(boardId);
+        return data ?? await repository.StatsAsync(boardId);
     }
 
     /// <summary>
@@ -469,72 +471,72 @@ public static class BoardRepositoryExtensions
     /// <returns>
     /// The <see cref="BoardStat"/>.
     /// </returns>
-    public static BoardStat Stats(this IRepository<Board> repository, int boardId)
+    public static Task<BoardStat> StatsAsync(this IRepository<Board> repository, int boardId)
     {
-        return repository.DbAccess.Execute(
+        return repository.DbAccess.ExecuteAsync(
             db =>
-                {
-                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+            {
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-                    expression.Where(u => u.BoardID == boardId);
+                expression.Where(u => u.BoardID == boardId);
 
-                    // -- count Posts
-                    var countPostsExpression = db.Connection.From<Message>();
+                // -- count Posts
+                var countPostsExpression = db.From<Message>();
 
-                    countPostsExpression.Join<Topic>((a, b) => b.ID == a.TopicID && (a.Flags & 8) != 8)
-                        .Join<Topic, Forum>((b, c) => c.ID == b.ForumID)
-                        .Join<Forum, Category>((b, c) => c.ID == b.CategoryID);
+                countPostsExpression.Join<Topic>((a, b) => b.ID == a.TopicID && (a.Flags & 8) != 8)
+                    .Join<Topic, Forum>((b, c) => c.ID == b.ForumID)
+                    .Join<Forum, Category>((b, c) => c.ID == b.CategoryID);
 
-                    countPostsExpression.Where<Category>(c => c.BoardID == boardId && (c.Flags & 1) == 1);
+                countPostsExpression.Where<Category>(c => c.BoardID == boardId && (c.Flags & 1) == 1);
 
-                    var countPostsSql = countPostsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
+                var countPostsSql = countPostsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
-                    // -- count Topics
-                    var countTopicsExpression = db.Connection.From<Topic>();
+                // -- count Topics
+                var countTopicsExpression = db.From<Topic>();
 
-                    countTopicsExpression.Join<Forum>((a, b) => b.ID == a.ForumID && (a.Flags & 8) != 8 && a.NumPosts > 0)
-                        .Join<Forum, Category>((b, c) => c.ID == b.CategoryID && (c.Flags & 1) == 1);
+                countTopicsExpression.Join<Forum>((a, b) => b.ID == a.ForumID && (a.Flags & 8) != 8 && a.NumPosts > 0)
+                    .Join<Forum, Category>((b, c) => c.ID == b.CategoryID && (c.Flags & 1) == 1);
 
-                    countTopicsExpression.Where<Category>(c => c.BoardID == boardId);
+                countTopicsExpression.Where<Category>(c => c.BoardID == boardId);
 
-                    var countTopicsSql = countTopicsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
+                var countTopicsSql = countTopicsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
-                    // -- count Forums
-                    var countForumsExpression = db.Connection.From<Forum>();
+                // -- count Forums
+                var countForumsExpression = db.From<Forum>();
 
-                    countForumsExpression.Join<Category>((a, b) => b.ID == a.CategoryID);
+                countForumsExpression.Join<Category>((a, b) => b.ID == a.CategoryID);
 
-                    countForumsExpression.Where<Category>(x => x.BoardID == boardId);
+                countForumsExpression.Where<Category>(x => x.BoardID == boardId);
 
-                    var countForumsSql = countForumsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
+                var countForumsSql = countForumsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
-                    // -- count Users
-                    var countUsersExpression = expression;
+                // -- count Users
+                var countUsersExpression = expression;
 
-                    countUsersExpression.Where(u => (u.Flags & 2) == 2 && u.BoardID == boardId);
+                countUsersExpression.Where(u => (u.Flags & 2) == 2 && u.BoardID == boardId);
 
-                    var countUsersSql = countUsersExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
+                var countUsersSql = countUsersExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
-                    // -- count Categories
-                    var countCategoriesExpression = db.Connection.From<Category>();
+                // -- count Categories
+                var countCategoriesExpression = db.From<Category>();
 
-                    countCategoriesExpression.Where<Category>(x => x.BoardID == boardId);
+                countCategoriesExpression.Where<Category>(x => x.BoardID == boardId);
 
-                    var countCategoriesSql = countCategoriesExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
+                var countCategoriesSql = countCategoriesExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
-                    expression.Take(1).Select<User>(
-                        x => new
-                                 {
-                                     Categories = Sql.Custom<int>($"({countCategoriesSql})"),
-                                     Posts = Sql.Custom<int>($"({countPostsSql})"),
-                                     Forums = Sql.Custom<int>($"({countForumsSql})"),
-                                     Topics = Sql.Custom<int>($"({countTopicsSql})"),
-                                     Users = Sql.Custom<int>($"({countUsersSql})"),
-                                     BoardStart = Sql.Min(x.Joined)
-                                 });
+                expression.Take(1).Select<User>(
+                    x => new
+                    {
+                        Categories = Sql.Custom<int>($"({countCategoriesSql})"),
+                        Posts = Sql.Custom<int>($"({countPostsSql})"),
+                        Forums = Sql.Custom<int>($"({countForumsSql})"),
+                        Topics = Sql.Custom<int>($"({countTopicsSql})"),
+                        Users = Sql.Custom<int>($"({countUsersSql})"),
+                        BoardStart = Sql.Min(x.Joined)
+                    });
 
-                    return db.Connection.Single<BoardStat>(expression);
-                });
+                return db.SingleAsync<BoardStat>(expression);
+            });
     }
 
     /// <summary>

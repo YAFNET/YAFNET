@@ -23,7 +23,6 @@
  */
 
 using YAF.Core.Model;
-using YAF.Types.Objects;
 
 namespace YAF.Core.Services;
 

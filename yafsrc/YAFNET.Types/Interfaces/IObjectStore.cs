@@ -25,6 +25,7 @@
 namespace YAF.Types.Interfaces;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 /// <summary>
 /// The i object store.
@@ -62,4 +63,19 @@ public interface IObjectStore : IReadValue<object>, IWriteValue<object>, IRemove
     /// <returns>
     /// </returns>
     T GetOrSet<T>(string key, Func<T> getValue);
+
+    /// <summary>
+    /// Gets the cache value if it's in the cache or sets it if it doesn't exist or is expired.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <param name="getValue">
+    /// The get value.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public Task<T> GetOrSetAsync<T>(string key, Func<Task<T>> getValue);
 }

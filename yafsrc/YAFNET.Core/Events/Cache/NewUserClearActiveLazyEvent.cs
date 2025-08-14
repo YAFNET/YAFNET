@@ -63,5 +63,6 @@ public class NewUserClearActiveLazyEvent : IHandleEvent<NewUserRegisteredEvent>
     {
         this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
         this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
+        this.DataCache.Remove(Constants.Cache.RegisteredUsersByMonth);
     }
 }

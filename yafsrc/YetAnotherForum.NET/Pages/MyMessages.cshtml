@@ -42,7 +42,7 @@
                             <li id="@(user.ID)" class="@(user.Selected ? "chat-list-user list-group-item list-group-item-action active" : "chat-list-user list-group-item list-group-item-action")">
                                 <img class="img-thumbnail rounded float-start mt-1" src="@(Model.Get<IAvatars>().GetAvatarUrlForUser(user))" alt="User Image">
                                 <div class="float-start ps-2">
-                                    <span class="name">@Model.HtmlEncode(user.DisplayOrUserName())</span>
+                                    <span class="name">@Html.UserLabel(user)</span>
                                     <div>
                                         @if (Model.PageBoardContext.BoardSettings.ShowUserOnlineStatus)
                                         {

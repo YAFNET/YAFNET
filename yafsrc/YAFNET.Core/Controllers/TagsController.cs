@@ -51,11 +51,11 @@ public class TagsController : ForumBaseController
     [ValidateAntiForgeryToken]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SearchGridDataSet))]
     [HttpPost("GetBoardTags")]
-    public Task<ActionResult<SearchGridDataSet>> GetBoardTags([FromBody] SearchTopic searchTopic)
+    public async Task<ActionResult<SearchGridDataSet>> GetBoardTags([FromBody] SearchTopic searchTopic)
     {
-        var tags = this.Get<IDataCache>().GetOrSet(
+        var tags = await this.Get<IDataCache>().GetOrSetAsync(
             $"Tags_{this.PageBoardContext.PageBoardID}",
-            () => this.GetRepository<Tag>().GetByBoardId(),
+            () => this.GetRepository<Tag>().GetByBoardIdAsync(),
             TimeSpan.FromMinutes(5));
 
         if (searchTopic.SearchTerm.IsSet())
@@ -65,7 +65,7 @@ public class TagsController : ForumBaseController
 
             var pagedTags = new SelectPagedOptions {Total = 0, Results = tagsList};
 
-            return Task.FromResult<ActionResult<SearchGridDataSet>>(this.Ok(pagedTags));
+            return this.Ok(pagedTags);
         }
         else
         {
@@ -77,7 +77,7 @@ public class TagsController : ForumBaseController
 
             var pagedTags = new SelectPagedOptions {Total = tagsList.HasItems() ? tags.Count : 0, Results = tagsList};
 
-            return Task.FromResult<ActionResult<SearchGridDataSet>>(this.Ok(pagedTags));
+            return this.Ok(pagedTags);
         }
     }
 }

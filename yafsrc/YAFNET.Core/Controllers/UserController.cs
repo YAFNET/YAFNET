@@ -106,19 +106,19 @@ public class UserController : ForumBaseController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetMentionUsers")]
     [OutputCache]
-    public Task<ActionResult> GetMentionUsers(string users)
+    public async Task<ActionResult> GetMentionUsers(string users)
     {
         try
         {
             // Check if user has access
             if (BoardContext.Current == null)
             {
-                return Task.FromResult<ActionResult>(this.NotFound());
+                return this.NotFound();
             }
 
             var searchQuery = users;
 
-            var usersList = this.GetRepository<User>().Get(
+            var usersList = await this.GetRepository<User>().GetAsync(
                 user => this.PageBoardContext.BoardSettings.EnableDisplayName
                     ? user.DisplayName.StartsWith(searchQuery)
                     : user.Name.StartsWith(searchQuery));
@@ -132,7 +132,7 @@ public class UserController : ForumBaseController
                     avatar = this.Get<IAvatars>().GetAvatarUrlForUser(u)
                 });
 
-            return Task.FromResult<ActionResult>(this.Ok(userList));
+            return this.Ok(userList);
         }
         catch (Exception x)
         {
@@ -140,7 +140,7 @@ public class UserController : ForumBaseController
                 .Log(BoardContext.Current != null ? this.PageBoardContext.PageUserID : null, this, x,
                     EventLogTypes.Information);
 
-            return Task.FromResult<ActionResult>(this.NotFound());
+            return this.NotFound();
         }
     }
 }

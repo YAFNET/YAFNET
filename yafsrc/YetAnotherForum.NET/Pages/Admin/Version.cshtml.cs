@@ -83,7 +83,7 @@ public class VersionModel : AdminPage
         try
         {
             var version = await this.Get<IDataCache>().GetOrSetAsync(
-                "LatestVersion", () => this.Get<ILatestInformationService>().GetLatestVersionAsync(),
+                Constants.Cache.LatestVersion, () => this.Get<ILatestInformationService>().GetLatestVersionAsync(),
                 TimeSpan.FromDays(1));
 
             string lastVersion = version.Version;

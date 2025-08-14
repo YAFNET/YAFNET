@@ -93,7 +93,7 @@ public static class UrlRewriteHelper
 
         while (strNew.EndsWith('-'))
         {
-            strNew = strNew.Remove(strNew.Length - 1, 1);
+            strNew = strNew[..^1];
         }
 
         return strNew.Length.Equals(0) ? "Default" : strNew;
@@ -136,7 +136,7 @@ public static class UrlRewriteHelper
 
         while (strNew.EndsWith('-'))
         {
-            strNew = strNew.Remove(strNew.Length - 1, 1);
+            strNew = strNew[..^1];
         }
 
         return strNew.Length.Equals(0) ? "Default" : strNew;
@@ -168,7 +168,7 @@ public static class UrlRewriteHelper
 
         while (strNew.EndsWith('-'))
         {
-            strNew = strNew.Remove(strNew.Length - 1, 1);
+            strNew = strNew[..^1];
         }
 
         return strNew.Length.Equals(0) ? "Default" : strNew;

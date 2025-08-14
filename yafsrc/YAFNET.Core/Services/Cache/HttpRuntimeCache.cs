@@ -156,6 +156,40 @@ public class HttpRuntimeCache : IDataCache
     /// <param name="getValue">
     /// The get value.
     /// </param>
+    /// <returns>
+    /// </returns>
+    public Task<T> GetOrSetAsync<T>(string key, Func<Task<T>> getValue)
+    {
+        ArgumentNullException.ThrowIfNull(key);
+        ArgumentNullException.ThrowIfNull(getValue);
+
+        return this.GetOrSetInternal(
+            key,
+            getValue,
+            c =>
+            {
+                var cacheItemPolicy = new CacheItemPolicy
+                {
+                    AbsoluteExpiration = ObjectCache.InfiniteAbsoluteExpiration,
+                    SlidingExpiration = ObjectCache.NoSlidingExpiration,
+                    Priority = CacheItemPriority.Default,
+                    RemovedCallback = k => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
+                };
+                MemoryCache.Default.Add(
+                    new CacheItem(this.CreateKey(key)) { Value = c },
+                    cacheItemPolicy);
+            });
+    }
+
+    /// <summary>
+    /// The get or set.
+    /// </summary>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <param name="getValue">
+    /// The get value.
+    /// </param>
     /// <param name="timeout">
     /// The timeout.
     /// </param>
@@ -175,7 +209,7 @@ public class HttpRuntimeCache : IDataCache
                                               {
                                                   AbsoluteExpiration = DateTime.UtcNow + timeout,
                                                   Priority = CacheItemPriority.Default,
-                                                  RemovedCallback = (k) => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
+                                                  RemovedCallback = k => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
                                               };
                     MemoryCache.Default.Add(
                         new CacheItem(this.CreateKey(key)) { Value = c },
@@ -205,7 +239,7 @@ public class HttpRuntimeCache : IDataCache
                 {
                     AbsoluteExpiration = DateTime.UtcNow + timeout,
                     Priority = CacheItemPriority.Default,
-                    RemovedCallback = (k) => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
+                    RemovedCallback = k => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
                 };
                 MemoryCache.Default.Add(
                     new CacheItem(this.CreateKey(key)) { Value = c },

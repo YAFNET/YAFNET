@@ -231,7 +231,7 @@ public class AdminModel : AdminPage
         try
         {
             var version = await this.Get<IDataCache>().GetOrSetAsync(
-                "LatestVersion", () => this.Get<ILatestInformationService>().GetLatestVersionAsync(),
+                Constants.Cache.LatestVersion, () => this.Get<ILatestInformationService>().GetLatestVersionAsync(),
                 TimeSpan.FromDays(1));
 
             var latestVersion = (DateTime)version.VersionDate;
@@ -293,7 +293,8 @@ public class AdminModel : AdminPage
         this.BindUnverifiedUsers(p2);
 
         // get stats for current board, selected board or all boards (see function)
-        var data = this.GetRepository<Board>().Stats(this.PageBoardContext.PageBoardID);
+        var data = await this.Get<IDataCache>().GetOrSetAsync(
+            Constants.Cache.AdminStats, () => this.GetRepository<Board>().StatsAsync(this.PageBoardContext.PageBoardID));
 
         this.Input.NumCategories = data.Categories;
         this.Input.NumForums = data.Forums;

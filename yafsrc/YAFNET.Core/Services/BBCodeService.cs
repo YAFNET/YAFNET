@@ -103,7 +103,6 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     /// </returns>
     public async Task<string> FormatMessageWithCustomBBCodeAsync(
         string message,
-        MessageFlags flags,
         int? displayUserId,
         int? messageId)
     {
@@ -143,7 +142,6 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 var customModule = (BBCodeControl)Activator.CreateInstance(module);
 
                 // assign parameters...
-                customModule.CurrentMessageFlags = flags;
                 customModule.DisplayUserID = displayUserId;
                 customModule.MessageID = messageId;
                 customModule.Parameters = paramDic;

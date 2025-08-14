@@ -62,21 +62,18 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// <param name="text">An active topic first message content/partial content.</param>
     /// <param name="messageId">The Message Id</param>
     /// <param name="messageAuthorUserId">The Message Author User Id</param>
-    /// <param name="flags">The flags.</param>
     /// <returns>
     /// An Html formatted first message content string.
     /// </returns>
     public async Task<string> GetPostLatestContentAsync(
         string text,
         int messageId,
-        int messageAuthorUserId,
-        int flags)
+        int messageAuthorUserId)
     {
         text = await this.Get<IFormatMessage>().FormatSyndicationMessageAsync(
             text,
             messageId,
-            messageAuthorUserId,
-            new MessageFlags(flags));
+            messageAuthorUserId);
 
         return text;
     }
@@ -128,8 +125,7 @@ public class SyndicationFeeds : IHaveServiceLocator
                 await this.GetPostLatestContentAsync(
                     topic.Item1.MessageText,
                     topic.Item1.ID,
-                    topic.Item1.UserID,
-                    topic.Item2.LastMessageFlags ?? 22),
+                    topic.Item1.UserID),
                 null,
                 this.Get<ILinkBuilder>().GetAbsoluteLink(
                     ForumPages.Posts,
@@ -195,8 +191,7 @@ public class SyndicationFeeds : IHaveServiceLocator
                 await this.Get<IFormatMessage>().FormatSyndicationMessageAsync(
                     row.Message,
                     row.MessageID,
-                    row.UserID,
-                    new MessageFlags(row.Flags)),
+                    row.UserID),
                 null,
                 this.Get<ILinkBuilder>().GetAbsoluteLink(
                     ForumPages.Posts,
@@ -258,8 +253,7 @@ public class SyndicationFeeds : IHaveServiceLocator
             var content = await this.GetPostLatestContentAsync(
                               topic.LastMessage,
                               topic.LastMessageID.Value,
-                              topic.LastUserID.Value,
-                              topic.LastMessageFlags.Value);
+                              topic.LastUserID.Value);
 
             syndicationItems.AddSyndicationItem(
                 topic.Topic,
@@ -294,7 +288,7 @@ public class SyndicationFeeds : IHaveServiceLocator
 
         if (formattedUrl.EndsWith('/'))
         {
-            formattedUrl = formattedUrl.Remove(formattedUrl.Length - 1);
+            formattedUrl = formattedUrl[..^1];
         }
 
         return formattedUrl;

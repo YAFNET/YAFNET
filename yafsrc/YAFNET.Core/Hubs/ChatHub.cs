@@ -95,6 +95,8 @@ public class ChatHub : Hub, IHaveServiceLocator
             message.DateTime = this.Get<BoardSettings>().ShowRelativeTime
                                    ? message.Created.ToRelativeTime()
                                    : this.Get<IDateTimeService>().Format(DateTimeFormat.Both, message.Created);
+
+            message.Body = await this.FormatMessageAsync(message.Body);
         }
 
         // send to caller
@@ -158,6 +160,8 @@ public class ChatHub : Hub, IHaveServiceLocator
 
         var flags = new PrivateMessageFlags();
 
+        var bodyFormatted = await this.FormatMessageAsync(body);
+
         if (toConnectUser != null)
         {
             flags.IsRead = true;
@@ -166,7 +170,7 @@ public class ChatHub : Hub, IHaveServiceLocator
             await this.Clients.Client(toConnectUser.ConnectionId).SendAsync(
                 "sendPrivateMessage",
                 fromConnectUser.UserId,
-                body,
+                bodyFormatted,
                 fromConnectUser.Avatar,
                 dateTimeFormatted);
         }
@@ -185,7 +189,7 @@ public class ChatHub : Hub, IHaveServiceLocator
         await this.Clients.Caller.SendAsync(
             "sendPrivateMessage",
             toUserId,
-            body,
+            bodyFormatted,
             fromConnectUser.Avatar,
             dateTimeFormatted);
     }
@@ -200,5 +204,22 @@ public class ChatHub : Hub, IHaveServiceLocator
     {
         // Delete from sender
         return this.GetRepository<PrivateMessage>().DeleteConversationAsync(BoardContext.Current.PageUserID, toUserId);
+    }
+
+    /// <summary>
+    /// Formats the message with BBCode.
+    /// </summary>
+    /// <param name="inputMessage">The input message.</param>
+    /// <returns>System.Threading.Tasks.Task&lt;System.String&gt;.</returns>
+    private Task<string> FormatMessageAsync(string inputMessage)
+    {
+        var formattedMessage = this.Get<IFormatMessage>().Format(
+            0,
+            inputMessage);
+
+        return this.Get<IBBCodeService>().FormatMessageWithCustomBBCodeAsync(
+            formattedMessage,
+            0,
+            0);
     }
 }

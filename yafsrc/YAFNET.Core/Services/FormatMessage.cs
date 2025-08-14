@@ -96,7 +96,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
                     // If tag contains attributes kill them for checking
                     if (bbCode.Contains('='))
                     {
-                        bbCode = bbCode.Remove(bbCode.IndexOf('='));
+                        bbCode = bbCode[..bbCode.IndexOf('=')];
                     }
 
                     if (codes.Exists(allowedTag => bbCode.ToLower().Equals(allowedTag.ToLower())))
@@ -122,9 +122,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <param name="message">
     /// The message.
     /// </param>
-    /// <param name="messageFlags">
-    /// The message flags.
-    /// </param>
     /// <param name="targetBlankOverride">
     /// The target blank override.
     /// </param>
@@ -137,7 +134,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     public string Format(
         int messageId,
         string message,
-        MessageFlags messageFlags,
         bool targetBlankOverride,
         DateTime messageLastEdited)
     {
@@ -157,11 +153,11 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         }
 
         // do html damage control
-        message = this.RepairHtml(message, messageFlags.IsHtml);
+        message = this.RepairHtml(message);
 
         // get the rules engine from the creator...
         var ruleEngine = this.ProcessReplaceRuleFactory(
-            [true /*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow]);
+            [true, targetBlankOverride, useNoFollow]);
 
         // see if the rules are already populated...
         if (!ruleEngine.HasRules)
@@ -195,20 +191,16 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <param name="messageId">
     ///     The Message Id</param>
     /// <param name="messageAuthorId">The Message Author User Id</param>
-    /// <param name="messageFlags">
-    ///     The message flags.
-    /// </param>
     /// <returns>
     /// The formatted message.
     /// </returns>
     public async Task<string> FormatSyndicationMessageAsync(
         string message,
         int messageId,
-        int messageAuthorId,
-        MessageFlags messageFlags)
+        int messageAuthorId)
     {
         message =
-            $"{this.Format(0, message, messageFlags, false)}";
+            $"{this.Format(0, message, false)}";
 
         message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
 
@@ -219,12 +211,10 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
 
         var formattedMessage = this.Get<IFormatMessage>().Format(
             messageId,
-            message,
-            messageFlags);
+            message);
 
         formattedMessage = await this.Get<IBBCodeService>().FormatMessageWithCustomBBCodeAsync(
             formattedMessage,
-            messageFlags,
             messageAuthorId,
             messageId);
 
@@ -321,7 +311,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// The repaired html.
     /// </returns>
-    public string RepairHtml(string html, bool allowHtml)
+    public string RepairHtml(string html)
     {
         // These are '\n\r' things related to multiline regexps.
         var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase,

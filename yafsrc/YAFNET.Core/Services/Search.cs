@@ -715,12 +715,10 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         var formattedMessage = this.Get<IFormatMessage>().Format(
             doc.Get("MessageId").ToType<int>(),
-            message,
-            messageFlags);
+            message);
 
         formattedMessage = await this.Get<IBBCodeService>().FormatMessageWithCustomBBCodeAsync(
                                formattedMessage,
-                               messageFlags,
                                doc.Get("UserId").ToType<int>(),
                                doc.Get("MessageId").ToType<int>());
 

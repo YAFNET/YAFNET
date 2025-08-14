@@ -23,6 +23,7 @@
  */
 
 using System.Net;
+
 using YAF.Types.Objects;
 
 namespace YAF.Types.Interfaces.Services;
@@ -36,7 +37,7 @@ public interface IGeoIpCountryService
     /// Checks if the Database Exists
     /// </summary>
     /// <returns>System.Boolean.</returns>
-    public bool DatabaseExists();
+    bool DatabaseExists();
 
     /// <summary>
     /// Gets the name of the country from the ip address.

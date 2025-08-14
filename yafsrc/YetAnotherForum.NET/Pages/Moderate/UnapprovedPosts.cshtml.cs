@@ -151,7 +151,6 @@ public class UnapprovedPostsModel : ModerateForumPage
         return this.Get<IFormatMessage>().Format(
             item.Item2.ID,
             item.Item2.MessageText,
-            item.Item2.MessageFlags,
             item.Item2.IsModeratorChanged.Value);
     }
 

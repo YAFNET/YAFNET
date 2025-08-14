@@ -183,6 +183,16 @@ public static class Constants
         /// The registered users by month data-cache key
         /// </summary>
         public const string RegisteredUsersByMonth = "RegisteredUsersByMonth";
+
+        /// <summary>
+        /// The latest version
+        /// </summary>
+        public const string LatestVersion = "LatestVersion";
+
+        /// <summary>
+        /// The admin stats
+        /// </summary>
+        public const string AdminStats = "AdminStats";
     }
 
     /// <summary>

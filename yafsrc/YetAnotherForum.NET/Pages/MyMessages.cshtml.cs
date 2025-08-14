@@ -80,8 +80,9 @@ public class MyMessagesModel : ForumPageRegistered
     /// </summary>
     public override void CreatePageLinks()
     {
-        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<ILinkBuilder>().GetLink(ForumPages.MyAccount));
-        this.PageBoardContext.PageLinks.AddLink(this.GetText("PM","TITLE"));
+        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(),
+            this.Get<ILinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("PM", "TITLE"));
     }
 
     /// <summary>
@@ -101,14 +102,16 @@ public class MyMessagesModel : ForumPageRegistered
         {
             conversationUser = await this.GetRepository<User>().GetByIdAsync(u.Value);
 
-            if (conversationUser != null && conversationUser.ID != this.PageBoardContext.PageUserID && !conversationUser.Block.BlockPMs)
+            if (conversationUser != null && conversationUser.ID != this.PageBoardContext.PageUserID &&
+                !conversationUser.Block.BlockPMs)
             {
                 return this.OpenUserChat(conversationUser);
             }
         }
 
         // Get last conversation ?!
-        conversationUser = await this.GetRepository<PrivateMessage>().GetLatestConversationUserAsync(this.PageBoardContext.PageUserID);
+        conversationUser = await this.GetRepository<PrivateMessage>()
+            .GetLatestConversationUserAsync(this.PageBoardContext.PageUserID);
 
         if (conversationUser != null && conversationUser.ID != this.PageBoardContext.PageUserID)
         {
@@ -116,9 +119,11 @@ public class MyMessagesModel : ForumPageRegistered
             return this.OpenUserChat(conversationUser);
         }
 
-        return this.Users.NullOrEmpty() ? this.Get<ILinkBuilder>().Redirect(ForumPages.MyAccount) :
-                   // If no user is selected open
-                   this.OpenUserChat(this.Users[^1]);
+        return this.Users.NullOrEmpty()
+            ? this.Get<ILinkBuilder>().Redirect(ForumPages.MyAccount)
+            :
+            // If no user is selected open
+            this.OpenUserChat(this.Users[^1]);
     }
 
     /// <summary>

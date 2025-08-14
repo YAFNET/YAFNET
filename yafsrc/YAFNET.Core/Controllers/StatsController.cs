@@ -53,22 +53,22 @@ public class Stats : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserStats))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetUserStats")]
-    public Task<ActionResult<UserStats>> GetUserStats()
+    public async Task<ActionResult<UserStats>> GetUserStats()
     {
         try
         {
             // Check if user has access
             if (BoardContext.Current == null)
             {
-                return Task.FromResult<ActionResult<UserStats>>(this.NotFound());
+                return this.NotFound();
             }
 
             if (!BoardContext.Current.IsAdmin)
             {
-                return Task.FromResult<ActionResult<UserStats>>(this.NotFound());
+                return this.NotFound();
             }
 
-            var activeUsers = this.GetRepository<Active>().Get(a => a.BoardID == this.Get<BoardSettings>().BoardId);
+            var activeUsers = await this.GetRepository<Active>().GetAsync(a => a.BoardID == this.Get<BoardSettings>().BoardId);
 
             var browsers = activeUsers
                 .GroupBy(u => new { u.Browser })
@@ -91,10 +91,9 @@ public class Stats : ForumBaseController
                     });
             }
 
-            var users = this.Get<IDataCache>().GetOrSet(
+            var users = await this.Get<IDataCache>().GetOrSetAsync(
                 Constants.Cache.RegisteredUsersByMonth,
-                () => this.GetRepository<User>().GetRegisteredUsersByMonth(this.Get<BoardSettings>().BoardId),
-                TimeSpan.FromDays(1));
+                () => this.GetRepository<User>().GetRegisteredUsersByMonthAsync(this.Get<BoardSettings>().BoardId));
 
             var registrations = users
                 .GroupBy(u => new { u.Joined.Date.Year, u.Joined.Date.Month })
@@ -108,13 +107,13 @@ public class Stats : ForumBaseController
                 Registrations = registrations
             };
 
-            return Task.FromResult<ActionResult<UserStats>>(this.Ok(results));
+            return this.Ok(results);
         }
         catch (Exception x)
         {
             this.Get<ILogger<Stats>>().Log(BoardContext.Current?.PageUserID, this, x, EventLogTypes.Information);
 
-            return Task.FromResult<ActionResult<UserStats>>(this.NotFound());
+            return this.NotFound();
         }
     }
 }

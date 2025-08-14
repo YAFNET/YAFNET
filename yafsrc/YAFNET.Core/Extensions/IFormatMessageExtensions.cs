@@ -43,19 +43,15 @@ public static class IFormatMessageExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    /// <param name="messageFlags">
-    /// The message flags.
-    /// </param>
     /// <returns>
     /// The formatted message.
     /// </returns>
     public static string Format(
         this IFormatMessage formatMessage,
         int messageId,
-        string message,
-        MessageFlags messageFlags)
+        string message)
     {
-        return formatMessage.Format(messageId, message, messageFlags, false, DateTime.UtcNow);
+        return formatMessage.Format(messageId, message, false, DateTime.UtcNow);
     }
 
     /// <summary>
@@ -70,9 +66,6 @@ public static class IFormatMessageExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    /// <param name="messageFlags">
-    /// The message flags.
-    /// </param>
     /// <param name="targetBlankOverride">
     /// The target blank override.
     /// </param>
@@ -83,9 +76,8 @@ public static class IFormatMessageExtensions
         this IFormatMessage formatMessage,
         int messageId,
         string message,
-        MessageFlags messageFlags,
         bool targetBlankOverride)
     {
-        return formatMessage.Format(messageId, message, messageFlags, targetBlankOverride, DateTime.UtcNow);
+        return formatMessage.Format(messageId, message, targetBlankOverride, DateTime.UtcNow);
     }
 }

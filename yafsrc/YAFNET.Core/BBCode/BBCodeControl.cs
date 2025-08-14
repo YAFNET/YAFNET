@@ -44,11 +44,6 @@ public class BBCodeControl : IHaveServiceLocator, IHaveLocalization
     }
 
     /// <summary>
-    ///   Gets or sets CurrentMessageFlags.
-    /// </summary>
-    public MessageFlags CurrentMessageFlags { get; set; }
-
-    /// <summary>
     ///   Gets or sets MessageID.
     /// </summary>
     public int? MessageID { get; set; }

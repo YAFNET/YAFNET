@@ -138,26 +138,6 @@ public class LoginBox : ForumBaseController
     }
 
     /// <summary>
-    /// Authentications the asynchronous.
-    /// </summary>
-    /// <param name="auth">The authentication.</param>
-    /// <returns>Task&lt;IActionResult&gt;.</returns>
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PartialViewResult))]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [HttpPost("Auth")]
-    public Task<IActionResult> AuthAsync(string auth)
-    {
-        var redirectUrl = this.Get<ILinkBuilder>().GetLink(
-            ForumPages.Account_Login,
-            new { auth, handler = "Callback" });
-
-        var properties = this.Get<SignInManager<AspNetUsers>>()
-            .ConfigureExternalAuthenticationProperties(auth, redirectUrl);
-
-        return Task.FromResult<IActionResult>(new ChallengeResult(auth, properties));
-    }
-
-    /// <summary>
     /// Sign in user
     /// </summary>
     /// <param name="user">The user.</param>

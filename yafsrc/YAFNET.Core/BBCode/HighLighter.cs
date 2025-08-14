@@ -79,7 +79,7 @@ public class HighLighter
         if (language.Contains(';'))
         {
             highlight = language[(language.IndexOf(';') + 1)..];
-            language = language.Remove(language.IndexOf(';'));
+            language = language[..language.IndexOf(';')];
         }
 
         // Create Output
@@ -88,9 +88,8 @@ public class HighLighter
             language,
             highlight.IsSet() ? $" data-line=\"{highlight}\"" : string.Empty);
 
-        tmpOutput.AppendFormat(
-            "<!---->{0}<!---->",
-            StringHelper.IsHtmlEncoded(codeText) ? codeText : HttpUtility.HtmlEncode(codeText));
+        tmpOutput.Append(
+            $"<!---->{(StringHelper.IsHtmlEncoded(codeText) ? codeText : HttpUtility.HtmlEncode(codeText))}<!---->");
 
         tmpOutput.AppendFormat("</code></pre>{0}", Environment.NewLine);
 

@@ -54,29 +54,29 @@ public class CustomBBCodes : ForumBaseController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetList")]
     [OutputCache]
-    public Task<ActionResult<List<BBCode>>> GetList()
+    public async Task<ActionResult<List<BBCode>>> GetList()
     {
         try
         {
             // Check if user has access
             if (BoardContext.Current == null)
             {
-                return Task.FromResult<ActionResult<List<BBCode>>>(this.NotFound());
+                return this.NotFound();
             }
 
-            var customBbCode = this.Get<IDataCache>().GetOrSet(
+            var customBbCode =  await this.Get<IDataCache>().GetOrSetAsync(
                 Constants.Cache.CustomBBCode,
-                () => this.GetRepository<BBCode>().GetByBoardId());
+                () => this.GetRepository<BBCode>().GetByBoardIdAsync());
 
             var list = customBbCode.Where(e => e.Name != "ALBUMIMG" && e.Name != "ATTACH").Select(x=> new {x.Name, x.UseToolbar}).ToList();
 
-            return Task.FromResult<ActionResult<List<BBCode>>>(this.Ok(list));
+            return this.Ok(list);
         }
         catch (Exception x)
         {
             this.Get<ILogger<CustomBBCodes>>().Log(BoardContext.Current?.PageUserID, this, x, EventLogTypes.Information);
 
-            return Task.FromResult<ActionResult<List<BBCode>>>(this.NotFound());
+            return this.NotFound();
         }
     }
 }

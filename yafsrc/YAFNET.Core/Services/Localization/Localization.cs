@@ -527,9 +527,9 @@ public class Localization : ILocalization
 
             var languageFile = languageFiles.FirstOrDefault(x =>
                 {
-                    if (x.CultureTag.Contains("-"))
+                    if (x.CultureTag.Contains('-'))
                     {
-                        x.CultureTag = x.CultureTag.Remove(x.CultureTag.IndexOf('-'));
+                        x.CultureTag = x.CultureTag[..x.CultureTag.IndexOf('-')];
                     }
 
                     return x.CultureTag == currentCulture;
