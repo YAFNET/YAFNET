@@ -1,4 +1,5 @@
 ﻿import * as signalR from '@microsoft/signalr';
+import scrollIntoView from 'smooth-scroll-into-view-if-needed';
 
 const chatHub = new signalR.HubConnectionBuilder().withUrl('/chatHub').configureLogging(signalR.LogLevel.Error).build();
 
@@ -62,7 +63,7 @@ function addMessageUser(li: HTMLLIElement): void {
 	const avatar = document.getElementsByClassName('img-navbar-avatar')[0].getAttribute('src')!;
 	const userId = parseInt((document.getElementById('UserId') as HTMLInputElement).value);
     const toUserId = li.id;
-    const toUserName = (li.querySelector('.name') as HTMLSpanElement)!.innerText;
+	const toUserName = (li.querySelector('.name') as HTMLSpanElement).outerHTML;
 	const avatarUrl = (li.querySelector('.img-thumbnail') as HTMLImageElement).src;
 
 	if (userId !== parseInt(toUserId)) {
@@ -70,7 +71,12 @@ function addMessageUser(li: HTMLLIElement): void {
 
 		chatHub.invoke('ConnectAsync', avatar, parseInt(toUserId));
 
-		openPrivateChatCard(chatHub, toUserId, ctrId, toUserName, avatarUrl, avatar);
+		openPrivateChatCard(chatHub,
+			toUserId,
+			ctrId,
+			toUserName,
+			avatarUrl,
+			avatar);
 	}
 
 	document.getElementById('deleteConversation')!.addEventListener('click', () => {
@@ -87,10 +93,13 @@ function addMessageUser(li: HTMLLIElement): void {
 function addMessage(ctrlId: string, message: string, dateTime: string, side: string, timeSide: string, msgClass: string, toAvatar: string): void {
 	const divChat: HTMLDivElement = document.createElement('div');
 	divChat.className = `direct-chat-msg ${side}`;
-	divChat.innerHTML = `<div class="fs-6 mb-1 clearfix"><span class="text-body-secondary float-${timeSide}">${dateTime}</span></div> <img class="direct-chat-img img-thumbnail rounded" src="${toAvatar}" alt="Message User Image"> <div class="direct-chat-text ${msgClass}">${message}</div>`;
+	divChat.innerHTML = `<div class="fs-6 mb-1 clearfix"><span class="text-body-secondary float-${timeSide}">${dateTime}</span>
+                         </div> <img class="direct-chat-img img-thumbnail rounded" src="${toAvatar}" alt="Message User Image"> <div class="direct-chat-text ${msgClass}">${message}</div>`;
 
 	const messageContainer = document.getElementById(ctrlId)?.querySelector('#divMessage');
 	messageContainer?.append(divChat);
+
+	scrollIntoView(divChat);
 }
 
 function openPrivateChatCard(chatHub: any, userId: string, ctrId: string, userName: string, toAvatarUrl: string, avatarUrl: string): void {
@@ -106,13 +115,13 @@ function openPrivateChatCard(chatHub: any, userId: string, ctrId: string, userNa
                           <div class="col-auto"><button id="deleteConversation" class="btn btn-danger" type="button"><i class="fas fa-trash"></i></button>  </div></div></div>
                       <div class="card-body"> <div id="divMessage" class="direct-chat-messages"></div>  </div>
                       <div class="card-footer">  <div class="input-group mb-0">
-                          <input type="text" id="txtPrivateMessage" name="message" placeholder="Type Message ..." class="form-control"  />
-                          <button type="button" id="btnSendMessage" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+                          <textarea rows="3" id="txtPrivateMessage" name="message" placeholder="Type Message ..." class="form-control"></textarea>
+						  <button type="button" id="btnSendMessage" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
                       </div>`;
 
     // Text card event on Enter Button
-    $div.querySelector<HTMLInputElement>('#txtPrivateMessage')?.addEventListener('keypress', (e: KeyboardEvent) => {
-        if (e.which === 13) {
+    $div.querySelector<HTMLTextAreaElement>('#txtPrivateMessage')?.addEventListener('keypress', (e: KeyboardEvent) => {
+		if (e.key === 'Enter' && e.shiftKey) {
             $div.querySelector<HTMLButtonElement>('#btnSendMessage')?.click();
         }
     });
@@ -126,7 +135,7 @@ function openPrivateChatCard(chatHub: any, userId: string, ctrId: string, userNa
 
     // Send Button event in Private Chat
     document.getElementById('btnSendMessage')?.addEventListener('click', () => {
-        const $text = $div.querySelector<HTMLInputElement>('#txtPrivateMessage');
+		const $text = $div.querySelector<HTMLTextAreaElement>('#txtPrivateMessage');
 
         if ($text) {
             const msg = $text.value;

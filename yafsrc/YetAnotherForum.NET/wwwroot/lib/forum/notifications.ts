@@ -10,12 +10,14 @@ export function getNotifyData(
 ): void {
     const placeHolder = document.getElementById('NotifyListPlaceholder') as HTMLElement;
     const list = placeHolder.querySelector('ul') as HTMLUListElement;
-    const yafUserId = placeHolder.dataset.userid ?? '';
+    const yafUserId = placeHolder.dataset.userid ?? '0';
     const pagedResults: PagedResults = {
         UserId: parseInt(yafUserId),
         PageSize: pageSize,
         PageNumber: pageNumber,
     };
+
+    console.log(pagedResults);
     const ajaxUrl = '/api/Notify/GetNotifications';
 
     fetch(ajaxUrl, {

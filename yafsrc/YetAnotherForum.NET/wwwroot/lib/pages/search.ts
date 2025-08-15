@@ -317,8 +317,7 @@ function getSearchResultsData(pageNumber: number): void {
 const searchInput = document.querySelector('.searchInput') as HTMLInputElement;
 
 searchInput.addEventListener('keypress', (event: KeyboardEvent) => {
-	const code = event.which;
-	if (code === 13) {
+	if (event.key === 'Enter') {
 		event.preventDefault();
 		const pageNumberSearch = 0;
 		getSearchResultsData(pageNumberSearch);

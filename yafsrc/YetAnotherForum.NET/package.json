@@ -29,7 +29,7 @@
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.2",
     "typescript": "^5.9.2",
-    "webpack": "^5.101.0",
+    "webpack": "^5.101.2",
     "webpack-cli": "^6.0.1",
     "webpack-merge": "^6.0.1"
   },
@@ -43,16 +43,18 @@
     "@w8tcha/bootstrap-notify": "^5.0.2",
     "@w8tcha/bs5-lightbox": "^1.8.6",
     "@w8tcha/dark-editable": "^2.1.6",
-    "@yafnet/sceditor": "^3.2.12",
+    "@yafnet/sceditor": "^3.2.13",
     "bootstrap": "^5.3.7",
     "bootswatch": "^5.3.7",
+    "chart.js": "^4.5.0",
     "choices.js": "^11.1.0",
     "codemirror": "^6.0.2",
     "flag-icons": "^7.5.0",
     "form-serialize": "^0.7.2",
     "long-press-event": "^2.5.0",
     "md.bootstrappersiandatetimepicker": "^4.4.0",
-    "prismjs": "^1.30.0"
+    "prismjs": "^1.30.0",
+    "smooth-scroll-into-view-if-needed": "^2.0.2"
   },
   "scripts": {
     "build": "webpack"
