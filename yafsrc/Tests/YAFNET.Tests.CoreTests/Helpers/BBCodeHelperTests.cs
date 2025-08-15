@@ -27,20 +27,20 @@ namespace YAF.Tests.CoreTests.Helpers;
 /// <summary>
 /// YAF.Utils BBCodeHelper Tests
 /// </summary>
+[TestFixture]
 public class BBCodeHelperTests
 {
     /// <summary>
     /// Strips all BBCodes from a string.
     /// </summary>
-    [Fact]
+    [Test]
     [Description("Strips all BBCodes from a string.")]
     public void StripBBCodeTest()
     {
         const string testMessage =
             "This is a test text containing [b]bold[/b] and [i]italic[i] text and other bbcodes [img]http://test.com/testimage.jpg[/img]";
 
-        Assert.Equal(
-            "This is a test text containing bold and italic text and other bbcodes http://test.com/testimage.jpg",
-            BBCodeHelper.StripBBCode(testMessage));
+        BBCodeHelper.StripBBCode(testMessage).Should()
+            .Be("This is a test text containing bold and italic text and other bbcodes http://test.com/testimage.jpg");
     }
 }
