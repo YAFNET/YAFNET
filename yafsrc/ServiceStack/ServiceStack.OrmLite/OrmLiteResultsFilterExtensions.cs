@@ -36,7 +36,7 @@ public static class OrmLiteResultsFilterExtensions
     {
         if (anonType != null)
         {
-            dbCmd.SetParameters(anonType.ToObjectDictionary(), (bool)false, sql: ref sql);
+            dbCmd.SetParameters(anonType.AssertAnonObject().ToObjectDictionary(), false, sql: ref sql);
         }
 
         dbCmd.CommandText = sql;

@@ -355,7 +355,7 @@ public static class OrmLiteReadCommandExtensions
         bool excludeDefaults,
         ref string sql)
     {
-        if (anonType == null)
+        if (anonType.AssertAnonObject() == null)
         {
             return dbCmd;
         }

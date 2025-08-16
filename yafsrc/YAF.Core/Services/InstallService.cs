@@ -164,7 +164,7 @@ public class InstallService : IHaveServiceLocator
         // reload the board settings...
         BoardContext.Current.BoardSettings = this.Get<BoardSettingsService>().LoadBoardSettings(boardId, null);
 
-        this.AddOrUpdateExtensions();
+        this.AddExtensions(boardId);
     }
 
     /// <summary>
@@ -215,9 +215,10 @@ public class InstallService : IHaveServiceLocator
     }
 
     /// <summary>
-    ///    Add or Update BBCode Extensions and Spam Words
+    ///    Add the BBCode Extensions and Spam Words to the new board.
     /// </summary>
-    private void AddOrUpdateExtensions()
+    /// <param name="boardId">The board id.</param>
+    private void AddExtensions(int boardId)
     {
         var loadWrapper = new Action<string, Action<Stream>>(
             (file, streamAction) =>
@@ -235,20 +236,12 @@ public class InstallService : IHaveServiceLocator
                     stream.Close();
                 });
 
-        // get all boards...
-        var boardIds = this.GetRepository<Board>().GetAll().Select(x => x.ID);
+        this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(boardId));
 
-        // Upgrade all Boards
-        boardIds.ForEach(
-            boardId =>
-                {
-                    this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(boardId));
+        // load default bbcode if available...
+        loadWrapper(this.bbcodeImport, s => DataImport.BBCodeExtensionImport(boardId, s));
 
-                    // load default bbcode if available...
-                    loadWrapper(this.bbcodeImport, s => DataImport.BBCodeExtensionImport(boardId, s));
-
-                    // load default spam word if available...
-                    loadWrapper(this.spamWordsImport, s => DataImport.SpamWordsImport(boardId, s));
-                });
+        // load default spam word if available...
+        loadWrapper(this.spamWordsImport, s => DataImport.SpamWordsImport(boardId, s));
     }
 }

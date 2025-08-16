@@ -1495,12 +1495,28 @@ public static class OrmLiteUtils
     }
 
     /// <summary>
-    /// Asserts the type of the not anon.
+    /// Asserts that anonObjects is not a value type
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <exception cref="ArgumentException">T generic argument should be a Table but was typeof(object)</exception>
-    /// <exception cref="ArgumentException">T generic argument should be a Table but was typeof(object)</exception>
-    /// <exception cref="ArgumentException">T generic argument should be a Table but was typeof(object)</exception>
+    /// <param name="anonType">Type of the anon.</param>
+    /// <returns>System.Object.</returns>
+    static internal object AssertAnonObject(this object anonType)
+    {
+        if (anonType == null)
+        {
+            return null;
+        }
+
+        var type = anonType.GetType();
+        if (type.IsValueType || type == typeof(string))
+        {
+            throw new ArgumentException("Anonymous types should be a class");
+        }
+
+        return anonType;
+    }/// <summary>
+     /// Asserts the type of the not anon.
+     /// </summary>
+     /// <typeparam name="T"></typeparam>
     public static void AssertNotAnonType<T>()
     {
         if (typeof(T) == typeof(object))
