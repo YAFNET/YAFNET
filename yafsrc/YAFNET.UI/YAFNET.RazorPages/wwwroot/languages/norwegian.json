@@ -637,10 +637,6 @@
             "#text": "Viser private meldinger"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Skriver en PM"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Legger ut en melding i emnet"
           },
@@ -2340,6 +2336,14 @@
             "#text": "Styrets kultur."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Beskrivelse:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Tavlebeskrivelsen som brukes i metabeskrivelsesmerket."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Ny superbrukerinformasjon"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Bekreft passordet."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Beskrivelse:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Tavlebeskrivelsen som brukes i metabeskrivelsesmerket."
           }
         ]
       },
@@ -11919,113 +11915,12 @@
             "#text": "Samtalene dine"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Skriv melding ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Private meldinger"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Alle venner"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Alle brukere"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Klar"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Finn bruker"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Melding:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Skill flere brukernavn med &#39;;&#39;"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Du må skrive inn en melding."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Please enter, at least, the first two letters of the user you wish to locate."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Du må skrive inn et emne."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Du må velge mottaker."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Brukeren finnes ikke."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Du kan ikke sende private meldinger til en gjest."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Din private meldingsboks er full. Maksimalt tillatt er {0}. Vennligst slett meldinger for å frigjøre plass."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "Du har {0} private meldinger: {1} i innboksen og {2} i Outbox. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Forhåndsvis:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "Bruker {0} har en full privat meldingsinnboks. Beklager, de vil ikke motta PM-en din før de frigjør plass."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Jeg vil rapportere meldingen: {0} av følgende grunn..."
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Rapporter en privat melding fra brukeren: {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Re: Svar på innlegget ditt."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Send"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Emne:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Skriv en privat melding"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Til:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "For mange mottakere. Maksimalt tillatt er {0}."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "Brukeren du leter etter eksisterer ikke. Vennligst prøv igjen eller bruk Vis &quot;Alle brukere&quot;-knappen."
           }
         ]
       },

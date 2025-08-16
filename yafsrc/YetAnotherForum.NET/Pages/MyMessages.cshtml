@@ -1,7 +1,6 @@
 @page "{handler?}"
 
 @using YAF.Core.Context
-@using YAF.Core.Extensions
 @using YAF.Core.Model
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
@@ -75,7 +74,7 @@
     <div class="col">
         <div class="row">
             <div class="col">
-                <div id="PriChatDiv"></div>
+                <div id="PriChatDiv" data-placeholder="@Model.GetText("PM", "PLACEHOLDER")"></div>
             </div>
         </div>
     </div>

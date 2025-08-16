@@ -104,6 +104,11 @@ function addMessage(ctrlId: string, message: string, dateTime: string, side: str
 
 function openPrivateChatCard(chatHub: any, userId: string, ctrId: string, userName: string, toAvatarUrl: string, avatarUrl: string): void {
 
+	// Append private chat div inside the main div
+	const priChatDiv = document.getElementById('PriChatDiv') as HTMLDivElement;
+
+	const placeHolder = priChatDiv.dataset.placeholder ?? 'Type a message...';
+
     const $div: HTMLDivElement = document.createElement('div');
 
     $div.id = ctrId;
@@ -115,7 +120,7 @@ function openPrivateChatCard(chatHub: any, userId: string, ctrId: string, userNa
                           <div class="col-auto"><button id="deleteConversation" class="btn btn-danger" type="button"><i class="fas fa-trash"></i></button>  </div></div></div>
                       <div class="card-body"> <div id="divMessage" class="direct-chat-messages"></div>  </div>
                       <div class="card-footer">  <div class="input-group mb-0">
-                          <textarea rows="3" id="txtPrivateMessage" name="message" placeholder="Type Message ..." class="form-control"></textarea>
+                          <textarea rows="3" id="txtPrivateMessage" name="message" placeholder="${placeHolder}" class="form-control"></textarea>
 						  <button type="button" id="btnSendMessage" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
                       </div>`;
 
@@ -126,8 +131,7 @@ function openPrivateChatCard(chatHub: any, userId: string, ctrId: string, userNa
         }
     });
 
-    // Append private chat div inside the main div
-    const priChatDiv = document.getElementById('PriChatDiv') as HTMLDivElement;
+   
     if (priChatDiv) {
         priChatDiv.replaceChildren();
         priChatDiv.append($div);

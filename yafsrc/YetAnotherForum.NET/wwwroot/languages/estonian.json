@@ -637,10 +637,6 @@
             "#text": "Avab personaalsõnumid"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Kirjutab PS"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Saadab postituse teemasse"
           },
@@ -2340,6 +2336,14 @@
             "#text": "Juhatuse kultuur."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Kirjeldus:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Laua kirjeldus, mida kasutatakse meta kirjelduses sildis."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Uus superkasutaja teave"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Kinnitage parool."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Kirjeldus:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Laua kirjeldus, mida kasutatakse meta kirjelduses sildis."
           }
         ]
       },
@@ -11919,113 +11915,12 @@
             "#text": "Teie vestlused"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Tüüpi teade ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Privaatsõnumid"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Kõik sõbrad"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Kõik kasutajad"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Puhasta"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Otsi kasutajaid..."
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Sõnum:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Mitme kasutajanime eraldamiseks kasutage ';'"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Jätkamiseks lisage sõnumi tekst."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Palun sisestage vähemalt 2 esimest tähte otsitavast kasutajanimest."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Jätkamiseks palun lisage sõnumi pealkiri."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Jätkamiseks palun täpsustage sõnumi saajat."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Kahjuks kasutaja \"{0}\" ei ole foorumis registreeritud."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Privaatsõnumi saatmine Külalisele ei ole võimalik."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Teie privaatsõnumite postkast on täis. Lubatud on maksimaalselt {0} sõnumit. Palun kustutage sõnumid, et tekitada ruumi."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "Teil on {0} privaatsõnumid: {1} postkastis ja {2} Outboxis. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Eelvaade:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "Kasutajal {0} on privaatsõnumite postkast täis."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Soovin sõnumist teatada:\r\n\r\n  "
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Teatage kasutaja privaatsõnumist: {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Re: Vastus postituse raportile."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Saada"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Pealkiri:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Privaatsõnumi saatmine"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Kellele:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "Liiga palju saajaid. Lubatud on {0} saajat."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "Otsitavat kasutajat pole olemas. "
           }
         ]
       },

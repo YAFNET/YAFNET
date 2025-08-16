@@ -637,10 +637,6 @@
             "#text": "查看私人消息"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "写 PM"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "在主题中发布消息"
           },
@@ -2340,6 +2336,14 @@
             "#text": "董事会文化。"
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "描述："
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "元描述标签中使用的板说明。"
+          },
+          {
             "@tag": "HEADER2",
             "#text": "新的超级用户信息"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "验证密码。"
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "描述："
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "元描述标签中使用的板说明。"
           }
         ]
       },
@@ -11919,113 +11915,12 @@
             "#text": "您的对话"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "类型消息..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "私信"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "所有好友"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "所有用户"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "清除"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "查找用户"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "信息:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "多个用户之间使用 ';' 号分隔"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "信息栏为空白."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Please enter, at least, the first two letters of the user you wish to locate."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "标题必须输入."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "收件人必须输入."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "无此用户."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "不能向来宾发送悄悄话."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "您的私人消息框已满。"
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "您有{0}私人消息：{1}在Inbox中，{2}在Outbox中。"
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "预览:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "用户 {0} 有一个完整的私人消息收件箱。"
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "我想报告消息：\r\n\r\n  "
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "举报来自用户的私人消息：{0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "回复：回复你的帖子报告。"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "提交"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "标题:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "馔写悄悄话"
-          },
-          {
-            "@tag": "TO",
-            "#text": "收件人:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "太多收件人了。"
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "您要查找的用户不存在。"
           }
         ]
       },

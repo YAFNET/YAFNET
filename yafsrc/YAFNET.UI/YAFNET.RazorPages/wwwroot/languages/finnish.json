@@ -637,10 +637,6 @@
             "#text": "Näkymät Yksityiset viestit"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Kirjoittaa PM:n"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Viestit aiheessa"
           },
@@ -2340,6 +2336,14 @@
             "#text": "Hallituksen kulttuuri."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Kuvaus:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Metakuvaustunnisteessa käytetty levyn kuvaus."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Uuden pääkäyttäjän tiedot"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Tarkista salasana."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Kuvaus:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Metakuvaustunnisteessa käytetty levyn kuvaus."
           }
         ]
       },
@@ -11919,113 +11915,12 @@
             "#text": "Keskustelut"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Kirjoita viesti ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Yksityisviestit"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Kaikki ystävät"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Kaikille käyttäjille"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Kirkas"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Valitse käyttäjä"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Viesti:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Erottele useat käyttäjänimet toisistaan ';':lla."
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Et kirjoittanut viestiin mitään."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Please enter, at least, the first two letters of the user you wish to locate."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Anna viestille aihe."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Kenelle viesti lähetetään?"
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Antamaasi käyttäjää ei löytynyt."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Yksityisviesti ei voi lähettää vieras -tilille."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Yksityisviestilaatikkosi on täynnä. Suurin sallittu arvo on {0}. Ole hyvä ja poista viestejä vapauttaaksesi tilaa."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "Sinulla on {0} yksityisiä viestejä: {1} postilaatikossa ja {2} Outboxissa. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Esikatselu:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "Käyttäjällä {0} on täysi Saapuneet yksityisviestit. Valitettavasti hän ei saa PM:ääsi ennen kuin hän vapauttaa tilaa."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Haluaisin ilmoittaa viestin:\r\n\r\n  {0}\r\n\r\n  seuraavasta syystä..."
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Ilmoita yksityisviesti käyttäjältä: {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Re: Vastaa raporttiisi."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Lähetä"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Aihe:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Lähetä yksityisviesti"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Vastaanottaja:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "Liian monta vastaanottajaa. Suurin sallittu arvo on {0}."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "Etsimääsi käyttäjää ei ole olemassa. Yritä uudelleen tai käytä Näytä kaikki käyttäjät -painiketta."
           }
         ]
       },

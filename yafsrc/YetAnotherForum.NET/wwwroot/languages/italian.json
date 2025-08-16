@@ -637,10 +637,6 @@
             "#text": "Visualizzazioni Messaggi privati"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Scrive un PM"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Posta un messaggio nell'argomento"
           },
@@ -2340,6 +2336,14 @@
             "#text": "La cultura del consiglio di amministrazione."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Descrizione:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "La descrizione della scheda utilizzata nel tag meta descrizione."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "New Administrator Information"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Verificare la password."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Descrizione:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "La descrizione della scheda utilizzata nel tag meta descrizione."
           }
         ]
       },
@@ -11903,113 +11899,12 @@
             "#text": "Le tue conversazioni"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Digitare il messaggio ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Messaggi privati"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Tutti gli amici"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Tutti gli utenti"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Cancella"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Cerca utenti..."
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Messaggio:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Usare ';' per separare destinatari multipli."
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Non hai scritto nulla nel messaggio."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "E' necessario inserire almeno le prime due lettere del nome dell'utente che si sta cercando."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Devi inserire un soggetto."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Devi indicare il destinatario del messaggio."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "L'utente non esiste."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Non si possono inviare messaggi privati agli ospiti."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Non puoi inviare e ricevere altri messaggi privati perché hai raggiunto il numero massimo che ti è consentito di archiviare nella tua cassetta postale, pari a  {0}."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "Hai {0} messaggi privati: {1} nella casella di posta e {2} in Outbox. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Anteprima:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "La cassetta postale dell'utente {0} non può ricevere altri messaggi privati."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Desidero segnalare il messaggio:\r\n\r\n  {0}\r\n\r\n  per il seguente motivo..."
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Segnala un messaggio privato dell'utente: {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Risposta alla tua segnalazione"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Invia"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Soggetto:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Invia un messaggio privato"
-          },
-          {
-            "@tag": "TO",
-            "#text": "A:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "Troppi destinatari. Il massimo consentito è {0}."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "L'utente che stai cercando non esiste. Per favore riprova oppure usa il pulsante \"Tutti gli utenti\"."
           }
         ]
       },

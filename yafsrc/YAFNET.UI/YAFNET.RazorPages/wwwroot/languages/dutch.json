@@ -637,10 +637,6 @@
             "#text": "Bekijkt PMs"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Schrijft een PM"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Plaatst bericht"
           },
@@ -2340,6 +2336,14 @@
             "#text": "De Cultuurinstelling van het board."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Beschrijving:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "De bordbeschrijving die wordt gebruikt in de meta -beschrijvingstag."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Nieuwe Beheerdersinformatie"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Controleer het wachtwoord."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Beschrijving:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "De bordbeschrijving die wordt gebruikt in de meta -beschrijvingstag."
           }
         ]
       },
@@ -11903,113 +11899,12 @@
             "#text": "Uw gesprekken"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Type bericht ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Privé-berichten"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Alle vrienden"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Alle gebruikers"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Wissen"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Gebruikers zoeken"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Bericht:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Meerdere namen scheiden met ';'"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Graag een bericht in te voeren."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Om gebruikers te kunnen vinden, moet je minimaal 2 letters van de gebruikersnaam opgeven."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Graag een onderwerp op te geven."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Graag op te geven naar wie je dit bericht wilt sturen."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Deze gebruiker bestaat niet."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Je kunt geen privé-bericht verzenden naar de gastgebruiker."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Je PM box is vol. Het maximum is {0}. Om meer berichten te kunnen ontvangen moet je berichten verwijderen."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "U hebt {0} privéberichten: {1} in inbox en {2} in outbox. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Voorbeeld:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "Gebruiker {0} heeft een volle PM Inbox. Hij/zij moet eerst een aantal berichten verwijderen voordat je hem/haar een PM kunt sturen."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Ik wil het bericht melden:\r\n\r\n  "
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Een privébericht van gebruiker melden: {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Re: Antwoord op je gerapporteerde bericht."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Verzenden"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Onderwerp:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Stuur een privé-bericht"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Aan:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "Te veel ontvangers geselecteerd. Het maximum is {0}."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "De gebruiker die je zoekt bestaat niet. Probeer het aub opnieuw of gebruik de 'Alle Gebruikers'-knop."
           }
         ]
       },

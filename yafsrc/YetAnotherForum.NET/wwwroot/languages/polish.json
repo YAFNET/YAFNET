@@ -637,10 +637,6 @@
             "#text": "Przegląda prywatne wiadomości"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Piszę prywatną wiadomość"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Dodaje post w temacie"
           },
@@ -2340,6 +2336,14 @@
             "#text": "Kultura zarządu."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Opis:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Opis tablicy użyty w znaczniku opisu meta."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Informacje o nowym superużytkowniku"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Zweryfikuj hasło."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Opis:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Opis tablicy użyty w znaczniku opisu meta."
           }
         ]
       },
@@ -11907,113 +11903,12 @@
             "#text": "Twoje rozmowy"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Wpisz wiadomość ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Prywatne wiadomości"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Wszyscy znajomi"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Wszyscy użytkownicy"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Wyczyść"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Znajdź użytkowników"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Wiadomość:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Oddziel nazwy użytkowników średnikiem (;)"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Nie wpisałeś żadnej treści wiadomości."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Proszę wpisać co najmniej dwie pierwsze litery nazwy użytkownika, którego chcesz znaleźć."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Musisz wpisać tytuł wiadomości."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Nie wpisałeś, do kogo ma być wysłana ta wiadomość."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Nie istnieje taki użytkownik."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Nie możesz wysłać prywatnej wiadomości do gościa."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Twoja skrzynka prywatnych wiadomości jest pełna. Maksymalna ilość wiadomości to {0}. Proszę usuń nieco wiadomości."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "Masz {0} prywatne komunikaty: {1} w skrzynce odbiorczej i {2} w Outbox. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Podgląd:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "Użytkownik {0} ma pełną skrzynkę odbiorczą. Nie dostaną wiadomości od Ciebie, dopóki nie usuną nieco starych waidomości."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Chciałbym zgłosić tę wiadomość:\r\n\r\n  {0}\r\n\r\n  z następującego powodu..."
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Zgłoś prywatną wiadomość od użytkownika: {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Re: Odpowiedź na zgłoszenie posta."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Wyślij"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Temat:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Wyślij Prywatną Wiadomość"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Do:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "Za dużo odbiorców. Maksimum to {0}."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "Użytkownik, którego szukasz nie istnieje. Proszę spróbować ponownie, albo użyć przycisku \"Wszyscy użytkownicy\"."
           }
         ]
       },

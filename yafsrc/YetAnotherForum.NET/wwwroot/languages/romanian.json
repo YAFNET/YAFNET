@@ -637,10 +637,6 @@
             "#text": "Vezi mesaje PM"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Scrie un PM"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Posteaza mesaj in topic"
           },
@@ -2340,6 +2336,14 @@
             "#text": "Cultura consiliului de administrație."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Descriere:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Descrierea plăcii folosită în eticheta Meta Descriere."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Informații despre noul superutilizator"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Verificați parola."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Descriere:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Descrierea plăcii folosită în eticheta Meta Descriere."
           }
         ]
       },
@@ -11919,113 +11915,12 @@
             "#text": "Conversațiile tale"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Tastați mesaj ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Messaj Privat"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Toți prietenii"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Toti utilizatorii"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Sterge"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Cauta utilizatori"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Mesaj:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Desparte numele utilizatorilor cu ';'"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Nu ai scis nimic in mesaj."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Introduce cel putin primele doua caractere din numele cautat."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Trebuie sa introduci un subiect."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Nu ai specificat cui sa i-se adreseze mesajul."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Nu exista nici utilizator de acest tip."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Nu poti trimite un mesaj privat unui oaspete."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Inboxul Private este plin. Numarul maxim de mesaje salvate este {0}. Sterge mesaje pentru a elibera spatiu."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "Aveți {0} Mesaje private: {1} în căsuța de e -mail și {2} în caseta de ieșire. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Vizualizare:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "Utilizatorul {0} are casuta de messaje plin. Ne pare rau dar nu v-a primi mesajul tau, pana nu va elibera din spatiu."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Aș dori să raportez mesajul:\r\n\r\n  {0}\r\n\r\n  pentru următorul motiv..."
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Raportează un mesaj privat de la User: {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Re: Raspuns la \"post report\"-ul tau."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Postare"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Subiect:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Scrie un mesaj privat"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Pentru:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "Prea multi destinatari. Numarul maxim admis este {0}."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "Utilizatorul pe care îl căutați nu există. Vă rugăm să încercați din nou sau să utilizați butonul \"Toți utilizatorii\"."
           }
         ]
       },

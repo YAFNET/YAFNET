@@ -637,10 +637,6 @@
             "#text": "Messages privés"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Rédige un PM"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Poster un message dans le sujet"
           },
@@ -2340,6 +2336,14 @@
             "#text": "La culture du conseil."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Description:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "La description de la carte utilisée dans la balise Meta Description."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Informations sur le nouveau superutilisateur"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Vérifiez le mot de passe."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Description:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "La description de la carte utilisée dans la balise Meta Description."
           }
         ]
       },
@@ -11919,113 +11915,12 @@
             "#text": "Vos conversations"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Type Message ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Messages privés"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Tous les amis"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Tous les utilisateurs"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Effacer"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Chercher un utilisateur"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Message :"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Séparez les utilisateurs par un ';'"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Veuillez indiquer un message pour continuer."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Pour trouver des utilisateurs, vous devez entrer au moins deux lettres."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Vous devez entrer un sujet."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Vous n'avez pas spécifier le nom du destinataire."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Désolé, l'utilisateur \"{0}\" n'est pas enregistré sur ce forum."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Vous ne pouvez pas envoyer de Message Privé à des invités."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Vous avez trop de messages privés, envoyés et archivés. Le maximum est de {0}. Veuillez effacer des messages pour libérer de l'espace."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "Vous avez {0} messages privés: {1} dans la boîte de réception et {2} dans la boîte d'obstruction. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Aperçu :"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "La boite de réception de l'utilisateur {0} est pleine. Désolé, mais il ne recevra pas votre message privé tant qu'il n'aura pas libéré de l'espace."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Je voudrais signaler le message :\r\n\r\n  {0}\r\n\r\n  pour la raison suivante..."
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Signaler un message privé de l'utilisateur : {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Re: Réponse à votre rapport de message."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Envoyer"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Sujet :"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Envoi d'un message privéPost a Private Message"
-          },
-          {
-            "@tag": "TO",
-            "#text": "A :"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "Trop de destinataire. Le maximum autorisé est de {0}."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "L'utilisateur que vous recherchez n'existe pas. Veuillez réessayer ou utiliser le bouton \"Tous les utilisateurs\"."
           }
         ]
       },

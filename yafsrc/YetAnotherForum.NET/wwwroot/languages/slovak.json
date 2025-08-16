@@ -637,10 +637,6 @@
             "#text": "Zobrazenia Súkromné správy"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Napíše PM"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Príspevky v téme"
           },
@@ -2340,6 +2336,14 @@
             "#text": "Kultúra rady."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Popis:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Popis dosky použitý v značke Meta Popis."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Informácie o novom superpoužívateľovi"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Overte heslo."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Popis:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Popis dosky použitý v značke Meta Popis."
           }
         ]
       },
@@ -11919,113 +11915,12 @@
             "#text": "Vaše rozhovory"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Zadajte správu ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Súkromné správy"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Všetci priatelia"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Všetci používatelia"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Zmazať"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Nájsť používateľa"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Odkaz:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Oddeľte viacero používateľských mien pomocou znakov ';'"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Odkaz neobsahuje žiaden text."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Aby ste mohli nájsť používateľov, musíte zadať aspoň prvé dva znaky ich používateľského mena."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Musíte zadať predmet."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Nezadal ste príjemcu odkazu."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Taký používateľ neexistuje."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Súkromné odkazy nie je možné odosielať pre kategóriu „Hosť”."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Vaše pole pre súkromné správy je plné. Maximálna povolená hodnota je {0}. Prosím, odstráňte správy, aby ste uvoľnili miesto."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "Máte {0} súkromné ​​správy: {1} v doručenej schránke a {2} v Outbox. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Náhľad:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "Používateľ {0} má plnú schránku súkromných správ. Ospravedlňujeme sa, nedostane vašu PM, kým sa neuvoľní miesto."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Chcel by som nahlásiť správu:\r\n\r\n  {0}\r\n\r\n  z tohto dôvodu..."
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Nahlásiť súkromnú správu od používateľa: {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Re: Odpoveď na správu o príspevku."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Odoslať"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Predmet:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Odoslať osobný odkaz"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Komu:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "Príliš veľa príjemcov. Maximálna povolená hodnota je {0}."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "Používateľ, ktorého hľadáte, neexistuje. Skúste to znova alebo použite tlačidlo Zobraziť všetkých používateľov."
           }
         ]
       },

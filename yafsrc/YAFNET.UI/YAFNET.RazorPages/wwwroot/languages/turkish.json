@@ -637,10 +637,6 @@
             "#text": "Özel mesajları görüntüle"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Özel mesaj yaz"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Konudaki mesajı yanıtla "
           },
@@ -2340,6 +2336,14 @@
             "#text": "Yönetim Kurulu Kültürü."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Tanım:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Meta açıklama etiketinde kullanılan kart açıklaması."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Yeni Süper Kullanıcı Bilgileri"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Şifreyi doğrulayın."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Tanım:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Meta açıklama etiketinde kullanılan kart açıklaması."
           }
         ]
       },
@@ -11919,113 +11915,12 @@
             "#text": "Sohbetleriniz"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Mesaj yazın ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Özel Mesajlar"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Tüm Arkadaşlar"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Tüm Kullanıcılar"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Temizle"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Kullanıcıyı Bul"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Mesaj:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Kullanıcı isimlerini noktalı virgülle ayırın ';'"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Devam etmek için lütfen bir mesaj girin."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Kullanıcıyı bulmak için en az iki harf giriniz.."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Devam etmek için lütfen başlık giriniz"
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Lütfen devan etmek için bir alıcı seçin."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Üzgünüz, kullanıcı \"{0}\" Foruma kayıtlı değil."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Misafir kullanıcıya özel mesaj gönderemezsiniz."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Özel mesaj kutunuz dolu. En fazla {0} mesaj saklayabilirsiniz. Boş yer edinmek için lütfen birkaçını siliniz."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "Gelen kutusunda {0} özel mesajlarınız: {1} ve Outbox'ta {2} var. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Görüntüle:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "{0} kullanıcısının e-posta kutusu dolu. Üzgünüz, sizin özel mesajınızı alamıyor."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Mesajı Bildirmek İstiyorum:\r\n\r\n  {0}\r\n\r\n  aşağıdaki sebepten dolayı..."
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Kullanıcıdan Özel Mesaj Bildir: {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Yanıt: Mesaj şikayetinizi yanıtlayın."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Gönder"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Konu:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Özel mesaj gönder"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Kime:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "Çok fazla alıcı var. İzin verilen maksimum sayı {0}'dır."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "Aradığınız Kullanıcı mevcut değil. Lütfen tekrar deneyin veya \"Tüm Kullanıcıları Göster\" Düğmesini kullanın."
           }
         ]
       },

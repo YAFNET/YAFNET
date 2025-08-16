@@ -637,10 +637,6 @@
             "#text": "Peržiūros Privačios žinutės"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Rašo PM"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Pranešimo tema"
           },
@@ -2340,6 +2336,14 @@
             "#text": "Valdybos kultūra."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Aprašymas:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Plokštės aprašymas, naudojamas META aprašymo žymoje."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Naujo vyriausiojo naudotojo informacija"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Patikrinkite slaptažodį."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Aprašymas:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Plokštės aprašymas, naudojamas META aprašymo žymoje."
           }
         ]
       },
@@ -11919,113 +11915,12 @@
             "#text": "Jūsų pokalbiai"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Įveskite pranešimą ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Privačios žinutės"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Visi draugai"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Visi vartotojai "
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Skaidrus"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Rasti Vartotojai "
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Žinutė: "
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Keletą naudotojo vardų atskirkite simboliu ';'"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Jūs neturite raštiško nieko pranešimą. "
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Please enter, at least, the first two letters of the user you wish to locate."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Jūs turite įvesti klausimu. "
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Jūs neturite pasakė kurie žinutė yra. "
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Toks vartotojas neegzistuoja. "
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Jūs negalite siųsti privačių pranešimų svečių. "
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Jūsų privačių žinučių laukelis yra užpildytas. Didžiausia leistina suma yra {0}. Prašome ištrinti žinutes, kad atlaisvintumėte vietą."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "Jūs turite {0} asmeninius pranešimus: {1} gautuosiuose ir {2} „Outbox“. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Peržiūra:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "Vartotojas {0} turi pilną Privačių žinučių dėžutę. Atsiprašome, jie negaus jūsų PM, kol neatlaisvins vietos."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Norėčiau pranešti apie pranešimą:\r\n\r\n  {0}\r\n\r\n  dėl šios priežasties..."
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Pranešti apie privačią žinutę iš Vartotojo: {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Re: Atsakymas į jūsų pranešimą."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Skelbti "
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Tema: "
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Rašyti privačią žinutę "
-          },
-          {
-            "@tag": "TO",
-            "#text": "Kam: "
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "Per daug gavėjų. Didžiausia leistina suma yra {0}."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "Ieškomas naudotojas neegzistuoja. Bandykite dar kartą arba naudokite mygtuką \"Rodyti visus naudotojus\"."
           }
         ]
       },

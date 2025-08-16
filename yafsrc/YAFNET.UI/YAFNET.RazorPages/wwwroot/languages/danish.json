@@ -637,10 +637,6 @@
             "#text": "Vis private beskeder"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Skriver en privat besked"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Sender en besked under emnet "
           },
@@ -2340,6 +2336,14 @@
             "#text": "Bestyrelsens kultur."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Beskrivelse:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Bestyrelsesbeskrivelsen, der bruges i meta -beskrivelsesmærket."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Ny superbrugerinformation"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Bekræft adgangskoden."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Beskrivelse:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Bestyrelsesbeskrivelsen, der bruges i meta -beskrivelsesmærket."
           }
         ]
       },
@@ -11919,113 +11915,12 @@
             "#text": "Dine samtaler"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Skriv besked ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Private beskeder"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Alle venner"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Alle brugere"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Nulstil"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Find Brugere"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Besked:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Flere modtager skal skilles med et ';'"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Du kan ikke sende en tom besked."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Indtast venligst, mindst, to bogstaver af den bruger du ønsker at finde."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Du skal skrive et emne."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Du har ikke skrevet hvem beskeden er til."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Beklager, bruger \"{0}\" er ikke registreret på dette forum."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Du kan ikke sende en privat besked til en gæst."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Din private indbakke er fuld. Max antal besked er {0}. Slet nogle beskeder for at frigøre plads."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "Du har {0} private meddelelser: {1} i indbakke og {2} i outbox. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Gennemse:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "Bruger {0} har en fyldt privat besked indbakke. Beklager, brugeren vil ikke modtage din besked før der frigøres noget plads."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Jeg vil gerne rapportere beskeden:\r\n\r\n  "
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Rapporter en privat besked fra bruger: {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Svar: Svar til din indlægs rapportering."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Gem"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Emne:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Skriv en Privat Besked"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Til:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "For mange modtagere, maksimum er {0}."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "Brugeren du leder efter eksisterer ikke. "
           }
         ]
       },

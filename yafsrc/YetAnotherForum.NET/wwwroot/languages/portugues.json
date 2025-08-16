@@ -637,10 +637,6 @@
             "#text": "Ver Mensagens Privadas"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Escreve um PM"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Coloca uma mensagem no tópico"
           },
@@ -2340,6 +2336,14 @@
             "#text": "A cultura do conselho."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Descrição:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "A descrição da placa usada na tag Meta Descrição."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Nova informação do super-utilizador"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Verificar a palavra-passe."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Descrição:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "A descrição da placa usada na tag Meta Descrição."
           }
         ]
       },
@@ -11919,113 +11915,12 @@
             "#text": "Suas conversas"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Mensagem do tipo ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Mensagens Privadas"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Todos os amigos"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Todos os Usuários"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Limpar"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Localizar Usuários"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Mensagem:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Separar vários nomes de utilizador com ';'"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "O conteúdo da mensagem está em branco."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Please enter, at least, the first two letters of the user you wish to locate."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Você deve digitar um assunto."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Você não informou o destinatário da mensagem."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Usuário não encontrado."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Você não pode enviar mensagens privadas para usuários convidados."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "A sua caixa de mensagens privada está cheia. O máximo permitido é {0}. Favor apagar mensagens para libertar espaço."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "Você tem {0} mensagens privadas: {1} na caixa de entrada e {2} na caixa de saída. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Pré-visualização:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "O utilizador {0} tem uma caixa de entrada de mensagens privada completa. Desculpe, não receberão a sua PM até libertarem espaço."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Gostaria de Relatar a Mensagem:\r\n\r\n  {0}\r\n\r\n  pelo seguinte Motivo..."
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Reportar uma Mensagem Privada do Utilizador: {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Re: Responder ao seu relatório."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Enviar"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Assunto:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Enviar uma Mensagem Privada"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Para:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "Demasiados destinatários. O máximo permitido é {0}."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "O Utilizador que procura não existe. Por favor, tente novamente ou use o Botão \"Todos os Utilizadores\"."
           }
         ]
       },

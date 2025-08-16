@@ -637,10 +637,6 @@
             "#text": "Betrachtet PMs"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Schreibt eine PM"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Schreibt eine Nachricht im Thema "
           },
@@ -2340,6 +2336,14 @@
             "#text": "Die Sprache des Boards."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Beschreibung:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Die im Meta -Beschreibungs -Tag verwendete Boardbeschreibung."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Information für den neuen Systemverwalter"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Überprüfen Sie das Kennwort."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Beschreibung:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Die im Meta -Beschreibungs -Tag verwendete Boardbeschreibung."
           }
         ]
       },
@@ -11903,113 +11899,12 @@
             "#text": "Ihre Gespräche"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Meldung eingeben ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Private Nachrichten"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Alle Freunde"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Alle Benutzer"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Leeren"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Benutzer finden"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Nachricht:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Verschiedene Benutzer müssen mit ';' getrennt werden"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Du hast nichts in die Nachricht geschrieben."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Um ein Mitglied zu finden, musst du mindestens 2 Buchstaben des Namens eingeben"
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Du musst einen Betreff angeben."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Du hast nicht angegeben, wer die Nachricht erhalten soll."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Dieser Benutzername existiert nicht."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Es ist nicht möglich, Private Nachrichten an Gäste zu senden."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Du hast zu viele Nachrichten in Deinem Posteingang, Gesendeten Nachrichten und Archiv. Maximal sind {0} Stück erlaubt."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "Sie haben {0} private Nachrichten: {1} im Posteingang und {2} in der Operation. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Vorschau:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "Du wolltest eine Nachricht an einen Benutzer mit einem vollen Posteingang schicken. Der Benutzer muss zuerst seinen Posteingang leeren, bevor wieder neue Nachrichten empfangen werden können."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Ich möchte die Nachricht melden:\r\n\r\n  {0}\r\n\r\n  aus folgendem Grund..."
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Eine private Nachricht von Benutzer: {0} melden"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Re: Antworten auf diesen Beitragsbericht."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Absenden"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Betreff:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Schreibe eine private Nachricht (PN)"
-          },
-          {
-            "@tag": "TO",
-            "#text": "An:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "Zu viele Empfänger. Maximal sind {0} Empfänger erlaubt."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "Der Benutzer nach dem Sie suchen existiert nicht. Bitt versuchen Sie es erneut oder benutzen Sie den zeige \"Alle Benutzer\" Button."
           }
         ]
       },

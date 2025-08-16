@@ -637,10 +637,6 @@
             "#text": "Xem tin nhắn riêng tư"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Viết PM"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Đăng một tin nhắn trong chủ đề"
           },
@@ -2340,6 +2336,14 @@
             "#text": "Văn hóa của hội đồng quản trị."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Sự miêu tả:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Mô tả bảng được sử dụng trong thẻ mô tả meta."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Thông tin về Superuser mới"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Xác minh mật khẩu."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Sự miêu tả:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Mô tả bảng được sử dụng trong thẻ mô tả meta."
           }
         ]
       },
@@ -11919,113 +11915,12 @@
             "#text": "Cuộc trò chuyện của bạn"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Nhập tin nhắn ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Tin nhắn"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Tất cả bạn bè"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Tất cả thành viên"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Xoá sạch"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Tìm thành viên"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Nội dung:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Tên người nhận phân tách nhau bởi dấu ';' ( Trong trường hợp gửi tới nhiều người)"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Bạn phải nhập nội dung tin nhắn."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Please enter, at least, the first two letters of the user you wish to locate."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Bạn phải nhập tiêu đề."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Bạn chưa chọn người nhận tin nhắn."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Không tìm thấy người nhận."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Bạn không thể gửi tin nhắn cho khách."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Hộp tin nhắn của bạn đã bị đầy. Số lượng tin nhắn cho phép {0}. Xin xoá bớt tin nhắn để tăng thêm vùng trống cho hộp tin nhắn."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "Bạn có {0} Tin nhắn riêng: {1} trong hộp thư đến và {2} trong hộp thư đi. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Xem trước:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "Hộp tin nhắn của {0} đã bị đầy . Họ không thể nhận được tin nhắn cho tới khi hộp tin nhắn được tăng thêm vùng trống."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Tôi muốn Báo cáo Thông báo: {0} vì Lý do sau ..."
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Báo cáo Tin nhắn Cá nhân từ Người dùng: {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Re: Trả lời bạn đăng báo cáo."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Gửi"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Tiêu đề:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Gửi tin nhắn"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Đến:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "Quá nhiều người nhận. Số lượng tối đa cho phép là {0}."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "Người dùng bạn đang tìm kiếm không tồn tại. Vui lòng thử lại hoặc sử dụng nút &quot;Tất cả người dùng&quot; hiển thị."
           }
         ]
       },

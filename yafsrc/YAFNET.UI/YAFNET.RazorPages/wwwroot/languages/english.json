@@ -637,10 +637,6 @@
             "#text": "Views Private Messages"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Writes a PM"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Posts a message in topic "
           },
@@ -11913,111 +11909,10 @@
           {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Your Conversations"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "All Friends"
           },
           {
-            "@tag": "ALLUSERS",
-            "#text": "All Users"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Clear"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Find Users..."
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Message:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Separate multiple user names with ';'"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Please specify a message to continue."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Please enter, at least, the first two letters of the user you wish to find."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Please specify the Subject of the message to continue."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Please specify the Recipient of the message to continue."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Sorry, user {0} is not a registered on this forum."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Cannot send a Private Message to the Guest user."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Your Private Message box is full. Maximum allowed is {0}. Please delete messages to free up space."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Preview:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "I would like to Report the Message:\r\n\r\n  {0}\r\n\r\n  for the following Reason..."
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Report a Private Message from User: {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Re: Reply to you post report."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Post"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Subject:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Post a Private Message"
-          },
-          {
-            "@tag": "TO",
-            "#text": "To:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "Too many recipients. Maximum allowed is {0}."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "The User you are looking for does not exist. Please try again or use the show \"All Users\" Button."
+            "@tag": "PLACEHOLDER",
+            "#text": "Type Message ..."
           }
         ]
       },

@@ -85,11 +85,15 @@
 }
 
 .chat-list {
+    max-height: 300px;
+    margin-bottom: 10px;
+    overflow: scroll;
+
     img {
         width: 45px;
     }
 
     .chat-list-user {
-        cursor:pointer; 
+        cursor: pointer;
     }
 }

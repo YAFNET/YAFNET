@@ -637,10 +637,6 @@
             "#text": "Visa privata meddelanden"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Skriver ett PM"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Poster ett meddelande i ämnet"
           },
@@ -2340,6 +2336,14 @@
             "#text": "Styrelsens kultur."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Beskrivning:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Brädbeskrivningen som används i metabeskrivningstaggen."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Information om ny superanvändare"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Kontrollera lösenordet."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Beskrivning:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Brädbeskrivningen som används i metabeskrivningstaggen."
           }
         ]
       },
@@ -11919,113 +11915,12 @@
             "#text": "Dina konversationer"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Typmeddelande ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Privata meddelanden"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Alla vänner"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Alla användare"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Klart"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Hitta användare"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Meddelande:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Separera flera användarnamn med ';'"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Du har inte skrivit något i meddelandet."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Please enter, at least, the first two letters of the user you wish to locate."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Du måste ange ett ärende."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Du har inte angett vem meddelandet ska skickas till."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Användaren existerar inte."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Du kan inte skicka ett privat meddelande till en gäst."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Din privata meddelanderuta är full. Högsta tillåtna antal är {0}. Ta bort meddelanden för att frigöra utrymme."
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "Du har {0} privata meddelanden: {1} i inkorgen och {2} i outbox. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Förhandsgranska:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "Användaren {0} har en full inkorg för privata meddelanden. Tyvärr kommer de inte att ta emot ditt PM förrän de har frigjort utrymme."
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Jag vill rapportera meddelandet:\r\n\r\n  {0}\r\n\r\n  av följande anledning..."
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Rapportera ett privat meddelande från User: {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Re: Svar på ditt inlägg."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Skicka"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Ärende:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Skicka ett privat meddelande"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Till:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "För många mottagare. Högsta tillåtna antal är {0}."
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "Användaren du söker finns inte. Försök igen eller använd knappen Visa alla användare."
           }
         ]
       },

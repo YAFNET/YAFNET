@@ -637,10 +637,6 @@
             "#text": "Zobrazení soukromých zpráv"
           },
           {
-            "@tag": "PMESSAGE",
-            "#text": "Píše PM"
-          },
-          {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Vloží zprávu do tématu"
           },
@@ -2340,6 +2336,14 @@
             "#text": "Kultura desky."
           },
           {
+            "@tag": "DESCRIPTION",
+            "#text": "Popis:"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Popis desky použité ve značce Meta Description."
+          },
+          {
             "@tag": "HEADER2",
             "#text": "Nové informace o superuživateli"
           },
@@ -2466,14 +2470,6 @@
           {
             "@tag": "VERIFY_PASS_HELP",
             "#text": "Ověřte heslo."
-          },
-          {
-            "@tag": "DESCRIPTION",
-            "#text": "Popis:"
-          },
-          {
-            "@tag": "DESCRIPTION_HELP",
-            "#text": "Popis desky použité ve značce Meta Description."
           }
         ]
       },
@@ -11923,113 +11919,12 @@
             "#text": "Vaše rozhovory"
           },
           {
+            "@tag": "PLACEHOLDER",
+            "#text": "Typ zprávy ..."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Soukromé zprávy"
-          }
-        ]
-      },
-      {
-        "@name": "PMESSAGE",
-        "Resource": [
-          {
-            "@tag": "ALLBUDDIES",
-            "#text": "Všichni přátelé"
-          },
-          {
-            "@tag": "ALLUSERS",
-            "#text": "Všichni uživatelé"
-          },
-          {
-            "@tag": "CLEAR",
-            "#text": "Smazat"
-          },
-          {
-            "@tag": "FINDUSERS",
-            "#text": "Najít uživatele"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Vzkaz:"
-          },
-          {
-            "@tag": "MULTI_RECEIVER_INFO",
-            "#text": "Více uživatelských jmen oddělte znakem „;“"
-          },
-          {
-            "@tag": "NEED_MESSAGE",
-            "#text": "Vzkaz neobsahuje žádný text."
-          },
-          {
-            "@tag": "NEED_MORE_LETTERS",
-            "#text": "Abyste mohli najít uživatele, musíte zadat alespoň prvé dva znaky jejich uživatelského jména."
-          },
-          {
-            "@tag": "NEED_SUBJECT",
-            "#text": "Musíte zadat předmět."
-          },
-          {
-            "@tag": "NEED_TO",
-            "#text": "Nezadal jste příjemce vzkazu."
-          },
-          {
-            "@tag": "NO_SUCH_USER",
-            "#text": "Takový uživatel neexistuje."
-          },
-          {
-            "@tag": "NOT_GUEST",
-            "#text": "Soukromé vzkazy nelze odesílat pro kategorii „Host”."
-          },
-          {
-            "@tag": "OWN_PMBOX_FULL",
-            "#text": "Vaše schránka soukromých zpráv je plná. "
-          },
-          {
-            "@tag": "PMLIMIT_ALL",
-            "#text": "Máte {0} soukromé zprávy: {1} v doručené poště a {2} v outboxu. "
-          },
-          {
-            "@tag": "PREVIEWTITLE",
-            "#text": "Náhled:"
-          },
-          {
-            "@tag": "RECIPIENTS_PMBOX_FULL",
-            "#text": "Uživatel {0} má plnou schránku soukromých zpráv. "
-          },
-          {
-            "@tag": "REPORT_BODY",
-            "#text": "Chtěl bych nahlásit zprávu:\r\n\r\n  "
-          },
-          {
-            "@tag": "REPORT_SUBJECT",
-            "#text": "Nahlásit soukromou zprávu od uživatele: {0}"
-          },
-          {
-            "@tag": "REPORTED_SUBJECT",
-            "#text": "Re: Odpověď na vaši zprávu."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Odeslat"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Předmět:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Odeslat osobní vzkaz"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Komu:"
-          },
-          {
-            "@tag": "TOO_MANY_RECIPIENTS",
-            "#text": "Příliš mnoho příjemců. "
-          },
-          {
-            "@tag": "USER_NOTFOUND",
-            "#text": "Uživatel, kterého hledáte, neexistuje. "
           }
         ]
       },
