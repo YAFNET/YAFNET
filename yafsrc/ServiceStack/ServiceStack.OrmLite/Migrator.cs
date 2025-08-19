@@ -262,71 +262,75 @@ public class Migrator
         // Select all previously run migrations and find the last completed migration
         var runMigrations = db.Select(q);
         var lastRun = runMigrations.FirstOrDefault();
-        if (lastRun != null)
+
+        if (lastRun == null)
         {
-            var elapsedTime = DateTime.UtcNow - lastRun.CreatedDate;
-            if (lastRun.CompletedDate == null)
-            {
-                if (elapsedTime < this.Timeout)
-                {
-                    throw new InfoException(
-                        $"Migration '{lastRun.Name}' is still in progress, timeout in {(this.Timeout - elapsedTime).TotalSeconds:N3}s.");
-                }
+            // Return next migration
+            return migrationTypes.FirstOrDefault();
+        }
 
-                this.Log.Info(
-                    $"Migration '{lastRun.Name}' failed to complete {elapsedTime.TotalSeconds:N3}s ago, re-running...");
-                db.DeleteById<Migration>(lastRun.Id);
+        var elapsedTime = DateTime.UtcNow - lastRun.CreatedDate;
+        if (lastRun.CompletedDate == null)
+        {
+            if (elapsedTime < this.Timeout)
+            {
+                throw new InfoException(
+                    $"Migration '{lastRun.Name}' is still in progress, timeout in {(this.Timeout - elapsedTime).TotalSeconds:N3}s.");
             }
 
-            // Re-run last migration
-            if (lastRun.CompletedDate == null)
-            {
-                foreach (var migrationType in migrationTypes)
-                {
-                    if (migrationType.Name != lastRun.Name)
-                    {
-                        completedMigrations.Add(migrationType);
-                    }
-                    else
-                    {
-                        migrationTypes.RemoveAll(x => completedMigrations.Contains(x));
-                        return migrationType;
-                    }
-                }
+            this.Log.Info(
+                $"Migration '{lastRun.Name}' failed to complete {elapsedTime.TotalSeconds:N3}s ago, re-running...");
+            db.DeleteById<Migration>(lastRun.Id);
+        }
 
-                return null;
-            }
-
-            // Remove completed migrations
-            completedMigrations = migrationTypes.Any(x => x.Name == lastRun.Name)
-                ? [.. migrationTypes.TakeWhile(x => x.Name != lastRun.Name)]
-                : [];
-
-            // Make sure we don't rerun any migrations that have already been run
+        // Re-run last migration
+        if (lastRun.CompletedDate == null)
+        {
             foreach (var migrationType in migrationTypes)
             {
-                if (runMigrations.Any(x => x.Name == migrationType.Name && x.CompletedDate != null))
+                if (migrationType.Name != lastRun.Name)
                 {
                     completedMigrations.Add(migrationType);
                 }
+                else
+                {
+                    migrationTypes.RemoveAll(x => completedMigrations.Contains(x));
+                    return migrationType;
+                }
             }
 
-            if (completedMigrations.Count > 0)
-            {
-                migrationTypes.RemoveAll(x => completedMigrations.Contains(x));
-            }
+            return null;
+        }
 
-            var nextMigration = migrationTypes.FirstOrDefault();
-            if (nextMigration == null)
-            {
-                return null;
-            }
+        // Remove completed migrations
+        completedMigrations = migrationTypes.Any(x => x.Name == lastRun.Name)
+            ? [.. migrationTypes.TakeWhile(x => x.Name != lastRun.Name)]
+            : [];
 
-            // Remove completed migration
-            if (nextMigration.Name == lastRun.Name)
+        // Make sure we don't rerun any migrations that have already been run
+        foreach (var migrationType in migrationTypes)
+        {
+            if (runMigrations.Any(x => x.Name == migrationType.Name && x.CompletedDate != null))
             {
-                migrationTypes.Remove(nextMigration);
+                completedMigrations.Add(migrationType);
             }
+        }
+
+        if (completedMigrations.Count > 0)
+        {
+            migrationTypes.RemoveAll(x => completedMigrations.Contains(x));
+        }
+
+        var nextMigration = migrationTypes.FirstOrDefault();
+        if (nextMigration == null)
+        {
+            return null;
+        }
+
+        // Remove completed migration
+        if (nextMigration.Name == lastRun.Name)
+        {
+            migrationTypes.Remove(nextMigration);
         }
 
         // Return next migration

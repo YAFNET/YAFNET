@@ -37,6 +37,11 @@ public class Migration94 : MigrationBase
     /// </summary>
     public override void Up()
     {
+        if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
+        {
+            return;
+        }
+
         if (this.Db.ColumnMaxLength<AspNetUsers>(x => x.Profile_Interests) < 4000)
         {
             this.Db.AlterColumn<AspNetUsers>(x => x.Profile_Interests);

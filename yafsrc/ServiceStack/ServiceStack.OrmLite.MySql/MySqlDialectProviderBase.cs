@@ -664,6 +664,32 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     }
 
     /// <summary>
+    /// Gets the maximum length of the column.
+    /// </summary>
+    /// <param name="db">The database.</param>
+    /// <param name="columnName">Name of the column.</param>
+    /// <param name="tableName">Name of the table.</param>
+    /// <param name="schema">The schema.</param>
+    /// <returns>System.Int64.</returns>
+    public override long GetColumnMaxLength(
+        IDbConnection db,
+        string columnName,
+        string tableName,
+        string schema = null)
+    {
+        var sql =
+            "SELECT character_maximum_length FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
+                .SqlFmt(this, tableName, columnName);
+
+        if (schema != null)
+        {
+            sql += " AND TABLE_SCHEMA = @schema";
+        }
+
+        return db.SqlScalar<long>(sql, new { tableName, columnName, schema });
+    }
+
+    /// <summary>
     /// Converts to createtablestatement.
     /// </summary>
     /// <param name="tableType">Type of the table.</param>
