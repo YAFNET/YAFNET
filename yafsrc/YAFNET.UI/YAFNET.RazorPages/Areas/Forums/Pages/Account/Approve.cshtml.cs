@@ -28,7 +28,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+
 using Microsoft.AspNetCore.Authorization;
+
 using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Types.EventProxies;
@@ -114,7 +116,7 @@ public class ApproveModel : AccountPage
     /// </returns>
     private async Task<IActionResult> ValidateKeyAsync()
     {
-        var userEmail = this.GetRepository<CheckEmail>().Update(this.Input.Key);
+        var userEmail = await this.GetRepository<CheckEmail>().UpdateAsync(this.Input.Key);
 
         if (userEmail is null)
         {
@@ -134,7 +136,7 @@ public class ApproveModel : AccountPage
 
             await this.Get<IAspNetUsersHelper>().UpdateUserAsync(user);
 
-            this.GetRepository<User>().Approve(userEmail.UserID);
+            await this.GetRepository<User>().ApproveAsync(userEmail.UserID);
 
             await this.GetRepository<CheckEmail>().DeleteByIdAsync(userEmail.ID);
 

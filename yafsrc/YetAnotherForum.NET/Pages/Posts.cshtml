@@ -223,7 +223,7 @@
                                     
 								@if (!Model.PageBoardContext.IsGuest)
 								{
-									var isWatched = Model.HandleWatchTopic();
+									var isWatched = await Model.HandleWatchTopicAsync();
 
 									if (isWatched)
 									{

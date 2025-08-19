@@ -122,7 +122,7 @@ public class DigestSendTask : LongBackgroundTask
     {
         try
         {
-            var boards = this.GetRepository<Board>().GetAll();
+            var boards = await this.GetRepository<Board>().GetAllAsync();
 
             foreach (var board in boards)
             {

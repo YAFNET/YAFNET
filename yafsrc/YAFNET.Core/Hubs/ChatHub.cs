@@ -213,13 +213,7 @@ public class ChatHub : Hub, IHaveServiceLocator
     /// <returns>System.Threading.Tasks.Task&lt;System.String&gt;.</returns>
     private Task<string> FormatMessageAsync(string inputMessage)
     {
-        var formattedMessage = this.Get<IFormatMessage>().Format(
-            0,
-            inputMessage);
-
-        return this.Get<IBBCodeService>().FormatMessageWithCustomBBCodeAsync(
-            formattedMessage,
-            0,
-            0);
+        return this.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(
+            inputMessage, 0, 0);
     }
 }

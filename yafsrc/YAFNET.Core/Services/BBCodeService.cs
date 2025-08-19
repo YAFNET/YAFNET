@@ -73,8 +73,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     /// </summary>
     protected IDictionary<Types.Models.BBCode, Regex> CustomBBCode =>
         this.Get<IObjectStore>().GetOrSet(
-            "CustomBBCodeRegExDictionary",
-            () =>
+           Constants.Cache.CustomBBCodeRegExDictionary, () =>
             {
                 var bbcodeTable = this.GetCustomBBCode();
                 return bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet())
@@ -89,22 +88,19 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     /// <param name="message">
     ///     The message.
     /// </param>
-    /// <param name="flags">
-    ///     The Message flags.
+    /// <param name="messageId">
+    ///     The message id.
     /// </param>
     /// <param name="displayUserId">
     ///     The display user id.
-    /// </param>
-    /// <param name="messageId">
-    ///     The message id.
     /// </param>
     /// <returns>
     /// Returns the formatted Message.
     /// </returns>
     public async Task<string> FormatMessageWithCustomBBCodeAsync(
         string message,
-        int? displayUserId,
-        int? messageId)
+        int? messageId, 
+        int? displayUserId)
     {
         var workingMessage = message;
 
@@ -132,7 +128,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
 
                     var match1 = match;
 
-                    vars.Where(v => match1.Groups[v] != null).ForEach(v => paramDic.Add(v, match1.Groups[v].Value));
+                    vars.Where(_ => true).ForEach(v => paramDic.Add(v, match1.Groups[v].Value));
                 }
 
                 sb.Append(workingMessage[..match.Groups[0].Index]);
@@ -142,12 +138,15 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 var customModule = (BBCodeControl)Activator.CreateInstance(module);
 
                 // assign parameters...
-                customModule.DisplayUserID = displayUserId;
-                customModule.MessageID = messageId;
-                customModule.Parameters = paramDic;
+                if (customModule != null)
+                {
+                    customModule.DisplayUserID = displayUserId;
+                    customModule.MessageID = messageId;
+                    customModule.Parameters = paramDic;
 
-                // render this control...
-                await customModule.RenderAsync(sb);
+                    // render this control...
+                    await customModule.RenderAsync(sb);
+                }
 
                 sb.Append(workingMessage[(match.Groups[0].Index + match.Groups[0].Length)..]);
 

@@ -23,6 +23,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace YAF.Pages.Admin;
@@ -65,9 +67,11 @@ public class BoardsModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
-        return !this.PageBoardContext.PageUser.UserFlags.IsHostAdmin ? this.Get<ILinkBuilder>().AccessDenied() : this.BindData();
+        return !this.PageBoardContext.PageUser.UserFlags.IsHostAdmin
+            ? this.Get<ILinkBuilder>().AccessDenied()
+            : await this.BindDataAsync();
     }
 
     /// <summary>
@@ -75,18 +79,18 @@ public class BoardsModel : AdminPage
     /// </summary>
     /// <param name="id">The identifier.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostDelete(int id)
+    public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
-        this.GetRepository<Board>().DeleteBoard(id);
-        return this.BindData();
+        await this.GetRepository<Board>().DeleteBoardAsync(id);
+        return await this.BindDataAsync();
     }
 
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private PageResult BindData()
+    private async Task<PageResult> BindDataAsync()
     {
-        this.List = this.GetRepository<Board>().GetAll();
+        this.List = await this.GetRepository<Board>().GetAllAsync();
 
         return this.Page();
     }

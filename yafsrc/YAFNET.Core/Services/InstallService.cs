@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 using YAF.Core.Migrations;
 
 namespace YAF.Core.Services;
@@ -124,7 +126,7 @@ public class InstallService : IHaveServiceLocator
     /// <param name="adminProviderUserKey">
     /// The admin provider user key.
     /// </param>
-    public void InitializeForum(
+    public async Task InitializeForumAsync(
         Guid applicationId,
         string forumName,
         string forumDescription,
@@ -163,7 +165,7 @@ public class InstallService : IHaveServiceLocator
         this.GetRepository<Registry>().Save("forumlogo", forumLogo);
         this.GetRepository<Registry>().Save("baseurlmask", forumBaseUrlMask);
 
-        var boardId = this.GetRepository<Board>().Create(
+        var boardId = await this.GetRepository<Board>().CreateAsync(
             forumName,
             forumDescription,
             forumEmail,
@@ -180,7 +182,7 @@ public class InstallService : IHaveServiceLocator
 
         this.CreateUploadsFolder();
 
-        this.AddOrUpdateExtensions();
+        this.AddExtensions(boardId);
     }
 
     /// <summary>
@@ -235,11 +237,11 @@ public class InstallService : IHaveServiceLocator
         }
     }
 
-
     /// <summary>
-    ///    Add or Update BBCode Extensions and Spam Words
+    ///    Add the BBCode Extensions and Spam Words to the new board.
     /// </summary>
-    private void AddOrUpdateExtensions()
+    /// <param name="boardId">The board id.</param>
+    private void AddExtensions(int boardId)
     {
         var loadWrapper = new Action<string, Action<Stream>>(
             (file, streamAction) =>
@@ -257,20 +259,12 @@ public class InstallService : IHaveServiceLocator
                     stream.Close();
                 });
 
-        // get all boards...
-        var boardIds = this.GetRepository<Board>().GetAll().Select(x => x.ID);
+        this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(boardId));
 
-        // Upgrade all Boards
-        boardIds.ForEach(
-            boardId =>
-                {
-                    this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(boardId));
+        // load default bbcode if available...
+        loadWrapper(BbcodeImport, s => this.Get<IDataImporter>().BBCodeExtensionImport(boardId, s));
 
-                    // load default bbcode if available...
-                    loadWrapper(BbcodeImport, s => this.Get<IDataImporter>().BBCodeExtensionImport(boardId, s));
-
-                    // load default spam word if available...
-                    loadWrapper(SpamWordsImport, s => this.Get<IDataImporter>().SpamWordsImport(boardId, s));
-                });
+        // load default spam word if available...
+        loadWrapper(SpamWordsImport, s => this.Get<IDataImporter>().SpamWordsImport(boardId, s));
     }
 }

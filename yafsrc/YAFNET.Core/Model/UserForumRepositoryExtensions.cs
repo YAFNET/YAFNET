@@ -46,11 +46,6 @@ public static class UserForumRepositoryExtensions
         var success = repository.DbAccess.Execute(
                           db => db.Connection.Delete<UserForum>(x => x.UserID == userId && x.ForumID == forumId)) == 1;
 
-        if (success)
-        {
-            repository.FireDeleted();
-        }
-
         return success;
     }
 
@@ -120,8 +115,6 @@ public static class UserForumRepositoryExtensions
             repository.UpdateOnly(
                 () => new UserForum { AccessMaskID = accessMaskId },
                 x => x.UserID == userId && x.ForumID == forumId);
-
-            repository.FireUpdated(forumId);
         }
         else
         {
@@ -135,8 +128,6 @@ public static class UserForumRepositoryExtensions
                         Invited = DateTime.UtcNow,
                         Accepted = true
                     });
-
-            repository.FireNew(forumId);
         }
     }
 }

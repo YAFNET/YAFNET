@@ -158,7 +158,7 @@ public class UsersKillModel : AdminPage
                 $"Name was reported by: {this.PageBoardContext.PageUser.DisplayOrUserName()}");
         }
 
-        this.DeleteAllUserMessages();
+        await this.DeleteAllUserMessagesAsync();
 
         if (this.Input.ReportUser && this.PageBoardContext.BoardSettings.StopForumSpamApiKey.IsSet() &&
             this.IpAddresses.Count != 0)
@@ -252,7 +252,7 @@ public class UsersKillModel : AdminPage
             case "suspend":
                 if (this.Input.UserId > 0)
                 {
-                    this.GetRepository<User>().Suspend(
+                    await this.GetRepository<User>().SuspendAsync(
                         this.Input.UserId,
                         DateTime.UtcNow.AddYears(5));
                 }
@@ -290,20 +290,22 @@ public class UsersKillModel : AdminPage
     /// <summary>
     /// Deletes all user messages.
     /// </summary>
-    private void DeleteAllUserMessages()
+    private async Task DeleteAllUserMessagesAsync()
     {
         // delete posts...
         var messages = this.AllPostsByUser.Distinct().ToList();
 
-        messages.ForEach(
-            x => this.GetRepository<Message>().Delete(
+        foreach (var x in messages)
+        {
+            await this.GetRepository<Message>().DeleteAsync(
                 x.Topic.ForumID,
                 x.Topic.ID,
                 x,
                 true,
                 string.Empty,
                 true,
-                true));
+                true);
+        }
     }
 
     /// <summary>

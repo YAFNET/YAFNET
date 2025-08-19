@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Controllers;
 
 using Microsoft.AspNetCore.Authorization;
@@ -48,7 +50,7 @@ public class IgnoredUserController : ForumBaseController
     /// <returns>IActionResult.</returns>
     [HttpGet]
     [Route("RemoveIgnoredUser/{m:int}")]
-    public IActionResult RemoveIgnoredUser(int m)
+    public async Task<IActionResult> RemoveIgnoredUser(int m)
     {
         try
         {
@@ -66,7 +68,7 @@ public class IgnoredUserController : ForumBaseController
                 return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
-            this.Get<IUserIgnored>().RemoveIgnored(source.UserID);
+            await this.Get<IUserIgnored>().RemoveIgnoredAsync(source.UserID);
 
             return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = source.Topic });
         }
@@ -83,7 +85,7 @@ public class IgnoredUserController : ForumBaseController
     /// <returns>IActionResult.</returns>
     [HttpGet]
     [Route("AddIgnoredUser/{m:int}")]
-    public IActionResult AddIgnoredUser(int m)
+    public async Task<IActionResult> AddIgnoredUser(int m)
     {
         try
         {
@@ -101,7 +103,7 @@ public class IgnoredUserController : ForumBaseController
                 return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
-            this.Get<IUserIgnored>().AddIgnored(source.UserID);
+            await this.Get<IUserIgnored>().AddIgnoredAsync(source.UserID);
 
             return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = source.Topic });
         }

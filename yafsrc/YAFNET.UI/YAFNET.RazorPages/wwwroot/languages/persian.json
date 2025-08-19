@@ -4699,14 +4699,6 @@
             "#text": "تعلیق یا لغو تعلیق کاربران ثبت می شود."
           },
           {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "ثبت خطاهای مرتبط با ViewState: "
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "ViewState خطاهای (توسط SPAM Bots) ثبت خواهد شد."
-          },
-          {
             "@tag": "LOG_WARNING",
             "#text": "فعال سازی ثبت وقایع و رویدادهای نرم افزار"
           },

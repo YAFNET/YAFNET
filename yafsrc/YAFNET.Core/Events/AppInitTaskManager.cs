@@ -128,7 +128,7 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpContex
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(HttpContextInitEvent @event)
     {

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System.Collections.Generic;
@@ -40,20 +42,17 @@ public static class IgnoreUserRepositoryExtensions
     /// <param name="userId">The user identifier.</param>
     /// <param name="ignoreUserId">The ignore user identifier.</param>
     /// <returns>Returns if deleting was successfully or not</returns>
-    public static bool Delete(
+    public async static Task<bool> DeleteAsync(
         this IRepository<IgnoreUser> repository,
         int userId,
         int ignoreUserId)
     {
-        var success = repository.DbAccess.Execute(
-                          db => db.Connection.Delete<IgnoreUser>(
+        var success = await repository.DbAccess.ExecuteAsync(
+                          db => db.DeleteAsync<IgnoreUser>(
                               x => x.UserID == userId && x.IgnoredUserID == ignoreUserId)) ==
                       1;
 
-        if (success)
-        {
-            repository.FireDeleted();
-        }
+        repository.FireDeleted();
 
         return success;
     }
@@ -70,16 +69,16 @@ public static class IgnoreUserRepositoryExtensions
     /// <param name="ignoredUserId">
     /// The ignored user id.
     /// </param>
-    public static void AddIgnoredUser(
+    public async static Task AddIgnoredUserAsync(
         this IRepository<IgnoreUser> repository,
         int userId,
         int ignoredUserId)
     {
-        var ignoreUser = repository.GetSingle(i => i.UserID == userId && i.IgnoredUserID == ignoredUserId);
+        var ignoreUser = await repository.GetSingleAsync(i => i.UserID == userId && i.IgnoredUserID == ignoredUserId);
 
         if (ignoreUser == null)
         {
-            repository.Insert(new IgnoreUser { UserID = userId, IgnoredUserID = ignoredUserId });
+            await repository.InsertAsync(new IgnoreUser { UserID = userId, IgnoredUserID = ignoredUserId });
         }
     }
 
@@ -92,12 +91,12 @@ public static class IgnoreUserRepositoryExtensions
     /// <param name="userId">
     /// The user Id.
     /// </param>
-    public static List<User> IgnoredUsers(this IRepository<IgnoreUser> repository, int userId)
+    public static Task<List<User>> IgnoredUsersAsync(this IRepository<IgnoreUser> repository, int userId)
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<IgnoreUser>();
 
         expression.Join<User>((i, u) => u.ID == i.IgnoredUserID).Where<IgnoreUser>(u => u.UserID == userId);
 
-        return repository.DbAccess.Execute(db => db.Connection.Select<User>(expression));
+        return repository.DbAccess.ExecuteAsync(db => db.SelectAsync<User>(expression));
     }
 }

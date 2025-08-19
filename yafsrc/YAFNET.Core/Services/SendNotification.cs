@@ -74,7 +74,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="isSpamMessage">if set to <c>true</c> [is spam message].</param>
     public async Task ToModeratorsThatMessageNeedsApprovalAsync(int forumId, int newMessageId, bool isSpamMessage)
     {
-        var moderatorsFiltered = this.Get<DataBroker>().GetModerators().Where(f => f.ForumID.Equals(forumId));
+        var moderatorsFiltered = (await this.Get<DataBroker>().GetModeratorsAsync()).Where(f => f.ForumID.Equals(forumId));
         var moderatorUserNames = new List<string>();
 
         foreach (var moderator in moderatorsFiltered)
@@ -167,7 +167,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     {
         try
         {
-            var moderatorsFiltered = this.Get<DataBroker>().GetModerators().Where(f => f.ForumID.Equals(pageForumId));
+            var moderatorsFiltered = (await this.Get<DataBroker>().GetModeratorsAsync()).Where(f => f.ForumID.Equals(pageForumId));
             var moderatorUserNames = new List<string>();
 
             foreach (var moderator in moderatorsFiltered)
@@ -192,7 +192,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
             {
                 // add each member of the group
                 var membershipUser = await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(userName).ConfigureAwait(false);
-                var user = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(membershipUser.Id);
+                var user = await this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKeyAsync(membershipUser.Id);
 
                 var languageFile = UserHelper.GetUserLanguageFile(user);
 
@@ -268,7 +268,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
             .Replace(BBCodeHelper.StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(message.MessageText))))
             .RemoveMultipleWhitespace();
 
-        var watchUsers = this.GetRepository<User>().WatchMailList(message.TopicID, message.UserID);
+        var watchUsers = await this.GetRepository<User>().WatchMailListAsync(message.TopicID, message.UserID);
 
         var watchEmail = new TemplateEmail("TOPICPOST")
                              {
@@ -509,13 +509,11 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
             return;
         }
 
-        var emails = this.GetRepository<User>().GroupEmails(adminGroupId);
+        var emails = await this.GetRepository<User>().GroupEmailsAsync(adminGroupId);
 
         foreach (var email in emails)
         {
-            var emailAddress = email;
-
-            if (emailAddress.IsNotSet())
+            if (email.IsNotSet())
             {
                 continue;
             }
@@ -537,7 +535,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                           }
                                   };
 
-            await notifyAdmin.SendEmailAsync(MailboxAddress.Parse(emailAddress), subject);
+            await notifyAdmin.SendEmailAsync(MailboxAddress.Parse(email), subject);
         }
     }
 
@@ -608,7 +606,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
             Encoding.UTF8);
 
         // save verification record...
-        this.GetRepository<CheckEmail>().Save(userId, token, user.Email);
+        await this.GetRepository<CheckEmail>().SaveAsync(userId, token, user.Email);
 
         var subject = this.Get<ILocalization>().GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.BoardSettings.Name);
 

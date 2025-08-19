@@ -4699,14 +4699,6 @@
             "#text": "Suspended and unsuspended events will be logged."
           },
           {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Rejestruj wyjątki ViewState:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "Wyjątki ViewState (powodowane głównie przez boty SPAMujące) będą rejestrowane."
-          },
-          {
             "@tag": "LOG_WARNING",
             "#text": "Zezwalaj na rejestrowanie Ostrzeżeń aplikacji:"
           },

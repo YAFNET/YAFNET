@@ -4707,14 +4707,6 @@
             "#text": "Suspended and unsuspended events will be logged."
           },
           {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Log ViewState undtagelser:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "ViewState-undtagelser (hovedsageligt forårsaget af SPAM-bots) vil blive logget."
-          },
-          {
             "@tag": "LOG_WARNING",
             "#text": "Tillad log applikationsadvarsler:"
           },

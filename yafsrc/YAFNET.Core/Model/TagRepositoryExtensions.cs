@@ -58,8 +58,6 @@ public static class TagRepositoryExtensions
                     TagName = tagName
                 });
 
-        repository.FireNew(newId);
-
         return newId;
     }
 }

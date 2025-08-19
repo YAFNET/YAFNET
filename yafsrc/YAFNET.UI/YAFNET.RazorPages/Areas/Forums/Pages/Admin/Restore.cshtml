@@ -1,12 +1,10 @@
 @page "{p:int=1}/{p2:int=1}/{handler?}"
 @model RestoreModel
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using YAF.Core.Helpers
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Web.HtmlHelpers
-@using YAF.Web.TagHelpers
 
 <form method="post">
     <div class="row">
@@ -145,8 +143,7 @@
             else
             {
                 <div class="card-body">
-                    <alert type="success" icon="check" localized-tag="NO_ENTRY">
-                    </alert>
+	                @await Html.PartialAsync("_NoEntryInfo")
                 </div>
             }
                    
@@ -249,8 +246,7 @@
                 else
                 {
                     <div class="card-body">
-                        <alert type="success" icon="check" localized-tag="NO_ENTRY">
-                        </alert>
+	                    @await Html.PartialAsync("_NoEntryInfo")
                     </div>
 
                 }

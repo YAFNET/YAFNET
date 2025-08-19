@@ -108,7 +108,7 @@ public class DeleteAccountModel : ProfilePage
                     this.PageBoardContext.TimeZoneInfoUser).AddDays(30);
 
                 // suspend user by calling appropriate method
-                this.GetRepository<User>().Suspend(
+                await this.GetRepository<User>().SuspendAsync(
                     this.PageBoardContext.PageUserID,
                     suspend,
                     "User Suspended his own account",
@@ -152,15 +152,17 @@ public class DeleteAccountModel : ProfilePage
                 // delete posts...
                 var messages = this.GetRepository<Message>().GetAllUserMessages(this.PageBoardContext.PageUserID);
 
-                messages.ForEach(
-                    x => this.GetRepository<Message>().Delete(
+                foreach (var x in messages)
+                {
+                    await this.GetRepository<Message>().DeleteAsync(
                         x.Topic.ForumID,
                         x.TopicID,
                         x,
                         true,
                         string.Empty,
                         true,
-                        true));
+                        true);
+                }
 
                 this.Get<ILogger<DeleteAccountModel>>().UserDeleted(
                     this.PageBoardContext.PageUserID,

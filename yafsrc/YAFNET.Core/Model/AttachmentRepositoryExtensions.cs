@@ -162,8 +162,6 @@ public static class AttachmentRepositoryExtensions
 
         var newAttachmentId = repository.Insert(entity);
 
-        repository.FireNew(entity);
-
         return newAttachmentId;
     }
 }

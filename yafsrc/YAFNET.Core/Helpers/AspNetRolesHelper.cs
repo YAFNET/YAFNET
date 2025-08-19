@@ -115,7 +115,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
 
         try
         {
-            userId = this.GetRepository<User>().AspNet(
+            userId = await this.GetRepository<User>().AspNetAsync(
                 pageBoardId,
                 user.UserName,
                 displayName,
@@ -133,7 +133,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
 
             if (this.Get<BoardSettings>().UseStyledNicks)
             {
-                this.Get<IRaiseEvent>().Raise(new UpdateUserStyleEvent(userId.Value));
+                await this.Get<IRaiseEventAsync>().RaiseAsync(new UpdateUserStyleEvent(userId.Value));
             }
         }
         catch (Exception x)

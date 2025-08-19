@@ -4707,14 +4707,6 @@
             "#text": "Suspended and unsuspended events will be logged."
           },
           {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Záznam o výnimkách ViewState:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "Výnimky ViewState (spôsobené najmä SPAM botmi) budú zaznamenané."
-          },
-          {
             "@tag": "LOG_WARNING",
             "#text": "Povoliť protokol Upozornenia aplikácie:"
           },

@@ -192,7 +192,7 @@
                                 Count topics and messages in statistics:
                             </label>
                             <div class="form-check form-switch">
-                                <input type="checkbox" asp-for="Input.ForumsCountMessages" />
+                                <input type="checkbox" asp-for="Input.ForumsCountMessages" class="form-check-input" />
                             </div>
                         </div>
 
@@ -201,7 +201,7 @@
                                 Hide forums if no access:
                             </label>
                             <div class="form-check form-switch">
-                                <input type="checkbox" asp-for="Input.ForumsHideNoAccess" />
+                                <input type="checkbox" asp-for="Input.ForumsHideNoAccess" class="form-check-input" />
                             </div>
                         </div>
 
@@ -272,7 +272,7 @@
                                 Create Poll:
                             </label>
                             <div class="form-check form-switch">
-                                <input type="checkbox" asp-for="Input.PollCreate" />
+                                <input type="checkbox" asp-for="Input.PollCreate" class="form-check-input" />
                             </div>
                         </div>
 
@@ -377,7 +377,7 @@
                             </label>
                             <input type="text" asp-for="Input.From" class="form-control" required="required" />
                             <div class="invalid-feedback">
-                                User Name is Required.
+                                Username is Required.
                             </div>
                         </div>
 
@@ -387,7 +387,7 @@
                             </label>
                             <input type="text" asp-for="Input.To" class="form-control" required="required" />
                             <div class="invalid-feedback">
-                                User Name is Required.
+                                Username is Required.
                             </div>
                         </div>
 
@@ -396,7 +396,7 @@
                                 Send To All:
                             </label>
                             <div class="form-check form-switch">
-                                <input type="checkbox" asp-for="Input.PMessagesToAll" disabled="disabled" />
+                                <input type="checkbox" asp-for="Input.PMessagesToAll" disabled="disabled" class="form-check-input" />
                             </div>
                         </div>
 
@@ -405,7 +405,7 @@
                                 Mark All Private Messages As Read:
                             </label>
                             <div class="form-check form-switch">
-                                <input type="checkbox" asp-for="Input.MarkRead" />
+                                <input type="checkbox" asp-for="Input.MarkRead" class="form-check-input" />
                             </div>
                         </div>
 

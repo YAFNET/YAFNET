@@ -83,7 +83,7 @@
 						</div>
 						<div class="row">
 							<div class="col">
-								@foreach (var reporter in Model.GetRepository<User>().MessageReporters(report.MessageID))
+								@foreach (var reporter in await Model.GetRepository<User>().MessageReportersAsync(report.MessageID))
 								{
 									string howMany = null;
 									var reporterName = reporter.Item2.DisplayOrUserName();

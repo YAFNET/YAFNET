@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Services;
 
 using System;
@@ -82,20 +84,19 @@ public class DataBroker : IHaveServiceLocator
     /// </summary>
     /// <param name="userId"> The user ID. </param>
     /// <returns> Returns the Active User </returns>
-    public UserLazyData ActiveUserLazyData(int userId)
+    public Task<UserLazyData> ActiveUserLazyDataAsync(int userId)
     {
         // get a row with user lazy data...
-        return
-            this.DataCache.GetOrSet(
-                string.Format(Constants.Cache.ActiveUserLazyData, userId),
-                () =>
-                    this.GetRepository<User>().LazyData(
-                        userId,
-                        BoardContext.Current.PageBoardID,
-                        this.BoardSettings.EnableBuddyList,
-                        this.BoardSettings.AllowPrivateMessages,
-                        this.BoardSettings.EnableAlbum),
-                TimeSpan.FromMinutes(this.BoardSettings.ActiveUserLazyDataCacheTimeout));
+        return this.DataCache.GetOrSetAsync(
+            string.Format(Constants.Cache.ActiveUserLazyData, userId),
+            () =>
+                this.GetRepository<User>().LazyDataAsync(
+                    userId,
+                    BoardContext.Current.PageBoardID,
+                    this.BoardSettings.EnableBuddyList,
+                    this.BoardSettings.AllowPrivateMessages,
+                    this.BoardSettings.EnableAlbum),
+            TimeSpan.FromMinutes(this.BoardSettings.ActiveUserLazyDataCacheTimeout));
     }
 
     /// <summary>
@@ -122,7 +123,7 @@ public class DataBroker : IHaveServiceLocator
     /// <returns>
     /// The <see cref="Tuple"/>.
     /// </returns>
-    public Tuple<List<SimpleModerator>, List<ForumRead>> BoardLayout(
+    public async Task<Tuple<List<SimpleModerator>, List<ForumRead>>> BoardLayoutAsync(
         int boardId,
         int userId,
         int pageIndex,
@@ -140,7 +141,7 @@ public class DataBroker : IHaveServiceLocator
 
         if (this.BoardSettings.ShowModeratorList)
         {
-            moderators = this.GetModerators();
+            moderators = await this.GetModeratorsAsync();
         }
 
         var forums = this.GetRepository<Forum>().ListRead(
@@ -494,7 +495,7 @@ public class DataBroker : IHaveServiceLocator
                         Login = DateTime.UtcNow,
                         LastActive = DateTime.UtcNow,
                         Location = location,
-                        Referer = referer, 
+                        Referer = referer,
                         Country = country,
                         ForumID = forumId,
                         TopicID = topicId,
@@ -650,11 +651,11 @@ public class DataBroker : IHaveServiceLocator
     ///     Get all moderators by Groups and User
     /// </summary>
     /// <returns> Returns the Moderator List </returns>
-    public List<SimpleModerator> GetModerators()
+    public Task<List<SimpleModerator>> GetModeratorsAsync()
     {
-        return this.DataCache.GetOrSet(
+        return this.DataCache.GetOrSetAsync(
             Constants.Cache.ForumModerators,
-            () => this.GetRepository<User>().GetForumModerators(),
+            () => this.GetRepository<User>().GetForumModeratorsAsync(),
             TimeSpan.FromMinutes(this.Get<BoardSettings>().BoardModeratorsCacheTimeout));
     }
 }

@@ -193,8 +193,6 @@ public static class UserAlbumRepositoryExtensions
 
         var newId = repository.Insert(entity);
 
-        repository.FireNew(entity);
-
         return newId;
     }
 }

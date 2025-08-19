@@ -184,7 +184,7 @@ public class PostTopicModel : ForumPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         this.Input = new PostTopicInputModel {
             Persistent = true
@@ -203,13 +203,22 @@ public class PostTopicModel : ForumPage
         this.Input.Priority = 0;
 
         // update options...
-        if (!this.PageBoardContext.IsGuest)
+        if (this.PageBoardContext.IsGuest)
         {
-            this.Input.TopicWatch = this.PageBoardContext.PageTopicID > 0
-                                        ? this.GetRepository<WatchTopic>().Check(
-                                            this.PageBoardContext.PageUserID,
-                                            this.PageBoardContext.PageTopicID).HasValue
-                                        : this.PageBoardContext.PageUser.AutoWatchTopics;
+            return this.Page();
+        }
+
+        if (this.PageBoardContext.PageTopicID > 0)
+        {
+            var check = await this.GetRepository<WatchTopic>().CheckAsync(
+                this.PageBoardContext.PageUserID,
+                this.PageBoardContext.PageTopicID);
+
+            this.Input.TopicWatch = check.HasValue;
+        }
+        else
+        {
+            this.Input.TopicWatch = this.PageBoardContext.PageUser.AutoWatchTopics;
         }
 
         return this.Page();
@@ -221,7 +230,7 @@ public class PostTopicModel : ForumPage
     /// <returns>
     /// Returns the Message Id.
     /// </returns>
-    protected Message PostReplyHandleNewTopic()
+    async protected Task<Message> PostReplyHandleNewTopicAsync()
     {
         // Check if Forum is Moderated
         var isForumModerated = this.CheckForumModerateStatus(this.PageBoardContext.PageForum, true);
@@ -249,7 +258,7 @@ public class PostTopicModel : ForumPage
         var messageText = this.Input.Editor;
 
         // Save to Db
-        var newTopic = this.GetRepository<Topic>().SaveNew(
+        var (topic, message) = await this.GetRepository<Topic>().SaveNewAsync(
             this.PageBoardContext.PageForum,
             HtmlTagHelper.StripHtml(this.Input.TopicSubject),
             string.Empty,
@@ -262,12 +271,11 @@ public class PostTopicModel : ForumPage
             this.PageBoardContext.IsGuest ? this.Input.From : this.PageBoardContext.PageUser.DisplayName,
             this.HttpContext.GetUserRealIPAddress(),
             DateTime.UtcNow,
-            messageFlags,
-            out var message);
+            messageFlags);
 
-        message.Topic = newTopic;
+        message.Topic = topic;
 
-        this.UpdateWatchTopic(this.PageBoardContext.PageUserID, newTopic.ID);
+        await this.UpdateWatchTopicAsync(this.PageBoardContext.PageUserID, topic.ID);
 
         return message;
     }
@@ -334,7 +342,7 @@ public class PostTopicModel : ForumPage
                             this.PageBoardContext.PageUserID,
                             $"{description}, user was deleted and banned");
 
-                        this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                        await this.Get<IAspNetUsersHelper>().DeleteAndBanUserAsync(
                             this.PageBoardContext.PageUser,
                             this.PageBoardContext.MembershipUser,
                             this.PageBoardContext.PageUser.IP);
@@ -345,7 +353,7 @@ public class PostTopicModel : ForumPage
         }
 
         // New Topic
-        var newMessage = this.PostReplyHandleNewTopic();
+        var newMessage = await this.PostReplyHandleNewTopicAsync();
 
         // Check if message is approved
         var isApproved = newMessage.MessageFlags.IsApproved;
@@ -402,7 +410,7 @@ public class PostTopicModel : ForumPage
                 // Add tags
                 if (this.Input.TagsValue.IsSet())
                 {
-                    this.GetRepository<TopicTag>().AddTagsToTopic(this.Input.TagsValue, newMessage.TopicID);
+                    await this.GetRepository<TopicTag>().AddTagsToTopicAsync(this.Input.TagsValue, newMessage.TopicID);
                 }
             }
 
@@ -468,12 +476,12 @@ public class PostTopicModel : ForumPage
     /// <param name="topicId">
     /// The topic Id.
     /// </param>
-    private void UpdateWatchTopic(int userId, int topicId)
+    private async Task UpdateWatchTopicAsync(int userId, int topicId)
     {
         if (this.Input.TopicWatch)
         {
             // subscribe to this topic...
-            this.GetRepository<WatchTopic>().Add(userId, topicId);
+            await this.GetRepository<WatchTopic>().AddAsync(userId, topicId);
         }
     }
 

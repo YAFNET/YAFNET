@@ -34,7 +34,6 @@ using YAF.Core.Context;
 using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Types.EventProxies;
-using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
@@ -92,7 +91,7 @@ public class UsersInfoModel : AdminPage
     /// <summary>
     /// Updates the User Info
     /// </summary>
-    public IActionResult OnPostSave(int userId)
+    public async Task<IActionResult> OnPostSaveAsync(int userId)
     {
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
@@ -113,7 +112,7 @@ public class UsersInfoModel : AdminPage
         userFlags.IsActiveExcluded = this.Input.IsExcludedFromActiveUsers;
         userFlags.Moderated = this.Input.Moderated;
 
-        this.GetRepository<User>().AdminSave(
+        await this.GetRepository<User>().AdminSaveAsync(
             this.PageBoardContext.PageBoardID,
             userId,
             userFlags.BitValue,

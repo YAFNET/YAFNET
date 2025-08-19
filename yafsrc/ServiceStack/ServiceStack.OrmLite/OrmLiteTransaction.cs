@@ -8,7 +8,6 @@
 #nullable enable
 using System;
 using System.Data;
-using System.Threading;
 
 using ServiceStack.Data;
 using ServiceStack.OrmLite.Base.Text;

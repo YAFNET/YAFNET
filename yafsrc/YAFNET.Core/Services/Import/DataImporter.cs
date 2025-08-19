@@ -620,8 +620,11 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
         var autoWatchTopicsEnabled = BoardContext.Current.BoardSettings.DefaultNotificationSetting
                                      == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
-        this.GetRepository<User>().Save(
+        var newUser = await this.GetRepository<User>().GetByIdAsync(userId.Value);
+
+        await this.GetRepository<User>().SaveAsync(
             userId.Value,
+            newUser.UserFlags,
             timeZone.ToString(),
             row.Table.Columns.Contains("LanguageFile") ? row["LanguageFile"].ToString() : null,
             row.Table.Columns.Contains("Culture") ? row["Culture"].ToString() : null,
@@ -631,7 +634,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             5);
 
         // save the settings...
-        this.GetRepository<User>().SaveNotification(
+        await this.GetRepository<User>().SaveNotificationAsync(
             userId.Value,
             autoWatchTopicsEnabled,
             BoardContext.Current.BoardSettings.DefaultNotificationSetting.ToInt(),

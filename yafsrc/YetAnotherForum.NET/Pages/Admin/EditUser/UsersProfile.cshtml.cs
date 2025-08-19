@@ -129,7 +129,7 @@ public class UsersProfileModel : AdminPage
     /// </summary>
     /// <param name="userId">The user identifier.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnGet(int userId)
+    public async Task<IActionResult> OnGetAsync(int userId)
     {
         if (!BoardContext.Current.IsAdmin)
         {
@@ -141,10 +141,10 @@ public class UsersProfileModel : AdminPage
                          UserId = userId
                      };
 
-        this.UserProfileCustom = this.GetRepository<ProfileCustom>()
-            .Get(p => p.UserID == userId);
+        this.UserProfileCustom = await this.GetRepository<ProfileCustom>()
+            .GetAsync(p => p.UserID == userId);
 
-        return this.BindData(userId);
+        return await this.BindDataAsync(userId);
     }
 
     /// <summary>
@@ -286,11 +286,11 @@ public class UsersProfileModel : AdminPage
         await this.UpdateUserProfileAsync();
 
         // save display name
-        this.GetRepository<User>().UpdateDisplayName(this.EditUser.Item1, displayName);
+        await this.GetRepository<User>().UpdateDisplayNameAsync(this.EditUser.Item1, displayName);
 
         this.SaveCustomProfile(userId);
 
-        // clear the cache for this user...)
+        // clear the cache for this user...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
         this.Get<IDataCache>().Clear();
@@ -316,7 +316,7 @@ public class UsersProfileModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private IActionResult BindData(int userId)
+    private async Task<IActionResult> BindDataAsync(int userId)
     {
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
@@ -355,7 +355,7 @@ public class UsersProfileModel : AdminPage
 
         this.LoadGenders(this.EditUser.Item2.Profile_Gender);
 
-        this.LoadCustomProfile();
+        await this.LoadCustomProfileAsync();
 
         return this.Page();
     }
@@ -363,9 +363,9 @@ public class UsersProfileModel : AdminPage
     /// <summary>
     /// Load the custom profile.
     /// </summary>
-    private void LoadCustomProfile()
+    private async Task LoadCustomProfileAsync()
     {
-        this.Input.CustomProfile = [.. this.GetRepository<ProfileDefinition>().GetByBoardId()];
+        this.Input.CustomProfile = [.. await this.GetRepository<ProfileDefinition>().GetByBoardIdAsync()];
 
         if (this.Input.CustomProfile is null || this.Input.CustomProfile.Count == 0)
         {

@@ -31,7 +31,7 @@ using System;
 /// </summary>
 public static class IFormatMessageExtensions
 {
-    /// <summary>
+ /*   /// <summary>
     /// The format message.
     /// </summary>
     /// <param name="formatMessage">
@@ -79,5 +79,5 @@ public static class IFormatMessageExtensions
         bool targetBlankOverride)
     {
         return formatMessage.Format(messageId, message, targetBlankOverride, DateTime.UtcNow);
-    }
+    }*/
 }

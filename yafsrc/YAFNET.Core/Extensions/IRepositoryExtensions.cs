@@ -82,6 +82,8 @@ public static class IRepositoryExtensions
     public static int Delete<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria)
         where T : class, IEntity, new()
     {
+        repository.FireDeleted();
+
         return repository.DbAccess.Execute(db => db.Connection.Delete(criteria));
     }
 
@@ -107,6 +109,8 @@ public static class IRepositoryExtensions
                                            CancellationToken token = default)
         where T : class, IEntity, new()
     {
+        repository.FireDeleted();
+
         return repository.DbAccess.ExecuteAsync(db => db.DeleteAsync(criteria, token: token));
     }
 
@@ -131,7 +135,7 @@ public static class IRepositoryExtensions
         var success = repository.DbAccess.Execute(db => db.Connection.DeleteById<T>(id)) == 1;
         if (success)
         {
-            repository.FireDeleted(id);
+            repository.FireDeleted();
         }
 
         return success;
@@ -158,7 +162,7 @@ public static class IRepositoryExtensions
         var success = await repository.DbAccess.ExecuteAsync(db => db.DeleteByIdAsync<T>(id)) == 1;
         if (success)
         {
-            repository.FireDeleted(id);
+            repository.FireDeleted();
         }
 
         return success;
@@ -170,6 +174,7 @@ public static class IRepositoryExtensions
     /// <typeparam name="T">The type parameter.</typeparam>
     /// <param name="repository">The repository.</param>
     /// <param name="ids">The ids.</param>
+    /// <param name="token">the cancellation token.</param>
     /// <returns>Returns if deleting was successful or not</returns>
     public async static Task DeleteByIdsAsync<T>(this IRepository<T> repository, IEnumerable<int> ids,
         CancellationToken token = default)
@@ -179,7 +184,7 @@ public static class IRepositoryExtensions
 
         await repository.DbAccess.ExecuteAsync(db => db.DeleteByIdsAsync<T>(enumerable, token: token));
 
-        enumerable.ForEach(id => repository.FireDeleted(id));
+        repository.FireDeleted();
     }
 
     /// <summary>
@@ -254,6 +259,8 @@ public static class IRepositoryExtensions
     {
         ArgumentNullException.ThrowIfNull(entity);
 
+        repository.FireNew();
+
         return repository.DbAccess.Execute(db => db.Connection.Insert(entity, selectIdentity)).ToType<int>();
     }
 
@@ -276,7 +283,7 @@ public static class IRepositoryExtensions
     /// <returns>
     /// The <see cref="bool"/> .
     /// </returns>
-    public static Task<long> InsertAsync<T>(
+    public async static Task<int> InsertAsync<T>(
         this IRepository<T> repository,
         T entity,
         bool selectIdentity = true,
@@ -285,7 +292,11 @@ public static class IRepositoryExtensions
     {
         ArgumentNullException.ThrowIfNull(entity);
 
-        return repository.DbAccess.ExecuteAsync(db => db.InsertAsync(entity, selectIdentity, token: token));
+        var newId = await repository.DbAccess.ExecuteAsync(db => db.InsertAsync(entity, selectIdentity, token: token));
+
+        repository.FireNew();
+
+        return newId.ToType<int>();
     }
 
     /// <summary>
@@ -338,13 +349,13 @@ public static class IRepositoryExtensions
         {
             repository.Update(entity);
 
-            repository.FireUpdated(entity.ID);
+            repository.FireUpdated();
         }
         else
         {
             newId = repository.Insert(entity);
 
-            repository.FireNew(newId);
+            repository.FireNew();
         }
 
         return newId;
@@ -392,6 +403,8 @@ public static class IRepositoryExtensions
 
         var success = repository.DbAccess.Update(entity) > 0;
 
+        repository.FireUpdated();
+
         return success;
     }
 
@@ -420,6 +433,8 @@ public static class IRepositoryExtensions
         where T : class, IEntity, new()
     {
         ArgumentNullException.ThrowIfNull(entity);
+
+        repository.FireUpdated();
 
         return repository.DbAccess.UpdateAsync(entity, token);
     }
@@ -459,6 +474,43 @@ public static class IRepositoryExtensions
         where T : class, IEntity, IHaveID, new()
     {
         return repository.DbAccess.UpdateAdd(updateFields, where, commandFilter);
+    }
+
+    /// <summary>
+    /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
+    /// Numeric fields generates an increment sql which is useful to increment counters, etc...
+    /// avoiding concurrency conflicts
+    ///   db.UpdateAdd(() =&gt; new Person { Age = 5 }, where: p =&gt; p.LastName == "Hendrix");
+    ///   UPDATE "Person" SET "Age" = "Age" + 5 WHERE ("LastName" = 'Hendrix')
+    ///   db.UpdateAdd(() =&gt; new Person { Age = 5 });
+    ///   UPDATE "Person" SET "Age" = "Age" + 5
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="updateFields">
+    /// The update Fields.
+    /// </param>
+    /// <param name="where">
+    /// The where.
+    /// </param>
+    /// <param name="commandFilter">
+    /// The command Filter.
+    /// </param>
+    /// <typeparam name="T">
+    /// The type parameter.
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="bool"/> .
+    /// </returns>
+    public static Task<int> UpdateAddAsync<T>(
+        this IRepository<T> repository,
+        Expression<Func<T>> updateFields,
+        Expression<Func<T, bool>> where = null,
+        Action<IDbCommand> commandFilter = null)
+        where T : class, IEntity, IHaveID, new()
+    {
+        return repository.DbAccess.UpdateAddAsync(updateFields, where, commandFilter);
     }
 
     /// <summary>
@@ -530,6 +582,24 @@ public static class IRepositoryExtensions
     }
 
     /// <summary>
+    /// Checks whether a Table Exists.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public static Task<bool> TableExistsAsync<T>(
+        this IRepository<T> repository)
+        where T : class, IEntity, new()
+    {
+        return repository.DbAccess.TableExistsAsync<T>();
+    }
+
+    /// <summary>
     /// Returns true if the Query returns any records that match the supplied SqlExpression, E.g:
     /// <para>
     /// db.Exists(db.From&lt;Person&gt;().Where(x =&gt; x.Age &lt; 50))
@@ -590,6 +660,19 @@ public static class IRepositoryExtensions
         where T : class, IEntity, new()
     {
          return repository.DbAccess.Execute(db => db.Connection.Count(criteria));
+    }
+
+    /// <summary>
+    /// Counts the specified criteria.
+    /// </summary>
+    /// <typeparam name="T">The type parameter.</typeparam>
+    /// <param name="repository">The repository.</param>
+    /// <param name="criteria">The criteria.</param>
+    /// <returns>Returns the Row Count</returns>
+    public static Task<long> CountAsync<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria)
+        where T : class, IEntity, new()
+    {
+        return repository.DbAccess.ExecuteAsync(db => db.CountAsync(criteria));
     }
 
     /// <summary>
@@ -743,6 +826,24 @@ public static class IRepositoryExtensions
     }
 
     /// <summary>
+    /// Gets the list of all entities
+    /// </summary>
+    /// <typeparam name="T">
+    /// The type parameter.
+    /// </typeparam>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <returns>
+    /// Returns the list of entities
+    /// </returns>
+    public static Task<List<T>> GetAllAsync<T>(this IRepository<T> repository)
+        where T : class, IEntity, new()
+    {
+        return repository.DbAccess.ExecuteAsync(db => db.SelectAsync<T>());
+    }
+
+    /// <summary>
     /// Gets the paged list of entities by the criteria.
     /// </summary>
     /// <typeparam name="T">The type parameter.</typeparam>
@@ -767,5 +868,32 @@ public static class IRepositoryExtensions
         expression.Where(criteria).OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);
 
         return repository.DbAccess.Execute(db => db.Connection.Select(expression));
+    }
+
+    /// <summary>
+    /// Gets the paged list of entities by the criteria.
+    /// </summary>
+    /// <typeparam name="T">The type parameter.</typeparam>
+    /// <param name="repository">The repository.</param>
+    /// <param name="criteria">The criteria.</param>
+    /// <param name="pageIndex">Index of the page.</param>
+    /// <param name="pageSize">Size of the page.</param>
+    /// <returns>
+    /// Returns the list of entities
+    /// </returns>
+    public static Task<List<T>> GetPagedAsync<T>(
+        this IRepository<T> repository,
+        Expression<Func<T, bool>> criteria,
+        int? pageIndex = 0,
+        int? pageSize = 10000000)
+        where T : class, IEntity, IHaveID, new()
+    {
+        ArgumentNullException.ThrowIfNull(criteria);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<T>();
+
+        expression.Where(criteria).OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);
+
+        return repository.DbAccess.ExecuteAsync(db => db.SelectAsync(expression));
     }
 }

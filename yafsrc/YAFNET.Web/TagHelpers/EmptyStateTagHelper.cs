@@ -100,7 +100,7 @@ public class EmptyTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
         // Render Icon
         var iconTag = new TagBuilder(HtmlTag.I);
 
-        iconTag.AddCssClass($"fa fa-{this.Icon} fa-5x");
+        iconTag.AddCssClass($"fa fa-{this.Icon} fa-5x text-secondary");
 
         output.Content.AppendHtml(iconTag);
 
@@ -121,6 +121,11 @@ public class EmptyTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
         var messageContentTag = new TagBuilder(HtmlTag.P);
 
         messageContentTag.AddCssClass("lead mb-3");
+
+        if (this.MessageTextTag.IsNotSet())
+        {
+            return Task.CompletedTask;
+        }
 
         messageContentTag.InnerHtml.AppendHtml(this.GetText(this.MessageTextPage, this.MessageTextTag));
 

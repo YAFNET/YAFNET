@@ -55,7 +55,7 @@
 								<div class="col-auto">
 									<span class="fa-stack fa-2x" style="vertical-align: top;">
 										<i class="fas fa-circle fa-stack-2x"></i>
-												<i class="fas fa-folder fa-stack-1x fa-inverse text-info"></i>
+										<i class="fas fa-folder fa-stack-1x fa-inverse text-info"></i>
 									</span>
 								</div>
 							</div>
@@ -540,18 +540,15 @@
 							       class="form-control"/>
 						</div>
 					</div>
-				</div>
-			}
-			else
-			{
-				<div class="card-body">
-					<alert type="success" icon="check" localized-tag="NO_ENTRY">
-						@Html.Icon("check")
-						@Html.LocalizedText("NO_ENTRY")
-					</alert>
-				</div>
-			}
-		</div>
+					</div>
+				}
+				else
+				{
+					<div class="card-body">
+						@await Html.PartialAsync("_NoEntryInfo")
+					</div>
+				}
+			</div>
 	</div>
 </div>
 <div class="row justify-content-end">

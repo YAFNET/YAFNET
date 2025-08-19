@@ -114,6 +114,35 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     }
 
     /// <summary>
+    /// Format message with all bb codes as an asynchronous operation.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="messageId">The message identifier.</param>
+    /// <param name="messageAuthorUserId">The message author user identifier.</param>
+    /// <param name="targetBlankOverride">if set to <c>true</c> [target blank override].</param>
+    /// <param name="messageLastEdited">The message last edited.</param>
+    /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
+    public async Task<string> FormatMessageWithAllBBCodesAsync(string message,
+        int messageId,
+        int? messageAuthorUserId = null,
+        bool? targetBlankOverride = false,
+        DateTime? messageLastEdited = null)
+    {
+        var formattedMessage = this.Format(
+            message,
+            messageId,
+            targetBlankOverride ?? false, 
+            messageLastEdited ?? DateTime.UtcNow);
+
+        formattedMessage = await this.Get<IBBCodeService>().FormatMessageWithCustomBBCodeAsync(
+            formattedMessage,
+            messageId,
+            messageAuthorUserId);
+
+        return formattedMessage;
+    }
+
+    /// <summary>
     /// The format message.
     /// </summary>
     /// <param name="messageId">
@@ -131,9 +160,9 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// The formatted message.
     /// </returns>
-    public string Format(
-        int messageId,
+    private string Format(
         string message,
+        int messageId,
         bool targetBlankOverride,
         DateTime messageLastEdited)
     {
@@ -199,9 +228,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         int messageId,
         int messageAuthorId)
     {
-        message =
-            $"{this.Format(0, message, false)}";
-
         message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
 
         // Remove HIDDEN Text
@@ -209,9 +235,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
 
         message = this.RemoveCustomBBCodes(message);
 
-        var formattedMessage = this.Get<IFormatMessage>().Format(
-            messageId,
-            message);
+        var formattedMessage = this.Format(message, messageId, false, DateTime.UtcNow);
 
         formattedMessage = await this.Get<IBBCodeService>().FormatMessageWithCustomBBCodeAsync(
             formattedMessage,
@@ -304,9 +328,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// </summary>
     /// <param name="html">
     /// The html.
-    /// </param>
-    /// <param name="allowHtml">
-    /// The allow html.
     /// </param>
     /// <returns>
     /// The repaired html.

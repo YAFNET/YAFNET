@@ -29,7 +29,7 @@ using YAF.Types.Interfaces.Events;
 /// <summary>
 /// The Update User Style Event
 /// </summary>
-public class UpdateUserStyleEvent : IAmEvent
+public class UpdateUserStyleEvent : IAmEventAsync
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateUserStyleEvent"/> class.

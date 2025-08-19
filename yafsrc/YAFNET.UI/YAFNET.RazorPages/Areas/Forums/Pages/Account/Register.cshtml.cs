@@ -72,10 +72,10 @@ public class RegisterModel : AccountPage
     public RegisterInputModel Input { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the user is possible spam bot.
+    /// Gets or sets a value indicating whether the user is possible spambot.
     /// </summary>
     /// <value>
-    /// <c>true</c> if the user is possible spam bot; otherwise, <c>false</c>.
+    /// <c>true</c> if the user is possible spambot; otherwise, <c>false</c>.
     /// </value>
     private bool IsPossibleSpamBot { get; set; }
 
@@ -117,12 +117,7 @@ public class RegisterModel : AccountPage
     /// </returns>
     public async Task<IActionResult> OnPostAsync()
     {
-        if (!this.ModelState.IsValid)
-        {
-            return this.Page();
-        }
-
-        if (!await this.ValidateUserAsync().ConfigureAwait(false))
+        if (!this.ModelState.IsValid || !await this.ValidateUserAsync().ConfigureAwait(false))
         {
             return this.Page();
         }
@@ -206,7 +201,9 @@ public class RegisterModel : AccountPage
         var badWord = this.Get<IBadWordReplace>().ReplaceItems.Any(
             i => userName.Equals(i.BadWord, StringComparison.CurrentCultureIgnoreCase));
 
-        var guestUserName = this.Get<IAspNetUsersHelper>().GuestUser(this.PageBoardContext.PageBoardID).Name;
+        var guestUser = await this.Get<IAspNetUsersHelper>().GuestUserAsync(this.PageBoardContext.PageBoardID);
+
+        var guestUserName = guestUser.Name;
 
         guestUserName = guestUserName.IsSet() ? guestUserName.ToLower() : string.Empty;
 

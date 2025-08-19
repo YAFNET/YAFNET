@@ -60,7 +60,7 @@ public class UserSuspendCheckAttribute : ResultFilterAttribute, IHaveServiceLoca
             if (this.Get<IDateTimeService>().GetUserDateTime(BoardContext.Current.SuspendedUntil)
                 <= this.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow))
             {
-                this.GetRepository<User>().Suspend(BoardContext.Current.PageUserID);
+                await this.GetRepository<User>().SuspendAsync(BoardContext.Current.PageUserID);
 
                 await this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(
                     BoardContext.Current.PageUser.Email,

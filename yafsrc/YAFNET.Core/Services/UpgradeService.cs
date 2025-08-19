@@ -163,7 +163,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
             {
                 var roles = await this.Get<IAspNetRolesHelper>().GetRolesForUserAsync(user);
 
-                var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
+                var yafUser = await this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKeyAsync(user.Id);
 
                 if (roles.NullOrEmpty())
                 {
@@ -177,7 +177,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
         this.Migrate(prevVersion);
 
-        this.AddOrUpdateExtensions();
+        await this.AddOrUpdateExtensionsAsync();
 
         this.Get<IDataCache>().Remove(Constants.Cache.Version);
 
@@ -279,7 +279,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
     /// <summary>
     ///    Add or Update BBCode Extensions and Spam Words
     /// </summary>
-    private void AddOrUpdateExtensions()
+    private async Task AddOrUpdateExtensionsAsync()
     {
         var loadWrapper = new Action<string, Action<Stream>>(
             (file, streamAction) =>
@@ -298,7 +298,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
                 });
 
         // get all boards...
-        var boardIds = this.GetRepository<Board>().GetAll().Select(x => x.ID);
+        var boardIds = await this.GetRepository<Board>().GetAllBoardIdsAsync();
 
         // Upgrade all Boards
         boardIds.ForEach(

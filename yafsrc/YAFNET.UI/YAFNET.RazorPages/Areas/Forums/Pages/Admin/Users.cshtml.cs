@@ -117,7 +117,7 @@ public class UsersModel : AdminPage
         }
 
         // get user(s) we are about to delete
-        var userToDelete = this.Get<IAspNetUsersHelper>().GetBoardUser(
+        var userToDelete = await this.Get<IAspNetUsersHelper>().GetBoardUserAsync(
             id,
             this.PageBoardContext.PageBoardID, true);
 

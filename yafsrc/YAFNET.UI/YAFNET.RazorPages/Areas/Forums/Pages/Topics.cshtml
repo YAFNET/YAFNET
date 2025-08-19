@@ -1,5 +1,4 @@
 ﻿@page "{f:int}/{name}/{p:int=1}/{handler?}"
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
 @using YAF.Core.Model
@@ -9,7 +8,6 @@
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Models
-@using YAF.Web.TagHelpers
 
 @model TopicsModel
 
@@ -183,7 +181,7 @@
             @if (!Model.PageBoardContext.IsGuest && Model.PageBoardContext.ForumReadAccess)
             {
                 // check if this forum is being watched by this user
-                var watchForumId = Model.GetRepository<WatchForum>().Check(Model.PageBoardContext.PageUserID, Model.PageBoardContext.PageForumID);
+                var watchForumId = await Model.GetRepository<WatchForum>().CheckAsync(Model.PageBoardContext.PageUserID, Model.PageBoardContext.PageForumID);
                 string watchForumText;
                 string watchForumIcon;
 

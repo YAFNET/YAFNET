@@ -23,6 +23,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages;
 
 using System.Collections.Generic;
@@ -154,14 +156,14 @@ public class DeleteMessageModel : ForumPage
     /// <summary>
     /// Delete Message(s)
     /// </summary>
-    public IActionResult OnPostDelete()
+    public async Task<IActionResult> OnPostDeleteAsync()
     {
         if (!this.CanDeletePost)
         {
             return this.Page();
         }
 
-        this.GetRepository<Message>().Delete(
+        await this.GetRepository<Message>().DeleteAsync(
             this.PageBoardContext.PageForumID,
             this.PageBoardContext.PageMessage.TopicID,
             this.PageBoardContext.PageMessage,
@@ -170,7 +172,7 @@ public class DeleteMessageModel : ForumPage
             this.DeleteAllPosts,
             this.EraseMessage);
 
-        var topic = this.GetRepository<Topic>().GetById(this.PageBoardContext.PageMessage.TopicID);
+        var topic = await this.GetRepository<Topic>().GetByIdAsync(this.PageBoardContext.PageMessage.TopicID);
 
         // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
         if (topic is null)
@@ -186,9 +188,9 @@ public class DeleteMessageModel : ForumPage
     /// <summary>
     /// Restore Message(s).
     /// </summary>
-    public IActionResult OnPostRestore()
+    public async Task<IActionResult> OnPostRestoreAsync()
     {
-        this.GetRepository<Message>().Restore(
+        await this.GetRepository<Message>().RestoreAsync(
             this.PageBoardContext.PageForumID,
             this.PageBoardContext.PageMessage.TopicID,
             this.PageBoardContext.PageMessage);

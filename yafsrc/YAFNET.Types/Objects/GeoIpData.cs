@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Objects;
 
-using System.Text.Json.Serialization;
-
 /// <summary>
 /// The Geo Ip Data.
 /// </summary>

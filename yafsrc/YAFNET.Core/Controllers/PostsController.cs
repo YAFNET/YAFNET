@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Authorization;
 
 namespace YAF.Core.Controllers;
@@ -48,7 +50,7 @@ public class PostsController : ForumBaseController
     /// </summary>
     [HttpGet]
     [Route("MarkAsAnswer/{m:int}")]
-    public IActionResult MarkAsAnswer(int m)
+    public async Task<IActionResult> MarkAsAnswer(int m)
     {
         try
         {
@@ -77,9 +79,9 @@ public class PostsController : ForumBaseController
                 // Remove Current Message
                 messageFlags.IsAnswer = false;
 
-                this.GetRepository<Message>().UpdateFlags(source.MessageID, messageFlags.BitValue);
+                await this.GetRepository<Message>().UpdateFlagsAsync(source.MessageID, messageFlags.BitValue);
 
-                this.GetRepository<Topic>().RemoveAnswerMessage(source.TopicID);
+                await this.GetRepository<Topic>().RemoveAnswerMessageAsync(source.TopicID);
             }
             else
             {
@@ -88,18 +90,18 @@ public class PostsController : ForumBaseController
 
                 if (answerMessageId != null)
                 {
-                    var message = this.GetRepository<Message>().GetById(answerMessageId.Value);
+                    var message = await this.GetRepository<Message>().GetByIdAsync(answerMessageId.Value);
 
                     var oldMessageFlags = new MessageFlags(message.Flags) { IsAnswer = false };
 
-                    this.GetRepository<Message>().UpdateFlags(message.ID, oldMessageFlags.BitValue);
+                    await this.GetRepository<Message>().UpdateFlagsAsync(message.ID, oldMessageFlags.BitValue);
                 }
 
                 messageFlags.IsAnswer = true;
 
-                this.GetRepository<Topic>().SetAnswerMessage(source.TopicID, source.MessageID);
+                await this.GetRepository<Topic>().SetAnswerMessageAsync(source.TopicID, source.MessageID);
 
-                this.GetRepository<Message>().UpdateFlags(source.MessageID, messageFlags.BitValue);
+                await this.GetRepository<Message>().UpdateFlagsAsync(source.MessageID, messageFlags.BitValue);
             }
 
             return this.Get<ILinkBuilder>().Redirect(ForumPages.Post,

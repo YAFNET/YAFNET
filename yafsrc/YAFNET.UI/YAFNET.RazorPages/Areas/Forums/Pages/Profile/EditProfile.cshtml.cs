@@ -121,12 +121,6 @@ public class EditProfileModel : ProfilePage
     }
 
     /// <summary>
-    /// Gets the User Data.
-    /// </summary>
-    private Tuple<User, AspNetUsers, Rank, VAccess> CurrentUser =>
-        this.Get<IAspNetUsersHelper>().GetBoardUser(this.PageBoardContext.PageUserID);
-
-    /// <summary>
     /// Create the Page links.
     /// </summary>
     public override void CreatePageLinks()
@@ -138,14 +132,14 @@ public class EditProfileModel : ProfilePage
     /// <summary>
     /// Page Load
     /// </summary>
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         this.Input = new EditProfileInputModel();
 
-        this.UserProfileCustom = this.GetRepository<ProfileCustom>()
-            .Get(p => p.UserID == this.PageBoardContext.PageUserID);
+        this.UserProfileCustom = await this.GetRepository<ProfileCustom>()
+            .GetAsync(p => p.UserID == this.PageBoardContext.PageUserID);
 
-        this.BindData();
+        await this.BindDataAsync();
 
         return this.Page();
     }
@@ -166,7 +160,7 @@ public class EditProfileModel : ProfilePage
     /// </summary>
     public async Task<IActionResult> OnPostUpdateProfileAsync()
     {
-        var userName = this.CurrentUser.Item1.DisplayOrUserName();
+        var userName = this.PageBoardContext.PageUser.DisplayOrUserName();
 
         if (this.Input.HomePage.IsSet())
         {
@@ -183,7 +177,7 @@ public class EditProfileModel : ProfilePage
                     ForumPages.Profile_EditProfile);
             }
 
-            if (this.CurrentUser.Item1.NumPosts < this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount)
+            if (this.PageBoardContext.PageUser.NumPosts < this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount)
             {
                 // Check for spam
                 if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.Input.HomePage, out _))
@@ -207,10 +201,10 @@ public class EditProfileModel : ProfilePage
                                 EventLogTypes.SpamBotDetected);
 
                             // Kill user
-                            this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                            await this.Get<IAspNetUsersHelper>().DeleteAndBanUserAsync(
                                 this.PageBoardContext.PageUser,
-                                this.CurrentUser.Item2,
-                                this.CurrentUser.Item1.IP);
+                                this.PageBoardContext.MembershipUser,
+                                this.PageBoardContext.PageUser.IP);
 
                             break;
                         }
@@ -258,7 +252,7 @@ public class EditProfileModel : ProfilePage
                     MessageTypes.warning, ForumPages.Profile_EditProfile);
             }
 
-            if (this.Input.DisplayName.Trim() != this.CurrentUser.Item1.DisplayName)
+            if (this.Input.DisplayName.Trim() != this.PageBoardContext.PageUser.DisplayName)
             {
                 if (this.Get<IUserDisplayName>().FindUserByName(this.Input.DisplayName.Trim()) != null)
                 {
@@ -288,7 +282,7 @@ public class EditProfileModel : ProfilePage
         await this.UpdateUserProfileAsync();
 
         // save display name
-        this.GetRepository<User>().UpdateDisplayName(this.CurrentUser.Item1, displayName);
+        await this.GetRepository<User>().UpdateDisplayNameAsync(this.PageBoardContext.PageUser, displayName);
 
         this.SaveCustomProfile();
 
@@ -318,42 +312,42 @@ public class EditProfileModel : ProfilePage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData()
+    private Task BindDataAsync()
     {
         this.Input.Birthday =
-            this.CurrentUser.Item2.Profile_Birthday.HasValue && this.CurrentUser.Item2.Profile_Birthday.Value >
+            this.PageBoardContext.MembershipUser.Profile_Birthday.HasValue && this.PageBoardContext.MembershipUser.Profile_Birthday.Value >
             DateTimeHelper.SqlDbMinTime()
-                ? this.CurrentUser.Item2.Profile_Birthday.Value.Date.ToString("yyyy-MM-dd")
+                ? this.PageBoardContext.MembershipUser.Profile_Birthday.Value.Date.ToString("yyyy-MM-dd")
                 : DateTimeHelper.SqlDbMinTime().Date.ToString("yyyy-MM-dd");
 
-        this.Input.DisplayName = this.CurrentUser.Item1.DisplayName;
-        this.Input.City = this.CurrentUser.Item2.Profile_City;
-        this.Input.Location = this.CurrentUser.Item2.Profile_Location;
-        this.Input.HomePage = this.CurrentUser.Item2.Profile_Homepage;
-        this.Input.RealName = this.CurrentUser.Item2.Profile_RealName;
-        this.Input.Occupation = this.CurrentUser.Item2.Profile_Occupation;
-        this.Input.Interests = this.CurrentUser.Item2.Profile_Interests;
-        this.Input.Blog = this.CurrentUser.Item2.Profile_Blog;
+        this.Input.DisplayName = this.PageBoardContext.PageUser.DisplayName;
+        this.Input.City = this.PageBoardContext.MembershipUser.Profile_City;
+        this.Input.Location = this.PageBoardContext.MembershipUser.Profile_Location;
+        this.Input.HomePage = this.PageBoardContext.MembershipUser.Profile_Homepage;
+        this.Input.RealName = this.PageBoardContext.MembershipUser.Profile_RealName;
+        this.Input.Occupation = this.PageBoardContext.MembershipUser.Profile_Occupation;
+        this.Input.Interests = this.PageBoardContext.MembershipUser.Profile_Interests;
+        this.Input.Blog = this.PageBoardContext.MembershipUser.Profile_Blog;
 
-        this.Input.Facebook = ValidationHelper.IsNumeric(this.CurrentUser.Item2.Profile_Facebook)
-                                  ? $"https://www.facebook.com/profile.php?id={this.CurrentUser.Item2.Profile_Facebook}"
-                                  : this.CurrentUser.Item2.Profile_Facebook;
+        this.Input.Facebook = ValidationHelper.IsNumeric(this.PageBoardContext.MembershipUser.Profile_Facebook)
+                                  ? $"https://www.facebook.com/profile.php?id={this.PageBoardContext.MembershipUser.Profile_Facebook}"
+                                  : this.PageBoardContext.MembershipUser.Profile_Facebook;
 
-        this.Input.Xmpp = this.CurrentUser.Item2.Profile_XMPP;
+        this.Input.Xmpp = this.PageBoardContext.MembershipUser.Profile_XMPP;
 
-        this.LoadCountriesAndRegions(this.CurrentUser.Item2.Profile_Country);
+        this.LoadCountriesAndRegions(this.PageBoardContext.MembershipUser.Profile_Country);
 
-        this.LoadGenders(this.CurrentUser.Item2.Profile_Gender);
+        this.LoadGenders(this.PageBoardContext.MembershipUser.Profile_Gender);
 
-        this.LoadCustomProfile();
+        return this.LoadCustomProfileAsync();
     }
 
     /// <summary>
     /// Load the custom profile.
     /// </summary>
-    private void LoadCustomProfile()
+    private async Task LoadCustomProfileAsync()
     {
-        this.Input.CustomProfile = [.. this.GetRepository<ProfileDefinition>().GetByBoardId()];
+        this.Input.CustomProfile = [.. await this.GetRepository<ProfileDefinition>().GetByBoardIdAsync()];
 
         if (this.Input.CustomProfile is null || this.Input.CustomProfile.Count == 0)
         {
@@ -423,12 +417,12 @@ public class EditProfileModel : ProfilePage
 
             var regions = LookForNewRegionsBind(countryCode);
 
-            if (this.CurrentUser.Item2.Profile_Region.IsSet())
+            if (this.PageBoardContext.MembershipUser.Profile_Region.IsSet())
             {
                 regions.ForEach(
                     region =>
                     {
-                        if (region.Value == this.CurrentUser.Item2.Profile_Region.Trim())
+                        if (region.Value == this.PageBoardContext.MembershipUser.Profile_Region.Trim())
                         {
                             region.Selected = true;
                         }
@@ -516,7 +510,7 @@ public class EditProfileModel : ProfilePage
             }
         }
 
-        var user = this.CurrentUser.Item2;
+        var user = this.PageBoardContext.MembershipUser;
 
         user.Profile_Birthday = userProfile.Birthday;
         user.Profile_Blog = userProfile.Blog;

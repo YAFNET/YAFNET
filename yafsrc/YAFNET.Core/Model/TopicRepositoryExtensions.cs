@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System;
@@ -51,13 +53,13 @@ public static class TopicRepositoryExtensions
     /// <returns>
     /// The <see cref="Topic"/>.
     /// </returns>
-    public static Topic GetTopicFromMessage(this IRepository<Topic> repository, int messageId)
+    public static Task<Topic> GetTopicFromMessageAsync(this IRepository<Topic> repository, int messageId)
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
         expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => m.ID == messageId).Take(1);
 
-        return repository.DbAccess.Execute(db => db.Connection.Single<Topic>(expression));
+        return repository.DbAccess.ExecuteAsync(db => db.SingleAsync<Topic>(expression));
     }
 
     /// <summary>
@@ -83,12 +85,12 @@ public static class TopicRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="topicId">The topic identifier.</param>
     /// <param name="messageId">The message identifier.</param>
-    public static void SetAnswerMessage(
+    public static Task SetAnswerMessageAsync(
         this IRepository<Topic> repository,
         int topicId,
         int messageId)
     {
-        repository.UpdateOnly(() => new Topic { AnswerMessageId = messageId }, t => t.ID == topicId);
+        return repository.UpdateOnlyAsync(() => new Topic { AnswerMessageId = messageId }, t => t.ID == topicId);
     }
 
     /// <summary>
@@ -96,9 +98,9 @@ public static class TopicRepositoryExtensions
     /// </summary>
     /// <param name="repository">The repository.</param>
     /// <param name="topicId">The topic identifier.</param>
-    public static void RemoveAnswerMessage(this IRepository<Topic> repository, int topicId)
+    public static Task RemoveAnswerMessageAsync(this IRepository<Topic> repository, int topicId)
     {
-        repository.UpdateOnly(() => new Topic { AnswerMessageId = null }, t => t.ID == topicId);
+        return repository.UpdateOnlyAsync(() => new Topic { AnswerMessageId = null }, t => t.ID == topicId);
     }
 
     /// <summary>
@@ -458,13 +460,13 @@ public static class TopicRepositoryExtensions
     /// <returns>
     /// Returns the new Topic ID
     /// </returns>
-    public static long CreateByMessage(
+    public async static Task<int> CreateByMessageAsync(
         this IRepository<Topic> repository,
         int messageId,
         int forumId,
         string newTopicSubject)
     {
-        var message = BoardContext.Current.GetRepository<Message>().GetById(messageId);
+        var message = await BoardContext.Current.GetRepository<Message>().GetByIdAsync(messageId);
 
         var topic = new Topic
                         {
@@ -479,7 +481,7 @@ public static class TopicRepositoryExtensions
                             NumPosts = 0
                         };
 
-        return repository.Insert(topic);
+        return await repository.InsertAsync(topic);
     }
 
     /// <summary>
@@ -1063,13 +1065,10 @@ public static class TopicRepositoryExtensions
     /// <param name="flags">
     /// The flags.
     /// </param>
-    /// <param name="newMessage">
-    /// The new message.
-    /// </param>
     /// <returns>
     /// Returns the Topic
     /// </returns>
-    public static Topic SaveNew(
+    public async static Task<Tuple<Topic, Message>> SaveNewAsync(
         this IRepository<Topic> repository,
         Forum forum,
         string subject,
@@ -1083,8 +1082,7 @@ public static class TopicRepositoryExtensions
         string userDisplayName,
         string ip,
         DateTime posted,
-        MessageFlags flags,
-        out Message newMessage)
+        MessageFlags flags)
     {
         var topicFlags = new TopicFlags { IsPersistent = flags.IsPersistent };
 
@@ -1105,9 +1103,11 @@ public static class TopicRepositoryExtensions
                             Flags = topicFlags.BitValue
         };
 
-        topic.ID = repository.Insert(topic);
+        var topicId = await repository.InsertAsync(topic);
 
-        newMessage = BoardContext.Current.GetRepository<Message>().SaveNew(
+        topic.ID = topicId.ToType<int>();
+
+        var newMessage = await BoardContext.Current.GetRepository<Message>().SaveNewAsync(
             forum,
             topic,
             user,
@@ -1118,12 +1118,7 @@ public static class TopicRepositoryExtensions
             null,
             flags);
 
-        if (flags.IsApproved)
-        {
-            repository.FireNew(topic.ID);
-        }
-
-        return topic;
+        return new Tuple<Topic, Message>(topic, newMessage);
     }
 
     /// <summary>
@@ -1147,7 +1142,7 @@ public static class TopicRepositoryExtensions
     /// <param name="linkDays">
     /// The link Days.
     /// </param>
-    public static void Move(
+    public async static Task MoveAsync(
         this IRepository<Topic> repository,
         int topicId,
         int oldForumId,
@@ -1155,9 +1150,9 @@ public static class TopicRepositoryExtensions
         bool showMoved,
         int linkDays)
     {
-        var topic = repository.GetById(topicId);
+        var topic = await repository.GetByIdAsync(topicId);
 
-        repository.Move(topic, oldForumId, newForumId, showMoved, linkDays);
+        await repository.MoveAsync(topic, oldForumId, newForumId, showMoved, linkDays);
     }
 
     /// <summary>
@@ -1181,7 +1176,7 @@ public static class TopicRepositoryExtensions
     /// <param name="linkDays">
     /// The link Days.
     /// </param>
-    public static void Move(
+    public async static Task MoveAsync(
         this IRepository<Topic> repository,
         Topic topic,
         int oldForumId,
@@ -1192,33 +1187,33 @@ public static class TopicRepositoryExtensions
         if (showMoved)
         {
             // -- delete an old link if exists
-            repository.Delete(t => t.TopicMovedID == topic.ID);
+            await repository.DeleteAsync(t => t.TopicMovedID == topic.ID);
 
             var linkDate = DateTime.UtcNow.AddDays(linkDays);
 
             // -- create a moved message
-            repository.Insert(
+            await repository.InsertAsync(
                 new Topic
-                    {
-                        ForumID = topic.ForumID,
-                        UserID = topic.UserID,
-                        UserName = topic.UserName,
-                        UserDisplayName = topic.UserDisplayName,
-                        Posted = topic.Posted,
-                        TopicName = topic.TopicName,
-                        Views = 0,
-                        Flags = topic.Flags,
-                        Priority = topic.Priority,
-                        PollID = topic.PollID,
-                        TopicMovedID = topic.ID,
-                        LastPosted = topic.LastPosted,
-                        NumPosts = 0,
-                        LinkDate = linkDate
-                    });
+                {
+                    ForumID = topic.ForumID,
+                    UserID = topic.UserID,
+                    UserName = topic.UserName,
+                    UserDisplayName = topic.UserDisplayName,
+                    Posted = topic.Posted,
+                    TopicName = topic.TopicName,
+                    Views = 0,
+                    Flags = topic.Flags,
+                    Priority = topic.Priority,
+                    PollID = topic.PollID,
+                    TopicMovedID = topic.ID,
+                    LastPosted = topic.LastPosted,
+                    NumPosts = 0,
+                    LinkDate = linkDate
+                });
         }
 
         // -- move the topic
-        repository.UpdateOnly(() => new Topic { ForumID = newForumId }, t => t.ID == topic.ID);
+        await repository.UpdateOnlyAsync(() => new Topic { ForumID = newForumId }, t => t.ID == topic.ID);
 
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(newForumId));
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(oldForumId));
@@ -1292,9 +1287,9 @@ public static class TopicRepositoryExtensions
     /// <param name="topicId">
     /// The topic Id.
     /// </param>
-    public static void Delete(this IRepository<Topic> repository, int forumId, int topicId)
+    public static Task DeleteAsync(this IRepository<Topic> repository, int forumId, int topicId)
     {
-        repository.Delete(forumId, topicId, false);
+        return repository.DeleteAsync(forumId, topicId, false);
     }
 
     /// <summary>
@@ -1312,44 +1307,45 @@ public static class TopicRepositoryExtensions
     /// <param name="eraseTopic">
     /// The erase topic.
     /// </param>
-    public static void Delete(
+    public async static Task DeleteAsync(
         this IRepository<Topic> repository,
         int forumId,
         int topicId,
         bool eraseTopic)
     {
-        var topic = repository.GetById(topicId);
+        var topic = await repository.GetByIdAsync(topicId);
 
-        BoardContext.Current.GetRepository<Forum>().UpdateOnly(
+        await BoardContext.Current.GetRepository<Forum>().UpdateOnlyAsync(
             () => new Forum
-                      {
-                          LastPosted = null,
-                          LastTopicID = null,
-                          LastMessageID = null,
-                          LastUserID = null,
-                          LastUserName = null,
-                          LastUserDisplayName = null
-                      },
+            {
+                LastPosted = null,
+                LastTopicID = null,
+                LastMessageID = null,
+                LastUserID = null,
+                LastUserName = null,
+                LastUserDisplayName = null
+            },
             x => x.LastTopicID == topicId);
 
-        BoardContext.Current.GetRepository<Active>().UpdateOnly(
+        await BoardContext.Current.GetRepository<Active>().UpdateOnlyAsync(
             () => new Active { TopicID = null },
             t => t.TopicID == topicId);
 
         // -- delete messages and topics
         if (eraseTopic)
         {
-            repository.Delete(x => x.TopicMovedID == topicId);
+            await repository.DeleteAsync(x => x.TopicMovedID == topicId);
 
-            BoardContext.Current.GetRepository<Message>().UpdateOnly(
+            await BoardContext.Current.GetRepository<Message>().UpdateOnlyAsync(
                 () => new Message { ReplyTo = null },
                 t => t.TopicID == topicId);
 
             // -- remove all messages
-            var messages = BoardContext.Current.GetRepository<Message>().Get(x => x.TopicID == topicId);
+            var messages = await BoardContext.Current.GetRepository<Message>().GetAsync(x => x.TopicID == topicId);
 
-            messages.ForEach(
-                x => BoardContext.Current.GetRepository<Message>().Delete(
+            foreach (var x in messages)
+            {
+                await BoardContext.Current.GetRepository<Message>().DeleteAsync(
                     forumId,
                     topicId,
                     x,
@@ -1357,14 +1353,15 @@ public static class TopicRepositoryExtensions
                     string.Empty,
                     true,
                     true,
-                    true));
+                    true);
+            }
 
-            BoardContext.Current.GetRepository<TopicTag>().Delete(x => x.TopicID == topicId);
-            BoardContext.Current.GetRepository<Activity>().Delete(x => x.TopicID == topicId);
-            BoardContext.Current.GetRepository<WatchTopic>().Delete(x => x.TopicID == topicId);
-            BoardContext.Current.GetRepository<TopicReadTracking>().Delete(x => x.TopicID == topicId);
-            BoardContext.Current.GetRepository<Topic>().Delete(x => x.TopicMovedID == topicId);
-            BoardContext.Current.GetRepository<Topic>().Delete(x => x.ID == topicId);
+            await BoardContext.Current.GetRepository<TopicTag>().DeleteAsync(x => x.TopicID == topicId);
+            await BoardContext.Current.GetRepository<Activity>().DeleteAsync(x => x.TopicID == topicId);
+            await BoardContext.Current.GetRepository<WatchTopic>().DeleteAsync(x => x.TopicID == topicId);
+            await BoardContext.Current.GetRepository<TopicReadTracking>().DeleteAsync(x => x.TopicID == topicId);
+            await BoardContext.Current.GetRepository<Topic>().DeleteAsync(x => x.TopicMovedID == topicId);
+            await BoardContext.Current.GetRepository<Topic>().DeleteAsync(x => x.ID == topicId);
         }
         else
         {
@@ -1372,16 +1369,16 @@ public static class TopicRepositoryExtensions
 
             flags.IsDeleted = true;
 
-            repository.UpdateOnly(() => new Topic { Flags = flags.BitValue }, x => x.TopicMovedID == topicId);
+            await repository.UpdateOnlyAsync(() => new Topic { Flags = flags.BitValue }, x => x.TopicMovedID == topicId);
 
-            repository.UpdateOnly(() => new Topic { Flags = flags.BitValue }, x => x.ID == topicId);
+            await repository.UpdateOnlyAsync(() => new Topic { Flags = flags.BitValue }, x => x.ID == topicId);
 
-            BoardContext.Current.GetRepository<Message>().DbAccess.Execute(
+            await BoardContext.Current.GetRepository<Message>().DbAccess.ExecuteAsync(
                 db =>
                     {
                         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
-                        return db.Connection.ExecuteSql(
+                        return db.ExecuteSqlAsync(
                             $" update {expression.Table<Message>()} set Flags = Flags | 8 where TopicID = {topicId}");
                     });
         }
@@ -1396,8 +1393,6 @@ public static class TopicRepositoryExtensions
                 BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_TOPIC", topicId),
                 EventLogTypes.Information);
         }
-
-        repository.FireDeleted(topicId);
 
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
     }
@@ -1532,7 +1527,7 @@ public static class TopicRepositoryExtensions
     /// <returns>
     /// Returns the list of Deleted Topics
     /// </returns>
-    public static List<Tuple<Forum, Topic>> GetDeletedTopics(
+    public static Task<List<Tuple<Forum, Topic>>> GetDeletedTopicsAsync(
         this IRepository<Topic> repository,
         int boardId,
         string filter)
@@ -1553,7 +1548,7 @@ public static class TopicRepositoryExtensions
                     (t, category) => category.BoardID == boardId && (category.Flags & 1) == 1 && (t.Flags & 8) == 8);
         }
 
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Topic>(expression));
+        return repository.DbAccess.ExecuteAsync(db => db.SelectMultiAsync<Forum, Topic>(expression));
     }
 
     /// <summary>
@@ -1648,7 +1643,7 @@ public static class TopicRepositoryExtensions
     /// <param name="topicId">
     /// The topic Id.
     /// </param>
-    public static void UpdateLastPost(
+    public async static Task UpdateLastPostAsync(
         this IRepository<Topic> repository,
         int topicId)
     {
@@ -1665,7 +1660,7 @@ public static class TopicRepositoryExtensions
             return;
         }
 
-        repository.UpdateOnly(
+        await repository.UpdateOnlyAsync(
             () => new Topic
                       {
                           LastPosted = message.Posted,

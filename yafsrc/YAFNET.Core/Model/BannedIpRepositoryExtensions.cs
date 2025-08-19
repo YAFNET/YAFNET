@@ -89,8 +89,6 @@ public static class BannedIpRepositoryExtensions
                     Since = DateTime.Now
                 });
 
-        repository.FireNew(newId);
-
         return true;
     }
 }

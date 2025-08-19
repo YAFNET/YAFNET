@@ -106,7 +106,7 @@ public class SubscriptionsModel : ProfilePage
     /// <param name="topics">
     /// The topics.
     /// </param>
-    public IActionResult OnGet(int forums = 0, int topics = 0)
+    public async Task<IActionResult> OnGetAsync(int forums = 0, int topics = 0)
     {
         this.Input = new SubscriptionsInputModel
         {
@@ -115,9 +115,8 @@ public class SubscriptionsModel : ProfilePage
 
         this.BindData();
 
-        this.BindDataForums(forums);
-
-        this.BindDataTopics(topics);
+        await this.BindDataForumsAsync(forums);
+        await this.BindDataTopicsAsync(topics);
 
         this.UpdateSubscribeUi(this.PageBoardContext.PageUser.NotificationSetting);
 
@@ -133,14 +132,14 @@ public class SubscriptionsModel : ProfilePage
     /// <param name="topics">
     /// The topics.
     /// </param>
-    public void OnPost(int forums = 0, int topics = 0)
+    public async Task OnPostAsync(int forums = 0, int topics = 0)
     {
         this.BindData();
 
         var selectedValue = this.Input.NotificationType.ToEnum<UserNotificationSetting>();
 
-        this.BindDataForums(forums);
-        this.BindDataTopics(topics);
+        await this.BindDataForumsAsync(forums);
+        await this.BindDataTopicsAsync(topics);
 
         this.UpdateSubscribeUi(selectedValue);
     }
@@ -154,12 +153,12 @@ public class SubscriptionsModel : ProfilePage
     /// <param name="topics">
     /// The topics.
     /// </param>
-    public void OnPostSave(int forums = 0, int topics = 0)
+    public async Task OnPostSaveAsync(int forums = 0, int topics = 0)
     {
         this.BindData();
 
-        this.BindDataForums(forums);
-        this.BindDataTopics(topics);
+        await this.BindDataForumsAsync(forums);
+        await this.BindDataTopicsAsync(topics);
 
         var selectedValue = this.Input.NotificationType.ToEnum<UserNotificationSetting>();
 
@@ -168,7 +167,7 @@ public class SubscriptionsModel : ProfilePage
         var autoWatchTopicsEnabled = selectedValue == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
         // save the settings...
-        this.GetRepository<User>().SaveNotification(
+        await this.GetRepository<User>().SaveNotificationAsync(
             this.PageBoardContext.PageUserID,
             autoWatchTopicsEnabled,
             this.Input.NotificationType.ToType<int>(),
@@ -270,14 +269,14 @@ public class SubscriptionsModel : ProfilePage
     /// <param name="pageIndex">
     /// The page Index.
     /// </param>
-    private void BindDataForums(int pageIndex)
+    private async Task BindDataForumsAsync(int pageIndex)
     {
         if (pageIndex > 0)
         {
             pageIndex--;
         }
 
-        var list = this.GetRepository<WatchForum>().List(
+        var list = await this.GetRepository<WatchForum>().ListAsync(
             this.PageBoardContext.PageUserID,
             pageIndex,
             this.SizeForums);
@@ -296,14 +295,14 @@ public class SubscriptionsModel : ProfilePage
     /// <param name="pageIndex">
     /// The page Index.
     /// </param>
-    private void BindDataTopics(int pageIndex)
+    private async Task BindDataTopicsAsync(int pageIndex)
     {
         if (pageIndex > 0)
         {
             pageIndex--;
         }
 
-        var list = this.GetRepository<WatchTopic>().List(
+        var list = await this.GetRepository<WatchTopic>().ListAsync(
             this.PageBoardContext.PageUserID,
             pageIndex,
             this.SizeTopics);

@@ -61,8 +61,6 @@ public static class BannedUserAgentRepositoryExtensions
                 () => new BannedUserAgent { UserAgent = mask },
                 b => b.ID == id.Value && b.BoardID == repository.BoardID);
 
-            repository.FireUpdated(id.Value);
-
             return true;
         }
 

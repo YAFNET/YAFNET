@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System;
@@ -48,9 +50,7 @@ public static class TopicTagRepositoryExtensions
     /// </param>
     public static void Add(this IRepository<TopicTag> repository, int tagId, int topicId)
     {
-        var newId = repository.Insert(new TopicTag { TagID = tagId, TopicID = topicId });
-
-        repository.FireNew(newId);
+        repository.Insert(new TopicTag { TagID = tagId, TopicID = topicId });
     }
 
     /// <summary>
@@ -65,7 +65,7 @@ public static class TopicTagRepositoryExtensions
     /// <param name="topicId">
     /// The topic id.
     /// </param>
-    public static void AddTagsToTopic(this IRepository<TopicTag> repository, string tagsString, int topicId)
+    public async static Task AddTagsToTopicAsync(this IRepository<TopicTag> repository, string tagsString, int topicId)
     {
         if (tagsString.IsNotSet())
         {
@@ -74,7 +74,7 @@ public static class TopicTagRepositoryExtensions
 
         var tags = tagsString.Split(',');
 
-        var boardTags = BoardContext.Current.GetRepository<Tag>().GetByBoardId();
+        var boardTags = await BoardContext.Current.GetRepository<Tag>().GetByBoardIdAsync();
 
         tags.ForEach(
             tag =>

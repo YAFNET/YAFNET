@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System;
@@ -67,7 +69,7 @@ public static class UserGroupRepositoryExtensions
     /// </param>
     public static void Remove(this IRepository<UserGroup> repository, int userId, int groupId)
     {
-        repository.FireDeleted(repository.Delete(x => x.GroupID == groupId && x.UserID == userId));
+        repository.Delete(x => x.GroupID == groupId && x.UserID == userId);
     }
 
     /// <summary>
@@ -101,8 +103,6 @@ public static class UserGroupRepositoryExtensions
         {
             repository.Insert(new UserGroup { UserID = userId, GroupID = groupId });
         }
-
-        repository.FireNew();
     }
 
     /// <summary>
@@ -205,7 +205,7 @@ public static class UserGroupRepositoryExtensions
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string GetGroupStyleForUser(
+    public async static Task<string> GetGroupStyleForUserAsync(
         this IRepository<UserGroup> repository,
         int userId)
     {
@@ -215,7 +215,7 @@ public static class UserGroupRepositoryExtensions
             .Where<UserGroup, Group>((userGroup, group) => group.Style != null && userGroup.UserID == userId)
             .OrderBy<Group>(group => group.SortOrder).Take(1);
 
-        var groups = repository.DbAccess.Execute(db => db.Connection.Single<Group>(expression));
+        var groups = await repository.DbAccess.ExecuteAsync(db => db.SingleAsync<Group>(expression));
 
         return groups?.Style;
     }

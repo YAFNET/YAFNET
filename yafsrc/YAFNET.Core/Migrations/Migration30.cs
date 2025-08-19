@@ -103,7 +103,7 @@ public class Migration30 : IRepositoryMigration, IHaveServiceLocator
                 });
         }
 
-        var boards = this.GetRepository<Board>().GetAll();
+        var boards = await this.GetRepository<Board>().GetAllAsync();
 
         foreach (var boardId in boards.Select(board => board.ID))
         {

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Controllers.Modals;
 
 using System;
@@ -56,7 +58,7 @@ public class ReplaceWordsController : ForumBaseController
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("Import")]
-    public IActionResult Import([FromForm] IFormFile file)
+    public async Task<IActionResult> Import([FromForm] IFormFile file)
     {
         if (!file.ContentType.StartsWith("text"))
         {
@@ -77,7 +79,7 @@ public class ReplaceWordsController : ForumBaseController
             {
                 var importedCount = 0;
 
-                var replaceWordsList = this.GetRepository<ReplaceWords>().GetByBoardId();
+                var replaceWordsList = await this.GetRepository<ReplaceWords>().GetByBoardIdAsync();
 
                 // import any extensions that don't exist...
                 replaceWords.Tables["YafReplaceWords"].Rows.Cast<DataRow>().ForEach(

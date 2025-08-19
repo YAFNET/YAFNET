@@ -65,7 +65,7 @@ public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(BanUserEvent @event)
     {

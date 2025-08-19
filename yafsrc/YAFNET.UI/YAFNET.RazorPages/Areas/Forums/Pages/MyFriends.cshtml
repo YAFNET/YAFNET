@@ -65,15 +65,15 @@
                     else
                     {
                         <div class="card-body">
-                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-2">
+                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3 mb-2">
 
                                 @foreach (var item in Model.ListView)
                                 {
                                     <div class="col">
-                                        <div class="card shadow-sm">
+                                        <div class="card user-card">
                                             <div class="card-body">
                                                 <div class="d-flex">
-                                                    <div>
+                                                    <div class="preview">
                                                         <img class="img-thumbnail" src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(
                                                                                             item.UserID,
                                                                                             item.Avatar,

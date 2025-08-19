@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -65,18 +67,18 @@ public class PageAccessListModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public  void OnGet()
+    public Task OnGetAsync()
     {
-        this.BindData();
+        return this.BindDataAsync();
     }
 
     /// <summary>
     /// The bind data.
     /// </summary>
-    private void BindData()
+    private async Task BindDataAsync()
     {
         // list admins but not host admins
-        this.List = this.GetRepository<User>().ListAdmins(this.PageBoardContext.PageBoardID)
+        this.List = (await this.GetRepository<User>().ListAdminsAsync(this.PageBoardContext.PageBoardID))
             .Where(u => !u.UserFlags.IsHostAdmin);
     }
 }

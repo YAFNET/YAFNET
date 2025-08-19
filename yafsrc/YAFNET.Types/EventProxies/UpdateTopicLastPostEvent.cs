@@ -29,7 +29,7 @@ using YAF.Types.Interfaces.Events;
 /// <summary>
 /// The update topic last post event.
 /// </summary>
-public class UpdateTopicLastPostEvent : IAmEvent
+public class UpdateTopicLastPostEvent : IAmEventAsync
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateTopicLastPostEvent"/> class.

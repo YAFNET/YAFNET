@@ -23,6 +23,9 @@
  * under the License.
  */
 
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace YAF.Types.Interfaces.Services;
 
 /// <summary>
@@ -34,12 +37,12 @@ public interface IUserIgnored
     /// The is ignored.
     /// </summary>
     /// <param name="ignoredUserId">
-    /// The ignored user id.
+    ///     The ignored user id.
     /// </param>
     /// <returns>
     /// The is ignored.
     /// </returns>
-    bool IsIgnored(int ignoredUserId);
+    Task<bool> IsIgnoredAsync(int ignoredUserId);
 
     /// <summary>
     /// The clear ignore cache.
@@ -50,15 +53,22 @@ public interface IUserIgnored
     /// The add ignored.
     /// </summary>
     /// <param name="ignoredUserId">
-    /// The ignored user id.
+    ///     The ignored user id.
     /// </param>
-    void AddIgnored(int ignoredUserId);
+    Task AddIgnoredAsync(int ignoredUserId);
 
     /// <summary>
     /// The remove ignored.
     /// </summary>
     /// <param name="ignoredUserId">
-    /// The ignored user id.
+    ///     The ignored user id.
     /// </param>
-    void RemoveIgnored(int ignoredUserId);
+    Task RemoveIgnoredAsync(int ignoredUserId);
+
+    /// <summary>
+    ///  Gets the list of ignored user for the specified user.
+    /// </summary>
+    /// <param name="userId"> The user id. </param>
+    /// <returns> Returns the user ignored list. </returns>
+    Task<List<int>> UserIgnoredListAsync(int userId);
 }

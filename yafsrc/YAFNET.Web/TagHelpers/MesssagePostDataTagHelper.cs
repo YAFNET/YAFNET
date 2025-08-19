@@ -132,17 +132,11 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
                 editedMessageDateTime = this.Edited;
             }
 
-            var formattedMessage = this.Get<IFormatMessage>().Format(
-                this.CurrentMessage.ID,
-                this.HighlightMessage(this.Message, true),
-                false,
+            var formattedMessage = await this.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(
+                this.HighlightMessage(this.Message, true), this.CurrentMessage.ID, this.DisplayUserId, false,
                 editedMessageDateTime);
 
-            output.Content.AppendHtml(await this.RenderModulesInBBCodeAsync(
-                formattedMessage,
-                this.MessageFlags,
-                this.DisplayUserId,
-                this.MessageId));
+            output.Content.AppendHtml(formattedMessage);
 
             // Render Edit Message
             if (this.ShowEditMessage
@@ -159,15 +153,10 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
         }
         else
         {
-            var formattedMessage = this.Get<IFormatMessage>().Format(
-                this.CurrentMessage.ID,
-                this.HighlightMessage(this.Message, true));
+            var formattedMessage = await this.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(
+                this.HighlightMessage(this.Message, true), this.CurrentMessage.ID, this.DisplayUserId);
 
-            output.Content.AppendHtml(await this.RenderModulesInBBCodeAsync(
-                formattedMessage,
-                this.MessageFlags,
-                this.DisplayUserId,
-                this.MessageId));
+            output.Content.AppendHtml(formattedMessage);
 
             // Render Go to Answer Message
             if (this.CurrentMessage.AnswerMessageId.HasValue && this.CurrentMessage.Position.Equals(0))

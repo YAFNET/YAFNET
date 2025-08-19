@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System;
@@ -46,13 +48,11 @@ public static class WatchForumRepositoryExtensions
     /// <param name="forumId">
     /// The forum id.
     /// </param>
-    public static void Add(this IRepository<WatchForum> repository, int userId, int forumId)
+    public async static Task AddAsync(this IRepository<WatchForum> repository, int userId, int forumId)
     {
         var watchForum = new WatchForum { ForumID = forumId, UserID = userId, Created = DateTime.UtcNow };
 
-        repository.Insert(watchForum);
-
-        repository.FireNew(watchForum);
+        await repository.InsertAsync(watchForum);
     }
 
     /// <summary>
@@ -70,9 +70,9 @@ public static class WatchForumRepositoryExtensions
     /// <returns>
     /// The <see cref="int"/>.
     /// </returns>
-    public static int? Check(this IRepository<WatchForum> repository, int userId, int forumId)
+    public async static Task<int?> CheckAsync(this IRepository<WatchForum> repository, int userId, int forumId)
     {
-        var forum = repository.GetSingle(w => w.UserID == userId && w.ForumID == forumId);
+        var forum = await repository.GetSingleAsync(w => w.UserID == userId && w.ForumID == forumId);
 
         return forum?.ID;
     }
@@ -92,7 +92,7 @@ public static class WatchForumRepositoryExtensions
     /// <param name="pageSize">
     /// The page Size.
     /// </param>
-    public static List<WatchForum> List(
+    public static Task<List<WatchForum>> ListAsync(
         this IRepository<WatchForum> repository,
         int userId,
         int pageIndex = 0,
@@ -103,6 +103,6 @@ public static class WatchForumRepositoryExtensions
         expression.Join<Forum>((a, b) => b.ID == a.ForumID).Where<WatchForum>(b => b.UserID == userId)
             .OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);
 
-        return repository.DbAccess.Execute(db => db.Connection.LoadSelect(expression));
+        return repository.DbAccess.ExecuteAsync(db => db.LoadSelectAsync(expression));
     }
 }

@@ -294,7 +294,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
     /// <returns>Returns the user Date Time</returns>
     public DateTime GetUserDateTime(DateTime dateTime)
     {
-        return TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
+        return GetUserDateTime(dateTime, BoardContext.Current.TimeZoneInfoUser);
     }
 
     /// <summary>

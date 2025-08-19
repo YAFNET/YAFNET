@@ -135,7 +135,7 @@ public class LoginModel : AccountPage
 
         if (!user.IsApproved)
         {
-            var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
+            var yafUser = await this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKeyAsync(user.Id);
 
             // Ignore Deleted User
             if (yafUser.UserFlags.IsDeleted)

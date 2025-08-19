@@ -198,8 +198,6 @@ public static class BuddyRepositoryExtensions
         int toUserId)
     {
         repository.Delete(x => x.FromUserID == fromUserId && x.ToUserID == toUserId);
-
-        repository.FireDeleted();
     }
 
     /// <summary>

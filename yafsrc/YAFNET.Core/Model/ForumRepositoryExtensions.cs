@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System;
@@ -148,8 +150,6 @@ public static class ForumRepositoryExtensions
                         IsModeratedNewTopicOnly = isModeratedNewTopicOnly
                     });
 
-            repository.FireNew(newForumId);
-
             return newForumId;
         }
 
@@ -170,8 +170,6 @@ public static class ForumRepositoryExtensions
                           IsModeratedNewTopicOnly = isModeratedNewTopicOnly
                       },
             f => f.ID == forumId);
-
-        repository.FireUpdated(forumId.Value);
 
         return forumId.Value;
     }
@@ -571,40 +569,37 @@ public static class ForumRepositoryExtensions
     /// <returns>
     /// Indicate that forum has been deleted
     /// </returns>
-    public static bool Delete(this IRepository<Forum> repository, int forumId)
+    public async static Task<bool> DeleteAsync(this IRepository<Forum> repository, int forumId)
     {
-        if (repository.Exists(f => f.ParentID == forumId))
+        if (await repository.ExistsAsync(f => f.ParentID == forumId))
         {
-            repository.UpdateOnly(() => new Forum { ParentID = null }, f => f.ParentID == forumId);
+            await repository.UpdateOnlyAsync(() => new Forum { ParentID = null }, f => f.ParentID == forumId);
         }
 
-        repository.UpdateOnly(() => new Forum { LastMessageID = null, LastTopicID = null }, f => f.ID == forumId);
+        await repository.UpdateOnlyAsync(() => new Forum { LastMessageID = null, LastTopicID = null }, f => f.ID == forumId);
 
-        BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+        await BoardContext.Current.GetRepository<Topic>().UpdateOnlyAsync(
             () => new Topic { LastMessageID = null },
             f => f.ID == forumId);
 
-        BoardContext.Current.GetRepository<Active>().Delete(x => x.ForumID == forumId);
+        await BoardContext.Current.GetRepository<Active>().DeleteAsync(x => x.ForumID == forumId);
 
-        BoardContext.Current.GetRepository<WatchForum>().Delete(x => x.ForumID == forumId);
-        BoardContext.Current.GetRepository<ForumReadTracking>().Delete(x => x.ForumID == forumId);
+        await BoardContext.Current.GetRepository<WatchForum>().DeleteAsync(x => x.ForumID == forumId);
+        await BoardContext.Current.GetRepository<ForumReadTracking>().DeleteAsync(x => x.ForumID == forumId);
 
         // --- Delete topics, messages and attachments
-        var topics = BoardContext.Current.GetRepository<Topic>().Get(g => g.ForumID == forumId);
+        var topics = await BoardContext.Current.GetRepository<Topic>().GetAsync(g => g.ForumID == forumId);
 
-        topics.ForEach(
-            t =>
-                {
-                    BoardContext.Current.GetRepository<WatchTopic>().Delete(x => x.TopicID == t.ID);
+        foreach (var topicId in topics.Select(t => t.ID))
+        {
+            await BoardContext.Current.GetRepository<WatchTopic>().DeleteAsync(x => x.TopicID == topicId);
 
-                    BoardContext.Current.GetRepository<Topic>().Delete(forumId, t.ID, true);
-                });
+            await BoardContext.Current.GetRepository<Topic>().DeleteAsync(forumId, topicId, true);
+        }
 
-        BoardContext.Current.GetRepository<ForumAccess>().Delete(x => x.ForumID == forumId);
-        BoardContext.Current.GetRepository<UserForum>().Delete(x => x.ForumID == forumId);
-        BoardContext.Current.GetRepository<Forum>().DeleteById(forumId);
-
-        repository.FireDeleted(forumId);
+        await BoardContext.Current.GetRepository<ForumAccess>().DeleteAsync(x => x.ForumID == forumId);
+        await BoardContext.Current.GetRepository<UserForum>().DeleteAsync(x => x.ForumID == forumId);
+        await BoardContext.Current.GetRepository<Forum>().DeleteByIdAsync(forumId);
 
         return true;
     }
@@ -624,36 +619,38 @@ public static class ForumRepositoryExtensions
     /// <returns>
     /// Indicates that forum has been deleted
     /// </returns>
-    public static bool Move(this IRepository<Forum> repository, int oldForumId, int newForumId)
+    public async static Task<bool> MoveAsync(this IRepository<Forum> repository, int oldForumId, int newForumId)
     {
-        if (repository.Exists(f => f.ParentID == oldForumId))
+        if (await repository.ExistsAsync(f => f.ParentID == oldForumId))
         {
-            repository.UpdateOnly(() => new Forum { ParentID = null }, f => f.ParentID == oldForumId);
+            await repository.UpdateOnlyAsync(() => new Forum { ParentID = null }, f => f.ParentID == oldForumId);
         }
 
-        BoardContext.Current.GetRepository<Forum>().UpdateOnly(
+        await BoardContext.Current.GetRepository<Forum>().UpdateOnlyAsync(
             () => new Forum { LastMessageID = null, LastTopicID = null },
             f => f.ID == oldForumId);
-        BoardContext.Current.GetRepository<Active>().UpdateOnly(
+        await BoardContext.Current.GetRepository<Active>().UpdateOnlyAsync(
             () => new Active { ForumID = newForumId },
             f => f.ForumID == oldForumId);
 
-        BoardContext.Current.GetRepository<WatchForum>().Delete(x => x.ForumID == oldForumId);
-        BoardContext.Current.GetRepository<ForumReadTracking>().Delete(x => x.ForumID == oldForumId);
+        await BoardContext.Current.GetRepository<WatchForum>().DeleteAsync(x => x.ForumID == oldForumId);
+        await BoardContext.Current.GetRepository<ForumReadTracking>().DeleteAsync(x => x.ForumID == oldForumId);
 
         // -- Move topics, messages and attachments
-        var topics = BoardContext.Current.GetRepository<Topic>().Get(t => t.ForumID == oldForumId);
+        var topics = await BoardContext.Current.GetRepository<Topic>().GetAsync(t => t.ForumID == oldForumId);
 
-        topics.ForEach(
-            topic => BoardContext.Current.GetRepository<Topic>().Move(topic, oldForumId, newForumId, false, 0));
+        foreach (var topic in topics)
+        {
+            await BoardContext.Current.GetRepository<Topic>().MoveAsync(topic, oldForumId, newForumId, false, 0);
+        }
 
-        BoardContext.Current.GetRepository<ForumAccess>().Delete(x => x.ForumID == oldForumId);
+        await BoardContext.Current.GetRepository<ForumAccess>().DeleteAsync(x => x.ForumID == oldForumId);
 
-        BoardContext.Current.GetRepository<UserForum>().UpdateOnly(
+        await BoardContext.Current.GetRepository<UserForum>().UpdateOnlyAsync(
             () => new UserForum { ForumID = newForumId },
             f => f.ForumID == oldForumId);
 
-        BoardContext.Current.GetRepository<Forum>().Delete(x => x.ID == oldForumId);
+        await BoardContext.Current.GetRepository<Forum>().DeleteAsync(x => x.ID == oldForumId);
 
         return true;
     }

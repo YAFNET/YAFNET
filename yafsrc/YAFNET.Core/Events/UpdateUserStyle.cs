@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Events;
 
 using YAF.Core.Model;
@@ -32,7 +34,7 @@ using YAF.Types.Models;
 /// Updates the user style
 /// </summary>
 [ExportService(ServiceLifetimeScope.OwnedByContainer)]
-public class UpdateUserStyle : IHaveServiceLocator, IHandleEvent<UpdateUserStyleEvent>
+public class UpdateUserStyle : IHaveServiceLocator, IHandleEventAsync<UpdateUserStyleEvent>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateUserStyle"/> class.
@@ -59,10 +61,10 @@ public class UpdateUserStyle : IHaveServiceLocator, IHandleEvent<UpdateUserStyle
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
-    public void Handle(UpdateUserStyleEvent @event)
+    public Task HandleAsync(UpdateUserStyleEvent @event)
     {
-        this.GetRepository<User>().UpdateStyle(@event.UserId);
+        return this.GetRepository<User>().UpdateStyleAsync(@event.UserId);
     }
 }

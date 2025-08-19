@@ -59,8 +59,6 @@ public static class ChoiceRepositoryExtensions
 
         var newId = repository.Insert(entity);
 
-        repository.FireNew(entity);
-
         return newId;
     }
 

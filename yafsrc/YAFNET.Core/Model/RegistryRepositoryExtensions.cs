@@ -160,8 +160,6 @@ public static class RegistryRepositoryExtensions
                 },
                 r => r.Name.ToLower() == settingName.ToLower() && r.BoardID == null);
         }
-
-        repository.FireUpdated();
     }
 
     /// <summary>

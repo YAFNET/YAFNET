@@ -68,7 +68,7 @@ public class LoadPageLazyUserData : IHandleEvent<InitPageLoadEvent>, IHaveServic
     /// <param name="event">The @event.</param>
     public void Handle(InitPageLoadEvent @event)
     {
-        var activeUserLazyData = this.dataBroker.ActiveUserLazyData(@event.PageLoadData.Item1.UserID);
+        var activeUserLazyData = this.dataBroker.ActiveUserLazyDataAsync(@event.PageLoadData.Item1.UserID).Result;
 
         if (activeUserLazyData != null)
         {

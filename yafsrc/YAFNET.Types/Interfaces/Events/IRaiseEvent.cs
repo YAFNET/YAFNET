@@ -33,7 +33,7 @@ public interface IRaiseEvent
     /// The raise event.
     /// </summary>
     /// <param name="eventObject">
-    /// The event object.
+    ///     The event object.
     /// </param>
     /// <typeparam name="T">
     /// </typeparam>
@@ -48,5 +48,5 @@ public interface IRaiseEvent
     /// </param>
     /// <param name="logExceptionAction">
     /// </param>
-    void RaiseIssolated<T>(T eventObject, Action<string, Exception> logExceptionAction) where T : IAmEvent;
+    void RaiseIsolated<T>(T eventObject, Action<string, Exception> logExceptionAction) where T : IAmEvent;
 }

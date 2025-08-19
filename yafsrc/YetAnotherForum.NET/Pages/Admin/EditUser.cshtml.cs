@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Globalization;
@@ -111,14 +113,14 @@ public class EditUserModel : AdminPage
     /// <param name="u">The user id.</param>
     /// <param name="tab">The tab.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnGet(int u, string tab = null)
+    public async Task<IActionResult> OnGetAsync(int u, string tab = null)
     {
         if (tab.IsSet())
         {
             this.LastTab = tab;
         }
 
-        var editUser = this.Get<IAspNetUsersHelper>().GetBoardUser(u, includeNonApproved: true);
+        var editUser = await this.Get<IAspNetUsersHelper>().GetBoardUserAsync(u, includeNonApproved: true);
 
         this.Get<IDataCache>().Set(string.Format(Constants.Cache.EditUser, u), editUser);
 

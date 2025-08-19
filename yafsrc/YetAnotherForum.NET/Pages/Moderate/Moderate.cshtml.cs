@@ -22,10 +22,11 @@
  * under the License.
  */
 
+using System.Linq;
+
 namespace YAF.Pages.Moderate;
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
@@ -68,10 +69,10 @@ public class ModerateModel : ModerateForumPage
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         // bind data
-        this.BindData();
+        await this.BindDataAsync();
 
         return this.Page();
     }
@@ -111,11 +112,13 @@ public class ModerateModel : ModerateForumPage
     /// <summary>
     /// Bind data for this control.
     /// </summary>
-    private void BindData()
+    private async Task BindDataAsync()
     {
         this.Forums = this.GetRepository<Forum>()
             .ModerateList(this.PageBoardContext.PageUserID, this.PageBoardContext.PageBoardID);
 
-        this.Categories = [.. this.GetRepository<Category>().GetByBoardId().OrderBy(c => c.SortOrder)];
+        var categories = await this.GetRepository<Category>().GetByBoardIdAsync();
+
+        this.Categories = [.. categories.OrderBy(c => c.SortOrder)];
     }
 }

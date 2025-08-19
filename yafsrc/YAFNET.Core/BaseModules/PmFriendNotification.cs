@@ -41,7 +41,7 @@ public class PmFriendNotification : BaseForumModule, IHandleEvent<ForumPagePostL
     /// Show Pm or Buddy Request Notify
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(ForumPagePostLoadEvent @event)
     {

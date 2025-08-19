@@ -53,22 +53,23 @@ public class LinkedTopicCleanUpTask : IntermittentBackgroundTask
     /// <summary>
     /// The run once.
     /// </summary>
-    public override Task RunOnceAsync()
+    public async override Task RunOnceAsync()
     {
         try
         {
             var linkDate = DateTime.UtcNow;
 
-            var topics = this.GetRepository<Topic>().Get(
+            var topics = await this.GetRepository<Topic>().GetAsync(
                 x => x.TopicMovedID != null && x.LinkDate != null && x.LinkDate < linkDate);
 
-            topics.ForEach(t => this.GetRepository<Topic>().Delete(t.ForumID, t.ID, true));
+            foreach (var t in topics)
+            {
+                await this.GetRepository<Topic>().DeleteAsync(t.ForumID, t.ID, true);
+            }
         }
         catch (Exception x)
         {
             this.Logger.Error(x, $"Error In {TaskName} Task");
         }
-
-        return Task.CompletedTask;
     }
 }

@@ -221,8 +221,9 @@ public class EditSettingsModel : ProfilePage
         }
 
         // save remaining settings to the DB
-        this.GetRepository<User>().Save(
+        await this.GetRepository<User>().SaveAsync(
             this.PageBoardContext.PageUserID,
+            this.PageBoardContext.PageUser.UserFlags,
             this.TimeZone,
             language,
             culture,

@@ -29,9 +29,9 @@
     // Tommy MOD "Recent Users" Count.
     if (Model.PageBoardContext.BoardSettings.ShowRecentUsers)
     {
-        var activeUsers30Day = Current.Get<IDataCache>().GetOrSet(
+        var activeUsers30Day = await Current.Get<IDataCache>().GetOrSetAsync(
             Constants.Cache.VisitorsInTheLast30Days,
-            () => Current.GetRepository<User>().GetRecentUsers(),
+            () => Current.GetRepository<User>().GetRecentUsersAsync(),
             TimeSpan.FromMinutes(Current.BoardSettings.ForumStatisticsCacheTimeout));
 
         if (!activeUsers30Day.NullOrEmpty())
@@ -62,9 +62,9 @@
                 Current.Get<IDateTimeService>().FormatDateTimeTopic(DateTime.UtcNow));
 
     // most active users
-    var mostActiveUsers = Current.Get<IDataCache>().GetOrSet(
+    var mostActiveUsers = await Current.Get<IDataCache>().GetOrSetAsync(
         Constants.Cache.MostActiveUsers,
-        () => Current.GetRepository<User>().LastActive(
+        () => Current.GetRepository<User>().LastActiveAsync(
             Current.PageBoardID,
             Current.Get<IAspNetUsersHelper>().GuestUser(Current.PageBoardID).ID,
             DateTime.UtcNow.AddDays(-7),

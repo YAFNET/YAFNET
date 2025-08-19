@@ -1,5 +1,4 @@
 ﻿@using Microsoft.AspNetCore.Http
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using YAF.Core.Context
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
@@ -13,7 +12,6 @@
 @using YAF.Types.Interfaces.Services
 @using YAF.Types.Models
 @using YAF.Types.Objects.Model
-@using YAF.Web.TagHelpers
 
 @model PagedMessage
 
@@ -33,17 +31,19 @@
 
     var request = ContextAccessor.HttpContext.Request;
 
+    var isIgnored = await Current.Get<IUserIgnored>().IsIgnoredAsync(postData.UserId);
+
     if (Current.IsGuest)
     {
         messageRowCssClass = "collapse show";
     }
-    else if (Current.Get<IUserIgnored>().IsIgnored(postData.UserId))
+    else
     {
-        messageRowCssClass = "collapse";
-    }
-    else if (!Current.Get<IUserIgnored>().IsIgnored(postData.UserId))
-    {
-        messageRowCssClass = "collapse show";
+	    messageRowCssClass = isIgnored switch
+	    {
+		    true => "collapse",
+		    false => "collapse show"
+	    };
     }
 
     var avatarUrl = Current.Get<IAvatars>().GetAvatarUrlForUser(postData.UserId, Model.Avatar, Model.HasAvatarImage);
@@ -135,7 +135,7 @@
     }
 }
 
-@if (!Current.IsGuest && Current.Get<IUserIgnored>().IsIgnored(postData.UserId))
+@if (!Current.IsGuest && isIgnored)
 {
     <alert type="info" dismissible="true">
         <button ID="btnTogglePost" 
@@ -368,7 +368,7 @@
 
                                             if (Current.PageUserID != postData.UserId)
                                             {
-                                                if (Current.Get<IUserIgnored>().IsIgnored(postData.UserId))
+                                                if (isIgnored)
                                                 {
                                                     <a button-style="None" icon="eye"
                                                             text-localized-page="POSTS" text-localized-tag="TOGGLEUSERPOSTS_SHOW"

@@ -4707,14 +4707,6 @@
             "#text": "Suspended and unsuspended events will be logged."
           },
           {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "ViewState İstisnalarını Günlüğe Kaydet:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "ViewState İstisnaları (çoğunlukla SPAM Botların neden olduğu) günlüğe kaydedilecektir."
-          },
-          {
             "@tag": "LOG_WARNING",
             "#text": "Günlük Uygulama Uyarılarına izin ver:"
           },

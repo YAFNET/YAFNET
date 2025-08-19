@@ -130,18 +130,18 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
     /// <summary>
     /// The run once.
     /// </summary>
-    public override Task RunOnceAsync()
+    public async override Task RunOnceAsync()
     {
         try
         {
             if (this.ForumNewId.Equals(-1))
             {
-                this.GetRepository<Forum>().Delete(this.ForumId);
+                await this.GetRepository<Forum>().DeleteAsync(this.ForumId);
                 this.Logger.Info($"Forum (ID: {this.ForumId}) Delete Task Complete.");
             }
             else
             {
-                this.GetRepository<Forum>().Move(this.ForumId, this.ForumNewId);
+                await this.GetRepository<Forum>().MoveAsync(this.ForumId, this.ForumNewId);
 
                 this.Logger.Info(
                     $"Forum (ID: {this.ForumId}) Delete Task Complete, and Topics has been moved to Forum (ID: {this.ForumNewId})");
@@ -151,7 +151,5 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
         {
             this.Logger.Error(x, $"Error In (ID: {this.ForumId}) Delete Task");
         }
-
-        return Task.CompletedTask;
     }
 }

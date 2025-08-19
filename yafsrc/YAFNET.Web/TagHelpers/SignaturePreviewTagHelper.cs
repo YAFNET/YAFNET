@@ -31,12 +31,6 @@ namespace YAF.Web.TagHelpers;
 public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
 {
     /// <summary>
-    ///   The options.
-    /// </summary>
-    private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled
-                                        ;
-
-    /// <summary>
     ///   The localization.
     /// </summary>
     private ILocalization localization;
@@ -62,21 +56,6 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
     /// <summary>
-    /// Gets CustomBBCode.
-    /// </summary>
-    protected IDictionary<BBCode, Regex> CustomBBCode => this.Get<IObjectStore>().GetOrSet(
-                "CustomBBCodeRegExDictionary",
-                () =>
-                    {
-                        var bbcodeTable = this.Get<IBBCodeService>().GetCustomBBCode();
-                        return bbcodeTable
-                            .Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet())
-                            .ToDictionary(
-                                codeRow => codeRow,
-                                codeRow => new Regex(codeRow.SearchRegex, Options, TimeSpan.FromMilliseconds(100)));
-                    });
-
-    /// <summary>
     /// The process.
     /// </summary>
     /// <param name="context">
@@ -85,11 +64,11 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
     /// <param name="output">
     /// The output.
     /// </param>
-    public override void Process(TagHelperContext context, TagHelperOutput output)
+    public async override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
     {
         if (this.Signature.IsSet())
         {
-            this.RenderSignature(output);
+            await this.RenderSignatureAsync(output);
         }
     }
 
@@ -97,9 +76,9 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
     /// The render signature.
     /// </summary>
     /// <param name="output">
-    /// The output.
+    ///     The output.
     /// </param>
-    protected virtual void RenderSignature(TagHelperOutput output)
+    async protected virtual Task RenderSignatureAsync(TagHelperOutput output)
     {
         output.TagName = HtmlTag.Div;
 
@@ -109,98 +88,12 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
 
         cardBody.AddCssClass("card-body");
 
-        // don't allow any HTML on signatures
-        var signatureFlags = new MessageFlags { IsHtml = false };
-
-        var signatureRendered =
-            this.Get<IFormatMessage>().Format(0, Core.Helpers.HtmlTagHelper.StripHtml(this.Signature));
+        var signatureRendered = await this.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(
+            Core.Helpers.HtmlTagHelper.StripHtml(this.Signature), 0, this.DisplayUserID);
 
         cardBody.InnerHtml.AppendHtml(
-            this.RenderModulesInBBCode(
-                signatureRendered,
-                signatureFlags,
-                this.DisplayUserID,
-                0));
+            signatureRendered);
 
         output.Content.AppendHtml(cardBody);
-    }
-
-    /// <summary>
-    /// The render modules in bb code.
-    /// </summary>
-    /// <param name="message">
-    /// The message
-    /// </param>
-    /// <param name="theseFlags">
-    /// The these flags.
-    /// </param>
-    /// <param name="displayUserId">
-    /// The display user id.
-    /// </param>
-    /// <param name="messageId">
-    /// The Message Id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    private string RenderModulesInBBCode(
-        string message,
-        MessageFlags theseFlags,
-        int? displayUserId,
-        int? messageId)
-    {
-        var workingMessage = message;
-
-        // handle custom bbcodes row by row...
-        this.CustomBBCode.ForEach(
-            keyPair =>
-                {
-                    var codeRow = keyPair.Key;
-
-                    Match match;
-
-                    do
-                    {
-                        match = keyPair.Value.Match(workingMessage);
-
-                        if (!match.Success)
-                        {
-                            continue;
-                        }
-
-                        var sb = new StringBuilder();
-
-                        var paramDic = new Dictionary<string, string> { { "inner", match.Groups["inner"].Value } };
-
-                        if (codeRow.Variables.IsSet() && codeRow.Variables.Split(';').Length != 0)
-                        {
-                            var vars = codeRow.Variables.Split(';');
-
-                            vars.Where(v => match.Groups[v] != null).ForEach(
-                                v => paramDic.Add(v, match.Groups[v].Value));
-                        }
-
-                        sb.Append(workingMessage[..match.Groups[0].Index]);
-
-                        // create/render the control...
-                        var module = Type.GetType(codeRow.ModuleClass, true, false);
-                        var customModule = (BBCodeControl)Activator.CreateInstance(module);
-
-                        // assign parameters...
-                        customModule.DisplayUserID = displayUserId;
-                        customModule.MessageID = messageId;
-                        customModule.Parameters = paramDic;
-
-                        // render this control...
-                        customModule.RenderAsync(sb);
-
-                        sb.Append(workingMessage[(match.Groups[0].Index + match.Groups[0].Length)..]);
-
-                        workingMessage = sb.ToString();
-                    }
-                    while (match.Success);
-                });
-
-        return workingMessage;
     }
 }

@@ -22,6 +22,7 @@
  * under the License.
  */
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace YAF.Core.Model;
@@ -75,7 +76,7 @@ public static class BoardRepositoryExtensions
     /// <returns>
     /// The <see cref="int"/>.
     /// </returns>
-    public static int Create(
+    public async static Task<int> CreateAsync(
         this IRepository<Board> repository,
         string boardName,
         string boardDescription,
@@ -89,13 +90,13 @@ public static class BoardRepositoryExtensions
         string rolePrefix)
     {
         // -- Board
-        var newBoardId = repository.Insert(new Board { Name = boardName, Description = boardDescription });
+        var newBoardId = await repository.InsertAsync(new Board { Name = boardName, Description = boardDescription });
 
         BoardContext.Current.GetRepository<Registry>().Save("culture", culture);
         BoardContext.Current.GetRepository<Registry>().Save("language", languageFile);
 
         // -- Rank
-        var rankIdAdmin = BoardContext.Current.GetRepository<Rank>().Insert(
+        var rankIdAdmin = await BoardContext.Current.GetRepository<Rank>().InsertAsync(
             new Rank
                 {
                     BoardID = newBoardId,
@@ -106,7 +107,7 @@ public static class BoardRepositoryExtensions
                     SortOrder = 0
                 });
 
-        var rankIdGuest = BoardContext.Current.GetRepository<Rank>().Insert(
+        var rankIdGuest = await BoardContext.Current.GetRepository<Rank>().InsertAsync(
             new Rank
                 {
                     BoardID = newBoardId,
@@ -116,7 +117,7 @@ public static class BoardRepositoryExtensions
                     SortOrder = 100
                 });
 
-        BoardContext.Current.GetRepository<Rank>().Insert(
+        await BoardContext.Current.GetRepository<Rank>().InsertAsync(
             new Rank
                 {
                     BoardID = newBoardId,
@@ -126,7 +127,7 @@ public static class BoardRepositoryExtensions
                     SortOrder = 3
                 });
 
-        BoardContext.Current.GetRepository<Rank>().Insert(
+        await BoardContext.Current.GetRepository<Rank>().InsertAsync(
             new Rank
                 {
                     BoardID = newBoardId,
@@ -136,7 +137,7 @@ public static class BoardRepositoryExtensions
                     SortOrder = 2
                 });
 
-        BoardContext.Current.GetRepository<Rank>().Insert(
+        await BoardContext.Current.GetRepository<Rank>().InsertAsync(
             new Rank
                 {
                     BoardID = newBoardId,
@@ -160,19 +161,19 @@ public static class BoardRepositoryExtensions
                                       VoteAccess = true
                                   };
 
-        var accessMaskIdAdmin = BoardContext.Current.GetRepository<AccessMask>().Insert(
+        var accessMaskIdAdmin = await BoardContext.Current.GetRepository<AccessMask>().InsertAsync(
             new AccessMask { BoardID = newBoardId, Name = "Admin Access", Flags = adminAccessFlag.BitValue, SortOrder = 4 });
 
-        BoardContext.Current.GetRepository<AccessMask>().Insert(
+        await BoardContext.Current.GetRepository<AccessMask>().InsertAsync(
             new AccessMask { BoardID = newBoardId, Name = "Moderator Access", Flags = adminAccessFlag.BitValue, SortOrder = 3 });
 
-        var accessMaskIdMember = BoardContext.Current.GetRepository<AccessMask>().Insert(
+        var accessMaskIdMember = await BoardContext.Current.GetRepository<AccessMask>().InsertAsync(
             new AccessMask { BoardID = newBoardId, Name = "Member Access", Flags = 423, SortOrder = 2 });
 
-        var accessMaskIdReadOnly = BoardContext.Current.GetRepository<AccessMask>().Insert(
+        var accessMaskIdReadOnly = await BoardContext.Current.GetRepository<AccessMask>().InsertAsync(
             new AccessMask { BoardID = newBoardId, Name = "Read Only Access", Flags = 1, SortOrder = 1 });
 
-        BoardContext.Current.GetRepository<AccessMask>().Insert(
+        await BoardContext.Current.GetRepository<AccessMask>().InsertAsync(
             new AccessMask { BoardID = newBoardId, Name = "No Access", Flags = 0, SortOrder = 0 });
 
         // -- Group
@@ -183,7 +184,7 @@ public static class BoardRepositoryExtensions
                                      AllowDownload = true
                                  };
 
-        var groupIdAdmin = BoardContext.Current.GetRepository<Group>().Insert(
+        var groupIdAdmin = await BoardContext.Current.GetRepository<Group>().InsertAsync(
             new Group
                 {
                     BoardID = newBoardId,
@@ -202,7 +203,7 @@ public static class BoardRepositoryExtensions
                                      IsGuest = true
                                  };
 
-        var groupIdGuest = BoardContext.Current.GetRepository<Group>().Insert(
+        var groupIdGuest = await BoardContext.Current.GetRepository<Group>().InsertAsync(
             new Group
                 {
                     BoardID = newBoardId,
@@ -222,7 +223,7 @@ public static class BoardRepositoryExtensions
                                       IsStart = true
                                   };
 
-        var groupIdMember = BoardContext.Current.GetRepository<Group>().Insert(
+        var groupIdMember = await BoardContext.Current.GetRepository<Group>().InsertAsync(
             new Group
                 {
                     BoardID = newBoardId,
@@ -236,7 +237,7 @@ public static class BoardRepositoryExtensions
                 });
 
         // -- User (GUEST)
-        var userIdGuest = BoardContext.Current.GetRepository<User>().Insert(
+        var userIdGuest = await BoardContext.Current.GetRepository<User>().InsertAsync(
             new User
                 {
                     BoardID = newBoardId,
@@ -276,19 +277,19 @@ public static class BoardRepositoryExtensions
                                 PageSize = 5
                             };
 
-        adminUser.ID = BoardContext.Current.GetRepository<User>().Insert(adminUser);
+        adminUser.ID = await BoardContext.Current.GetRepository<User>().InsertAsync(adminUser);
 
         // -- UserGroup
-        BoardContext.Current.GetRepository<UserGroup>().Insert(
+        await BoardContext.Current.GetRepository<UserGroup>().InsertAsync(
             new UserGroup { UserID = adminUser.ID, GroupID = groupIdAdmin });
 
-        BoardContext.Current.GetRepository<UserGroup>().Insert(
+        await BoardContext.Current.GetRepository<UserGroup>().InsertAsync(
             new UserGroup { UserID = userIdGuest, GroupID = groupIdGuest });
 
         var categoryFlags = new CategoryFlags {IsActive = true};
 
         // -- Category
-        var categoryId = BoardContext.Current.GetRepository<Category>().Insert(
+        var categoryId = await BoardContext.Current.GetRepository<Category>().InsertAsync(
             new Category { BoardID = newBoardId, Name = "Test Category", SortOrder = 1, Flags = categoryFlags.BitValue});
 
         // -- Forum
@@ -303,22 +304,20 @@ public static class BoardRepositoryExtensions
                             Flags = 4
                         };
 
-        forum.ID = BoardContext.Current.GetRepository<Forum>().Insert(
+        forum.ID = await BoardContext.Current.GetRepository<Forum>().InsertAsync(
             forum);
 
         // -- ForumAccess
-        BoardContext.Current.GetRepository<ForumAccess>().Insert(
+        await BoardContext.Current.GetRepository<ForumAccess>().InsertAsync(
             new ForumAccess { GroupID = groupIdAdmin, ForumID = forum.ID, AccessMaskID = accessMaskIdAdmin });
 
-        BoardContext.Current.GetRepository<ForumAccess>().Insert(
+        await BoardContext.Current.GetRepository<ForumAccess>().InsertAsync(
             new ForumAccess { GroupID = groupIdGuest, ForumID = forum.ID, AccessMaskID = accessMaskIdReadOnly });
 
-        BoardContext.Current.GetRepository<ForumAccess>().Insert(
+        await BoardContext.Current.GetRepository<ForumAccess>().InsertAsync(
             new ForumAccess { GroupID = groupIdMember, ForumID = forum.ID, AccessMaskID = accessMaskIdMember });
 
-        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(newBoardId));
-
-        repository.FireNew(newBoardId);
+        await BoardContext.Current.Get<IRaiseEventAsync>().RaiseAsync(new UpdateUserStylesEvent(newBoardId));
 
         // -- Create Welcome Topic
         var messageFlags = new MessageFlags
@@ -326,7 +325,7 @@ public static class BoardRepositoryExtensions
                                    IsHtml = false, IsBBCode = true, IsPersistent = true, IsApproved = true
                                };
 
-        BoardContext.Current.GetRepository<Topic>().SaveNew(
+        await BoardContext.Current.GetRepository<Topic>().SaveNewAsync(
             forum,
             "🎉 Hello from YAF.NET",
             string.Empty,
@@ -343,8 +342,7 @@ public static class BoardRepositoryExtensions
             userName,
             BoardContext.Current.Get<IHttpContextAccessor>().HttpContext.GetUserRealIPAddress(),
             DateTime.UtcNow,
-            messageFlags,
-            out _);
+            messageFlags);
 
         return newBoardId;
     }
@@ -455,8 +453,6 @@ public static class BoardRepositoryExtensions
         BoardContext.Current.GetRepository<Registry>().Save("language", languageFile, boardId);
 
         repository.UpdateOnly(() => new Board { Name = name, Description = description }, board => board.ID == boardId);
-
-        repository.FireUpdated(boardId);
     }
 
     /// <summary>
@@ -548,43 +544,64 @@ public static class BoardRepositoryExtensions
     /// <param name="boardId">
     /// The board id.
     /// </param>
-    public static void DeleteBoard(this IRepository<Board> repository, int boardId)
+    public async static Task DeleteBoardAsync(this IRepository<Board> repository, int boardId)
     {
         // --- Delete all forums of the board
         var forums = BoardContext.Current.GetRepository<Forum>().ListAll(boardId);
 
-        forums.ForEach(f => BoardContext.Current.GetRepository<Forum>().Delete(f.Item2.ID));
+        foreach (var f in forums)
+        {
+            await BoardContext.Current.GetRepository<Forum>().DeleteAsync(f.Item2.ID);
+        }
 
         // --- Delete user(s)
-        var users = BoardContext.Current.GetRepository<User>().Get(u => u.BoardID == boardId);
+        var users = await BoardContext.Current.GetRepository<User>().GetAsync(u => u.BoardID == boardId);
 
-        users.ForEach(u => BoardContext.Current.GetRepository<User>().Delete(u));
+        foreach (var user in users)
+        {
+            await BoardContext.Current.GetRepository<User>().DeleteAsync(user);
+        }
 
         // --- Delete Group
-        var groups = BoardContext.Current.GetRepository<Group>().Get(g => g.BoardID == boardId);
+        var groups = await BoardContext.Current.GetRepository<Group>().GetAsync(g => g.BoardID == boardId);
 
-        groups.ForEach(
-            g =>
-                {
-                    BoardContext.Current.GetRepository<GroupMedal>().Delete(x => x.GroupID == g.ID);
-                    BoardContext.Current.GetRepository<ForumAccess>().Delete(x => x.GroupID == g.ID);
-                    BoardContext.Current.GetRepository<UserGroup>().Delete(x => x.GroupID == g.ID);
-                    BoardContext.Current.GetRepository<Group>().Delete(x => x.ID == g.ID);
-                });
+        foreach (var groupId in groups.Select(g => g.ID))
+        {
+            await BoardContext.Current.GetRepository<GroupMedal>().DeleteAsync(x => x.GroupID == groupId);
+            await BoardContext.Current.GetRepository<ForumAccess>().DeleteAsync(x => x.GroupID == groupId);
+            await BoardContext.Current.GetRepository<UserGroup>().DeleteAsync(x => x.GroupID == groupId);
+            await BoardContext.Current.GetRepository<Group>().DeleteAsync(x => x.ID == groupId);
+        }
 
-        BoardContext.Current.GetRepository<Category>().Delete(x => x.BoardID == boardId);
-        BoardContext.Current.GetRepository<ActiveAccess>().Delete(x => x.BoardID == boardId);
-        BoardContext.Current.GetRepository<Active>().Delete(x => x.BoardID == boardId);
-        BoardContext.Current.GetRepository<Rank>().Delete(x => x.BoardID == boardId);
-        BoardContext.Current.GetRepository<AccessMask>().Delete(x => x.BoardID == boardId);
-        BoardContext.Current.GetRepository<BBCode>().Delete(x => x.BoardID == boardId);
-        BoardContext.Current.GetRepository<Medal>().Delete(x => x.BoardID == boardId);
-        BoardContext.Current.GetRepository<ReplaceWords>().Delete(x => x.BoardID == boardId);
-        BoardContext.Current.GetRepository<SpamWords>().Delete(x => x.BoardID == boardId);
-        BoardContext.Current.GetRepository<BannedIP>().Delete(x => x.BoardID == boardId);
-        BoardContext.Current.GetRepository<BannedName>().Delete(x => x.BoardID == boardId);
-        BoardContext.Current.GetRepository<BannedEmail>().Delete(x => x.BoardID == boardId);
-        BoardContext.Current.GetRepository<Registry>().Delete(x => x.BoardID == boardId);
-        repository.Delete(x => x.ID == boardId);
+        await BoardContext.Current.GetRepository<Category>().DeleteAsync(x => x.BoardID == boardId);
+        await BoardContext.Current.GetRepository<ActiveAccess>().DeleteAsync(x => x.BoardID == boardId);
+        await BoardContext.Current.GetRepository<Active>().DeleteAsync(x => x.BoardID == boardId);
+        await BoardContext.Current.GetRepository<Rank>().DeleteAsync(x => x.BoardID == boardId);
+        await BoardContext.Current.GetRepository<AccessMask>().DeleteAsync(x => x.BoardID == boardId);
+        await BoardContext.Current.GetRepository<BBCode>().DeleteAsync(x => x.BoardID == boardId);
+        await BoardContext.Current.GetRepository<Medal>().DeleteAsync(x => x.BoardID == boardId);
+        await BoardContext.Current.GetRepository<ReplaceWords>().DeleteAsync(x => x.BoardID == boardId);
+        await BoardContext.Current.GetRepository<SpamWords>().DeleteAsync(x => x.BoardID == boardId);
+        await BoardContext.Current.GetRepository<BannedIP>().DeleteAsync(x => x.BoardID == boardId);
+        await BoardContext.Current.GetRepository<BannedName>().DeleteAsync(x => x.BoardID == boardId);
+        await BoardContext.Current.GetRepository<BannedEmail>().DeleteAsync(x => x.BoardID == boardId);
+        await BoardContext.Current.GetRepository<Registry>().DeleteAsync(x => x.BoardID == boardId);
+
+        await repository.DeleteAsync(x => x.ID == boardId);
+    }
+
+    /// <summary>
+    /// Gets all existing board ids.
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <returns>System.Threading.Tasks.Task&lt;System.Collections.Generic.List&lt;System.Int32&gt;&gt;.</returns>
+    public static Task<List<int>> GetAllBoardIdsAsync(
+            this IRepository<Board> repository)
+    {
+        return repository.DbAccess.ExecuteAsync(
+            db =>
+            {
+                return db.ColumnAsync<int>(db.From<Board>().Select(x => x.ID));
+            });
     }
 }

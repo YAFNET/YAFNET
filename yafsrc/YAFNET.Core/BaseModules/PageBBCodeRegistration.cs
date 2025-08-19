@@ -41,7 +41,7 @@ public class PageBBCodeRegistration : BaseForumModule, IHandleEvent<ForumPagePos
     /// The Page BB Code Registration
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(ForumPagePostLoadEvent @event)
     {

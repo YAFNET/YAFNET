@@ -136,7 +136,7 @@ public class EditMessageModel : ForumPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         this.Input = new EditMessageInputModel();
 
@@ -168,11 +168,18 @@ public class EditMessageModel : ForumPage
         // update options...
         if (!this.PageBoardContext.IsGuest)
         {
-            this.Input.TopicWatch = this.PageBoardContext.PageTopicID > 0
-                                        ? this.GetRepository<WatchTopic>().Check(
-                                            this.PageBoardContext.PageUserID,
-                                            this.PageBoardContext.PageTopicID).HasValue
-                                        : this.PageBoardContext.PageUser.AutoWatchTopics;
+            if (this.PageBoardContext.PageTopicID > 0)
+            {
+                var item = await this.GetRepository<WatchTopic>().CheckAsync(
+                    this.PageBoardContext.PageUserID,
+                    this.PageBoardContext.PageTopicID);
+
+                this.Input.TopicWatch = item.HasValue;
+            }
+            else
+            {
+                this.Input.TopicWatch = this.PageBoardContext.PageUser.AutoWatchTopics;
+            }
         }
 
         // editing a message...
@@ -203,7 +210,7 @@ public class EditMessageModel : ForumPage
     /// <returns>
     /// Returns the Message Id
     /// </returns>
-    private Message PostReplyHandleEditPost()
+    private async Task<Message> PostReplyHandleEditPostAsync()
     {
         var subjectSave = string.Empty;
         var descriptionSave = string.Empty;
@@ -235,11 +242,11 @@ public class EditMessageModel : ForumPage
 
         var isModeratorChanged = this.PageBoardContext.PageUserID != this.PageBoardContext.PageMessage.UserID;
 
-        var messageUser = this.GetRepository<User>().GetById(this.PageBoardContext.PageMessage.UserID);
+        var messageUser = await this.GetRepository<User>().GetByIdAsync(this.PageBoardContext.PageMessage.UserID);
 
         var messageText = this.Input.Editor;
 
-        this.GetRepository<Message>().Update(
+        await this.GetRepository<Message>().UpdateAsync(
             this.Input.Priority.ToType<short>(),
             HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(messageText)),
             descriptionSave,
@@ -256,11 +263,11 @@ public class EditMessageModel : ForumPage
             this.PageBoardContext.PageUserID);
 
         // Update Topic Tags?!
-        this.GetRepository<TopicTag>().Delete(x => x.TopicID == this.PageBoardContext.PageTopicID);
+        await this.GetRepository<TopicTag>().DeleteAsync(x => x.TopicID == this.PageBoardContext.PageTopicID);
 
-        this.GetRepository<TopicTag>().AddTagsToTopic(this.Input.TagsValue, this.PageBoardContext.PageTopicID);
+        await this.GetRepository<TopicTag>().AddTagsToTopicAsync(this.Input.TagsValue, this.PageBoardContext.PageTopicID);
 
-        this.UpdateWatchTopic(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
+        await this.UpdateWatchTopicAsync(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
 
         return this.PageBoardContext.PageMessage;
     }
@@ -325,7 +332,7 @@ public class EditMessageModel : ForumPage
                             this.PageBoardContext.PageUserID,
                             $"{description}, user was deleted and banned");
 
-                        this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                        await this.Get<IAspNetUsersHelper>().DeleteAndBanUserAsync(
                             this.PageBoardContext.PageUser,
                             this.PageBoardContext.MembershipUser,
                             this.PageBoardContext.PageUser.IP);
@@ -336,7 +343,7 @@ public class EditMessageModel : ForumPage
         }
 
         // Edit existing post
-        var editMessage = this.PostReplyHandleEditPost();
+        var editMessage = await this.PostReplyHandleEditPostAsync();
 
         // Check if message is approved
         var isApproved = editMessage.MessageFlags.IsApproved;
@@ -456,19 +463,19 @@ public class EditMessageModel : ForumPage
     /// <param name="topicId">
     /// The topic Id.
     /// </param>
-    private void UpdateWatchTopic(int userId, int topicId)
+    private async Task UpdateWatchTopicAsync(int userId, int topicId)
     {
-        var topicWatchedId = this.GetRepository<WatchTopic>().Check(userId, topicId);
+        var topicWatchedId = await this.GetRepository<WatchTopic>().CheckAsync(userId, topicId);
 
         if (topicWatchedId.HasValue && !this.Input.TopicWatch)
         {
             // unsubscribe...
-            this.GetRepository<WatchTopic>().DeleteById(topicWatchedId.Value);
+            await this.GetRepository<WatchTopic>().DeleteByIdAsync(topicWatchedId.Value);
         }
         else if (!topicWatchedId.HasValue && this.Input.TopicWatch)
         {
             // subscribe to this topic...
-            this.GetRepository<WatchTopic>().Add(userId, topicId);
+            await this.GetRepository<WatchTopic>().AddAsync(userId, topicId);
         }
     }
 }

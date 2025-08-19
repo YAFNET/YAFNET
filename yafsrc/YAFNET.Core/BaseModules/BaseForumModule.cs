@@ -24,6 +24,8 @@
 
 namespace YAF.Core.BaseModules;
 
+using System;
+
 using YAF.Types.Attributes;
 
 /// <summary>
@@ -72,9 +74,18 @@ public abstract class BaseForumModule : IBaseForumModule, IHaveServiceLocator, I
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     /// </summary>
-    /// <filterpriority>2</filterpriority>
     public virtual void Dispose()
     {
-        // no default implementation
+        this.Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    /// Releases unmanaged and - optionally - managed resources.
+    /// </summary>
+    /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+    protected virtual void Dispose(bool disposing)
+    {
+        // ...
     }
 }

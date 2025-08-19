@@ -58,7 +58,7 @@ public class UserCleanUpTask : IntermittentBackgroundTask
         try
         {
             // get all boards...
-            var boardIds = this.GetRepository<Board>().GetAll().Select(x => x.ID);
+            var boardIds = await this.GetRepository<Board>().GetAllBoardIdsAsync();
 
             // go through each board...
             foreach (var i in boardIds)
@@ -72,15 +72,21 @@ public class UserCleanUpTask : IntermittentBackgroundTask
         }
     }
 
-    private Task CleanUpUsersAsync(int id)
+    /// <summary>
+    /// Cleans up users asynchronous.
+    /// </summary>
+    /// <param name="boardId">The board identifier.</param>
+    /// <returns>Task.</returns>
+    private async Task CleanUpUsersAsync(int boardId)
     {
         // Check for users ...
-        var users = this.GetRepository<User>().Get(
-                        u => u.BoardID == id && u.Suspended.HasValue && u.Suspended < DateTime.UtcNow);
+        var users = await this.GetRepository<User>().GetAsync(
+                        u => u.BoardID == boardId && u.Suspended.HasValue && u.Suspended < DateTime.UtcNow);
 
         // un-suspend these users...
-        users.ForEach(user => this.GetRepository<User>().Suspend(user.ID));
-
-        return Task.CompletedTask;
+        foreach (var user in users)
+        {
+            await this.GetRepository<User>().SuspendAsync(user.ID);
+        }
     }
 }

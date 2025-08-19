@@ -73,9 +73,11 @@ public class AttachmentsModel : ProfilePage
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet()
+    public async Task<PageResult> OnGetAsync()
     {
-        return this.BindData();
+        await this.BindDataAsync();
+
+        return this.Page();
     }
 
     /// <summary>
@@ -92,23 +94,29 @@ public class AttachmentsModel : ProfilePage
 
         if (items.Count == 0)
         {
-            return this.BindData();
+            await this.BindDataAsync();
+
+            return this.Page();
         }
 
         await this.GetRepository<Attachment>().DeleteByIdsAsync(items);
 
         this.PageBoardContext.Notify(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
 
-        return this.BindData();
+        await this.BindDataAsync();
+
+        return this.Page();
     }
 
     /// <summary>
     /// Called when [post].
     /// </summary>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
-        return this.BindData();
+        await this.BindDataAsync();
+
+        return this.Page();
     }
 
     /// <summary>
@@ -147,17 +155,15 @@ public class AttachmentsModel : ProfilePage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private PageResult BindData()
+    private async Task BindDataAsync()
     {
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 
-        var list = this.GetRepository<Attachment>().GetPaged(
+        var list = await this.GetRepository<Attachment>().GetPagedAsync(
             a => a.UserID == this.PageBoardContext.PageUserID,
             this.PageBoardContext.PageIndex,
             this.Size);
 
         this.Attachments = list;
-
-        return this.Page();
     }
 }

@@ -82,15 +82,14 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
         get
         {
             var replaceItems = this.ObjectStore.GetOrSet(
-                Constants.Cache.ReplaceWords,
-                () =>
-                    {
-                        var replaceWords = this.GetRepository<ReplaceWords>().GetByBoardId();
+                Constants.Cache.ReplaceWords, () =>
+                {
+                    var replaceWords = this.GetRepository<ReplaceWords>().GetByBoardId();
 
-                        // move to collection...
-                        return replaceWords.Select(
-                            item => new BadWordReplaceItem(item.GoodWord, item.BadWord, Options)).ToList();
-                    });
+                    // move to collection...
+                    return replaceWords.Select(
+                        item => new BadWordReplaceItem(item.GoodWord, item.BadWord, Options)).ToList();
+                });
 
             return replaceItems;
         }

@@ -62,28 +62,10 @@ public class RepositoryEvent<T> : IAmEvent
     /// <param name="repositoryEventType">
     /// The repository event type.
     /// </param>
-    /// <param name="entityId">
-    /// The entity id.
-    /// </param>
-    /// <param name="entity">
-    /// The entity.
-    /// </param>
-    public RepositoryEvent(RepositoryEventType repositoryEventType, int? entityId, T entity = null)
+    public RepositoryEvent(RepositoryEventType repositoryEventType)
     {
         this.RepositoryEventType = repositoryEventType;
-        this.EntityId = entityId;
-        this.Entity = entity;
     }
-
-    /// <summary>
-    /// Gets or sets the entity.
-    /// </summary>
-    public T Entity { get; set; }
-
-    /// <summary>
-    ///     Gets or sets the entity id.
-    /// </summary>
-    public int? EntityId { get; set; }
 
     /// <summary>
     ///     Gets or sets the repository event type.

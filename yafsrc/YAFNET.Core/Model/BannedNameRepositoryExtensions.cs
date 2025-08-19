@@ -67,8 +67,6 @@ public static class BannedNameRepositoryExtensions
                 () => new BannedName { Mask = mask, Reason = reason },
                 b => b.ID == id.Value && b.BoardID == repository.BoardID);
 
-            repository.FireUpdated(id.Value);
-
             return true;
         }
 

@@ -51,24 +51,19 @@ public interface IFormatMessage
     string BBCodeForbiddenDetector(string stringToClear, string stringToMatch, char delimiter);
 
     /// <summary>
-    /// The format message.
+    /// Format message with all bb codes as an asynchronous operation.
     /// </summary>
-    /// <param name="messageId">
-    /// The message Id.
-    /// </param>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    /// <param name="targetBlankOverride">
-    /// The target blank override.
-    /// </param>
-    /// <param name="messageLastEdited">
-    /// The message last edited.
-    /// </param>
-    /// <returns>
-    /// The formatted message.
-    /// </returns>
-    string Format(int messageId, string message, bool targetBlankOverride, DateTime messageLastEdited);
+    /// <param name="message">The message.</param>
+    /// <param name="messageId">The message identifier.</param>
+    /// <param name="messageAuthorUserId">The message author user identifier.</param>
+    /// <param name="targetBlankOverride">if set to <c>true</c> [target blank override].</param>
+    /// <param name="messageLastEdited">The message last edited.</param>
+    /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
+    Task<string> FormatMessageWithAllBBCodesAsync(string message,
+        int messageId,
+        int? messageAuthorUserId = null,
+        bool? targetBlankOverride = false,
+        DateTime? messageLastEdited = null);
 
     /// <summary>
     /// Format the Syndication Message

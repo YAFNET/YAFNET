@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin.EditUser;
 
 using Microsoft.AspNetCore.Mvc;
@@ -79,9 +81,9 @@ public class UsersPointsModel : AdminPage
     /// <summary>
     /// The add points_ click.
     /// </summary>
-    public IActionResult OnPostAddPoints()
+    public async Task<IActionResult> OnPostAddPointsAsync()
     {
-        this.GetRepository<User>().AddPoints(this.Input.UserId, null, this.Input.AddPoints);
+        await this.GetRepository<User>().AddPointsAsync(this.Input.UserId, null, this.Input.AddPoints);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new {u = this.Input.UserId, tab = "View6"});
     }
@@ -89,9 +91,9 @@ public class UsersPointsModel : AdminPage
     /// <summary>
     /// The remove points_ click.
     /// </summary>
-    public IActionResult OnPostRemovePoints()
+    public async Task<IActionResult> OnPostRemovePointsAsync()
     {
-        this.GetRepository<User>().RemovePoints(this.Input.UserId, null, this.Input.RemovePoints);
+        await this.GetRepository<User>().RemovePointsAsync(this.Input.UserId, null, this.Input.RemovePoints);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View6" });
     }
@@ -99,9 +101,9 @@ public class UsersPointsModel : AdminPage
     /// <summary>
     /// The set user points_ click.
     /// </summary>
-    public IActionResult OnPostSetUserPoints()
+    public async Task<IActionResult> OnPostSetUserPointsAsync()
     {
-        this.GetRepository<User>().SetPoints(this.Input.UserId, this.Input.UserPoints);
+        await this.GetRepository<User>().SetPointsAsync(this.Input.UserId, this.Input.UserPoints);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View6" });
     }

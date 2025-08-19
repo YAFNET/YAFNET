@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System;
@@ -551,7 +553,7 @@ public static class MessageRepositoryExtensions
     /// <param name="forumId">
     /// The forum Id.
     /// </param>
-    public static void Approve(this IRepository<Message> repository, int messageId, int forumId)
+    public async static Task ApproveAsync(this IRepository<Message> repository, int messageId, int forumId)
     {
         var message = repository.GetMessage(messageId);
 
@@ -560,51 +562,49 @@ public static class MessageRepositoryExtensions
         flags.IsApproved = true;
 
         // -- update Message table, set message flag to approved
-        repository.UpdateFlags(messageId, flags.BitValue);
+        await repository.UpdateFlagsAsync(messageId, flags.BitValue);
 
-        if (!BoardContext.Current.GetRepository<Forum>().Exists(f => f.ID == forumId && (f.Flags & 4) == 4))
+        if (!await BoardContext.Current.GetRepository<Forum>().ExistsAsync(f => f.ID == forumId && (f.Flags & 4) == 4))
         {
             // -- update User table to increase post count
-            BoardContext.Current.GetRepository<User>().UpdateAdd(
+            await BoardContext.Current.GetRepository<User>().UpdateAddAsync(
                 () => new User { NumPosts = 1 },
                 u => u.ID == message.UserID);
 
-            BoardContext.Current.GetRepository<User>().Promote(message.UserID);
+            await BoardContext.Current.GetRepository<User>().PromoteAsync(message.UserID);
         }
 
         // -- update Forum table with last topic/post info
-        BoardContext.Current.GetRepository<Forum>().UpdateOnly(
+        await BoardContext.Current.GetRepository<Forum>().UpdateOnlyAsync(
             () => new Forum
-                      {
-                          LastPosted = message.Posted,
-                          LastTopicID = message.TopicID,
-                          LastMessageID = message.ID,
-                          LastUserID = message.UserID,
-                          LastUserName = message.UserName,
-                          LastUserDisplayName = message.UserDisplayName
-                      },
+            {
+                LastPosted = message.Posted,
+                LastTopicID = message.TopicID,
+                LastMessageID = message.ID,
+                LastUserID = message.UserID,
+                LastUserName = message.UserName,
+                LastUserDisplayName = message.UserDisplayName
+            },
             x => x.ID == message.Topic.ForumID);
 
-        var numPostsCount = repository.Count(m => m.TopicID == message.TopicID && (m.Flags & 8) != 8)
+        var numPostsCount = (await repository.CountAsync(m => m.TopicID == message.TopicID && (m.Flags & 8) != 8))
             .ToType<int>();
 
         // -- update Topic table with info about last post in topic
-        BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+        await BoardContext.Current.GetRepository<Topic>().UpdateOnlyAsync(
             () => new Topic
-                      {
-                          LastPosted = message.Posted,
-                          LastMessageID = message.ID,
-                          LastUserID = message.UserID,
-                          LastUserName = message.UserName,
-                          LastUserDisplayName = message.UserDisplayName,
-                          LastMessageFlags = flags.BitValue,
-                          NumPosts = numPostsCount
-                      },
+            {
+                LastPosted = message.Posted,
+                LastMessageID = message.ID,
+                LastUserID = message.UserID,
+                LastUserName = message.UserName,
+                LastUserDisplayName = message.UserDisplayName,
+                LastMessageFlags = flags.BitValue,
+                NumPosts = numPostsCount
+            },
             x => x.ID == message.TopicID);
 
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
-
-        repository.FireUpdated(messageId);
     }
 
     /// <summary>
@@ -613,12 +613,12 @@ public static class MessageRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="messageId">The message identifier.</param>
     /// <param name="flags">The flags.</param>
-    public static void UpdateFlags(
+    public static Task UpdateFlagsAsync(
         this IRepository<Message> repository,
         int messageId,
         int flags)
     {
-        repository.UpdateOnly(() => new Message { Flags = flags }, u => u.ID == messageId);
+        return repository.UpdateOnlyAsync(() => new Message { Flags = flags }, u => u.ID == messageId);
     }
 
     /// <summary>
@@ -651,7 +651,7 @@ public static class MessageRepositoryExtensions
     /// <param name="isTopicDeleteAction">
     /// Indicator if we delete the entire topic
     /// </param>
-    public static void Delete(
+    public async static Task DeleteAsync(
         this IRepository<Message> repository,
         int forumId,
         int topicId,
@@ -662,9 +662,9 @@ public static class MessageRepositoryExtensions
         bool eraseMessage,
         bool isTopicDeleteAction = false)
     {
-        var forum = BoardContext.Current.GetRepository<Forum>().GetById(forumId);
+        var forum = await BoardContext.Current.GetRepository<Forum>().GetByIdAsync(forumId);
 
-        repository.DeleteRecursively(
+        await repository.DeleteRecursivelyAsync(
             forum,
             topicId,
             message,
@@ -674,7 +674,7 @@ public static class MessageRepositoryExtensions
             eraseMessage,
             isTopicDeleteAction);
 
-        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateTopicLastPostEvent(forumId, topicId));
+        await BoardContext.Current.Get<IRaiseEventAsync>().RaiseAsync(new UpdateTopicLastPostEvent(forumId, topicId));
 
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
     }
@@ -694,18 +694,18 @@ public static class MessageRepositoryExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    public static void Restore(
+    public async static Task RestoreAsync(
         this IRepository<Message> repository,
         int forumId,
         int topicId,
         Message message)
     {
-        repository.RestoreRecursively(
+        await repository.RestoreRecursivelyAsync(
             forumId,
             topicId,
             message);
 
-        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateTopicLastPostEvent(forumId, topicId));
+        await BoardContext.Current.Get<IRaiseEventAsync>().RaiseAsync(new UpdateTopicLastPostEvent(forumId, topicId));
 
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
     }
@@ -728,28 +728,33 @@ public static class MessageRepositoryExtensions
     /// <param name="moveAll">
     /// The move all.
     /// </param>
-    public static void Move(
+    public async static Task MoveAsync(
         this IRepository<Message> repository,
         Topic oldTopic,
         Message message,
         int moveToTopicId,
         bool moveAll)
     {
-        repository.Move(message, moveToTopicId);
+        await repository.MoveAsync(message, moveToTopicId);
 
         if (moveAll)
         {
             // moveAll=true anyway
             // it's in charge of moving answers of moved post
-            var replies = repository.Get(m => m.ReplyTo == message.ID);
+            var replies = await repository.GetAsync(m => m.ReplyTo == message.ID);
 
-            replies.ForEach(reply => repository.MoveRecursively(reply, moveToTopicId));
+            foreach (var reply in replies)
+            {
+                await repository.MoveRecursivelyAsync(reply, moveToTopicId);
+            }
         }
 
-        var newForumId = BoardContext.Current.GetRepository<Topic>().GetById(moveToTopicId).ForumID;
+        var topic = await BoardContext.Current.GetRepository<Topic>().GetByIdAsync(moveToTopicId);
 
-        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateTopicLastPostEvent(newForumId, moveToTopicId));
-        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateTopicLastPostEvent(oldTopic.ForumID, oldTopic.ID));
+        var newForumId = topic.ForumID;
+
+        await BoardContext.Current.Get<IRaiseEventAsync>().RaiseAsync(new UpdateTopicLastPostEvent(newForumId, moveToTopicId));
+        await BoardContext.Current.Get<IRaiseEventAsync>().RaiseAsync(new UpdateTopicLastPostEvent(oldTopic.ForumID, oldTopic.ID));
 
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(newForumId));
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(oldTopic.ForumID));
@@ -916,23 +921,23 @@ public static class MessageRepositoryExtensions
     /// <param name="userId">
     /// The user Id.
     /// </param>
-    public static void ReportResolve(
+    public async static Task ReportResolveAsync(
         this IRepository<Message> repository,
         int messageId,
         int userId)
     {
-        BoardContext.Current.GetRepository<MessageReported>().UpdateOnly(
+        await BoardContext.Current.GetRepository<MessageReported>().UpdateOnlyAsync(
             () => new MessageReported { Resolved = true, ResolvedBy = userId, ResolvedDate = DateTime.UtcNow },
             m => m.ID == messageId);
 
         var flags = new MessageFlags(
-                        repository.DbAccess.Execute(
-                            db => db.Connection.Scalar<Message, int>(m => m.Flags, m => m.ID == messageId)))
+                        await repository.DbAccess.ExecuteAsync(
+                            db => db.ScalarAsync<Message, int>(m => m.Flags, m => m.ID == messageId)))
                         {
                             IsReported = false
                         };
 
-        repository.UpdateFlags(messageId, flags.BitValue);
+        await repository.UpdateFlagsAsync(messageId, flags.BitValue);
 
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
     }
@@ -973,7 +978,7 @@ public static class MessageRepositoryExtensions
     /// <returns>
     /// Returns the Message ID
     /// </returns>
-    public static Message SaveNew(
+    public async static Task<Message> SaveNewAsync(
         this IRepository<Message> repository,
         Forum forum,
         Topic topic,
@@ -1004,7 +1009,7 @@ public static class MessageRepositoryExtensions
         // Add points to Users total reputation points
         if (!BoardContext.Current.IsGuest)
         {
-            BoardContext.Current.GetRepository<User>().UpdateAdd(
+            await BoardContext.Current.GetRepository<User>().UpdateAddAsync(
                 () => new User { Points = 3 },
                 u => u.ID == user.ID);
         }
@@ -1027,7 +1032,7 @@ public static class MessageRepositoryExtensions
                                  ExternalMessageId = null
                              };
 
-        var newMessageId = repository.Insert(
+        var newMessageId = await repository.InsertAsync(
             newMessage);
 
         newMessage.ID = newMessageId;
@@ -1062,11 +1067,9 @@ public static class MessageRepositoryExtensions
 
         if (flags.IsApproved)
         {
-            repository.Approve(newMessageId, forum.ID);
+            await repository.ApproveAsync(newMessageId, forum.ID);
             BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forum.ID));
         }
-
-        repository.FireNew(newMessageId);
 
         return newMessage;
     }
@@ -1080,7 +1083,7 @@ public static class MessageRepositoryExtensions
     /// <param name="forumId">
     /// The forum Id.
     /// </param>
-    public static List<Tuple<Topic, Message, User>> Unapproved(
+    public static Task<List<Tuple<Topic, Message, User>>> UnapprovedAsync(
         this IRepository<Message> repository,
         int forumId)
     {
@@ -1091,7 +1094,7 @@ public static class MessageRepositoryExtensions
                 (topic, message) => topic.ForumID == forumId && (message.Flags & 16) != 16 &&
                                     (topic.Flags & 8) != 8 && (message.Flags & 8) != 8);
 
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Topic, Message, User>(expression));
+        return repository.DbAccess.ExecuteAsync(db => db.SelectMultiAsync<Topic, Message, User>(expression));
     }
 
     /// <summary>
@@ -1142,7 +1145,7 @@ public static class MessageRepositoryExtensions
     /// <param name="forum">
     /// The Forum.
     /// </param>
-    public static void Update(
+    public async static Task UpdateAsync(
         this IRepository<Message> repository,
         short? priority,
         string message,
@@ -1164,66 +1167,66 @@ public static class MessageRepositoryExtensions
             originalMessage.MessageFlags.IsApproved = true;
         }
 
-        if (BoardContext.Current.GetRepository<MessageHistory>()
-            .Exists(m => m.MessageID == originalMessage.ID))
+        if (await BoardContext.Current.GetRepository<MessageHistory>()
+            .ExistsAsync(m => m.MessageID == originalMessage.ID))
         {
             // -- insert current message variant - use OriginalMessage in future
-            BoardContext.Current.GetRepository<MessageHistory>().Insert(
+            await BoardContext.Current.GetRepository<MessageHistory>().InsertAsync(
                 new MessageHistory
-                    {
-                        MessageID = originalMessage.ID,
-                        Message = originalMessage.MessageText,
-                        IP = originalMessage.IP,
-                        Edited = DateTime.UtcNow,
-                        EditedBy = editedBy,
-                        EditReason = reasonOfEdit,
-                        IsModeratorChanged = originalMessage.IsModeratorChanged.Value,
-                        Flags = originalMessage.Flags
-                    });
+                {
+                    MessageID = originalMessage.ID,
+                    Message = originalMessage.MessageText,
+                    IP = originalMessage.IP,
+                    Edited = DateTime.UtcNow,
+                    EditedBy = editedBy,
+                    EditReason = reasonOfEdit,
+                    IsModeratorChanged = originalMessage.IsModeratorChanged.Value,
+                    Flags = originalMessage.Flags
+                });
         }
         else
         {
             // -- save original message in the history if this is the first edit
-            BoardContext.Current.GetRepository<MessageHistory>().Insert(
+            await BoardContext.Current.GetRepository<MessageHistory>().InsertAsync(
                 new MessageHistory
-                    {
-                        MessageID = originalMessage.ID,
-                        Message = originalMessage.MessageText,
-                        IP = originalMessage.IP,
-                        Edited = originalMessage.Posted,
-                        EditedBy = originalMessage.UserID,
-                        EditReason = null,
-                        IsModeratorChanged = originalMessage.IsModeratorChanged.Value,
-                        Flags = originalMessage.Flags
-                    });
+                {
+                    MessageID = originalMessage.ID,
+                    Message = originalMessage.MessageText,
+                    IP = originalMessage.IP,
+                    Edited = originalMessage.Posted,
+                    EditedBy = originalMessage.UserID,
+                    EditReason = null,
+                    IsModeratorChanged = originalMessage.IsModeratorChanged.Value,
+                    Flags = originalMessage.Flags
+                });
         }
 
-        repository.UpdateOnly(
+        await repository.UpdateOnlyAsync(
             () => new Message
-                      {
-                          MessageText = message,
-                          Edited = DateTime.UtcNow,
-                          EditedBy = editedBy,
-                          Flags = originalMessage.MessageFlags.BitValue,
-                          IsModeratorChanged = isModeratorChanged,
-                          EditReason = reasonOfEdit
-                      },
+            {
+                MessageText = message,
+                Edited = DateTime.UtcNow,
+                EditedBy = editedBy,
+                Flags = originalMessage.MessageFlags.BitValue,
+                IsModeratorChanged = isModeratorChanged,
+                EditReason = reasonOfEdit
+            },
             m => m.ID == originalMessage.ID);
 
         if (priority.HasValue)
         {
-            BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+            await BoardContext.Current.GetRepository<Topic>().UpdateOnlyAsync(
                 () => new Topic { Priority = priority.Value },
                 t => t.ID == originalMessage.TopicID);
         }
 
         if (subject.IsSet())
         {
-            BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+            await BoardContext.Current.GetRepository<Topic>().UpdateOnlyAsync(
                 () => new Topic
-                          {
-                              TopicName = subject, Description = description, Status = status, Styles = styles
-                          },
+                {
+                    TopicName = subject, Description = description, Status = status, Styles = styles
+                },
                 t => t.ID == originalMessage.TopicID);
         }
 
@@ -1250,7 +1253,7 @@ public static class MessageRepositoryExtensions
         if (forum.ForumFlags.IsModerated)
         {
             // If forum is moderated, make sure last post pointers are correct
-            BoardContext.Current.Get<IRaiseEvent>().Raise(
+            await BoardContext.Current.Get<IRaiseEventAsync>().RaiseAsync(
                 new UpdateTopicLastPostEvent(forum.ID, originalMessage.TopicID));
         }
     }
@@ -1306,7 +1309,7 @@ public static class MessageRepositoryExtensions
     /// <param name="isTopicDeleteAction">
     /// Indicator if we delete the entire topic
     /// </param>
-    private static void DeleteRecursively(
+    private async static Task DeleteRecursivelyAsync(
         this IRepository<Message> repository,
         Forum forum,
         int topicId,
@@ -1320,12 +1323,13 @@ public static class MessageRepositoryExtensions
         if (deleteLinked)
         {
             // Delete replies
-            var replies = repository.Get(m => m.ReplyTo == message.ID).ToList();
+            var replies = await repository.GetAsync(m => m.ReplyTo == message.ID);
 
             if (replies.HasItems())
             {
-                replies.ForEach(
-                    reply => repository.DeleteRecursively(
+                foreach (var reply in replies)
+                {
+                    await repository.DeleteRecursivelyAsync(
                         forum,
                         topicId,
                         reply,
@@ -1333,7 +1337,8 @@ public static class MessageRepositoryExtensions
                         deleteReason,
                         true,
                         eraseMessages,
-                        isTopicDeleteAction));
+                        isTopicDeleteAction);
+                }
             }
         }
 
@@ -1347,7 +1352,7 @@ public static class MessageRepositoryExtensions
                 EventLogTypes.Information);
         }
 
-        repository.DeleteInternal(
+        await repository.DeleteInternalAsync(
             forum,
             topicId,
             message,
@@ -1375,21 +1380,24 @@ public static class MessageRepositoryExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    private static void RestoreRecursively(
+    private async static Task RestoreRecursivelyAsync(
         this IRepository<Message> repository,
         int forumId,
         int topicId,
         Message message)
     {
         // Restore replies
-        var replies = repository.Get(m => m.ReplyTo == message.ID).ToList();
+        var replies = (await repository.GetAsync(m => m.ReplyTo == message.ID)).ToList();
 
         if (replies.HasItems())
         {
-            replies.ForEach(reply => repository.RestoreRecursively(forumId, topicId, reply));
+            foreach (var reply in replies)
+            {
+                await repository.RestoreRecursivelyAsync(forumId, topicId, reply);
+            }
         }
 
-        repository.RestoreInternal(forumId,
+        await repository.RestoreInternalAsync(forumId,
             topicId,
             message);
     }
@@ -1406,16 +1414,19 @@ public static class MessageRepositoryExtensions
     /// <param name="moveToTopicId">
     /// The move to topic.
     /// </param>
-    private static void MoveRecursively(
+    private async static Task MoveRecursivelyAsync(
         this IRepository<Message> repository,
         Message message,
         int moveToTopicId)
     {
-        var replies = repository.Get(m => m.ReplyTo == message.ID);
+        var replies = await repository.GetAsync(m => m.ReplyTo == message.ID);
 
-        replies.ForEach(reply => repository.MoveRecursively(reply, moveToTopicId));
+        foreach (var reply in replies)
+        {
+            await repository.MoveRecursivelyAsync(reply, moveToTopicId);
+        }
 
-        repository.Move(message, moveToTopicId);
+        await repository.MoveAsync(message, moveToTopicId);
     }
 
     /// <summary>
@@ -1445,7 +1456,7 @@ public static class MessageRepositoryExtensions
     /// <param name="isTopicDeleteAction">
     /// Indicator if we delete the entire topic
     /// </param>
-    private static void DeleteInternal(
+    private async static Task DeleteInternalAsync(
         this IRepository<Message> repository,
         Forum forum,
         int topicId,
@@ -1456,46 +1467,46 @@ public static class MessageRepositoryExtensions
         bool isTopicDeleteAction)
     {
         // -- Update LastMessageID in Topic
-        BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+        await BoardContext.Current.GetRepository<Topic>().UpdateOnlyAsync(
             () => new Topic
-                      {
-                          LastPosted = null,
-                          LastMessageID = null,
-                          LastUserID = null,
-                          LastUserName = null,
-                          LastUserDisplayName = null,
-                          LastMessageFlags = null
-                      },
+            {
+                LastPosted = null,
+                LastMessageID = null,
+                LastUserID = null,
+                LastUserName = null,
+                LastUserDisplayName = null,
+                LastMessageFlags = null
+            },
             x => x.LastMessageID == message.ID);
 
         // -- Update LastMessageID in Forum
-        BoardContext.Current.GetRepository<Forum>().UpdateOnly(
+        await BoardContext.Current.GetRepository<Forum>().UpdateOnlyAsync(
             () => new Forum
-                      {
-                          LastPosted = null,
-                          LastMessageID = null,
-                          LastUserID = null,
-                          LastUserName = null,
-                          LastUserDisplayName = null
-                      },
+            {
+                LastPosted = null,
+                LastMessageID = null,
+                LastUserID = null,
+                LastUserName = null,
+                LastUserDisplayName = null
+            },
             x => x.LastMessageID == message.ID);
 
         // -- should it be physically deleter or not?
         if (eraseMessage)
         {
-            BoardContext.Current.GetRepository<Attachment>().Delete(x => x.MessageID == message.ID);
-            BoardContext.Current.GetRepository<Activity>().Delete(x => x.MessageID == message.ID);
-            BoardContext.Current.GetRepository<MessageReportedAudit>().Delete(x => x.MessageID == message.ID);
-            BoardContext.Current.GetRepository<MessageReported>().Delete(x => x.ID == message.ID);
-            BoardContext.Current.GetRepository<Thanks>().Delete(x => x.MessageID == message.ID);
-            BoardContext.Current.GetRepository<MessageHistory>().Delete(x => x.MessageID == message.ID);
+            await BoardContext.Current.GetRepository<Attachment>().DeleteAsync(x => x.MessageID == message.ID);
+            await BoardContext.Current.GetRepository<Activity>().DeleteAsync(x => x.MessageID == message.ID);
+            await BoardContext.Current.GetRepository<MessageReportedAudit>().DeleteAsync(x => x.MessageID == message.ID);
+            await BoardContext.Current.GetRepository<MessageReported>().DeleteAsync(x => x.ID == message.ID);
+            await BoardContext.Current.GetRepository<Thanks>().DeleteAsync(x => x.MessageID == message.ID);
+            await BoardContext.Current.GetRepository<MessageHistory>().DeleteAsync(x => x.MessageID == message.ID);
 
             // -- update message positions inside the topic
             if (!isTopicDeleteAction)
             {
                 try
                 {
-                    repository.UpdateAdd(
+                    await repository.UpdateAddAsync(
                         () => new Message { Position = -1 },
                         x => x.TopicID == topicId && x.Posted > message.Posted && x.ID != message.ID);
                 }
@@ -1506,27 +1517,27 @@ public static class MessageRepositoryExtensions
             }
 
             // -- update ReplyTo
-            var replyMessage = repository.GetSingle(
+            var replyMessage = await repository.GetSingleAsync(
                 x => x.TopicID == topicId && x.Position == 0 && x.ID != message.ID);
 
             if (replyMessage != null)
             {
-                repository.UpdateOnly(
+                await repository.UpdateOnlyAsync(
                     () => new Message { ReplyTo = replyMessage.ID },
                     x => x.TopicID == topicId && x.ID == message.ID);
 
                 // -- fix Reply To if equal with MessageID
-                repository.UpdateOnly(
+                await repository.UpdateOnlyAsync(
                     () => new Message { ReplyTo = null },
                     x => x.TopicID == topicId && x.ID == replyMessage.ID);
             }
 
             // -- finally delete the message we want to delete
-            repository.DeleteById(message.ID);
+            await repository.DeleteByIdAsync(message.ID);
 
-            if (repository.Count(x => x.TopicID == topicId && (x.Flags & 8) != 8) == 0)
+            if (await repository.CountAsync(x => x.TopicID == topicId && (x.Flags & 8) != 8) == 0)
             {
-               BoardContext.Current.GetRepository<Topic>().Delete(
+               await BoardContext.Current.GetRepository<Topic>().DeleteAsync(
                     forum.ID,
                     topicId,
                     true);
@@ -1539,11 +1550,11 @@ public static class MessageRepositoryExtensions
             flags.IsDeleted = true;
 
             // -- "Delete" it only by setting deleted flag message
-            repository.UpdateOnly(
+            await repository.UpdateOnlyAsync(
                 () => new Message
-                          {
-                              IsModeratorChanged = isModeratorChanged, DeleteReason = deleteReason, Flags = flags.BitValue
-                          },
+                {
+                    IsModeratorChanged = isModeratorChanged, DeleteReason = deleteReason, Flags = flags.BitValue
+                },
                 x => x.TopicID == topicId && x.ID == message.ID);
         }
 
@@ -1561,7 +1572,7 @@ public static class MessageRepositoryExtensions
 
            var postCount = repository.DbAccess.Execute(db => db.Connection.Count(expression)).ToType<int>();
 
-            BoardContext.Current.GetRepository<User>().UpdateOnly(
+            await BoardContext.Current.GetRepository<User>().UpdateOnlyAsync(
                 () => new User { NumPosts = postCount },
                 u => u.ID == message.UserID);
         }
@@ -1571,7 +1582,7 @@ public static class MessageRepositoryExtensions
             // -- update topic Post Count
             if (!isTopicDeleteAction)
             {
-                BoardContext.Current.GetRepository<Topic>().UpdateAdd(
+                await BoardContext.Current.GetRepository<Topic>().UpdateAddAsync(
                     () => new Topic {NumPosts = -1},
                     x => x.ID == topicId);
             }
@@ -1597,7 +1608,7 @@ public static class MessageRepositoryExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    private static void RestoreInternal(
+    private async static Task RestoreInternalAsync(
         this IRepository<Message> repository,
         int forumId,
         int topicId,
@@ -1608,7 +1619,7 @@ public static class MessageRepositoryExtensions
         flags.IsDeleted = false;
 
         // -- "Delete" it only by setting deleted flag message
-        repository.UpdateOnly(
+        await repository.UpdateOnlyAsync(
             () => new Message
                   {
                       IsModeratorChanged = false, DeleteReason = null, Flags = flags.BitValue
@@ -1616,13 +1627,13 @@ public static class MessageRepositoryExtensions
             x => x.TopicID == topicId && x.ID == message.ID);
 
         // -- update user post count
-        if (!BoardContext.Current.GetRepository<Forum>()
-                .Exists(f => f.ID == forumId && (f.Flags & 4) != 4))
+        if (!await BoardContext.Current.GetRepository<Forum>()
+                .ExistsAsync(f => f.ID == forumId && (f.Flags & 4) != 4))
         {
-            var postCount = repository.Count(
-                x => x.UserID == message.UserID && (x.Flags & 8) != 8 && (x.Flags & 16) == 16).ToType<int>();
+            var postCount = (await repository.CountAsync(
+                x => x.UserID == message.UserID && (x.Flags & 8) != 8 && (x.Flags & 16) == 16)).ToType<int>();
 
-            BoardContext.Current.GetRepository<User>().UpdateOnly(
+            await BoardContext.Current.GetRepository<User>().UpdateOnlyAsync(
                 () => new User { NumPosts = postCount },
                 u => u.ID == message.UserID);
         }
@@ -1630,7 +1641,7 @@ public static class MessageRepositoryExtensions
         try
         {
             // -- update topic Post Count
-            BoardContext.Current.GetRepository<Topic>().UpdateAdd(
+            await BoardContext.Current.GetRepository<Topic>().UpdateAddAsync(
                 () => new Topic { NumPosts = 1},
                 x => x.ID == topicId);
         }
@@ -1652,19 +1663,21 @@ public static class MessageRepositoryExtensions
     /// <param name="moveToTopicId">
     /// The move To Topic Id.
     /// </param>
-    private static void Move(
+    private async static Task MoveAsync(
         this IRepository<Message> repository,
         Message message,
         int moveToTopicId)
     {
-        var replyToId = repository.GetSingle(x => x.Position == 0 && x.TopicID == moveToTopicId)?.ID;
+        var moveToMessage = await repository.GetSingleAsync(x => x.Position == 0 && x.TopicID == moveToTopicId);
+
+        var replyToId = moveToMessage?.ID;
 
         int position;
 
         try
         {
-            position = repository.DbAccess.Execute(
-                db => db.Connection.Scalar<Message, int>(
+            position = await repository.DbAccess.ExecuteAsync(
+                db => db.ScalarAsync<Message, int>(
                     x => Sql.Max(x.Position) + 1,
                     x => x.TopicID == moveToTopicId && x.Posted < message.Posted));
         }
@@ -1673,16 +1686,16 @@ public static class MessageRepositoryExtensions
             position = 0;
         }
 
-        repository.UpdateAdd(
+        await repository.UpdateAddAsync(
             () => new Message { Position = 1 },
             x => x.TopicID == moveToTopicId && x.Posted > message.Posted);
 
-        repository.UpdateAdd(
+        await repository.UpdateAddAsync(
             () => new Message { Position = -1 },
             x => x.TopicID == message.TopicID && x.Posted > message.Posted);
 
         // -- Update LastMessageID in Topic & Forum
-        BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+        await BoardContext.Current.GetRepository<Topic>().UpdateOnlyAsync(
             () => new Topic
                       {
                           LastPosted = null,
@@ -1694,7 +1707,7 @@ public static class MessageRepositoryExtensions
                       },
             x => x.LastMessageID == message.ID);
 
-        BoardContext.Current.GetRepository<Forum>().UpdateOnly(
+        await BoardContext.Current.GetRepository<Forum>().UpdateOnlyAsync(
             () => new Forum
                       {
                           LastPosted = null,
@@ -1707,31 +1720,32 @@ public static class MessageRepositoryExtensions
 
         if (position == 0)
         {
-            repository.UpdateOnly(
+            await repository.UpdateOnlyAsync(
                 () => new Message { ReplyTo = message.ID },
                 x => x.TopicID == moveToTopicId && x.ReplyTo == null);
 
             replyToId = null;
         }
 
-        repository.UpdateOnly(
+        await repository.UpdateOnlyAsync(
             () => new Message { TopicID = moveToTopicId, ReplyTo = replyToId, Position = position },
             x => x.ID == message.ID);
 
         // -- Delete topic if there are no more messages
-        if (repository.Count(x => x.TopicID == message.TopicID && (x.Flags & 8) != 8) == 0)
+        if (await repository.CountAsync(x => x.TopicID == message.TopicID && (x.Flags & 8) != 8) == 0)
         {
-            var forumId = BoardContext.Current.GetRepository<Topic>().GetById(message.TopicID).ForumID;
+            var topic = await BoardContext.Current.GetRepository<Topic>().GetByIdAsync(message.TopicID);
+            var forumId = topic.ForumID;
 
-            BoardContext.Current.GetRepository<Topic>().Delete(forumId, message.TopicID, true);
+            await BoardContext.Current.GetRepository<Topic>().DeleteAsync(forumId, message.TopicID, true);
         }
 
         // -- update topic Post Count
-        BoardContext.Current.GetRepository<Topic>().UpdateAdd(
+        await BoardContext.Current.GetRepository<Topic>().UpdateAddAsync(
             () => new Topic { NumPosts = -1 },
             x => x.ID == message.TopicID);
 
-        BoardContext.Current.GetRepository<Topic>().UpdateAdd(
+        await BoardContext.Current.GetRepository<Topic>().UpdateAddAsync(
             () => new Topic { NumPosts = 1 },
             x => x.ID == moveToTopicId);
     }

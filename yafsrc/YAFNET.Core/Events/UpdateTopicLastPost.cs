@@ -23,6 +23,7 @@
  */
 
 using System;
+using System.Threading.Tasks;
 
 namespace YAF.Core.Events;
 
@@ -34,7 +35,7 @@ using YAF.Types.Models;
 /// The update Topic last post.
 /// </summary>
 [ExportService(ServiceLifetimeScope.OwnedByContainer)]
-public class UpdateTopicLastPost : IHaveServiceLocator, IHandleEvent<UpdateTopicLastPostEvent>
+public class UpdateTopicLastPost : IHaveServiceLocator, IHandleEventAsync<UpdateTopicLastPostEvent>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateTopicLastPost"/> class.
@@ -63,10 +64,10 @@ public class UpdateTopicLastPost : IHaveServiceLocator, IHandleEvent<UpdateTopic
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
-    public void Handle(UpdateTopicLastPostEvent @event)
+    public Task HandleAsync(UpdateTopicLastPostEvent @event)
     {
-        this.GetRepository<Topic>().UpdateLastPost(@event.TopicId);
+        return this.GetRepository<Topic>().UpdateLastPostAsync(@event.TopicId);
     }
 }

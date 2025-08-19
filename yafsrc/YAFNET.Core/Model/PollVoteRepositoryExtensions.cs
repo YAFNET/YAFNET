@@ -98,7 +98,5 @@ public static class PollVoteRepositoryExtensions
         var entity = new PollVote { PollID = pollId, UserID = userId, ChoiceID = choiceId };
 
         repository.Insert(entity);
-
-        repository.FireNew(entity);
     }
 }

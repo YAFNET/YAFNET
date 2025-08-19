@@ -115,7 +115,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// <param name="a">
     /// The album Id.
     /// </param>
-    public IActionResult OnGet(string a)
+    public async Task<IActionResult> OnGetAsync(string a)
     {
         if (!this.PageBoardContext.BoardSettings.EnableAlbum)
         {
@@ -142,7 +142,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
                 : this.GetText("EDIT_ALBUMIMAGES", "TITLE"),
             string.Empty);
 
-        return this.BindData(albumId);
+        return await this.BindDataAsync(albumId);
     }
 
     /// <summary>
@@ -160,7 +160,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// </summary>
     /// <param name="albumId">The album identifier.</param>
     /// <param name="imageId">The image identifier.</param>
-    public IActionResult OnPostDeleteImage(int? albumId, int imageId)
+    public Task<IActionResult> OnPostDeleteImageAsync(int? albumId, int imageId)
     {
         var path = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
 
@@ -169,7 +169,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
             imageId,
             this.PageBoardContext.PageUserID);
 
-        return this.BindData(albumId);
+        return this.BindDataAsync(albumId);
     }
 
     /// <summary>
@@ -186,20 +186,20 @@ public class EditAlbumImagesModel : ForumPageRegistered
                 albumId = await this.SaveAttachmentsAsync(this.ImageFiles, albumId);
             }
 
-            return this.BindData(albumId);
+            return await this.BindDataAsync(albumId);
         }
         catch (Exception x)
         {
-            if (x.GetType() == typeof(ThreadAbortException))
+            if (x is ThreadAbortException)
             {
-                return this.BindData(null);
+                return await this.BindDataAsync(null);
             }
 
             this.Get<ILogger<EditAlbumImagesModel>>().Log(this.PageBoardContext.PageUserID, this, x);
 
             this.PageBoardContext.Notify(x.Message, MessageTypes.danger);
 
-            return this.BindData(null);
+            return await this.BindDataAsync(null);
         }
     }
 
@@ -207,7 +207,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// Update Album Title
     /// </summary>
     /// <param name="albumId">The album identifier.</param>
-    public void OnPostUpdateTitle(int albumId)
+    public Task OnPostUpdateTitleAsync(int albumId)
     {
         this.AlbumTitle = HttpUtility.HtmlEncode(this.AlbumTitle);
 
@@ -215,7 +215,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
             albumId,
             this.AlbumTitle);
 
-        this.BindData(albumId);
+        return this.BindDataAsync(albumId);
     }
 
     /// <summary>
@@ -238,9 +238,9 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private IActionResult BindData(int? albumId)
+    private async Task<IActionResult> BindDataAsync(int? albumId)
     {
-        var data = this.GetRepository<User>().MaxAlbumData(
+        var data = await this.GetRepository<User>().MaxAlbumDataAsync(
             this.PageBoardContext.PageUserID,
             this.PageBoardContext.PageBoardID);
 
@@ -362,7 +362,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// <exception cref="Exception">Album Image File is too big</exception>
     private async Task<int?> SaveAttachmentsAsync(List<IFormFile> files, int? albumId)
     {
-        var data = this.GetRepository<User>().MaxAlbumData(
+        var data = await this.GetRepository<User>().MaxAlbumDataAsync(
             this.PageBoardContext.PageUserID,
             this.PageBoardContext.PageBoardID);
 

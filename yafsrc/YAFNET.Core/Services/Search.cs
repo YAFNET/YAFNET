@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Hosting;
+
 namespace YAF.Core.Services;
 
 using System;
@@ -72,7 +74,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <summary>
     /// The search index folder.
     /// </summary>
-    private readonly static string SearchIndexFolder = AppDomain.CurrentDomain.GetData("SearchDataDirectory").ToString();
+    private readonly string searchIndexFolder;
 
     /// <summary>
     /// The standardAnalyzer.
@@ -98,6 +100,8 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         this.ServiceLocator = serviceLocator;
 
         this.standardAnalyzer = new StandardAnalyzer(MatchVersion);
+
+        this.searchIndexFolder = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, "Search_Data");
     }
 
     /// <summary>
@@ -117,7 +121,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                 return this.indexWriter;
             }
 
-            var lockFile = Path.Combine(SearchIndexFolder, WriteLockFile);
+            var lockFile = Path.Combine(this.searchIndexFolder, WriteLockFile);
 
             if (File.Exists(lockFile))
             {
@@ -136,16 +140,16 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             try
             {
                 var indexConfig = new IndexWriterConfig(MatchVersion, this.standardAnalyzer);
-                writer = new IndexWriter(FSDirectory.Open(SearchIndexFolder), indexConfig);
+                writer = new IndexWriter(FSDirectory.Open(this.searchIndexFolder), indexConfig);
             }
             catch (LockObtainFailedException)
             {
-                var directoryInfo = new DirectoryInfo(SearchIndexFolder);
+                var directoryInfo = new DirectoryInfo(this.searchIndexFolder);
                 var directory = FSDirectory.Open(directoryInfo, new SimpleFSLockFactory(directoryInfo));
                 IndexWriter.Unlock(directory);
 
                 var indexConfig = new IndexWriterConfig(MatchVersion, this.standardAnalyzer);
-                writer = new IndexWriter(FSDirectory.Open(SearchIndexFolder), indexConfig);
+                writer = new IndexWriter(FSDirectory.Open(this.searchIndexFolder), indexConfig);
             }
 
             Thread.MemoryBarrier();
@@ -340,7 +344,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             try
             {
                 this.Writer.UpdateDocument(
-                    new Term("MessageId", message.MessageId.Value.ToString()),
+                    new Term("MessageId", message.MessageId.ToString()),
                     doc,
                     this.standardAnalyzer);
             }
@@ -348,7 +352,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             {
                 this.DisposeWriter();
                 this.Writer.UpdateDocument(
-                    new Term("MessageId", message.MessageId.Value.ToString()),
+                    new Term("MessageId", message.MessageId.ToString()),
                     doc,
                     this.standardAnalyzer);
             }
@@ -623,7 +627,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             try
             {
                 this.Writer.UpdateDocument(
-                    new Term("MessageId", message.MessageId.Value.ToString()),
+                    new Term("MessageId", message.MessageId.ToString()),
                     doc,
                     this.standardAnalyzer);
             }
@@ -632,7 +636,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                 this.Get<ILogger<Search>>().Log(null, this, ex);
                 this.DisposeWriter();
                 this.Writer.UpdateDocument(
-                    new Term("MessageId", message.MessageId.Value.ToString()),
+                    new Term("MessageId", message.MessageId.ToString()),
                     doc,
                     this.standardAnalyzer);
             }
@@ -654,14 +658,14 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// </returns>
     private IndexSearcher GetSearcher()
     {
-        if (!DirectoryReader.IndexExists(FSDirectory.Open(SearchIndexFolder)))
+        if (!DirectoryReader.IndexExists(FSDirectory.Open(this.searchIndexFolder)))
         {
             return null;
         }
 
         this.searcherManager = this.indexWriter != null
                                    ? new SearcherManager(this.indexWriter, false, null)
-                                   : new SearcherManager(FSDirectory.Open(SearchIndexFolder), null);
+                                   : new SearcherManager(FSDirectory.Open(this.searchIndexFolder), null);
 
         this.searcherManager.MaybeRefreshBlocking();
 
@@ -692,7 +696,6 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         }
 
         var flags = doc.Get("Flags").ToType<int>();
-        var messageFlags = new MessageFlags(flags);
 
         var message = doc.Get("Message");
 
@@ -713,14 +716,9 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             }
         }
 
-        var formattedMessage = this.Get<IFormatMessage>().Format(
-            doc.Get("MessageId").ToType<int>(),
-            message);
-
-        formattedMessage = await this.Get<IBBCodeService>().FormatMessageWithCustomBBCodeAsync(
-                               formattedMessage,
-                               doc.Get("UserId").ToType<int>(),
-                               doc.Get("MessageId").ToType<int>());
+        var formattedMessage = await this.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(
+            message, doc.Get("MessageId").ToType<int>(),
+            doc.Get("UserId").ToType<int>());
 
         message = formattedMessage;
 

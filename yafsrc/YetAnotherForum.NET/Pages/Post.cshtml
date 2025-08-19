@@ -1,5 +1,4 @@
 ﻿@page "{m:int}/{name}/{handler?}"
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
 @using YAF.Core.Utilities
@@ -9,7 +8,6 @@
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
 @using YAF.Types.Modals
-@using YAF.Web.TagHelpers
 
 @model PostModel
 
@@ -223,7 +221,7 @@
                                     
                                 @if (!Model.PageBoardContext.IsGuest)
                                 {
-                                    var isWatched = Model.HandleWatchTopic();
+                                    var isWatched = await Model.HandleWatchTopicAsync();
 
                                     if (isWatched)
                                     {

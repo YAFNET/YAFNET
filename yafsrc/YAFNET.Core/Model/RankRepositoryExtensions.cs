@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System;
@@ -75,7 +77,7 @@ public static class RankRepositoryExtensions
     /// <param name="userAlbumImages">
     /// Defines number of images allowed for an album.
     /// </param>
-    public static void Save(
+    public async static Task SaveAsync(
         this IRepository<Rank> repository,
         int? rankId,
         int boardId,
@@ -90,19 +92,16 @@ public static class RankRepositoryExtensions
         int userAlbums,
         int userAlbumImages)
     {
-        if (!flags.IsLadder)
+        minPosts = flags.IsLadder switch
         {
-            minPosts = null;
-        }
-
-        if (flags.IsLadder && !minPosts.HasValue)
-        {
-            minPosts = 0;
-        }
+            false => null,
+            true when !minPosts.HasValue => 0,
+            _ => minPosts
+        };
 
         if (rankId.HasValue)
         {
-            repository.UpdateOnly(
+            await repository.UpdateOnlyAsync(
                 () => new Rank
                           {
                               Name = name,
@@ -117,12 +116,10 @@ public static class RankRepositoryExtensions
                               UsrAlbumImages = userAlbumImages
                           },
                 g => g.ID == rankId.Value);
-
-            repository.FireUpdated(rankId);
         }
         else
         {
-            rankId = repository.Insert(
+            rankId = await repository.InsertAsync(
                 new Rank
                     {
                         Name = name,
@@ -137,13 +134,11 @@ public static class RankRepositoryExtensions
                         UsrAlbums = userAlbums,
                         UsrAlbumImages = userAlbumImages
                     });
-
-            repository.FireNew(rankId);
         }
 
         if (style.IsSet())
         {
-            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(boardId));
+            await BoardContext.Current.Get<IRaiseEventAsync>().RaiseAsync(new UpdateUserStylesEvent(boardId));
         }
     }
 
@@ -159,14 +154,15 @@ public static class RankRepositoryExtensions
     /// <returns>
     /// The <see cref="Tuple"/>.
     /// </returns>
-    public static Tuple<User, Rank> GetUserAndRank(this IRepository<Rank> repository, int userId)
+    public async static Task<Tuple<User, Rank>> GetUserAndRankAsync(this IRepository<Rank> repository, int userId)
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
         expression.Join<Rank>((u, r) => r.ID == u.RankID).Where<User>(u => u.ID == userId);
 
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<User, Rank>(expression))
-            .FirstOrDefault();
+        var results = await repository.DbAccess.ExecuteAsync(db => db.SelectMultiAsync<User, Rank>(expression));
+
+        return results.FirstOrDefault();
     }
 
     /// <summary>
@@ -175,7 +171,7 @@ public static class RankRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="userId">The user identifier.</param>
     /// <returns>Returns the Style if the Rank has one</returns>
-    public static string GetRankStyleForUser(
+    public async static Task<string> GetRankStyleForUserAsync(
         this IRepository<Rank> repository,
         int userId)
     {
@@ -184,7 +180,7 @@ public static class RankRepositoryExtensions
         expression.Join<User>((rank, user) => rank.ID == user.RankID)
             .Where<Rank, User>((rank, user) => rank.Style != null && user.ID == userId);
 
-        var results = repository.DbAccess.Execute(db => db.Connection.Single(expression));
+        var results = await repository.DbAccess.ExecuteAsync(db => db.SingleAsync(expression));
 
         return results?.Style;
     }

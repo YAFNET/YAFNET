@@ -35,22 +35,19 @@ public class BasicRepository<T> : IRepository<T>
     /// <summary>
     /// Initializes a new instance of the <see cref="BasicRepository{T}"/> class.
     /// </summary>
-    /// <param name="dbAccess">
-    /// The database Access.
-    /// </param>
-    /// <param name="raiseEvent">
-    /// The raise Event.
-    /// </param>
-    /// <param name="haveBoardId">
-    /// The have Board Id.
-    /// </param>
+    /// <param name="dbAccess">The database access.</param>
+    /// <param name="raiseEvent">The raise event.</param>
+    /// <param name="raiseAsyncEvent">The raise asynchronous event.</param>
+    /// <param name="haveBoardId">The have board identifier.</param>
     public BasicRepository(
         IDbAccess dbAccess,
         IRaiseEvent raiseEvent,
+        IRaiseEventAsync raiseAsyncEvent,
         IHaveBoardID haveBoardId)
     {
         this.DbAccess = dbAccess;
         this.DbEvent = raiseEvent;
+        this.DbAsyncEvent = raiseAsyncEvent;
         this.BoardID = haveBoardId.BoardID;
     }
 
@@ -68,4 +65,10 @@ public class BasicRepository<T> : IRepository<T>
     ///     Gets the database event.
     /// </summary>
     public IRaiseEvent DbEvent { get; }
+
+    /// <summary>
+    /// Gets the database asynchronous event.
+    /// </summary>
+    /// <value>The database asynchronous event.</value>
+    public IRaiseEventAsync DbAsyncEvent { get; }
 }

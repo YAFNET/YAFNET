@@ -122,7 +122,7 @@ public static class ActivityRepositoryExtensions
         int userId,
         int topicId)
     {
-        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
+       BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
         repository.UpdateOnly(
             () => new Activity { Notification = false },

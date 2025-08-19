@@ -88,7 +88,7 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
                     postId = quote[(quote.LastIndexOf(';') + 1)..];
                     userName = quote = quote[..quote.LastIndexOf(';')];
 
-                    var topic = BoardContext.Current.GetRepository<Topic>().GetTopicFromMessage(postId.ToType<int>());
+                    var topic = BoardContext.Current.GetRepository<Topic>().GetTopicFromMessageAsync(postId.ToType<int>()).Result;
 
                     topicLink = BoardContext.Current.Get<ILinkBuilder>().GetMessageLink(topic, postId.ToType<int>());
                 }

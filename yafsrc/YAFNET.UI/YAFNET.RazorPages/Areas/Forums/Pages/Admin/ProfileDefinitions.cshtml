@@ -92,10 +92,7 @@
                     }
                     else
                     {
-                        <alert type="success" icon="check" localized-tag="NO_ENTRY">
-                            @Html.Icon("check")
-                            @Html.LocalizedText( "NO_ENTRY")
-                        </alert>
+	                    @await Html.PartialAsync("_NoEntryInfo")
                     }
                 </div>
                 <div class="card-footer text-center">

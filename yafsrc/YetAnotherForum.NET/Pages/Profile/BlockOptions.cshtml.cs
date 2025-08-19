@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Profile;
 
 using System.Collections.Generic;
@@ -81,9 +83,9 @@ public class BlockOptionsModel : ProfilePage
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
-        this.BindData();
+        await this.BindDataAsync();
 
         return this.Page();
     }
@@ -91,7 +93,7 @@ public class BlockOptionsModel : ProfilePage
     /// <summary>
     /// The on post.
     /// </summary>
-    public void OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
         var blockFlags = new UserBlockFlags
                          {
@@ -100,11 +102,13 @@ public class BlockOptionsModel : ProfilePage
                              BlockPMs = this.BlockPMs
                          };
 
-        this.GetRepository<User>().UpdateBlockFlags(this.PageBoardContext.PageUserID, blockFlags.BitValue);
+        await this.GetRepository<User>().UpdateBlockFlagsAsync(this.PageBoardContext.PageUserID, blockFlags.BitValue);
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 
-        this.BindData();
+        await this.BindDataAsync();
+
+        return this.Page();
     }
 
     /// <summary>
@@ -113,22 +117,24 @@ public class BlockOptionsModel : ProfilePage
     /// <param name="userId">
     /// The user id.
     /// </param>
-    public void OnPostDelete(int userId)
+    public async Task<IActionResult> OnPostDeleteAsync(int userId)
     {
-        this.Get<IUserIgnored>().RemoveIgnored(userId);
+        await this.Get<IUserIgnored>().RemoveIgnoredAsync(userId);
 
-        this.BindData();
+        await this.BindDataAsync();
+
+        return this.Page();
     }
 
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData()
+    private async Task BindDataAsync()
     {
         this.BlockPMs = this.PageBoardContext.PageUser.Block.BlockPMs;
         this.BlockFriendRequests = this.PageBoardContext.PageUser.Block.BlockFriendRequests;
         this.BlockEmails = this.PageBoardContext.PageUser.Block.BlockEmails;
 
-        this.Users = this.GetRepository<IgnoreUser>().IgnoredUsers(this.PageBoardContext.PageUserID);
+        this.Users = await this.GetRepository<IgnoreUser>().IgnoredUsersAsync(this.PageBoardContext.PageUserID);
     }
 }

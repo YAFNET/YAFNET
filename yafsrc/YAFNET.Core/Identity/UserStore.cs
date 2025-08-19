@@ -242,10 +242,21 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     }
 
     /// <summary>
-    /// The dispose.
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     /// </summary>
     public virtual void Dispose()
     {
+        this.Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    /// Releases unmanaged and - optionally - managed resources.
+    /// </summary>
+    /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+    protected virtual void Dispose(bool disposing)
+    {
+        // ...
     }
 
     /// <summary>
@@ -394,7 +405,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
 
         if (role != null)
         {
-            isInRole = this.GetRepository<AspNetUserRoles>().Count(r => r.RoleId == role.Id && r.UserId == user.Id) > 0;
+            isInRole = await this.GetRepository<AspNetUserRoles>().CountAsync(r => r.RoleId == role.Id && r.UserId == user.Id) > 0;
         }
 
         return isInRole;
@@ -932,7 +943,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    private Task UpdateUserAsync(AspNetUsers user, CancellationToken cancellationToken = default)
+    private Task<int> UpdateUserAsync(AspNetUsers user, CancellationToken cancellationToken = default)
     {
         return this.GetRepository<AspNetUsers>().UpdateAsync(user, token: cancellationToken);
     }

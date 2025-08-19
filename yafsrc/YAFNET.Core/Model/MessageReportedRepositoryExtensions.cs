@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System;
@@ -45,9 +47,9 @@ public static class MessageReportedRepositoryExtensions
     /// The forum Id.
     /// </param>
     public static
-        List<ReportedMessage> ListReported(this IRepository<MessageReported> repository, int forumId)
+        Task<List<ReportedMessage>> ListReportedAsync(this IRepository<MessageReported> repository, int forumId)
     {
-        return repository.DbAccess.Execute(
+        return repository.DbAccess.ExecuteAsync(
             db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageReported>();
@@ -60,7 +62,7 @@ public static class MessageReportedRepositoryExtensions
                             (m, t) => t.ForumID == forumId && (m.Flags & 8) != 8 && (t.Flags & 8) != 8 &&
                                       (m.Flags & 128) == 128);
 
-                    var q = db.Connection.From<MessageReportedAudit>(db.Connection.TableAlias("x"));
+                    var q = db.From<MessageReportedAudit>(db.TableAlias("x"));
                     q.Where(
                         $"x.{q.Column<MessageReportedAudit>(a => a.MessageID)}={expression.Column<MessageReported>(a => a.ID, true)}");
                     var subSql = q.Select(Sql.Count($"{q.Column<MessageReportedAudit>(a => a.LogID)}"))
@@ -88,8 +90,7 @@ public static class MessageReportedRepositoryExtensions
                                                    NumberOfReports = Sql.Custom($"({subSql})")
                                                });
 
-                    return db.Connection
-                        .Select<ReportedMessage>(expression);
+                    return db.SelectAsync<ReportedMessage>(expression);
                 });
     }
 
@@ -111,7 +112,7 @@ public static class MessageReportedRepositoryExtensions
     /// <param name="reportText">
     /// The report text.
     /// </param>
-    public static void Report(
+    public async static Task ReportAsync(
         this IRepository<MessageReported> repository,
         Message message,
         int userId,
@@ -120,17 +121,17 @@ public static class MessageReportedRepositoryExtensions
     {
         reportText ??= string.Empty;
 
-        if (!repository.Exists(m => m.ID == message.ID))
+        if (!await repository.ExistsAsync(m => m.ID == message.ID))
         {
-            repository.Insert(new MessageReported { ID = message.ID, Message = message.MessageText });
+            await repository.InsertAsync(new MessageReported { ID = message.ID, Message = message.MessageText });
         }
 
-        var reportAudit = BoardContext.Current.GetRepository<MessageReportedAudit>()
-            .GetSingle(m => m.MessageID == message.ID && m.UserID == userId);
+        var reportAudit = await BoardContext.Current.GetRepository<MessageReportedAudit>()
+            .GetSingleAsync(m => m.MessageID == message.ID && m.UserID == userId);
 
         if (reportAudit == null)
         {
-            BoardContext.Current.GetRepository<MessageReportedAudit>().Insert(
+            await BoardContext.Current.GetRepository<MessageReportedAudit>().InsertAsync(
                 new MessageReportedAudit
                     {
                         MessageID = message.ID,
@@ -141,7 +142,7 @@ public static class MessageReportedRepositoryExtensions
         }
         else
         {
-            BoardContext.Current.GetRepository<MessageReportedAudit>().UpdateOnly(
+            await BoardContext.Current.GetRepository<MessageReportedAudit>().UpdateOnlyAsync(
                 () => new MessageReportedAudit
                           {
                               ReportedNumber = reportAudit.ReportedNumber < 2147483647 ? reportAudit.ReportedNumber + 1 : reportAudit.ReportedNumber,
@@ -155,7 +156,7 @@ public static class MessageReportedRepositoryExtensions
 
         flags.IsReported = true;
 
-        BoardContext.Current.GetRepository<Message>().UpdateFlags(message.ID, flags.BitValue);
+        await BoardContext.Current.GetRepository<Message>().UpdateFlagsAsync(message.ID, flags.BitValue);
     }
 
     /// <summary>
@@ -167,8 +168,8 @@ public static class MessageReportedRepositoryExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    public static void ReportCopyOver(this IRepository<MessageReported> repository, Message message)
+    public static Task ReportCopyOverAsync(this IRepository<MessageReported> repository, Message message)
     {
-        repository.UpdateOnly(() => new MessageReported { Message = message.MessageText }, m => m.ID == message.ID);
+        return repository.UpdateOnlyAsync(() => new MessageReported { Message = message.MessageText }, m => m.ID == message.ID);
     }
 }

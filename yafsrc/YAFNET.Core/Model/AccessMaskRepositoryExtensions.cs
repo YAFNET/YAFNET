@@ -48,7 +48,7 @@ public static class AccessMaskRepositoryExtensions
         short sortOrder,
         int? boardId = null)
     {
-        var newId = repository.Upsert(
+       repository.Upsert(
             new AccessMask
                 {
                     BoardID = boardId ?? repository.BoardID,
@@ -57,14 +57,5 @@ public static class AccessMaskRepositoryExtensions
                     Flags = flags.BitValue,
                     SortOrder = sortOrder
                 });
-
-        if (accessMaskId.HasValue)
-        {
-            repository.FireUpdated(accessMaskId.Value);
-        }
-        else
-        {
-            repository.FireNew(newId);
-        }
     }
 }

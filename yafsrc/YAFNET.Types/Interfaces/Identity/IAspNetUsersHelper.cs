@@ -69,7 +69,7 @@ public interface IAspNetUsersHelper
     /// Gets the guest user for the current board.
     /// </summary>
     /// <param name="boardId">
-    /// The board Id.
+    ///     The board Id.
     /// </param>
     /// <exception cref="NoValidGuestUserForBoardException">
     /// No Valid Guest User Exception
@@ -78,6 +78,20 @@ public interface IAspNetUsersHelper
     /// The <see cref="User"/>.
     /// </returns>
     User GuestUser(int boardId);
+
+    /// <summary>
+    /// Gets the guest user for the current board.
+    /// </summary>
+    /// <param name="boardId">
+    ///     The board Id.
+    /// </param>
+    /// <exception cref="NoValidGuestUserForBoardException">
+    /// No Valid Guest User Exception
+    /// </exception>
+    /// <returns>
+    /// The <see cref="User"/>.
+    /// </returns>
+    Task<User> GuestUserAsync(int boardId);
 
     /// <summary>
     /// For the admin function: approve all users. Approves all
@@ -129,7 +143,7 @@ public interface IAspNetUsersHelper
     /// <returns>
     /// Returns if Deleting was successfully
     /// </returns>
-    bool DeleteAndBanUser(User user, AspNetUsers aspNetUser, string userIpAddress);
+    Task<bool> DeleteAndBanUserAsync(User user, AspNetUsers aspNetUser, string userIpAddress);
 
     /// <summary>
     /// The find users by email.
@@ -222,12 +236,12 @@ public interface IAspNetUsersHelper
     /// </summary>
     /// <param name="providerUserKey">The provider user key.</param>
     /// <param name="currentBoard">
-    /// Get user from Current board, or all boards
+    ///     Get user from Current board, or all boards
     /// </param>
     /// <returns>
     /// The get user id from provider user key.
     /// </returns>
-    User GetUserFromProviderUserKey(string providerUserKey, bool currentBoard = true);
+    Task<User> GetUserFromProviderUserKeyAsync(string providerUserKey, bool currentBoard = true);
 
     /// <summary>
     /// Helper function that gets user data from the DB (or cache)
@@ -482,8 +496,7 @@ public interface IAspNetUsersHelper
     /// <param name="boardId">The board identifier.</param>
     /// <param name="includeNonApproved">if set to <c>true</c> [include non approved].</param>
     /// <returns>Tuple&lt;User, AspNetUsers, Rank, VAccess&gt;.</returns>
-    public Tuple<User, AspNetUsers, Rank, VAccess> GetBoardUser(
-        int userId,
+    public Task<Tuple<User, AspNetUsers, Rank, VAccess>> GetBoardUserAsync(int userId,
         int? boardId = null,
         bool includeNonApproved = false);
 

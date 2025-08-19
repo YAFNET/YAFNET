@@ -24,19 +24,19 @@
 
 namespace YAF.Core.Controllers;
 
-using System.Threading.Tasks;
 using System;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.Extensions.Logging;
 
+using YAF.Core.BasePages;
+using YAF.Core.Context;
 using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
-using YAF.Core.BasePages;
 using YAF.Types.Objects.Model;
-
-using Microsoft.AspNetCore.OutputCaching;
 
 /// <summary>
 /// The User controller.
@@ -123,8 +123,10 @@ public class UserController : ForumBaseController
                     ? user.DisplayName.StartsWith(searchQuery)
                     : user.Name.StartsWith(searchQuery));
 
+            var userIgnoredList = await this.Get<IUserIgnored>().UserIgnoredListAsync(BoardContext.Current.PageUserID);
+
             var userList = usersList.AsEnumerable().Where(u =>
-                !this.Get<IUserIgnored>().IsIgnored(u.ID) && u.BoardID == BoardContext.Current.PageBoardID &&
+                !userIgnoredList.Contains(u.ID) && u.BoardID == BoardContext.Current.PageBoardID &&
                 !u.UserFlags.IsDeleted && u.UserFlags.IsApproved).Select(
                 u => new {
                     id = u.ID,

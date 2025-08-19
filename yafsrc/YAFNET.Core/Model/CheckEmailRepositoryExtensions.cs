@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System;
@@ -48,17 +50,17 @@ public static class CheckEmailRepositoryExtensions
     /// <param name="email">
     /// The email.
     /// </param>
-    public static void Save(
+    public static Task SaveAsync(
         this IRepository<CheckEmail> repository,
         int userId,
         string hash,
         string email)
     {
-        repository.Insert(
+        return repository.InsertAsync(
             new CheckEmail
-                {
-                    UserID = userId, Email = email.ToLower(), Created = DateTime.UtcNow, Hash = hash
-                });
+            {
+                UserID = userId, Email = email.ToLower(), Created = DateTime.UtcNow, Hash = hash
+            });
     }
 
     /// <summary>
@@ -73,9 +75,9 @@ public static class CheckEmailRepositoryExtensions
     /// <returns>
     /// The <see cref="CheckEmail"/>.
     /// </returns>
-    public static CheckEmail Update(this IRepository<CheckEmail> repository, string hash)
+    public async static Task<CheckEmail> UpdateAsync(this IRepository<CheckEmail> repository, string hash)
     {
-        var mail = repository.GetSingle(c => c.Hash == hash);
+        var mail = await repository.GetSingleAsync(c => c.Hash == hash);
 
         return mail;
     }

@@ -65,7 +65,7 @@ else
 
 app.RegisterAutofac();
 
-app.UseYafCore(BoardContext.Current.ServiceLocator, app.Environment);
+app.UseYafCore(BoardContext.Current.ServiceLocator);
 
 app.UseRobotsTxt(app.Environment);
 

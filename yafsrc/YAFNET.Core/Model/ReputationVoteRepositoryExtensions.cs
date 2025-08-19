@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System;
@@ -45,29 +47,28 @@ public static class ReputationVoteRepositoryExtensions
     /// <param name="toUserId">
     /// The to user id.
     /// </param>
-    public static void UpdateOrAdd(
+    public async static Task UpdateOrAddAsync(
         this IRepository<ReputationVote> repository,
         int fromUserId,
         int toUserId)
     {
-        var voteDate = repository.GetSingle(
+        var voteDate = repository.GetSingleAsync(
             r => r.ReputationFromUserID == fromUserId && r.ReputationToUserID == toUserId);
 
         if (voteDate != null)
         {
-            repository.FireUpdated(
-                repository.UpdateOnly(
+           await repository.UpdateOnlyAsync(
                     () => new ReputationVote { VoteDate = DateTime.UtcNow },
-                    r => r.ReputationFromUserID == fromUserId && r.ReputationToUserID == toUserId));
+                    r => r.ReputationFromUserID == fromUserId && r.ReputationToUserID == toUserId);
         }
         else
         {
-            repository.FireNew(repository.Insert(new ReputationVote
+            await repository.InsertAsync(new ReputationVote
                                                      {
                                                          ReputationFromUserID = fromUserId,
                                                          ReputationToUserID = toUserId,
                                                          VoteDate = DateTime.UtcNow
-                                                     }));
+                                                     });
         }
     }
 }

@@ -22,6 +22,9 @@
  * under the License.
  */
 
+using System.Linq;
+using System.Threading.Tasks;
+
 using YAF.Types.Objects.Model;
 
 namespace YAF.Pages.Admin;
@@ -128,26 +131,26 @@ public class RestoreModel : AdminPage
     /// <param name="topicId">The topic identifier.</param>
     /// <param name="forumId">The forum identifier.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostRestoreTopic(int p, int p2, int topicId, int forumId)
+    public async Task<IActionResult> OnPostRestoreTopicAsync(int p, int p2, int topicId, int forumId)
     {
-        var getFirstMessage = this.GetRepository<Message>()
-            .GetSingle(m => m.TopicID == topicId && m.Position == 0);
+        var getFirstMessage = await this.GetRepository<Message>()
+            .GetSingleAsync(m => m.TopicID == topicId && m.Position == 0);
 
         if (getFirstMessage != null)
         {
-            this.GetRepository<Message>().Restore(
+            await this.GetRepository<Message>().RestoreAsync(
                 forumId,
                 topicId,
                 getFirstMessage);
         }
 
-        var topic = this.GetRepository<Topic>().GetById(topicId);
+        var topic = await this.GetRepository<Topic>().GetByIdAsync(topicId);
 
         var flags = topic.TopicFlags;
 
         flags.IsDeleted = false;
 
-        this.GetRepository<Topic>().UpdateOnly(
+        await this.GetRepository<Topic>().UpdateOnlyAsync(
             () => new Topic { Flags = flags.BitValue },
             t => t.ID == topicId);
 
@@ -164,9 +167,9 @@ public class RestoreModel : AdminPage
     /// <param name="topicId">The topic identifier.</param>
     /// <param name="forumId">The forum identifier.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostDeleteTopic(int p, int p2, int topicId, int forumId)
+    public async Task<IActionResult> OnPostDeleteTopicAsync(int p, int p2, int topicId, int forumId)
     {
-        this.GetRepository<Topic>().Delete(forumId, topicId, true);
+        await this.GetRepository<Topic>().DeleteAsync(forumId, topicId, true);
 
         this.BindData(p, p2);
 
@@ -179,13 +182,15 @@ public class RestoreModel : AdminPage
     /// <param name="p">The topics page index.</param>
     /// <param name="p2">The messages page index.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostDeleteAllTopics(int p, int p2)
+    public async Task<IActionResult> OnPostDeleteAllTopicsAsync(int p, int p2)
     {
-        var deletedTopics = this.GetRepository<Topic>()
-            .GetDeletedTopics(this.PageBoardContext.PageBoardID, this.Filter);
+        var deletedTopics = await this.GetRepository<Topic>()
+            .GetDeletedTopicsAsync(this.PageBoardContext.PageBoardID, this.Filter);
 
-        deletedTopics.ForEach(
-            x => this.GetRepository<Topic>().Delete(x.Item2.ForumID, x.Item2.ID, true));
+        foreach (var x in deletedTopics.Select(x => x.Item2))
+        {
+            await this.GetRepository<Topic>().DeleteAsync(x.ForumID, x.ID, true);
+        }
 
         this.BindData(0, p2);
 
@@ -198,12 +203,14 @@ public class RestoreModel : AdminPage
     /// <param name="p">The topics page index.</param>
     /// <param name="p2">The messages page index.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostDeleteZeroTopics(int p, int p2)
+    public async Task<IActionResult> OnPostDeleteZeroTopicsAsync(int p, int p2)
     {
-        var deletedTopics = this.GetRepository<Topic>().Get(t => (t.Flags & 8) == 8 && t.NumPosts.Equals(0));
+        var deletedTopics = await this.GetRepository<Topic>().GetAsync(t => (t.Flags & 8) == 8 && t.NumPosts.Equals(0));
 
-        deletedTopics.ForEach(
-            topic => this.GetRepository<Topic>().Delete(topic.ForumID, topic.ID, true));
+        foreach (var topic in deletedTopics)
+        {
+            await this.GetRepository<Topic>().DeleteAsync(topic.ForumID, topic.ID, true);
+        }
 
         this.BindData(p, p2);
 
@@ -219,11 +226,11 @@ public class RestoreModel : AdminPage
     /// <param name="forumId">The forum identifier.</param>
     /// <param name="messageId">The message identifier.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostRestorePost(int p, int p2, int topicId, int forumId, int messageId)
+    public async Task<IActionResult> OnPostRestorePostAsync(int p, int p2, int topicId, int forumId, int messageId)
     {
-        var message = this.GetRepository<Message>().GetById(messageId);
+        var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
 
-        this.GetRepository<Message>().Restore(
+        await this.GetRepository<Message>().RestoreAsync(
             forumId,
             topicId,
             message);
@@ -242,12 +249,12 @@ public class RestoreModel : AdminPage
     /// <param name="forumId">The forum identifier.</param>
     /// <param name="messageId">The message identifier.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostDeletePost(int p, int p2, int topicId, int forumId, int messageId)
+    public async Task<IActionResult> OnPostDeletePostAsync(int p, int p2, int topicId, int forumId, int messageId)
     {
-        var message = this.GetRepository<Message>().GetById(messageId);
+        var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
 
         // delete message
-        this.GetRepository<Message>().Delete(
+        await this.GetRepository<Message>().DeleteAsync(
             forumId,
             topicId,
             message,
@@ -267,20 +274,22 @@ public class RestoreModel : AdminPage
     /// <param name="p">The topics page index.</param>
     /// <param name="p2">The messages page index.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostDeleteAllPosts(int p, int p2)
+    public async Task<IActionResult> OnPostDeleteAllPostsAsync(int p, int p2)
     {
         var messages = this.GetRepository<Message>()
             .GetDeletedMessages(this.PageBoardContext.PageBoardID);
 
-        messages.ForEach(
-            x => this.GetRepository<Message>().Delete(
+        foreach (var x in messages)
+        {
+            await this.GetRepository<Message>().DeleteAsync(
                 x.Item1.ID,
                 x.Item3.TopicID,
                 x.Item3,
                 true,
                 string.Empty,
                 true,
-                true));
+                true);
+        }
 
         this.BindData(p, 0);
 

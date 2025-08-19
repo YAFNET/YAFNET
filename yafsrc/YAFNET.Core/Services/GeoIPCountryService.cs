@@ -22,7 +22,6 @@ using System.IO;
 using System.Threading;
 
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Logging;
 
 using YAF.Types.Objects;
 
@@ -135,8 +134,7 @@ public class GeoIpCountryService : IDisposable, IGeoIpCountryService, IHaveServi
 
         this.geoData = this.Get<IDataCache>().GetOrSet(
             Constants.Cache.GeoIpData,
-            this.GeoDataFileToMemory,
-            TimeSpan.FromDays(365));
+            this.GeoDataFileToMemory);
     }
 
     /// <summary>
@@ -150,11 +148,9 @@ public class GeoIpCountryService : IDisposable, IGeoIpCountryService, IHaveServi
     /// <returns>System.Boolean.</returns>
     public bool DatabaseExists()
     {
-        var path = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, DatabaseName);
-
-        var fi = new FileInfo(path);
-
-        return fi.Exists;
+        return this.Get<IDataCache>().GetOrSet(
+            Constants.Cache.GeoIpDataCheck,
+            this.CheckDatabaseFileExists);
     }
 
     /// <summary>
@@ -197,6 +193,19 @@ public class GeoIpCountryService : IDisposable, IGeoIpCountryService, IHaveServi
         };
 
         return data;
+    }
+
+    /// <summary>
+    /// Checks if the database file exists.
+    /// </summary>
+    /// <returns>System.Boolean.</returns>
+    private bool CheckDatabaseFileExists()
+    {
+        var path = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, DatabaseName);
+
+        var fi = new FileInfo(path);
+
+        return fi.Exists;
     }
 
     /// <summary>

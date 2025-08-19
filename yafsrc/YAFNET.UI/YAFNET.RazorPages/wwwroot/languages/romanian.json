@@ -4707,14 +4707,6 @@
             "#text": "Suspended and unsuspended events will be logged."
           },
           {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Jurnal de excepții ViewState:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "Excepțiile ViewState (cauzate în principal de roboții SPAM) vor fi înregistrate."
-          },
-          {
             "@tag": "LOG_WARNING",
             "#text": "Permiteți înregistrarea avertismentelor privind aplicațiile:"
           },

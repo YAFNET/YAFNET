@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System.Collections.Generic;
@@ -131,7 +133,7 @@ public static class GroupRepositoryExtensions
     /// <returns>
     /// Returns the group Id
     /// </returns>
-    public static int Save(
+    public async static Task<int> SaveAsync(
         this IRepository<Group> repository,
         int? groupId,
         int boardId,
@@ -148,7 +150,7 @@ public static class GroupRepositoryExtensions
     {
         if (groupId.HasValue)
         {
-            repository.UpdateOnly(
+            await repository.UpdateOnlyAsync(
                 () => new Group
                           {
                               Name = name,
@@ -162,12 +164,10 @@ public static class GroupRepositoryExtensions
                               UsrAlbumImages = userAlbumImages
                           },
                 g => g.ID == groupId.Value);
-
-            repository.FireUpdated(groupId);
         }
         else
         {
-            groupId = repository.Insert(
+            groupId = await repository.InsertAsync(
                 new Group
                     {
                         Name = name,
@@ -182,15 +182,13 @@ public static class GroupRepositoryExtensions
                         UsrAlbumImages = userAlbumImages
                     });
 
-            repository.FireNew(groupId);
-
             BoardContext.Current.GetRepository<ForumAccess>().InitialAssignGroup(groupId.Value, accessMaskId);
         }
 
         if (style.IsSet())
         {
             // -- group styles override rank styles
-            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(boardId));
+            await BoardContext.Current.Get<IRaiseEventAsync>().RaiseAsync(new UpdateUserStylesEvent(boardId));
         }
 
         return groupId.Value;

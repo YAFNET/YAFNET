@@ -30,6 +30,7 @@ using System.Reflection;
 using YAF.Core.Data;
 using YAF.Core.Events;
 using YAF.Core.Services.Cache;
+using YAF.Types.Interfaces.Events;
 
 /// <summary>
 /// The general module.
@@ -81,11 +82,18 @@ public class GeneralModule : BaseModule
     private static void RegisterEventBindings(ContainerBuilder builder)
     {
         builder.RegisterType<ServiceLocatorEventRaiser>().As<IRaiseEvent>().InstancePerLifetimeScope();
+        builder.RegisterType<ServiceLocatorAsyncEventRaiser>().As<IRaiseEventAsync>().InstancePerLifetimeScope();
+
+        builder.RegisterGeneric(typeof(FireEventAsync<>)).As(typeof(IFireEventAsync<>)).InstancePerLifetimeScope();
         builder.RegisterGeneric(typeof(FireEvent<>)).As(typeof(IFireEvent<>)).InstancePerLifetimeScope();
 
         //// scan assemblies for events to wire up...
         builder.RegisterAssemblyTypes(ExtensionAssemblies).AsClosedTypesOf(typeof(IHandleEvent<>)).
          AsImplementedInterfaces().InstancePerLifetimeScope();
+
+        //// scan assemblies for events to wire up...
+        builder.RegisterAssemblyTypes(ExtensionAssemblies).AsClosedTypesOf(typeof(IHandleEventAsync<>)).
+            AsImplementedInterfaces().InstancePerLifetimeScope();
     }
 
     /// <summary>

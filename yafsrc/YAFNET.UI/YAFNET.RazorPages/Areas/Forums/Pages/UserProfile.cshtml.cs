@@ -198,13 +198,13 @@ public class UserProfileModel : ForumPage
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet(int u)
+    public async Task<IActionResult> OnGetAsync(int u)
     {
         return u == 0
             ?
             // No such user exists
             this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid)
-            : this.BindData(u);
+            : await this.BindDataAsync(u);
     }
 
     /// <summary>
@@ -212,12 +212,12 @@ public class UserProfileModel : ForumPage
     /// </summary>
     /// <param name="u">The u.</param>
     /// <returns>System.Threading.Tasks.Task.</returns>
-    public Task OnPostRemoveSuspensionAsync(int u)
+    public async Task OnPostRemoveSuspensionAsync(int u)
     {
-        this.BindData(u);
+        await this.BindDataAsync(u);
 
         // un-suspend user
-        this.GetRepository<User>().Suspend(u);
+        await this.GetRepository<User>().SuspendAsync(u);
 
         if (this.PageBoardContext.BoardSettings.LogUserSuspendedUnsuspended)
         {
@@ -230,7 +230,7 @@ public class UserProfileModel : ForumPage
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(u));
 
-        return this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(
+        await this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(
             this.CombinedUser.Item1.Email,
             this.CombinedUser.Item1.DisplayOrUserName());
     }
@@ -242,7 +242,7 @@ public class UserProfileModel : ForumPage
     /// <returns>System.Threading.Tasks.Task.</returns>
     public async Task OnPostSuspendAsync(int u)
     {
-        this.BindData(u);
+        await this.BindDataAsync(u);
 
         var access = await this.GetRepository<VAccess>().GetSingleAsync(v => v.UserID == u);
 
@@ -297,7 +297,7 @@ public class UserProfileModel : ForumPage
         };
 
         // suspend user by calling appropriate method
-        this.GetRepository<User>().Suspend(u, suspend, this.SuspendReason.Trim(), this.PageBoardContext.PageUserID);
+        await this.GetRepository<User>().SuspendAsync(u, suspend, this.SuspendReason.Trim(), this.PageBoardContext.PageUserID);
 
         this.Get<ILogger<UserProfileModel>>().Log(
             this.PageBoardContext.PageUserID,
@@ -315,15 +315,15 @@ public class UserProfileModel : ForumPage
 
         this.SuspendReason = string.Empty;
 
-        this.BindData(u);
+        await this.BindDataAsync(u);
     }
 
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private IActionResult BindData(int userId)
+    private async Task<IActionResult> BindDataAsync(int userId)
     {
-        this.CombinedUser = this.Get<IAspNetUsersHelper>().GetBoardUser(userId);
+        this.CombinedUser = await this.Get<IAspNetUsersHelper>().GetBoardUserAsync(userId);
 
         if (this.CombinedUser is null || this.CombinedUser.Item1.ID == 0)
         {

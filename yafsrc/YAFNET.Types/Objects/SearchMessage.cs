@@ -83,7 +83,7 @@ public class SearchMessage
     /// <value>
     /// The message identifier.
     /// </value>
-    public int? MessageId { get; set; }
+    public int MessageId { get; set; }
 
     /// <summary>
     /// Gets or sets the message.

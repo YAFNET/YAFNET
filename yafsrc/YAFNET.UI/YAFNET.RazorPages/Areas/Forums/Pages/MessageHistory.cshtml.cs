@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages;
 
 using System.Collections.Generic;
@@ -103,16 +105,16 @@ public class MessageHistoryModel : ForumPageRegistered
     /// <summary>
     /// Handle Commands for restoring an old Message Version
     /// </summary>
-    public IActionResult OnPostRestore(string edited)
+    public async Task<IActionResult> OnPostRestoreAsync(string edited)
     {
         var editedDate = edited.ToType<DateTime>();
 
-        var messageToRestore = this.GetRepository<MessageHistory>().GetSingle(
+        var messageToRestore = await this.GetRepository<MessageHistory>().GetSingleAsync(
             m => m.MessageID == this.PageBoardContext.PageMessage.ID && m.Edited == editedDate);
 
-        var messageUser = this.GetRepository<User>().GetById(this.PageBoardContext.PageMessage.UserID);
+        var messageUser = await this.GetRepository<User>().GetByIdAsync(this.PageBoardContext.PageMessage.UserID);
 
-        this.GetRepository<Message>().Update(
+        await this.GetRepository<Message>().UpdateAsync(
             null,
             messageToRestore.Message,
             null,

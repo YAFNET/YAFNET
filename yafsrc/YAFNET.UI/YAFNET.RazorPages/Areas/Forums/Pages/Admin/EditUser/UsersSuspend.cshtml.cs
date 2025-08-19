@@ -110,7 +110,7 @@ public class UsersSuspendModel : AdminPage
         this.EditUser = user;
 
         // un-suspend user
-        this.GetRepository<User>().Suspend(this.Input.UserId);
+        await this.GetRepository<User>().SuspendAsync(this.Input.UserId);
 
         if (this.PageBoardContext.BoardSettings.LogUserSuspendedUnsuspended)
         {
@@ -202,7 +202,7 @@ public class UsersSuspendModel : AdminPage
         };
 
         // suspend user by calling appropriate method
-        this.GetRepository<User>().Suspend(
+        await this.GetRepository<User>().SuspendAsync(
             this.Input.UserId,
             suspend,
             this.Input.SuspendedReason,

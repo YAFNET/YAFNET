@@ -96,12 +96,6 @@ public class HostSettingsInputModel
     public bool LogUserDeleted { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [log view state error].
-    /// </summary>
-    /// <value><c>true</c> if [log view state error]; otherwise, <c>false</c>.</value>
-    public bool LogViewStateError { get; set; }
-
-    /// <summary>
     /// Gets or sets a value indicating whether [log information].
     /// </summary>
     /// <value><c>true</c> if [log information]; otherwise, <c>false</c>.</value>

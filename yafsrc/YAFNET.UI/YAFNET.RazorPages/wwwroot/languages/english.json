@@ -4699,14 +4699,6 @@
             "#text": "Suspended and un-suspended events will be logged."
           },
           {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Log ViewState Exceptions:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "ViewState Exceptions (mainly caused by SPAM Bots) will be logged."
-          },
-          {
             "@tag": "LOG_WARNING",
             "#text": "Allow log Application Warnings:"
           },

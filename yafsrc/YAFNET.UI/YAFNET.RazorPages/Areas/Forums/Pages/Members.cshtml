@@ -196,8 +196,7 @@
                 }
                 else
                 {
-                    <alert Type="info" icon="exclamation-triangle" localized-tag="NO_ENTRY">
-                    </alert>
+	                @await Html.PartialAsync("_NoEntryInfo")
                 }
             </div>
         </div>

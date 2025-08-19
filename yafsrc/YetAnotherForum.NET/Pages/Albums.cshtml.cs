@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages;
 
 using System.Collections.Generic;
@@ -75,14 +77,14 @@ public class AlbumsModel : ForumPage
     /// <param name="u">
     /// The u.
     /// </param>
-    public IActionResult OnGet(int u)
+    public async Task<IActionResult> OnGetAsync(int u)
     {
         if (!this.PageBoardContext.BoardSettings.EnableAlbum)
         {
             return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
-        this.AlbumUser = this.GetRepository<User>().GetById(u);
+        this.AlbumUser = await this.GetRepository<User>().GetByIdAsync(u);
 
         if (this.AlbumUser is null)
         {
@@ -100,7 +102,7 @@ public class AlbumsModel : ForumPage
         this.PageBoardContext.PageLinks.AddLink(title);
         this.PageTitle = title;
 
-        return this.BindData(u);
+        return await this.BindDataAsync(u);
     }
 
     /// <summary>
@@ -109,7 +111,7 @@ public class AlbumsModel : ForumPage
     /// <param name="userId">
     /// The user Id.
     /// </param>
-    private IActionResult BindData(int userId)
+    private async Task<IActionResult> BindDataAsync(int userId)
     {
         // set the Data table
         var albums = this.GetRepository<UserAlbum>().ListByUserPaged(
@@ -131,9 +133,9 @@ public class AlbumsModel : ForumPage
             this.Albums = [];
         }
 
-        var userAlbum = (int)this.GetRepository<User>().MaxAlbumData(
+        var userAlbum = (int)(await this.GetRepository<User>().MaxAlbumDataAsync(
             this.PageBoardContext.PageUserID,
-            this.PageBoardContext.PageBoardID).UserAlbum;
+            this.PageBoardContext.PageBoardID)).UserAlbum;
 
         // Show Albums Max Info
         if (this.AlbumUser.ID != this.PageBoardContext.PageUserID)

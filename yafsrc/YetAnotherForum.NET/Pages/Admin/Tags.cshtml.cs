@@ -115,7 +115,7 @@ public class TagsModel : AdminPage
         var currentPageIndex = this.PageBoardContext.PageIndex;
 
         // list event for this board
-        this.List = this.GetRepository<Tag>().GetPaged(
+        this.List = await this.GetRepository<Tag>().GetPagedAsync(
             x => x.BoardID == this.PageBoardContext.PageBoardID,
             currentPageIndex,
             this.Size);

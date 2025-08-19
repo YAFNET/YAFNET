@@ -81,11 +81,6 @@ public static class TopicReadTrackingRepositoryExtensions
     {
         var success = repository.Delete(x => x.UserID == userId) == 1;
 
-        if (success)
-        {
-            repository.FireDeleted();
-        }
-
         return success;
     }
 

@@ -91,7 +91,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     void IHandleEvent<SuccessfulUserLoginEvent>.Handle(SuccessfulUserLoginEvent @event)
     {
@@ -105,7 +105,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     void IHandleEvent<UpdateUserEvent>.Handle(UpdateUserEvent @event)
     {
@@ -123,7 +123,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     void IHandleEvent<UserLogoutEvent>.Handle(UserLogoutEvent @event)
     {
@@ -136,7 +136,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(RepositoryEvent<User> @event)
     {
@@ -153,7 +153,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(RepositoryEvent<BannedIP> @event)
     {
@@ -164,7 +164,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(RepositoryEvent<BannedUserAgent> @event)
     {
@@ -175,7 +175,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(RepositoryEvent<ReplaceWords> @event)
     {
@@ -186,7 +186,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(RepositoryEvent<SpamWords> @event)
     {
@@ -197,7 +197,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(RepositoryEvent<AccessMask> @event)
     {
@@ -209,7 +209,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(RepositoryEvent<BBCode> @event)
     {
@@ -221,7 +221,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(RepositoryEvent<Group> @event)
     {
@@ -237,7 +237,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(RepositoryEvent<Rank> @event)
     {
@@ -250,7 +250,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(RepositoryEvent<UserForum> @event)
     {
@@ -263,7 +263,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(RepositoryEvent<Category> @event)
     {
@@ -282,7 +282,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(RepositoryEvent<Forum> @event)
     {
@@ -300,7 +300,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(RepositoryEvent<Message> @event)
     {
@@ -313,7 +313,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(RepositoryEvent<Topic> @event)
     {
@@ -325,7 +325,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(RepositoryEvent<UserGroup> @event)
     {

@@ -128,12 +128,12 @@ public class GroupsModel : AdminPage
     /// </summary>
     /// <param name="role">The role.</param>
     /// <returns>Microsoft.AspNetCore.Mvc.IActionResult.</returns>
-    public IActionResult OnPostAdd(string role)
+    public async Task<IActionResult> OnPostAddAsync(string role)
     {
         // save role and get its ID
         var groupFlags = new GroupFlags();
 
-        var groupId = this.GetRepository<Group>().Save(
+        var groupId = await this.GetRepository<Group>().SaveAsync(
             null,
             this.PageBoardContext.PageBoardID,
             role,

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System;
@@ -40,13 +42,11 @@ public static class WatchTopicRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="userId">The user identifier.</param>
     /// <param name="topicId">The topic identifier.</param>
-    public static void Add(this IRepository<WatchTopic> repository, int userId, int topicId)
+    public async static Task AddAsync(this IRepository<WatchTopic> repository, int userId, int topicId)
     {
         var watchTopic = new WatchTopic { TopicID = topicId, UserID = userId, Created = DateTime.UtcNow };
 
-        repository.Insert(watchTopic);
-
-        repository.FireNew(watchTopic);
+        await repository.InsertAsync(watchTopic);
     }
 
     /// <summary>
@@ -64,9 +64,9 @@ public static class WatchTopicRepositoryExtensions
     /// <returns>
     /// The <see cref="int"/>.
     /// </returns>
-    public static int? Check(this IRepository<WatchTopic> repository, int userId, int topicId)
+    public async static Task<int?> CheckAsync(this IRepository<WatchTopic> repository, int userId, int topicId)
     {
-        var topic = repository.GetSingle(w => w.UserID == userId && w.TopicID == topicId);
+        var topic = await repository.GetSingleAsync(w => w.UserID == userId && w.TopicID == topicId);
 
         return topic?.ID;
     }
@@ -86,7 +86,7 @@ public static class WatchTopicRepositoryExtensions
     /// <param name="pageSize">
     /// The page Size.
     /// </param>
-    public static List<WatchTopic> List(
+    public static Task<List<WatchTopic>> ListAsync(
         this IRepository<WatchTopic> repository,
         int userId,
         int pageIndex = 0,
@@ -97,6 +97,6 @@ public static class WatchTopicRepositoryExtensions
         expression.Where<WatchTopic>(b => b.UserID == userId)
             .OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);
 
-        return repository.DbAccess.Execute(db => db.Connection.LoadSelect(expression));
+        return repository.DbAccess.ExecuteAsync(db => db.LoadSelectAsync(expression));
     }
 }

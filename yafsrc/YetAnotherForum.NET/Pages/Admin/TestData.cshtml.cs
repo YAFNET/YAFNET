@@ -163,14 +163,14 @@ public class TestDataModel : AdminPage
 
         sb.Append(await this.CreateUsersAsync());
         sb.Append(await this.CreateBoardsAsync());
-        sb.Append(this.CreateCategories());
+        sb.Append(await this.CreateCategoriesAsync());
         sb.Append("; ");
 
-        sb.AppendFormat("{0} Forums, ", this.CreateForums());
+        sb.AppendFormat("{0} Forums, ", await this.CreateForumsAsync());
 
         sb.AppendFormat(
             "{0} Topics, ",
-            this.CreateTopics(
+            await this.CreateTopicsAsync(
                 this.Input.TopicsForum,
                 this.Input.TopicsNumber,
                 this.Input.TopicsMessagesNumber));
@@ -179,7 +179,7 @@ public class TestDataModel : AdminPage
 
         sb.AppendFormat(
             "{0} Messages, ",
-            this.CreatePosts(this.Input.PostsForum, topic, this.Input.PostsNumber));
+            await this.CreatePostsAsync(this.Input.PostsForum, topic, this.Input.PostsNumber));
 
         sb.AppendFormat("{0} Private Messages, ", await this.CreatePMessagesAsync());
 
@@ -193,7 +193,7 @@ public class TestDataModel : AdminPage
     /// <summary>
     /// The page load.
     /// </summary>
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
 #if RELEASE
         return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
@@ -208,7 +208,7 @@ public class TestDataModel : AdminPage
                                         TopicsPriorityList = 0
                                     };
 
-        this.BindData();
+        await this.BindDataAsync();
 
         return this.Page();
 #endif
@@ -217,12 +217,12 @@ public class TestDataModel : AdminPage
     /// <summary>
     /// Called when [post].
     /// </summary>
-    public void OnPost()
+    public Task OnPostAsync()
     {
-        this.BindData();
+        return this.BindDataAsync();
     }
 
-    private void BindData()
+    private async Task BindDataAsync()
     {
         this.Categories = new SelectList(
             this.GetRepository<Category>().List(),
@@ -231,12 +231,12 @@ public class TestDataModel : AdminPage
 
         // Access Mask Lists
         this.ForumsStartMasks = new SelectList(
-            this.GetRepository<AccessMask>().GetByBoardId(),
+            await this.GetRepository<AccessMask>().GetByBoardIdAsync(),
             nameof(AccessMask.ID),
             nameof(AccessMask.Name));
 
         // Board lists
-        this.BoardList = new SelectList(this.GetRepository<Board>().GetAll(), nameof(Board.ID), nameof(Board.Name));
+        this.BoardList = new SelectList(await this.GetRepository<Board>().GetAllAsync(), nameof(Board.ID), nameof(Board.Name));
 
         this.TopicPriorities = [
             new SelectListItem("Normal", "0"),
@@ -314,7 +314,7 @@ public class TestDataModel : AdminPage
         {
             var boardName = this.Input.BoardPrefixTB + Guid.NewGuid();
 
-            var newBoardId = this.GetRepository<Board>().Create(
+            var newBoardId = await this.GetRepository<Board>().CreateAsync(
                 boardName,
                 "",
                 this.PageBoardContext.BoardSettings.ForumEmail,
@@ -338,7 +338,7 @@ public class TestDataModel : AdminPage
     /// <returns>
     /// The create categories.
     /// </returns>
-    private string CreateCategories()
+    private async Task<string> CreateCategoriesAsync()
     {
         const string NoCategories = "0 categories";
 
@@ -361,7 +361,7 @@ public class TestDataModel : AdminPage
                 break;
         }
 
-        return this.CreateCategoriesBase(
+        return await this.CreateCategoriesBaseAsync(
             this.Input.CategoriesBoardsList,
             numForums,
             numTopics,
@@ -390,7 +390,7 @@ public class TestDataModel : AdminPage
     /// <returns>
     /// The create categories base.
     /// </returns>
-    private string CreateCategoriesBase(int boardId, int numForums, int numTopics, int numMessages, int numCategories)
+    private async Task<string> CreateCategoriesBaseAsync(int boardId, int numForums, int numTopics, int numMessages, int numCategories)
     {
         int i;
 
@@ -402,7 +402,7 @@ public class TestDataModel : AdminPage
 
             var newCategoryId = this.GetRepository<Category>().Save(null, catName, null, 100, categoryFlags, boardId);
 
-            this.CreateForums(boardId, newCategoryId, null, numForums, numTopics, numMessages);
+            await this.CreateForumsAsync(boardId, newCategoryId, null, numForums, numTopics, numMessages);
         }
 
         return $"{i} Categories, ";
@@ -414,7 +414,7 @@ public class TestDataModel : AdminPage
     /// <returns>
     /// The create forums.
     /// </returns>
-    private int CreateForums()
+    private async Task<int> CreateForumsAsync()
     {
         int? parentId = null;
 
@@ -448,7 +448,7 @@ public class TestDataModel : AdminPage
                 break;
         }
 
-        return this.CreateForums(
+        return await this.CreateForumsAsync(
             this.PageBoardContext.PageBoardID,
             categoryId,
             parentId,
@@ -480,7 +480,7 @@ public class TestDataModel : AdminPage
     /// <returns>
     /// The create forums.
     /// </returns>
-    private int CreateForums(
+    private async Task<int> CreateForumsAsync(
         int boardId,
         int categoryId,
         int? parentId,
@@ -516,7 +516,7 @@ public class TestDataModel : AdminPage
 
             var groups = this.GetRepository<Group>().List(null, boardId);
 
-            var mask = this.GetRepository<AccessMask>().GetSingle(
+            var mask = await this.GetRepository<AccessMask>().GetSingleAsync(
                 m => m.BoardID == boardId && m.ID == this.Input.ForumsStartMask);
 
             groups.ForEach(group => this.GetRepository<ForumAccess>().Create(newForumId, group.ID, mask.ID));
@@ -526,7 +526,7 @@ public class TestDataModel : AdminPage
                 continue;
             }
 
-            this.CreateTopics(newForumId, topicsToCreate, messagesToCreate);
+            await this.CreateTopicsAsync(newForumId, topicsToCreate, messagesToCreate);
         }
 
         return forums;
@@ -620,9 +620,9 @@ public class TestDataModel : AdminPage
     /// <returns>
     /// The number of created posts.
     /// </returns>
-    private int CreatePosts(int forumId, Topic topic, int numMessages)
+    private async Task<int> CreatePostsAsync(int forumId, Topic topic, int numMessages)
     {
-        var forum = this.GetRepository<Forum>().GetById(forumId);
+        var forum = await this.GetRepository<Forum>().GetByIdAsync(forumId);
 
         if (numMessages <= 0)
         {
@@ -647,7 +647,7 @@ public class TestDataModel : AdminPage
         {
             this.randomGuid = Guid.NewGuid().ToString();
 
-            this.GetRepository<Message>().SaveNew(
+            await this.GetRepository<Message>().SaveNewAsync(
                 forum,
                 topic,
                 this.PageBoardContext.PageUser,
@@ -677,9 +677,9 @@ public class TestDataModel : AdminPage
     /// <returns>
     /// Number of created topics.
     /// </returns>
-    private int CreateTopics(int forumId, int numTopics, int messagesToCreate)
+    private async Task<int> CreateTopicsAsync(int forumId, int numTopics, int messagesToCreate)
     {
-        var forum = this.GetRepository<Forum>().GetById(forumId);
+        var forum = await this.GetRepository<Forum>().GetByIdAsync(forumId);
 
         var priority = forumId <= 0 ? this.Input.TopicsPriorityList : 0;
 
@@ -701,7 +701,7 @@ public class TestDataModel : AdminPage
         {
             this.randomGuid = Guid.NewGuid().ToString();
 
-            var topic = this.GetRepository<Topic>().SaveNew(
+            var (topic, _) = await this.GetRepository<Topic>().SaveNewAsync(
                 forum,
                 topicName,
                 string.Empty,
@@ -714,8 +714,7 @@ public class TestDataModel : AdminPage
                 this.PageBoardContext.PageUser.DisplayName,
                 this.Request.GetUserRealIPAddress(),
                 DateTime.UtcNow,
-                this.GetMessageFlags(),
-                out _);
+                this.GetMessageFlags());
 
             if (this.Input.PollCreate)
             {
@@ -738,7 +737,7 @@ public class TestDataModel : AdminPage
 
             if (messagesToCreate > 0)
             {
-                this.CreatePosts(forumId, topic, messagesToCreate);
+                await this.CreatePostsAsync(forumId, topic, messagesToCreate);
             }
         }
 

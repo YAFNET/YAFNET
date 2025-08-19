@@ -4707,14 +4707,6 @@
             "#text": "Suspended and unsuspended events will be logged."
           },
           {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Enregistrer les exceptions de ViewState :"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "Les exceptions ViewState (principalement causées par les robots spammeurs) seront enregistrées."
-          },
-          {
             "@tag": "LOG_WARNING",
             "#text": "Autoriser l'enregistrement des avertissements d'application :"
           },

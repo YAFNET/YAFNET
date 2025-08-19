@@ -22,10 +22,12 @@
  * under the License.
  */
 
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace YAF.Pages;
 
 using System.Collections.Generic;
-using System.Linq;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
@@ -70,14 +72,14 @@ public class TeamModel : ForumPage
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ShowTeamTo))
         {
             return this.Get<ILinkBuilder>().AccessDenied();
         }
 
-        this.BindData();
+        await this.BindDataAsync();
 
         return this.Page();
     }
@@ -85,19 +87,19 @@ public class TeamModel : ForumPage
     /// <summary>
     /// Go to Selected Forum, if one is Selected
     /// </summary>
-    public IActionResult OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
         var item = this.CompleteMods.Find(x => x.SelectedForumId.IsSet());
 
         if (item != null && item.SelectedForumId != "intro" && item.SelectedForumId != "break")
         {
             var forumId = item.SelectedForumId.ToType<int>();
-            var forum = this.GetRepository<Forum>().GetById(forumId);
+            var forum = await this.GetRepository<Forum>().GetByIdAsync(forumId);
 
             return this.Get<ILinkBuilder>().Redirect(ForumPages.Topics, new { f = forumId, name = forum.Name });
         }
 
-        this.BindData();
+        await this.BindDataAsync();
 
         return this.Page();
     }
@@ -105,11 +107,11 @@ public class TeamModel : ForumPage
     /// <summary>
     /// The bind data.
     /// </summary>
-    private void BindData()
+    private async Task BindDataAsync()
     {
-        this.Admins = this.GetAdmins();
+        this.Admins = await this.GetAdminsAsync();
 
-        this.CompleteMods = this.GetModerators();
+        this.CompleteMods = await this.GetModeratorsAsync();
     }
 
     /// <summary>
@@ -118,12 +120,12 @@ public class TeamModel : ForumPage
     /// <returns>
     /// Moderators List
     /// </returns>
-    private List<User> GetAdmins()
+    private async Task<List<User>> GetAdminsAsync()
     {
         // get a row with user lazy data...
-        var adminList = this.Get<IDataCache>().GetOrSet(
+        var adminList = await this.Get<IDataCache>().GetOrSetAsync(
             Constants.Cache.BoardAdmins,
-            () => this.GetRepository<User>().ListAdmins(),
+            () => this.GetRepository<User>().ListAdminsAsync(),
             TimeSpan.FromMinutes(this.PageBoardContext.BoardSettings.BoardModeratorsCacheTimeout));
 
         return adminList;
@@ -135,9 +137,9 @@ public class TeamModel : ForumPage
     /// <returns>
     /// Moderators List
     /// </returns>
-    private List<SimpleModerator> GetModerators()
+    private async Task<List<SimpleModerator>> GetModeratorsAsync()
     {
-        var moderators = this.Get<DataBroker>().GetModerators();
+        var moderators = await this.Get<DataBroker>().GetModeratorsAsync();
 
         var modsSorted = new List<SimpleModerator>();
 

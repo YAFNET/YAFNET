@@ -131,7 +131,7 @@ public class EditBoardModel : AdminPage
             this.Get<IAspNetRolesHelper>().AddUserToRole(user, "Administrators");
 
             // Create Board
-            newBoardId = this.DbCreateBoard(boardName, boardDescription, langFile, user);
+            newBoardId = await this.DbCreateBoardAsync(boardName, boardDescription, langFile, user);
         }
         else
         {
@@ -139,7 +139,7 @@ public class EditBoardModel : AdminPage
             var newAdmin = this.PageBoardContext.MembershipUser;
 
             // Create Board
-            newBoardId = this.DbCreateBoard(boardName, boardDescription,langFile, newAdmin);
+            newBoardId = await this.DbCreateBoardAsync(boardName, boardDescription, langFile, newAdmin);
         }
 
         if (newBoardId <= 0 || !this.Get<BoardConfiguration>().MultiBoardFolders)
@@ -294,9 +294,9 @@ public class EditBoardModel : AdminPage
     /// <returns>
     /// Returns the New Board ID
     /// </returns>
-    private int DbCreateBoard(string boardName, string boardDescription, string langFile, AspNetUsers newAdmin)
+    private async Task<int> DbCreateBoardAsync(string boardName, string boardDescription, string langFile, AspNetUsers newAdmin)
     {
-        var newBoardId = this.GetRepository<Board>().Create(
+        var newBoardId = await this.GetRepository<Board>().CreateAsync(
             boardName,
             boardDescription,
             this.PageBoardContext.BoardSettings.ForumEmail,

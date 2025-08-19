@@ -122,8 +122,8 @@ public class RegisterUserModel : AdminPage
 
         await this.Get<ISendNotification>().SendVerificationEmailAsync(user, newEmail, userId.Value, newUsername);
 
-        this.GetRepository<User>().SaveNotification(
-            this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id).ID,
+        await this.GetRepository<User>().SaveNotificationAsync(
+            userId.Value,
             autoWatchTopicsEnabled,
             this.PageBoardContext.BoardSettings.DefaultNotificationSetting.ToInt(),
             this.PageBoardContext.BoardSettings.DefaultSendDigestEmail);

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Authorization;
 
 namespace YAF.Core.Controllers;
@@ -48,7 +50,7 @@ public class ReputationController : ForumBaseController
     /// </summary>
     [HttpGet]
     [Route("AddReputation/{m:int}")]
-    public IActionResult AddReputation(int m)
+    public async Task<IActionResult> AddReputation(int m)
     {
         try
         {
@@ -71,7 +73,7 @@ public class ReputationController : ForumBaseController
                 return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = source.Topic });
             }
 
-            this.GetRepository<User>().AddPoints(source.UserID, this.PageBoardContext.PageUserID, 1);
+            await this.GetRepository<User>().AddPointsAsync(source.UserID, this.PageBoardContext.PageUserID, 1);
 
             this.PageBoardContext.SessionNotify(
                 this.GetTextFormatted(
@@ -93,7 +95,7 @@ public class ReputationController : ForumBaseController
     /// </summary>
     [HttpGet]
     [Route("RemoveReputation/{m:int}")]
-    public IActionResult RemoveReputation(int m)
+    public async Task<IActionResult> RemoveReputation(int m)
     {
         try
         {
@@ -116,7 +118,7 @@ public class ReputationController : ForumBaseController
                 return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = source.Topic });
             }
 
-            this.GetRepository<User>().RemovePoints(source.UserID, BoardContext.Current.PageUserID, 1);
+            await this.GetRepository<User>().RemovePointsAsync(source.UserID, BoardContext.Current.PageUserID, 1);
 
             this.PageBoardContext.SessionNotify(
                 this.GetTextFormatted(

@@ -59,7 +59,7 @@ public class PostsModalController : ForumBaseController
     [ValidateAntiForgeryToken]
     [HttpPost("MoveTopic")]
     [Authorization(AuthorizationAccess.ModeratorAccess)]
-    public IActionResult MoveTopic([FromBody] MoveTopicModal model)
+    public async Task<IActionResult> MoveTopic([FromBody] MoveTopicModal model)
     {
         if (model.ForumListSelected == this.PageBoardContext.PageForum.ID)
         {
@@ -69,7 +69,7 @@ public class PostsModalController : ForumBaseController
         }
 
         // Ederon : 7/14/2007
-        this.GetRepository<Topic>().Move(
+        await this.GetRepository<Topic>().MoveAsync(
             this.PageBoardContext.PageTopic,
             this.PageBoardContext.PageForum.ID,
             model.ForumListSelected,
@@ -91,7 +91,7 @@ public class PostsModalController : ForumBaseController
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("Reply")]
-    public async Task<IActionResult> ReplyAsync([FromBody] QuickReplyModal model)
+    public async Task<IActionResult> Reply([FromBody] QuickReplyModal model)
     {
         try
         {
@@ -175,7 +175,7 @@ public class PostsModalController : ForumBaseController
                                 this.PageBoardContext.PageUserID,
                                 $"{description}, user was deleted and banned");
 
-                            this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                            await this.Get<IAspNetUsersHelper>().DeleteAndBanUserAsync(
                                 this.PageBoardContext.PageUser,
                                 this.PageBoardContext.MembershipUser,
                                 this.PageBoardContext.PageUser.IP);
@@ -185,7 +185,7 @@ public class PostsModalController : ForumBaseController
 
                 if (!this.PageBoardContext.IsGuest)
                 {
-                    this.UpdateWatchTopic(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID, model.TopicWatch);
+                    await this.UpdateWatchTopicAsync(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID, model.TopicWatch);
                 }
             }
 
@@ -209,7 +209,7 @@ public class PostsModalController : ForumBaseController
             };
 
             // Bypass Approval if Admin or Moderator.
-            var newMessage = this.GetRepository<Message>().SaveNew(
+            var newMessage = await this.GetRepository<Message>().SaveNewAsync(
                 this.PageBoardContext.PageForum,
                 this.PageBoardContext.PageTopic,
                 this.PageBoardContext.PageUser,
@@ -225,14 +225,14 @@ public class PostsModalController : ForumBaseController
             // Check to see if the user has enabled "auto watch topic" option in his/her profile.
             if (this.PageBoardContext.PageUser.AutoWatchTopics)
             {
-                var watchTopicId = this.GetRepository<WatchTopic>().Check(
+                var watchTopicId = await this.GetRepository<WatchTopic>().CheckAsync(
                     this.PageBoardContext.PageUserID,
                     this.PageBoardContext.PageTopicID);
 
                 if (!watchTopicId.HasValue)
                 {
                     // subscribe to this topic
-                    this.GetRepository<WatchTopic>().Add(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
+                    await this.GetRepository<WatchTopic>().AddAsync(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
                 }
             }
 
@@ -324,19 +324,19 @@ public class PostsModalController : ForumBaseController
     /// The topic Id.
     /// </param>
     /// <param name="topicWatch"></param>
-    private void UpdateWatchTopic(int userId, int topicId, bool topicWatch)
+    private async Task UpdateWatchTopicAsync(int userId, int topicId, bool topicWatch)
     {
-        var topicWatchedId = this.GetRepository<WatchTopic>().Check(userId, topicId);
+        var topicWatchedId = await this.GetRepository<WatchTopic>().CheckAsync(userId, topicId);
 
         if (topicWatchedId.HasValue && !topicWatch)
         {
             // unsubscribe...
-            this.GetRepository<WatchTopic>().DeleteById(topicWatchedId.Value);
+            await this.GetRepository<WatchTopic>().DeleteByIdAsync(topicWatchedId.Value);
         }
         else if (!topicWatchedId.HasValue && topicWatch)
         {
             // subscribe to this topic...
-            this.GetRepository<WatchTopic>().Add(userId, topicId);
+            await this.GetRepository<WatchTopic>().AddAsync(userId, topicId);
         }
     }
 }

@@ -4707,14 +4707,6 @@
             "#text": "Suspended and unsuspended events will be logged."
           },
           {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Registruoti \"ViewState\" išimtis:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "Bus registruojamos \"ViewState\" išimtys (daugiausia dėl SPAM botų)."
-          },
-          {
             "@tag": "LOG_WARNING",
             "#text": "Leisti prisijungti prie žurnalo Įspėjimai apie taikomąsias programas:"
           },

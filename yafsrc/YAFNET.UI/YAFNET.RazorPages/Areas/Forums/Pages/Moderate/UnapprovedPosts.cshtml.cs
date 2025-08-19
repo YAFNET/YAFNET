@@ -70,10 +70,10 @@ public class UnapprovedPostsModel : ModerateForumPage
     /// <param name="f">
     /// The forum Id.
     /// </param>
-    public IActionResult OnGet(int f)
+    public Task<IActionResult> OnGetAsync(int f)
     {
         // bind data
-        return this.BindData(f);
+        return this.BindDataAsync(f);
     }
 
     /// <summary>
@@ -85,11 +85,11 @@ public class UnapprovedPostsModel : ModerateForumPage
     /// <param name="topicId">
     /// The topic id.
     /// </param>
-    public IActionResult OnPostDelete(int messageId, int topicId)
+    public async Task<IActionResult> OnPostDeleteAsync(int messageId, int topicId)
     {
-        var message = this.GetRepository<Message>().GetById(messageId);
+        var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
 
-        this.GetRepository<Message>().Delete(
+        await this.GetRepository<Message>().DeleteAsync(
             this.PageBoardContext.PageForumID,
             topicId,
             message,
@@ -102,7 +102,7 @@ public class UnapprovedPostsModel : ModerateForumPage
         this.PageBoardContext.SessionNotify(this.GetText("DELETED"), MessageTypes.info);
 
         // bind data
-        return this.BindData(this.PageBoardContext.PageForumID);
+        return await this.BindDataAsync(this.PageBoardContext.PageForumID);
     }
 
     /// <summary>
@@ -113,12 +113,9 @@ public class UnapprovedPostsModel : ModerateForumPage
     /// </param>
     public async Task<IActionResult> OnPostApproveAsync(int messageId)
     {
-        this.GetRepository<Message>().Approve(
+        await this.GetRepository<Message>().ApproveAsync(
             messageId,
             this.PageBoardContext.PageForumID);
-
-        // re-bind data
-        this.BindData(this.PageBoardContext.PageForumID);
 
         // tell user message was approved
         this.PageBoardContext.SessionNotify(this.GetText("APPROVED"), MessageTypes.success);
@@ -127,7 +124,7 @@ public class UnapprovedPostsModel : ModerateForumPage
         await this.Get<ISendNotification>().ToWatchingUsersAsync(messageId);
 
         // bind data
-        return this.BindData(this.PageBoardContext.PageForumID);
+        return await this.BindDataAsync(this.PageBoardContext.PageForumID);
     }
 
     /// <summary>
@@ -139,7 +136,7 @@ public class UnapprovedPostsModel : ModerateForumPage
     /// <returns>
     /// Formatted string with escaped HTML markup and formatted.
     /// </returns>
-    public string FormatMessage(Tuple<Topic, Message, User> item)
+    public async Task<string> FormatMessageAsync(Tuple<Topic, Message, User> item)
     {
         if (item.Item2.MessageFlags.NotFormatted)
         {
@@ -148,9 +145,10 @@ public class UnapprovedPostsModel : ModerateForumPage
         }
 
         // fully format message
-        return this.Get<IFormatMessage>().Format(
-            item.Item2.ID,
+        return await this.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(
             item.Item2.MessageText,
+            item.Item2.ID,
+            item.Item2.UserID,
             item.Item2.IsModeratorChanged.Value);
     }
 
@@ -160,10 +158,10 @@ public class UnapprovedPostsModel : ModerateForumPage
     /// <param name="f">
     /// The forum Id.
     /// </param>
-    private IActionResult BindData(int f)
+    private async Task<IActionResult> BindDataAsync(int f)
     {
         // get reported posts for this forum
-        var messages = this.GetRepository<Message>().Unapproved(f);
+        var messages = await this.GetRepository<Message>().UnapprovedAsync(f);
 
         if (messages.NullOrEmpty())
         {

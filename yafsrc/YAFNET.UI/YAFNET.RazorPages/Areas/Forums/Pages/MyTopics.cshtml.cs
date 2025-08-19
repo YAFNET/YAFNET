@@ -49,7 +49,7 @@ public class MyTopicsModel : ForumPageRegistered
     /// <summary>
     ///   default since date is now
     /// </summary>
-    private DateTime sinceDate = DateTime.UtcNow;
+    private DateTime sinceDate;
 
     /// <summary>
     /// Gets or sets the topic list.

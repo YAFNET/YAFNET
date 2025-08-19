@@ -159,8 +159,6 @@ public static class MedalRepositoryExtensions
                               Flags = flags
                           },
                 medal => medal.ID == medalId.Value);
-
-            repository.FireUpdated(medalId);
         }
         else
         {
@@ -175,8 +173,6 @@ public static class MedalRepositoryExtensions
                         MedalURL = medalUrl,
                         Flags = flags
                     });
-
-            repository.FireNew(newId);
         }
     }
 }

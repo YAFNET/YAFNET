@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages;
 
 using System.Collections.Generic;
@@ -91,7 +93,7 @@ public class TopicsModel : ForumPage
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         this.ShowTopicListSelected = this.ShowTopicListSelected == -1
                                          ? this.PageBoardContext.BoardSettings.ShowTopicsDefault
@@ -117,7 +119,7 @@ public class TopicsModel : ForumPage
             return this.Redirect(this.PageBoardContext.PageForum.RemoteURL);
         }
 
-        this.BindData();
+        await this.BindDataAsync();
 
         return this.Page();
     }
@@ -128,27 +130,27 @@ public class TopicsModel : ForumPage
     /// <param name="target">
     /// The target.
     /// </param>
-    public void OnPostToggleCollapse(string target)
+    public Task OnPostToggleCollapseAsync(string target)
     {
         this.Get<ISessionService>().PanelState.TogglePanelState(target, this.PageBoardContext.BoardSettings.DefaultCollapsiblePanelState);
 
-        this.BindData();
+        return this.BindDataAsync();
     }
 
     /// <summary>
     /// Change Topics Count
     /// </summary>
-    public void OnPostPageSize()
+    public Task OnPostPageSizeAsync()
     {
-        this.BindData();
+        return this.BindDataAsync();
     }
 
     /// <summary>
     /// Change Topics listed by x Date
     /// </summary>
-    public void OnPostShowList()
+    public Task OnPostShowListAsync()
     {
-        this.BindData();
+        return this.BindDataAsync();
     }
 
     /// <summary>
@@ -157,7 +159,7 @@ public class TopicsModel : ForumPage
     /// <param name="forumSearch">
     /// The forum search.
     /// </param>
-    public IActionResult OnPostForumSearch(string forumSearch)
+    public async Task<IActionResult> OnPostForumSearchAsync(string forumSearch)
     {
         if (forumSearch.IsSet())
         {
@@ -166,14 +168,15 @@ public class TopicsModel : ForumPage
                 new { search = forumSearch, forum = this.PageBoardContext.PageForumID });
         }
 
-        this.BindData();
+        await this.BindDataAsync();
+
         return this.Page();
     }
 
     /// <summary>
     /// Add / Remove Watch Forum
     /// </summary>
-    public void OnPostWatchForum()
+    public async Task OnPostWatchForumAsync()
     {
         if (!this.PageBoardContext.ForumReadAccess)
         {
@@ -186,11 +189,11 @@ public class TopicsModel : ForumPage
             return;
         }
 
-        var watchForumId = this.GetRepository<WatchForum>().Check(this.PageBoardContext.PageUserID, this.PageBoardContext.PageForumID);
+        var watchForumId = await this.GetRepository<WatchForum>().CheckAsync(this.PageBoardContext.PageUserID, this.PageBoardContext.PageForumID);
 
         if (watchForumId.HasValue)
         {
-            this.GetRepository<WatchForum>().Delete(
+            await this.GetRepository<WatchForum>().DeleteAsync(
                 w => w.ForumID == this.PageBoardContext.PageForumID
                      && w.UserID == this.PageBoardContext.PageUserID);
 
@@ -198,28 +201,28 @@ public class TopicsModel : ForumPage
         }
         else
         {
-            this.GetRepository<WatchForum>().Add(this.PageBoardContext.PageUserID, this.PageBoardContext.PageForumID);
+            await this.GetRepository<WatchForum>().AddAsync(this.PageBoardContext.PageUserID, this.PageBoardContext.PageForumID);
 
             this.PageBoardContext.Notify(this.GetText("INFO_WATCH_FORUM"), MessageTypes.success);
         }
 
-        this.BindData();
+        await this.BindDataAsync();
     }
 
     /// <summary>
     /// Mark Forum as Read
     /// </summary>
-    public void OnPostMarkRead()
+    public Task OnPostMarkReadAsync()
     {
         this.Get<IReadTrackCurrentUser>().SetForumRead(this.PageBoardContext.PageForumID);
 
-        this.BindData();
+        return this.BindDataAsync();
     }
 
     /// <summary>
     /// The bind data.
     /// </summary>
-    private void BindData()
+    private async Task BindDataAsync()
     {
         this.ShowList = new SelectList(
             StaticDataHelper.TopicTimes(),
@@ -228,7 +231,7 @@ public class TopicsModel : ForumPage
 
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 
-        var forums = this.Get<DataBroker>().BoardLayout(
+        var forums = await this.Get<DataBroker>().BoardLayoutAsync(
             this.PageBoardContext.PageBoardID,
             this.PageBoardContext.PageUserID,
             0,

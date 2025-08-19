@@ -4699,14 +4699,6 @@
             "#text": "Eventos de suspensión o reaprobación serán registrados."
           },
           {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Registrar las excepciones de ViewState:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "Se registrarán las excepciones de ViewState (causadas principalmente por bots de SPAM)."
-          },
-          {
             "@tag": "LOG_WARNING",
             "#text": "Permitir registrar advertencias de aplicación:"
           },

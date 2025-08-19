@@ -180,6 +180,11 @@ public static class Constants
         public const string GeoIpData = "GeoIPData";
 
         /// <summary>
+        /// The geo ip data cache check key
+        /// </summary>
+        public const string GeoIpDataCheck = "GeoIPDataCheck";
+
+        /// <summary>
         /// The registered users by month data-cache key
         /// </summary>
         public const string RegisteredUsersByMonth = "RegisteredUsersByMonth";
@@ -193,6 +198,11 @@ public static class Constants
         /// The admin stats
         /// </summary>
         public const string AdminStats = "AdminStats";
+
+        /// <summary>
+        /// The custom bb code regex dictionary
+        /// </summary>
+        public const string CustomBBCodeRegExDictionary = "CustomBBCodeRegExDictionary";
     }
 
     /// <summary>

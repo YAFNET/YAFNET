@@ -59,7 +59,7 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     public virtual IQueryable<AspNetRoles> Roles => this.GetRepository<AspNetRoles>().GetAll().AsQueryable();
 
     /// <summary>
-    /// The create async.
+    /// Adds a new role.
     /// </summary>
     /// <param name="role">
     /// The role.
@@ -80,7 +80,7 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     }
 
     /// <summary>
-    /// The update async.
+    /// Update the existing role.
     /// </summary>
     /// <param name="role">
     /// The role.
@@ -211,10 +211,20 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     }
 
     /// <summary>
-    /// The dispose.
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     /// </summary>
     public virtual void Dispose()
     {
-        // No resource to dispose for now!
+        this.Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    /// Releases unmanaged and - optionally - managed resources.
+    /// </summary>
+    /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+    protected virtual void Dispose(bool disposing)
+    {
+        // ...
     }
 }

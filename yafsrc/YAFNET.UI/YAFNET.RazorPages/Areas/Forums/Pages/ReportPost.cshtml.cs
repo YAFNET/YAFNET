@@ -43,6 +43,10 @@ public class ReportPostModel : ForumPage
     [BindProperty]
     public User MessageAuthor { get; set; }
 
+    /// <summary>
+    /// Gets or sets the report.
+    /// </summary>
+    /// <value>The report.</value>
     [BindProperty]
     public string Report { get; set; }
 
@@ -67,7 +71,7 @@ public class ReportPostModel : ForumPage
         }
 
         // Save the reported message
-        this.GetRepository<MessageReported>().Report(
+        await this.GetRepository<MessageReported>().ReportAsync(
             this.PageBoardContext.PageMessage,
             this.PageBoardContext.PageUserID,
             DateTime.UtcNow,

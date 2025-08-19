@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages;
 
 using System.Collections.Generic;
@@ -195,11 +197,11 @@ public class PostsModel : ForumPage
     /// <summary>
     /// Watch Topic
     /// </summary>
-    public IActionResult OnPostTrackTopic()
+    public async Task<IActionResult> OnPostTrackTopicAsync()
     {
-        this.GetRepository<WatchTopic>().Add(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
+        await this.GetRepository<WatchTopic>().AddAsync(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
 
-        this.HandleWatchTopic();
+        await this.HandleWatchTopicAsync();
 
         this.PageBoardContext.SessionNotify(this.GetText("INFO_WATCH_TOPIC"), MessageTypes.warning);
 
@@ -328,14 +330,14 @@ public class PostsModel : ForumPage
     /// <summary>
     /// The delete topic.
     /// </summary>
-    public IActionResult OnPostDeleteTopic()
+    public async Task<IActionResult> OnPostDeleteTopicAsync()
     {
         if (!this.PageBoardContext.ForumModeratorAccess)
         {
             return this.Get<ILinkBuilder>().AccessDenied();
         }
 
-        this.GetRepository<Topic>().Delete(this.PageBoardContext.PageForumID, this.PageBoardContext.PageTopicID, true);
+        await this.GetRepository<Topic>().DeleteAsync(this.PageBoardContext.PageForumID, this.PageBoardContext.PageTopicID, true);
 
         return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Topics,
@@ -510,14 +512,14 @@ public class PostsModel : ForumPage
     /// <returns>
     /// Returns The handle watch topic.
     /// </returns>
-    public bool HandleWatchTopic()
+    public async Task<bool> HandleWatchTopicAsync()
     {
         if (this.PageBoardContext.IsGuest)
         {
             return false;
         }
 
-        var watchTopicId = this.GetRepository<WatchTopic>().Check(
+        var watchTopicId = await this.GetRepository<WatchTopic>().CheckAsync(
             this.PageBoardContext.PageUserID,
             this.PageBoardContext.PageTopicID);
 

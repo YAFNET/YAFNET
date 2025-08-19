@@ -63,7 +63,7 @@ public class UpdateForumStats : IHaveServiceLocator, IHandleEvent<UpdateForumSta
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(UpdateForumStatsEvent @event)
     {

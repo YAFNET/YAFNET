@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Profile;
 
 using Microsoft.Extensions.Logging;
@@ -80,7 +82,7 @@ public class EditSignatureModel : ProfilePage
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         if (!this.PageBoardContext.BoardSettings.AllowSignatures &&
             !(this.PageBoardContext.IsAdmin || this.PageBoardContext.IsForumModerator))
@@ -88,7 +90,7 @@ public class EditSignatureModel : ProfilePage
             return this.Get<ILinkBuilder>().AccessDenied();
         }
 
-        this.BindData(true);
+        await this.BindDataAsync(true);
 
         return this.Page();
     }
@@ -96,19 +98,19 @@ public class EditSignatureModel : ProfilePage
     /// <summary>
     /// Preview Signature
     /// </summary>
-    public void OnPostPreview()
+    public Task OnPostPreviewAsync()
     {
-        this.ValidateSignature();
+        return this.ValidateSignatureAsync();
     }
 
     /// <summary>
     /// Save the Signature.
     /// </summary>
-    public IActionResult OnPostSave()
+    public async Task<IActionResult> OnPostSaveAsync()
     {
         if (this.Signature.Length > 0)
         {
-            this.ValidateSignature();
+            await this.ValidateSignatureAsync();
 
             if (this.Signature.Length <= this.AllowedNumberOfCharacters)
             {
@@ -142,7 +144,7 @@ public class EditSignatureModel : ProfilePage
                                                                                       after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.
                                      """);
 
-                                this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                                await this.Get<IAspNetUsersHelper>().DeleteAndBanUserAsync(
                                     this.PageBoardContext.PageUser,
                                     this.PageBoardContext.MembershipUser,
                                     this.PageBoardContext.PageUser.IP);
@@ -153,7 +155,7 @@ public class EditSignatureModel : ProfilePage
                     }
                 }
 
-                this.GetRepository<User>().SaveSignature(
+                await this.GetRepository<User>().SaveSignatureAsync(
                     this.PageBoardContext.PageUserID,
                     this.Signature);
             }
@@ -166,7 +168,7 @@ public class EditSignatureModel : ProfilePage
         }
         else
         {
-            this.GetRepository<User>().SaveSignature(this.PageBoardContext.PageUserID, null);
+            await this.GetRepository<User>().SaveSignatureAsync(this.PageBoardContext.PageUserID, null);
         }
 
         // clear the cache for this user...
@@ -181,14 +183,14 @@ public class EditSignatureModel : ProfilePage
     /// <param name="loadSignature">
     /// The load Signature.
     /// </param>
-    private void BindData(bool loadSignature)
+    private async Task BindDataAsync(bool loadSignature)
     {
         if (loadSignature)
         {
             this.Signature = this.PageBoardContext.PageUser.Signature;
         }
 
-        var data = this.GetRepository<User>().SignatureData(
+        var data = await this.GetRepository<User>().SignatureDataAsync(
             this.PageBoardContext.PageUserID,
             this.PageBoardContext.PageBoardID);
 
@@ -205,9 +207,9 @@ public class EditSignatureModel : ProfilePage
     /// <summary>
     /// The validate signature.
     /// </summary>
-    private void ValidateSignature()
+    private async Task ValidateSignatureAsync()
     {
-        this.BindData(false);
+        await this.BindDataAsync(false);
 
         var body = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Signature ?? string.Empty));
 

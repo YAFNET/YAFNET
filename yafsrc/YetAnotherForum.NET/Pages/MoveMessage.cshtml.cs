@@ -23,6 +23,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages;
 
 using YAF.Core.Extensions;
@@ -64,22 +66,22 @@ public class MoveMessageModel : ForumPageRegistered
     /// <summary>
     /// Handles the Click event of the CreateAndMove control.
     /// </summary>
-    public IActionResult OnPostCreateAndMove()
+    public async Task<IActionResult> OnPostCreateAndMoveAsync()
     {
         if (this.Input.TopicSubject.IsNotSet())
         {
             return this.PageBoardContext.Notify(this.GetText("Empty_Topic"), MessageTypes.warning);
         }
 
-        var topicId = this.GetRepository<Topic>().CreateByMessage(
+        var topicId = await this.GetRepository<Topic>().CreateByMessageAsync(
             this.PageBoardContext.PageMessage.ID,
             this.Input.ForumListSelected,
             this.Input.TopicSubject);
 
-        this.GetRepository<Message>().Move(
+        await this.GetRepository<Message>().MoveAsync(
             this.PageBoardContext.PageTopic,
             this.PageBoardContext.PageMessage,
-            topicId.ToType<int>(),
+            topicId,
             true);
 
         return this.Get<ILinkBuilder>().Redirect(
@@ -90,7 +92,7 @@ public class MoveMessageModel : ForumPageRegistered
     /// <summary>
     /// Handles the Click event of the Move control.
     /// </summary>
-    public IActionResult OnPostMove()
+    public async Task<IActionResult> OnPostMoveAsync()
     {
         var moveTopicId = this.Input.TopicListSelected;
 
@@ -99,13 +101,13 @@ public class MoveMessageModel : ForumPageRegistered
             return this.PageBoardContext.Notify(this.GetText("MOVE_TITLE"), MessageTypes.warning);
         }
 
-        this.GetRepository<Message>().Move(
+        await this.GetRepository<Message>().MoveAsync(
             this.PageBoardContext.PageTopic,
             this.PageBoardContext.PageMessage,
             moveTopicId,
             true);
 
-        var topic = this.GetRepository<Topic>().GetById(moveTopicId);
+        var topic = await this.GetRepository<Topic>().GetByIdAsync(moveTopicId);
 
         return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Post,

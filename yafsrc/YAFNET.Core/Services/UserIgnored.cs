@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Services;
 
 using System.Collections.Generic;
@@ -64,11 +66,11 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
     /// The add ignored.
     /// </summary>
     /// <param name="ignoredUserId">
-    /// The ignored user id.
+    ///     The ignored user id.
     /// </param>
-    public void AddIgnored(int ignoredUserId)
+    public async Task AddIgnoredAsync(int ignoredUserId)
     {
-        this.GetRepository<IgnoreUser>().AddIgnoredUser(BoardContext.Current.PageUserID, ignoredUserId);
+        await this.GetRepository<IgnoreUser>().AddIgnoredUserAsync(BoardContext.Current.PageUserID, ignoredUserId);
         this.ClearIgnoreCache();
     }
 
@@ -85,14 +87,14 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
     /// The is ignored.
     /// </summary>
     /// <param name="ignoredUserId">
-    /// The ignored user id.
+    ///     The ignored user id.
     /// </param>
     /// <returns>
     /// The is ignored.
     /// </returns>
-    public bool IsIgnored(int ignoredUserId)
+    public async Task<bool> IsIgnoredAsync(int ignoredUserId)
     {
-        this._userIgnoreList ??= this.UserIgnoredList(BoardContext.Current.PageUserID);
+        this._userIgnoreList ??= await this.UserIgnoredListAsync(BoardContext.Current.PageUserID);
 
         return this._userIgnoreList.Count > 0 && this._userIgnoreList.Contains(ignoredUserId);
     }
@@ -101,20 +103,20 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
     /// The remove ignored.
     /// </summary>
     /// <param name="ignoredUserId">
-    /// The ignored user id.
+    ///     The ignored user id.
     /// </param>
-    public void RemoveIgnored(int ignoredUserId)
+    public async Task RemoveIgnoredAsync(int ignoredUserId)
     {
-        this.GetRepository<IgnoreUser>().Delete(BoardContext.Current.PageUserID, ignoredUserId);
+        await this.GetRepository<IgnoreUser>().DeleteAsync(BoardContext.Current.PageUserID, ignoredUserId);
         this.ClearIgnoreCache();
     }
 
     /// <summary>
-    ///     The user ignored list.
+    ///  Gets the list of ignored user for the specified user.
     /// </summary>
     /// <param name="userId"> The user id. </param>
     /// <returns> Returns the user ignored list. </returns>
-    private List<int> UserIgnoredList(int userId)
+    public async Task<List<int>> UserIgnoredListAsync(int userId)
     {
         var key = string.Format(Constants.Cache.UserIgnoreList, userId);
 
@@ -133,7 +135,9 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
         }
 
         // get fresh values
-        this.GetRepository<IgnoreUser>().Get(i => i.UserID == userId)
+        var users = await this.GetRepository<IgnoreUser>().GetAsync(i => i.UserID == userId);
+
+        users
             .ForEach(user => userList.Add(user.IgnoredUserID));
 
         // store it in the user session...

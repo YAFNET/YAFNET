@@ -57,7 +57,7 @@ public class StartStopWatch : IHandleEvent<ForumPageInitEvent>
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(ForumPageInitEvent @event)
     {

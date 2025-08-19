@@ -201,6 +201,35 @@ public static class IDbAccessExtensions
                 updateFields,
                 OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
                 commandFilter));
+    }/// <summary>
+    /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
+    /// Numeric fields generates an increment sql which is useful to increment counters, etc...
+    /// avoiding concurrency conflicts
+    ///
+    ///   db.UpdateAdd(() => new Person { Age = 5 }, where: p => p.LastName == "Hendrix");
+    ///   UPDATE "Person" SET "Age" = "Age" + 5 WHERE ("LastName" = 'Hendrix')
+    ///
+    ///   db.UpdateAdd(() => new Person { Age = 5 });
+    ///   UPDATE "Person" SET "Age" = "Age" + 5
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="dbAccess">The database access.</param>
+    /// <param name="updateFields">The update fields.</param>
+    /// <param name="where">The where.</param>
+    /// <param name="commandFilter">The command filter.</param>
+    /// <returns></returns>
+    public static Task<int> UpdateAddAsync<T>(
+        this IDbAccess dbAccess,
+        Expression<Func<T>> updateFields,
+        Expression<Func<T, bool>> where = null,
+        Action<IDbCommand> commandFilter = null)
+        where T : class, IEntity, IHaveID, new()
+    {
+        return dbAccess.ExecuteAsync(
+            db => db.UpdateAddAsync(
+                updateFields,
+                OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
+                commandFilter));
     }
 
     /// <summary>
@@ -267,6 +296,17 @@ public static class IDbAccessExtensions
     {
         return dbAccess.Execute(
             db => db.Connection.TableExists<T>());
+    }
+
+    /// <summary>
+    /// Checks whether a Table Exists. E.g:
+    /// <para>db.TableExists&lt;Person&gt;()</para>
+    /// </summary>
+    public static Task<bool> TableExistsAsync<T>(this IDbAccess dbAccess)
+        where T : class, IEntity, new()
+    {
+        return dbAccess.ExecuteAsync(
+            db => db.TableExistsAsync<T>());
     }
 
     /// <summary>

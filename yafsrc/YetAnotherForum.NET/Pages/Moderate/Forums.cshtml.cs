@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Moderate;
 
 using System.Collections.Generic;
@@ -43,9 +45,17 @@ using YAF.Types.Objects.Model;
 /// </summary>
 public class ForumsModel : ModerateForumPage
 {
+    /// <summary>
+    /// Gets or sets the user list.
+    /// </summary>
+    /// <value>The user list.</value>
     [BindProperty]
     public List<Tuple<User, UserForum, AccessMask>> UserList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the topic list.
+    /// </summary>
+    /// <value>The topic list.</value>
     [BindProperty]
     public List<PagedTopic> TopicList { get; set; }
 
@@ -92,6 +102,11 @@ public class ForumsModel : ModerateForumPage
         this.BindData();
     }
 
+    /// <summary>
+    /// Called when [get add user].
+    /// </summary>
+    /// <param name="f">The f.</param>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetAddUser(int f)
     {
         return new PartialViewResult
@@ -106,6 +121,12 @@ public class ForumsModel : ModerateForumPage
                };
     }
 
+    /// <summary>
+    /// Called when [get edit user].
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <param name="f">The f.</param>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetEditUser(int userId, int f)
     {
         // Edit
@@ -126,11 +147,20 @@ public class ForumsModel : ModerateForumPage
                };
     }
 
+    /// <summary>
+    /// Called when [post].
+    /// </summary>
+    /// <param name="f">The f.</param>
     public void OnPost(int f)
     {
         this.BindData();
     }
 
+    /// <summary>
+    /// Called when [post remove user].
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <param name="f">The f.</param>
     public void OnPostRemoveUser(int id, int f)
     {
         this.GetRepository<UserForum>().Delete(id, this.PageBoardContext.PageForumID);
@@ -138,7 +168,12 @@ public class ForumsModel : ModerateForumPage
         this.BindData();
     }
 
-    public IActionResult OnPostMove(int f)
+    /// <summary>
+    /// Called when [post move].
+    /// </summary>
+    /// <param name="f">The f.</param>
+    /// <returns>IActionResult.</returns>
+    public async Task<IActionResult> OnPostMoveAsync(int f)
     {
         int? linkDays = 0;
         if (this.Input.LeavePointer)
@@ -167,13 +202,15 @@ public class ForumsModel : ModerateForumPage
                 return this.PageBoardContext.Notify(this.GetText("MODERATE", "NOTHING"), MessageTypes.warning);
             }
 
-            list.ForEach(
-                x => this.GetRepository<Topic>().Move(
+            foreach (var x in list)
+            {
+                await this.GetRepository<Topic>().MoveAsync(
                     x.TopicID,
                     this.PageBoardContext.PageForumID,
                     this.Input.ForumListSelected,
                     this.Input.LeavePointer,
-                    linkDays.Value));
+                    linkDays.Value);
+            }
 
             this.BindData();
 
@@ -188,7 +225,7 @@ public class ForumsModel : ModerateForumPage
     /// <summary>
     /// Deletes all the Selected Topics
     /// </summary>
-    public IActionResult OnPostDeleteTopics()
+    public async Task<IActionResult> OnPostDeleteTopicsAsync()
     {
         var list = this.TopicList.Where(x => x.Selected).ToList();
 
@@ -197,7 +234,10 @@ public class ForumsModel : ModerateForumPage
             return this.PageBoardContext.Notify(this.GetText("MODERATE", "NOTHING"), MessageTypes.warning);
         }
 
-        list.ForEach(x => this.GetRepository<Topic>().Delete(this.PageBoardContext.PageForumID, x.TopicID));
+        foreach (var x in list)
+        {
+            await this.GetRepository<Topic>().DeleteAsync(this.PageBoardContext.PageForumID, x.TopicID);
+        }
 
         return this.PageBoardContext.Notify(this.GetText("moderate", "deleted"), MessageTypes.success);
     }
@@ -205,9 +245,6 @@ public class ForumsModel : ModerateForumPage
     /// <summary>
     /// Bind data for this control.
     /// </summary>
-    /// <param name="f">
-    /// The forum Id.
-    /// </param>
     private void BindData()
     {
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));

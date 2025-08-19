@@ -102,8 +102,6 @@ public static class UserMedalRepositoryExtensions
         repository.UpdateOnly(
             () => new UserMedal { Message = message, Hide = hide, SortOrder = sortOrder },
             m => m.UserID == userId && m.MedalID == medalId);
-
-        repository.FireUpdated(medalId);
     }
 
     /// <summary>
@@ -135,7 +133,7 @@ public static class UserMedalRepositoryExtensions
         bool hide,
         byte sortOrder)
     {
-        var newId = repository.Insert(
+        repository.Insert(
             new UserMedal
                 {
                     UserID = userId,
@@ -145,7 +143,5 @@ public static class UserMedalRepositoryExtensions
                     SortOrder = sortOrder,
                     DateAwarded = DateTime.UtcNow
                 });
-
-        repository.FireNew(newId);
     }
 }

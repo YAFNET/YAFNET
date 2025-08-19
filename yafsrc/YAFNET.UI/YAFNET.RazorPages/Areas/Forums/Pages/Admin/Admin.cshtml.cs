@@ -109,7 +109,7 @@ public class AdminModel : AdminPage
     /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostResendEmailAsync(int id, int p, int p2)
     {
-        var unApprovedUsers = this.GetRepository<User>().GetUnApprovedUsers(this.PageBoardContext.PageBoardID);
+        var unApprovedUsers = await this.GetRepository<User>().GetUnApprovedUsersAsync(this.PageBoardContext.PageBoardID);
 
         var userUnApproved = unApprovedUsers.Find(x => x.ID == id);
 
@@ -290,7 +290,7 @@ public class AdminModel : AdminPage
 
         await this.ShowUpgradeMessageAsync();
 
-        this.BindUnverifiedUsers(p2);
+        await this.BindUnverifiedUsersAsync(p2);
 
         // get stats for current board, selected board or all boards (see function)
         var data = await this.Get<IDataCache>().GetOrSetAsync(
@@ -339,9 +339,9 @@ public class AdminModel : AdminPage
     /// <param name="p2">
     /// The page index.
     /// </param>
-    private void BindUnverifiedUsers(int p2)
+    private async Task BindUnverifiedUsersAsync(int p2)
     {
-        var unverifiedUsers = this.GetRepository<User>().GetUnApprovedUsers(this.PageBoardContext.PageBoardID);
+        var unverifiedUsers = await this.GetRepository<User>().GetUnApprovedUsersAsync(this.PageBoardContext.PageBoardID);
 
         var pager = new Paging {
                                    CurrentPageIndex = p2 - 1,

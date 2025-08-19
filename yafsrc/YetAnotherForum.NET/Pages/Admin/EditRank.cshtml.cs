@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using YAF.Core.Extensions;
@@ -100,7 +102,7 @@ public class EditRankModel : AdminPage
     /// <summary>
     /// Save (New) Rank
     /// </summary>
-    public IActionResult OnPostSave()
+    public async Task<IActionResult> OnPostSaveAsync()
     {
         // Rank
         int? rankId = null;
@@ -110,7 +112,7 @@ public class EditRankModel : AdminPage
             rankId = this.Input.Id;
         }
 
-        this.GetRepository<Rank>().Save(
+        await this.GetRepository<Rank>().SaveAsync(
             rankId,
             this.PageBoardContext.PageBoardID,
             this.Input.Name,

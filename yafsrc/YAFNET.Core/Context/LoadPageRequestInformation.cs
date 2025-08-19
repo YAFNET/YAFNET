@@ -88,7 +88,7 @@ public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHave
         var browser = $"{this.userAgentParser.Browser.Family} {this.userAgentParser.Browser.Version}";
         var platform = this.userAgentParser.OS.ToString();
 
-        var userAgent = this.HttpRequestBase.Headers["User-Agent"].ToString();
+        var userAgent = this.HttpRequestBase.Headers.UserAgent.ToString();
 
         var isSearchEngine = UserAgentHelper.SearchEngineSpiderName(userAgent);
 

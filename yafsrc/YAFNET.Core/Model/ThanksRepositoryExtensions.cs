@@ -107,8 +107,6 @@ public static class ThanksRepositoryExtensions
                     MessageID = messageId,
                     ThanksDate = DateTime.UtcNow
                 });
-
-        repository.FireNew(newIdentity);
     }
 
     /// <summary>

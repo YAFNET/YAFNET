@@ -42,7 +42,7 @@ public interface IHandleEvent<in TEvent>
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     void Handle(TEvent @event);
 }

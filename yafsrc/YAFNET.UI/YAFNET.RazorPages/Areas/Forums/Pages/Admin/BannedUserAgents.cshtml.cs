@@ -24,8 +24,6 @@
 
 using System.Threading.Tasks;
 
-using YAF.Types.Interfaces.Identity;
-
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;

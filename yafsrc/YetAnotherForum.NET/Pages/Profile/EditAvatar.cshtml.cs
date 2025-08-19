@@ -22,6 +22,10 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
 namespace YAF.Pages.Profile;
 
 using System.Collections.Generic;
@@ -108,9 +112,9 @@ public class EditAvatarModel : ProfilePage
     /// Delete Current Avatar
     /// </summary>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostDeleteAvatar()
+    public async Task<IActionResult> OnPostDeleteAvatarAsync()
     {
-        this.GetRepository<User>().DeleteAvatar(this.PageBoardContext.PageUserID);
+        await this.GetRepository<User>().DeleteAvatarAsync(this.PageBoardContext.PageUserID);
 
         // clear the cache for this user...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
@@ -122,7 +126,7 @@ public class EditAvatarModel : ProfilePage
     /// Save selected Avatar from Gallery
     /// </summary>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostGallery()
+    public async Task<IActionResult> OnPostGalleryAsync()
     {
         if (this.AvatarGallery is null)
         {
@@ -130,7 +134,7 @@ public class EditAvatarModel : ProfilePage
         }
 
         // save the avatar right now...
-        this.GetRepository<User>().SaveAvatar(this.PageBoardContext.PageUserID, this.AvatarGallery, null, null);
+        await this.GetRepository<User>().SaveAvatarAsync(this.PageBoardContext.PageUserID, this.AvatarGallery, null, null);
 
         // clear the cache for this user...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
@@ -142,14 +146,9 @@ public class EditAvatarModel : ProfilePage
     /// Upload selected avatar
     /// </summary>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostUploadUpdate()
+    public async Task<IActionResult> OnPostUploadUpdateAsync()
     {
-        if (this.Upload is null)
-        {
-            return this.LoadPage();
-        }
-
-        if (this.Upload.FileName.Trim().Length <= 0 || !this.Upload.FileName.Trim().IsImageName())
+        if (this.Upload is null || this.Upload.FileName.Trim().Length <= 0 || !this.Upload.FileName.Trim().IsImageName())
         {
             return this.LoadPage();
         }
@@ -162,7 +161,7 @@ public class EditAvatarModel : ProfilePage
 
         try
         {
-            using var image = Image.Load(this.Upload.OpenReadStream());
+            using var image = await Image.LoadAsync(this.Upload.OpenReadStream());
 
             if (image.Width > x || image.Height > y)
             {
@@ -174,15 +173,15 @@ public class EditAvatarModel : ProfilePage
             }
 
             // Delete old first...
-            this.GetRepository<User>().DeleteAvatar(this.PageBoardContext.PageUserID);
+            await this.GetRepository<User>().DeleteAvatarAsync(this.PageBoardContext.PageUserID);
 
             if (this.PageBoardContext.BoardSettings.UseFileTable)
             {
-                this.SaveAvatarToTable(resizedImage);
+                await this.SaveAvatarToTableAsync(resizedImage);
             }
             else
             {
-                this.SaveAvatarToFolder(resizedImage);
+                await this.SaveAvatarToFolderAsync(resizedImage);
             }
 
             // clear the cache for this user...
@@ -206,7 +205,7 @@ public class EditAvatarModel : ProfilePage
         }
     }
 
-    private IActionResult LoadPage()
+    private PageResult LoadPage()
     {
         this.BindData();
 
@@ -301,17 +300,17 @@ public class EditAvatarModel : ProfilePage
     /// Saves the avatar to DB table.
     /// </summary>
     /// <param name="resized">The resized.</param>
-    private void SaveAvatarToTable(Stream resized)
+    private async Task SaveAvatarToTableAsync(Stream resized)
     {
         if (resized is null)
         {
-            using var image = Image.Load(this.Upload.OpenReadStream());
+            using var image = await Image.LoadAsync(this.Upload.OpenReadStream());
 
             var memoryStream = new MemoryStream();
 
-            image.Save(memoryStream, image.Metadata.DecodedImageFormat);
+            await image.SaveAsync(memoryStream, image.Metadata.DecodedImageFormat);
 
-            this.GetRepository<User>().SaveAvatar(
+            await this.GetRepository<User>().SaveAvatarAsync(
                 this.PageBoardContext.PageUserID,
                 null,
                 memoryStream,
@@ -319,7 +318,7 @@ public class EditAvatarModel : ProfilePage
         }
         else
         {
-            this.GetRepository<User>().SaveAvatar(
+            await this.GetRepository<User>().SaveAvatarAsync(
                 this.PageBoardContext.PageUserID,
                 null,
                 resized,
@@ -331,7 +330,7 @@ public class EditAvatarModel : ProfilePage
     /// Saves the avatar to folder.
     /// </summary>
     /// <param name="resized">The resized.</param>
-    private void SaveAvatarToFolder(MemoryStream resized)
+    private async Task SaveAvatarToFolderAsync(MemoryStream resized)
     {
         var uploadFolderPath = Path.Combine(
             this.Get<IWebHostEnvironment>().WebRootPath,
@@ -364,16 +363,16 @@ public class EditAvatarModel : ProfilePage
 
         if (resized is null)
         {
-            using var avatarImage = Image.Load(this.Upload.OpenReadStream());
+            using var avatarImage = await Image.LoadAsync(this.Upload.OpenReadStream());
 
             using var memory = new MemoryStream();
 
-            using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
-            avatarImage.Save(memory, avatarImage.Metadata.DecodedImageFormat);
+            await using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
+            await avatarImage.SaveAsync(memory, avatarImage.Metadata.DecodedImageFormat);
             var bytes = memory.ToArray();
-            fs.Write(bytes, 0, bytes.Length);
+            await fs.WriteAsync(bytes);
 
-            this.GetRepository<User>().SaveAvatar(
+            await this.GetRepository<User>().SaveAvatarAsync(
                 this.PageBoardContext.PageUserID,
                 this.Url.Content($"~/{this.Get<BoardFolders>().Uploads}/{newFileName}"),
                 null,
@@ -381,11 +380,11 @@ public class EditAvatarModel : ProfilePage
         }
         else
         {
-            using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
+            await using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
             var bytes = resized.ToArray();
-            fs.Write(bytes, 0, bytes.Length);
+            await fs.WriteAsync(bytes);
 
-            this.GetRepository<User>().SaveAvatar(
+            await this.GetRepository<User>().SaveAvatarAsync(
                 this.PageBoardContext.PageUserID,
                 this.Url.Content($"~/{this.Get<BoardFolders>().Uploads}/{newFileName}"),
                 null,

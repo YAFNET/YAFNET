@@ -105,7 +105,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// Gets the guest user for the current board.
     /// </summary>
     /// <param name="boardId">
-    /// The board Id.
+    ///     The board Id.
     /// </param>
     /// <exception cref="NoValidGuestUserForBoardException">
     /// No Valid Guest User Exception
@@ -116,10 +116,45 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     public User GuestUser(int boardId)
     {
         var guestUser = this.Get<IDataCache>().GetOrSet(
-            Constants.Cache.GuestUser,
-            () =>
+            Constants.Cache.GuestUser, () =>
+            {
+                var guest = this.GetRepository<User>().Get(u => u.BoardID == boardId && (u.Flags & 4) == 4);
+
+                var guestUser = guest.FirstOrDefault() ?? throw new NoValidGuestUserForBoardException(
+                    $"""
+                     Could not locate the guest user for the board id {BoardContext.Current.PageBoardID}.
+                                                               You might have deleted the guest group or removed the guest user.
+                     """);
+                if (guest.Count > 1)
                 {
-                    var guest = this.GetRepository<User>().Get(u => u.BoardID == boardId && (u.Flags & 4) == 4);
+                    throw new ArgumentException(
+                        $"Found {guest.Count} possible guest users. There should be one and only one user marked as guest.");
+                }
+
+                return guestUser;
+            });
+
+        return guestUser;
+    }
+
+    /// <summary>
+    /// Gets the guest user for the current board.
+    /// </summary>
+    /// <param name="boardId">
+    ///     The board Id.
+    /// </param>
+    /// <exception cref="NoValidGuestUserForBoardException">
+    /// No Valid Guest User Exception
+    /// </exception>
+    /// <returns>
+    /// The <see cref="User"/>.
+    /// </returns>
+    public async Task<User> GuestUserAsync(int boardId)
+    {
+        var guestUser = await this.Get<IDataCache>().GetOrSetAsync(
+            Constants.Cache.GuestUser, async () =>
+                {
+                    var guest = await this.GetRepository<User>().GetAsync(u => u.BoardID == boardId && (u.Flags & 4) == 4);
 
                     var guestUser = guest.FirstOrDefault() ?? throw new NoValidGuestUserForBoardException(
                                         $"""
@@ -153,7 +188,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
             // approve this user...
             user.IsApproved = true;
             await this.Get<AspNetUsersManager>().UpdateUsrAsync(user);
-            var checkUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
+            var checkUser = await this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKeyAsync(user.Id);
 
             var id = checkUser?.ID ?? 0;
 
@@ -162,7 +197,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                 return;
             }
 
-            this.GetRepository<User>().Approve(checkUser);
+            await this.GetRepository<User>().ApproveAsync(checkUser);
 
             var checkEmail = await this.GetRepository<CheckEmail>().GetSingleAsync(m => m.UserID == id);
 
@@ -198,7 +233,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         await this.Get<AspNetUsersManager>().UpdateUsrAsync(user);
 
-        this.GetRepository<User>().Approve(yafUser);
+        await this.GetRepository<User>().ApproveAsync(yafUser);
 
         var checkEmail = await this.GetRepository<CheckEmail>().GetSingleAsync(m => m.UserID == userId);
 
@@ -211,7 +246,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Deletes all Unapproved Users older then Cut Off DateTime
+    /// Deletes all Unapproved Users older than Cut Off DateTime
     /// </summary>
     /// <param name="createdCutoff">
     ///     The created cutoff.
@@ -224,12 +259,12 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         // iterate through each one...
         foreach (var user in allUsers.Where(user => !user.IsApproved && user.CreateDate < createdCutoff))
         {
-            var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
+            var yafUser = await this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKeyAsync(user.Id);
 
             if (yafUser != null)
             {
                 // delete this user...
-                this.GetRepository<User>().Delete(yafUser);
+                await this.GetRepository<User>().DeleteAsync(yafUser);
             }
 
             await this.Get<AspNetUsersManager>().DeleteUserAsync(user);
@@ -321,7 +356,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
             await this.Get<AspNetUsersManager>().DeleteUserAsync(aspNetUser);
         }
 
-        this.GetRepository<User>().Delete(user);
+        await this.GetRepository<User>().DeleteAsync(user);
 
         if (this.Get<BoardSettings>().LogUserDeleted)
         {
@@ -342,7 +377,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <returns>
     /// Returns if Deleting was successfully
     /// </returns>
-    public bool DeleteAndBanUser(User user, AspNetUsers aspNetUser, string userIpAddress)
+    public async Task<bool> DeleteAndBanUserAsync(User user, AspNetUsers aspNetUser, string userIpAddress)
     {
         // Update Anti SPAM Stats
         this.GetRepository<Registry>().IncrementBannedUsers();
@@ -366,18 +401,20 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         var messages = this.GetRepository<Message>().GetAllUserMessages(user.ID).Distinct()
             .ToList();
 
-        messages.ForEach(
-            x => this.GetRepository<Message>().Delete(
+        foreach (var x in messages)
+        {
+            await this.GetRepository<Message>().DeleteAsync(
                 x.Topic.ForumID,
                 x.TopicID,
                 x,
                 true,
                 string.Empty,
                 true,
-                true));
+                true);
+        }
 
-        this.Get<AspNetUsersManager>().DeleteUserAsync(aspNetUser);
-        this.GetRepository<User>().Delete(user);
+        await this.Get<AspNetUsersManager>().DeleteUserAsync(aspNetUser);
+        await this.GetRepository<User>().DeleteAsync(user);
 
         if (this.Get<BoardSettings>().LogUserDeleted)
         {
@@ -531,14 +568,14 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// </summary>
     /// <param name="providerUserKey">The provider user key.</param>
     /// <param name="currentBoard">
-    /// Get user from Current board, or all boards
+    ///     Get user from Current board, or all boards
     /// </param>
     /// <returns>
     /// The get user id from provider user key.
     /// </returns>
-    public User GetUserFromProviderUserKey(string providerUserKey, bool currentBoard = true)
+    public Task<User> GetUserFromProviderUserKeyAsync(string providerUserKey, bool currentBoard = true)
     {
-        return this.GetRepository<User>().GetUserByProviderKey(currentBoard ? BoardContext.Current.PageBoardID : null, providerUserKey);
+        return this.GetRepository<User>().GetUserByProviderKeyAsync(currentBoard ? BoardContext.Current.PageBoardID : null, providerUserKey);
     }
 
     /// <summary>
@@ -589,7 +626,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         await this.Get<AspNetUsersManager>().UpdateUsrAsync(user);
 
-        this.GetRepository<User>().AspNet(
+        await this.GetRepository<User>().AspNetAsync(
             BoardContext.Current.PageBoardID,
             user.UserName,
             null,
@@ -967,17 +1004,16 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// Gets the board user by Id.
     /// </summary>
     /// <param name="userId">
-    /// The user id.
+    ///     The user id.
     /// </param>
     /// <param name="boardId">
-    /// The board id.
+    ///     The board id.
     /// </param>
     /// <param name="includeNonApproved"></param>
     /// <returns>
     /// The <see cref="Tuple"/>.
     /// </returns>
-    public Tuple<User, AspNetUsers, Rank, VAccess> GetBoardUser(
-        int userId,
+    public async Task<Tuple<User, AspNetUsers, Rank, VAccess>> GetBoardUserAsync(int userId,
         int? boardId = null,
         bool includeNonApproved = false)
     {
@@ -998,9 +1034,10 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                           (u.Flags & 2) == 2);
         }
 
-        return this.GetRepository<User>().DbAccess
-            .Execute(db => db.Connection.SelectMulti<User, AspNetUsers, Rank, VAccess>(expression))
-            .FirstOrDefault();
+        var users = await this.GetRepository<User>().DbAccess
+            .ExecuteAsync(db => db.SelectMultiAsync<User, AspNetUsers, Rank, VAccess>(expression));
+
+        return users.FirstOrDefault();
     }
 
     /// <summary>

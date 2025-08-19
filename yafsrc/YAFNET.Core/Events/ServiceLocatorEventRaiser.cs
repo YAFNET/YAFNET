@@ -63,13 +63,16 @@ public class ServiceLocatorEventRaiser : IRaiseEvent
     /// The event raiser.
     /// </summary>
     /// <param name="eventObject">
-    /// The event object.
+    ///     The event object.
     /// </param>
     /// <typeparam name="T">
     /// </typeparam>
     public void Raise<T>(T eventObject) where T : IAmEvent
     {
-        this.GetAggregatedAndOrderedEventHandlers<T>().ForEach(x => x.Handle(eventObject));
+        foreach (var x in this.GetAggregatedAndOrderedEventHandlers<T>())
+        {
+            x.Handle(eventObject);
+        }
     }
 
     /// <summary>
@@ -81,30 +84,30 @@ public class ServiceLocatorEventRaiser : IRaiseEvent
     /// </param>
     /// <param name="logExceptionAction">
     /// </param>
-    public void RaiseIssolated<T>(T eventObject, Action<string, Exception> logExceptionAction)
+    public void RaiseIsolated<T>(T eventObject, Action<string, Exception> logExceptionAction)
         where T : IAmEvent
     {
         this.GetAggregatedAndOrderedEventHandlers<T>().ForEach(
             theHandler =>
+            {
+                theHandler.Handle(eventObject);
+
+                try
                 {
                     theHandler.Handle(eventObject);
-
-                    try
+                }
+                catch (Exception ex)
+                {
+                    if (logExceptionAction != null)
                     {
-                        theHandler.Handle(eventObject);
+                        logExceptionAction(theHandler.GetType().Name, ex);
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        if (logExceptionAction != null)
-                        {
-                            logExceptionAction(theHandler.GetType().Name, ex);
-                        }
-                        else
-                        {
-                            this.Logger.Error(ex, $"Exception Raising Event to Handler: {theHandler.GetType().Name}");
-                        }
+                        this.Logger.Error(ex, $"Exception Raising Event to Handler: {theHandler.GetType().Name}");
                     }
-                });
+                }
+            });
     }
 
     /// <summary>

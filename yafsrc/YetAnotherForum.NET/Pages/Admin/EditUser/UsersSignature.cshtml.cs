@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin.EditUser;
 
 using Microsoft.AspNetCore.Mvc;
@@ -80,7 +82,7 @@ public class UsersSignatureModel : AdminPage
     /// </summary>
     /// <param name="userId">The user identifier.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnGet(int userId)
+    public async Task<IActionResult> OnGetAsync(int userId)
     {
         if (!BoardContext.Current.IsAdmin)
         {
@@ -91,7 +93,7 @@ public class UsersSignatureModel : AdminPage
             UserId = userId
         };
 
-        return this.BindData(userId, true);
+        return await this.BindDataAsync(userId, true);
     }
 
     /// <summary>
@@ -107,7 +109,7 @@ public class UsersSignatureModel : AdminPage
     /// <summary>
     /// Save the Signature.
     /// </summary>
-    public IActionResult OnPostSave()
+    public async Task<IActionResult> OnPostSaveAsync()
     {
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
@@ -164,7 +166,7 @@ public class UsersSignatureModel : AdminPage
                     }
                 }
 
-                this.GetRepository<User>().SaveSignature(
+                await this.GetRepository<User>().SaveSignatureAsync(
                     this.Input.UserId,
                     this.Signature);
             }
@@ -177,7 +179,7 @@ public class UsersSignatureModel : AdminPage
         }
         else
         {
-            this.GetRepository<User>().SaveSignature(this.Input.UserId, null);
+            await this.GetRepository<User>().SaveSignatureAsync(this.Input.UserId, null);
         }
 
         // clear the cache for this user...
@@ -191,7 +193,7 @@ public class UsersSignatureModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private IActionResult BindData(int userId, bool loadSignature)
+    private async Task<IActionResult> BindDataAsync(int userId, bool loadSignature)
     {
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
@@ -207,7 +209,7 @@ public class UsersSignatureModel : AdminPage
             this.Signature = user.Item1.Signature;
         }
 
-        var data = this.GetRepository<User>().SignatureData(
+        var data = await this.GetRepository<User>().SignatureDataAsync(
             userId,
             this.PageBoardContext.PageBoardID);
 

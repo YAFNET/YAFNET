@@ -144,7 +144,7 @@ public class UsersGroupsModel : AdminPage
             }
         }
 
-        this.Get<IRaiseEvent>().Raise(new UpdateUserStyleEvent(this.Input.UserId));
+        await this.Get<IRaiseEventAsync>().RaiseAsync(new UpdateUserStyleEvent(this.Input.UserId));
 
         if (this.Input.SendEmail)
         {

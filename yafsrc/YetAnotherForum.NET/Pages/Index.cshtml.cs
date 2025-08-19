@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages;
 
 using System.Collections.Generic;
@@ -79,9 +81,9 @@ public class IndexModel : ForumPage
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
-        this.BindData();
+        await this.BindDataAsync();
 
         return this.Page();
     }
@@ -92,17 +94,17 @@ public class IndexModel : ForumPage
     /// <param name="target">
     /// The target.
     /// </param>
-    public void OnPostToggleCollapse(string target)
+    public Task OnPostToggleCollapseAsync(string target)
     {
         this.Get<ISessionService>().PanelState.TogglePanelState(target, this.PageBoardContext.BoardSettings.DefaultCollapsiblePanelState);
 
-        this.BindData();
+        return this.BindDataAsync();
     }
 
     /// <summary>
     /// Load More Forums and Categories
     /// </summary>
-    public IActionResult OnGetShowMore(int index)
+    public async Task<IActionResult> OnGetShowMoreAsync(int index)
     {
         if (!this.Get<ISessionService>().Forums.HasItems())
         {
@@ -112,7 +114,7 @@ public class IndexModel : ForumPage
         this.Get<ISessionService>().BoardForumsIndex = index;
 
 
-        this.BindData(true);
+        await this.BindDataAsync(true);
 
         return this.Partial("_CategoryList", this.Categories);
     }
@@ -120,7 +122,7 @@ public class IndexModel : ForumPage
     /// <summary>
     /// Mark all Forums as Read
     /// </summary>
-    public void OnPostMarkAll()
+    public Task OnPostMarkAllAsync()
     {
         var forums = this.Get<ISessionService>().Forums;
 
@@ -128,33 +130,29 @@ public class IndexModel : ForumPage
 
         this.PageBoardContext.Notify(this.GetText("MARKALL_MESSAGE"), MessageTypes.success);
 
-        this.BindData();
+        return this.BindDataAsync();
     }
 
     /// <summary>
     /// Watch All Forums
     /// </summary>
-    public void OnPostWatchAll()
+    public async Task OnPostWatchAllAsync()
     {
         int? categoryId = this.PageBoardContext.PageCategoryID != 0 ? this.PageBoardContext.PageCategoryID : null;
 
         var forums = this.Get<ISessionService>().Forums.Where(x => x.CategoryID == categoryId);
 
-        var watchForums = this.GetRepository<WatchForum>().List(this.PageBoardContext.PageUserID);
+        var watchForums = await this.GetRepository<WatchForum>().ListAsync(this.PageBoardContext.PageUserID);
 
-        forums.ForEach(
-            forum =>
-            {
-                if (!watchForums.Exists(
-                        w => w.ForumID == forum.ForumID && w.UserID == this.PageBoardContext.PageUserID))
-                {
-                    this.GetRepository<WatchForum>().Add(this.PageBoardContext.PageUserID, forum.ForumID);
-                }
-            });
+        foreach (var forum in forums.Where(forum => !watchForums.Exists(
+                     w => w.ForumID == forum.ForumID && w.UserID == this.PageBoardContext.PageUserID)))
+        {
+            await this.GetRepository<WatchForum>().AddAsync(this.PageBoardContext.PageUserID, forum.ForumID);
+        }
 
         this.PageBoardContext.Notify(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
 
-        this.BindData();
+        await this.BindDataAsync();
     }
 
     /// <summary>
@@ -163,11 +161,11 @@ public class IndexModel : ForumPage
     /// <param name="appendData">
     /// The append Data.
     /// </param>
-    private void BindData(bool appendData = false)
+    private async Task BindDataAsync(bool appendData = false)
     {
         if (appendData)
         {
-            var newData = this.Get<DataBroker>().BoardLayout(
+            var newData = await this.Get<DataBroker>().BoardLayoutAsync(
                 this.PageBoardContext.PageBoardID,
                 this.PageBoardContext.PageUserID,
                 this.Get<ISessionService>().BoardForumsIndex,
@@ -196,7 +194,7 @@ public class IndexModel : ForumPage
         {
             this.Get<ISessionService>().BoardForumsIndex = 0;
 
-            var data = this.Get<DataBroker>().BoardLayout(
+            var data = await this.Get<DataBroker>().BoardLayoutAsync(
                 this.PageBoardContext.PageBoardID,
                 this.PageBoardContext.PageUserID,
                 this.Get<ISessionService>().BoardForumsIndex,

@@ -70,10 +70,10 @@ public class ReportedPostsModel : ModerateForumPage
     /// <param name="f">
     /// The forum Id.
     /// </param>
-    public IActionResult OnGet(int f)
+    public Task<IActionResult> OnGetAsync(int f)
     {
         // bind data
-        return this.BindData(f);
+        return this.BindDataAsync(f);
     }
 
     /// <summary>
@@ -82,15 +82,15 @@ public class ReportedPostsModel : ModerateForumPage
     /// <param name="messageId">
     /// The message id.
     /// </param>
-    public IActionResult OnPostCopyOver(int messageId)
+    public async Task<IActionResult> OnPostCopyOverAsync(int messageId)
     {
-        var message = this.GetRepository<Message>().GetById(messageId);
+        var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
 
         // update message text
-        this.GetRepository<MessageReported>().ReportCopyOver(message);
+        await this.GetRepository<MessageReported>().ReportCopyOverAsync(message);
 
         // bind data
-        return this.BindData(this.PageBoardContext.PageForumID);
+        return await this.BindDataAsync(this.PageBoardContext.PageForumID);
     }
 
     /// <summary>
@@ -102,11 +102,11 @@ public class ReportedPostsModel : ModerateForumPage
     /// <param name="topicId">
     /// The topic id.
     /// </param>
-    public IActionResult OnPostDelete(int messageId, int topicId)
+    public async Task<IActionResult> OnPostDeleteAsync(int messageId, int topicId)
     {
-        var message = this.GetRepository<Message>().GetById(messageId);
+        var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
 
-        this.GetRepository<Message>().Delete(
+        await this.GetRepository<Message>().DeleteAsync(
             this.PageBoardContext.PageForumID,
             topicId,
             message,
@@ -119,7 +119,7 @@ public class ReportedPostsModel : ModerateForumPage
         this.PageBoardContext.SessionNotify(this.GetText("DELETED"), MessageTypes.info);
 
         // bind data
-        return this.BindData(this.PageBoardContext.PageForumID);
+        return await this.BindDataAsync(this.PageBoardContext.PageForumID);
     }
 
     /// <summary>
@@ -128,15 +128,15 @@ public class ReportedPostsModel : ModerateForumPage
     /// <param name="messageId">
     /// The message id.
     /// </param>
-    public IActionResult OnPostResolved(int messageId)
+    public async Task<IActionResult> OnPostResolvedAsync(int messageId)
     {
-        this.GetRepository<Message>().ReportResolve(messageId, this.PageBoardContext.PageUserID);
+        await this.GetRepository<Message>().ReportResolveAsync(messageId, this.PageBoardContext.PageUserID);
 
         // tell user message was flagged as resolved
         this.PageBoardContext.SessionNotify(this.GetText("RESOLVEDFEEDBACK"), MessageTypes.success);
 
         // bind data
-        return this.BindData(this.PageBoardContext.PageForumID);
+        return await this.BindDataAsync(this.PageBoardContext.PageForumID);
     }
 
     /// <summary>
@@ -148,9 +148,9 @@ public class ReportedPostsModel : ModerateForumPage
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public IActionResult OnPostView(int messageId)
+    public async Task<IActionResult> OnPostViewAsync(int messageId)
     {
-        var topic = this.GetRepository<Topic>().GetTopicFromMessage(messageId);
+        var topic = await this.GetRepository<Topic>().GetTopicFromMessageAsync(messageId);
 
         return this.Get<ILinkBuilder>().Redirect(
            ForumPages.Post,
@@ -179,10 +179,10 @@ public class ReportedPostsModel : ModerateForumPage
     /// <param name="f">
     /// The forum Id.
     /// </param>
-    private IActionResult BindData(int f)
+    private async Task<IActionResult> BindDataAsync(int f)
     {
         // get reported posts for this forum
-        var reported = this.GetRepository<MessageReported>().ListReported(f);
+        var reported = await this.GetRepository<MessageReported>().ListReportedAsync(f);
 
         if (reported.Count == 0)
         {

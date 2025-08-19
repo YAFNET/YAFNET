@@ -62,7 +62,7 @@ public class ActivityNotification : IHaveServiceLocator, IHandleEvent<ActivityNo
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(ActivityNotificationEvent @event)
     {

@@ -214,11 +214,7 @@
                         else
                         {
                             <div class="card-body">
-                                <alert type="info"
-                                   icon="check"
-                                   icon-text-color="text-success"
-                                   localized-page="COMMON"
-                                   localized-tag="NO_ENTRY"></alert>
+	                            @await Html.PartialAsync("_NoEntryInfo")
                             </div>
                         }
 

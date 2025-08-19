@@ -326,7 +326,7 @@ public class InstallModel : InstallPage
             await this.Get<IAspNetUsersHelper>().SignOutAsync();
 
             // init forum...
-            this.InstallService.InitializeForum(
+            await this.InstallService.InitializeForumAsync(
                 applicationId,
                 forumName,
                 forumDescription,

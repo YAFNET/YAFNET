@@ -175,8 +175,9 @@ public class UsersSettingsModel : AdminPage
         }
 
         // save remaining settings to the DB
-        this.GetRepository<User>().Save(
+        await this.GetRepository<User>().SaveAsync(
             this.Input.UserId,
+            user.Item1.Flags,
             this.Input.TimeZone,
             language,
             culture,

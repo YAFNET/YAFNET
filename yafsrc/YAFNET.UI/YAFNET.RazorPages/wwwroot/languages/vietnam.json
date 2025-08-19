@@ -4707,14 +4707,6 @@
             "#text": "Suspended and unsuspended events will be logged."
           },
           {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Nhật ký ViewState Exception:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "Các ngoại lệ của ViewState (chủ yếu do SPAM Bots) sẽ được ghi lại."
-          },
-          {
             "@tag": "LOG_WARNING",
             "#text": "Cho phép ghi nhật ký Cảnh báo ứng dụng:"
           },

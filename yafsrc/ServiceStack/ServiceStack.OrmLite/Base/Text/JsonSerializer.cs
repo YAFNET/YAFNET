@@ -7,7 +7,6 @@
 
 using System;
 using System.IO;
-using System.Net;
 
 using ServiceStack.OrmLite.Base.Text.Common;
 using ServiceStack.OrmLite.Base.Text.Json;

@@ -48,6 +48,10 @@ public class MailModel : AdminPage
     [BindProperty]
     public MailInputModel Input { get; set; }
 
+    /// <summary>
+    /// Gets or sets the list.
+    /// </summary>
+    /// <value>The list.</value>
     public List<SelectListItem> List { get; set; }
 
     /// <summary>
@@ -81,7 +85,7 @@ public class MailModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostSendAsync()
     {
-        var emails = this.GetRepository<User>().GroupEmails(this.Input.ToListItem);
+        var emails = await this.GetRepository<User>().GroupEmailsAsync(this.Input.ToListItem);
 
         foreach (var email in emails)
         {

@@ -22,9 +22,6 @@
  * under the License.
  */
 
-using System;
-using System.IO;
-
 using Autofac.Extensions.DependencyInjection;
 
 using Microsoft.AspNetCore.Builder;
@@ -59,8 +56,7 @@ public static class IApplicationBuilderExtensions
     /// </summary>
     /// <param name="app">The application.</param>
     /// <param name="serviceLocator">The service locator.</param>
-    /// <param name="env">The env.</param>
-    public static void UseYafCore(this IApplicationBuilder app, IServiceLocator serviceLocator, IWebHostEnvironment env)
+    public static void UseYafCore(this IApplicationBuilder app, IServiceLocator serviceLocator)
     {
         app.UseAntiXssMiddleware();
 
@@ -98,15 +94,11 @@ public static class IApplicationBuilderExtensions
 
         app.UseMiddleware<InitializeDb>();
 
-        var baseDir = env.WebRootPath;
-
-        AppDomain.CurrentDomain.SetData("SearchDataDirectory", Path.Combine(baseDir, "Search_Data"));
-
         app.Use(
             (httpContext, nextMiddleware) =>
             {
                 // app init notification...
-                serviceLocator.Get<IRaiseEvent>().RaiseIssolated(new HttpContextInitEvent(httpContext), null);
+                serviceLocator.Get<IRaiseEvent>().RaiseIsolated(new HttpContextInitEvent(httpContext), null);
 
                 return nextMiddleware();
             });

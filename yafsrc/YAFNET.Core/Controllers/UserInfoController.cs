@@ -62,21 +62,21 @@ public class UserInfo : ForumBaseController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetUserInfo")]
     [OutputCache]
-    public Task<ActionResult<ForumUserInfo>> GetUserInfo(int userId)
+    public async Task<ActionResult<ForumUserInfo>> GetUserInfo(int userId)
     {
         try
         {
             // Check if user has access
             if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ProfileViewPermissions))
             {
-                return Task.FromResult<ActionResult<ForumUserInfo>>(this.NotFound());
+                return this.NotFound();
             }
 
-            var user = this.Get<IAspNetUsersHelper>().GetBoardUser(userId);
+            var user = await this.Get<IAspNetUsersHelper>().GetBoardUserAsync(userId);
 
             if (user == null || user.Item1.ID == 0)
             {
-                return Task.FromResult<ActionResult<ForumUserInfo>>(this.NotFound());
+                return this.NotFound();
             }
 
             var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(user.Item1);
@@ -135,13 +135,13 @@ public class UserInfo : ForumBaseController
                 userInfo.Points = (user.Item1.Points > 0 ? "+" : string.Empty) + user.Item1.Points;
             }
 
-            return Task.FromResult<ActionResult<ForumUserInfo>>(this.Ok(userInfo));
+            return this.Ok(userInfo);
         }
         catch (Exception x)
         {
             this.Get<ILogger<UserInfo>>().Log(this.PageBoardContext.PageUserID, this, x, EventLogTypes.Information);
 
-            return Task.FromResult<ActionResult<ForumUserInfo>>(this.NotFound());
+            return this.NotFound();
         }
     }
 }

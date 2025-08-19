@@ -175,7 +175,7 @@ public class PostMessageModel : ForumPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public IActionResult OnGet(int? q = null, string text = null)
+    public async Task<IActionResult> OnGetAsync(int? q = null, string text = null)
     {
         // in case topic is deleted or not existent
         if (this.PageBoardContext.PageTopic is null)
@@ -185,17 +185,9 @@ public class PostMessageModel : ForumPage
 
         this.Input = new PostMessageInputModel();
 
-        if (this.PageBoardContext.PageForumID == 0)
-        {
-            return this.Get<ILinkBuilder>().AccessDenied();
-        }
-
-        if (!this.PageBoardContext.ForumPostAccess && !this.PageBoardContext.ForumReplyAccess)
-        {
-            return this.Get<ILinkBuilder>().AccessDenied();
-        }
-
-        if (this.PageBoardContext.PageTopic.TopicFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
+        if (this.PageBoardContext.PageForumID == 0 ||
+            !this.PageBoardContext.ForumPostAccess && !this.PageBoardContext.ForumReplyAccess ||
+            this.PageBoardContext.PageTopic.TopicFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
         {
             return this.Get<ILinkBuilder>().AccessDenied();
         }
@@ -215,12 +207,7 @@ public class PostMessageModel : ForumPage
                         BBCodeHelper.EncodeCodeBlocks(HtmlTagHelper.CleanHtmlString(quotedMessageText)));
                 }
 
-                if (this.quotedMessage.TopicID != this.PageBoardContext.PageTopicID)
-                {
-                    return this.Get<ILinkBuilder>().AccessDenied();
-                }
-
-                if (!this.CanQuotePostCheck(this.PageBoardContext.PageTopic))
+                if (this.quotedMessage.TopicID != this.PageBoardContext.PageTopicID || !this.CanQuotePostCheck(this.PageBoardContext.PageTopic))
                 {
                     return this.Get<ILinkBuilder>().AccessDenied();
                 }
@@ -230,11 +217,18 @@ public class PostMessageModel : ForumPage
         // update options...
         if (!this.PageBoardContext.IsGuest)
         {
-            this.Input.TopicWatch = this.PageBoardContext.PageTopicID > 0
-                                        ? this.GetRepository<WatchTopic>().Check(
-                                            this.PageBoardContext.PageUserID,
-                                            this.PageBoardContext.PageTopicID).HasValue
-                                        : this.PageBoardContext.PageUser.AutoWatchTopics;
+            if (this.PageBoardContext.PageTopicID > 0)
+            {
+                var check = await this.GetRepository<WatchTopic>().CheckAsync(
+                    this.PageBoardContext.PageUserID,
+                    this.PageBoardContext.PageTopicID);
+
+                this.Input.TopicWatch = check.HasValue;
+            }
+            else
+            {
+                this.Input.TopicWatch = this.PageBoardContext.PageUser.AutoWatchTopics;
+            }
         }
 
         if (this.quotedMessage != null && q.HasValue)
@@ -277,7 +271,7 @@ public class PostMessageModel : ForumPage
     /// <returns>
     /// Returns the new Message.
     /// </returns>
-    protected Message PostReplyHandleReplyToTopic(bool isSpamApproved, int? replyTo = null)
+    async protected Task<Message> PostReplyHandleReplyToTopicAsync(bool isSpamApproved, int? replyTo = null)
     {
         // Check if Forum is Moderated
         var isForumModerated = this.CheckForumModerateStatus(this.PageBoardContext.PageForum, false);
@@ -304,7 +298,7 @@ public class PostMessageModel : ForumPage
 
         var messageText = this.Input.Editor;
 
-        var message = this.GetRepository<Message>().SaveNew(
+        var message = await this.GetRepository<Message>().SaveNewAsync(
             this.PageBoardContext.PageForum,
             this.PageBoardContext.PageTopic,
             this.PageBoardContext.PageUser,
@@ -317,7 +311,7 @@ public class PostMessageModel : ForumPage
 
         message.Topic = this.PageBoardContext.PageTopic;
 
-        this.UpdateWatchTopic(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
+        await this.UpdateWatchTopicAsync(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
 
         return message;
     }
@@ -385,7 +379,7 @@ public class PostMessageModel : ForumPage
                             this.PageBoardContext.PageUserID,
                             $"{description}, user was deleted and banned");
 
-                        this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                        await this.Get<IAspNetUsersHelper>().DeleteAndBanUserAsync(
                             this.PageBoardContext.PageUser,
                             this.PageBoardContext.MembershipUser,
                             this.PageBoardContext.PageUser.IP);
@@ -396,7 +390,7 @@ public class PostMessageModel : ForumPage
         }
 
         // Reply to topic
-        var newMessage = this.PostReplyHandleReplyToTopic(this.spamApproved, q);
+        var newMessage = await this.PostReplyHandleReplyToTopicAsync(this.spamApproved, q);
 
         var isApproved = newMessage.MessageFlags.IsApproved;
 
@@ -551,19 +545,19 @@ public class PostMessageModel : ForumPage
     /// <param name="topicId">
     /// The topic Id.
     /// </param>
-    private void UpdateWatchTopic(int userId, int topicId)
+    private async Task UpdateWatchTopicAsync(int userId, int topicId)
     {
-        var topicWatchedId = this.GetRepository<WatchTopic>().Check(userId, topicId);
+        var topicWatchedId = await this.GetRepository<WatchTopic>().CheckAsync(userId, topicId);
 
         if (topicWatchedId.HasValue && !this.Input.TopicWatch)
         {
             // unsubscribe...
-            this.GetRepository<WatchTopic>().DeleteById(topicWatchedId.Value);
+            await this.GetRepository<WatchTopic>().DeleteByIdAsync(topicWatchedId.Value);
         }
         else if (!topicWatchedId.HasValue && this.Input.TopicWatch)
         {
             // subscribe to this topic...
-            this.GetRepository<WatchTopic>().Add(userId, topicId);
+            await this.GetRepository<WatchTopic>().AddAsync(userId, topicId);
         }
     }
 

@@ -4707,14 +4707,6 @@
             "#text": "Suspended and unsuspended events will be logged."
           },
           {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Logi ViewState'i erandid:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "ViewState'i erandid (peamiselt rämpspostirobotite põhjustatud) logitakse."
-          },
-          {
             "@tag": "LOG_WARNING",
             "#text": "Logirakenduse hoiatuste lubamine:"
           },
