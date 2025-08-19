@@ -25,12 +25,12 @@
 namespace YAF.Types.Objects;
 
 /// <summary>
-/// The mail configuration.
+/// The smtp mail configuration.
 /// </summary>
 public class MailConfiguration
 {
     /// <summary>
-    /// Gets or sets the mail.
+    /// Gets or sets the sender mail.
     /// </summary>
     /// <value>The mail.</value>
     public string Mail { get; set; }
@@ -42,7 +42,7 @@ public class MailConfiguration
     public string Password { get; set; }
 
     /// <summary>
-    /// Gets or sets the host.
+    /// Gets or sets the host name .
     /// </summary>
     /// <value>The host.</value>
     public string Host { get; set; }
