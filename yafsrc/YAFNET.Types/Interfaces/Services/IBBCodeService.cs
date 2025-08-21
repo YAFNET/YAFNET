@@ -40,16 +40,16 @@ public interface IBBCodeService
     /// <param name="message">
     ///     The message.
     /// </param>
-    /// <param name="displayUserId">
-    ///     The display user id.
-    /// </param>
     /// <param name="messageId">
     ///     The message id.
+    /// </param>
+    /// <param name="displayUserId">
+    ///     The display user id.
     /// </param>
     /// <returns>
     /// Returns the formatted Message.
     /// </returns>
-    Task<string> FormatMessageWithCustomBBCodeAsync(string message, int? displayUserId, int? messageId);
+    Task<string> FormatMessageWithCustomBBCodeAsync(string message, int? messageId, int? displayUserId);
 
     /// <summary>
     /// Converts a message containing HTML to BBCode for editing.

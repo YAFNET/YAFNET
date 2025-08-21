@@ -162,17 +162,17 @@ public static class MedalRepositoryExtensions
         }
         else
         {
-            var newId = repository.Insert(
+            repository.Insert(
                 new Medal
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        Name = name,
-                        Description = description,
-                        Message = message,
-                        Category = category,
-                        MedalURL = medalUrl,
-                        Flags = flags
-                    });
+                {
+                    BoardID = boardId ?? repository.BoardID,
+                    Name = name,
+                    Description = description,
+                    Message = message,
+                    Category = category,
+                    MedalURL = medalUrl,
+                    Flags = flags
+                });
         }
     }
 }

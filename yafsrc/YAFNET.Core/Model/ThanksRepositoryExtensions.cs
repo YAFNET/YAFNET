@@ -99,14 +99,14 @@ public static class ThanksRepositoryExtensions
         int toUserId,
         int messageId)
     {
-        var newIdentity = repository.Insert(
+        repository.Insert(
             new Thanks
-                {
-                    ThanksFromUserID = fromUserId,
-                    ThanksToUserID = toUserId,
-                    MessageID = messageId,
-                    ThanksDate = DateTime.UtcNow
-                });
+            {
+                ThanksFromUserID = fromUserId,
+                ThanksToUserID = toUserId,
+                MessageID = messageId,
+                ThanksDate = DateTime.UtcNow
+            });
     }
 
     /// <summary>

@@ -239,8 +239,8 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
 
         formattedMessage = await this.Get<IBBCodeService>().FormatMessageWithCustomBBCodeAsync(
             formattedMessage,
-            messageAuthorId,
-            messageId);
+            messageId,
+            messageAuthorId);
 
         return formattedMessage;
     }

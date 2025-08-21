@@ -184,7 +184,7 @@ public class NotifyController : ForumBaseController
     [Authorize]
     [HttpGet]
     [Route("MarkAllActivity")]
-    public async Task<IActionResult> MarkAllActivity()
+    public IActionResult MarkAllActivity()
     {
         this.GetRepository<Activity>().MarkAllAsRead(this.PageBoardContext.PageUserID);
 

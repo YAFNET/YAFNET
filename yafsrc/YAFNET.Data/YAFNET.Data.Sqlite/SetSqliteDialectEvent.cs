@@ -39,7 +39,7 @@ public class SetSqliteDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(InitDatabaseProviderEvent @event)
     {
