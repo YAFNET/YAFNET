@@ -120,13 +120,36 @@ class FileUploader {
     private previewFile(file: File): void {
         const listItem = document.createElement('li');
         listItem.className = 'list-group-item list-group-item-action';
-        listItem.innerHTML = `<div class="d-flex w-100 justify-content-between">
-                                 <h5 class="mb-1"><span class="preview"></span></h5>
-                                 <small class="text-body-secondary size">${this.bytesToSize(file.size)}</small>
-                             </div>
-                             <p class="name">${file.name}</p>`;
 
-        const previewContainer = listItem.querySelector('.preview')!;
+        // Build container div
+        const containerDiv = document.createElement('div');
+        containerDiv.className = 'd-flex w-100 justify-content-between';
+
+        // Title + preview
+        const titleH5 = document.createElement('h5');
+        titleH5.className = 'mb-1';
+
+        const previewSpan = document.createElement('span');
+        previewSpan.className = 'preview';
+        titleH5.appendChild(previewSpan);
+
+        // File size
+        const sizeSmall = document.createElement('small');
+        sizeSmall.className = 'text-body-secondary size';
+        sizeSmall.textContent = this.bytesToSize(file.size);
+
+        containerDiv.appendChild(titleH5);
+        containerDiv.appendChild(sizeSmall);
+
+        // File name paragraph (escaped)
+        const nameP = document.createElement('p');
+        nameP.className = 'name';
+        nameP.textContent = file.name;
+
+        listItem.appendChild(containerDiv);
+        listItem.appendChild(nameP);
+
+        // Fill preview
         if (file.type.match('image.*')) {
             const img = document.createElement('img');
             img.classList.add('img-thumbnail');
@@ -135,11 +158,11 @@ class FileUploader {
             reader.onloadend = () => { img.src = reader.result as string; };
             reader.readAsDataURL(file);
 
-            previewContainer.appendChild(img);
+            previewSpan.appendChild(img);
         } else {
             const icon = document.createElement('i');
             icon.className = 'fa-regular fa-file';
-            previewContainer.appendChild(icon);
+            previewSpan.appendChild(icon);
         }
 
         document.getElementById('gallery')?.appendChild(listItem);
