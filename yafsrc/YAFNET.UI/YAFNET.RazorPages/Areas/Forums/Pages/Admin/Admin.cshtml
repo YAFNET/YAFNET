@@ -445,7 +445,7 @@
 					<ul class="list-group">
 						@foreach (var user in Model.UserList)
 						{
-							<li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
+								<li class="list-group-item list-group-item-action list-group-item-menu d-flex justify-content-between align-items-start">
 								<div class="align-items-baseline">
 									<div class="me-2">
 										<span class="fw-bold">
@@ -510,6 +510,43 @@
 										</button>
 									</div>
 								</small>
+								<div class="dropdown-menu context-menu" aria-labelledby="context menu">
+									<a asp-page="@ForumPages.Admin_EditUser.GetPageName()"
+									   asp-route-u="@Html.Raw(user.ID)"
+									   Icon="user-edit"
+									   text-localized-tag="EDITUSER"
+									   button-style="None"
+									   class="dropdown-item">
+									</a>
+									<button asp-page-handler="ResendEmail"
+									        asp-route-id="@Html.Raw(user.ID)"
+									        asp-route-p="@Model.Request.RouteValues["p"]"
+									        asp-route-p2="@Model.Request.RouteValues["p2"]"
+									        Icon="share"
+									        text-localized-tag="ADMIN_RESEND_EMAIL"
+									        button-style="None"
+									        class="dropdown-item">
+									</button>
+									<button asp-page-handler="Approve"
+									        asp-route-id="@Html.Raw(user.ID)"
+									        asp-route-p="@Model.Request.RouteValues["p"]"
+									        asp-route-p2="@Model.Request.RouteValues["p2"]"
+									        button-style="None"
+									        class="dropdown-item"
+									        Icon="check"
+									        text-localized-tag="ADMIN_APPROVE">
+									</button>
+									<button asp-page-handler="Delete"
+									        asp-route-id="@Html.Raw(user.ID)"
+									        asp-route-p="@Model.Request.RouteValues["p"]"
+									        asp-route-p2="@Model.Request.RouteValues["p2"]"
+									        button-style="None"
+									        class="dropdown-item"
+									        return-confirm-tag="CONFIRM_DELETE"
+									        Icon="trash"
+									        text-localized-tag="ADMIN_DELETE">
+									</button>
+								</div>
 							</li>
 						}
 
