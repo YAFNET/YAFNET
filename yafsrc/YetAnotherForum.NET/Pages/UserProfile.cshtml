@@ -385,6 +385,28 @@
 	</div>
 }
 
+@if (!Model.Friends.NullOrEmpty())
+{
+	<div class="card mb-3">
+		<div class="card-header link-light bg-primary">
+			@Html.LocalizedText("PROFILE", Model.CombinedUser.Item1.ID == Model.PageBoardContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE")
+		</div>
+		<div class="card-body">
+			<ul class="list-group list-group-flush">
+				@foreach (var user in Model.Friends)
+				{
+					<li class="list-group-item">
+						@Html.UserLink(user.UserID,
+							Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name,
+							user.Suspended,
+							user.UserStyle)
+					</li>
+				}
+			</ul>
+		</div>
+	</div>
+}
+
 </div>
 <!--/col-3-->
 <div class="col-md-9">
@@ -450,11 +472,11 @@
 
 	@if (Model.PageBoardContext.IsAdmin || Model.PageBoardContext.IsForumModerator)
 	{
-		<div class="card mb-3">
-			<div class="card-header">
+		<div class="card mb-3 border-danger">
+				<div class="card-header border-danger">
 				@Html.LocalizedText("PROFILE", "MODERATION")
 			</div>
-			<div class="card-body">
+				<div class="card-body border-danger">
 				@if (Model.CombinedUser.Item1.Suspended.HasValue)
 				{
 					var suspendedByUser = await Model.GetRepository<User>().GetByIdAsync(Model.CombinedUser.Item1.SuspendedBy);
@@ -524,28 +546,6 @@
 						        text-localized-tag="SUSPEND"></button>
 					</div>
 				</form>
-			</div>
-		</div>
-	}
-
-	@if (!Model.Friends.NullOrEmpty())
-	{
-		<div class="card mb-3">
-			<div class="card-header">
-				@Html.LocalizedText("PROFILE", Model.CombinedUser.Item1.ID == Model.PageBoardContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE")
-			</div>
-			<div class="card-body">
-				<ul class="list-group list-group-flush">
-					@foreach (var user in Model.Friends)
-					{
-						<li class="list-group-item">
-							@Html.UserLink(user.UserID,
-								Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name,
-								user.Suspended,
-								user.UserStyle)
-						</li>
-					}
-				</ul>
 			</div>
 		</div>
 	}

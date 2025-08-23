@@ -28,12 +28,12 @@ export function getPaginationData(pageSize: number, pageNumber: number, isPageCh
 
         if (data.attachmentList.length === 0) {
             const li = document.createElement('div');
-            li.classList.add('col');
+            li.classList.add('col p-0');
 
             const noText = placeHolder.dataset.notext;
             const noAttachmentsText = noText || '';
 
-            li.innerHTML = `<div class="alert alert-info text-break" role="alert" style="white-space:normal;width:200px">${noAttachmentsText}</div>`;
+            li.innerHTML = `<div class="alert alert-info text-break text-center" role="alert"><i class="fa fa-circle-info me-1"></i>${noAttachmentsText}</div></div>`;
             list.appendChild(li);
         }
 

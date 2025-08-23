@@ -38,11 +38,11 @@
 						<ul class="list-group" id="gallery"></ul>
 						@if (Current.BoardSettings.MaxFileSize > 0)
 						{
-							<alert type="warning">
+							<alert type="warning" class=" mt-2">
 								@(Current.Get<ILocalization>().GetTextFormatted("UPLOAD_NOTE", (Current.BoardSettings.MaxFileSize / 1024).ToString()))
 							</alert>
 						}
-						<div class="alert alert-info" role="alert">
+						<div class="alert alert-info mt-2" role="alert">
 							<strong>
 								@Html.LocalizedText("ALLOWED_EXTENSIONS")
 							</strong>
