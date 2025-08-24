@@ -19,93 +19,88 @@
     margin-left: auto;
 }
 
-// Topic Title
-.topic-title {
-    white-space: pre-wrap;
-}
+.yafnet {
+    // Topic Title
+    .topic-title {
+        white-space: pre-wrap;
+    }
+    // MultiQuote Button
+    .btn-multiquote {
+        display: inline-block;
+        margin-left: 10px !important;
 
-// MultiQuote Button
-.btn-multiquote {
-    display: inline-block;
-    margin-left: 10px !important;
+        label {
+            margin-top: -1px;
+        }
 
-    label {
-        margin-top: -1px;
+        .fa-stack {
+            margin-top: -2px;
+        }
     }
 
-    .fa-stack {
-        margin-top: -2px;
+    .list-inline {
+        margin: 0;
     }
-}
 
-.list-inline {
-    margin: 0;
-}
+    // Similar topic lists
+    .list-similar {
+        height: 200px;
+        overflow: hidden;
+        overflow-y: scroll;
+    }
+    // Scrollable Mobile Dropdowns
+    .scrollable-dropdown {
+        height: auto;
+        width: 100%;
+        max-height: 200px;
+        overflow-x: hidden;
+    }
+    // Small Avatars inside Posts
+    .img-avatar-sm {
+        max-height: 40px;
+    }
 
-// Similar topic lists
-.list-similar {
-    height: 200px;
-    overflow: hidden;
-    overflow-y: scroll;
-}
+    .img-navbar-avatar {
+        position: relative;
+        margin-bottom: 0;
+        display: inline-block;
+        min-width: 0.9rem;
+        max-width: 1.2rem;
+        max-height: 1.2rem;
+        font-size: 2rem;
+        vertical-align: middle;
+    }
+    // Thanks Popover
+    .popover-body-scrollable {
+        max-height: 200px;
+        overflow-y: scroll;
+    }
+    // Unread Icon
+    .unread {
+        position: absolute;
+        top: 8px;
+        left: 16px;
+    }
+    // Tabs
+    .tab-content {
+        padding-top: 10px;
+    }
+    // Attachment Upload
+    .preview .img-thumbnail {
+        max-height: 80px;
+        max-width: 80px;
+    }
 
-// Scrollable Mobile Dropdowns
-.scrollable-dropdown {
-    height: auto;
-    width: 100%;
-    max-height: 200px;
-    overflow-x: hidden;
-}
-
-// Small Avatars inside Posts
-.img-avatar-sm {
-    max-height: 40px;
-}
-
-.img-navbar-avatar {
-    position: relative;
-    margin-bottom: 0;
-    display: inline-block;
-    min-width: 0.9rem;
-    max-width: 1.2rem;
-    max-height: 1.2rem;
-    font-size: 2rem;
-    vertical-align: middle;
-}
-
-// Thanks Popover
-.popover-body-scrollable {
-    max-height: 200px;
-    overflow-y: scroll;
-}
-
-// Unread Icon
-.unread {
-    position: absolute;
-    top: 8px;
-    left:16px;
-}
-
-// Tabs
-.tab-content {
-    padding-top: 10px;
-}
-
-// Attachment Upload
-.preview .img-thumbnail {
-    max-height: 80px;
-    max-width: 80px;
-}
-
-.fileinput-button input {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    height: 100%;
-    opacity: 0;
-    filter: alpha(opacity=0);
-    font-size: 200px !important;
-    direction: ltr;
-    cursor: pointer;
+    .fileinput-button input {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        height: 100%;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        font-size: 200px !important;
+        direction: ltr;
+        cursor: pointer;
+    }
 }

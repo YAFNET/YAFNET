@@ -792,10 +792,10 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         return "SELECT 1";
     }
 
-    public override string ToDropForeignKeyStatement(string schema, string table, string foreignKeyName)
+    public override string ToDropForeignKeyStatement(TableRef tableRef, string foreignKeyName)
     {
         return
-            $"ALTER TABLE {this.GetQuotedTableName(table, schema)} DROP FOREIGN KEY {this.GetQuotedName(foreignKeyName)};";
+            $"ALTER TABLE {this.GetQuotedTableName(tableRef)} DROP FOREIGN KEY {this.GetQuotedName(foreignKeyName)};";
     }
 
     /// <summary>

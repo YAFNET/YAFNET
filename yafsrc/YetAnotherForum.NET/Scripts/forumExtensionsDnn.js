@@ -9709,10 +9709,9 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
         if (data.AttachmentList.length === 0) {
             const li = document.createElement("div");
             li.classList.add("col");
-            if (noText) {
-                noAttachmentsText = noText;
-            }
-            li.innerHTML = `<div class="alert alert-info text-break" role="alert" style="white-space:normal;width:200px">${noAttachmentsText}</div>`;
+            const noText = placeHolder.dataset.notext;
+            const noAttachmentsText = noText || "";
+            li.innerHTML = `<div class="alert alert-info text-break" role="alert">${noAttachmentsText}</div>`;
             list.appendChild(li);
         }
         data.AttachmentList.forEach(dataItem => {
@@ -9969,8 +9968,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     placeHolder.classList.remove("list-group");
                     if (data.TotalRecords > 0) {
                         var list = document.createElement("ul");
-                        list.classList.add("list-group");
-                        list.classList.add("list-similar");
+                        list.classList.add("list-group", "list-similar");
                         if (data.SearchResults.length > 0) {
                             const markRead = document.getElementById("MarkRead");
                             markRead.classList.remove("d-none");

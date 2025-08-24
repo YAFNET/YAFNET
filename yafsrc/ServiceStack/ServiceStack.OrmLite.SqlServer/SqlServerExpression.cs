@@ -39,6 +39,11 @@ public class SqlServerExpression<T> : SqlExpression<T>
         SqlServerExpressionUtils.PrepareSqlServerUpdateStatement(dbCmd, this, item, excludeDefaults);
     }
 
+    override protected string GetModExpression(BinaryExpression b, object left, object right)
+    {
+        return $"({left} % {right})";
+    }
+
     /// <summary>
     /// Gets the coalesce expression.
     /// </summary>

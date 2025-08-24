@@ -279,6 +279,9 @@ public interface IOrmLiteDialectProvider
     /// <returns>System.String.</returns>
     string GetTableNameWithBrackets(string tableName, string schema = null);
 
+    string GetQuotedTableName(TableRef tableRef);
+    string GetQuotedTableName(Type modelType);
+
     /// <summary>
     /// Gets the name of the quoted table.
     /// </summary>
@@ -998,13 +1001,12 @@ public interface IOrmLiteDialectProvider
     /// <returns>System.String.</returns>
     string GetDropForeignKeyConstraints(ModelDefinition modelDef);
 
-    string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef);
-    string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef);
-    string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn);
-    string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn);
-    string ToDropColumnStatement(string schema, string table, string column);
-
-    string ToDropConstraintStatement(string schema, string table, string constraint);
+    string ToAddColumnStatement(TableRef tableRef, FieldDefinition fieldDef);
+    string ToAlterColumnStatement(TableRef tableRef, FieldDefinition fieldDef);
+    string ToChangeColumnNameStatement(TableRef tableRef, FieldDefinition fieldDef, string oldColumn);
+    string ToRenameColumnStatement(TableRef tableRef, string oldColumn, string newColumn);
+    string ToDropColumnStatement(TableRef tableRef, string column);
+    string ToDropConstraintStatement(TableRef tableRef, string constraint);
 
     /// <summary>
     /// Converts to addforeignkeystatement.
@@ -1023,7 +1025,7 @@ public interface IOrmLiteDialectProvider
                                                  OnFkOption onDelete,
                                                  string foreignKeyName = null);
 
-    string ToDropForeignKeyStatement(string schema, string table, string foreignKeyName);
+    string ToDropForeignKeyStatement(TableRef tableRef, string foreignKeyName);
 
     /// <summary>
     /// Converts to createindexstatement.

@@ -13516,16 +13516,14 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
   margin-left: auto;
 }
 
-.list-inline {
+.yafnet .list-inline {
   margin: 0;
 }
-
-.pre-scrollable {
+.yafnet .pre-scrollable {
   overflow: auto;
   white-space: pre-line;
 }
-
-.img-navbar-avatar {
+.yafnet .img-navbar-avatar {
   position: relative;
   margin-bottom: 0;
   display: inline-block;
@@ -13535,13 +13533,11 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
   font-size: 2rem;
   vertical-align: middle;
 }
-
-.unread {
+.yafnet .unread {
   position: absolute;
   top: 8px;
   left: 16px;
 }
-
-.tab-content {
+.yafnet .tab-content {
   padding-top: 10px;
 }

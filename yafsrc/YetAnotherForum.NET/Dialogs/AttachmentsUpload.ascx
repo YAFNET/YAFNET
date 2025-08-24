@@ -34,9 +34,9 @@
 
 				      <ul class="list-group" id="gallery"></ul>
 				      <asp:PlaceHolder ID="UploadNodePlaceHold" runat="server">
-					      <YAF:Alert runat="server" Type="warning"><asp:Label ID="UploadNote" runat="server"></asp:Label></YAF:Alert>
+					      <YAF:Alert runat="server" Type="warning" CssClass="mt-2"><asp:Label ID="UploadNote" runat="server"></asp:Label></YAF:Alert>
 				      </asp:PlaceHolder>
-				      <div class="alert alert-info" role="alert">
+				      <div class="alert alert-info mt-2" role="alert">
 					      <strong><YAF:LocalizedLabel ID="ExtensionTitle"
 					                                  LocalizedTag="ALLOWED_EXTENSIONS" runat="server" /></strong>
 					      &nbsp;

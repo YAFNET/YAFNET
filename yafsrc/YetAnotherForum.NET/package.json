@@ -23,7 +23,7 @@
 		"terser-webpack-plugin": "^5.3.14",
 		"ts-loader": "^9.5.2",
 		"typescript": "^5.9.2",
-		"webpack": "^5.101.1",
+		"webpack": "^5.101.3",
 		"webpack-cli": "^6.0.1"
 	},
 	"dependencies": {

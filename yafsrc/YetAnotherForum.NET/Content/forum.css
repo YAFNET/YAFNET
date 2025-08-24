@@ -13623,43 +13623,37 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
   margin-left: auto;
 }
 
-.topic-title {
+.yafnet .topic-title {
   white-space: pre-wrap;
 }
-
-.btn-multiquote {
+.yafnet .btn-multiquote {
   display: inline-block;
   margin-left: 10px !important;
 }
-.btn-multiquote label {
+.yafnet .btn-multiquote label {
   margin-top: -1px;
 }
-.btn-multiquote .fa-stack {
+.yafnet .btn-multiquote .fa-stack {
   margin-top: -2px;
 }
-
-.list-inline {
+.yafnet .list-inline {
   margin: 0;
 }
-
-.list-similar {
+.yafnet .list-similar {
   height: 200px;
   overflow: hidden;
   overflow-y: scroll;
 }
-
-.scrollable-dropdown {
+.yafnet .scrollable-dropdown {
   height: auto;
   width: 100%;
   max-height: 200px;
   overflow-x: hidden;
 }
-
-.img-avatar-sm {
+.yafnet .img-avatar-sm {
   max-height: 40px;
 }
-
-.img-navbar-avatar {
+.yafnet .img-navbar-avatar {
   position: relative;
   margin-bottom: 0;
   display: inline-block;
@@ -13669,28 +13663,23 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
   font-size: 2rem;
   vertical-align: middle;
 }
-
-.popover-body-scrollable {
+.yafnet .popover-body-scrollable {
   max-height: 200px;
   overflow-y: scroll;
 }
-
-.unread {
+.yafnet .unread {
   position: absolute;
   top: 8px;
   left: 16px;
 }
-
-.tab-content {
+.yafnet .tab-content {
   padding-top: 10px;
 }
-
-.preview .img-thumbnail {
+.yafnet .preview .img-thumbnail {
   max-height: 80px;
   max-width: 80px;
 }
-
-.fileinput-button input {
+.yafnet .fileinput-button input {
   position: absolute;
   top: 0;
   right: 0;

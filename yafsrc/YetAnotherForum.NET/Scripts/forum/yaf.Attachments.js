@@ -27,11 +27,10 @@
 
             li.classList.add('col');
 
-            if (noText) {
-	            noAttachmentsText = noText;
-            }
+            const noText = placeHolder.dataset.notext;
+            const noAttachmentsText = noText || '';
 
-            li.innerHTML = `<div class="alert alert-info text-break" role="alert" style="white-space:normal;width:200px">${noAttachmentsText}</div>`;
+            li.innerHTML = `<div class="alert alert-info text-break" role="alert">${noAttachmentsText}</div>`;
 
             list.appendChild(li);
         }

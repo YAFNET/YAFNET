@@ -205,7 +205,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     public virtual void AddTag(string tag)
     {
         //Debug.Assert(!string.IsNullOrEmpty(tag));
-        Tags.Add(tag);
+        this.Tags.Add(tag);
     }
 
     /// <summary>
@@ -1242,15 +1242,15 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     public virtual SqlExpression<T> WhereExists(ISqlExpression subSelect)
     {
         var sql = subSelect.ToSelectStatement(QueryType.Select);
-        var mergedSql = DialectProvider.MergeParamsIntoSql(sql, subSelect.Params);
-        return AppendToWhere("AND", FormatFilter($"EXISTS ({mergedSql})"));
+        var mergedSql = this.DialectProvider.MergeParamsIntoSql(sql, subSelect.Params);
+        return this.AppendToWhere("AND", this.FormatFilter($"EXISTS ({mergedSql})"));
     }
 
     public virtual SqlExpression<T> WhereNotExists(ISqlExpression subSelect)
     {
         var sql = subSelect.ToSelectStatement(QueryType.Select);
-        var mergedSql = DialectProvider.MergeParamsIntoSql(sql, subSelect.Params);
-        return AppendToWhere("AND", FormatFilter($"NOT EXISTS ({mergedSql})"));
+        var mergedSql = this.DialectProvider.MergeParamsIntoSql(sql, subSelect.Params);
+        return this.AppendToWhere("AND", this.FormatFilter($"NOT EXISTS ({mergedSql})"));
     }
 
     /// <summary>
@@ -2479,6 +2479,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         return this.DialectProvider.GetQuotedTableName(modelDef);
     }
 
+    public string SqlColumn(FieldDefinition fieldDef)
+    {
+        return this.DialectProvider.GetQuotedColumnName(fieldDef);
+    }
+
     /// <summary>
     /// SQLs the column.
     /// </summary>
@@ -2694,7 +2699,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// Converts to selectstatement.
     /// </summary>
     /// <returns>string.</returns>
-    public virtual string ToSelectStatement() => ToSelectStatement(QueryType.Select);
+    public virtual string ToSelectStatement() => this.ToSelectStatement(QueryType.Select);
 
     /// <summary>
     /// Converts to selectstatement.
@@ -2707,7 +2712,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         OrmLiteConfig.SqlExpressionSelectFilter?.Invoke(this.GetUntyped());
 
         var sql = this.DialectProvider
-            .ToSelectStatement(forType, modelDef, this.SelectExpression, this.BodyExpression, this.OrderByExpression, offset: Offset, rows: Rows, Tags);
+            .ToSelectStatement(forType, this.modelDef, this.SelectExpression, this.BodyExpression, this.OrderByExpression, offset: this.Offset, rows: this.Rows, this.Tags);
 
         return this.SqlFilter != null
                    ? this.SqlFilter(sql)
@@ -2889,7 +2894,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             case ExpressionType.Call:
                 return this.VisitMethodCall(exp as MethodCallExpression);
             case ExpressionType.Invoke:
-                return VisitInvocation(exp as InvocationExpression);
+                return this.VisitInvocation(exp as InvocationExpression);
             case ExpressionType.New:
                 return this.VisitNew(exp as NewExpression);
             case ExpressionType.NewArrayInit:
@@ -3088,7 +3093,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                     }
                 }
 
-                if (right is bool rightBool && !IsFieldName(left) && b.Left is not ConditionalExpression)
+                if (right is bool rightBool && !this.IsFieldName(left) && b.Left is not ConditionalExpression)
                 {
                     // Don't change anything when "expr" is a column name or ConditionalExpression - then we really want "ColName = 1" or (Case When 1=0 Then 1 Else 0 End = 1)
                     if (operand == "=")
@@ -3138,7 +3143,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             else if (left is not PartialSqlString)
             {
                 //left = DialectProvider.GetQuotedValue(left, left?.GetType());
-                left = GetValue(left, left?.GetType());
+                left = this.GetValue(left, left?.GetType());
             }
             else if (right is not PartialSqlString)
             {
@@ -3173,9 +3178,15 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
         return operand switch
         {
-            "MOD" or "COALESCE" => new PartialSqlString(GetCoalesceExpression(b, left.ToString(), right.ToString())),
+            "MOD" => new PartialSqlString(this.GetModExpression(b, left.ToString(), right.ToString())),
+            "COALESCE" => new PartialSqlString(this.GetCoalesceExpression(b, left.ToString(), right.ToString())),
             _ => new PartialSqlString("(" + left + separator + operand + separator + right + ")")
         };
+    }
+
+    protected virtual string GetModExpression(BinaryExpression b, object left, object right)
+    {
+        return $"MOD({left},{right})";
     }
 
     /// <summary>
@@ -3392,24 +3403,24 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
         if (left is not PartialSqlString && left?.ToString() != "null")
         {
-            if (!(originalLeft is MemberExpression leftMe && IsTableColumn(leftMe)))
+            if (!(originalLeft is MemberExpression leftMe && this.IsTableColumn(leftMe)))
             {
-                ConvertToPlaceholderAndParameter(ref left);
+                this.ConvertToPlaceholderAndParameter(ref left);
             }
             else
             {
-                left = DialectProvider.GetQuotedValue(left, left?.GetType());
+                left = this.DialectProvider.GetQuotedValue(left, left?.GetType());
             }
         }
         if (right is not PartialSqlString && right?.ToString() != "null")
         {
-            if (!(originalRight is MemberExpression rightMe && IsTableColumn(rightMe)))
+            if (!(originalRight is MemberExpression rightMe && this.IsTableColumn(rightMe)))
             {
-                ConvertToPlaceholderAndParameter(ref right);
+                this.ConvertToPlaceholderAndParameter(ref right);
             }
             else
             {
-                right = DialectProvider.GetQuotedValue(right, right?.GetType());
+                right = this.DialectProvider.GetQuotedValue(right, right?.GetType());
             }
         }
     }
@@ -3502,7 +3513,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
         var tableDef = modelType.GetModelDefinition();
 
-        var tableAlias = GetTableAlias(m, tableDef);
+        var tableAlias = this.GetTableAlias(m, tableDef);
         var columnName = tableAlias == null
                              ? this.GetQuotedColumnName(tableDef, m.Member.Name)
                              : this.GetQuotedColumnName(tableDef, tableAlias, m.Member.Name);
@@ -3549,7 +3560,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             }
         }
 
-        if (UseJoinTypeAsAliases && joinAliases != null && joinAliases.TryGetValue(tableDef, out var tableOptions))
+        if (this.UseJoinTypeAsAliases && this.joinAliases != null && this.joinAliases.TryGetValue(tableDef, out var tableOptions))
         {
             return tableOptions.Alias;
         }
@@ -3669,7 +3680,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                     {
                         if (item is SelectItemColumn columnItem)
                         {
-                            columnItem.Alias = member.Name + columnItem.ColumnName;
+                            columnItem.Alias = member.Name + columnItem.GetColumnName();
                         }
                     }
                 }
@@ -4042,7 +4053,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>System.Object.</returns>
     protected virtual object VisitInvocation(InvocationExpression m)
     {
-        return EvaluateExpression(m);
+        return this.EvaluateExpression(m);
     }
 
     /// <summary>
@@ -4259,7 +4270,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <param name="memberName">Name of the member.</param>
     /// <returns>string.</returns>
     protected virtual string GetQuotedColumnName(ModelDefinition tableDef, string memberName) => // Always call if no tableAlias to exec overrides
-        this.GetQuotedColumnName(tableDef, tableDef == modelDef ? TableAlias : null, memberName);
+        this.GetQuotedColumnName(tableDef, tableDef == this.modelDef ? this.TableAlias : null, memberName);
 
     /// <summary>
     /// Gets the name of the quoted column.
@@ -4804,9 +4815,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         var arg = args.Count > 0 ? args[0] : null;
 
         string wildcardArg, escapeSuffix = string.Empty;
-        if (AllowEscapeWildcards)
+        if (this.AllowEscapeWildcards)
         {
-            wildcardArg = arg != null ? DialectProvider.EscapeWildcards(arg.ToString()) : string.Empty;
+            wildcardArg = arg != null ? this.DialectProvider.EscapeWildcards(arg.ToString()) : string.Empty;
             escapeSuffix = wildcardArg.IndexOf('^') >= 0 ? " escape '^'" : string.Empty;
         }
         else
@@ -5225,7 +5236,7 @@ public class SelectItemColumn : SelectItem
             : base(dialectProvider, null)
     {
         this.fieldDef = fieldDef;
-        QuotedTableAlias = quotedTableAlias;
+        this.QuotedTableAlias = quotedTableAlias;
     }
 
     /// <summary>
@@ -5261,14 +5272,23 @@ public class SelectItemColumn : SelectItem
     public string QuotedTableAlias { get; set; }
 
     /// <summary>
+    /// Gets the name of the column.
+    /// </summary>
+    /// <returns>System.String.</returns>
+    public string GetColumnName()
+    {
+        return this.fieldDef != null ? this.fieldDef.Name : this.ColumnName;
+    }
+
+    /// <summary>
     /// Converts to string.
     /// </summary>
     /// <returns>string.</returns>
     public override string ToString()
     {
-        var text = fieldDef != null
-            ? DialectProvider.GetQuotedColumnName(fieldDef)
-            : DialectProvider.GetQuotedColumnName(ColumnName);
+        var text = this.fieldDef != null
+            ? this.DialectProvider.GetQuotedColumnName(this.fieldDef)
+            : this.DialectProvider.GetQuotedColumnName(this.ColumnName);
 
         if (!string.IsNullOrEmpty(this.QuotedTableAlias))
         {

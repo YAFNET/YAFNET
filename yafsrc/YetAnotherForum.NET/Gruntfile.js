@@ -19,6 +19,23 @@ module.exports = function (grunt) {
         },
 
         copy: {
+	        bootstrap: {
+		        files: [
+			        { expand: true, src: '**/*.scss', cwd: 'node_modules/bootstrap/scss', dest: 'Content/bootstrap/' },
+			        {
+				        expand: true,
+				        src: '**/bootstrap.bundle.js',
+				        cwd: 'node_modules/bootstrap/dist/js/',
+				        dest: 'Scripts/'
+			        },
+			        {
+				        expand: true,
+				        src: '**/bootstrap.bundle.min.js',
+				        cwd: 'node_modules/bootstrap/dist/js/',
+				        dest: 'Scripts/'
+			        }
+		        ]
+	        },
             bootswatchThemes: {
                 files: [
                     { expand: true, src: '**/*.scss', cwd: 'node_modules/bootswatch/dist', dest: 'Content/Themes/' }
