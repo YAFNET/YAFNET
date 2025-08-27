@@ -1172,10 +1172,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="table">The table.</param>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
-    public override string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef)
+    public override string ToAlterColumnStatement(TableRef tableRef, FieldDefinition fieldDef)
     {
         var columnDefinition = this.GetColumnDefinition(fieldDef);
-        var modelName = this.GetQuotedTableName(table, schema);
+        var modelName = this.GetQuotedTableName(tableRef);
 
         var parts = columnDefinition.SplitOnFirst(' ');
         var columnName = parts[0];
@@ -1468,14 +1468,14 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="fieldDef">The field definition.</param>
     /// <param name="oldColumn">The old column.</param>
     /// <returns>System.String.</returns>
-    public override string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef,
+    public override string ToChangeColumnNameStatement(TableRef tableRef, FieldDefinition fieldDef,
         string oldColumn)
     {
         // var column = GetColumnDefinition(fieldDef);
         var columnType = this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
         var newColumnName = this.NamingStrategy.GetColumnName(fieldDef.FieldName);
 
-        var sql = $"ALTER TABLE {this.GetQuotedTableName(table, schema)} " +
+        var sql = $"ALTER TABLE {this.GetQuotedTableName(tableRef)} " +
                   $"ALTER COLUMN {this.GetQuotedColumnName(oldColumn)} TYPE {columnType}";
         sql += newColumnName != oldColumn
             ? $", RENAME COLUMN {this.GetQuotedColumnName(oldColumn)} TO {this.GetQuotedColumnName(newColumnName)};"

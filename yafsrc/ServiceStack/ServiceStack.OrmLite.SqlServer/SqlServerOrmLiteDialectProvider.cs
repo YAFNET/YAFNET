@@ -884,9 +884,9 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="table">The table.</param>
         /// <param name="fieldDef">The field definition.</param>
         /// <returns>System.String.</returns>
-        public override string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef)
+        public override string ToAddColumnStatement(TableRef tableRef, FieldDefinition fieldDef)
         {
-            return $"ALTER TABLE {this.GetQuotedTableName(table, schema)} ADD {this.GetColumnDefinition(fieldDef)};";
+            return $"ALTER TABLE {this.GetQuotedTableName(tableRef)} ADD {this.GetColumnDefinition(fieldDef)};";
         }
 
         /// <summary>
@@ -896,10 +896,10 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="table">The table.</param>
         /// <param name="fieldDef">The field definition.</param>
         /// <returns>System.String.</returns>
-        public override string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef)
+        public override string ToAlterColumnStatement(TableRef tableRef, FieldDefinition fieldDef)
         {
             return
-                $"ALTER TABLE {this.GetQuotedTableName(table, schema)} ALTER COLUMN {this.GetColumnDefinition(fieldDef)};";
+                $"ALTER TABLE {this.GetQuotedTableName(tableRef)} ALTER COLUMN {this.GetColumnDefinition(fieldDef)};";
         }
 
         /// <summary>
@@ -910,9 +910,9 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="fieldDef">The field definition.</param>
         /// <param name="oldColumn">The old column.</param>
         /// <returns>System.String.</returns>
-        public override string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn)
+        public override string ToChangeColumnNameStatement(TableRef tableRef, FieldDefinition fieldDef, string oldColumn)
         {
-            var objectName = $"{GetQuotedTableName(table, schema)}.{GetQuotedColumnName(oldColumn)}";
+            var objectName = $"{this.GetQuotedTableName(tableRef)}.{this.GetQuotedColumnName(oldColumn)}";
 
             return
                 $"EXEC sp_rename {this.GetQuotedValue(objectName)}, {this.GetQuotedValue(fieldDef.FieldName)}, {this.GetQuotedValue("COLUMN")};";
@@ -926,10 +926,15 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="oldColumn">The old column.</param>
         /// <param name="newColumn">The new column.</param>
         /// <returns>System.String.</returns>
-        public override string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn)
+        public override string ToRenameColumnStatement(TableRef tableRef, string oldColumn, string newColumn)
         {
-            var objectName = $"{GetQuotedTableName(table, schema)}.{GetQuotedColumnName(oldColumn)}";
+            var objectName = $"{this.GetQuotedTableName(tableRef)}.{this.GetQuotedColumnName(oldColumn)}";
             return $"EXEC sp_rename {this.GetQuotedValue(objectName)}, {this.GetQuotedColumnName(newColumn)}, 'COLUMN';";
+        }
+
+        public override string ToDropIndexStatement<T>(string indexName)
+        {
+            return $"DROP INDEX IF EXISTS {this.GetQuotedName(indexName)} ON {this.GetQuotedTableName(typeof(T))};";
         }
 
         /// <summary>
@@ -1012,7 +1017,7 @@ namespace ServiceStack.OrmLite.SqlServer
             {
                 if (fieldDef.DefaultValueConstraint != null)
                 {
-                    sql.Append(" CONSTRAINT ").Append(GetQuotedName(fieldDef.DefaultValueConstraint));
+                    sql.Append(" CONSTRAINT ").Append(this.GetQuotedName(fieldDef.DefaultValueConstraint));
                 }
                 sql.AppendFormat(this.DefaultValueFormat, defaultValue);
             }
@@ -1092,9 +1097,9 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="table">The table.</param>
         /// <param name="constraintName">Name of the constraint.</param>
         /// <returns>string.</returns>
-        public override string ToDropConstraintStatement(string schema, string table, string constraintName)
+        public override string ToDropConstraintStatement(TableRef tableRef, string constraintName)
         {
-            return $"ALTER TABLE {GetQuotedTableName(table, schema)} DROP CONSTRAINT {GetQuotedName(constraintName)};";
+            return $"ALTER TABLE {this.GetQuotedTableName(tableRef)} DROP CONSTRAINT {this.GetQuotedName(constraintName)};";
         }
 
         /// <summary>

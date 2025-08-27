@@ -819,10 +819,21 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="table">The table.</param>
     /// <param name="foreignKeyName">Name of the foreign key.</param>
     /// <returns>string.</returns>
-    public override string ToDropForeignKeyStatement(string schema, string table, string foreignKeyName)
+    public override string ToDropForeignKeyStatement(TableRef tableRef, string foreignKeyName)
     {
         return
-            $"ALTER TABLE {this.GetQuotedTableName(table, schema)} DROP FOREIGN KEY {this.GetQuotedName(foreignKeyName)};";
+            $"ALTER TABLE {this.GetQuotedTableName(tableRef)} DROP FOREIGN KEY {this.GetQuotedName(foreignKeyName)};";
+    }
+
+    /// <summary>
+    /// Create Drop Index statement.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="indexName">Name of the index.</param>
+    /// <returns>System.String.</returns>
+    public override string ToDropIndexStatement<T>(string indexName)
+    {
+        return $"DROP INDEX {this.GetQuotedName(indexName)} ON {this.GetQuotedTableName(typeof(T))}";
     }
 
     /// <summary>

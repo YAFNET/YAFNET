@@ -1238,6 +1238,11 @@ public static class OrmLiteUtils
     /// </summary>
     private readonly static char[] QuotedChars = ['"', '`', '[', ']'];
 
+    public static bool IsQuoted(string symbol)
+    {
+        return symbol.IndexOfAny(QuotedChars) >= 0;
+    }
+
     /// <summary>
     /// Aliases the or column.
     /// </summary>

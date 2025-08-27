@@ -28,7 +28,7 @@ public static class OrmLiteSchemaApi
     /// <param name="tableName">Name of the table.</param>
     /// <param name="schema">The schema.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool TableExists(this IDbConnection dbConn, string tableName, string schema = null)
+    public static bool TableExists(this IDbConnection dbConn, string tableName, string schema)
     {
         var dialectProvider = dbConn.GetDialectProvider();
 

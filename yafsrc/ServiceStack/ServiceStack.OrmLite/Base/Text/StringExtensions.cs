@@ -644,14 +644,20 @@ public static class StringExtensions
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>string.</returns>
-    public static string ToUppercaseUnderscore(this string value) => value.ToLowercaseUnderscore().ToUpper();
+    public static string ToUppercaseUnderscore(this string value)
+    {
+        return value.ToLowercaseUnderscore().ToUpper();
+    }
 
     /// <summary>
     /// Converts to kebabcase.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>string.</returns>
-    public static string ToKebabCase(this string value) => value.ToLowercaseUnderscore().Replace("_", "-");
+    public static string ToKebabCase(this string value)
+    {
+        return value.ToLowercaseUnderscore().Replace("_", "-");
+    }
 
     /// <summary>
     /// Converts to lowercaseunderscore.

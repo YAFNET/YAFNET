@@ -426,6 +426,14 @@ public static class OrmLiteReadExpressionsApiAsync
     }
 
     /// <summary>
+    /// Return the number of rows in the specified table
+    /// </summary>
+    public static Task<long> RowCountAsync<T>(this IDbConnection dbConn)
+    {
+        return dbConn.SqlScalarAsync<long>(dbConn.From<T>().Select(Sql.Count("*")));
+    }
+
+    /// <summary>
     /// Returns results with references from using a LINQ Expression. E.g:
     /// <para>db.LoadSelectAsync&lt;Person&gt;(x =&gt; x.Age &gt; 40)</para>
     /// </summary>

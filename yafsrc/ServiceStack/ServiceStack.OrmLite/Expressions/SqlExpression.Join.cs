@@ -691,9 +691,9 @@ public abstract partial class SqlExpression<T> : ISqlExpression
         return string.Format("{0}\n({1}.{2} = {3}.{4})",
             isCrossJoin ? "WHERE" : "ON",
             this.DialectProvider.GetQuotedTableName(parentDef),
-            this.SqlColumn(parentDef.PrimaryKey.FieldName),
+            this.SqlColumn(parentDef.PrimaryKey),
             this.DialectProvider.GetQuotedTableName(childDef),
-            this.SqlColumn(refField.FieldName));
+            this.SqlColumn(refField));
     }
 
     /// <summary>
@@ -862,7 +862,7 @@ public abstract partial class SqlExpression<T> : ISqlExpression
                             {
                                 if (!fieldDef.IsRowVersion)
                                 {
-                                    sbSelect.Append($"{this.GetQuotedColumnName(tableDef, matchingField.Name)} AS {this.SqlColumn(fieldDef.Name)}");
+                                    sbSelect.Append($"{this.GetQuotedColumnName(tableDef, matchingField.Name)} AS {this.SqlColumn(fieldDef)}");
                                 }
                                 else
                                 {

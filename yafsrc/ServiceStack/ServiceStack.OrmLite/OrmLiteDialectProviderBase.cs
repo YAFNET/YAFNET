@@ -739,6 +739,14 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         return this.GetQuotedTableName(modelDef.ModelName, modelDef.Schema);
     }
 
+    public virtual string GetQuotedTableName(TableRef tableRef)
+    {
+        return tableRef.QuotedName ??
+               (tableRef.ModelDef != null
+                   ? this.GetQuotedTableName(tableRef.ModelDef)
+                   : this.GetQuotedTableName(tableRef.Name, tableRef.Schema));
+    }
+
     /// <summary>
     /// Gets the name of the quoted table.
     /// </summary>
@@ -1164,9 +1172,12 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>SelectItem[].</returns>
     public virtual SelectItem[] GetColumnNames(ModelDefinition modelDef, string tablePrefix)
     {
+        // If tablePrefix is the same as the table alias, use the quoted table name instead
         var quotedPrefix = tablePrefix != null
-                               ? this.GetQuotedTableName(tablePrefix, modelDef.Schema)
-                               : string.Empty;
+            ? tablePrefix == modelDef.Alias
+                ? this.GetQuotedTableName(modelDef)
+                : this.GetQuotedTableName(tablePrefix, modelDef.Schema)
+            : string.Empty;
 
         var sqlColumns = new SelectItem[modelDef.FieldDefinitions.Count];
         for (var i = 0; i < sqlColumns.Length; ++i)
@@ -3549,9 +3560,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="table">The table.</param>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef)
+    public virtual string ToAddColumnStatement(TableRef tableRef, FieldDefinition fieldDef)
     {
-        return $"ALTER TABLE {this.GetQuotedTableName(table, schema)} ADD COLUMN {this.GetColumnDefinition(fieldDef)};";
+        return $"ALTER TABLE {this.GetQuotedTableName(tableRef)} ADD COLUMN {this.GetColumnDefinition(fieldDef)};";
     }
 
     /// <summary>
@@ -3561,10 +3572,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="table">The table.</param>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef)
+    public virtual string ToAlterColumnStatement(TableRef tableRef, FieldDefinition fieldDef)
     {
         return
-            $"ALTER TABLE {this.GetQuotedTableName(table, schema)} MODIFY COLUMN {this.GetColumnDefinition(fieldDef)};";
+            $"ALTER TABLE {this.GetQuotedTableName(tableRef)} MODIFY COLUMN {this.GetColumnDefinition(fieldDef)};";
     }
 
     /// <summary>
@@ -3575,10 +3586,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="fieldDef">The field definition.</param>
     /// <param name="oldColumn">The old column.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn)
+    public virtual string ToChangeColumnNameStatement(TableRef tableRef, FieldDefinition fieldDef, string oldColumn)
     {
         return
-            $"ALTER TABLE {this.GetQuotedTableName(table, schema)} CHANGE COLUMN {this.GetQuotedColumnName(oldColumn)} {this.GetColumnDefinition(fieldDef)};";
+            $"ALTER TABLE {this.GetQuotedTableName(tableRef)} CHANGE COLUMN {this.GetQuotedColumnName(oldColumn)} {this.GetColumnDefinition(fieldDef)};";
     }
 
     /// <summary>
@@ -3589,10 +3600,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="oldColumn">The old column.</param>
     /// <param name="newColumn">The new column.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn)
+    public virtual string ToRenameColumnStatement(TableRef tableRef, string oldColumn, string newColumn)
     {
         return
-            $"ALTER TABLE {this.GetQuotedTableName(table, schema)} RENAME COLUMN {this.GetQuotedColumnName(oldColumn)} TO {this.GetQuotedColumnName(newColumn)};";
+            $"ALTER TABLE {this.GetQuotedTableName(tableRef)} RENAME COLUMN {this.GetQuotedColumnName(oldColumn)} TO {this.GetQuotedColumnName(newColumn)};";
     }
 
     /// <summary>
@@ -3639,9 +3650,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="table">The table.</param>
     /// <param name="foreignKeyName">Name of the foreign key.</param>
     /// <returns>string.</returns>
-    public virtual string ToDropForeignKeyStatement(string schema, string table, string foreignKeyName)
+    public virtual string ToDropForeignKeyStatement(TableRef tableRef, string foreignKeyName)
     {
-        return $"ALTER TABLE {this.GetQuotedTableName(table, schema)} DROP CONSTRAINT {this.GetQuotedName(foreignKeyName)};";
+        return $"ALTER TABLE {this.GetQuotedTableName(tableRef)} DROP CONSTRAINT {this.GetQuotedName(foreignKeyName)};";
     }
 
     /// <summary>
@@ -3651,7 +3662,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="table">The table.</param>
     /// <param name="constraintName">Name of the constraint.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToDropConstraintStatement(string schema, string table, string constraintName)
+    public virtual string ToDropConstraintStatement(TableRef tableRef, string constraintName)
     {
         return null;
     }
@@ -3681,6 +3692,17 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                       $"INDEX {name} ON {this.GetQuotedTableName(sourceDef)}" +
                       $"({this.GetQuotedColumnName(fieldName)});";
         return command;
+    }
+
+    /// <summary>
+    /// Create Drop Index statement.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="indexName">Name of the index.</param>
+    /// <returns>System.String.</returns>
+    public virtual string ToDropIndexStatement<T>(string indexName)
+    {
+        return $"DROP INDEX IF EXISTS {this.GetQuotedName(indexName)};";
     }
 
     /// <summary>
@@ -3798,9 +3820,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="table">The table.</param>
     /// <param name="column">The column.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToDropColumnStatement(string schema, string table, string column)
+    public virtual string ToDropColumnStatement(TableRef tableRef, string column)
     {
-        return $"ALTER TABLE {this.GetQuotedTableName(table, schema)} DROP COLUMN {this.GetQuotedColumnName(column)};";
+        return $"ALTER TABLE {this.GetQuotedTableName(tableRef)} DROP COLUMN {this.GetQuotedColumnName(column)};";
     }
 
     /// <summary>

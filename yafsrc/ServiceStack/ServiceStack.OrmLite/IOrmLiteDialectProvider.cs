@@ -301,6 +301,9 @@ public interface IOrmLiteDialectProvider
     /// <returns>System.String.</returns>
     string GetTableNameWithBrackets(string tableName, string schema = null);
 
+    string GetQuotedTableName(TableRef tableRef);
+    string GetQuotedTableName(Type modelType);
+
     /// <summary>
     /// Gets the name of the quoted table.
     /// </summary>
@@ -1056,7 +1059,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="table">The table.</param>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
-    string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef);
+    string ToAddColumnStatement(TableRef tableRef, FieldDefinition fieldDef);
     /// <summary>
     /// Converts to altercolumnstatement.
     /// </summary>
@@ -1064,7 +1067,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="table">The table.</param>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
-    string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef);
+    string ToAlterColumnStatement(TableRef tableRef, FieldDefinition fieldDef);
     /// <summary>
     /// Converts to changecolumnnamestatement.
     /// </summary>
@@ -1073,7 +1076,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="fieldDef">The field definition.</param>
     /// <param name="oldColumn">The old column.</param>
     /// <returns>System.String.</returns>
-    string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn);
+    string ToChangeColumnNameStatement(TableRef tableRef, FieldDefinition fieldDef, string oldColumn);
     /// <summary>
     /// Converts to renamecolumnstatement.
     /// </summary>
@@ -1082,7 +1085,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="oldColumn">The old column.</param>
     /// <param name="newColumn">The new column.</param>
     /// <returns>System.String.</returns>
-    string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn);
+    string ToRenameColumnStatement(TableRef tableRef, string oldColumn, string newColumn);
     /// <summary>
     /// Converts to dropcolumnstatement.
     /// </summary>
@@ -1090,7 +1093,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="table">The table.</param>
     /// <param name="column">The column.</param>
     /// <returns>System.String.</returns>
-    string ToDropColumnStatement(string schema, string table, string column);
+    string ToDropColumnStatement(TableRef tableRef, string column);
 
     /// <summary>
     /// Converts to dropconstraintstatement.
@@ -1099,7 +1102,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="table">The table.</param>
     /// <param name="constraint">The constraint.</param>
     /// <returns>System.String.</returns>
-    string ToDropConstraintStatement(string schema, string table, string constraint);
+    string ToDropConstraintStatement(TableRef tableRef, string constraint);
 
     /// <summary>
     /// Converts to addforeignkeystatement.
@@ -1125,7 +1128,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="table">The table.</param>
     /// <param name="foreignKeyName">Name of the foreign key.</param>
     /// <returns>System.String.</returns>
-    string ToDropForeignKeyStatement(string schema, string table, string foreignKeyName);
+    string ToDropForeignKeyStatement(TableRef tableRef, string foreignKeyName);
 
     /// <summary>
     /// Converts to createindexstatement.

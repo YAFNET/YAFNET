@@ -2697,6 +2697,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         return this.DialectProvider.GetQuotedTableName(modelDef);
     }
 
+    public string SqlColumn(FieldDefinition fieldDef)
+    {
+        return this.DialectProvider.GetQuotedColumnName(fieldDef);
+    }
+
     /// <summary>
     /// SQLs the column.
     /// </summary>
@@ -3199,7 +3204,12 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         }
 
         var paramValue = this.DialectProvider.GetParamValue(value, type);
-        return paramValue ?? "null";
+        return paramValue ?? PartialSqlString.Null;
+    }
+
+    protected bool IsNull(object expr)
+    {
+        return expr == null || PartialSqlString.Null.Equals(expr);
     }
 
     /// <summary>
@@ -3292,8 +3302,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                     Swap(ref left, ref right); // Should be safe to swap for equality/inequality checks
                 }
 
-                if (right is bool &&
-                    (left == null || left.ToString().Equals("null", StringComparison.OrdinalIgnoreCase)))
+                if (right is bool && this.IsNull(left))
                 {
                     if (operand == "=")
                     {
@@ -3364,13 +3373,13 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             }
         }
 
-        if (left.ToString().Equals("null", StringComparison.OrdinalIgnoreCase))
+        if (this.IsNull(left))
         {
             Swap(ref left, ref right); // "null is x" will not work, so swap the operands
         }
 
         var separator = this.Sep;
-        if (right.ToString().Equals("null", StringComparison.OrdinalIgnoreCase))
+        if (this.IsNull(right))
         {
             if (operand == "=")
             {
@@ -3393,9 +3402,15 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
         return operand switch
         {
-            "MOD" or "COALESCE" => new PartialSqlString(this.GetCoalesceExpression(b, left.ToString(), right.ToString())),
+            "MOD" => new PartialSqlString(this.GetModExpression(b, left.ToString(), right.ToString())),
+            "COALESCE" => new PartialSqlString(this.GetCoalesceExpression(b, left.ToString(), right.ToString())),
             _ => new PartialSqlString("(" + left + separator + operand + separator + right + ")")
         };
+    }
+
+    protected virtual string GetModExpression(BinaryExpression b, object left, object right)
+    {
+        return $"MOD({left},{right})";
     }
 
     /// <summary>
@@ -3897,7 +3912,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                     {
                         if (item is SelectItemColumn columnItem)
                         {
-                            columnItem.Alias = member.Name + columnItem.ColumnName;
+                            columnItem.Alias = member.Name + columnItem.GetColumnName();
                         }
                     }
                 }
@@ -4540,8 +4555,8 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             &&
             (exp.EndsWith('"') || exp.EndsWith('`') || exp.EndsWith('\'')))
         {
-            exp = exp.Remove(0, 1);
-            exp = exp.Remove(exp.Length - 1, 1);
+            exp = exp[1..];
+            exp = exp[..^1];
         }
 
         return exp;
@@ -5504,6 +5519,10 @@ public class SelectItemColumn : SelectItem
     /// </summary>
     /// <value>The quoted table alias.</value>
     public string QuotedTableAlias { get; set; }
+    public string GetColumnName()
+    {
+        return this.fieldDef != null ? this.fieldDef.Name : this.ColumnName;
+    }
 
     /// <summary>
     /// Converts to string.
