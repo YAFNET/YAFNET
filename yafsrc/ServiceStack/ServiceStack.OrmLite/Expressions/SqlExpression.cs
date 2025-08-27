@@ -2986,8 +2986,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         }
 
         var paramValue = this.DialectProvider.GetParamValue(value, type);
-        return paramValue ?? "null";
+        return paramValue ?? PartialSqlString.Null;
     }
+
+    protected bool IsNull(object expr) => expr == null || PartialSqlString.Null.Equals(expr);
 
     /// <summary>
     /// Visits the binary.
@@ -3079,8 +3081,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                     Swap(ref left, ref right); // Should be safe to swap for equality/inequality checks
                 }
 
-                if (right is bool &&
-                    (left == null || left.ToString().Equals("null", StringComparison.OrdinalIgnoreCase)))
+                if (right is bool && IsNull(left))
                 {
                     if (operand == "=")
                     {
@@ -3151,13 +3152,13 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             }
         }
 
-        if (left.ToString().Equals("null", StringComparison.OrdinalIgnoreCase))
+        if (IsNull(left))
         {
             Swap(ref left, ref right); // "null is x" will not work, so swap the operands
         }
 
         var separator = this.Sep;
-        if (right.ToString().Equals("null", StringComparison.OrdinalIgnoreCase))
+        if (IsNull(right))
         {
             operand = operand switch
             {

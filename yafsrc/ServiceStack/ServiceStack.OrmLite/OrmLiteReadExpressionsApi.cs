@@ -864,6 +864,14 @@ public static class OrmLiteReadExpressionsApi
     }
 
     /// <summary>
+    /// Return the number of rows in the specified table
+    /// </summary>
+    public static long RowCount<T>(this IDbConnection dbConn)
+    {
+        return dbConn.SqlScalar<long>(dbConn.From<T>().Select(Sql.Count("*")));
+    }
+
+    /// <summary>
     /// Returns results with references from using a LINQ Expression. E.g:
     /// <para>db.LoadSelect&lt;Person&gt;(x =&gt; x.Age &gt; 40)</para>
     /// </summary>
