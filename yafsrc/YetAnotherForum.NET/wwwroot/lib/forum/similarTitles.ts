@@ -39,8 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					if (data.totalRecords > 0) {
 						var list = document.createElement('ul');
 
-						list.classList.add('list-group');
-						list.classList.add('list-similar');
+						list.classList.add('list-group','list-similar');
 
 						if (data.searchResults.length > 0) {
 							const markRead = document.getElementById('MarkRead')!;
