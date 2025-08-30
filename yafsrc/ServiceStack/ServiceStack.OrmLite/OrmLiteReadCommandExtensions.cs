@@ -620,7 +620,9 @@ public static class OrmLiteReadCommandExtensions
                 fieldName = fieldDef.FieldName;
             }
 
-            sb.Append(dialectProvider.GetQuotedColumnName(fieldName));
+            sb.Append(fieldDef != null
+                ? dialectProvider.GetQuotedColumnName(fieldDef)
+                : dialectProvider.GetQuotedColumnName(fieldName));
 
             p.ParameterName = dialectProvider.SanitizeFieldNameForParamName(fieldName);
 
@@ -652,7 +654,7 @@ public static class OrmLiteReadCommandExtensions
                    ? []
                    : Select<T>(
                        dbCmd,
-                       dbCmd.GetDialectProvider().GetQuotedColumnName(ModelDefinition<T>.PrimaryKeyName) + " IN (" +
+                       dbCmd.GetDialectProvider().GetQuotedColumnName(ModelDefinition<T>.Definition.PrimaryKey) + " IN (" +
                        sqlIn + ")");
     }
 

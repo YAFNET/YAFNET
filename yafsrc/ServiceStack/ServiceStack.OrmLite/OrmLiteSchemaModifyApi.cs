@@ -113,7 +113,7 @@ public static class OrmLiteSchemaModifyApi
             ? new TableRef(null, null)
             {
                 QuotedName = useStrategy
-                    ? dialect.GetQuotedTableName(tableName)
+                    ? dialect.QuoteTable(tableName)
                     : dialect.GetQuotedName(tableName)
             }
             : new TableRef(null, null) { QuotedName = tableName };
@@ -174,7 +174,7 @@ public static class OrmLiteSchemaModifyApi
         var modelDef = typeof(T).GetModelDefinition();
 
         var tableName = dbConn.GetDialectProvider().GetQuotedTableName(modelDef);
-        var oldTableName = dbConn.GetDialectProvider().GetQuotedTableName($"{modelDef.Name}{oldTablePrefix}");
+        var oldTableName = dbConn.GetDialectProvider().GetQuotedName($"{modelDef.Name}{oldTablePrefix}");
 
         dbConn.ExecuteSql(
             $@"BEGIN TRANSACTION;

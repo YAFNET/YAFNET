@@ -129,7 +129,7 @@ internal abstract class LoadReferences<T>
             return null;
         }
 
-        var sqlFilter = dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName) + "={0}";
+        var sqlFilter = dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey) + "={0}";
         var sql = dialectProvider.ToSelectStatement(refType, sqlFilter, refPkValue);
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)

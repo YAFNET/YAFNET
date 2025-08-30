@@ -135,7 +135,7 @@ namespace ServiceStack.OrmLite.Converters
             var enumString = enumKind == EnumKind.EnumMember
                 ? value.ToString()
                 : DialectProvider.StringSerializer.SerializeToString(value);
-            if (enumString == null || enumString == "null")
+            if (enumString is null or "null")
             {
                 enumString = value.ToString();
             }

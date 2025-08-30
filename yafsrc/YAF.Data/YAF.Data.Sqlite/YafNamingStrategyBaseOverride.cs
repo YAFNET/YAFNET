@@ -87,6 +87,28 @@ public class YafNamingStrategyBaseOverride : INamingStrategy
     }
 
     /// <summary>
+    /// Gets the table alias.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    /// <returns>System.String.</returns>
+    public string GetTableAlias(string name)
+    {
+        return name is "UserRoles" or "Roles"
+            ? name
+            : $"{Config.DatabaseObjectQualifier}{name}";
+    }
+
+    /// <summary>
+    /// Gets the column alias.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    /// <returns>System.String.</returns>
+    public string GetColumnAlias(string name)
+    {
+        return name;
+    }
+
+    /// <summary>
     /// Gets the name of the schema.
     /// </summary>
     /// <param name="name">The name.</param>

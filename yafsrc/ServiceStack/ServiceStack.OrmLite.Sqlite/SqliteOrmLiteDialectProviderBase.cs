@@ -1,4 +1,5 @@
-﻿// ***********************************************************************
+﻿#nullable enable
+// ***********************************************************************
 // <copyright file="SqliteOrmLiteDialectProviderBase.cs" company="ServiceStack, Inc.">
 //     Copyright (c) ServiceStack, Inc. All Rights Reserved.
 // </copyright>
@@ -15,7 +16,6 @@ using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -220,7 +220,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <returns>System.String.</returns>
     private string GetTriggerName(ModelDefinition modelDef)
     {
-        return RowVersionTriggerFormat.Fmt(GetTableName(modelDef));
+        return RowVersionTriggerFormat.Fmt(GetTableNameOnly(new TableRef(modelDef)));
     }
 
     /// <summary>
@@ -234,13 +234,14 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     public override string GetColumnDataType(
         IDbConnection db,
         string columnName,
-        string tableName,
-        string schema = null)
+        TableRef tableRef)
     {
+        var tableName = this.UnquotedTable(tableRef);
         var sql =
             "select type from pragma_table_info(@tableName) where name= @columnName;"
                 .SqlFmt(tableName, columnName);
 
+        var schema = this.GetSchemaName(tableRef);
         if (schema != null)
         {
             sql += " AND TABLE_SCHEMA = @schema";
@@ -262,7 +263,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         }
 
         var triggerName = GetTriggerName(modelDef);
-        var tableName = GetTableName(modelDef);
+        var tableName = GetQuotedTableName(modelDef);
         var triggerBody = string.Format("UPDATE {0} SET {1} = OLD.{1} + 1 WHERE {2} = NEW.{2};",
             tableName,
             modelDef.RowVersion.FieldName.SqlColumn(this),
@@ -272,30 +273,6 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
 
         return sql;
 
-    }
-
-    /// <summary>
-    /// Creates the full text create table statement.
-    /// </summary>
-    /// <param name="objectWithProperties">The object with properties.</param>
-    /// <returns>System.String.</returns>
-    public static string CreateFullTextCreateTableStatement(object objectWithProperties)
-    {
-        var sbColumns = StringBuilderCache.Allocate();
-
-        foreach (var propertyInfo in objectWithProperties.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
-        {
-            var columnDefinition = sbColumns.Length == 0
-                                       ? $"{propertyInfo.Name} TEXT PRIMARY KEY"
-                                       : $", {propertyInfo.Name} TEXT";
-
-            sbColumns.AppendLine(columnDefinition);
-        }
-
-        var tableName = objectWithProperties.GetType().Name;
-        var sql = $"CREATE VIRTUAL TABLE \"{tableName}\" USING FTS3 ({StringBuilderCache.ReturnAndFree(sbColumns)});";
-
-        return sql;
     }
 
     /// <summary>
@@ -393,59 +370,31 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     {
         return schema == null
                    ? "SELECT name FROM sqlite_master WHERE type ='table' AND name NOT LIKE 'sqlite_%'"
-                   : "SELECT name FROM sqlite_master WHERE type ='table' AND name LIKE {0}".SqlFmt(this, GetTableName("",schema) + "%");
+                   : "SELECT name FROM sqlite_master WHERE type ='table' AND name LIKE {0}".SqlFmt(this, NamingStrategy.GetSchemaName(schema) + "%");
     }
 
-    /// <summary>
-    /// Gets the name of the schema.
-    /// </summary>
-    /// <param name="schema">The schema.</param>
-    /// <returns>System.String.</returns>
-    public override string GetSchemaName(string schema)
+    public override string QuoteSchema(string schema, string table) =>
+        GetQuotedName(JoinSchema(schema, table));
+    public override string JoinSchema(string schema, string table) => string.IsNullOrEmpty(schema) || table.StartsWith(schema + "_")
+        ? table
+        : schema + "_" + table;
+
+    public override string UnquotedTable(TableRef tableRef)
     {
+        if (tableRef.QuotedName != null)
+            return tableRef.QuotedName.Replace("\"", "");
+        var alias = tableRef.ModelDef?.Alias;
+        if (alias != null)
+            return tableRef.ModelDef?.Schema != null
+                ? NamingStrategy.GetSchemaName(tableRef.ModelDef.Schema) + "_" + NamingStrategy.GetTableAlias(alias)
+                : NamingStrategy.GetTableAlias(alias);
+
+        var schema = tableRef.ModelDef?.Schema ?? tableRef.Schema;
+        var tableName = tableRef.ModelDef?.Name ?? tableRef.Name;
         return schema != null
-                   ? NamingStrategy.GetSchemaName(schema).Replace(".", "_")
-                   : NamingStrategy.GetSchemaName(schema);
+            ? NamingStrategy.GetSchemaName(schema) + "_" + NamingStrategy.GetTableName(tableName)
+            : NamingStrategy.GetTableName(tableName);
     }
-
-    /// <summary>
-    /// Gets the name of the table.
-    /// </summary>
-    /// <param name="table">The table.</param>
-    /// <param name="schema">The schema.</param>
-    /// <returns>System.String.</returns>
-    public override string GetTableName(string table, string schema = null) =>
-        GetTableName(table, schema, useStrategy: true);
-
-    /// <summary>
-    /// Gets the name of the table.
-    /// </summary>
-    /// <param name="table">The table.</param>
-    /// <param name="schema">The schema.</param>
-    /// <param name="useStrategy">if set to <c>true</c> [use strategy].</param>
-    /// <returns>System.String.</returns>
-    public override string GetTableName(string table, string schema, bool useStrategy)
-    {
-        if (useStrategy)
-        {
-            return schema != null && !table.StartsWithIgnoreCase(schema + "_")
-                       ? $"{NamingStrategy.GetSchemaName(schema)}_{NamingStrategy.GetTableName(table)}"
-                       : NamingStrategy.GetTableName(table);
-        }
-
-        return schema != null && !table.StartsWithIgnoreCase(schema + "_")
-                   ? $"{schema}_{table}"
-                   : table;
-    }
-
-    /// <summary>
-    /// Gets the name of the quoted table.
-    /// </summary>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="schema">The schema.</param>
-    /// <returns>System.String.</returns>
-    public override string GetQuotedTableName(string tableName, string schema = null) =>
-        GetQuotedName(GetTableName(tableName, schema));
 
     /// <summary>
     /// SQLs the expression.
@@ -489,10 +438,10 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <param name="tableName">Name of the table.</param>
     /// <param name="schema">The schema.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public override bool DoesTableExist(IDbCommand dbCmd, string tableName, string schema = null)
+    public override bool DoesTableExist(IDbCommand dbCmd, TableRef tableRef)
     {
         var sql = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name = {0}"
-            .SqlFmt(tableName);
+            .SqlFmt(tableRef.Name);
 
         dbCmd.CommandText = sql;
         var result = dbCmd.LongScalar();
@@ -508,10 +457,10 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <param name="tableName">Name of the table.</param>
     /// <param name="schema">The schema.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public override bool DoesColumnExist(IDbConnection db, string columnName, string tableName, string schema = null)
+    public override bool DoesColumnExist(IDbConnection db, string columnName, TableRef tableRef)
     {
         var sql = "PRAGMA table_info({0})"
-            .SqlFmt(tableName);
+            .SqlFmt(tableRef.Name);
 
         var columns = db.SqlList<Dictionary<string, object>>(sql);
         foreach (var column in columns)

@@ -543,7 +543,7 @@ namespace ServiceStack.OrmLite
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;ColumnSchema[]&gt;.</returns>
         public static Task<ColumnSchema[]> GetTableColumnsAsync(this IDbCommand dbCmd, Type table, CancellationToken token) =>
-            dbCmd.GetTableColumnsAsync($"SELECT * FROM {dbCmd.GetDialectProvider().GetQuotedTableName(table.GetModelDefinition())}", token);
+            dbCmd.GetTableColumnsAsync($"SELECT * FROM {dbCmd.GetDialectProvider().GetQuotedTableName(table)}", token);
 
         /// <summary>
         /// Get table columns as an asynchronous operation.

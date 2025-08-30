@@ -594,7 +594,7 @@ static internal class WriteExpressionCommandExtensions
                 }
 
                 whereSql += string.IsNullOrEmpty(whereSql) ? "WHERE " : " AND ";
-                whereSql += $"{dialectProvider.GetQuotedColumnName(fieldDef.FieldName)} = {dialectProvider.AddQueryParam(dbCmd, value, fieldDef).ParameterName}";
+                whereSql += $"{dialectProvider.GetQuotedColumnName(fieldDef)} = {dialectProvider.AddQueryParam(dbCmd, value, fieldDef).ParameterName}";
                 continue;
             }
 
@@ -604,7 +604,7 @@ static internal class WriteExpressionCommandExtensions
             }
 
             sql
-                .Append(dialectProvider.GetQuotedColumnName(fieldDef.FieldName))
+                .Append(dialectProvider.GetQuotedColumnName(fieldDef))
                 .Append("=")
                 .Append(dialectProvider.GetUpdateParam(dbCmd, value, fieldDef));
         }

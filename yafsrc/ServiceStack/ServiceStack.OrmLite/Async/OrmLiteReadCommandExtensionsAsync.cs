@@ -138,7 +138,7 @@ namespace ServiceStack.OrmLite
             var sqlIn = dbCmd.SetIdsInSqlParams(idValues);
             return string.IsNullOrEmpty(sqlIn)
                 ? new List<T>().InTask()
-                : SelectAsync<T>(dbCmd, dbCmd.GetDialectProvider().GetQuotedColumnName(ModelDefinition<T>.PrimaryKeyName) + " IN (" + sqlIn + ")", (object)null, token);
+                : SelectAsync<T>(dbCmd, dbCmd.GetDialectProvider().GetQuotedColumnName(ModelDefinition<T>.Definition.PrimaryKey) + " IN (" + sqlIn + ")", (object)null, token);
         }
 
         /// <summary>

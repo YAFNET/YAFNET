@@ -32,7 +32,7 @@ public interface IOrmLiteDialectProvider
     /// Register custom value type converter  
     /// </summary>
     void RegisterConverter<T>(IOrmLiteConverter converter);
-    
+
     /// <summary>
     /// Used to create an OrmLiteConnection
     /// </summary>
@@ -48,6 +48,7 @@ public interface IOrmLiteDialectProvider
     /// </summary>
     /// <value>The on open connection.</value>
     Action<IDbConnection> OnOpenConnection { get; set; }
+
     Action<IDbConnection> OnDisposeConnection { get; set; }
     Action<IDbCommand> OnBeforeWriteLock { get; set; }
     Action<IDbCommand> OnAfterWriteLock { get; set; }
@@ -219,43 +220,8 @@ public interface IOrmLiteDialectProvider
     /// <returns>IDbConnection.</returns>
     IDbConnection CreateConnection(string filePath, Dictionary<string, string> options);
 
-    /// <summary>
-    /// Gets the name of the table.
-    /// </summary>
-    /// <param name="modelType">Type of the model.</param>
-    /// <returns>System.String.</returns>
-    string GetTableName(Type modelType);
-
-    /// <summary>
-    /// Gets the name of the table.
-    /// </summary>
-    /// <param name="modelDef">The model definition.</param>
-    /// <returns>System.String.</returns>
-    string GetTableName(ModelDefinition modelDef);
-
-    /// <summary>
-    /// Gets the name of the table.
-    /// </summary>
-    /// <param name="modelDef">The model definition.</param>
-    /// <param name="useStrategy">if set to <c>true</c> [use strategy].</param>
-    /// <returns>System.String.</returns>
-    string GetTableName(ModelDefinition modelDef, bool useStrategy);
-
-    /// <summary>
-    /// Gets the name of the table.
-    /// </summary>
-    /// <param name="table">The table.</param>
-    /// <param name="schema">The schema.</param>
-    /// <returns>System.String.</returns>
-    string GetTableName(string table, string schema = null);
-    /// <summary>
-    /// Gets the name of the table.
-    /// </summary>
-    /// <param name="table">The table.</param>
-    /// <param name="schema">The schema.</param>
-    /// <param name="useStrategy">if set to <c>true</c> [use strategy].</param>
-    /// <returns>System.String.</returns>
-    string GetTableName(string table, string schema, bool useStrategy);
+    string GetTableNameOnly(TableRef tableRef);
+    string UnquotedTable(TableRef tableRef);
 
     /// <summary>
     /// Gets the table name with brackets.
@@ -279,7 +245,8 @@ public interface IOrmLiteDialectProvider
     /// <returns>System.String.</returns>
     string GetTableNameWithBrackets(string tableName, string schema = null);
 
-    string GetQuotedTableName(TableRef tableRef);
+    string QuoteSchema(string schema, string table);
+    string QuoteTable(TableRef tableRef);
     string GetQuotedTableName(Type modelType);
 
     /// <summary>
@@ -290,28 +257,13 @@ public interface IOrmLiteDialectProvider
     string GetQuotedTableName(ModelDefinition modelDef);
 
     /// <summary>
-    /// Gets the name of the quoted table.
-    /// </summary>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="schema">The schema.</param>
-    /// <returns>System.String.</returns>
-    string GetQuotedTableName(string tableName, string schema = null);
-
-    /// <summary>
-    /// Gets the name of the quoted table.
-    /// </summary>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="schema">The schema.</param>
-    /// <param name="useStrategy">if set to <c>true</c> [use strategy].</param>
-    /// <returns>System.String.</returns>
-    string GetQuotedTableName(string tableName, string schema, bool useStrategy);
-
-    /// <summary>
     /// Gets the name of the quoted column.
     /// </summary>
     /// <param name="columnName">Name of the column.</param>
     /// <returns>System.String.</returns>
     string GetQuotedColumnName(string columnName);
+
+    string GetQuotedColumnName(FieldDefinition fieldDef);
 
     /// <summary>
     /// Gets the name of the quoted.
@@ -319,6 +271,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
     string GetQuotedName(string name);
+
     /// <summary>
     /// Gets the name of the quoted.
     /// </summary>
@@ -436,7 +389,8 @@ public interface IOrmLiteDialectProvider
     /// <param name="cmd">The command.</param>
     /// <param name="insertFields">The insert fields.</param>
     /// <param name="shouldInclude">The should include.</param>
-    void PrepareParameterizedInsertStatement<T>(IDbCommand cmd, ICollection<string> insertFields = null, Func<FieldDefinition, bool> shouldInclude = null);
+    void PrepareParameterizedInsertStatement<T>(IDbCommand cmd, ICollection<string> insertFields = null,
+        Func<FieldDefinition, bool> shouldInclude = null);
 
     /// <summary>
     /// Prepares the parameterized update statement.
@@ -485,6 +439,7 @@ public interface IOrmLiteDialectProvider
     /// <typeparam name="T"></typeparam>
     /// <param name="cmd">The command.</param>
     void EnableIdentityInsert<T>(IDbCommand cmd);
+
     /// <summary>
     /// Enables the identity insert asynchronous.
     /// </summary>
@@ -493,12 +448,14 @@ public interface IOrmLiteDialectProvider
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
     Task EnableIdentityInsertAsync<T>(IDbCommand cmd, CancellationToken token = default);
+
     /// <summary>
     /// Disables the identity insert.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="cmd">The command.</param>
     void DisableIdentityInsert<T>(IDbCommand cmd);
+
     /// <summary>
     /// Disables the identity insert asynchronous.
     /// </summary>
@@ -513,6 +470,7 @@ public interface IOrmLiteDialectProvider
     /// </summary>
     /// <param name="cmd">The command.</param>
     void EnableForeignKeysCheck(IDbCommand cmd);
+
     /// <summary>
     /// Enables the foreign keys check asynchronous.
     /// </summary>
@@ -520,11 +478,13 @@ public interface IOrmLiteDialectProvider
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
     Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default);
+
     /// <summary>
     /// Disables the foreign keys check.
     /// </summary>
     /// <param name="cmd">The command.</param>
     void DisableForeignKeysCheck(IDbCommand cmd);
+
     /// <summary>
     /// Disables the foreign keys check asynchronous.
     /// </summary>
@@ -547,6 +507,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
     object GetFieldValue(FieldDefinition fieldDef, object value);
+
     /// <summary>
     /// Gets the field value.
     /// </summary>
@@ -626,9 +587,9 @@ public interface IOrmLiteDialectProvider
     /// <param name="filterParams">The filter parameters.</param>
     /// <returns>System.String.</returns>
     string ToExistStatement(Type fromTableType,
-                            object objWithProperties,
-                            string sqlFilter,
-                            params object[] filterParams);
+        object objWithProperties,
+        string sqlFilter,
+        params object[] filterParams);
 
     /// <summary>
     /// Converts to selectfromprocedurestatement.
@@ -639,9 +600,9 @@ public interface IOrmLiteDialectProvider
     /// <param name="filterParams">The filter parameters.</param>
     /// <returns>System.String.</returns>
     string ToSelectFromProcedureStatement(object fromObjWithProperties,
-                                          Type outputModelType,
-                                          string sqlFilter,
-                                          params object[] filterParams);
+        Type outputModelType,
+        string sqlFilter,
+        params object[] filterParams);
 
     /// <summary>
     /// Converts to executeprocedurestatement.
@@ -656,18 +617,21 @@ public interface IOrmLiteDialectProvider
     /// <param name="schema">The schema.</param>
     /// <returns>System.String.</returns>
     string ToCreateSchemaStatement(string schema);
+
     /// <summary>
     /// Converts to createtablestatement.
     /// </summary>
     /// <param name="tableType">Type of the table.</param>
     /// <returns>System.String.</returns>
     string ToCreateTableStatement(Type tableType);
+
     /// <summary>
     /// Converts to postcreatetablestatement.
     /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>System.String.</returns>
     string ToPostCreateTableStatement(ModelDefinition modelDef);
+
     /// <summary>
     /// Converts to postdroptablestatement.
     /// </summary>
@@ -681,12 +645,14 @@ public interface IOrmLiteDialectProvider
     /// <param name="tableType">Type of the table.</param>
     /// <returns>List&lt;System.String&gt;.</returns>
     List<string> ToCreateIndexStatements(Type tableType);
+
     /// <summary>
     /// Converts to createsequencestatements.
     /// </summary>
     /// <param name="tableType">Type of the table.</param>
     /// <returns>List&lt;System.String&gt;.</returns>
     List<string> ToCreateSequenceStatements(Type tableType);
+
     /// <summary>
     /// Converts to createsequencestatement.
     /// </summary>
@@ -694,6 +660,8 @@ public interface IOrmLiteDialectProvider
     /// <param name="sequenceName">Name of the sequence.</param>
     /// <returns>System.String.</returns>
     string ToCreateSequenceStatement(Type tableType, string sequenceName);
+
+    string ToResetSequenceStatement(Type tableType, string columnName, int value);
 
     /// <summary>
     /// Converts to createsavepoint.
@@ -722,6 +690,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="tableType">Type of the table.</param>
     /// <returns>List&lt;System.String&gt;.</returns>
     List<string> SequenceList(Type tableType);
+
     /// <summary>
     /// Sequences the list asynchronous.
     /// </summary>
@@ -740,6 +709,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="schema">The schema.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     bool DoesSchemaExist(IDbCommand dbCmd, string schema);
+
     /// <summary>
     /// Doeses the schema exist asynchronous.
     /// </summary>
@@ -748,86 +718,88 @@ public interface IOrmLiteDialectProvider
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;System.Boolean&gt;.</returns>
     Task<bool> DoesSchemaExistAsync(IDbCommand dbCmd, string schema, CancellationToken token = default);
+
     /// <summary>
     /// Doeses the table exist.
     /// </summary>
     /// <param name="db">The database.</param>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="schema">The schema.</param>
+    /// <param name="tableRef">The table reference.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    bool DoesTableExist(IDbConnection db, string tableName, string schema = null);
+    bool DoesTableExist(IDbConnection db, TableRef tableRef);
+
     /// <summary>
     /// Doeses the table exist asynchronous.
     /// </summary>
     /// <param name="db">The database.</param>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="schema">The schema.</param>
+    /// <param name="tableRef">The table reference.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;System.Boolean&gt;.</returns>
-    Task<bool> DoesTableExistAsync(IDbConnection db, string tableName, string schema = null, CancellationToken token = default);
+    Task<bool> DoesTableExistAsync(IDbConnection db, TableRef tableRef, CancellationToken token = default);
+
     /// <summary>
     /// Doeses the table exist.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="schema">The schema.</param>
+    /// <param name="tableRef">The table reference.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    bool DoesTableExist(IDbCommand dbCmd, string tableName, string schema = null);
+    bool DoesTableExist(IDbCommand dbCmd, TableRef tableRef);
+
     /// <summary>
     /// Doeses the table exist asynchronous.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="schema">The schema.</param>
+    /// <param name="tableRef">The table reference.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;System.Boolean&gt;.</returns>
-    Task<bool> DoesTableExistAsync(IDbCommand dbCmd, string tableName, string schema = null, CancellationToken token = default);
+    Task<bool> DoesTableExistAsync(IDbCommand dbCmd, TableRef tableRef, CancellationToken token = default);
+
     /// <summary>
     /// Doeses the column exist.
     /// </summary>
     /// <param name="db">The database.</param>
     /// <param name="columnName">Name of the column.</param>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="schema">The schema.</param>
+    /// <param name="tableRef">The table reference.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    bool DoesColumnExist(IDbConnection db, string columnName, string tableName, string schema = null);
+    bool DoesColumnExist(IDbConnection db, string columnName, TableRef tableRef);
+
     /// <summary>
     /// Doeses the column exist asynchronous.
     /// </summary>
     /// <param name="db">The database.</param>
     /// <param name="columnName">Name of the column.</param>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="schema">The schema.</param>
+    /// <param name="tableRef">The table reference.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;System.Boolean&gt;.</returns>
-    Task<bool> DoesColumnExistAsync(IDbConnection db, string columnName, string tableName, string schema = null, CancellationToken token = default);
+    Task<bool> DoesColumnExistAsync(IDbConnection db, string columnName, TableRef tableRef,
+        CancellationToken token = default);
+
     /// <summary>
     /// Gets the type of the column data.
     /// </summary>
     /// <param name="db">The database.</param>
     /// <param name="columnName">Name of the column.</param>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="schema">The schema.</param>
+    /// <param name="tableRef">The table reference.</param>
     /// <returns>System.String.</returns>
-    string GetColumnDataType(IDbConnection db, string columnName, string tableName, string schema = null);
+    string GetColumnDataType(IDbConnection db, string columnName, TableRef tableRef);
+
     /// <summary>
     /// Columns the is nullable.
     /// </summary>
     /// <param name="db">The database.</param>
     /// <param name="columnName">Name of the column.</param>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="schema">The schema.</param>
+    /// <param name="tableRef">The table reference.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    bool ColumnIsNullable(IDbConnection db, string columnName, string tableName, string schema = null);
+    bool ColumnIsNullable(IDbConnection db, string columnName, TableRef tableRef);
+
     /// <summary>
     /// Gets the maximum length of the column.
     /// </summary>
     /// <param name="db">The database.</param>
     /// <param name="columnName">Name of the column.</param>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="schema">The schema.</param>
+    /// <param name="tableRef">The table reference.</param>
     /// <returns>System.Int64.</returns>
-    long GetColumnMaxLength(IDbConnection db, string columnName, string tableName, string schema = null);
+    long GetColumnMaxLength(IDbConnection db, string columnName, TableRef tableRef);
+
     /// <summary>
     /// Doeses the sequence exist.
     /// </summary>
@@ -835,6 +807,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="sequence">Name of the sequence.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     bool DoesSequenceExist(IDbCommand dbCmd, string sequence);
+
     /// <summary>
     /// Doeses the sequence exist asynchronous.
     /// </summary>
@@ -859,6 +832,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="tablePrefix">The table prefix.</param>
     /// <returns>SelectItem.</returns>
     SelectItem GetRowVersionSelectColumn(FieldDefinition field, string tablePrefix = null);
+
     /// <summary>
     /// Gets the row version column.
     /// </summary>
@@ -873,6 +847,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="modelDef">The model definition.</param>
     /// <returns>System.String.</returns>
     string GetColumnNames(ModelDefinition modelDef);
+
     /// <summary>
     /// Gets the column names.
     /// </summary>
@@ -966,7 +941,8 @@ public interface IOrmLiteDialectProvider
     /// <returns>System.String.</returns>
     string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name);
 
-    string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name, string fieldNameA, string fieldNameB);
+    string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name, string fieldNameA,
+        string fieldNameB);
 
     /// <summary>
     /// Gets the drop foreign key constraint.
@@ -1020,10 +996,10 @@ public interface IOrmLiteDialectProvider
     /// <param name="foreignKeyName">Name of the foreign key.</param>
     /// <returns>System.String.</returns>
     string ToAddForeignKeyStatement<T, TForeign>(Expression<Func<T, object>> field,
-                                                 Expression<Func<TForeign, object>> foreignField,
-                                                 OnFkOption onUpdate,
-                                                 OnFkOption onDelete,
-                                                 string foreignKeyName = null);
+        Expression<Func<TForeign, object>> foreignField,
+        OnFkOption onUpdate,
+        OnFkOption onDelete,
+        string foreignKeyName = null);
 
     string ToDropForeignKeyStatement(TableRef tableRef, string foreignKeyName);
 
@@ -1053,6 +1029,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
     Task OpenAsync(IDbConnection db, CancellationToken token = default);
+
     /// <summary>
     /// Executes the reader asynchronous.
     /// </summary>
@@ -1060,6 +1037,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;IDataReader&gt;.</returns>
     Task<IDataReader> ExecuteReaderAsync(IDbCommand cmd, CancellationToken token = default);
+
     /// <summary>
     /// Executes the non query asynchronous.
     /// </summary>
@@ -1067,6 +1045,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;System.Int32&gt;.</returns>
     Task<int> ExecuteNonQueryAsync(IDbCommand cmd, CancellationToken token = default);
+
     /// <summary>
     /// Executes the scalar asynchronous.
     /// </summary>
@@ -1074,6 +1053,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;System.Object&gt;.</returns>
     Task<object> ExecuteScalarAsync(IDbCommand cmd, CancellationToken token = default);
+
     /// <summary>
     /// Reads the asynchronous.
     /// </summary>
@@ -1081,6 +1061,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;System.Boolean&gt;.</returns>
     Task<bool> ReadAsync(IDataReader reader, CancellationToken token = default);
+
     /// <summary>
     /// Readers the each.
     /// </summary>
@@ -1090,6 +1071,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
     Task<List<T>> ReaderEach<T>(IDataReader reader, Func<T> fn, CancellationToken token = default);
+
     /// <summary>
     /// Readers the each.
     /// </summary>
@@ -1100,6 +1082,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;Return&gt;.</returns>
     Task<Return> ReaderEach<Return>(IDataReader reader, Action fn, Return source, CancellationToken token = default);
+
     /// <summary>
     /// Readers the read.
     /// </summary>
@@ -1126,6 +1109,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="expr">The expr.</param>
     /// <returns>System.String.</returns>
     string GetLoadChildrenSubSelect<From>(SqlExpression<From> expr);
+
     /// <summary>
     /// Converts to rowcountstatement.
     /// </summary>
@@ -1142,6 +1126,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="updateFields">The update fields.</param>
     /// <returns>System.String.</returns>
     string ToUpdateStatement<T>(IDbCommand dbCmd, T item, ICollection<string> updateFields = null);
+
     /// <summary>
     /// Converts to insertstatement.
     /// </summary>
@@ -1151,6 +1136,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="insertFields">The insert fields.</param>
     /// <returns>System.String.</returns>
     string ToInsertStatement<T>(IDbCommand dbCmd, T item, ICollection<string> insertFields = null);
+
     /// <summary>
     /// Merges the parameters into SQL.
     /// </summary>
@@ -1159,7 +1145,9 @@ public interface IOrmLiteDialectProvider
     /// <returns>System.String.</returns>
     string MergeParamsIntoSql(string sql, IEnumerable<IDbDataParameter> dbParams);
 
-    string GetRefSelfSql<From>(SqlExpression<From> refQ, ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef, FieldDefinition refId);
+    string GetRefSelfSql<From>(SqlExpression<From> refQ, ModelDefinition modelDef, FieldDefinition refSelf,
+        ModelDefinition refModelDef, FieldDefinition refId);
+
     string GetRefFieldSql(string subSql, ModelDefinition refModelDef, FieldDefinition refField);
     string GetFieldReferenceSql(string subSql, FieldDefinition fieldDef, FieldReference fieldRef);
 
@@ -1192,12 +1180,14 @@ public interface IOrmLiteDialectProvider
     /// <param name="args">The arguments.</param>
     /// <returns>System.String.</returns>
     string SqlConcat(IEnumerable<object> args);
+
     /// <summary>
     /// SQLs the currency.
     /// </summary>
     /// <param name="fieldOrValue">The field or value.</param>
     /// <returns>System.String.</returns>
     string SqlCurrency(string fieldOrValue);
+
     /// <summary>
     /// SQLs the currency.
     /// </summary>
@@ -1205,12 +1195,14 @@ public interface IOrmLiteDialectProvider
     /// <param name="currencySymbol">The currency symbol.</param>
     /// <returns>System.String.</returns>
     string SqlCurrency(string fieldOrValue, string currencySymbol);
+
     /// <summary>
     /// SQLs the bool.
     /// </summary>
     /// <param name="value">if set to <c>true</c> [value].</param>
     /// <returns>System.String.</returns>
     string SqlBool(bool value);
+
     /// <summary>
     /// SQLs the limit.
     /// </summary>
@@ -1218,6 +1210,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="rows">The rows.</param>
     /// <returns>System.String.</returns>
     string SqlLimit(int? offset = null, int? rows = null);
+
     /// <summary>
     /// SQLs the cast.
     /// </summary>
@@ -1225,6 +1218,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="castAs">The cast as.</param>
     /// <returns>System.String.</returns>
     string SqlCast(object fieldOrValue, string castAs);
+
     /// <summary>
     /// Gets the SQL random.
     /// </summary>

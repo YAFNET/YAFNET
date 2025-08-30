@@ -690,7 +690,7 @@ public abstract partial class SqlExpression<T> : ISqlExpression
                                 }
                                 else
                                 {
-                                    sbSelect.Append(this.DialectProvider.GetRowVersionSelectColumn(fieldDef, this.DialectProvider.GetTableName(tableDef.ModelName)));
+                                    sbSelect.Append(this.DialectProvider.GetRowVersionSelectColumn(fieldDef, this.DialectProvider.UnquotedTable(tableDef.ModelName)));
                                 }
                             }
                             else
@@ -739,7 +739,7 @@ public abstract partial class SqlExpression<T> : ISqlExpression
                             }
                             else
                             {
-                                sbSelect.Append(this.DialectProvider.GetRowVersionSelectColumn(fieldDef, this.DialectProvider.GetTableName(tableAlias ?? tableDef.ModelName, tableDef.Schema)));
+                                sbSelect.Append(this.DialectProvider.GetRowVersionSelectColumn(fieldDef, tableAlias ?? DialectProvider.GetQuotedTableName(tableDef)));
                             }
                         }
                         else

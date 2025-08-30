@@ -5,6 +5,8 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
+using System.Collections.Generic;
+
 namespace ServiceStack.OrmLite;
 
 /// <summary>
@@ -14,12 +16,15 @@ namespace ServiceStack.OrmLite;
 /// <seealso cref="ServiceStack.OrmLite.INamingStrategy" />
 public class OrmLiteNamingStrategyBase : INamingStrategy
 {
-    /// <summary>
-    /// Gets the name of the schema.
-    /// </summary>
-    /// <param name="name">The name.</param>
-    /// <returns>System.String.</returns>
-    public virtual string GetSchemaName(string name) => name;
+    public Dictionary<string, string> SchemaAliases = new();
+    public Dictionary<string, string> TableAliases = new();
+    public Dictionary<string, string> ColumnAliases = new();
+    public virtual string GetTableAlias(string name) => name;
+    public virtual string GetColumnAlias(string name) => name;
+    public virtual string GetSchemaName(string name) => name == null ? null
+        : SchemaAliases.TryGetValue(name, out var alias)
+            ? alias
+            : name;
 
     /// <summary>
     /// Gets the name of the schema.
@@ -33,21 +38,27 @@ public class OrmLiteNamingStrategyBase : INamingStrategy
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetTableName(string name) => name;
+    public virtual string GetTableName(string name) => TableAliases.TryGetValue(name, out var alias)
+        ? alias
+        : name;
 
     /// <summary>
     /// Gets the name of the table.
     /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetTableName(ModelDefinition modelDef) => GetTableName(modelDef.ModelName);
+    public virtual string GetTableName(ModelDefinition modelDef) => modelDef.Alias != null
+        ? GetTableAlias(modelDef.Alias)
+        : GetTableName(modelDef.Name);
 
     /// <summary>
     /// Gets the name of the column.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetColumnName(string name) => name;
+    public virtual string GetColumnName(string name) => ColumnAliases.TryGetValue(name, out var alias)
+        ? alias
+        : name;
 
     /// <summary>
     /// Gets the name of the sequence.

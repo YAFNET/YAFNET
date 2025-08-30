@@ -649,7 +649,7 @@ public static class OrmLiteUtils
     /// <returns>string.</returns>
     public static string SqlTable(this string tableName, IOrmLiteDialectProvider dialect = null)
     {
-        return (dialect ?? OrmLiteConfig.DialectProvider).GetQuotedTableName(tableName);
+        return (dialect ?? OrmLiteConfig.DialectProvider).QuoteTable(tableName);
     }
 
     /// <summary>
@@ -885,7 +885,7 @@ public static class OrmLiteUtils
     /// <returns>ServiceStack.OrmLite.SqlInValues.</returns>
     public static SqlInValues SqlInValues<T>(this T[] values, IOrmLiteDialectProvider dialect = null)
     {
-        return new(values, dialect);
+        return new SqlInValues(values, dialect);
     }
 
     /// <summary>
@@ -1233,7 +1233,7 @@ public static class OrmLiteUtils
     /// <summary>
     /// The quoted chars
     /// </summary>
-    private readonly static char[] QuotedChars = ['"', '`', '[', ']'];
+    readonly static internal char[] QuotedChars = ['"', '`', '[', ']'];
 
     public static bool IsQuoted(string symbol)
     {
@@ -1711,7 +1711,7 @@ public static class OrmLiteUtils
     public static JoinFormatDelegate JoinAlias(string alias)
     {
         return (dialect, tableDef, expr) =>
-            $"{dialect.GetQuotedTableName(tableDef)} {alias} {expr.Replace(dialect.GetQuotedTableName(tableDef), dialect.GetQuotedTableName(alias))}";
+            $"{dialect.GetQuotedTableName(tableDef)} {alias} {expr.Replace(dialect.GetQuotedTableName(tableDef), dialect.QuoteTable(alias))}";
     }
 
     /// <summary>

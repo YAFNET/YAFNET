@@ -1669,7 +1669,7 @@ public static class SqlExpressionExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="sqlExpression">The SQL expression.</param>
     /// <returns>System.String.</returns>
-    public static string TableName<T>(this ISqlExpression sqlExpression) => sqlExpression.ToDialectProvider().GetTableName(typeof(T).GetModelDefinition());
+    public static string TableName<T>(this ISqlExpression sqlExpression) => sqlExpression.ToDialectProvider().UnquotedTable(typeof(T).GetModelDefinition().Name);
 
     /// <summary>
     /// Tables the specified dialect.
@@ -1820,7 +1820,9 @@ public static class SqlExpressionExtensions
                             : propertyName;
 
         return prefixTable
-                   ? dialect.GetQuotedColumnName(tableDef, fieldName)
-                   : dialect.GetQuotedColumnName(fieldName);
+            ? fieldDef != null
+                ? dialect.GetQuotedColumnName(tableDef, fieldDef)
+                : dialect.GetQuotedColumnName(tableDef, fieldName)
+            : dialect.GetQuotedColumnName(fieldDef);
     }
 }

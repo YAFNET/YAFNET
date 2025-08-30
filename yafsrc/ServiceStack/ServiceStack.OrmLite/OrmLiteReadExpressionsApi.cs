@@ -222,14 +222,9 @@ public static class OrmLiteReadExpressionsApi
     public static TableOptions TableAlias(this IDbConnection db, string alias) =>
         new() { Alias = alias };
 
-    /// <summary>
-    /// Gets the name of the table.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="db">The database.</param>
-    /// <returns>System.String.</returns>
-    public static string GetTableName<T>(this IDbConnection db) =>
-        db.GetDialectProvider().GetTableName(ModelDefinition<T>.Definition);
+    public static string GetTableName<T>(this IDbConnection db) => db.GetDialectProvider().UnquotedTable(new TableRef(ModelDefinition<T>.Definition));
+    public static string GetTableName(this IDbConnection db, Type type) => db.GetDialectProvider().UnquotedTable(new TableRef(type));
+    public static string GetTableName(this IDbConnection db, ModelDefinition modelDef) => db.GetDialectProvider().UnquotedTable(new TableRef(modelDef));
 
     /// <summary>
     /// Gets the table names.
@@ -343,8 +338,7 @@ public static class OrmLiteReadExpressionsApi
             }
 
             // retain *real* table names and skip using naming strategy
-            sb.AppendLine(
-                $"SELECT {OrmLiteUtils.QuotedLiteral(tableName)}, COUNT(*) FROM {dialect.GetQuotedTableName(tableName, schemaName, useStrategy: false)}");
+            sb.AppendLine($"SELECT {dialect.GetQuotedValue(tableName)}, COUNT(*) FROM {dialect.QuoteSchema(schemaName, tableName)}");
         }
 
         var sql = StringBuilderCache.ReturnAndFree(sb);

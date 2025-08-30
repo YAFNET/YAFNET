@@ -24,7 +24,7 @@ public class HttpRequestConfig
     public NameValue? Authorization { get; set; }
     public LongRange? Range { get; set; }
     public List<NameValue> Headers { get; set; } = [];
-    public void SetRange(long from, long? to = null) => this.Range = new(from, to);
+    public void SetRange(long from, long? to = null) => this.Range = new LongRange(from, to);
     public record NameValue(string Name, string Value)
     {
         public string Name { get; } = Name;

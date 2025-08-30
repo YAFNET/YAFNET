@@ -134,32 +134,32 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
                 // Remove old Stuff
                 this.UpgradeTablesPolls(dbCommand);
 
-                if (dbCommand.Connection.TableExists("EventLogGroupAccess"))
+                if (dbCommand.Connection.TableExists(new TableRef("EventLogGroupAccess")))
                 {
                     dbCommand.Connection.DropTable("EventLogGroupAccess");
                 }
 
-                if (dbCommand.Connection.TableExists("TopicStatus"))
+                if (dbCommand.Connection.TableExists(new TableRef("TopicStatus")))
                 {
                     dbCommand.Connection.DropTable("TopicStatus");
                 }
 
-                if (dbCommand.Connection.TableExists("ShoutboxMessage"))
+                if (dbCommand.Connection.TableExists(new TableRef("ShoutboxMessage")))
                 {
                     dbCommand.Connection.DropTable("ShoutboxMessage");
                 }
 
-                if (dbCommand.Connection.TableExists("Mail"))
+                if (dbCommand.Connection.TableExists(new TableRef("Mail")))
                 {
                     dbCommand.Connection.DropTable("Mail");
                 }
 
-                if (dbCommand.Connection.TableExists("Extension"))
+                if (dbCommand.Connection.TableExists(new TableRef("Extension")))
                 {
                     dbCommand.Connection.DropTable("Extension");
                 }
 
-                if (dbCommand.Connection.TableExists("UserProfile"))
+                if (dbCommand.Connection.TableExists(new TableRef("UserProfile")))
                 {
                     dbCommand.Connection.DropTable("UserProfile");
                 }
@@ -873,7 +873,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
             dbCommand.Connection.DropForeignKey<PollGroupCluster>(foreignClusterKeyName);
         }
 
-        if (dbCommand.Connection.TableExists("PollVoteRefuse"))
+        if (dbCommand.Connection.TableExists(new TableRef("PollVoteRefuse")))
         {
             dbCommand.Connection.DropTable("PollVoteRefuse");
         }
