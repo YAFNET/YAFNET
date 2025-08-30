@@ -17,37 +17,36 @@
     margin-right: auto;
     margin-left: auto;
 }
-.yafnet {
-    .list-inline {
-        margin: 0;
-    }
 
-    // Event log
-    .pre-scrollable {
-        overflow: auto;
-        white-space: pre-line;
-    }
+.list-inline {
+    margin: 0;
+}
 
-    .img-navbar-avatar {
-        position: relative;
-        margin-bottom: 0;
-        display: inline-block;
-        min-width: 0.9rem;
-        max-width: 1.2rem;
-        max-height: 1.2rem;
-        font-size: 2rem;
-        vertical-align: middle;
-    }
+// Event log
+.pre-scrollable {
+    overflow: auto;
+    white-space: pre-line;
+}
 
-    // Unread Icon
-    .unread {
-        position: absolute;
-        top: 8px;
-        left: 16px;
-    }
+.img-navbar-avatar {
+    position: relative;
+    margin-bottom: 0;
+    display: inline-block;
+    min-width: 0.9rem;
+    max-width: 1.2rem;
+    max-height: 1.2rem;
+    font-size: 2rem;
+    vertical-align: middle;
+}
 
-    // Tabs
-    .tab-content {
-        padding-top: 10px;
-    }
+// Unread Icon
+.unread {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+
+// Tabs
+.tab-content {
+    padding-top: 10px;
 }
