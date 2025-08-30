@@ -45,7 +45,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
         var isMemoryTable = memTableAttrib != null;
 
         var sql = StringBuilderCache.Allocate();
-        sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
+        sql.Append($"{this.GetQuotedColumnName(fieldDef)} {fieldDefinition}");
 
         if (fieldDef.FieldType == typeof(string))
         {
@@ -143,7 +143,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
         var isMemoryTable = memTableAttrib != null;
 
         var sql = StringBuilderCache.Allocate();
-        sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
+        sql.Append($"{this.GetQuotedColumnName(fieldDef)} {fieldDefinition}");
 
         if (fieldDef.FieldType == typeof(string))
         {
@@ -275,8 +275,8 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
                 var refModelDef = OrmLiteUtils.GetModelDefinition(fieldDef.ForeignKey.ReferenceType);
                 sbConstraints.Append(
                     $", \n\n  CONSTRAINT {this.GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, this.NamingStrategy, fieldDef))} " +
-                    $"FOREIGN KEY ({this.GetQuotedColumnName(fieldDef.FieldName)}) " +
-                    $"REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
+                    $"FOREIGN KEY ({this.GetQuotedColumnName(fieldDef)}) " +
+                    $"REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey)})");
 
                 sbConstraints.Append(this.GetForeignKeyOnDeleteClause(fieldDef.ForeignKey));
                 sbConstraints.Append(this.GetForeignKeyOnUpdateClause(fieldDef.ForeignKey));

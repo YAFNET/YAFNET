@@ -137,8 +137,14 @@ public interface IBBCodeService
         string editorId);
 
     /// <summary>
-    ///     The get custom bb code.
+    ///     Get the list of custom BBCodes.
     /// </summary>
     /// <returns> Returns List with Custom BBCodes </returns>
-    IEnumerable<BBCode> GetCustomBBCode();
+    IEnumerable<BBCode> GetCustomBBCodes();
+
+    /// <summary>
+    ///     Get the list of custom BBCodes.
+    /// </summary>
+    /// <returns> Returns List with Custom BBCodes </returns>
+    Task<IEnumerable<BBCode>> GetCustomBBCodesAsync();
 }

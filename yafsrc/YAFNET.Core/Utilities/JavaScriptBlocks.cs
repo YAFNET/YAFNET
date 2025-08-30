@@ -1149,7 +1149,7 @@ public static class JavaScriptBlocks
                            progressBar.className = "progress-bar bg-warning w-75";
                        } else {
                            passwordHelp.innerText = "{{passwordWeakText}}";
-                           progressBar.classList.add("progress-bar bg-warning w-50");
+                           progressBar.classList.add("progress-bar", "bg-warning", "w-50");
                        }
                    }
                

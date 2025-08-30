@@ -73,7 +73,7 @@ public class Migration84 : IRepositoryMigration, IHaveServiceLocator
         {
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
 
-            var oldTableName = OrmLiteConfig.DialectProvider.GetQuotedTableName($"{nameof(TopicTag)}_old");
+            var oldTableName = OrmLiteConfig.DialectProvider.GetQuotedName($"{nameof(TopicTag)}_old");
 
             dbCommand.Connection.ExecuteSql(
                 $"""

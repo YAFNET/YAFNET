@@ -140,7 +140,7 @@ static internal class DeserializeKeyValuePair<TSerializer>
         {
             if (sb.Length > 0)
             {
-                sb.Append(">");
+                sb.Append('>');
             }
 
             sb.Append(type.FullName);

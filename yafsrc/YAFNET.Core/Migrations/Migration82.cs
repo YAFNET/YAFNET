@@ -58,7 +58,7 @@ public class Migration82 : IRepositoryMigration, IHaveServiceLocator
 
                 ///////////////////////////////////////////////////////////
 
-                if (dbCommand.Connection.TableExists("FavoriteTopic"))
+                if (dbCommand.Connection.TableExists(new TableRef("FavoriteTopic")))
                 {
                     dbCommand.Connection.DropTable("FavoriteTopic");
                 }

@@ -1067,7 +1067,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         {
             var singleTable = rawFrom.ToLower().IndexOfAny("join", ",") == -1;
             this.FromExpression = singleTable
-                                      ? " \nFROM " + this.DialectProvider.GetQuotedTableName(rawFrom)
+                                      ? " \nFROM " + this.DialectProvider.QuoteTable(rawFrom)
                                       : " \nFROM " + rawFrom;
         }
 
@@ -2834,7 +2834,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             }
 
             setFields
-                .Append(this.DialectProvider.GetQuotedColumnName(fieldDef.FieldName))
+                .Append(this.DialectProvider.GetQuotedColumnName(fieldDef))
                 .Append('=')
                 .Append(this.DialectProvider.GetUpdateParam(dbCmd, value, fieldDef));
         }
@@ -2895,7 +2895,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             }
 
             setFields
-                .Append(this.DialectProvider.GetQuotedColumnName(fieldDef.FieldName))
+                .Append(this.DialectProvider.GetQuotedColumnName(fieldDef))
                 .Append('=')
                 .Append(this.DialectProvider.GetUpdateParam(dbCmd, value, fieldDef));
         }
@@ -4535,10 +4535,16 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
             var includePrefix = this.PrefixFieldWithTableName && !tableDef.ModelType.IsInterface;
             return includePrefix
-                       ? tableAlias == null
-                             ? this.DialectProvider.GetQuotedColumnName(tableDef, fieldName)
-                             : this.DialectProvider.GetQuotedColumnName(tableDef, tableAlias, fieldName)
-                       : this.DialectProvider.GetQuotedColumnName(fieldName);
+                       ? (tableAlias == null
+                           ? fd != null
+                               ? this.DialectProvider.GetQuotedColumnName(tableDef, fd)
+                               : this.DialectProvider.GetQuotedColumnName(tableDef, fieldName)
+                           : fd != null
+                               ? this.DialectProvider.GetQuotedColumnName(tableDef, tableAlias, fd)
+                               : this.DialectProvider.GetQuotedColumnName(tableDef, tableAlias, fieldName))
+                : fd != null
+                ? this.DialectProvider.GetQuotedColumnName(fd)
+                : this.DialectProvider.GetQuotedColumnName(fieldName);
         }
 
         return memberName;
@@ -5519,6 +5525,11 @@ public class SelectItemColumn : SelectItem
     /// </summary>
     /// <value>The quoted table alias.</value>
     public string QuotedTableAlias { get; set; }
+
+    /// <summary>
+    /// Gets the name of the column.
+    /// </summary>
+    /// <returns>System.String.</returns>
     public string GetColumnName()
     {
         return this.fieldDef != null ? this.fieldDef.Name : this.ColumnName;

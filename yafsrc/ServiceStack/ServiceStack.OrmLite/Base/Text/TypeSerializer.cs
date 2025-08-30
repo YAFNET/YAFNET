@@ -390,7 +390,7 @@ public static class TypeSerializer
                     sb.Append(ch);
                     if (!quoted)
                     {
-                        sb.Append(" ");
+                        sb.Append(' ');
                     }
 
                     break;

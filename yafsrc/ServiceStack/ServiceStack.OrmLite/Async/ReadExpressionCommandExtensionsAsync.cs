@@ -574,8 +574,7 @@ static internal class ReadExpressionCommandExtensionsAsync
     /// <returns>Task&lt;ColumnSchema[]&gt;.</returns>
     public static Task<ColumnSchema[]> GetTableColumnsAsync(this IDbCommand dbCmd, Type table, CancellationToken token)
     {
-        return dbCmd.GetTableColumnsAsync(
-            $"SELECT * FROM {dbCmd.GetDialectProvider().GetQuotedTableName(table.GetModelDefinition())}", token);
+        return dbCmd.GetTableColumnsAsync($"SELECT * FROM {dbCmd.GetDialectProvider().GetQuotedTableName(table)}", token);
     }
 
     /// <summary>

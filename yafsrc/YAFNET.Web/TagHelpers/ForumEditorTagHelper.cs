@@ -84,7 +84,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="output">
     /// The output.
     /// </param>
-    public override void Process(TagHelperContext context, TagHelperOutput output)
+    public async override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
     {
         var containerCardDiv = new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "card" } };
 
@@ -99,7 +99,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         if (this.EditorMode is not EditorMode.SCEditor)
         {
-            this.RenderPreElement(output, containerCardDiv, containerCardHeader, containerCardBody);
+            await this.RenderPreElementAsync(output, containerCardDiv, containerCardHeader, containerCardBody);
         }
 
         if (this.UsersCanUpload && this.EditorMode == EditorMode.Standard && BoardContext.Current.UploadAccess)
@@ -195,7 +195,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="containerCardDiv">The container card div.</param>
     /// <param name="containerCardHeader">The container card header.</param>
     /// <param name="containerCardBody">The container card body.</param>
-    private void RenderPreElement(
+    private async Task RenderPreElementAsync(
         TagHelperOutput output,
         TagBuilder containerCardDiv,
         TagBuilder containerCardHeader,
@@ -215,7 +215,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                     this.RenderBasicHeader(content);
                     break;
                 case EditorMode.Standard:
-                    this.RenderStandardHeader(content);
+                    await this.RenderStandardHeaderAsync(content);
                     break;
             }
 
@@ -231,11 +231,11 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// Renders the standard header.
     /// </summary>
     /// <param name="content">The content.</param>
-    private void RenderStandardHeader(HtmlContentBuilder content)
+    private Task RenderStandardHeaderAsync(HtmlContentBuilder content)
     {
         this.RenderFirstToolbar(content);
 
-        this.RenderSecondToolbar(content);
+        return this.RenderSecondToolbarAsync(content);
     }
 
     /// <summary>
@@ -295,7 +295,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// Renders the second toolbar.
     /// </summary>
     /// <param name="content">The content.</param>
-    private void RenderSecondToolbar(HtmlContentBuilder content)
+    private async Task RenderSecondToolbarAsync(HtmlContentBuilder content)
     {
         // Render First Toolbar
         var toolbar = CreateToolbarTag();
@@ -507,17 +507,15 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         RenderButton(content, "setStyle('indent','')", this.GetText("COMMON", "INDENT"), "indent");
 
-        var customBbCode = this.Get<IDataCache>().GetOrSet(
-            Constants.Cache.CustomBBCode,
-            () => this.GetRepository<BBCode>().GetByBoardId());
+        var customBbCodes = (await this.Get<IBBCodeService>().GetCustomBBCodesAsync()).ToList();
 
-        var customBbCodesWithToolbar = customBbCode.Where(code => code.UseToolbar == true).ToList();
+        var customBbCodesWithToolbar = customBbCodes.Where(code => code.UseToolbar == true).ToList();
         var customBbCodesWithNoToolbar =
-            customBbCode.Where(code => code.UseToolbar is false or null);
+            customBbCodes.Where(code => code.UseToolbar is false or null);
 
         content.AppendHtml(group8.RenderEndTag());
 
-        if (customBbCode.Any())
+        if (customBbCodes.Count != 0)
         {
             // Group 9
             var group9 = CreateBtnGroupTag();

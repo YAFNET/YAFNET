@@ -5,6 +5,8 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
+using System.Collections.Generic;
+
 namespace ServiceStack.OrmLite;
 
 /// <summary>
@@ -14,14 +16,26 @@ namespace ServiceStack.OrmLite;
 /// <seealso cref="ServiceStack.OrmLite.INamingStrategy" />
 public class OrmLiteNamingStrategyBase : INamingStrategy
 {
-    /// <summary>
-    /// Gets the name of the schema.
-    /// </summary>
-    /// <param name="name">The name.</param>
-    /// <returns>System.String.</returns>
-    public virtual string GetSchemaName(string name)
+    public Dictionary<string, string> SchemaAliases = [];
+    public Dictionary<string, string> TableAliases = [];
+    public Dictionary<string, string> ColumnAliases = [];
+    public virtual string GetTableAlias(string name)
     {
         return name;
+    }
+
+    public virtual string GetColumnAlias(string name)
+    {
+        return name;
+    }
+
+    public virtual string GetSchemaName(string name)
+    {
+        return name == null
+            ? null
+            : this.SchemaAliases.TryGetValue(name, out var alias)
+                ? alias
+                : name;
     }
 
     /// <summary>
@@ -41,7 +55,9 @@ public class OrmLiteNamingStrategyBase : INamingStrategy
     /// <returns>System.String.</returns>
     public virtual string GetTableName(string name)
     {
-        return name;
+        return this.TableAliases.TryGetValue(name, out var alias)
+            ? alias
+            : name;
     }
 
     /// <summary>
@@ -51,7 +67,9 @@ public class OrmLiteNamingStrategyBase : INamingStrategy
     /// <returns>System.String.</returns>
     public virtual string GetTableName(ModelDefinition modelDef)
     {
-        return this.GetTableName(modelDef.ModelName);
+        return modelDef.Alias != null
+            ? this.GetTableAlias(modelDef.Alias)
+            : this.GetTableName(modelDef.Name);
     }
 
     /// <summary>
@@ -61,7 +79,9 @@ public class OrmLiteNamingStrategyBase : INamingStrategy
     /// <returns>System.String.</returns>
     public virtual string GetColumnName(string name)
     {
-        return name;
+        return this.ColumnAliases.TryGetValue(name, out var alias)
+            ? alias
+            : name;
     }
 
     /// <summary>

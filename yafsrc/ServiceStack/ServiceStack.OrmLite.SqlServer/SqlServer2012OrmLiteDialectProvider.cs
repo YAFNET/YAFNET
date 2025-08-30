@@ -219,7 +219,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
                               this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
 
         var sql = StringBuilderCache.Allocate();
-        sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
+        sql.Append($"{this.GetQuotedColumnName(fieldDef)} {fieldDefinition}");
 
         if (fieldDef.FieldType == typeof(string))
         {
@@ -286,7 +286,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
                               this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
 
         var sql = StringBuilderCache.Allocate();
-        sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
+        sql.Append($"{this.GetQuotedColumnName(fieldDef)} {fieldDefinition}");
 
         if (fieldDef.FieldType == typeof(string))
         {
@@ -390,8 +390,8 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
                 var refModelDef = GetModel(fieldDef.ForeignKey.ReferenceType);
                 sbConstraints.Append(
                     $", \n\n  CONSTRAINT {this.GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, this.NamingStrategy, fieldDef))} " +
-                    $"FOREIGN KEY ({this.GetQuotedColumnName(fieldDef.FieldName)}) " +
-                    $"REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
+                    $"FOREIGN KEY ({this.GetQuotedColumnName(fieldDef)}) " +
+                    $"REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey)})");
 
                 sbConstraints.Append(this.GetForeignKeyOnDeleteClause(fieldDef.ForeignKey));
                 sbConstraints.Append(this.GetForeignKeyOnUpdateClause(fieldDef.ForeignKey));
@@ -466,7 +466,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             // SqlGeometry: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeometry.stequals.aspx
             // SqlGeography: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeography.stequals.aspx
             sqlFilter
-                .Append(this.GetQuotedColumnName(fieldDef.FieldName))
+                .Append(this.GetQuotedColumnName(fieldDef))
                 .Append(".STEquals(")
                 .Append(this.GetParam(this.SanitizeFieldNameForParamName(fieldDef.FieldName)))
                 .Append(") = 1");
@@ -495,7 +495,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             // SqlGeometry: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeometry.isnull.aspx
             // SqlGeography: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeography.isnull.aspx
             sqlFilter
-                .Append(this.GetQuotedColumnName(fieldDef.FieldName))
+                .Append(this.GetQuotedColumnName(fieldDef))
                 .Append(".IsNull = 1");
         }
         else

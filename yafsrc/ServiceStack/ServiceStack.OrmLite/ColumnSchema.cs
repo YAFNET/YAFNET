@@ -178,21 +178,21 @@ public class ColumnSchema
         sql.Append(this.DataTypeName.ToUpper());
         if (this.DataType.IsRealNumberType() && this.NumericPrecision > 0)
         {
-            sql.Append("(");
+            sql.Append('(');
             sql.Append(this.NumericPrecision);
             if (this.NumericScale > 0)
             {
-                sql.Append(",");
+                sql.Append(',');
                 sql.Append(this.NumericScale);
             }
 
-            sql.Append(")");
+            sql.Append(')');
         }
         else if (!this.DataType.IsNumericType() && this.ColumnSize > 0)
         {
-            sql.Append("(");
+            sql.Append('(');
             sql.Append(this.ColumnSize);
-            sql.Append(")");
+            sql.Append(')');
         }
 
         if (this.IsKey)
@@ -200,7 +200,7 @@ public class ColumnSchema
             sql.Append(" PRIMARY KEY");
             if (this.IsAutoIncrement)
             {
-                sql.Append(" ").Append("AUTOINCREMENT");
+                sql.Append(' ').Append("AUTOINCREMENT");
             }
         }
         else

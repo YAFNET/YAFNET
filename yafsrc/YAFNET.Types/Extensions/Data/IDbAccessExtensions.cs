@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.IO;
+
 using ServiceStack.Data;
 
 namespace YAF.Types.Extensions.Data;

@@ -46,6 +46,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         base.AutoIncrementDefinition = "AUTO_INCREMENT";
         base.DefaultValueFormat = " DEFAULT {0}";
         base.SelectIdentitySql = "SELECT LAST_INSERT_ID()";
+        base.QuoteChar = '`';
 
         base.InitColumnTypeMap();
 
@@ -391,7 +392,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
             return null;
         }
 
-        var triggerName = RowVersionTriggerFormat.Fmt(this.GetTableName(modelDef));
+        var triggerName = RowVersionTriggerFormat.Fmt(this.GetTableNameOnly(new TableRef(modelDef)));
         return "DROP TRIGGER IF EXISTS {0}".Fmt(this.GetQuotedName(triggerName));
     }
 
@@ -411,8 +412,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         var triggerBody = "SET NEW.{0} = OLD.{0} + 1;".Fmt(
             modelDef.RowVersion.FieldName.SqlColumn(this));
 
-        var sql = "CREATE TRIGGER {0} BEFORE UPDATE ON {1} FOR EACH ROW BEGIN {2} END;".Fmt(
-            triggerName, this.GetTableName(modelDef), triggerBody);
+        var sql = string.Format("CREATE TRIGGER {0} BEFORE UPDATE ON {1} FOR EACH ROW BEGIN {2} END;",
+            triggerName, this.GetQuotedTableName(modelDef), triggerBody);
 
         return sql;
     }
@@ -449,36 +450,38 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         return base.GetQuotedValue(value, fieldType);
     }
 
-    /// <summary>
-    /// Gets the name of the table.
-    /// </summary>
-    /// <param name="table">The table.</param>
-    /// <param name="schema">The schema.</param>
-    /// <returns>System.String.</returns>
-    public override string GetTableName(string table, string schema = null)
+    public override string UnquotedTable(TableRef tableRef)
     {
-        return this.GetTableName(table, schema, useStrategy: true);
-    }
-
-    /// <summary>
-    /// Gets the name of the table.
-    /// </summary>
-    /// <param name="table">The table.</param>
-    /// <param name="schema">The schema.</param>
-    /// <param name="useStrategy">if set to <c>true</c> [use strategy].</param>
-    /// <returns>System.String.</returns>
-    public override string GetTableName(string table, string schema, bool useStrategy)
-    {
-        if (useStrategy)
+        if (tableRef.QuotedName != null)
         {
-            return schema != null && !table.StartsWithIgnoreCase(schema + "_")
-                ? this.QuoteIfRequired(this.NamingStrategy.GetSchemaName(schema) + "_" + this.NamingStrategy.GetTableName(table))
-                : this.QuoteIfRequired(this.NamingStrategy.GetTableName(table));
+            return tableRef.QuotedName.Replace("\"", "");
         }
 
-        return schema != null && !table.StartsWithIgnoreCase(schema + "_")
-            ? this.QuoteIfRequired(schema + "_" + table)
-            : this.QuoteIfRequired(table);
+        var alias = tableRef.ModelDef?.Alias;
+        if (alias != null)
+        {
+            return tableRef.ModelDef?.Schema != null
+                ? this.NamingStrategy.GetSchemaName(tableRef.ModelDef.Schema) + "_" + this.NamingStrategy.GetTableAlias(alias)
+                : this.NamingStrategy.GetTableAlias(alias);
+        }
+
+        var schema = tableRef.ModelDef?.Schema ?? tableRef.Schema;
+        var tableName = tableRef.ModelDef?.Name ?? tableRef.Name;
+        return schema != null
+            ? this.NamingStrategy.GetSchemaName(schema) + "_" + this.NamingStrategy.GetTableName(tableName)
+            : this.NamingStrategy.GetTableName(tableName);
+    }
+
+    public override string QuoteSchema(string schema, string table)
+    {
+        return this.GetQuotedName(this.JoinSchema(schema, table));
+    }
+
+    public override string JoinSchema(string schema, string table)
+    {
+        return string.IsNullOrEmpty(schema) || table.StartsWith(schema + "_")
+            ? table
+            : schema + "_" + table;
     }
 
     /// <summary>
@@ -491,31 +494,6 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         return name != null &&
                (ReservedWords.Contains(name) || name.Contains(' ') ||
                 name.Contains('.'));
-    }
-
-    /// <summary>
-    /// Gets the name of the quoted.
-    /// </summary>
-    /// <param name="name">The name.</param>
-    /// <returns>System.String.</returns>
-    public override string GetQuotedName(string name)
-    {
-        return name == null
-            ? null
-            : name.FirstCharEquals('`')
-                ? name
-                : '`' + name + '`';
-    }
-
-    /// <summary>
-    /// Gets the name of the quoted table.
-    /// </summary>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="schema">The schema.</param>
-    /// <returns>System.String.</returns>
-    public override string GetQuotedTableName(string tableName, string schema = null)
-    {
-        return this.GetQuotedName(this.GetTableName(tableName, schema));
     }
 
     /// <summary>
@@ -567,10 +545,10 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="tableName">Name of the table.</param>
     /// <param name="schema">The schema.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public override bool DoesTableExist(IDbCommand dbCmd, string tableName, string schema = null)
+    public override bool DoesTableExist(IDbCommand dbCmd, TableRef tableRef)
     {
         var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = {0} AND TABLE_SCHEMA = {1}"
-            .SqlFmt(this.GetTableName(tableName, schema).StripDbQuotes(), dbCmd.Connection.Database);
+            .SqlFmt(this.UnquotedTable(tableRef), dbCmd.Connection.Database);
 
         var result = dbCmd.ExecLongScalar(sql);
 
@@ -585,11 +563,11 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="schema">The schema.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    public async override Task<bool> DoesTableExistAsync(IDbCommand dbCmd, string tableName, string schema = null,
+    public async override Task<bool> DoesTableExistAsync(IDbCommand dbCmd, TableRef tableRef,
         CancellationToken token = default)
     {
         var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = {0} AND TABLE_SCHEMA = {1}"
-            .SqlFmt(this.GetTableName(tableName, schema).StripDbQuotes(), dbCmd.Connection.Database);
+            .SqlFmt(this.UnquotedTable(tableRef), dbCmd.Connection.Database);
 
         var result = await dbCmd.ExecLongScalarAsync(sql, token);
 
@@ -604,11 +582,13 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="tableName">Name of the table.</param>
     /// <param name="schema">The schema.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public override bool DoesColumnExist(IDbConnection db, string columnName, string tableName, string schema = null)
+    public override bool DoesColumnExist(IDbConnection db, string columnName, TableRef tableRef)
     {
+        var tableName = this.UnquotedTable(tableRef);
+
         var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS"
                   + " WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName AND TABLE_SCHEMA = @schema"
-                      .SqlFmt(tableName.StripDbQuotes(), columnName);
+                      .SqlFmt(this.UnquotedTable(tableRef), columnName);
 
         var result = db.SqlScalar<long>(sql, new { tableName, columnName, schema = db.Database });
 
@@ -624,13 +604,12 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="schema">The schema.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    public async override Task<bool> DoesColumnExistAsync(IDbConnection db, string columnName, string tableName,
-        string schema = null, CancellationToken token = default)
+    public async override Task<bool> DoesColumnExistAsync(IDbConnection db, string columnName, TableRef tableRef, CancellationToken token = default)
     {
-        tableName = this.GetTableName(tableName, schema).StripQuotes();
+        var tableName = this.UnquotedTable(tableRef);
         var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS"
                   + " WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName AND TABLE_SCHEMA = @schema"
-                      .SqlFmt(this.GetTableName(tableName, schema).StripDbQuotes(), columnName);
+                      .SqlFmt(tableName, columnName);
 
         var result = await db.SqlScalarAsync<long>(sql, new { tableName, columnName, schema = db.Database }, token);
 
@@ -642,18 +621,18 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// </summary>
     /// <param name="db">The database.</param>
     /// <param name="columnName">Name of the column.</param>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="schema">The schema.</param>
+    /// <param name="tableRef">The table reference.</param>
     /// <returns>System.String.</returns>
     public override string GetColumnDataType(
         IDbConnection db,
         string columnName,
-        string tableName,
-        string schema = null)
+        TableRef tableRef)
     {
+        var tableName = this.GetTableNameOnly(tableRef);
+        var schema = this.GetSchemaName(tableRef);
         var sql =
             "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
-                .SqlFmt(this, this.GetTableName(tableName, schema).StripDbQuotes(), columnName);
+                .SqlFmt(this, this.GetTableNameOnly(new TableRef(schema, tableName)), columnName);
 
         if (schema != null)
         {
@@ -668,19 +647,19 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// </summary>
     /// <param name="db">The database.</param>
     /// <param name="columnName">Name of the column.</param>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="schema">The schema.</param>
+    /// <param name="tableRef">The table reference.</param>
     /// <returns>System.Int64.</returns>
     public override long GetColumnMaxLength(
         IDbConnection db,
         string columnName,
-        string tableName,
-        string schema = null)
+        TableRef tableRef)
     {
+        var tableName = this.GetTableNameOnly(tableRef);
         var sql =
             "SELECT character_maximum_length FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
                 .SqlFmt(this, tableName, columnName);
 
+        var schema = this.GetSchemaName(tableRef);
         if (schema != null)
         {
             sql += " AND TABLE_SCHEMA = @schema";
@@ -727,7 +706,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
             var refModelDef = GetModel(fieldDef.ForeignKey.ReferenceType);
             sbConstraints.Append(
-                $", \n\n  CONSTRAINT {this.GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, this.NamingStrategy, fieldDef))} FOREIGN KEY ({this.GetQuotedColumnName(fieldDef.FieldName)}) REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
+                $", \n\n  CONSTRAINT {this.GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, this.NamingStrategy, fieldDef))} FOREIGN KEY ({this.GetQuotedColumnName(fieldDef)}) REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey)})");
 
             if (!string.IsNullOrEmpty(fieldDef.ForeignKey.OnDelete))
             {
@@ -822,7 +801,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     public override string ToDropForeignKeyStatement(TableRef tableRef, string foreignKeyName)
     {
         return
-            $"ALTER TABLE {this.GetQuotedTableName(tableRef)} DROP FOREIGN KEY {this.GetQuotedName(foreignKeyName)};";
+            $"ALTER TABLE {this.QuoteTable(tableRef)} DROP FOREIGN KEY {this.GetQuotedName(foreignKeyName)};";
     }
 
     /// <summary>

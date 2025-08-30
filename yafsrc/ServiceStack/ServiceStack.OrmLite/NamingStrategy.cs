@@ -24,14 +24,6 @@ public class OrmLiteDefaultNamingStrategy : OrmLiteNamingStrategyBase { }
 public class AliasNamingStrategy : OrmLiteNamingStrategyBase
 {
     /// <summary>
-    /// The table aliases
-    /// </summary>
-    public Dictionary<string, string> TableAliases = [];
-    /// <summary>
-    /// The column aliases
-    /// </summary>
-    public Dictionary<string, string> ColumnAliases = [];
-    /// <summary>
     /// Gets or sets the use naming strategy.
     /// </summary>
     /// <value>The use naming strategy.</value>
@@ -69,6 +61,23 @@ public class AliasNamingStrategy : OrmLiteNamingStrategyBase
 /// <seealso cref="ServiceStack.OrmLite.OrmLiteNamingStrategyBase" />
 public class LowercaseUnderscoreNamingStrategy : OrmLiteNamingStrategyBase
 {
+    public bool IgnoreAlias { get; set; } = true;
+    public override string GetTableAlias(string name)
+    {
+        return this.IgnoreAlias
+            ? name
+            : name.ToLowercaseUnderscore();
+    }
+
+    public override string GetSchemaName(string name)
+    {
+        return name == null
+            ? null
+            : this.SchemaAliases.TryGetValue(name, out var alias)
+                ? alias
+                : name.ToLowercaseUnderscore();
+    }
+
     /// <summary>
     /// Gets the name of the table.
     /// </summary>
@@ -76,7 +85,9 @@ public class LowercaseUnderscoreNamingStrategy : OrmLiteNamingStrategyBase
     /// <returns>System.String.</returns>
     public override string GetTableName(string name)
     {
-        return name.ToLowercaseUnderscore();
+        return this.TableAliases.TryGetValue(name, out var alias)
+            ? alias
+            : name.ToLowercaseUnderscore();
     }
 
     /// <summary>
@@ -86,7 +97,9 @@ public class LowercaseUnderscoreNamingStrategy : OrmLiteNamingStrategyBase
     /// <returns>System.String.</returns>
     public override string GetColumnName(string name)
     {
-        return name.ToLowercaseUnderscore();
+        return this.ColumnAliases.TryGetValue(name, out var alias)
+            ? alias
+            : name.ToLowercaseUnderscore();
     }
 }
 
@@ -104,7 +117,9 @@ public class UpperCaseNamingStrategy : OrmLiteNamingStrategyBase
     /// <returns>System.String.</returns>
     public override string GetTableName(string name)
     {
-        return name.ToUpper();
+        return this.TableAliases.TryGetValue(name, out var alias)
+            ? alias
+            : name.ToUpper();
     }
 
     /// <summary>
@@ -114,7 +129,9 @@ public class UpperCaseNamingStrategy : OrmLiteNamingStrategyBase
     /// <returns>System.String.</returns>
     public override string GetColumnName(string name)
     {
-        return name.ToUpper();
+        return this.ColumnAliases.TryGetValue(name, out var alias)
+            ? alias
+            : name.ToUpper();
     }
 }
 /// <summary>
@@ -143,7 +160,9 @@ public class PrefixNamingStrategy : OrmLiteNamingStrategyBase
     /// <returns>System.String.</returns>
     public override string GetTableName(string name)
     {
-        return this.TablePrefix + name;
+        return this.TableAliases.TryGetValue(name, out var alias)
+            ? alias
+            : this.TablePrefix + name;
     }
 
     /// <summary>
@@ -153,7 +172,8 @@ public class PrefixNamingStrategy : OrmLiteNamingStrategyBase
     /// <returns>System.String.</returns>
     public override string GetColumnName(string name)
     {
-        return this.ColumnPrefix + name;
+        return this.TableAliases.TryGetValue(name, out var alias)
+            ? alias
+            : this.ColumnPrefix + name;
     }
-
 }

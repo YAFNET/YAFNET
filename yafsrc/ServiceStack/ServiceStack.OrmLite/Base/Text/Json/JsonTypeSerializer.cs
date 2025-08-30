@@ -908,7 +908,7 @@ public struct JsonTypeSerializer
     {
         if (json.IsNullOrEmpty())
         {
-            return new(json, index);
+            return new SpanIndex(json, index);
         }
 
         var jsonLength = json.Length;
@@ -924,14 +924,14 @@ public struct JsonTypeSerializer
             var strEndPos = jsonAtIndex.IndexOfAny(IsSafeJsonChars);
             if (strEndPos == -1)
             {
-                return new(jsonAtIndex.Slice(0, jsonLength), index);
+                return new SpanIndex(jsonAtIndex.Slice(0, jsonLength), index);
             }
 
             if (jsonAtIndex[strEndPos] == quoteChar)
             {
                 var potentialValue = jsonAtIndex.Slice(0, strEndPos);
                 index += strEndPos + 1;
-                return new(potentialValue.Length > 0
+                return new SpanIndex(potentialValue.Length > 0
                               ? potentialValue
                               : TypeConstants.EmptyStringSpan, index);
             }
@@ -953,11 +953,11 @@ public struct JsonTypeSerializer
             }
             if (i == end)
             {
-                return new(buffer.Slice(index, jsonLength - index), index);
+                return new SpanIndex(buffer.Slice(index, jsonLength - index), index);
             }
         }
 
-        return new(Unescape(json, removeQuotes: removeQuotes, quoteChar: quoteChar), index);
+        return new SpanIndex(Unescape(json, removeQuotes: removeQuotes, quoteChar: quoteChar), index);
     }
 
     /// <summary>

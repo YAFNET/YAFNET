@@ -64,11 +64,9 @@ public class CustomBBCodes : ForumBaseController
                 return this.NotFound();
             }
 
-            var customBbCode =  await this.Get<IDataCache>().GetOrSetAsync(
-                Constants.Cache.CustomBBCode,
-                () => this.GetRepository<BBCode>().GetByBoardIdAsync());
+            var customBbCodes =  await this.Get<IBBCodeService>().GetCustomBBCodesAsync();
 
-            var list = customBbCode.Where(e => e.Name != "ALBUMIMG" && e.Name != "ATTACH").Select(x=> new {x.Name, x.UseToolbar}).ToList();
+            var list = customBbCodes.Where(e => e.Name != "ALBUMIMG" && e.Name != "ATTACH").Select(x=> new {x.Name, x.UseToolbar}).ToList();
 
             return this.Ok(list);
         }

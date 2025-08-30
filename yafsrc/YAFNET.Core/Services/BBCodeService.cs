@@ -22,14 +22,15 @@
  * under the License.
  */
 
-namespace YAF.Core.BBCode;
-
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+using YAF.Core.BBCode;
 using YAF.Core.BBCode.ReplaceRules;
+
+namespace YAF.Core.Services;
 
 /// <summary>
 /// The BBCode Class to Format Message From BB Code to HTML and Reverse.
@@ -75,7 +76,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         this.Get<IObjectStore>().GetOrSet(
            Constants.Cache.CustomBBCodeRegExDictionary, () =>
             {
-                var bbcodeTable = this.GetCustomBBCode();
+                var bbcodeTable = this.GetCustomBBCodes();
                 return bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet())
                     .ToDictionary(
                         codeRow => codeRow,
@@ -99,7 +100,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     /// </returns>
     public async Task<string> FormatMessageWithCustomBBCodeAsync(
         string message,
-        int? messageId, 
+        int? messageId,
         int? displayUserId)
     {
         var workingMessage = message;
@@ -169,19 +170,19 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     /// </returns>
     public string ConvertHtmlToBBCodeForEdit(string message)
     {
-        const bool DoFormatting = true;
-        const bool TargetBlankOverride = false;
-        const bool ForBBCodeEditing = true;
+        const bool doFormatting = true;
+        const bool targetBlankOverride = false;
+        const bool forBbCodeEditing = true;
 
         // get the rules engine from the creator...
         var ruleEngine = this.ProcessReplaceRulesFactory(
             [
-                      DoFormatting, TargetBlankOverride, this.Get<BoardSettings>().UseNoFollowLinks, ForBBCodeEditing
+                      doFormatting, targetBlankOverride, this.Get<BoardSettings>().UseNoFollowLinks, forBbCodeEditing
                   ]);
 
         if (!ruleEngine.HasRules)
         {
-            this.CreateHtmlRules(ruleEngine);
+            CreateHtmlRules(ruleEngine);
         }
 
         ruleEngine.Process(ref message);
@@ -193,7 +194,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     /// Creates the rules that convert HTML to <see cref="BBCode" />
     /// </summary>
     /// <param name="ruleEngine">The rule Engine.</param>
-    public void CreateHtmlRules(IProcessReplaceRules ruleEngine)
+    private static void CreateHtmlRules(IProcessReplaceRules ruleEngine)
     {
         // alignment
         ruleEngine.AddRule(
@@ -975,8 +976,8 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     /// </param>
     public void RegisterCustomBBCodeInlineElements(string editorId)
     {
-        var codes = this.GetCustomBBCode();
-        const string ScriptID = "custombbcode";
+        var codes = this.GetCustomBBCodes();
+        const string scriptId = "custombbcode";
         var javaScriptScriptBuilder = new StringBuilder();
         var cssBuilder = new StringBuilder();
 
@@ -1014,25 +1015,36 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
 
         if (javaScriptScriptBuilder.ToString().Trim().Length > 0)
         {
-            BoardContext.Current.InlineElements.InsertJsBlock($"{ScriptID}_script", javaScriptScriptBuilder.ToString());
+            BoardContext.Current.InlineElements.InsertJsBlock($"{scriptId}_script", javaScriptScriptBuilder.ToString());
         }
 
         if (cssBuilder.ToString().Trim().Length > 0)
         {
             // register the CSS from all custom bbcode...
-            BoardContext.Current.InlineElements.InsertInternalCss($"{ScriptID}_css", cssBuilder.ToString());
+            BoardContext.Current.InlineElements.InsertInternalCss($"{scriptId}_css", cssBuilder.ToString());
         }
     }
 
     /// <summary>
-    ///     The get custom bb code.
+    ///     Get the list of custom BBCodes.
     /// </summary>
     /// <returns> Returns List with Custom BBCodes </returns>
-    public IEnumerable<Types.Models.BBCode> GetCustomBBCode()
+    public IEnumerable<Types.Models.BBCode> GetCustomBBCodes()
     {
         return this.Get<IDataCache>().GetOrSet(
             Constants.Cache.CustomBBCode,
             () => this.GetRepository<Types.Models.BBCode>().GetByBoardId());
+    }
+
+    /// <summary>
+    ///     Get the list of custom BBCodes.
+    /// </summary>
+    /// <returns> Returns List with Custom BBCodes </returns>
+    public async Task<IEnumerable<Types.Models.BBCode>> GetCustomBBCodesAsync()
+    {
+        return await this.Get<IDataCache>().GetOrSetAsync(
+            Constants.Cache.CustomBBCode,
+            () => this.GetRepository<Types.Models.BBCode>().GetByBoardIdAsync());
     }
 
     /// <summary>
@@ -1043,7 +1055,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     /// </param>
     protected void AddCustomBBCodeRules(IProcessReplaceRules rulesEngine)
     {
-        var bbcodeTable = this.GetCustomBBCode();
+        var bbcodeTable = this.GetCustomBBCodes();
 
         // handle custom bbcodes row by row...
         bbcodeTable.Where(codeRow => !(codeRow.UseModule ?? false) && codeRow.SearchRegex.IsSet()).ForEach(

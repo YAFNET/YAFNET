@@ -239,15 +239,19 @@ public static class OrmLiteReadExpressionsApi
         return new TableOptions { Alias = alias };
     }
 
-    /// <summary>
-    /// Gets the name of the table.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="db">The database.</param>
-    /// <returns>System.String.</returns>
     public static string GetTableName<T>(this IDbConnection db)
     {
-        return db.GetDialectProvider().GetTableName(ModelDefinition<T>.Definition);
+        return db.GetDialectProvider().UnquotedTable(new TableRef(ModelDefinition<T>.Definition));
+    }
+
+    public static string GetTableName(this IDbConnection db, Type type)
+    {
+        return db.GetDialectProvider().UnquotedTable(new TableRef(type));
+    }
+
+    public static string GetTableName(this IDbConnection db, ModelDefinition modelDef)
+    {
+        return db.GetDialectProvider().UnquotedTable(new TableRef(modelDef));
     }
 
     /// <summary>
@@ -372,8 +376,7 @@ public static class OrmLiteReadExpressionsApi
             }
 
             // retain *real* table names and skip using naming strategy
-            sb.AppendLine(
-                $"SELECT {OrmLiteUtils.QuotedLiteral(tableName)}, COUNT(*) FROM {dialect.GetQuotedTableName(tableName, schemaName, useStrategy: false)}");
+            sb.AppendLine($"SELECT {dialect.GetQuotedValue(tableName)}, COUNT(*) FROM {dialect.QuoteSchema(schemaName, tableName)}");
         }
 
         var sql = StringBuilderCache.ReturnAndFree(sb);
@@ -527,7 +530,7 @@ public static class OrmLiteReadExpressionsApi
             return dbConn.Exec(dbCmd => dbCmd.SqlList<T>(expression.SelectInto<T>(QueryType.Select), anonType));
         }
 
-        if (expression.Params != null && expression.Params.Any())
+        if (expression.Params != null && expression.Params.Count != 0)
         {
             return dbConn.Exec(
                 dbCmd => dbCmd.SqlList<T>(

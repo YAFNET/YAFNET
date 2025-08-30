@@ -260,7 +260,7 @@ public class DynamicJson : DynamicObject
         {
             if (char.IsUpper(c) && i > 0)
             {
-                sb.Append("_");
+                sb.Append('_');
             }
             sb.Append(c);
             i++;

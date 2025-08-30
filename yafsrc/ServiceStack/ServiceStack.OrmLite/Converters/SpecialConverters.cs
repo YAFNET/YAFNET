@@ -140,7 +140,7 @@ public class EnumConverter : StringConverter
         var enumString = enumKind == EnumKind.EnumMember
             ? value.ToString()
             : this.DialectProvider.StringSerializer.SerializeToString(value);
-        if (enumString == null || enumString == "null")
+        if (enumString is null or "null")
         {
             enumString = value.ToString();
         }

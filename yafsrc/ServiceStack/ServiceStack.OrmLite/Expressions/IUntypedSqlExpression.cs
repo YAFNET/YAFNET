@@ -1698,7 +1698,7 @@ public static class SqlExpressionExtensions
     /// <returns>System.String.</returns>
     public static string TableName<T>(this ISqlExpression sqlExpression)
     {
-        return sqlExpression.ToDialectProvider().GetTableName(typeof(T).GetModelDefinition());
+        return sqlExpression.ToDialectProvider().UnquotedTable(typeof(T).GetModelDefinition().Name);
     }
 
     /// <summary>
@@ -1846,7 +1846,9 @@ public static class SqlExpressionExtensions
                             : propertyName;
 
         return prefixTable
-                   ? dialect.GetQuotedColumnName(tableDef, fieldName)
-                   : dialect.GetQuotedColumnName(fieldName);
+            ? fieldDef != null
+                ? dialect.GetQuotedColumnName(tableDef, fieldDef)
+                : dialect.GetQuotedColumnName(tableDef, fieldName)
+            : dialect.GetQuotedColumnName(fieldDef);
     }
 }
