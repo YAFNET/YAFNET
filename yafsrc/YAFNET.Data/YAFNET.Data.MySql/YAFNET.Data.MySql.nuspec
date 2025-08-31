@@ -4,7 +4,7 @@
     <id>YAFNET.Data.MySql</id>
 	<title>YAFNET MySql Data </title>
 	<copyright>Copyright © YetAnotherForum.NET and Ingo Herbote. All rights reserved</copyright>
-    <version>4.0.0</version>
+    <version>4.0.1</version>
     <authors>Ingo Herbote</authors>
     <owners>Ingo Herbote, YAFNET</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -17,9 +17,9 @@
     <repository type="git" url="https://github.com/YAFNET/YAFNET" />
     <dependencies>
 		<group targetFramework="net9.0">
-			<dependency id="YAFNET.Configuration" version="4.0.0" exclude="Build,Analyzers" />
-			<dependency id="YAFNET.Core" version="4.0.0" exclude="Build,Analyzers" />
-			<dependency id="YAFNET.Types" version="4.0.0" exclude="Build,Analyzers" />
+			<dependency id="YAFNET.Configuration" version="4.0.1" exclude="Build,Analyzers" />
+			<dependency id="YAFNET.Core" version="4.0.1" exclude="Build,Analyzers" />
+			<dependency id="YAFNET.Types" version="4.0.1" exclude="Build,Analyzers" />
 			<dependency id="Autofac" version="8.4.0" exclude="Build,Analyzers" />
 			<dependency id="MySql.Data" version="9.4.0" exclude="Build,Analyzers" />
 			<dependency id="System.ComponentModel.Composition" version="9.0.8" exclude="Build,Analyzers" />

@@ -2,11 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-	<Version>4.0.0</Version>
+	<Version>4.0.1</Version>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <RootNamespace>YAF.UI.Chat</RootNamespace>
     <Description>Chat UI for YAF.NET.</Description>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>YAFNET.UI.Chat</PackageId>
     <PackageTags>forums yaf yaf.net YetAnotherForum.net forum chat signalr</PackageTags>
     <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
@@ -55,9 +54,9 @@
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
-	<PackageReference Include="YAFNET.Core" Version="4.0.0" />
-	<PackageReference Include="YAFNET.Types" Version="4.0.0" />
-	<PackageReference Include="YAFNET.Web" Version="4.0.0" />
+	<PackageReference Include="YAFNET.Core" Version="4.0.1" />
+	<PackageReference Include="YAFNET.Types" Version="4.0.1" />
+	<PackageReference Include="YAFNET.Web" Version="4.0.1" />
   </ItemGroup>
 
 </Project>
