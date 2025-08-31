@@ -83,7 +83,7 @@ public class Stats : ForumBaseController
             if(this.Get<IGeoIpCountryService>().DatabaseExists())
             {
                 countries = activeUsers
-                    .GroupBy(u => new { u.Country })
+                    .GroupBy(u => new { u.Country }).Where(g => g.Key.Country.IsSet())
                     .Select(g => new StatsData
                     {
                         Label = g.Key.Country.Equals("--") ? g.Key.Country : this.GetText(g.Key.Country),
