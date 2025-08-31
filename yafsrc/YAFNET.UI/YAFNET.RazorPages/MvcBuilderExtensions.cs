@@ -68,7 +68,7 @@ public static class MvcBuilderExtensions
     /// <param name="env">The webhost environment.</param>
     private static void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
     {
-        services.ConfigureOptions(typeof(StaticFilePostConfigureOptions));
+        services.ConfigureOptions<StaticFilePostConfigureOptions>();
 
         if (!env.IsDevelopment())
         {
@@ -80,7 +80,7 @@ public static class MvcBuilderExtensions
 
         if (dir != null)
         {
-            Config.WebRootPath = dir.Remove(dir.IndexOf("languages", StringComparison.Ordinal));
+            Config.WebRootPath = dir[..dir.IndexOf("languages", StringComparison.Ordinal)];
         }
     }
 }

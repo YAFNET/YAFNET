@@ -24,25 +24,21 @@
 
 namespace YAF.Pages.Install;
 
-using Microsoft.AspNetCore.Mvc;
-
-using YAF.Types.Interfaces.Data;
-
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-
-using YAF.Configuration;
-using YAF.Types.Extensions;
-using YAF.Types.Modals;
-using YAF.Core.Context;
-
 using System.Linq;
 using System.Threading.Tasks;
 
-using YAF.Core.Extensions;
-using YAF.Types.Interfaces.Identity;
-using YAF.Types.Models.Identity;
-
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Configuration;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Interfaces.Identity;
+using YAF.Types.Modals;
+using YAF.Types.Models.Identity;
 
 /// <summary>
 /// Class InstallModel.
@@ -254,7 +250,7 @@ public class InstallModel : InstallPage
     {
         this.Get<IDataCache>().Remove("Install");
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
+        return this.Redirect(ForumPages.Index.GetPageName());
     }
 
     /// <summary>
