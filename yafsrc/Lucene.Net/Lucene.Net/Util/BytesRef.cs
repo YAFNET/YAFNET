@@ -1,4 +1,4 @@
-﻿using J2N.Text;
+using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
@@ -242,6 +242,43 @@ namespace YAF.Lucene.Net.Util
             UnicodeUtil.UTF8toUTF16(bytes, Offset, Length, @ref);
             return @ref.ToString();
         }
+
+        /// <summary>
+        /// Interprets stored bytes as UTF8 bytes, returning the
+        /// resulting <see cref="string"/>.
+        /// </summary>
+        /// <remarks>
+        /// LUCENENET specific version that does not throw exceptions on invalid UTF-8,
+        /// primarily for use in ToString() and other cases that should not throw exceptions,
+        /// such as when building a message for another exception.
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string Utf8ToStringWithFallback()
+        {
+            CharsRef @ref = new CharsRef(Length);
+            UnicodeUtil.UTF8toUTF16WithFallback(bytes, Offset, Length, @ref);
+            return @ref.ToString();
+        }
+
+        #nullable enable
+        /// <summary>
+        /// Tries to interpret the stored bytes as UTF8 bytes, returning the
+        /// resulting <see cref="string"/> as an output parameter <paramref name="result"/>.
+        /// </summary>
+        /// <param name="result">The resulting string output.</param>
+        /// <returns><c>true</c> if successful, <c>false</c> otherwise.</returns>
+        public bool TryUtf8ToString([NotNullWhen(true)] out string? result)
+        {
+            if (UnicodeUtil.TryUTF8toUTF16(bytes, Offset, Length, out CharsRef? @ref))
+            {
+                result = @ref.ToString();
+                return true;
+            }
+
+            result = null;
+            return false;
+        }
+        #nullable restore
 
         /// <summary>
         /// Returns hex encoded bytes, eg [0x6c 0x75 0x63 0x65 0x6e 0x65] </summary>
@@ -567,11 +604,11 @@ namespace YAF.Lucene.Net.Util
             switch (format)
             {
                 case BytesRefFormat.UTF8:
-                    try
+                    if (bytesRef.TryUtf8ToString(out var utf8String))
                     {
-                        return bytesRef.Utf8ToString();
+                        return utf8String;
                     }
-                    catch (Exception e) when (e.IsIndexOutOfBoundsException())
+                    else
                     {
                         return bytesRef.ToString();
                     }

@@ -40,4 +40,8 @@
     <ProjectReference Include="..\Lucene.Net\YAF.Lucene.Net.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" />
+  </ItemGroup>
+
 </Project>
