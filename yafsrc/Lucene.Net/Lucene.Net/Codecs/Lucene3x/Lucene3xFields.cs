@@ -1,4 +1,4 @@
-﻿using J2N.Text;
+using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Support.Threading;
@@ -26,23 +26,23 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using UnicodeUtil = YAF.Lucene.Net.Util.UnicodeUtil;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using Directory = Lucene.Net.Store.Directory;
+    using DocsAndPositionsEnum = Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum = Lucene.Net.Index.DocsEnum;
+    using FieldInfo = Lucene.Net.Index.FieldInfo;
+    using FieldInfos = Lucene.Net.Index.FieldInfos;
+    using IBits = Lucene.Net.Util.IBits;
+    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
+    using IndexInput = Lucene.Net.Store.IndexInput;
+    using IndexOptions = Lucene.Net.Index.IndexOptions;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
+    using Term = Lucene.Net.Index.Term;
+    using Terms = Lucene.Net.Index.Terms;
+    using TermsEnum = Lucene.Net.Index.TermsEnum;
+    using UnicodeUtil = Lucene.Net.Util.UnicodeUtil;
 
     /// <summary>
     /// Exposes flex API on a pre-flex index, as a codec.
@@ -343,7 +343,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
                 if (DEBUG_SURROGATES)
                 {
-                    Console.WriteLine("      try seek term=" + UnicodeUtil.ToHexString(term.Utf8ToString()));
+                    // LUCENENET specific - use Utf8ToStringWithFallback() to handle invalid UTF-8 bytes
+                    Console.WriteLine("      try seek term=" + UnicodeUtil.ToHexString(term.Utf8ToStringWithFallback()));
                 }
 
                 // Seek "back":
@@ -487,7 +488,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
                     if (DEBUG_SURROGATES)
                     {
-                        Console.WriteLine("    seek to term=" + UnicodeUtil.ToHexString(scratchTerm.Utf8ToString()) + " " + scratchTerm.ToString());
+                        // LUCENENET specific - use Utf8ToStringWithFallback() to handle invalid UTF-8 bytes
+                        Console.WriteLine("    seek to term=" + UnicodeUtil.ToHexString(scratchTerm.Utf8ToStringWithFallback()) + " " + scratchTerm.ToString());
                     }
 
                     // TODO: more efficient seek?  can we simply swap
@@ -598,10 +600,11 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
                 if (DEBUG_SURROGATES)
                 {
+                    // LUCENENET specific - use Utf8ToStringWithFallback() to handle invalid UTF-8 bytes
                     Console.WriteLine("  dance");
-                    Console.WriteLine("    prev=" + UnicodeUtil.ToHexString(prevTerm.Utf8ToString()));
+                    Console.WriteLine("    prev=" + UnicodeUtil.ToHexString(prevTerm.Utf8ToStringWithFallback()));
                     Console.WriteLine("         " + prevTerm.ToString());
-                    Console.WriteLine("    term=" + UnicodeUtil.ToHexString(scratchTerm.Utf8ToString()));
+                    Console.WriteLine("    term=" + UnicodeUtil.ToHexString(scratchTerm.Utf8ToStringWithFallback()));
                     Console.WriteLine("         " + scratchTerm.ToString());
                 }
 
@@ -678,7 +681,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
                         if (DEBUG_SURROGATES)
                         {
-                            Console.WriteLine("    try seek 1 pos=" + upTo + " term=" + UnicodeUtil.ToHexString(scratchTerm.Utf8ToString()) + " " + scratchTerm.ToString() + " len=" + scratchTerm.Length);
+                            // LUCENENET specific - use Utf8ToStringWithFallback() to handle invalid UTF-8 bytes
+                            Console.WriteLine("    try seek 1 pos=" + upTo + " term=" + UnicodeUtil.ToHexString(scratchTerm.Utf8ToStringWithFallback()) + " " + scratchTerm.ToString() + " len=" + scratchTerm.Length);
                         }
 
                         // Seek "forward":
@@ -831,7 +835,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             {
                 if (DEBUG_SURROGATES)
                 {
-                    Console.WriteLine("TE.seek target=" + UnicodeUtil.ToHexString(term.Utf8ToString()));
+                    // LUCENENET specific - use Utf8ToStringWithFallback() to handle invalid UTF-8 bytes
+                    Console.WriteLine("TE.seek target=" + UnicodeUtil.ToHexString(term.Utf8ToStringWithFallback()));
                 }
                 skipNext = false;
                 TermInfosReader tis = outerInstance.TermsDict;
@@ -934,7 +939,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                     else
                     {
                         current = t2.Bytes;
-                        if (Debugging.AssertsEnabled) Debugging.Assert(!unicodeSortOrder || term.CompareTo(current) < 0,"term={0} vs current={1}",
+                        if (Debugging.AssertsEnabled) Debugging.Assert(!unicodeSortOrder || term.CompareTo(current) < 0, "term={0} vs current={1}",
                             // LUCENENET specific - use wrapper BytesRefFormatter struct to defer building the string unless string.Format() is called
                             new BytesRefFormatter(term, BytesRefFormat.UTF8AsHex), new BytesRefFormatter(current, BytesRefFormat.UTF8AsHex));
                         return SeekStatus.NOT_FOUND;

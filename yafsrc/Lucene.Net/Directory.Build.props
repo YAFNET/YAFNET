@@ -1,4 +1,4 @@
-﻿<!--
+<!--
 
  Licensed to the Apache Software Foundation (ASF) under one
  or more contributor license agreements.  See the NOTICE file
@@ -8,7 +8,7 @@
  "License"); you may not use this file except in compliance
  with the License.  You may obtain a copy of the License at
 
-   https://www.apache.org/licenses/LICENSE-2.0
+   http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing,
  software distributed under the License is distributed on an
@@ -19,28 +19,33 @@
 
 -->
 <Project>
-	<PropertyGroup>
-		<!-- According to the docs (https://docs.microsoft.com/en-us/cpp/build/reference/common-macros-for-build-commands-and-properties?view=vs-2019), the 
+  <PropertyGroup>
+    <!-- According to the docs (https://docs.microsoft.com/en-us/cpp/build/reference/common-macros-for-build-commands-and-properties?view=vs-2019), the
       SolutionDir is only available when running in the IDE, so we patch to ensure it also works when using dotnet.exe -->
-		<SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MSBuildThisFileDirectory)</SolutionDir>
-	</PropertyGroup>
+    <SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MSBuildThisFileDirectory)</SolutionDir>
+  </PropertyGroup>
 
   <PropertyGroup>
     <LangVersion>11.0</LangVersion>
+    <GitHubOrganization>apache</GitHubOrganization>
+    <GitHubProject>lucenenet</GitHubProject>
   </PropertyGroup>
-  
+
   <!-- IMPORTANT: When these values are changed, the CI counter number should also be reset. -->
   <PropertyGroup Label="Version of Builds">
     <!-- IMPORTANT: VersionPrefix must always be the same as the Lucene version this is based on.
       Never increment it for an individual build - only increment this when an entire version's changes
-      are ported over from Lucene. This is what determines the version of all of the NuGet packages and binaries. 
-      For patching a production build, we will add a 4th segment (4.8.0.1) since it would be confusing to increment to 
+      are ported over from Lucene. This is what determines the version of all of the NuGet packages and binaries.
+      For patching a production build, we will add a 4th segment (4.8.0.1) since it would be confusing to increment to
       4.8.1 if we haven't actually ported over the changes from Lucene 4.8.1. -->
     <VersionPrefix>4.8.0</VersionPrefix>
 
     <!-- .NET enforces AssemblyVersion as the "major" version (when strong-named),
       so AssemblyVersion should only be changed for each major version release. -->
     <AssemblyVersion>4.0.0</AssemblyVersion>
+
+    <!-- .NET 8 SDK has a breaking change where they automatically add the commit hash to InformationalVersion unless it is explicitly disabled. -->
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
   </PropertyGroup>
 
   <PropertyGroup Label="Assembly Signing">
@@ -60,7 +65,7 @@
     <!-- This is the new symbols format (the only one currently supported at NuGet.org) -->
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
-  
+
   <PropertyGroup Label="Copyright Info">
     <Product>Lucene.Net</Product>
     <Company>The Apache Software Foundation</Company>
@@ -71,10 +76,19 @@
     <Copyright>Copyright © $(CopyrightYearRange) $(Company)</Copyright>
   </PropertyGroup>
 
-  <!-- Settings to override the above Version of Builds. These can be used to 
-      "freeze" the build number for a release, so whether building within 
-      an IDE or from the commmand line, the version is always what is 
-      in Version.props, if it exists and the PrepareForBuild argument 
+  <PropertyGroup Label="SourceLink Settings: https://github.com/dotnet/sourcelink/blob/main/README.md">
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(BUILD_REPOSITORY_PROVIDER)' == 'GitHub' Or '$(BUILD_REPOSITORY_PROVIDER)' == 'TfsGit' " Label="Deterministic builds: https://github.com/clairernovotny/DeterministicBuilds#readme">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <!-- Settings to override the above Version of Builds. These can be used to
+      "freeze" the build number for a release, so whether building within
+      an IDE or from the commmand line, the version is always what is
+      in Version.props, if it exists and the PrepareForBuild argument
       passed into build.ps1 is 'false'. -->
-  <Import Project="Version.props" Condition="Exists('Version.props')" />
+  <Import Project="version.props" Condition="Exists('version.props')" />
 </Project>
