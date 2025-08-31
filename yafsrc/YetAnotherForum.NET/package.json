@@ -1,6 +1,6 @@
 {
 	"name": "yetanotherforum-net",
-	"version": "3.2.8",
+	"version": "3.2.9",
 	"private": true,
 	"license": "Apache-2.0",
 	"devDependencies": {
