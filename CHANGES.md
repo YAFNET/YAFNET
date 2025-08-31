@@ -6,8 +6,11 @@ YetAnotherForum.NET Changelog
 * [NEW] added host setting to set the enter mode for editor (line break)
 * [NEW] show user medals in hover cards
 * [NEW] Set meta description for the board via Settings
+* [NEW] show country in active users list based on ip address (if geoip database is used)
+* [NEW] show stats for Country, Browser, Platform and new registrations on the admin dashboard
 * [FIXED] paste text in the editor
 * [FIXED] sitemap url
+* Migrate old PMs to new YAF v4 format
 * redesigned attachment upload/selection dialog
 * bug fixes
 
