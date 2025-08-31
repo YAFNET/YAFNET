@@ -244,13 +244,16 @@ module.exports = function (grunt) {
 					'if exist bin\\Release\\net9.0\\publish\\ (rmdir bin\\Release\\net9.0\\publish\\ /s /q)'
 				].join('&&')
 			},
-			deleteAppSettings: {
+			deleteBeforeDeploy: {
 				command: [
 					'@echo off',
 					'del bin\\Release\\net9.0\\publish\\appsettings-MySql.json ',
 					'del bin\\Release\\net9.0\\publish\\appsettings-PostgreSQL.json ',
 					'del bin\\Release\\net9.0\\publish\\appsettings-Sqlite.json ',
 					'del bin\\Release\\net9.0\\publish\\appsettings-SqlServer.json ',
+					'del bin\\Release\\net9.0\\publish\\package.json ',
+					'del bin\\Release\\net9.0\\publish\\tsconfig.json ',
+					'del bin\\Release\\net9.0\\publish\\wwwroot\\GeoIP.dat ',
 					'rmdir bin\\Release\\net9.0\\publish\\wwwroot\\uploads\\ /s /q '
 				].join('&&')
 			},
@@ -693,41 +696,41 @@ module.exports = function (grunt) {
 	grunt.registerTask('deploy-SqlServer',
 		[
 			'shell:deletePublish', 'shell:deploySqlServer', 'shell:compileLanguages', 'copy:appSettingsSqlServer',
-			'shell:deleteAppSettings',
+			'shell:deleteBeforeDeploy',
 			'zip:YAF-SqlServer-Deploy'
 		]);
 
 	grunt.registerTask('deploy-MySql',
 		[
 			'shell:deletePublish', 'shell:deployMySql', 'shell:compileLanguages', 'copy:appSettingsMySql',
-			'shell:deleteAppSettings',
+			'shell:deleteBeforeDeploy',
 			'zip:YAF-MySql-Deploy'
 		]);
 
 	grunt.registerTask('deploy-PostgreSQL',
 		[
 			'shell:deletePublish', 'shell:deployPostgreSQL', 'shell:compileLanguages', 'copy:appSettingsPostgreSQL',
-			'shell:deleteAppSettings',
+			'shell:deleteBeforeDeploy',
 			'zip:YAF-PostgreSQL-Deploy'
 		]);
 
 	grunt.registerTask('deploy-Sqlite',
 		[
 			'shell:deletePublish', 'shell:deploySqlite', 'shell:compileLanguages', 'copy:appSettingsSqlite',
-			'shell:deleteAppSettings',
+			'shell:deleteBeforeDeploy',
 			'zip:YAF-Sqlite-Deploy'
 		]);
 
 	grunt.registerTask('deploy',
 		[
 			'shell:deletePublish', 'shell:deploySqlite', 'shell:compileLanguages', 'copy:appSettingsSqlite',
-			'shell:deleteAppSettings', 'zip:YAF-Sqlite-Deploy',
+			'shell:deleteBeforeDeploy', 'zip:YAF-Sqlite-Deploy',
 			'shell:deletePublish', 'shell:deploySqlServer', 'shell:compileLanguages', 'copy:appSettingsSqlServer',
-			'shell:deleteAppSettings', 'zip:YAF-SqlServer-Deploy',
+			'shell:deleteBeforeDeploy', 'zip:YAF-SqlServer-Deploy',
 			'shell:deletePublish', 'shell:deployMySql', 'shell:compileLanguages', 'copy:appSettingsMySql',
-			'shell:deleteAppSettings', 'zip:YAF-MySql-Deploy',
+			'shell:deleteBeforeDeploy', 'zip:YAF-MySql-Deploy',
 			'shell:deletePublish', 'shell:deployPostgreSQL', 'shell:compileLanguages', 'copy:appSettingsPostgreSQL',
-			'shell:deleteAppSettings', 'zip:YAF-PostgreSQL-Deploy'
+			'shell:deleteBeforeDeploy', 'zip:YAF-PostgreSQL-Deploy'
 		]);
 
 	grunt.registerTask('publishGitHub',
