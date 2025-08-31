@@ -61,6 +61,12 @@ public class PlaywrightFixture
     public Lazy<Task<IBrowser>> WebkitBrowser { get; private set; }
 
     /// <summary>
+    /// Gets or sets the host factory.
+    /// </summary>
+    /// <value>The host factory.</value>
+    private WebTestingHostFactory<CultureSwitcherViewComponent> HostFactory { get; set; }
+
+    /// <summary>
     /// Initialize the Playwright fixture.
     /// </summary>
     public async Task InitializeAsync([StringSyntax(StringSyntaxAttribute.Uri)] string url)
@@ -78,9 +84,9 @@ public class PlaywrightFixture
 
         // Create the host factory with the App class as parameter and the
         // url we are going to use.
-        var hostFactory = new WebTestingHostFactory<CultureSwitcherViewComponent>();
+        this.HostFactory = new WebTestingHostFactory<CultureSwitcherViewComponent>();
 
-        hostFactory
+        this.HostFactory
             // Override host configuration to mock stuff if required.
             .WithWebHostBuilder(
                 builder =>
@@ -120,6 +126,8 @@ public class PlaywrightFixture
 
             this.Playwright.Dispose();
             this.Playwright = null;
+
+            await this.HostFactory.DisposeAsync();
         }
     }
 

@@ -96,7 +96,7 @@ public class WebTestingHostFactory<TProgram> : WebApplicationFactory<TProgram>
         /// </summary>
         public void Dispose()
         {
-            Dispose(true);
+            this.Dispose(true);
             GC.SuppressFinalize(this);
         }
 

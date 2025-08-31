@@ -56,14 +56,19 @@ public class AdminPagesTests : TestBase
 
                 foreach (var pageName in Enum.GetNames<ForumPages>().Where(x =>
                              x.StartsWith("Admin_") && !x.Equals("Admin_PageAccessEdit") &&
-                             !x.Equals("Admin_EditForum") &&
-                             !x.Equals("Admin_DeleteForum") &&
-                             !x.Equals("Admin_EditLanguage") &&
-                             !x.Equals("Admin_EditUser")))
+                             !x.Equals("Admin_EditForum") && !x.Equals("Admin_DeleteForum") &&
+                             !x.Equals("Admin_EditLanguage")
+                             && !x.Equals("Admin_EditUser")
+                         ))
                 {
                     await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}{pageName.Replace("_", "/")}");
 
                     var pageSource = await page.ContentAsync();
+
+                    page.Console += (_, msg) =>
+                    {
+                        Assert.That(msg.Type, Does.Not.Match("error"));
+                    };
 
                     Assert.That(pageSource, Does.Contain("Administration"), $"Error on page: {pageName}");
                 }

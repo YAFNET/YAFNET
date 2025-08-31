@@ -39,13 +39,13 @@ public class TestBase
     public Browser BrowserType { get; set; } = Browser.Chromium;
 
     /// <summary>
-    /// Gets the Install base.
+    /// Gets the InstallBase.
     /// </summary>
-    /// <value>The Install base.</value>
+    /// <value>The InstallBase.</value>
     public InstallBase Base { get; } = new();
 
     /// <summary>
-    /// Download YAF, Create Application and setup the Database
+    /// starts the application and create playwright
     /// </summary>
     [OneTimeSetUp]
     public Task SetUpAsync()
