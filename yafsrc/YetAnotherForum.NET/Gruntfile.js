@@ -8,7 +8,7 @@
 const webpackConfig = require('./webpack.config.js');
 const sass = require('sass');
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 	require('@lodder/time-grunt')(grunt);
 	// CONFIGURATION
 	grunt.initConfig({
@@ -155,6 +155,231 @@ module.exports = function (grunt) {
 						flatten: true,
 						src: ['wwwroot/lib/flag-icons/_variables.scss'],
 						dest: 'wwwroot/lib/flag-icons/'
+					}
+				]
+			},
+
+			version: {
+				options: {
+					patterns: [
+						{
+							match: /Version>([\d.]+)<\//,
+							replacement: 'Version><%= pkg.version%></'
+						},
+						{
+							match: /AssemblyVersion>([\d.]+)<\//,
+							replacement: 'AssemblyVersion><%= pkg.version%></'
+						},
+						{
+							match: /FileVersion>([\d.]+)<\//,
+							replacement: 'FileVersion><%= pkg.version%></'
+						}
+					]
+				},
+				files: [
+					{
+						expand: true,
+						flatten: true,
+						src: ['../Directory.Build.props'],
+						dest: '../'
+					}, {
+						expand: true,
+						flatten: true,
+						src: ['../ServiceStack/Directory.Build.props'],
+						dest: '../ServiceStack/'
+					}, {
+						expand: true,
+						flatten: true,
+						src: ['../Tests/Directory.Build.props'],
+						dest: '../Tests/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.UI/YAFNET.RazorPages/YAFNET.RazorPages.csproj'],
+						dest: '../YAFNET.UI/YAFNET.RazorPages/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.UI/YAFNET.UI.Chat/YAFNET.UI.Chat.csproj'],
+						dest: '../YAFNET.UI/YAFNET.UI.Chat/'
+					}
+				]
+			},
+			versionNuget: {
+				options: {
+					patterns: [
+						{
+							match: /version>([\d.]+)<\//,
+							replacement: 'version><%= pkg.version%></'
+						}
+					]
+				},
+				files: [
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Configuration/YAFNET.Configuration.nuspec'],
+						dest: '../YAFNET.Configuration/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Core/YAFNET.Core.nuspec'],
+						dest: '../YAFNET.Core/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.MySql/YAFNET.Data.MySql.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.MySql/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.PostgreSQL/YAFNET.Data.PostgreSQL.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.PostgreSQL/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.Sqlite/YAFNET.Data.Sqlite.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.Sqlite/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.SqlServer/YAFNET.Data.SqlServer.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.SqlServer/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Types/YAFNET.Types.nuspec'],
+						dest: '../YAFNET.Types/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Web/YAFNET.Web.nuspec'],
+						dest: '../YAFNET.Web/'
+					}
+				]
+			},
+			versionNugetPackages: {
+				options: {
+					patterns: [
+						{
+							match: /version=\"([\d.]+)\"/,
+							replacement: 'version="<%= pkg.version%>"'
+						}
+					]
+				},
+				files: [
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Configuration/YAFNET.Configuration.nuspec'],
+						dest: '../YAFNET.Configuration/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Core/YAFNET.Core.nuspec'],
+						dest: '../YAFNET.Core/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.MySql/YAFNET.Data.MySql.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.MySql/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.PostgreSQL/YAFNET.Data.PostgreSQL.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.PostgreSQL/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.Sqlite/YAFNET.Data.Sqlite.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.Sqlite/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.SqlServer/YAFNET.Data.SqlServer.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.SqlServer/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Types/YAFNET.Types.nuspec'],
+						dest: '../YAFNET.Types/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Web/YAFNET.Web.nuspec'],
+						dest: '../YAFNET.Web/'
+					}
+				]
+			},
+			versionNugetDependencies: {
+				options: {
+					patterns: [
+						{
+							match: /id=\"YAFNET.Configuration\" version=\"([\d.]+)\"/,
+							replacement: 'id="YAFNET.Configuration" version="<%= pkg.version%>"'
+						},
+						{
+							match: /id=\"YAFNET.Core\" version=\"([\d.]+)\"/,
+							replacement: 'id="YAFNET.Core" version="<%= pkg.version%>"'
+						},
+						{
+							match: /id=\"YAFNET.Types\" version=\"([\d.]+)\"/,
+							replacement: 'id="YAFNET.Types" version="<%= pkg.version%>"'
+						}
+					]
+				},
+				files: [
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Configuration/YAFNET.Configuration.nuspec'],
+						dest: '../YAFNET.Configuration/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Core/YAFNET.Core.nuspec'],
+						dest: '../YAFNET.Core/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.MySql/YAFNET.Data.MySql.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.MySql/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.PostgreSQL/YAFNET.Data.PostgreSQL.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.PostgreSQL/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.Sqlite/YAFNET.Data.Sqlite.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.Sqlite/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.SqlServer/YAFNET.Data.SqlServer.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.SqlServer/'
 					}
 				]
 			}
@@ -446,7 +671,7 @@ module.exports = function (grunt) {
 				implementation: sass,
 				sourceMap: false,
 				api: 'modern',
-				silenceDeprecations: ['color-functions', 'mixed-decls', 'global-builtin', 'import','legacy-js-api']   
+				silenceDeprecations: ['color-functions', 'mixed-decls', 'global-builtin', 'import', 'legacy-js-api']
 			},
 			flagIcons: {
 				files: {
@@ -475,33 +700,44 @@ module.exports = function (grunt) {
 			},
 			themes: {
 				files: {
-					"wwwroot/css/themes/zephyr/bootstrap-forum.min.css": 'wwwroot/lib/themes/zephyr/bootstrap-forum.scss',
+					"wwwroot/css/themes/zephyr/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/zephyr/bootstrap-forum.scss',
 					"wwwroot/css/themes/yaf/bootstrap-forum.min.css": 'wwwroot/lib/themes/yaf/bootstrap-forum.scss',
 					"wwwroot/css/themes/yeti/bootstrap-forum.min.css": 'wwwroot/lib/themes/yeti/bootstrap-forum.scss',
 					"wwwroot/css/themes/vapor/bootstrap-forum.min.css": 'wwwroot/lib/themes/vapor/bootstrap-forum.scss',
-					"wwwroot/css/themes/united/bootstrap-forum.min.css": 'wwwroot/lib/themes/united/bootstrap-forum.scss',
+					"wwwroot/css/themes/united/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/united/bootstrap-forum.scss',
 					"wwwroot/css/themes/superhero/bootstrap-forum.min.css":
 						'wwwroot/lib/themes/superhero/bootstrap-forum.scss',
 					"wwwroot/css/themes/spacelab/bootstrap-forum.min.css":
 						'wwwroot/lib/themes/spacelab/bootstrap-forum.scss',
 					"wwwroot/css/themes/solar/bootstrap-forum.min.css": 'wwwroot/lib/themes/solar/bootstrap-forum.scss',
 					"wwwroot/css/themes/slate/bootstrap-forum.min.css": 'wwwroot/lib/themes/slate/bootstrap-forum.scss',
-					"wwwroot/css/themes/sketchy/bootstrap-forum.min.css": 'wwwroot/lib/themes/sketchy/bootstrap-forum.scss',
-					"wwwroot/css/themes/simplex/bootstrap-forum.min.css": 'wwwroot/lib/themes/simplex/bootstrap-forum.scss',
+					"wwwroot/css/themes/sketchy/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/sketchy/bootstrap-forum.scss',
+					"wwwroot/css/themes/simplex/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/simplex/bootstrap-forum.scss',
 					"wwwroot/css/themes/sandstone/bootstrap-forum.min.css":
 						'wwwroot/lib/themes/sandstone/bootstrap-forum.scss',
-					"wwwroot/css/themes/quartz/bootstrap-forum.min.css": 'wwwroot/lib/themes/quartz/bootstrap-forum.scss',
+					"wwwroot/css/themes/quartz/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/quartz/bootstrap-forum.scss',
 					"wwwroot/css/themes/pulse/bootstrap-forum.min.css": 'wwwroot/lib/themes/pulse/bootstrap-forum.scss',
 					"wwwroot/css/themes/morph/bootstrap-forum.min.css": 'wwwroot/lib/themes/morph/bootstrap-forum.scss',
 					"wwwroot/css/themes/minty/bootstrap-forum.min.css": 'wwwroot/lib/themes/minty/bootstrap-forum.scss',
-					"wwwroot/css/themes/materia/bootstrap-forum.min.css": 'wwwroot/lib/themes/materia/bootstrap-forum.scss',
+					"wwwroot/css/themes/materia/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/materia/bootstrap-forum.scss',
 					"wwwroot/css/themes/lux/bootstrap-forum.min.css": 'wwwroot/lib/themes/lux/bootstrap-forum.scss',
 					"wwwroot/css/themes/lumen/bootstrap-forum.min.css": 'wwwroot/lib/themes/lumen/bootstrap-forum.scss',
-					"wwwroot/css/themes/litera/bootstrap-forum.min.css": 'wwwroot/lib/themes/litera/bootstrap-forum.scss',
-					"wwwroot/css/themes/journal/bootstrap-forum.min.css": 'wwwroot/lib/themes/journal/bootstrap-forum.scss',
-					"wwwroot/css/themes/flatly/bootstrap-forum.min.css": 'wwwroot/lib/themes/flatly/bootstrap-forum.scss',
-					"wwwroot/css/themes/darkly/bootstrap-forum.min.css": 'wwwroot/lib/themes/darkly/bootstrap-forum.scss',
-					"wwwroot/css/themes/cyborg/bootstrap-forum.min.css": 'wwwroot/lib/themes/cyborg/bootstrap-forum.scss',
+					"wwwroot/css/themes/litera/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/litera/bootstrap-forum.scss',
+					"wwwroot/css/themes/journal/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/journal/bootstrap-forum.scss',
+					"wwwroot/css/themes/flatly/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/flatly/bootstrap-forum.scss',
+					"wwwroot/css/themes/darkly/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/darkly/bootstrap-forum.scss',
+					"wwwroot/css/themes/cyborg/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/cyborg/bootstrap-forum.scss',
 					"wwwroot/css/themes/cosmo/bootstrap-forum.min.css": 'wwwroot/lib/themes/cosmo/bootstrap-forum.scss',
 					"wwwroot/css/themes/cerulean/bootstrap-forum.min.css":
 						'wwwroot/lib/themes/cerulean/bootstrap-forum.scss'
@@ -548,16 +784,20 @@ module.exports = function (grunt) {
 					"wwwroot/css/themes/zephyr/bootstrap-forum.min.css":
 						'wwwroot/css/themes/zephyr/bootstrap-forum.min.css',
 					"wwwroot/css/themes/yaf/bootstrap-forum.min.css": 'wwwroot/css/themes/yaf/bootstrap-forum.min.css',
-					"wwwroot/css/themes/yeti/bootstrap-forum.min.css": 'wwwroot/css/themes/yeti/bootstrap-forum.min.css',
-					"wwwroot/css/themes/vapor/bootstrap-forum.min.css": 'wwwroot/css/themes/vapor/bootstrap-forum.min.css',
+					"wwwroot/css/themes/yeti/bootstrap-forum.min.css":
+						'wwwroot/css/themes/yeti/bootstrap-forum.min.css',
+					"wwwroot/css/themes/vapor/bootstrap-forum.min.css":
+						'wwwroot/css/themes/vapor/bootstrap-forum.min.css',
 					"wwwroot/css/themes/united/bootstrap-forum.min.css":
 						'wwwroot/css/themes/united/bootstrap-forum.min.css',
 					"wwwroot/css/themes/superhero/bootstrap-forum.min.css":
 						'wwwroot/css/themes/superhero/bootstrap-forum.min.css',
 					"wwwroot/css/themes/spacelab/bootstrap-forum.min.css":
 						'wwwroot/css/themes/spacelab/bootstrap-forum.min.css',
-					"wwwroot/css/themes/solar/bootstrap-forum.min.css": 'wwwroot/css/themes/solar/bootstrap-forum.min.css',
-					"wwwroot/css/themes/slate/bootstrap-forum.min.css": 'wwwroot/css/themes/slate/bootstrap-forum.min.css',
+					"wwwroot/css/themes/solar/bootstrap-forum.min.css":
+						'wwwroot/css/themes/solar/bootstrap-forum.min.css',
+					"wwwroot/css/themes/slate/bootstrap-forum.min.css":
+						'wwwroot/css/themes/slate/bootstrap-forum.min.css',
 					"wwwroot/css/themes/sketchy/bootstrap-forum.min.css":
 						'wwwroot/css/themes/sketchy/bootstrap-forum.min.css',
 					"wwwroot/css/themes/simplex/bootstrap-forum.min.css":
@@ -566,13 +806,17 @@ module.exports = function (grunt) {
 						'wwwroot/css/themes/sandstone/bootstrap-forum.min.css',
 					"wwwroot/css/themes/quartz/bootstrap-forum.min.css":
 						'wwwroot/css/themes/quartz/bootstrap-forum.min.css',
-					"wwwroot/css/themes/pulse/bootstrap-forum.min.css": 'wwwroot/css/themes/pulse/bootstrap-forum.min.css',
-					"wwwroot/css/themes/morph/bootstrap-forum.min.css": 'wwwroot/css/themes/morph/bootstrap-forum.min.css',
-					"wwwroot/css/themes/minty/bootstrap-forum.min.css": 'wwwroot/css/themes/minty/bootstrap-forum.min.css',
+					"wwwroot/css/themes/pulse/bootstrap-forum.min.css":
+						'wwwroot/css/themes/pulse/bootstrap-forum.min.css',
+					"wwwroot/css/themes/morph/bootstrap-forum.min.css":
+						'wwwroot/css/themes/morph/bootstrap-forum.min.css',
+					"wwwroot/css/themes/minty/bootstrap-forum.min.css":
+						'wwwroot/css/themes/minty/bootstrap-forum.min.css',
 					"wwwroot/css/themes/materia/bootstrap-forum.min.css":
 						'wwwroot/css/themes/materia/bootstrap-forum.min.css',
 					"wwwroot/css/themes/lux/bootstrap-forum.min.css": 'wwwroot/css/themes/lux/bootstrap-forum.min.css',
-					"wwwroot/css/themes/lumen/bootstrap-forum.min.css": 'wwwroot/css/themes/lumen/bootstrap-forum.min.css',
+					"wwwroot/css/themes/lumen/bootstrap-forum.min.css":
+						'wwwroot/css/themes/lumen/bootstrap-forum.min.css',
 					"wwwroot/css/themes/litera/bootstrap-forum.min.css":
 						'wwwroot/css/themes/litera/bootstrap-forum.min.css',
 					"wwwroot/css/themes/journal/bootstrap-forum.min.css":
@@ -583,7 +827,8 @@ module.exports = function (grunt) {
 						'wwwroot/css/themes/darkly/bootstrap-forum.min.css',
 					"wwwroot/css/themes/cyborg/bootstrap-forum.min.css":
 						'wwwroot/css/themes/cyborg/bootstrap-forum.min.css',
-					"wwwroot/css/themes/cosmo/bootstrap-forum.min.css": 'wwwroot/css/themes/cosmo/bootstrap-forum.min.css',
+					"wwwroot/css/themes/cosmo/bootstrap-forum.min.css":
+						'wwwroot/css/themes/cosmo/bootstrap-forum.min.css',
 					"wwwroot/css/themes/cerulean/bootstrap-forum.min.css":
 						'wwwroot/css/themes/cerulean/bootstrap-forum.min.css'
 				}
@@ -635,7 +880,6 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-shell');
 	grunt.loadNpmTasks('grunt-replace');
 	grunt.loadNpmTasks('grunt-zip');
-	grunt.loadNpmTasks('grunt-file-append');
 	grunt.loadNpmTasks('grunt-webpack');
 
 	grunt.registerTask('default',
@@ -748,5 +992,11 @@ module.exports = function (grunt) {
 		[
 			'shell:deleteOldNuGetPackages', 'shell:createNuGetUIPackages', 'shell:copyNuGetUIPackages',
 			'shell:publishNuGetUIPackages'
+		]);
+
+	grunt.registerTask('updateVersionNumber',
+		[
+			'replace:version', 'replace:versionNuget', 'replace:versionNugetPackages',
+			'replace:versionNugetDependencies'
 		]);
 };
