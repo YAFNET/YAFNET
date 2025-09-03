@@ -378,13 +378,13 @@
 											                        activeUser.TopicName,
 											                        false)
 									</span>
-								
-									@if (!activeUser.Country.Equals("--"))
+
+									@if (activeUser.Country.IsSet() && !activeUser.Country.Equals("--"))
 									{
 										@Html.Icon("globe")
 										<span class="@($"fi fi-{activeUser.Country.ToLower()}")" title="@(Model.GetText("COUNTRY", activeUser.Country))"></span>
 									}
-								
+
 								</p>
 								<small>
 									<span>
@@ -392,6 +392,7 @@
 										@activeUser.UserAgent
 									</span>
 									<span>
+										@Html.Icon("file-lines")
 										@activeUser.Referer
 									</span>
 								</small>

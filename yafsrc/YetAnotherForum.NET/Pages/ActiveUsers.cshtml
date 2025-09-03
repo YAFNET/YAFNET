@@ -101,10 +101,10 @@
 	                                <strong>@Html.LocalizedText("platform")</strong>
 	                                @user.Platform
                                 </span>
-                                @if (!user.Country.Equals("--"))
+                                @if (user.Country.IsSet() && !user.Country.Equals("--"))
                                 {
 	                                <strong>@Html.LocalizedText("COUNTRY")</strong>
-	                               <span class="@($"fi fi-{user.Country.ToLower()}")" title="@(Model.GetText("COUNTRY", user.Country))"></span>
+	                                <span class="@($"fi fi-{user.Country.ToLower()}")" title="@(Model.GetText("COUNTRY", user.Country))"></span>
                                 }
                                
                             </small>
