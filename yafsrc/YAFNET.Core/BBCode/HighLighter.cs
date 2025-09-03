@@ -82,16 +82,32 @@ public class HighLighter
             language = language[..language.IndexOf(';')];
         }
 
-        // Create Output
-        tmpOutput.AppendFormat(
-            "<pre class=\"line-numbers language-{0}\"{1}><code class=\"language-{0}\">",
-            language,
-            highlight.IsSet() ? $" data-line=\"{highlight}\"" : string.Empty);
+        if (language == "stacktrace")
+        {
+            var beautify = new StackTraceBeautify();
+            // Create Output
+            tmpOutput.Append(
+                $"<div class=\"card\"><div class=\"card-body\"><pre class=\"line-numbers {language}\"{(highlight.IsSet() ? $" data-line=\"{highlight}\"" : string.Empty)}><code>");
 
-        tmpOutput.Append(
-            $"<!---->{(StringHelper.IsHtmlEncoded(codeText) ? codeText : HttpUtility.HtmlEncode(codeText))}<!---->");
+            tmpOutput.Append(
+                $"<!---->{(StringHelper.IsHtmlEncoded(codeText) ? beautify.Beautify(codeText) : beautify.Beautify(HttpUtility.HtmlEncode(codeText)))}<!---->");
 
-        tmpOutput.AppendFormat("</code></pre>{0}", Environment.NewLine);
+            tmpOutput.Append($"</code></pre></div></div>{Environment.NewLine}");
+        }
+        else
+        {
+            // Create Output
+            tmpOutput.AppendFormat(
+                "<pre class=\"line-numbers language-{0}\"{1}><code class=\"language-{0}\">",
+                language,
+                highlight.IsSet() ? $" data-line=\"{highlight}\"" : string.Empty);
+
+            tmpOutput.Append(
+                $"<!---->{(StringHelper.IsHtmlEncoded(codeText) ? codeText : HttpUtility.HtmlEncode(codeText))}<!---->");
+
+            tmpOutput.Append($"</code></pre>{Environment.NewLine}");
+        }
+
 
         return tmpOutput.ToString();
     }

@@ -372,7 +372,8 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                                     new() { Value = "python", Text = "Python" },
                                     new() { Value = "sql", Text = "SQL" },
                                     new() { Value = "markup", Text = "XML" },
-                                    new() { Value = "vb", Text = "Visual Basic" }
+                                    new() { Value = "vb", Text = "Visual Basic" },
+                                    new() { Value = "stacktrace", Text = "StackTrace" }
                                 };
 
         var dropDownMenu1 = new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "dropdown-menu" } };

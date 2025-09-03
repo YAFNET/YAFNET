@@ -105,7 +105,6 @@ public class DigestSendTask : LongBackgroundTask
             return false;
         }
 
-        // && DateTime.Now < DateTime.Today.AddHours(5))
         // we're good to send -- update latest send so no duplication...
         boardSettings.LastDigestSend = DateTime.Now.ToString(CultureInfo.InvariantCulture);
         boardSettings.ForceDigestSend = false;

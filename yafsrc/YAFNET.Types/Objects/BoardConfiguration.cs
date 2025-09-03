@@ -181,7 +181,7 @@ public class BoardConfiguration
     /// 
     /// ** Defaults to: 30  **
     /// </summary>
-    public int RateLimiterPermitLimit { get; set; } = 30;
+    public int RateLimiterPermitLimit { get; set; } = 10;
 
     /// <summary>
     /// X-Frame-Options tells the browser whether you want to allow your site to be framed or not.By preventing a browser from framing your site you can defend against attacks like clickjacking.
