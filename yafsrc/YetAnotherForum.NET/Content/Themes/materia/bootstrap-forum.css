@@ -13458,9 +13458,6 @@ textarea.form-control-lg {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.btn-primary {
-  position: relative;
-}
 .btn-primary:focus {
   background-color: #2196f3;
   -webkit-box-shadow: 0 0 0 2px rgba(204, 204, 204, 0.5);
@@ -13472,6 +13469,9 @@ textarea.form-control-lg {
 .btn-primary:active {
   -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
           box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.btn-primary {
+  position: relative;
 }
 .btn-primary::before {
   position: absolute;
@@ -13532,9 +13532,6 @@ textarea.form-control-lg {
   display: none;
 }
 
-.btn-secondary {
-  position: relative;
-}
 .btn-secondary:focus {
   background-color: #fff;
   -webkit-box-shadow: 0 0 0 2px rgba(204, 204, 204, 0.5);
@@ -13546,6 +13543,9 @@ textarea.form-control-lg {
 .btn-secondary:active {
   -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
           box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.btn-secondary {
+  position: relative;
 }
 .btn-secondary::before {
   position: absolute;
@@ -13606,9 +13606,6 @@ textarea.form-control-lg {
   display: none;
 }
 
-.btn-success {
-  position: relative;
-}
 .btn-success:focus {
   background-color: #4caf50;
   -webkit-box-shadow: 0 0 0 2px rgba(204, 204, 204, 0.5);
@@ -13620,6 +13617,9 @@ textarea.form-control-lg {
 .btn-success:active {
   -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
           box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.btn-success {
+  position: relative;
 }
 .btn-success::before {
   position: absolute;
@@ -13680,9 +13680,6 @@ textarea.form-control-lg {
   display: none;
 }
 
-.btn-info {
-  position: relative;
-}
 .btn-info:focus {
   background-color: #9c27b0;
   -webkit-box-shadow: 0 0 0 2px rgba(204, 204, 204, 0.5);
@@ -13694,6 +13691,9 @@ textarea.form-control-lg {
 .btn-info:active {
   -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
           box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.btn-info {
+  position: relative;
 }
 .btn-info::before {
   position: absolute;
@@ -13754,9 +13754,6 @@ textarea.form-control-lg {
   display: none;
 }
 
-.btn-warning {
-  position: relative;
-}
 .btn-warning:focus {
   background-color: #ff9800;
   -webkit-box-shadow: 0 0 0 2px rgba(204, 204, 204, 0.5);
@@ -13768,6 +13765,9 @@ textarea.form-control-lg {
 .btn-warning:active {
   -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
           box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.btn-warning {
+  position: relative;
 }
 .btn-warning::before {
   position: absolute;
@@ -13828,9 +13828,6 @@ textarea.form-control-lg {
   display: none;
 }
 
-.btn-danger {
-  position: relative;
-}
 .btn-danger:focus {
   background-color: #e51c23;
   -webkit-box-shadow: 0 0 0 2px rgba(204, 204, 204, 0.5);
@@ -13842,6 +13839,9 @@ textarea.form-control-lg {
 .btn-danger:active {
   -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
           box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.btn-danger {
+  position: relative;
 }
 .btn-danger::before {
   position: absolute;
@@ -13902,9 +13902,6 @@ textarea.form-control-lg {
   display: none;
 }
 
-.btn-dark {
-  position: relative;
-}
 .btn-dark:focus {
   background-color: #222;
   -webkit-box-shadow: 0 0 0 2px rgba(204, 204, 204, 0.5);
@@ -13916,6 +13913,9 @@ textarea.form-control-lg {
 .btn-dark:active {
   -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
           box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.btn-dark {
+  position: relative;
 }
 .btn-dark::before {
   position: absolute;
@@ -13976,9 +13976,6 @@ textarea.form-control-lg {
   display: none;
 }
 
-.btn-light {
-  position: relative;
-}
 .btn-light:focus {
   background-color: #f8f9fa;
   -webkit-box-shadow: 0 0 0 2px rgba(204, 204, 204, 0.5);
@@ -13990,6 +13987,9 @@ textarea.form-control-lg {
 .btn-light:active {
   -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
           box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.btn-light {
+  position: relative;
 }
 .btn-light::before {
   position: absolute;

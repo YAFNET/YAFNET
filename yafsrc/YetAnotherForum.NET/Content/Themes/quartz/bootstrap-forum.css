@@ -13506,9 +13506,6 @@ body {
   background-color: transparent;
   background-image: linear-gradient(125deg, white, rgba(255, 255, 255, 0.9) 70%);
   backdrop-filter: blur(5px);
-  border-radius: 0.5rem;
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
 }
 .nav-tabs .nav-item .nav-link.active a,
 .nav-tabs .nav-item.show .nav-link a {
@@ -13517,6 +13514,12 @@ body {
 .nav-tabs .nav-item .nav-link.active .text-muted,
 .nav-tabs .nav-item.show .nav-link .text-muted {
   color: rgba(255, 255, 255, 0.7) !important;
+}
+.nav-tabs .nav-item .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  border-radius: 0.5rem;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
 }
 .nav-tabs .nav-item .nav-link.active:hover, .nav-tabs .nav-item .nav-link.active:focus,
 .nav-tabs .nav-item.show .nav-link:hover,
@@ -13543,15 +13546,17 @@ body {
   background-color: transparent;
   background-image: linear-gradient(125deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2) 70%);
   backdrop-filter: blur(5px);
-  position: relative;
-  overflow: hidden;
-  color: #fff;
 }
 .alert a {
   color: #fff;
 }
 .alert .text-muted {
   color: rgba(255, 255, 255, 0.7) !important;
+}
+.alert {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
 }
 .alert-primary::after {
   position: absolute;
@@ -13658,7 +13663,6 @@ body {
   background-color: transparent;
   background-image: linear-gradient(125deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2) 70%);
   backdrop-filter: blur(5px);
-  --bs-secondary-rgb: transparent;
 }
 .card a {
   color: #fff;
@@ -13668,6 +13672,9 @@ body {
 }
 .card.bg-primary {
   background-image: none;
+}
+.card {
+  --bs-secondary-rgb: transparent;
 }
 .card.bg-success {
   background-image: none;
@@ -13847,14 +13854,16 @@ body {
   background-color: transparent;
   background-image: linear-gradient(125deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2) 70%);
   backdrop-filter: blur(5px);
-  -webkit-box-shadow: none;
-          box-shadow: none;
 }
 .accordion-item a {
   color: #fff;
 }
 .accordion-item .text-muted {
   color: rgba(255, 255, 255, 0.7) !important;
+}
+.accordion-item {
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .toast {
