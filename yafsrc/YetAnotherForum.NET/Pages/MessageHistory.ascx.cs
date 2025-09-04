@@ -212,11 +212,9 @@ public partial class MessageHistory : ForumPage
     /// </param>
     protected void ShowDiffClick(object sender, EventArgs e)
     {
-        var dmp = new DiffMatchPatch();
-
         var messages = this.RevisionsList.Items.Cast<RepeaterItem>()
             .Where(item => item.FindControlAs<CheckBox>("Compare").Checked)
-            .Select(item => item.FindControlAs<HiddenField>("MessageField").Value);
+            .Select(item => item.FindControlAs<HiddenField>("MessageField").Value).ToList();
 
         if (messages.NullOrEmpty())
         {
@@ -224,20 +222,29 @@ public partial class MessageHistory : ForumPage
             return;
         }
 
-        if (messages.Count() == 1)
+        if (messages.Count == 1)
         {
             this.PageBoardContext.Notify(this.GetText("MESSAGEHISTORY", "SELECT_BOTH"), MessageTypes.warning);
             return;
         }
 
-        var text1 = messages.ElementAt(0);
-        var text2 = messages.ElementAt(1);
+        try
+        {
+            var text1 = messages[0];
+            var text2 = messages[1];
 
-        var diff = dmp.DiffMain(text1, text2, true);
+            var dmp = new DiffMatchPatch();
 
-        dmp.CleanupSemantic(diff);
+            var diff = dmp.DiffMain(text1, text2, true);
 
-        this.DiffView.Text = dmp.PrettyHtml(diff);
+            dmp.CleanupSemantic(diff);
+
+            this.DiffView.Text = dmp.PrettyHtml(diff);
+        }
+        catch (Exception)
+        {
+            this.DiffView.Text = string.Empty;
+        }
 
         this.InfoSelect.Visible = false;
     }
