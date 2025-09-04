@@ -28,7 +28,7 @@
     $e.addEventListener('keyup', showLookup);
     $e.addEventListener('click', hideLookup);
 
-    var range, start, end, prevWord;
+    var start, end, prevWord;
 
     var isFixed = false;
     var $el = $lookup.parentNode;
@@ -96,7 +96,7 @@
         if (!items.length)
             return hideLookup();
 
-        $lookup.innerHTML = `<ul class="dropdown-menu show">${items.join('')}</ul>`;
+        $lookup.innerHTML = `<ul class="dropdown-menu dropdown-mentions show">${items.join('')}</ul>`;
         [...$lookup.firstElementChild.children]
             .forEach($el => $el.addEventListener('click', onClick) || $el.addEventListener('mouseenter', onHover));
         $lookup.firstElementChild.children[0].classList.add('active');

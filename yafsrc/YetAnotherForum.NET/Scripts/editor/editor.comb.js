@@ -397,7 +397,7 @@ function mentions(opts = {}) {
     $e.addEventListener("keydown", processKey);
     $e.addEventListener("keyup", showLookup);
     $e.addEventListener("click", hideLookup);
-    var range, start, end, prevWord;
+    var start, end, prevWord;
     var isFixed = false;
     var $el = $lookup.parentNode;
     while ($el && $el.nodeName.toLowerCase() !== "body" && !isFixed) {
@@ -437,7 +437,7 @@ function mentions(opts = {}) {
         }
         var items = opts.items.filter(e => e.name.toLowerCase().includes(word.slice(1).toLowerCase())).map(item => eval('`<li class="mention-li-nt ${opts.lookup}" data-name = "${item.name}" data-id = "${item.id}">' + opts.item_template + "</li>`"));
         if (!items.length) return hideLookup();
-        $lookup.innerHTML = `<ul class="dropdown-menu show">${items.join("")}</ul>`;
+        $lookup.innerHTML = `<ul class="dropdown-menu dropdown-mentions show">${items.join("")}</ul>`;
         [ ...$lookup.firstElementChild.children ].forEach($el => $el.addEventListener("click", onClick) || $el.addEventListener("mouseenter", onHover));
         $lookup.firstElementChild.children[0].classList.add("active");
         if ($lookup.hasAttribute("hidden")) $lookup.removeAttribute("hidden");

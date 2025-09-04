@@ -490,7 +490,7 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
   }
 }
 /*!
- * Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2025 Fonticons, Inc.
  */
@@ -13713,4 +13713,10 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
   font-size: 200px !important;
   direction: ltr;
   cursor: pointer;
+}
+
+.dropdown-mentions {
+  max-height: 200px;
+  margin-bottom: 10px;
+  overflow: scroll;
 }

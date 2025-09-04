@@ -102,3 +102,9 @@
     direction: ltr;
     cursor: pointer;
 }
+
+.dropdown-mentions {
+    max-height: 200px;
+    margin-bottom: 10px;
+    overflow: scroll;
+}
