@@ -1002,6 +1002,10 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Потребители на ден:"
+          },
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Активни заявки за този IP адрес"
           }
         ]
       },
@@ -4697,14 +4701,6 @@
           {
             "@tag": "LOG_USERSUSPENDED_HELP",
             "#text": "Ще бъдат регистрирани спряни и разрушени събития."
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Изключения от ViewState на дневника:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "Ще бъдат регистрирани изключения от ViewState (главно причинени от спам ботове)."
           },
           {
             "@tag": "LOG_WARNING",

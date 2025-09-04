@@ -1002,6 +1002,10 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Användare per dag:"
+          },
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Aktiva förfrågningar för denna IP -adress"
           }
         ]
       },
@@ -4705,14 +4709,6 @@
           {
             "@tag": "LOG_USERSUSPENDED_HELP",
             "#text": "Suspended and unsuspended events will be logged."
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Logga ViewState-avvikelser:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "ViewState Exceptions (främst orsakade av SPAM Bots) kommer att loggas."
           },
           {
             "@tag": "LOG_WARNING",

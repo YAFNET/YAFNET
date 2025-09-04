@@ -1002,6 +1002,10 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Kasutajad päevas:"
+          },
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Selle IP -aadressi aktiivsed taotlused"
           }
         ]
       },
@@ -4705,14 +4709,6 @@
           {
             "@tag": "LOG_USERSUSPENDED_HELP",
             "#text": "Suspended and unsuspended events will be logged."
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Logi ViewState'i erandid:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "ViewState'i erandid (peamiselt rämpspostirobotite põhjustatud) logitakse."
           },
           {
             "@tag": "LOG_WARNING",

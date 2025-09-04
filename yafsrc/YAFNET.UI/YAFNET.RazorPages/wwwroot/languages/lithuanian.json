@@ -1002,6 +1002,10 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Vartotojų per dieną:"
+          },
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Aktyvios šio IP adreso užklausos"
           }
         ]
       },

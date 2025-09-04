@@ -1002,6 +1002,10 @@
           {
             "@tag": "USERS_DAY",
             "#text": "每日用户数:"
+          },
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "此IP地址的主动请求"
           }
         ]
       },

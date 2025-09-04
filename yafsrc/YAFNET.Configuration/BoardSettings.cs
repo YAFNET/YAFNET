@@ -1929,6 +1929,15 @@ public class BoardSettings
     }
 
     /// <summary>
+    /// Gets or sets LastIpListImport.
+    /// </summary>
+    public string LastIpListImport {
+        get => this.RegistryBoard.GetValue<string>("LastIpListImport", null);
+
+        set => this.RegistryBoard.SetValue("LastIpListImport", value);
+    }
+
+    /// <summary>
     /// Gets or sets the last search index updated.
     /// </summary>
     public string LastSearchIndexUpdated

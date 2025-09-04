@@ -1002,6 +1002,10 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Utilizatori pe zi:"
+          },
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Cereri active pentru această adresă IP"
           }
         ]
       },
@@ -4705,14 +4709,6 @@
           {
             "@tag": "LOG_USERSUSPENDED_HELP",
             "#text": "Suspended and unsuspended events will be logged."
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Jurnal de excepții ViewState:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "Excepțiile ViewState (cauzate în principal de roboții SPAM) vor fi înregistrate."
           },
           {
             "@tag": "LOG_WARNING",

@@ -73,6 +73,13 @@ public class AdminModel : AdminPage
     public List<ActiveUser> ActiveUserList { get; set; }
 
     /// <summary>
+    /// Gets or sets the active user list.
+    /// </summary>
+    /// <value>The active user list.</value>
+    [BindProperty]
+    public List<StatsData> ActiveUserIpList { get; set; }
+
+    /// <summary>
     /// Gets or sets the update highlight.
     /// </summary>
     /// <value>The update highlight.</value>
@@ -143,6 +150,31 @@ public class AdminModel : AdminPage
         var user = await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(userFound!.Name);
 
         await this.Get<ISendNotification>().SendVerificationEmailAsync(user, userUnApproved.Email, userFound.ID);
+
+        await this.BindDataAsync(p, p2);
+
+        return this.Page();
+    }
+
+    /// <summary>
+    /// Ban the ip address.
+    /// </summary>
+    /// <param name="mask">The mask.</param>
+    /// <param name="p">The p.</param>
+    /// <param name="p2">The p2.</param>
+    /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
+    public async Task<IActionResult> OnPostBanIpAsync(string mask, int p, int p2)
+    {
+        var bannedIp = new BannedIP
+        {
+            BoardID = this.PageBoardContext.PageBoardID,
+            Mask = mask,
+            Reason = "-",
+            UserID = this.PageBoardContext.PageUserID,
+            Since = DateTime.Now
+        };
+
+        await this.GetRepository<BannedIP>().InsertAsync(bannedIp);
 
         await this.BindDataAsync(p, p2);
 
@@ -266,6 +298,9 @@ public class AdminModel : AdminPage
             this.Size);
 
         this.ActiveUserList = activeUsers;
+
+        this.ActiveUserIpList = this.GetRepository<Active>().GetByBoardId().GroupBy(x => x.IP)
+            .Select(a => new StatsData { Label = a.Key, Data = a.Count() }).ToList();
     }
 
 

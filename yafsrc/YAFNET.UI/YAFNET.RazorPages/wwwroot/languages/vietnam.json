@@ -1002,6 +1002,10 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Người dùng mỗi ngày:"
+          },
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Yêu cầu hoạt động cho địa chỉ IP này"
           }
         ]
       },

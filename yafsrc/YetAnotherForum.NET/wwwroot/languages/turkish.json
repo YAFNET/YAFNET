@@ -1002,6 +1002,10 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Günlük kullanıcı sayısı:"
+          },
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Bu IP adresi için aktif istekler"
           }
         ]
       },
@@ -4705,14 +4709,6 @@
           {
             "@tag": "LOG_USERSUSPENDED_HELP",
             "#text": "Suspended and unsuspended events will be logged."
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "ViewState İstisnalarını Günlüğe Kaydet:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "ViewState İstisnaları (çoğunlukla SPAM Botların neden olduğu) günlüğe kaydedilecektir."
           },
           {
             "@tag": "LOG_WARNING",

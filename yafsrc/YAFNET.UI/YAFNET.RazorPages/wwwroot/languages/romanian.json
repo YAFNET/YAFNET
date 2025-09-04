@@ -1002,6 +1002,10 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Utilizatori pe zi:"
+          },
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Cereri active pentru această adresă IP"
           }
         ]
       },

@@ -1002,6 +1002,10 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Người dùng mỗi ngày:"
+          },
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Yêu cầu hoạt động cho địa chỉ IP này"
           }
         ]
       },
@@ -4705,14 +4709,6 @@
           {
             "@tag": "LOG_USERSUSPENDED_HELP",
             "#text": "Suspended and unsuspended events will be logged."
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Nhật ký ViewState Exception:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "Các ngoại lệ của ViewState (chủ yếu do SPAM Bots) sẽ được ghi lại."
           },
           {
             "@tag": "LOG_WARNING",

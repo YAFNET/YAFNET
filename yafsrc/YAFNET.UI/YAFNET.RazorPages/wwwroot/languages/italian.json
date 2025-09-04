@@ -1002,6 +1002,10 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Utenti al giorno:"
+          },
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Richieste attive per questo indirizzo IP"
           }
         ]
       },

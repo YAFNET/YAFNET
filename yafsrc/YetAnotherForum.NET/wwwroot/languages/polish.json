@@ -1002,6 +1002,10 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Użytkowników na dzień:"
+          },
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Aktywne żądania tego adresu IP"
           }
         ]
       },
@@ -4697,14 +4701,6 @@
           {
             "@tag": "LOG_USERSUSPENDED_HELP",
             "#text": "Suspended and unsuspended events will be logged."
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Rejestruj wyjątki ViewState:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "Wyjątki ViewState (powodowane głównie przez boty SPAMujące) będą rejestrowane."
           },
           {
             "@tag": "LOG_WARNING",

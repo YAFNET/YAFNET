@@ -1002,6 +1002,10 @@
           {
             "@tag": "USERS_DAY",
             "#text": "کاربران در روز:"
+          },
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "درخواست های فعال برای این آدرس IP"
           }
         ]
       },
@@ -4697,14 +4701,6 @@
           {
             "@tag": "LOG_USERSUSPENDED_HELP",
             "#text": "تعلیق یا لغو تعلیق کاربران ثبت می شود."
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "ثبت خطاهای مرتبط با ViewState: "
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "ViewState خطاهای (توسط SPAM Bots) ثبت خواهد شد."
           },
           {
             "@tag": "LOG_WARNING",

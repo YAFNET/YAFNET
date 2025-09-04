@@ -1002,6 +1002,10 @@
           {
             "@tag": "USERS_DAY",
             "#text": "每日用户数:"
+          },
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "此IP地址的主动请求"
           }
         ]
       },
@@ -4705,14 +4709,6 @@
           {
             "@tag": "LOG_USERSUSPENDED_HELP",
             "#text": "Suspended and unsuspended events will be logged."
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "记录 ViewState 异常："
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "将记录 ViewState 异常（主要由垃圾邮件机器人引起）。"
           },
           {
             "@tag": "LOG_WARNING",

@@ -820,6 +820,10 @@
         "@name": "ADMIN_ADMIN",
         "Resource": [
           {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": " active Requests for this Ip Address"
+          },
+          {
             "@tag": "ADMIN_APPROVE",
             "#text": "Approve user"
           },
@@ -828,8 +832,8 @@
             "#text": "Country"
           },
           {
-	          "@tag": "STATS_TITLE",
-	          "#text": "User Statistics"
+            "@tag": "STATS_TITLE",
+            "#text": "User Statistics"
           },
           {
             "@tag": "COUNTRIES",

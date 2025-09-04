@@ -1002,6 +1002,10 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Uživatelé za den:"
+          },
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Aktivní požadavky na tuto IP adresu"
           }
         ]
       },

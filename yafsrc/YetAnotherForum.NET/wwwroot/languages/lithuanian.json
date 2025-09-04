@@ -1002,6 +1002,10 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Vartotojų per dieną:"
+          },
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Aktyvios šio IP adreso užklausos"
           }
         ]
       },
@@ -4705,14 +4709,6 @@
           {
             "@tag": "LOG_USERSUSPENDED_HELP",
             "#text": "Suspended and unsuspended events will be logged."
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Registruoti \"ViewState\" išimtis:"
-          },
-          {
-            "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "Bus registruojamos \"ViewState\" išimtys (daugiausia dėl SPAM botų)."
           },
           {
             "@tag": "LOG_WARNING",
