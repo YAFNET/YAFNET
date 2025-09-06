@@ -1,7 +1,6 @@
 ﻿// JS Dependencies: Popper, Bootstrap
 import '@popperjs/core';
 import * as bootstrap from 'bootstrap';
-import * as signalR from '@microsoft/signalr';
 import * as Notifications from './forum/notifications';
 import './prism.js';
 import Notify from '@w8tcha/bootstrap-notify';
