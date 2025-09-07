@@ -44,6 +44,11 @@ public class Migration94 : MigrationBase
             return;
         }
 
+        if (Config.IsDotNetNuke)
+        {
+            return;
+        }
+
         if (this.Db.ColumnMaxLength<AspNetUsers>(x => x.Profile_Interests) < 4000)
         {
             this.Db.AlterColumn<AspNetUsers>(x => x.Profile_Interests);
