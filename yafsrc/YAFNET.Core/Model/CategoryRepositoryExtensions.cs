@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System.Collections.Generic;
@@ -100,7 +102,7 @@ public static class CategoryRepositoryExtensions
     /// <returns>
     /// Returns the Category ID of the Updated or new Category
     /// </returns>
-    public static int Save(
+    public static Task<int> SaveAsync(
         this IRepository<Category> repository,
         int? categoryId,
         string name,
@@ -109,7 +111,7 @@ public static class CategoryRepositoryExtensions
         CategoryFlags flags,
         int? boardId = null)
     {
-        return repository.Upsert(
+        return repository.UpsertAsync(
             new Category
                 {
                     BoardID = boardId ?? repository.BoardID,

@@ -175,11 +175,18 @@ public class MessageHistoryModel : ForumPageRegistered
         var message1 = messages[0];
         var message2 = messages[1];
 
-        var diff = dmp.DiffMain(message1.Message, message2.Message, true);
+        try
+        {
+            var diff = dmp.DiffMain(message1.Message, message2.Message, true);
 
-        dmp.CleanupSemantic(diff);
+            dmp.CleanupSemantic(diff);
 
-        this.DiffText = DiffMatchPatch.PrettyHtml(diff);
+           this.DiffText = DiffMatchPatch.PrettyHtml(diff);
+        }
+        catch (Exception)
+        {
+            this.DiffText = string.Empty;
+        }
 
         return this.Page();
     }

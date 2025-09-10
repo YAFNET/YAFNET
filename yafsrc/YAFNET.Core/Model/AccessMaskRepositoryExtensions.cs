@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using YAF.Types.Models;
@@ -40,7 +42,7 @@ public static class AccessMaskRepositoryExtensions
     /// <param name="flags">The Access Mask Flags</param>
     /// <param name="sortOrder">The sort order.</param>
     /// <param name="boardId">The board id.</param>
-    public static void Save(
+    public static Task SaveAsync(
         this IRepository<AccessMask> repository,
         int? accessMaskId,
         string name,
@@ -48,14 +50,14 @@ public static class AccessMaskRepositoryExtensions
         short sortOrder,
         int? boardId = null)
     {
-       repository.Upsert(
+        return repository.UpsertAsync(
             new AccessMask
-                {
-                    BoardID = boardId ?? repository.BoardID,
-                    ID = accessMaskId ?? 0,
-                    Name = name,
-                    Flags = flags.BitValue,
-                    SortOrder = sortOrder
-                });
+            {
+                BoardID = boardId ?? repository.BoardID,
+                ID = accessMaskId ?? 0,
+                Name = name,
+                Flags = flags.BitValue,
+                SortOrder = sortOrder
+            });
     }
 }

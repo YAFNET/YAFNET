@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System;
@@ -96,9 +98,9 @@ public static class UserAlbumRepositoryExtensions
     /// <param name="imageId">
     /// The image id.
     /// </param>
-    public static void DeleteCover(this IRepository<UserAlbum> repository, int imageId)
+    public static Task DeleteCoverAsync(this IRepository<UserAlbum> repository, int imageId)
     {
-        repository.UpdateOnly(() => new UserAlbum { CoverImageID = null }, u => u.CoverImageID == imageId);
+        return repository.UpdateOnlyAsync(() => new UserAlbum { CoverImageID = null }, u => u.CoverImageID == imageId);
     }
 
     /// <summary>

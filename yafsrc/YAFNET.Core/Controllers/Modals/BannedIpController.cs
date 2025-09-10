@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Controllers.Modals;
 
 using Microsoft.Extensions.Logging;
@@ -55,7 +57,7 @@ public class BannedIpController : ForumBaseController
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("Import")]
-    public IActionResult Import([FromForm]IFormFile file)
+    public async Task<IActionResult> Import([FromForm]IFormFile file)
     {
         if (!file.ContentType.StartsWith("text"))
         {
@@ -67,7 +69,7 @@ public class BannedIpController : ForumBaseController
 
         try
         {
-            var importedCount = this.Get<IDataImporter>().BannedIpAddressesImport(
+            var importedCount = await this.Get<IDataImporter>().BannedIpAddressesImportAsync(
                 this.PageBoardContext.PageBoardID,
                 this.PageBoardContext.PageUserID,
                 file.OpenReadStream());

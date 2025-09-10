@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using YAF.Core.Extensions;
@@ -68,17 +70,17 @@ public class EditAccessMaskModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public IActionResult OnGet(int? i)
+    public Task<IActionResult> OnGetAsync(int? i)
     {
         this.Input = new EditAccessMaskInputModel();
 
-        return this.BindData(i);
+        return this.BindDataAsync(i);
     }
 
     /// <summary>
     /// Saves The Access Mask
     /// </summary>
-    public IActionResult OnPostSave()
+    public async Task<IActionResult> OnPostSaveAsync()
     {
         var flags = new AccessFlags
                     {
@@ -94,7 +96,7 @@ public class EditAccessMaskModel : AdminPage
                     };
 
         // save it
-        this.GetRepository<AccessMask>().Save(this.Input.Id, this.Input.Name, flags, this.Input.SortOrder);
+        await this.GetRepository<AccessMask>().SaveAsync(this.Input.Id, this.Input.Name, flags, this.Input.SortOrder);
 
         // get back to access masks administration
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_AccessMasks);
@@ -103,12 +105,12 @@ public class EditAccessMaskModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private IActionResult BindData(int? i)
+    private async Task<IActionResult> BindDataAsync(int? i)
     {
         if (i.HasValue)
         {
-            var accessMask = this.GetRepository<AccessMask>()
-                .GetById(i.Value);
+            var accessMask = await this.GetRepository<AccessMask>()
+                .GetByIdAsync(i.Value);
 
             if (accessMask != null)
             {
@@ -137,7 +139,7 @@ public class EditAccessMaskModel : AdminPage
         else
         {
             this.Input.SortOrder =
-                (this.GetRepository<AccessMask>().Count(x => x.BoardID == this.PageBoardContext.PageBoardID) + 1)
+                (await this.GetRepository<AccessMask>().CountAsync(x => x.BoardID == this.PageBoardContext.PageBoardID) + 1)
                 .ToType<short>();
         }
 

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using YAF.Types.Models;
@@ -38,18 +40,18 @@ public static class SpamWordsRepositoryExtensions
     /// <param name="spamWordId">The spam word identifier.</param>
     /// <param name="spamWord">The spam word.</param>
     /// <param name="boardId">The board identifier.</param>
-    public static void Save(
+    public static Task SaveAsync(
         this IRepository<SpamWords> repository,
         int? spamWordId,
         string spamWord,
         int? boardId = null)
     {
-        repository.Upsert(
+        return repository.UpsertAsync(
             new SpamWords
-                {
-                    BoardID = boardId ?? repository.BoardID,
-                    ID = spamWordId ?? 0,
-                    SpamWord = spamWord
-                });
+            {
+                BoardID = boardId ?? repository.BoardID,
+                ID = spamWordId ?? 0,
+                SpamWord = spamWord
+            });
     }
 }

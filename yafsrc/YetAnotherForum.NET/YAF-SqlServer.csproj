@@ -11,8 +11,8 @@
 	<ItemGroup>
     <PackageReference Include="FarsiLibrary.Core" Version="2.8.1" />
     <PackageReference Include="HtmlProperties" Version="1.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="9.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="9.0.9" />
     <PackageReference Include="SimdLinq" Version="1.3.2" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.11" />
     <PackageReference Include="UAParser.Core" Version="4.0.5" />
@@ -64,15 +64,7 @@
 		<AssemblyName>YAF</AssemblyName>
 	</PropertyGroup>
 	
-	  <Target Name="MyPreCompileTarget" BeforeTargets="Build">
-	<!-- Ensure Node.js is installed -->
-	<Exec Command="node --version" ContinueOnError="true">
-		<Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
-	</Exec>
-	<Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
-	<Message Importance="high" Text="WARN Make sure you have restored all dependencies using 'npm' before you build this project." />
-	<Exec WorkingDirectory="$(ProjectDir)" Command="node_modules\.bin\grunt" />
-</Target>
+	  
 
 	<ProjectExtensions><VisualStudio><UserProperties mimetypes_1json__JsonSchema="" wwwroot_4languages_4english_1json__JsonSchema="https://gitlab.com/appsemble/appsemble/-/raw/HEAD/packages/cli/assets/appsemblerc.schema.json" /></VisualStudio></ProjectExtensions>
 

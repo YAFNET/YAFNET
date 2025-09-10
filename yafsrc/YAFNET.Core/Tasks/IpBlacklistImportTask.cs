@@ -115,8 +115,8 @@ public class IpBlacklistImportTask : LongBackgroundTask
         var blackList = await this.Get<IIpInfoService>()
             .GetAbuseIpDbBlackListAsync(this.Get<BoardSettings>().AbuseIpDbApiKey, 55, 10000);
 
-        var importedCount = this.Get<IDataImporter>()
-            .BannedIpAddressesImport(BoardContext.Current.PageBoardID, 0,
+        var importedCount = await this.Get<IDataImporter>()
+            .BannedIpAddressesImportAsync(BoardContext.Current.PageBoardID, 0,
                 blackList.Data);
 
         if (importedCount > 0)

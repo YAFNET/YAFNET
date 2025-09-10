@@ -400,7 +400,7 @@ public class TestDataModel : AdminPage
 
             var categoryFlags = new CategoryFlags {IsActive = true};
 
-            var newCategoryId = this.GetRepository<Category>().Save(null, catName, null, 100, categoryFlags, boardId);
+            var newCategoryId = await this.GetRepository<Category>().SaveAsync(null, catName, null, 100, categoryFlags, boardId);
 
             await this.CreateForumsAsync(boardId, newCategoryId, null, numForums, numTopics, numMessages);
         }

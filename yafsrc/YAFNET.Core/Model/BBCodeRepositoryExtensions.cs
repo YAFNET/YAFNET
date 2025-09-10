@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System.Collections.Generic;
@@ -84,7 +86,7 @@ public static class BBCodeRepositoryExtensions
     /// <param name="boardId">
     /// The board Id.
     /// </param>
-    public static void Save(
+    public static Task SaveAsync(
         this IRepository<BBCode> repository,
         int? codeId,
         string name,
@@ -102,25 +104,25 @@ public static class BBCodeRepositoryExtensions
         int execOrder,
         int? boardId = null)
     {
-        repository.Upsert(
+        return repository.UpsertAsync(
             new BBCode
-                {
-                    BoardID = boardId ?? repository.BoardID,
-                    ID = codeId ?? 0,
-                    Name = name,
-                    Description = description,
-                    OnClickJS = onClickJs,
-                    DisplayJS = displayJs,
-                    EditJS = editJs,
-                    DisplayCSS = displayCss,
-                    SearchRegex = searchRegEx,
-                    ReplaceRegex = replaceRegEx,
-                    Variables = variables,
-                    UseModule = useModule,
-                    UseToolbar = useToolbar,
-                    ModuleClass = moduleClass,
-                    ExecOrder = execOrder
-                });
+            {
+                BoardID = boardId ?? repository.BoardID,
+                ID = codeId ?? 0,
+                Name = name,
+                Description = description,
+                OnClickJS = onClickJs,
+                DisplayJS = displayJs,
+                EditJS = editJs,
+                DisplayCSS = displayCss,
+                SearchRegex = searchRegEx,
+                ReplaceRegex = replaceRegEx,
+                Variables = variables,
+                UseModule = useModule,
+                UseToolbar = useToolbar,
+                ModuleClass = moduleClass,
+                ExecOrder = execOrder
+            });
     }
 
     /// <summary>

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Controllers.Modals;
 
 using YAF.Core.BasePages;
@@ -50,14 +52,14 @@ public class ProfileDefinitionController : ForumBaseController
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("Edit")]
-    public IActionResult Edit([FromBody] EditProfileDefinitionModal model)
+    public async Task<IActionResult> Edit([FromBody] EditProfileDefinitionModal model)
     {
         if (model.Id is 0)
         {
             model.Id = null;
         }
 
-        this.GetRepository<ProfileDefinition>().Upsert(
+        await this.GetRepository<ProfileDefinition>().UpsertAsync(
             new ProfileDefinition
                 {
                     BoardID = this.PageBoardContext.PageBoardID,

@@ -104,6 +104,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     public string GetUrlToContentThemes(string resourceName)
     {
         ArgumentNullException.ThrowIfNull(resourceName);
+
         return this.Get<IUrlHelper>().Content($"~/css/themes/{resourceName}");
     }
 

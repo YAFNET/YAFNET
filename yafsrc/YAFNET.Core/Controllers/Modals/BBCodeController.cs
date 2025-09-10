@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Controllers.Modals;
 
 using System;
@@ -52,7 +54,7 @@ public class BBCodeController : ForumBaseController
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("Import")]
-    public IActionResult Import([FromForm] IFormFile file)
+    public async Task<IActionResult> Import([FromForm] IFormFile file)
     {
         if (!file.ContentType.StartsWith("text"))
         {
@@ -64,7 +66,7 @@ public class BBCodeController : ForumBaseController
 
         try
         {
-            var importedCount = this.Get<IDataImporter>().BBCodeExtensionImport(
+            var importedCount = await this.Get<IDataImporter>().BBCodeExtensionImportAsync(
                 this.PageBoardContext.PageBoardID,
                 file.OpenReadStream());
 

@@ -1,4 +1,4 @@
-﻿<Project>
+<Project>
 
   <PropertyGroup>
 	<Version>4.0.1</Version>
@@ -17,8 +17,8 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
 	
-	<PropertyGroup Condition=" '$(TargetFramework)' == 'NET8_0_OR_GREATER' ">
-		<DefineConstants>$(DefineConstants);NET8_0_OR_GREATER;NETCORE;NETCORE_SUPPORT</DefineConstants>
+	<PropertyGroup Condition=" '$(TargetFramework)' == 'NET9_0_OR_GREATER' ">
+		<DefineConstants>$(DefineConstants);NET9_0_OR_GREATER;NETCORE;NETCORE_SUPPORT</DefineConstants>
 		<SignAssembly>True</SignAssembly>
 		<DelaySign>False</DelaySign>
 		<AssemblyOriginatorKeyFile>../servicestack.snk</AssemblyOriginatorKeyFile>

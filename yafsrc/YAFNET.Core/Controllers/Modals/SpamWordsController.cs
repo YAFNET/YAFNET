@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Controllers.Modals;
 
 using System;
@@ -98,7 +100,7 @@ public class SpamWordsController : ForumBaseController
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("Edit")]
-    public IActionResult Edit([FromBody] SpamWordsEditModal model)
+    public async Task<IActionResult> Edit([FromBody] SpamWordsEditModal model)
     {
         if (model.Id is 0)
         {
@@ -115,7 +117,7 @@ public class SpamWordsController : ForumBaseController
             return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_SpamWords);
         }
 
-        this.GetRepository<SpamWords>().Save(
+        await this.GetRepository<SpamWords>().SaveAsync(
             model.Id,
             model.SpamWord);
 

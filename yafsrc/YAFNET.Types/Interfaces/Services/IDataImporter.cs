@@ -47,7 +47,7 @@ public interface IDataImporter
     /// <exception cref="Exception">
     /// Import stream is not expected format.
     /// </exception>
-    int BannedEmailAddressesImport(int boardId, Stream inputStream);
+    Task<int> BannedEmailAddressesImportAsync(int boardId, Stream inputStream);
 
     /// <summary>
     /// Import List of Banned IP Addresses
@@ -61,7 +61,7 @@ public interface IDataImporter
     /// <exception cref="Exception">
     /// Import stream is not expected format.
     /// </exception>
-    int BannedIpAddressesImport(int boardId, int userId, Stream inputStream);
+    Task<int> BannedIpAddressesImportAsync(int boardId, int userId, Stream inputStream);
 
     /// <summary>
     /// Import the most recent Ip Addresses from AbuseIpDb.com
@@ -70,7 +70,7 @@ public interface IDataImporter
     /// <param name="userId">The user id.</param>
     /// <param name="blackListData">The black list data.</param>
     /// <returns>Returns how many address where imported.</returns>
-    int BannedIpAddressesImport(int boardId, int userId, List<BlackListEntry> blackListData);
+    Task<int> BannedIpAddressesImportAsync(int boardId, int userId, List<BlackListEntry> blackListData);
 
     /// <summary>
     /// Import List of Banned Usernames
@@ -83,7 +83,7 @@ public interface IDataImporter
     /// <exception cref="Exception">
     /// Import stream is not expected format.
     /// </exception>
-    int BannedNamesImport(int boardId, Stream inputStream);
+    Task<int> BannedNamesImportAsync(int boardId, Stream inputStream);
 
     /// <summary>
     /// Import List of Banned UserAgents
@@ -96,23 +96,23 @@ public interface IDataImporter
     /// <exception cref="Exception">
     /// Import stream is not expected format.
     /// </exception>
-    int BannedUserAgentsImport(int boardId, Stream inputStream);
+    Task<int> BannedUserAgentsImportAsync(int boardId, Stream inputStream);
 
     /// <summary>
     /// The bb code extension import.
     /// </summary>
     /// <param name="boardId">
-    /// The board id.
+    ///     The board id.
     /// </param>
     /// <param name="inputStream">
-    /// The input stream.
+    ///     The input stream.
     /// </param>
     /// <returns>
     /// Returns How Many Extensions where imported.
     /// </returns>
     /// <exception cref="Exception">Import stream is not expected format.
     /// </exception>
-    int BBCodeExtensionImport(int boardId, Stream inputStream);
+    Task<int> BBCodeExtensionImportAsync(int boardId, Stream inputStream);
 
     /// <summary>
     /// Import Users from the InputStream

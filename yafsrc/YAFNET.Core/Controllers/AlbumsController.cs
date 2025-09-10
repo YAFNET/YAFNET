@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Controllers;
 
 using Microsoft.AspNetCore.Hosting;
@@ -53,13 +55,13 @@ public class Albums : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetImage")]
-    public ActionResult GetImage(int imageId)
+    public async Task<ActionResult> GetImage(int imageId)
     {
         try
         {
             // ImageID
-            var image = this.GetRepository<UserAlbumImage>()
-                .GetImage(imageId);
+            var image = await this.GetRepository<UserAlbumImage>()
+                .GetImageAsync(imageId);
 
             var uploadFolder = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
 
@@ -77,7 +79,7 @@ public class Albums : ForumBaseController
             }
 
             // add a download count...
-            this.GetRepository<UserAlbumImage>().IncrementDownload(
+            await this.GetRepository<UserAlbumImage>().IncrementDownloadAsync(
                 imageId);
 
             // output stream...
@@ -103,13 +105,13 @@ public class Albums : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetImagePreview")]
-    public ActionResult GetImagePreview(int imageId)
+    public async Task<ActionResult> GetImagePreview(int imageId)
     {
         try
         {
             // ImageID
-            var image = this.GetRepository<UserAlbumImage>()
-                .GetImage(imageId);
+            var image = await this.GetRepository<UserAlbumImage>()
+                .GetImageAsync(imageId);
 
             var uploadFolder = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
 
@@ -144,7 +146,7 @@ public class Albums : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetAlbumCover")]
-    public ActionResult GetAlbumCover(int albumId, int coverId)
+    public async Task<ActionResult> GetAlbumCover(int albumId, int coverId)
     {
         try
         {
@@ -163,10 +165,10 @@ public class Albums : ForumBaseController
                 if (!album.NullOrEmpty())
                 {
                     var image = album.Count > 1
-                                    ? this.GetRepository<UserAlbumImage>()
-                                        .GetImage(album[RandomNumberGenerator.GetInt32(1, album.Count)].ID)
-                                    : this.GetRepository<UserAlbumImage>()
-                                        .GetImage(album[0].ID);
+                                    ? await this.GetRepository<UserAlbumImage>()
+                                        .GetImageAsync(album[RandomNumberGenerator.GetInt32(1, album.Count)].ID)
+                                    : await this.GetRepository<UserAlbumImage>()
+                                        .GetImageAsync(album[0].ID);
 
                     var uploadFolder = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
 
@@ -181,8 +183,8 @@ public class Albums : ForumBaseController
             }
             else
             {
-                var image = this.GetRepository<UserAlbumImage>()
-                    .GetImage(coverId);
+                var image = await this.GetRepository<UserAlbumImage>()
+                    .GetImageAsync(coverId);
 
                 if (image != null)
                 {

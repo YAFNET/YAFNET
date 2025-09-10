@@ -37,6 +37,7 @@
 	<div class="card mb-3">
 		<div class="card-header">
 			@Html.IconHeader("tachometer-alt", "ADMIN_ADMIN", "HEADER3")
+			<strong>@(Model.PageBoardContext.BoardSettings.Name)</strong>
 		</div>
 		<div class="card-body">
 			<div class="row">
@@ -339,6 +340,49 @@
 				</div>
 			</div>
 			<div class="card-body">
+				<ul class="list-group mb-4">
+					@foreach (var item in Model.ActiveUserIpList)
+					{
+							var ip = IPHelper.GetIpAddressAsString(item.Label);
+
+							<li class="list-group-item list-group-item-action list-group-item-menu d-flex justify-content-between align-items-start">
+							<div class="align-items-baseline">
+								<a href="@Html.Raw( string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, ip) )"
+								   title="@Html.LocalizedText("COMMON", "TT_IPDETAILS")"
+								   target="_blank" rel="noopener">
+									@Html.Raw(Model.HtmlEncode(IPHelper.GetIpAddressAsString(item.Label)))
+								</a>
+							</div>
+							<div class="ms-4">@Html.Raw(item.Data)@Html.LocalizedText("ADMIN_ADMIN", "ACTIVE_REQUESTS")</div>
+							<small>
+								<div class="btn-group btn-group-sm">
+									<button button-style="Danger"
+									        button-size="Small"
+									        asp-page-handler="BanIp"
+									        asp-route-mask="@Html.Raw(ip)"
+									        asp-route-p="@Model.Request.RouteValues["p"]"
+									        asp-route-p2="@Model.Request.RouteValues["p2"]"
+									        text-localized-page="ADMIN_BANNEDIP_EDIT"
+									        text-localized-tag="TITLE"
+									        Icon="edit"></button>
+								</div>
+							</small>
+							<div class="dropdown-menu context-menu" aria-labelledby="context menu">
+								<button button-style="None"
+								        class="dropdown-item"
+								        bs-toggle="ajax-modal"
+								        bs-target-url="@(Url.Page("BannedIps", "Edit", new { mask = item.Label }))"
+								        text-localized-page="ADMIN_BANNEDIP_EDIT"
+								        text-localized-tag="TITLE"
+								        Icon="edit"></button>
+							</div>
+						</li>
+					}
+				</ul>
+				
+				<hr/>
+				
+
 				@if (!Model.ActiveUserList.NullOrEmpty())
 				{
 					<ul class="list-group">
@@ -378,13 +422,13 @@
 											                        activeUser.TopicName,
 											                        false)
 									</span>
-								
-									@if (!activeUser.Country.Equals("--"))
+
+									@if (activeUser.Country.IsSet() && !activeUser.Country.Equals("--"))
 									{
 										@Html.Icon("globe")
 										<span class="@($"fi fi-{activeUser.Country.ToLower()}")" title="@(Model.GetText("COUNTRY", activeUser.Country))"></span>
 									}
-								
+
 								</p>
 								<small>
 									<span>
@@ -392,6 +436,7 @@
 										@activeUser.UserAgent
 									</span>
 									<span>
+										@Html.Icon("file-lines")
 										@activeUser.Referer
 									</span>
 								</small>

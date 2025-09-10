@@ -262,7 +262,7 @@ public class InstallService : IHaveServiceLocator
         this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(boardId));
 
         // load default bbcode if available...
-        loadWrapper(BbcodeImport, s => this.Get<IDataImporter>().BBCodeExtensionImport(boardId, s));
+        loadWrapper(BbcodeImport, s => this.Get<IDataImporter>().BBCodeExtensionImportAsync(boardId, s));
 
         // load default spam word if available...
         loadWrapper(SpamWordsImport, s => this.Get<IDataImporter>().SpamWordsImport(boardId, s));

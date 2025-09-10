@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Controllers;
 
 using Microsoft.AspNetCore.Hosting;
@@ -52,17 +54,17 @@ public class Attachments : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetAttachment")]
-    public ActionResult GetAttachment(int attachmentId, bool editor = false)
+    public async Task<ActionResult> GetAttachment(int attachmentId, bool editor = false)
     {
         try
         {
             // AttachmentID
-            var attachment = this.GetRepository<Attachment>().GetById(attachmentId);
+            var attachment = await this.GetRepository<Attachment>().GetByIdAsync(attachmentId);
 
             if (editor)
             {
                 // add a download count...
-                this.GetRepository<Attachment>().IncrementDownloadCounter(attachment.ID);
+                await this.GetRepository<Attachment>().IncrementDownloadCounterAsync(attachment.ID);
             }
 
             if (!MimeTypes.FileMatchContentType(attachment.FileName, attachment.ContentType))
@@ -136,17 +138,17 @@ public class Attachments : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetResponseAttachment")]
-    public ActionResult GetResponseAttachment(int attachmentId, bool editor = false)
+    public async Task<ActionResult> GetResponseAttachment(int attachmentId, bool editor = false)
     {
         try
         {
             // AttachmentID
-            var attachment = this.GetRepository<Attachment>().GetById(attachmentId);
+            var attachment = await this.GetRepository<Attachment>().GetByIdAsync(attachmentId);
 
             if (editor)
             {
                 // add a download count...
-                this.GetRepository<Attachment>().IncrementDownloadCounter(attachment.ID);
+                await this.GetRepository<Attachment>().IncrementDownloadCounterAsync(attachment.ID);
             }
 
             if (!MimeTypes.FileMatchContentType(attachment.FileName, attachment.ContentType))

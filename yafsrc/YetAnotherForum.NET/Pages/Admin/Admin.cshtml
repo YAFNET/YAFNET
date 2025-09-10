@@ -343,11 +343,11 @@
 				<ul class="list-group mb-4">
 					@foreach (var item in Model.ActiveUserIpList)
 					{
-							var ip = IPHelper.GetIpAddressAsString(item.Label);
+						var ip = IPHelper.GetIpAddressAsString(item.Label);
 
-							<li class="list-group-item list-group-item-action list-group-item-menu d-flex justify-content-between align-items-start">
+						<li class="list-group-item list-group-item-action list-group-item-menu d-flex justify-content-between align-items-start">
 							<div class="align-items-baseline">
-								<a href="@Html.Raw( string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, ip) )"
+								<a href="@Html.Raw(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, ip))"
 								   title="@Html.LocalizedText("COMMON", "TT_IPDETAILS")"
 								   target="_blank" rel="noopener">
 									@Html.Raw(Model.HtmlEncode(IPHelper.GetIpAddressAsString(item.Label)))
@@ -379,9 +379,9 @@
 						</li>
 					}
 				</ul>
-				
+
 				<hr/>
-				
+
 
 				@if (!Model.ActiveUserList.NullOrEmpty())
 				{

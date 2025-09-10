@@ -5,7 +5,7 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-#if NET8_0_OR_GREATER
+#if NET9_0_OR_GREATER
 
 #nullable enable
 

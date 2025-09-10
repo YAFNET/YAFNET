@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Controllers;
 
 using YAF.Core.BasePages;
@@ -74,12 +76,12 @@ public class PollController : ForumBaseController
     /// <param name="forumId">The forum identifier.</param>
     /// <returns>IActionResult.</returns>
     [Route("Vote/{choiceId:int}/{topicId:int}/{pollId:int}/{forumId:int}")]
-    public IActionResult Vote(int choiceId, int topicId, int pollId, int forumId)
+    public async Task<IActionResult> Vote(int choiceId, int topicId, int pollId, int forumId)
     {
-        var poll = this.GetRepository<Poll>().GetById(pollId);
-        var topic = this.GetRepository<Topic>().GetById(topicId);
-        var forumAccess = this.GetRepository<ActiveAccess>()
-            .GetSingle(x => x.UserID == this.PageBoardContext.PageUserID && x.ForumID == forumId);
+        var poll = await this.GetRepository<Poll>().GetByIdAsync(pollId);
+        var topic = await this.GetRepository<Topic>().GetByIdAsync(topicId);
+        var forumAccess = await this.GetRepository<ActiveAccess>()
+            .GetSingleAsync(x => x.UserID == this.PageBoardContext.PageUserID && x.ForumID == forumId);
         var userPollVotes = this.GetRepository<PollVote>().VoteCheck(poll.ID, this.PageBoardContext.PageUserID);
 
         var isClosed = this.Get<PollService>().IsPollClosed(poll);
@@ -116,7 +118,7 @@ public class PollController : ForumBaseController
             return redirect;
         }
 
-        this.GetRepository<Choice>().Vote(choiceId);
+        await this.GetRepository<Choice>().VoteAsync(choiceId);
 
         this.GetRepository<PollVote>().Vote(choiceId, this.PageBoardContext.PageUserID, pollId);
 

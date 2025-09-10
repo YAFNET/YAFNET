@@ -332,7 +332,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         var dt = this.GetRepository<UserAlbum>().ListByUser(userId);
 
-        dt.ForEach(dr => this.Get<IAlbum>().AlbumImageDelete(uploadFolderPath, dr.ID, userId));
+        dt.ForEach(dr => this.Get<IAlbum>().AlbumImageDeleteAsync(uploadFolderPath, dr.ID, userId));
 
         // Check if there are any avatar images in the uploads folder
         if (!this.Get<BoardSettings>().UseFileTable && this.Get<BoardSettings>().AvatarUpload)
@@ -395,7 +395,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         var dt = this.GetRepository<UserAlbum>().ListByUser(user.ID);
 
-        dt.ForEach(dr => this.Get<IAlbum>().AlbumImageDelete(uploadDir, dr.ID, user.ID));
+        dt.ForEach(dr => this.Get<IAlbum>().AlbumImageDeleteAsync(uploadDir, dr.ID, user.ID));
 
         // delete posts...
         var messages = this.GetRepository<Message>().GetAllUserMessages(user.ID).Distinct()

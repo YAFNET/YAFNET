@@ -180,7 +180,7 @@ public static class DateTimeSerializer
 
         var config = JsConfig.GetConfig();
 
-#if NET8_0_OR_GREATER
+#if NET9_0_OR_GREATER
         if (config.SystemJsonCompatible)
         {
             try
@@ -529,7 +529,7 @@ public static class DateTimeSerializer
             return default;
         }
 
-#if NET8_0_OR_GREATER
+#if NET9_0_OR_GREATER
         var config = JsConfig.GetConfig();
         if (config.SystemJsonCompatible)
         {

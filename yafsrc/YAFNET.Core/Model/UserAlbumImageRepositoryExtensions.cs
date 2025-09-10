@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System;
@@ -107,7 +109,7 @@ public static class UserAlbumImageRepositoryExtensions
     /// <returns>
     /// a Data table containing the image(s).
     /// </returns>
-    public static Tuple<UserAlbumImage, UserAlbum> GetImage(
+    public async static Task<Tuple<UserAlbumImage, UserAlbum>> GetImageAsync(
         this IRepository<UserAlbumImage> repository,
         int imageId)
     {
@@ -116,7 +118,7 @@ public static class UserAlbumImageRepositoryExtensions
         expression.Join<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.ID == image.AlbumID)
             .Where<UserAlbumImage, UserAlbum>((image, userAlbum) => image.ID == imageId);
 
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<UserAlbumImage, UserAlbum>(expression)).FirstOrDefault();
+        return (await repository.DbAccess.ExecuteAsync(db => db.SelectMultiAsync<UserAlbumImage, UserAlbum>(expression))).FirstOrDefault();
     }
 
     /// <summary>
@@ -167,9 +169,9 @@ public static class UserAlbumImageRepositoryExtensions
     /// </summary>
     /// <param name="repository">The repository.</param>
     /// <param name="imageId">The image identifier.</param>
-    public static void IncrementDownload(this IRepository<UserAlbumImage> repository, int imageId)
+    public static Task IncrementDownloadAsync(this IRepository<UserAlbumImage> repository, int imageId)
     {
-        repository.UpdateAdd(() => new UserAlbumImage { Downloads = 1 }, u => u.ID == imageId);
+        return repository.UpdateAddAsync(() => new UserAlbumImage { Downloads = 1 }, u => u.ID == imageId);
     }
 
     /// <summary>

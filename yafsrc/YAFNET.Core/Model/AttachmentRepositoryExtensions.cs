@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using System;
@@ -126,9 +128,9 @@ public static class AttachmentRepositoryExtensions
     /// </summary>
     /// <param name="repository">The repository.</param>
     /// <param name="attachmentId">The attachment identifier.</param>
-    public static void IncrementDownloadCounter(this IRepository<Attachment> repository, int attachmentId)
+    public static Task IncrementDownloadCounterAsync(this IRepository<Attachment> repository, int attachmentId)
     {
-        repository.UpdateAdd(() => new Attachment { Downloads = 1 }, a => a.ID == attachmentId);
+        return repository.UpdateAddAsync(() => new Attachment { Downloads = 1 }, a => a.ID == attachmentId);
     }
 
     /// <summary>

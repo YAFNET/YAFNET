@@ -74,44 +74,38 @@ public class ReplaceWordsController : ForumBaseController
             var replaceWords = new DataSet();
             replaceWords.ReadXml(file.OpenReadStream());
 
-            if (replaceWords.Tables["YafReplaceWords"]?.Columns["badword"] != null
-                && replaceWords.Tables["YafReplaceWords"].Columns["goodword"] != null)
+            if (replaceWords.Tables["YafReplaceWords"]?.Columns["badword"] == null
+                || replaceWords.Tables["YafReplaceWords"].Columns["goodword"] == null)
             {
-                var importedCount = 0;
-
-                var replaceWordsList = await this.GetRepository<ReplaceWords>().GetByBoardIdAsync();
-
-                // import any extensions that don't exist...
-                replaceWords.Tables["YafReplaceWords"].Rows.Cast<DataRow>().ForEach(
-                    row =>
-                    {
-                        if (replaceWordsList.Any(
-                                w => w.BadWord == row["badword"].ToString()
-                                     && w.GoodWord == row["goodword"].ToString()))
-                        {
-                            return;
-                        }
-
-                        // add this...
-                        this.GetRepository<ReplaceWords>().Save(
-                            null,
-                            row["badword"].ToString(),
-                            row["goodword"].ToString());
-                        importedCount++;
-                    });
-
                 return this.Ok(
                     new MessageModalNotification(
-                    importedCount > 0
-                        ? string.Format(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED"), importedCount)
-                        : this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_NOTHING"),
-                    MessageTypes.success));
+                        this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILED"),
+                        MessageTypes.warning));
+            }
+
+            var importedCount = 0;
+
+            var replaceWordsList = await this.GetRepository<ReplaceWords>().GetByBoardIdAsync();
+
+            // import any extensions that don't exist...
+            foreach (var row in replaceWords.Tables["YafReplaceWords"].Rows.Cast<DataRow>().Where(row => !replaceWordsList.Any(
+                         w => w.BadWord == row["badword"].ToString()
+                              && w.GoodWord == row["goodword"].ToString())))
+            {
+                // add this...
+                await this.GetRepository<ReplaceWords>().SaveAsync(
+                    null,
+                    row["badword"].ToString(),
+                    row["goodword"].ToString());
+                importedCount++;
             }
 
             return this.Ok(
                 new MessageModalNotification(
-               this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILED"),
-                MessageTypes.warning));
+                    importedCount > 0
+                        ? string.Format(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED"), importedCount)
+                        : this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_NOTHING"),
+                    MessageTypes.success));
         }
         catch (Exception x)
         {
@@ -133,7 +127,7 @@ public class ReplaceWordsController : ForumBaseController
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("Edit")]
-    public IActionResult Edit([FromBody] ReplaceWordsEditModal model)
+    public async Task<IActionResult> Edit([FromBody] ReplaceWordsEditModal model)
     {
         if (model.Id is 0)
         {
@@ -147,8 +141,8 @@ public class ReplaceWordsController : ForumBaseController
                  this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_REGEX_BAD"),
                 MessageTypes.warning));        }
 
-        this.GetRepository<ReplaceWords>()
-            .Save(
+        await this.GetRepository<ReplaceWords>()
+            .SaveAsync(
                 model.Id,
                 model.BadWord,
                 model.GoodWord);

@@ -20,6 +20,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -193,13 +195,13 @@ public class HostSettingsModel : AdminPage
     /// Updates the Search Index
     /// </summary>
     /// <returns>Microsoft.AspNetCore.Mvc.IActionResult.</returns>
-    public IActionResult OnPostIndexSearch()
+    public async Task<IActionResult> OnPostIndexSearchAsync()
     {
         this.PageBoardContext.BoardSettings.ForceUpdateSearchIndex = true;
 
         this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
 
-        this.BindData(this.Input.LastTabId);
+        await this.BindDataAsync(this.Input.LastTabId);
 
         return this.PageBoardContext.Notify(this.GetText("FORCE_SEARCHINDED"), MessageTypes.info);
     }
@@ -207,64 +209,64 @@ public class HostSettingsModel : AdminPage
     /// <summary>
     /// Resets the Active Discussions Cache
     /// </summary>
-    public void OnPostActiveDiscussionsCacheReset()
+    public Task OnPostActiveDiscussionsCacheResetAsync()
     {
         this.RemoveCacheKey(Constants.Cache.ActiveDiscussions);
 
-        this.BindData();
+        return this.BindDataAsync();
     }
 
     /// <summary>
     /// Resets the Board Categories Cache
     /// </summary>
-    public void OnPostBoardModeratorsCacheReset()
+    public Task OnPostBoardModeratorsCacheResetAsync()
     {
         this.RemoveCacheKey(Constants.Cache.ForumModerators);
 
-        this.BindData();
+        return this.BindDataAsync();
     }
 
     /// <summary>
     /// Resets the Board User Stats Cache
     /// </summary>
-    public void OnPostBoardUserStatsCacheReset()
+    public Task OnPostBoardUserStatsCacheResetAsync()
     {
         this.RemoveCacheKey(Constants.Cache.BoardUserStats);
 
-        this.BindData();
+        return this.BindDataAsync();
     }
 
     /// <summary>
     /// Resets the User Lazy Data Cache
     /// </summary>
-    public void OnPostUserLazyDataCacheReset()
+    public Task OnPostUserLazyDataCacheResetAsync()
     {
         this.Get<IDataCache>().RemoveOf<object>(
             k => k.Key.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
 
-        this.BindData();
+        return this.BindDataAsync();
     }
 
     /// <summary>
     /// Resets the Forum Statistics Cache
     /// </summary>
-    public void OnPostForumStatisticsCacheReset()
+    public Task OnPostForumStatisticsCacheResetAsync()
     {
         this.RemoveCacheKey(Constants.Cache.BoardStats);
 
-        this.BindData();
+        return this.BindDataAsync();
     }
 
     /// <summary>
     /// Resets the Complete Cache
     /// </summary>
-    public void OnPostResetCacheAll()
+    public Task OnPostResetCacheAllAsync()
     {
         // clear all cache keys
         this.Get<IObjectStore>().Clear();
         this.Get<IDataCache>().Clear();
 
-        this.BindData();
+        return this.BindDataAsync();
     }
 
     /// <summary>
@@ -272,7 +274,7 @@ public class HostSettingsModel : AdminPage
     /// </summary>
     /// <param name="tab">The current tab.</param>
     /// <returns>Microsoft.AspNetCore.Mvc.IActionResult.</returns>
-    public IActionResult OnGet(string tab = null)
+    public async Task<IActionResult> OnGetAsync(string tab = null)
     {
         this.Input = new HostSettingsInputModel();
 
@@ -283,7 +285,7 @@ public class HostSettingsModel : AdminPage
 
         this.RenderListItems();
 
-        this.BindData(tab);
+        await this.BindDataAsync(tab);
 
         return this.Page();
     }
@@ -508,7 +510,7 @@ public class HostSettingsModel : AdminPage
     /// Binds the data.
     /// </summary>
     /// <param name="tab">The current tab.</param>
-    private void BindData(string tab = null)
+    private async Task BindDataAsync(string tab = null)
     {
         // set tab id
         if (tab.IsSet())
@@ -606,7 +608,7 @@ public class HostSettingsModel : AdminPage
 
         this.Input.EditorEnterMode = this.PageBoardContext.BoardSettings.EditorEnterMode.ToInt();
 
-        this.Input.SQLVersion = this.HtmlEncode(this.Get<IDbAccess>().GetSQLVersion());
+        this.Input.SQLVersion = this.HtmlEncode(await this.Get<IDbAccess>().GetSqlVersionAsync());
 
         this.Input.AppCores = SystemInfo.Processors;
         this.Input.AppMemory =
@@ -619,7 +621,7 @@ public class HostSettingsModel : AdminPage
     {
         try
         {
-            this.PageName = (ForumPages)Enum.Parse(typeof(ForumPages), $"Host_{this.Input.LastTabId}");
+            this.PageName = Enum.Parse<ForumPages>($"Host_{this.Input.LastTabId}");
         }
         catch (Exception)
         {

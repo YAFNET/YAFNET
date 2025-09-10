@@ -62,17 +62,17 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     /// The bb code extension import.
     /// </summary>
     /// <param name="boardId">
-    /// The board id.
+    ///     The board id.
     /// </param>
     /// <param name="inputStream">
-    /// The input stream.
+    ///     The input stream.
     /// </param>
     /// <returns>
     /// Returns How Many Extensions where imported.
     /// </returns>
     /// <exception cref="Exception">Import stream is not expected format.
     /// </exception>
-    public int BBCodeExtensionImport(int boardId, Stream inputStream)
+    public async Task<int> BBCodeExtensionImportAsync(int boardId, Stream inputStream)
     {
         var importedCount = 0;
 
@@ -84,68 +84,68 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
         if (dsBBCode.Tables["YafBBCode"]?.Columns["Name"] != null && dsBBCode.Tables["YafBBCode"].Columns["SearchRegex"] != null && dsBBCode.Tables["YafBBCode"].Columns["ExecOrder"] != null)
         {
-            var bbcodeList = repository.GetByBoardId(boardId);
+            var bbcodeList = await repository.GetByBoardIdAsync(boardId);
 
             // import any extensions that don't exist...
-            dsBBCode.Tables["YafBBCode"].Rows.Cast<DataRow>().ForEach(
-                row =>
+            foreach (var row in dsBBCode.Tables["YafBBCode"].Rows.Cast<DataRow>())
+            {
+                var name = row["Name"].ToString();
+
+                var bbCodeExtension = bbcodeList.FirstOrDefault(b => b.Name.Equals(name));
+
+                var updateEntry = new BBCode
+                {
+                    BoardID = boardId,
+                    Name = name,
+                    Description = row["Description"].ToString(),
+                    OnClickJS = row["OnClickJS"].ToString(),
+                    DisplayJS = row["DisplayJS"].ToString(),
+                    EditJS = row["EditJS"].ToString(),
+                    DisplayCSS = row["DisplayCSS"].ToString(),
+                    SearchRegex = row["SearchRegex"].ToString(),
+                    ReplaceRegex = row["ReplaceRegex"].ToString(),
+                    Variables = row["Variables"].ToString(),
+                    UseModule = row["UseModule"].ToType<bool>(),
+                    UseToolbar = row["UseToolbar"].ToType<bool>(),
+                    ModuleClass = row["ModuleClass"].ToString(),
+                    ExecOrder = row["ExecOrder"].ToType<int>()
+                };
+
+                if (bbCodeExtension != null)
+                {
+                    if (BBCode.Equals(updateEntry, bbCodeExtension))
                     {
-                        var name = row["Name"].ToString();
+                        continue;
+                    }
 
-                        var bbCodeExtension = bbcodeList.FirstOrDefault(b => b.Name.Equals(name));
+                    updateEntry.ID = bbCodeExtension.ID;
 
-                        var updateEntry = new BBCode {
-                            BoardID = boardId,
-                            Name = name,
-                            Description = row["Description"].ToString(),
-                            OnClickJS = row["OnClickJS"].ToString(),
-                            DisplayJS = row["DisplayJS"].ToString(),
-                            EditJS = row["EditJS"].ToString(),
-                            DisplayCSS = row["DisplayCSS"].ToString(),
-                            SearchRegex = row["SearchRegex"].ToString(),
-                            ReplaceRegex = row["ReplaceRegex"].ToString(),
-                            Variables = row["Variables"].ToString(),
-                            UseModule = row["UseModule"].ToType<bool>(),
-                            UseToolbar = row["UseToolbar"].ToType<bool>(),
-                            ModuleClass = row["ModuleClass"].ToString(),
-                            ExecOrder = row["ExecOrder"].ToType<int>()
-                        };
+                    // update this bbcode...
+                    await repository.UpdateAsync(updateEntry);
+                }
+                else
+                {
+                    // add this bbcode...
+                    await repository.SaveAsync(
+                        null,
+                        row["Name"].ToString(),
+                        row["Description"].ToString(),
+                        row["OnClickJS"].ToString(),
+                        row["DisplayJS"].ToString(),
+                        row["EditJS"].ToString(),
+                        row["DisplayCSS"].ToString(),
+                        row["SearchRegex"].ToString(),
+                        row["ReplaceRegex"].ToString(),
+                        row["Variables"].ToString(),
+                        row["UseModule"].ToType<bool>(),
+                        row["UseToolbar"].ToType<bool>(),
+                        row["ModuleClass"].ToString(),
+                        row["ExecOrder"].ToType<int>(),
+                        boardId);
 
-                        if (bbCodeExtension != null)
-                        {
-                            if (BBCode.Equals(updateEntry, bbCodeExtension))
-                            {
-                                return;
-                            }
-
-                            updateEntry.ID = bbCodeExtension.ID;
-
-                            // update this bbcode...
-                            repository.Update(updateEntry);
-                        }
-                        else
-                        {
-                            // add this bbcode...
-                            repository.Save(
-                                null,
-                                row["Name"].ToString(),
-                                row["Description"].ToString(),
-                                row["OnClickJS"].ToString(),
-                                row["DisplayJS"].ToString(),
-                                row["EditJS"].ToString(),
-                                row["DisplayCSS"].ToString(),
-                                row["SearchRegex"].ToString(),
-                                row["ReplaceRegex"].ToString(),
-                                row["Variables"].ToString(),
-                                row["UseModule"].ToType<bool>(),
-                                row["UseToolbar"].ToType<bool>(),
-                                row["ModuleClass"].ToString(),
-                                row["ExecOrder"].ToType<int>(),
-                                boardId);
-
-                            importedCount++;
-                        }
-                    });
+                    importedCount++;
+                }
+            }
         }
         else
         {
@@ -166,17 +166,17 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     /// <exception cref="Exception">
     /// Import stream is not expected format.
     /// </exception>
-    public int BannedEmailAddressesImport(int boardId, Stream inputStream)
+    public async Task<int> BannedEmailAddressesImportAsync(int boardId, Stream inputStream)
     {
         var importedCount = 0;
 
         var repository = this.GetRepository<BannedEmail>();
-        var existingBannedEmailList = repository.Get(x => x.BoardID == boardId);
+        var existingBannedEmailList = await repository.GetAsync(x => x.BoardID == boardId);
 
         using var streamReader = new StreamReader(inputStream);
         while (!streamReader.EndOfStream)
         {
-            var line = streamReader.ReadLine();
+            var line = await streamReader.ReadLineAsync();
 
             if (line.IsNotSet() || !line.Contains('@'))
             {
@@ -209,17 +209,17 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     /// <exception cref="Exception">
     /// Import stream is not expected format.
     /// </exception>
-    public int BannedIpAddressesImport(int boardId, int userId, Stream inputStream)
+    public async Task<int> BannedIpAddressesImportAsync(int boardId, int userId, Stream inputStream)
     {
         var importedCount = 0;
 
         var repository = this.GetRepository<BannedIP>();
-        var existingBannedIpList = repository.Get(x => x.BoardID == boardId);
+        var existingBannedIpList = await repository.GetAsync(x => x.BoardID == boardId);
 
         using var streamReader = new StreamReader(inputStream);
         while (!streamReader.EndOfStream)
         {
-            var line = streamReader.ReadLine();
+            var line = await streamReader.ReadLineAsync();
 
             if (line.IsNotSet() || !IPAddress.TryParse(line, out var importAddress))
             {
@@ -247,12 +247,12 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     /// <param name="userId">The user id.</param>
     /// <param name="blackListData">The black list data.</param>
     /// <returns>Returns how many address where imported.</returns>
-    public int BannedIpAddressesImport(int boardId, int userId, List<BlackListEntry> blackListData)
+    public async Task<int> BannedIpAddressesImportAsync(int boardId, int userId, List<BlackListEntry> blackListData)
     {
         var importedCount = 0;
 
         var repository = this.GetRepository<BannedIP>();
-        var existingBannedIpList = repository.Get(x => x.BoardID == boardId);
+        var existingBannedIpList = await repository.GetAsync(x => x.BoardID == boardId);
 
         foreach (var data in blackListData)
         {
@@ -286,17 +286,17 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     /// <exception cref="Exception">
     /// Import stream is not expected format.
     /// </exception>
-    public int BannedNamesImport(int boardId, Stream inputStream)
+    public async Task<int> BannedNamesImportAsync(int boardId, Stream inputStream)
     {
         var importedCount = 0;
 
         var repository = this.GetRepository<BannedName>();
-        var existingBannedNameList = repository.Get(x => x.BoardID == boardId);
+        var existingBannedNameList = await repository.GetAsync(x => x.BoardID == boardId);
 
         using var streamReader = new StreamReader(inputStream);
         while (!streamReader.EndOfStream)
         {
-            var line = streamReader.ReadLine();
+            var line = await streamReader.ReadLineAsync();
 
             if (line.IsNotSet())
             {
@@ -328,17 +328,17 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     /// <exception cref="Exception">
     /// Import stream is not expected format.
     /// </exception>
-    public int BannedUserAgentsImport(int boardId, Stream inputStream)
+    public async Task<int> BannedUserAgentsImportAsync(int boardId, Stream inputStream)
     {
         var importedCount = 0;
 
         var repository = this.GetRepository<BannedUserAgent>();
-        var existingBannedNameList = repository.Get(x => x.BoardID == boardId);
+        var existingBannedNameList = await repository.GetAsync(x => x.BoardID == boardId);
 
         using var streamReader = new StreamReader(inputStream);
         while (!streamReader.EndOfStream)
         {
-            var line = streamReader.ReadLine();
+            var line = await streamReader.ReadLineAsync();
 
             if (line.IsNotSet())
             {

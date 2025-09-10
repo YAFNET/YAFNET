@@ -23,6 +23,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using YAF.Core.Extensions;
@@ -62,9 +64,9 @@ public class EditBBCodeModel : AdminPage
     /// <summary>
     /// Adds the New BB Code or saves the existing one
     /// </summary>
-    public IActionResult OnPostAdd()
+    public async Task<IActionResult> OnPostAddAsync()
     {
-        this.GetRepository<BBCode>().Save(
+        await this.GetRepository<BBCode>().SaveAsync(
             this.Input.BBCodeId,
             this.Input.Name.Trim(),
             this.Input.Description,

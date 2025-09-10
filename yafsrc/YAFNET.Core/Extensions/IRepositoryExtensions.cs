@@ -322,46 +322,6 @@ public static class IRepositoryExtensions
     }
 
     /// <summary>
-    /// Update or Insert entity.
-    /// </summary>
-    /// <typeparam name="T">
-    /// The type parameter.
-    /// </typeparam>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="entity">
-    /// The entity.
-    /// </param>
-    /// <returns>
-    /// The <see cref="bool"/> .
-    /// </returns>
-    public static int Upsert<T>(
-        this IRepository<T> repository,
-        T entity)
-        where T : class, IEntity, IHaveID, new()
-    {
-        ArgumentNullException.ThrowIfNull(entity);
-
-        var newId = entity.ID;
-
-        if (entity.ID > 0)
-        {
-            repository.Update(entity);
-
-            repository.FireUpdated();
-        }
-        else
-        {
-            newId = repository.Insert(entity);
-
-            repository.FireNew();
-        }
-
-        return newId;
-    }
-
-    /// <summary>
     /// Update/Insert the specified entity.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -377,6 +337,47 @@ public static class IRepositoryExtensions
         ArgumentNullException.ThrowIfNull(entity);
 
         repository.DbAccess.Upsert(entity, where);
+    }
+
+
+    /// <summary>
+    /// Update or Insert entity.
+    /// </summary>
+    /// <typeparam name="T">
+    /// The type parameter.
+    /// </typeparam>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="entity">
+    /// The entity.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/> .
+    /// </returns>
+    public async static Task<int> UpsertAsync<T>(
+        this IRepository<T> repository,
+        T entity)
+        where T : class, IEntity, IHaveID, new()
+    {
+        ArgumentNullException.ThrowIfNull(entity);
+
+        var newId = entity.ID;
+
+        if (entity.ID > 0)
+        {
+            await repository.UpdateAsync(entity);
+
+            repository.FireUpdated();
+        }
+        else
+        {
+            newId = await repository.InsertAsync(entity);
+
+            repository.FireNew();
+        }
+
+        return newId;
     }
 
     /// <summary>

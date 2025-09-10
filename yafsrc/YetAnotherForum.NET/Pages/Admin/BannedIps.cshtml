@@ -77,6 +77,8 @@
 
                             @foreach (var item in Model.List)
                             {
+                                var user = item.UserID.HasValue ? Model.GetRepository<User>().GetById(item.UserID.Value) : null;
+
                                 <li class="list-group-item list-group-item-action list-group-item-menu">
                                     <div class="d-flex w-100 justify-content-between">
                                         <input type="hidden" ID="fID" Value='@Html.Raw(item.ID)' />
@@ -96,10 +98,17 @@
                                         </small>
                                     </div>
                                     <p class="mb-1">
-                                        <span class="fw-bold">
-                                            @Html.LocalizedText("ADMIN_BANNEDIP","REASON")
-                                        </span>
-                                        @Html.Raw(item.Reason)
+	                                    <span class="fw-bold">
+		                                    @Html.LocalizedText("ADMIN_BANNEDIP","REASON")
+	                                    </span>
+	                                    @Html.Raw(item.Reason)
+                                        @if (user is not null)
+	                                    {
+		                                    <span class="fw-bold">
+                                                @Html.LocalizedText("REPORTEDBY")
+		                                    </span>
+		                                    @Html.UserLabel(user)
+	                                    }
                                     </p>
                                     <small>
                                         <div class="btn-group btn-group-sm">
@@ -152,7 +161,7 @@
                                         {
 	                                        <button asp-page-handler="ImportMostRecent"
 	                                                button-style="None"
-	                                                class="dropdown-item"
+                                                    class="dropdown-item btn-spinner"
 	                                                Icon="upload"
 	                                                title-localized-page="ADMIN_BANNEDIP" title-localized-tag="IMPORT_BLACKLIST_HELP"
 	                                                text-localized-page="ADMIN_BANNEDIP" text-localized-tag="IMPORT_BLACKLIST"></button>

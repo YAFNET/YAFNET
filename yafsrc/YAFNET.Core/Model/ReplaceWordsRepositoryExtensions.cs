@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using YAF.Types.Models;
@@ -39,20 +41,20 @@ public static class ReplaceWordsRepositoryExtensions
     /// <param name="badWord">The bad word.</param>
     /// <param name="goodWord">The good word.</param>
     /// <param name="boardId">The board identifier.</param>
-    public static void Save(
+    public static Task SaveAsync(
         this IRepository<ReplaceWords> repository,
         int? replaceWordId,
         string badWord,
         string goodWord,
         int? boardId = null)
     {
-        repository.Upsert(
+        return repository.UpsertAsync(
             new ReplaceWords
-                {
-                    BoardID = boardId ?? repository.BoardID,
-                    ID = replaceWordId ?? 0,
-                    BadWord = badWord,
-                    GoodWord = goodWord
-                });
+            {
+                BoardID = boardId ?? repository.BoardID,
+                ID = replaceWordId ?? 0,
+                BadWord = badWord,
+                GoodWord = goodWord
+            });
     }
 }

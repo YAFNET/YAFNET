@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Model;
 
 using YAF.Types.Models;
@@ -97,8 +99,8 @@ public static class ChoiceRepositoryExtensions
     /// <param name="choiceId">
     /// The choice id.
     /// </param>
-    public static void Vote(this IRepository<Choice> repository, int choiceId)
+    public static Task VoteAsync(this IRepository<Choice> repository, int choiceId)
     {
-        repository.UpdateAdd(() => new Choice { Votes = 1 }, a => a.ID == choiceId);
+        return repository.UpdateAddAsync(() => new Choice { Votes = 1 }, a => a.ID == choiceId);
     }
 }

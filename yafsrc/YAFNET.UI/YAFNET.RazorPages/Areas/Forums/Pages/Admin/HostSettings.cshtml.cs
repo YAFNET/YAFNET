@@ -606,7 +606,7 @@ public class HostSettingsModel : AdminPage
 
         this.Input.EditorEnterMode = this.PageBoardContext.BoardSettings.EditorEnterMode.ToInt();
 
-        this.Input.SQLVersion = this.HtmlEncode(this.Get<IDbAccess>().GetSQLVersion());
+        this.Input.SQLVersion = this.HtmlEncode(await this.Get<IDbAccess>().GetSQLVersion());
 
         this.Input.AppCores = SystemInfo.Processors;
         this.Input.AppMemory =

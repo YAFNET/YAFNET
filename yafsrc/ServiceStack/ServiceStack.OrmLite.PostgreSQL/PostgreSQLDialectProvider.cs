@@ -102,7 +102,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         AppContext.SetSwitch("Npgsql.EnableLegacyCaseInsensitiveDbParameters", true);
 
-#if NET8_0_OR_GREATER
+#if NET9_0_OR_GREATER
         this.RegisterConverter<DateOnly>(new PostgreSqlDateOnlyConverter());
 #endif
 

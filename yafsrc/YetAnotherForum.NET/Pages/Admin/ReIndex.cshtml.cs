@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -88,13 +90,13 @@ public class ReIndexModel : AdminPage
     /// <summary>
     /// Gets the stats click.
     /// </summary>
-    public void OnPostGetStats()
+    public async Task OnPostGetStatsAsync()
     {
         this.BindData();
 
         try
         {
-            this.IndexStatistics = this.Get<IDbAccess>().GetDatabaseFragmentationInfo();
+            this.IndexStatistics = await this.Get<IDbAccess>().GetDatabaseFragmentationInfoAsync();
         }
         catch (Exception ex)
         {
@@ -105,7 +107,7 @@ public class ReIndexModel : AdminPage
     /// <summary>
     /// Sets the Recovery mode
     /// </summary>
-    public IActionResult OnPostRecoveryMode()
+    public async Task<IActionResult> OnPostRecoveryModeAsync()
     {
         this.BindData();
 
@@ -113,7 +115,7 @@ public class ReIndexModel : AdminPage
 
         this.IndexStatistics = string.Empty;
 
-        var stats = this.IndexStatistics = this.Get<IDbAccess>().ChangeRecoveryMode(this.RecoveryMode);
+        var stats = this.IndexStatistics = await this.Get<IDbAccess>().ChangeRecoveryModeAsync(this.RecoveryMode);
 
         return this.PageBoardContext.Notify(stats.IsSet() ? stats : result, MessageTypes.success);
     }
@@ -121,13 +123,13 @@ public class ReIndexModel : AdminPage
     /// <summary>
     /// Re-indexing the Database
     /// </summary>
-    public IActionResult OnPostReIndex()
+    public async Task<IActionResult> OnPostReIndexAsync()
     {
         this.BindData();
 
         const string result = "Done";
 
-        var stats = this.Get<IDbAccess>().ReIndexDatabase(this.Get<BoardConfiguration>().DatabaseObjectQualifier);
+        var stats = await this.Get<IDbAccess>().ReIndexDatabaseAsync(this.Get<BoardConfiguration>().DatabaseObjectQualifier);
 
         this.IndexStatistics = string.Empty;
 
@@ -138,7 +140,7 @@ public class ReIndexModel : AdminPage
     /// Mod By Touradg (herman_herman) 2009/10/19
     /// Shrinking Database
     /// </summary>
-    public IActionResult OnPostShrink()
+    public async Task<IActionResult> OnPostShrinkAsync()
     {
         this.BindData();
 
@@ -146,11 +148,11 @@ public class ReIndexModel : AdminPage
         {
             var result = new StringBuilder();
 
-            result.Append(this.Get<IDbAccess>().ShrinkDatabase());
+            result.Append(await this.Get<IDbAccess>().ShrinkDatabaseAsync());
 
             result.Append("&nbsp;");
 
-            result.AppendLine(this.GetTextFormatted("INDEX_SHRINK", this.Get<IDbAccess>().GetDatabaseSize()));
+            result.AppendLine(this.GetTextFormatted("INDEX_SHRINK", await this.Get<IDbAccess>().GetDatabaseSizeAsync()));
 
             result.Append("&nbsp;");
 
@@ -166,6 +168,9 @@ public class ReIndexModel : AdminPage
         }
     }
 
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
     private void BindData()
     {
         this.RecoveryModes = [

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Types.Interfaces.Services;
 
 /// <summary>
@@ -33,29 +35,29 @@ public interface IAlbum
     /// Deletes the specified album.
     /// </summary>
     /// <param name="uploadFolder">
-    /// The Upload folder.
+    ///     The Upload folder.
     /// </param>
     /// <param name="albumId">
-    /// The album id.
+    ///     The album id.
     /// </param>
     /// <param name="userId">
-    /// The user id.
+    ///     The user id.
     /// </param>
-    void AlbumDelete(string uploadFolder, int albumId, int userId);
+    Task AlbumDeleteAsync(string uploadFolder, int albumId, int userId);
 
     /// <summary>
     /// Deletes the specified image.
     /// </summary>
     /// <param name="uploadFolder">
-    /// The Upload folder.
+    ///     The Upload folder.
     /// </param>
     /// <param name="imageId">
-    /// The image id.
+    ///     The image id.
     /// </param>
     /// <param name="userId">
-    /// The user id.
+    ///     The user id.
     /// </param>
-    void AlbumImageDelete(string uploadFolder, int imageId, int userId);
+    Task AlbumImageDeleteAsync(string uploadFolder, int imageId, int userId);
 
     /// <summary>
     /// Changes the album title.
