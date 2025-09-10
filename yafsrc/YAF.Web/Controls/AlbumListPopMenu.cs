@@ -94,7 +94,7 @@ public class AlbumListPopMenu : BaseControl, IPostBackEventHandler
         sb.Append("</div>");
 
         sb.Append("</div>");
-        sb.AppendFormat("</div>");
+        sb.Append("</div>");
 
         writer.WriteLine(sb.ToString());
 

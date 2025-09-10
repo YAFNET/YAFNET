@@ -139,7 +139,11 @@ public class ForumPageBase : Page, IHaveServiceLocator, IRequireStartupServices
     protected string GetLanguageTags()
     {
         return this.Get<ILocalization>().Culture.TextInfo.IsRightToLeft
-                   ? $@"lang=""{this.Get<ILocalization>().Culture.TwoLetterISOLanguageName}"" dir=""rtl"""
-                   : $@"lang=""{this.Get<ILocalization>().Culture.TwoLetterISOLanguageName}""";
+                   ? $"""
+                      lang="{this.Get<ILocalization>().Culture.TwoLetterISOLanguageName}" dir="rtl"
+                      """
+                   : $"""
+                      lang="{this.Get<ILocalization>().Culture.TwoLetterISOLanguageName}"
+                      """;
     }
 }
