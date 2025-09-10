@@ -41,4 +41,14 @@ public class ValidationHelperTests
 
         ValidationHelper.IsValidEmail(testEmail).Should().BeTrue("Email address is not valid");
     }
+
+    /// <summary>
+    /// Test the IPHelper if the ip address matches the pattern.
+    /// </summary>
+    [Test]
+    [Description("Test the IPHelper if the ip address matches the pattern.")]
+    public void IpHelperTest()
+    {
+        IPHelper.IsBanned( "43.*.*.*", "43.134.127.238").Should().BeTrue("true");
+    }
 }

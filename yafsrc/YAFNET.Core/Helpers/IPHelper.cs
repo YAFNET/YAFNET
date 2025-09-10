@@ -243,7 +243,7 @@ public static class IPHelper
     /// The <see cref="bool" />.
     /// </returns>
     /// <see cref="http://stackoverflow.com/questions/8230728/is-there-a-function-that-can-take-an-ipaddress-as-string-and-tell-me-if-its-a-no" />
-    private static bool IsIpAddressInRange(IReadOnlyList<byte> ipAddressBytes, string reservedIpAddress)
+    private static bool IsIpAddressInRange(byte[] ipAddressBytes, string reservedIpAddress)
     {
         if (reservedIpAddress.IsNotSet())
         {
