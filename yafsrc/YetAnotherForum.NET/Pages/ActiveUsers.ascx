@@ -48,7 +48,7 @@
                                                       CrawlerName="<%# (Container.DataItem as ActiveUser).ActiveFlags.IsCrawler ? (Container.DataItem as ActiveUser).Browser : string.Empty %>"
                                                       UserID="<%# (Container.DataItem as ActiveUser).UserID %>"
                                                       Style="<%# (Container.DataItem as ActiveUser).UserStyle %>"
-                                                      PostfixText='<%# (Container.DataItem as ActiveUser).IsActiveExcluded ? new Icon{IconName = "user-secret"}.RenderToString() : "" %>'/>
+                                                      PostfixText='<%# (Container.DataItem as ActiveUser).IsActiveExcluded ? new YAF.Web.Controls.Icon{IconName = "user-secret"}.RenderToString() : "" %>'/>
                                     </h5>
                                     <asp:PlaceHolder runat="server" ID="IPContent" Visible="<%# this.PageBoardContext.IsAdmin %>">
                                         <small class="d-none d-md-block">

@@ -122,6 +122,11 @@ public class ScriptsLoaderModule : SimpleBaseForumModule
                         ? $"forum-admin.min.css?v={version}"
                         : $"forum.min.css?v={version}")));
 
+        if (Config.IsDotNetNuke)
+        {
+            return;
+        }
+
         var themeSelectorJs = BoardInfo.GetURLToScripts($"themeSelector.min.js?v={version}");
 
         element.Controls.Add(
