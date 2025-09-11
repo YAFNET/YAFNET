@@ -44,7 +44,7 @@
     "@w8tcha/dark-editable": "^2.1.6",
     "@yafnet/sceditor": "^3.2.14",
     "bootstrap": "^5.3.8",
-    "bootswatch": "^5.3.7",
+    "bootswatch": "^5.3.8",
     "chart.js": "^4.5.0",
     "choices.js": "^11.1.0",
     "codemirror": "^6.0.2",

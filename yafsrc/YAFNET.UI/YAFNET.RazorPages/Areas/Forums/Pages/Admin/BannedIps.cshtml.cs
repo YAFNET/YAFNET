@@ -227,8 +227,8 @@ public class BannedIpsModel : AdminPage
         var blackList = await this.Get<IIpInfoService>()
             .GetAbuseIpDbBlackListAsync(this.PageBoardContext.BoardSettings.AbuseIpDbApiKey, 55, 10000);
 
-        var importedCount = this.Get<IDataImporter>()
-            .BannedIpAddressesImport(this.PageBoardContext.PageBoardID, this.PageBoardContext.PageUserID,
+        var importedCount = await this.Get<IDataImporter>()
+            .BannedIpAddressesImportAsync(this.PageBoardContext.PageBoardID, this.PageBoardContext.PageUserID,
                 blackList.Data);
 
         this.BindData();

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace YAF.Pages.Admin;
@@ -114,7 +116,7 @@ public class EditCategoryModel : AdminPage
     /// <summary>
     /// Saves the click.
     /// </summary>
-    public IActionResult OnPostSave()
+    public async Task<IActionResult> OnPostSave()
     {
         int? c = this.Input.Id == 0 ? null : this.Input.Id;
 
@@ -125,7 +127,7 @@ public class EditCategoryModel : AdminPage
            categoryImage = this.Input.CategoryImage;
         }
 
-        var category = this.GetRepository<Category>().GetSingle(check => check.Name == this.Input.Name);
+        var category = await this.GetRepository<Category>().GetSingleAsync(check => check.Name == this.Input.Name);
 
         // Check Name duplicate only if new Category
         if (category != null && this.PageBoardContext.PageCategoryID == 0)
@@ -140,7 +142,7 @@ public class EditCategoryModel : AdminPage
         var categoryFlags = new CategoryFlags {IsActive = this.Input.Active};
 
         // save category
-        this.GetRepository<Category>().Save(
+        await this.GetRepository<Category>().SaveAsync(
             this.PageBoardContext.PageCategoryID,
             this.Input.Name,
             categoryImage,

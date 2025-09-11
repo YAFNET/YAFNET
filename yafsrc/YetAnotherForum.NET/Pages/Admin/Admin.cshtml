@@ -353,25 +353,23 @@
 									@Html.Raw(Model.HtmlEncode(IPHelper.GetIpAddressAsString(item.Label)))
 								</a>
 							</div>
-							<div class="ms-4">@Html.Raw(item.Data)@Html.LocalizedText("ADMIN_ADMIN", "ACTIVE_REQUESTS")</div>
+							<div class="ms-4">@item.Data@Html.LocalizedText("ADMIN_ADMIN", "ACTIVE_REQUESTS")</div>
 							<small>
-								<div class="btn-group btn-group-sm">
-									<button button-style="Danger"
-									        button-size="Small"
-									        asp-page-handler="BanIp"
-									        asp-route-mask="@Html.Raw(ip)"
-									        asp-route-p="@Model.Request.RouteValues["p"]"
-									        asp-route-p2="@Model.Request.RouteValues["p2"]"
-									        text-localized-page="ADMIN_BANNEDIP_EDIT"
-									        text-localized-tag="TITLE"
-									        Icon="edit"></button>
-								</div>
+								<button button-style="Danger"
+								        button-size="Small"
+								        asp-page-handler="BanIp"
+								        asp-route-mask="@Html.Raw(ip)"
+								        asp-route-p="@Model.Request.RouteValues["p"]"
+								        asp-route-p2="@Model.Request.RouteValues["p2"]"
+								        text-localized-page="ADMIN_BANNEDIP_EDIT"
+								        text-localized-tag="TITLE"
+								        Icon="edit"></button>
 							</small>
 							<div class="dropdown-menu context-menu" aria-labelledby="context menu">
 								<button button-style="None"
 								        class="dropdown-item"
 								        bs-toggle="ajax-modal"
-								        bs-target-url="@(Url.Page("BannedIps", "Edit", new { mask = item.Label }))"
+								        bs-target-url="@(Url.Page("BannedIps", "Edit", new { mask = ip }))"
 								        text-localized-page="ADMIN_BANNEDIP_EDIT"
 								        text-localized-tag="TITLE"
 								        Icon="edit"></button>
@@ -391,7 +389,7 @@
 						{
 							var ipAddress = IPHelper.GetIpAddressAsString(activeUser.IP);
 
-							<li class="list-group-item list-group-item-action">
+							<li class="list-group-item list-group-item-action list-group-item-menu">
 								<div class="d-flex w-100 justify-content-between text-break">
 									<h5 class="mb-1">
 										@Html.UserLabel(
@@ -400,14 +398,25 @@
 											activeUser.ActiveFlags.IsCrawler ? activeUser.Browser : string.Empty)
 									</h5>
 									<small>
-										<span data-bs-toggle="tooltip" data-bs-title="@Html.LocalizedText("ADMIN_ADMIN", "ADMIN_IPADRESS")">
-											@Html.Icon("computer")
+										<div class="btn-group btn-group-sm">
 											<a href="@Html.Raw(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, ipAddress))"
+											   button-style="Info"
+											   button-size="Small"
 											   target="_blank" title-localized-tag="TT_IPDETAILS" title-localized-page="COMMON"
 											   rel="noopener">
-												@Html.Raw(ipAddress)
+												@Html.Icon("computer")@Html.Raw(ipAddress)
 											</a>
-										</span>
+											<button button-style="Danger"
+											        button-size="Small"
+											        asp-page-handler="BanIp"
+											        asp-route-mask="@Html.Raw(ipAddress)"
+											        asp-route-p="@Model.Request.RouteValues["p"]"
+											        asp-route-p2="@Model.Request.RouteValues["p2"]"
+											        text-localized-page="ADMIN_BANNEDIP_EDIT"
+											        text-localized-tag="TITLE"
+											        Icon="edit"></button>
+										</div>
+										
 									</small>
 								</div>
 								<p>
@@ -440,6 +449,15 @@
 										@activeUser.Referer
 									</span>
 								</small>
+								<div class="dropdown-menu context-menu" aria-labelledby="context menu">
+									<button button-style="None"
+									        class="dropdown-item"
+									        bs-toggle="ajax-modal"
+									        bs-target-url="@(Url.Page("BannedIps", "Edit", new { mask = ipAddress }))"
+									        text-localized-page="ADMIN_BANNEDIP_EDIT"
+									        text-localized-tag="TITLE"
+									        Icon="edit"></button>
+								</div>
 							</li>
 						}
 

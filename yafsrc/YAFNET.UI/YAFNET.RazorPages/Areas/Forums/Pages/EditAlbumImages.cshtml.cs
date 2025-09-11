@@ -150,9 +150,9 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// </summary>
     /// <param name="albumId">The album identifier.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPost(int albumId)
+    public Task<IActionResult> OnPostAsync(int albumId)
     {
-        return this.DeleteAlbum(albumId);
+        return this.DeleteAlbumAsync(albumId);
     }
 
     /// <summary>
@@ -160,16 +160,16 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// </summary>
     /// <param name="albumId">The album identifier.</param>
     /// <param name="imageId">The image identifier.</param>
-    public Task<IActionResult> OnPostDeleteImageAsync(int? albumId, int imageId)
+    public async Task OnPostDeleteImageAsync(int? albumId, int imageId)
     {
         var path = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
 
-        this.Get<IAlbum>().AlbumImageDelete(
+        await this.Get<IAlbum>().AlbumImageDeleteAsync(
             path,
             imageId,
             this.PageBoardContext.PageUserID);
 
-        return this.BindDataAsync(albumId);
+        await this.BindDataAsync(albumId);
     }
 
     /// <summary>
@@ -270,7 +270,9 @@ public class EditAlbumImagesModel : ForumPageRegistered
             // Check if user album is empty
             if (this.Images.NullOrEmpty())
             {
-                return this.DeleteAlbum(this.AlbumId.Value);
+                await this.DeleteAlbumAsync(this.AlbumId.Value);
+
+                return this.Page();
             }
         }
 
@@ -290,11 +292,11 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// <summary>
     /// Deletes the Entire Album
     /// </summary>
-    private IActionResult DeleteAlbum(int albumId)
+    private async Task<IActionResult> DeleteAlbumAsync(int albumId)
     {
         var path = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
 
-        this.Get<IAlbum>().AlbumDelete(
+        await this.Get<IAlbum>().AlbumDeleteAsync(
             path,
             albumId,
             this.PageBoardContext.PageUserID);

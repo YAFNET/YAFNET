@@ -358,7 +358,7 @@ public class AdminModel : AdminPage
 
         try
         {
-            this.Input.DBSize = $"{this.Get<IDbAccess>().GetDatabaseSize()} MB";
+            this.Input.DBSize = $"{await this.Get<IDbAccess>().GetDatabaseSizeAsync()} MB";
         }
         catch (Exception)
         {
