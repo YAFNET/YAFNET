@@ -83,6 +83,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\editor\undoManager.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\editor\editor.comb.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\editor\editor.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\webpack.config.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap\**\*.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum.css" />
@@ -143,7 +144,7 @@
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.asax" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.png" />
-	  <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.json" Exclude="$(MSBuildProjectDirectory)\Content\themes\**\*.*;$(MSBuildProjectDirectory)\node_modules\**;$(MSBuildProjectDirectory)\**\package.json;$(MSBuildProjectDirectory)\**\package-lock.json" />
+	  <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.json" Exclude="$(MSBuildProjectDirectory)\Content\themes\**\*.*;$(MSBuildProjectDirectory)\node_modules\**;$(MSBuildProjectDirectory)\**\package.json;$(MSBuildProjectDirectory)\**\package-lock.json;$(MSBuildProjectDirectory)\**\tsconfig.json" />
     </ItemGroup>
 
     <ItemGroup>
