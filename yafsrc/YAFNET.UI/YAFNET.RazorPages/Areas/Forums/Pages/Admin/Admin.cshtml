@@ -424,12 +424,13 @@
 										@Html.Icon("file-lines")@Html.ActiveLocation(activeUser.UserID,
 											                        false,
 											                        activeUser.ForumPage,
-											                        activeUser.Location,
+											                        activeUser.Path,
 											                        activeUser.ForumID ?? 0,
 											                        activeUser.ForumName,
 											                        activeUser.TopicID ?? 0,
 											                        activeUser.TopicName,
 											                        false)
+										(@activeUser.Path)
 									</span>
 
 									@if (activeUser.Country.IsSet() && !activeUser.Country.Equals("--"))

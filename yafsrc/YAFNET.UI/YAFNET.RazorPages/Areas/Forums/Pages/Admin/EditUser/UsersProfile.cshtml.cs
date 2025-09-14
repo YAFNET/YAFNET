@@ -473,6 +473,8 @@ public class UsersProfileModel : AdminPage
     /// </summary>
     private Task<IdentityResult> UpdateUserProfileAsync()
     {
+        var genders = StaticDataHelper.Gender().ToList();
+
         var userProfile = new ProfileInfo {
                                               Country = this.Input.Country,
                                               Region = this.Input.Region.IsSet() ? this.Input.Region.Trim()
@@ -492,7 +494,7 @@ public class UsersProfileModel : AdminPage
                                               Interests = this.Input.Interests.IsSet()
                                                               ? this.Input.Interests.Trim()
                                                               : null,
-                                              Gender = this.Genders.FindIndex(g => g.Value == this.Input.Gender),
+                                              Gender = genders.FindIndex(g => g.Value == this.Input.Gender),
                                               Blog = this.Input.Blog.IsSet() ? this.Input.Blog.Trim() : null
                                           };
 

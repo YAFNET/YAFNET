@@ -110,12 +110,6 @@ public class Active : IEntity, IHaveBoardID
     public string Country { get; set; }
 
     /// <summary>
-    /// Gets or sets the location.
-    /// </summary>
-    [StringLength(255)]
-    public string Location { get; set; }
-
-    /// <summary>
     /// Gets or sets the login.
     /// </summary>
     [Required]

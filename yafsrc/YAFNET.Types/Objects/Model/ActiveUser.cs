@@ -117,12 +117,6 @@ public class ActiveUser
     public string ForumPage { get; set; }
 
     /// <summary>
-    /// Gets or sets the location.
-    /// </summary>
-    /// <value>The location.</value>
-    public string Location { get; set; }
-
-    /// <summary>
     /// Gets or sets the referer.
     /// </summary>
     /// <value>The referer.</value>

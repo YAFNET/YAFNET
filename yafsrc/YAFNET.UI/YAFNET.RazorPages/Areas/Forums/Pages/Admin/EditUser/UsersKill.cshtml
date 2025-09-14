@@ -88,7 +88,7 @@
                       asp-page="@ForumPages.Search.GetPageName()"
                       asp-route-postedby="@(!Model.EditUser.UserFlags.IsGuest
 	                                          ? Model.EditUser.DisplayOrUserName()
-	                                          : Model.Get<IAspNetUsersHelper>().GuestUser(Model.PageBoardContext.PageBoardID).Name)"></a>)
+                                              : (await Model.Get<IAspNetUsersHelper>().GuestUserAsync(Model.PageBoardContext.PageBoardID)).Name)"></a>)
     </div>
 
     @if (Model.PageBoardContext.BoardSettings.StopForumSpamApiKey.IsSet() && Model.IpAddresses.HasItems())

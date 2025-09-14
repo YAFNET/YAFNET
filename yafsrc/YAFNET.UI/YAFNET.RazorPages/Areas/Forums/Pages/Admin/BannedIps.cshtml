@@ -77,7 +77,7 @@
 
                             @foreach (var item in Model.List)
                             {
-                                var user = item.UserID.HasValue ? Model.GetRepository<User>().GetById(item.UserID.Value) : null;
+                                var user = item.UserID.HasValue ? await Model.GetRepository<User>().GetByIdAsync(item.UserID.Value) : null;
 
                                 <li class="list-group-item list-group-item-action list-group-item-menu">
                                     <div class="d-flex w-100 justify-content-between">
@@ -223,8 +223,8 @@
         <div class="col-auto">
             <pager page-size="@Model.Size"
                    count="!Model.List.NullOrEmpty()
-             ? Model.GetRepository<BannedIP>()
-                   .Count(x => x.BoardID == Model.PageBoardContext.PageBoardID).ToType<int>()
+             ? (await Model.GetRepository<BannedIP>()
+                                      .CountAsync(x => x.BoardID == Model.PageBoardContext.PageBoardID)).ToType<int>()
              : 0">
             </pager>
         </div>

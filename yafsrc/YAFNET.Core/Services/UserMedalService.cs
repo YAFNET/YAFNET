@@ -94,6 +94,6 @@ public class UserMedalService : IUserMedalService, IHaveServiceLocator
                     this.Get<BoardFolders>().Medals);
             });
 
-       return $"<ul class=\"list-inline\">{ribbonBar}{medals}</ul>";
+       return $"<ul class=\"list-inline d-inline\">{ribbonBar}{medals}</ul>";
     }
 }

@@ -234,11 +234,6 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
     {
         ArgumentNullException.ThrowIfNull(repository);
 
-        if (dbCommand.Connection.ColumnMaxLength<Active>(x => x.Location) < 255)
-        {
-            dbCommand.Connection.AlterColumn<Active>(x => x.Location);
-        }
-
         if (!dbCommand.Connection.ColumnExists<Active>(x => x.ForumPage))
         {
             dbCommand.Connection.AddColumn<Active>(x => x.ForumPage);

@@ -43,5 +43,10 @@ public class Migration1002 : MigrationBase
         {
             this.Db.AddColumn<Active>(x => x.Path);
         }
+
+        if (this.Db.ColumnExists<Active>("Location"))
+        {
+            this.Db.DropColumn<Active>("Location");
+        }
     }
 }

@@ -50,7 +50,7 @@
                                         <small class="d-none d-md-block">
                                             @Html.LocalizedText("USAGES")
                                             <span class="badge text-bg-secondary">
-                                                @Html.Raw(Model.GetRepository<TopicTag>().Count(x => x.TagID == item.ID))
+                                                @Html.Raw(await Model.GetRepository<TopicTag>().CountAsync(x => x.TagID == item.ID))
                                             </span>
                                         </small>
                                     </div>

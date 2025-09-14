@@ -299,8 +299,7 @@ public class AdminModel : AdminPage
 
         this.ActiveUserList = activeUsers;
 
-        this.ActiveUserIpList = this.GetRepository<Active>().GetByBoardId().GroupBy(x => x.IP)
-            .Select(a => new StatsData { Label = a.Key, Data = a.Count() }).ToList();
+        this.ActiveUserIpList = [.. this.GetRepository<Active>().GetByBoardId().GroupBy(x => x.IP).Select(a => new StatsData { Label = a.Key, Data = a.Count() })];
     }
 
 
