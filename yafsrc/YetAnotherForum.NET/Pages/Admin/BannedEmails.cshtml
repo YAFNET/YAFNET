@@ -85,7 +85,7 @@
                                             <span class="fw-bold">
                                                 @Html.LocalizedText("ADMIN_BANNEDEMAIL","SINCE")
                                             </span>
-                                            @Model.Get<IDateTimeService>().FormatDateTime(item.Since)
+                                            @(Model.Get<IDateTimeService>().FormatDateTime(item.Since))
                                         </small>
                                     </div>
                                     <p class="mb-1">
