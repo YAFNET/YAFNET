@@ -1250,13 +1250,8 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
                     Expression<Func<User, bool>> whereCriteria = u => u.BoardID == (boardId ?? this.GetRepository<User>().BoardID) && (u.Flags & 2) == 2;
 
-                    // -- count total
-                    var countTotalExpression = db.Connection.From<User>();
-
                     expression.Join<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey)
                         .Join<Rank>((u, r) => r.ID == u.RankID);
-
-                    countTotalExpression.Where(whereCriteria);
 
                     expression.Where(whereCriteria);
 
@@ -1265,17 +1260,11 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                         // filter by name
                         if (name.IsSet())
                         {
-                            countTotalExpression.And<User>(u => u.Name.Contains(name) || u.DisplayName.Contains(name));
-
                             expression.And<User>(u => u.Name.Contains(name) || u.DisplayName.Contains(name));
                         }
                     }
                     else
                     {
-                        countTotalExpression.And<User>(
-                            u => u.Name.StartsWith(startLetter.ToString()) ||
-                                 u.DisplayName.StartsWith(startLetter.ToString()));
-
                         expression.And<User>(u => u.Name.StartsWith(startLetter.ToString()) ||
                                                   u.DisplayName.StartsWith(startLetter.ToString()));
                     }
@@ -1289,18 +1278,12 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                         switch (numPostCompare)
                         {
                             case 1:
-                                countTotalExpression.And<User>(u => u.NumPosts == numPosts.Value);
-
                                 expression.And<User>(u => u.NumPosts == numPosts.Value);
                                 break;
                             case 2:
-                                countTotalExpression.And<User>(u => u.NumPosts <= numPosts.Value);
-
                                 expression.And<User>(u => u.NumPosts <= numPosts.Value);
                                 break;
                             case 3:
-                                countTotalExpression.And<User>(u => u.NumPosts >= numPosts.Value);
-
                                 expression.And<User>(u => u.NumPosts >= numPosts.Value);
                                 break;
                         }
@@ -1309,21 +1292,12 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     // filter by rank
                     if (rankId.HasValue)
                     {
-                        countTotalExpression.And<User>(u => u.RankID == rankId.Value);
-
                         expression.And<User>(u => u.RankID == rankId.Value);
                     }
 
                     // filter by group
                     if (groupId.HasValue)
                     {
-                        countTotalExpression.UnsafeAnd(
-                            $"""
-                             exists(select 1 from {countTotalExpression.Table<UserGroup>()} x
-                                                                            where x.{countTotalExpression.Column<UserGroup>(x => x.UserID)} = {countTotalExpression.Column<User>(x => x.ID, true)}
-                                                                            and x.{countTotalExpression.Column<UserGroup>(x => x.GroupID)} = {groupId.Value})
-                             """);
-
                         expression.UnsafeAnd(
                             $"""
                              exists(select 1 from {expression.Table<UserGroup>()} x
@@ -1332,8 +1306,11 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                              """);
                     }
 
-                    var countTotalSql = countTotalExpression
-                        .Select(Sql.Count($"{countTotalExpression.Column<User>(x => x.ID)}")).ToSelectStatement();
+                    // -- count total
+                    var countTotalExpression2 = expression;
+
+                    var countTotalSql = countTotalExpression2
+                        .Select(Sql.Count($"{countTotalExpression2.Column<User>(x => x.ID)}")).ToSelectStatement();
 
                     expression.Select<User, AspNetUsers, Rank>(
                         (u, a, r) => new {
