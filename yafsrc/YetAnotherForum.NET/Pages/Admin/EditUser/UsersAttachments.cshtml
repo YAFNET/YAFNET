@@ -80,8 +80,7 @@
                         return-confirm-tag="CONFIRM_DELETE"></button>
                 }
             <pager page-size="@Model.Size"
-                   count="!Model.Attachments.NullOrEmpty() ?
-             Model.GetRepository<Attachment>().Count(a => a.UserID == Model.PageBoardContext.PageUserID).ToType<int>() : 0">
+                   count="!Model.Attachments.NullOrEmpty() ? (await Model.GetRepository<Attachment>().CountAsync(a => a.UserID == Model.PageBoardContext.PageUserID)).ToType<int>() : 0">
             </pager>
         </div>
     </div>

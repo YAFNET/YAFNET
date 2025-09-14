@@ -22,36 +22,26 @@
  * under the License.
  */
 
-namespace YAF.Types.Extensions;
+namespace YAF.Core.Migrations;
 
-using YAF.Types.Constants;
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Models;
 
 /// <summary>
-/// ForumPages Extensions
+/// Version 1002 Migrations
 /// </summary>
-public static class ForumPagesExtensions
+[Description("Adds the path column to the active table")]
+public class Migration1002 : MigrationBase
 {
     /// <summary>
-    /// The get page name.
+    /// Migrations
     /// </summary>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static string GetPageName(this ForumPages page)
+    public override void Up()
     {
-        return $"/{page.ToString().Replace("_", "/")}";
-    }
-
-    public static ForumPages ToPageName(this string pageName)
-    {
-        if (pageName.StartsWith('/'))
+        if (!this.Db.ColumnExists<Active>(x => x.Path))
         {
-            pageName = pageName[1..];
+            this.Db.AddColumn<Active>(x => x.Path);
         }
-
-        return pageName.Replace("/", "_").ToEnum<ForumPages>();
     }
 }

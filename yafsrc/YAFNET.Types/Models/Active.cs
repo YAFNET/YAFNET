@@ -95,6 +95,14 @@ public class Active : IEntity, IHaveBoardID
     public string Referer { get; set; }
 
     /// <summary>
+    /// Gets or sets the portion of the request path that identifies
+    /// the requested resource.
+    /// </summary>
+    /// <value>The path.</value>
+    [StringLength(500)]
+    public string Path { get; set; }
+
+    /// <summary>
     /// Gets or sets the country.
     /// </summary>
     /// <value>The country.</value>

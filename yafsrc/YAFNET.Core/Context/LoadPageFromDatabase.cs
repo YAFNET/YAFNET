@@ -25,6 +25,8 @@
 namespace YAF.Core.Context;
 
 using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Routing;
 
 #if !DEBUG
 using Microsoft.AspNetCore.Http.Extensions;
@@ -47,13 +49,22 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
     /// <param name="serviceLocator">The service locator.</param>
     /// <param name="logger">The logger.</param>
     /// <param name="dataCache">The data cache.</param>
+    /// <param name="endpointSources">The endpoint sources.</param>
     public LoadPageFromDatabase(
-        IServiceLocator serviceLocator, ILogger<LoadPageFromDatabase> logger, IDataCache dataCache)
+        IServiceLocator serviceLocator, ILogger<LoadPageFromDatabase> logger, IDataCache dataCache, IEnumerable<EndpointDataSource> endpointSources)
     {
         this.ServiceLocator = serviceLocator;
         this.Logger = logger;
         this.DataCache = dataCache;
+        this.EndpointSources = endpointSources
+            .SelectMany(es => es.Endpoints).Select(x => x.DisplayName.Replace("Page: ", ""));
     }
+
+    /// <summary>
+    /// Gets or sets the endpoint sources.
+    /// </summary>
+    /// <value>The endpoint sources.</value>
+    public IEnumerable<string> EndpointSources { get; set; }
 
     /// <summary>
     /// Gets or sets the logger.
@@ -102,15 +113,33 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
             var tries = 0;
             Tuple<PageLoad, User, Category, Forum, Topic, Message> pageRow;
 
-            var forumPage = BoardContext.Current.CurrentForumPage != null
-                ? BoardContext.Current.CurrentForumPage.PageName.ToString()
-                : string.Empty;
-
             var location = context!.Request.GetQueryOrRouteValue<string>("u");
 
             if (location.IsNotSet())
             {
                 location = string.Empty;
+            }
+
+            var path = context!.Request.Path.ToString();
+
+            string forumPage;
+
+            try
+            {
+                if (!path.Equals("/"))
+                {
+                    var endpointPath = this.EndpointSources.Where(x => path.Contains(x)).ToList();
+
+                    forumPage = endpointPath.Count != 0 ? endpointPath[0].ToPageName().ToString() : path.ToPageName().ToString();
+                }
+                else
+                {
+                    forumPage = string.Empty;
+                }
+            }
+            catch (Exception)
+            {
+                forumPage = string.Empty;
             }
 
             var referer = context!.Request.Headers.Referer.ToString();
@@ -130,6 +159,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
                     userKey,
                     ipAddress,
                     location,
+                    path,
                     referer,
                     country,
                     forumPage,

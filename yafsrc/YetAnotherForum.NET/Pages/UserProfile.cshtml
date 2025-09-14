@@ -14,7 +14,9 @@
 @model UserProfileModel
 
 @{
-    Model.PageBoardContext.CurrentForumPage.PageTitle = Html.HtmlEncode(Model.CombinedUser.Item1.DisplayOrUserName());
+	Model.PageBoardContext.CurrentForumPage.PageTitle = Html.HtmlEncode(Model.CombinedUser.Item1.DisplayOrUserName());
+
+	var showSecondColumn = Model.CombinedUser.Item2.Profile_Interests.IsSet() || !Model.LastPosts.NullOrEmpty() || Model.PageBoardContext.IsAdmin || Model.PageBoardContext.IsForumModerator;
 }
 
 <div class="row justify-content-between">
@@ -102,7 +104,7 @@
 </div>
 <br>
 <div class="row">
-<div class="col-md-3">
+	<div class="@(showSecondColumn ? "col-md-3": "col")">
 <!--left col-->
 <ul class="list-group mb-3">
 	<li class="list-group-item link-light bg-primary">
@@ -409,7 +411,8 @@
 
 </div>
 <!--/col-3-->
-<div class="col-md-9">
+	<div class="col-md-9">
+
 	@if (Model.CombinedUser.Item2.Profile_Interests.IsSet())
 	{
 		<div class="card mb-3">

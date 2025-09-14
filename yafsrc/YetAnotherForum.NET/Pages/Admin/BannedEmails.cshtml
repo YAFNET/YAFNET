@@ -202,8 +202,8 @@
         <div class="col-auto">
             <pager page-size="@Model.Size"
                    count="!Model.List.NullOrEmpty()
-             ? Model.GetRepository<BannedEmail>()
-                   .Count(x => x.BoardID == Model.PageBoardContext.PageBoardID).ToType<int>()
+                                ? (await Model.GetRepository<BannedEmail>()
+                                      .CountAsync(x => x.BoardID == Model.PageBoardContext.PageBoardID)).ToType<int>()
              : 0">
             </pager>
         </div>

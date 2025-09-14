@@ -129,6 +129,12 @@ public class ActiveUser
     public string Referer { get; set; }
 
     /// <summary>
+    /// Gets or sets the path.
+    /// </summary>
+    /// <value>The path.</value>
+    public string Path { get; set; }
+
+    /// <summary>
     /// Gets or sets the country.
     /// </summary>
     /// <value>The country.</value>

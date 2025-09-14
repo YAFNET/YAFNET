@@ -430,6 +430,7 @@
 											                        activeUser.TopicID ?? 0,
 											                        activeUser.TopicName,
 											                        false)
+										(@activeUser.Path)
 									</span>
 
 									@if (activeUser.Country.IsSet() && !activeUser.Country.Equals("--"))

@@ -226,6 +226,7 @@ public static class ActiveRepositoryExtensions
                                              a.LastActive,
                                              a.Location,
                                              a.Referer,
+                                             a.Path,
                                              a.Country,
                                              Active = Sql.Custom(
                                                  $"{OrmLiteConfig.DialectProvider.DateDiffFunction("minute", expression.Column<Active>(x => x.Login, true), expression.Column<Active>(x => x.LastActive, true))}"),
@@ -344,6 +345,7 @@ public static class ActiveRepositoryExtensions
                                                 a.Location,
                                                 a.Country,
                                                 a.Referer,
+                                                a.Path, 
                                                 Active = Sql.Custom(
                                                     $"{OrmLiteConfig.DialectProvider.DateDiffFunction("minute", expression.Column<Active>(ac => ac.Login, true), expression.Column<Active>(ac => ac.LastActive, true))}"),
                                                 a.Browser,

@@ -174,6 +174,9 @@ public class DataBroker : IHaveServiceLocator
     /// <param name="location">
     /// The location.
     /// </param>
+    /// <param name="path">
+    ///  The portion of the request path that identifies the requested resource.
+    /// </param>
     /// <param name="referer">
     /// The referer.
     /// </param>
@@ -219,6 +222,7 @@ public class DataBroker : IHaveServiceLocator
         string userKey,
         string ip,
         string location,
+        string path,
         string referer,
         string country,
         string forumPage,
@@ -450,6 +454,7 @@ public class DataBroker : IHaveServiceLocator
                             LastActive = DateTime.UtcNow,
                             Location = location,
                             Referer = referer,
+                            Path = path,
                             Country = country,
                             ForumID = forumId,
                             TopicID = topicId,
@@ -471,6 +476,7 @@ public class DataBroker : IHaveServiceLocator
                             LastActive = DateTime.UtcNow,
                             Location = location,
                             Referer = referer,
+                            Path = path,
                             Country = country,
                             ForumID = forumId,
                             TopicID = topicId,
@@ -496,6 +502,7 @@ public class DataBroker : IHaveServiceLocator
                         LastActive = DateTime.UtcNow,
                         Location = location,
                         Referer = referer,
+                        Path = path,
                         Country = country,
                         ForumID = forumId,
                         TopicID = topicId,
