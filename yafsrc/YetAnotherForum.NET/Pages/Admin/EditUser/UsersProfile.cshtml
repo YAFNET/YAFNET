@@ -47,12 +47,19 @@
 <div class="mb-3">
     <label asp-for="Input.Gender" localized-page="EDIT_PROFILE" localized-tag="GENDER" class="form-label">
     </label>
-    <select asp-for="Input.Gender" class="select2-select">
+    <select asp-for="Input.Gender" class="select2-image-select">
         @foreach (var item in Model.Genders)
         {
-            <option value="@item.Value" item="@item" is-flag-icon="true">
-                @item.Text
-            </option>
+	        var icon = item.Value switch
+	        {
+		        "Man" => "mars",
+		        "Woman" => "venus",
+		        _ => "circle-question"
+	        };
+
+	        <option value="@item.Value" item="@item" icon-name="@icon">
+		        @item.Text
+	        </option>
         }
     </select>
 </div>
