@@ -240,28 +240,10 @@ public class UsersModel : AdminPage
     /// </summary>
     public void OnGet()
     {
-        this.Input = new UsersInputModel();
-
-        // initialize since filter items
-        this.InitSinceDropdown();
-
-        // set since filter to last item "All time"
-        this.Input.Since = "9999";
-
-        // get list of user groups for filtering
-        var groups = this.GetRepository<Group>().List(boardId: this.PageBoardContext.PageBoardID);
-
-        groups.Insert(0, new Group { Name = this.GetText("FILTER_NO"), ID = 0 });
-
-        this.Groups = new SelectList(groups, nameof(Group.ID), nameof(Group.Name));
-
-        // get list of user ranks for filtering
-        var ranks = this.GetRepository<Rank>().GetByBoardId().OrderBy(r => r.SortOrder).ToList();
-
-        // add empty for no filtering
-        ranks.Insert(0, new Rank { Name = this.GetText("FILTER_NO"), ID = 0 });
-
-        this.Ranks = new SelectList(ranks, nameof(Rank.ID), nameof(Rank.Name));
+        this.Input = new UsersInputModel
+        {
+            Since = "9999"
+        };
 
         this.BindData();
     }
@@ -306,8 +288,26 @@ public class UsersModel : AdminPage
     {
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 
+        // initialize since filter items
+        this.InitSinceDropdown();
+
+        // get list of user groups for filtering
+        var groups = this.GetRepository<Group>().List(boardId: this.PageBoardContext.PageBoardID);
+
+        groups.Insert(0, new Group { Name = this.GetText("FILTER_NO"), ID = 0 });
+
+        this.Groups = new SelectList(groups, nameof(Group.ID), nameof(Group.Name));
+
+        // get list of user ranks for filtering
+        var ranks = this.GetRepository<Rank>().GetByBoardId().OrderBy(r => r.SortOrder).ToList();
+
+        // add empty for no filtering
+        ranks.Insert(0, new Rank { Name = this.GetText("FILTER_NO"), ID = 0 });
+
+        this.Ranks = new SelectList(ranks, nameof(Rank.ID), nameof(Rank.Name));
+
         // default since date is now
-         DateTime? sinceDate = null;
+        DateTime? sinceDate = null;
 
          // default since option is "since last visit"
          var sinceValue = 0;
