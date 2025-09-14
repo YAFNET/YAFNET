@@ -1628,6 +1628,26 @@ public static class OrmLiteReadCommandExtensions
         return result != null;
     }
 
+    static internal bool ExistsById<T>(this IDbCommand dbCmd, object value)
+    {
+        if (value == null)
+        {
+            throw new ArgumentNullException(nameof(value));
+        }
+
+        var modelDef = ModelDefinition<T>.Definition;
+        var pkName = ModelDefinition<T>.PrimaryKeyName;
+        var dialect = dbCmd.GetDialectProvider();
+        var result = dbCmd.SqlScalar<int>(
+            "SELECT 1 FROM " + dialect.GetQuotedTableName(modelDef) +
+            " WHERE " + dialect.GetQuotedColumnName(modelDef.PrimaryKey) + " = " + dialect.GetParam(pkName),
+            new Dictionary<string, object>
+            {
+                [pkName] = value
+            });
+        return result == 1;
+    }
+
     // procedures ...
     /// <summary>
     /// SQLs the procedure.
