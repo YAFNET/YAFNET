@@ -494,19 +494,6 @@ public class UserProfileModel : ForumPage
     /// </summary>
     private void SetupUserStatistics()
     {
-        var allPosts = 0.0;
-
-        var postsInBoard = this.GetRepository<Message>()
-            .Count(m => (m.Flags & 16) == 16 && (m.Flags & 8) != 8);
-
-        if (postsInBoard > 0)
-        {
-            allPosts = 100.0 * this.CombinedUser.Item1.NumPosts / postsInBoard;
-        }
-
-        var numberDays = DateTimeHelper.DateDiffDay(this.CombinedUser.Item1.Joined, DateTime.UtcNow) + 1;
-
-        this.Stats =
-            $"{this.CombinedUser.Item1.NumPosts:N0} [{this.GetTextFormatted("NUMALL", allPosts)} / {this.GetTextFormatted("NUMDAY", (double)this.CombinedUser.Item1.NumPosts / numberDays)}]";
+        this.Stats = this.CombinedUser.Item1.NumPosts.ToString();
     }
 }
