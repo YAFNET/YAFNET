@@ -51,13 +51,13 @@
                                         <div class="form-check">
                                             <input asp-for="List[i].Selected" class="form-check-input" />
                                             <label class="form-check-label" asp-for="List[i].Selected">
-                                                @Html.Raw(Model.List[i].Name)
+	                                            @Model.List[i].Name
                                             </label>
                                         </div>
                                     </h5>
                                 </div>
                                 <p class="mb-1">
-                                    @Html.Raw(Model.Get<IBBCodeService>().LocalizeCustomBBCodeElement(Model.List[i].Description))
+                                    @Model.Get<IBBCodeService>().LocalizeCustomBBCodeElement(Model.List[i].Description)
                                 </p>
                                 <small>
                                     <div class="btn-group btn-group-sm">

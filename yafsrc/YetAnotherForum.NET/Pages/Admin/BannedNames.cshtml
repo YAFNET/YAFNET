@@ -80,7 +80,7 @@
                                     <div class="d-flex w-100 justify-content-between">
                                         <input type="hidden" ID="fID" Value='@Html.Raw(item.ID)' />
                                         <h5 class="mb-1 text-break">
-                                            @Html.Raw(item.Mask)
+                                            @item.Mask
                                         </h5>
                                         <small class="d-none d-md-block">
                                             <span class="fw-bold">
@@ -93,7 +93,7 @@
                                         <span class="fw-bold">
                                             @Html.LocalizedText("ADMIN_BANNEDNAME","REASON")
                                         </span>
-                                        @Html.Raw(item.Reason)
+                                        @item.Reason
                                     </p>
                                     <small>
                                         <div class="btn-group btn-group-sm">
