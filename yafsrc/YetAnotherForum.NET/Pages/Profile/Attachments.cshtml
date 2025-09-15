@@ -77,7 +77,7 @@
 						</form>
 						<pager page-size="@Model.Size"
 						       count="!Model.Attachments.NullOrEmpty() ?
-							       Model.GetRepository<Attachment>().Count(a => a.UserID == Model.PageBoardContext.PageUserID).ToType<int>() : 0">
+							       (await Model.GetRepository<Attachment>().CountAsync(a => a.UserID == Model.PageBoardContext.PageUserID)).ToType<int>() : 0">
 						</pager>
 					</div>
 				</div>

@@ -115,42 +115,39 @@ public class EditSignatureModel : ProfilePage
             if (this.Signature.Length <= this.AllowedNumberOfCharacters)
             {
                 if (this.PageBoardContext.PageUser.NumPosts <
-                    this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount)
+                    this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount && this.Get<ISpamWordCheck>().CheckForSpamWord(this.Signature, out var result))
                 {
                     // Check for spam
-                    if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.Signature, out var result))
+                    switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
                     {
-                        switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
+                        // Log and Send Message to Admins
+                        case 1:
+                            this.Get<ILogger<EditSignatureModel>>().SpamBotDetected(
+                                this.PageBoardContext.PageUserID,
+                                $"""
+                                 Internal Spam Word Check detected a SPAM BOT: (
+                                                                                       user name : '{this.PageBoardContext.PageUser.Name}',
+                                                                                       user id : '{this.PageBoardContext.PageUserID}')
+                                                                                  after the user included a spam word in his/her signature: {result}
+                                 """);
+                            break;
+                        case 2:
                         {
-                            // Log and Send Message to Admins
-                            case 1:
-                                this.Get<ILogger<EditSignatureModel>>().SpamBotDetected(
-                                    this.PageBoardContext.PageUserID,
-                                    $"""
-                                     Internal Spam Word Check detected a SPAM BOT: (
-                                                                                           user name : '{this.PageBoardContext.PageUser.Name}',
-                                                                                           user id : '{this.PageBoardContext.PageUserID}')
-                                                                                      after the user included a spam word in his/her signature: {result}
-                                     """);
-                                break;
-                            case 2:
-                            {
-                                this.Get<ILogger<EditSignatureModel>>().SpamBotDetected(
-                                    this.PageBoardContext.PageUserID,
-                                    $"""
-                                     Internal Spam Word Check detected a SPAM BOT: (
-                                                                                            user name : '{this.PageBoardContext.PageUser.Name}',
-                                                                                            user id : '{this.PageBoardContext.PageUserID}')
-                                                                                      after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.
-                                     """);
+                            this.Get<ILogger<EditSignatureModel>>().SpamBotDetected(
+                                this.PageBoardContext.PageUserID,
+                                $"""
+                                 Internal Spam Word Check detected a SPAM BOT: (
+                                                                                        user name : '{this.PageBoardContext.PageUser.Name}',
+                                                                                        user id : '{this.PageBoardContext.PageUserID}')
+                                                                                  after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.
+                                 """);
 
-                                await this.Get<IAspNetUsersHelper>().DeleteAndBanUserAsync(
-                                    this.PageBoardContext.PageUser,
-                                    this.PageBoardContext.MembershipUser,
-                                    this.PageBoardContext.PageUser.IP);
+                            await this.Get<IAspNetUsersHelper>().DeleteAndBanUserAsync(
+                                this.PageBoardContext.PageUser,
+                                this.PageBoardContext.MembershipUser,
+                                this.PageBoardContext.PageUser.IP);
 
-                                break;
-                            }
+                            break;
                         }
                     }
                 }

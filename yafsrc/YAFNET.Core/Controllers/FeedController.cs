@@ -31,6 +31,7 @@ using System.Threading.Tasks;
 using System.Xml;
 
 using YAF.Core.BasePages;
+using YAF.Core.Filters;
 
 /// <summary>
 /// The Feed controller.
@@ -48,22 +49,20 @@ public class Feed : ForumBaseController
     [HttpGet("GetLatestPosts")]
     public async Task<ActionResult> GetLatestPosts()
     {
-        if (!this.Get<BoardSettings>().ShowAtomLink)
+        if ((this.PageBoardContext.IsGuest && this.Get<BoardSettings>().RequireLogin) ||
+            !this.Get<BoardSettings>().ShowAtomLink || !(this.Get<BoardSettings>().ShowActiveDiscussions && this
+                .Get<IPermissions>()
+                .Check(this.Get<BoardSettings>().PostLatestFeedAccess)))
         {
             return this.NotFound();
         }
 
-        if (!(this.Get<BoardSettings>().ShowActiveDiscussions && this.Get<IPermissions>()
-                  .Check(this.Get<BoardSettings>().PostLatestFeedAccess)))
-        {
-            return this.NotFound();
-        }
 
         try
         {
             var feed = await this.Get<SyndicationFeeds>().GetPostLatestFeedAsync();
 
-            var settings = new XmlWriterSettings {Encoding = Encoding.UTF8, Async = true };
+            var settings = new XmlWriterSettings { Encoding = Encoding.UTF8, Async = true };
 
             using var stream = new MemoryStream();
             await using (var xmlWriter = XmlWriter.Create(stream, settings))
@@ -92,13 +91,10 @@ public class Feed : ForumBaseController
     [HttpGet("GetTopicsFeed")]
     public async Task<ActionResult> GetTopicsFeed(int f)
     {
-        if (!this.Get<BoardSettings>().ShowAtomLink)
-        {
-            return this.NotFound();
-        }
-
-        if (!(this.PageBoardContext.ForumReadAccess && this.Get<IPermissions>()
-                  .Check(this.Get<BoardSettings>().TopicsFeedAccess)))
+        if ((this.PageBoardContext.IsGuest && this.Get<BoardSettings>().RequireLogin) ||
+            !this.Get<BoardSettings>().ShowAtomLink || !(this.PageBoardContext.ForumReadAccess && this
+                .Get<IPermissions>()
+                .Check(this.Get<BoardSettings>().TopicsFeedAccess)))
         {
             return this.NotFound();
         }
@@ -136,13 +132,10 @@ public class Feed : ForumBaseController
     [HttpGet("GetPostsFeed")]
     public async Task<ActionResult> GetPostsFeed(int t)
     {
-        if (!this.Get<BoardSettings>().ShowAtomLink)
-        {
-            return this.NotFound();
-        }
-
-        if (!(this.PageBoardContext.ForumReadAccess && this.Get<IPermissions>()
-                  .Check(this.Get<BoardSettings>().PostsFeedAccess)))
+        if ((this.PageBoardContext.IsGuest && this.Get<BoardSettings>().RequireLogin) ||
+            !this.Get<BoardSettings>().ShowAtomLink || !(this.PageBoardContext.ForumReadAccess && this
+                .Get<IPermissions>()
+                .Check(this.Get<BoardSettings>().PostsFeedAccess)))
         {
             return this.NotFound();
         }
@@ -151,7 +144,7 @@ public class Feed : ForumBaseController
         {
             var feed = await this.Get<SyndicationFeeds>().GetPostsFeedAsync(t);
 
-            var settings = new XmlWriterSettings { Encoding = Encoding.UTF8, Async = true};
+            var settings = new XmlWriterSettings { Encoding = Encoding.UTF8, Async = true };
 
             using var stream = new MemoryStream();
             await using (var xmlWriter = XmlWriter.Create(stream, settings))
