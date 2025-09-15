@@ -197,7 +197,7 @@ public partial class ActiveUsers : ForumPage
                 break;
             default:
                 this.Get<LinkBuilder>().AccessDenied();
-                break;
+                return;
         }
 
         this.PagerTop.Count = activeUsers.Any() ? activeUsers[0].UserCount : 0;

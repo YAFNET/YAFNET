@@ -255,46 +255,43 @@ public partial class EditUsersSignature : BaseUserControl
         {
             if (this.signatureEditor.Text.Length <= this.AllowedNumberOfCharacters)
             {
-                if (this.user.NumPosts < this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount)
+                if (this.user.NumPosts < this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount && this.Get<ISpamWordCheck>().CheckForSpamWord(body, out var result))
                 {
                     // Check for spam
-                    if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out var result))
+                    switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
                     {
-                        switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
+                        // Log and Send Message to Admins
+                        case 1:
+                            this.Logger.SpamBotDetected(
+                                this.user.ID,
+                                $"""
+                                 Internal Spam Word Check detected a SPAM BOT: (user name : '{this.user.Name}', 
+                                                                                       user id : '{this.CurrentUserID}') 
+                                                                                  after the user included a spam word in his/her signature: {result}
+                                 """);
+                            break;
+                        case 2:
                         {
-                            // Log and Send Message to Admins
-                            case 1:
-                                this.Logger.SpamBotDetected(
-                                    this.user.ID,
-                                    $"""
-                                     Internal Spam Word Check detected a SPAM BOT: (user name : '{this.user.Name}', 
-                                                                                           user id : '{this.CurrentUserID}') 
-                                                                                      after the user included a spam word in his/her signature: {result}
-                                     """);
-                                break;
-                            case 2:
-                                {
-                                    this.Logger.SpamBotDetected(
-                                        this.user.ID,
-                                        $"""
-                                         Internal Spam Word Check detected a SPAM BOT: (user name : '{this.user.Name}', 
-                                                                                                user id : '{this.CurrentUserID}') 
-                                                                                          after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.
-                                         """);
+                            this.Logger.SpamBotDetected(
+                                this.user.ID,
+                                $"""
+                                 Internal Spam Word Check detected a SPAM BOT: (user name : '{this.user.Name}', 
+                                                                                        user id : '{this.CurrentUserID}') 
+                                                                                  after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.
+                                 """);
 
-                                    // Kill user
-                                    if (!this.PageBoardContext.CurrentForumPage.IsAdminPage)
-                                    {
-                                        var membershipUser = this.Get<IAspNetUsersHelper>()
-                                            .GetMembershipUserById(this.user.ID);
-                                        this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                            this.user,
-                                            membershipUser,
-                                            this.user.IP);
-                                    }
+                            // Kill user
+                            if (!this.PageBoardContext.CurrentForumPage.IsAdminPage)
+                            {
+                                var membershipUser = this.Get<IAspNetUsersHelper>()
+                                    .GetMembershipUserById(this.user.ID);
+                                this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                                    this.user,
+                                    membershipUser,
+                                    this.user.IP);
+                            }
 
-                                    break;
-                                }
+                            break;
                         }
                     }
                 }

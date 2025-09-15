@@ -254,40 +254,37 @@ public partial class EditUsersProfile : BaseUserControl
                 return;
             }
 
-            if (this.User.Item1.NumPosts < this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount)
+            if (this.User.Item1.NumPosts < this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount && this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out _))
             {
                 // Check for spam
-                if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out _))
+                switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
                 {
-                    switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
+                    // Log and Send Message to Admins
+                    case 1:
+                        this.Logger.Log(
+                            null,
+                            "Bot Detected",
+                            $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.User.Item1.ID}') after the user changed the profile Homepage url to: {this.HomePage.Text}",
+                            EventLogTypes.SpamBotDetected);
+                        break;
+                    case 2:
                     {
-                        // Log and Send Message to Admins
-                        case 1:
-                            this.Logger.Log(
-                                null,
-                                "Bot Detected",
-                                $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.User.Item1.ID}') after the user changed the profile Homepage url to: {this.HomePage.Text}",
-                                EventLogTypes.SpamBotDetected);
-                            break;
-                        case 2:
-                            {
-                                this.Logger.Log(
-                                    null,
-                                    "Bot Detected",
-                                    $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.User.Item1.ID}') after the user changed the profile Homepage url to: {this.HomePage.Text}, user was deleted and the name, email and IP Address are banned.",
-                                    EventLogTypes.SpamBotDetected);
+                        this.Logger.Log(
+                            null,
+                            "Bot Detected",
+                            $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.User.Item1.ID}') after the user changed the profile Homepage url to: {this.HomePage.Text}, user was deleted and the name, email and IP Address are banned.",
+                            EventLogTypes.SpamBotDetected);
 
-                                // Kill user
-                                if (!this.PageBoardContext.CurrentForumPage.IsAdminPage)
-                                {
-                                    this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                        this.User.Item1,
-                                        this.User.Item2,
-                                        this.User.Item1.IP);
-                                }
+                        // Kill user
+                        if (!this.PageBoardContext.CurrentForumPage.IsAdminPage)
+                        {
+                            this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                                this.User.Item1,
+                                this.User.Item2,
+                                this.User.Item1.IP);
+                        }
 
-                                break;
-                            }
+                        break;
                     }
                 }
             }

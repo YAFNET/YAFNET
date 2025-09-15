@@ -210,6 +210,7 @@ public partial class EditBoard : AdminPage
             if (board == null)
             {
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+                return;
             }
 
             this.Name.Text = board.Name;

@@ -478,7 +478,8 @@ public partial class AdminMenu : BaseUserControl
         }
 
         // Admin Users
-        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Users"))
+        if ((this.PageBoardContext.PageUser.UserFlags.IsHostAdmin ||
+             pagesAccess.Any(x => x.PageName == "Admin_Users")) && !Config.IsDotNetNuke)
         {
             RenderMenuItem(
                 list,

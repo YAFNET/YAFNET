@@ -197,6 +197,8 @@ public partial class EditCategory : AdminPage
         if (category == null)
         {
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+
+            return;
         }
 
         this.Name.Text = category.Name;

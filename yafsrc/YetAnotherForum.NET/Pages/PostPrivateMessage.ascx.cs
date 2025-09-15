@@ -704,55 +704,52 @@ public partial class PostPrivateMessage : ForumPage
     private bool VerifyMessageAllowed(int count, string message)
     {
         // Check if SPAM Message first...
-        if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess)
+        if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess && this.Get<ISpamCheck>().CheckPostForSpam(
+                this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName(),
+                this.PageBoardContext.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                message,
+                this.PageBoardContext.MembershipUser.Email,
+                out var spamResult))
         {
             // Check content for spam
-            if (this.Get<ISpamCheck>().CheckPostForSpam(
-                    this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName(),
-                    this.PageBoardContext.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                    message,
-                    this.PageBoardContext.MembershipUser.Email,
-                    out var spamResult))
-            {
-                var description =
-                    $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{message}]
+            var description =
+                $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{message}]
                        posted by PageUser: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}";
 
-                switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
-                {
-                    case SpamPostHandling.DoNothing:
-                        this.Logger.SpamMessageDetected(
-                            this.PageBoardContext.PageUserID,
-                            description);
-                        break;
-                    case SpamPostHandling.FlagMessageUnapproved:
-                        this.Logger.SpamMessageDetected(
-                            this.PageBoardContext.PageUserID,
-                            $"{description}, it was flagged as unapproved post");
-                        break;
-                    case SpamPostHandling.RejectMessage:
-                        this.Logger.SpamMessageDetected(
-                            this.PageBoardContext.PageUserID,
-                            $"{description}, post was rejected");
+            switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
+            {
+                case SpamPostHandling.DoNothing:
+                    this.Logger.SpamMessageDetected(
+                        this.PageBoardContext.PageUserID,
+                        description);
+                    break;
+                case SpamPostHandling.FlagMessageUnapproved:
+                    this.Logger.SpamMessageDetected(
+                        this.PageBoardContext.PageUserID,
+                        $"{description}, it was flagged as unapproved post");
+                    break;
+                case SpamPostHandling.RejectMessage:
+                    this.Logger.SpamMessageDetected(
+                        this.PageBoardContext.PageUserID,
+                        $"{description}, post was rejected");
 
-                        this.PageBoardContext.Notify(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
+                    this.PageBoardContext.Notify(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
 
-                        break;
-                    case SpamPostHandling.DeleteBanUser:
-                        this.Logger.SpamMessageDetected(
-                            this.PageBoardContext.PageUserID,
-                            $"{description}, user was deleted and bannded");
+                    break;
+                case SpamPostHandling.DeleteBanUser:
+                    this.Logger.SpamMessageDetected(
+                        this.PageBoardContext.PageUserID,
+                        $"{description}, user was deleted and bannded");
 
-                        this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                            this.PageBoardContext.PageUser,
-                            this.PageBoardContext.MembershipUser,
-                            this.PageBoardContext.PageUser.IP);
+                    this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                        this.PageBoardContext.PageUser,
+                        this.PageBoardContext.MembershipUser,
+                        this.PageBoardContext.PageUser.IP);
 
-                        break;
-                }
-
-                return false;
+                    break;
             }
+
+            return false;
         }
 
         ///////////////////////////////

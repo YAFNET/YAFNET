@@ -252,36 +252,33 @@ public partial class PostMessage : ForumPage
             // check if it's a reply to a topic...
             this.InitReplyToTopic();
 
-            if (this.quotedMessage != null)
+            if (this.quotedMessage != null && this.QuotedMessageId.HasValue)
             {
-                if (this.QuotedMessageId.HasValue)
+                if (this.Get<ISession>().MultiQuoteIds != null)
                 {
-                    if (this.Get<ISession>().MultiQuoteIds != null)
+                    var quoteId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("q");
+                    var multiQuote = new MultiQuote { MessageID = quoteId, TopicID = this.PageBoardContext.PageTopicID };
+
+                    if (
+                        !this.Get<ISession>()
+                            .MultiQuoteIds.Exists(m => m.MessageID.Equals(quoteId)))
                     {
-                        var quoteId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("q");
-                        var multiQuote = new MultiQuote { MessageID = quoteId, TopicID = this.PageBoardContext.PageTopicID };
-
-                        if (
-                            !this.Get<ISession>()
-                                .MultiQuoteIds.Exists(m => m.MessageID.Equals(quoteId)))
-                        {
-                            this.Get<ISession>()
-                                .MultiQuoteIds.Add(
-                                    multiQuote);
-                        }
-
-                        var messages = this.GetRepository<Message>().GetByIds(
-                            this.Get<ISession>().MultiQuoteIds.Select(i => i.MessageID));
-
-                        messages.ForEach(this.InitQuotedReply);
-
-                        // Clear Multi-quotes
-                        this.Get<ISession>().MultiQuoteIds = null;
+                        this.Get<ISession>()
+                            .MultiQuoteIds.Add(
+                                multiQuote);
                     }
-                    else
-                    {
-                        this.InitQuotedReply(this.quotedMessage);
-                    }
+
+                    var messages = this.GetRepository<Message>().GetByIds(
+                        this.Get<ISession>().MultiQuoteIds.Select(i => i.MessageID));
+
+                    messages.ForEach(this.InitQuotedReply);
+
+                    // Clear Multi-quotes
+                    this.Get<ISession>().MultiQuoteIds = null;
+                }
+                else
+                {
+                    this.InitQuotedReply(this.quotedMessage);
                 }
             }
 
@@ -387,55 +384,51 @@ public partial class PostMessage : ForumPage
         var message = HtmlTagHelper.StripHtml(this.forumEditor.Text);
 
         // Check for SPAM
-        if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess)
+        if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess && this.Get<ISpamCheck>().CheckPostForSpam(
+                this.PageBoardContext.IsGuest ? this.From.Text : this.PageBoardContext.PageUser.DisplayOrUserName(),
+                this.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                BBCodeHelper.StripBBCode(
+                        HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(this.forumEditor.Text)))
+                    .RemoveMultipleWhitespace(),
+                this.PageBoardContext.IsGuest ? null : this.PageBoardContext.MembershipUser.Email,
+                out var spamResult))
         {
             // Check content for spam
-            if (
-                this.Get<ISpamCheck>().CheckPostForSpam(
-                    this.PageBoardContext.IsGuest ? this.From.Text : this.PageBoardContext.PageUser.DisplayOrUserName(),
-                    this.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                    BBCodeHelper.StripBBCode(
-                            HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(this.forumEditor.Text)))
-                        .RemoveMultipleWhitespace(),
-                    this.PageBoardContext.IsGuest ? null : this.PageBoardContext.MembershipUser.Email,
-                    out var spamResult))
-            {
-                var description =
-                    $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{this.forumEditor.Text}]
+            var description =
+                $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{this.forumEditor.Text}]
                            posted by PageUser: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}";
 
-                switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
-                {
-                    case SpamPostHandling.DoNothing:
-                        this.Logger.SpamMessageDetected(
-                            this.PageBoardContext.PageUserID,
-                            description);
-                        break;
-                    case SpamPostHandling.FlagMessageUnapproved:
-                        this.spamApproved = false;
-                        isPossibleSpamMessage = true;
-                        this.Logger.SpamMessageDetected(
-                            this.PageBoardContext.PageUserID,
-                            $"{description}, it was flagged as unapproved post.");
-                        break;
-                    case SpamPostHandling.RejectMessage:
-                        this.Logger.SpamMessageDetected(
-                            this.PageBoardContext.PageUserID,
-                            $"{description}, post was rejected");
-                        this.PageBoardContext.Notify(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
-                        return;
-                    case SpamPostHandling.DeleteBanUser:
-                        this.Logger.SpamMessageDetected(
-                            this.PageBoardContext.PageUserID,
-                            $"{description}, user was deleted and banned");
+            switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
+            {
+                case SpamPostHandling.DoNothing:
+                    this.Logger.SpamMessageDetected(
+                        this.PageBoardContext.PageUserID,
+                        description);
+                    break;
+                case SpamPostHandling.FlagMessageUnapproved:
+                    this.spamApproved = false;
+                    isPossibleSpamMessage = true;
+                    this.Logger.SpamMessageDetected(
+                        this.PageBoardContext.PageUserID,
+                        $"{description}, it was flagged as unapproved post.");
+                    break;
+                case SpamPostHandling.RejectMessage:
+                    this.Logger.SpamMessageDetected(
+                        this.PageBoardContext.PageUserID,
+                        $"{description}, post was rejected");
+                    this.PageBoardContext.Notify(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
+                    return;
+                case SpamPostHandling.DeleteBanUser:
+                    this.Logger.SpamMessageDetected(
+                        this.PageBoardContext.PageUserID,
+                        $"{description}, user was deleted and banned");
 
-                        this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                            this.PageBoardContext.PageUser,
-                            this.PageBoardContext.MembershipUser,
-                            this.PageBoardContext.PageUser.IP);
+                    this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                        this.PageBoardContext.PageUser,
+                        this.PageBoardContext.MembershipUser,
+                        this.PageBoardContext.PageUser.IP);
 
-                        return;
-                }
+                    return;
             }
         }
 

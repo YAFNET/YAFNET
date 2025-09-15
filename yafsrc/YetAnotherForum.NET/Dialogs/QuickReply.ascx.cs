@@ -106,24 +106,22 @@ public partial class QuickReply : BaseUserControl
             }
 
             if (!(this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess)
-                && this.PageBoardContext.BoardSettings.PostFloodDelay > 0)
+                && this.PageBoardContext.BoardSettings.PostFloodDelay > 0
+                && this.PageBoardContext.Get<ISession>().LastPost
+                > DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
             {
-                if (this.PageBoardContext.Get<ISession>().LastPost
-                    > DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
-                {
-                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                        "openModalJs",
-                        JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
-                    this.PageBoardContext.Notify(
-                        this.GetTextFormatted(
-                            "wait",
-                            (this.PageBoardContext.Get<ISession>().LastPost
-                             - DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay)).Seconds),
-                        MessageTypes.warning);
+                this.PageBoardContext.Notify(
+                    this.GetTextFormatted(
+                        "wait",
+                        (this.PageBoardContext.Get<ISession>().LastPost
+                         - DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay)).Seconds),
+                    MessageTypes.warning);
 
-                    return;
-                }
+                return;
             }
 
             this.PageBoardContext.Get<ISession>().LastPost = DateTime.UtcNow;
