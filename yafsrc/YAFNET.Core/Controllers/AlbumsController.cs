@@ -59,6 +59,11 @@ public class Albums : ForumBaseController
     {
         try
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
+            }
+
             // ImageID
             var image = await this.GetRepository<UserAlbumImage>()
                 .GetImageAsync(imageId);
@@ -109,6 +114,11 @@ public class Albums : ForumBaseController
     {
         try
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
+            }
+
             // ImageID
             var image = await this.GetRepository<UserAlbumImage>()
                 .GetImageAsync(imageId);
@@ -150,6 +160,11 @@ public class Albums : ForumBaseController
     {
         try
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
+            }
+
             // Check if user has access
             if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ProfileViewPermissions))
             {

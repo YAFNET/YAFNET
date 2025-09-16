@@ -58,6 +58,11 @@ public class Attachments : ForumBaseController
     {
         try
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
+            }
+
             // AttachmentID
             var attachment = await this.GetRepository<Attachment>().GetByIdAsync(attachmentId);
 
@@ -142,6 +147,11 @@ public class Attachments : ForumBaseController
     {
         try
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
+            }
+
             // AttachmentID
             var attachment = await this.GetRepository<Attachment>().GetByIdAsync(attachmentId);
 
