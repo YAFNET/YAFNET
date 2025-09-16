@@ -1630,10 +1630,7 @@ public static class OrmLiteReadCommandExtensions
 
     static internal bool ExistsById<T>(this IDbCommand dbCmd, object value)
     {
-        if (value == null)
-        {
-            throw new ArgumentNullException(nameof(value));
-        }
+        ArgumentNullException.ThrowIfNull(value);
 
         var modelDef = ModelDefinition<T>.Definition;
         var pkName = ModelDefinition<T>.PrimaryKeyName;

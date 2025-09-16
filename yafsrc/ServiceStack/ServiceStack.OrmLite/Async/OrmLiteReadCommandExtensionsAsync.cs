@@ -629,6 +629,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
                 values = [];
                 lookup[key] = values;
             }
+
             values.Add(value);
         }, lookup, token);
     }
@@ -759,10 +760,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
 
     async static internal Task<bool> ExistsByIdAsync<T>(this IDbCommand dbCmd, object value, CancellationToken token)
     {
-        if (value == null)
-        {
-            throw new ArgumentNullException(nameof(value));
-        }
+        ArgumentNullException.ThrowIfNull(value);
 
         var modelDef = ModelDefinition<T>.Definition;
         var pkName = ModelDefinition<T>.PrimaryKeyName;
