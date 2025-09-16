@@ -132,9 +132,9 @@ public class TopicTests : TestBase
                 Assert.That(pageSource, Does.Contain("Next Topic"), "Topic Creating failed");
 
                 // Delete Topic
-                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Manage Topic" }).First.ClickAsync();
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Manage Topic" }).First.ClickAsync();
 
-                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Delete Topic" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Delete Topic" }).ClickAsync();
 
                 await page.Locator(".btn-success").ClickAsync();
 

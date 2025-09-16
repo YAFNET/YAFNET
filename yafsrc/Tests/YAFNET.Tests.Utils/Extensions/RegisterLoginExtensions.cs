@@ -211,7 +211,7 @@ public static class RegisterLoginExtensions
         await page.Locator("//input[contains(@id, '_Email')]").FillAsync(email);
 
         // Create User
-        await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Register" }).ClickAsync();
+        await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
 
         var confirmEmail = simpleSmtpServer.ReceivedEmail.FirstOrDefault();
 

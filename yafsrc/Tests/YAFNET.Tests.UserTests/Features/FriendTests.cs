@@ -59,7 +59,7 @@ public class FriendTests : TestBase
 
                     Assert.That(pageSource, Does.Contain("Filter"), "Members List View Permissions needs to be enabled");
 
-                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Filter" }).ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
 
                     await page.Locator("//input[contains(@id,'_UserSearchName')]")
                         .FillAsync(this.Base.TestSettings.TestUserName);

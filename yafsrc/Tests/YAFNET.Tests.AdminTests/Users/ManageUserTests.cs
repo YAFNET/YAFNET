@@ -55,7 +55,7 @@ public class ManageUserTests : TestBase
 
                 await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Admin/Users");
 
-                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Filter" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
 
                 // Search for TestUser
                 var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
@@ -121,7 +121,7 @@ public class ManageUserTests : TestBase
 
                 await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Admin/Users");
 
-                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Filter" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
 
                 // Search for TestUser
                 var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
@@ -145,7 +145,7 @@ public class ManageUserTests : TestBase
 
                 await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Admin/Users");
 
-                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Filter" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
 
                 // Search for TestUser
                 searchNameInput = page.Locator("//input[contains(@id,'_Name')]");

@@ -62,12 +62,12 @@ public class EmailNotificationTests : TestBase
                         "Test Topic Doesn't Exists");
 
                     // Get Topic Title
-                    var topicTitle = await page.Locator(".active").TextContentAsync();
+                    var topicTitle = await page.Locator(".breadcrumb-item.active").TextContentAsync();
 
                     Assert.That(topicTitle, Is.Not.Null);
 
                     // Open Topic Options Menu
-                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Tools" }).ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Tools" }).First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
@@ -128,7 +128,7 @@ public class EmailNotificationTests : TestBase
                         "Test Topic Doesn't Exists");
 
                     // Open Topic Options Menu
-                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Tools" }).ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Tools" }).First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
@@ -172,7 +172,7 @@ public class EmailNotificationTests : TestBase
                     Assert.That(pageSource, Does.Contain("New Topic"), "Test Forum with that ID doesn't exists");
 
                     // Get Forum Title
-                    var forumTitle = await page.Locator(".active").First.TextContentAsync();
+                    var forumTitle = await page.Locator(".breadcrumb-item.active").TextContentAsync();
 
                     Assert.Multiple(() =>
                     {
@@ -278,7 +278,7 @@ public class EmailNotificationTests : TestBase
                         "Test Topic Doesn't Exists");
 
                     // Open Topic Options Menu
-                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Tools" }).ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Tools" }).First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 

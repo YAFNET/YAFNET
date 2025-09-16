@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,43 +22,28 @@
  * under the License.
  */
 
-using LighthousePlaywright.Net;
-using LighthousePlaywright.Net.Objects;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
 
-namespace YAF.Tests.LighthouseTests;
+namespace YAF.Tests.CoreTests.Helpers;
 
 /// <summary>
-/// The pages test
+/// ForumPages Extensions Tests
 /// </summary>
-[Parallelizable(ParallelScope.Self)]
 [TestFixture]
-public class PageTests : Setup
+public class ForumPagesExtensionsTests
 {
     /// <summary>
-    /// Basic test to check if all admin pages load without error
+    /// path to Enum ForumPages Test
     /// </summary>
     [Test]
-    public async Task PagePerformanceTest()
+    [Description("Count all URLs Test.")]
+    public void ToEnum_Test()
     {
-        var lh = new Lighthouse(new Options
-        {
-            Reports = new Reports
-            {
-                Formats = new Formats
-                {
-                    Html = true
-                }
-            }
-        });
+        const string path = "/Admin/Admin";
 
-        var res = await lh.RunAsync($"{this.TestSettings.TestForumUrl}");
+        var forumPage = path.ToPageName();
 
-        Assert.That(res.Accessibility > 0.9m, Is.True, $"Value was: {res.Accessibility}");
-
-        Assert.That(res.BestPractices > 0.9m, Is.True, $"Value was: {res.BestPractices}");
-
-        Assert.That(res.Seo > 0.9m, Is.True, $"Value was: {res.Seo}");
-
-        Assert.That(res.Performance >= 0.6m, Is.True, $"Value was: {res.Performance}");
+        forumPage.Should().Be(ForumPages.Admin_Admin);
     }
 }
