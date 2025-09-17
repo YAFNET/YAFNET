@@ -78,6 +78,11 @@ public class PollController : ForumBaseController
     [Route("Vote/{choiceId:int}/{topicId:int}/{pollId:int}/{forumId:int}")]
     public async Task<IActionResult> Vote(int choiceId, int topicId, int pollId, int forumId)
     {
+        if (!this.ModelState.IsValid)
+        {
+            return this.NotFound();
+        }
+
         var poll = await this.GetRepository<Poll>().GetByIdAsync(pollId);
         var topic = await this.GetRepository<Topic>().GetByIdAsync(topicId);
         var forumAccess = await this.GetRepository<ActiveAccess>()
@@ -85,9 +90,9 @@ public class PollController : ForumBaseController
         var userPollVotes = this.GetRepository<PollVote>().VoteCheck(poll.ID, this.PageBoardContext.PageUserID);
 
         var isClosed = this.Get<PollService>().IsPollClosed(poll);
-        var canVote = forumAccess.VoteAccess && (userPollVotes.NullOrEmpty() || userPollVotes.TrueForAll(v => choiceId != v.ChoiceID))
-                      || poll.PollFlags.AllowMultipleChoice && forumAccess.VoteAccess
-                                                            && userPollVotes.TrueForAll(v => choiceId != v.ChoiceID);
+        var canVote = (forumAccess.VoteAccess && (userPollVotes.NullOrEmpty() || userPollVotes.TrueForAll(v => choiceId != v.ChoiceID)))
+                      || (poll.PollFlags.AllowMultipleChoice && forumAccess.VoteAccess
+                                                             && userPollVotes.TrueForAll(v => choiceId != v.ChoiceID));
 
         var redirect = this.Get<ILinkBuilder>().Redirect(
             ForumPages.Posts,
