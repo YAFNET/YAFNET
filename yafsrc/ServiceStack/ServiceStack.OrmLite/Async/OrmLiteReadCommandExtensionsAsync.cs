@@ -754,6 +754,23 @@ namespace ServiceStack.OrmLite
             var ret = await dbCmd.ScalarAsync(dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql), token).ConfigAwait();
             return ret != null;
         }
+        async static internal Task<bool> ExistsByIdAsync<T>(this IDbCommand dbCmd, object value, CancellationToken token)
+        {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
+            var modelDef = ModelDefinition<T>.Definition;
+            var pkName = ModelDefinition<T>.PrimaryKeyName;
+            var dialect = dbCmd.GetDialectProvider();
+            var result = await dbCmd.SqlScalarAsync<int>(
+                "SELECT 1 FROM " + dialect.GetQuotedTableName(modelDef) +
+                " WHERE " + dialect.GetQuotedColumnName(modelDef.PrimaryKey) + " = " + dialect.GetParam(pkName),
+                new Dictionary<string, object>
+                {
+                    [pkName] = value
+                }, token);
+            return result == 1;
+        }
 
         // procedures ...
         /// <summary>

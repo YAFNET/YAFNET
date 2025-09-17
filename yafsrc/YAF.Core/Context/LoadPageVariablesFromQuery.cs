@@ -37,8 +37,6 @@ public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHave
     /// </param>
     public LoadPageVariablesFromQuery(IServiceLocator serviceLocator)
     {
-        
-
         this.ServiceLocator = serviceLocator;
     }
 

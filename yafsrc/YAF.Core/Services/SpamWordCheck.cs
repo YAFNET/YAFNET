@@ -104,7 +104,6 @@ public class SpamWordCheck : ISpamWordCheck, IHaveServiceLocator
     /// <returns>
     /// Returns if the search Text contains a spam word
     /// </returns>
-    
     public bool CheckForSpamWord(string searchText, out string spamWord)
     {
         spamWord = string.Empty;

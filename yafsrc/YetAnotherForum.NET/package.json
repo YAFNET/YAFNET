@@ -27,7 +27,7 @@
 		"webpack-cli": "^6.0.1"
 	},
 	"dependencies": {
-		"@codemirror/lang-sql": "^6.9.1",
+		"@codemirror/lang-sql": "^6.10.0",
 		"@codemirror/theme-one-dark": "^6.1.3",
 		"@fortawesome/fontawesome-free": "^7.0.1",
 		"@w8tcha/bootbox": "^6.0.6",

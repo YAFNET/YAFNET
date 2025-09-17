@@ -106,11 +106,6 @@ public class Footer : BaseControl
 
         var extensions = this.Get<IList<Assembly>>("ExtensionAssemblies").Select(a => a.FullName).ToList();
 
-        if (extensions.Exists(x => x.Contains("PublicKeyToken=f3828393ba2d803c")))
-        {
-            writer.Write("Official YAF.NET Release: Modules with Public Key of f3828393ba2d803c Loaded.");
-        }
-
         writer.Write(
             """<div style="margin:auto;padding:5px;text-align:right;font-size:7pt;"><span style="color: green">{0}</span></div>""",
             Config.ConnectionProviderName);
@@ -143,6 +138,8 @@ public class Footer : BaseControl
             """<a title="{1}" href="{0}">{1}</a>""",
             this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy),
             this.GetText("COMMON", "PRIVACY_POLICY"));
+
+        writer.Write(" | ");
     }
 
     /// <summary>
@@ -157,8 +154,6 @@ public class Footer : BaseControl
         {
             return;
         }
-
-        writer.Write(" | ");
 
         writer.Write("""<a target="_blank" title="YetAnotherForum.NET" href="https://www.yetanotherforum.net">""");
         writer.Write(this.GetText("COMMON", "POWERED_BY"));

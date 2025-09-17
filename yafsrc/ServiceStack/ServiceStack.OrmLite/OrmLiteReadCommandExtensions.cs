@@ -1627,6 +1627,24 @@ public static class OrmLiteReadCommandExtensions
         return result != null;
     }
 
+    static internal bool ExistsById<T>(this IDbCommand dbCmd, object value)
+    {
+        if (value == null)
+            throw new ArgumentNullException(nameof(value));
+
+        var modelDef = ModelDefinition<T>.Definition;
+        var pkName = ModelDefinition<T>.PrimaryKeyName;
+        var dialect = dbCmd.GetDialectProvider();
+        var result = dbCmd.SqlScalar<int>(
+            "SELECT 1 FROM " + dialect.GetQuotedTableName(modelDef) +
+            " WHERE " + dialect.GetQuotedColumnName(modelDef.PrimaryKey) + " = " + dialect.GetParam(pkName),
+            new Dictionary<string, object>
+            {
+                [pkName] = value
+            });
+        return result == 1;
+    }
+
     // procedures ...
     /// <summary>
     /// SQLs the procedure.
@@ -1693,27 +1711,14 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>System.Int64.</returns>
     static internal long ToLong(object result)
     {
-        if (result is DBNull)
+        return result switch
         {
-            return default(long);
-        }
-
-        if (result is int)
-        {
-            return (int)result;
-        }
-
-        if (result is decimal)
-        {
-            return Convert.ToInt64((decimal)result);
-        }
-
-        if (result is ulong)
-        {
-            return (long)Convert.ToUInt64(result);
-        }
-
-        return (long)result;
+            DBNull => 0,
+            int i => i,
+            decimal result1 => Convert.ToInt64(result1),
+            ulong => (long)Convert.ToUInt64(result),
+            _ => (long)result
+        };
     }
 
     /// <summary>
