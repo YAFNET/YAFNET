@@ -1,4 +1,7 @@
 name: YAF.NET v3.2.x (.NET Framework v4.8.1)
+permissions:
+  contents: read
+  pull-requests: write
 
 on:
   push:
