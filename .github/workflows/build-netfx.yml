@@ -20,4 +20,4 @@ jobs:
       run: dotnet restore ./yafsrc/YAF.NET-SqlServer.slnx
 
     - name: Build Solution
-      run: dotnet build ./yafsrc/YAF.NET-SqlServer.slnx -t:rebuild -property:Configuration=Release
+      run: msbuild ./yafsrc/YAF.NET-SqlServer.slnx -t:rebuild -property:Configuration=Release
