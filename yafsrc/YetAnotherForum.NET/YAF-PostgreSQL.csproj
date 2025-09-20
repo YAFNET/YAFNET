@@ -42,6 +42,7 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <Use64BitIISExpress />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -1061,12 +1062,7 @@
     <Content Include="Content\bootstrap-email\scss\utilities\_text-decoration.scss" />
     <Content Include="Content\bootstrap-email\scss\utilities\_typography.scss" />
     <Content Include="Content\bootstrap-email\scss\utilities\_valign.scss" />
-    <Content Include="Content\bootstrap-email\scss\_colors.scss" />
-    <Content Include="Content\bootstrap-email\scss\_functions.scss" />
-    <Content Include="Content\bootstrap-email\scss\_helper_groups.scss" />
     <Content Include="Content\bootstrap-email\scss\_reboot_email.scss" />
-    <Content Include="Content\bootstrap-email\scss\_selectors_for_utils.scss" />
-    <Content Include="Content\bootstrap-email\scss\_utilities.scss" />
     <Content Include="Content\bootstrap-email\scss\_variables.scss" />
     <Content Include="Content\bootstrap-email\templates\body.html" />
     <Content Include="Content\bootstrap-email\templates\button.html" />
@@ -1093,7 +1089,6 @@
     <Content Include="Content\flags\1x1\cefta.svg" />
     <Content Include="Content\flags\1x1\cp.svg" />
     <Content Include="Content\flags\1x1\dg.svg" />
-    <Content Include="Content\flags\1x1\ea.svg" />
     <Content Include="Content\flags\1x1\es-ga.svg" />
     <Content Include="Content\flags\1x1\ic.svg" />
     <Content Include="Content\flags\1x1\ta.svg" />
@@ -2391,19 +2386,13 @@
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="robots.txt" />
     <None Include="Content\forum-admin.scss" />
-    <Content Include="Scripts\bs5-lightbox\dist\index.bundle.min.js" />
-    <Content Include="Scripts\bs5-lightbox\index.js" />
-    <Content Include="Scripts\bs5-lightbox\webpack.cdn.js" />
-    <Content Include="Scripts\bs5-lightbox\webpack.common.js" />
     <Content Include="Scripts\choices\assets\scripts\.eslintrc.js" />
     <Content Include="Scripts\choices\assets\scripts\choices.js" />
-    <Content Include="Scripts\choices\assets\scripts\choices.min.js" />
-    <Content Include="Scripts\choices\assets\scripts\choices.min.js.LICENSE.txt" />
     <Content Include="Scripts\codemirror.min.js" />
     <Content Include="Scripts\fileUploader.js" />
     <Content Include="Scripts\fileUploader.min.js" />
     <Content Include="Scripts\forum\bootstrap-touchspin.js" />
-    <Content Include="Scripts\forum\yaf.Albums.js" />
+    <Content Include="Scripts\forum\yaf.Album.js" />
     <Content Include="Scripts\forum\yaf.hoverCard.js" />
     <Content Include="Scripts\forum\yaf.Notify.js" />
     <Content Include="Scripts\forum\yaf.contextMenu.js" />
@@ -2826,9 +2815,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\forum\dropdowns.scss" />
-    <Content Include="Content\forum\social-icons.scss" />
     <Content Include="Content\forum\button-scroll.scss" />
-    <Content Include="Content\forum\sidebar-help.scss" />
     <Content Include="Content\InstallWizard.css.map" />
     <None Include="Content\InstallWizard.scss" />
     <Content Include="Content\webfonts\fa-brands-400.woff2" />
@@ -2841,7 +2828,6 @@
     <Content Include="Scripts\forum\yaf.Attachments.js" />
     <Content Include="Scripts\editor\autoCloseTags.js" />
     <Content Include="Scripts\editor\mentions.js" />
-    <Content Include="Scripts\editor\undoManager.js" />
     <Content Include="Scripts\editor\editor.comb.js" />
     <Content Include="Scripts\editor\editor.js" />
     <Content Include="Scripts\editor\editor.min.js" />
@@ -2942,8 +2928,6 @@
     <Content Include="Content\Themes\brite\_variables.scss" />
     <None Include="package.json" />
     <Content Include="Resources\mimeTypes.json" />
-    <Content Include="Scripts\bs5-lightbox\.babelrc" />
-    <Content Include="Scripts\bs5-lightbox\dist\index.bundle.min.js.map" />
     <Content Include="Scripts\codemirror.min.js.map" />
     <None Include="web.config">
       <SubType>Designer</SubType>
@@ -3002,8 +2986,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+  <!--Visual Studio 2022-->
+  <PropertyGroup Condition="'$(VisualStudioVersion)' == '17.0'">
+    <VisualStudioVersion>17.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <PropertyGroup>
@@ -3017,7 +3002,7 @@
     <PostBuildEvent>del *.dll.config
 del *.xml</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup>
     <Extension>zip</Extension>
     <PackageName>YAF</PackageName>

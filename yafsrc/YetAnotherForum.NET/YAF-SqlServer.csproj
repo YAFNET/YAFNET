@@ -42,6 +42,7 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <Use64BitIISExpress />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -121,7 +122,7 @@
   web.config;app.config;db.config;mail.config;
   Scripts\bootbox.js;Scripts\bootstrap.js;Scripts\bootstrap.min.js;Scripts\bootstrap.bundle.js;Scripts\bootstrap.bundle.min.js;Scripts\bootstrap-notify.js;
   Scripts\editor\autoCloseTags.js;Scripts\editor\editor.comb.js;Scripts\fileUploader.js;Scripts\editor\undoManager.js;Scripts\editor\mentions.js;Scripts\editor\editor.js;
-  Scripts\prism.js;Scripts\forumAdminExtensionsDnn.js;Scripts\forumAdminExtensionsDnn.min.js;**\Content\**\*.scss;
+  Scripts\prism.js;Scripts\forumAdminExtensionsDnn.js;Scripts\forumAdminExtensionsDnn.min.js;**\Content\**\*.scss;**\Content\bootstrap-email\scss\**\*.scss;
   Scripts\forumExtensionsDnn.js;Scripts\forumExtensionsDnn.min.js;
   </ExcludeFilesFromDeployment>
     <ExcludeFoldersFromDeployment>Content\flag-icons;Content\fontawesome;Content\forum;Content\bootstrap;Scripts\forum;Scripts\bs5-lightbox;Scripts\choices</ExcludeFoldersFromDeployment>
@@ -1061,12 +1062,7 @@
     <Content Include="Content\bootstrap-email\scss\utilities\_text-decoration.scss" />
     <Content Include="Content\bootstrap-email\scss\utilities\_typography.scss" />
     <Content Include="Content\bootstrap-email\scss\utilities\_valign.scss" />
-    <Content Include="Content\bootstrap-email\scss\_colors.scss" />
-    <Content Include="Content\bootstrap-email\scss\_functions.scss" />
-    <Content Include="Content\bootstrap-email\scss\_helper_groups.scss" />
     <Content Include="Content\bootstrap-email\scss\_reboot_email.scss" />
-    <Content Include="Content\bootstrap-email\scss\_selectors_for_utils.scss" />
-    <Content Include="Content\bootstrap-email\scss\_utilities.scss" />
     <Content Include="Content\bootstrap-email\scss\_variables.scss" />
     <Content Include="Content\bootstrap-email\templates\body.html" />
     <Content Include="Content\bootstrap-email\templates\button.html" />
@@ -1100,7 +1096,9 @@
     <Content Include="Content\flags\1x1\ao.svg" />
     <Content Include="Content\flags\1x1\aq.svg" />
     <Content Include="Content\flags\1x1\ar.svg" />
+    <Content Include="Content\flags\1x1\arab.svg" />
     <Content Include="Content\flags\1x1\as.svg" />
+    <Content Include="Content\flags\1x1\asean.svg" />
     <Content Include="Content\flags\1x1\at.svg" />
     <Content Include="Content\flags\1x1\au.svg" />
     <Content Include="Content\flags\1x1\aw.svg" />
@@ -1155,7 +1153,7 @@
     <Content Include="Content\flags\1x1\dm.svg" />
     <Content Include="Content\flags\1x1\do.svg" />
     <Content Include="Content\flags\1x1\dz.svg" />
-    <Content Include="Content\flags\1x1\ea.svg" />
+    <Content Include="Content\flags\1x1\eac.svg" />
     <Content Include="Content\flags\1x1\ec.svg" />
     <Content Include="Content\flags\1x1\ee.svg" />
     <Content Include="Content\flags\1x1\eg.svg" />
@@ -1163,6 +1161,7 @@
     <Content Include="Content\flags\1x1\er.svg" />
     <Content Include="Content\flags\1x1\es-ct.svg" />
     <Content Include="Content\flags\1x1\es-ga.svg" />
+    <Content Include="Content\flags\1x1\es-pv.svg" />
     <Content Include="Content\flags\1x1\es.svg" />
     <Content Include="Content\flags\1x1\et.svg" />
     <Content Include="Content\flags\1x1\eu.svg" />
@@ -1275,6 +1274,7 @@
     <Content Include="Content\flags\1x1\nz.svg" />
     <Content Include="Content\flags\1x1\om.svg" />
     <Content Include="Content\flags\1x1\pa.svg" />
+    <Content Include="Content\flags\1x1\pc.svg" />
     <Content Include="Content\flags\1x1\pe.svg" />
     <Content Include="Content\flags\1x1\pf.svg" />
     <Content Include="Content\flags\1x1\pg.svg" />
@@ -1300,6 +1300,9 @@
     <Content Include="Content\flags\1x1\sd.svg" />
     <Content Include="Content\flags\1x1\se.svg" />
     <Content Include="Content\flags\1x1\sg.svg" />
+    <Content Include="Content\flags\1x1\sh-ac.svg" />
+    <Content Include="Content\flags\1x1\sh-hl.svg" />
+    <Content Include="Content\flags\1x1\sh-ta.svg" />
     <Content Include="Content\flags\1x1\sh.svg" />
     <Content Include="Content\flags\1x1\si.svg" />
     <Content Include="Content\flags\1x1\sj.svg" />
@@ -1366,7 +1369,9 @@
     <Content Include="Content\flags\4x3\ao.svg" />
     <Content Include="Content\flags\4x3\aq.svg" />
     <Content Include="Content\flags\4x3\ar.svg" />
+    <Content Include="Content\flags\4x3\arab.svg" />
     <Content Include="Content\flags\4x3\as.svg" />
+    <Content Include="Content\flags\4x3\asean.svg" />
     <Content Include="Content\flags\4x3\at.svg" />
     <Content Include="Content\flags\4x3\au.svg" />
     <Content Include="Content\flags\4x3\aw.svg" />
@@ -1421,7 +1426,7 @@
     <Content Include="Content\flags\4x3\dm.svg" />
     <Content Include="Content\flags\4x3\do.svg" />
     <Content Include="Content\flags\4x3\dz.svg" />
-    <Content Include="Content\flags\4x3\ea.svg" />
+    <Content Include="Content\flags\4x3\eac.svg" />
     <Content Include="Content\flags\4x3\ec.svg" />
     <Content Include="Content\flags\4x3\ee.svg" />
     <Content Include="Content\flags\4x3\eg.svg" />
@@ -1429,6 +1434,7 @@
     <Content Include="Content\flags\4x3\er.svg" />
     <Content Include="Content\flags\4x3\es-ct.svg" />
     <Content Include="Content\flags\4x3\es-ga.svg" />
+    <Content Include="Content\flags\4x3\es-pv.svg" />
     <Content Include="Content\flags\4x3\es.svg" />
     <Content Include="Content\flags\4x3\et.svg" />
     <Content Include="Content\flags\4x3\eu.svg" />
@@ -1541,6 +1547,7 @@
     <Content Include="Content\flags\4x3\nz.svg" />
     <Content Include="Content\flags\4x3\om.svg" />
     <Content Include="Content\flags\4x3\pa.svg" />
+    <Content Include="Content\flags\4x3\pc.svg" />
     <Content Include="Content\flags\4x3\pe.svg" />
     <Content Include="Content\flags\4x3\pf.svg" />
     <Content Include="Content\flags\4x3\pg.svg" />
@@ -1566,6 +1573,9 @@
     <Content Include="Content\flags\4x3\sd.svg" />
     <Content Include="Content\flags\4x3\se.svg" />
     <Content Include="Content\flags\4x3\sg.svg" />
+    <Content Include="Content\flags\4x3\sh-ac.svg" />
+    <Content Include="Content\flags\4x3\sh-hl.svg" />
+    <Content Include="Content\flags\4x3\sh-ta.svg" />
     <Content Include="Content\flags\4x3\sh.svg" />
     <Content Include="Content\flags\4x3\si.svg" />
     <Content Include="Content\flags\4x3\sj.svg" />
@@ -1621,6 +1631,7 @@
     <Content Include="Content\flags\4x3\za.svg" />
     <Content Include="Content\flags\4x3\zm.svg" />
     <Content Include="Content\flags\4x3\zw.svg" />
+    <Content Include="Content\flags\LICENSE.md" />
     <Content Include="Content\fontawesome\LICENSE-fontawesome.txt" />
     <Content Include="Content\bootstrap\helpers\_stacks.scss" />
     <Content Include="Content\bootstrap\helpers\_vr.scss" />
@@ -1634,7 +1645,6 @@
     <Content Include="Content\flag-icons\LICENSE.md" />
     <Content Include="Content\flag-icons\_flag-icons-base.scss" />
     <Content Include="Content\flag-icons\_flag-icons-list.scss" />
-    <Content Include="Content\flags\LICENSE.md" />
     <Content Include="Content\forum-admin.css">
       <DependentUpon>forum-admin.scss</DependentUpon>
     </Content>
@@ -2392,19 +2402,12 @@
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="robots.txt" />
     <None Include="Content\forum-admin.scss" />
-    <Content Include="Scripts\bs5-lightbox\dist\index.bundle.min.js" />
-    <Content Include="Scripts\bs5-lightbox\index.js" />
-    <Content Include="Scripts\bs5-lightbox\webpack.cdn.js" />
-    <Content Include="Scripts\bs5-lightbox\webpack.common.js" />
     <Content Include="Scripts\choices\assets\scripts\.eslintrc.js" />
     <Content Include="Scripts\choices\assets\scripts\choices.js" />
-    <Content Include="Scripts\choices\assets\scripts\choices.min.js" />
-    <Content Include="Scripts\choices\assets\scripts\choices.min.js.LICENSE.txt" />
     <Content Include="Scripts\codemirror.min.js" />
     <Content Include="Scripts\fileUploader.js" />
     <Content Include="Scripts\fileUploader.min.js" />
     <Content Include="Scripts\forum\bootstrap-touchspin.js" />
-    <Content Include="Scripts\forum\yaf.Albums.js" />
     <Content Include="Scripts\forum\yaf.hoverCard.js" />
     <Content Include="Scripts\forum\yaf.Notify.js" />
     <Content Include="Scripts\forum\yaf.contextMenu.js" />
@@ -2827,9 +2830,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\forum\dropdowns.scss" />
-    <Content Include="Content\forum\social-icons.scss" />
     <Content Include="Content\forum\button-scroll.scss" />
-    <Content Include="Content\forum\sidebar-help.scss" />
     <Content Include="Content\InstallWizard.css.map" />
     <None Include="Content\InstallWizard.scss" />
     <Content Include="Content\webfonts\fa-brands-400.woff2" />
@@ -2842,7 +2843,6 @@
     <Content Include="Scripts\forum\yaf.Attachments.js" />
     <Content Include="Scripts\editor\autoCloseTags.js" />
     <Content Include="Scripts\editor\mentions.js" />
-    <Content Include="Scripts\editor\undoManager.js" />
     <Content Include="Scripts\editor\editor.comb.js" />
     <Content Include="Scripts\editor\editor.js" />
     <Content Include="Scripts\editor\editor.min.js" />
@@ -2943,12 +2943,12 @@
     <Content Include="Content\Themes\brite\_variables.scss" />
     <None Include="package.json" />
     <Content Include="Resources\mimeTypes.json" />
-    <Content Include="Scripts\bs5-lightbox\.babelrc" />
-    <Content Include="Scripts\bs5-lightbox\dist\index.bundle.min.js.map" />
     <Content Include="Scripts\codemirror.min.js.map" />
+    <Content Include="tsconfig.json" />
     <None Include="web.config">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="webpack.config.js" />
     <Content Include="YetAnotherForum.NET.snk" />
   </ItemGroup>
   <ItemGroup>
@@ -3003,8 +3003,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+  <!--Visual Studio 2022-->
+  <PropertyGroup Condition="'$(VisualStudioVersion)' == '17.0'">
+    <VisualStudioVersion>17.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <PropertyGroup>
@@ -3018,7 +3019,7 @@
     <PostBuildEvent>del *.dll.config
 del *.xml</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup>
     <Extension>zip</Extension>
     <PackageName>YAF</PackageName>
