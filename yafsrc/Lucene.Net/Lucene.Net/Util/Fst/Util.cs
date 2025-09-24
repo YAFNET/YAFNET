@@ -1,4 +1,4 @@
-﻿using J2N;
+using J2N;
 using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;

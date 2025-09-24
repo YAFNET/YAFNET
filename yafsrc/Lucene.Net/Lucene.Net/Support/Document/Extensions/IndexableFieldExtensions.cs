@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Index;
 
 namespace YAF.Lucene.Net.Documents.Extensions
 {

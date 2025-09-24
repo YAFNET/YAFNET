@@ -1,4 +1,4 @@
-﻿// Lucene version compatibility level 4.8.1
+// Lucene version compatibility level 4.8.1
 using J2N;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Diagnostics;
@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Analysis.Util
      */
 
     /// <summary>
-    /// An abstract base class for simple, character-oriented tokenizers. 
+    /// An abstract base class for simple, character-oriented tokenizers.
     /// <para>
     /// You must specify the required <see cref="LuceneVersion"/> compatibility
     /// when creating <see cref="CharTokenizer"/>:

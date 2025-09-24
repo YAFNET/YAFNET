@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Analysis;
+using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.QueryParsers.Flexible.Precedence.Processors;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard;
 
@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Precedence
      */
 
     /// <summary>
-    /// This query parser works exactly as the standard query parser ( <see cref="StandardQueryParser"/> ), 
+    /// This query parser works exactly as the standard query parser ( <see cref="StandardQueryParser"/> ),
     /// except that it respect the boolean precedence, so &lt;a AND b OR c AND d&gt; is parsed to &lt;(+a +b) (+c +d)&gt;
     /// instead of &lt;+a +b +c +d&gt;.
     /// <para>
@@ -34,7 +34,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Precedence
     public class PrecedenceQueryParser : StandardQueryParser
     {
         /// <summary>
-        /// <see cref="StandardQueryParser.StandardQueryParser()"/> 
+        /// <see cref="StandardQueryParser.StandardQueryParser()"/>
         /// </summary>
         public PrecedenceQueryParser()
         {

@@ -1,4 +1,4 @@
-﻿// Lucene version compatibility level 4.8.1
+// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 
 namespace YAF.Lucene.Net.Analysis.Fr
@@ -36,7 +36,7 @@ namespace YAF.Lucene.Net.Analysis.Fr
         private readonly IKeywordAttribute keywordAttr;
 
         public FrenchLightStemFilter(TokenStream input)
-              : base(input)
+            : base(input)
         {
             termAtt = AddAttribute<ICharTermAttribute>();
             keywordAttr = AddAttribute<IKeywordAttribute>();

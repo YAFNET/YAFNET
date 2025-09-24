@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System.Runtime.CompilerServices;
 
@@ -437,7 +437,7 @@ namespace YAF.Lucene.Net.Util.Fst
                         if (Debugging.AssertsEnabled)
                         {
                             Debugging.Assert(check);
-                            Debugging.Assert(arc.Label < targetLabel,"arc.label={0} vs targetLabel={1}", arc.Label, targetLabel);
+                            Debugging.Assert(arc.Label < targetLabel, "arc.label={0} vs targetLabel={1}", arc.Label, targetLabel);
                         }
                         PushLast();
                         return;

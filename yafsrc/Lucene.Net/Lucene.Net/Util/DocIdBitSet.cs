@@ -24,7 +24,7 @@ namespace YAF.Lucene.Net.Util
     using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
 
     /// <summary>
-    /// Simple <see cref="DocIdSet"/> and <see cref="DocIdSetIterator"/> backed by a <see cref="BitSet"/> 
+    /// Simple <see cref="DocIdSet"/> and <see cref="DocIdSetIterator"/> backed by a <see cref="BitSet"/>
     /// </summary>
     public class DocIdBitSet : DocIdSet, IBits
     {

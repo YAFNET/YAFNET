@@ -1,4 +1,4 @@
-﻿namespace YAF.Lucene.Net.Index
+namespace YAF.Lucene.Net.Index
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more

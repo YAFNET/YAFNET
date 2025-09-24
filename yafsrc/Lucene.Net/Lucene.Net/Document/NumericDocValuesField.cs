@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Index;
 using System;
 using Int64 = J2N.Numerics.Int64;
 

@@ -30,21 +30,21 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
-    using ByteSequenceOutputs = Lucene.Net.Util.Fst.ByteSequenceOutputs;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IndexOptions = Lucene.Net.Index.IndexOptions;
-    using IndexOutput = Lucene.Net.Store.IndexOutput;
-    using Int32sRef = Lucene.Net.Util.Int32sRef;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using NoOutputs = Lucene.Net.Util.Fst.NoOutputs;
-    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
-    using RAMOutputStream = Lucene.Net.Store.RAMOutputStream;
-    using SegmentWriteState = Lucene.Net.Index.SegmentWriteState;
-    using Util = Lucene.Net.Util.Fst.Util;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using ByteSequenceOutputs = YAF.Lucene.Net.Util.Fst.ByteSequenceOutputs;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using Int32sRef = YAF.Lucene.Net.Util.Int32sRef;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using NoOutputs = YAF.Lucene.Net.Util.Fst.NoOutputs;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using RAMOutputStream = YAF.Lucene.Net.Store.RAMOutputStream;
+    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
+    using Util = YAF.Lucene.Net.Util.Fst.Util;
 
     // LUCENENET specific - moved out constants from generic class
     public static class BlockTreeTermsWriter

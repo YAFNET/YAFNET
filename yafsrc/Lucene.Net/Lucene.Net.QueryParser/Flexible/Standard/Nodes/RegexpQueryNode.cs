@@ -1,4 +1,4 @@
-﻿using J2N.Text;
+using J2N.Text;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
 using YAF.Lucene.Net.Util;
@@ -32,7 +32,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes
         private string field;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="field">field name</param>
         /// <param name="text">value that contains a regular expression</param>
@@ -46,7 +46,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="field">field name</param>
         /// <param name="text">value that contains a regular expression</param>
@@ -60,7 +60,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="field">field name</param>
         /// <param name="text">value that contains a regular expression</param>

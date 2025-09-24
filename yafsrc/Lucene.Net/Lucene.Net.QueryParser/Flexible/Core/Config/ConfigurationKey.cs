@@ -1,4 +1,4 @@
-﻿namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Config
+namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Config
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more

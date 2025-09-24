@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using System;
 using System.Diagnostics;
@@ -35,7 +35,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene46
     /// <summary>
     /// Lucene 4.6 FieldInfos writer.
     /// <para/>
-    /// @lucene.experimental 
+    /// @lucene.experimental
     /// </summary>
     /// <seealso cref="Lucene46FieldInfosFormat"/>
     internal sealed class Lucene46FieldInfosWriter : FieldInfosWriter

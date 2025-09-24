@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.QueryParsers.Classic;
+using YAF.Lucene.Net.QueryParsers.Classic;
 using YAF.Lucene.Net.Search;
 
 namespace YAF.Lucene.Net.QueryParsers.Ext

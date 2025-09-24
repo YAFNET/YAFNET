@@ -1,4 +1,4 @@
-﻿// Lucene version compatibility level 4.8.1
+// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Search.Similarities;
@@ -32,7 +32,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// <para/>
     /// Note that the configured Similarity for the field must be
     /// a subclass of <see cref="TFIDFSimilarity"/>
-    /// @lucene.internal 
+    /// @lucene.internal
     /// </summary>
     [ExceptionToClassNameConvention]
     public class IDFValueSource : DocFreqValueSource

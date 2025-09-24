@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Analysis;
+using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 
 namespace YAF.Lucene.Net.Search.Highlight
@@ -56,7 +56,7 @@ namespace YAF.Lucene.Net.Search.Highlight
         /// </summary>
         public virtual bool IsNewFragment()
         {
-            bool isNewFrag = offsetAtt.EndOffset >= (FragmentSize*currentNumFrags);
+            bool isNewFrag = offsetAtt.EndOffset >= (FragmentSize * currentNumFrags);
             if (isNewFrag)
             {
                 currentNumFrags++;

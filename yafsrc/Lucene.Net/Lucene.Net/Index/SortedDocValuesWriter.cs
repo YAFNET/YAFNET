@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Codecs;
+using YAF.Lucene.Net.Codecs;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Packed;
@@ -124,7 +124,7 @@ namespace YAF.Lucene.Net.Index
             }
 
             dvConsumer.AddSortedField(fieldInfo, GetBytesRefEnumberable(valueCount, sortedValues),
-                // doc -> ord
+                                      // doc -> ord
                                       GetOrdsEnumberable(maxDoc, ordMap));
         }
 

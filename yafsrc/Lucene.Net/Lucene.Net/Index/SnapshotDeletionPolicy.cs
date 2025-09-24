@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.Collections.Generic;
@@ -67,7 +67,7 @@ namespace YAF.Lucene.Net.Index
         private bool initCalled;
 
         /// <summary>
-        /// Sole constructor, taking the incoming 
+        /// Sole constructor, taking the incoming
         /// <see cref="IndexDeletionPolicy"/> to wrap.
         /// </summary>
         public SnapshotDeletionPolicy(IndexDeletionPolicy primary)
@@ -301,7 +301,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         /// <summary>
-        /// Wraps each <see cref="IndexCommit"/> as a 
+        /// Wraps each <see cref="IndexCommit"/> as a
         /// <see cref="SnapshotCommitPoint"/>.
         /// </summary>
         private IList<IndexCommit> WrapCommits<T>(IList<T> commits)

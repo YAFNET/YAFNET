@@ -1,4 +1,4 @@
-﻿// Lucene version compatibility level 4.8.1
+// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Fst;
@@ -113,7 +113,7 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
 
             /// <summary>
             /// Builds the <see cref="NormalizeCharMap"/>; call this once you
-            /// are done calling <see cref="Add"/>. 
+            /// are done calling <see cref="Add"/>.
             /// </summary>
             public virtual NormalizeCharMap Build()
             {

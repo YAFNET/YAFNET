@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support.Threading;
 

@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Search
         }
 
         /// <summary>
-        /// Gets or Sets the match status assigned to this explanation node. 
+        /// Gets or Sets the match status assigned to this explanation node.
         /// May be <c>null</c> if match status is unknown.
         /// </summary>
         public virtual bool? Match

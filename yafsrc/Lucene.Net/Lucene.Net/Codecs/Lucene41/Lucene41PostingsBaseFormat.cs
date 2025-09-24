@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
     using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
-    /// Provides a <see cref="Codecs.PostingsReaderBase"/> and 
+    /// Provides a <see cref="Codecs.PostingsReaderBase"/> and
     /// <see cref="Codecs.PostingsWriterBase"/>.
     /// <para/>
     /// @lucene.experimental

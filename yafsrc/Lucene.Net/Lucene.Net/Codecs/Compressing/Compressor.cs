@@ -1,4 +1,4 @@
-﻿namespace YAF.Lucene.Net.Codecs.Compressing
+namespace YAF.Lucene.Net.Codecs.Compressing
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more

@@ -1,4 +1,4 @@
-﻿using J2N;
+using J2N;
 using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Support.Threading;
 using System;

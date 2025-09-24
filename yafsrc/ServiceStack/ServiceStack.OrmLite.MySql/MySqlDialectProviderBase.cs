@@ -876,6 +876,11 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         cmd.ExecNonQuery("SET FOREIGN_KEY_CHECKS=1;");
     }
 
+    public override string SqlDateFormat(string quotedColumn, string format)
+    {
+        return $"DATE_FORMAT({quotedColumn}, '{format}')";
+    }
+
     /// <summary>
     /// Enables the foreign keys check asynchronous.
     /// </summary>

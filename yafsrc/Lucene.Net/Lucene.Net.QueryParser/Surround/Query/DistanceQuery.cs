@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search.Spans;
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
      */
 
     /// <summary>
-    /// Factory for NEAR queries 
+    /// Factory for NEAR queries
     /// </summary>
     public class DistanceQuery : ComposedQuery, IDistanceSubQuery
     {

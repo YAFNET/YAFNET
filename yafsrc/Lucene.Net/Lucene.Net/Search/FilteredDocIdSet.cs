@@ -1,4 +1,4 @@
-﻿namespace YAF.Lucene.Net.Search
+namespace YAF.Lucene.Net.Search
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more

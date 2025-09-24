@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Runtime.CompilerServices;

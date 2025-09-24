@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Runtime.CompilerServices;
@@ -107,7 +107,7 @@ namespace YAF.Lucene.Net.Util.Fst
             {
                 if (Debugging.AssertsEnabled)
                 {
-                    Debugging.Assert(inc.Length < output.Length,"inc.length={0} vs output.length={1}", inc.Length, output.Length);
+                    Debugging.Assert(inc.Length < output.Length, "inc.length={0} vs output.length={1}", inc.Length, output.Length);
                     Debugging.Assert(inc.Length > 0);
                 }
                 return new Int32sRef(output.Int32s, output.Offset + inc.Length, output.Length - inc.Length);

@@ -1,4 +1,4 @@
-﻿using J2N.Collections.Generic.Extensions;
+using J2N.Collections.Generic.Extensions;
 using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Support;
 using System;

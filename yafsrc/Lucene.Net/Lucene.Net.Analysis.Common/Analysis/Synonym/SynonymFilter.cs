@@ -1,4 +1,4 @@
-﻿// Lucene version compatibility level 4.8.1
+// Lucene version compatibility level 4.8.1
 using J2N;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Diagnostics;
@@ -459,7 +459,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
 
                 curNextRead = RollIncr(curNextRead);
             }
-            byTokenBreak:
+        byTokenBreak:
 
             if (nextRead == nextWrite && !finished)
             {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using YAF.Lucene.Net.Support;
 
 namespace YAF.Lucene.Net.Index

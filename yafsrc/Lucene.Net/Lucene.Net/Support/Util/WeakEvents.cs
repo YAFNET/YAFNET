@@ -1,4 +1,4 @@
-﻿#if !FEATURE_CONDITIONALWEAKTABLE_ENUMERATOR
+#if !FEATURE_CONDITIONALWEAKTABLE_ENUMERATOR
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util.Events;
 using System.Collections.Generic;

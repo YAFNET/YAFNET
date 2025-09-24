@@ -1,4 +1,4 @@
-﻿namespace YAF.Lucene.Net.QueryParsers.Ext
+namespace YAF.Lucene.Net.QueryParsers.Ext
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more

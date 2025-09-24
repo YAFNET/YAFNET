@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Analysis;
+using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.QueryParsers.Classic;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Support.Threading;

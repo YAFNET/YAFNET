@@ -1,4 +1,4 @@
-﻿using J2N.Text;
+using J2N.Text;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Buffers;
 using YAF.Lucene.Net.Support.Text;

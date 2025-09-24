@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Support.Threading;
+using YAF.Lucene.Net.Support.Threading;
 
 namespace YAF.Lucene.Net.Index
 {

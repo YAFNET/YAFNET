@@ -1,4 +1,4 @@
-﻿namespace YAF.Lucene.Net.Support.Text
+namespace YAF.Lucene.Net.Support.Text
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more

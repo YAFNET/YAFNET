@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Util;
+using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

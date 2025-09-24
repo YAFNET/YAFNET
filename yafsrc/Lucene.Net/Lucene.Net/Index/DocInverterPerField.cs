@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Analysis.TokenAttributes;
 using System;
 
 namespace YAF.Lucene.Net.Index

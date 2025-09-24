@@ -1,4 +1,4 @@
-﻿namespace YAF.Lucene.Net.Util.Packed
+namespace YAF.Lucene.Net.Util.Packed
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more

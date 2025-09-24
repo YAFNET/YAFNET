@@ -1,4 +1,4 @@
-﻿// Lucene version compatibility level 4.8.1
+// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Analysis.CommonGrams
      */
 
     /*
-     * TODO: Consider implementing https://issues.apache.org/jira/browse/LUCENE-1688 changes to stop list and associated constructors 
+     * TODO: Consider implementing https://issues.apache.org/jira/browse/LUCENE-1688 changes to stop list and associated constructors
      */
 
     /// <summary>
@@ -114,7 +114,7 @@ namespace YAF.Lucene.Net.Analysis.CommonGrams
                 return false;
             }
 
-            /* We build n-grams before and after stopwords. 
+            /* We build n-grams before and after stopwords.
              * When valid, the buffer always contains at least the separator.
              * If its empty, there is nothing before this stopword.
              */

@@ -1,4 +1,4 @@
-﻿using J2N;
+using J2N;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes;
 using YAF.Lucene.Net.Search;

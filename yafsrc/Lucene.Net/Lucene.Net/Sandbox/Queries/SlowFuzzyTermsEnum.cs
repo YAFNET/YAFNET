@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
@@ -82,7 +82,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             /// length <c>prefixLength</c> with <c>term</c> and which have a fuzzy similarity &gt;
             /// <c>minSimilarity</c>.
             /// <para/>
-            /// After calling the constructor the enumeration is already pointing to the first 
+            /// After calling the constructor the enumeration is already pointing to the first
             /// valid term if such a term exists.
             /// </summary>
             /// <exception cref="IOException">If there is a low-level I/O error.</exception>

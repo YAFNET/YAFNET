@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
+using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
 using System.Collections.Generic;
 using System.Text;
 
@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
         private int minimumMatchingmElements = 0;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="clauses">the query nodes to be or'ed</param>
         /// <param name="field"></param>

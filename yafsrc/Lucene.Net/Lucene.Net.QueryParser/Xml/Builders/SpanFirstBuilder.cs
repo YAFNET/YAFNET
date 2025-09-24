@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Search.Spans;
+using YAF.Lucene.Net.Search.Spans;
 using System.Xml;
 
 namespace YAF.Lucene.Net.QueryParsers.Xml.Builders

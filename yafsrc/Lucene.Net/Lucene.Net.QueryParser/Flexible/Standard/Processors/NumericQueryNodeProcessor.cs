@@ -1,4 +1,4 @@
-﻿using J2N.Numerics;
+using J2N.Numerics;
 using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Config;

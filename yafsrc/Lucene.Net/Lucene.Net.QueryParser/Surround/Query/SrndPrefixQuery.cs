@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util;
 using System.Text;
 

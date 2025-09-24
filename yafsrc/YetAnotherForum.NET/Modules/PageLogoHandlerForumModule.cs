@@ -43,7 +43,7 @@ public class PageLogoHandlerForumModule : SimpleBaseForumModule
     /// </summary>
     public override void InitBeforePage()
     {
-        //
+        //..
     }
 
     /// <summary>

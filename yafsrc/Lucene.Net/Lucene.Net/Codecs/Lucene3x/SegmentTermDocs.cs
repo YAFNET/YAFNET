@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Runtime.CompilerServices;
 using IBits = YAF.Lucene.Net.Util.IBits;

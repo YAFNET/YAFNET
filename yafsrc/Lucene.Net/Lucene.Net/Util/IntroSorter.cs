@@ -1,4 +1,4 @@
-﻿using J2N.Numerics;
+using J2N.Numerics;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util

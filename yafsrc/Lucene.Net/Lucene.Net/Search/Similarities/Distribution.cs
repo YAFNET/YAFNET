@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Search.Similarities
 
     /// <summary>
     /// The probabilistic distribution used to model term occurrence
-    /// in information-based models. 
+    /// in information-based models.
     /// <para/>
     /// @lucene.experimental
     /// </summary>

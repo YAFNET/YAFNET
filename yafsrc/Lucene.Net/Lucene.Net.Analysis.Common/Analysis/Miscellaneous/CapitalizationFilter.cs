@@ -1,4 +1,4 @@
-﻿// Lucene version compatibility level 4.8.1
+// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Support;
@@ -34,8 +34,8 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
     /// </summary>
     public sealed class CapitalizationFilter : TokenFilter
     {
-        public static readonly int DEFAULT_MAX_WORD_COUNT = int.MaxValue;
-        public static readonly int DEFAULT_MAX_TOKEN_LENGTH = int.MaxValue;
+        public const int DEFAULT_MAX_WORD_COUNT = int.MaxValue;
+        public const int DEFAULT_MAX_TOKEN_LENGTH = int.MaxValue;
 
         private readonly bool onlyFirstWord;
         private readonly CharArraySet keep;

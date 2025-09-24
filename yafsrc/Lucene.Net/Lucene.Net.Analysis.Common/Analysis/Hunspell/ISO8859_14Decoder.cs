@@ -1,4 +1,4 @@
-﻿// Lucene version compatibility level 4.10.4
+// Lucene version compatibility level 4.10.4
 using YAF.Lucene.Net.Support;
 using System;
 using System.Text;

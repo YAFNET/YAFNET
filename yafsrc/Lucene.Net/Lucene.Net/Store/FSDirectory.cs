@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Support;
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.IO;
 using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
@@ -450,7 +450,7 @@ namespace YAF.Lucene.Net.Store
             for (int charIDX = 0; charIDX < dirName.Length; charIDX++)
             {
                 char ch = dirName[charIDX];
-                digest = 31*digest + ch;
+                digest = 31 * digest + ch;
             }
             return "lucene-" + digest.ToString("x", CultureInfo.InvariantCulture);
         }

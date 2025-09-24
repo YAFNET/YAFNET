@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Queries;
+using YAF.Lucene.Net.Queries;
 using YAF.Lucene.Net.Search;
 using System;
 using System.Xml;

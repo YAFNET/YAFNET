@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Codecs;
+using YAF.Lucene.Net.Codecs;
 using YAF.Lucene.Net.Search.Similarities;
 
 namespace YAF.Lucene.Net.Index.Extensions

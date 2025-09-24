@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Util;
+using YAF.Lucene.Net.Util;
 using System;
 
 namespace YAF.Lucene.Net.Codecs
@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.Codecs
 
     /// <summary>
     /// When placed on a class that subclasses <see cref="PostingsFormat"/>, adding this
-    /// attribute will exclude the type from consideration in the 
+    /// attribute will exclude the type from consideration in the
     /// <see cref="DefaultPostingsFormatFactory.ScanForPostingsFormats(System.Reflection.Assembly)"/> method.
     /// <para/>
     /// However, the <see cref="PostingsFormat"/> type can still be added manually using

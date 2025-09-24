@@ -1,4 +1,4 @@
-﻿using J2N.Collections.Generic;
+using J2N.Collections.Generic;
 using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
@@ -144,7 +144,7 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// NOTE: This was MAX_INT in Lucene
         /// </summary>
-        internal static readonly int MAX_INT32 = int.MaxValue; // LUCENENET specific - Made internal rather than public, since this class is intended to be internal but couldn't be because it is exposed through a public API
+        internal const int MAX_INT32 = int.MaxValue; // LUCENENET specific - Made internal rather than public, since this class is intended to be internal but couldn't be because it is exposed through a public API
 
         internal readonly AtomicInt64 bytesUsed;
 
@@ -163,9 +163,9 @@ namespace YAF.Lucene.Net.Index
         {
             if (VERBOSE_DELETES)
             {
-                return "gen=" + gen + " numTerms=" + numTermDeletes + ", terms=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", terms) 
-                    + ", queries=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", queries) + ", docIDs=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", docIDs) 
-                    + ", numericUpdates=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", numericUpdates) 
+                return "gen=" + gen + " numTerms=" + numTermDeletes + ", terms=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", terms)
+                    + ", queries=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", queries) + ", docIDs=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", docIDs)
+                    + ", numericUpdates=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", numericUpdates)
                     + ", binaryUpdates=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", binaryUpdates) + ", bytesUsed=" + bytesUsed;
             }
             else

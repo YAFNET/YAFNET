@@ -1,4 +1,4 @@
-﻿using J2N;
+using J2N;
 using J2N.Globalization;
 using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Analysis.TokenAttributes;

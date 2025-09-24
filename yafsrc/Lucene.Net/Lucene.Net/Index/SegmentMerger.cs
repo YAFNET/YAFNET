@@ -1,4 +1,4 @@
-﻿using J2N;
+using J2N;
 using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
 using System;

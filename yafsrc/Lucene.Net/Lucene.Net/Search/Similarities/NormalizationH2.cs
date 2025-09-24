@@ -1,4 +1,4 @@
-﻿using static YAF.Lucene.Net.Search.Similarities.SimilarityBase;
+using static YAF.Lucene.Net.Search.Similarities.SimilarityBase;
 
 namespace YAF.Lucene.Net.Search.Similarities
 {

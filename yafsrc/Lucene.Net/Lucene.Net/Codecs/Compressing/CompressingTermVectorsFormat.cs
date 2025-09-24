@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.CompilerServices;
 using Directory = YAF.Lucene.Net.Store.Directory;
 

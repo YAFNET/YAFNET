@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Index;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -191,7 +191,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
         {
             ISet<Query> expandQueries = new JCG.LinkedHashSet<Query>();
 
-            for (int i = 0; i < flatQueries.Count; )
+            for (int i = 0; i < flatQueries.Count;)
             {
                 Query query = flatQueries.ElementAt(i);
                 //i.Remove();

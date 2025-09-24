@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Support;
+using YAF.Lucene.Net.Support;
 using System.Collections.Generic;
 
 namespace YAF.Lucene.Net.Codecs.Lucene46

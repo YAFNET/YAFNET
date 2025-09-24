@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util;
 
 namespace YAF.Lucene.Net.QueryParsers.Surround.Query

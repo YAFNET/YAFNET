@@ -3670,6 +3670,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <value>The SQL random.</value>
     public virtual string SqlRandom => "RAND()";
 
+    public virtual string SqlDateFormat(string quotedColumn, string format) => $"strftime('{format}',{quotedColumn})";
+    public virtual string SqlChar(int charCode) => $"CHAR({charCode})";
+
     // Async API's, should be overriden by Dialect Providers to use .ConfigureAwait(false)
     // Default impl below uses TaskAwaiter shim in async.cs
 

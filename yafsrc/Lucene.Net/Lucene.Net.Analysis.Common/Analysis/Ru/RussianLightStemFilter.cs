@@ -1,4 +1,4 @@
-﻿// Lucene version compatibility level 4.8.1
+// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 
 namespace YAF.Lucene.Net.Analysis.Ru
@@ -35,7 +35,7 @@ namespace YAF.Lucene.Net.Analysis.Ru
         private readonly ICharTermAttribute termAtt;
         private readonly IKeywordAttribute keywordAttr;
 
-        public RussianLightStemFilter(TokenStream input) 
+        public RussianLightStemFilter(TokenStream input)
             : base(input)
         {
             termAtt = AddAttribute<ICharTermAttribute>();

@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core.Builders;
+using YAF.Lucene.Net.QueryParsers.Flexible.Core.Builders;
 using YAF.Lucene.Net.Search;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Builders
@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Builders
 
     /// <summary>
     /// This interface should be implemented by every class that wants to build
-    /// <see cref="Query"/> objects from <see cref="Core.Nodes.IQueryNode"/> objects. 
+    /// <see cref="Query"/> objects from <see cref="Core.Nodes.IQueryNode"/> objects.
     /// </summary>
     /// <seealso cref="IQueryBuilder{TQuery}"/>
     /// <seealso cref="QueryTreeBuilder"/>

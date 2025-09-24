@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
+using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
 {
@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
         private string value = null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="schema">schema identifier</param>
         /// <param name="value">value that was not parsed</param>

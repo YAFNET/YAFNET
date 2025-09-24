@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Support;
+using YAF.Lucene.Net.Support;
 using System;
 using System.IO;
 

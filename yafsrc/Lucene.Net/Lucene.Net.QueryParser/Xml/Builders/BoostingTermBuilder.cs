@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search.Payloads;
 using YAF.Lucene.Net.Search.Spans;
 using System.Xml;

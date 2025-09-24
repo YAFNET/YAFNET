@@ -1,4 +1,4 @@
-﻿// Lucene version compatibility level 4.8.1
+// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 
 namespace YAF.Lucene.Net.Analysis.En
@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Analysis.En
      */
 
     /// <summary>
-    /// A <see cref="TokenFilter"/> that applies <see cref="EnglishMinimalStemmer"/> to stem 
+    /// A <see cref="TokenFilter"/> that applies <see cref="EnglishMinimalStemmer"/> to stem
     /// English words.
     /// <para>
     /// To prevent terms from being stemmed use an instance of

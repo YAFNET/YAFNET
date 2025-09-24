@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 
@@ -77,7 +77,7 @@ namespace YAF.Lucene.Net.Util
         {
         }
 
-        public override byte[] GetByteBlock() 
+        public override byte[] GetByteBlock()
         {
             if (freeBlocks == 0)
             {

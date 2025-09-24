@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;

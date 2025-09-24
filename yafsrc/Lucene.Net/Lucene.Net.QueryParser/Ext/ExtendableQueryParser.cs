@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Analysis;
+using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
 using System;
@@ -48,7 +48,7 @@ namespace YAF.Lucene.Net.QueryParsers.Ext
     /// <pre>
     ///   title_customExt:"Apache Lucene\?" OR content_customExt:prefix\*
     /// </pre>
-    /// 
+    ///
     /// Search on the default field:
     /// <pre>
     ///   _customExt:"Apache Lucene\?" OR _customExt:prefix\*
@@ -73,7 +73,7 @@ namespace YAF.Lucene.Net.QueryParsers.Ext
         private readonly string defaultField;
         private readonly Extensions extensions;
 
-  
+
         /// <summary>
         ///  Default empty extensions instance
         /// </summary>

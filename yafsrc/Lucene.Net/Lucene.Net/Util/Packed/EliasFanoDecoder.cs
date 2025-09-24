@@ -1,4 +1,4 @@
-﻿using J2N.Numerics;
+using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using System.Runtime.CompilerServices;
 

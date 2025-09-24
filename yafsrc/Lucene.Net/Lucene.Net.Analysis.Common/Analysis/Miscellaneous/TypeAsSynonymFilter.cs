@@ -1,4 +1,4 @@
-﻿// Lucene version compatibility level 8.2.0
+// Lucene version compatibility level 8.2.0
 // LUCENENET NOTE: Ported because Lucene.Net.Analysis.OpenNLP requires this to be useful.
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.TokenAttributes.Extensions;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 
 namespace YAF.Lucene.Net.Codecs.Compressing

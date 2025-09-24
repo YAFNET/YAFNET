@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Util;
+using YAF.Lucene.Net.Util;
 
 namespace YAF.Lucene.Net.Codecs
 {

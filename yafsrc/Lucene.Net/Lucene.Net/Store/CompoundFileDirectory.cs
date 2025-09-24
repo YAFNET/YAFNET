@@ -1,4 +1,4 @@
-﻿using J2N.Collections.Generic.Extensions;
+using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
@@ -25,10 +25,10 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using CodecUtil = Lucene.Net.Codecs.CodecUtil;
-    using CorruptIndexException = Lucene.Net.Index.CorruptIndexException;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IOUtils = Lucene.Net.Util.IOUtils;
+    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
+    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Class for accessing a compound stream.
@@ -122,7 +122,7 @@ namespace YAF.Lucene.Net.Store
             }
             else
             {
-                if (Debugging.AssertsEnabled) Debugging.Assert(directory is not CompoundFileDirectory,"compound file inside of compound file: {0}", fileName);
+                if (Debugging.AssertsEnabled) Debugging.Assert(directory is not CompoundFileDirectory, "compound file inside of compound file: {0}", fileName);
                 this.entries = SENTINEL;
                 this.IsOpen = true;
                 writer = new CompoundFileWriter(directory, fileName);
@@ -131,10 +131,10 @@ namespace YAF.Lucene.Net.Store
         }
 
         // LUCENENET NOTE: These MUST be sbyte because they can be negative
-        private static readonly sbyte CODEC_MAGIC_BYTE1 = (sbyte)(CodecUtil.CODEC_MAGIC >>> 24);
-        private static readonly sbyte CODEC_MAGIC_BYTE2 = (sbyte)(CodecUtil.CODEC_MAGIC >>> 16);
-        private static readonly sbyte CODEC_MAGIC_BYTE3 = (sbyte)(CodecUtil.CODEC_MAGIC >>> 8);
-        private static readonly sbyte CODEC_MAGIC_BYTE4 = (sbyte)CodecUtil.CODEC_MAGIC;
+        private const sbyte CODEC_MAGIC_BYTE1 = (sbyte)(CodecUtil.CODEC_MAGIC >>> 24);
+        private const sbyte CODEC_MAGIC_BYTE2 = unchecked((sbyte)(CodecUtil.CODEC_MAGIC >>> 16));
+        private const sbyte CODEC_MAGIC_BYTE3 = unchecked((sbyte)(CodecUtil.CODEC_MAGIC >>> 8));
+        private const sbyte CODEC_MAGIC_BYTE4 = unchecked((sbyte)CodecUtil.CODEC_MAGIC);
 
         /// <summary>
         /// Helper method that reads CFS entries from an input stream </summary>

@@ -1,4 +1,4 @@
-﻿// Lucene version compatibility level 4.8.1
+// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
@@ -36,7 +36,7 @@ namespace YAF.Lucene.Net.Queries
     /// <para>
     /// Order in which filters are called depends on
     /// the position of the filter in the chain. It's probably
-    /// more efficient to place the most restrictive filters/least 
+    /// more efficient to place the most restrictive filters/least
     /// computationally-intensive filters first.
     /// </para>
     /// </summary>

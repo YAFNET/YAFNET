@@ -1,4 +1,4 @@
-﻿namespace YAF.Lucene.Net.Codecs.Lucene46
+namespace YAF.Lucene.Net.Codecs.Lucene46
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more

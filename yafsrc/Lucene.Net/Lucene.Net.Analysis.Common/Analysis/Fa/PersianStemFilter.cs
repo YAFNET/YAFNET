@@ -1,4 +1,4 @@
-﻿// Lucene version compatibility level 9.2
+// Lucene version compatibility level 9.2
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 
 namespace YAF.Lucene.Net.Analysis.Fa
@@ -35,7 +35,7 @@ namespace YAF.Lucene.Net.Analysis.Fa
         private readonly IKeywordAttribute keywordAttr;
 
         public PersianStemFilter(TokenStream input)
-              : base(input)
+            : base(input)
         {
             termAtt = AddAttribute<ICharTermAttribute>();
             keywordAttr = AddAttribute<IKeywordAttribute>();

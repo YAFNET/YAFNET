@@ -1,4 +1,4 @@
-﻿using J2N.IO;
+using J2N.IO;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support.IO;
 using System;
@@ -141,7 +141,7 @@ namespace YAF.Lucene.Net.Store
 
             public override IndexInput OpenSlice(string sliceDescription, long offset, long length)
             {
-                return new NIOFSIndexInput("NIOFSIndexInput(" + sliceDescription + " in path=\"" + path + "\" slice=" + offset + ":" + (offset + length) + ")", descriptor, offset, length, 
+                return new NIOFSIndexInput("NIOFSIndexInput(" + sliceDescription + " in path=\"" + path + "\" slice=" + offset + ":" + (offset + length) + ")", descriptor, offset, length,
                     BufferedIndexInput.GetBufferSize(context));
             }
 

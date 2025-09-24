@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Support.Threading;
+using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.IO;
 using System.Runtime.ExceptionServices;

@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support.Threading;
 using System.Collections.Generic;
 
@@ -27,10 +27,10 @@ namespace YAF.Lucene.Net.Index
     using OrdinalMap = YAF.Lucene.Net.Index.MultiDocValues.OrdinalMap;
 
     /// <summary>
-    /// This class forces a composite reader (eg a 
+    /// This class forces a composite reader (eg a
     /// <see cref="MultiReader"/> or <see cref="DirectoryReader"/>) to emulate an
     /// atomic reader.  This requires implementing the postings
-    /// APIs on-the-fly, using the static methods in 
+    /// APIs on-the-fly, using the static methods in
     /// <see cref="MultiFields"/>, <see cref="MultiDocValues"/>, by stepping through
     /// the sub-readers to merge fields/terms, appending docs, etc.
     ///

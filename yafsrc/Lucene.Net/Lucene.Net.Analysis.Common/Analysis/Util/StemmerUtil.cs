@@ -1,4 +1,4 @@
-﻿// Lucene version compatibility level 4.8.1
+// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Analysis.Util
 
     /// <summary>
     /// Some commonly-used stemming functions
-    /// 
+    ///
     /// @lucene.internal
     /// </summary>
     public static class StemmerUtil // LUCENENET specific: CA1052 Static holder types should be Static or NotInheritable

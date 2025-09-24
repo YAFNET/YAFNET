@@ -1,4 +1,4 @@
-﻿using J2N.IO;
+using J2N.IO;
 using J2N.IO.MemoryMappedFiles;
 using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;

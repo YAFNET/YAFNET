@@ -1,4 +1,4 @@
-﻿// Lucene version compatibility level 4.8.1
+// Lucene version compatibility level 4.8.1
 using J2N.Runtime.CompilerServices;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;

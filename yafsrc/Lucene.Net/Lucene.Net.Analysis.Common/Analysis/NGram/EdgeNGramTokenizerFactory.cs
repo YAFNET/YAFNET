@@ -45,7 +45,7 @@ namespace YAF.Lucene.Net.Analysis.NGram
         {
             minGramSize = GetInt32(args, "minGramSize", EdgeNGramTokenizer.DEFAULT_MIN_GRAM_SIZE);
             maxGramSize = GetInt32(args, "maxGramSize", EdgeNGramTokenizer.DEFAULT_MAX_GRAM_SIZE);
-            side = Get(args, "side", nameof(EdgeNGramTokenFilter.Side.FRONT));
+            side = Get(args, "side", EdgeNGramTokenFilter.Side.FRONT.ToString());
             if (args.Count > 0)
             {
                 throw new ArgumentException(string.Format(J2N.Text.StringFormatter.CurrentCulture, "Unknown parameters: {0}", args));

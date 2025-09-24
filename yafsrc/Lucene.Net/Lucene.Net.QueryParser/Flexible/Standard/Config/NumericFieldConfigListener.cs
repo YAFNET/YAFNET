@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core.Config;
+using YAF.Lucene.Net.QueryParsers.Flexible.Core.Config;
 using System;
 using System.Collections.Generic;
 

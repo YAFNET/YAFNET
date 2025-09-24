@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Analysis;
+using YAF.Lucene.Net.Analysis;
 
 namespace YAF.Lucene.Net.Search.Highlight
 {

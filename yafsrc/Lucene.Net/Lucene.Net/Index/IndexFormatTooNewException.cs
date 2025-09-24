@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Index
     /// This exception is thrown when Lucene detects
     /// an index that is newer than this Lucene version.
     /// </summary>
-    // LUCENENET: It is no longer good practice to use binary serialization. 
+    // LUCENENET: It is no longer good practice to use binary serialization.
     // See: https://github.com/dotnet/corefx/issues/23584#issuecomment-325724568
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
     [Serializable]

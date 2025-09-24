@@ -30,7 +30,7 @@ namespace YAF.Lucene.Net.Analysis.Ckb
         private readonly ICharTermAttribute termAtt;
 
         public SoraniNormalizationFilter(TokenStream input)
-              : base(input)
+            : base(input)
         {
             termAtt = AddAttribute<ICharTermAttribute>();
         }

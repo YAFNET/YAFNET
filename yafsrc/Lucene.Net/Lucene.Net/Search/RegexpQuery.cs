@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Util.Automaton;
+using YAF.Lucene.Net.Util.Automaton;
 using System;
 using System.Text;
 

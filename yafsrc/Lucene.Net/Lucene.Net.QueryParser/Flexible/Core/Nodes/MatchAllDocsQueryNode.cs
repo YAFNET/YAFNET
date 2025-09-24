@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
+using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
 {

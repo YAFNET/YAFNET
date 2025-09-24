@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using static YAF.Lucene.Net.Search.Similarities.SimilarityBase;
 
 namespace YAF.Lucene.Net.Search.Similarities
@@ -33,7 +33,8 @@ namespace YAF.Lucene.Net.Search.Similarities
     {
         /// <summary>
         /// <c>log2(Math.E)</c>, precomputed. </summary>
-        protected internal static double LOG2_E = Log2(Math.E);
+        // LUCENENET specific - made readonly, not expected to change
+        protected internal static readonly double LOG2_E = Log2(Math.E);
 
         /// <summary>
         /// Sole constructor: parameter-free </summary>

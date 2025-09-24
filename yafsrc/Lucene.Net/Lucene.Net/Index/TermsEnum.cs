@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Support.Threading;
+using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
@@ -28,11 +28,11 @@ namespace YAF.Lucene.Net.Index
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
-    /// Enumerator to seek (<see cref="SeekCeil(BytesRef)"/>, 
-    /// <see cref="SeekExact(BytesRef)"/>) or step through 
-    /// (<see cref="MoveNext()"/> terms to obtain <see cref="Term"/>, frequency information 
-    /// (<see cref="DocFreq"/>), <see cref="DocsEnum"/> or 
-    /// <see cref="DocsAndPositionsEnum"/> for the current term 
+    /// Enumerator to seek (<see cref="SeekCeil(BytesRef)"/>,
+    /// <see cref="SeekExact(BytesRef)"/>) or step through
+    /// (<see cref="MoveNext()"/> terms to obtain <see cref="Term"/>, frequency information
+    /// (<see cref="DocFreq"/>), <see cref="DocsEnum"/> or
+    /// <see cref="DocsAndPositionsEnum"/> for the current term
     /// (<see cref="Docs(IBits, DocsEnum)"/>).
     ///
     /// <para/>Term enumerations are always ordered by

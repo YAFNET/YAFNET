@@ -27,7 +27,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
     using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
-    /// Lucene3x ReadOnly <see cref="TermVectorsFormat"/> implementation 
+    /// Lucene3x ReadOnly <see cref="TermVectorsFormat"/> implementation
     /// <para/>
     /// @lucene.experimental
     /// </summary>

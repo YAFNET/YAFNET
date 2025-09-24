@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.Documents.Extensions;
 using System;
@@ -79,7 +79,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 else
                 {
-                    if (Debugging.AssertsEnabled) Debugging.Assert(false,"unrecognized DocValues.Type: {0}", dvType);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(false, "unrecognized DocValues.Type: {0}", dvType);
                 }
             }
         }

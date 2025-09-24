@@ -1,4 +1,4 @@
-﻿namespace YAF.Lucene
+namespace YAF.Lucene
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
