@@ -334,3 +334,5 @@ document.addEventListener('DOMContentLoaded', () => {
 		getSearchResultsData(0);
 	}
 });
+
+_global.getSearchResultsData = getSearchResultsData;
