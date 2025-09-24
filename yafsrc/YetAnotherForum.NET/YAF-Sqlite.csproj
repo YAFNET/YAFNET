@@ -3001,7 +3001,7 @@
     <PostBuildEvent>del *.dll.config
 del *.xml
 
-xcopy "$(SolutionDir)YAF.Data\YAF.Data.Sqlite\bin\Debug\net481\x64\SQLite.Interop.dll" "$(OutputDir)" /y /f</PostBuildEvent>
+xcopy "$(SolutionDir)YAF.Data\YAF.Data.Sqlite\bin\Release\net481\x64\SQLite.Interop.dll" "$(OutputDir)" /y /f</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup>
