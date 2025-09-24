@@ -10,7 +10,6 @@ global using Microsoft.AspNetCore.Mvc;
 
 global using YAF.Core.BasePages;
 global using YAF.Core.Utilities;
-global using YAF.Core.Services;
 global using YAF.Types.Constants;
 global using YAF.Types.InputModels;
 global using YAF.Types.Interfaces;

@@ -271,8 +271,8 @@ module.exports = function(grunt) {
 				options: {
 					patterns: [
 						{
-							match: /version=\"([\d.]+)\"/,
-							replacement: 'version="<%= pkg.version%>"'
+							match: /version="([\d.]+)" exclude/,
+							replacement: 'version="<%= pkg.version%>" exclude'
 						}
 					]
 				},
@@ -312,18 +312,6 @@ module.exports = function(grunt) {
 						flatten: true,
 						src: ['../YAFNET.Data/YAFNET.Data.SqlServer/YAFNET.Data.SqlServer.nuspec'],
 						dest: '../YAFNET.Data/YAFNET.Data.SqlServer/'
-					},
-					{
-						expand: true,
-						flatten: true,
-						src: ['../YAFNET.Types/YAFNET.Types.nuspec'],
-						dest: '../YAFNET.Types/'
-					},
-					{
-						expand: true,
-						flatten: true,
-						src: ['../YAFNET.Web/YAFNET.Web.nuspec'],
-						dest: '../YAFNET.Web/'
 					}
 				]
 			},
@@ -331,15 +319,15 @@ module.exports = function(grunt) {
 				options: {
 					patterns: [
 						{
-							match: /id=\"YAFNET.Configuration\" version=\"([\d.]+)\"/,
+							match: /id="YAFNET.Configuration" version="([\d.]+)"/,
 							replacement: 'id="YAFNET.Configuration" version="<%= pkg.version%>"'
 						},
 						{
-							match: /id=\"YAFNET.Core\" version=\"([\d.]+)\"/,
+							match: /id="YAFNET.Core" version="([\d.]+)"/,
 							replacement: 'id="YAFNET.Core" version="<%= pkg.version%>"'
 						},
 						{
-							match: /id=\"YAFNET.Types\" version=\"([\d.]+)\"/,
+							match: /id="YAFNET.Types" version="([\d.]+)"/,
 							replacement: 'id="YAFNET.Types" version="<%= pkg.version%>"'
 						}
 					]
@@ -478,7 +466,6 @@ module.exports = function(grunt) {
 					'del bin\\Release\\net9.0\\publish\\appsettings-SqlServer.json ',
 					'del bin\\Release\\net9.0\\publish\\package.json ',
 					'del bin\\Release\\net9.0\\publish\\tsconfig.json ',
-					'del bin\\Release\\net9.0\\publish\\wwwroot\\GeoIP.dat ',
 					'rmdir bin\\Release\\net9.0\\publish\\wwwroot\\uploads\\ /s /q '
 				].join('&&')
 			},

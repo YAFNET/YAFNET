@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-	<Version>4.0.1</Version>
+	<Version>4.0.2</Version>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <RootNamespace>YAF.RazorPages</RootNamespace>
     <Description>YAF.NET UI using ASP.NET Core MVC Razor Pages.</Description>

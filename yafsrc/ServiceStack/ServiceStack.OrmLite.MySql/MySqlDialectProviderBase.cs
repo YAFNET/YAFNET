@@ -904,6 +904,11 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         return value ? "1" : "0";
     }
 
+    public override string SqlDateFormat(string quotedColumn, string format)
+    {
+        return $"DATE_FORMAT({quotedColumn}, '{format}')";
+    }
+
     /// <summary>
     /// Enables the foreign keys check.
     /// </summary>

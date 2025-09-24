@@ -1,9 +1,9 @@
 <Project>
 
   <PropertyGroup>
-	<Version>4.0.1</Version>
-	<AssemblyVersion>4.0.1</AssemblyVersion>
-	<FileVersion>4.0.1</FileVersion>
+	<Version>4.0.2</Version>
+	<AssemblyVersion>4.0.2</AssemblyVersion>
+	<FileVersion>4.0.2</FileVersion>
     <Authors>ServiceStack</Authors>
     <Company>ServiceStack, Inc.</Company>
     <Copyright>© 2008-2025 ServiceStack, Inc</Copyright>

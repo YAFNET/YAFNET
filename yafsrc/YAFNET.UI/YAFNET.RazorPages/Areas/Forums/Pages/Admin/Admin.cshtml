@@ -75,13 +75,13 @@
 									@if (Model.PageBoardContext.PageUser.DarkMode)
 									{
 										<span class="h2 fw-bold mb-0 text-light">
-											@Html.Raw(Model.Input.NumForums)
+											@Model.Input.NumForums
 										</span>
 									}
 									else
 									{
 										<span class="h2 fw-bold mb-0 text-dark">
-											@Html.Raw(Model.Input.NumForums)
+											@Model.Input.NumForums
 										</span>
 									}
 									
@@ -114,7 +114,7 @@
 										@Html.LocalizedText("ADMIN_ADMIN", "NUM_TOPICS")
 									</h5>
 									<span class="h2 fw-bold mb-0 text-secondary">
-										@Html.Raw(Model.Input.NumTopics)
+										@Model.Input.NumTopics
 									</span>
 								</div>
 								<div class="col-auto">

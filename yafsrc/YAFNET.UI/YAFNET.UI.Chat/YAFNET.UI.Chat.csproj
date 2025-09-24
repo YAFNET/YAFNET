@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-	<Version>4.0.1</Version>
+	<Version>4.0.2</Version>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <RootNamespace>YAF.UI.Chat</RootNamespace>
     <Description>Chat UI for YAF.NET.</Description>
