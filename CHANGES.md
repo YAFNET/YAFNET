@@ -1,6 +1,9 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.2.10
+* bug fixes
+
 # YetAnotherForum.NET v3.2.9
 * [NEW] added support for note bbcode
 * [NEW] added host setting to set the enter mode for editor (line break)
