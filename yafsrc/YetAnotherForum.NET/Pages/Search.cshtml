@@ -9,7 +9,7 @@
     <div class="input-group">
         <input asp-for="Input.SearchInput" class="form-control searchInput" id="searchInput" placeholder="@Model.GetText("BTNSEARCH")"/>
         <a button-style="Primary" icon="search" text-localized-tag="BTNSEARCH" href="javascript:getSearchResultsData(0);"></a>
-        <a class="dropdown-toggle" role="button" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" button-style="Secondary" icon="cog" text-localized-tag="OPTIONS"
+        <a class="dropdown-toggle" id="searchOptionsDropDown" role="button" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" button-style="Secondary" icon="cog" text-localized-tag="OPTIONS"
            text-localized-page="ADMIN_USERS"></a>
         <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="optionsDropDown">
             <div class="px-3 py-1">
@@ -52,10 +52,11 @@
                 </div>
             </div>
             <div class="px-3 d-grid gap-2">
-                <button button-style="Primary"
-                        button-size="Small"
-                        text-localized-tag="OK"
-                        text-localized-page="COMMON"></button>
+                <a href="javascript:bootstrap.Dropdown.getInstance(document.getElementById('searchOptionsDropDown')).hide();"
+                   button-style="Primary"
+	               button-size="Small"
+	               text-localized-tag="OK"
+	               text-localized-page="COMMON"></a>
             </div>
         </div>
     </div>

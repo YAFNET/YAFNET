@@ -239,7 +239,9 @@ public class ForumsModel : ModerateForumPage
             await this.GetRepository<Topic>().DeleteAsync(this.PageBoardContext.PageForumID, x.TopicID);
         }
 
-        return this.PageBoardContext.Notify(this.GetText("moderate", "deleted"), MessageTypes.success);
+        this.PageBoardContext.SessionNotify(this.GetText("moderate", "deleted"), MessageTypes.success);
+
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Moderate_Forums, new { f = this.PageBoardContext.PageForumID });
     }
 
     /// <summary>

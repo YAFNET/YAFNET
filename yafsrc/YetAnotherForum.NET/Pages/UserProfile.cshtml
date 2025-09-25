@@ -50,7 +50,7 @@
 			{
 				@foreach (var group in Model.Groups)
 				{
-					<span style="@group.Style" data-bs-toggle="tooltip" data-bs-title="@Html.LocalizedText("PROFILE", "GROUPS")">
+					<span class="my-2" style="@group.Style" data-bs-toggle="tooltip" data-bs-title="@Html.LocalizedText("PROFILE", "GROUPS")">
 						@group.Name
 					</span>
 				}
@@ -58,7 +58,7 @@
 			
 			@if (Model.CombinedUser.Item2.Profile_Birthday.HasValue && Model.CombinedUser.Item2.Profile_Birthday.Value >= DateTimeHelper.SqlDbMinTime())
 			{
-				<span class="badge text-bg-secondary">
+				<span class="badge text-bg-secondary my-2">
 					@Html.Icon("cake-candles")
 					@Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(
 						Model.CombinedUser.Item2.Profile_Birthday.Value.AddMinutes(-DateTimeHelper.GetTimeZoneOffset(Model.CombinedUser.Item1.TimeZoneInfo))))
@@ -67,7 +67,7 @@
 			
 			@if (Model.CombinedUser.Item2.Profile_Country.IsSet() && !Model.CombinedUser.Item2.Profile_Country.Equals("N/A"))
 			{
-				<span class="badge text-bg-info">
+				<span class="badge text-bg-info my-2">
 					@Html.Raw($"<span class=\"fi fi-{Model.CombinedUser.Item2.Profile_Country.Trim().ToLower()}\"></span>")
 					&nbsp;@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.Get<ILocalization>().GetText("COUNTRY", Model.CombinedUser.Item2.Profile_Country.Trim())))
 				</span>
@@ -77,27 +77,27 @@
 			{
 				var tag = $"RGN_{(Model.CombinedUser.Item2.Profile_Country.Trim().IsSet() ? Model.CombinedUser.Item2.Profile_Country.Trim() : Model.Get<ILocalization>().Culture.Name.Remove(0, 3).ToUpperInvariant())}_{Model.CombinedUser.Item2.Profile_Region}";
 
-				<span class="badge text-bg-info">
+				<span class="badge text-bg-info my-2">
 					@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.Get<ILocalization>().GetText("REGION", tag)))
 				</span>
 			}
 
 			@if (Model.CombinedUser.Item2.Profile_City.IsSet())
 			{
-				<span class="badge text-bg-info">
+				<span class="badge text-bg-info my-2">
 					@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item2.Profile_City))
 				</span>
 			}
 
 			@if (Model.CombinedUser.Item2.Profile_Location.IsSet())
 			{
-				<span class="badge text-bg-info">
+				<span class="badge text-bg-info my-2">
 					@Html.Icon("location-pin")
 					@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item2.Profile_Location))
 				</span>
 			}
 			
-			<div class="row mt-3">
+			<div class="row mt-1">
 				<div class="col-auto">
 					<strong>@Html.LocalizedText("PROFILE", "numposts")</strong>
 					@Model.Stats
@@ -118,7 +118,7 @@
 			
 			@if (!Model.CustomProfile.NullOrEmpty())
 			{
-				<div class="row mt-3">
+				<div class="row mt-2">
 					@foreach (var item in Model.CustomProfile)
 					{
 						<div class="col-auto">
@@ -133,7 +133,7 @@
 			
 			@if (Model.CombinedUser.Item2.Profile_Occupation.IsSet())
 			{
-				<p class="my-3">
+				<p class="my-2">
 					<strong>
 						@Html.LocalizedText("PROFILE", "OCCUPATION")
 					</strong>
