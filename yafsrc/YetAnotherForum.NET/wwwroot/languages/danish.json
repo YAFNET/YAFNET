@@ -820,6 +820,10 @@
         "@name": "ADMIN_ADMIN",
         "Resource": [
           {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "aktive anmodninger til denne IP -adresse"
+          },
+          {
             "@tag": "ADMIN_APPROVE",
             "#text": "Approve"
           },
@@ -1002,10 +1006,6 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Brugere pr. dag:"
-          },
-          {
-            "@tag": "ACTIVE_REQUESTS",
-            "#text": "aktive anmodninger til denne IP -adresse"
           }
         ]
       },
@@ -5645,6 +5645,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token bruges til at foretage sikre webserviceopkald. "
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Tilladt brugernavnstegn:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Listen over tilladte filudvidelser til vedhæftede filer."
           }
         ]
       },

@@ -820,6 +820,10 @@
         "@name": "ADMIN_ADMIN",
         "Resource": [
           {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Demandes actives pour cette adresse IP"
+          },
+          {
             "@tag": "ADMIN_APPROVE",
             "#text": "Approve"
           },
@@ -1002,10 +1006,6 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Utilisateurs par jour :"
-          },
-          {
-            "@tag": "ACTIVE_REQUESTS",
-            "#text": "Demandes actives pour cette adresse IP"
           }
         ]
       },
@@ -5645,6 +5645,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilisé pour effectuer des appels de service web sécurisés. Il change constamment jusqu'à ce que vous sauvegardiez vos paramètres d'hôte."
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Périte des personnages de nom d'utilisateur:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "La liste des extensions de fichiers autorisées pour les pièces jointes."
           }
         ]
       },

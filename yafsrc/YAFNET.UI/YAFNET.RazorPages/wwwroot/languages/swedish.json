@@ -820,6 +820,10 @@
         "@name": "ADMIN_ADMIN",
         "Resource": [
           {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Aktiva förfrågningar för denna IP -adress"
+          },
+          {
             "@tag": "ADMIN_APPROVE",
             "#text": "Approve"
           },
@@ -1002,10 +1006,6 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Användare per dag:"
-          },
-          {
-            "@tag": "ACTIVE_REQUESTS",
-            "#text": "Aktiva förfrågningar för denna IP -adress"
           }
         ]
       },
@@ -5645,6 +5645,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token som används för att göra säkra webbtjänstsamtal. Ändras ständigt tills du sparar dina värdinställningar."
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Tillåtet användarnamnstecken:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Listan över tillåtna filförlängningar för bilagor."
           }
         ]
       },

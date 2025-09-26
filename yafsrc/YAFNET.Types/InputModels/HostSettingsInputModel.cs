@@ -120,6 +120,12 @@ public class HostSettingsInputModel
     public int MinRequiredPasswordLength { get; set; }
 
     /// <summary>
+    /// Gets or sets the allowed username characters.
+    /// </summary>
+    /// <value>The allowed username characters.</value>
+    public string AllowedUserNameCharacters { get; set; }
+
+    /// <summary>
     /// Gets or sets the allowed number of urls.
     /// </summary>
     /// <value>The allowed number of urls.</value>

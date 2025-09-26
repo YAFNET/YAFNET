@@ -820,6 +820,10 @@
         "@name": "ADMIN_ADMIN",
         "Resource": [
           {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Actieve aanvragen voor dit IP -adres"
+          },
+          {
             "@tag": "ADMIN_APPROVE",
             "#text": "Keur goed"
           },
@@ -1002,10 +1006,6 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Nieuwe gebruikers per dag:"
-          },
-          {
-            "@tag": "ACTIVE_REQUESTS",
-            "#text": "Actieve aanvragen voor dit IP -adres"
           }
         ]
       },
@@ -5637,6 +5637,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Merkteken om beveiligde web service calls te maken. Wijzigt voortdurend totdat je de host settings hebt opgeslagen."
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Gebruikers van gebruikersnaam toegestaan:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "De lijst met toegestane bestandsextensies voor bijlagen."
           }
         ]
       },

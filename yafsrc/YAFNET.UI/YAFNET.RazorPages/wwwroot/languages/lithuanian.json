@@ -820,6 +820,10 @@
         "@name": "ADMIN_ADMIN",
         "Resource": [
           {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Aktyvios šio IP adreso užklausos"
+          },
+          {
             "@tag": "ADMIN_APPROVE",
             "#text": "Approve"
           },
@@ -1002,10 +1006,6 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Vartotojų per dieną:"
-          },
-          {
-            "@tag": "ACTIVE_REQUESTS",
-            "#text": "Aktyvios šio IP adreso užklausos"
           }
         ]
       },
@@ -5645,6 +5645,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Ženklas, naudojamas saugiems žiniatinklio paslaugos skambučiams atlikti. Nuolat keičiasi, kol išsaugote prieglobos nustatymus."
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Leidžiami vartotojo vardo simboliai:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Leidžiamų priedų failų plėtinių sąrašas."
           }
         ]
       },

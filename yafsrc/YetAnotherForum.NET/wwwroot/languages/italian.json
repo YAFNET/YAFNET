@@ -820,6 +820,10 @@
         "@name": "ADMIN_ADMIN",
         "Resource": [
           {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Richieste attive per questo indirizzo IP"
+          },
+          {
             "@tag": "ADMIN_APPROVE",
             "#text": "Approve"
           },
@@ -1002,10 +1006,6 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Utenti al giorno:"
-          },
-          {
-            "@tag": "ACTIVE_REQUESTS",
-            "#text": "Richieste attive per questo indirizzo IP"
           }
         ]
       },
@@ -5637,6 +5637,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilizzato per effettuare chiamate sicure al servizio web. Cambia continuamente finché non si salvano le impostazioni dell'host."
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Personaggi del nome utente consentito:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "L'elenco delle estensioni dei file consentite per gli allegati."
           }
         ]
       },

@@ -820,6 +820,10 @@
         "@name": "ADMIN_ADMIN",
         "Resource": [
           {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Aktive forespørsler om denne IP -adressen"
+          },
+          {
             "@tag": "ADMIN_APPROVE",
             "#text": "Approve"
           },
@@ -1002,10 +1006,6 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Brukere per dag:"
-          },
-          {
-            "@tag": "ACTIVE_REQUESTS",
-            "#text": "Aktive forespørsler om denne IP -adressen"
           }
         ]
       },
@@ -5645,6 +5645,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token som brukes til å foreta sikre nettjenesteanrop. Endres hele tiden til du lagrer vertsinnstillingene."
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Tillatt brukernavn tegn:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Listen over tillatte filutvidelser for vedlegg."
           }
         ]
       },

@@ -820,6 +820,10 @@
         "@name": "ADMIN_ADMIN",
         "Resource": [
           {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Selle IP -aadressi aktiivsed taotlused"
+          },
+          {
             "@tag": "ADMIN_APPROVE",
             "#text": "Approve"
           },
@@ -1002,10 +1006,6 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Kasutajad päevas:"
-          },
-          {
-            "@tag": "ACTIVE_REQUESTS",
-            "#text": "Selle IP -aadressi aktiivsed taotlused"
           }
         ]
       },
@@ -5645,6 +5645,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token, mida kasutatakse turvaliste veebiteenuste kõnede tegemiseks. "
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Lubatud kasutajanime tähemärgid:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Manuste lubatud faililaiendite loetelu."
           }
         ]
       },

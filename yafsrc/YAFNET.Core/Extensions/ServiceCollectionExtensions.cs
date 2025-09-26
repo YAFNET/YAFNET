@@ -101,7 +101,7 @@ public static class ServiceCollectionExtensionsExtensions
 
                 // User settings.
                 options.User.AllowedUserNameCharacters =
-                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                    BoardContext.Current.BoardSettings.AllowedUserNameCharacters;
                 options.User.RequireUniqueEmail = true;
             });
 

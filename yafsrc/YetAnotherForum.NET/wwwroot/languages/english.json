@@ -4015,6 +4015,14 @@
             "#text": "The list of allowed File Extensions for Attachments."
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Allowed UserName Characters:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "The list of allowed characters in the username used to validate usernames."
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "Sub Forums In Forums List:"
           },

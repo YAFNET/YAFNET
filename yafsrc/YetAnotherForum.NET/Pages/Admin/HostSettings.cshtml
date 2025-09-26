@@ -407,7 +407,13 @@
 		<div class="form-check form-switch">
 			<input type="checkbox" class="form-check-input" asp-for="Input.ShowRulesForRegistration"/>
 		</div>
-	</div>
+									</div>
+									<div class="mb-3">
+										<label class="form-label" info-button="true"
+											   asp-for="Input.AllowedUserNameCharacters"
+											   localized-tag="ALLOWED_NAME_CHARS"></label>
+										<input type="text" class="form-control" asp-for="Input.AllowedUserNameCharacters" />
+									</div>
 </div>
 <div class="tab-pane fade" id="attachments" role="tabpanel" aria-labelledby="attachments-tab">
 	<div class="mb-3">

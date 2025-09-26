@@ -820,6 +820,10 @@
         "@name": "ADMIN_ADMIN",
         "Resource": [
           {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "בקשות פעילות לכתובת IP זו"
+          },
+          {
             "@tag": "ADMIN_APPROVE",
             "#text": "Approve"
           },
@@ -1002,10 +1006,6 @@
           {
             "@tag": "USERS_DAY",
             "#text": "משתמשים ליום:"
-          },
-          {
-            "@tag": "ACTIVE_REQUESTS",
-            "#text": "בקשות פעילות לכתובת IP זו"
           }
         ]
       },
@@ -5645,6 +5645,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "אסימון המשמש לביצוע שיחות שירות אינטרנט מאובטח. משתנה כל הזמן עד שתשמור את הגדרות המארח שלך."
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "מותר דמויות של שם משתמש:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "רשימת תוספי הקבצים המותרים לקבצים מצורפים."
           }
         ]
       },

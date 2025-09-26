@@ -820,6 +820,10 @@
         "@name": "ADMIN_ADMIN",
         "Resource": [
           {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Yêu cầu hoạt động cho địa chỉ IP này"
+          },
+          {
             "@tag": "ADMIN_APPROVE",
             "#text": "Approve"
           },
@@ -1002,10 +1006,6 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Người dùng mỗi ngày:"
-          },
-          {
-            "@tag": "ACTIVE_REQUESTS",
-            "#text": "Yêu cầu hoạt động cho địa chỉ IP này"
           }
         ]
       },
@@ -5645,6 +5645,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Mã thông báo được sử dụng để thực hiện các cuộc gọi dịch vụ web an toàn. Liên tục thay đổi cho đến khi bạn lưu cài đặt máy chủ của mình."
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Các ký tự tên người dùng được phép:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Danh sách các phần mở rộng tệp được phép cho các tệp đính kèm."
           }
         ]
       },

@@ -820,6 +820,10 @@
         "@name": "ADMIN_ADMIN",
         "Resource": [
           {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "此IP地址的主动请求"
+          },
+          {
             "@tag": "ADMIN_APPROVE",
             "#text": "Approve"
           },
@@ -1002,10 +1006,6 @@
           {
             "@tag": "USERS_DAY",
             "#text": "每日用户数:"
-          },
-          {
-            "@tag": "ACTIVE_REQUESTS",
-            "#text": "此IP地址的主动请求"
           }
         ]
       },
@@ -5645,6 +5645,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "用于进行安全 Web 服务调用的令牌。"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "允许用户名字符："
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "附件允许的文件扩展名列表。"
           }
         ]
       },

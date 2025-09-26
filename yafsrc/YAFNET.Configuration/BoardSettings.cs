@@ -175,6 +175,16 @@ public class BoardSettings
     }
 
     /// <summary>
+    /// Gets or sets the list of allowed characters in the username used to validate usernames. Defaults to abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+
+    /// </summary>
+    /// <value>The allowed username characters.</value>
+    public string AllowedUserNameCharacters {
+        get => this.RegistryBoard.GetValue("AllowedUserNameCharacters", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+");
+
+        set => this.RegistryBoard.SetValue("AllowedUserNameCharacters", value);
+    }
+
+    /// <summary>
     /// Gets or sets the board name.
     /// </summary>
     /// <value>The board name.</value>
