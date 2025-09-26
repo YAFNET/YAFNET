@@ -71,8 +71,8 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
         {
             Major = 4,
             Minor = 0,
-            Build = 2,
-            ReleaseType = ReleaseType.Regular,
+            Build = 3,
+            ReleaseType = ReleaseType.BETA,
             ReleaseNumber = 0
         };
 

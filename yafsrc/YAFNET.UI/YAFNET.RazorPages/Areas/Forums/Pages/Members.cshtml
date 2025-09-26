@@ -5,6 +5,7 @@
 @using YAF.Types.Interfaces.Services
 @model MembersModel
 
+<form method="post">
 <div class="row">
     <div class="col">
         <div class="card mb-3">
@@ -14,7 +15,6 @@
                         @Html.IconHeader("users", "MEMBERS", "TITLE")
                     </div>
                     <div class="col-auto">
-                        <form method="post">
                         <div class="btn-toolbar" role="toolbar">
                             <div class="input-group input-group-sm me-2 mb-1" role="group">
                                 <div class="input-group-text">
@@ -146,7 +146,6 @@
                                 </div>
                             </div>
                         </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -204,12 +203,14 @@
 </div>
 <div class="row justify-content-end">
 	<div class="col-auto">
+		
 		<pager page-size="@Model.Size"
 		       count="@(!Model.UserList.NullOrEmpty() ? this.Model.UserList.FirstOrDefault().TotalRows : 0)">
 		</pager>
 	</div>
 </div>
 
+</form>
 @section Scripts {
 	@await Html.PartialAsync("_ChoicesScriptsPartial")
 }

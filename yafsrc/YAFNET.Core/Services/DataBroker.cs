@@ -171,9 +171,6 @@ public class DataBroker : IHaveServiceLocator
     /// <param name="ip">
     /// The IP Address.
     /// </param>
-    /// <param name="location">
-    /// The location.
-    /// </param>
     /// <param name="path">
     ///  The portion of the request path that identifies the requested resource.
     /// </param>
@@ -221,7 +218,6 @@ public class DataBroker : IHaveServiceLocator
         int boardId,
         string userKey,
         string ip,
-        string location,
         string path,
         string referer,
         string country,

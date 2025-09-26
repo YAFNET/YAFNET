@@ -44,12 +44,12 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
     /// <summary>
     /// Initializes a new instance of the <see cref="ButtonHelper"/> class.
     /// </summary>
-    /// <param name="serviceLocator">
-    /// The service locator.
-    /// </param>
-    public ButtonHelper(IServiceLocator serviceLocator)
+    /// <param name="serviceLocator">The service locator.</param>
+    /// <param name="html">The HTML.</param>
+    public ButtonHelper(IServiceLocator serviceLocator, IHtmlHelper html)
     {
         this.ServiceLocator = serviceLocator;
+        this.html = html;
     }
 
     /// <summary>
@@ -431,7 +431,6 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
                 ButtonStyle.Light => "btn btn-light",
                 ButtonStyle.Dark => "btn btn-dark",
                 ButtonStyle.Link => "btn btn-link",
-                ButtonStyle.None => string.Empty,
                 _ => string.Empty
             };
     }

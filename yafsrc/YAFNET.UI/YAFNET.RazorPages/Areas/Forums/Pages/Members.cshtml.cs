@@ -189,6 +189,11 @@ public class MembersModel : ForumPage
         this.BindData();
     }
 
+    public void OnPostPager(int p)
+    {
+        this.BindData();
+    }
+
     /// <summary>
     /// Sort by Joined ascending
     /// </summary>

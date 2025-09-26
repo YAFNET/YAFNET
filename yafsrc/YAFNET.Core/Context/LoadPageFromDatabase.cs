@@ -26,6 +26,7 @@ namespace YAF.Core.Context;
 
 using System;
 using System.Collections.Generic;
+
 using Microsoft.AspNetCore.Routing;
 
 #if !DEBUG
@@ -113,13 +114,6 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
             var tries = 0;
             Tuple<PageLoad, User, Category, Forum, Topic, Message> pageRow;
 
-            var location = context!.Request.GetQueryOrRouteValue<string>("u");
-
-            if (location.IsNotSet())
-            {
-                location = string.Empty;
-            }
-
             var path = context!.Request.Path.ToString();
 
             string forumPage;
@@ -158,7 +152,6 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
                     BoardContext.Current.PageBoardID,
                     userKey,
                     ipAddress,
-                    location,
                     path,
                     referer,
                     country,

@@ -261,7 +261,7 @@ public static class UserRepositoryExtensions
         DateTime startDate,
         int displayNumber)
     {
-        return (await repository.DbAccess.ExecuteAsync(db =>
+        return [.. (await repository.DbAccess.ExecuteAsync(db =>
         {
             var provider = OrmLiteConfig.DialectProvider;
             var expression = provider.SqlExpression<User>();
@@ -288,7 +288,7 @@ public static class UserRepositoryExtensions
                      """).Take(displayNumber);
 
             return db.SelectAsync<LastActive>(expression);
-        })).OrderByDescending(x => x.NumOfPosts).ToList();
+        })).OrderByDescending(x => x.NumOfPosts)];
     }
 
     /// <summary>
