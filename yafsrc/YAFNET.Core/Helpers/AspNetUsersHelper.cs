@@ -1265,8 +1265,10 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     }
                     else
                     {
-                        expression.And<User>(u => u.Name.StartsWith(startLetter.ToString()) ||
-                                                  u.DisplayName.StartsWith(startLetter.ToString()));
+                        var startsWith = startLetter == '#' ? string.Empty : startLetter.ToString();
+
+                        expression.And<User>(u => u.Name.StartsWith(startsWith) ||
+                                                  u.DisplayName.StartsWith(startsWith));
                     }
 
                     // Remove Guests amd deleted
