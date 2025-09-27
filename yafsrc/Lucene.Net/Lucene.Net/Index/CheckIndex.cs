@@ -30,21 +30,21 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BlockTreeTermsReader = YAF.Lucene.Net.Codecs.BlockTreeTermsReader<object>;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using BlockTreeTermsReader = Lucene.Net.Codecs.BlockTreeTermsReader<object>;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using Directory = Lucene.Net.Store.Directory;
+    using DocIdSetIterator = Lucene.Net.Search.DocIdSetIterator;
     using Document = Documents.Document;
-    using DocValuesStatus = YAF.Lucene.Net.Index.CheckIndex.Status.DocValuesStatus;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using Int64BitSet = YAF.Lucene.Net.Util.Int64BitSet;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using Lucene3xSegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
-    using PostingsFormat = YAF.Lucene.Net.Codecs.PostingsFormat;
-    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
+    using DocValuesStatus = Lucene.Net.Index.CheckIndex.Status.DocValuesStatus;
+    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
+    using IBits = Lucene.Net.Util.IBits;
+    using IndexInput = Lucene.Net.Store.IndexInput;
+    using Int64BitSet = Lucene.Net.Util.Int64BitSet;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using Lucene3xSegmentInfoFormat = Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
+    using PostingsFormat = Lucene.Net.Codecs.PostingsFormat;
+    using StringHelper = Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// Basic tool and API to check the health of an index and
@@ -717,7 +717,7 @@ namespace YAF.Lucene.Net.Index
 #pragma warning restore 612, 618
                     {
                         // don't print size in bytes if its a 3.0 segment with shared docstores
-                        Msg(infoStream, "    size (MB)=" + segInfoStat.SizeMB.ToString(nf));
+                        Msg(infoStream, "    size (MB)=" + J2N.Numerics.Double.ToString(segInfoStat.SizeMB, nf));
                     }
                     IDictionary<string, string> diagnostics = info.Info.Diagnostics;
                     segInfoStat.Diagnostics = diagnostics;
@@ -2269,7 +2269,7 @@ namespace YAF.Lucene.Net.Index
                     }
                 }
                 float vectorAvg = status.DocCount == 0 ? 0 : status.TotVectors / (float)status.DocCount;
-                Msg(infoStream, "OK [" + status.TotVectors + " total vector count; avg " + vectorAvg.ToString(CultureInfo.InvariantCulture.NumberFormat) + " term/freq vector fields per doc]");
+                Msg(infoStream, "OK [" + status.TotVectors + " total vector count; avg " + J2N.Numerics.Single.ToString(vectorAvg, NumberFormatInfo.InvariantInfo) + " term/freq vector fields per doc]");
             }
             catch (Exception e) when (e.IsThrowable())
             {
