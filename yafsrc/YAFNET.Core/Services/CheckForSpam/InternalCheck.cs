@@ -88,7 +88,8 @@ public class InternalCheck : ICheckForBot
                 isBot = true;
             }
 
-            foreach (var mask in bannedNameRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID).Select(x => x.Mask))
+            foreach (var mask in bannedNameRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
+                         .Select(x => x.Mask))
             {
                 try
                 {

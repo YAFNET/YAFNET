@@ -32,8 +32,7 @@ public interface IBackgroundTask : IDisposable
     /// <summary>
     /// Sets Data
     /// </summary>
-    object Data
-    {
+    object Data {
         set;
     }
 

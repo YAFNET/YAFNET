@@ -109,11 +109,7 @@ public static class FileHelper
         ArgumentNullException.ThrowIfNull(folder);
 
         files.Where(
-            e => e.Extension.Equals(".png", StringComparison.InvariantCultureIgnoreCase)
-                 || e.Extension.Equals(".gif", StringComparison.InvariantCultureIgnoreCase)
-                 || e.Extension.Equals(".jpg", StringComparison.InvariantCultureIgnoreCase) || e.Extension.Equals(
-                     ".svg",
-                     StringComparison.InvariantCultureIgnoreCase)).ForEach(
+            e => e.Extension.IsImageName()).ForEach(
             f =>
                 {
                     var item = new SelectListItem(

@@ -108,8 +108,8 @@ public class ThankYou : IThankYou, IHaveServiceLocator
         string titleTag,
         int messageId)
     {
-        return new()
-                   {
+        return new ThankYouInfo
+        {
                        MessageID = messageId,
                        ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId, true),
                        Text = this.Get<ILocalization>().GetText("BUTTON", textTag),
@@ -162,7 +162,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
 
     /// <summary>
     /// This method returns a string containing the HTML code for
-    ///   showing the the post footer. the HTML content is the name of users
+    ///   showing the post footer. the HTML content is the name of users
     ///   who thanked the post and the date they thanked.
     /// </summary>
     /// <param name="messageId">
@@ -177,32 +177,27 @@ public class ThankYou : IThankYou, IHaveServiceLocator
 
         var thanks = this.GetRepository<Thanks>().MessageGetThanksList(messageId);
 
-        filler.Append("<ol>");
+        filler.Append("<div class=\"avatar-stack\">");
 
         thanks.ForEach(
             dr =>
                 {
                     var name = HttpUtility.HtmlEncode(dr.Item2.DisplayOrUserName());
 
-                    filler.AppendFormat(
-                        """<li class="list-inline-item"><a id="{0}" href="{1}"><u>{2}</u></a>""",
-                        dr.Item2.ID,
-                        this.Get<ILinkBuilder>().GetUserProfileLink(dr.Item2.ID, name),
-                        name);
+                    var title = this.Get<BoardSettings>().ShowThanksDate
+                        ? $"{name} {this.Get<ILocalization>().GetTextFormatted(
+                            "ONDATE",
+                            this.Get<IDateTimeService>().FormatDateShort(dr.Item1.ThanksDate))}"
+                        : name;
 
-                    if (this.Get<BoardSettings>().ShowThanksDate)
-                    {
-                        filler.AppendFormat(
-                            " {0}",
-                            this.Get<ILocalization>().GetTextFormatted(
-                                "ONDATE",
-                                this.Get<IDateTimeService>().FormatDateShort(dr.Item1.ThanksDate)));
-                    }
+                    filler.Append(
+                        $"""<a href="" class="avatar-item"><img src="{this.Get<IAvatars>()
+                            .GetAvatarUrlForUser(dr.Item2.ID, dr.Item2.Avatar, dr.Item2.AvatarImage != null)}" alt="{name}" title="{title}" class="avatar border rounded img-fluid" />""");
 
-                    filler.Append("</li>");
+                    filler.Append("</a>");
                 });
 
-        filler.Append("</ol>");
+        filler.Append("</div>");
 
         return filler.ToString();
     }

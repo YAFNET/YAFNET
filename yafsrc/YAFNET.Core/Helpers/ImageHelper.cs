@@ -28,6 +28,7 @@ using System.IO;
 
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Webp;
 using SixLabors.ImageSharp.Processing;
 
 /// <summary>
@@ -41,9 +42,6 @@ public static class ImageHelper
     /// <param name="image">
     ///     The Image.
     /// </param>
-    /// <param name="imageFormat">
-    /// The Image Format
-    /// </param>
     /// <param name="x">
     ///     The image width.
     /// </param>
@@ -53,7 +51,7 @@ public static class ImageHelper
     /// <returns>
     /// A resized image stream Stream.
     /// </returns>
-    public static MemoryStream GetResizedImage(Image image, IImageFormat imageFormat, long x, long y)
+    public static MemoryStream GetResizedImage(Image image, long x, long y)
     {
         double newWidth = image.Width;
         double newHeight = image.Height;
@@ -74,7 +72,7 @@ public static class ImageHelper
 
         var resized = new MemoryStream();
 
-        image.Save(resized, imageFormat);
+        image.Save(resized, new WebpEncoder());
 
         return resized;
     }

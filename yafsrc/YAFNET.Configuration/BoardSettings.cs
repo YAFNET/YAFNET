@@ -1821,7 +1821,7 @@ public class BoardSettings
         get =>
             this.Registry.GetValue(
                 "AllowedFileExtensions",
-                "bmp,doc,gif,jpg,jpeg,mov,mp3,mpg,png,rar,tif,txt,xls,xml,zip");
+                "bmp,doc,gif,jpg,jpeg,webp,mov,mp3,mpg,png,rar,tif,txt,xls,xml,zip");
 
         set => this.Registry.SetValue("AllowedFileExtensions", value.ToLower());
     }

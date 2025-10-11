@@ -21,7 +21,7 @@
 			<dependency id="YAFNET.Core" version="4.0.2" exclude="Build,Analyzers" />
 			<dependency id="YAFNET.Types" version="4.0.2" exclude="Build,Analyzers" />
 			<dependency id="Autofac" version="8.4.0" exclude="Build,Analyzers" />
-			<dependency id="Npgsql" version="9.0.3" exclude="Build,Analyzers" />
+			<dependency id="Npgsql" version="9.0.4" exclude="Build,Analyzers" />
 			<dependency id="System.ComponentModel.Composition" version="9.0.9" exclude="Build,Analyzers" />
 		</group>
     </dependencies>

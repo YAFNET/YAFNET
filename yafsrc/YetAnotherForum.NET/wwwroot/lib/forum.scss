@@ -76,6 +76,48 @@
     overflow-y: scroll;
 }
 
+.avatar-stack {
+    display: flex;
+
+    .avatar-item {
+        height: 20px;
+        width: 20px;
+        display: inline-block;
+        transition: margin 0.1s ease-in-out;
+
+        & + .avatar-item {
+            margin-left: -10px;
+        }
+
+        &:first-child {
+            z-index: 5;
+        }
+
+        &:nth-child(2) {
+            z-index: 4;
+        }
+
+        &:nth-child(3) {
+            z-index: 3;
+        }
+
+        &:nth-child(4) {
+            z-index: 2;
+        }
+
+        &:last-child {
+            z-index: 1;
+        }
+    }
+
+    &:hover {
+        .avatar-item {
+            margin-left: 0px;
+            margin-right: 8px;
+        }
+    }
+}
+
 // Unread Icon
 .unread {
     position: absolute;

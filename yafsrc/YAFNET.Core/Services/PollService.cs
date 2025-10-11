@@ -95,7 +95,7 @@ public class PollService : IHaveServiceLocator
     /// </returns>
     public bool IsPollClosed(Poll poll)
     {
-        var dtr = this.DaysToRun(poll, out _);
+        var dtr = this.Get<PollService>().DaysToRun(poll, out _);
         return dtr == 0;
     }
 

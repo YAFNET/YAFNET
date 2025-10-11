@@ -603,6 +603,6 @@ public static class StaticDataHelper
     /// <returns>System.String[].</returns>
     public static string[] ImageFormats()
     {
-        return ["jpg", "jpeg", "gif", "png", "bmp"];
+        return ["webp","jpg", "jpeg", "gif", "png", "bmp"];
     }
 }

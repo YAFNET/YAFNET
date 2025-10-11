@@ -160,7 +160,6 @@ public class FileUpload : ForumBaseController
                 {
                     resized = ImageHelper.GetResizedImage(
                         img,
-                        img.Metadata.DecodedImageFormat,
                         this.Get<BoardSettings>().ImageAttachmentResizeWidth,
                         this.Get<BoardSettings>().ImageAttachmentResizeHeight);
                 }
@@ -188,6 +187,10 @@ public class FileUpload : ForumBaseController
                 }
                 else
                 {
+                    var extensionOld = Path.GetExtension(fileName);
+
+                    fileName = fileName.Replace(extensionOld, ".webp");
+
                     newAttachmentId = this.GetRepository<Attachment>().Save(
                         yafUserId,
                         fileName,

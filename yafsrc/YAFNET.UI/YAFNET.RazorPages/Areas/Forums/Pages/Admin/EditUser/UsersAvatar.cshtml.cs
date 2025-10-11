@@ -30,18 +30,14 @@ namespace YAF.Pages.Admin.EditUser;
 
 using System.Collections.Generic;
 using System.IO;
-
-using Microsoft.AspNetCore.Hosting;
-
 using System.Linq;
-
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-
 using SixLabors.ImageSharp;
-
+using SixLabors.ImageSharp.Formats.Webp;
 using YAF.Core.Context;
 using YAF.Core.Helpers;
 using YAF.Core.Services;
@@ -189,7 +185,7 @@ public class UsersAvatarModel : AdminPage
                     $"{this.GetTextFormatted("WARN_TOOBIG", x, y)} {this.GetTextFormatted("WARN_SIZE", image.Width, image.Height)} {this.GetText("EDIT_AVATAR", "WARN_RESIZED")}",
                     MessageTypes.warning);
 
-                resizedImage = ImageHelper.GetResizedImage(image, image.Metadata.DecodedImageFormat, x, y);
+                resizedImage = ImageHelper.GetResizedImage(image, x, y);
             }
 
             // Delete old first...
@@ -362,7 +358,9 @@ public class UsersAvatarModel : AdminPage
     {
         var uploadFolderPath = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
 
-        var fileName = Path.Combine(uploadFolderPath, this.Upload.FileName);
+        var extensionOld = Path.GetExtension(this.Upload.FileName);
+
+        var fileName = Path.Combine(uploadFolderPath, this.Upload.FileName.Replace(extensionOld, ".webp"));
 
         var pos = fileName.LastIndexOfAny(['/', '\\']);
 
@@ -393,7 +391,7 @@ public class UsersAvatarModel : AdminPage
 
             using var memory = new MemoryStream();
             await using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
-            await avatarImage.SaveAsync(memory, avatarImage.Metadata.DecodedImageFormat);
+            await avatarImage.SaveAsync(memory, new WebpEncoder());
             var bytes = memory.ToArray();
             await fs.WriteAsync(bytes);
 

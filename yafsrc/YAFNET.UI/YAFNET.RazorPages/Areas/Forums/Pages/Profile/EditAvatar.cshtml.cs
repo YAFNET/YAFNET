@@ -26,6 +26,8 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
+using SixLabors.ImageSharp.Formats.Webp;
+
 namespace YAF.Pages.Profile;
 
 using System.Collections.Generic;
@@ -105,7 +107,7 @@ public class EditAvatarModel : ProfilePage
     /// <returns>IActionResult.</returns>
     public IActionResult OnGet()
     {
-       return this.LoadPage();
+        return this.LoadPage();
     }
 
     /// <summary>
@@ -134,7 +136,8 @@ public class EditAvatarModel : ProfilePage
         }
 
         // save the avatar right now...
-        await this.GetRepository<User>().SaveAvatarAsync(this.PageBoardContext.PageUserID, this.AvatarGallery, null, null);
+        await this.GetRepository<User>()
+            .SaveAvatarAsync(this.PageBoardContext.PageUserID, this.AvatarGallery, null, null);
 
         // clear the cache for this user...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
@@ -148,7 +151,8 @@ public class EditAvatarModel : ProfilePage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostUploadUpdateAsync()
     {
-        if (this.Upload is null || this.Upload.FileName.Trim().Length <= 0 || !this.Upload.FileName.Trim().IsImageName())
+        if (this.Upload is null || this.Upload.FileName.Trim().Length <= 0 ||
+            !this.Upload.FileName.Trim().IsImageName())
         {
             return this.LoadPage();
         }
@@ -169,7 +173,7 @@ public class EditAvatarModel : ProfilePage
                     $"{this.GetTextFormatted("WARN_TOOBIG", x, y)} {this.GetTextFormatted("WARN_SIZE", image.Width, image.Height)} {this.GetText("EDIT_AVATAR", "WARN_RESIZED")}",
                     MessageTypes.warning);
 
-                resizedImage = ImageHelper.GetResizedImage(image, image.Metadata.DecodedImageFormat, x, y);
+                resizedImage = ImageHelper.GetResizedImage(image, x, y);
             }
 
             // Delete old first...
@@ -233,7 +237,7 @@ public class EditAvatarModel : ProfilePage
             this.AvatarUrl = this.Get<IUrlHelper>().Action(
                 "GetResponseLocalAvatar",
                 "Avatar",
-                new {userId = this.PageBoardContext.PageUserID, v = DateTime.Now.Ticks.ToString()});
+                new { userId = this.PageBoardContext.PageUserID, v = DateTime.Now.Ticks.ToString() });
         }
         else if (currentUser.Avatar.IsSet() && currentUser.Avatar.StartsWith('/'))
         {
@@ -267,7 +271,7 @@ public class EditAvatarModel : ProfilePage
             this.AvatarUrl = this.Get<IUrlHelper>().Action(
                 "GetTextAvatar",
                 "Avatar",
-                new {userId = this.PageBoardContext.PageUserID, v = DateTime.Now.Ticks.ToString()});
+                new { userId = this.PageBoardContext.PageUserID, v = DateTime.Now.Ticks.ToString() });
         }
     }
 
@@ -308,7 +312,7 @@ public class EditAvatarModel : ProfilePage
 
             var memoryStream = new MemoryStream();
 
-            await image.SaveAsync(memoryStream, image.Metadata.DecodedImageFormat);
+            await image.SaveAsync(memoryStream, new WebpEncoder());
 
             await this.GetRepository<User>().SaveAvatarAsync(
                 this.PageBoardContext.PageUserID,
@@ -336,7 +340,9 @@ public class EditAvatarModel : ProfilePage
             this.Get<IWebHostEnvironment>().WebRootPath,
             this.Get<BoardFolders>().Uploads);
 
-        var fileName = Path.Combine(uploadFolderPath, this.Upload.FileName);
+        var extensionOld = Path.GetExtension(this.Upload.FileName);
+
+        var fileName = Path.Combine(uploadFolderPath, this.Upload.FileName.Replace(extensionOld, ".webp"));
 
         var pos = fileName.LastIndexOfAny(['/', '\\']);
 
@@ -368,7 +374,7 @@ public class EditAvatarModel : ProfilePage
             using var memory = new MemoryStream();
 
             await using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
-            await avatarImage.SaveAsync(memory, avatarImage.Metadata.DecodedImageFormat);
+            await avatarImage.SaveAsync(memory, new WebpEncoder());
             var bytes = memory.ToArray();
             await fs.WriteAsync(bytes);
 
@@ -381,6 +387,7 @@ public class EditAvatarModel : ProfilePage
         else
         {
             await using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
+
             var bytes = resized.ToArray();
             await fs.WriteAsync(bytes);
 
