@@ -319,7 +319,7 @@
 <form method="post">
     <div class="row mb-3 d-flex justify-content-between">
     <div class="col-md-4">
-        <pager page-size="@Model.Size"
+	    <pager page-size="@Model.Size" use-submit="false"
                count="Model.Messages.NullOrEmpty() ? 0 : Model.Messages.FirstOrDefault().TotalRows">
         </pager>
     </div>

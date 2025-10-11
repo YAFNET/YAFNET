@@ -289,7 +289,7 @@
             </div>
             <div class="row justify-content-end">
                 <div class="col-auto">
-                    <pager page-size="@Model.Size"
+                    <pager page-size="@Model.Size" use-submit="false"
                            count="!Model.Stream.NullOrEmpty() ? Model.TotalItems : 0">
                     </pager>
                 </div>

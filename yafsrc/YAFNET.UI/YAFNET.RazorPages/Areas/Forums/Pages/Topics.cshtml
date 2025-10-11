@@ -236,32 +236,32 @@
 }
 
 <div class="row justify-content-between">
-    <div class="col-auto mb-1">
-        <pager page-size="@Model.Size"
-               count="Model.Topics.NullOrEmpty() ? 0 : Model.Topics.FirstOrDefault().TotalRows">
-        </pager>
-    </div>
-    <div class="col-auto mb-1">
-        @if (Model.PageBoardContext.ForumModeratorAccess)
-        {
-            <a role="button" button-style="Secondary"
-               class="me-1"
-               icon="tasks"
-               text-localized-tag="BUTTON_MODERATE"
-               title-localized-tag="BUTTON_MODERATE_TT"
-               href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Moderate_Forums, new { f = Model.PageBoardContext.PageForumID }))"></a>
-        }
+	<div class="col-auto mb-1">
+		<pager page-size="@Model.Size" use-submit="false"
+		       count="Model.Topics.NullOrEmpty() ? 0 : Model.Topics.FirstOrDefault().TotalRows">
+		</pager>
+	</div>
+	<div class="col-auto mb-1">
+		@if (Model.PageBoardContext.ForumModeratorAccess)
+		{
+			<a role="button" button-style="Secondary"
+			   class="me-1"
+			   icon="tasks"
+			   text-localized-tag="BUTTON_MODERATE"
+			   title-localized-tag="BUTTON_MODERATE_TT"
+			   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Moderate_Forums, new { f = Model.PageBoardContext.PageForumID }))"></a>
+		}
 
-        @if (Model.PageBoardContext.ForumPostAccess
-            || !Model.PageBoardContext.PageForum.ForumFlags.IsLocked && Model.PageBoardContext.ForumModeratorAccess)
-        {
-            <a role="button" button-style="Primary"
-               icon="plus"
-               text-localized-tag="BUTTON_NEWTOPIC"
-               title-localized-tag="BUTTON_NEWTOPIC_TT"
-               href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.PostTopic, new { f = Model.PageBoardContext.PageForumID }))"></a>
-        }
-    </div>
+		@if (Model.PageBoardContext.ForumPostAccess
+		     || !Model.PageBoardContext.PageForum.ForumFlags.IsLocked && Model.PageBoardContext.ForumModeratorAccess)
+		{
+			<a role="button" button-style="Primary"
+			   icon="plus"
+			   text-localized-tag="BUTTON_NEWTOPIC"
+			   title-localized-tag="BUTTON_NEWTOPIC_TT"
+			   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.PostTopic, new { f = Model.PageBoardContext.PageForumID }))"></a>
+		}
+	</div>
 </div>
 
 @section Scripts {

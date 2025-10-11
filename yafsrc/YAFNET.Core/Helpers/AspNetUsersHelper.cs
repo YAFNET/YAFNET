@@ -337,7 +337,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         // Check if there are any avatar images in the uploads folder
         if (!this.Get<BoardSettings>().UseFileTable && this.Get<BoardSettings>().AvatarUpload)
         {
-            var imageExtensions = StaticDataHelper.ImageFormats();
+            var imageExtensions = StaticDataHelper.ImageFormats;
 
             imageExtensions.ForEach(
                 extension =>

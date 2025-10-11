@@ -24,7 +24,6 @@
 
 namespace YAF.Web.TagHelpers;
 
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 
@@ -96,6 +95,8 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
     /// </summary>
     [HtmlAttributeName("page-size")]
     public int PageSize { get; set; }
+
+    [HtmlAttributeName("use-submit")] public bool UseSubmit { get; set; } = true;
 
     /// <summary>
     /// Synchronously executes the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelper" /> with the given <paramref name="context" /> and
@@ -197,14 +198,18 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
             var listItem = new TagBuilder(HtmlTag.Li);
             listItem.AddCssClass("page-item");
 
-            var link = new TagBuilder(HtmlTag.Button);
+            var link = new TagBuilder(this.UseSubmit ? HtmlTag.Button : HtmlTag.A);
 
             link.AddCssClass("page-link");
 
-            link.MergeAttribute(HtmlAttribute.Type, "submit");
+            if (this.UseSubmit)
+            {
+                link.MergeAttribute(HtmlAttribute.Type, "submit");
+            }
+
             link.MergeAttribute("data-bs-toggle", "tooltip");
             link.MergeAttribute(HtmlAttribute.Title, this.GetText("GOTOFIRSTPAGE_TT"));
-            link.MergeAttribute(HtmlAttribute.Formaction, this.GetLinkUrl(query, 1));
+            link.MergeAttribute(this.UseSubmit ? HtmlAttribute.Formaction: HtmlAttribute.Href, this.GetLinkUrl(query, 1));
 
             link.InnerHtml.AppendHtml(this.Get<IHtmlHelper>().Icon("angle-double-left"));
 
@@ -218,14 +223,18 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
             var listItem = new TagBuilder(HtmlTag.Li);
             listItem.AddCssClass("page-item");
 
-            var link = new TagBuilder(HtmlTag.Button);
+            var link = new TagBuilder(this.UseSubmit ? HtmlTag.Button : HtmlTag.A);
 
             link.AddCssClass("page-link");
 
-            link.MergeAttribute(HtmlAttribute.Type, "submit");
+            if (this.UseSubmit)
+            {
+                link.MergeAttribute(HtmlAttribute.Type, "submit");
+            }
+
             link.MergeAttribute("data-bs-toggle", "tooltip");
             link.MergeAttribute(HtmlAttribute.Title, this.GetText("GOTOPREVPAGE_TT"));
-            link.MergeAttribute(HtmlAttribute.Formaction, this.GetLinkUrl(query, this.CurrentPageIndex));
+            link.MergeAttribute(this.UseSubmit ? HtmlAttribute.Formaction : HtmlAttribute.Href, this.GetLinkUrl(query, this.CurrentPageIndex));
 
             link.InnerHtml.AppendHtml(this.Get<IHtmlHelper>().Icon("angle-left"));
 
@@ -241,15 +250,18 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
             var listItem = new TagBuilder(HtmlTag.Li);
             listItem.AddCssClass(i == this.CurrentPageIndex ? "page-item active" : "page-item");
 
-            var link = new TagBuilder(HtmlTag.Button);
+            var link = new TagBuilder(this.UseSubmit ? HtmlTag.Button : HtmlTag.A);
 
             link.AddCssClass("page-link");
 
-            link.MergeAttribute(HtmlAttribute.Type, "submit");
+            if (this.UseSubmit)
+            {
+                link.MergeAttribute(HtmlAttribute.Type, "submit");
+            }
 
             link.MergeAttribute("data-bs-toggle", "tooltip");
             link.MergeAttribute(HtmlAttribute.Title, $"{this.GetText("GOTOPAGE_HEADER")}{page}");
-            link.MergeAttribute(HtmlAttribute.Formaction, this.GetLinkUrl(query, i + 1));
+            link.MergeAttribute(this.UseSubmit ? HtmlAttribute.Formaction : HtmlAttribute.Href, this.GetLinkUrl(query, i + 1));
 
             link.InnerHtml.Append(page);
 
@@ -263,14 +275,18 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
             var listItem = new TagBuilder(HtmlTag.Li);
             listItem.AddCssClass("page-item");
 
-            var link = new TagBuilder(HtmlTag.Button);
+            var link = new TagBuilder(this.UseSubmit ? HtmlTag.Button : HtmlTag.A);
 
             link.AddCssClass("page-link");
 
-            link.MergeAttribute(HtmlAttribute.Type, "submit");
+            if (this.UseSubmit)
+            {
+                link.MergeAttribute(HtmlAttribute.Type, "submit");
+            }
+
             link.MergeAttribute("data-bs-toggle", "tooltip");
             link.MergeAttribute(HtmlAttribute.Title, this.GetText("GOTONEXTPAGE_TT"));
-            link.MergeAttribute(HtmlAttribute.Formaction, this.GetLinkUrl(query, this.CurrentPageIndex + 2));
+            link.MergeAttribute(this.UseSubmit ? HtmlAttribute.Formaction : HtmlAttribute.Href, this.GetLinkUrl(query, this.CurrentPageIndex + 2));
 
             link.InnerHtml.AppendHtml(this.Get<IHtmlHelper>().Icon("angle-right"));
 
@@ -287,14 +303,18 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
         var listItemNext = new TagBuilder(HtmlTag.Li);
         listItemNext.AddCssClass("page-item");
 
-        var linkGoToNext = new TagBuilder(HtmlTag.Button);
+        var linkGoToNext = new TagBuilder(this.UseSubmit ? HtmlTag.Button : HtmlTag.A);
 
         linkGoToNext.AddCssClass("page-link");
 
-        linkGoToNext.MergeAttribute(HtmlAttribute.Type, "submit");
+        if (this.UseSubmit)
+        {
+            linkGoToNext.MergeAttribute(HtmlAttribute.Type, "submit");
+        }
+
         linkGoToNext.MergeAttribute("data-bs-toggle", "tooltip");
         linkGoToNext.MergeAttribute(HtmlAttribute.Title, this.GetText("GOTONEXTPAGE_TT"));
-        linkGoToNext.MergeAttribute(HtmlAttribute.Formaction, this.GetLinkUrl(query, this.PageCount()));
+        linkGoToNext.MergeAttribute(this.UseSubmit ? HtmlAttribute.Formaction : HtmlAttribute.Href, this.GetLinkUrl(query, this.PageCount()));
 
         linkGoToNext.InnerHtml.AppendHtml(this.Get<IHtmlHelper>().Icon("angle-double-right"));
 

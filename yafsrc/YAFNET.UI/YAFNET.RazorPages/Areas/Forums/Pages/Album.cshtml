@@ -123,7 +123,7 @@
 		</div>
 		<div class="row justify-content-end">
 			<div class="col-auto">
-				<pager page-size="@Model.PageBoardContext.BoardSettings.AlbumImagesPerPage"
+				<pager page-size="@Model.PageBoardContext.BoardSettings.AlbumImagesPerPage" use-submit="false"
 				       count="!Model.Images.NullOrEmpty() ? Model.GetRepository<UserAlbumImage>().List(Model.Images[0].AlbumID).Count.ToType<int>() : 0">
 				</pager>
 			</div>

@@ -72,7 +72,7 @@
 
                     @if (Model.EnableUpload)
                     {
-	                    var fileTypes = StaticDataHelper.ImageFormats().Select(x => ".{0}".FormatWith(x)).ToDelimitedString(",");
+	                    var fileTypes = StaticDataHelper.ImageFormats.Select(x => ".{0}".FormatWith(x)).ToDelimitedString(",");
 
                         <h4>
                             @Html.LocalizedText("UPLOAD_TITLE")

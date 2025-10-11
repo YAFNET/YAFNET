@@ -103,7 +103,7 @@
         </div>
         <div class="row justify-content-end">
             <div class="col-auto">
-                <pager page-size="@Model.PageBoardContext.BoardSettings.AlbumsPerPage"
+                <pager page-size="@Model.PageBoardContext.BoardSettings.AlbumsPerPage" use-submit="false"
                        count="!Model.Albums.NullOrEmpty() ? Model.GetRepository<UserAlbum>().ListByUser(Model.AlbumUser.ID).Count.ToType<int>() : 0">
                 </pager>
             </div>

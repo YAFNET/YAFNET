@@ -341,7 +341,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
 
             // remove the "period"
             extension = extension.Replace(".", string.Empty);
-            var imageExtensions = StaticDataHelper.ImageFormats();
+            var imageExtensions = StaticDataHelper.ImageFormats;
 
             // If we don't get a match from the db, then the extension is not allowed
             // also, check to see an image is being uploaded.
