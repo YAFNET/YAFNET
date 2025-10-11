@@ -24,6 +24,11 @@
 
   <PropertyGroup Label="Warnings to be Disabled in Solution">
     <NoWarn Label="Legacy serialization support APIs are obsolete">$(NoWarn);SYSLIB0051</NoWarn>
+	  <!-- These are noisy, but may be helpful during Lucene upgrades or optimization -->
+	  <NoWarn Label="Floating point types should not be compared for exact equality">$(NoWarn);LuceneDev1000</NoWarn>
+	  <NoWarn Label="Floating point type arithmetic needs to be checked on x86 in .NET Framework and may require extra casting">$(NoWarn);LuceneDev1002</NoWarn>
+	  <NoWarn Label="Java array parameters can sometimes be replaced with .NET out or ref parameters">$(NoWarn);LuceneDev1003</NoWarn>
+	  <NoWarn Label="Return array may be able to be replaced with out values">$(NoWarn);LuceneDev1004</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Label="Solution-level Publish to Project-specific Directory">
@@ -40,7 +45,7 @@
   <!-- Features in .NET 8.x and .NET 9.x only -->
   <PropertyGroup Condition=" $(TargetFramework.StartsWith('net8.')) Or $(TargetFramework.StartsWith('net9.')) ">
 
-    <DefineConstants>$(DefineConstants);FEATURE_UTF8_TOUTF16</DefineConstants>
+	  <DefineConstants>$(DefineConstants);FEATURE_UTF8_TOUTF16</DefineConstants>
 
   </PropertyGroup>
 
@@ -48,6 +53,8 @@
   <PropertyGroup Condition=" $(TargetFramework.StartsWith('net6.')) Or $(TargetFramework.StartsWith('net7.')) Or $(TargetFramework.StartsWith('net8.')) Or $(TargetFramework.StartsWith('net9.')) ">
 
     <DefineConstants>$(DefineConstants);FEATURE_RANDOM_NEXTINT64_NEXTSINGLE</DefineConstants>
+
+	  <DefineConstants>$(DefineConstants);FEATURE_RANDOMACCESS_READ</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_SPANFORMATTABLE</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_SUPPORTEDOSPLATFORMATTRIBUTE</DefineConstants>
 
@@ -57,6 +64,7 @@
   <PropertyGroup Condition=" $(TargetFramework.StartsWith('net5.')) Or $(TargetFramework.StartsWith('net6.')) Or $(TargetFramework.StartsWith('net7.')) Or $(TargetFramework.StartsWith('net8.')) Or $(TargetFramework.StartsWith('net9.')) ">
 
     <DefineConstants>$(DefineConstants);FEATURE_ASPNETCORE_ENDPOINT_CONFIG</DefineConstants>
+	  <DefineConstants>$(DefineConstants);FEATURE_MEMORYMARSHAL_GETARRAYDATAREFERENCE</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_READONLYSET</DefineConstants>
 
   </PropertyGroup>
@@ -85,6 +93,7 @@
     <DefineConstants>$(DefineConstants);FEATURE_ARRAY_FILL</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_CONDITIONALWEAKTABLE_ENUMERATOR</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_CONDITIONALWEAKTABLE_ADDORUPDATE</DefineConstants>
+	  <DefineConstants>$(DefineConstants);FEATURE_MEMORYMARSHAL_CREATEREADONLYSPAN</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_NUMBER_PARSE_READONLYSPAN</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_STREAM_READ_SPAN</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_STRINGBUILDER_APPEND_READONLYSPAN</DefineConstants>

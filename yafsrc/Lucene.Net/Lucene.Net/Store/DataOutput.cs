@@ -1,5 +1,10 @@
 using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Support.Buffers;
+using YAF.Lucene.Net.Util;
+using System;
+using System.Buffers;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace YAF.Lucene.Net.Store
@@ -20,9 +25,6 @@ namespace YAF.Lucene.Net.Store
      * See the License for the specific language governing permissions and
      * limitations under the License.
      */
-
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using UnicodeUtil = YAF.Lucene.Net.Util.UnicodeUtil;
 
     /// <summary>
     /// Abstract base class for performing write operations of Lucene's low-level
@@ -60,7 +62,16 @@ namespace YAF.Lucene.Net.Store
         /// <param name="offset"> the offset in the byte array </param>
         /// <param name="length"> the number of bytes to write </param>
         /// <seealso cref="DataInput.ReadBytes(byte[], int, int)"/>
-        public abstract void WriteBytes(byte[] b, int offset, int length);
+        public virtual void WriteBytes(byte[] b, int offset, int length)
+        {
+            WriteBytes(b.AsSpan(offset, length));
+        }
+
+        /// <summary>
+        /// Writes a sequence of bytes. </summary>
+        /// <param name="source"> the bytes to write </param>
+        /// <seealso cref="DataInput.ReadBytes(Span{Byte})"/>
+        public abstract void WriteBytes(ReadOnlySpan<byte> source);
 
         /// <summary>
         /// Writes an <see cref="int"/> as four bytes.
