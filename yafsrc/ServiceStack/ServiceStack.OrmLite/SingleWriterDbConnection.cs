@@ -10,15 +10,18 @@ using System;
 using System.Data;
 using System.Data.Common;
 using ServiceStack.Data;
+using ServiceStack.Model;
 using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite;
 
-public class SingleWriterDbConnection : DbConnection, IHasWriteLock
+public class SingleWriterDbConnection : DbConnection, IHasWriteLock, IHasTag
 {
     private DbConnection? db;
     public OrmLiteConnectionFactory? Factory { get; }
     public object WriteLock { get; }
+
+    public string? Tag { get; set; }
 
     public DbConnection Db => this.db ??= (DbConnection)this.ConnectionString.ToDbConnection(this.Factory!.DialectProvider);
 
@@ -64,7 +67,7 @@ public class SingleWriterDbConnection : DbConnection, IHasWriteLock
 
         if (dbConn.State == ConnectionState.Closed)
         {
-            var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(dbConn);
+            var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(this);
             Exception? e = null;
             try
             {
@@ -89,11 +92,11 @@ public class SingleWriterDbConnection : DbConnection, IHasWriteLock
             {
                 if (e != null)
                 {
-                    Diagnostics.OrmLite.WriteConnectionOpenError(id, dbConn, e);
+                    Diagnostics.OrmLite.WriteConnectionOpenError(id, this, e);
                 }
                 else
                 {
-                    Diagnostics.OrmLite.WriteConnectionOpenAfter(id, dbConn);
+                    Diagnostics.OrmLite.WriteConnectionOpenAfter(id, this);
                 }
             }
         }

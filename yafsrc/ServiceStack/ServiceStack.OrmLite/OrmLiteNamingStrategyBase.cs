@@ -16,9 +16,10 @@ namespace ServiceStack.OrmLite;
 /// <seealso cref="ServiceStack.OrmLite.INamingStrategy" />
 public class OrmLiteNamingStrategyBase : INamingStrategy
 {
-    public Dictionary<string, string> SchemaAliases = [];
-    public Dictionary<string, string> TableAliases = [];
-    public Dictionary<string, string> ColumnAliases = [];
+    public Dictionary<string, string> SchemaAliases { get; } = new();
+    public Dictionary<string, string> TableAliases { get; } = new();
+    public Dictionary<string, string> ColumnAliases { get; } = new();
+
     public virtual string GetTableAlias(string name)
     {
         return name;

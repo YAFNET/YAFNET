@@ -1403,34 +1403,9 @@ public static class UserRepositoryExtensions
     {
         var results = await repository.DbAccess.ExecuteAsync(db =>
             {
-                var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-                expression.Join<ForumAccess>((f, a) => a.ForumID == f.ID)
-                    .Join<ForumAccess, Group>((a, b) => b.ID == a.GroupID)
-                    .Join<ForumAccess, AccessMask>((a, c) => c.ID == a.AccessMaskID)
-                    .Where<Group, AccessMask>((b, c) => b.BoardID == repository.BoardID && (c.Flags & 64) != 0)
-                    .Select<Forum, ForumAccess, Group>((f, a, b) => new
-                    {
-                        CategoryID = Sql.Custom("NULL"),
-                        CategoryName = Sql.Custom("NULL"),
-                        a.ForumID,
-                        ForumName = f.Name,
-                        f.ParentID,
-                        ModeratorID = a.GroupID,
-                        b.Name,
-                        Email = b.Name,
-                        ModeratorBlockFlags = 0,
-                        Avatar = b.Name,
-                        AvatarImage = Sql.Custom("NULL"),
-                        DisplayName = b.Name,
-                        b.Style,
-                        IsGroup = 1,
-                        Suspended = Sql.Custom("NULL")
-                    });
-
-                var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<User>();
-
-                expression2
+                expression
                     .Join<VaccessGroup>((usr, access) => access.UserID == usr.ID)
                     .Join<VaccessGroup, Forum>((access, f) => f.ID == access.ForumID)
                     .Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
@@ -1450,15 +1425,13 @@ public static class UserRepositoryExtensions
                         AvtatarImage = usr.AvatarImage,
                         usr.DisplayName,
                         Style = usr.UserStyle,
-                        IsGroup = 0,
                         usr.Suspended
                     });
 
-                return db.SelectAsync<SimpleModerator>(
-                    $"{expression.ToMergedParamsSelectStatement()} union all {expression2.ToMergedParamsSelectStatement()}");
+                return db.SelectAsync<SimpleModerator>(expression);
             });
 
-            return [.. results.OrderByDescending(x => x.IsGroup).ThenBy(x => x.Name)];
+            return [.. results.OrderByDescending(x => x.Name)];
     }
 
     /// <summary>

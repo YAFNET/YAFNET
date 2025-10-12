@@ -224,23 +224,13 @@ public static class CategoryListHelpers
                 {
                     var listItem = new TagBuilder(HtmlTag.Li);
 
-                    if (row.IsGroup)
-                    {
-                        // render mod group
-                        listItem.InnerHtml.Append(
-                            BoardContext.Current.BoardSettings.EnableDisplayName ? row.DisplayName : row.Name);
-                    }
-                    else
-                    {
-                        // Render Moderator PageUser Link
-                        var userLink = htmlHelper.UserLink(
-                            row.ModeratorID,
-                            BoardContext.Current.BoardSettings.EnableDisplayName ? row.DisplayName : row.Name,
-                            null,
-                            row.Style);
+                    var userLink = htmlHelper.UserLink(
+                        row.ModeratorID,
+                        BoardContext.Current.BoardSettings.EnableDisplayName ? row.DisplayName : row.Name,
+                        null,
+                        row.Style);
 
-                        listItem.InnerHtml.AppendHtml(userLink);
-                    }
+                    listItem.InnerHtml.AppendHtml(userLink);
 
                     list.InnerHtml.AppendHtml(listItem);
                 });

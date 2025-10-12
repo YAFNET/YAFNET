@@ -25,7 +25,7 @@ using System;
 /// Wrapper IDbConnection class to allow for connection sharing, mocking, etc.
 /// </summary>
 public class OrmLiteConnection
-    : IDbConnection, IHasDbConnection, IHasDbTransaction, ISetDbTransaction, IHasDialectProvider, IHasName
+    : IDbConnection, IHasDbConnection, IHasDbTransaction, ISetDbTransaction, IHasDialectProvider, IHasTag
 {
     /// <summary>
     /// The factory
@@ -33,10 +33,10 @@ public class OrmLiteConnection
     public readonly OrmLiteConnectionFactory Factory;
 
     /// <summary>
-    /// Gets or sets the name.
+    /// Gets or sets the tag.
     /// </summary>
-    /// <value>The name.</value>
-    public string? Name { get; set; }
+    /// <value>The tag.</value>
+    public string? Tag { get; set; }
 
     /// <summary>
     /// Gets or sets the transaction.
@@ -181,7 +181,7 @@ public class OrmLiteConnection
             return;
         }
 
-        var id = Diagnostics.OrmLite.WriteConnectionCloseBefore(this.dbConnection);
+        var id = Diagnostics.OrmLite.WriteConnectionCloseBefore(this);
         var connectionId = this.dbConnection.GetConnectionId();
 
         Exception? e = null;
@@ -199,11 +199,11 @@ public class OrmLiteConnection
         {
             if (e != null)
             {
-                Diagnostics.OrmLite.WriteConnectionCloseError(id, connectionId, this.dbConnection, e);
+                Diagnostics.OrmLite.WriteConnectionCloseError(id, connectionId, this, e);
             }
             else
             {
-                Diagnostics.OrmLite.WriteConnectionCloseAfter(id, connectionId, this.dbConnection);
+                Diagnostics.OrmLite.WriteConnectionCloseAfter(id, connectionId, this);
             }
         }
     }
@@ -249,7 +249,7 @@ public class OrmLiteConnection
             return;
         }
 
-        var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(dbConn);
+        var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(this);
         Exception? e = null;
 
         try
@@ -272,11 +272,11 @@ public class OrmLiteConnection
         {
             if (e != null)
             {
-                Diagnostics.OrmLite.WriteConnectionOpenError(id, dbConn, e);
+                Diagnostics.OrmLite.WriteConnectionOpenError(id, this, e);
             }
             else
             {
-                Diagnostics.OrmLite.WriteConnectionOpenAfter(id, dbConn);
+                Diagnostics.OrmLite.WriteConnectionOpenAfter(id, this);
             }
         }
     }
@@ -296,7 +296,7 @@ public class OrmLiteConnection
 
         if (dbConn.State == ConnectionState.Closed)
         {
-            var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(dbConn);
+            var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(this);
             Exception? e = null;
 
             try
@@ -319,11 +319,11 @@ public class OrmLiteConnection
             {
                 if (e != null)
                 {
-                    Diagnostics.OrmLite.WriteConnectionOpenError(id, dbConn, e);
+                    Diagnostics.OrmLite.WriteConnectionOpenError(id, this, e);
                 }
                 else
                 {
-                    Diagnostics.OrmLite.WriteConnectionOpenAfter(id, dbConn);
+                    Diagnostics.OrmLite.WriteConnectionOpenAfter(id, this);
                 }
             }
         }

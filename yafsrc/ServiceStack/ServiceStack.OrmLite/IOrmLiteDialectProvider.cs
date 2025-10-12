@@ -268,6 +268,7 @@ public interface IOrmLiteDialectProvider
 
     string GetQuotedTableName(Type modelType);
 
+    string GetSchemaName(TableRef tableRef);
     string QuoteSchema(string schema, string table);
     string QuoteTable(TableRef tableRef);
 

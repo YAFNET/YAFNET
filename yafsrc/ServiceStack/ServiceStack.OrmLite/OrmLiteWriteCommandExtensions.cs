@@ -29,7 +29,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <summary>
     /// The log
     /// </summary>
-    static internal ILog Log = LogManager.GetLogger(typeof(OrmLiteWriteCommandExtensions));
+    static internal ILog Log => OrmLiteLog.Log;
 
     /// <summary>
     /// Creates the schema.
@@ -358,7 +358,7 @@ public static class OrmLiteWriteCommandExtensions
             return OrmLiteConfig.ResultsFilter.ExecuteSql(dbCmd);
         }
 
-        return dbCmd.ExecuteNonQuery();
+        return dbCmd.WithLog(dbCmd.ExecuteNonQuery());
     }
 
     /// <summary>
@@ -392,7 +392,7 @@ public static class OrmLiteWriteCommandExtensions
             return OrmLiteConfig.ResultsFilter.ExecuteSql(dbCmd);
         }
 
-        return dbCmd.ExecuteNonQuery();
+        return dbCmd.WithLog(dbCmd.ExecuteNonQuery());
     }
 
     /// <summary>

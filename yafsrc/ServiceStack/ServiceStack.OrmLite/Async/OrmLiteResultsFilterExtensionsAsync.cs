@@ -27,7 +27,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
     /// <summary>
     /// The log
     /// </summary>
-    static internal ILog Log = LogManager.GetLogger(typeof(OrmLiteResultsFilterExtensionsAsync));
+    static internal ILog Log => OrmLiteLog.Log;
 
     /// <summary>
     /// Executes the non query asynchronous.
@@ -58,7 +58,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
             Log.DebugCommand(dbCmd);
         }
 
-        return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
+        return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token));
     }
 
     /// <summary>
@@ -90,7 +90,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
             Log.DebugCommand(dbCmd);
         }
 
-        return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
+        return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token));
     }
 
     /// <summary>
@@ -113,7 +113,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
             Log.DebugCommand(dbCmd);
         }
 
-        return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
+        return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token));
     }
 
     /// <summary>
@@ -420,7 +420,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
             return OrmLiteConfig.ResultsFilter.GetLongScalar(dbCmd).InTask();
         }
 
-        return dbCmd.LongScalarAsync(token);
+        return dbCmd.WithLog(dbCmd.LongScalarAsync(token));
     }
 
     /// <summary>

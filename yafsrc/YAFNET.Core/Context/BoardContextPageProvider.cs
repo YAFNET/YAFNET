@@ -82,9 +82,9 @@ public class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
                 return globalInstance ??= this.CreateContextInstance();
             }
 
-            if (this.httpContext.HttpContext.Items[PageBoardContextName] is BoardContext)
+            if (this.httpContext.HttpContext.Items[PageBoardContextName] is BoardContext context)
             {
-                return this.httpContext.HttpContext.Items[PageBoardContextName] as BoardContext;
+                return context;
             }
 
             var pageInstance = this.CreateContextInstance();

@@ -214,6 +214,15 @@ public class Migrator
     public Type[] MigrationTypes { get; }
 
     /// <summary>
+    /// Configures the database.
+    /// </summary>
+    /// <param name="db">The database.</param>
+    public static void ConfigureDb(IDbConnection db)
+    {
+        db.WithTag(nameof(Migrator));
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="Migrator"/> class.
     /// </summary>
     /// <param name="dbFactory">The database factory.</param>

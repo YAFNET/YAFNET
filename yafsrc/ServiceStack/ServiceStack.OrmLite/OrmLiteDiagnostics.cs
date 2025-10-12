@@ -38,6 +38,7 @@ static internal class OrmLiteDiagnostics
                 OperationId = operationId,
                 Operation = operation,
                 ConnectionId = dbCmd.GetConnectionId(),
+                Tag = dbCmd.GetTag(),
                 Command = dbCmd
             }.Init(Activity.Current));
 
@@ -63,6 +64,7 @@ static internal class OrmLiteDiagnostics
                 OperationId = operationId,
                 Operation = operation,
                 ConnectionId = dbCmd.GetConnectionId(),
+                Tag = dbCmd.GetTag(),
                 Command = dbCmd
             }.Init(Activity.Current));
         }
@@ -87,6 +89,7 @@ static internal class OrmLiteDiagnostics
                 OperationId = operationId,
                 Operation = operation,
                 ConnectionId = dbCmd.GetConnectionId(),
+                Tag = dbCmd.GetTag(),
                 Command = dbCmd,
                 Exception = ex
             }.Init(Activity.Current));
@@ -111,13 +114,16 @@ static internal class OrmLiteDiagnostics
         var operationId = Guid.NewGuid();
         listener.Write(
             Diagnostics.Events.OrmLite.WriteConnectionOpenBefore,
-            new OrmLiteDiagnosticEvent {
-                                           EventType = Diagnostics.Events.OrmLite.WriteConnectionOpenBefore,
-                                           OperationId = operationId,
-                                           Operation = operation,
-                                           Connection = dbConn,
-                                           StackTrace = Diagnostics.IncludeStackTrace ? Environment.StackTrace : null
-                                       }.Init(Activity.Current));
+            new OrmLiteDiagnosticEvent
+            {
+                EventType = Diagnostics.Events.OrmLite.WriteConnectionOpenBefore,
+                OperationId = operationId,
+                Operation = operation,
+                ConnectionId = dbConn.GetConnectionId(),
+                Tag = dbConn.GetTag(),
+                Connection = dbConn,
+                StackTrace = Diagnostics.IncludeStackTrace ? Environment.StackTrace : null
+            }.Init(Activity.Current));
 
         return operationId;
     }
@@ -147,7 +153,9 @@ static internal class OrmLiteDiagnostics
                                            OperationId = operationId,
                                            Operation = operation,
                                            IsolationLevel = isolationLevel,
-                                           Connection = dbConn
+                                           ConnectionId = dbConn.GetConnectionId(),
+                                           Tag = dbConn.GetTag(),
+                Connection = dbConn
             }.Init(Activity.Current));
         return operationId;
     }
@@ -170,6 +178,7 @@ static internal class OrmLiteDiagnostics
                 OperationId = operationId,
                 Operation = operation,
                 ConnectionId = dbConn.GetConnectionId(),
+                Tag = dbConn.GetTag(),
                 Connection = dbConn
             }.Init(Activity.Current));
         }
@@ -194,6 +203,7 @@ static internal class OrmLiteDiagnostics
                 OperationId = operationId,
                 Operation = operation,
                 ConnectionId = dbConn.GetConnectionId(),
+                Tag = dbConn.GetTag(),
                 Connection = dbConn,
                 Exception = ex
             }.Init(Activity.Current));
@@ -219,6 +229,7 @@ static internal class OrmLiteDiagnostics
                 OperationId = operationId,
                 Operation = operation,
                 ConnectionId = dbConn.GetConnectionId(),
+                Tag = dbConn.GetTag(),
                 Connection = dbConn,
                 StackTrace = Diagnostics.IncludeStackTrace ? Environment.StackTrace : null
             }.Init(Activity.Current));
@@ -248,6 +259,7 @@ static internal class OrmLiteDiagnostics
                 OperationId = operationId,
                 Operation = operation,
                 ConnectionId = clientConnectionId,
+                Tag = dbConn.GetTag(),
                 Connection = dbConn
             }.Init(Activity.Current));
         }
@@ -273,6 +285,7 @@ static internal class OrmLiteDiagnostics
                 OperationId = operationId,
                 Operation = operation,
                 ConnectionId = clientConnectionId,
+                Tag = dbConn.GetTag(),
                 Connection = dbConn,
                 Exception = ex
             }.Init(Activity.Current));
@@ -300,6 +313,8 @@ static internal class OrmLiteDiagnostics
                 OperationId = operationId,
                 Operation = operation,
                 IsolationLevel = isolationLevel,
+                ConnectionId = dbConn.GetConnectionId(),
+                Tag = dbConn.GetTag(),
                 Connection = dbConn
             }.Init(Activity.Current));
 
@@ -327,6 +342,8 @@ static internal class OrmLiteDiagnostics
                 OperationId = operationId,
                 Operation = operation,
                 IsolationLevel = isolationLevel,
+                ConnectionId = dbConn.GetConnectionId(),
+                Tag = dbConn.GetTag(),
                 Connection = dbConn
             }.Init(Activity.Current));
         }
@@ -381,6 +398,8 @@ static internal class OrmLiteDiagnostics
                 Operation = operation,
                 IsolationLevel = isolationLevel,
                 Connection = dbConn,
+                ConnectionId = dbConn.GetConnectionId(),
+                Tag = dbConn.GetTag(),
                 TransactionName = transactionName
             }.Init(Activity.Current));
 
@@ -411,7 +430,8 @@ static internal class OrmLiteDiagnostics
                 OperationId = operationId,
                 Operation = operation,
                 IsolationLevel = isolationLevel,
-                Connection = dbConn,
+                Connection = dbConn, ConnectionId = dbConn.GetConnectionId(),
+                Tag = dbConn.GetTag(),
                 TransactionName = transactionName
             }.Init(Activity.Current));
         }
@@ -441,6 +461,8 @@ static internal class OrmLiteDiagnostics
                 Operation = operation,
                 IsolationLevel = isolationLevel,
                 Connection = dbConn,
+                ConnectionId = dbConn.GetConnectionId(),
+                Tag = dbConn.GetTag(),
                 TransactionName = transactionName,
                 Exception = ex
             }.Init(Activity.Current));

@@ -31,7 +31,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
     /// <summary>
     /// The log
     /// </summary>
-    static internal ILog Log = LogManager.GetLogger(typeof(OrmLiteWriteCommandExtensionsAsync));
+    static internal ILog Log => OrmLiteLog.Log;
 
     /// <summary>
     /// Executes the SQL asynchronous.
@@ -100,7 +100,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
             return OrmLiteConfig.ResultsFilter.ExecuteSql(dbCmd).InTask();
         }
 
-        return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
+        return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token));
     }
 
     /// <summary>
@@ -149,7 +149,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
             return OrmLiteConfig.ResultsFilter.ExecuteSql(dbCmd).InTask();
         }
 
-        return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
+        return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token));
     }
 
     /// <summary>

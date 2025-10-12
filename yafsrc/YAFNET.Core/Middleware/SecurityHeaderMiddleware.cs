@@ -79,12 +79,7 @@ public class SecurityHeaderMiddleware
 
         context.Response.Headers.Append("Referrer-Policy", this.boardConfig.ReferrerPolicy);
 
-        var baseUrl = context.Request.BaseUrl();
-
-        if (baseUrl.Contains("localhost"))
-        {
-            return this.next.Invoke(context);
-        }
+        var baseUrl = context.Request.BaseAuthority();
 
         var csp = $"{this.boardConfig.ContentSecurityPolicy} {baseUrl};";
         context.Response.Headers.Append("Content-Security-Policy",

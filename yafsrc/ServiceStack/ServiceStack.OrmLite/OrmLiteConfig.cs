@@ -188,13 +188,33 @@ public static class OrmLiteConfig
         }
     }
 
-    public static IDbConnection WithName(this IDbConnection db, string name)
+    public static IDbConnection WithTag(this IDbConnection db, string name)
     {
         if (db is OrmLiteConnection ormLiteConn)
         {
-            ormLiteConn.Name = name;
+            ormLiteConn.Tag = name;
         }
+
         return db;
+    }
+
+    public static string GetTag(this IDbConnection db)
+    {
+        return db is OrmLiteConnection ormLiteConn ? ormLiteConn.Tag : null;
+    }
+
+    public static string GetTag(this IDbCommand db)
+    {
+        return db is OrmLiteCommand ormLiteCmd
+            ? ormLiteCmd.OrmLiteConnection.GetTag()
+            : null;
+    }
+
+    public static TimeSpan? GetElapsedTime(this IDbCommand db)
+    {
+        return db is OrmLiteCommand ormLiteCmd
+            ? ormLiteCmd.GetElapsedTime()
+            : null;
     }
 
     /// <summary>
@@ -302,15 +322,7 @@ public static class OrmLiteConfig
     {
         logFactory ??= LogManager.LogFactory;
         LogManager.LogFactory = logFactory;
-        OrmLiteResultsFilterExtensions.Log = logFactory.GetLogger(typeof(OrmLiteResultsFilterExtensions));
-        OrmLiteWriteCommandExtensions.Log = logFactory.GetLogger(typeof(OrmLiteWriteCommandExtensions));
-        OrmLiteReadCommandExtensions.Log = logFactory.GetLogger(typeof(OrmLiteReadCommandExtensions));
-        OrmLiteResultsFilterExtensions.Log = logFactory.GetLogger(typeof(OrmLiteResultsFilterExtensions));
-        OrmLiteUtils.Log = logFactory.GetLogger(typeof(OrmLiteUtils));
-        OrmLiteWriteCommandExtensionsAsync.Log = logFactory.GetLogger(typeof(OrmLiteWriteCommandExtensionsAsync));
-        OrmLiteReadCommandExtensionsAsync.Log = logFactory.GetLogger(typeof(OrmLiteReadCommandExtensionsAsync));
-        OrmLiteResultsFilterExtensionsAsync.Log = logFactory.GetLogger(typeof(OrmLiteResultsFilterExtensionsAsync));
-        OrmLiteConverter.Log = logFactory.GetLogger(typeof(OrmLiteConverter));
+        OrmLiteLog.Log = logFactory.GetLogger(typeof(OrmLiteLog));
     }
 
     /// <summary>

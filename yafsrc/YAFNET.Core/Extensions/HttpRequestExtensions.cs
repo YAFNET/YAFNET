@@ -70,6 +70,26 @@ public static class HttpRequestExtensions
     /// <returns>System.Nullable&lt;System.String&gt;.</returns>
     public static string BaseUrl(this HttpRequest req)
     {
+        return GetBaseUri(req).AbsoluteUri;
+    }
+
+    /// <summary>
+    /// Gets the Base Authority from the HttpRequest
+    /// </summary>
+    /// <param name="req">The req.</param>
+    /// <returns>System.Nullable&lt;System.String&gt;.</returns>
+    public static string BaseAuthority(this HttpRequest req)
+    {
+       return GetBaseUri(req).Authority;
+    }
+
+    /// <summary>
+    /// Gets the base URI for the request.
+    /// </summary>
+    /// <param name="req">The request.</param>
+    /// <returns>Returns the Uri constructed by the UriBuilder</returns>
+    private static Uri GetBaseUri(HttpRequest req)
+    {
         if (req == null)
         {
             return null;
@@ -82,6 +102,6 @@ public static class HttpRequestExtensions
             uriBuilder.Port = -1;
         }
 
-        return uriBuilder.Uri.AbsoluteUri;
+        return uriBuilder.Uri;
     }
 }

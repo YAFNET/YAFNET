@@ -122,11 +122,6 @@ public class SimpleModerator
     public string Style { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether IsGroup.
-    /// </summary>
-    public bool IsGroup { get; set; }
-
-    /// <summary>
     /// Gets or sets the suspended.
     /// </summary>
     public DateTime? Suspended { get; set; }

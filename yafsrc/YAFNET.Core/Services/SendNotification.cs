@@ -75,21 +75,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     public async Task ToModeratorsThatMessageNeedsApprovalAsync(int forumId, int newMessageId, bool isSpamMessage)
     {
         var moderatorsFiltered = (await this.Get<DataBroker>().GetModeratorsAsync()).Where(f => f.ForumID.Equals(forumId));
-        var moderatorUserNames = new List<string>();
-
-        foreach (var moderator in moderatorsFiltered)
-        {
-            if (moderator.IsGroup)
-            {
-                var users = await this.Get<IAspNetRolesHelper>().GetUsersInRoleAsync(moderator.Name);
-
-                moderatorUserNames.AddRange(users.Select(u => u.UserName));
-            }
-            else
-            {
-                moderatorUserNames.Add(moderator.Name);
-            }
-        }
+        var moderatorUserNames = moderatorsFiltered.Select(moderator => moderator.Name).ToList();
 
         var cssPath = Path.Combine(
             this.Get<BoardInfo>().WebRootPath,
@@ -168,22 +154,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         try
         {
             var moderatorsFiltered = (await this.Get<DataBroker>().GetModeratorsAsync()).Where(f => f.ForumID.Equals(pageForumId));
-            var moderatorUserNames = new List<string>();
-
-            foreach (var moderator in moderatorsFiltered)
-            {
-                if (moderator.IsGroup)
-                {
-                    var users = await this.Get<IAspNetRolesHelper>().GetUsersInRoleAsync(moderator.Name);
-
-                    moderatorUserNames.AddRange(
-                        users.Select(u => u.UserName));
-                }
-                else
-                {
-                    moderatorUserNames.Add(moderator.Name);
-                }
-            }
+            var moderatorUserNames = moderatorsFiltered.Select(moderator => moderator.Name).ToList();
 
             // send each message...
             var moderators = moderatorUserNames.Distinct();

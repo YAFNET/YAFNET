@@ -13,6 +13,7 @@ using ServiceStack.Data;
 namespace ServiceStack.OrmLite;
 
 using System;
+using System.Diagnostics;
 
 /// <summary>
 /// Class OrmLiteCommand.
@@ -95,12 +96,21 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
         return this.DbCommand.CreateParameter();
     }
 
+    public long StartTimestamp;
+    public long EndTimestamp;
+
+    public TimeSpan GetElapsedTime()
+    {
+        return Stopwatch.GetElapsedTime(this.StartTimestamp, this.EndTimestamp);
+    }
+
     /// <summary>
     /// Executes an SQL statement against the <see langword="Connection" /> object of a .NET Framework data provider, and returns the number of rows affected.
     /// </summary>
     /// <returns>The number of rows affected.</returns>
     public int ExecuteNonQuery()
     {
+        this.StartTimestamp = Stopwatch.GetTimestamp();
         this.DialectProvider.OnBeforeExecuteNonQuery?.Invoke(this);
         try
         {
@@ -128,7 +138,10 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <returns>An <see cref="T:System.Data.IDataReader" /> object.</returns>
     public IDataReader ExecuteReader()
     {
-        return this.DbCommand.ExecuteReader();
+        this.StartTimestamp = Stopwatch.GetTimestamp();
+        var ret = this.DbCommand.ExecuteReader();
+        this.EndTimestamp = Stopwatch.GetTimestamp();
+        return ret;
     }
 
     /// <summary>
@@ -138,7 +151,10 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <returns>An <see cref="T:System.Data.IDataReader" /> object.</returns>
     public IDataReader ExecuteReader(CommandBehavior behavior)
     {
-        return this.DbCommand.ExecuteReader(behavior);
+        this.StartTimestamp = Stopwatch.GetTimestamp();
+        var ret = this.DbCommand.ExecuteReader(behavior);
+        this.EndTimestamp = Stopwatch.GetTimestamp();
+        return ret;
     }
 
     /// <summary>
@@ -147,7 +163,10 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <returns>The first column of the first row in the resultset.</returns>
     public object? ExecuteScalar()
     {
-        return this.DbCommand.ExecuteScalar();
+        this.StartTimestamp = Stopwatch.GetTimestamp();
+        var ret = this.DbCommand.ExecuteScalar();
+        this.EndTimestamp = Stopwatch.GetTimestamp();
+        return ret;
     }
 
     /// <summary>

@@ -96,6 +96,9 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
     [HtmlAttributeName("page-size")]
     public int PageSize { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether to use Submit buttons or links.
+    /// </summary>
     [HtmlAttributeName("use-submit")] public bool UseSubmit { get; set; } = true;
 
     /// <summary>
