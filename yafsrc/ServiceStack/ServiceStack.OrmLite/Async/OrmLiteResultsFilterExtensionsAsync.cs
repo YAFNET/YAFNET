@@ -27,7 +27,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// The log
         /// </summary>
-        static internal ILog Log = LogManager.GetLogger(typeof(OrmLiteResultsFilterExtensionsAsync));
+        static internal ILog Log => OrmLiteLog.Log;
 
         /// <summary>
         /// Executes the non query asynchronous.
@@ -58,7 +58,7 @@ namespace ServiceStack.OrmLite
                 Log.DebugCommand(dbCmd);
             }
 
-            return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
+            return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token));
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace ServiceStack.OrmLite
                 Log.DebugCommand(dbCmd);
             }
 
-            return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
+            return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token));
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace ServiceStack.OrmLite
                 Log.DebugCommand(dbCmd);
             }
 
-            return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
+            return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token));
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace ServiceStack.OrmLite
         /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
         public static Task<List<T>> ConvertToListAsync<T>(this IDbCommand dbCmd)
         {
-            return dbCmd.ConvertToListAsync<T>(null, default(CancellationToken));
+            return dbCmd.ConvertToListAsync<T>(null, CancellationToken.None);
         }
 
         /// <summary>
@@ -420,7 +420,7 @@ namespace ServiceStack.OrmLite
                 return OrmLiteConfig.ResultsFilter.GetLongScalar(dbCmd).InTask();
             }
 
-            return dbCmd.LongScalarAsync(token);
+            return dbCmd.WithLog(dbCmd.LongScalarAsync(token));
         }
 
         /// <summary>

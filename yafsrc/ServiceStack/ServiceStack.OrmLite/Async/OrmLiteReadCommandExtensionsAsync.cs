@@ -28,7 +28,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// The log
         /// </summary>
-        static internal ILog Log = LogManager.GetLogger(typeof(OrmLiteReadCommandExtensionsAsync));
+        static internal ILog Log => OrmLiteLog.Log;
 
         /// <summary>
         /// Executes the reader asynchronous.
@@ -48,7 +48,7 @@ namespace ServiceStack.OrmLite
 
             OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
-            return dbCmd.GetDialectProvider().ExecuteReaderAsync(dbCmd, token);
+            return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteReaderAsync(dbCmd, token));
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace ServiceStack.OrmLite
 
             OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
-            return dbCmd.GetDialectProvider().ExecuteReaderAsync(dbCmd, token);
+            return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteReaderAsync(dbCmd, token));
         }
 
         /// <summary>

@@ -5,6 +5,8 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
+using System.Collections.Generic;
+
 namespace ServiceStack.OrmLite;
 
 /// <summary>
@@ -12,6 +14,10 @@ namespace ServiceStack.OrmLite;
 /// </summary>
 public interface INamingStrategy
 {
+    Dictionary<string, string> SchemaAliases { get; }
+    Dictionary<string, string> TableAliases { get; }
+    Dictionary<string, string> ColumnAliases { get; }
+
     /// <summary>
     /// Gets the table alias.
     /// </summary>

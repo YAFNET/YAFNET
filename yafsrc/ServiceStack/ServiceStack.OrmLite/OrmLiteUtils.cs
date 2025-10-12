@@ -46,7 +46,7 @@ public static class OrmLiteUtils
     /// <summary>
     /// The log
     /// </summary>
-    static internal ILog Log = LogManager.GetLogger(typeof(OrmLiteUtils));
+    static internal ILog Log => OrmLiteLog.Log;
 
     /// <summary>
     /// Handles the exception.
@@ -81,6 +81,12 @@ public static class OrmLiteUtils
     public static string GetDebugString(this IDbCommand cmd)
     {
         var sb = StringBuilderCache.Allocate();
+
+        var tag = cmd.GetTag();
+        if (tag != null)
+        {
+            sb.Append("[").Append(tag).Append("] ");
+        }
 
         sb.Append("SQL: ").Append(cmd.CommandText);
 

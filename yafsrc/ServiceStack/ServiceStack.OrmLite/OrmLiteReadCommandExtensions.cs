@@ -33,12 +33,7 @@ public static class OrmLiteReadCommandExtensions
     /// <summary>
     /// The log
     /// </summary>
-    static internal ILog Log = LogManager.GetLogger(typeof(OrmLiteReadCommandExtensions));
-
-    /// <summary>
-    /// The use database connection extensions
-    /// </summary>
-    public const string UseDbConnectionExtensions = "Use IDbConnection Extensions instead";
+    static internal ILog Log => OrmLiteLog.Log;
 
     /// <summary>
     /// Executes the reader.
@@ -57,7 +52,7 @@ public static class OrmLiteReadCommandExtensions
 
         OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
-        return dbCmd.ExecuteReader();
+        return dbCmd.WithLog(dbCmd.ExecuteReader());
     }
 
     /// <summary>
@@ -78,7 +73,7 @@ public static class OrmLiteReadCommandExtensions
 
         OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
-        return dbCmd.ExecuteReader(commandBehavior);
+        return dbCmd.WithLog(dbCmd.ExecuteReader(commandBehavior));
     }
 
     /// <summary>
@@ -108,7 +103,7 @@ public static class OrmLiteReadCommandExtensions
 
         OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
-        return dbCmd.ExecuteReader();
+        return dbCmd.WithLog(dbCmd.ExecuteReader());
     }
 
     /// <summary>

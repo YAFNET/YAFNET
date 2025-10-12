@@ -572,6 +572,11 @@ public static class OrmLiteConnectionFactoryExtensions
         return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnection(namedConnection);
     }
 
+    public static IDbConnection OpenDbConnection(this IDbConnectionFactory connectionFactory, Action<IDbConnection> configure)
+    {
+        return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnection(configure);
+    }
+
     /// <summary>
     /// Alias for OpenDbConnection
     /// </summary>
@@ -581,6 +586,11 @@ public static class OrmLiteConnectionFactoryExtensions
     public static IDbConnection OpenDbConnection(this IDbConnectionFactory connectionFactory, string namedConnection)
     {
         return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnection(namedConnection);
+    }
+
+    public static IDbConnection OpenDbConnection(this IDbConnectionFactory connectionFactory, string namedConnection, Action<IDbConnection> configure)
+    {
+        return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnection(namedConnection, configure);
     }
 
     /// <summary>

@@ -245,6 +245,8 @@ public interface IOrmLiteDialectProvider
     /// <returns>System.String.</returns>
     string GetTableNameWithBrackets(string tableName, string schema = null);
 
+    string GetSchemaName(TableRef tableRef);
+
     string QuoteSchema(string schema, string table);
     string QuoteTable(TableRef tableRef);
     string GetQuotedTableName(Type modelType);

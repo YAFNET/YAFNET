@@ -23,7 +23,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <summary>
     /// The log
     /// </summary>
-    static internal ILog Log = LogManager.GetLogger(typeof(OrmLiteResultsFilterExtensions));
+    static internal ILog Log => OrmLiteLog.Log;
 
     /// <summary>
     /// Executes the non query.
@@ -53,7 +53,7 @@ public static class OrmLiteResultsFilterExtensions
             return OrmLiteConfig.ResultsFilter.ExecuteSql(dbCmd);
         }
 
-        return dbCmd.ExecuteNonQuery();
+        return dbCmd.WithLog(dbCmd.ExecuteNonQuery());
     }
 
     /// <summary>
@@ -85,7 +85,7 @@ public static class OrmLiteResultsFilterExtensions
             return OrmLiteConfig.ResultsFilter.ExecuteSql(dbCmd);
         }
 
-        return dbCmd.ExecuteNonQuery();
+        return dbCmd.WithLog(dbCmd.ExecuteNonQuery());
     }
 
     /// <summary>
@@ -107,7 +107,7 @@ public static class OrmLiteResultsFilterExtensions
             Log.DebugCommand(dbCmd);
         }
 
-        return dbCmd.ExecuteNonQuery();
+        return dbCmd.WithLog(dbCmd.ExecuteNonQuery());
     }
 
     /// <summary>
@@ -135,7 +135,7 @@ public static class OrmLiteResultsFilterExtensions
             Log.DebugCommand(dbCmd);
         }
 
-        return dbCmd.ExecuteNonQuery();
+        return dbCmd.WithLog(dbCmd.ExecuteNonQuery());
     }
 
     /// <summary>
@@ -393,7 +393,7 @@ public static class OrmLiteResultsFilterExtensions
             return OrmLiteConfig.ResultsFilter.GetLongScalar(dbCmd);
         }
 
-        return dbCmd.LongScalar();
+        return dbCmd.WithLog(dbCmd.LongScalar());
     }
 
     /// <summary>

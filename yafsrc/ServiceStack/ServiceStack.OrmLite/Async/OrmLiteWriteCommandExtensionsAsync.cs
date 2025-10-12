@@ -30,7 +30,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// The log
         /// </summary>
-        static internal ILog Log = LogManager.GetLogger(typeof(OrmLiteWriteCommandExtensionsAsync));
+        static internal ILog Log => OrmLiteLog.Log;
 
         /// <summary>
         /// Executes the SQL asynchronous.
@@ -95,7 +95,7 @@ namespace ServiceStack.OrmLite
                 return OrmLiteConfig.ResultsFilter.ExecuteSql(dbCmd).InTask();
             }
 
-            return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
+            return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token));
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace ServiceStack.OrmLite
                 return OrmLiteConfig.ResultsFilter.ExecuteSql(dbCmd).InTask();
             }
 
-            return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
+            return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token));
         }
 
         /// <summary>
