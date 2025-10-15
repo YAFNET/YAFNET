@@ -143,7 +143,7 @@ public class TeamModel : ForumPage
 
         var modsSorted = new List<SimpleModerator>();
 
-        moderators.Where(m => !m.IsGroup).ForEach(
+        moderators.ForEach(
             mod =>
             {
                 var sortedMod = mod;

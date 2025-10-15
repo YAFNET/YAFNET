@@ -12,31 +12,19 @@
 @{
     var content = new StringBuilder();
 
-    content.Append(@"<ol class=""list-unstyled"">");
+    content.Append("""<ol class="list-unstyled">""");
 
     Model.ForEach(
         row =>
         {
             content.Append("<li>");
 
-            if (row.IsGroup)
-            {
-                // render mod group
-                content.Append(
-                    Current.BoardSettings.EnableDisplayName
-                        ? row.DisplayName
-                        : row.Name);
-            }
-            else
-            {
-                // Render Moderator PageUser Link
-                var userLink = Current.Get<IHtmlHelper>().UserLink(row.ModeratorID,
-                    Current.BoardSettings.EnableDisplayName ? row.DisplayName : row.Name,
-                    null,
-                    row.Style);
+            var userLink = Current.Get<IHtmlHelper>().UserLink(row.ModeratorID,
+	            Current.BoardSettings.EnableDisplayName ? row.DisplayName : row.Name,
+	            null,
+	            row.Style);
 
-                content.Append(userLink.RenderToString());
-            }
+            content.Append(userLink.RenderToString());
 
             content.Append("</li>");
         });
