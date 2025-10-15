@@ -39,9 +39,9 @@
 
   <ItemGroup>
     <PackageReference Include="J2N" Version="2.2.0-alpha-0026" />
-    <PackageReference Include="Microsoft.Bcl.Memory" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Extensions.Primitives" Version="9.0.9" />
+    <PackageReference Include="Microsoft.Bcl.Memory" Version="9.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Primitives" Version="9.0.10" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

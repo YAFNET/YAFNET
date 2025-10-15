@@ -78,8 +78,8 @@ public class SCEditor : TextEditor
         this.PageBoardContext.PageElements.RegisterCssIncludeContent("sceditor.min.css");
 
         var language = BoardContext.Current.PageUser.Culture.IsSet()
-            ? BoardContext.Current.PageUser.Culture.Substring(0, 2)
-            : this.PageBoardContext.BoardSettings.Culture.Substring(0, 2);
+            ? BoardContext.Current.PageUser.Culture[..2]
+            : this.PageBoardContext.BoardSettings.Culture[..2];
 
         if (ValidationHelper.IsNumeric(language))
         {

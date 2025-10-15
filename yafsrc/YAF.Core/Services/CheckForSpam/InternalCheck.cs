@@ -98,22 +98,23 @@ public class InternalCheck : ICheckForBot
                 BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot Email");
             }
 
-            if (bannedIpList.Any(i => i.Equals(ipAddress)))
+            if (bannedIpList.Contains(ipAddress))
             {
                 responseText = $"internal detection found ip address {ipAddress}";
                 isBot = true;
             }
 
-            foreach (var name in bannedNameRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID))
+            foreach (var mask in bannedNameRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
+                         .Select(x => x.Mask))
             {
                 try
                 {
-                    if (!Regex.Match(userName, name.Mask).Success)
+                    if (!Regex.Match(userName, mask).Success)
                     {
                         continue;
                     }
 
-                    responseText = $"internal detection found name {name.Mask}";
+                    responseText = $"internal detection found name {mask}";
                     isBot = true;
                     break;
                 }
@@ -123,7 +124,7 @@ public class InternalCheck : ICheckForBot
 
                     BoardContext.Current.Get<ILoggerService>().Error(
                         ex,
-                        $"Error while Checking for Bot Name (Check: {name.Mask})");
+                        $"Error while Checking for Bot Name (Check: {mask})");
                 }
             }
 
