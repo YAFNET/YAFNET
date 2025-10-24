@@ -9,7 +9,6 @@
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
                                     IconType="text-secondary"
-                                    IconType="text-secondary"
                                     IconName="medal"
                                     LocalizedPage="ADMIN_MEDALS"></YAF:IconHeader>
                 </div>
