@@ -315,6 +315,20 @@ public partial class Forums : AdminPage
     }
 
     /// <summary>
+    /// The page size on selected index changed.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+    {
+        this.BindData();
+    }
+
+    /// <summary>
     /// Binds the data.
     /// </summary>
     private void BindData()
