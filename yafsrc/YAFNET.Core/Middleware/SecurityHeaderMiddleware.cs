@@ -81,6 +81,11 @@ public class SecurityHeaderMiddleware
 
         var baseUrl = context.Request.BaseAuthority();
 
+        if (baseUrl.Contains("localhost"))
+        {
+            return this.next.Invoke(context);
+        }
+
         var csp = $"{this.boardConfig.ContentSecurityPolicy} {baseUrl};";
         context.Response.Headers.Append("Content-Security-Policy",
             new[] { csp });

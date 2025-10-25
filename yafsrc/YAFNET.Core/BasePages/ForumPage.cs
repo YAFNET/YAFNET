@@ -129,6 +129,9 @@ public abstract class ForumPage : PageModel,
     [BindProperty]
     public int Size { get; set; }
 
+    [BindProperty]
+    public int ScrollPosition { get; set; }
+
     /// <summary>
     /// Gets or sets the pageSize List.
     /// </summary>

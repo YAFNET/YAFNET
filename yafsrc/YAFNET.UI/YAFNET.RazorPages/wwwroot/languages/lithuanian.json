@@ -1302,6 +1302,10 @@
           {
             "@tag": "TITLE",
             "#text": "Uždrausti IP adresai"
+          },
+          {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP adresas arba kaukė"
           }
         ]
       },
@@ -4031,6 +4035,14 @@
             "#text": "Leidžiamų failų plėtinių sąrašas."
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Leidžiami vartotojo vardo simboliai:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Leidžiamų priedų failų plėtinių sąrašas."
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "Subforumai Forumų sąraše:"
           },
@@ -5645,14 +5657,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Ženklas, naudojamas saugiems žiniatinklio paslaugos skambučiams atlikti. Nuolat keičiasi, kol išsaugote prieglobos nustatymus."
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS",
-            "#text": "Leidžiami vartotojo vardo simboliai:"
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS_HELP",
-            "#text": "Leidžiamų priedų failų plėtinių sąrašas."
           }
         ]
       },

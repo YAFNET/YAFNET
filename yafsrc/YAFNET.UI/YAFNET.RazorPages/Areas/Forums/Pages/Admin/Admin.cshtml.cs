@@ -165,6 +165,11 @@ public class AdminModel : AdminPage
     /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostBanIpAsync(string mask, int p, int p2)
     {
+        if (await this.GetRepository<BannedIP>().ExistsAsync(x => x.Mask == mask))
+        {
+            return this.Page();
+        }
+
         var bannedIp = new BannedIP
         {
             BoardID = this.PageBoardContext.PageBoardID,
@@ -174,9 +179,12 @@ public class AdminModel : AdminPage
             Since = DateTime.Now
         };
 
+
         await this.GetRepository<BannedIP>().InsertAsync(bannedIp);
 
         await this.BindDataAsync(p, p2);
+
+        this.PageBoardContext.Notify(this.GetTextFormatted("MSG_ADDBAN_IP", mask), MessageTypes.success);
 
         return this.Page();
     }

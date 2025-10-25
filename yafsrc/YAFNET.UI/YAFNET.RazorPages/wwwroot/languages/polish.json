@@ -1302,6 +1302,10 @@
           {
             "@tag": "TITLE",
             "#text": "Zbanowane adresy IP"
+          },
+          {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "Adres IP lub maska"
           }
         ]
       },
@@ -4023,6 +4027,14 @@
             "#text": "Lista dozwolonych rozszerzeń plików dla załączników."
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Dopuszczalne postacie nazwy użytkownika:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Lista dozwolonych rozszerzeń plików dla załączników."
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "Podforum Na liście forów:"
           },
@@ -5637,14 +5649,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token używany do bezpiecznego wywoływania usług sieciowych. Stale się zmienia, dopóki nie zapiszesz ustawień hosta."
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS",
-            "#text": "Dopuszczalne postacie nazwy użytkownika:"
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS_HELP",
-            "#text": "Lista dozwolonych rozszerzeń plików dla załączników."
           }
         ]
       },

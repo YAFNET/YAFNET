@@ -28,7 +28,7 @@
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.4",
     "typescript": "^5.9.3",
-    "webpack": "^5.102.0",
+    "webpack": "^5.102.1",
     "webpack-cli": "^6.0.1",
     "webpack-merge": "^6.0.1"
   },
@@ -53,9 +53,11 @@
     "long-press-event": "^2.5.0",
     "md.bootstrappersiandatetimepicker": "^4.5.0",
     "prismjs": "^1.30.0",
-    "smooth-scroll-into-view-if-needed": "^2.0.2"
+    "smooth-scroll-into-view-if-needed": "^2.0.2",
+    "terser-webpack-plugin": "^5.3.14"
   },
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "updatePackages": "npm-check -y"
   }
 }

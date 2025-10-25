@@ -1302,6 +1302,10 @@
           {
             "@tag": "TITLE",
             "#text": "Zakázané IP adresy"
+          },
+          {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP adresa nebo maska"
           }
         ]
       },
@@ -4031,6 +4035,14 @@
             "#text": "Seznam povolených přípon souborů pro přílohy."
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Povolené uživatelské jméno znaky:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Seznam povolených rozšíření souborů pro přílohy."
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "Dílčí fóra v seznamu fór:"
           },
@@ -5645,14 +5657,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token používaný k volání zabezpečené webové služby. "
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS",
-            "#text": "Povolené uživatelské jméno znaky:"
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS_HELP",
-            "#text": "Seznam povolených rozšíření souborů pro přílohy."
           }
         ]
       },

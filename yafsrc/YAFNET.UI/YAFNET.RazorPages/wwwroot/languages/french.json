@@ -1302,6 +1302,10 @@
           {
             "@tag": "TITLE",
             "#text": "Adresses IP interdites"
+          },
+          {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "Adresse IP ou masque"
           }
         ]
       },
@@ -4031,6 +4035,14 @@
             "#text": "La liste des extensions de fichiers autorisées pour les pièces jointes."
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Périte des personnages de nom d'utilisateur:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "La liste des extensions de fichiers autorisées pour les pièces jointes."
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "Sous-forums dans la liste des forums :"
           },
@@ -5645,14 +5657,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilisé pour effectuer des appels de service web sécurisés. Il change constamment jusqu'à ce que vous sauvegardiez vos paramètres d'hôte."
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS",
-            "#text": "Périte des personnages de nom d'utilisateur:"
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS_HELP",
-            "#text": "La liste des extensions de fichiers autorisées pour les pièces jointes."
           }
         ]
       },

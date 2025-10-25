@@ -9,184 +9,184 @@
 
 <form method="post">
 
-<div class="row">
-	<div class="col-sm-auto">
-		<profileMenu></profileMenu>
-	</div>
-	<div class="col">
-		<div class="row">
-			<div class="col">
-				<div class="card mb-3">
-					<div class="card-header">
-						@Html.IconHeader("envelope", "SUBSCRIPTIONS", "TITLE")
-					</div>
-					<div class="card-body">
-						<label class="form-label" localized-tag="NOTIFICATIONSELECTION" asp-for="Input.NotificationType"></label>
-						<select asp-for="Input.NotificationType"
-						        class="form-select"
-						        onchange="this.form.submit();">
-							@foreach (var item in Model.NotificationTypes)
+	<div class="row">
+		<div class="col-sm-auto">
+			<profileMenu></profileMenu>
+		</div>
+		<div class="col">
+			<div class="row">
+				<div class="col">
+					<div class="card mb-3">
+						<div class="card-header">
+							@Html.IconHeader("envelope", "SUBSCRIPTIONS", "TITLE")
+						</div>
+						<div class="card-body">
+							<label class="form-label" localized-tag="NOTIFICATIONSELECTION" asp-for="Input.NotificationType"></label>
+							<select asp-for="Input.NotificationType"
+							        class="form-select"
+							        onchange="this.form.submit();">
+								@foreach (var item in Model.NotificationTypes)
+								{
+									<option value="@item.Value">@Html.Raw(item.Text)</option>
+								}
+
+							</select>
+
+							@if (Model.PageBoardContext.BoardSettings.AllowDigestEmail)
 							{
-								<option value="@item.Value">@Html.Raw(item.Text)</option>
+								<div class="form-check mt-3">
+									<input asp-for="Input.DailyDigestEnabled" class="form-check-input"/>
+									<label asp-for="Input.DailyDigestEnabled" class="form-check-label" localized-page="SUBSCRIPTIONS" localized-tag="DAILY_DIGEST">
+									</label>
+								</div>
 							}
 
-						</select>
-
-						@if (Model.PageBoardContext.BoardSettings.AllowDigestEmail)
-						{
-							<div class="form-check mt-3">
-								<input asp-for="Input.DailyDigestEnabled" class="form-check-input"/>
-								<label asp-for="Input.DailyDigestEnabled" class="form-check-label" localized-page="SUBSCRIPTIONS" localized-tag="DAILY_DIGEST">
-								</label>
+							<div class="text-lg-center mt-3">
+								<button type="submit" asp-page-handler="Save"
+								        button-style="Primary"
+								        icon="save"
+								        text-localized-page="COMMON"
+								        text-localized-tag="SAVE"></button>
 							</div>
-						}
-
-						<div class="text-lg-center mt-3">
-							<button type="submit" asp-page-handler="Save"
-							        button-style="Primary"
-							        icon="save"
-							        text-localized-page="COMMON"
-							        text-localized-tag="SAVE"></button>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
-		@if (Model.Input.ShowSubscribeList)
-		{
-			@if (Model.Input.Forums.HasItems())
+			@if (Model.Input.ShowSubscribeList)
 			{
-				<div class="row">
-					<div class="col">
-						<div class="card mb-3">
-							<div class="card-header">
-								<div class="row justify-content-between align-items-center">
-									<div class="col-auto">
-										@Html.IconHeader("comments", "SUBSCRIPTIONS", "FORUMS")
-									</div>
-									<div class="col-auto">
-										<div class="input-group input-group-sm me-2" role="group">
-											<div class="input-group-text">
-												@Html.LocalizedText("SHOW"):
+				@if (Model.Input.Forums.HasItems())
+				{
+					<div class="row">
+						<div class="col">
+							<div class="card mb-3">
+								<div class="card-header">
+									<div class="row justify-content-between align-items-center">
+										<div class="col-auto">
+											@Html.IconHeader("comments", "SUBSCRIPTIONS", "FORUMS")
+										</div>
+										<div class="col-auto">
+											<div class="input-group input-group-sm me-2" role="group">
+												<div class="input-group-text">
+													@Html.LocalizedText("SHOW"):
+												</div>
+												<select asp-for="SizeForums"
+												        asp-items="Model.PageSizeForums"
+												        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+												        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+												        class="form-select"
+												        onchange="this.form.submit();"></select>
 											</div>
-											<select asp-for="SizeForums"
-											        asp-items="Model.PageSizeForums"
-											        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-											        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-											        class="form-select"
-											        onchange="this.form.submit();"></select>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="card-body p-0">
-								<ul class="list-group list-group-flush">
-									@for (var i = 0; i < Model.Input.Forums.Count; i++)
-									{
-										<li class="list-group-item list-group-item-action">
-											<input type="hidden" asp-for="@Model.Input.Forums[i].ID" />
-											<div class="form-check d-inline-block">
-												<input asp-for="@Model.Input.Forums[i].Selected" class="form-check-input" title="@Model.GetText("SELECT")" />
-												<label class="form-check-label" asp-for="@Model.Input.Forums[i].Selected">
-													&nbsp;
-												</label>
-											</div>
-											<a href="@Html.Raw(Model.Get<ILinkBuilder>().GetForumLink(Model.Input.Forums[i].ForumID, Model.Input.Forums[i].Forum.Name))">
-												@Html.HtmlEncode(Model.Input.Forums[i].Forum.Name)
-											</a>
-										</li>
-									}
-								</ul>
-							</div>
-							<div class="card-footer text-center">
-								<button type="submit" asp-page-handler="UnsubscribeForums"
-								        button-style="Danger"
-								        icon="trash"
-								        text-localized-page="SUBSCRIPTIONS"
-								        text-localized-tag="UNSUBSCRIBE"></button>
+								<div class="card-body p-0">
+									<ul class="list-group list-group-flush">
+										@for (var i = 0; i < Model.Input.Forums.Count; i++)
+										{
+											<li class="list-group-item list-group-item-action">
+												<input type="hidden" asp-for="@Model.Input.Forums[i].ID" />
+												<div class="form-check d-inline-block">
+													<input asp-for="@Model.Input.Forums[i].Selected" class="form-check-input" title="@Model.GetText("SELECT")" />
+													<label class="form-check-label" asp-for="@Model.Input.Forums[i].Selected">
+														&nbsp;
+													</label>
+												</div>
+												<a href="@Html.Raw(Model.Get<ILinkBuilder>().GetForumLink(Model.Input.Forums[i].ForumID, Model.Input.Forums[i].Forum.Name))">
+													@Html.HtmlEncode(Model.Input.Forums[i].Forum.Name)
+												</a>
+											</li>
+										}
+									</ul>
+								</div>
+								<div class="card-footer text-center">
+									<button type="submit" asp-page-handler="UnsubscribeForums"
+									        button-style="Danger"
+									        icon="trash"
+									        text-localized-page="SUBSCRIPTIONS"
+									        text-localized-tag="UNSUBSCRIBE"></button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row justify-content-end">
-					<div class="col-auto">
-						<pager page-size="@Model.SizeForums"
-						       query-name="forums"
-						       count="!Model.Input.Forums.NullOrEmpty() ?
-										   		 (await Model.GetRepository<WatchForum>().CountAsync(a => a.UserID == Model.PageBoardContext.PageUserID)).ToType<int>() : 0">
-						</pager>
+					<div class="row justify-content-end">
+						<div class="col-auto">
+							<pager page-size="@Model.SizeForums"
+							       query-name="forums"
+							       count="!Model.Input.Forums.NullOrEmpty() ?
+								       (await Model.GetRepository<WatchForum>().CountAsync(a => a.UserID == Model.PageBoardContext.PageUserID)).ToType<int>() : 0">
+							</pager>
+						</div>
 					</div>
-				</div>
-			}
+				}
 
-			@if (Model.Input.Topics.HasItems())
-			{
-				<div class="row">
-					<div class="col">
-						<div class="card mb-3">
-							<div class="card-header">
-								<div class="row justify-content-between align-items-center">
-									<div class="col-auto">
-										@Html.IconHeader("comments", "SUBSCRIPTIONS", "TOPICS")
-									</div>
-									<div class="col-auto">
-										<div class="input-group input-group-sm me-2" role="group">
-											<div class="input-group-text">
-												@Html.LocalizedText("SHOW"):
+				@if (Model.Input.Topics.HasItems())
+				{
+					<div class="row">
+						<div class="col">
+							<div class="card mb-3">
+								<div class="card-header">
+									<div class="row justify-content-between align-items-center">
+										<div class="col-auto">
+											@Html.IconHeader("comments", "SUBSCRIPTIONS", "TOPICS")
+										</div>
+										<div class="col-auto">
+											<div class="input-group input-group-sm me-2" role="group">
+												<div class="input-group-text">
+													@Html.LocalizedText("SHOW"):
+												</div>
+												<select asp-for="SizeTopics"
+												        asp-items="Model.PageSizeTopics"
+												        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+												        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+												        class="form-select"
+												        onchange="this.form.submit();"></select>
 											</div>
-											<select asp-for="SizeTopics"
-											        asp-items="Model.PageSizeTopics"
-											        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-											        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-											        class="form-select"
-											        onchange="this.form.submit();"></select>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="card-body p-0">
-								<ul class="list-group list-group-flush">
-									@for (var i = 0; i < Model.Input.Topics.Count; i++)
-									{
-										<li class="list-group-item list-group-item-action">
-											<input type="hidden" asp-for="@Model.Input.Topics[i].ID" />
-											<div class="form-check d-inline-block">
-												<input asp-for="@Model.Input.Topics[i].Selected" class="form-check-input" title="@Model.GetText("SELECT")" />
-												<label class="form-check-label" asp-for="@Model.Input.Topics[i].Selected">
-													&nbsp;
-												</label>
-											</div>
-											<a href="@Html.Raw(Model.Get<ILinkBuilder>().GetTopicLink(Model.Input.Topics[i].TopicID, Model.Input.Topics[i].Topic.TopicName))">
-												@Html.HtmlEncode(Model.Input.Topics[i].Topic.TopicName)
-											</a>
-										</li>
-									}
-								</ul>
-							</div>
-							<div class="card-footer text-center">
-								<button type="submit" asp-page-handler="UnsubscribeTopics"
-								        button-style="Danger"
-								        icon="trash"
-								        text-localized-page="SUBSCRIPTIONS"
-								        text-localized-tag="UNSUBSCRIBE"></button>
-							</div>
+								<div class="card-body p-0">
+									<ul class="list-group list-group-flush">
+										@for (var i = 0; i < Model.Input.Topics.Count; i++)
+										{
+											<li class="list-group-item list-group-item-action">
+												<input type="hidden" asp-for="@Model.Input.Topics[i].ID" />
+												<div class="form-check d-inline-block">
+													<input asp-for="@Model.Input.Topics[i].Selected" class="form-check-input" title="@Model.GetText("SELECT")" />
+													<label class="form-check-label" asp-for="@Model.Input.Topics[i].Selected">
+														&nbsp;
+													</label>
+												</div>
+												<a href="@Html.Raw(Model.Get<ILinkBuilder>().GetTopicLink(Model.Input.Topics[i].TopicID, Model.Input.Topics[i].Topic.TopicName))">
+													@Html.HtmlEncode(Model.Input.Topics[i].Topic.TopicName)
+												</a>
+											</li>
+										}
+									</ul>
+								</div>
+								<div class="card-footer text-center">
+									<button type="submit" asp-page-handler="UnsubscribeTopics"
+									        button-style="Danger"
+									        icon="trash"
+									        text-localized-page="SUBSCRIPTIONS"
+									        text-localized-tag="UNSUBSCRIBE"></button>
+								</div>
                             
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row justify-content-end">
-					<div class="col-auto">
-						<pager page-size="@Model.SizeTopics"
-						       query-name="topics"
-						       count="!Model.Input.Topics.NullOrEmpty() ? (await Model.GetRepository<WatchTopic>().CountAsync(a => a.UserID == Model.PageBoardContext.PageUserID)).ToType<int>() : 0">
-						</pager>
+					<div class="row justify-content-end">
+						<div class="col-auto">
+							<pager page-size="@Model.SizeTopics"
+							       query-name="topics"
+							       count="!Model.Input.Topics.NullOrEmpty() ? (await Model.GetRepository<WatchTopic>().CountAsync(a => a.UserID == Model.PageBoardContext.PageUserID)).ToType<int>() : 0">
+							</pager>
+						</div>
 					</div>
-				</div>
+				}
 			}
-		}
 
+		</div>
 	</div>
-</div>
 
 </form>

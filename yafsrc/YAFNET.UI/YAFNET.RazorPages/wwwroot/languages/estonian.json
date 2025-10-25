@@ -1302,6 +1302,10 @@
           {
             "@tag": "TITLE",
             "#text": "Keelatud IP-aadressid"
+          },
+          {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP-aadress või mask"
           }
         ]
       },
@@ -4031,6 +4035,14 @@
             "#text": "Manuste lubatud faililaiendite loend."
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Lubatud kasutajanime tähemärgid:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Manuste lubatud faililaiendite loetelu."
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "Alamfoorumid foorumite loendis:"
           },
@@ -5645,14 +5657,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token, mida kasutatakse turvaliste veebiteenuste kõnede tegemiseks. "
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS",
-            "#text": "Lubatud kasutajanime tähemärgid:"
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS_HELP",
-            "#text": "Manuste lubatud faililaiendite loetelu."
           }
         ]
       },

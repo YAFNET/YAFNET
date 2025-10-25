@@ -1302,6 +1302,10 @@
           {
             "@tag": "TITLE",
             "#text": "Indirizzi IP vietati"
+          },
+          {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "Indirizzo IP o maschera"
           }
         ]
       },
@@ -4023,6 +4027,14 @@
             "#text": "L'elenco delle estensioni di file consentite per gli allegati."
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Personaggi del nome utente consentito:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "L'elenco delle estensioni dei file consentite per gli allegati."
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "Forum secondari nell'elenco dei forum:"
           },
@@ -5637,14 +5649,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilizzato per effettuare chiamate sicure al servizio web. Cambia continuamente finché non si salvano le impostazioni dell'host."
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS",
-            "#text": "Personaggi del nome utente consentito:"
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS_HELP",
-            "#text": "L'elenco delle estensioni dei file consentite per gli allegati."
           }
         ]
       },

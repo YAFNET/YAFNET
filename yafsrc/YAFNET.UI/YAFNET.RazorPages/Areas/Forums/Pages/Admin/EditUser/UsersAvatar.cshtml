@@ -23,15 +23,13 @@
     </p>
     @if (!Model.AvatarUrl.Contains("avatar="))
     {
-        <form method="post">
-            <button button-style="Danger"
-                    type="submit"
-                    asp-page-handler="DeleteAvatar"
-                    icon="trash"
-                    text-localized-page="EDIT_AVATAR"
-                    text-localized-tag="AVATARDELETE"
-                    return-confirm-tag="AVATARDELETE"></button>
-        </form>
+	    <button button-style="Danger"
+	            type="submit"
+	            asp-page-handler="DeleteAvatar"
+	            icon="trash"
+	            text-localized-page="EDIT_AVATAR"
+	            text-localized-tag="AVATARDELETE"
+	            return-confirm-tag="AVATARDELETE"></button>
     }
     else
     {
@@ -39,34 +37,31 @@
     }
     <hr />
     @if (Model.PageBoardContext.BoardSettings.AvatarGallery && Model.Gallery.HasItems())
-    {
-        <form method="post">
-            <div class="mb-3">
-                <h4>
-                    @Html.LocalizedText("EDIT_AVATAR", "OURAVATAR")
-                </h4>
-                <select asp-for="AvatarGallery" class="select2-image-select" placeholder="@Html.LocalizedText("OURAVATAR")" data-allow-clear="true">
-                    @foreach (var item in Model.Gallery)
-                    {
-                        <option value="@item.Value" item="@item">
-                            @item.Text
-                        </option>
-                    }
-                </select>
-            </div>
-            <div class="mb-3">
-                <button asp-page-handler="Gallery"
-                        type="submit"
-                        button-style="Primary"
-                        icon="save"
-                        text-localized-page="COMMON"
-                        text-localized-tag="UPDATE"></button>
-            </div>
-            <hr />
-
-        </form>
-    }
-    @if (Model.PageBoardContext.BoardSettings.AvatarUpload)
+        {
+	        <div class="mb-3">
+		        <h4>
+			        @Html.LocalizedText("EDIT_AVATAR", "OURAVATAR")
+		        </h4>
+		        <select asp-for="AvatarGallery" class="select2-image-select" placeholder="@Html.LocalizedText("OURAVATAR")" data-allow-clear="true">
+			        @foreach (var item in Model.Gallery)
+			        {
+				        <option value="@item.Value" item="@item">
+					        @item.Text
+				        </option>
+			        }
+		        </select>
+	        </div>
+	        <div class="mb-3">
+		        <button asp-page-handler="Gallery"
+		                type="submit"
+		                button-style="Primary"
+		                icon="save"
+		                text-localized-page="COMMON"
+		                text-localized-tag="UPDATE"></button>
+	        </div>
+	        <hr />
+        }
+        @if (Model.PageBoardContext.BoardSettings.AvatarUpload)
     {
         <form method="post" enctype="multipart/form-data">
             <div class="mb-3">

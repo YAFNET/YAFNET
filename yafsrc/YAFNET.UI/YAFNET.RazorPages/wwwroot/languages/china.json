@@ -1302,6 +1302,10 @@
           {
             "@tag": "TITLE",
             "#text": "禁止的 IP 地址"
+          },
+          {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP 地址或掩码"
           }
         ]
       },
@@ -4031,6 +4035,14 @@
             "#text": "允许的附件文件扩展名列表。"
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "允许用户名字符："
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "附件允许的文件扩展名列表。"
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "论坛列表中的子论坛："
           },
@@ -5645,14 +5657,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "用于进行安全 Web 服务调用的令牌。"
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS",
-            "#text": "允许用户名字符："
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS_HELP",
-            "#text": "附件允许的文件扩展名列表。"
           }
         ]
       },

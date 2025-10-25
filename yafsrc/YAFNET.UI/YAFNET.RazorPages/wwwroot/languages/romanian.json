@@ -1302,6 +1302,10 @@
           {
             "@tag": "TITLE",
             "#text": "Adrese IP interzise"
+          },
+          {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "Adresa IP sau masca"
           }
         ]
       },
@@ -4031,6 +4035,14 @@
             "#text": "Lista de extensii de fișiere permise pentru atașamente."
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Personaje de utilizator au permis:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Lista extensiilor de fișiere permise pentru atașamente."
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "Sub forumuri în lista forumurilor:"
           },
@@ -5645,14 +5657,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilizat pentru a efectua apeluri securizate de servicii web. Se schimbă constant până când salvați setările de gazdă."
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS",
-            "#text": "Personaje de utilizator au permis:"
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS_HELP",
-            "#text": "Lista extensiilor de fișiere permise pentru atașamente."
           }
         ]
       },

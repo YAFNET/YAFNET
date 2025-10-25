@@ -26,12 +26,13 @@ namespace YAF.Pages.Profile;
 
 using System.Collections.Generic;
 using System.Linq;
-
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Threading.Tasks;
 
 using Core.Extensions;
 using Core.Helpers;
 using Core.Model;
+
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 using Types.EventProxies;
 using Types.Extensions;
@@ -39,8 +40,6 @@ using Types.Interfaces.Events;
 using Types.Models;
 
 using YAF.Core.Context;
-
-using System.Threading.Tasks;
 
 /// <summary>
 /// User Page To Manage Email Subscriptions
@@ -87,6 +86,9 @@ public class SubscriptionsModel : ProfilePage
     /// Gets or sets the notification types.
     /// </summary>
     public List<SelectListItem> NotificationTypes { get; set; }
+
+    [BindProperty]
+    public string ApplicationServerKey { get; set; }
 
     /// <summary>
     /// Create the Page links.
