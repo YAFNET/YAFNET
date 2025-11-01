@@ -9,7 +9,7 @@
   "devDependencies": {
     "@lodder/grunt-postcss": "^3.1.1",
     "@lodder/time-grunt": "^4.0.0",
-    "@tsconfig/recommended": "^1.0.8",
+    "@tsconfig/recommended": "^1.0.11",
     "@types/bootstrap": "^5.2.10",
     "@w8tcha/grunt-dev-update": "^2.3.4",
     "autoprefixer": "^10.4.21",
@@ -24,7 +24,8 @@
     "grunt-webpack": "^7.0.0",
     "grunt-zip": "^1.0.0",
     "postcss": "^8.5.6",
-    "sass": "^1.93.2",
+    "sass": "^1.93.3",
+    "simple-webp-converter": "^1.0.3",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.4",
     "typescript": "^5.9.3",
@@ -53,11 +54,17 @@
     "long-press-event": "^2.5.0",
     "md.bootstrappersiandatetimepicker": "^4.5.0",
     "prismjs": "^1.30.0",
+    "scss": "^0.2.4",
     "smooth-scroll-into-view-if-needed": "^2.0.2",
     "terser-webpack-plugin": "^5.3.14"
   },
   "scripts": {
     "build": "webpack",
-    "updatePackages": "npm-check -y"
+    "updatePackages": "npm-check -y",
+    "webp": "simple-webp-converter"
+  },
+
+  "simple-webp-converter": {
+    "src": "wwwroot/**/*.{png,jpg,gif}"
   }
 }
