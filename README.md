@@ -34,14 +34,14 @@ YAF v3.x.x is also available as a DNN Module, you can download it on the [GitHub
 
 ### Screen Shots
 
-![mainscreen](https://yetanotherforum.net/images/main.png)
+![mainscreen](https://raw.githubusercontent.com/YAFNET/YAFNET/master/yafsrc/YetAnotherForum.NET/wwwroot/assets/main.webp)
 
-![forumsscreen](https://yetanotherforum.net/images/forum.png)
+![forumsscreen](https://raw.githubusercontent.com/YAFNET/YAFNET/master/yafsrc/YetAnotherForum.NET/wwwroot/assets/forum.png)
 
-![topicsscreen](https://yetanotherforum.net/images/topic.png)
+![topicsscreen](https://raw.githubusercontent.com/YAFNET/YAFNET/master/yafsrc/YetAnotherForum.NET/wwwroot/assets/topic.png)
 
 Admin Control Panel
-![adminpanel](https://yetanotherforum.net/images/admin.png)
+![adminpanel](https://raw.githubusercontent.com/YAFNET/YAFNET/master/yafsrc/YetAnotherForum.NET/wwwroot/assets/admin.png)
 
 
 ## Community Support Forum
