@@ -1302,6 +1302,10 @@
           {
             "@tag": "TITLE",
             "#text": "IPs baneadas"
+          },
+          {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "Dirección IP o máscara"
           }
         ]
       },
@@ -4023,6 +4027,14 @@
             "#text": "La lista de extensiones de archivo permitidas para los archivos adjuntos."
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Permitidos personajes de nombre de usuario:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "La lista de extensiones de archivos permitidas para archivos adjuntos."
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "Subforos en la lista de foros:"
           },
@@ -5637,14 +5649,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token usado para hacer llamadas a servicios web seguros. En cambio constante hasta que se guarda la configuración del servidor."
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS",
-            "#text": "Permitidos personajes de nombre de usuario:"
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS_HELP",
-            "#text": "La lista de extensiones de archivos permitidas para archivos adjuntos."
           }
         ]
       },

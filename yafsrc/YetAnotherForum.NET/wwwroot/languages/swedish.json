@@ -1302,6 +1302,10 @@
           {
             "@tag": "TITLE",
             "#text": "Förbjudna IP-adresser"
+          },
+          {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP-adress eller mask"
           }
         ]
       },
@@ -4031,6 +4035,14 @@
             "#text": "Listan över tillåtna filändelser för bilagor."
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Tillåtet användarnamnstecken:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Listan över tillåtna filförlängningar för bilagor."
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "Underforum i listan över forum:"
           },
@@ -5645,14 +5657,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token som används för att göra säkra webbtjänstsamtal. Ändras ständigt tills du sparar dina värdinställningar."
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS",
-            "#text": "Tillåtet användarnamnstecken:"
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS_HELP",
-            "#text": "Listan över tillåtna filförlängningar för bilagor."
           }
         ]
       },

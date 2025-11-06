@@ -1302,6 +1302,10 @@
           {
             "@tag": "TITLE",
             "#text": "Forbudte IP-adresser"
+          },
+          {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP-adresse eller maske"
           }
         ]
       },
@@ -4031,6 +4035,14 @@
             "#text": "Listen over tillatte filutvidelser for vedlegg."
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Tillatt brukernavn tegn:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Listen over tillatte filutvidelser for vedlegg."
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "Underfora i forumlisten:"
           },
@@ -5645,14 +5657,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token som brukes til å foreta sikre nettjenesteanrop. Endres hele tiden til du lagrer vertsinnstillingene."
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS",
-            "#text": "Tillatt brukernavn tegn:"
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS_HELP",
-            "#text": "Listen over tillatte filutvidelser for vedlegg."
           }
         ]
       },

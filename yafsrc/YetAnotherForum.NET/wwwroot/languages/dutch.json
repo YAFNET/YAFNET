@@ -1302,6 +1302,10 @@
           {
             "@tag": "TITLE",
             "#text": "Geblokkeerde IP-Adressen"
+          },
+          {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP-adres of masker"
           }
         ]
       },
@@ -4023,6 +4027,14 @@
             "#text": "De lijst met toegestane bestandsextensies voor bijlagen."
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Gebruikers van gebruikersnaam toegestaan:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "De lijst met toegestane bestandsextensies voor bijlagen."
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "Subforums in forumlijst:"
           },
@@ -5637,14 +5649,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Merkteken om beveiligde web service calls te maken. Wijzigt voortdurend totdat je de host settings hebt opgeslagen."
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS",
-            "#text": "Gebruikers van gebruikersnaam toegestaan:"
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS_HELP",
-            "#text": "De lijst met toegestane bestandsextensies voor bijlagen."
           }
         ]
       },

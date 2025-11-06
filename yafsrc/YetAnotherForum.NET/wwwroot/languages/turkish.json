@@ -1302,6 +1302,10 @@
           {
             "@tag": "TITLE",
             "#text": "Yasaklı IP Adresleri"
+          },
+          {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP Adresi veya Maske"
           }
         ]
       },
@@ -4031,6 +4035,14 @@
             "#text": "Ekler için izin verilen Dosya Uzantıları listesi."
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "İzin verilen kullanıcı adı karakterleri:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Ekler için izin verilen dosya uzantılarının listesi."
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "Forumlar Listesindeki Alt Forumlar:"
           },
@@ -5645,14 +5657,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Güvenli web hizmeti çağrıları yapmak için kullanılan belirteç. Ana bilgisayar ayarlarınızı kaydedinceye kadar sürekli değişir."
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS",
-            "#text": "İzin verilen kullanıcı adı karakterleri:"
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS_HELP",
-            "#text": "Ekler için izin verilen dosya uzantılarının listesi."
           }
         ]
       },

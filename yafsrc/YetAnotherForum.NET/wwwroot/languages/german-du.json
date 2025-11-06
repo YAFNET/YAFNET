@@ -1302,6 +1302,10 @@
           {
             "@tag": "TITLE",
             "#text": "Gesperrte IP-Adressen"
+          },
+          {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP-Adresse oder Maske"
           }
         ]
       },
@@ -4023,6 +4027,14 @@
             "#text": "Die Liste der zulässigen Dateierweiterungen für Anhänge."
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Erlaubte Benutzername Charaktere:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Die Liste der zulässigen Dateierweiterungen für Anhänge."
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "Unterforen in der Forenliste:"
           },
@@ -5637,14 +5649,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token die verwendet werden, um sichere Web-Service-Anrufe zu tätigen. Ständig wechselnde, bis Sie Ihren Host Einstellungen  speichern."
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS",
-            "#text": "Erlaubte Benutzername Charaktere:"
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS_HELP",
-            "#text": "Die Liste der zulässigen Dateierweiterungen für Anhänge."
           }
         ]
       },

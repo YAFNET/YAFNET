@@ -116,7 +116,7 @@
           },
           {
             "@tag": "SUBSCRIPTIONS",
-            "#text": "Email Notification Preferences"
+            "#text": "Notification Preferences"
           },
           {
             "@tag": "UNREAD_ONLY",
@@ -1187,6 +1187,10 @@
           {
             "@tag": "MSG_EXIST",
             "#text": "The Banned IP Already exists!"
+          },
+          {
+	          "@tag": "MSG_ADDBAN_IP",
+	          "#text": "IP Address or Mask '{0}' was added to the banned IP list"
           },
           {
             "@tag": "MSG_REMOVEBAN_IP",
@@ -13055,7 +13059,7 @@
           },
           {
             "@tag": "PAGE1_INSTRUCTIONS",
-            "#text": "Enter your User Name, or password to retrieve your password:"
+            "#text": "Enter your User Name, or email address to retrieve your password:"
           },
           {
             "@tag": "SUCCESS",

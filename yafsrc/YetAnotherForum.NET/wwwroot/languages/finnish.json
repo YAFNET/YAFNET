@@ -1302,6 +1302,10 @@
           {
             "@tag": "TITLE",
             "#text": "Kielletyt IP-osoitteet"
+          },
+          {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP-osoite tai maski"
           }
         ]
       },
@@ -4031,6 +4035,14 @@
             "#text": "Luettelo sallituista tiedostopäätteistä liitteille."
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Sallittu käyttäjänimi -merkit:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Liitteiden sallittujen tiedostolaajennusten luettelo."
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "Alafoorumit Foorumiluettelossa:"
           },
@@ -5645,14 +5657,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token, jota käytetään turvallisten verkkopalvelukutsujen tekemiseen. Muuttuu jatkuvasti, kunnes tallennat isäntäasetukset."
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS",
-            "#text": "Sallittu käyttäjänimi -merkit:"
-          },
-          {
-            "@tag": "ALLOWED_NAME_CHARS_HELP",
-            "#text": "Liitteiden sallittujen tiedostolaajennusten luettelo."
           }
         ]
       },

@@ -19,7 +19,7 @@
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-cssmin": "^5.0.0",
     "grunt-replace": "^2.0.2",
-    "grunt-sass": "^4.0.0",
+    "grunt-sass": "^4.0.1",
     "grunt-shell": "^4.0.0",
     "grunt-webpack": "^7.0.0",
     "grunt-zip": "^1.0.0",
@@ -63,7 +63,6 @@
     "updatePackages": "npm-check -y",
     "webp": "simple-webp-converter"
   },
-
   "simple-webp-converter": {
     "src": "wwwroot/**/*.{png,jpg,gif}"
   }
