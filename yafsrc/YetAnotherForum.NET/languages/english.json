@@ -13327,7 +13327,7 @@
 					},
 					{
 						"@tag": "PAGE1_INSTRUCTIONS",
-						"#text": "Enter your User Name, or password to retrieve your password:"
+						"#text": "Enter your User Name, or email address to retrieve your password:"
 					},
 					{
 						"@tag": "SUCCESS",
