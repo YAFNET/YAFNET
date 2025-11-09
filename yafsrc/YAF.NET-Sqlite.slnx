@@ -11,6 +11,9 @@
     <Project Path="ServiceStack/ServiceStack.OrmLite.Sqlite/ServiceStack.OrmLite.Sqlite.Core.csproj" />
     <Project Path="ServiceStack/ServiceStack.OrmLite/ServiceStack.OrmLite.Core.csproj" />
   </Folder>
+  <Folder Name="/Third-Party Libs/WebEssentials.PWA/">
+    <Project Path="WebEssentials.PWA/WebEssentials.AspNetCore.Pwa.csproj" />
+  </Folder>
   <Folder Name="/YAFNET.Data/">
     <Project Path="YAFNET.Data/YAFNET.Data.Sqlite/YAFNET.Data.Sqlite.csproj" />
   </Folder>
