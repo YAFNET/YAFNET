@@ -17,7 +17,7 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
       with:
-        vs-version: '17'
+        vs-version: '18'
 
     - name: Restore Packages
       run: dotnet restore ./yafsrc/YAF.NET-SqlServer.slnx
