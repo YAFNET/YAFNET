@@ -29,7 +29,6 @@ namespace YAF.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -798,13 +797,14 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         var skip = pageSize * pageIndex;
         return await hits.ToAsyncEnumerable()
-                   .SelectAwait(
-                       async hit => await this.MapSearchDocumentToDataAsync(
-                                        highlighter,
-                                        analyzer,
-                                        searcher.Doc(hit.Doc),
-                                        userAccessList)).Where(item => item != null)
-                   .OrderByDescending(item => item.MessageId).Skip(skip).Take(pageSize).ToListAsync();
+            .Select(
+                async (hit, _,_) => await this.MapSearchDocumentToDataAsync(
+                    highlighter,
+                    analyzer,
+                    searcher.Doc(hit.Doc),
+                    userAccessList)
+            )
+            .OrderByDescending(item => item.MessageId).Skip(skip).Take(pageSize).ToListAsync();
     }
 
     /// <summary>
