@@ -174,10 +174,9 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
         var existingBannedEmailList = await repository.GetAsync(x => x.BoardID == boardId);
 
         using var streamReader = new StreamReader(inputStream);
-        while (!streamReader.EndOfStream)
-        {
-            var line = await streamReader.ReadLineAsync();
 
+        while (await streamReader.ReadLineAsync() is { } line)
+        {
             if (line.IsNotSet() || !line.Contains('@'))
             {
                 continue;
@@ -217,10 +216,9 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
         var existingBannedIpList = await repository.GetAsync(x => x.BoardID == boardId);
 
         using var streamReader = new StreamReader(inputStream);
-        while (!streamReader.EndOfStream)
-        {
-            var line = await streamReader.ReadLineAsync();
 
+        while (await streamReader.ReadLineAsync() is { } line)
+        {
             if (line.IsNotSet() || !IPAddress.TryParse(line, out var importAddress))
             {
                 continue;
@@ -294,10 +292,9 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
         var existingBannedNameList = await repository.GetAsync(x => x.BoardID == boardId);
 
         using var streamReader = new StreamReader(inputStream);
-        while (!streamReader.EndOfStream)
-        {
-            var line = await streamReader.ReadLineAsync();
 
+        while (await streamReader.ReadLineAsync() is { } line)
+        {
             if (line.IsNotSet())
             {
                 continue;
@@ -336,10 +333,9 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
         var existingBannedNameList = await repository.GetAsync(x => x.BoardID == boardId);
 
         using var streamReader = new StreamReader(inputStream);
-        while (!streamReader.EndOfStream)
-        {
-            var line = await streamReader.ReadLineAsync();
 
+        while (await streamReader.ReadLineAsync() is { } line)
+        {
             if (line.IsNotSet())
             {
                 continue;
