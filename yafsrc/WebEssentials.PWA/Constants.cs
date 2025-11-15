@@ -1,12 +1,42 @@
 ﻿namespace WebEssentials.AspNetCore.Pwa;
 
+/// <summary>
+/// PWA related constants
+/// </summary>
 public class Constants
 {
-    public const string ServiceworkerRoute = "/serviceworker";
+    /// <summary>
+    /// The serviceworker route
+    /// </summary>
+    public const string ServiceworkerRoute = "serviceworker";
+
+    /// <summary>
+    /// The custom serviceworker file name
+    /// </summary>
     public const string CustomServiceworkerFileName = "customserviceworker.js";
-    public const string Offlineroute = "/offline.html";
+
+    /// <summary>
+    /// The offlineroute
+    /// </summary>
+    public const string Offlineroute = "offline.html";
+
+    /// <summary>
+    /// The default cache identifier
+    /// </summary>
     public const string DefaultCacheId = "v1.0";
-    public const string WebManifestRoute = "/manifest.webmanifest";
+
+    /// <summary>
+    /// The web manifest route
+    /// </summary>
+    public const string WebManifestRoute = "manifest.webmanifest";
+
+    /// <summary>
+    /// The web manifest file name
+    /// </summary>
     public const string WebManifestFileName = "manifest.json";
+
+    /// <summary>
+    /// The CSP nonce attribute
+    /// </summary>
     public const string CspNonce = " nws-csp-add-nonce='true'";
 }

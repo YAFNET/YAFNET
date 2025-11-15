@@ -8,13 +8,26 @@
             font: 16px/1.6 "Open Sans", Ubuntu, "Nimbus Sans L", Avenir, AvenirNext, "Segoe UI", Helvetica, Arial, sans-serif;
             margin: 1.5em;
         }
+        main {
+	        position: absolute;
+	        top: 50%;
+	        left: 50%;
+	        align-items: center;
+	        justify-content: center;
+	        -webkit-transform: translate(-50%, -50%);
+	        -moz-transform: translate(-50%, -50%);
+	        -ms-transform: translate(-50%, -50%);
+	        -o-transform: translate(-50%, -50%);
+	        transform: translate(-50%, -50%);
+	        text-align: center;
+        }
     </style>
 </head>
 <body>
 
     <main>
-        <h1>You're offline</h1>
-        <p>This page has not been cached before you went offline</p>
+        <h1>Oops! - You're offline</h1>
+        <p>Please check your internet connection.</p>
     </main>
 
 </body>

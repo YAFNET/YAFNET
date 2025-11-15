@@ -15,7 +15,7 @@ public class PwaOptions
     public PwaOptions()
     {
         this.CacheId = Constants.DefaultCacheId;
-        this.Strategy = ServiceWorkerStrategy.CacheFirstSafe;
+        this.Strategy = ServiceWorkerStrategy.CustomStrategy;
         this.RoutesToPreCache = "";
         this.BaseRoute = "";
         this.OfflineRoute = Constants.Offlineroute;

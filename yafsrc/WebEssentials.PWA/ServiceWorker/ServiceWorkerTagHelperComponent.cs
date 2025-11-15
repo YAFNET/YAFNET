@@ -23,7 +23,7 @@ internal class ServiceWorkerTagHelperComponent : TagHelperComponent
         this._options = options;
 
         this._script =
-            $"\r\n\t<script{(this._options.EnableCspNonce ? Constants.CspNonce : string.Empty)}>'serviceWorker'in navigator&&navigator.serviceWorker.register('{options.BaseRoute}{Constants.ServiceworkerRoute}', {{ scope: '{options.BaseRoute}/' }})</script>";
+            $"\r\n\t<script{(this._options.EnableCspNonce ? Constants.CspNonce : string.Empty)}>'serviceWorker'in navigator&&navigator.serviceWorker.register('{options.BaseRoute}{Constants.ServiceworkerRoute}', {{ scope: '{options.BaseRoute}' }})</script>";
     }
 
     /// <inheritdoc />

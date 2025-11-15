@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0</TargetFrameworks>
+    <TargetFrameworks>net10.0</TargetFrameworks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\WebEssentials.AspNetCore.Pwa.xml</DocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageTags>asp.net, performance, speed, cache, caching</PackageTags>
@@ -18,31 +18,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ServiceWorker\Files\CacheFingerprinted.js" />
-    <None Remove="ServiceWorker\Files\CacheFirst.js" />
-    <None Remove="ServiceWorker\Files\CacheFirstSafe.js" />
-    <None Remove="ServiceWorker\Files\Minimal.js" />
-    <None Remove="ServiceWorker\Files\NetworkFirst.js" />
     <None Remove="ServiceWorker\Files\offline.html" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="ServiceWorker\Files\CacheFingerprinted.js" />
-    <EmbeddedResource Include="ServiceWorker\Files\CacheFirst.js" />
-    <EmbeddedResource Include="ServiceWorker\Files\Minimal.js" />
-    <EmbeddedResource Include="ServiceWorker\Files\NetworkFirst.js" />
     <EmbeddedResource Include="ServiceWorker\Files\offline.html" />
-    <EmbeddedResource Include="ServiceWorker\Files\CacheFirstSafe.js" />
   </ItemGroup>
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="HtmlProperties" Version="1.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.3.0" />
-    <PackageReference Include="System.Text.Json" Version="9.0.10" />
   </ItemGroup>
 
 </Project>
