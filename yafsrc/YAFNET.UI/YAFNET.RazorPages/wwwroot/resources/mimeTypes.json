@@ -136,6 +136,10 @@
     "Type": "image/bmp"
   },
   {
+	  "Extension": "webp",
+	  "Type": "image/webp"
+  },
+  {
     "Extension": "boo",
     "Type": "application/book"
   },

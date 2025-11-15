@@ -1,9 +1,12 @@
 ﻿@page "{handler?}"
+@using UAParser
 @using YAF.Core.Extensions
+@using YAF.Core.Helpers
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Models
+@using YAF.Types.Objects
 
 @model YAF.Pages.Profile.SubscriptionsModel
 
@@ -16,6 +19,50 @@
 		<div class="col">
 			<div class="row">
 				<div class="col">
+					@if (Model.Get<VapidConfiguration>().IsPwaEnabled())
+					{
+						<div class="card mb-3">
+							<div class="card-body">
+								<h5 class="card-title">@Html.LocalizedText("SUBSCRIPTIONS","PUSH_NOTIFICATIONS")</h5>
+								<p id="enableText" class="card-text">@Html.LocalizedText("SUBSCRIPTIONS", "CLICK_ENABLE")</p>
+								<div id="mobileInstructions" class="alert alert-warning d-none">
+									@Html.LocalizedText("SUBSCRIPTIONS", "MOBILE_INSTRUCTIONS")
+								</div>
+								
+								@if (Model.DeviceSubscriptions.Any())
+								{
+									var parser = await Parser.GetDefaultAsync();
+
+									<h6 class="card-subtitle mb-2 text-body-secondary">@Html.LocalizedText("SUBSCRIPTIONS", "ACTIVE_SUBSCRIPTIONS")</h6>
+									<ul class="list-group" id="activeSubscriptions">
+										@foreach (var sub in Model.DeviceSubscriptions)
+										{
+											var info = await parser.ParseAsync(sub.UserAgent);
+											var active = "";
+
+											if (sub.UserAgent == this.HttpContext.Request.Headers.UserAgent.ToString())
+											{
+												active = " active";
+											}
+
+											<li class="@($"list-group-item{active}")">@Html.Raw($"<span class=\"fw-bold me-2\">{info.OS.Family}</span>&#183;<span class=\"fw-bold ms-2\">{info.Browser.Family}</span>")</li>
+										}
+									</ul>
+								}
+								
+								<hr/>
+
+								<button id="enableBtn" type="button" button-style="Primary" text-localized-tag="ENABLE_NOTIFICATIONS"></button>
+								<button id="stopBtn" button-style="Danger" style="display: none;" text-localized-tag="STOP_NOTIFICATIONS"></button>
+								<button id="installBtn" button-style="Success" text-localized-tag="PWA_INSTALL" title-localized-tag="PWA_INSTALL_TITLE"></button>
+
+								@Html.HiddenFor(x => Model.ApplicationServerKey)
+
+								<div id="status"></div>
+							</div>
+						</div>
+					}
+					
 					<div class="card mb-3">
 						<div class="card-header">
 							@Html.IconHeader("envelope", "SUBSCRIPTIONS", "TITLE")
@@ -190,3 +237,26 @@
 	</div>
 
 </form>
+
+@section Scripts {
+	@if (Model.Get<VapidConfiguration>().IsPwaEnabled())
+	{
+		<script src="~/js/subscriptions.min.js" asp-append-version="true"></script>
+	}
+	
+	<script>
+		@Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.CreateSubscriptionsJs(
+			Model.GetText("SUBSCRIPTIONS", "AppInstalled"),
+			Model.GetText("SUBSCRIPTIONS", "Subscribed"),
+			Model.GetText("SUBSCRIPTIONS", "BrowserNotSupported"),
+			Model.GetText("SUBSCRIPTIONS", "IosHandling"),
+			Model.GetText("SUBSCRIPTIONS", "Stopped"),
+			Model.GetText("SUBSCRIPTIONS", "NotificationsBlocked"),
+			Model.GetText("SUBSCRIPTIONS", "NotificationsBlockedMobile"),
+			Model.GetText("SUBSCRIPTIONS", "RequestingPermission"),
+			Model.GetText("SUBSCRIPTIONS", "PermissionGranted"),
+			Model.GetText("SUBSCRIPTIONS", "PermissionDenied"),
+			Model.GetText("SUBSCRIPTIONS", "PermissionDeniedMobile"),
+			Model.GetText("SUBSCRIPTIONS", "PermissionDismissed"))))
+	</script>
+}

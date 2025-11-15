@@ -217,6 +217,13 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
             migrator.Run();
         }
+
+        if (prevVersion < 1003)
+        {
+            var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration1003));
+
+            migrator.Run();
+        }
     }
 
     /// <summary>

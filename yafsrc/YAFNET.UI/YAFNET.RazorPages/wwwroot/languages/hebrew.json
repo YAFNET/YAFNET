@@ -1280,6 +1280,10 @@
             "#text": "מסכה"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "כתובת IP או מסכה"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "למחוק את הפריט האסור הזה?"
           },
@@ -1302,10 +1306,6 @@
           {
             "@tag": "TITLE",
             "#text": "כתובות IP אסורות"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "כתובת IP או מסכה"
           }
         ]
       },
@@ -14143,6 +14143,86 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "עליך לבחור קודם דיונים על מנת לבטל את הרישום עליהם."
+          },
+          {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "מנויים פעילים"
+          },
+          {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ אפליקציה מותקנת! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ דפדפן זה אינו תומך בהתראות"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "לחץ על הכפתור כדי להפעיל התראות"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "הפעל התראות"
+          },
+          {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[ב]"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ הודעות חסומות. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ הודעות חסומות. "
+          },
+          {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ הרשאה נדחתה. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ הרשאה נדחתה. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ ההרשאה נדחתה. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ ניתנה רשות! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "הודעות דחיפה של מכשיר (דפדפן)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "הוסף למסך הבית"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "הוסף את האפליקציה הזו למסך הבית שלך לגישה מהירה ולחוויה הטובה ביותר!"
+          },
+          {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "עצור התראות"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ הודעות דחיפה הופסקו. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ נרשם להודעות דחיפה בהצלחה!"
           }
         ]
       },

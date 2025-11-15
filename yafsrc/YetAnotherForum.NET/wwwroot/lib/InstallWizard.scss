@@ -1,6 +1,6 @@
-﻿@import "bootstrap/bootstrap.scss";
+﻿@use "bootstrap/bootstrap.scss";
 
-@import "fontawesome/fontawesome-all";
+@use "fontawesome/fontawesome-all";
 
 html {
   background: url(../images/InstallBackground.webp) no-repeat center center fixed;

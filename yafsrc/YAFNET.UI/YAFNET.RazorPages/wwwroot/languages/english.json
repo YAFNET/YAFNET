@@ -10304,11 +10304,11 @@
           },
           {
             "@tag": "MAILSETTINGSCONTENT",
-            "#text": "<p>On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.</p>\r\n<p><strong>Turn off notifications - </strong>This Options turns off all Notifications and you won’t receive any emails.</p>\r\n<p> <strong>Notification for all posts on all topics</strong> - You will receive Instant Email Notifications when someone has posted a new Message.</p>\r\n<p><strong>Notification for topics you've posted to or watched</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.</p>\r\n<p><strong>Notification for topics or forums you've selectively watched (listed below)</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).</p>\r\n<p><strong>Receive once daily digest/summary of activity?</strong> - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail</p>"
+            "#text": "<p>On the 'Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.</p>\r\n<p><strong>Turn off notifications - </strong>This Options turns off all Notifications and you won’t receive any emails.</p>\r\n<p> <strong>Notification for all posts on all topics</strong> - You will receive Instant Email Notifications when someone has posted a new Message.</p>\r\n<p><strong>Notification for topics you've posted to or watched</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.</p>\r\n<p><strong>Notification for topics or forums you've selectively watched (listed below)</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).</p>\r\n<p><strong>Receive once daily digest/summary of activity?</strong> - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail</p>"
           },
           {
             "@tag": "MAILSETTINGSTITLE",
-            "#text": "Email Notification Preferences"
+            "#text": "Notification Preferences"
           },
           {
             "@tag": "MEMBERSLISTCONTENT",
@@ -10352,7 +10352,7 @@
           },
           {
             "@tag": "MYSETTINGSCONTENT",
-            "#text": "<p>The <strong>User Control Panel</strong> is where you control your personal settings, options and preferences.</p><p>The <strong>Control Panel</strong> main page will show your Account Summary including your User Name, Email Address, and Number of posts, Member of Groups you are in and since when you are member.</p><p>On the Left Side you will find Links to all Sub Pages and Forms that allow you to control..</p><p><strong>Messenger</strong></p><ul>  <li>Inbox</li> </ul><p><strong>Personal Profile</strong></p><ul>  <li>View Profile</li>  <li>Edit Profile</li>  <li>Edit Settings<br /></li> <li>Edit Friends</li> <li>Edit Albums</li>  <li>Modify Avatar</li>  <li>Signature</li>  <li>Email Notification Preferences</li>  <li>Change Password</li></ul>"
+            "#text": "<p>The <strong>User Control Panel</strong> is where you control your personal settings, options and preferences.</p><p>The <strong>Control Panel</strong> main page will show your Account Summary including your User Name, Email Address, and Number of posts, Member of Groups you are in and since when you are member.</p><p>On the Left Side you will find Links to all Sub Pages and Forms that allow you to control..</p><p><strong>Messenger</strong></p><ul>  <li>Inbox</li> </ul><p><strong>Personal Profile</strong></p><ul>  <li>View Profile</li>  <li>Edit Profile</li>  <li>Edit Settings<br /></li> <li>Edit Friends</li> <li>Edit Albums</li>  <li>Modify Avatar</li>  <li>Signature</li>  <li>Notification Preferences</li>  <li>Change Password</li></ul>"
           },
           {
             "@tag": "MYSETTINGSTITLE",
@@ -10480,7 +10480,7 @@
           },
           {
             "@tag": "SUBSCRIPTIONSCONTENT",
-            "#text": "<p>Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.</p>\r\n<p>Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to or watched' in the E-mail Notification Preferences Page inside the User CP.</p>\r\n<p><strong>How to  watch a topic?</strong></p>\r\n<p>To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.</p>\r\n<p><strong>How to  watch a forum?</strong></p>\r\n<p>To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.</p>\r\n<p><strong>How do I manage my Subscriptions of Watched topics and forums?</strong></p>\r\n<p>You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.</p>"
+            "#text": "<p>Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.</p>\r\n<p>Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to or watched' in the E-mail Notification Preferences Page inside the User CP.</p>\r\n<p><strong>How to  watch a topic?</strong></p>\r\n<p>To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.</p>\r\n<p><strong>How to  watch a forum?</strong></p>\r\n<p>To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.</p>\r\n<p><strong>How do I manage my Subscriptions of Watched topics and forums?</strong></p>\r\n<p>You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.</p>"
           },
           {
             "@tag": "SUBSCRIPTIONSTITLE",
@@ -13059,7 +13059,7 @@
           },
           {
             "@tag": "PAGE1_INSTRUCTIONS",
-            "#text": "Enter your User Name, or password to retrieve your password:"
+            "#text": "Enter your User Name, or email address to retrieve your password:"
           },
           {
             "@tag": "SUCCESS",
@@ -14048,82 +14048,162 @@
       {
         "@name": "SUBSCRIPTIONS",
         "Resource": [
-          {
-            "@tag": "ALLTOPICS",
-            "#text": "Notification for [b]all posts on all topics[/b]"
-          },
-          {
-            "@tag": "DAILY_DIGEST",
-            "#text": "Receive once daily digest/summary of activity?"
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Forum"
-          },
-          {
-            "@tag": "FORUMS",
-            "#text": "Watched Forums"
-          },
-          {
-            "@tag": "LASTPOST",
-            "#text": "Last Post"
-          },
-          {
-            "@tag": "LASTPOSTLINK",
-            "#text": "{0} by {1}"
-          },
-          {
-            "@tag": "NONOTIFICATION",
-            "#text": "Turn off notifications"
-          },
-          {
-            "@tag": "NOTIFICATIONSELECTION",
-            "#text": "Select email notification preference:"
-          },
-          {
-            "@tag": "REPLIES",
-            "#text": "Replies"
-          },
-          {
-            "@tag": "SAVED_NOTIFICATION_SETTING",
-            "#text": "Notification Email Settings Updated"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Email Notification Preferences"
-          },
-          {
-            "@tag": "TOPIC",
-            "#text": "Topic"
-          },
-          {
-            "@tag": "TOPICS",
-            "#text": "Watched Topics"
-          },
-          {
-            "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
-            "#text": "Notification for topics [b]you've posted to[/b] or watched"
-          },
-          {
-            "@tag": "TOPICSISUBSCRIBETO",
-            "#text": "Notification for topics or forums you've selectively watched (listed below)"
-          },
-          {
-            "@tag": "UNSUBSCRIBE",
-            "#text": "Unwatch"
-          },
-          {
-            "@tag": "VIEWS",
-            "#text": "Views"
-          },
-          {
-            "@tag": "WARN_SELECTFORUMS",
-            "#text": "Please select forums to unwatch first."
-          },
-          {
-            "@tag": "WARN_SELECTTOPICS",
-            "#text": "Please select topics to unwatch first."
-          }
+            {
+                "@tag": "ALLTOPICS",
+                "#text": "Notification for [b]all posts on all topics[/b]"
+            },
+            {
+                "@tag": "DAILY_DIGEST",
+                "#text": "Receive once daily digest/summary of activity?"
+            },
+            {
+                "@tag": "FORUM",
+                "#text": "Forum"
+            },
+            {
+                "@tag": "FORUMS",
+                "#text": "Watched Forums"
+            },
+            {
+                "@tag": "LASTPOST",
+                "#text": "Last Post"
+            },
+            {
+                "@tag": "LASTPOSTLINK",
+                "#text": "{0} by {1}"
+            },
+            {
+                "@tag": "NONOTIFICATION",
+                "#text": "Turn off notifications"
+            },
+            {
+                "@tag": "NOTIFICATIONSELECTION",
+                "#text": "Select email notification preference:"
+            },
+            {
+                "@tag": "REPLIES",
+                "#text": "Replies"
+            },
+            {
+                "@tag": "SAVED_NOTIFICATION_SETTING",
+                "#text": "Notification Email Settings Updated"
+            },
+            {
+                "@tag": "TITLE",
+                "#text": "Notification Preferences"
+            },
+            {
+                "@tag": "TOPIC",
+                "#text": "Topic"
+            },
+            {
+                "@tag": "TOPICS",
+                "#text": "Watched Topics"
+            },
+            {
+                "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
+                "#text": "Notification for topics [b]you've posted to[/b] or watched"
+            },
+            {
+                "@tag": "TOPICSISUBSCRIBETO",
+                "#text": "Notification for topics or forums you've selectively watched (listed below)"
+            },
+            {
+                "@tag": "UNSUBSCRIBE",
+                "#text": "Unwatch"
+            },
+            {
+                "@tag": "VIEWS",
+                "#text": "Views"
+            },
+            {
+                "@tag": "WARN_SELECTFORUMS",
+                "#text": "Please select forums to unwatch first."
+            },
+            {
+                "@tag": "WARN_SELECTTOPICS",
+                "#text": "Please select topics to unwatch first."
+            },
+            {
+                "@tag": "ENABLE_NOTIFICATIONS",
+                "#text": "Enable Notifications"
+            },
+            {
+                "@tag": "STOP_NOTIFICATIONS",
+                "#text": "Stop Notifications"
+            },
+            {
+                "@tag": "PUSH_NOTIFICATIONS",
+                "#text": "Device (Browser) push notifications"
+            },
+            {
+                "@tag": "PWA_INSTALL",
+                "#text": "Add to Home Screen"
+            },
+            {
+                "@tag": "PWA_INSTALL_TITLE",
+                "#text": "Add this app to your home screen for quick access and the best experience!"
+            },
+            {
+                "@tag": "ACTIVE_SUBSCRIPTIONS",
+                "#text": "Active Subscriptions"
+            },
+            {
+                "@tag": "CLICK_ENABLE",
+                "#text": "Click the button to enable notifications"
+            },
+            {
+                "@tag": "MOBILE_INSTRUCTIONS",
+                "#text": "[b]📱 Mobile Instructions:[/b][br][br][b]For Android Chrome:[/b][br]1. Click 'Enable Notifications'[br]2. Tap 'Allow' when prompted[br]3. Keep the page open or add to home screen[br][br][b]For iPhone Safari:[/b][br]1. Tap the Share button (⬆️)[br]2. Scroll and tap 'Add to Home Screen'[br]3. Open from home screen[br]4. Then enable notifications[br][br][b]Note:[/b] iOS Safari requires PWA to be installed to home screen for notifications to work."
+            },
+            {
+                "@tag": "APPINSTALLED",
+                "#text": "✅ App installed! Open from home screen for best experience."
+            },
+            {
+                "@tag": "SUBSCRIBED",
+                "#text": "✅ Subscribed to push notifications successfully!"
+            },
+            {
+                "@tag": "BROWSERNOTSUPPORTED",
+                "#text": "❌ This browser does not support notifications"
+            },
+            {
+                "@tag": "IOSHANDLING",
+                "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+            },
+            {
+                "@tag": "STOPPED",
+                "#text": "ℹ️ Push notifications stopped. You can re-enable anytime."
+            },
+            {
+                "@tag": "NOTIFICATIONSBLOCKED",
+                "#text": "❌ Notifications blocked. Go to your browser Settings → Site Settings → Notifications → Allow, then refresh."
+            },
+            {
+                "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+                "#text": "❌ Notifications blocked. Click the lock icon 🔒 in address bar → Notifications → Allow, then refresh."
+            },
+            {
+                "@tag": "REQUESTINGPERMISSION",
+                "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+            },
+            {
+                "@tag": "PERMISSIONGRANTED",
+                "#text": "✅ Permission granted! Starting notifications..."
+            },
+            {
+                "@tag": "PERMISSIONDENIED",
+                "#text": "❌ Permission denied. Click the lock icon 🔒 in address bar → Notifications → Allow, then refresh."
+            },
+            {
+                "@tag": "PERMISSIONDENIEDMOBILE",
+                "#text": "❌ Permission denied. Go to Settings → Site Settings → Notifications → Allow this site."
+            },
+            {
+                "@tag": "PERMISSIONDISMISSED",
+                "#text": "⚠️ Permission dismissed. Click the button again to retry."
+            }
         ]
       },
       {

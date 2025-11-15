@@ -1280,6 +1280,10 @@
             "#text": "Maske"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP-Adresse oder Maske"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Diesen verbotenen Artikel löschen?"
           },
@@ -1302,10 +1306,6 @@
           {
             "@tag": "TITLE",
             "#text": "Gesperrte IP-Adressen"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "IP-Adresse oder Maske"
           }
         ]
       },
@@ -14115,6 +14115,86 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Bitte zuerst die zu kündigende Diskussionen auswählen."
+          },
+          {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktive Abonnements"
+          },
+          {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ App installiert! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Dieser Browser unterstützt keine Benachrichtigungen"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Klicken Sie auf die Schaltfläche, um Benachrichtigungen zu aktivieren"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Benachrichtigungen aktivieren"
+          },
+          {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[B]"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Benachrichtigungen blockiert. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Benachrichtigungen blockiert. "
+          },
+          {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Erlaubnis verweigert. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Erlaubnis verweigert. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Erlaubnis abgelehnt. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Erlaubnis erteilt! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Push-Benachrichtigungen des Geräts (Browsers)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Zum Startbildschirm hinzufügen"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Fügen Sie diese App zu Ihrem Startbildschirm hinzu, um schnellen Zugriff und das beste Erlebnis zu erhalten!"
+          },
+          {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Stoppen Sie Benachrichtigungen"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Push-Benachrichtigungen gestoppt. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Push-Benachrichtigungen erfolgreich abonniert!"
           }
         ]
       },

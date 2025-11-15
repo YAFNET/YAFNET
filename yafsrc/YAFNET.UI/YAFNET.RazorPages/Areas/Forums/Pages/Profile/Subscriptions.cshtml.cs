@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using YAF.Types.Objects;
+
 namespace YAF.Pages.Profile;
 
 using System.Collections.Generic;
@@ -90,6 +92,8 @@ public class SubscriptionsModel : ProfilePage
     [BindProperty]
     public string ApplicationServerKey { get; set; }
 
+    public List<DeviceSubscription> DeviceSubscriptions { get; set; }
+
     /// <summary>
     /// Create the Page links.
     /// </summary>
@@ -115,7 +119,7 @@ public class SubscriptionsModel : ProfilePage
                                         NotificationType = this.PageBoardContext.PageUser.NotificationSetting.ToInt().ToString()
                                     };
 
-        this.BindData();
+        await this.BindDataAsync();
 
         await this.BindDataForumsAsync(forums);
         await this.BindDataTopicsAsync(topics);
@@ -136,7 +140,7 @@ public class SubscriptionsModel : ProfilePage
     /// </param>
     public async Task OnPostAsync(int forums = 0, int topics = 0)
     {
-        this.BindData();
+        await this.BindDataAsync();
 
         var selectedValue = this.Input.NotificationType.ToEnum<UserNotificationSetting>();
 
@@ -157,7 +161,7 @@ public class SubscriptionsModel : ProfilePage
     /// </param>
     public async Task OnPostSaveAsync(int forums = 0, int topics = 0)
     {
-        this.BindData();
+        await this.BindDataAsync();
 
         await this.BindDataForumsAsync(forums);
         await this.BindDataTopicsAsync(topics);
@@ -233,7 +237,7 @@ public class SubscriptionsModel : ProfilePage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData()
+    private async Task BindDataAsync()
     {
         this.PageSizeForums = new SelectList(
             StaticDataHelper.PageEntries(),
@@ -250,6 +254,13 @@ public class SubscriptionsModel : ProfilePage
         var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
 
         items.ForEach(x => this.NotificationTypes.Add(new SelectListItem(this.GetText(x.Value), x.Key.ToString())));
+
+        this.ApplicationServerKey = this.Get<VapidConfiguration>().PublicKey;
+
+        if (this.Get<VapidConfiguration>().IsPwaEnabled())
+        {
+            this.DeviceSubscriptions = await this.GetRepository<DeviceSubscription>().GetSubscriptionsByUserAsync(this.PageBoardContext.PageUserID);
+        }
     }
 
     /// <summary>

@@ -38,16 +38,12 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetUsers](
     [FailedPasswordAttemptWindowStart]       DATETIME2         NOT NULL,
     [FailedPasswordAnswerAttemptCount]       INT              NOT NULL,
     [FailedPasswordAnswerAttemptWindowStart] DATETIME2         NOT NULL,
-    [Comment]                                NTEXT            NULL,
+    [Comment]                                nvarchar(max)            NULL,
     [Profile_Birthday] DateTime NULL,
     [Profile_Blog] NVARCHAR (255) NULL,
     [Profile_Gender] INT NULL,
-    [Profile_GoogleId] NVARCHAR (255) NULL,
     [Profile_Homepage] NVARCHAR (255) NULL,
     [Profile_Facebook] NVARCHAR (400) NULL,
-    [Profile_FacebookId] NVARCHAR (400) NULL,
-    [Profile_Twitter] NVARCHAR (400) NULL,
-    [Profile_TwitterId] NVARCHAR (400) NULL,
     [Profile_Interests] NVARCHAR (4000) NULL,
     [Profile_Location] NVARCHAR (255) NULL,
     [Profile_Country] NVARCHAR (2) NULL,
@@ -64,109 +60,85 @@ GO
 
 -- Create missing profile columns first if not exist
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Interests')
+if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Interests')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Interests nvarchar(255)  Null
 end
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Blog')
+if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Blog')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Blog nvarchar(255)  Null
 end
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Occupation')
+if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Occupation')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Occupation nvarchar(255)  Null
 end
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Skype')
+if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Skype')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Skype nvarchar(255)  Null
 end
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='RealName')
+if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='RealName')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add RealName nvarchar(255)  Null
 end
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Location')
+if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Location')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add [Location] nvarchar(255)  Null
 end
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Homepage')
+if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Homepage')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Homepage nvarchar(255)  Null
 end
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Gender')
+if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Gender')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Gender int  Null
 end
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Birthday')
+if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Birthday')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Birthday datetime  Null
 end
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='GoogleId')
-begin
-    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add GoogleId nvarchar(255)  Null
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Facebook')
+if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Facebook')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Facebook nvarchar(255)  Null
 end
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='FacebookId')
-begin
-    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add FacebookId nvarchar(255)  Null
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Twitter')
-begin
-    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Twitter nvarchar(255) Null
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='TwitterId')
-begin
-    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add TwitterId nvarchar(255) Null
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Country')
+if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Country')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Country nvarchar(255) Null
 end
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Region')
+if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Region')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Region nvarchar(255) Null
 end
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='City')
+if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='City')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add City nvarchar(255) Null
 end
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='XMPP')
+if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='XMPP')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add XMPP nvarchar(255) Null
 end
@@ -174,7 +146,7 @@ GO
 
 
  -- Migrate users standard provider
-if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[aspnet_Users]') and type in (N'U'))
+if exists (select  1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[aspnet_Users]') and type in (N'U'))
 begin
   INSERT INTO [{databaseOwner}].[{objectQualifier}AspNetUsers] (
         ApplicationId,
@@ -276,12 +248,8 @@ GO
        Profile_Birthday,
        Profile_Blog,
        Profile_Gender,
-       Profile_GoogleId,
        Profile_Homepage,
        Profile_Facebook,
-       Profile_FacebookId,
-       Profile_Twitter,
-       Profile_TwitterId,
        Profile_Interests,
        Profile_Location,
        Profile_Country,
@@ -323,12 +291,8 @@ GO
       p.Birthday,
       p.Blog,
       p.Gender,
-      p.GoogleId,
       p.Homepage,
       p.Facebook,
-      p.FacebookId,
-      p.Twitter,
-      p.TwitterId,
       p.Interests,
       p.Location,
       p.Country,
@@ -423,7 +387,7 @@ GO
 
 
 -- Import Provider Roles
-if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[aspnet_Roles]') and type in (N'U'))
+if exists (select  1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[aspnet_Roles]') and type in (N'U'))
 begin
 INSERT INTO [{databaseOwner}].[{objectQualifier}AspNetRoles](Id,Name)
 SELECT RoleId,RoleName
@@ -451,7 +415,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetUserRoles] (
 GO
 
 -- Import User Roles
-if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[aspnet_usersInRoles]') and type in (N'U'))
+if exists (select  1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[aspnet_usersInRoles]') and type in (N'U'))
 begin
    INSERT INTO [{databaseOwner}].[{objectQualifier}AspNetUserRoles](UserId,RoleId)
    SELECT UserId,RoleId

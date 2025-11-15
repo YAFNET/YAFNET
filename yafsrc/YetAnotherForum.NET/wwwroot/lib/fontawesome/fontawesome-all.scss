@@ -7,10 +7,10 @@
 // -------------------------
 @use 'variables' as v;
 
-@import "fontawesome";
-@import "solid";
-@import "brands";
-@import "regular";
+@use "fontawesome";
+@use "solid";
+@use "brands";
+@use "regular";
 
 /* Extensions */
 .#{v.$css-prefix}-stack-badge {

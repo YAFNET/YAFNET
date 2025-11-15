@@ -51,7 +51,6 @@ public static class DescriptionMetaTagHtmlHelper
 
         var descriptionMetaTag = new TagBuilder(HtmlTag.Meta);
 
-
         descriptionMetaTag.MergeAttribute(HtmlAttribute.Content, context.BoardSettings.Description);
         descriptionMetaTag.MergeAttribute(HtmlAttribute.Name, "description");
 

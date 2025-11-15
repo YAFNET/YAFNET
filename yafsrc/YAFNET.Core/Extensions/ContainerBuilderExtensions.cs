@@ -46,5 +46,7 @@ public static class ContainerBuilderExtensions
             .As<MailConfiguration>();
         builder.Register(k => k.Resolve<IComponentContext>().Resolve<IOptions<BoardConfiguration>>().Value)
             .As<BoardConfiguration>();
+        builder.Register(k => k.Resolve<IComponentContext>().Resolve<IOptions<VapidConfiguration>>().Value)
+            .As<VapidConfiguration>();
     }
 }

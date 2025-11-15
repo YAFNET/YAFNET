@@ -1280,6 +1280,10 @@
             "#text": "Mặt nạ"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "Địa chỉ IP hoặc Mặt nạ"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Xóa mục bị cấm này?"
           },
@@ -1302,10 +1306,6 @@
           {
             "@tag": "TITLE",
             "#text": "Địa chỉ IP bị cấm"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "Địa chỉ IP hoặc Mặt nạ"
           }
         ]
       },
@@ -14131,6 +14131,86 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Xin chọn chủ đề cần ngừng theo dõi."
+          },
+          {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Đăng ký đang hoạt động"
+          },
+          {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Đã cài đặt ứng dụng! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Trình duyệt này không hỗ trợ thông báo"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Nhấp vào nút để bật thông báo"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Bật thông báo"
+          },
+          {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Thông báo bị chặn. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Thông báo bị chặn. "
+          },
+          {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Quyền bị từ chối. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Quyền bị từ chối. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Quyền bị hủy bỏ. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Đã được cấp phép! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Thông báo đẩy thiết bị (Trình duyệt)"
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Thêm vào màn hình chính"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Thêm ứng dụng này vào màn hình chính của bạn để truy cập nhanh và có trải nghiệm tốt nhất!"
+          },
+          {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Dừng thông báo"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Thông báo đẩy đã dừng. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Đã đăng ký nhận thông báo đẩy thành công!"
           }
         ]
       },

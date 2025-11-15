@@ -144,4 +144,16 @@ public static class ActivityRepositoryExtensions
             () => new Activity { Notification = false },
             a => a.UserID == userId && a.Notification);
     }
+
+    public static int GetUnreadWatchTopics(this IRepository<Activity> repository, int userId)
+    {
+        // -- count Watch Topics
+        var countWatchTopicsExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
+
+        countWatchTopicsExpression.Where(a => a.UserID == userId && a.Notification &&
+                                              ((a.Flags & 8192) == 8192 || (a.Flags & 16384) == 16384)).Select(Sql.Count("1"));
+
+        return repository.DbAccess
+            .Execute(db => db.Connection.Single<int>(countWatchTopicsExpression));
+    }
 }

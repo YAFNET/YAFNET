@@ -22,14 +22,13 @@
  * under the License.
  */
 
+using System;
 using System.Buffers;
-
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Formatters;
-
-using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace YAF.Types.Attributes;
 
@@ -38,6 +37,7 @@ namespace YAF.Types.Attributes;
 /// Implements the <see cref="ActionFilterAttribute" />
 /// </summary>
 /// <seealso cref="ActionFilterAttribute" />
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class CamelCaseOutputAttribute : ActionFilterAttribute
 {
     /// <summary>

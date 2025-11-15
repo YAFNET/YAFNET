@@ -36,6 +36,7 @@ using MimeKit;
 
 using YAF.Core.Model;
 using YAF.Types.Models;
+using YAF.Types.Objects;
 
 /// <summary>
 /// The YAF Send Notification.
@@ -259,8 +260,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                      }
                              };
 
-        watchUsers.AsParallel().ForAll(
-            user =>
+        watchUsers.AsParallel().ForAll(async user =>
                 {
                     // Add to stream
                     if (user.Activity)
@@ -288,12 +288,19 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                     }
 
                     var languageFile = user.LanguageFile.IsSet() && this.Get<BoardSettings>().AllowUserLanguage
-                                           ? user.LanguageFile
-                                           : this.Get<BoardSettings>().Language;
+                        ? user.LanguageFile
+                        : this.Get<BoardSettings>().Language;
+
 
                     var subject = string.Format(
                         this.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile),
                         boardName);
+
+                    // Send push Notifications
+                    if (this.Get<VapidConfiguration>().IsPwaEnabled())
+                    {
+                        await this.Get<ISendPushNotification>().SendTopicPushNotificationAsync(user, message, newTopic, subject);
+                    }
 
                     watchEmail.TemplateLanguageFile = languageFile;
 

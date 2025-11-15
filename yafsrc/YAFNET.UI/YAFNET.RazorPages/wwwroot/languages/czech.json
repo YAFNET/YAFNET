@@ -1280,6 +1280,10 @@
             "#text": "Maska"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP adresa nebo maska"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Smazat tuto zakázanou položku?"
           },
@@ -1302,10 +1306,6 @@
           {
             "@tag": "TITLE",
             "#text": "Zakázané IP adresy"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "IP adresa nebo maska"
           }
         ]
       },
@@ -14135,6 +14135,86 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Nejprve prosím vyberte téma, ze kterého se chcete odhlásit."
+          },
+          {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktivní odběry"
+          },
+          {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Aplikace nainstalována! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Tento prohlížeč nepodporuje upozornění"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Klepnutím na tlačítko povolíte upozornění"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Povolit oznámení"
+          },
+          {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Oznámení blokována. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Oznámení blokována. "
+          },
+          {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Povolení odepřeno. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Povolení odepřeno. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Povolení zamítnuto. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Povolení uděleno! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Oznámení push zařízení (prohlížeče)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Přidat na domovskou obrazovku"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Přidejte si tuto aplikaci na domovskou obrazovku pro rychlý přístup a nejlepší zážitek!"
+          },
+          {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Zastavit oznámení"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Oznámení push zastavena. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Úspěšně jste se přihlásili k odběru oznámení push!"
           }
         ]
       },

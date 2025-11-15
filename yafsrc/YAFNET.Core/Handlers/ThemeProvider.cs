@@ -80,21 +80,30 @@ public class ThemeProvider
 
         string themeFile;
 
-        if (BoardContext.Current.PageData != null && BoardContext.Current.PageUser.ThemeFile.IsSet() &&
-            BoardContext.Current.BoardSettings.AllowUserTheme)
-        {
-            // use user-selected theme
-            themeFile = BoardContext.Current.PageUser.ThemeFile;
-        }
-        else if (BoardContext.Current.PageData != null && BoardContext.Current.PageData.Item2.Item4 != null &&
-                 BoardContext.Current.PageData.Item2.Item4.ThemeURL.IsSet())
-        {
-            themeFile = BoardContext.Current.PageData.Item2.Item4.ThemeURL;
-        }
-        else
+
+        if (BoardContext.Current.Get<IHttpContextAccessor>().HttpContext is null)
         {
             themeFile = BoardContext.Current.BoardSettings.Theme;
         }
+        else
+        {
+            if (BoardContext.Current.PageData != null && BoardContext.Current.PageUser.ThemeFile.IsSet() &&
+                BoardContext.Current.BoardSettings.AllowUserTheme)
+            {
+                // use user-selected theme
+                themeFile = BoardContext.Current.PageUser.ThemeFile;
+            }
+            else if (BoardContext.Current.PageData != null && BoardContext.Current.PageData.Item2.Item4 != null &&
+                     BoardContext.Current.PageData.Item2.Item4.ThemeURL.IsSet())
+            {
+                themeFile = BoardContext.Current.PageData.Item2.Item4.ThemeURL;
+            }
+            else
+            {
+                themeFile = BoardContext.Current.BoardSettings.Theme;
+            }
+        }
+
 
         if (!Services.Theme.IsValidTheme(themeFile))
         {

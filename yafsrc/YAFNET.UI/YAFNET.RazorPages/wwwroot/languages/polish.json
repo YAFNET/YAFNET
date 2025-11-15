@@ -1280,6 +1280,10 @@
             "#text": "Maska"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "Adres IP lub maska"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Usunąć ten zakazany element?"
           },
@@ -1302,10 +1306,6 @@
           {
             "@tag": "TITLE",
             "#text": "Zbanowane adresy IP"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "Adres IP lub maska"
           }
         ]
       },
@@ -14119,6 +14119,86 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Proszę wybierz tematy do usunięcia subskrypcji na początek."
+          },
+          {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktywne subskrypcje"
+          },
+          {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Aplikacja zainstalowana! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Ta przeglądarka nie obsługuje powiadomień"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Kliknij przycisk, aby włączyć powiadomienia"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Włącz powiadomienia"
+          },
+          {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[B]"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Powiadomienia zablokowane. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Powiadomienia zablokowane. "
+          },
+          {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Odmowa pozwolenia. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Odmowa pozwolenia. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️Pozwolenie oddalone. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅Pozwolenie udzielone! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Powiadomienia push na urządzeniu (przeglądarce)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Dodaj do ekranu głównego"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Dodaj tę aplikację do ekranu głównego, aby uzyskać szybki dostęp i najlepsze wrażenia!"
+          },
+          {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Zatrzymaj powiadomienia"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Powiadomienia push zatrzymane. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Pomyślnie zapisałeś się na powiadomienia push!"
           }
         ]
       },

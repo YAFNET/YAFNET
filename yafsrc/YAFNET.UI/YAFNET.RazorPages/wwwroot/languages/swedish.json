@@ -1280,6 +1280,10 @@
             "#text": "Mask"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP-adress eller mask"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Ta bort denna förbjudna artikel?"
           },
@@ -1302,10 +1306,6 @@
           {
             "@tag": "TITLE",
             "#text": "Förbjudna IP-adresser"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "IP-adress eller mask"
           }
         ]
       },
@@ -14131,6 +14131,86 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Välj först konversationer att avsluta prenumeration på."
+          },
+          {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktiva prenumerationer"
+          },
+          {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ App installerad! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Den här webbläsaren stöder inte aviseringar"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Klicka på knappen för att aktivera aviseringar"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Aktivera aviseringar"
+          },
+          {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Aviseringar blockerade. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Aviseringar blockerade. "
+          },
+          {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Tillstånd nekad. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Tillstånd nekad. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Tillståndet avvisats. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Tillstånd beviljat! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Push-meddelanden för enhet (webbläsare)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Lägg till på startskärmen"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Lägg till den här appen på din startskärm för snabb åtkomst och den bästa upplevelsen!"
+          },
+          {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Stoppa aviseringar"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Push-aviseringar stoppade. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Prenumererade på push-meddelanden framgångsrikt!"
           }
         ]
       },

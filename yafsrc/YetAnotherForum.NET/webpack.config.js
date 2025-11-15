@@ -3,6 +3,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 const pckg = require('./package.json');
 
+
 module.exports = [
 	{
 		entry: {
@@ -15,8 +16,10 @@ module.exports = [
 			persianPicker: './wwwroot/lib/persiandatetimepicker/persianPicker.ts',
 			post: './wwwroot/lib/pages/post.ts',
 			search: './wwwroot/lib/pages/search.ts',
+			subscriptions: './wwwroot/lib/pages/subscriptions.ts',
 			themeSelector: './wwwroot/lib/bootstrap/themeSelector.ts',
-			'admin-dashboard': './wwwroot/lib/pages/admin-dashboard.ts'
+			'admin-dashboard': './wwwroot/lib/pages/admin-dashboard.ts',
+			"serviceWorker": './wwwroot/lib/serviceWorker.ts'
 		},
 		output: {
 			filename: '[name].min.js',

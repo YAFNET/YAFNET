@@ -1280,6 +1280,10 @@
             "#text": "قناع"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "عنوان IP أو القناع"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "هل تريد حذف هذا العنصر المحظور؟"
           },
@@ -1302,10 +1306,6 @@
           {
             "@tag": "TITLE",
             "#text": "عناوين IP المحظورة"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "عنوان IP أو القناع"
           }
         ]
       },
@@ -14111,6 +14111,86 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "الرجاء تحديد الموضوعات لإلغاء مشاهدتها أولاً."
+          },
+          {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "الاشتراكات النشطة"
+          },
+          {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ تم تثبيت التطبيق! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ هذا المتصفح لا يدعم الإشعارات"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "انقر فوق الزر لتمكين الإخطارات"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "تمكين الإخطارات"
+          },
+          {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[ب]"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ تم حظر الإشعارات. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ تم حظر الإشعارات. "
+          },
+          {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ تم رفض الإذن. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ تم رفض الإذن. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ تم رفض الإذن. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ تم منح الإذن! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "إشعارات الجهاز (المتصفح)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "أضف إلى الشاشة الرئيسية"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "أضف هذا التطبيق إلى شاشتك الرئيسية للوصول السريع وأفضل تجربة!"
+          },
+          {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "إيقاف الإخطارات"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ توقفت الإشعارات. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ تم الاشتراك في دفع الإشعارات بنجاح!"
           }
         ]
       },

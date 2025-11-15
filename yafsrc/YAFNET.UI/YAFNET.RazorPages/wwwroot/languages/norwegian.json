@@ -1280,6 +1280,10 @@
             "#text": "Maske"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP-adresse eller maske"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Vil du slette dette forbudte elementet?"
           },
@@ -1302,10 +1306,6 @@
           {
             "@tag": "TITLE",
             "#text": "Forbudte IP-adresser"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "IP-adresse eller maske"
           }
         ]
       },
@@ -14131,6 +14131,86 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Vennligst velg hvilke emner du ikke ønsker å abonnere på."
+          },
+          {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktive abonnementer"
+          },
+          {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ App installert! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Denne nettleseren støtter ikke varsler"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Klikk på knappen for å aktivere varsler"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Aktiver varsler"
+          },
+          {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Varsler blokkert. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Varsler blokkert. "
+          },
+          {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Tillatelse nektet. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Tillatelse nektet. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Tillatelse avvist. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Tillatelse gitt! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Push-varsler for enhet (nettleser)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Legg til på startskjermen"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Legg til denne appen på startskjermen for rask tilgang og den beste opplevelsen!"
+          },
+          {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Stopp varsler"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Push-varsler stoppet. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Abonnerte på push-varsler med hell!"
           }
         ]
       },

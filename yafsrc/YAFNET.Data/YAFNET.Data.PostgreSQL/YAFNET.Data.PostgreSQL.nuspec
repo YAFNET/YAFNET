@@ -16,13 +16,13 @@
     <tags>forums yaf yaf.net YetAnotherForum.net forum</tags>
     <repository type="git" url="https://github.com/YAFNET/YAFNET" />
     <dependencies>
-		<group targetFramework="net9.0">
+		<group targetFramework="net10.0">
 			<dependency id="YAFNET.Configuration" version="4.0.2" exclude="Build,Analyzers" />
 			<dependency id="YAFNET.Core" version="4.0.2" exclude="Build,Analyzers" />
 			<dependency id="YAFNET.Types" version="4.0.2" exclude="Build,Analyzers" />
 			<dependency id="Autofac" version="8.4.0" exclude="Build,Analyzers" />
 			<dependency id="Npgsql" version="9.0.4" exclude="Build,Analyzers" />
-			<dependency id="System.ComponentModel.Composition" version="9.0.10" exclude="Build,Analyzers" />
+			<dependency id="System.ComponentModel.Composition" version="10.0.0" exclude="Build,Analyzers" />
 		</group>
     </dependencies>
     <references>
@@ -31,15 +31,15 @@
 	    <reference file="YAF.Data.PostgreSQL.dll" />
     </references>
     <frameworkReferences>
-	    <group targetFramework="net9.0">
+	    <group targetFramework="net10.0">
 		    <frameworkReference name="Microsoft.AspNetCore.App" />
 	    </group>
     </frameworkReferences>
   </metadata>
   <files>
-    <file src="bin\Release\net9.0\YAF.Data.PostgreSQL.dll" target="lib\net9.0\"/>
-    <file src="bin\Release\net9.0\ServiceStack.OrmLite.dll" target="lib\net9.0\"/>
-    <file src="bin\Release\net9.0\ServiceStack.OrmLite.PostgreSQL.dll" target="lib\net9.0\"/>
+    <file src="bin\Release\net10.0\YAF.Data.PostgreSQL.dll" target="lib\net10.0\"/>
+    <file src="bin\Release\net10.0\ServiceStack.OrmLite.dll" target="lib\net10.0\"/>
+    <file src="bin\Release\net10.0\ServiceStack.OrmLite.PostgreSQL.dll" target="lib\net10.0\"/>
 	<file src="..\..\..\LICENSE.md" target=""/>
     <file src="..\..\..\README.md" target=""/>
     <file src="..\..\yaf.png" target=""/>

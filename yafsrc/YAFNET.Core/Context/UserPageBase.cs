@@ -147,12 +147,7 @@ public abstract class UserPageBase
     {
         get
         {
-            if (this.UserPageDataLoaded)
-            {
-                return field;
-            }
-
-            if (!Monitor.TryEnter(this))
+            if (this.UserPageDataLoaded || !Monitor.TryEnter(this))
             {
                 return field;
             }

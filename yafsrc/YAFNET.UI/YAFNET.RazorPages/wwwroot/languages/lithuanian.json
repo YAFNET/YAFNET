@@ -1280,6 +1280,10 @@
             "#text": "Kaukė"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP adresas arba kaukė"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Ištrinti šį uždraustą elementą?"
           },
@@ -1302,10 +1306,6 @@
           {
             "@tag": "TITLE",
             "#text": "Uždrausti IP adresai"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "IP adresas arba kaukė"
           }
         ]
       },
@@ -14131,6 +14131,86 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "\r\n      Prašome pasirinkti temas išeiti iš\r\n\r\n      pirmosios.\r\n    "
+          },
+          {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktyvūs prenumeratos"
+          },
+          {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Programėlė įdiegta! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Ši naršyklė nepalaiko pranešimų"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Spustelėkite mygtuką, kad įgalintumėte pranešimus"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Įgalinti pranešimus"
+          },
+          {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Pranešimai užblokuoti. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Pranešimai užblokuoti. "
+          },
+          {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Leidimas atmestas. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Leidimas atmestas. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Leidimas atmestas. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Leidimas suteiktas! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Įrenginio (naršyklės) tiesioginiai pranešimai"
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Pridėti prie pagrindinio ekrano"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Pridėkite šią programą prie savo pagrindinio ekrano, kad greitai pasiektumėte ir gautumėte geriausią patirtį!"
+          },
+          {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Sustabdyti pranešimus"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Push pranešimai sustabdyti. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Sėkmingai užsiprenumeravote tiesioginius pranešimus!"
           }
         ]
       },

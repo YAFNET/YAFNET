@@ -1280,6 +1280,10 @@
             "#text": "Mask"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP-aadress või mask"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Kas kustutada see keelatud üksus?"
           },
@@ -1302,10 +1306,6 @@
           {
             "@tag": "TITLE",
             "#text": "Keelatud IP-aadressid"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "IP-aadress või mask"
           }
         ]
       },
@@ -14131,6 +14131,86 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Vali teemad jälgimise eemaldamiseks."
+          },
+          {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktiivsed tellimused"
+          },
+          {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Rakendus installitud! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ See brauser ei toeta teatisi"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Teatiste lubamiseks klõpsake nuppu"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Luba märguanded"
+          },
+          {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Märguanded on blokeeritud. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Märguanded on blokeeritud. "
+          },
+          {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Luba on keelatud. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Luba on keelatud. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Luba tühistati. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Luba antud! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Seadme (brauseri) tõukemärguanded"
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Lisa avakuvale"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Lisage see rakendus oma avakuvale kiireks juurdepääsuks ja parimaks kasutuskogemuseks!"
+          },
+          {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Peatage märguanded"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Tõukemärguanded on peatatud. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Tõukemärguannete tellimine õnnestus!"
           }
         ]
       },

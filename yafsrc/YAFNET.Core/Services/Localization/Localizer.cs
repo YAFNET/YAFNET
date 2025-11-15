@@ -192,7 +192,12 @@ public class Localizer
             this.CurrentCulture = new CultureInfo(BoardContext.Current.BoardSettings.Culture);
         }
 
-        var cultureUser = BoardContext.Current.PageUser.Culture;
+        if (BoardContext.Current.Get<IHttpContextAccessor>().HttpContext is null)
+        {
+            return;
+        }
+
+        var cultureUser =  BoardContext.Current.PageUser.Culture;
 
         if (!cultureUser.IsSet())
         {

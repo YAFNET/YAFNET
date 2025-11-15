@@ -90,6 +90,7 @@ public class Migration01 : MigrationBase
         this.Db.CreateTable<TopicTag>();
         this.Db.CreateTable<ProfileDefinition>();
         this.Db.CreateTable<ProfileCustom>();
+        this.Db.CreateTable<DeviceSubscription>();
 
         // Create Identity tables
         this.Db.CreateTable<AspNetUsers>();

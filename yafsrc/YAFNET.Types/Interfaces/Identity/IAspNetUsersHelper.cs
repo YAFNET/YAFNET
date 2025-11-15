@@ -588,4 +588,9 @@ public interface IAspNetUsersHelper
         int? sortLastVisit,
         int? numPosts,
         int numPostCompare);
+
+    /// <summary>
+    /// Imports all AspNetUsers users in to the YAF DB, if they do not already exist.
+    /// </summary>
+    void ImportAllMembershipUsers();
 }

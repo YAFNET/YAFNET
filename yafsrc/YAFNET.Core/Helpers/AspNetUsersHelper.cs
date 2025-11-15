@@ -28,6 +28,7 @@ namespace YAF.Core.Helpers;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -1399,5 +1400,62 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
                     return db.Connection.Select<PagedUser>(expression);
                 });
+    }
+
+    /// <summary>
+    /// Imports all AspNetUsers users in to the YAF DB, if they do not already exist.
+    /// </summary>
+    public void ImportAllMembershipUsers()
+    {
+        // get all users in membership...
+        var users = BoardContext.Current.GetRepository<AspNetUsers>().Get(x => x.Email != null && x.Id != null);
+
+        ParallelOptions parallelOptions = new()
+        {
+            MaxDegreeOfParallelism = 3
+        };
+
+        // create/update users...
+        Parallel.ForEachAsync(users, parallelOptions, async (user, _) =>
+        {
+            await this.ImportForumUser(user);
+        });
+    }
+
+    /// <summary>
+    /// Imports the AspNetUsers user in to the YAF DB.
+    /// </summary>
+    /// <param name="user">Current AspNetUsers user</param>
+    /// <returns>
+    /// The new forum user Id.
+    /// </returns>
+    private async Task ImportForumUser([NotNull] AspNetUsers user)
+    {
+        var yafUser = await this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKeyAsync(user.Id);
+
+        if (yafUser is not null)
+        {
+            return;
+        }
+
+        // inject user in to YAF
+        var newAspNetUser = new AspNetUsers
+        {
+            Id = user.Id,
+            ApplicationId = BoardContext.Current.BoardSettings.ApplicationId,
+            UserName = user.UserName,
+            LoweredUserName = user.UserName.ToLower(),
+            Email = user.Email,
+            LoweredEmail = user.Email.ToLower(),
+            IsApproved = true,
+            EmailConfirmed = true,
+            Profile_Birthday = null
+        };
+
+        // setup initial roles (if any) for this user
+        await this.Get<IAspNetRolesHelper>().SetupUserRolesAsync(BoardContext.Current.BoardSettings.BoardId, newAspNetUser);
+
+        // create the user in the YAF DB as well as sync roles...
+        await this.Get<IAspNetRolesHelper>().CreateForumUserAsync(newAspNetUser, BoardContext.Current.BoardSettings.BoardId);
     }
 }

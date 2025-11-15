@@ -38,6 +38,8 @@ using OEmbed.Core.Extensions;
 
 using UAParser.Extensions;
 
+using WebEssentials.AspNetCore.Pwa;
+
 using YAF.Core.Hubs;
 using YAF.Types.Objects;
 
@@ -127,6 +129,17 @@ public static class ServiceCollectionExtensionsExtensions
 
         services.AddYafExtensions();
 
+        services.AddProgressiveWebApp(new PwaOptions
+        {
+            CacheId = "YAF.NET",
+            BaseRoute =  "/",
+            Strategy = ServiceWorkerStrategy.CustomStrategy,
+            RoutesToPreCache = "/, /Board",
+            RegisterServiceWorker = true,
+            RegisterWebmanifest = true,
+            CustomServiceWorkerStrategyFileName = "/js/serviceWorker.min.js"
+        });
+
         services.AddYafIdentityOptions();
 
         services.AddYafAuthentication();
@@ -138,6 +151,9 @@ public static class ServiceCollectionExtensionsExtensions
 
         // Board Configuration
         services.Configure<BoardConfiguration>(configuration.GetSection("BoardConfiguration"));
+
+        // VAPID Configuration
+        services.Configure<VapidConfiguration>(configuration.GetSection("VapidConfiguration"));
 
         services.AddSingleton<IActionContextAccessor, ActionContextAccessor>().AddScoped(
             x => x.GetRequiredService<IUrlHelperFactory>()

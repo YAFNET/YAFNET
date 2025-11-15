@@ -5,8 +5,8 @@
  * Try: http://24ways.org/2013/grunt-is-not-weird-and-hard/
  */
 
-const webpackConfig = require('./webpack.config.js');
-const sass = require('sass');
+var webpackConfig = require('./webpack.config.js');
+var sass = require('sass');
 
 module.exports = function(grunt) {
 	require('@lodder/time-grunt')(grunt);
@@ -90,7 +90,7 @@ module.exports = function(grunt) {
 						expand: true,
 						src: 'appsettings-MySql.json',
 						cwd: '',
-						dest: 'bin/Release/net9.0/publish/',
+						dest: 'bin/Release/net10.0/publish/',
 						rename: function(path) {
 							return path + 'appsettings.json';
 						}
@@ -103,7 +103,7 @@ module.exports = function(grunt) {
 						expand: true,
 						src: 'appsettings-PostgreSQL.json',
 						cwd: '',
-						dest: 'bin/Release/net9.0/publish/',
+						dest: 'bin/Release/net10.0/publish/',
 						rename: function(path) {
 							return path + 'appsettings.json';
 						}
@@ -116,7 +116,7 @@ module.exports = function(grunt) {
 						expand: true,
 						src: 'appsettings-Sqlite.json',
 						cwd: '',
-						dest: 'bin/Release/net9.0/publish/',
+						dest: 'bin/Release/net10.0/publish/',
 						rename: function(path) {
 							return path + 'appsettings.json';
 						}
@@ -129,7 +129,7 @@ module.exports = function(grunt) {
 						expand: true,
 						src: 'appsettings-SqlServer.json',
 						cwd: '',
-						dest: 'bin/Release/net9.0/publish/',
+						dest: 'bin/Release/net10.0/publish/',
 						rename: function(path) {
 							return path + 'appsettings.json';
 						}
@@ -390,7 +390,7 @@ module.exports = function(grunt) {
 			compileLanguages: {
 				command: [
 					'@echo off',
-					'..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\bin\\Release\\net9.0\\publish\\wwwroot\\languages\\ -minify'
+					'..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\bin\\Release\\net10.0\\publish\\wwwroot\\languages\\ -minify'
 				].join('&&')
 			},
 			deleteOldNuGetPackages: {
@@ -454,19 +454,19 @@ module.exports = function(grunt) {
 			deletePublish: {
 				command: [
 					'@echo off',
-					'if exist bin\\Release\\net9.0\\publish\\ (rmdir bin\\Release\\net9.0\\publish\\ /s /q)'
+					'if exist bin\\Release\\net10.0\\publish\\ (rmdir bin\\Release\\net10.0\\publish\\ /s /q)'
 				].join('&&')
 			},
 			deleteBeforeDeploy: {
 				command: [
 					'@echo off',
-					'del bin\\Release\\net9.0\\publish\\appsettings-MySql.json ',
-					'del bin\\Release\\net9.0\\publish\\appsettings-PostgreSQL.json ',
-					'del bin\\Release\\net9.0\\publish\\appsettings-Sqlite.json ',
-					'del bin\\Release\\net9.0\\publish\\appsettings-SqlServer.json ',
-					'del bin\\Release\\net9.0\\publish\\package.json ',
-					'del bin\\Release\\net9.0\\publish\\tsconfig.json ',
-					'rmdir bin\\Release\\net9.0\\publish\\wwwroot\\uploads\\ /s /q '
+					'del bin\\Release\\net10.0\\publish\\appsettings-MySql.json ',
+					'del bin\\Release\\net10.0\\publish\\appsettings-PostgreSQL.json ',
+					'del bin\\Release\\net10.0\\publish\\appsettings-Sqlite.json ',
+					'del bin\\Release\\net10.0\\publish\\appsettings-SqlServer.json ',
+					'del bin\\Release\\net10.0\\publish\\package.json ',
+					'del bin\\Release\\net10.0\\publish\\tsconfig.json ',
+					'rmdir bin\\Release\\net10.0\\publish\\wwwroot\\uploads\\ /s /q '
 				].join('&&')
 			},
 			deploySqlServer: {
@@ -646,7 +646,7 @@ module.exports = function(grunt) {
 			publishToGitHub: {
 				command: [
 					'@echo off',
-					'cd ..\\Tools\\GitHubReleaser\\bin\\Release\\net9.0',
+					'cd ..\\Tools\\GitHubReleaser\\bin\\Release\\net10.0',
 					'echo publish Packages to GitHub.com',
 					'GitHubReleaser YAFNET.json'
 				].join('&&')
@@ -836,23 +836,23 @@ module.exports = function(grunt) {
 		},
 		zip: {
 			"YAF-SqlServer-Deploy": {
-				cwd: 'bin/Release/net9.0/publish/',
-				src: ['bin/Release/net9.0/publish/**/*'],
+				cwd: 'bin/Release/net10.0/publish/',
+				src: ['bin/Release/net10.0/publish/**/*'],
 				dest: '../deploy/YAF.SqlSever-v<%= pkg.version %>.zip'
 			},
 			"YAF-MySql-Deploy": {
-				cwd: 'bin/Release/net9.0/publish/',
-				src: ['bin/Release/net9.0/publish/**/*'],
+				cwd: 'bin/Release/net10.0/publish/',
+				src: ['bin/Release/net10.0/publish/**/*'],
 				dest: '../deploy/YAF.MySql-v<%= pkg.version %>.zip'
 			},
 			"YAF-PostgreSQL-Deploy": {
-				cwd: 'bin/Release/net9.0/publish/',
-				src: ['bin/Release/net9.0/publish/**/*'],
+				cwd: 'bin/Release/net10.0/publish/',
+				src: ['bin/Release/net10.0/publish/**/*'],
 				dest: '../deploy/YAF.PostgreSQL-v<%= pkg.version %>.zip'
 			},
 			"YAF-Sqlite-Deploy": {
-				cwd: 'bin/Release/net9.0/publish/',
-				src: ['bin/Release/net9.0/publish/**/*'],
+				cwd: 'bin/Release/net10.0/publish/',
+				src: ['bin/Release/net10.0/publish/**/*'],
 				dest: '../deploy/YAF.Sqlite-v<%= pkg.version %>.zip'
 			}
 		}

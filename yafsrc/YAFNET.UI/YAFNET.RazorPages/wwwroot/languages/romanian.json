@@ -1280,6 +1280,10 @@
             "#text": "Mască"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "Adresa IP sau masca"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Ștergeți acest element interzis?"
           },
@@ -1302,10 +1306,6 @@
           {
             "@tag": "TITLE",
             "#text": "Adrese IP interzise"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "Adresa IP sau masca"
           }
         ]
       },
@@ -14131,6 +14131,86 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Selecteaza temele de la care vrei sa renunti."
+          },
+          {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Abonamente active"
+          },
+          {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Aplicație instalată! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Acest browser nu acceptă notificări"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Faceți clic pe butonul pentru a activa notificările"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Activați notificările"
+          },
+          {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Notificări blocate. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Notificări blocate. "
+          },
+          {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Permisiune refuzată. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Permisiune refuzată. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Permisiune respinsă. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Permisiune acordată! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Notificări push pentru dispozitiv (browser)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Adăugați la ecranul de pornire"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Adăugați această aplicație pe ecranul de pornire pentru acces rapid și cea mai bună experiență!"
+          },
+          {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Opriți notificările"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Notificările push au fost oprite. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Te-ai abonat la notificări push cu succes!"
           }
         ]
       },

@@ -101,7 +101,7 @@ public static class BitBoolExtensions
     {
        var builder = new StringBuilder(hashedBytes.Length * 2 + 2);
 
-        hashedBytes.ForEach(b => builder.AppendFormat("{0:X2}", b));
+        hashedBytes.ForEach(b => builder.Append($"{b:X2}"));
 
         return builder.ToString();
     }

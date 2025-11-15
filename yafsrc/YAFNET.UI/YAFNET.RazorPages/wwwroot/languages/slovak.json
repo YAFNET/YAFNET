@@ -1280,6 +1280,10 @@
             "#text": "Maska"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP adresa alebo maska"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Odstrániť túto zakázanú položku?"
           },
@@ -1302,10 +1306,6 @@
           {
             "@tag": "TITLE",
             "#text": "Zakázané IP adresy"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "IP adresa alebo maska"
           }
         ]
       },
@@ -14131,6 +14131,86 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Najprv prosím vyberte tému, z ktorej sa chcete odhlásiť."
+          },
+          {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktívne odbery"
+          },
+          {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Aplikácia nainštalovaná! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Tento prehliadač nepodporuje upozornenia"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Kliknutím na tlačidlo povolíte upozornenia"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Povoliť upozornenia"
+          },
+          {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Upozornenia sú zablokované. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Upozornenia sú zablokované. "
+          },
+          {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Povolenie zamietnuté. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Povolenie zamietnuté. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Povolenie bolo zrušené. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Povolenie udelené! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Upozornenia push zariadenia (prehliadača)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Pridať na domovskú obrazovku"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Pridajte si túto aplikáciu na svoju domovskú obrazovku pre rýchly prístup a najlepší zážitok!"
+          },
+          {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Zastaviť upozornenia"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Push notifikácie zastavené. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Úspešne ste sa prihlásili na odber upozornení push!"
           }
         ]
       },

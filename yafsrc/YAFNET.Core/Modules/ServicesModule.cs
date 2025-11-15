@@ -67,6 +67,7 @@ public class ServicesModule : BaseModule
         // optional defaults.
         builder.RegisterType<MailService>().As<IMailService>().SingleInstance().PreserveExistingDefaults();
         builder.RegisterType<ActivityStream>().As<IActivityStream>().SingleInstance().PreserveExistingDefaults();
+        builder.RegisterType<SendPushNotification>().As<ISendPushNotification>().SingleInstance().PreserveExistingDefaults();
         builder.RegisterType<SendNotification>().As<ISendNotification>().InstancePerLifetimeScope()
             .PreserveExistingDefaults();
         builder.RegisterType<DigestService>().As<IDigestService>().InstancePerLifetimeScope()

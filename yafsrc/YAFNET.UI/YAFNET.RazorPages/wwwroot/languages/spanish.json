@@ -1280,6 +1280,10 @@
             "#text": "Máscara"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "Dirección IP o máscara"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "¿Borrar este artículo prohibido?"
           },
@@ -1302,10 +1306,6 @@
           {
             "@tag": "TITLE",
             "#text": "IPs baneadas"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "Dirección IP o máscara"
           }
         ]
       },
@@ -14115,6 +14115,86 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Por favor escoje los temas para cancelar subscripción primero."
+          },
+          {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Suscripciones activas"
+          },
+          {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ ¡Aplicación instalada! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Este navegador no admite notificaciones"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Haga clic en el botón para habilitar las notificaciones."
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Habilitar notificaciones"
+          },
+          {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Notificaciones bloqueadas. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Notificaciones bloqueadas. "
+          },
+          {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌Permiso denegado. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌Permiso denegado. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️Permiso desestimado. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ ¡Permiso concedido! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Notificaciones push del dispositivo (navegador)"
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Agregar a la pantalla de inicio"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "¡Agregue esta aplicación a su pantalla de inicio para un acceso rápido y la mejor experiencia!"
+          },
+          {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Detener notificaciones"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Se detuvieron las notificaciones push. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ ¡Suscrito exitosamente a notificaciones push!"
           }
         ]
       },

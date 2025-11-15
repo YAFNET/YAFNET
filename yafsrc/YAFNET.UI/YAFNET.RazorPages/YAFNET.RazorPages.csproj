@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
 	<Version>4.0.2</Version>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <RootNamespace>YAF.RazorPages</RootNamespace>
@@ -73,7 +73,7 @@
 
   <ItemGroup>
 	<PackageReference Include="HtmlProperties" Version="1.0.0" />
-	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" version="9.0.10" />
+	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" version="10.0.0" />
 	<PackageReference Include="SonarAnalyzer.CSharp" Version="10.15.0.120848">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -81,7 +81,7 @@
 	<PackageReference Include="YAFNET.Core" Version="4.0.2" />
 	<PackageReference Include="YAFNET.Types" Version="4.0.2" />
 	<PackageReference Include="YAFNET.Web" Version="4.0.2" />
-	<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" version="9.0.10" />
+	<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" version="10.0.0" />
   </ItemGroup>
 
 </Project>

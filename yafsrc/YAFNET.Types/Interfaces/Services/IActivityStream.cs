@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public interface IActivityStream
 {
-    // void AddAlbumImageToStream(int forumID, long topicID, int messageID, string topicTitle, string message);
-
     /// <summary>
     /// Adds the New Topic to the User's ActivityStream
     /// </summary>

@@ -1280,6 +1280,10 @@
             "#text": "Maske"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP Adresi veya Maske"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Bu Yasaklı Öğeyi Silin?"
           },
@@ -1302,10 +1306,6 @@
           {
             "@tag": "TITLE",
             "#text": "Yasaklı IP Adresleri"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "IP Adresi veya Maske"
           }
         ]
       },
@@ -14131,6 +14131,86 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Öncelikle abonelik iptali yapılacak konuyu seçin"
+          },
+          {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktif Abonelikler"
+          },
+          {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Uygulama yüklendi! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Bu tarayıcı bildirimleri desteklemiyor"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Bildirimleri etkinleştirmek için düğmeye tıklayın"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Bildirimleri Etkinleştir"
+          },
+          {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[B]"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Bildirimler engellendi. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Bildirimler engellendi. "
+          },
+          {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌İzin reddedildi. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌İzin reddedildi. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️İzin reddedildi. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ İzin verildi! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Cihaz (Tarayıcı) anlık bildirimleri"
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Ana Ekrana Ekle"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Hızlı erişim ve en iyi deneyim için bu uygulamayı ana ekranınıza ekleyin!"
+          },
+          {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Bildirimleri Durdur"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Push notifications stopped. You can re-enable anytime."
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Push bildirimlerine başarıyla abone oldum!"
           }
         ]
       },

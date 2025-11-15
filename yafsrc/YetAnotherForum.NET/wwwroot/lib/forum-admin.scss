@@ -1,12 +1,12 @@
-﻿@import "prism";
+﻿@use "prism";
 
-@import "fontawesome/fontawesome-all";
+@use "fontawesome/fontawesome-all";
 
 // Forum imports
-@import "forum/attachments-upload.scss";
-@import "forum/dropdowns.scss";
-@import "forum/cookie-alert.scss";
-@import "forum/button-scroll.scss";
+@use "forum/attachments-upload.scss";
+@use "forum/dropdowns.scss";
+@use "forum/cookie-alert.scss";
+@use "forum/button-scroll.scss";
 
 // Main
 #YafBody {
