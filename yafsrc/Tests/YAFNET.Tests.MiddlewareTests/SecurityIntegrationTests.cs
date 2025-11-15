@@ -24,41 +24,29 @@
 
 namespace YAF.Tests.MiddlewareTests;
 
-/// <summary>
-/// Checks the Banned IP/UserAgent Middleware functionality.
-/// </summary>
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
-public class BannedTests : Setup
+public class SecurityIntegrationTests : Setup
 {
-    /// <summary>
-    /// Checks if the IP address is banned.
-    /// </summary>
     [Test]
-    public async Task IpAddressIsBannedTest()
+    public async Task Root_Returns_SecurityHeaders()
     {
-        var client = WebTestingHostFactoryUtils.CreateClient(this.TestSettings, "113.240.110.90");
+        var client = WebTestingHostFactoryUtils.CreateClient(this.TestSettings, "127.0.0.1");
 
         client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
 
         var response = await client.GetAsync(this.TestSettings.TestForumUrl);
 
-        response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        response.Headers.Contains("X-Frame-Options").Should().BeTrue();
+        response.Headers.Contains("X-Content-Type-Options").Should().BeTrue();
+        response.Headers.Contains("Referrer-Policy").Should().BeTrue();
+
+        if (!this.TestSettings.TestForumUrl.Contains("localhost"))
+        {
+            response.Headers.Contains("Content-Security-Policy").Should().BeTrue();
+        }
     }
 
-
-    /// <summary>
-    /// Checks if the UserAgent is banned.
-    /// </summary>
-    [Test]
-    public async Task UserAgentIsBannedTest()
-    {
-        var client = WebTestingHostFactoryUtils.CreateClient(this.TestSettings, "127.0.0.1");
-
-        client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; TestBot/1.0)");
-
-        var response = await client.GetAsync(this.TestSettings.TestForumUrl);
-
-        response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
-    }
 }

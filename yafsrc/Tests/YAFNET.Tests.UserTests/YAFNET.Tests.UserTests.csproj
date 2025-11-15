@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion />
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <RootNamespace>YAF.Tests.UserTests</RootNamespace>
     <AssemblyName>YAF.Tests.UserTests</AssemblyName>
@@ -21,7 +21,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
 	  <PackageReference Include="NUnit" Version="4.4.0" />
 	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.15.0.120848">
 	    <PrivateAssets>all</PrivateAssets>
