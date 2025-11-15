@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-#if NETFX || NET9_0_OR_GREATER
+#if NETFX || NET10_0_OR_GREATER
 
 using System;
 using System.Linq;
@@ -446,7 +446,7 @@ public static class DynamicProxy
     static DynamicProxy()
     {
         var assemblyName = new AssemblyName("DynImpl");
-#if NET9_0_OR_GREATER
+#if NET10_0_OR_GREATER
         DynamicAssembly = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
 #else
             DynamicAssembly = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
@@ -477,7 +477,7 @@ public static class DynamicProxy
             IncludeType(face, typeBuilder);
         }
 
-#if NET9_0_OR_GREATER
+#if NET10_0_OR_GREATER
         return typeBuilder.CreateTypeInfo().AsType();
 #else
             return typeBuilder.CreateType();

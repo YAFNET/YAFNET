@@ -4,7 +4,7 @@
     <PackageId>ServiceStack.OrmLite.MySql.Core</PackageId>
     <AssemblyName>ServiceStack.OrmLite.MySql</AssemblyName>
     <RootNamespace>ServiceStack.OrmLite.MySql</RootNamespace>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Title>ServiceStack.OrmLite.MySql</Title>
     <PackageDescription>
       ServiceStack.OrmLite.MySql
@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ServiceStack.OrmLite\ServiceStack.OrmLite.Core.csproj" />
-    <PackageReference Include="Mysql.Data" Version="9.4.0" />
+    <PackageReference Include="Mysql.Data" Version="9.5.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="10.15.0.120848">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

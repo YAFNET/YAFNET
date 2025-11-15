@@ -123,7 +123,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         this.RegisterConverter<DateTime>(new DateTimeConverter());
         this.RegisterConverter<DateTimeOffset>(new DateTimeOffsetConverter());
 
-#if NET9_0_OR_GREATER
+#if NET10_0_OR_GREATER
         this.RegisterConverter<DateOnly>(new DateOnlyConverter());
         this.RegisterConverter<TimeOnly>(new TimeOnlyConverter());
 #endif

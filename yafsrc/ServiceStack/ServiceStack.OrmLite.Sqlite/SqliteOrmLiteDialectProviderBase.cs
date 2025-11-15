@@ -49,7 +49,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         base.RegisterConverter<Guid>(new SqliteGuidConverter());
         base.RegisterConverter<bool>(new SqliteBoolConverter());
         base.RegisterConverter<byte[]>(new SqliteByteArrayConverter());
-#if NET9_0_OR_GREATER
+#if NET10_0_OR_GREATER
             base.RegisterConverter<char>(new SqliteCharConverter());
 #endif
         this.Variables = new Dictionary<string, string>
