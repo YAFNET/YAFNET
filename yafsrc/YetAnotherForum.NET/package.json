@@ -6,9 +6,9 @@
 	"devDependencies": {
 		"@lodder/grunt-postcss": "^3.1.1",
 		"@lodder/time-grunt": "^4.0.0",
-		"@tsconfig/recommended": "^1.0.11",
+		"@tsconfig/recommended": "^1.0.13",
 		"@w8tcha/grunt-dev-update": "^2.3.4",
-		"autoprefixer": "^10.4.21",
+		"autoprefixer": "^10.4.22",
 		"grunt": "^1.6.1",
 		"grunt-contrib-copy": "^1.0.0",
 		"grunt-contrib-cssmin": "^5.0.0",
@@ -19,11 +19,11 @@
 		"grunt-shell": "^4.0.0",
 		"grunt-webpack": "^7.0.0",
 		"postcss": "^8.5.6",
-		"sass": "^1.93.3",
+		"sass": "^1.94.0",
 		"terser-webpack-plugin": "^5.3.14",
 		"ts-loader": "^9.5.4",
 		"typescript": "^5.9.3",
-		"webpack": "^5.102.0",
+		"webpack": "^5.102.1",
 		"webpack-cli": "^6.0.1"
 	},
 	"dependencies": {
