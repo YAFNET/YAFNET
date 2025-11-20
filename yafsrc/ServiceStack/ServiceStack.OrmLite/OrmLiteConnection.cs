@@ -256,7 +256,7 @@ public class OrmLiteConnection
         {
             dbConn.Open();
             //so the internal connection is wrapped for example by miniprofiler
-            this.Factory.ConnectionFilter?.Invoke(dbConn);
+            this.dbConnection = this.Factory.ConnectionFilter(dbConn);
 
             this.DialectProvider.InitConnection(this);
         }
@@ -300,7 +300,7 @@ public class OrmLiteConnection
             {
                 await this.DialectProvider.OpenAsync(dbConn, token).ConfigAwait();
                 //so the internal connection is wrapped for example by miniprofiler
-                this.Factory.ConnectionFilter?.Invoke(dbConn);
+                this.dbConnection = this.Factory.ConnectionFilter(dbConn);
 
                 this.DialectProvider.InitConnection(this);
             }
