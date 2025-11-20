@@ -240,7 +240,7 @@ public class OrmLiteConnection
             //so the internal connection is wrapped for example by miniprofiler
             if (Factory.ConnectionFilter != null)
             {
-                dbConn = this.Factory.ConnectionFilter(dbConn);
+                dbConnection = this.Factory.ConnectionFilter(dbConn);
             }
 
             DialectProvider.InitConnection(dbConn);
@@ -287,7 +287,7 @@ public class OrmLiteConnection
                 //so the internal connection is wrapped for example by miniprofiler
                 if (Factory.ConnectionFilter != null)
                 {
-                    dbConn = this.Factory.ConnectionFilter(dbConn);
+                    dbConnection = this.Factory.ConnectionFilter(dbConn);
                 }
 
                 DialectProvider.InitConnection(dbConn);
