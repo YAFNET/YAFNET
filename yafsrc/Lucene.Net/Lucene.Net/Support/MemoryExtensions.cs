@@ -2,8 +2,10 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using YAF.Lucene.Net.Analysis.TokenAttributes;
 using System;
+
+using YAF.Lucene.Net.Analysis.TokenAttributes;
+
 
 namespace YAF.Lucene.Net
 {
@@ -151,45 +153,6 @@ namespace YAF.Lucene.Net
 #endif
         }
 
-        /// <summary>
-        /// Creates a new read-only span over a portion of a target string
-        /// using the range start and end indexes.
-        /// </summary>
-        /// <param name="text">The target string.</param>
-        /// <param name="range">The range that has start and end indexes to use for slicing the string.</param>
-        /// <returns>The read-only span representation of the string.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="text"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="range"/>'s start or end index is not within the bounds of the string.
-        /// -or-
-        /// <paramref name="range"/>'s start index is greater than its end index.
-        /// </exception>
-        public static ReadOnlySpan<char> AsSpan(this ICharTermAttribute text, Range range)
-        {
-            if (text is null)
-            {
-                System.Index startIndex = range.Start;
-                System.Index endIndex = range.End;
-
-                if (!startIndex.Equals(System.Index.Start) || !endIndex.Equals(System.Index.Start))
-                {
-                    throw new ArgumentNullException(nameof(text));
-                }
-
-                return default;
-            }
-
-            (int start, int length) = range.GetOffsetAndLength(text.Length);
-            char[] chars = text is CharTermAttribute c ? c.termBuffer : text.Buffer;
-
-#if FEATURE_MEMORYMARSHAL_CREATEREADONLYSPAN && FEATURE_MEMORYMARSHAL_GETARRAYDATAREFERENCE
-            return MemoryMarshal.CreateReadOnlySpan<char>(ref Unsafe.Add(ref MemoryMarshal.GetArrayDataReference(chars),
-                (nint)(uint)start /* force zero-extension */), length);
-#else
-            return new ReadOnlySpan<char>(chars, start, length);
-#endif
-        }
-
         #endregion AsSpan (ICharTermAttribute)
 
         #region AsMemory (ICharTermAttribute)
@@ -300,36 +263,6 @@ namespace YAF.Lucene.Net
 
             char[] chars = text is CharTermAttribute c ? c.termBuffer : text.Buffer;
             return new ReadOnlyMemory<char>(chars, actualIndex, text.Length - actualIndex);
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="ReadOnlyMemory{T}"/> over the portion of the target string.
-        /// </summary>
-        /// <param name="text">The target string.</param>
-        /// <param name="range">The range used to indicate the start and length of the sliced string.</param>
-        /// <returns>The read-only character memory representation of the string.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="text"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="range"/>'s start or end index is not within the bounds of the string.
-        /// -or-
-        /// <paramref name="range"/>'s start index is greater than its end index.
-        /// </exception>
-        public static ReadOnlyMemory<char> AsMemory(this ICharTermAttribute text, Range range)
-        {
-            if (text == null)
-            {
-                System.Index startIndex = range.Start;
-                System.Index endIndex = range.End;
-
-                if (!startIndex.Equals(System.Index.Start) || !endIndex.Equals(System.Index.Start))
-                    throw new ArgumentNullException(nameof(text));
-
-                return default;
-            }
-
-            (int start, int length) = range.GetOffsetAndLength(text.Length);
-            char[] chars = text is CharTermAttribute c ? c.termBuffer : text.Buffer;
-            return new ReadOnlyMemory<char>(chars, start, length);
         }
 
         #endregion AsMemory (ICharTermAttribute)

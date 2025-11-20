@@ -20,15 +20,16 @@
 -->
 <Project>
 
-  <Import Project=".build/dependencies.props" Condition="Exists('.build/dependencies.props')" />
-
   <PropertyGroup Label="Warnings to be Disabled in Solution">
     <NoWarn Label="Legacy serialization support APIs are obsolete">$(NoWarn);SYSLIB0051</NoWarn>
-	  <!-- These are noisy, but may be helpful during Lucene upgrades or optimization -->
-	  <NoWarn Label="Floating point types should not be compared for exact equality">$(NoWarn);LuceneDev1000</NoWarn>
-	  <NoWarn Label="Floating point type arithmetic needs to be checked on x86 in .NET Framework and may require extra casting">$(NoWarn);LuceneDev1002</NoWarn>
-	  <NoWarn Label="Java array parameters can sometimes be replaced with .NET out or ref parameters">$(NoWarn);LuceneDev1003</NoWarn>
-	  <NoWarn Label="Return array may be able to be replaced with out values">$(NoWarn);LuceneDev1004</NoWarn>
+
+    <!-- These are noisy, but may be helpful during Lucene upgrades or optimization -->
+    <NoWarn Label="Floating point types should not be compared for exact equality">$(NoWarn);LuceneDev1000</NoWarn>
+    <NoWarn Label="Floating point type arithmetic needs to be checked on x86 in .NET Framework and may require extra casting">$(NoWarn);LuceneDev1002</NoWarn>
+    <NoWarn Label="Java array parameters can sometimes be replaced with .NET out or ref parameters">$(NoWarn);LuceneDev1003</NoWarn>
+    <NoWarn Label="Return array may be able to be replaced with out values">$(NoWarn);LuceneDev1004</NoWarn>
+    <NoWarn Label="Floating point values embedded in strings should be formatted with J2N.Numerics Single or Double ToString methods">$(NoWarn);LuceneDev1006</NoWarn>
+
   </PropertyGroup>
 
   <PropertyGroup Label="Solution-level Publish to Project-specific Directory">
@@ -42,12 +43,18 @@
 
   </PropertyGroup>
 
+  <!-- Features in .NET 8.x and .NET 9.x only -->
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('net8.')) Or $(TargetFramework.StartsWith('net9.')) ">
+
+    <DefineConstants>$(DefineConstants);FEATURE_ASPNETCORE_TESTHOST</DefineConstants>
+
+  </PropertyGroup>
+
   <!-- Features in .NET 6.x, .NET 7.x, .NET 8.x, and .NET 9.x only -->
   <PropertyGroup Condition=" $(TargetFramework.StartsWith('net6.')) Or $(TargetFramework.StartsWith('net7.')) Or $(TargetFramework.StartsWith('net8.')) Or $(TargetFramework.StartsWith('net9.')) ">
 
     <DefineConstants>$(DefineConstants);FEATURE_RANDOM_NEXTINT64_NEXTSINGLE</DefineConstants>
-
-	  <DefineConstants>$(DefineConstants);FEATURE_RANDOMACCESS_READ</DefineConstants>
+    <DefineConstants>$(DefineConstants);FEATURE_RANDOMACCESS_READ</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_SPANFORMATTABLE</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_SUPPORTEDOSPLATFORMATTRIBUTE</DefineConstants>
 
@@ -56,8 +63,7 @@
   <!-- Features in .NET 5.x, .NET 6.x, .NET 7.x, .NET 8.x, and .NET 9.x only -->
   <PropertyGroup Condition=" $(TargetFramework.StartsWith('net5.')) Or $(TargetFramework.StartsWith('net6.')) Or $(TargetFramework.StartsWith('net7.')) Or $(TargetFramework.StartsWith('net8.')) Or $(TargetFramework.StartsWith('net9.')) ">
 
-    <DefineConstants>$(DefineConstants);FEATURE_ASPNETCORE_ENDPOINT_CONFIG</DefineConstants>
-	  <DefineConstants>$(DefineConstants);FEATURE_MEMORYMARSHAL_GETARRAYDATAREFERENCE</DefineConstants>
+    <DefineConstants>$(DefineConstants);FEATURE_MEMORYMARSHAL_GETARRAYDATAREFERENCE</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_READONLYSET</DefineConstants>
 
   </PropertyGroup>
@@ -86,7 +92,7 @@
     <DefineConstants>$(DefineConstants);FEATURE_ARRAY_FILL</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_CONDITIONALWEAKTABLE_ENUMERATOR</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_CONDITIONALWEAKTABLE_ADDORUPDATE</DefineConstants>
-	  <DefineConstants>$(DefineConstants);FEATURE_MEMORYMARSHAL_CREATEREADONLYSPAN</DefineConstants>
+    <DefineConstants>$(DefineConstants);FEATURE_MEMORYMARSHAL_CREATEREADONLYSPAN</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_NUMBER_PARSE_READONLYSPAN</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_STREAM_READ_SPAN</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_STRINGBUILDER_APPEND_READONLYSPAN</DefineConstants>
@@ -209,15 +215,10 @@
   </Target>
 
 
-  <!-- This is for testing only, we use SourceLink from any Azure DevOps git repo -->
-  <ItemGroup Condition=" '$(BUILD_REPOSITORY_PROVIDER)' == 'TfsGit' " Label="SourceLink Packages (experimental Azure Repos)">
-    <PackageReference Include="Microsoft.SourceLink.AzureRepos.Git" Version="$(MicrosoftSourceLinkAzureReposGitPackageReferenceVersion)" PrivateAssets="All"/>
+  <!-- Global PackageReferences -->
+  <ItemGroup>
+    <!-- This is to allow the .NET Framework references to be machine-indepenedent so builds can happen without installing prerequisites -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
   </ItemGroup>
-
-  <ItemGroup Condition=" '$(BUILD_REPOSITORY_PROVIDER)' == 'GitHub' " Label="SourceLink Packages (main repo)">
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="$(MicrosoftSourceLinkGitHubPackageReferenceVersion)" PrivateAssets="All"/>
-  </ItemGroup>
-
-  <Import Project=".build/release.targets" Condition="Exists('.build/release.targets')" />
 
 </Project>
