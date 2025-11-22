@@ -219,26 +219,27 @@ public static class IdUtils
         return entity.GetType().GetIdProperty().GetGetMethod(nonPublic: true).Invoke(entity, TypeConstants.EmptyObjectArray);
     }
 
-    /// <summary>
-    /// Converts to id.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="entity">The entity.</param>
-    /// <returns>System.Object.</returns>
-    public static object ToId<T>(this T entity)
+    /// <typeparam name="T"></typeparam>
+    extension<T>(T entity)
     {
-        return entity.GetId();
-    }
+        /// <summary>
+        /// Converts to id.
+        /// </summary>
+        /// <returns>System.Object.</returns>
+        public object ToId()
+        {
+            return entity.GetId();
+        }
 
-    /// <summary>
-    /// Converts to urn.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="entity">The entity.</param>
-    /// <returns>System.String.</returns>
-    public static string ToUrn<T>(this T entity)
-    {
-        return entity.CreateUrn();
+        /// <summary>
+        /// Converts to urn.
+        /// </summary>
+        /// <returns>System.String.</returns>
+        public string ToUrn()
+        {
+            return entity.CreateUrn();
+        }
     }
 
     /// <summary>

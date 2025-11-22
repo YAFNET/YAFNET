@@ -501,202 +501,194 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
 /// </summary>
 public static class OrmLiteConnectionFactoryExtensions
 {
-    /// <summary>
-    /// Alias for <see cref="OpenDbConnection(ServiceStack.Data.IDbConnectionFactory,string)" />
-    /// </summary>
     /// <param name="connectionFactory">The connection factory.</param>
-    /// <returns>IDbConnection.</returns>
-    public static IDbConnection Open(this IDbConnectionFactory connectionFactory)
+    extension(IDbConnectionFactory connectionFactory)
     {
-        return connectionFactory.OpenDbConnection();
-    }
-
-    public static IDbConnection Open(this IDbConnectionFactory connectionFactory, Action<IDbConnection> configure)
-    {
-        var db = connectionFactory.CreateDbConnection();
-        configure?.Invoke(db);
-        db.Open();
-        return db;
-    }
-
-    /// <summary>
-    /// Alias for OpenDbConnectionAsync
-    /// </summary>
-    /// <param name="connectionFactory">The connection factory.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;IDbConnection&gt;.</returns>
-    public static Task<IDbConnection> OpenDbConnectionAsync(this IDbConnectionFactory connectionFactory, CancellationToken token = default)
-    {
-        return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionAsync(token);
-    }
-    public static Task<IDbConnection> OpenAsync(this IDbConnectionFactory connectionFactory, Action<IDbConnection> configure, CancellationToken token = default)
-    {
-        return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionAsync(configure, token);
-    }
-    public static Task<IDbConnection> OpenAsync(this IDbConnectionFactory connectionFactory, string namedConnection, Action<IDbConnection> configure, CancellationToken token = default)
-    {
-        return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionAsync(namedConnection, configure, token);
-    }
-
-    /// <summary>
-    /// Opens the asynchronous.
-    /// </summary>
-    /// <param name="connectionFactory">The connection factory.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;IDbConnection&gt;.</returns>
-    public static Task<IDbConnection> OpenAsync(this IDbConnectionFactory connectionFactory, CancellationToken token = default)
-    {
-        return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionAsync(token);
-    }
-
-    /// <summary>
-    /// Alias for OpenDbConnectionAsync
-    /// </summary>
-    /// <param name="connectionFactory">The connection factory.</param>
-    /// <param name="namedConnection">The named connection.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;IDbConnection&gt;.</returns>
-    public static Task<IDbConnection> OpenAsync(this IDbConnectionFactory connectionFactory, string namedConnection, CancellationToken token = default)
-    {
-        return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionAsync(namedConnection, token);
-    }
-
-    /// <summary>
-    /// Alias for OpenDbConnection
-    /// </summary>
-    /// <param name="connectionFactory">The connection factory.</param>
-    /// <param name="namedConnection">The named connection.</param>
-    /// <returns>IDbConnection.</returns>
-    public static IDbConnection Open(this IDbConnectionFactory connectionFactory, string namedConnection)
-    {
-        return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnection(namedConnection);
-    }
-
-    public static IDbConnection OpenDbConnection(this IDbConnectionFactory connectionFactory, Action<IDbConnection> configure)
-    {
-        return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnection(configure);
-    }
-
-    /// <summary>
-    /// Alias for OpenDbConnection
-    /// </summary>
-    /// <param name="connectionFactory">The connection factory.</param>
-    /// <param name="namedConnection">The named connection.</param>
-    /// <returns>IDbConnection.</returns>
-    public static IDbConnection OpenDbConnection(this IDbConnectionFactory connectionFactory, string namedConnection)
-    {
-        return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnection(namedConnection);
-    }
-
-    public static IDbConnection OpenDbConnection(this IDbConnectionFactory connectionFactory, string namedConnection, Action<IDbConnection> configure)
-    {
-        return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnection(namedConnection, configure);
-    }
-
-    /// <summary>
-    /// Opens the database connection asynchronous.
-    /// </summary>
-    /// <param name="connectionFactory">The connection factory.</param>
-    /// <param name="namedConnection">The named connection.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;IDbConnection&gt;.</returns>
-    public static Task<IDbConnection> OpenDbConnectionAsync(this IDbConnectionFactory connectionFactory, string namedConnection, CancellationToken token = default)
-    {
-        return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionAsync(namedConnection, token);
-    }
-
-    /// <summary>
-    /// Alias for OpenDbConnection
-    /// </summary>
-    /// <param name="connectionFactory">The connection factory.</param>
-    /// <param name="connectionString">The connection string.</param>
-    /// <returns>IDbConnection.</returns>
-    public static IDbConnection OpenDbConnectionString(this IDbConnectionFactory connectionFactory, string connectionString)
-    {
-        return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionString(connectionString);
-    }
-
-    /// <summary>
-    /// Opens the database connection string.
-    /// </summary>
-    /// <param name="connectionFactory">The connection factory.</param>
-    /// <param name="connectionString">The connection string.</param>
-    /// <param name="providerName">Name of the provider.</param>
-    /// <returns>IDbConnection.</returns>
-    public static IDbConnection OpenDbConnectionString(this IDbConnectionFactory connectionFactory, string connectionString, string providerName)
-    {
-        return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionString(connectionString, providerName);
-    }
-
-    /// <summary>
-    /// Opens the database connection string asynchronous.
-    /// </summary>
-    /// <param name="connectionFactory">The connection factory.</param>
-    /// <param name="connectionString">The connection string.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;IDbConnection&gt;.</returns>
-    public static Task<IDbConnection> OpenDbConnectionStringAsync(this IDbConnectionFactory connectionFactory, string connectionString, CancellationToken token = default)
-    {
-        return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionStringAsync(connectionString, token);
-    }
-
-    /// <summary>
-    /// Opens the database connection string asynchronous.
-    /// </summary>
-    /// <param name="connectionFactory">The connection factory.</param>
-    /// <param name="connectionString">The connection string.</param>
-    /// <param name="providerName">Name of the provider.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;IDbConnection&gt;.</returns>
-    public static Task<IDbConnection> OpenDbConnectionStringAsync(this IDbConnectionFactory connectionFactory, string connectionString, string providerName, CancellationToken token = default)
-    {
-        return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionStringAsync(connectionString, providerName, token);
-    }
-
-
-    /// <summary>
-    /// Gets the dialect provider.
-    /// </summary>
-    /// <param name="connectionFactory">The connection factory.</param>
-    /// <param name="dbInfo">The database information.</param>
-    /// <returns>IOrmLiteDialectProvider.</returns>
-    public static IOrmLiteDialectProvider GetDialectProvider(this IDbConnectionFactory connectionFactory, ConnectionInfo dbInfo)
-    {
-        return dbInfo != null
-                   ? GetDialectProvider(connectionFactory, providerName: dbInfo.ProviderName, namedConnection: dbInfo.NamedConnection)
-                   : ((OrmLiteConnectionFactory)connectionFactory).DialectProvider;
-    }
-
-    /// <summary>
-    /// Gets the dialect provider.
-    /// </summary>
-    /// <param name="connectionFactory">The connection factory.</param>
-    /// <param name="providerName">Name of the provider.</param>
-    /// <param name="namedConnection">The named connection.</param>
-    /// <returns>IOrmLiteDialectProvider.</returns>
-    /// <exception cref="System.NotSupportedException">Dialect provider is not registered '{provider}'</exception>
-    /// <exception cref="System.NotSupportedException">Named connection is not registered '{namedConnection}'</exception>
-    public static IOrmLiteDialectProvider GetDialectProvider(this IDbConnectionFactory connectionFactory,
-                                                             string providerName = null, string namedConnection = null)
-    {
-        var dbFactory = (OrmLiteConnectionFactory)connectionFactory;
-
-        if (!string.IsNullOrEmpty(providerName))
+        /// <summary>
+        /// Alias for <see cref="OpenDbConnection(ServiceStack.Data.IDbConnectionFactory,string)" />
+        /// </summary>
+        /// <returns>IDbConnection.</returns>
+        public IDbConnection Open()
         {
-            return OrmLiteConnectionFactory.DialectProviders.TryGetValue(providerName, out var provider)
-                ? provider
-                : throw new NotSupportedException($"Dialect provider is not registered '{providerName}'");
+            return connectionFactory.OpenDbConnection();
         }
 
-        if (!string.IsNullOrEmpty(namedConnection))
+        public IDbConnection Open(Action<IDbConnection> configure)
         {
-            return OrmLiteConnectionFactory.NamedConnections.TryGetValue(namedConnection, out var namedFactory)
-                ? namedFactory.DialectProvider
-                : throw new NotSupportedException($"Named connection is not registered '{namedConnection}'");
+            var db = connectionFactory.CreateDbConnection();
+            configure?.Invoke(db);
+            db.Open();
+            return db;
         }
 
-        return dbFactory.DialectProvider;
+        /// <summary>
+        /// Alias for OpenDbConnectionAsync
+        /// </summary>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;IDbConnection&gt;.</returns>
+        public Task<IDbConnection> OpenDbConnectionAsync(CancellationToken token = default)
+        {
+            return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionAsync(token);
+        }
+
+        public Task<IDbConnection> OpenAsync(Action<IDbConnection> configure, CancellationToken token = default)
+        {
+            return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionAsync(configure, token);
+        }
+
+        public Task<IDbConnection> OpenAsync(string namedConnection, Action<IDbConnection> configure, CancellationToken token = default)
+        {
+            return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionAsync(namedConnection, configure, token);
+        }
+
+        /// <summary>
+        /// Opens the asynchronous.
+        /// </summary>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;IDbConnection&gt;.</returns>
+        public Task<IDbConnection> OpenAsync(CancellationToken token = default)
+        {
+            return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionAsync(token);
+        }
+
+        /// <summary>
+        /// Alias for OpenDbConnectionAsync
+        /// </summary>
+        /// <param name="namedConnection">The named connection.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;IDbConnection&gt;.</returns>
+        public Task<IDbConnection> OpenAsync(string namedConnection, CancellationToken token = default)
+        {
+            return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionAsync(namedConnection, token);
+        }
+
+        /// <summary>
+        /// Alias for OpenDbConnection
+        /// </summary>
+        /// <param name="namedConnection">The named connection.</param>
+        /// <returns>IDbConnection.</returns>
+        public IDbConnection Open(string namedConnection)
+        {
+            return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnection(namedConnection);
+        }
+
+        public IDbConnection OpenDbConnection(Action<IDbConnection> configure)
+        {
+            return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnection(configure);
+        }
+
+        /// <summary>
+        /// Alias for OpenDbConnection
+        /// </summary>
+        /// <param name="namedConnection">The named connection.</param>
+        /// <returns>IDbConnection.</returns>
+        public IDbConnection OpenDbConnection(string namedConnection)
+        {
+            return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnection(namedConnection);
+        }
+
+        public IDbConnection OpenDbConnection(string namedConnection, Action<IDbConnection> configure)
+        {
+            return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnection(namedConnection, configure);
+        }
+
+        /// <summary>
+        /// Opens the database connection asynchronous.
+        /// </summary>
+        /// <param name="namedConnection">The named connection.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;IDbConnection&gt;.</returns>
+        public Task<IDbConnection> OpenDbConnectionAsync(string namedConnection, CancellationToken token = default)
+        {
+            return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionAsync(namedConnection, token);
+        }
+
+        /// <summary>
+        /// Alias for OpenDbConnection
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
+        /// <returns>IDbConnection.</returns>
+        public IDbConnection OpenDbConnectionString(string connectionString)
+        {
+            return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionString(connectionString);
+        }
+
+        /// <summary>
+        /// Opens the database connection string.
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
+        /// <param name="providerName">Name of the provider.</param>
+        /// <returns>IDbConnection.</returns>
+        public IDbConnection OpenDbConnectionString(string connectionString, string providerName)
+        {
+            return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionString(connectionString, providerName);
+        }
+
+        /// <summary>
+        /// Opens the database connection string asynchronous.
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;IDbConnection&gt;.</returns>
+        public Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, CancellationToken token = default)
+        {
+            return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionStringAsync(connectionString, token);
+        }
+
+        /// <summary>
+        /// Opens the database connection string asynchronous.
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
+        /// <param name="providerName">Name of the provider.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;IDbConnection&gt;.</returns>
+        public Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, string providerName, CancellationToken token = default)
+        {
+            return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionStringAsync(connectionString, providerName, token);
+        }
+
+        /// <summary>
+        /// Gets the dialect provider.
+        /// </summary>
+        /// <param name="dbInfo">The database information.</param>
+        /// <returns>IOrmLiteDialectProvider.</returns>
+        public IOrmLiteDialectProvider GetDialectProvider(ConnectionInfo dbInfo)
+        {
+            return dbInfo != null
+                ? GetDialectProvider(connectionFactory, providerName: dbInfo.ProviderName, namedConnection: dbInfo.NamedConnection)
+                : ((OrmLiteConnectionFactory)connectionFactory).DialectProvider;
+        }
+
+        /// <summary>
+        /// Gets the dialect provider.
+        /// </summary>
+        /// <param name="providerName">Name of the provider.</param>
+        /// <param name="namedConnection">The named connection.</param>
+        /// <returns>IOrmLiteDialectProvider.</returns>
+        /// <exception cref="System.NotSupportedException">Dialect provider is not registered '{provider}'</exception>
+        /// <exception cref="System.NotSupportedException">Named connection is not registered '{namedConnection}'</exception>
+        public IOrmLiteDialectProvider GetDialectProvider(string providerName = null, string namedConnection = null)
+        {
+            var dbFactory = (OrmLiteConnectionFactory)connectionFactory;
+
+            if (!string.IsNullOrEmpty(providerName))
+            {
+                return OrmLiteConnectionFactory.DialectProviders.TryGetValue(providerName, out var provider)
+                    ? provider
+                    : throw new NotSupportedException($"Dialect provider is not registered '{providerName}'");
+            }
+
+            if (!string.IsNullOrEmpty(namedConnection))
+            {
+                return OrmLiteConnectionFactory.NamedConnections.TryGetValue(namedConnection, out var namedFactory)
+                    ? namedFactory.DialectProvider
+                    : throw new NotSupportedException($"Named connection is not registered '{namedConnection}'");
+            }
+
+            return dbFactory.DialectProvider;
+        }
     }
+
 
     /// <summary>
     /// Converts to dbconnection.
@@ -754,78 +746,78 @@ public static class OrmLiteConnectionFactoryExtensions
         return dbCmd is OrmLiteCommand cmd ? cmd.ConnectionId : Guid.Empty;
     }
 
-    /// <summary>
-    /// Registers the connection.
-    /// </summary>
     /// <param name="dbFactory">The database factory.</param>
-    /// <param name="namedConnection">The named connection.</param>
-    /// <param name="connectionString">The connection string.</param>
-    /// <param name="dialectProvider">The dialect provider.</param>
-    public static void RegisterConnection(this IDbConnectionFactory dbFactory, string namedConnection, string connectionString, IOrmLiteDialectProvider dialectProvider)
+    extension(IDbConnectionFactory dbFactory)
     {
-        ((OrmLiteConnectionFactory)dbFactory).RegisterConnection(namedConnection, connectionString, dialectProvider);
-    }
-
-    /// <summary>
-    /// Registers the connection.
-    /// </summary>
-    /// <param name="dbFactory">The database factory.</param>
-    /// <param name="namedConnection">The named connection.</param>
-    /// <param name="connectionFactory">The connection factory.</param>
-    public static void RegisterConnection(this IDbConnectionFactory dbFactory, string namedConnection, OrmLiteConnectionFactory connectionFactory)
-    {
-        ((OrmLiteConnectionFactory)dbFactory).RegisterConnection(namedConnection, connectionFactory);
-    }
-
-    /// <summary>
-    /// Opens the database connection.
-    /// </summary>
-    /// <param name="dbFactory">The database factory.</param>
-    /// <param name="connInfo">The connection information.</param>
-    /// <returns>IDbConnection.</returns>
-    public static IDbConnection OpenDbConnection(this IDbConnectionFactory dbFactory, ConnectionInfo connInfo)
-    {
-        if (dbFactory is IDbConnectionFactoryExtended dbFactoryExt && connInfo != null)
+        /// <summary>
+        /// Registers the connection.
+        /// </summary>
+        /// <param name="namedConnection">The named connection.</param>
+        /// <param name="connectionString">The connection string.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        public void RegisterConnection(string namedConnection, string connectionString, IOrmLiteDialectProvider dialectProvider)
         {
-            if (connInfo.ConnectionString != null)
-            {
-                return connInfo.ProviderName != null
-                           ? dbFactoryExt.OpenDbConnectionString(connInfo.ConnectionString, connInfo.ProviderName)
-                           : dbFactoryExt.OpenDbConnectionString(connInfo.ConnectionString);
-            }
-
-            if (connInfo.NamedConnection != null)
-            {
-                return dbFactoryExt.OpenDbConnection(connInfo.NamedConnection);
-            }
+            ((OrmLiteConnectionFactory)dbFactory).RegisterConnection(namedConnection, connectionString, dialectProvider);
         }
 
-        return dbFactory.Open();
-    }
-
-    /// <summary>
-    /// Open database connection as an asynchronous operation.
-    /// </summary>
-    /// <param name="dbFactory">The database factory.</param>
-    /// <param name="connInfo">The connection information.</param>
-    /// <returns>A Task&lt;IDbConnection&gt; representing the asynchronous operation.</returns>
-    public async static Task<IDbConnection> OpenDbConnectionAsync(this IDbConnectionFactory dbFactory, ConnectionInfo connInfo)
-    {
-        if (dbFactory is IDbConnectionFactoryExtended dbFactoryExt && connInfo != null)
+        /// <summary>
+        /// Registers the connection.
+        /// </summary>
+        /// <param name="namedConnection">The named connection.</param>
+        /// <param name="connectionFactory">The connection factory.</param>
+        public void RegisterConnection(string namedConnection, OrmLiteConnectionFactory connectionFactory)
         {
-            if (connInfo.ConnectionString != null)
-            {
-                return connInfo.ProviderName != null
-                           ? await dbFactoryExt.OpenDbConnectionStringAsync(connInfo.ConnectionString, connInfo.ProviderName).ConfigAwait()
-                           : await dbFactoryExt.OpenDbConnectionStringAsync(connInfo.ConnectionString).ConfigAwait();
-            }
-
-            if (connInfo.NamedConnection != null)
-            {
-                return await dbFactoryExt.OpenDbConnectionAsync(connInfo.NamedConnection).ConfigAwait();
-            }
+            ((OrmLiteConnectionFactory)dbFactory).RegisterConnection(namedConnection, connectionFactory);
         }
 
-        return await dbFactory.OpenAsync().ConfigAwait();
+        /// <summary>
+        /// Opens the database connection.
+        /// </summary>
+        /// <param name="connInfo">The connection information.</param>
+        /// <returns>IDbConnection.</returns>
+        public IDbConnection OpenDbConnection(ConnectionInfo connInfo)
+        {
+            if (dbFactory is IDbConnectionFactoryExtended dbFactoryExt && connInfo != null)
+            {
+                if (connInfo.ConnectionString != null)
+                {
+                    return connInfo.ProviderName != null
+                        ? dbFactoryExt.OpenDbConnectionString(connInfo.ConnectionString, connInfo.ProviderName)
+                        : dbFactoryExt.OpenDbConnectionString(connInfo.ConnectionString);
+                }
+
+                if (connInfo.NamedConnection != null)
+                {
+                    return dbFactoryExt.OpenDbConnection(connInfo.NamedConnection);
+                }
+            }
+
+            return dbFactory.Open();
+        }
+
+        /// <summary>
+        /// Open database connection as an asynchronous operation.
+        /// </summary>
+        /// <param name="connInfo">The connection information.</param>
+        /// <returns>A Task&lt;IDbConnection&gt; representing the asynchronous operation.</returns>
+        public async Task<IDbConnection> OpenDbConnectionAsync(ConnectionInfo connInfo)
+        {
+            if (dbFactory is IDbConnectionFactoryExtended dbFactoryExt && connInfo != null)
+            {
+                if (connInfo.ConnectionString != null)
+                {
+                    return connInfo.ProviderName != null
+                        ? await dbFactoryExt.OpenDbConnectionStringAsync(connInfo.ConnectionString, connInfo.ProviderName).ConfigAwait()
+                        : await dbFactoryExt.OpenDbConnectionStringAsync(connInfo.ConnectionString).ConfigAwait();
+                }
+
+                if (connInfo.NamedConnection != null)
+                {
+                    return await dbFactoryExt.OpenDbConnectionAsync(connInfo.NamedConnection).ConfigAwait();
+                }
+            }
+
+            return await dbFactory.OpenAsync().ConfigAwait();
+        }
     }
 }

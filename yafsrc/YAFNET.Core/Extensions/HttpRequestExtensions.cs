@@ -31,56 +31,57 @@ namespace YAF.Core.Extensions;
 /// </summary>
 public static class HttpRequestExtensions
 {
-    /// <summary>
-    /// Gets the query string or route value.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="request">The request.</param>
-    /// <param name="queryName">Name of the query.</param>
-    /// <returns>T.</returns>
-    public static T GetQueryOrRouteValue<T>(this HttpRequest request, string queryName)
+    extension(HttpRequest request)
     {
-        ArgumentNullException.ThrowIfNull(request);
-
-        // Check if query string exist
-        T query;
-
-        if (request.Query.ContainsKey(queryName))
+        /// <summary>
+        /// Gets the query string or route value.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryName">Name of the query.</param>
+        /// <returns>T.</returns>
+        public T GetQueryOrRouteValue<T>(string queryName)
         {
-            query = request.Query[queryName].FirstOrDefault().ToType<T>();
+            ArgumentNullException.ThrowIfNull(request);
+
+            // Check if query string exist
+            T query;
+
+            if (request.Query.ContainsKey(queryName))
+            {
+                query = request.Query[queryName].FirstOrDefault().ToType<T>();
+
+                return query;
+            }
+
+            // Check if route value exist
+            if (!request.RouteValues.TryGetValue(queryName, out var value))
+            {
+                return default;
+            }
+
+            query = value.ToType<T>();
 
             return query;
         }
 
-        // Check if route value exist
-        if (!request.RouteValues.TryGetValue(queryName, out var value))
+        /// <summary>
+        /// Gets the Base Url from the HttpRequest
+        /// </summary>
+        /// <returns>System.Nullable&lt;System.String&gt;.</returns>
+        public string BaseUrl()
         {
-            return default;
+            return GetBaseUri(request).AbsoluteUri;
         }
 
-        query = value.ToType<T>();
-
-        return query;
-    }
-
-    /// <summary>
-    /// Gets the Base Url from the HttpRequest
-    /// </summary>
-    /// <param name="req">The req.</param>
-    /// <returns>System.Nullable&lt;System.String&gt;.</returns>
-    public static string BaseUrl(this HttpRequest req)
-    {
-        return GetBaseUri(req).AbsoluteUri;
-    }
-
-    /// <summary>
-    /// Gets the Base Authority from the HttpRequest
-    /// </summary>
-    /// <param name="req">The req.</param>
-    /// <returns>System.Nullable&lt;System.String&gt;.</returns>
-    public static string BaseAuthority(this HttpRequest req)
-    {
-       return GetBaseUri(req).Authority;
+        /// <summary>
+        /// Gets the Base Authority from the HttpRequest
+        /// </summary>
+        /// <returns>System.Nullable&lt;System.String&gt;.</returns>
+        public string BaseAuthority()
+        {
+            return GetBaseUri(request).Authority;
+        }
     }
 
     /// <summary>

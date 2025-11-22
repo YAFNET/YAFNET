@@ -32,47 +32,39 @@ using System.Linq;
 /// </summary>
 public static class CollectionExtensions
 {
-    /// <summary>
-    /// The add or update.
-    /// </summary>
     /// <param name="dictionary">
     /// The dictionary.
     /// </param>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <param name="value">
-    /// The value.
-    /// </param>
     /// <typeparam name="TKey">
     /// </typeparam>
     /// <typeparam name="TValue">
     /// </typeparam>
-    public static void AddOrUpdate<TKey, TValue>(
-        this IDictionary<TKey, TValue> dictionary,
-        TKey key,
-        TValue value)
+    extension<TKey, TValue>(IDictionary<TKey, TValue> dictionary)
     {
-        dictionary[key] = value;
-    }
+        /// <summary>
+        /// The add or update.
+        /// </summary>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        public void AddOrUpdate(TKey key,
+            TValue value)
+        {
+            dictionary[key] = value;
+        }
 
-    /// <summary>
-    /// The add range.
-    /// </summary>
-    /// <param name="dictionaryFirst">
-    /// The dictionary first.
-    /// </param>
-    /// <param name="dictionarySecondary">
-    /// The dictionary secondary.
-    /// </param>
-    /// <typeparam name="TKey">
-    /// </typeparam>
-    /// <typeparam name="TValue">
-    /// </typeparam>
-    public static void AddRange<TKey, TValue>(
-        this IDictionary<TKey, TValue> dictionaryFirst,
-        IDictionary<TKey, TValue> dictionarySecondary)
-    {
-        dictionarySecondary.ToList().ForEach(i => dictionaryFirst.AddOrUpdate(i.Key, i.Value));
+        /// <summary>
+        /// The add range.
+        /// </summary>
+        /// <param name="dictionarySecondary">
+        /// The dictionary secondary.
+        /// </param>
+        public void AddRange(IDictionary<TKey, TValue> dictionarySecondary)
+        {
+            dictionarySecondary.ToList().ForEach(i => dictionary.AddOrUpdate(i.Key, i.Value));
+        }
     }
 }

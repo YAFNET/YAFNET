@@ -37,20 +37,21 @@ using YAF.Types.Objects.Model;
 /// </summary>
 public static class MessageReportedRepositoryExtensions
 {
-    /// <summary>
-    /// Retrieve all reported messages with the correct forumID argument.
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="forumId">
-    /// The forum Id.
-    /// </param>
-    public static
-        Task<List<ReportedMessage>> ListReportedAsync(this IRepository<MessageReported> repository, int forumId)
+    extension(IRepository<MessageReported> repository)
     {
-        return repository.DbAccess.ExecuteAsync(
-            db =>
+        /// <summary>
+        /// Retrieve all reported messages with the correct forumID argument.
+        /// </summary>
+        /// <param name="forumId">
+        /// The forum Id.
+        /// </param>
+        public Task<List<ReportedMessage>> ListReportedAsync(int forumId)
+        {
+            return repository.DbAccess.ExecuteAsync(
+                db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageReported>();
 
@@ -70,106 +71,99 @@ public static class MessageReportedRepositoryExtensions
 
                     expression.Select<MessageReported, MessageReportedAudit, Message, Topic, User>(
                         (a, b, m, t, u) => new
-                                               {
-                                                   MessageID = a.ID,
-                                                   a.Message,
-                                                   a.ResolvedBy,
-                                                   a.ResolvedDate,
-                                                   a.Resolved,
-                                                   OriginalMessage = m.MessageText,
-                                                   m.Flags,
-                                                   m.IsModeratorChanged,
-                                                   UserName = m.UserName ?? u.Name,
-                                                   UserDisplayName = m.UserDisplayName ?? u.DisplayName,
-                                                   m.UserID,
-                                                   u.Suspended,
-                                                   u.UserStyle,
-                                                   m.Posted,
-                                                   m.TopicID,
-                                                   t.TopicName,
-                                                   NumberOfReports = Sql.Custom($"({subSql})")
-                                               });
+                        {
+                            MessageID = a.ID,
+                            a.Message,
+                            a.ResolvedBy,
+                            a.ResolvedDate,
+                            a.Resolved,
+                            OriginalMessage = m.MessageText,
+                            m.Flags,
+                            m.IsModeratorChanged,
+                            UserName = m.UserName ?? u.Name,
+                            UserDisplayName = m.UserDisplayName ?? u.DisplayName,
+                            m.UserID,
+                            u.Suspended,
+                            u.UserStyle,
+                            m.Posted,
+                            m.TopicID,
+                            t.TopicName,
+                            NumberOfReports = Sql.Custom($"({subSql})")
+                        });
 
                     return db.SelectAsync<ReportedMessage>(expression);
                 });
-    }
-
-    /// <summary>
-    /// Save reported message back to the database.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="message">
-    /// The Message
-    /// </param>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <param name="reportedDateTime">
-    /// The reported date time.
-    /// </param>
-    /// <param name="reportText">
-    /// The report text.
-    /// </param>
-    public async static Task ReportAsync(
-        this IRepository<MessageReported> repository,
-        Message message,
-        int userId,
-        DateTime reportedDateTime,
-        string reportText)
-    {
-        reportText ??= string.Empty;
-
-        if (!await repository.ExistsAsync(m => m.ID == message.ID))
-        {
-            await repository.InsertAsync(new MessageReported { ID = message.ID, Message = message.MessageText });
         }
 
-        var reportAudit = await BoardContext.Current.GetRepository<MessageReportedAudit>()
-            .GetSingleAsync(m => m.MessageID == message.ID && m.UserID == userId);
-
-        if (reportAudit == null)
+        /// <summary>
+        /// Save reported message back to the database.
+        /// </summary>
+        /// <param name="message">
+        /// The Message
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="reportedDateTime">
+        /// The reported date time.
+        /// </param>
+        /// <param name="reportText">
+        /// The report text.
+        /// </param>
+        public async Task ReportAsync(Message message,
+            int userId,
+            DateTime reportedDateTime,
+            string reportText)
         {
-            await BoardContext.Current.GetRepository<MessageReportedAudit>().InsertAsync(
-                new MessageReportedAudit
+            reportText ??= string.Empty;
+
+            if (!await repository.ExistsAsync(m => m.ID == message.ID))
+            {
+                await repository.InsertAsync(new MessageReported { ID = message.ID, Message = message.MessageText });
+            }
+
+            var reportAudit = await BoardContext.Current.GetRepository<MessageReportedAudit>()
+                .GetSingleAsync(m => m.MessageID == message.ID && m.UserID == userId);
+
+            if (reportAudit == null)
+            {
+                await BoardContext.Current.GetRepository<MessageReportedAudit>().InsertAsync(
+                    new MessageReportedAudit
                     {
                         MessageID = message.ID,
                         UserID = userId,
                         Reported = reportedDateTime,
                         ReportText = $"{DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)}??{reportText}"
                     });
+            }
+            else
+            {
+                await BoardContext.Current.GetRepository<MessageReportedAudit>().UpdateOnlyAsync(
+                    () => new MessageReportedAudit
+                    {
+                        ReportedNumber = reportAudit.ReportedNumber < 2147483647 ? reportAudit.ReportedNumber + 1 : reportAudit.ReportedNumber,
+                        Reported = reportedDateTime,
+                        ReportText = $"{reportAudit.ReportText}|{DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)}??{reportText}"
+                    },
+                    m => m.MessageID == message.ID && m.UserID == userId);
+            }
+
+            var flags = message.MessageFlags;
+
+            flags.IsReported = true;
+
+            await BoardContext.Current.GetRepository<Message>().UpdateFlagsAsync(message.ID, flags.BitValue);
         }
-        else
+
+        /// <summary>
+        /// Copy current Message text over reported Message text.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public Task ReportCopyOverAsync(Message message)
         {
-            await BoardContext.Current.GetRepository<MessageReportedAudit>().UpdateOnlyAsync(
-                () => new MessageReportedAudit
-                          {
-                              ReportedNumber = reportAudit.ReportedNumber < 2147483647 ? reportAudit.ReportedNumber + 1 : reportAudit.ReportedNumber,
-                              Reported = reportedDateTime,
-                              ReportText = $"{reportAudit.ReportText}|{DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)}??{reportText}"
-                          },
-                m => m.MessageID == message.ID && m.UserID == userId);
+            return repository.UpdateOnlyAsync(() => new MessageReported { Message = message.MessageText }, m => m.ID == message.ID);
         }
-
-        var flags = message.MessageFlags;
-
-        flags.IsReported = true;
-
-        await BoardContext.Current.GetRepository<Message>().UpdateFlagsAsync(message.ID, flags.BitValue);
-    }
-
-    /// <summary>
-    /// Copy current Message text over reported Message text.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    public static Task ReportCopyOverAsync(this IRepository<MessageReported> repository, Message message)
-    {
-        return repository.UpdateOnlyAsync(() => new MessageReported { Message = message.MessageText }, m => m.ID == message.ID);
     }
 }

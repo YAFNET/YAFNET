@@ -19,27 +19,29 @@ namespace ServiceStack;
 /// </summary>
 public static class XLinqExtensions
 {
-    /// <summary>
-    /// Gets the string.
-    /// </summary>
     /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.String.</returns>
-    public static string GetString(this XElement el, string name)
+    extension(XElement el)
     {
-        return el == null ? null : GetElementValueOrDefault(el, name, x => x.Value);
-    }
+        /// <summary>
+        /// Gets the string.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
+        public string GetString(string name)
+        {
+            return el == null ? null : GetElementValueOrDefault(el, name, x => x.Value);
+        }
 
-    /// <summary>
-    /// Gets the string attribute or default.
-    /// </summary>
-    /// <param name="element">The element.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.String.</returns>
-    public static string GetStringAttributeOrDefault(this XElement element, string name)
-    {
-        var attr = AnyAttribute(element, name);
-        return attr == null ? null : GetAttributeValueOrDefault(attr, name, x => x.Value);
+        /// <summary>
+        /// Gets the string attribute or default.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
+        public string GetStringAttributeOrDefault(string name)
+        {
+            var attr = AnyAttribute(el, name);
+            return attr == null ? null : GetAttributeValueOrDefault(attr, name, x => x.Value);
+        }
     }
 
     /// <summary>
@@ -58,140 +60,134 @@ public static class XLinqExtensions
         return IsNullOrEmpty(attr?.Value) ? default : converter(attr);
     }
 
-    /// <summary>
-    /// Gets the bool.
-    /// </summary>
     /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool GetBool(this XElement el, string name)
+    extension(XElement el)
     {
-        AssertElementHasValue(el, name);
-        return (bool)GetElement(el, name);
-    }
-
-    /// <summary>
-    /// Gets the int.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Int32.</returns>
-    public static int GetInt(this XElement el, string name)
-    {
-        AssertElementHasValue(el, name);
-        return (int)GetElement(el, name);
-    }
-
-    /// <summary>
-    /// Gets the int or default.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Int32.</returns>
-    public static int GetIntOrDefault(this XElement el, string name)
-    {
-        return GetElementValueOrDefault(el, name, x => (int)x);
-    }
-
-    /// <summary>
-    /// Gets the long.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Int64.</returns>
-    public static long GetLong(this XElement el, string name)
-    {
-        AssertElementHasValue(el, name);
-        return (long)GetElement(el, name);
-    }
-
-    /// <summary>
-    /// Gets the date time.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>DateTime.</returns>
-    public static DateTime GetDateTime(this XElement el, string name)
-    {
-        AssertElementHasValue(el, name);
-        return (DateTime)GetElement(el, name);
-    }
-
-    /// <summary>
-    /// Gets the time span.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>TimeSpan.</returns>
-    public static TimeSpan GetTimeSpan(this XElement el, string name)
-    {
-        AssertElementHasValue(el, name);
-        return (TimeSpan)GetElement(el, name);
-    }
-
-    /// <summary>
-    /// Gets the time span or default.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>TimeSpan.</returns>
-    public static TimeSpan GetTimeSpanOrDefault(this XElement el, string name)
-    {
-        return GetElementValueOrDefault(el, name, x => (TimeSpan)x);
-    }
-
-    /// <summary>
-    /// Gets the element value or default.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="element">The element.</param>
-    /// <param name="name">The name.</param>
-    /// <param name="converter">The converter.</param>
-    /// <returns>T.</returns>
-    /// <exception cref="System.ArgumentNullException">converter</exception>
-    public static T GetElementValueOrDefault<T>(this XElement element, string name, Func<XElement, T> converter)
-    {
-        ArgumentNullException.ThrowIfNull(converter);
-
-        var el = GetElement(element, name);
-        return IsNullOrEmpty(el?.Value) ? default : converter(el);
-    }
-
-    /// <summary>
-    /// Gets the element.
-    /// </summary>
-    /// <param name="element">The element.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>XElement.</returns>
-    /// <exception cref="System.ArgumentNullException">element</exception>
-    /// <exception cref="System.ArgumentNullException">name</exception>
-    public static XElement GetElement(this XElement element, string name)
-    {
-        ArgumentNullException.ThrowIfNull(element);
-
-        ArgumentNullException.ThrowIfNull(name);
-
-        return element.AnyElement(name);
-    }
-
-    /// <summary>
-    /// Asserts the element has value.
-    /// </summary>
-    /// <param name="element">The element.</param>
-    /// <param name="name">The name.</param>
-    /// <exception cref="System.ArgumentNullException">element</exception>
-    /// <exception cref="System.ArgumentNullException">name</exception>
-    /// <exception cref="System.ArgumentNullException"></exception>
-    public static void AssertElementHasValue(this XElement element, string name)
-    {
-        ArgumentNullException.ThrowIfNull(element);
-
-        ArgumentNullException.ThrowIfNull(name);
-
-        var childEl = element.AnyElement(name);
-        if (childEl == null || IsNullOrEmpty(childEl.Value))
+        /// <summary>
+        /// Gets the bool.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        public bool GetBool(string name)
         {
-            throw new ArgumentNullException(name, $"{name} is required");
+            AssertElementHasValue(el, name);
+            return (bool)GetElement(el, name);
+        }
+
+        /// <summary>
+        /// Gets the int.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>System.Int32.</returns>
+        public int GetInt(string name)
+        {
+            AssertElementHasValue(el, name);
+            return (int)GetElement(el, name);
+        }
+
+        /// <summary>
+        /// Gets the int or default.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>System.Int32.</returns>
+        public int GetIntOrDefault(string name)
+        {
+            return GetElementValueOrDefault(el, name, x => (int)x);
+        }
+
+        /// <summary>
+        /// Gets the long.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>System.Int64.</returns>
+        public long GetLong(string name)
+        {
+            AssertElementHasValue(el, name);
+            return (long)GetElement(el, name);
+        }
+
+        /// <summary>
+        /// Gets the date time.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>DateTime.</returns>
+        public DateTime GetDateTime(string name)
+        {
+            AssertElementHasValue(el, name);
+            return (DateTime)GetElement(el, name);
+        }
+
+        /// <summary>
+        /// Gets the time span.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>TimeSpan.</returns>
+        public TimeSpan GetTimeSpan(string name)
+        {
+            AssertElementHasValue(el, name);
+            return (TimeSpan)GetElement(el, name);
+        }
+
+        /// <summary>
+        /// Gets the time span or default.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>TimeSpan.</returns>
+        public TimeSpan GetTimeSpanOrDefault(string name)
+        {
+            return GetElementValueOrDefault(el, name, x => (TimeSpan)x);
+        }
+
+        /// <summary>
+        /// Gets the element value or default.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="name">The name.</param>
+        /// <param name="converter">The converter.</param>
+        /// <returns>T.</returns>
+        /// <exception cref="System.ArgumentNullException">converter</exception>
+        public T GetElementValueOrDefault<T>(string name, Func<XElement, T> converter)
+        {
+            ArgumentNullException.ThrowIfNull(converter);
+
+            var el1 = GetElement(el, name);
+            return IsNullOrEmpty(el1?.Value) ? default : converter(el1);
+        }
+
+        /// <summary>
+        /// Gets the element.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>XElement.</returns>
+        /// <exception cref="System.ArgumentNullException">element</exception>
+        /// <exception cref="System.ArgumentNullException">name</exception>
+        public XElement GetElement(string name)
+        {
+            ArgumentNullException.ThrowIfNull(el);
+
+            ArgumentNullException.ThrowIfNull(name);
+
+            return el.AnyElement(name);
+        }
+
+        /// <summary>
+        /// Asserts the element has value.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <exception cref="System.ArgumentNullException">element</exception>
+        /// <exception cref="System.ArgumentNullException">name</exception>
+        /// <exception cref="System.ArgumentNullException"></exception>
+        public void AssertElementHasValue(string name)
+        {
+            ArgumentNullException.ThrowIfNull(el);
+
+            ArgumentNullException.ThrowIfNull(name);
+
+            var childEl = el.AnyElement(name);
+            if (childEl == null || IsNullOrEmpty(childEl.Value))
+            {
+                throw new ArgumentNullException(name, $"{name} is required");
+            }
         }
     }
 
@@ -205,142 +201,146 @@ public static class XLinqExtensions
         return [.. els.Select(el => el.Value)];
     }
 
-    /// <summary>
-    /// Anies the attribute.
-    /// </summary>
     /// <param name="element">The element.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>XAttribute.</returns>
-    public static XAttribute AnyAttribute(this XElement element, string name)
+    extension(XElement element)
     {
-        return element?.Attributes().FirstOrDefault(attribute => attribute.Name.LocalName == name);
-    }
-
-    /// <summary>
-    /// Alls the elements.
-    /// </summary>
-    /// <param name="element">The element.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>IEnumerable&lt;XElement&gt;.</returns>
-    public static IEnumerable<XElement> AllElements(this XElement element, string name)
-    {
-        var els = new List<XElement>();
-        if (element == null)
+        /// <summary>
+        /// Anies the attribute.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>XAttribute.</returns>
+        public XAttribute AnyAttribute(string name)
         {
+            return element?.Attributes().FirstOrDefault(attribute => attribute.Name.LocalName == name);
+        }
+
+        /// <summary>
+        /// Alls the elements.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>IEnumerable&lt;XElement&gt;.</returns>
+        public IEnumerable<XElement> AllElements(string name)
+        {
+            var els = new List<XElement>();
+            if (element == null)
+            {
+                return els;
+            }
+
+            foreach (var node in element.Nodes())
+            {
+                if (node.NodeType != XmlNodeType.Element)
+                {
+                    continue;
+                }
+
+                var childEl = (XElement)node;
+                if (childEl.Name.LocalName == name)
+                {
+                    els.Add(childEl);
+                }
+            }
             return els;
         }
 
-        foreach (var node in element.Nodes())
+        /// <summary>
+        /// Anies the element.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>XElement.</returns>
+        public XElement AnyElement(string name)
         {
-            if (node.NodeType != XmlNodeType.Element)
+            if (element == null)
             {
-                continue;
+                return null;
             }
 
-            var childEl = (XElement)node;
-            if (childEl.Name.LocalName == name)
+            foreach (var node in element.Nodes())
             {
-                els.Add(childEl);
+                if (node.NodeType != XmlNodeType.Element)
+                {
+                    continue;
+                }
+
+                var childEl = (XElement)node;
+                if (childEl.Name.LocalName == name)
+                {
+                    return childEl;
+                }
             }
+            return null;
         }
-        return els;
     }
 
-    /// <summary>
-    /// Anies the element.
-    /// </summary>
-    /// <param name="element">The element.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>XElement.</returns>
-    public static XElement AnyElement(this XElement element, string name)
+    /// <param name="elements">The elements.</param>
+    extension(IEnumerable<XElement> elements)
     {
-        if (element == null)
+        /// <summary>
+        /// Anies the element.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>XElement.</returns>
+        public XElement AnyElement(string name)
         {
+            foreach (var element in elements)
+            {
+                if (element.Name.LocalName == name)
+                {
+                    return element;
+                }
+            }
             return null;
         }
 
-        foreach (var node in element.Nodes())
+        /// <summary>
+        /// Alls the elements.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>IEnumerable&lt;XElement&gt;.</returns>
+        public IEnumerable<XElement> AllElements(string name)
         {
-            if (node.NodeType != XmlNodeType.Element)
+            var els = new List<XElement>();
+            foreach (var element in elements)
             {
-                continue;
+                els.AddRange(AllElements(element, name));
             }
-
-            var childEl = (XElement)node;
-            if (childEl.Name.LocalName == name)
-            {
-                return childEl;
-            }
+            return els;
         }
-        return null;
     }
 
-    /// <summary>
-    /// Anies the element.
-    /// </summary>
-    /// <param name="elements">The elements.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>XElement.</returns>
-    public static XElement AnyElement(this IEnumerable<XElement> elements, string name)
-    {
-        foreach (var element in elements)
-        {
-            if (element.Name.LocalName == name)
-            {
-                return element;
-            }
-        }
-        return null;
-    }
-
-    /// <summary>
-    /// Alls the elements.
-    /// </summary>
-    /// <param name="elements">The elements.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>IEnumerable&lt;XElement&gt;.</returns>
-    public static IEnumerable<XElement> AllElements(this IEnumerable<XElement> elements, string name)
-    {
-        var els = new List<XElement>();
-        foreach (var element in elements)
-        {
-            els.AddRange(AllElements(element, name));
-        }
-        return els;
-    }
-
-    /// <summary>
-    /// Firsts the element.
-    /// </summary>
     /// <param name="element">The element.</param>
-    /// <returns>XElement.</returns>
-    public static XElement FirstElement(this XElement element)
+    extension(XElement element)
     {
-        if (element.FirstNode.NodeType == XmlNodeType.Element)
+        /// <summary>
+        /// Firsts the element.
+        /// </summary>
+        /// <returns>XElement.</returns>
+        public XElement FirstElement()
         {
-            return (XElement)element.FirstNode;
-        }
-        return null;
-    }
-
-    /// <summary>
-    /// Nexts the element.
-    /// </summary>
-    /// <param name="element">The element.</param>
-    /// <returns>XElement.</returns>
-    public static XElement NextElement(this XElement element)
-    {
-        var node = element.NextNode;
-        while (node != null)
-        {
-            if (node.NodeType == XmlNodeType.Element)
+            if (element.FirstNode.NodeType == XmlNodeType.Element)
             {
-                return (XElement) node;
+                return (XElement)element.FirstNode;
             }
-
-            node = node.NextNode;
+            return null;
         }
-        return null;
-    }
 
+        /// <summary>
+        /// Nexts the element.
+        /// </summary>
+        /// <returns>XElement.</returns>
+        public XElement NextElement()
+        {
+            var node = element.NextNode;
+            while (node != null)
+            {
+                if (node.NodeType == XmlNodeType.Element)
+                {
+                    return (XElement) node;
+                }
+
+                node = node.NextNode;
+            }
+            return null;
+        }
+    }
 }

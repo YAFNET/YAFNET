@@ -389,23 +389,25 @@ internal interface ISetDbTransaction
 /// </summary>
 public static class OrmLiteConnectionUtils
 {
-    /// <summary>
-    /// Ins the transaction.
-    /// </summary>
     /// <param name="db">The database.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool InTransaction(this IDbConnection db)
+    extension(IDbConnection db)
     {
-        return db is IHasDbTransaction { DbTransaction: { } };
-    }
+        /// <summary>
+        /// Ins the transaction.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        public bool InTransaction()
+        {
+            return db is IHasDbTransaction { DbTransaction: { } };
+        }
 
-    /// <summary>
-    /// Gets the transaction.
-    /// </summary>
-    /// <param name="db">The database.</param>
-    /// <returns>IDbTransaction.</returns>
-    public static IDbTransaction? GetTransaction(this IDbConnection db)
-    {
-        return db is IHasDbTransaction setDb ? setDb.DbTransaction : null;
+        /// <summary>
+        /// Gets the transaction.
+        /// </summary>
+        /// <returns>IDbTransaction.</returns>
+        public IDbTransaction? GetTransaction()
+        {
+            return db is IHasDbTransaction setDb ? setDb.DbTransaction : null;
+        }
     }
 }

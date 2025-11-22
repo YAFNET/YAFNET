@@ -33,76 +33,69 @@ using YAF.Types.Models;
 /// </summary>
 public static class TopicReadTrackingRepositoryExtensions
 {
-    /// <summary>
-    /// The add or update.
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic id.
-    /// </param>
-    public static void AddOrUpdate(
-        this IRepository<TopicReadTracking> repository,
-        int userId,
-        int topicId)
+    extension(IRepository<TopicReadTracking> repository)
     {
-        var item = repository.GetSingle(x => x.TopicID == topicId && x.UserID == userId);
-
-        if (item != null)
+        /// <summary>
+        /// The add or update.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        public void AddOrUpdate(int userId,
+            int topicId)
         {
-            repository.UpdateOnly(
-                () => new TopicReadTracking { LastAccessDate = DateTime.UtcNow },
-                x => x.LastAccessDate == item.LastAccessDate && x.TopicID == topicId && x.UserID == userId);
+            var item = repository.GetSingle(x => x.TopicID == topicId && x.UserID == userId);
+
+            if (item != null)
+            {
+                repository.UpdateOnly(
+                    () => new TopicReadTracking { LastAccessDate = DateTime.UtcNow },
+                    x => x.LastAccessDate == item.LastAccessDate && x.TopicID == topicId && x.UserID == userId);
+            }
+            else
+            {
+                repository.Insert(
+                    new TopicReadTracking { UserID = userId, TopicID = topicId, LastAccessDate = DateTime.UtcNow });
+            }
         }
-        else
+
+        /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool Delete(int userId)
         {
-            repository.Insert(
-                new TopicReadTracking { UserID = userId, TopicID = topicId, LastAccessDate = DateTime.UtcNow });
+            var success = repository.Delete(x => x.UserID == userId) == 1;
+
+            return success;
         }
-    }
 
-    /// <summary>
-    /// The delete.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="bool"/>.
-    /// </returns>
-    public static bool Delete(this IRepository<TopicReadTracking> repository, int userId)
-    {
-        var success = repository.Delete(x => x.UserID == userId) == 1;
+        /// <summary>
+        /// The last read.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        public DateTime? LastRead(int userId,
+            int topicId)
+        {
+            var topic = repository.GetSingle(t => t.UserID == userId && t.TopicID == topicId);
 
-        return success;
-    }
-
-    /// <summary>
-    /// The last read.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic id.
-    /// </param>
-    public static DateTime? LastRead(
-        this IRepository<TopicReadTracking> repository,
-        int userId,
-        int topicId)
-    {
-        var topic = repository.GetSingle(t => t.UserID == userId && t.TopicID == topicId);
-
-        return topic?.LastAccessDate;
+            return topic?.LastAccessDate;
+        }
     }
 }

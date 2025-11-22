@@ -34,30 +34,30 @@ using YAF.Types.Objects.Model;
 /// </summary>
 public static class MessageHistoryRepositoryExtensions
 {
-    /// <summary>
-    /// Gets the List of all message changes.
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="messageId">
-    /// The Message ID.
-    /// </param>
-    /// <param name="daysToClean">
-    /// Days to clean.
-    /// </param>
-    /// <returns>
-    /// Returns the List of all message changes.
-    /// </returns>
-    public static List<MessageHistoryTopic> List(
-        this IRepository<MessageHistory> repository,
-        int messageId,
-        int daysToClean)
+    extension(IRepository<MessageHistory> repository)
     {
-        repository.DeleteOlderThen(daysToClean);
+        /// <summary>
+        /// Gets the List of all message changes.
+        /// </summary>
+        /// <param name="messageId">
+        /// The Message ID.
+        /// </param>
+        /// <param name="daysToClean">
+        /// Days to clean.
+        /// </param>
+        /// <returns>
+        /// Returns the List of all message changes.
+        /// </returns>
+        public List<MessageHistoryTopic> List(int messageId,
+            int daysToClean)
+        {
+            repository.DeleteOlderThen(daysToClean);
 
-        var list = repository.DbAccess.Execute(
-            db =>
+            var list = repository.DbAccess.Execute(
+                db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageHistory>();
 
@@ -67,72 +67,69 @@ public static class MessageHistoryRepositoryExtensions
                         .Where<MessageHistory>(mh => mh.MessageID == messageId).OrderBy(mh => mh.Edited)
                         .ThenBy(mh => mh.MessageID).Select<MessageHistory, Message, Topic, User>(
                             (mh, m, t, u) => new
-                                                 {
-                                                     mh.EditReason,
-                                                     mh.Edited,
-                                                     mh.EditedBy,
-                                                     mh.Flags,
-                                                     mh.IP,
-                                                     mh.IsModeratorChanged,
-                                                     mh.MessageID,
-                                                     mh.Message,
-                                                     u.Name,
-                                                     u.DisplayName,
-                                                     u.UserStyle,
-                                                     u.Suspended,
-                                                     t.ForumID,
-                                                     TopicID = t.ID,
-                                                     Topic = t.TopicName,
-                                                     m.Posted,
-                                                     MessageIP = m.IP
-                                                 });
+                            {
+                                mh.EditReason,
+                                mh.Edited,
+                                mh.EditedBy,
+                                mh.Flags,
+                                mh.IP,
+                                mh.IsModeratorChanged,
+                                mh.MessageID,
+                                mh.Message,
+                                u.Name,
+                                u.DisplayName,
+                                u.UserStyle,
+                                u.Suspended,
+                                t.ForumID,
+                                TopicID = t.ID,
+                                Topic = t.TopicName,
+                                m.Posted,
+                                MessageIP = m.IP
+                            });
 
                     return db.Connection
                         .Select<MessageHistoryTopic>(expression);
                 });
 
-        // Load Current Message
-        var currentMessage = BoardContext.Current.GetRepository<Message>().GetMessageAsTuple(messageId);
+            // Load Current Message
+            var currentMessage = BoardContext.Current.GetRepository<Message>().GetMessageAsTuple(messageId);
 
-        var current = new MessageHistoryTopic
-                          {
-                              EditReason = currentMessage.Item2.EditReason,
-                              Edited = currentMessage.Item2.Edited.Value,
-                              EditedBy = currentMessage.Item2.UserID,
-                              Flags = currentMessage.Item2.Flags,
-                              IP = currentMessage.Item2.IP,
-                              IsModeratorChanged = currentMessage.Item2.IsModeratorChanged,
-                              MessageID = currentMessage.Item2.ID,
-                              Message = currentMessage.Item2.MessageText,
-                              Name = currentMessage.Item3.Name,
-                              DisplayName = currentMessage.Item3.DisplayName,
-                              UserStyle = currentMessage.Item3.UserStyle,
-                              Suspended = currentMessage.Item3.Suspended,
-                              ForumID = currentMessage.Item1.ForumID,
-                              TopicID = currentMessage.Item1.ID,
-                              Topic = currentMessage.Item1.TopicName,
-                              Posted = currentMessage.Item2.Posted,
-                              MessageIP = currentMessage.Item2.IP
-                          };
+            var current = new MessageHistoryTopic
+            {
+                EditReason = currentMessage.Item2.EditReason,
+                Edited = currentMessage.Item2.Edited.Value,
+                EditedBy = currentMessage.Item2.UserID,
+                Flags = currentMessage.Item2.Flags,
+                IP = currentMessage.Item2.IP,
+                IsModeratorChanged = currentMessage.Item2.IsModeratorChanged,
+                MessageID = currentMessage.Item2.ID,
+                Message = currentMessage.Item2.MessageText,
+                Name = currentMessage.Item3.Name,
+                DisplayName = currentMessage.Item3.DisplayName,
+                UserStyle = currentMessage.Item3.UserStyle,
+                Suspended = currentMessage.Item3.Suspended,
+                ForumID = currentMessage.Item1.ForumID,
+                TopicID = currentMessage.Item1.ID,
+                Topic = currentMessage.Item1.TopicName,
+                Posted = currentMessage.Item2.Posted,
+                MessageIP = currentMessage.Item2.IP
+            };
 
-        list.Add(current);
+            list.Add(current);
 
-        return list;
-    }
+            return list;
+        }
 
-    /// <summary>
-    /// Delete all message variants older then DaysToClean
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="daysToClean">
-    /// The days to clean.
-    /// </param>
-    private static void DeleteOlderThen(this IRepository<MessageHistory> repository, int daysToClean)
-    {
-        repository.DbAccess.Execute(
-            db =>
+        /// <summary>
+        /// Delete all message variants older then DaysToClean
+        /// </summary>
+        /// <param name="daysToClean">
+        /// The days to clean.
+        /// </param>
+        private void DeleteOlderThen(int daysToClean)
+        {
+            repository.DbAccess.Execute(
+                db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageHistory>();
 
@@ -141,5 +138,6 @@ public static class MessageHistoryRepositoryExtensions
 
                     return db.Connection.Delete(expression);
                 });
+        }
     }
 }

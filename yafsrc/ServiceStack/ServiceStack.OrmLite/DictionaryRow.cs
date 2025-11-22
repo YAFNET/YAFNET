@@ -99,32 +99,34 @@ public struct ObjectRow : IDynamicRow<object>
 /// </summary>
 public static class DynamicRowUtils
 {
-    /// <summary>
-    /// Converts to filtertype.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="row">The row.</param>
-    /// <returns>System.Object.</returns>
-    static internal object ToFilterType<T>(this object row)
+    extension(object row)
     {
-        return ToFilterType(row, typeof(T));
-    }
+        /// <summary>
+        /// Converts to filtertype.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>System.Object.</returns>
+        internal object ToFilterType<T>()
+        {
+            return ToFilterType(row, typeof(T));
+        }
 
-    /// <summary>
-    /// Converts to filtertype.
-    /// </summary>
-    /// <param name="row">The row.</param>
-    /// <param name="type">The type.</param>
-    /// <returns>System.Object.</returns>
-    static internal object ToFilterType(this object row, Type type)
-    {
-        return row == null
-            ? null
-            : type.IsInstanceOfType(row)
-                ? row
-                : row switch {
-                    Dictionary<string, object> obj => new DictionaryRow(type, obj),
-                    _ => new ObjectRow(type, row)
-                };
+        /// <summary>
+        /// Converts to filtertype.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>System.Object.</returns>
+        internal object ToFilterType(Type type)
+        {
+            return row == null
+                ? null
+                : type.IsInstanceOfType(row)
+                    ? row
+                    : row switch {
+                        Dictionary<string, object> obj => new DictionaryRow(type, obj),
+                        _ => new ObjectRow(type, row)
+                    };
+        }
     }
 }

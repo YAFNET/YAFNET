@@ -120,24 +120,26 @@ public static class OrmLiteUtils
         return (T)ReflectionExtensions.CreateInstance<T>();
     }
 
-    /// <summary>
-    /// Determines whether the specified type is tuple.
-    /// </summary>
     /// <param name="type">The type.</param>
-    /// <returns>bool.</returns>
-    static internal bool IsTuple(this Type type)
+    extension(Type type)
     {
-        return type.Name.StartsWith("Tuple`", StringComparison.Ordinal);
-    }
+        /// <summary>
+        /// Determines whether the specified type is tuple.
+        /// </summary>
+        /// <returns>bool.</returns>
+        internal bool IsTuple()
+        {
+            return type.Name.StartsWith("Tuple`", StringComparison.Ordinal);
+        }
 
-    /// <summary>
-    /// Determines whether [is value tuple] [the specified type].
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>bool.</returns>
-    static internal bool IsValueTuple(this Type type)
-    {
-        return type.Name.StartsWith("ValueTuple`", StringComparison.Ordinal);
+        /// <summary>
+        /// Determines whether [is value tuple] [the specified type].
+        /// </summary>
+        /// <returns>bool.</returns>
+        internal bool IsValueTuple()
+        {
+            return type.Name.StartsWith("ValueTuple`", StringComparison.Ordinal);
+        }
     }
 
     /// <summary>
@@ -151,368 +153,359 @@ public static class OrmLiteUtils
         return isScalar;
     }
 
-    /// <summary>
-    /// Converts to.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="reader">The reader.</param>
-    /// <param name="dialectProvider">The dialect provider.</param>
-    /// <param name="onlyFields">The only fields.</param>
-    /// <returns>T.</returns>
-    public static T ConvertTo<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, HashSet<string> onlyFields = null)
+    extension(IDataReader reader)
     {
-        using (reader)
+        /// <summary>
+        /// Converts to.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <returns>T.</returns>
+        public T ConvertTo<T>(IOrmLiteDialectProvider dialectProvider, HashSet<string> onlyFields = null)
         {
-            if (reader.Read())
+            using (reader)
             {
-                if (typeof(T) == typeof(List<object>))
+                if (reader.Read())
                 {
-                    return (T)(object)reader.ConvertToListObjects();
+                    if (typeof(T) == typeof(List<object>))
+                    {
+                        return (T)(object)reader.ConvertToListObjects();
+                    }
+
+                    if (typeof(T) == typeof(Dictionary<string, object>))
+                    {
+                        return (T)(object)reader.ConvertToDictionaryObjects();
+                    }
+
+                    var values = new object[reader.FieldCount];
+
+                    if (typeof(T).IsValueTuple())
+                    {
+                        return reader.ConvertToValueTuple<T>(values, dialectProvider);
+                    }
+
+                    var row = CreateInstance<T>();
+                    var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider, onlyFields: onlyFields);
+                    row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
+                    return row;
+                }
+                return default;
+            }
+        }
+
+        /// <summary>
+        /// Converts to list objects.
+        /// </summary>
+        /// <returns>System.Collections.Generic.List&lt;object&gt;.</returns>
+        public List<object> ConvertToListObjects()
+        {
+            var row = new List<object>();
+            for (var i = 0; i < reader.FieldCount; i++)
+            {
+                var dbValue = reader.GetValue(i);
+                row.Add(dbValue is DBNull ? null : dbValue);
+            }
+            return row;
+        }
+
+        /// <summary>
+        /// Converts to dictionary objects.
+        /// </summary>
+        /// <returns>System.Collections.Generic.Dictionary&lt;string, object&gt;.</returns>
+        public Dictionary<string, object> ConvertToDictionaryObjects()
+        {
+            var row = new Dictionary<string, object>();
+            for (var i = 0; i < reader.FieldCount; i++)
+            {
+                var dbValue = reader.GetValue(i);
+                row[reader.GetName(i).Trim()] = dbValue is DBNull ? null : dbValue;
+            }
+            return row;
+        }
+
+        /// <summary>
+        /// Converts to expando object.
+        /// </summary>
+        /// <returns>System.Collections.Generic.IDictionary&lt;string, object&gt;.</returns>
+        public IDictionary<string, object> ConvertToExpandoObject()
+        {
+            var row = (IDictionary<string, object>)new ExpandoObject();
+            for (var i = 0; i < reader.FieldCount; i++)
+            {
+                var dbValue = reader.GetValue(i);
+                row[reader.GetName(i).Trim()] = dbValue is DBNull ? null : dbValue;
+            }
+            return row;
+        }
+
+        /// <summary>
+        /// Converts to value tuple.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values">The values.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <returns>T.</returns>
+        public T ConvertToValueTuple<T>(object[] values, IOrmLiteDialectProvider dialectProvider)
+        {
+            var row = typeof(T).CreateInstance();
+            var typeFields = TypeFields.Get(typeof(T));
+
+            values = reader.PopulateValues(values, dialectProvider);
+
+            for (var i = 0; i < reader.FieldCount; i++)
+            {
+                var itemName = "Item" + (i + 1);
+                var field = typeFields.GetAccessor(itemName);
+                if (field == null)
+                {
+                    break;
                 }
 
-                if (typeof(T) == typeof(Dictionary<string, object>))
+                var fieldType = field.FieldInfo.FieldType;
+                var converter = dialectProvider.GetConverterBestMatch(fieldType);
+
+                var dbValue = converter.GetValue(reader, i, values);
+                if (dbValue == null)
                 {
-                    return (T)(object)reader.ConvertToDictionaryObjects();
+                    continue;
                 }
 
+                if (dbValue.GetType() == fieldType)
+                {
+                    field.PublicSetterRef(ref row, dbValue);
+                }
+                else
+                {
+                    var fieldValue = converter.FromDbValue(fieldType, dbValue);
+                    field.PublicSetterRef(ref row, fieldValue);
+                }
+            }
+            return (T)row;
+        }
+
+        /// <summary>
+        /// Converts to list.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <returns>System.Collections.Generic.List&lt;T&gt;.</returns>
+        public List<T> ConvertToList<T>(IOrmLiteDialectProvider dialectProvider, HashSet<string> onlyFields = null)
+        {
+            if (typeof(T) == typeof(List<object>))
+            {
+                var to = new List<List<object>>();
+                using (reader)
+                {
+                    while (reader.Read())
+                    {
+                        var row = reader.ConvertToListObjects();
+                        to.Add(row);
+                    }
+                }
+                return (List<T>)(object)to;
+            }
+            if (typeof(T) == typeof(Dictionary<string, object>))
+            {
+                var to = new List<Dictionary<string, object>>();
+                using (reader)
+                {
+                    while (reader.Read())
+                    {
+                        var row = reader.ConvertToDictionaryObjects();
+                        to.Add(row);
+                    }
+                }
+                return (List<T>)(object)to;
+            }
+            if (typeof(T) == typeof(object))
+            {
+                var to = new List<object>();
+                using (reader)
+                {
+                    while (reader.Read())
+                    {
+                        var row = reader.ConvertToExpandoObject();
+                        to.Add(row);
+                    }
+                }
+                return (List<T>)(object)to.ToList();
+            }
+            if (typeof(T).IsValueTuple())
+            {
+                var to = new List<T>();
                 var values = new object[reader.FieldCount];
-
-                if (typeof(T).IsValueTuple())
+                using (reader)
                 {
-                    return reader.ConvertToValueTuple<T>(values, dialectProvider);
+                    while (reader.Read())
+                    {
+                        var row = reader.ConvertToValueTuple<T>(values, dialectProvider);
+                        to.Add(row);
+                    }
                 }
-
-                var row = CreateInstance<T>();
-                var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider, onlyFields: onlyFields);
-                row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
-                return row;
+                return to;
             }
-            return default;
-        }
-    }
-
-    /// <summary>
-    /// Converts to list objects.
-    /// </summary>
-    /// <param name="dataReader">The data reader.</param>
-    /// <returns>System.Collections.Generic.List&lt;object&gt;.</returns>
-    public static List<object> ConvertToListObjects(this IDataReader dataReader)
-    {
-        var row = new List<object>();
-        for (var i = 0; i < dataReader.FieldCount; i++)
-        {
-            var dbValue = dataReader.GetValue(i);
-            row.Add(dbValue is DBNull ? null : dbValue);
-        }
-        return row;
-    }
-
-    /// <summary>
-    /// Converts to dictionary objects.
-    /// </summary>
-    /// <param name="dataReader">The data reader.</param>
-    /// <returns>System.Collections.Generic.Dictionary&lt;string, object&gt;.</returns>
-    public static Dictionary<string, object> ConvertToDictionaryObjects(this IDataReader dataReader)
-    {
-        var row = new Dictionary<string, object>();
-        for (var i = 0; i < dataReader.FieldCount; i++)
-        {
-            var dbValue = dataReader.GetValue(i);
-            row[dataReader.GetName(i).Trim()] = dbValue is DBNull ? null : dbValue;
-        }
-        return row;
-    }
-
-    /// <summary>
-    /// Converts to expando object.
-    /// </summary>
-    /// <param name="dataReader">The data reader.</param>
-    /// <returns>System.Collections.Generic.IDictionary&lt;string, object&gt;.</returns>
-    public static IDictionary<string, object> ConvertToExpandoObject(this IDataReader dataReader)
-    {
-        var row = (IDictionary<string, object>)new ExpandoObject();
-        for (var i = 0; i < dataReader.FieldCount; i++)
-        {
-            var dbValue = dataReader.GetValue(i);
-            row[dataReader.GetName(i).Trim()] = dbValue is DBNull ? null : dbValue;
-        }
-        return row;
-    }
-
-    /// <summary>
-    /// Converts to value tuple.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="reader">The reader.</param>
-    /// <param name="values">The values.</param>
-    /// <param name="dialectProvider">The dialect provider.</param>
-    /// <returns>T.</returns>
-    public static T ConvertToValueTuple<T>(this IDataReader reader, object[] values, IOrmLiteDialectProvider dialectProvider)
-    {
-        var row = typeof(T).CreateInstance();
-        var typeFields = TypeFields.Get(typeof(T));
-
-        values = reader.PopulateValues(values, dialectProvider);
-
-        for (var i = 0; i < reader.FieldCount; i++)
-        {
-            var itemName = "Item" + (i + 1);
-            var field = typeFields.GetAccessor(itemName);
-            if (field == null)
+            if (typeof(T).IsTuple())
             {
-                break;
-            }
+                var to = new List<T>();
+                using (reader)
+                {
+                    var genericArgs = typeof(T).GetGenericArguments();
+                    var modelIndexCaches = reader.GetMultiIndexCaches(dialectProvider, onlyFields, genericArgs);
 
-            var fieldType = field.FieldInfo.FieldType;
-            var converter = dialectProvider.GetConverterBestMatch(fieldType);
+                    var values = new object[reader.FieldCount];
+                    var genericTupleMi = typeof(T).GetGenericTypeDefinition().GetCachedGenericType(genericArgs);
+                    var activator = genericTupleMi.GetConstructor(genericArgs).GetActivator();
 
-            var dbValue = converter.GetValue(reader, i, values);
-            if (dbValue == null)
-            {
-                continue;
-            }
-
-            if (dbValue.GetType() == fieldType)
-            {
-                field.PublicSetterRef(ref row, dbValue);
+                    while (reader.Read())
+                    {
+                        var tupleArgs = reader.ToMultiTuple(dialectProvider, modelIndexCaches, genericArgs, values);
+                        var tuple = activator([.. tupleArgs]);
+                        to.Add((T)tuple);
+                    }
+                }
+                return to;
             }
             else
             {
-                var fieldValue = converter.FromDbValue(fieldType, dbValue);
-                field.PublicSetterRef(ref row, fieldValue);
+                var to = new List<T>();
+                using (reader)
+                {
+                    var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider, onlyFields: onlyFields);
+                    var values = new object[reader.FieldCount];
+                    while (reader.Read())
+                    {
+                        var row = CreateInstance<T>();
+                        row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
+                        to.Add(row);
+                    }
+                }
+                return to;
             }
         }
-        return (T)row;
-    }
 
-    /// <summary>
-    /// Converts to list.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="reader">The reader.</param>
-    /// <param name="dialectProvider">The dialect provider.</param>
-    /// <param name="onlyFields">The only fields.</param>
-    /// <returns>System.Collections.Generic.List&lt;T&gt;.</returns>
-    public static List<T> ConvertToList<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, HashSet<string> onlyFields = null)
-    {
-        if (typeof(T) == typeof(List<object>))
+        /// <summary>
+        /// Converts to multituple.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="modelIndexCaches">The model index caches.</param>
+        /// <param name="genericArgs">The generic arguments.</param>
+        /// <param name="values">The values.</param>
+        /// <returns>System.Collections.Generic.List&lt;object&gt;.</returns>
+        internal List<object> ToMultiTuple(IOrmLiteDialectProvider dialectProvider,
+            List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]> modelIndexCaches,
+            Type[] genericArgs,
+            object[] values)
         {
-            var to = new List<List<object>>();
-            using (reader)
+            var tupleArgs = new List<object>();
+            for (var i = 0; i < modelIndexCaches.Count; i++)
             {
-                while (reader.Read())
-                {
-                    var row = reader.ConvertToListObjects();
-                    to.Add(row);
-                }
+                var indexCache = modelIndexCaches[i];
+                var partialRow = genericArgs[i].CreateInstance();
+                partialRow.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
+                tupleArgs.Add(partialRow);
             }
-            return (List<T>)(object)to;
+            return tupleArgs;
         }
-        if (typeof(T) == typeof(Dictionary<string, object>))
-        {
-            var to = new List<Dictionary<string, object>>();
-            using (reader)
-            {
-                while (reader.Read())
-                {
-                    var row = reader.ConvertToDictionaryObjects();
-                    to.Add(row);
-                }
-            }
-            return (List<T>)(object)to;
-        }
-        if (typeof(T) == typeof(object))
-        {
-            var to = new List<object>();
-            using (reader)
-            {
-                while (reader.Read())
-                {
-                    var row = reader.ConvertToExpandoObject();
-                    to.Add(row);
-                }
-            }
-            return (List<T>)(object)to.ToList();
-        }
-        if (typeof(T).IsValueTuple())
-        {
-            var to = new List<T>();
-            var values = new object[reader.FieldCount];
-            using (reader)
-            {
-                while (reader.Read())
-                {
-                    var row = reader.ConvertToValueTuple<T>(values, dialectProvider);
-                    to.Add(row);
-                }
-            }
-            return to;
-        }
-        if (typeof(T).IsTuple())
-        {
-            var to = new List<T>();
-            using (reader)
-            {
-                var genericArgs = typeof(T).GetGenericArguments();
-                var modelIndexCaches = reader.GetMultiIndexCaches(dialectProvider, onlyFields, genericArgs);
 
+        /// <summary>
+        /// Gets the multi index caches.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <param name="genericArgs">The generic arguments.</param>
+        /// <returns>System.Collections.Generic.List&lt;System.Tuple&lt;ServiceStack.OrmLite.FieldDefinition, int, ServiceStack.OrmLite.IOrmLiteConverter&gt;[]&gt;.</returns>
+        /// <exception cref="DiagnosticEvent.Exception">'{modelType.Name}' is not a table type</exception>
+        internal List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]> GetMultiIndexCaches(IOrmLiteDialectProvider dialectProvider,
+            HashSet<string> onlyFields,
+            Type[] genericArgs)
+        {
+            var modelIndexCaches = new List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]>();
+            var startPos = 0;
+
+            foreach (var modelType in genericArgs)
+            {
+                var modelDef = modelType.GetModelDefinition();
+
+                if (modelDef == null)
+                {
+                    throw new Exception($"'{modelType.Name}' is not a table type");
+                }
+
+                var endPos = startPos;
+                for (; endPos < reader.FieldCount; endPos++)
+                {
+                    if (string.Equals("EOT", reader.GetName(endPos), StringComparison.OrdinalIgnoreCase))
+                    {
+                        break;
+                    }
+                }
+
+                var noEOT = endPos == reader.FieldCount; // If no explicit EOT delimiter, split by field count
+                if (genericArgs.Length > 0 && noEOT)
+                {
+                    endPos = startPos + modelDef.FieldDefinitionsArray.Length;
+                }
+
+                var indexCache = reader.GetIndexFieldsCache(modelDef, dialectProvider, onlyFields,
+                    startPos: startPos, endPos: endPos);
+
+                modelIndexCaches.Add(indexCache);
+
+                startPos = noEOT ? endPos : endPos + 1;
+            }
+            return modelIndexCaches;
+        }
+
+        /// <summary>
+        /// Converts to.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>object.</returns>
+        public object ConvertTo(IOrmLiteDialectProvider dialectProvider, Type type)
+        {
+            var modelDef = type.GetModelDefinition();
+            using (reader)
+            {
+                if (reader.Read())
+                {
+                    var row = type.CreateInstance();
+                    var indexCache = reader.GetIndexFieldsCache(modelDef, dialectProvider);
+                    var values = new object[reader.FieldCount];
+                    row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
+                    return row;
+                }
+                return type.GetDefaultValue();
+            }
+        }
+
+        /// <summary>
+        /// Converts to list.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>System.Collections.IList.</returns>
+        public IList ConvertToList(IOrmLiteDialectProvider dialectProvider, Type type)
+        {
+            var modelDef = type.GetModelDefinition();
+            var listInstance = typeof(List<>).GetCachedGenericType(type).CreateInstance();
+            var to = (IList)listInstance;
+            using (reader)
+            {
+                var indexCache = reader.GetIndexFieldsCache(modelDef, dialectProvider);
                 var values = new object[reader.FieldCount];
-                var genericTupleMi = typeof(T).GetGenericTypeDefinition().GetCachedGenericType(genericArgs);
-                var activator = genericTupleMi.GetConstructor(genericArgs).GetActivator();
-
                 while (reader.Read())
                 {
-                    var tupleArgs = reader.ToMultiTuple(dialectProvider, modelIndexCaches, genericArgs, values);
-                    var tuple = activator([.. tupleArgs]);
-                    to.Add((T)tuple);
-                }
-            }
-            return to;
-        }
-        else
-        {
-            var to = new List<T>();
-            using (reader)
-            {
-                var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider, onlyFields: onlyFields);
-                var values = new object[reader.FieldCount];
-                while (reader.Read())
-                {
-                    var row = CreateInstance<T>();
+                    var row = type.CreateInstance();
                     row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
                     to.Add(row);
                 }
             }
             return to;
         }
-    }
-
-    /// <summary>
-    /// Converts to multituple.
-    /// </summary>
-    /// <param name="reader">The reader.</param>
-    /// <param name="dialectProvider">The dialect provider.</param>
-    /// <param name="modelIndexCaches">The model index caches.</param>
-    /// <param name="genericArgs">The generic arguments.</param>
-    /// <param name="values">The values.</param>
-    /// <returns>System.Collections.Generic.List&lt;object&gt;.</returns>
-    static internal List<object> ToMultiTuple(this IDataReader reader,
-                                              IOrmLiteDialectProvider dialectProvider,
-                                              List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]> modelIndexCaches,
-                                              Type[] genericArgs,
-                                              object[] values)
-    {
-        var tupleArgs = new List<object>();
-        for (var i = 0; i < modelIndexCaches.Count; i++)
-        {
-            var indexCache = modelIndexCaches[i];
-            var partialRow = genericArgs[i].CreateInstance();
-            partialRow.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
-            tupleArgs.Add(partialRow);
-        }
-        return tupleArgs;
-    }
-
-    /// <summary>
-    /// Gets the multi index caches.
-    /// </summary>
-    /// <param name="reader">The reader.</param>
-    /// <param name="dialectProvider">The dialect provider.</param>
-    /// <param name="onlyFields">The only fields.</param>
-    /// <param name="genericArgs">The generic arguments.</param>
-    /// <returns>System.Collections.Generic.List&lt;System.Tuple&lt;ServiceStack.OrmLite.FieldDefinition, int, ServiceStack.OrmLite.IOrmLiteConverter&gt;[]&gt;.</returns>
-    /// <exception cref="DiagnosticEvent.Exception">'{modelType.Name}' is not a table type</exception>
-    static internal List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]> GetMultiIndexCaches(
-        this IDataReader reader,
-        IOrmLiteDialectProvider dialectProvider,
-        HashSet<string> onlyFields,
-        Type[] genericArgs)
-    {
-        var modelIndexCaches = new List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]>();
-        var startPos = 0;
-
-        foreach (var modelType in genericArgs)
-        {
-            var modelDef = modelType.GetModelDefinition();
-
-            if (modelDef == null)
-            {
-                throw new Exception($"'{modelType.Name}' is not a table type");
-            }
-
-            var endPos = startPos;
-            for (; endPos < reader.FieldCount; endPos++)
-            {
-                if (string.Equals("EOT", reader.GetName(endPos), StringComparison.OrdinalIgnoreCase))
-                {
-                    break;
-                }
-            }
-
-            var noEOT = endPos == reader.FieldCount; // If no explicit EOT delimiter, split by field count
-            if (genericArgs.Length > 0 && noEOT)
-            {
-                endPos = startPos + modelDef.FieldDefinitionsArray.Length;
-            }
-
-            var indexCache = reader.GetIndexFieldsCache(modelDef, dialectProvider, onlyFields,
-                startPos: startPos, endPos: endPos);
-
-            modelIndexCaches.Add(indexCache);
-
-            startPos = noEOT ? endPos : endPos + 1;
-        }
-        return modelIndexCaches;
-    }
-
-    /// <summary>
-    /// Converts to.
-    /// </summary>
-    /// <param name="reader">The reader.</param>
-    /// <param name="dialectProvider">The dialect provider.</param>
-    /// <param name="type">The type.</param>
-    /// <returns>object.</returns>
-    public static object ConvertTo(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, Type type)
-    {
-        var modelDef = type.GetModelDefinition();
-        using (reader)
-        {
-            if (reader.Read())
-            {
-                var row = type.CreateInstance();
-                var indexCache = reader.GetIndexFieldsCache(modelDef, dialectProvider);
-                var values = new object[reader.FieldCount];
-                row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
-                return row;
-            }
-            return type.GetDefaultValue();
-        }
-    }
-
-    /// <summary>
-    /// Converts to list.
-    /// </summary>
-    /// <param name="reader">The reader.</param>
-    /// <param name="dialectProvider">The dialect provider.</param>
-    /// <param name="type">The type.</param>
-    /// <returns>System.Collections.IList.</returns>
-    public static IList ConvertToList(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, Type type)
-    {
-        var modelDef = type.GetModelDefinition();
-        var listInstance = typeof(List<>).GetCachedGenericType(type).CreateInstance();
-        var to = (IList)listInstance;
-        using (reader)
-        {
-            var indexCache = reader.GetIndexFieldsCache(modelDef, dialectProvider);
-            var values = new object[reader.FieldCount];
-            while (reader.Read())
-            {
-                var row = type.CreateInstance();
-                row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
-                to.Add(row);
-            }
-        }
-        return to;
     }
 
     /// <summary>
@@ -583,95 +576,93 @@ public static class OrmLiteUtils
         return sqlIn;
     }
 
-    /// <summary>
-    /// SQLs the FMT.
-    /// </summary>
     /// <param name="sqlText">The SQL text.</param>
-    /// <param name="sqlParams">The SQL parameters.</param>
-    /// <returns>string.</returns>
-    public static string SqlFmt(this string sqlText, params object[] sqlParams)
+    extension(string sqlText)
     {
-        return SqlFmt(sqlText, OrmLiteConfig.DialectProvider, sqlParams);
-    }
-
-    /// <summary>
-    /// SQLs the FMT.
-    /// </summary>
-    /// <param name="sqlText">The SQL text.</param>
-    /// <param name="dialect">The dialect.</param>
-    /// <param name="sqlParams">The SQL parameters.</param>
-    /// <returns>string.</returns>
-    public static string SqlFmt(this string sqlText, IOrmLiteDialectProvider dialect, params object[] sqlParams)
-    {
-        if (sqlParams.Length == 0)
+        /// <summary>
+        /// SQLs the FMT.
+        /// </summary>
+        /// <param name="sqlParams">The SQL parameters.</param>
+        /// <returns>string.</returns>
+        public string SqlFmt(params object[] sqlParams)
         {
-            return sqlText;
+            return SqlFmt(sqlText, OrmLiteConfig.DialectProvider, sqlParams);
         }
 
-        var escapedParams = new List<string>();
-        foreach (var sqlParam in sqlParams)
+        /// <summary>
+        /// SQLs the FMT.
+        /// </summary>
+        /// <param name="dialect">The dialect.</param>
+        /// <param name="sqlParams">The SQL parameters.</param>
+        /// <returns>string.</returns>
+        public string SqlFmt(IOrmLiteDialectProvider dialect, params object[] sqlParams)
         {
-            if (sqlParam == null)
+            if (sqlParams.Length == 0)
             {
-                escapedParams.Add("NULL");
+                return sqlText;
             }
-            else
+
+            var escapedParams = new List<string>();
+            foreach (var sqlParam in sqlParams)
             {
-                if (sqlParam is SqlInValues sqlInValues)
+                if (sqlParam == null)
                 {
-                    escapedParams.Add(sqlInValues.ToSqlInString());
+                    escapedParams.Add("NULL");
                 }
                 else
                 {
-                    escapedParams.Add(dialect.GetQuotedValue(sqlParam, sqlParam.GetType()));
+                    if (sqlParam is SqlInValues sqlInValues)
+                    {
+                        escapedParams.Add(sqlInValues.ToSqlInString());
+                    }
+                    else
+                    {
+                        escapedParams.Add(dialect.GetQuotedValue(sqlParam, sqlParam.GetType()));
+                    }
                 }
             }
+            return string.Format(sqlText, [.. escapedParams]);
         }
-        return string.Format(sqlText, [.. escapedParams]);
-    }
 
-    /// <summary>
-    /// SQLs the column.
-    /// </summary>
-    /// <param name="columnName">Name of the column.</param>
-    /// <param name="dialect">The dialect.</param>
-    /// <returns>string.</returns>
-    public static string SqlColumn(this string columnName, IOrmLiteDialectProvider dialect = null)
-    {
-        return (dialect ?? OrmLiteConfig.DialectProvider).GetQuotedColumnName(columnName);
-    }
+        /// <summary>
+        /// SQLs the column.
+        /// </summary>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>string.</returns>
+        public string SqlColumn(IOrmLiteDialectProvider dialect = null)
+        {
+            return (dialect ?? OrmLiteConfig.DialectProvider).GetQuotedColumnName(sqlText);
+        }
 
-    /// <summary>
-    /// SQLs the column raw.
-    /// </summary>
-    /// <param name="columnName">Name of the column.</param>
-    /// <param name="dialect">The dialect.</param>
-    /// <returns>string.</returns>
-    public static string SqlColumnRaw(this string columnName, IOrmLiteDialectProvider dialect = null)
-    {
-        return (dialect ?? OrmLiteConfig.DialectProvider).NamingStrategy.GetColumnName(columnName);
-    }
+        /// <summary>
+        /// SQLs the column raw.
+        /// </summary>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>string.</returns>
+        public string SqlColumnRaw(IOrmLiteDialectProvider dialect = null)
+        {
+            return (dialect ?? OrmLiteConfig.DialectProvider).NamingStrategy.GetColumnName(sqlText);
+        }
 
-    /// <summary>
-    /// SQLs the table.
-    /// </summary>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="dialect">The dialect.</param>
-    /// <returns>string.</returns>
-    public static string SqlTable(this string tableName, IOrmLiteDialectProvider dialect = null)
-    {
-        return (dialect ?? OrmLiteConfig.DialectProvider).QuoteTable(tableName);
-    }
+        /// <summary>
+        /// SQLs the table.
+        /// </summary>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>string.</returns>
+        public string SqlTable(IOrmLiteDialectProvider dialect = null)
+        {
+            return (dialect ?? OrmLiteConfig.DialectProvider).QuoteTable(sqlText);
+        }
 
-    /// <summary>
-    /// SQLs the table raw.
-    /// </summary>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="dialect">The dialect.</param>
-    /// <returns>string.</returns>
-    public static string SqlTableRaw(this string tableName, IOrmLiteDialectProvider dialect = null)
-    {
-        return (dialect ?? OrmLiteConfig.DialectProvider).NamingStrategy.GetTableName(tableName);
+        /// <summary>
+        /// SQLs the table raw.
+        /// </summary>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>string.</returns>
+        public string SqlTableRaw(IOrmLiteDialectProvider dialect = null)
+        {
+            return (dialect ?? OrmLiteConfig.DialectProvider).NamingStrategy.GetTableName(sqlText);
+        }
     }
 
     /// <summary>
@@ -760,72 +751,73 @@ public static class OrmLiteUtils
                                                           "open", "select", "sys", "sysobjects", "syscolumns", "table", "update"
     ];
 
-    /// <summary>
-    /// SQLs the verify fragment.
-    /// </summary>
     /// <param name="sqlFragment">The SQL fragment.</param>
-    /// <param name="illegalFragments">The illegal fragments.</param>
-    /// <returns>string.</returns>
-    /// <exception cref="System.ArgumentException">Potential illegal fragment detected: " + sqlFragment</exception>
-    public static string SqlVerifyFragment(this string sqlFragment, IEnumerable<string> illegalFragments)
+    extension(string sqlFragment)
     {
-        if (sqlFragment == null)
+        /// <summary>
+        /// SQLs the verify fragment.
+        /// </summary>
+        /// <param name="illegalFragments">The illegal fragments.</param>
+        /// <returns>string.</returns>
+        /// <exception cref="System.ArgumentException">Potential illegal fragment detected: " + sqlFragment</exception>
+        public string SqlVerifyFragment(IEnumerable<string> illegalFragments)
         {
-            return null;
-        }
-
-        var fragmentToVerify = sqlFragment
-            .StripQuotedStrings('\'')
-            .StripQuotedStrings('"')
-            .StripQuotedStrings('`')
-            .ToLower();
-
-        foreach (var illegalFragment in illegalFragments)
-        {
-            if (fragmentToVerify.IndexOf(illegalFragment, StringComparison.Ordinal) >= 0)
+            if (sqlFragment == null)
             {
-                throw new ArgumentException("Potential illegal fragment detected: " + sqlFragment);
-            }
-        }
-
-        return sqlFragment;
-    }
-
-    /// <summary>
-    /// SQLs the parameter.
-    /// </summary>
-    /// <param name="paramValue">The parameter value.</param>
-    /// <returns>string.</returns>
-    public static string SqlParam(this string paramValue)
-    {
-        return paramValue.Replace("'", "''");
-    }
-
-    /// <summary>
-    /// Strips the quoted strings.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="quote">The quote.</param>
-    /// <returns>string.</returns>
-    public static string StripQuotedStrings(this string text, char quote = '\'')
-    {
-        var sb = StringBuilderCache.Allocate();
-        var inQuotes = false;
-        foreach (var c in text)
-        {
-            if (c == quote)
-            {
-                inQuotes = !inQuotes;
-                continue;
+                return null;
             }
 
-            if (!inQuotes)
+            var fragmentToVerify = sqlFragment
+                .StripQuotedStrings('\'')
+                .StripQuotedStrings('"')
+                .StripQuotedStrings('`')
+                .ToLower();
+
+            foreach (var illegalFragment in illegalFragments)
             {
-                sb.Append(c);
+                if (fragmentToVerify.IndexOf(illegalFragment, StringComparison.Ordinal) >= 0)
+                {
+                    throw new ArgumentException("Potential illegal fragment detected: " + sqlFragment);
+                }
             }
+
+            return sqlFragment;
         }
 
-        return StringBuilderCache.ReturnAndFree(sb);
+        /// <summary>
+        /// SQLs the parameter.
+        /// </summary>
+        /// <returns>string.</returns>
+        public string SqlParam()
+        {
+            return sqlFragment.Replace("'", "''");
+        }
+
+        /// <summary>
+        /// Strips the quoted strings.
+        /// </summary>
+        /// <param name="quote">The quote.</param>
+        /// <returns>string.</returns>
+        public string StripQuotedStrings(char quote = '\'')
+        {
+            var sb = StringBuilderCache.Allocate();
+            var inQuotes = false;
+            foreach (var c in sqlFragment)
+            {
+                if (c == quote)
+                {
+                    inQuotes = !inQuotes;
+                    continue;
+                }
+
+                if (!inQuotes)
+                {
+                    sb.Append(c);
+                }
+            }
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
     }
 
     /// <summary>
@@ -889,183 +881,185 @@ public static class OrmLiteUtils
         return StringBuilderCache.ReturnAndFree(sb);
     }
 
-    /// <summary>
-    /// SQLs the in values.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="values">The values.</param>
-    /// <param name="dialect">The dialect.</param>
-    /// <returns>ServiceStack.OrmLite.SqlInValues.</returns>
-    public static SqlInValues SqlInValues<T>(this T[] values, IOrmLiteDialectProvider dialect = null)
-    {
-        return new SqlInValues(values, dialect);
-    }
-
-    /// <summary>
-    /// SQLs the in parameters.
-    /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="values">The values.</param>
-    /// <param name="dialect">The dialect.</param>
-    /// <returns>string.</returns>
-    public static string SqlInParams<T>(this T[] values, IOrmLiteDialectProvider dialect = null)
+    extension<T>(T[] values)
     {
-        var sb = StringBuilderCache.Allocate();
-        dialect ??= OrmLiteConfig.DialectProvider;
-
-        for (var i = 0; i < values.Length; i++)
+        /// <summary>
+        /// SQLs the in values.
+        /// </summary>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>ServiceStack.OrmLite.SqlInValues.</returns>
+        public SqlInValues SqlInValues(IOrmLiteDialectProvider dialect = null)
         {
-            if (sb.Length > 0)
-            {
-                sb.Append(',');
-            }
-
-            var paramName = dialect.ParamString + "v" + i;
-            sb.Append(paramName);
+            return new SqlInValues(values, dialect);
         }
 
-        return StringBuilderCache.ReturnAndFree(sb);
-    }
-
-    /// <summary>
-    /// Gets the field names.
-    /// </summary>
-    /// <param name="reader">The reader.</param>
-    /// <returns>System.String[].</returns>
-    public static string[] GetFieldNames(this IDataReader reader)
-    {
-        var count = reader.FieldCount;
-        var fields = new string[count];
-        for (var i = 0; i < count; i++)
+        /// <summary>
+        /// SQLs the in parameters.
+        /// </summary>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>string.</returns>
+        public string SqlInParams(IOrmLiteDialectProvider dialect = null)
         {
-            fields[i] = reader.GetName(i);
-        }
-        return fields;
-    }
+            var sb = StringBuilderCache.Allocate();
+            dialect ??= OrmLiteConfig.DialectProvider;
 
-    /// <summary>
-    /// Gets the index fields cache.
-    /// </summary>
-    /// <param name="reader">The reader.</param>
-    /// <param name="modelDefinition">The model definition.</param>
-    /// <param name="dialect">The dialect.</param>
-    /// <param name="onlyFields">The only fields.</param>
-    /// <param name="startPos">The start position.</param>
-    /// <param name="endPos">The end position.</param>
-    /// <returns>System.Tuple&lt;ServiceStack.OrmLite.FieldDefinition, int, ServiceStack.OrmLite.IOrmLiteConverter&gt;[].</returns>
-    public static Tuple<FieldDefinition, int, IOrmLiteConverter>[] GetIndexFieldsCache(this IDataReader reader,
-        ModelDefinition modelDefinition,
-        IOrmLiteDialectProvider dialect,
-        HashSet<string> onlyFields = null,
-        int startPos = 0,
-        int? endPos = null)
-    {
-        var fieldCount = reader.FieldCount;
-        var sb = StringBuilderCache.Allocate();
-        for (var i = 0; i < fieldCount; i++)
-        {
-            if (sb.Length > 0)
+            for (var i = 0; i < values.Length; i++)
             {
-                sb.Append(", ");
-            }
-
-            sb.Append(reader.GetName(i));
-        }
-        var fieldNames = StringBuilderCache.ReturnAndFree(sb);
-
-        var end = endPos.GetValueOrDefault(fieldCount);
-        var cacheKey = (startPos == 0 && end == fieldCount && onlyFields == null)
-            ? new IndexFieldsCacheKey(fieldNames, modelDefinition, dialect)
-                           : null;
-
-        Tuple<FieldDefinition, int, IOrmLiteConverter>[] value;
-        if (cacheKey != null)
-        {
-            lock (indexFieldsCache)
-            {
-                if (indexFieldsCache.TryGetValue(cacheKey, out value))
+                if (sb.Length > 0)
                 {
-                    return value;
+                    sb.Append(',');
                 }
+
+                var paramName = dialect.ParamString + "v" + i;
+                sb.Append(paramName);
             }
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+    }
+
+    /// <param name="reader">The reader.</param>
+    extension(IDataReader reader)
+    {
+        /// <summary>
+        /// Gets the field names.
+        /// </summary>
+        /// <returns>System.String[].</returns>
+        public string[] GetFieldNames()
+        {
+            var count = reader.FieldCount;
+            var fields = new string[count];
+            for (var i = 0; i < count; i++)
+            {
+                fields[i] = reader.GetName(i);
+            }
+            return fields;
         }
 
-        var cache = new List<Tuple<FieldDefinition, int, IOrmLiteConverter>>();
-        var ignoredFields = modelDefinition.IgnoredFieldDefinitions;
-        var remainingFieldDefs = modelDefinition.FieldDefinitionsArray
-            .Where(x => !ignoredFields.Contains(x) && x.SetValueFn != null).ToList();
-
-        var mappedReaderColumns = new bool[end];
-
-        for (var i = startPos; i < end; i++)
+        /// <summary>
+        /// Gets the index fields cache.
+        /// </summary>
+        /// <param name="modelDefinition">The model definition.</param>
+        /// <param name="dialect">The dialect.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <param name="startPos">The start position.</param>
+        /// <param name="endPos">The end position.</param>
+        /// <returns>System.Tuple&lt;ServiceStack.OrmLite.FieldDefinition, int, ServiceStack.OrmLite.IOrmLiteConverter&gt;[].</returns>
+        public Tuple<FieldDefinition, int, IOrmLiteConverter>[] GetIndexFieldsCache(ModelDefinition modelDefinition,
+            IOrmLiteDialectProvider dialect,
+            HashSet<string> onlyFields = null,
+            int startPos = 0,
+            int? endPos = null)
         {
-            var columnName = reader.GetName(i);
-            var fieldDef = modelDefinition.GetFieldDefinition(columnName);
-            if (fieldDef == null)
+            var fieldCount = reader.FieldCount;
+            var sb = StringBuilderCache.Allocate();
+            for (var i = 0; i < fieldCount; i++)
             {
-                foreach (var def in modelDefinition.FieldDefinitionsArray)
+                if (sb.Length > 0)
                 {
-                    if (string.Equals(dialect.NamingStrategy.GetColumnName(def.FieldName), columnName,
-                            StringComparison.OrdinalIgnoreCase))
+                    sb.Append(", ");
+                }
+
+                sb.Append(reader.GetName(i));
+            }
+            var fieldNames = StringBuilderCache.ReturnAndFree(sb);
+
+            var end = endPos.GetValueOrDefault(fieldCount);
+            var cacheKey = (startPos == 0 && end == fieldCount && onlyFields == null)
+                ? new IndexFieldsCacheKey(fieldNames, modelDefinition, dialect)
+                : null;
+
+            Tuple<FieldDefinition, int, IOrmLiteConverter>[] value;
+            if (cacheKey != null)
+            {
+                lock (indexFieldsCache)
+                {
+                    if (indexFieldsCache.TryGetValue(cacheKey, out value))
                     {
-                        fieldDef = def;
-                        break;
+                        return value;
                     }
                 }
             }
 
-            if (fieldDef != null && !ignoredFields.Contains(fieldDef) && fieldDef.SetValueFn != null)
-            {
-                remainingFieldDefs.Remove(fieldDef);
-                mappedReaderColumns[i] = true;
-                cache.Add(Tuple.Create(fieldDef, i, dialect.GetConverterBestMatch(fieldDef)));
-            }
-        }
+            var cache = new List<Tuple<FieldDefinition, int, IOrmLiteConverter>>();
+            var ignoredFields = modelDefinition.IgnoredFieldDefinitions;
+            var remainingFieldDefs = modelDefinition.FieldDefinitionsArray
+                .Where(x => !ignoredFields.Contains(x) && x.SetValueFn != null).ToList();
 
-        if (remainingFieldDefs.Count > 0 && onlyFields == null)
-        {
-            var dbFieldMap = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+            var mappedReaderColumns = new bool[end];
+
             for (var i = startPos; i < end; i++)
             {
-                if (!mappedReaderColumns[i])
+                var columnName = reader.GetName(i);
+                var fieldDef = modelDefinition.GetFieldDefinition(columnName);
+                if (fieldDef == null)
                 {
-                    var fieldName = reader.GetName(i);
-                    dbFieldMap[fieldName] = i;
+                    foreach (var def in modelDefinition.FieldDefinitionsArray)
+                    {
+                        if (string.Equals(dialect.NamingStrategy.GetColumnName(def.FieldName), columnName,
+                                StringComparison.OrdinalIgnoreCase))
+                        {
+                            fieldDef = def;
+                            break;
+                        }
+                    }
+                }
+
+                if (fieldDef != null && !ignoredFields.Contains(fieldDef) && fieldDef.SetValueFn != null)
+                {
+                    remainingFieldDefs.Remove(fieldDef);
+                    mappedReaderColumns[i] = true;
+                    cache.Add(Tuple.Create(fieldDef, i, dialect.GetConverterBestMatch(fieldDef)));
                 }
             }
 
-            if (dbFieldMap.Count > 0)
+            if (remainingFieldDefs.Count > 0 && onlyFields == null)
             {
-                foreach (var fieldDef in remainingFieldDefs)
+                var dbFieldMap = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+                for (var i = startPos; i < end; i++)
                 {
-                    var index = FindColumnIndex(dialect, fieldDef, dbFieldMap);
-                    if (index != NotFound)
+                    if (!mappedReaderColumns[i])
                     {
-                        cache.Add(Tuple.Create(fieldDef, index, dialect.GetConverterBestMatch(fieldDef)));
+                        var fieldName = reader.GetName(i);
+                        dbFieldMap[fieldName] = i;
+                    }
+                }
+
+                if (dbFieldMap.Count > 0)
+                {
+                    foreach (var fieldDef in remainingFieldDefs)
+                    {
+                        var index = FindColumnIndex(dialect, fieldDef, dbFieldMap);
+                        if (index != NotFound)
+                        {
+                            cache.Add(Tuple.Create(fieldDef, index, dialect.GetConverterBestMatch(fieldDef)));
+                        }
                     }
                 }
             }
-        }
 
-        var result = cache.ToArray();
+            var result = cache.ToArray();
 
-        if (cacheKey != null)
-        {
-            lock (indexFieldsCache)
+            if (cacheKey != null)
             {
-                if (indexFieldsCache.TryGetValue(cacheKey, out value))
+                lock (indexFieldsCache)
                 {
-                    return value;
-                }
+                    if (indexFieldsCache.TryGetValue(cacheKey, out value))
+                    {
+                        return value;
+                    }
 
-                if (indexFieldsCache.Count < maxCachedIndexFields)
-                {
-                    indexFieldsCache.Add(cacheKey, result);
+                    if (indexFieldsCache.Count < maxCachedIndexFields)
+                    {
+                        indexFieldsCache.Add(cacheKey, result);
+                    }
                 }
             }
-        }
 
-        return result;
+            return result;
+        }
     }
 
     /// <summary>
@@ -1252,25 +1246,27 @@ public static class OrmLiteUtils
         return symbol.IndexOfAny(QuotedChars) >= 0;
     }
 
-    /// <summary>
-    /// Aliases the or column.
-    /// </summary>
     /// <param name="quotedExpr">The quoted expr.</param>
-    /// <returns>string.</returns>
-    public static string AliasOrColumn(this string quotedExpr)
+    extension(string quotedExpr)
     {
-        var ret = quotedExpr.LastRightPart(" AS ").Trim();
-        return ret;
-    }
+        /// <summary>
+        /// Aliases the or column.
+        /// </summary>
+        /// <returns>string.</returns>
+        public string AliasOrColumn()
+        {
+            var ret = quotedExpr.LastRightPart(" AS ").Trim();
+            return ret;
+        }
 
-    /// <summary>
-    /// Strips the database quotes.
-    /// </summary>
-    /// <param name="quotedExpr">The quoted expr.</param>
-    /// <returns>string.</returns>
-    public static string StripDbQuotes(this string quotedExpr)
-    {
-        return quotedExpr.Trim(QuotedChars);
+        /// <summary>
+        /// Strips the database quotes.
+        /// </summary>
+        /// <returns>string.</returns>
+        public string StripDbQuotes()
+        {
+            return quotedExpr.Trim(QuotedChars);
+        }
     }
 
     /// <summary>

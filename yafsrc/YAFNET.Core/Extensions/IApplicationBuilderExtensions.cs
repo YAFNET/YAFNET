@@ -40,103 +40,102 @@ namespace YAF.Core.Extensions;
 /// </summary>
 public static class IApplicationBuilderExtensions
 {
-    /// <summary>
-    /// Registers the autofac.
-    /// </summary>
     /// <param name="app">The application.</param>
-    public static void RegisterAutofac(this IApplicationBuilder app)
+    extension(IApplicationBuilder app)
     {
-        GlobalContainer.AutoFacContainer = app.ApplicationServices.GetAutofacRoot();
-
-        ServiceLocatorAccess.CurrentServiceProvider = GlobalContainer.AutoFacContainer.Resolve<IServiceLocator>();
-    }
-
-    /// <summary>
-    /// Uses the yaf core.
-    /// </summary>
-    /// <param name="app">The application.</param>
-    /// <param name="serviceLocator">The service locator.</param>
-    public static void UseYafCore(this IApplicationBuilder app, IServiceLocator serviceLocator)
-    {
-        app.UseAntiXssMiddleware();
-
-        app.UseSecurityHeader(serviceLocator.Get<BoardConfiguration>());
-
-        app.UseStaticFiles(new StaticFileOptions
+        /// <summary>
+        /// Registers the autofac.
+        /// </summary>
+        public void RegisterAutofac()
         {
-            OnPrepareResponse = ctx =>
-            {
-                ctx.Context.Response.Headers.CacheControl = "max-age: 31536000";
-            }
-        });
+            GlobalContainer.AutoFacContainer = app.ApplicationServices.GetAutofacRoot();
 
-        app.UseSession();
-
-        if (serviceLocator.Get<BoardConfiguration>().UseHttpsRedirection)
-        {
-            app.UseHttpsRedirection();
+            ServiceLocatorAccess.CurrentServiceProvider = GlobalContainer.AutoFacContainer.Resolve<IServiceLocator>();
         }
 
-        // Database Connection String
-        Config.DatabaseObjectQualifier = serviceLocator.Get<BoardConfiguration>().DatabaseObjectQualifier;
-        Config.SqlCommandTimeout = serviceLocator.Get<BoardConfiguration>().SqlCommandTimeout;
-        Config.DatabaseOwner = serviceLocator.Get<BoardConfiguration>().DatabaseOwner;
-        Config.BoardID = serviceLocator.Get<BoardConfiguration>().BoardID;
-        Config.CategoryID = serviceLocator.Get<BoardConfiguration>().CategoryID;
-        Config.UrlRewritingMode = serviceLocator.Get<BoardConfiguration>().UrlRewritingMode;
+        /// <summary>
+        /// Uses the yaf core.
+        /// </summary>
+        /// <param name="serviceLocator">The service locator.</param>
+        public void UseYafCore(IServiceLocator serviceLocator)
+        {
+            app.UseAntiXssMiddleware();
 
-        // Legacy Settings
-        Config.LegacyMembershipHashAlgorithmType =
-            serviceLocator.Get<BoardConfiguration>().LegacyMembershipHashAlgorithmType;
-        Config.LegacyMembershipHashCase = serviceLocator.Get<BoardConfiguration>().LegacyMembershipHashCase;
-        Config.LegacyMembershipHashHex = serviceLocator.Get<BoardConfiguration>().LegacyMembershipHashHex;
-        Config.UseRateLimiter = serviceLocator.Get<BoardConfiguration>().UseRateLimiter;
+            app.UseSecurityHeader(serviceLocator.Get<BoardConfiguration>());
 
-        app.UseMiddleware<InitializeDb>();
-
-        app.Use(
-            (httpContext, nextMiddleware) =>
+            app.UseStaticFiles(new StaticFileOptions
             {
-                // app init notification...
-                serviceLocator.Get<IRaiseEvent>().RaiseIsolated(new HttpContextInitEvent(httpContext), null);
-
-                return nextMiddleware();
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.CacheControl = "max-age: 31536000";
+                }
             });
 
-        app.UseMiddleware<CheckBannedIps>();
-        app.UseMiddleware<CheckBannedUserAgents>();
+            app.UseSession();
 
-        app.UseRouting();
+            if (serviceLocator.Get<BoardConfiguration>().UseHttpsRedirection)
+            {
+                app.UseHttpsRedirection();
+            }
 
-        app.UseOutputCache();
+            // Database Connection String
+            Config.DatabaseObjectQualifier = serviceLocator.Get<BoardConfiguration>().DatabaseObjectQualifier;
+            Config.SqlCommandTimeout = serviceLocator.Get<BoardConfiguration>().SqlCommandTimeout;
+            Config.DatabaseOwner = serviceLocator.Get<BoardConfiguration>().DatabaseOwner;
+            Config.BoardID = serviceLocator.Get<BoardConfiguration>().BoardID;
+            Config.CategoryID = serviceLocator.Get<BoardConfiguration>().CategoryID;
+            Config.UrlRewritingMode = serviceLocator.Get<BoardConfiguration>().UrlRewritingMode;
 
-        var localizationOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value;
-        app.UseRequestLocalization(localizationOptions);
+            // Legacy Settings
+            Config.LegacyMembershipHashAlgorithmType =
+                serviceLocator.Get<BoardConfiguration>().LegacyMembershipHashAlgorithmType;
+            Config.LegacyMembershipHashCase = serviceLocator.Get<BoardConfiguration>().LegacyMembershipHashCase;
+            Config.LegacyMembershipHashHex = serviceLocator.Get<BoardConfiguration>().LegacyMembershipHashHex;
+            Config.UseRateLimiter = serviceLocator.Get<BoardConfiguration>().UseRateLimiter;
 
-        app.UseResponseCaching();
+            app.UseMiddleware<InitializeDb>();
 
-        app.UseAuthentication();
-        app.UseAuthorization();
+            app.Use(
+                (httpContext, nextMiddleware) =>
+                {
+                    // app init notification...
+                    serviceLocator.Get<IRaiseEvent>().RaiseIsolated(new HttpContextInitEvent(httpContext), null);
+
+                    return nextMiddleware();
+                });
+
+            app.UseMiddleware<CheckBannedIps>();
+            app.UseMiddleware<CheckBannedUserAgents>();
+
+            app.UseRouting();
+
+            app.UseOutputCache();
+
+            var localizationOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value;
+            app.UseRequestLocalization(localizationOptions);
+
+            app.UseResponseCaching();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
 
-        if (Config.UseRateLimiter)
-        {
-            app.UseRateLimiter();
+            if (Config.UseRateLimiter)
+            {
+                app.UseRateLimiter();
+            }
         }
-    }
 
-    /// <summary>
-    /// Uses the robots text.
-    /// </summary>
-    /// <param name="builder">The builder.</param>
-    /// <param name="env">The env.</param>
-    /// <returns>IApplicationBuilder.</returns>
-    public static IApplicationBuilder UseRobotsTxt(
-        this IApplicationBuilder builder,
-        IWebHostEnvironment env
-    )
-    {
-        return builder.MapWhen(ctx => ctx.Request.Path.StartsWithSegments("/robots.txt"), b =>
-            b.UseMiddleware<RobotsTxtMiddleware>(env.EnvironmentName));
+        /// <summary>
+        /// Uses the robots text.
+        /// </summary>
+        /// <param name="env">The env.</param>
+        /// <returns>IApplicationBuilder.</returns>
+        public IApplicationBuilder UseRobotsTxt(IWebHostEnvironment env
+        )
+        {
+            return app.MapWhen(ctx => ctx.Request.Path.StartsWithSegments("/robots.txt"), b =>
+                b.UseMiddleware<RobotsTxtMiddleware>(env.EnvironmentName));
+        }
     }
 }

@@ -34,19 +34,22 @@ namespace YAF.Core.Extensions;
 /// </summary>
 public static class ContainerBuilderExtensions
 {
-    /// <summary>
-    /// Registers the yaf modules.
-    /// </summary>
     /// <param name="builder">The builder.</param>
-    public static void RegisterYafModules(this ContainerBuilder builder)
+    extension(ContainerBuilder builder)
     {
-        builder.RegisterModule<BootstrapModule>();
+        /// <summary>
+        /// Registers the yaf modules.
+        /// </summary>
+        public void RegisterYafModules()
+        {
+            builder.RegisterModule<BootstrapModule>();
 
-        builder.Register(k => k.Resolve<IComponentContext>().Resolve<IOptions<MailConfiguration>>().Value)
-            .As<MailConfiguration>();
-        builder.Register(k => k.Resolve<IComponentContext>().Resolve<IOptions<BoardConfiguration>>().Value)
-            .As<BoardConfiguration>();
-        builder.Register(k => k.Resolve<IComponentContext>().Resolve<IOptions<VapidConfiguration>>().Value)
-            .As<VapidConfiguration>();
+            builder.Register(k => k.Resolve<IComponentContext>().Resolve<IOptions<MailConfiguration>>().Value)
+                .As<MailConfiguration>();
+            builder.Register(k => k.Resolve<IComponentContext>().Resolve<IOptions<BoardConfiguration>>().Value)
+                .As<BoardConfiguration>();
+            builder.Register(k => k.Resolve<IComponentContext>().Resolve<IOptions<VapidConfiguration>>().Value)
+                .As<VapidConfiguration>();
+        }
     }
 }

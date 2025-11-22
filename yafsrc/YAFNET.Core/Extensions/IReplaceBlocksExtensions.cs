@@ -45,52 +45,52 @@ public static class IReplaceBlocksExtensions
         _options | RegexOptions.Compiled,
         TimeSpan.FromMilliseconds(100));
 
-    /// <summary>
-    /// Pull replacement blocks from the text
-    /// </summary>
     /// <param name="replaceBlocks">
     /// The replace Blocks.
     /// </param>
-    /// <param name="strText">
-    /// The str Text.
-    /// </param>
-    public static void ReplaceHtmlFromText(this IReplaceBlocks replaceBlocks, ref string strText)
+    extension(IReplaceBlocks replaceBlocks)
     {
-        var sb = new StringBuilder(strText);
-
-        ReplaceHtmlFromText(replaceBlocks, ref sb);
-
-        strText = sb.ToString();
-    }
-
-    /// <summary>
-    /// The get replacements from text.
-    /// </summary>
-    /// <param name="replaceBlocks">
-    /// The replace Blocks.
-    /// </param>
-    /// <param name="sb">
-    /// The sb.
-    /// </param>
-    public static void ReplaceHtmlFromText(this IReplaceBlocks replaceBlocks, ref StringBuilder sb)
-    {
-        var m = _regExHtml.Match(sb.ToString());
-
-        while (m.Success)
+        /// <summary>
+        /// Pull replacement blocks from the text
+        /// </summary>
+        /// <param name="strText">
+        /// The str Text.
+        /// </param>
+        public void ReplaceHtmlFromText(ref string strText)
         {
-            // add it to the list...
-            var index = replaceBlocks.Add(m.Groups[0].Value);
+            var sb = new StringBuilder(strText);
 
-            // replacement lookup code
-            var replace = replaceBlocks.Get(index);
+            ReplaceHtmlFromText(replaceBlocks, ref sb);
 
-            // remove the replaced item...
-            sb.Remove(m.Groups[0].Index, m.Groups[0].Length);
+            strText = sb.ToString();
+        }
 
-            // insert the replaced value back in...
-            sb.Insert(m.Groups[0].Index, replace);
+        /// <summary>
+        /// The get replacements from text.
+        /// </summary>
+        /// <param name="sb">
+        /// The sb.
+        /// </param>
+        public void ReplaceHtmlFromText(ref StringBuilder sb)
+        {
+            var m = _regExHtml.Match(sb.ToString());
 
-            m = _regExHtml.Match(sb.ToString());
+            while (m.Success)
+            {
+                // add it to the list...
+                var index = replaceBlocks.Add(m.Groups[0].Value);
+
+                // replacement lookup code
+                var replace = replaceBlocks.Get(index);
+
+                // remove the replaced item...
+                sb.Remove(m.Groups[0].Index, m.Groups[0].Length);
+
+                // insert the replaced value back in...
+                sb.Insert(m.Groups[0].Index, replace);
+
+                m = _regExHtml.Match(sb.ToString());
+            }
         }
     }
 }

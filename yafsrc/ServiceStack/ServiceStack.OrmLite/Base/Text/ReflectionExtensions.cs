@@ -36,374 +36,359 @@ public delegate object EmptyCtorDelegate();
 /// </summary>
 public static class ReflectionExtensions
 {
-    /// <summary>
-    /// Gets the type code.
-    /// </summary>
     /// <param name="type">The type.</param>
-    /// <returns>TypeCode.</returns>
-    public static TypeCode GetTypeCode(this Type type)
+    extension(Type type)
     {
-        return Type.GetTypeCode(type);
-    }
-
-    /// <summary>
-    /// Determines whether [is instance of] [the specified this or base type].
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <param name="thisOrBaseType">Type of the this or base.</param>
-    /// <returns><c>true</c> if [is instance of] [the specified this or base type]; otherwise, <c>false</c>.</returns>
-    public static bool IsInstanceOf(this Type type, Type thisOrBaseType)
-    {
-        while (type != null)
+        /// <summary>
+        /// Gets the type code.
+        /// </summary>
+        /// <returns>TypeCode.</returns>
+        public TypeCode GetTypeCode()
         {
-            if (type == thisOrBaseType)
-            {
-                return true;
-            }
-
-            type = type.BaseType;
+            return Type.GetTypeCode(type);
         }
 
-        return false;
-    }
-
-    /// <summary>
-    /// Determines whether [has generic type] [the specified type].
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns><c>true</c> if [has generic type] [the specified type]; otherwise, <c>false</c>.</returns>
-    public static bool HasGenericType(this Type type)
-    {
-        while (type != null)
+        /// <summary>
+        /// Determines whether [is instance of] [the specified this or base type].
+        /// </summary>
+        /// <param name="thisOrBaseType">Type of the this or base.</param>
+        /// <returns><c>true</c> if [is instance of] [the specified this or base type]; otherwise, <c>false</c>.</returns>
+        public bool IsInstanceOf(Type thisOrBaseType)
         {
-            if (type.IsGenericType)
+            while (type != null)
             {
-                return true;
+                if (type == thisOrBaseType)
+                {
+                    return true;
+                }
+
+                type = type.BaseType;
             }
 
-            type = type.BaseType;
+            return false;
         }
 
-        return false;
-    }
-
-    /// <summary>
-    /// Firsts the type of the generic.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>Type.</returns>
-    public static Type FirstGenericType(this Type type)
-    {
-        while (type != null)
+        /// <summary>
+        /// Determines whether [has generic type] [the specified type].
+        /// </summary>
+        /// <returns><c>true</c> if [has generic type] [the specified type]; otherwise, <c>false</c>.</returns>
+        public bool HasGenericType()
         {
-            if (type.IsGenericType)
+            while (type != null)
             {
-                return type;
+                if (type.IsGenericType)
+                {
+                    return true;
+                }
+
+                type = type.BaseType;
             }
 
-            type = type.BaseType;
+            return false;
         }
 
-        return null;
-    }
-
-    /// <summary>
-    /// Gets the type with generic type definition of any.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <param name="genericTypeDefinitions">The generic type definitions.</param>
-    /// <returns>Type.</returns>
-    public static Type GetTypeWithGenericTypeDefinitionOfAny(this Type type, params Type[] genericTypeDefinitions)
-    {
-        foreach (var genericTypeDefinition in genericTypeDefinitions)
+        /// <summary>
+        /// Firsts the type of the generic.
+        /// </summary>
+        /// <returns>Type.</returns>
+        public Type FirstGenericType()
         {
-            var genericType = type.GetTypeWithGenericTypeDefinitionOf(genericTypeDefinition);
-            if (genericType == null && type == genericTypeDefinition)
+            while (type != null)
             {
-                genericType = type;
+                if (type.IsGenericType)
+                {
+                    return type;
+                }
+
+                type = type.BaseType;
             }
 
-            if (genericType != null)
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the type with generic type definition of any.
+        /// </summary>
+        /// <param name="genericTypeDefinitions">The generic type definitions.</param>
+        /// <returns>Type.</returns>
+        public Type GetTypeWithGenericTypeDefinitionOfAny(params Type[] genericTypeDefinitions)
+        {
+            foreach (var genericTypeDefinition in genericTypeDefinitions)
+            {
+                var genericType = type.GetTypeWithGenericTypeDefinitionOf(genericTypeDefinition);
+                if (genericType == null && type == genericTypeDefinition)
+                {
+                    genericType = type;
+                }
+
+                if (genericType != null)
+                {
+                    return genericType;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Determines whether [is or has generic interface type of] [the specified generic type definition].
+        /// </summary>
+        /// <param name="genericTypeDefinition">The generic type definition.</param>
+        /// <returns><c>true</c> if [is or has generic interface type of] [the specified generic type definition]; otherwise, <c>false</c>.</returns>
+        public bool IsOrHasGenericInterfaceTypeOf(Type genericTypeDefinition)
+        {
+            return type.GetTypeWithGenericTypeDefinitionOf(genericTypeDefinition) != null
+                   || type == genericTypeDefinition;
+        }
+
+        /// <summary>
+        /// Gets the type with generic type definition of.
+        /// </summary>
+        /// <param name="genericTypeDefinition">The generic type definition.</param>
+        /// <returns>Type.</returns>
+        public Type GetTypeWithGenericTypeDefinitionOf(Type genericTypeDefinition)
+        {
+            var t = Array.Find(type
+                .GetInterfaces(), t => t.IsGenericType && t.GetGenericTypeDefinition() == genericTypeDefinition);
+
+            if (t != null)
+            {
+                return t;
+            }
+
+            var genericType = type.FirstGenericType();
+            if (genericType != null && genericType.GetGenericTypeDefinition() == genericTypeDefinition)
             {
                 return genericType;
             }
+
+            return null;
         }
 
-        return null;
-    }
-
-    /// <summary>
-    /// Determines whether [is or has generic interface type of] [the specified generic type definition].
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <param name="genericTypeDefinition">The generic type definition.</param>
-    /// <returns><c>true</c> if [is or has generic interface type of] [the specified generic type definition]; otherwise, <c>false</c>.</returns>
-    public static bool IsOrHasGenericInterfaceTypeOf(this Type type, Type genericTypeDefinition)
-    {
-        return type.GetTypeWithGenericTypeDefinitionOf(genericTypeDefinition) != null
-               || type == genericTypeDefinition;
-    }
-
-    /// <summary>
-    /// Gets the type with generic type definition of.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <param name="genericTypeDefinition">The generic type definition.</param>
-    /// <returns>Type.</returns>
-    public static Type GetTypeWithGenericTypeDefinitionOf(this Type type, Type genericTypeDefinition)
-    {
-        var t = Array.Find(type
-            .GetInterfaces(), t => t.IsGenericType && t.GetGenericTypeDefinition() == genericTypeDefinition);
-
-        if (t != null)
+        /// <summary>
+        /// Determines whether the specified interface type has interface.
+        /// </summary>
+        /// <param name="interfaceType">Type of the interface.</param>
+        /// <returns><c>true</c> if the specified interface type has interface; otherwise, <c>false</c>.</returns>
+        public bool HasInterface(Type interfaceType)
         {
-            return t;
+            return type.IsAssignableTo(interfaceType);
         }
 
-        var genericType = type.FirstGenericType();
-        if (genericType != null && genericType.GetGenericTypeDefinition() == genericTypeDefinition)
+        /// <summary>
+        /// Determines whether [is nullable type] [the specified type].
+        /// </summary>
+        /// <returns><c>true</c> if [is nullable type] [the specified type]; otherwise, <c>false</c>.</returns>
+        public bool IsNullableType()
         {
-            return genericType;
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
 
-        return null;
-    }
+        /// <summary>
+        /// Gets the underlying type code.
+        /// </summary>
+        /// <returns>TypeCode.</returns>
+        public TypeCode GetUnderlyingTypeCode()
+        {
+            return GetTypeCode(Nullable.GetUnderlyingType(type) ?? type);
+        }
 
-    /// <summary>
-    /// Determines whether the specified interface type has interface.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <param name="interfaceType">Type of the interface.</param>
-    /// <returns><c>true</c> if the specified interface type has interface; otherwise, <c>false</c>.</returns>
-    public static bool HasInterface(this Type type, Type interfaceType)
-    {
-        return type.IsAssignableTo(interfaceType);
-    }
+        /// <summary>
+        /// Determines whether [is numeric type] [the specified type].
+        /// </summary>
+        /// <returns><c>true</c> if [is numeric type] [the specified type]; otherwise, <c>false</c>.</returns>
+        public bool IsNumericType()
+        {
+            while (true)
+            {
+                if (type == null)
+                {
+                    return false;
+                }
 
-    /// <summary>
-    /// Determines whether [is nullable type] [the specified type].
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns><c>true</c> if [is nullable type] [the specified type]; otherwise, <c>false</c>.</returns>
-    public static bool IsNullableType(this Type type)
-    {
-        return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
-    }
+                if (type.IsEnum) //TypeCode can be TypeCode.Int32
+                {
+                    return JsConfig.TreatEnumAsInteger || type.IsEnumFlags();
+                }
 
-    /// <summary>
-    /// Gets the underlying type code.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>TypeCode.</returns>
-    public static TypeCode GetUnderlyingTypeCode(this Type type)
-    {
-        return GetTypeCode(Nullable.GetUnderlyingType(type) ?? type);
-    }
+                switch (GetTypeCode(type))
+                {
+                    case TypeCode.Byte:
+                    case TypeCode.Decimal:
+                    case TypeCode.Double:
+                    case TypeCode.Int16:
+                    case TypeCode.Int32:
+                    case TypeCode.Int64:
+                    case TypeCode.SByte:
+                    case TypeCode.Single:
+                    case TypeCode.UInt16:
+                    case TypeCode.UInt32:
+                    case TypeCode.UInt64:
+                        return true;
 
-    /// <summary>
-    /// Determines whether [is numeric type] [the specified type].
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns><c>true</c> if [is numeric type] [the specified type]; otherwise, <c>false</c>.</returns>
-    public static bool IsNumericType(this Type type)
-    {
-        while (true)
+                    case TypeCode.Object:
+                        if (type.IsNullableType())
+                        {
+                            type = Nullable.GetUnderlyingType(type);
+                            continue;
+                        }
+
+                        if (type.IsEnum)
+                        {
+                            return JsConfig.TreatEnumAsInteger || type.IsEnumFlags();
+                        }
+
+                        return false;
+                }
+
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether [is integer type] [the specified type].
+        /// </summary>
+        /// <returns><c>true</c> if [is integer type] [the specified type]; otherwise, <c>false</c>.</returns>
+        public bool IsIntegerType()
         {
             if (type == null)
             {
                 return false;
             }
 
-            if (type.IsEnum) //TypeCode can be TypeCode.Int32
+            return GetTypeCode(type) switch
             {
-                return JsConfig.TreatEnumAsInteger || type.IsEnumFlags();
+                TypeCode.Byte or TypeCode.Int16 or TypeCode.Int32 or TypeCode.Int64 or TypeCode.SByte or TypeCode.UInt16 or TypeCode.UInt32 or TypeCode.UInt64 => true,
+                TypeCode.Object => type.IsNullableType() && IsNumericType(Nullable.GetUnderlyingType(type)),
+                _ => false
+            };
+        }
+
+        /// <summary>
+        /// Determines whether [is real number type] [the specified type].
+        /// </summary>
+        /// <returns><c>true</c> if [is real number type] [the specified type]; otherwise, <c>false</c>.</returns>
+        public bool IsRealNumberType()
+        {
+            if (type == null)
+            {
+                return false;
             }
 
-            switch (GetTypeCode(type))
+            return GetTypeCode(type) switch {
+                TypeCode.Decimal => true,
+                TypeCode.Double => true,
+                TypeCode.Single => true,
+                TypeCode.Object => type.IsNullableType() && IsNumericType(Nullable.GetUnderlyingType(type)),
+                _ => false
+            };
+        }
+
+        /// <summary>
+        /// Gets the type with generic interface of.
+        /// </summary>
+        /// <param name="genericInterfaceType">Type of the generic interface.</param>
+        /// <returns>Type.</returns>
+        public Type GetTypeWithGenericInterfaceOf(Type genericInterfaceType)
+        {
+            var t =
+                Array.Find(type.GetInterfaces(),
+                    t => t.IsGenericType && t.GetGenericTypeDefinition() == genericInterfaceType);
+
+            if (t != null)
             {
-                case TypeCode.Byte:
-                case TypeCode.Decimal:
-                case TypeCode.Double:
-                case TypeCode.Int16:
-                case TypeCode.Int32:
-                case TypeCode.Int64:
-                case TypeCode.SByte:
-                case TypeCode.Single:
-                case TypeCode.UInt16:
-                case TypeCode.UInt32:
-                case TypeCode.UInt64:
-                    return true;
-
-                case TypeCode.Object:
-                    if (type.IsNullableType())
-                    {
-                        type = Nullable.GetUnderlyingType(type);
-                        continue;
-                    }
-
-                    if (type.IsEnum)
-                    {
-                        return JsConfig.TreatEnumAsInteger || type.IsEnumFlags();
-                    }
-
-                    return false;
+                return t;
             }
 
-            return false;
-        }
-    }
+            if (!type.IsGenericType)
+            {
+                return null;
+            }
 
-    /// <summary>
-    /// Determines whether [is integer type] [the specified type].
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns><c>true</c> if [is integer type] [the specified type]; otherwise, <c>false</c>.</returns>
-    public static bool IsIntegerType(this Type type)
-    {
-        if (type == null)
-        {
-            return false;
+            var genericType = type.FirstGenericType();
+            return genericType.GetGenericTypeDefinition() == genericInterfaceType
+                ? genericType
+                : null;
         }
 
-        return GetTypeCode(type) switch
+        /// <summary>
+        /// Determines whether [has any type definitions of] [the specified these generic types].
+        /// </summary>
+        /// <param name="theseGenericTypes">The these generic types.</param>
+        /// <returns><c>true</c> if [has any type definitions of] [the specified these generic types]; otherwise, <c>false</c>.</returns>
+        public bool HasAnyTypeDefinitionsOf(params Type[] theseGenericTypes)
         {
-            TypeCode.Byte or TypeCode.Int16 or TypeCode.Int32 or TypeCode.Int64 or TypeCode.SByte or TypeCode.UInt16 or TypeCode.UInt32 or TypeCode.UInt64 => true,
-            TypeCode.Object => type.IsNullableType() && IsNumericType(Nullable.GetUnderlyingType(type)),
-            _ => false
-        };
-    }
+            if (!type.IsGenericType)
+            {
+                return false;
+            }
 
-    /// <summary>
-    /// Determines whether [is real number type] [the specified type].
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns><c>true</c> if [is real number type] [the specified type]; otherwise, <c>false</c>.</returns>
-    public static bool IsRealNumberType(this Type type)
-    {
-        if (type == null)
-        {
-            return false;
+            var genericTypeDefinition = type.GetGenericTypeDefinition();
+
+            return theseGenericTypes.Exists(thisGenericType => genericTypeDefinition == thisGenericType);
         }
 
-        return GetTypeCode(type) switch {
-            TypeCode.Decimal => true,
-            TypeCode.Double => true,
-            TypeCode.Single => true,
-            TypeCode.Object => type.IsNullableType() && IsNumericType(Nullable.GetUnderlyingType(type)),
-            _ => false
-        };
-    }
-
-    /// <summary>
-    /// Gets the type with generic interface of.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <param name="genericInterfaceType">Type of the generic interface.</param>
-    /// <returns>Type.</returns>
-    public static Type GetTypeWithGenericInterfaceOf(this Type type, Type genericInterfaceType)
-    {
-        var t =
-            Array.Find(type.GetInterfaces(),
-                t => t.IsGenericType && t.GetGenericTypeDefinition() == genericInterfaceType);
-
-        if (t != null)
+        /// <summary>
+        /// Gets the generic arguments if both have same generic definition type and arguments.
+        /// </summary>
+        /// <param name="typeA">The type a.</param>
+        /// <param name="typeB">The type b.</param>
+        /// <returns>Type[].</returns>
+        public Type[] GetGenericArgumentsIfBothHaveSameGenericDefinitionTypeAndArguments(Type typeA, Type typeB)
         {
-            return t;
+            var typeAInterface = typeA.GetTypeWithGenericInterfaceOf(type);
+            if (typeAInterface == null)
+            {
+                return null;
+            }
+
+            var typeBInterface = typeB.GetTypeWithGenericInterfaceOf(type);
+            if (typeBInterface == null)
+            {
+                return null;
+            }
+
+            var typeAGenericArgs = typeAInterface.GetGenericArguments();
+            var typeBGenericArgs = typeBInterface.GetGenericArguments();
+
+            if (typeAGenericArgs.Length != typeBGenericArgs.Length)
+            {
+                return null;
+            }
+
+            return typeBGenericArgs.Where((t, i) => typeAGenericArgs[i] != t).Any() ? null : typeAGenericArgs;
         }
 
-        if (!type.IsGenericType)
+        /// <summary>
+        /// Gets the generic arguments if both have convertible generic definition type and arguments.
+        /// </summary>
+        /// <param name="typeA">The type a.</param>
+        /// <param name="typeB">The type b.</param>
+        /// <returns>TypePair.</returns>
+        public TypePair GetGenericArgumentsIfBothHaveConvertibleGenericDefinitionTypeAndArguments(Type typeA, Type typeB)
         {
-            return null;
+            var typeAInterface = typeA.GetTypeWithGenericInterfaceOf(type);
+            if (typeAInterface == null)
+            {
+                return null;
+            }
+
+            var typeBInterface = typeB.GetTypeWithGenericInterfaceOf(type);
+            if (typeBInterface == null)
+            {
+                return null;
+            }
+
+            var typeAGenericArgs = typeAInterface.GetGenericArguments();
+            var typeBGenericArgs = typeBInterface.GetGenericArguments();
+
+            if (typeAGenericArgs.Length != typeBGenericArgs.Length)
+            {
+                return null;
+            }
+
+            return typeBGenericArgs.Where((t, i) => !AreAllStringOrValueTypes(typeAGenericArgs[i], t)).Any() ? null : new TypePair(typeAGenericArgs, typeBGenericArgs);
         }
-
-        var genericType = type.FirstGenericType();
-        return genericType.GetGenericTypeDefinition() == genericInterfaceType
-                   ? genericType
-                   : null;
-    }
-
-    /// <summary>
-    /// Determines whether [has any type definitions of] [the specified these generic types].
-    /// </summary>
-    /// <param name="genericType">Type of the generic.</param>
-    /// <param name="theseGenericTypes">The these generic types.</param>
-    /// <returns><c>true</c> if [has any type definitions of] [the specified these generic types]; otherwise, <c>false</c>.</returns>
-    public static bool HasAnyTypeDefinitionsOf(this Type genericType, params Type[] theseGenericTypes)
-    {
-        if (!genericType.IsGenericType)
-        {
-            return false;
-        }
-
-        var genericTypeDefinition = genericType.GetGenericTypeDefinition();
-
-        return theseGenericTypes.Exists(thisGenericType => genericTypeDefinition == thisGenericType);
-    }
-
-    /// <summary>
-    /// Gets the generic arguments if both have same generic definition type and arguments.
-    /// </summary>
-    /// <param name="assignableFromType">Type of the assignable from.</param>
-    /// <param name="typeA">The type a.</param>
-    /// <param name="typeB">The type b.</param>
-    /// <returns>Type[].</returns>
-    public static Type[] GetGenericArgumentsIfBothHaveSameGenericDefinitionTypeAndArguments(
-        this Type assignableFromType, Type typeA, Type typeB)
-    {
-        var typeAInterface = typeA.GetTypeWithGenericInterfaceOf(assignableFromType);
-        if (typeAInterface == null)
-        {
-            return null;
-        }
-
-        var typeBInterface = typeB.GetTypeWithGenericInterfaceOf(assignableFromType);
-        if (typeBInterface == null)
-        {
-            return null;
-        }
-
-        var typeAGenericArgs = typeAInterface.GetGenericArguments();
-        var typeBGenericArgs = typeBInterface.GetGenericArguments();
-
-        if (typeAGenericArgs.Length != typeBGenericArgs.Length)
-        {
-            return null;
-        }
-
-        return typeBGenericArgs.Where((t, i) => typeAGenericArgs[i] != t).Any() ? null : typeAGenericArgs;
-    }
-
-    /// <summary>
-    /// Gets the generic arguments if both have convertible generic definition type and arguments.
-    /// </summary>
-    /// <param name="assignableFromType">Type of the assignable from.</param>
-    /// <param name="typeA">The type a.</param>
-    /// <param name="typeB">The type b.</param>
-    /// <returns>TypePair.</returns>
-    public static TypePair GetGenericArgumentsIfBothHaveConvertibleGenericDefinitionTypeAndArguments(
-        this Type assignableFromType, Type typeA, Type typeB)
-    {
-        var typeAInterface = typeA.GetTypeWithGenericInterfaceOf(assignableFromType);
-        if (typeAInterface == null)
-        {
-            return null;
-        }
-
-        var typeBInterface = typeB.GetTypeWithGenericInterfaceOf(assignableFromType);
-        if (typeBInterface == null)
-        {
-            return null;
-        }
-
-        var typeAGenericArgs = typeAInterface.GetGenericArguments();
-        var typeBGenericArgs = typeBInterface.GetGenericArguments();
-
-        if (typeAGenericArgs.Length != typeBGenericArgs.Length)
-        {
-            return null;
-        }
-
-        return typeBGenericArgs.Where((t, i) => !AreAllStringOrValueTypes(typeAGenericArgs[i], t)).Any() ? null : new TypePair(typeAGenericArgs, typeBGenericArgs);
     }
 
     /// <summary>
@@ -566,31 +551,33 @@ public static class ReflectionExtensions
         }
     }
 
-    /// <summary>
-    /// Creates a new instance of type.
-    /// First looks at JsConfig.ModelFactory before falling back to CreateInstance
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="type">The type.</param>
-    /// <returns>T.</returns>
-    public static T New<T>(this Type type)
+    extension(Type type)
     {
-        var factoryFn = JsConfig.ModelFactory(type)
-                        ?? GetConstructorMethod(type);
-        return (T)factoryFn();
-    }
+        /// <summary>
+        /// Creates a new instance of type.
+        /// First looks at JsConfig.ModelFactory before falling back to CreateInstance
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>T.</returns>
+        public T New<T>()
+        {
+            var factoryFn = JsConfig.ModelFactory(type)
+                            ?? GetConstructorMethod(type);
+            return (T)factoryFn();
+        }
 
-    /// <summary>
-    /// Creates a new instance of type.
-    /// First looks at JsConfig.ModelFactory before falling back to CreateInstance
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>System.Object.</returns>
-    public static object New(this Type type)
-    {
-        var factoryFn = JsConfig.ModelFactory(type)
-                        ?? GetConstructorMethod(type);
-        return factoryFn();
+        /// <summary>
+        /// Creates a new instance of type.
+        /// First looks at JsConfig.ModelFactory before falling back to CreateInstance
+        /// </summary>
+        /// <returns>System.Object.</returns>
+        public object New()
+        {
+            var factoryFn = JsConfig.ModelFactory(type)
+                            ?? GetConstructorMethod(type);
+            return factoryFn();
+        }
     }
 
     /// <summary>
@@ -604,39 +591,41 @@ public static class ReflectionExtensions
         return TypeMeta<T>.EmptyCtorFn();
     }
 
-    /// <summary>
-    /// Creates a new instance from the default constructor of type
-    /// </summary>
     /// <param name="type">The type.</param>
-    /// <returns>System.Object.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object CreateInstance(this Type type)
+    extension(Type type)
     {
-        if (type == null)
+        /// <summary>
+        /// Creates a new instance from the default constructor of type
+        /// </summary>
+        /// <returns>System.Object.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public object CreateInstance()
         {
-            return null;
+            if (type == null)
+            {
+                return null;
+            }
+
+            var ctorFn = GetConstructorMethod(type);
+            return ctorFn();
         }
 
-        var ctorFn = GetConstructorMethod(type);
-        return ctorFn();
-    }
-
-    /// <summary>
-    /// Creates the instance.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="type">The type.</param>
-    /// <returns>T.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T CreateInstance<T>(this Type type)
-    {
-        if (type == null)
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>T.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T CreateInstance<T>()
         {
-            return default;
-        }
+            if (type == null)
+            {
+                return default;
+            }
 
-        var ctorFn = GetConstructorMethod(type);
-        return (T)ctorFn();
+            var ctorFn = GetConstructorMethod(type);
+            return (T)ctorFn();
+        }
     }
 
     /// <summary>
@@ -656,93 +645,94 @@ public static class ReflectionExtensions
         return ctorFn();
     }
 
-    /// <summary>
-    /// Gets the module.
-    /// </summary>
     /// <param name="type">The type.</param>
-    /// <returns>Module.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Module GetModule(this Type type)
+    extension(Type type)
     {
-        return type?.Module;
-    }
-
-    /// <summary>
-    /// Gets all properties.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>PropertyInfo[].</returns>
-    public static PropertyInfo[] GetAllProperties(this Type type)
-    {
-        if (type.IsInterface)
+        /// <summary>
+        /// Gets the module.
+        /// </summary>
+        /// <returns>Module.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Module GetModule()
         {
-            var propertyInfos = new List<PropertyInfo>();
-
-            var considered = new List<Type>();
-            var queue = new Queue<Type>();
-            considered.Add(type);
-            queue.Enqueue(type);
-
-            while (queue.Count > 0)
-            {
-                var subType = queue.Dequeue();
-                foreach (var subInterface in subType.GetInterfaces().Where(subInterface => !considered.Contains(subInterface)))
-                {
-                    considered.Add(subInterface);
-                    queue.Enqueue(subInterface);
-                }
-
-                var typeProperties = subType.GetTypesProperties();
-
-                var newPropertyInfos = typeProperties
-                    .Where(x => !propertyInfos.Contains(x));
-
-                propertyInfos.InsertRange(0, newPropertyInfos);
-            }
-
-            return [.. propertyInfos];
+            return type?.Module;
         }
 
-        return [.. type.GetTypesProperties().Where(t => t.GetIndexParameters().Length == 0)];
-    }
-
-    /// <summary>
-    /// Gets the public properties.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>PropertyInfo[].</returns>
-    public static PropertyInfo[] GetPublicProperties(this Type type)
-    {
-        if (type.IsInterface)
+        /// <summary>
+        /// Gets all properties.
+        /// </summary>
+        /// <returns>PropertyInfo[].</returns>
+        public PropertyInfo[] GetAllProperties()
         {
-            var propertyInfos = new List<PropertyInfo>();
-
-            var considered = new List<Type>();
-            var queue = new Queue<Type>();
-            considered.Add(type);
-            queue.Enqueue(type);
-
-            while (queue.Count > 0)
+            if (type.IsInterface)
             {
-                var subType = queue.Dequeue();
-                foreach (var subInterface in subType.GetInterfaces().Where(subInterface => !considered.Contains(subInterface)))
+                var propertyInfos = new List<PropertyInfo>();
+
+                var considered = new List<Type>();
+                var queue = new Queue<Type>();
+                considered.Add(type);
+                queue.Enqueue(type);
+
+                while (queue.Count > 0)
                 {
-                    considered.Add(subInterface);
-                    queue.Enqueue(subInterface);
+                    var subType = queue.Dequeue();
+                    foreach (var subInterface in subType.GetInterfaces().Where(subInterface => !considered.Contains(subInterface)))
+                    {
+                        considered.Add(subInterface);
+                        queue.Enqueue(subInterface);
+                    }
+
+                    var typeProperties = subType.GetTypesProperties();
+
+                    var newPropertyInfos = typeProperties
+                        .Where(x => !propertyInfos.Contains(x));
+
+                    propertyInfos.InsertRange(0, newPropertyInfos);
                 }
 
-                var typeProperties = subType.GetTypesPublicProperties();
-
-                var newPropertyInfos = typeProperties
-                    .Where(x => !propertyInfos.Contains(x));
-
-                propertyInfos.InsertRange(0, newPropertyInfos);
+                return [.. propertyInfos];
             }
 
-            return [.. propertyInfos];
+            return [.. type.GetTypesProperties().Where(t => t.GetIndexParameters().Length == 0)];
         }
 
-        return [.. type.GetTypesPublicProperties().Where(t => t.GetIndexParameters().Length == 0)];
+        /// <summary>
+        /// Gets the public properties.
+        /// </summary>
+        /// <returns>PropertyInfo[].</returns>
+        public PropertyInfo[] GetPublicProperties()
+        {
+            if (type.IsInterface)
+            {
+                var propertyInfos = new List<PropertyInfo>();
+
+                var considered = new List<Type>();
+                var queue = new Queue<Type>();
+                considered.Add(type);
+                queue.Enqueue(type);
+
+                while (queue.Count > 0)
+                {
+                    var subType = queue.Dequeue();
+                    foreach (var subInterface in subType.GetInterfaces().Where(subInterface => !considered.Contains(subInterface)))
+                    {
+                        considered.Add(subInterface);
+                        queue.Enqueue(subInterface);
+                    }
+
+                    var typeProperties = subType.GetTypesPublicProperties();
+
+                    var newPropertyInfos = typeProperties
+                        .Where(x => !propertyInfos.Contains(x));
+
+                    propertyInfos.InsertRange(0, newPropertyInfos);
+                }
+
+                return [.. propertyInfos];
+            }
+
+            return [.. type.GetTypesPublicProperties().Where(t => t.GetIndexParameters().Length == 0)];
+        }
     }
 
     /// <summary>
@@ -842,50 +832,52 @@ public static class ReflectionExtensions
         return (instance, memberName, value) => obj((T)instance, memberName, value);
     }
 
-    /// <summary>
-    /// Gets the serializable fields.
-    /// </summary>
     /// <param name="type">The type.</param>
-    /// <returns>FieldInfo[].</returns>
-    public static FieldInfo[] GetSerializableFields(this Type type)
+    extension(Type type)
     {
-        if (type.IsDto())
+        /// <summary>
+        /// Gets the serializable fields.
+        /// </summary>
+        /// <returns>FieldInfo[].</returns>
+        public FieldInfo[] GetSerializableFields()
         {
-            return [.. type.GetAllFields().Where(f =>
-                f.HasAttribute<DataMemberAttribute>())];
+            if (type.IsDto())
+            {
+                return [.. type.GetAllFields().Where(f =>
+                    f.HasAttribute<DataMemberAttribute>())];
+            }
+
+            var config = JsConfig.GetConfig();
+
+            if (!config.IncludePublicFields)
+            {
+                return TypeConstants.EmptyFieldInfoArray;
+            }
+
+            var publicFields = type.GetPublicFields();
+
+            // else return those properties that are not decorated with IgnoreDataMember
+            return [.. publicFields
+                .Where(prop => prop.AllAttributes()
+                    .All(attr => !IgnoreAttributesNamed.Contains(attr.GetType().Name)))
+                .Where(prop => !config.ExcludeTypes.Contains(prop.FieldType))];
         }
 
-        var config = JsConfig.GetConfig();
-
-        if (!config.IncludePublicFields)
+        /// <summary>
+        /// Gets the data contract.
+        /// </summary>
+        /// <returns>DataContractAttribute.</returns>
+        public DataContractAttribute GetDataContract()
         {
-            return TypeConstants.EmptyFieldInfoArray;
+            var dataContract = type.FirstAttribute<DataContractAttribute>();
+
+            if (dataContract == null && Env.IsMono)
+            {
+                return PclExport.Instance.GetWeakDataContract(type);
+            }
+
+            return dataContract;
         }
-
-        var publicFields = type.GetPublicFields();
-
-        // else return those properties that are not decorated with IgnoreDataMember
-        return [.. publicFields
-            .Where(prop => prop.AllAttributes()
-                .All(attr => !IgnoreAttributesNamed.Contains(attr.GetType().Name)))
-            .Where(prop => !config.ExcludeTypes.Contains(prop.FieldType))];
-    }
-
-    /// <summary>
-    /// Gets the data contract.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>DataContractAttribute.</returns>
-    public static DataContractAttribute GetDataContract(this Type type)
-    {
-        var dataContract = type.FirstAttribute<DataContractAttribute>();
-
-        if (dataContract == null && Env.IsMono)
-        {
-            return PclExport.Instance.GetWeakDataContract(type);
-        }
-
-        return dataContract;
     }
 
     /// <summary>

@@ -35,50 +35,48 @@ using YAF.Types.Models;
 /// </summary>
 public static class CheckEmailRepositoryExtensions
 {
-    /// <summary>
-    /// The save.
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="hash">
-    /// The hash.
-    /// </param>
-    /// <param name="email">
-    /// The email.
-    /// </param>
-    public static Task SaveAsync(
-        this IRepository<CheckEmail> repository,
-        int userId,
-        string hash,
-        string email)
+    extension(IRepository<CheckEmail> repository)
     {
-        return repository.InsertAsync(
-            new CheckEmail
-            {
-                UserID = userId, Email = email.ToLower(), Created = DateTime.UtcNow, Hash = hash
-            });
-    }
+        /// <summary>
+        /// The save.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="hash">
+        /// The hash.
+        /// </param>
+        /// <param name="email">
+        /// The email.
+        /// </param>
+        public Task SaveAsync(int userId,
+            string hash,
+            string email)
+        {
+            return repository.InsertAsync(
+                new CheckEmail
+                {
+                    UserID = userId, Email = email.ToLower(), Created = DateTime.UtcNow, Hash = hash
+                });
+        }
 
-    /// <summary>
-    /// Very confusingly named function that finds a user record with associated check email and returns a user if it's found.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="hash">
-    /// The hash.
-    /// </param>
-    /// <returns>
-    /// The <see cref="CheckEmail"/>.
-    /// </returns>
-    public async static Task<CheckEmail> UpdateAsync(this IRepository<CheckEmail> repository, string hash)
-    {
-        var mail = await repository.GetSingleAsync(c => c.Hash == hash);
+        /// <summary>
+        /// Very confusingly named function that finds a user record with associated check email and returns a user if it's found.
+        /// </summary>
+        /// <param name="hash">
+        /// The hash.
+        /// </param>
+        /// <returns>
+        /// The <see cref="CheckEmail"/>.
+        /// </returns>
+        public async Task<CheckEmail> UpdateAsync(string hash)
+        {
+            var mail = await repository.GetSingleAsync(c => c.Hash == hash);
 
-        return mail;
+            return mail;
+        }
     }
 }

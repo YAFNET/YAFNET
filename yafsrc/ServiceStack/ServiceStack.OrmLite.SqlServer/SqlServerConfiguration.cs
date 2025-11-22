@@ -14,56 +14,60 @@ public static class SqlServerConfiguration
         return dialect;
     }
 
-    /// <summary>
-    /// Configure to use the latest version of SQL Server
-    /// </summary>
-    public static SqlServer2022OrmLiteDialectProvider UseSqlServer(this OrmLiteConfigOptions config, string? connectionString, Action<SqlServer2022OrmLiteDialectProvider>? configure=null)
+    extension(OrmLiteConfigOptions config)
     {
-        ArgumentNullException.ThrowIfNull(connectionString);
+        /// <summary>
+        /// Configure to use the latest version of SQL Server
+        /// </summary>
+        public SqlServer2022OrmLiteDialectProvider UseSqlServer(string? connectionString, Action<SqlServer2022OrmLiteDialectProvider>? configure=null)
+        {
+            ArgumentNullException.ThrowIfNull(connectionString);
 
-        var dialect = (SqlServer2022OrmLiteDialectProvider)Configure(new SqlServer2022OrmLiteDialectProvider());
-        configure?.Invoke(dialect);
-        config.Init(connectionString, dialect);
-        return dialect;
+            var dialect = (SqlServer2022OrmLiteDialectProvider)Configure(new SqlServer2022OrmLiteDialectProvider());
+            configure?.Invoke(dialect);
+            config.Init(connectionString, dialect);
+            return dialect;
+        }
+
+        /// <summary>
+        /// Configure to use the latest version of SQL Server
+        /// </summary>
+        public TVersion UseSqlServer<TVersion>(string? connectionString, Action<TVersion>? configure=null)
+            where TVersion : SqlServerOrmLiteDialectProvider, new()
+        {
+            ArgumentNullException.ThrowIfNull(connectionString);
+
+            var dialect = (TVersion)Configure(new TVersion());
+            configure?.Invoke(dialect);
+            config.Init(connectionString, dialect);
+            return dialect;
+        }
     }
 
-    /// <summary>
-    /// Configure to use the latest version of SQL Server
-    /// </summary>
-    public static TVersion UseSqlServer<TVersion>(this OrmLiteConfigOptions config, string? connectionString, Action<TVersion>? configure=null)
-        where TVersion : SqlServerOrmLiteDialectProvider, new()
+    extension(OrmLiteConfigurationBuilder builder)
     {
-        ArgumentNullException.ThrowIfNull(connectionString);
+        /// <summary>
+        /// Add a connection to the latest version of SQL Server
+        /// </summary>
+        public OrmLiteConfigurationBuilder AddSqlServer(string namedConnection, string? connectionString, Action<SqlServer2022OrmLiteDialectProvider>? configure=null)
+        {
+            ArgumentNullException.ThrowIfNull(connectionString);
 
-        var dialect = (TVersion)Configure(new TVersion());
-        configure?.Invoke(dialect);
-        config.Init(connectionString, dialect);
-        return dialect;
-    }
+            var dialect = (SqlServer2022OrmLiteDialectProvider)Configure(new SqlServer2022OrmLiteDialectProvider());
+            configure?.Invoke(dialect);
+            builder.DbFactory.RegisterConnection(namedConnection, connectionString, dialect);
+            return builder;
+        }
 
-    /// <summary>
-    /// Add a connection to the latest version of SQL Server
-    /// </summary>
-    public static OrmLiteConfigurationBuilder AddSqlServer(this OrmLiteConfigurationBuilder builder, 
-        string namedConnection, string? connectionString, Action<SqlServer2022OrmLiteDialectProvider>? configure=null)
-    {
-        ArgumentNullException.ThrowIfNull(connectionString);
+        public OrmLiteConfigurationBuilder AddSqlServer<TVersion>(string namedConnection, string? connectionString, Action<TVersion>? configure=null)
+            where TVersion : SqlServerOrmLiteDialectProvider, new()
+        {
+            ArgumentNullException.ThrowIfNull(connectionString);
 
-        var dialect = (SqlServer2022OrmLiteDialectProvider)Configure(new SqlServer2022OrmLiteDialectProvider());
-        configure?.Invoke(dialect);
-        builder.DbFactory.RegisterConnection(namedConnection, connectionString, dialect);
-        return builder;
-    }
-
-    public static OrmLiteConfigurationBuilder AddSqlServer<TVersion>(this OrmLiteConfigurationBuilder builder, 
-        string namedConnection, string? connectionString, Action<TVersion>? configure=null)
-        where TVersion : SqlServerOrmLiteDialectProvider, new()
-    {
-        ArgumentNullException.ThrowIfNull(connectionString);
-
-        var dialect = (TVersion)Configure(new TVersion());
-        configure?.Invoke(dialect);
-        builder.DbFactory.RegisterConnection(namedConnection, connectionString, dialect);
-        return builder;
+            var dialect = (TVersion)Configure(new TVersion());
+            configure?.Invoke(dialect);
+            builder.DbFactory.RegisterConnection(namedConnection, connectionString, dialect);
+            return builder;
+        }
     }
 }

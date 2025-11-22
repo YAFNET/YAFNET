@@ -34,19 +34,21 @@ using YAF.Types.Objects.Model;
 /// </summary>
 public static class ActiveRepositoryExtensions
 {
-    /// <summary>
-    /// Lists the forum.
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="forumId">
-    /// The forum Id.
-    /// </param>
-    public static List<ActiveUser> ListForum(this IRepository<Active> repository, int forumId)
+    extension(IRepository<Active> repository)
     {
-        return repository.DbAccess.Execute(
-            db =>
+        /// <summary>
+        /// Lists the forum.
+        /// </summary>
+        /// <param name="forumId">
+        /// The forum Id.
+        /// </param>
+        public List<ActiveUser> ListForum(int forumId)
+        {
+            return repository.DbAccess.Execute(
+                db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
 
@@ -62,45 +64,42 @@ public static class ActiveRepositoryExtensions
                     expression.Join<User>((a, u) => u.ID == a.UserID).Where(a => a.ForumID == forumId)
                         .Select<Active, User>(
                             (a, b) => new
-                                          {
-                                              a.UserID,
-                                              UserName = b.Name,
-                                              UserDisplayName = b.DisplayName,
-                                              b.Flags,
-                                              b.UserStyle,
-                                              b.Suspended,
-                                              UserCount = Sql.Custom<int>($"({countSql})"),
-                                              a.Browser
-                                          }).GroupBy<Active, User>(
+                            {
+                                a.UserID,
+                                UserName = b.Name,
+                                UserDisplayName = b.DisplayName,
+                                b.Flags,
+                                b.UserStyle,
+                                b.Suspended,
+                                UserCount = Sql.Custom<int>($"({countSql})"),
+                                a.Browser
+                            }).GroupBy<Active, User>(
                             (a, b) => new
-                                          {
-                                              a.UserID,
-                                              b.DisplayName,
-                                              b.Name,
-                                              b.ID,
-                                              b.Flags,
-                                              b.UserStyle,
-                                              b.Suspended,
-                                              a.Browser
-                                          }).OrderBy<User>(u => u.Name);
+                            {
+                                a.UserID,
+                                b.DisplayName,
+                                b.Name,
+                                b.ID,
+                                b.Flags,
+                                b.UserStyle,
+                                b.Suspended,
+                                a.Browser
+                            }).OrderBy<User>(u => u.Name);
 
                     return db.Connection.Select<ActiveUser>(expression).DistinctBy(x => x.UserID).ToList();
                 });
-    }
+        }
 
-    /// <summary>
-    /// Lists the topic.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic id.
-    /// </param>
-    public static List<ActiveUser> ListTopic(this IRepository<Active> repository, int topicId)
-    {
-        return repository.DbAccess.Execute(
-            db =>
+        /// <summary>
+        /// Lists the topic.
+        /// </summary>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        public List<ActiveUser> ListTopic(int topicId)
+        {
+            return repository.DbAccess.Execute(
+                db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
 
@@ -116,62 +115,57 @@ public static class ActiveRepositoryExtensions
                     expression.Join<User>((a, u) => u.ID == a.UserID).Where(a => a.TopicID == topicId)
                         .Select<Active, User>(
                             (a, b) => new
-                                          {
-                                              a.UserID,
-                                              UserName = b.Name,
-                                              UserDisplayName = b.DisplayName,
-                                              b.UserStyle,
-                                              b.Flags,
-                                              b.Suspended,
-                                              UserCount = Sql.Custom<int>($"({countSql})"),
-                                              a.Browser
-                                          }).GroupBy<Active, User>(
+                            {
+                                a.UserID,
+                                UserName = b.Name,
+                                UserDisplayName = b.DisplayName,
+                                b.UserStyle,
+                                b.Flags,
+                                b.Suspended,
+                                UserCount = Sql.Custom<int>($"({countSql})"),
+                                a.Browser
+                            }).GroupBy<Active, User>(
                             (a, b) => new
-                                          {
-                                              a.UserID,
-                                              b.DisplayName,
-                                              b.Name,
-                                              b.ID,
-                                              b.Flags,
-                                              b.UserStyle,
-                                              b.Suspended,
-                                              a.Browser
-                                          }).OrderBy<User>(u => u.Name);
+                            {
+                                a.UserID,
+                                b.DisplayName,
+                                b.Name,
+                                b.ID,
+                                b.Flags,
+                                b.UserStyle,
+                                b.Suspended,
+                                a.Browser
+                            }).OrderBy<User>(u => u.Name);
 
                     return db.Connection.Select<ActiveUser>(expression).DistinctBy(x => x.UserID).ToList();
                 });
-    }
+        }
 
-    /// <summary>
-    /// The list.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="showCrawlers">
-    /// The show crawlers.
-    /// </param>
-    /// <param name="activeTime">
-    /// The active time.
-    /// </param>
-    /// <param name="boardId">
-    /// The board Id.
-    /// </param>
-    public static List<ActiveUser> List(
-        this IRepository<Active> repository,
-        bool showCrawlers,
-        int activeTime,
-        int? boardId = null)
-    {
-        repository.DeleteActive(activeTime);
+        /// <summary>
+        /// The list.
+        /// </summary>
+        /// <param name="showCrawlers">
+        /// The show crawlers.
+        /// </param>
+        /// <param name="activeTime">
+        /// The active time.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        public List<ActiveUser> List(bool showCrawlers,
+            int activeTime,
+            int? boardId = null)
+        {
+            repository.DeleteActive(activeTime);
 
-        // -- we don't delete guest access
-        BoardContext.Current.GetRepository<ActiveAccess>().Delete(activeTime);
+            // -- we don't delete guest access
+            BoardContext.Current.GetRepository<ActiveAccess>().Delete(activeTime);
 
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-        return repository.DbAccess.Execute(
-            db =>
+            return repository.DbAccess.Execute(
+                db =>
                 {
                     expression.Join<Rank>((u, r) => r.ID == u.RankID).Join<Active>((u, a) => a.UserID == u.ID);
 
@@ -203,75 +197,70 @@ public static class ActiveRepositoryExtensions
 
                     expression.Select<User, Rank, Active>(
                         (u, r, a) => new
-                                         {
-                                             a.UserID,
-                                             UserName = u.Name,
-                                             UserDisplayName = u.DisplayName,
-                                             a.IP,
-                                             a.SessionID,
-                                             a.ForumID,
-                                             a.TopicID,
-                                             ForumName = Sql.Custom($"({forumSql})"),
-                                             TopicName = Sql.Custom($"({topicSql})"),
-                                             IsGuest =
-                                                 Sql.Custom<bool>(
-                                                     $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
-                                             IsActiveExcluded =
-                                                 Sql.Custom<bool>(
-                                                     $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&16")})"),
-                                             u.UserStyle,
-                                             u.Suspended,
-                                             UserCount = 1,
-                                             a.Login,
-                                             a.LastActive,
-                                             a.Referer,
-                                             a.Path,
-                                             a.Country,
-                                             Active = Sql.Custom(
-                                                 $"{OrmLiteConfig.DialectProvider.DateDiffFunction("minute", expression.Column<Active>(x => x.Login, true), expression.Column<Active>(x => x.LastActive, true))}"),
-                                             a.Browser,
-                                             a.Platform,
-                                             a.UserAgent,
-                                             a.ForumPage
-                                         });
+                        {
+                            a.UserID,
+                            UserName = u.Name,
+                            UserDisplayName = u.DisplayName,
+                            a.IP,
+                            a.SessionID,
+                            a.ForumID,
+                            a.TopicID,
+                            ForumName = Sql.Custom($"({forumSql})"),
+                            TopicName = Sql.Custom($"({topicSql})"),
+                            IsGuest =
+                                Sql.Custom<bool>(
+                                    $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
+                            IsActiveExcluded =
+                                Sql.Custom<bool>(
+                                    $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&16")})"),
+                            u.UserStyle,
+                            u.Suspended,
+                            UserCount = 1,
+                            a.Login,
+                            a.LastActive,
+                            a.Referer,
+                            a.Path,
+                            a.Country,
+                            Active = Sql.Custom(
+                                $"{OrmLiteConfig.DialectProvider.DateDiffFunction("minute", expression.Column<Active>(x => x.Login, true), expression.Column<Active>(x => x.LastActive, true))}"),
+                            a.Browser,
+                            a.Platform,
+                            a.UserAgent,
+                            a.ForumPage
+                        });
 
                     return db.Connection.Select<ActiveUser>(expression);
                 });
-    }
+        }
 
-    /// <summary>
-    /// Lists the active user.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <param name="showGuests">
-    /// The show Guests.
-    /// </param>
-    /// <param name="showCrawlers">
-    /// The show crawlers.
-    /// </param>
-    /// <param name="pageIndex">
-    /// The page Index.
-    /// </param>
-    /// <param name="pageSize">
-    /// The page Size.
-    /// </param>
-    public static List<ActiveUser> ListUsersPaged(
-        this IRepository<Active> repository,
-        int userId,
-        bool showGuests,
-        bool showCrawlers,
-        int pageIndex,
-        int pageSize)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+        /// <summary>
+        /// Lists the active user.
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="showGuests">
+        /// The show Guests.
+        /// </param>
+        /// <param name="showCrawlers">
+        /// The show crawlers.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
+        /// </param>
+        public List<ActiveUser> ListUsersPaged(int userId,
+            bool showGuests,
+            bool showCrawlers,
+            int pageIndex,
+            int pageSize)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-        return repository.DbAccess.Execute(
-            db =>
+            return repository.DbAccess.Execute(
+                db =>
                 {
                     expression.Join<Rank>((u, r) => r.ID == u.RankID).Join<Active>((u, a) => a.UserID == u.ID)
                         .Join<Active, ActiveAccess>((a, x) => x.ForumID == (a.ForumID ?? 0));
@@ -318,62 +307,57 @@ public static class ActiveRepositoryExtensions
 
                     expression.Select<User, Rank, Active, ActiveAccess>(
                         (u, r, a, x) => new
-                                            {
-                                                a.UserID,
-                                                UserName = u.Name,
-                                                UserDisplayName = u.DisplayName,
-                                                a.IP,
-                                                a.SessionID,
-                                                a.ForumID,
-                                                HasForumAccess = x.ReadAccess,
-                                                a.TopicID,
-                                                ForumName = Sql.Custom($"({forumSql})"),
-                                                TopicName = Sql.Custom($"({topicSql})"),
-                                                IsGuest =
-                                                    Sql.Custom<bool>(
-                                                        $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(user => user.Flags, true)}&4")})"),
-                                                IsCrawler = a.Flags & 8,
-                                                IsActiveExcluded =
-                                                    Sql.Custom<bool>(
-                                                        $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(user => user.Flags, true)}&16")})"),
-                                                u.UserStyle,
-                                                u.Suspended,
-                                                UserCount = Sql.Custom<int>($"({countSql})"),
-                                                a.Login,
-                                                a.LastActive,
-                                                a.Country,
-                                                a.Referer,
-                                                a.Path, 
-                                                Active = Sql.Custom(
-                                                    $"{OrmLiteConfig.DialectProvider.DateDiffFunction("minute", expression.Column<Active>(ac => ac.Login, true), expression.Column<Active>(ac => ac.LastActive, true))}"),
-                                                a.Browser,
-                                                a.Platform,
-                                                a.UserAgent,
-                                                a.ForumPage
-                                            });
+                        {
+                            a.UserID,
+                            UserName = u.Name,
+                            UserDisplayName = u.DisplayName,
+                            a.IP,
+                            a.SessionID,
+                            a.ForumID,
+                            HasForumAccess = x.ReadAccess,
+                            a.TopicID,
+                            ForumName = Sql.Custom($"({forumSql})"),
+                            TopicName = Sql.Custom($"({topicSql})"),
+                            IsGuest =
+                                Sql.Custom<bool>(
+                                    $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(user => user.Flags, true)}&4")})"),
+                            IsCrawler = a.Flags & 8,
+                            IsActiveExcluded =
+                                Sql.Custom<bool>(
+                                    $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(user => user.Flags, true)}&16")})"),
+                            u.UserStyle,
+                            u.Suspended,
+                            UserCount = Sql.Custom<int>($"({countSql})"),
+                            a.Login,
+                            a.LastActive,
+                            a.Country,
+                            a.Referer,
+                            a.Path, 
+                            Active = Sql.Custom(
+                                $"{OrmLiteConfig.DialectProvider.DateDiffFunction("minute", expression.Column<Active>(ac => ac.Login, true), expression.Column<Active>(ac => ac.LastActive, true))}"),
+                            a.Browser,
+                            a.Platform,
+                            a.UserAgent,
+                            a.ForumPage
+                        });
 
                     return db.Connection.Select<ActiveUser>(expression);
                 });
-    }
+        }
 
-    /// <summary>
-    /// Gets the Active User Stats.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="boardId">
-    /// The board Id.
-    /// </param>
-    /// <returns>
-    /// Returns the Active User Stats.
-    /// </returns>
-    public static (int ActiveUsers, int ActiveMembers, int ActiveGuests, int ActiveHidden) Stats(
-        this IRepository<Active> repository,
-        int boardId)
-    {
-        return repository.DbAccess.Execute(
-            db =>
+        /// <summary>
+        /// Gets the Active User Stats.
+        /// </summary>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <returns>
+        /// Returns the Active User Stats.
+        /// </returns>
+        public (int ActiveUsers, int ActiveMembers, int ActiveGuests, int ActiveHidden) Stats(int boardId)
+        {
+            return repository.DbAccess.Execute(
+                db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
 
@@ -412,31 +396,28 @@ public static class ActiveRepositoryExtensions
 
                     expression.Take(1).Select<Active>(
                         x => new
-                                 {
-                                     ActiveUsers = Sql.Count("1"),
-                                     ActiveMembers = Sql.Custom($"({countMembersSql})"),
-                                     ActiveGuests = Sql.Custom($"({countGuestsSql})"),
-                                     ActiveHidden = Sql.Custom($"({countHiddenSql})")
-                                 });
+                        {
+                            ActiveUsers = Sql.Count("1"),
+                            ActiveMembers = Sql.Custom($"({countMembersSql})"),
+                            ActiveGuests = Sql.Custom($"({countGuestsSql})"),
+                            ActiveHidden = Sql.Custom($"({countHiddenSql})")
+                        });
 
                     return db.Connection
                         .Single<(int ActiveUsers, int ActiveMembers, int ActiveGuests, int ActiveHidden)>(expression);
                 });
-    }
+        }
 
-    /// <summary>
-    /// Delete all old
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="activeTime">
-    /// The active Time.
-    /// </param>
-    private static void DeleteActive(this IRepository<Active> repository, int activeTime)
-    {
-        repository.DbAccess.Execute(
-            db =>
+        /// <summary>
+        /// Delete all old
+        /// </summary>
+        /// <param name="activeTime">
+        /// The active Time.
+        /// </param>
+        private void DeleteActive(int activeTime)
+        {
+            repository.DbAccess.Execute(
+                db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
 
@@ -445,5 +426,6 @@ public static class ActiveRepositoryExtensions
 
                     return db.Connection.Delete(expression);
                 });
+        }
     }
 }

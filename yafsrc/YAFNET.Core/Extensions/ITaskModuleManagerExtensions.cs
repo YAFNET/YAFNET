@@ -31,50 +31,50 @@ using System;
 /// </summary>
 public static class ITaskModuleManagerExtensions
 {
-    /// <summary>
-    /// The start.
-    /// </summary>
     /// <param name="taskModuleManager">
     /// The task module manager.
     /// </param>
-    /// <param name="createTask">
-    /// The create task.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="bool"/>.
-    /// </returns>
-    public static bool Start<T>(this ITaskModuleManager taskModuleManager, Func<T> createTask)
-        where T : IBackgroundTask
+    extension(ITaskModuleManager taskModuleManager)
     {
-        ArgumentNullException.ThrowIfNull(taskModuleManager);
-        ArgumentNullException.ThrowIfNull(createTask);
+        /// <summary>
+        /// The start.
+        /// </summary>
+        /// <param name="createTask">
+        /// The create task.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool Start<T>(Func<T> createTask)
+            where T : IBackgroundTask
+        {
+            ArgumentNullException.ThrowIfNull(taskModuleManager);
+            ArgumentNullException.ThrowIfNull(createTask);
 
-        var taskName = typeof(T).ToString();
+            var taskName = typeof(T).ToString();
 
-        return taskModuleManager.StartTask(taskName, () => createTask());
-    }
+            return taskModuleManager.StartTask(taskName, () => createTask());
+        }
 
-    /// <summary>
-    /// The start.
-    /// </summary>
-    /// <param name="taskModuleManager">
-    /// The task module manager.
-    /// </param>
-    /// <param name="data">
-    /// The data.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="bool"/>.
-    /// </returns>
-    public static bool Start<T>(this ITaskModuleManager taskModuleManager, object data)
-        where T : IBackgroundTask, new()
-    {
-        ArgumentNullException.ThrowIfNull(taskModuleManager);
+        /// <summary>
+        /// The start.
+        /// </summary>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool Start<T>(object data)
+            where T : IBackgroundTask, new()
+        {
+            ArgumentNullException.ThrowIfNull(taskModuleManager);
 
-        return Start(taskModuleManager, () => new T { Data = data });
+            return Start(taskModuleManager, () => new T { Data = data });
+        }
     }
 }

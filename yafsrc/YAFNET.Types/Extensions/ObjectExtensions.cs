@@ -97,95 +97,95 @@ public static class ObjectExtensions
         return list.Contains(source);
     }
 
-    /// <summary>
-    /// Converts an object to Type using the Convert.ChangeType() call.
-    /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
     /// <param name="instance">
     /// </param>
-    /// <returns>
-    /// The <see cref="T"/>.
-    /// </returns>
-    public static T ToType<T>(this object instance)
+    extension(object instance)
     {
-        if (instance is null)
+        /// <summary>
+        /// Converts an object to Type using the Convert.ChangeType() call.
+        /// </summary>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// </returns>
+        public T ToType<T>()
         {
-            return default;
-        }
-
-        if (Equals(instance, default(T)))
-        {
-            return default;
-        }
-
-        if (Equals(instance, DBNull.Value))
-        {
-            return default;
-        }
-
-        var instanceType = instance.GetType();
-
-        if (instanceType == typeof(string))
-        {
-            if ((instance as string).IsNotSet())
+            if (instance is null)
             {
                 return default;
             }
-        }
-        else if (instanceType.IsClass && instance is not IConvertible)
-        {
-            // just cast since it's a class....
-            return (T)instance;
+
+            if (Equals(instance, default(T)))
+            {
+                return default;
+            }
+
+            if (Equals(instance, DBNull.Value))
+            {
+                return default;
+            }
+
+            var instanceType = instance.GetType();
+
+            if (instanceType == typeof(string))
+            {
+                if ((instance as string).IsNotSet())
+                {
+                    return default;
+                }
+            }
+            else if (instanceType.IsClass && instance is not IConvertible)
+            {
+                // just cast since it's a class....
+                return (T)instance;
+            }
+
+            var conversionType = typeof(T);
+
+            if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                conversionType = new NullableConverter(conversionType).UnderlyingType;
+            }
+
+            return (T)Convert.ChangeType(instance, conversionType);
         }
 
-        var conversionType = typeof(T);
+        /// <summary>
+        /// The to type or default.
+        /// </summary>
+        /// <param name="defaultValue">
+        /// The default value.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// </returns>
+        public T ToTypeOrDefault<T>(T defaultValue)
+        {
+            try
+            {
+                return ToType<T>(instance);
+            }
+            catch (ArgumentNullException)
+            {
+                // ignore
+            }
+            catch (FormatException)
+            {
+                // ignore
+            }
+            catch (InvalidCastException)
+            {
+                // ignore
+            }
+            catch (OverflowException)
+            {
+                // ignore
+            }
 
-        if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition() == typeof(Nullable<>))
-        {
-            conversionType = new NullableConverter(conversionType).UnderlyingType;
+            return defaultValue;
         }
-
-        return (T)Convert.ChangeType(instance, conversionType);
-    }
-
-    /// <summary>
-    /// The to type or default.
-    /// </summary>
-    /// <param name="instance">
-    /// The instance.
-    /// </param>
-    /// <param name="defaultValue">
-    /// The default value.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="T"/>.
-    /// </returns>
-    public static T ToTypeOrDefault<T>(this object instance, T defaultValue)
-    {
-        try
-        {
-            return ToType<T>(instance);
-        }
-        catch (ArgumentNullException)
-        {
-            // ignore
-        }
-        catch (FormatException)
-        {
-            // ignore
-        }
-        catch (InvalidCastException)
-        {
-            // ignore
-        }
-        catch (OverflowException)
-        {
-            // ignore
-        }
-
-        return defaultValue;
     }
 }

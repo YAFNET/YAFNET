@@ -79,91 +79,87 @@ public static class AttachmentRepositoryExtensions
         return repository.DbAccess.Execute(db => db.Connection.SelectMulti<User, Attachment>(expression));
     }
 
-    /// <summary>
-    /// Gets all Messages with Attachments
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    public static List<Message> GetMessageAttachments(this IRepository<Attachment> repository)
+    extension(IRepository<Attachment> repository)
     {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
-
-        expression.Join<Attachment>((m, a) => a.MessageID == m.ID);
-
-        return repository.DbAccess.Execute(db => db.Connection.Select(expression));
-    }
-
-    /// <summary>
-    /// The delete.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="attachmentId">
-    /// The board id.
-    /// </param>
-    public static void Delete(this IRepository<Attachment> repository, int attachmentId)
-    {
-        var attachment = repository.GetById(attachmentId);
-
-        if (attachment != null)
+        /// <summary>
+        /// Gets all Messages with Attachments
+        /// </summary>
+        public List<Message> GetMessageAttachments()
         {
-            try
-            {
-                attachment.DeleteFile();
-            }
-            catch (Exception e)
-            {
-                // error deleting that file...
-                BoardContext.Current.Get<ILogger<IRepository<Attachment>>>().Error(e, "Error Deleting Attachment");
-            }
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+            expression.Join<Attachment>((m, a) => a.MessageID == m.ID);
+
+            return repository.DbAccess.Execute(db => db.Connection.Select(expression));
         }
 
-        repository.DeleteById(attachmentId);
-    }
+        /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="attachmentId">
+        /// The board id.
+        /// </param>
+        public void Delete(int attachmentId)
+        {
+            var attachment = repository.GetById(attachmentId);
 
-    /// <summary>
-    /// Increments the download counter.
-    /// </summary>
-    /// <param name="repository">The repository.</param>
-    /// <param name="attachmentId">The attachment identifier.</param>
-    public static Task IncrementDownloadCounterAsync(this IRepository<Attachment> repository, int attachmentId)
-    {
-        return repository.UpdateAddAsync(() => new Attachment { Downloads = 1 }, a => a.ID == attachmentId);
-    }
+            if (attachment != null)
+            {
+                try
+                {
+                    attachment.DeleteFile();
+                }
+                catch (Exception e)
+                {
+                    // error deleting that file...
+                    BoardContext.Current.Get<ILogger<IRepository<Attachment>>>().Error(e, "Error Deleting Attachment");
+                }
+            }
 
-    /// <summary>
-    /// The save.
-    /// </summary>
-    /// <param name="repository">The repository.</param>
-    /// <param name="userId">The user identifier.</param>
-    /// <param name="fileName">The file name.</param>
-    /// <param name="bytes">The bytes.</param>
-    /// <param name="contentType">The content type.</param>
-    /// <param name="fileData">The file data.</param>
-    /// <returns>Returns the new attachment identifier</returns>
-    public static int Save(
-        this IRepository<Attachment> repository,
-        int userId,
-        string fileName,
-        int bytes,
-        string contentType,
-        byte[] fileData = null)
-    {
-        var entity = new Attachment
-                         {
-                             MessageID = 0,
-                             Downloads = 0,
-                             UserID = userId,
-                             FileName = fileName,
-                             Bytes = bytes,
-                             ContentType = contentType,
-                             FileData = fileData
-                         };
+            repository.DeleteById(attachmentId);
+        }
 
-        var newAttachmentId = repository.Insert(entity);
+        /// <summary>
+        /// Increments the download counter.
+        /// </summary>
+        /// <param name="attachmentId">The attachment identifier.</param>
+        public Task IncrementDownloadCounterAsync(int attachmentId)
+        {
+            return repository.UpdateAddAsync(() => new Attachment { Downloads = 1 }, a => a.ID == attachmentId);
+        }
 
-        return newAttachmentId;
+        /// <summary>
+        /// The save.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="fileName">The file name.</param>
+        /// <param name="bytes">The bytes.</param>
+        /// <param name="contentType">The content type.</param>
+        /// <param name="fileData">The file data.</param>
+        /// <returns>Returns the new attachment identifier</returns>
+        public int Save(int userId,
+            string fileName,
+            int bytes,
+            string contentType,
+            byte[] fileData = null)
+        {
+            var entity = new Attachment
+            {
+                MessageID = 0,
+                Downloads = 0,
+                UserID = userId,
+                FileName = fileName,
+                Bytes = bytes,
+                ContentType = contentType,
+                FileData = fileData
+            };
+
+            var newAttachmentId = repository.Insert(entity);
+
+            return newAttachmentId;
+        }
     }
 }

@@ -32,81 +32,79 @@ using System.Runtime.Caching;
 /// </summary>
 public static class MemoryCacheExtensions
 {
-    /// <summary>
-    /// The get or set.
-    /// </summary>
     /// <param name="cache">
     /// The cache.
     /// </param>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <param name="getValue">
-    /// The get value.
-    /// </param>
-    /// <typeparam name="T">
-    /// The typed Parameter
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="T"/>.
-    /// The typed Parameter
-    /// </returns>
-    public static T GetOrSet<T>(
-        this MemoryCache cache,
-        string key,
-        Func<T> getValue)
+    extension(MemoryCache cache)
     {
-        ArgumentNullException.ThrowIfNull(cache);
-        ArgumentNullException.ThrowIfNull(key);
-        ArgumentNullException.ThrowIfNull(getValue);
-
-        var item = cache[key];
-
-        if (!Equals(item, default(T)))
+        /// <summary>
+        /// The get or set.
+        /// </summary>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        /// <param name="getValue">
+        /// The get value.
+        /// </param>
+        /// <typeparam name="T">
+        /// The typed Parameter
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// The typed Parameter
+        /// </returns>
+        public T GetOrSet<T>(string key,
+            Func<T> getValue)
         {
+            ArgumentNullException.ThrowIfNull(cache);
+            ArgumentNullException.ThrowIfNull(key);
+            ArgumentNullException.ThrowIfNull(getValue);
+
+            var item = cache[key];
+
+            if (!Equals(item, default(T)))
+            {
+                return (T)item;
+            }
+
+            item = cache[key];
+
+            if (!Equals(item, default(T)))
+            {
+                return (T)item;
+            }
+
+            item = getValue();
+            cache[key] = item;
+
             return (T)item;
         }
 
-        item = cache[key];
-
-        if (!Equals(item, default(T)))
+        /// <summary>
+        /// The set.
+        /// </summary>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <typeparam name="T">
+        /// The typed Parameter
+        /// </typeparam>
+        public void Set<T>(string key, T value)
         {
-            return (T)item;
-        }
+            ArgumentNullException.ThrowIfNull(cache);
+            ArgumentNullException.ThrowIfNull(key);
 
-        item = getValue();
-        cache[key] = item;
-
-        return (T)item;
-    }
-
-    /// <summary>
-    /// The set.
-    /// </summary>
-    /// <param name="cache">
-    /// The cache.
-    /// </param>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    /// <typeparam name="T">
-    /// The typed Parameter
-    /// </typeparam>
-    public static void Set<T>(this MemoryCache cache, string key, T value)
-    {
-        ArgumentNullException.ThrowIfNull(cache);
-        ArgumentNullException.ThrowIfNull(key);
-
-        try
-        {
-            cache[key] = value;
-        }
-        catch (Exception)
-        {
-            // NOTE : Ignore if board settings is reset!
+            try
+            {
+                cache[key] = value;
+            }
+            catch (Exception)
+            {
+                // NOTE : Ignore if board settings is reset!
+            }
         }
     }
 }

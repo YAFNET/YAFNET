@@ -32,121 +32,104 @@ using System.Linq;
 /// </summary>
 public static class IObjectStoreExtensions
 {
-    /// <summary>
-    /// The get.
-    /// </summary>
     /// <param name="objectStore">
     /// The object store.
     /// </param>
-    /// <param name="originalKey">
-    /// The original key.
-    /// </param>
-    /// <typeparam name="T">
-    /// The Typed Parameter
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="T"/>.
-    /// </returns>
-    public static T Get<T>(this IObjectStore objectStore, string originalKey)
+    extension(IObjectStore objectStore)
     {
-        var item = objectStore.Get(originalKey);
-
-        if (item is T item1)
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="originalKey">
+        /// The original key.
+        /// </param>
+        /// <typeparam name="T">
+        /// The Typed Parameter
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// </returns>
+        public T Get<T>(string originalKey)
         {
-            return item1;
+            var item = objectStore.Get(originalKey);
+
+            if (item is T item1)
+            {
+                return item1;
+            }
+
+            return default;
         }
 
-        return default;
-    }
+        /// <summary>
+        /// The remote all.
+        /// </summary>
+        /// <typeparam name="T">
+        /// The Typed Parameter
+        /// </typeparam>
+        public void RemoveOf<T>()
+        {
+            objectStore.GetAll<T>().ToList().ForEach(i => objectStore.Remove(i.Key));
+        }
 
-    /// <summary>
-    /// The remote all.
-    /// </summary>
-    /// <param name="objectStore">
-    /// The object store.
-    /// </param>
-    /// <typeparam name="T">
-    /// The Typed Parameter
-    /// </typeparam>
-    public static void RemoveOf<T>(this IObjectStore objectStore)
-    {
-        objectStore.GetAll<T>().ToList().ForEach(i => objectStore.Remove(i.Key));
-    }
+        /// <summary>
+        /// The remote all where.
+        /// </summary>
+        /// <param name="whereFunc">
+        /// The where function.
+        /// </param>
+        /// <typeparam name="T">
+        /// The Typed Parameter
+        /// </typeparam>
+        public void RemoveOf<T>(Func<KeyValuePair<string, T>, bool> whereFunc)
+        {
+            objectStore.GetAll<T>().Where(whereFunc).ToList().ForEach(i => objectStore.Remove(i.Key));
+        }
 
-    /// <summary>
-    /// The remote all where.
-    /// </summary>
-    /// <param name="objectStore">
-    /// The object store.
-    /// </param>
-    /// <param name="whereFunc">
-    /// The where function.
-    /// </param>
-    /// <typeparam name="T">
-    /// The Typed Parameter
-    /// </typeparam>
-    public static void RemoveOf<T>(
-        this IObjectStore objectStore, Func<KeyValuePair<string, T>, bool> whereFunc)
-    {
-        objectStore.GetAll<T>().Where(whereFunc).ToList().ForEach(i => objectStore.Remove(i.Key));
-    }
+        /// <summary>
+        /// Clear the entire cache.
+        /// </summary>
+        public void Clear()
+        {
+            // remove all objects in the cache...
+            objectStore.RemoveOf<object>();
+        }
 
-    /// <summary>
-    /// Clear the entire cache.
-    /// </summary>
-    /// <param name="objectStore">
-    /// The object store.
-    /// </param>
-    public static void Clear(this IObjectStore objectStore)
-    {
-        // remove all objects in the cache...
-        objectStore.RemoveOf<object>();
-    }
+        /// <summary>
+        /// Count of objects in the cache.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public int Count()
+        {
+            return objectStore.GetAll<object>().Count();
+        }
 
-    /// <summary>
-    /// Count of objects in the cache.
-    /// </summary>
-    /// <param name="objectStore">
-    /// The object store.
-    /// </param>
-    /// <returns>
-    /// The <see cref="int"/>.
-    /// </returns>
-    public static int Count(this IObjectStore objectStore)
-    {
-        return objectStore.GetAll<object>().Count();
-    }
+        /// <summary>
+        /// Count of T in the cache.
+        /// </summary>
+        /// <typeparam name="T">
+        /// The Typed Parameter
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public int CountOf<T>()
+        {
+            // remove all objects in the cache...
+            return objectStore.GetAll<T>().Count();
+        }
 
-    /// <summary>
-    /// Count of T in the cache.
-    /// </summary>
-    /// <typeparam name="T">
-    /// The Typed Parameter
-    /// </typeparam>
-    /// <param name="objectStore">
-    /// The object store.
-    /// </param>
-    /// <returns>
-    /// The <see cref="int"/>.
-    /// </returns>
-    public static int CountOf<T>(this IObjectStore objectStore)
-    {
-        // remove all objects in the cache...
-        return objectStore.GetAll<T>().Count();
-    }
-
-    /// <summary>
-    /// The remote all where.
-    /// </summary>
-    /// <param name="objectStore">
-    /// The object store.
-    /// </param>
-    /// <param name="whereFunc">
-    /// The where function.
-    /// </param>
-    public static void Remove(
-        this IObjectStore objectStore, Func<string, bool> whereFunc)
-    {
-        objectStore.GetAll<object>().Where(k => whereFunc(k.Key)).ToList().ForEach(i => objectStore.Remove(i.Key));
+        /// <summary>
+        /// The remote all where.
+        /// </summary>
+        /// <param name="whereFunc">
+        /// The where function.
+        /// </param>
+        public void Remove(Func<string, bool> whereFunc)
+        {
+            objectStore.GetAll<object>().Where(k => whereFunc(k.Key)).ToList().ForEach(i => objectStore.Remove(i.Key));
+        }
     }
 }

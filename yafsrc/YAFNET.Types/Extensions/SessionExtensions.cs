@@ -33,44 +33,44 @@ using Newtonsoft.Json;
 /// </summary>
 public static class SessionExtensions
 {
-    /// <summary>
-    /// The get data.
-    /// </summary>
     /// <param name="session">
     /// The session.
     /// </param>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="T"/>.
-    /// </returns>
-    public static T GetData<T>(this ISession session, string key)
+    extension(ISession session)
     {
-        var value = session.GetString(key);
+        /// <summary>
+        /// The get data.
+        /// </summary>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// </returns>
+        public T GetData<T>(string key)
+        {
+            var value = session.GetString(key);
 
-        return value is null ? default :
-                   JsonConvert.DeserializeObject<T>(value);
-    }
+            return value is null ? default :
+                JsonConvert.DeserializeObject<T>(value);
+        }
 
-    /// <summary>
-    /// The set data.
-    /// </summary>
-    /// <param name="session">
-    /// The session.
-    /// </param>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public static void SetData<T>(this ISession session, string key, T value)
-    {
-        session.SetString(key, JsonConvert.SerializeObject(value));
+        /// <summary>
+        /// The set data.
+        /// </summary>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        public void SetData<T>(string key, T value)
+        {
+            session.SetString(key, JsonConvert.SerializeObject(value));
+        }
     }
 }

@@ -252,54 +252,56 @@ public class PostgreSqlDateTimeOffsetTimeStampTzArrayConverter : PostgreSqlArray
 /// </summary>
 public static class PostgreSqlConverterExtensions
 {
-    /// <summary>
-    /// based on Npgsql2's source: Npgsql2\src\NpgsqlTypes\NpgsqlTypeConverters.cs
-    /// </summary>
     /// <param name="converter">The converter.</param>
-    /// <param name="NativeData">The native data.</param>
-    /// <returns>System.String.</returns>
-    public static string ToBinary(this IOrmLiteConverter converter, object NativeData)
+    extension(IOrmLiteConverter converter)
     {
-        var byteArray = (byte[])NativeData;
-        var res = StringBuilderCache.Allocate();
-        foreach (var b in byteArray)
+        /// <summary>
+        /// based on Npgsql2's source: Npgsql2\src\NpgsqlTypes\NpgsqlTypeConverters.cs
+        /// </summary>
+        /// <param name="NativeData">The native data.</param>
+        /// <returns>System.String.</returns>
+        public string ToBinary(object NativeData)
         {
-            if (b is >= 0x20 and < 0x7F && b != 0x27 && b != 0x5C)
+            var byteArray = (byte[])NativeData;
+            var res = StringBuilderCache.Allocate();
+            foreach (var b in byteArray)
             {
-                res.Append((char)b);
+                if (b is >= 0x20 and < 0x7F && b != 0x27 && b != 0x5C)
+                {
+                    res.Append((char)b);
+                }
+                else
+                {
+                    res.Append("\\\\")
+                        .Append((char)('0' + (7 & (b >> 6))))
+                        .Append((char)('0' + (7 & (b >> 3))))
+                        .Append((char)('0' + (7 & b)));
+                }
             }
-            else
-            {
-                res.Append("\\\\")
-                    .Append((char)('0' + (7 & (b >> 6))))
-                    .Append((char)('0' + (7 & (b >> 3))))
-                    .Append((char)('0' + (7 & b)));
-            }
+
+            return StringBuilderCache.ReturnAndFree(res);
         }
 
-        return StringBuilderCache.ReturnAndFree(res);
-    }
-
-    /// <summary>
-    /// Converts to array.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="converter">The converter.</param>
-    /// <param name="source">The source.</param>
-    /// <returns>System.String.</returns>
-    public static string ToArray<T>(this IOrmLiteConverter converter, T[] source)
-    {
-        var values = StringBuilderCache.Allocate();
-        foreach (var value in source)
+        /// <summary>
+        /// Converts to array.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <returns>System.String.</returns>
+        public string ToArray<T>(T[] source)
         {
-            if (values.Length > 0)
+            var values = StringBuilderCache.Allocate();
+            foreach (var value in source)
             {
-                values.Append(',');
+                if (values.Length > 0)
+                {
+                    values.Append(',');
+                }
+
+                values.Append(converter.DialectProvider.GetQuotedValue(value, typeof(T)));
             }
 
-            values.Append(converter.DialectProvider.GetQuotedValue(value, typeof(T)));
+            return "{" + StringBuilderCache.ReturnAndFree(values) + "}";
         }
-
-        return "{" + StringBuilderCache.ReturnAndFree(values) + "}";
     }
 }

@@ -43,320 +43,294 @@ using YAF.Types.Interfaces.Data;
 /// </summary>
 public static class IDbAccessExtensions
 {
-    /// <summary>
-    /// Creates the connection.
-    /// </summary>
     /// <param name="dbAccess">The DB access.</param>
-    /// <returns>
-    /// The <see cref="DbConnection" /> .
-    /// </returns>
-    public static DbConnection CreateConnection(this IDbAccess dbAccess)
+    extension(IDbAccess dbAccess)
     {
-        var connection = dbAccess.DbProviderFactory.CreateConnection();
-        connection.ConnectionString = dbAccess.Information.ConnectionString();
-
-        return connection;
-    }
-
-    /// <summary>
-    /// Get an open DB connection.
-    /// </summary>
-    /// <param name="dbAccess">
-    /// The Database access.
-    /// </param>
-    /// <returns>
-    /// The <see cref="DbConnection"/> .
-    /// </returns>
-    public static DbConnection CreateConnectionOpen(this IDbAccess dbAccess)
-    {
-        var connection = dbAccess.CreateConnection();
-
-        if (connection.State != ConnectionState.Open)
+        /// <summary>
+        /// Creates the connection.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="DbConnection" /> .
+        /// </returns>
+        public DbConnection CreateConnection()
         {
-            // open it up...
-            connection.Open();
+            var connection = dbAccess.DbProviderFactory.CreateConnection();
+            connection.ConnectionString = dbAccess.Information.ConnectionString();
+
+            return connection;
         }
 
-        return connection;
-    }
-
-    /// <summary>
-    /// Get an open DB connection.
-    /// </summary>
-    /// <param name="dbAccess">
-    /// The Database access.
-    /// </param>
-    /// <returns>
-    /// The <see cref="DbConnection"/> .
-    /// </returns>
-    public async static Task<IDbConnection> CreateConnectionOpenAsync(this IDbAccess dbAccess)
-    {
-        var factory = new OrmLiteConnectionFactory(
-            dbAccess.Information.ConnectionString(),
-            OrmLiteConfig.DialectProvider);
-
-        var connection = await factory.OpenDbConnectionAsync();
-
-        return connection;
-    }
-
-    /// <summary>
-    /// Resolves the database factory.
-    /// </summary>
-    /// <param name="dbAccess">The database access.</param>
-    /// <returns>IDbConnectionFactory.</returns>
-    public static IDbConnectionFactory ResolveDbFactory(this IDbAccess dbAccess)
-    {
-        return  new OrmLiteConnectionFactory(
-            dbAccess.Information.ConnectionString(),
-            OrmLiteConfig.DialectProvider);
-    }
-
-
-    /// <summary>
-    /// Runs the update command.
-    /// </summary>
-    /// <typeparam name="T">
-    /// The type Parameter
-    /// </typeparam>
-    /// <param name="dbAccess">
-    /// The Database access.
-    /// </param>
-    /// <param name="update">
-    /// The update.
-    /// </param>
-    /// <returns>
-    /// The <see cref="int"/>.
-    /// </returns>
-    public static int Update<T>(this IDbAccess dbAccess, T update)
-        where T : IEntity
-    {
-        return dbAccess.Execute(db => db.Connection.Update(update));
-    }
-
-    /// <summary>
-    /// Update/Insert entity.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbAccess">The database access.</param>
-    /// <param name="entity">The entity.</param>
-    /// <param name="where">The where.</param>
-    public static void Upsert<T>(this IDbAccess dbAccess, T entity,
-        Expression<Func<T, bool>> where)
-        where T : IEntity
-    {
-        dbAccess.Execute(db => db.Connection.Upsert(entity, where));
-    }
-
-    /// <summary>
-    /// Runs the update command.
-    /// </summary>
-    /// <typeparam name="T">
-    /// The type Parameter
-    /// </typeparam>
-    /// <param name="dbAccess">
-    /// The Database access.
-    /// </param>
-    /// <param name="update">
-    /// The update.
-    /// </param>
-    /// <param name="token">
-    /// The cancellation token
-    /// </param>
-    /// <returns>
-    /// The <see cref="int"/>.
-    /// </returns>
-    public static Task<int> UpdateAsync<T>(this IDbAccess dbAccess, T update, CancellationToken token = default)
-        where T : IEntity
-    {
-        return dbAccess.ExecuteAsync(db => db.UpdateAsync(update, token: token));
-    }
-
-    /// <summary>
-    /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
-    /// Numeric fields generates an increment sql which is useful to increment counters, etc...
-    /// avoiding concurrency conflicts
-    ///
-    ///   db.UpdateAdd(() => new Person { Age = 5 }, where: p => p.LastName == "Hendrix");
-    ///   UPDATE "Person" SET "Age" = "Age" + 5 WHERE ("LastName" = 'Hendrix')
-    ///
-    ///   db.UpdateAdd(() => new Person { Age = 5 });
-    ///   UPDATE "Person" SET "Age" = "Age" + 5
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbAccess">The database access.</param>
-    /// <param name="updateFields">The update fields.</param>
-    /// <param name="where">The where.</param>
-    /// <param name="commandFilter">The command filter.</param>
-    /// <returns></returns>
-    public static int UpdateAdd<T>(
-        this IDbAccess dbAccess,
-        Expression<Func<T>> updateFields,
-        Expression<Func<T, bool>> where = null,
-        Action<IDbCommand> commandFilter = null)
-        where T : class, IEntity, IHaveID, new()
-    {
-        return dbAccess.Execute(
-            db => db.Connection.UpdateAdd(
-                updateFields,
-                OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
-                commandFilter));
-    }/// <summary>
-    /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
-    /// Numeric fields generates an increment sql which is useful to increment counters, etc...
-    /// avoiding concurrency conflicts
-    ///
-    ///   db.UpdateAdd(() => new Person { Age = 5 }, where: p => p.LastName == "Hendrix");
-    ///   UPDATE "Person" SET "Age" = "Age" + 5 WHERE ("LastName" = 'Hendrix')
-    ///
-    ///   db.UpdateAdd(() => new Person { Age = 5 });
-    ///   UPDATE "Person" SET "Age" = "Age" + 5
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbAccess">The database access.</param>
-    /// <param name="updateFields">The update fields.</param>
-    /// <param name="where">The where.</param>
-    /// <param name="commandFilter">The command filter.</param>
-    /// <returns></returns>
-    public static Task<int> UpdateAddAsync<T>(
-        this IDbAccess dbAccess,
-        Expression<Func<T>> updateFields,
-        Expression<Func<T, bool>> where = null,
-        Action<IDbCommand> commandFilter = null)
-        where T : class, IEntity, IHaveID, new()
-    {
-        return dbAccess.ExecuteAsync(
-            db => db.UpdateAddAsync(
-                updateFields,
-                OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
-                commandFilter));
-    }
-
-    /// <summary>
-    ///  Update only fields in the specified expression that matches the where condition (if any), E.g:
-    ///
-    ///   db.UpdateOnly(() => new Person { FirstName = "JJ" }, where: p => p.LastName == "Hendrix");
-    ///   UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
-    ///
-    ///   db.UpdateOnly(() => new Person { FirstName = "JJ" });
-    ///   UPDATE "Person" SET "FirstName" = 'JJ'
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbAccess">The database access.</param>
-    /// <param name="updateFields">The update fields.</param>
-    /// <param name="where">The where.</param>
-    /// <returns></returns>
-    public static int UpdateOnly<T>(
-        this IDbAccess dbAccess,
-        Expression<Func<T>> updateFields,
-        Expression<Func<T, bool>> where = null)
-        where T : class, IEntity, new()
-    {
-        return dbAccess.Execute(
-            db => db.Connection.UpdateOnlyFields(
-                updateFields,
-                where));
-    }
-
-    /// <summary>
-    ///  Update only fields in the specified expression that matches the where condition (if any), E.g:
-    /// 
-    ///   db.UpdateOnly(() => new Person { FirstName = "JJ" }, where: p => p.LastName == "Hendrix");
-    ///   UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
-    /// 
-    ///   db.UpdateOnly(() => new Person { FirstName = "JJ" });
-    ///   UPDATE "Person" SET "FirstName" = 'JJ'
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbAccess">The database access.</param>
-    /// <param name="updateFields">The update fields.</param>
-    /// <param name="where">The where.</param>
-    /// <param name="token"></param>
-    /// <returns></returns>
-    public static Task<int> UpdateOnlyAsync<T>(
-        this IDbAccess dbAccess,
-        Expression<Func<T>> updateFields,
-        Expression<Func<T, bool>> where = null,
-        CancellationToken token = default)
-        where T : class, IEntity, new()
-    {
-        return dbAccess.ExecuteAsync(
-            db => db.UpdateOnlyFieldsAsync(
-                updateFields,
-                where,
-                token: token));
-    }
-
-    /// <summary>
-    /// Checks whether a Table Exists. E.g:
-    /// <para>db.TableExists&lt;Person&gt;()</para>
-    /// </summary>
-    public static bool TableExists<T>(this IDbAccess dbAccess)
-        where T : class, IEntity, new()
-    {
-        return dbAccess.Execute(
-            db => db.Connection.TableExists<T>());
-    }
-
-    /// <summary>
-    /// Checks whether a Table Exists. E.g:
-    /// <para>db.TableExists&lt;Person&gt;()</para>
-    /// </summary>
-    public static Task<bool> TableExistsAsync<T>(this IDbAccess dbAccess)
-        where T : class, IEntity, new()
-    {
-        return dbAccess.ExecuteAsync(
-            db => db.TableExistsAsync<T>());
-    }
-
-    /// <summary>
-    /// Returns true if the Query returns any records that match the supplied SqlExpression, E.g:
-    /// <para>db.Exists(db.From&lt;Person&gt;().Where(x =&gt; x.Age &lt; 50))</para>
-    /// </summary>
-    public static bool Exists<T>(this IDbAccess dbAccess, Expression<Func<T, bool>> where = null)
-        where T : class, IEntity, new()
-    {
-        return dbAccess.Execute(
-            db => db.Connection.Exists(OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where)));
-    }
-
-    /// <summary>
-    /// Returns true if the Query returns any records that match the supplied SqlExpression, E.g:
-    /// <para>db.Exists(db.From&lt;Person&gt;().Where(x =&gt; x.Age &lt; 50))</para>
-    /// </summary>
-    public static Task<bool> ExistsAsync<T>(this IDbAccess dbAccess, Expression<Func<T, bool>> where = null)
-        where T : class, IEntity, new()
-    {
-        return dbAccess.ExecuteAsync(
-            db => db.ExistsAsync(OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where)));
-    }
-
-    /// <summary>
-    /// The get database fragmentation info.
-    /// </summary>
-    /// <param name="dbAccess">
-    /// The Database access.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public async static Task<string> GetDatabaseFragmentationInfoAsync(this IDbAccess dbAccess)
-    {
-        var result = new StringBuilder();
-
-        try
+        /// <summary>
+        /// Get an open DB connection.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="DbConnection"/> .
+        /// </returns>
+        public DbConnection CreateConnectionOpen()
         {
-            var infos = await dbAccess.ExecuteAsync(
-                db => db.SqlListAsync<dynamic>(
-                    OrmLiteConfig.DialectProvider.DatabaseFragmentationInfo(db.Database)));
+            var connection = dbAccess.CreateConnection();
 
-            if (infos is null)
+            if (connection.State != ConnectionState.Open)
             {
-                return null;
+                // open it up...
+                connection.Open();
             }
 
-            infos.ForEach(
-                info =>
+            return connection;
+        }
+
+        /// <summary>
+        /// Get an open DB connection.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="DbConnection"/> .
+        /// </returns>
+        public async Task<IDbConnection> CreateConnectionOpenAsync()
+        {
+            var factory = new OrmLiteConnectionFactory(
+                dbAccess.Information.ConnectionString(),
+                OrmLiteConfig.DialectProvider);
+
+            var connection = await factory.OpenDbConnectionAsync();
+
+            return connection;
+        }
+
+        /// <summary>
+        /// Resolves the database factory.
+        /// </summary>
+        /// <returns>IDbConnectionFactory.</returns>
+        public IDbConnectionFactory ResolveDbFactory()
+        {
+            return  new OrmLiteConnectionFactory(
+                dbAccess.Information.ConnectionString(),
+                OrmLiteConfig.DialectProvider);
+        }
+
+        /// <summary>
+        /// Runs the update command.
+        /// </summary>
+        /// <typeparam name="T">
+        /// The type Parameter
+        /// </typeparam>
+        /// <param name="update">
+        /// The update.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public int Update<T>(T update)
+            where T : IEntity
+        {
+            return dbAccess.Execute(db => db.Connection.Update(update));
+        }
+
+        /// <summary>
+        /// Update/Insert entity.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">The entity.</param>
+        /// <param name="where">The where.</param>
+        public void Upsert<T>(T entity,
+            Expression<Func<T, bool>> where)
+            where T : IEntity
+        {
+            dbAccess.Execute(db => db.Connection.Upsert(entity, where));
+        }
+
+        /// <summary>
+        /// Runs the update command.
+        /// </summary>
+        /// <typeparam name="T">
+        /// The type Parameter
+        /// </typeparam>
+        /// <param name="update">
+        /// The update.
+        /// </param>
+        /// <param name="token">
+        /// The cancellation token
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public Task<int> UpdateAsync<T>(T update, CancellationToken token = default)
+            where T : IEntity
+        {
+            return dbAccess.ExecuteAsync(db => db.UpdateAsync(update, token: token));
+        }
+
+        /// <summary>
+        /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
+        /// Numeric fields generates an increment sql which is useful to increment counters, etc...
+        /// avoiding concurrency conflicts
+        /// 
+        ///   db.UpdateAdd(() => new Person { Age = 5 }, where: p => p.LastName == "Hendrix");
+        ///   UPDATE "Person" SET "Age" = "Age" + 5 WHERE ("LastName" = 'Hendrix')
+        /// 
+        ///   db.UpdateAdd(() => new Person { Age = 5 });
+        ///   UPDATE "Person" SET "Age" = "Age" + 5
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="where">The where.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns></returns>
+        public int UpdateAdd<T>(Expression<Func<T>> updateFields,
+            Expression<Func<T, bool>> where = null,
+            Action<IDbCommand> commandFilter = null)
+            where T : class, IEntity, IHaveID, new()
+        {
+            return dbAccess.Execute(
+                db => db.Connection.UpdateAdd(
+                    updateFields,
+                    OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
+                    commandFilter));
+        }
+
+        /// <summary>
+        /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
+        /// Numeric fields generates an increment sql which is useful to increment counters, etc...
+        /// avoiding concurrency conflicts
+        /// 
+        ///   db.UpdateAdd(() => new Person { Age = 5 }, where: p => p.LastName == "Hendrix");
+        ///   UPDATE "Person" SET "Age" = "Age" + 5 WHERE ("LastName" = 'Hendrix')
+        /// 
+        ///   db.UpdateAdd(() => new Person { Age = 5 });
+        ///   UPDATE "Person" SET "Age" = "Age" + 5
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="where">The where.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns></returns>
+        public Task<int> UpdateAddAsync<T>(Expression<Func<T>> updateFields,
+            Expression<Func<T, bool>> where = null,
+            Action<IDbCommand> commandFilter = null)
+            where T : class, IEntity, IHaveID, new()
+        {
+            return dbAccess.ExecuteAsync(
+                db => db.UpdateAddAsync(
+                    updateFields,
+                    OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
+                    commandFilter));
+        }
+
+        /// <summary>
+        ///  Update only fields in the specified expression that matches the where condition (if any), E.g:
+        /// 
+        ///   db.UpdateOnly(() => new Person { FirstName = "JJ" }, where: p => p.LastName == "Hendrix");
+        ///   UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
+        /// 
+        ///   db.UpdateOnly(() => new Person { FirstName = "JJ" });
+        ///   UPDATE "Person" SET "FirstName" = 'JJ'
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="where">The where.</param>
+        /// <returns></returns>
+        public int UpdateOnly<T>(Expression<Func<T>> updateFields,
+            Expression<Func<T, bool>> where = null)
+            where T : class, IEntity, new()
+        {
+            return dbAccess.Execute(
+                db => db.Connection.UpdateOnlyFields(
+                    updateFields,
+                    where));
+        }
+
+        /// <summary>
+        ///  Update only fields in the specified expression that matches the where condition (if any), E.g:
+        /// 
+        ///   db.UpdateOnly(() => new Person { FirstName = "JJ" }, where: p => p.LastName == "Hendrix");
+        ///   UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
+        /// 
+        ///   db.UpdateOnly(() => new Person { FirstName = "JJ" });
+        ///   UPDATE "Person" SET "FirstName" = 'JJ'
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="where">The where.</param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public Task<int> UpdateOnlyAsync<T>(Expression<Func<T>> updateFields,
+            Expression<Func<T, bool>> where = null,
+            CancellationToken token = default)
+            where T : class, IEntity, new()
+        {
+            return dbAccess.ExecuteAsync(
+                db => db.UpdateOnlyFieldsAsync(
+                    updateFields,
+                    where,
+                    token: token));
+        }
+
+        /// <summary>
+        /// Checks whether a Table Exists. E.g:
+        /// <para>db.TableExists&lt;Person&gt;()</para>
+        /// </summary>
+        public bool TableExists<T>()
+            where T : class, IEntity, new()
+        {
+            return dbAccess.Execute(
+                db => db.Connection.TableExists<T>());
+        }
+
+        /// <summary>
+        /// Checks whether a Table Exists. E.g:
+        /// <para>db.TableExists&lt;Person&gt;()</para>
+        /// </summary>
+        public Task<bool> TableExistsAsync<T>()
+            where T : class, IEntity, new()
+        {
+            return dbAccess.ExecuteAsync(
+                db => db.TableExistsAsync<T>());
+        }
+
+        /// <summary>
+        /// Returns true if the Query returns any records that match the supplied SqlExpression, E.g:
+        /// <para>db.Exists(db.From&lt;Person&gt;().Where(x =&gt; x.Age &lt; 50))</para>
+        /// </summary>
+        public bool Exists<T>(Expression<Func<T, bool>> where = null)
+            where T : class, IEntity, new()
+        {
+            return dbAccess.Execute(
+                db => db.Connection.Exists(OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where)));
+        }
+
+        /// <summary>
+        /// Returns true if the Query returns any records that match the supplied SqlExpression, E.g:
+        /// <para>db.Exists(db.From&lt;Person&gt;().Where(x =&gt; x.Age &lt; 50))</para>
+        /// </summary>
+        public Task<bool> ExistsAsync<T>(Expression<Func<T, bool>> where = null)
+            where T : class, IEntity, new()
+        {
+            return dbAccess.ExecuteAsync(
+                db => db.ExistsAsync(OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where)));
+        }
+
+        /// <summary>
+        /// The get database fragmentation info.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public async Task<string> GetDatabaseFragmentationInfoAsync()
+        {
+            var result = new StringBuilder();
+
+            try
+            {
+                var infos = await dbAccess.ExecuteAsync(
+                    db => db.SqlListAsync<dynamic>(
+                        OrmLiteConfig.DialectProvider.DatabaseFragmentationInfo(db.Database)));
+
+                if (infos is null)
+                {
+                    return null;
+                }
+
+                infos.ForEach(
+                    info =>
                     {
                         IDictionary<string, object> propertyValues = info;
 
@@ -365,118 +339,104 @@ public static class IDbAccessExtensions
 
                         result.Append("\r\n");
                     });
+            }
+            catch (Exception)
+            {
+                return $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server";
+            }
+
+            return result.ToString();
         }
-        catch (Exception)
+
+        /// <summary>
+        /// Gets the size of the database.
+        /// </summary>
+        /// <returns>Returns the size of the database</returns>
+        public Task<int> GetDatabaseSizeAsync()
         {
-            return $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server";
+            return dbAccess.ExecuteAsync(
+                db => db.ScalarAsync<int>(OrmLiteConfig.DialectProvider.DatabaseSize(db.Database)));
         }
 
-        return result.ToString();
-    }
-
-    /// <summary>
-    /// Gets the size of the database.
-    /// </summary>
-    /// <param name="dbAccess">The database access.</param>
-    /// <returns>Returns the size of the database</returns>
-    public static Task<int> GetDatabaseSizeAsync(this IDbAccess dbAccess)
-    {
-        return dbAccess.ExecuteAsync(
-            db => db.ScalarAsync<int>(OrmLiteConfig.DialectProvider.DatabaseSize(db.Database)));
-    }
-
-    /// <summary>
-    /// Gets the current SQL Engine Edition.
-    /// </summary>
-    /// <param name="dbAccess">The database access.</param>
-    /// <returns>
-    /// Returns the current SQL Engine Edition.
-    /// </returns>
-    public async static Task<string> GetSqlVersionAsync(this IDbAccess dbAccess)
-    {
-        var version = await dbAccess.ExecuteAsync(
-            db => db.ScalarAsync<string>(OrmLiteConfig.DialectProvider.SQLVersion()));
-
-        var serverName = OrmLiteConfig.DialectProvider.SQLServerName();
-
-        return version.StartsWith(serverName) ? version : $"{serverName} {version}";
-    }
-
-    /// <summary>
-    /// The shrink database.
-    /// </summary>
-    /// <param name="dbAccess">The database access.</param>
-    public static Task<string> ShrinkDatabaseAsync(this IDbAccess dbAccess)
-    {
-        return dbAccess.ExecuteAsync(
-            db => db.ScalarAsync<string>(
-                OrmLiteConfig.DialectProvider.ShrinkDatabase(db.Database)));
-    }
-
-    /// <summary>
-    /// Re-Index the Database
-    /// </summary>
-    /// <param name="dbAccess">
-    /// The database access.
-    /// </param>
-    /// <param name="objectQualifier">
-    /// The object Qualifier.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static Task<string> ReIndexDatabaseAsync(this IDbAccess dbAccess, string objectQualifier)
-    {
-        return dbAccess.ExecuteAsync(
-            db => db.ScalarAsync<string>(
-                OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Database, objectQualifier)));
-    }
-
-    /// <summary>
-    /// Change Database Recovery Mode
-    /// </summary>
-    /// <param name="dbAccess">
-    /// The Database access.
-    /// </param>
-    /// <param name="recoveryMode">
-    /// The recovery mode.
-    /// </param>
-    public async static Task<string> ChangeRecoveryModeAsync(this IDbAccess dbAccess, string recoveryMode)
-    {
-        try
+        /// <summary>
+        /// Gets the current SQL Engine Edition.
+        /// </summary>
+        /// <returns>
+        /// Returns the current SQL Engine Edition.
+        /// </returns>
+        public async Task<string> GetSqlVersionAsync()
         {
-            return await dbAccess.ExecuteAsync(
+            var version = await dbAccess.ExecuteAsync(
+                db => db.ScalarAsync<string>(OrmLiteConfig.DialectProvider.SQLVersion()));
+
+            var serverName = OrmLiteConfig.DialectProvider.SQLServerName();
+
+            return version.StartsWith(serverName) ? version : $"{serverName} {version}";
+        }
+
+        /// <summary>
+        /// The shrink database.
+        /// </summary>
+        public Task<string> ShrinkDatabaseAsync()
+        {
+            return dbAccess.ExecuteAsync(
                 db => db.ScalarAsync<string>(
-                    OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Database, recoveryMode)));
+                    OrmLiteConfig.DialectProvider.ShrinkDatabase(db.Database)));
         }
-        catch (Exception)
-        {
-            return $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server";
-        }
-    }
 
-    /// <summary>
-    /// Run the SQL Statement.
-    /// </summary>
-    /// <param name="dbAccess">
-    /// The Database access.
-    /// </param>
-    /// <param name="sql">
-    /// The SQL Statement.
-    /// </param>
-    /// <param name="timeOut">
-    /// The time-Out.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static string RunSql(
-        this IDbAccess dbAccess,
-        string sql,
-        int timeOut)
-    {
-        return dbAccess.Execute(
-            db =>
+        /// <summary>
+        /// Re-Index the Database
+        /// </summary>
+        /// <param name="objectQualifier">
+        /// The object Qualifier.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public Task<string> ReIndexDatabaseAsync(string objectQualifier)
+        {
+            return dbAccess.ExecuteAsync(
+                db => db.ScalarAsync<string>(
+                    OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Database, objectQualifier)));
+        }
+
+        /// <summary>
+        /// Change Database Recovery Mode
+        /// </summary>
+        /// <param name="recoveryMode">
+        /// The recovery mode.
+        /// </param>
+        public async Task<string> ChangeRecoveryModeAsync(string recoveryMode)
+        {
+            try
+            {
+                return await dbAccess.ExecuteAsync(
+                    db => db.ScalarAsync<string>(
+                        OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Database, recoveryMode)));
+            }
+            catch (Exception)
+            {
+                return $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server";
+            }
+        }
+
+        /// <summary>
+        /// Run the SQL Statement.
+        /// </summary>
+        /// <param name="sql">
+        /// The SQL Statement.
+        /// </param>
+        /// <param name="timeOut">
+        /// The time-Out.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string RunSql(string sql,
+            int timeOut)
+        {
+            return dbAccess.Execute(
+                db =>
                 {
                     using var cmd = db.Connection.CreateCommand();
 
@@ -487,36 +447,31 @@ public static class IDbAccessExtensions
 
                     return db.GetDialectProvider().InnerRunSqlExecuteReader(cmd);
                 });
-    }
+        }
 
-    /// <summary>
-    /// The system initialize execute scripts.
-    /// </summary>
-    /// <param name="dbAccess">
-    /// The Database access.
-    /// </param>
-    /// <param name="script">
-    /// The script.
-    /// </param>
-    /// <param name="scriptFile">
-    /// The script file.
-    /// </param>
-    /// <param name="timeOut">
-    /// The time-Out.
-    /// </param>
-    public static void SystemInitializeExecuteScripts(
-        this IDbAccess dbAccess,
-        string script,
-        string scriptFile,
-        int timeOut)
-    {
-        var statements = Regex.Split(script, @"\sGO\s", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100))
-            .ToList();
+        /// <summary>
+        /// The system initialize execute scripts.
+        /// </summary>
+        /// <param name="script">
+        /// The script.
+        /// </param>
+        /// <param name="scriptFile">
+        /// The script file.
+        /// </param>
+        /// <param name="timeOut">
+        /// The time-Out.
+        /// </param>
+        public void SystemInitializeExecuteScripts(string script,
+            string scriptFile,
+            int timeOut)
+        {
+            var statements = Regex.Split(script, @"\sGO\s", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100))
+                .ToList();
 
-        using var trans = dbAccess.CreateConnectionOpen().BeginTransaction();
+            using var trans = dbAccess.CreateConnectionOpen().BeginTransaction();
 
-        statements.Select(sql0 => sql0.Trim()).Where(sql => sql.Length > 0).ForEach(
-            sql =>
+            statements.Select(sql0 => sql0.Trim()).Where(sql => sql.Length > 0).ForEach(
+                sql =>
                 {
                     try
                     {
@@ -536,6 +491,7 @@ public static class IDbAccessExtensions
                     }
                 });
 
-        trans.Commit();
+            trans.Commit();
+        }
     }
 }

@@ -46,42 +46,39 @@ public static class PredicateBuilder
         return predicate;
     }
 
-    /// <summary>
-    /// Combines the first predicate with the second using the logical "and".
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="first">The first.</param>
-    /// <param name="second">The second.</param>
-    /// <returns>Expression&lt;Func&lt;T, System.Boolean&gt;&gt;.</returns>
-    public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> first,
-                                                   Expression<Func<T, bool>> second)
-    {
-        return first.Compose(second, Expression.AndAlso);
-    }
-
-    /// <summary>
-    /// Combines the first predicate with the second using the logical "or".
-    /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="first">The first.</param>
-    /// <param name="second">The second.</param>
-    /// <returns>Expression&lt;Func&lt;T, System.Boolean&gt;&gt;.</returns>
-    public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> first,
-                                                  Expression<Func<T, bool>> second)
+    extension<T>(Expression<Func<T, bool>> first)
     {
-        return first.Compose(second, Expression.OrElse);
-    }
+        /// <summary>
+        /// Combines the first predicate with the second using the logical "and".
+        /// </summary>
+        /// <param name="second">The second.</param>
+        /// <returns>Expression&lt;Func&lt;T, System.Boolean&gt;&gt;.</returns>
+        public Expression<Func<T, bool>> And(Expression<Func<T, bool>> second)
+        {
+            return first.Compose(second, Expression.AndAlso);
+        }
 
-    /// <summary>
-    /// Negates the predicate.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="expression">The expression.</param>
-    /// <returns>Expression&lt;Func&lt;T, System.Boolean&gt;&gt;.</returns>
-    public static Expression<Func<T, bool>> Not<T>(this Expression<Func<T, bool>> expression)
-    {
-        var negated = Expression.Not(expression.Body);
-        return Expression.Lambda<Func<T, bool>>(negated, expression.Parameters);
+        /// <summary>
+        /// Combines the first predicate with the second using the logical "or".
+        /// </summary>
+        /// <param name="second">The second.</param>
+        /// <returns>Expression&lt;Func&lt;T, System.Boolean&gt;&gt;.</returns>
+        public Expression<Func<T, bool>> Or(Expression<Func<T, bool>> second)
+        {
+            return first.Compose(second, Expression.OrElse);
+        }
+
+        /// <summary>
+        /// Negates the predicate.
+        /// </summary>
+        /// <returns>Expression&lt;Func&lt;T, System.Boolean&gt;&gt;.</returns>
+        public Expression<Func<T, bool>> Not()
+        {
+            var negated = Expression.Not(first.Body);
+            return Expression.Lambda<Func<T, bool>>(negated, first.Parameters);
+        }
     }
 
     /// <summary>

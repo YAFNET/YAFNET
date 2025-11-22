@@ -35,84 +35,76 @@ using YAF.Types.Models;
 /// </summary>
 public static class CategoryRepositoryExtensions
 {
-    /// <summary>
-    /// Gets the highest sort order.
-    /// </summary>
     /// <param name="repository">The repository.</param>
-    /// <returns>Returns the highest sort order.</returns>
-    public static int GetHighestSortOrder(this IRepository<Category> repository)
+    extension(IRepository<Category> repository)
     {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
+        /// <summary>
+        /// Gets the highest sort order.
+        /// </summary>
+        /// <returns>Returns the highest sort order.</returns>
+        public int GetHighestSortOrder()
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
 
-        expression.Where(x => x.BoardID == repository.BoardID)
-            .Select(c => Sql.Max(c.SortOrder));
+            expression.Where(x => x.BoardID == repository.BoardID)
+                .Select(c => Sql.Max(c.SortOrder));
 
-        return repository.DbAccess.Execute(
-            db => db.Connection.Scalar<int>(expression));
-    }
+            return repository.DbAccess.Execute(
+                db => db.Connection.Scalar<int>(expression));
+        }
 
-    /// <summary>
-    /// List Categories
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="categoryId">
-    /// The category id.
-    /// </param>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    public static List<Category> List(
-        this IRepository<Category> repository,
-        int? categoryId = null,
-        int? boardId = null)
-    {
-        return categoryId.HasValue
-                   ? [.. repository.Get(
-                       category => category.BoardID == (boardId ?? repository.BoardID)
-                                   && category.ID == categoryId.Value).OrderBy(o => o.SortOrder)]
-                   : repository.Get(category => category.BoardID == (boardId ?? repository.BoardID));
-    }
+        /// <summary>
+        /// List Categories
+        /// </summary>
+        /// <param name="categoryId">
+        /// The category id.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        public List<Category> List(int? categoryId = null,
+            int? boardId = null)
+        {
+            return categoryId.HasValue
+                ? [.. repository.Get(
+                    category => category.BoardID == (boardId ?? repository.BoardID)
+                                && category.ID == categoryId.Value).OrderBy(o => o.SortOrder)]
+                : repository.Get(category => category.BoardID == (boardId ?? repository.BoardID));
+        }
 
-    /// <summary>
-    /// Save a Category
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="categoryId">
-    /// The category id.
-    /// </param>
-    /// <param name="name">
-    /// The name.
-    /// </param>
-    /// <param name="categoryImage">
-    /// The category image.
-    /// </param>
-    /// <param name="sortOrder">
-    /// The sort order.
-    /// </param>
-    /// <param name="flags">
-    /// The Category Flags
-    /// </param>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <returns>
-    /// Returns the Category ID of the Updated or new Category
-    /// </returns>
-    public static Task<int> SaveAsync(
-        this IRepository<Category> repository,
-        int? categoryId,
-        string name,
-        string categoryImage,
-        short sortOrder,
-        CategoryFlags flags,
-        int? boardId = null)
-    {
-        return repository.UpsertAsync(
-            new Category
+        /// <summary>
+        /// Save a Category
+        /// </summary>
+        /// <param name="categoryId">
+        /// The category id.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="categoryImage">
+        /// The category image.
+        /// </param>
+        /// <param name="sortOrder">
+        /// The sort order.
+        /// </param>
+        /// <param name="flags">
+        /// The Category Flags
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <returns>
+        /// Returns the Category ID of the Updated or new Category
+        /// </returns>
+        public Task<int> SaveAsync(int? categoryId,
+            string name,
+            string categoryImage,
+            short sortOrder,
+            CategoryFlags flags,
+            int? boardId = null)
+        {
+            return repository.UpsertAsync(
+                new Category
                 {
                     BoardID = boardId ?? repository.BoardID,
                     ID = categoryId ?? 0,
@@ -121,23 +113,20 @@ public static class CategoryRepositoryExtensions
                     CategoryImage = categoryImage,
                     Flags = flags.BitValue
                 });
-    }
+        }
 
-    /// <summary>
-    /// Re-Order all Categories  By Name Ascending
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="categories">
-    /// The categories to be sorted.
-    /// </param>
-    public static void ReOrderAllAscending(this IRepository<Category> repository, List<Category> categories)
-    {
-        short sortOrder = 0;
+        /// <summary>
+        /// Re-Order all Categories  By Name Ascending
+        /// </summary>
+        /// <param name="categories">
+        /// The categories to be sorted.
+        /// </param>
+        public void ReOrderAllAscending(List<Category> categories)
+        {
+            short sortOrder = 0;
 
-        categories.OrderBy(x => x.Name).ForEach(
-            category =>
+            categories.OrderBy(x => x.Name).ForEach(
+                category =>
                 {
                     category.SortOrder = sortOrder;
 
@@ -145,23 +134,20 @@ public static class CategoryRepositoryExtensions
 
                     sortOrder++;
                 });
-    }
+        }
 
-    /// <summary>
-    /// Re-Order all Categories By Name Descending
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="categories">
-    /// The categories to be sorted.
-    /// </param>
-    public static void ReOrderAllDescending(this IRepository<Category> repository, List<Category> categories)
-    {
-        short sortOrder = 0;
+        /// <summary>
+        /// Re-Order all Categories By Name Descending
+        /// </summary>
+        /// <param name="categories">
+        /// The categories to be sorted.
+        /// </param>
+        public void ReOrderAllDescending(List<Category> categories)
+        {
+            short sortOrder = 0;
 
-        categories.OrderByDescending(x => x.Name).ForEach(
-            category =>
+            categories.OrderByDescending(x => x.Name).ForEach(
+                category =>
                 {
                     category.SortOrder = sortOrder;
 
@@ -169,5 +155,6 @@ public static class CategoryRepositoryExtensions
 
                     sortOrder++;
                 });
+        }
     }
 }

@@ -34,162 +34,147 @@ using YAF.Types.Models;
 /// </summary>
 public static class PollRepositoryExtensions
 {
-    /// <summary>
-    /// Get the Poll with all Choices
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="pollId">
-    /// The poll id.
-    /// </param>
-    public static List<Tuple<Poll, Choice>> GetPollAndChoices(
-        this IRepository<Poll> repository,
-        int pollId)
+    extension(IRepository<Poll> repository)
     {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Poll>();
+        /// <summary>
+        /// Get the Poll with all Choices
+        /// </summary>
+        /// <param name="pollId">
+        /// The poll id.
+        /// </param>
+        public List<Tuple<Poll, Choice>> GetPollAndChoices(int pollId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Poll>();
 
-        expression.Join<Choice>((p, c) => c.PollID == p.ID).Where<Poll>(p => p.ID == pollId);
+            expression.Join<Choice>((p, c) => c.PollID == p.ID).Where<Poll>(p => p.ID == pollId);
 
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Poll, Choice>(expression));
-    }
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Poll, Choice>(expression));
+        }
 
-    /// <summary>
-    /// Remove Poll
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="pollId">
-    /// The poll Id.
-    /// </param>
-    public static void Remove(
-        this IRepository<Poll> repository,
-        int pollId)
-    {
-        // delete vote records first
-        BoardContext.Current.GetRepository<PollVote>().Delete(p => p.PollID == pollId);
+        /// <summary>
+        /// Remove Poll
+        /// </summary>
+        /// <param name="pollId">
+        /// The poll Id.
+        /// </param>
+        public void Remove(int pollId)
+        {
+            // delete vote records first
+            BoardContext.Current.GetRepository<PollVote>().Delete(p => p.PollID == pollId);
 
-        // delete choices
-        BoardContext.Current.GetRepository<Choice>().Delete(p => p.PollID == pollId);
+            // delete choices
+            BoardContext.Current.GetRepository<Choice>().Delete(p => p.PollID == pollId);
 
-        // update topics
-        BoardContext.Current.GetRepository<Topic>().UpdateOnly(
-            () => new Topic
-                      {
-                          PollID = null
-                      },
-            t => t.PollID == pollId);
+            // update topics
+            BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+                () => new Topic
+                {
+                    PollID = null
+                },
+                t => t.PollID == pollId);
 
-        repository.DeleteById(pollId);
-    }
+            repository.DeleteById(pollId);
+        }
 
-    /// <summary>
-    /// Update an existing Poll
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="pollId">
-    /// The poll id.
-    /// </param>
-    /// <param name="question">
-    /// The question.
-    /// </param>
-    /// <param name="closes">
-    /// The closes.
-    /// </param>
-    /// <param name="isClosedBounded">
-    /// The is closed bounded.
-    /// </param>
-    /// <param name="allowMultipleChoices">
-    /// The allow multiple choices.
-    /// </param>
-    /// <param name="showVoters">
-    /// The show voters.
-    /// </param>
-    /// <param name="questionPath">
-    /// The question path.
-    /// </param>
-    public static void Update(
-        this IRepository<Poll> repository,
-        int pollId,
-        string question,
-        DateTime? closes,
-        bool isClosedBounded,
-        bool allowMultipleChoices,
-        bool showVoters,
-        string questionPath)
-    {
-        var flags = new PollFlags
-                        {
-                            IsClosedBound = isClosedBounded,
-                            AllowMultipleChoice = allowMultipleChoices,
-                            ShowVoters = showVoters,
-                            AllowSkipVote = false
-                        };
+        /// <summary>
+        /// Update an existing Poll
+        /// </summary>
+        /// <param name="pollId">
+        /// The poll id.
+        /// </param>
+        /// <param name="question">
+        /// The question.
+        /// </param>
+        /// <param name="closes">
+        /// The closes.
+        /// </param>
+        /// <param name="isClosedBounded">
+        /// The is closed bounded.
+        /// </param>
+        /// <param name="allowMultipleChoices">
+        /// The allow multiple choices.
+        /// </param>
+        /// <param name="showVoters">
+        /// The show voters.
+        /// </param>
+        /// <param name="questionPath">
+        /// The question path.
+        /// </param>
+        public void Update(int pollId,
+            string question,
+            DateTime? closes,
+            bool isClosedBounded,
+            bool allowMultipleChoices,
+            bool showVoters,
+            string questionPath)
+        {
+            var flags = new PollFlags
+            {
+                IsClosedBound = isClosedBounded,
+                AllowMultipleChoice = allowMultipleChoices,
+                ShowVoters = showVoters,
+                AllowSkipVote = false
+            };
 
-        repository.UpdateOnly(
-            () => new Poll
-                      {
-                          Question = question,
-                          Closes = closes,
-                          ObjectPath = questionPath,
-                          Flags = flags.BitValue
-                      },
-            p => p.ID == pollId);
-    }
+            repository.UpdateOnly(
+                () => new Poll
+                {
+                    Question = question,
+                    Closes = closes,
+                    ObjectPath = questionPath,
+                    Flags = flags.BitValue
+                },
+                p => p.ID == pollId);
+        }
 
-    /// <summary>
-    /// Create new Poll
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <param name="question">
-    /// The question.
-    /// </param>
-    /// <param name="closes">
-    /// The closes.
-    /// </param>
-    /// <param name="isClosedBounded">
-    /// The is closed bounded.
-    /// </param>
-    /// <param name="allowMultipleChoices">
-    /// The allow multiple choices.
-    /// </param>
-    /// <param name="showVoters">
-    /// The show voters.
-    /// </param>
-    /// <param name="questionPath">
-    /// The question path.
-    /// </param>
-    /// <returns>
-    /// The <see cref="int"/>.
-    /// </returns>
-    public static int Create(
-        this IRepository<Poll> repository,
-        int userId,
-        string question,
-        DateTime? closes,
-        bool isClosedBounded,
-        bool allowMultipleChoices,
-        bool showVoters,
-        string questionPath)
-    {
-        var flags = new PollFlags
-                        {
-                            IsClosedBound = isClosedBounded,
-                            AllowMultipleChoice = allowMultipleChoices,
-                            ShowVoters = showVoters,
-                            AllowSkipVote = false
-                        };
+        /// <summary>
+        /// Create new Poll
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="question">
+        /// The question.
+        /// </param>
+        /// <param name="closes">
+        /// The closes.
+        /// </param>
+        /// <param name="isClosedBounded">
+        /// The is closed bounded.
+        /// </param>
+        /// <param name="allowMultipleChoices">
+        /// The allow multiple choices.
+        /// </param>
+        /// <param name="showVoters">
+        /// The show voters.
+        /// </param>
+        /// <param name="questionPath">
+        /// The question path.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public int Create(int userId,
+            string question,
+            DateTime? closes,
+            bool isClosedBounded,
+            bool allowMultipleChoices,
+            bool showVoters,
+            string questionPath)
+        {
+            var flags = new PollFlags
+            {
+                IsClosedBound = isClosedBounded,
+                AllowMultipleChoice = allowMultipleChoices,
+                ShowVoters = showVoters,
+                AllowSkipVote = false
+            };
 
-        return repository.Insert(
-            new Poll
+            return repository.Insert(
+                new Poll
                 {
                     UserID = userId,
                     Question = question,
@@ -197,5 +182,6 @@ public static class PollRepositoryExtensions
                     ObjectPath = questionPath,
                     Flags = flags.BitValue
                 });
+        }
     }
 }

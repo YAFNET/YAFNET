@@ -5647,182 +5647,173 @@ public static class DbDataParameterExtensions
         return db.GetDialectProvider().CreateParam(name, value, fieldType, dbType, precision, scale, size);
     }
 
-    /// <summary>
-    /// Creates the parameter.
-    /// </summary>
     /// <param name="dialectProvider">The dialect provider.</param>
-    /// <param name="name">The name.</param>
-    /// <param name="value">The value.</param>
-    /// <param name="fieldType">Type of the field.</param>
-    /// <param name="dbType">Type of the database.</param>
-    /// <param name="precision">The precision.</param>
-    /// <param name="scale">The scale.</param>
-    /// <param name="size">The size.</param>
-    /// <returns>System.Data.IDbDataParameter.</returns>
-    public static IDbDataParameter CreateParam(this IOrmLiteDialectProvider dialectProvider,
-                                               string name,
-                                               object value = null,
-                                               Type fieldType = null,
-                                               DbType? dbType = null,
-                                               byte? precision = null,
-                                               byte? scale = null,
-                                               int? size = null)
+    extension(IOrmLiteDialectProvider dialectProvider)
     {
-        var p = dialectProvider.CreateParam();
-
-        p.ParameterName = dialectProvider.GetParam(name);
-
-        dialectProvider.ConfigureParam(p, value, dbType);
-
-        if (precision != null)
+        /// <summary>
+        /// Creates the parameter.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="fieldType">Type of the field.</param>
+        /// <param name="dbType">Type of the database.</param>
+        /// <param name="precision">The precision.</param>
+        /// <param name="scale">The scale.</param>
+        /// <param name="size">The size.</param>
+        /// <returns>System.Data.IDbDataParameter.</returns>
+        public IDbDataParameter CreateParam(string name,
+            object value = null,
+            Type fieldType = null,
+            DbType? dbType = null,
+            byte? precision = null,
+            byte? scale = null,
+            int? size = null)
         {
-            p.Precision = precision.Value;
+            var p = dialectProvider.CreateParam();
+
+            p.ParameterName = dialectProvider.GetParam(name);
+
+            dialectProvider.ConfigureParam(p, value, dbType);
+
+            if (precision != null)
+            {
+                p.Precision = precision.Value;
+            }
+
+            if (scale != null)
+            {
+                p.Scale = scale.Value;
+            }
+
+            if (size != null)
+            {
+                p.Size = size.Value;
+            }
+
+            return p;
         }
 
-        if (scale != null)
+        /// <summary>
+        /// Configures the parameter.
+        /// </summary>
+        /// <param name="p">The p.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="dbType">Type of the database.</param>
+        internal void ConfigureParam(IDbDataParameter p, object value, DbType? dbType)
         {
-            p.Scale = scale.Value;
+            if (value != null)
+            {
+                dialectProvider.InitDbParam(p, value.GetType());
+                p.Value = dialectProvider.GetParamValue(value, value.GetType());
+            }
+            else
+            {
+                p.Value = DBNull.Value;
+            }
+
+            // Can't check DbType in PostgreSQL before p.Value is assigned
+            if (p.Value is string strValue && strValue.Length > p.Size)
+            {
+                var stringConverter = dialectProvider.GetStringConverter();
+                p.Size = strValue.Length > stringConverter.StringLength
+                    ? strValue.Length
+                    : stringConverter.StringLength;
+            }
+
+            if (dbType != null)
+            {
+                p.DbType = dbType.Value;
+            }
         }
 
-        if (size != null)
+        /// <summary>
+        /// Adds the query parameter.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.Data.IDbDataParameter.</returns>
+        public IDbDataParameter AddQueryParam(IDbCommand dbCmd,
+            object value,
+            FieldDefinition fieldDef)
         {
-            p.Size = size.Value;
+            return dialectProvider.AddParam(dbCmd, value, fieldDef, paramFilter: dialectProvider.InitQueryParam);
         }
 
-        return p;
-    }
-
-    /// <summary>
-    /// Configures the parameter.
-    /// </summary>
-    /// <param name="dialectProvider">The dialect provider.</param>
-    /// <param name="p">The p.</param>
-    /// <param name="value">The value.</param>
-    /// <param name="dbType">Type of the database.</param>
-    static internal void ConfigureParam(this IOrmLiteDialectProvider dialectProvider, IDbDataParameter p, object value, DbType? dbType)
-    {
-        if (value != null)
+        /// <summary>
+        /// Adds the update parameter.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.Data.IDbDataParameter.</returns>
+        public IDbDataParameter AddUpdateParam(IDbCommand dbCmd,
+            object value,
+            FieldDefinition fieldDef)
         {
-            dialectProvider.InitDbParam(p, value.GetType());
-            p.Value = dialectProvider.GetParamValue(value, value.GetType());
-        }
-        else
-        {
-            p.Value = DBNull.Value;
+            return dialectProvider.AddParam(dbCmd, value, fieldDef, paramFilter: dialectProvider.InitUpdateParam);
         }
 
-        // Can't check DbType in PostgreSQL before p.Value is assigned
-        if (p.Value is string strValue && strValue.Length > p.Size)
+        /// <summary>
+        /// Adds the parameter.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="paramFilter">The parameter filter.</param>
+        /// <returns>System.Data.IDbDataParameter.</returns>
+        public IDbDataParameter AddParam(IDbCommand dbCmd,
+            object value,
+            FieldDefinition fieldDef, Action<IDbDataParameter> paramFilter)
         {
-            var stringConverter = dialectProvider.GetStringConverter();
-            p.Size = strValue.Length > stringConverter.StringLength
-                         ? strValue.Length
-                         : stringConverter.StringLength;
+            var paramName = dbCmd.Parameters.Count.ToString();
+            var parameter = dialectProvider.CreateParam(paramName, value, fieldDef?.ColumnType);
+
+            paramFilter?.Invoke(parameter);
+
+            if (fieldDef != null)
+            {
+                dialectProvider.SetParameter(fieldDef, parameter);
+            }
+
+            dbCmd.Parameters.Add(parameter);
+
+            return parameter;
         }
 
-        if (dbType != null)
+        /// <summary>
+        /// Gets the insert parameter.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>string.</returns>
+        public string GetInsertParam(IDbCommand dbCmd,
+            object value,
+            FieldDefinition fieldDef)
         {
-            p.DbType = dbType.Value;
-        }
-    }
-
-    /// <summary>
-    /// Adds the query parameter.
-    /// </summary>
-    /// <param name="dialectProvider">The dialect provider.</param>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="value">The value.</param>
-    /// <param name="fieldDef">The field definition.</param>
-    /// <returns>System.Data.IDbDataParameter.</returns>
-    public static IDbDataParameter AddQueryParam(this IOrmLiteDialectProvider dialectProvider,
-                                                 IDbCommand dbCmd,
-                                                 object value,
-                                                 FieldDefinition fieldDef)
-    {
-        return dialectProvider.AddParam(dbCmd, value, fieldDef, paramFilter: dialectProvider.InitQueryParam);
-    }
-
-    /// <summary>
-    /// Adds the update parameter.
-    /// </summary>
-    /// <param name="dialectProvider">The dialect provider.</param>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="value">The value.</param>
-    /// <param name="fieldDef">The field definition.</param>
-    /// <returns>System.Data.IDbDataParameter.</returns>
-    public static IDbDataParameter AddUpdateParam(this IOrmLiteDialectProvider dialectProvider,
-                                                  IDbCommand dbCmd,
-                                                  object value,
-                                                  FieldDefinition fieldDef)
-    {
-        return dialectProvider.AddParam(dbCmd, value, fieldDef, paramFilter: dialectProvider.InitUpdateParam);
-    }
-
-    /// <summary>
-    /// Adds the parameter.
-    /// </summary>
-    /// <param name="dialectProvider">The dialect provider.</param>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="value">The value.</param>
-    /// <param name="fieldDef">The field definition.</param>
-    /// <param name="paramFilter">The parameter filter.</param>
-    /// <returns>System.Data.IDbDataParameter.</returns>
-    public static IDbDataParameter AddParam(this IOrmLiteDialectProvider dialectProvider,
-                                            IDbCommand dbCmd,
-                                            object value,
-                                            FieldDefinition fieldDef, Action<IDbDataParameter> paramFilter)
-    {
-        var paramName = dbCmd.Parameters.Count.ToString();
-        var parameter = dialectProvider.CreateParam(paramName, value, fieldDef?.ColumnType);
-
-        paramFilter?.Invoke(parameter);
-
-        if (fieldDef != null)
-        {
-            dialectProvider.SetParameter(fieldDef, parameter);
+            var p = dialectProvider.AddUpdateParam(dbCmd, value, fieldDef);
+            return fieldDef.CustomInsert != null
+                ? string.Format(fieldDef.CustomInsert, p.ParameterName)
+                : p.ParameterName;
         }
 
-        dbCmd.Parameters.Add(parameter);
+        /// <summary>
+        /// Gets the update parameter.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>string.</returns>
+        public string GetUpdateParam(IDbCommand dbCmd,
+            object value,
+            FieldDefinition fieldDef)
+        {
+            var p = dialectProvider.AddUpdateParam(dbCmd, value, fieldDef);
 
-        return parameter;
-    }
-
-    /// <summary>
-    /// Gets the insert parameter.
-    /// </summary>
-    /// <param name="dialectProvider">The dialect provider.</param>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="value">The value.</param>
-    /// <param name="fieldDef">The field definition.</param>
-    /// <returns>string.</returns>
-    public static string GetInsertParam(this IOrmLiteDialectProvider dialectProvider,
-                                        IDbCommand dbCmd,
-                                        object value,
-                                        FieldDefinition fieldDef)
-    {
-        var p = dialectProvider.AddUpdateParam(dbCmd, value, fieldDef);
-        return fieldDef.CustomInsert != null
-                   ? string.Format(fieldDef.CustomInsert, p.ParameterName)
-                   : p.ParameterName;
-    }
-
-    /// <summary>
-    /// Gets the update parameter.
-    /// </summary>
-    /// <param name="dialectProvider">The dialect provider.</param>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="value">The value.</param>
-    /// <param name="fieldDef">The field definition.</param>
-    /// <returns>string.</returns>
-    public static string GetUpdateParam(this IOrmLiteDialectProvider dialectProvider,
-                                        IDbCommand dbCmd,
-                                        object value,
-                                        FieldDefinition fieldDef)
-    {
-        var p = dialectProvider.AddUpdateParam(dbCmd, value, fieldDef);
-
-        return fieldDef.CustomUpdate != null
-                   ? string.Format(fieldDef.CustomUpdate, p.ParameterName)
-                   : p.ParameterName;
+            return fieldDef.CustomUpdate != null
+                ? string.Format(fieldDef.CustomUpdate, p.ParameterName)
+                : p.ParameterName;
+        }
     }
 }

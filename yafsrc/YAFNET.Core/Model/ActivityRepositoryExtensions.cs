@@ -34,126 +34,111 @@ using YAF.Types.Models;
 /// </summary>
 public static class ActivityRepositoryExtensions
 {
-    /// <summary>
-    /// Gets the Users notifications.
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <returns>
-    /// Returns the List of Activity Notifications
-    /// </returns>
-    public static List<Tuple<Activity, User, Topic>> Notifications(
-        this IRepository<Activity> repository,
-        int userId)
+    extension(IRepository<Activity> repository)
     {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
+        /// <summary>
+        /// Gets the Users notifications.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// Returns the List of Activity Notifications
+        /// </returns>
+        public List<Tuple<Activity, User, Topic>> Notifications(int userId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
-        expression.Join<User>((a, u) => u.ID == a.FromUserID).LeftJoin<Topic>((a, t) => t.ID == a.TopicID.Value)
-            .Where<Activity>(a => a.UserID == userId && a.FromUserID.HasValue).OrderByDescending(a => a.Created);
+            expression.Join<User>((a, u) => u.ID == a.FromUserID).LeftJoin<Topic>((a, t) => t.ID == a.TopicID.Value)
+                .Where<Activity>(a => a.UserID == userId && a.FromUserID.HasValue).OrderByDescending(a => a.Created);
 
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, User, Topic>(expression));
-    }
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, User, Topic>(expression));
+        }
 
-    /// <summary>
-    /// Gets the User Timeline.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <returns>
-    /// Returns the User Timeline
-    /// </returns>
-    public static List<Tuple<Activity, Topic>> Timeline(this IRepository<Activity> repository, int userId)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
+        /// <summary>
+        /// Gets the User Timeline.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// Returns the User Timeline
+        /// </returns>
+        public List<Tuple<Activity, Topic>> Timeline(int userId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
-        expression.LeftJoin<Topic>((a, t) => t.ID == a.TopicID).Where<Activity>(
-            a => a.UserID == userId && (a.Flags & 1024) != 1024 && (a.Flags & 4096) != 4096
-                 && (a.Flags & 8192) != 8192 && (a.Flags & 16384) != 16384).OrderByDescending(a => a.Created);
+            expression.LeftJoin<Topic>((a, t) => t.ID == a.TopicID).Where<Activity>(
+                a => a.UserID == userId && (a.Flags & 1024) != 1024 && (a.Flags & 4096) != 4096
+                     && (a.Flags & 8192) != 8192 && (a.Flags & 16384) != 16384).OrderByDescending(a => a.Created);
 
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, Topic>(expression));
-    }
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, Topic>(expression));
+        }
 
-    /// <summary>
-    /// The update notification.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="messageId">
-    /// The message id.
-    /// </param>
-    public static void UpdateNotification(
-        this IRepository<Activity> repository,
-        int userId,
-        int messageId)
-    {
-        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
+        /// <summary>
+        /// The update notification.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        public void UpdateNotification(int userId,
+            int messageId)
+        {
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
-        repository.UpdateOnly(
-            () => new Activity { Notification = false },
-            a => a.UserID == userId && a.MessageID == messageId && a.Notification);
-    }
+            repository.UpdateOnly(
+                () => new Activity { Notification = false },
+                a => a.UserID == userId && a.MessageID == messageId && a.Notification);
+        }
 
-    /// <summary>
-    /// Sets all Notifications as read for the topic
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="topicId">
-    /// The message id.
-    /// </param>
-    public static void UpdateTopicNotification(
-        this IRepository<Activity> repository,
-        int userId,
-        int topicId)
-    {
-       BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
+        /// <summary>
+        /// Sets all Notifications as read for the topic
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="topicId">
+        /// The message id.
+        /// </param>
+        public void UpdateTopicNotification(int userId,
+            int topicId)
+        {
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
-        repository.UpdateOnly(
-            () => new Activity { Notification = false },
-            a => a.UserID == userId && a.TopicID == topicId && a.Notification);
-    }
+            repository.UpdateOnly(
+                () => new Activity { Notification = false },
+                a => a.UserID == userId && a.TopicID == topicId && a.Notification);
+        }
 
-    /// <summary>
-    /// Mark all Notifications as read for the user
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    public static void MarkAllAsRead(this IRepository<Activity> repository, int userId)
-    {
-        repository.UpdateOnly(
-            () => new Activity { Notification = false },
-            a => a.UserID == userId && a.Notification);
-    }
+        /// <summary>
+        /// Mark all Notifications as read for the user
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        public void MarkAllAsRead(int userId)
+        {
+            repository.UpdateOnly(
+                () => new Activity { Notification = false },
+                a => a.UserID == userId && a.Notification);
+        }
 
-    public static int GetUnreadWatchTopics(this IRepository<Activity> repository, int userId)
-    {
-        // -- count Watch Topics
-        var countWatchTopicsExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
+        public int GetUnreadWatchTopics(int userId)
+        {
+            // -- count Watch Topics
+            var countWatchTopicsExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
-        countWatchTopicsExpression.Where(a => a.UserID == userId && a.Notification &&
-                                              ((a.Flags & 8192) == 8192 || (a.Flags & 16384) == 16384)).Select(Sql.Count("1"));
+            countWatchTopicsExpression.Where(a => a.UserID == userId && a.Notification &&
+                                                  ((a.Flags & 8192) == 8192 || (a.Flags & 16384) == 16384)).Select(Sql.Count("1"));
 
-        return repository.DbAccess
-            .Execute(db => db.Connection.Single<int>(countWatchTopicsExpression));
+            return repository.DbAccess
+                .Execute(db => db.Connection.Single<int>(countWatchTopicsExpression));
+        }
     }
 }

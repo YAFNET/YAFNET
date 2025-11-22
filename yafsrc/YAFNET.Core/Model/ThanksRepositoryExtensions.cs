@@ -34,148 +34,126 @@ using YAF.Types.Models;
 /// </summary>
 public static class ThanksRepositoryExtensions
 {
-    /// <summary>
-    /// The thanks from user.
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="thanksFromUserId">
-    /// The thanks from user id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="long"/>.
-    /// </returns>
-    public static long ThanksFromUser(this IRepository<Thanks> repository, int thanksFromUserId)
+    extension(IRepository<Thanks> repository)
     {
-        return repository.Count(thanks => thanks.ThanksFromUserID == thanksFromUserId);
-    }
+        /// <summary>
+        /// The thanks from user.
+        /// </summary>
+        /// <param name="thanksFromUserId">
+        /// The thanks from user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="long"/>.
+        /// </returns>
+        public long ThanksFromUser(int thanksFromUserId)
+        {
+            return repository.Count(thanks => thanks.ThanksFromUserID == thanksFromUserId);
+        }
 
-    /// <summary>
-    /// Gets the number of times and posts that other users have thanked the
-    /// user with the provided userID.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="thanksToUserId">
-    /// The thanks To User Id.
-    /// </param>
-    /// <returns>
-    /// Returns the number of times and posts that other users have thanked the
-    /// user with the provided userID.
-    /// </returns>
-    public static (int Posts, string ThanksReceived) ThanksToUser(
-        this IRepository<Thanks> repository,
-        int thanksToUserId)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
+        /// <summary>
+        /// Gets the number of times and posts that other users have thanked the
+        /// user with the provided userID.
+        /// </summary>
+        /// <param name="thanksToUserId">
+        /// The thanks To User Id.
+        /// </param>
+        /// <returns>
+        /// Returns the number of times and posts that other users have thanked the
+        /// user with the provided userID.
+        /// </returns>
+        public (int Posts, string ThanksReceived) ThanksToUser(int thanksToUserId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
 
-        expression.Where<Thanks>(t => t.ThanksToUserID == thanksToUserId).Select(
-            u => new { ThankesPosts = Sql.CountDistinct(u.MessageID), ThankesReceived = Sql.Count("*") });
+            expression.Where<Thanks>(t => t.ThanksToUserID == thanksToUserId).Select(
+                u => new { ThankesPosts = Sql.CountDistinct(u.MessageID), ThankesReceived = Sql.Count("*") });
 
-        return repository.DbAccess
-            .Execute(db => db.Connection.Single<(int Posts, string ThanksReceived)>(expression));
-    }
+            return repository.DbAccess
+                .Execute(db => db.Connection.Single<(int Posts, string ThanksReceived)>(expression));
+        }
 
-    /// <summary>
-    /// Add thanks to the Message
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="fromUserId">
-    /// The from user id.
-    /// </param>
-    /// <param name="toUserId">
-    /// The to User Id.
-    /// </param>
-    /// <param name="messageId">
-    /// The message id.
-    /// </param>
-    public static void AddMessageThanks(
-        this IRepository<Thanks> repository,
-        int fromUserId,
-        int toUserId,
-        int messageId)
-    {
-        repository.Insert(
-            new Thanks
-            {
-                ThanksFromUserID = fromUserId,
-                ThanksToUserID = toUserId,
-                MessageID = messageId,
-                ThanksDate = DateTime.UtcNow
-            });
-    }
+        /// <summary>
+        /// Add thanks to the Message
+        /// </summary>
+        /// <param name="fromUserId">
+        /// The from user id.
+        /// </param>
+        /// <param name="toUserId">
+        /// The to User Id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        public void AddMessageThanks(int fromUserId,
+            int toUserId,
+            int messageId)
+        {
+            repository.Insert(
+                new Thanks
+                {
+                    ThanksFromUserID = fromUserId,
+                    ThanksToUserID = toUserId,
+                    MessageID = messageId,
+                    ThanksDate = DateTime.UtcNow
+                });
+        }
 
-    /// <summary>
-    /// Gets the UserIDs and UserNames who have thanked the message
-    ///   with the provided messageID.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="messageId">
-    /// The message id.
-    /// </param>
-    /// <returns>
-    /// Returns the UserIDs and UserNames who have thanked the message
-    ///   with the provided messageID.
-    /// </returns>
-    public static List<Tuple<Thanks, User>> MessageGetThanksList(
-        this IRepository<Thanks> repository,
-        int messageId)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
+        /// <summary>
+        /// Gets the UserIDs and UserNames who have thanked the message
+        ///   with the provided messageID.
+        /// </summary>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <returns>
+        /// Returns the UserIDs and UserNames who have thanked the message
+        ///   with the provided messageID.
+        /// </returns>
+        public List<Tuple<Thanks, User>> MessageGetThanksList(int messageId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
 
-        expression.Join<User>((a, b) => a.ThanksFromUserID == b.ID).Where<Thanks>(b => b.MessageID == messageId);
+            expression.Join<User>((a, b) => a.ThanksFromUserID == b.ID).Where<Thanks>(b => b.MessageID == messageId);
 
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Thanks, User>(expression));
-    }
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Thanks, User>(expression));
+        }
 
-    /// <summary>
-    /// The message remove thanks.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="fromUserId">
-    /// The from user id.
-    /// </param>
-    /// <param name="messageId">
-    /// The message id.
-    /// </param>
-    public static void RemoveMessageThanks(
-        this IRepository<Thanks> repository,
-        int fromUserId,
-        int messageId)
-    {
-        repository.Delete(t => t.ThanksFromUserID == fromUserId && t.MessageID == messageId);
-    }
+        /// <summary>
+        /// The message remove thanks.
+        /// </summary>
+        /// <param name="fromUserId">
+        /// The from user id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        public void RemoveMessageThanks(int fromUserId,
+            int messageId)
+        {
+            repository.Delete(t => t.ThanksFromUserID == fromUserId && t.MessageID == messageId);
+        }
 
-    /// <summary>
-    /// Has User Thanked the current Message
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="messageId">
-    /// The message Id.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <returns>
-    /// If the User Thanked the Current Message
-    /// </returns>
-    public static bool ThankedMessage(
-        this IRepository<Thanks> repository,
-        int messageId,
-        int userId)
-    {
-        var thankCount = repository.Count(t => t.MessageID == messageId && t.ThanksFromUserID == userId);
+        /// <summary>
+        /// Has User Thanked the current Message
+        /// </summary>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// If the User Thanked the Current Message
+        /// </returns>
+        public bool ThankedMessage(int messageId,
+            int userId)
+        {
+            var thankCount = repository.Count(t => t.MessageID == messageId && t.ThanksFromUserID == userId);
 
-        return thankCount > 0;
+            return thankCount > 0;
+        }
     }
 }

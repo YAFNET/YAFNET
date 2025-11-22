@@ -33,26 +33,28 @@ namespace YAF.Core.Extensions;
 /// </summary>
 public static class HostingHostBuilderExtensions
 {
-    /// <summary>
-    /// Use the autofac service provider factory.
-    /// </summary>
     /// <param name="hostBuilder">The <see cref="IHostBuilder"/> to configure.</param>
-    /// <returns>The <see cref="IHostBuilder"/>.</returns>
-    public static IHostBuilder UseAutofacServiceProviderFactory(this IHostBuilder hostBuilder)
+    extension(IHostBuilder hostBuilder)
     {
-        return hostBuilder.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-    }
-
-    /// <summary>
-    /// Configure Yaf Logging
-    /// </summary>
-    /// <param name="hostBuilder">The <see cref="IHostBuilder"/> to configure.</param>
-    /// <returns>The <see cref="IHostBuilder"/>.</returns>
-    public static IHostBuilder ConfigureYafLogging(this IHostBuilder hostBuilder)
-    {
-        return hostBuilder.ConfigureLogging(logging =>
+        /// <summary>
+        /// Use the autofac service provider factory.
+        /// </summary>
+        /// <returns>The <see cref="IHostBuilder"/>.</returns>
+        public IHostBuilder UseAutofacServiceProviderFactory()
         {
-            logging.AddDbLogger();
-        });
+            return hostBuilder.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+        }
+
+        /// <summary>
+        /// Configure Yaf Logging
+        /// </summary>
+        /// <returns>The <see cref="IHostBuilder"/>.</returns>
+        public IHostBuilder ConfigureYafLogging()
+        {
+            return hostBuilder.ConfigureLogging(logging =>
+            {
+                logging.AddDbLogger();
+            });
+        }
     }
 }

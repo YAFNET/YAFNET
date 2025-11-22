@@ -69,53 +69,53 @@ public static class EnumExtensions
         return (T)Enum.Parse(enumType, value.ToString());
     }
 
-    /// <summary>
-    /// Converts A String to an Enumerator.
-    /// </summary>
     /// <param name="value">
     /// The value.
     /// </param>
-    /// <typeparam name="T">
-    /// The Typed Enumerator.
-    /// </typeparam>
-    /// <returns>
-    /// Returns the Typed Enumerator.
-    /// </returns>
-    public static T ToEnum<T>(this string value)
+    extension(string value)
     {
-        var enumType = typeof(T);
-        if (enumType.BaseType != typeof(Enum))
+        /// <summary>
+        /// Converts A String to an Enumerator.
+        /// </summary>
+        /// <typeparam name="T">
+        /// The Typed Enumerator.
+        /// </typeparam>
+        /// <returns>
+        /// Returns the Typed Enumerator.
+        /// </returns>
+        public T ToEnum<T>()
         {
-            throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
+            var enumType = typeof(T);
+            if (enumType.BaseType != typeof(Enum))
+            {
+                throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
+            }
+
+            return (T)Enum.Parse(enumType, value);
         }
 
-        return (T)Enum.Parse(enumType, value);
-    }
-
-    /// <summary>
-    /// Converts A String to an Enumerator.
-    /// </summary>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    /// <param name="ignoreCase">
-    /// The ignore Case.
-    /// </param>
-    /// <typeparam name="T">
-    /// The Typed Enumerator.
-    /// </typeparam>
-    /// <returns>
-    /// Returns the Typed Enumerator.
-    /// </returns>
-    public static T ToEnum<T>(this string value, bool ignoreCase)
-    {
-        var enumType = typeof(T);
-        if (enumType.BaseType != typeof(Enum))
+        /// <summary>
+        /// Converts A String to an Enumerator.
+        /// </summary>
+        /// <param name="ignoreCase">
+        /// The ignore Case.
+        /// </param>
+        /// <typeparam name="T">
+        /// The Typed Enumerator.
+        /// </typeparam>
+        /// <returns>
+        /// Returns the Typed Enumerator.
+        /// </returns>
+        public T ToEnum<T>(bool ignoreCase)
         {
-            throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
-        }
+            var enumType = typeof(T);
+            if (enumType.BaseType != typeof(Enum))
+            {
+                throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
+            }
 
-        return (T)Enum.Parse(enumType, value, ignoreCase);
+            return (T)Enum.Parse(enumType, value, ignoreCase);
+        }
     }
 
     /// <summary>

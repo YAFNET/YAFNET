@@ -1647,36 +1647,37 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
 /// </summary>
 public static class SqlExpressionExtensions
 {
-    /// <summary>
-    /// Gets the untyped SQL expression.
-    /// </summary>
     /// <param name="sqlExpression">The SQL expression.</param>
-    /// <returns>IUntypedSqlExpression.</returns>
-    public static IUntypedSqlExpression GetUntypedSqlExpression(this ISqlExpression sqlExpression)
+    extension(ISqlExpression sqlExpression)
     {
-        var hasUntyped = sqlExpression as IHasUntypedSqlExpression;
-        return hasUntyped?.GetUntyped();
-    }
+        /// <summary>
+        /// Gets the untyped SQL expression.
+        /// </summary>
+        /// <returns>IUntypedSqlExpression.</returns>
+        public IUntypedSqlExpression GetUntypedSqlExpression()
+        {
+            var hasUntyped = sqlExpression as IHasUntypedSqlExpression;
+            return hasUntyped?.GetUntyped();
+        }
 
-    /// <summary>
-    /// Converts to dialectprovider.
-    /// </summary>
-    /// <param name="sqlExpression">The SQL expression.</param>
-    /// <returns>IOrmLiteDialectProvider.</returns>
-    public static IOrmLiteDialectProvider ToDialectProvider(this ISqlExpression sqlExpression)
-    {
-        return (sqlExpression as IHasDialectProvider)?.DialectProvider ?? OrmLiteConfig.DialectProvider;
-    }
+        /// <summary>
+        /// Converts to dialectprovider.
+        /// </summary>
+        /// <returns>IOrmLiteDialectProvider.</returns>
+        public IOrmLiteDialectProvider ToDialectProvider()
+        {
+            return (sqlExpression as IHasDialectProvider)?.DialectProvider ?? OrmLiteConfig.DialectProvider;
+        }
 
-    /// <summary>
-    /// Tables the specified SQL expression.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="sqlExpression">The SQL expression.</param>
-    /// <returns>System.String.</returns>
-    public static string Table<T>(this ISqlExpression sqlExpression)
-    {
-        return sqlExpression.ToDialectProvider().GetQuotedTableName(typeof(T).GetModelDefinition());
+        /// <summary>
+        /// Tables the specified SQL expression.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>System.String.</returns>
+        public string Table<T>()
+        {
+            return sqlExpression.ToDialectProvider().GetQuotedTableName(typeof(T).GetModelDefinition());
+        }
     }
 
     /// <summary>
@@ -1690,112 +1691,116 @@ public static class SqlExpressionExtensions
         return dialect.GetQuotedTableName(typeof(T).GetModelDefinition());
     }
 
-    /// <summary>
-    /// Gets the table name
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="sqlExpression">The SQL expression.</param>
-    /// <returns>System.String.</returns>
-    public static string TableName<T>(this ISqlExpression sqlExpression)
+    extension(ISqlExpression sqlExpression)
     {
-        return sqlExpression.ToDialectProvider().UnquotedTable(typeof(T).GetModelDefinition().Name);
+        /// <summary>
+        /// Gets the table name
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>System.String.</returns>
+        public string TableName<T>()
+        {
+            return sqlExpression.ToDialectProvider().UnquotedTable(typeof(T).GetModelDefinition().Name);
+        }
+
+        /// <summary>
+        /// Columns the specified property expression.
+        /// </summary>
+        /// <typeparam name="Table">The type of the table.</typeparam>
+        /// <param name="propertyExpression">The property expression.</param>
+        /// <param name="prefixTable">if set to <c>true</c> [prefix table].</param>
+        /// <returns>System.String.</returns>
+        public string Column<Table>(Expression<Func<Table, object>> propertyExpression, bool prefixTable = false)
+        {
+            return sqlExpression.ToDialectProvider().Column(propertyExpression, prefixTable);
+        }
     }
 
-    /// <summary>
-    /// Columns the specified property expression.
-    /// </summary>
-    /// <typeparam name="Table">The type of the table.</typeparam>
-    /// <param name="sqlExpression">The SQL expression.</param>
-    /// <param name="propertyExpression">The property expression.</param>
-    /// <param name="prefixTable">if set to <c>true</c> [prefix table].</param>
-    /// <returns>System.String.</returns>
-    public static string Column<Table>(this ISqlExpression sqlExpression, Expression<Func<Table, object>> propertyExpression, bool prefixTable = false)
-    {
-        return sqlExpression.ToDialectProvider().Column(propertyExpression, prefixTable);
-    }
-
-    /// <summary>
-    /// Columns the type of the database.
-    /// </summary>
-    /// <typeparam name="Table">The type of the table.</typeparam>
     /// <param name="dialect">The dialect.</param>
-    /// <param name="propertyExpression">The property expression.</param>
-    /// <param name="prefixTable">if set to <c>true</c> [prefix table].</param>
-    /// <returns>Type.</returns>
-    /// <exception cref="System.ArgumentException">Expected Lambda MemberExpression but received: " + propertyExpression.Name</exception>
-    public static Type ColumnDbType<Table>(this IOrmLiteDialectProvider dialect, Expression<Func<Table, object>> propertyExpression, bool prefixTable = false)
+    extension(IOrmLiteDialectProvider dialect)
     {
-        string propertyName = null;
-        Expression expr = propertyExpression;
-
-        if (expr is LambdaExpression lambda)
+        /// <summary>
+        /// Columns the type of the database.
+        /// </summary>
+        /// <typeparam name="Table">The type of the table.</typeparam>
+        /// <param name="propertyExpression">The property expression.</param>
+        /// <param name="prefixTable">if set to <c>true</c> [prefix table].</param>
+        /// <returns>Type.</returns>
+        /// <exception cref="System.ArgumentException">Expected Lambda MemberExpression but received: " + propertyExpression.Name</exception>
+        public Type ColumnDbType<Table>(Expression<Func<Table, object>> propertyExpression, bool prefixTable = false)
         {
-            expr = lambda.Body;
+            string propertyName = null;
+            Expression expr = propertyExpression;
+
+            if (expr is LambdaExpression lambda)
+            {
+                expr = lambda.Body;
+            }
+
+            if (expr.NodeType == ExpressionType.Convert && expr is UnaryExpression unary)
+            {
+                expr = unary.Operand;
+            }
+
+            if (expr is MemberExpression member)
+            {
+                propertyName = member.Member.Name;
+            }
+
+            if (propertyName == null)
+            {
+                propertyName = expr.ToPropertyInfo()?.Name;
+            }
+
+            if (propertyName != null)
+            {
+                return dialect.ColumnDbType<Table>(propertyName, prefixTable);
+            }
+
+            throw new ArgumentException("Expected Lambda MemberExpression but received: " + propertyExpression.Name);
         }
 
-        if (expr.NodeType == ExpressionType.Convert && expr is UnaryExpression unary)
+        /// <summary>
+        /// Columns the specified property expression.
+        /// </summary>
+        /// <typeparam name="Table">The type of the table.</typeparam>
+        /// <param name="propertyExpression">The property expression.</param>
+        /// <param name="prefixTable">if set to <c>true</c> [prefix table].</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.ArgumentException">Expected Lambda MemberExpression but received: " + propertyExpression.Name</exception>
+        public string Column<Table>(Expression<Func<Table, object>> propertyExpression, bool prefixTable = false)
         {
-            expr = unary.Operand;
+            string propertyName = null;
+            Expression expr = propertyExpression;
+
+            if (expr is LambdaExpression lambda)
+            {
+                expr = lambda.Body;
+            }
+
+            if (expr.NodeType == ExpressionType.Convert && expr is UnaryExpression unary)
+            {
+                expr = unary.Operand;
+            }
+
+            if (expr is MemberExpression member)
+            {
+                propertyName = member.Member.Name;
+            }
+
+            if (propertyName == null)
+            {
+                propertyName = expr.ToPropertyInfo()?.Name;
+            }
+
+            if (propertyName != null)
+            {
+                return dialect.Column<Table>(propertyName, prefixTable);
+            }
+
+            throw new ArgumentException("Expected Lambda MemberExpression but received: " + propertyExpression.Name);
         }
-
-        if (expr is MemberExpression member)
-        {
-            propertyName = member.Member.Name;
-        }
-
-        if (propertyName == null)
-        {
-            propertyName = expr.ToPropertyInfo()?.Name;
-        }
-
-        if (propertyName != null)
-        {
-            return dialect.ColumnDbType<Table>(propertyName, prefixTable);
-        }
-
-        throw new ArgumentException("Expected Lambda MemberExpression but received: " + propertyExpression.Name);
-    }
-
-    /// <summary>
-    /// Columns the specified property expression.
-    /// </summary>
-    /// <typeparam name="Table">The type of the table.</typeparam>
-    /// <param name="dialect">The dialect.</param>
-    /// <param name="propertyExpression">The property expression.</param>
-    /// <param name="prefixTable">if set to <c>true</c> [prefix table].</param>
-    /// <returns>System.String.</returns>
-    /// <exception cref="System.ArgumentException">Expected Lambda MemberExpression but received: " + propertyExpression.Name</exception>
-    public static string Column<Table>(this IOrmLiteDialectProvider dialect, Expression<Func<Table, object>> propertyExpression, bool prefixTable = false)
-    {
-        string propertyName = null;
-        Expression expr = propertyExpression;
-
-        if (expr is LambdaExpression lambda)
-        {
-            expr = lambda.Body;
-        }
-
-        if (expr.NodeType == ExpressionType.Convert && expr is UnaryExpression unary)
-        {
-            expr = unary.Operand;
-        }
-
-        if (expr is MemberExpression member)
-        {
-            propertyName = member.Member.Name;
-        }
-
-        if (propertyName == null)
-        {
-            propertyName = expr.ToPropertyInfo()?.Name;
-        }
-
-        if (propertyName != null)
-        {
-            return dialect.Column<Table>(propertyName, prefixTable);
-        }
-
-        throw new ArgumentException("Expected Lambda MemberExpression but received: " + propertyExpression.Name);
     }
 
     /// <summary>
@@ -1811,44 +1816,46 @@ public static class SqlExpressionExtensions
         return sqlExpression.ToDialectProvider().Column<Table>(propertyName, prefixTable);
     }
 
-    /// <summary>
-    /// Columns the type of the database.
-    /// </summary>
-    /// <typeparam name="Table">The type of the table.</typeparam>
     /// <param name="dialect">The dialect.</param>
-    /// <param name="propertyName">Name of the property.</param>
-    /// <param name="prefixTable">if set to <c>true</c> [prefix table].</param>
-    /// <returns>Type.</returns>
-    public static Type ColumnDbType<Table>(this IOrmLiteDialectProvider dialect, string propertyName, bool prefixTable = false)
+    extension(IOrmLiteDialectProvider dialect)
     {
-        var tableDef = typeof(Table).GetModelDefinition();
+        /// <summary>
+        /// Columns the type of the database.
+        /// </summary>
+        /// <typeparam name="Table">The type of the table.</typeparam>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="prefixTable">if set to <c>true</c> [prefix table].</param>
+        /// <returns>Type.</returns>
+        public Type ColumnDbType<Table>(string propertyName, bool prefixTable = false)
+        {
+            var tableDef = typeof(Table).GetModelDefinition();
 
-        var fieldDef = tableDef.FieldDefinitions.FirstOrDefault(x => x.Name == propertyName);
+            var fieldDef = tableDef.FieldDefinitions.FirstOrDefault(x => x.Name == propertyName);
 
-        return fieldDef.ColumnType;
-    }
+            return fieldDef.ColumnType;
+        }
 
-    /// <summary>
-    /// Columns the specified property name.
-    /// </summary>
-    /// <typeparam name="Table">The type of the table.</typeparam>
-    /// <param name="dialect">The dialect.</param>
-    /// <param name="propertyName">Name of the property.</param>
-    /// <param name="prefixTable">if set to <c>true</c> [prefix table].</param>
-    /// <returns>System.String.</returns>
-    public static string Column<Table>(this IOrmLiteDialectProvider dialect, string propertyName, bool prefixTable = false)
-    {
-        var tableDef = typeof(Table).GetModelDefinition();
+        /// <summary>
+        /// Columns the specified property name.
+        /// </summary>
+        /// <typeparam name="Table">The type of the table.</typeparam>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="prefixTable">if set to <c>true</c> [prefix table].</param>
+        /// <returns>System.String.</returns>
+        public string Column<Table>(string propertyName, bool prefixTable = false)
+        {
+            var tableDef = typeof(Table).GetModelDefinition();
 
-        var fieldDef = tableDef.FieldDefinitions.Find(x => x.Name == propertyName);
-        var fieldName = fieldDef != null
-                            ? fieldDef.FieldName
-                            : propertyName;
+            var fieldDef = tableDef.FieldDefinitions.Find(x => x.Name == propertyName);
+            var fieldName = fieldDef != null
+                ? fieldDef.FieldName
+                : propertyName;
 
-        return prefixTable
-            ? fieldDef != null
-                ? dialect.GetQuotedColumnName(tableDef, fieldDef)
-                : dialect.GetQuotedColumnName(tableDef, fieldName)
-            : dialect.GetQuotedColumnName(fieldDef);
+            return prefixTable
+                ? fieldDef != null
+                    ? dialect.GetQuotedColumnName(tableDef, fieldDef)
+                    : dialect.GetQuotedColumnName(tableDef, fieldName)
+                : dialect.GetQuotedColumnName(fieldDef);
+        }
     }
 }

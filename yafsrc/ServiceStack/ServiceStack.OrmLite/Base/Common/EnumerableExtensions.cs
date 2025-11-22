@@ -46,35 +46,36 @@ public static class EnumerableExtensions
         return collection == null || collection.Length == 0;
     }
 
-    /// <summary>
-    /// Converts to set.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="items">The items.</param>
-    /// <returns>HashSet&lt;T&gt;.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static HashSet<T> ToSet<T>(this IEnumerable<T> items)
-    {
-        return [..items];
-    }
-
-    /// <summary>
-    /// Eaches the specified action.
-    /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="values">The values.</param>
-    /// <param name="action">The action.</param>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void Each<T>(this IEnumerable<T> values, Action<T> action)
+    extension<T>(IEnumerable<T> items)
     {
-        if (values == null)
+        /// <summary>
+        /// Converts to set.
+        /// </summary>
+        /// <returns>HashSet&lt;T&gt;.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public HashSet<T> ToSet()
         {
-            return;
+            return [..items];
         }
 
-        foreach (var value in values)
+        /// <summary>
+        /// Eaches the specified action.
+        /// </summary>
+        /// <param name="action">The action.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Each(Action<T> action)
         {
-            action(value);
+            if (items == null)
+            {
+                return;
+            }
+
+            foreach (var value in items)
+            {
+                action(value);
+            }
         }
     }
 
@@ -127,58 +128,59 @@ public static class EnumerableExtensions
         return items == null ? [] : [.. (from object item in items select converter(item))];
     }
 
-    /// <summary>
-    /// Batcheses the of.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="sequence">The sequence.</param>
-    /// <param name="batchSize">Size of the batch.</param>
-    /// <returns>IEnumerable&lt;T[]&gt;.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IEnumerable<T[]> BatchesOf<T>(this IEnumerable<T> sequence, int batchSize)
+    /// <typeparam name="T"></typeparam>
+    extension<T>(IEnumerable<T> sequence)
     {
-        var batch = new List<T>(batchSize);
-        foreach (var item in sequence)
+        /// <summary>
+        /// Batcheses the of.
+        /// </summary>
+        /// <param name="batchSize">Size of the batch.</param>
+        /// <returns>IEnumerable&lt;T[]&gt;.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public IEnumerable<T[]> BatchesOf(int batchSize)
         {
-            batch.Add(item);
-            if (batch.Count >= batchSize)
+            var batch = new List<T>(batchSize);
+            foreach (var item in sequence)
+            {
+                batch.Add(item);
+                if (batch.Count >= batchSize)
+                {
+                    yield return batch.ToArray();
+                    batch.Clear();
+                }
+            }
+
+            if (batch.Count > 0)
             {
                 yield return batch.ToArray();
                 batch.Clear();
             }
         }
 
-        if (batch.Count > 0)
+        /// <summary>
+        /// Converts to safedictionary.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the t key.</typeparam>
+        /// <param name="expr">The expr.</param>
+        /// <returns>Dictionary&lt;TKey, T&gt;.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Dictionary<TKey, T> ToSafeDictionary<TKey>(Func<T, TKey> expr) where TKey : notnull
         {
-            yield return batch.ToArray();
-            batch.Clear();
-        }
-    }
+            var map = new Dictionary<TKey, T>();
 
-    /// <summary>
-    /// Converts to safedictionary.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <typeparam name="TKey">The type of the t key.</typeparam>
-    /// <param name="list">The list.</param>
-    /// <param name="expr">The expr.</param>
-    /// <returns>Dictionary&lt;TKey, T&gt;.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Dictionary<TKey, T> ToSafeDictionary<T, TKey>(this IEnumerable<T> list, Func<T, TKey> expr) where TKey : notnull
-    {
-        var map = new Dictionary<TKey, T>();
+            if (sequence == null)
+            {
+                return map;
+            }
 
-        if (list == null)
-        {
+            foreach (var item in sequence)
+            {
+                map[expr(item)] = item;
+            }
+
             return map;
         }
-
-        foreach (var item in list)
-        {
-            map[expr(item)] = item;
-        }
-
-        return map;
     }
 
     /// <summary>

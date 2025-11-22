@@ -34,107 +34,97 @@ using YAF.Types.Models;
 /// </summary>
 public static class UserMedalRepositoryExtensions
 {
-    /// <summary>
-    /// Lists users assigned to the medal
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <param name="medalId">
-    /// The medal Id.
-    /// </param>
-    public static List<Tuple<Medal, UserMedal, User>> List(
-        this IRepository<UserMedal> repository,
-        int? userId,
-        int medalId)
+    extension(IRepository<UserMedal> repository)
     {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
-
-        if (userId.HasValue)
+        /// <summary>
+        /// Lists users assigned to the medal
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="medalId">
+        /// The medal Id.
+        /// </param>
+        public List<Tuple<Medal, UserMedal, User>> List(int? userId,
+            int medalId)
         {
-            expression.Join<UserMedal>((a, b) => b.MedalID == a.ID)
-                .Join<UserMedal, User>((b, c) => c.ID == b.UserID)
-                .Where<UserMedal>(b => b.MedalID == medalId && b.UserID == userId.Value).OrderBy<User>(x => x.Name)
-                .ThenBy<UserMedal>(x => x.SortOrder);
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
+
+            if (userId.HasValue)
+            {
+                expression.Join<UserMedal>((a, b) => b.MedalID == a.ID)
+                    .Join<UserMedal, User>((b, c) => c.ID == b.UserID)
+                    .Where<UserMedal>(b => b.MedalID == medalId && b.UserID == userId.Value).OrderBy<User>(x => x.Name)
+                    .ThenBy<UserMedal>(x => x.SortOrder);
+            }
+            else
+            {
+                expression.Join<UserMedal>((a, b) => b.MedalID == a.ID)
+                    .Join<UserMedal, User>((b, c) => c.ID == b.UserID).Where(a => a.ID == medalId)
+                    .OrderBy<User>(x => x.Name).ThenBy<UserMedal>(x => x.SortOrder);
+            }
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Medal, UserMedal, User>(expression));
         }
-        else
+
+        /// <summary>
+        /// Update existing user-medal allocation.
+        /// </summary>
+        /// <param name="userId">
+        /// ID of user.
+        /// </param>
+        /// <param name="medalId">
+        /// ID of medal.
+        /// </param>
+        /// <param name="message">
+        /// Medal message, to override medal's default one. Can be null.
+        /// </param>
+        /// <param name="hide">
+        /// Hide medal in user box.
+        /// </param>
+        /// <param name="sortOrder">
+        /// Sort order in user box. Overrides medal's default sort order.
+        /// </param>
+        public void Save(int userId,
+            int medalId,
+            string message,
+            bool hide,
+            byte sortOrder)
         {
-            expression.Join<UserMedal>((a, b) => b.MedalID == a.ID)
-                .Join<UserMedal, User>((b, c) => c.ID == b.UserID).Where(a => a.ID == medalId)
-                .OrderBy<User>(x => x.Name).ThenBy<UserMedal>(x => x.SortOrder);
+            repository.UpdateOnly(
+                () => new UserMedal { Message = message, Hide = hide, SortOrder = sortOrder },
+                m => m.UserID == userId && m.MedalID == medalId);
         }
 
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Medal, UserMedal, User>(expression));
-    }
-
-    /// <summary>
-    /// Update existing user-medal allocation.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// ID of user.
-    /// </param>
-    /// <param name="medalId">
-    /// ID of medal.
-    /// </param>
-    /// <param name="message">
-    /// Medal message, to override medal's default one. Can be null.
-    /// </param>
-    /// <param name="hide">
-    /// Hide medal in user box.
-    /// </param>
-    /// <param name="sortOrder">
-    /// Sort order in user box. Overrides medal's default sort order.
-    /// </param>
-    public static void Save(
-        this IRepository<UserMedal> repository,
-        int userId,
-        int medalId,
-        string message,
-        bool hide,
-        byte sortOrder)
-    {
-        repository.UpdateOnly(
-            () => new UserMedal { Message = message, Hide = hide, SortOrder = sortOrder },
-            m => m.UserID == userId && m.MedalID == medalId);
-    }
-
-    /// <summary>
-    /// Saves new user-medal allocation.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// ID of user.
-    /// </param>
-    /// <param name="medalId">
-    /// ID of medal.
-    /// </param>
-    /// <param name="message">
-    /// Medal message, to override medal's default one. Can be null.
-    /// </param>
-    /// <param name="hide">
-    /// Hide medal in user box.
-    /// </param>
-    /// <param name="sortOrder">
-    /// Sort order in user box. Overrides medal's default sort order.
-    /// </param>
-    public static void SaveNew(
-        this IRepository<UserMedal> repository,
-        int userId,
-        int medalId,
-        string message,
-        bool hide,
-        byte sortOrder)
-    {
-        repository.Insert(
-            new UserMedal
+        /// <summary>
+        /// Saves new user-medal allocation.
+        /// </summary>
+        /// <param name="userId">
+        /// ID of user.
+        /// </param>
+        /// <param name="medalId">
+        /// ID of medal.
+        /// </param>
+        /// <param name="message">
+        /// Medal message, to override medal's default one. Can be null.
+        /// </param>
+        /// <param name="hide">
+        /// Hide medal in user box.
+        /// </param>
+        /// <param name="sortOrder">
+        /// Sort order in user box. Overrides medal's default sort order.
+        /// </param>
+        public void SaveNew(int userId,
+            int medalId,
+            string message,
+            bool hide,
+            byte sortOrder)
+        {
+            repository.Insert(
+                new UserMedal
                 {
                     UserID = userId,
                     MedalID = medalId,
@@ -143,5 +133,6 @@ public static class UserMedalRepositoryExtensions
                     SortOrder = sortOrder,
                     DateAwarded = DateTime.UtcNow
                 });
+        }
     }
 }

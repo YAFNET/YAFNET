@@ -36,73 +36,68 @@ using YAF.Types.Models;
 /// </summary>
 public static class WatchForumRepositoryExtensions
 {
-    /// <summary>
-    /// Add a new WatchForum
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="forumId">
-    /// The forum id.
-    /// </param>
-    public async static Task AddAsync(this IRepository<WatchForum> repository, int userId, int forumId)
+    extension(IRepository<WatchForum> repository)
     {
-        var watchForum = new WatchForum { ForumID = forumId, UserID = userId, Created = DateTime.UtcNow };
+        /// <summary>
+        /// Add a new WatchForum
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        public async Task AddAsync(int userId, int forumId)
+        {
+            var watchForum = new WatchForum { ForumID = forumId, UserID = userId, Created = DateTime.UtcNow };
 
-        await repository.InsertAsync(watchForum);
-    }
+            await repository.InsertAsync(watchForum);
+        }
 
-    /// <summary>
-    /// Checks if Watch Forum Exists and Returns WatchForum ID
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="forumId">
-    /// The forum id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="int"/>.
-    /// </returns>
-    public async static Task<int?> CheckAsync(this IRepository<WatchForum> repository, int userId, int forumId)
-    {
-        var forum = await repository.GetSingleAsync(w => w.UserID == userId && w.ForumID == forumId);
+        /// <summary>
+        /// Checks if Watch Forum Exists and Returns WatchForum ID
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public async Task<int?> CheckAsync(int userId, int forumId)
+        {
+            var forum = await repository.GetSingleAsync(w => w.UserID == userId && w.ForumID == forumId);
 
-        return forum?.ID;
-    }
+            return forum?.ID;
+        }
 
-    /// <summary>
-    /// List all Watch Forums by User
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="pageIndex">
-    /// The page Index.
-    /// </param>
-    /// <param name="pageSize">
-    /// The page Size.
-    /// </param>
-    public static Task<List<WatchForum>> ListAsync(
-        this IRepository<WatchForum> repository,
-        int userId,
-        int pageIndex = 0,
-        int pageSize = 10000000)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchForum>();
+        /// <summary>
+        /// List all Watch Forums by User
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
+        /// </param>
+        public Task<List<WatchForum>> ListAsync(int userId,
+            int pageIndex = 0,
+            int pageSize = 10000000)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchForum>();
 
-        expression.Join<Forum>((a, b) => b.ID == a.ForumID).Where<WatchForum>(b => b.UserID == userId)
-            .OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);
+            expression.Join<Forum>((a, b) => b.ID == a.ForumID).Where<WatchForum>(b => b.UserID == userId)
+                .OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);
 
-        return repository.DbAccess.ExecuteAsync(db => db.LoadSelectAsync(expression));
+            return repository.DbAccess.ExecuteAsync(db => db.LoadSelectAsync(expression));
+        }
     }
 }

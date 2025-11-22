@@ -223,56 +223,55 @@ public abstract class TypeFields
 /// </summary>
 public static class FieldInvoker
 {
-    /// <summary>
-    /// Creates the getter.
-    /// </summary>
     /// <param name="fieldInfo">The field information.</param>
-    /// <returns>GetMemberDelegate.</returns>
-    public static GetMemberDelegate CreateGetter(this FieldInfo fieldInfo)
+    extension(FieldInfo fieldInfo)
     {
-        return ReflectionOptimizer.Instance.CreateGetter(fieldInfo);
-    }
+        /// <summary>
+        /// Creates the getter.
+        /// </summary>
+        /// <returns>GetMemberDelegate.</returns>
+        public GetMemberDelegate CreateGetter()
+        {
+            return ReflectionOptimizer.Instance.CreateGetter(fieldInfo);
+        }
 
-    /// <summary>
-    /// Creates the getter.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="fieldInfo">The field information.</param>
-    /// <returns>GetMemberDelegate&lt;T&gt;.</returns>
-    public static GetMemberDelegate<T> CreateGetter<T>(this FieldInfo fieldInfo)
-    {
-        return ReflectionOptimizer.Instance.CreateGetter<T>(fieldInfo);
-    }
+        /// <summary>
+        /// Creates the getter.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>GetMemberDelegate&lt;T&gt;.</returns>
+        public GetMemberDelegate<T> CreateGetter<T>()
+        {
+            return ReflectionOptimizer.Instance.CreateGetter<T>(fieldInfo);
+        }
 
-    /// <summary>
-    /// Creates the setter.
-    /// </summary>
-    /// <param name="fieldInfo">The field information.</param>
-    /// <returns>SetMemberDelegate.</returns>
-    public static SetMemberDelegate CreateSetter(this FieldInfo fieldInfo)
-    {
-        return ReflectionOptimizer.Instance.CreateSetter(fieldInfo);
-    }
+        /// <summary>
+        /// Creates the setter.
+        /// </summary>
+        /// <returns>SetMemberDelegate.</returns>
+        public SetMemberDelegate CreateSetter()
+        {
+            return ReflectionOptimizer.Instance.CreateSetter(fieldInfo);
+        }
 
-    /// <summary>
-    /// Creates the setter.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="fieldInfo">The field information.</param>
-    /// <returns>SetMemberDelegate&lt;T&gt;.</returns>
-    public static SetMemberDelegate<T> CreateSetter<T>(this FieldInfo fieldInfo)
-    {
-        return ReflectionOptimizer.Instance.CreateSetter<T>(fieldInfo);
-    }
+        /// <summary>
+        /// Creates the setter.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>SetMemberDelegate&lt;T&gt;.</returns>
+        public SetMemberDelegate<T> CreateSetter<T>()
+        {
+            return ReflectionOptimizer.Instance.CreateSetter<T>(fieldInfo);
+        }
 
-    /// <summary>
-    /// Sets the expression reference.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="fieldInfo">The field information.</param>
-    /// <returns>SetMemberRefDelegate&lt;T&gt;.</returns>
-    public static SetMemberRefDelegate<T> SetExpressionRef<T>(this FieldInfo fieldInfo)
-    {
-        return ReflectionOptimizer.Instance.CreateSetterRef<T>(fieldInfo);
+        /// <summary>
+        /// Sets the expression reference.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>SetMemberRefDelegate&lt;T&gt;.</returns>
+        public SetMemberRefDelegate<T> SetExpressionRef<T>()
+        {
+            return ReflectionOptimizer.Instance.CreateSetterRef<T>(fieldInfo);
+        }
     }
 }

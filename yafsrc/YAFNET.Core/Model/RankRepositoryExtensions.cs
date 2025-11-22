@@ -35,92 +35,92 @@ using YAF.Types.Models;
 /// </summary>
 public static class RankRepositoryExtensions
 {
-    /// <summary>
-    /// Saves or adds a New Rank
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="rankId">
-    /// The rank Id.
-    /// </param>
-    /// <param name="boardId">
-    /// The board Id.
-    /// </param>
-    /// <param name="name">
-    /// The name.
-    /// </param>
-    /// <param name="flags">
-    /// The flags.
-    /// </param>
-    /// <param name="minPosts">
-    /// The min posts.
-    /// </param>
-    /// <param name="style">
-    /// The style.
-    /// </param>
-    /// <param name="sortOrder">
-    /// The sort order.
-    /// </param>
-    /// <param name="description">
-    /// The description.
-    /// </param>
-    /// <param name="signatureChars">
-    /// Defines number of allowed characters in user signature.
-    /// </param>
-    /// <param name="signatureBBCodes">
-    /// Defines comma separated BBCodes allowed for a rank, i.e in a user signature
-    /// </param>
-    /// <param name="userAlbums">
-    /// Defines allowed number of albums.
-    /// </param>
-    /// <param name="userAlbumImages">
-    /// Defines number of images allowed for an album.
-    /// </param>
-    public async static Task SaveAsync(
-        this IRepository<Rank> repository,
-        int? rankId,
-        int boardId,
-        string name,
-        RankFlags flags,
-        int? minPosts,
-        string style,
-        short sortOrder,
-        string description,
-        int signatureChars,
-        string signatureBBCodes,
-        int userAlbums,
-        int userAlbumImages)
+    extension(IRepository<Rank> repository)
     {
-        minPosts = flags.IsLadder switch
+        /// <summary>
+        /// Saves or adds a New Rank
+        /// </summary>
+        /// <param name="rankId">
+        /// The rank Id.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="flags">
+        /// The flags.
+        /// </param>
+        /// <param name="minPosts">
+        /// The min posts.
+        /// </param>
+        /// <param name="style">
+        /// The style.
+        /// </param>
+        /// <param name="sortOrder">
+        /// The sort order.
+        /// </param>
+        /// <param name="description">
+        /// The description.
+        /// </param>
+        /// <param name="signatureChars">
+        /// Defines number of allowed characters in user signature.
+        /// </param>
+        /// <param name="signatureBBCodes">
+        /// Defines comma separated BBCodes allowed for a rank, i.e in a user signature
+        /// </param>
+        /// <param name="userAlbums">
+        /// Defines allowed number of albums.
+        /// </param>
+        /// <param name="userAlbumImages">
+        /// Defines number of images allowed for an album.
+        /// </param>
+        public async Task SaveAsync(int? rankId,
+            int boardId,
+            string name,
+            RankFlags flags,
+            int? minPosts,
+            string style,
+            short sortOrder,
+            string description,
+            int signatureChars,
+            string signatureBBCodes,
+            int userAlbums,
+            int userAlbumImages)
         {
-            false => null,
-            true when !minPosts.HasValue => 0,
-            _ => minPosts
-        };
+            minPosts = flags.IsLadder switch
+            {
+                false => null,
+                true when !minPosts.HasValue => 0,
+                _ => minPosts
+            };
 
-        if (rankId.HasValue)
-        {
-            await repository.UpdateOnlyAsync(
-                () => new Rank
-                          {
-                              Name = name,
-                              Flags = flags.BitValue,
-                              MinPosts = minPosts,
-                              Style = style,
-                              SortOrder = sortOrder,
-                              Description = description,
-                              UsrSigChars = signatureChars,
-                              UsrSigBBCodes = signatureBBCodes,
-                              UsrAlbums = userAlbums,
-                              UsrAlbumImages = userAlbumImages
-                          },
-                g => g.ID == rankId.Value);
-        }
-        else
-        {
-            rankId = await repository.InsertAsync(
-                new Rank
+            if (rankId.HasValue)
+            {
+                await repository.UpdateOnlyAsync(
+                    () => new Rank
+                    {
+                        Name = name,
+                        Flags = flags.BitValue,
+                        MinPosts = minPosts,
+                        Style = style,
+                        SortOrder = sortOrder,
+                        Description = description,
+                        UsrSigChars = signatureChars,
+                        UsrSigBBCodes = signatureBBCodes,
+                        UsrAlbums = userAlbums,
+                        UsrAlbumImages = userAlbumImages
+                    },
+                    g => g.ID == rankId.Value);
+            }
+            else
+            {
+                rankId = await repository.InsertAsync(
+                    new Rank
                     {
                         Name = name,
                         BoardID = boardId,
@@ -134,54 +134,49 @@ public static class RankRepositoryExtensions
                         UsrAlbums = userAlbums,
                         UsrAlbumImages = userAlbumImages
                     });
+            }
+
+            if (style.IsSet())
+            {
+                await BoardContext.Current.Get<IRaiseEventAsync>().RaiseAsync(new UpdateUserStylesEvent(boardId));
+            }
         }
 
-        if (style.IsSet())
+        /// <summary>
+        /// Get the User with the Current Rank
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Tuple"/>.
+        /// </returns>
+        public async Task<Tuple<User, Rank>> GetUserAndRankAsync(int userId)
         {
-            await BoardContext.Current.Get<IRaiseEventAsync>().RaiseAsync(new UpdateUserStylesEvent(boardId));
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+            expression.Join<Rank>((u, r) => r.ID == u.RankID).Where<User>(u => u.ID == userId);
+
+            var results = await repository.DbAccess.ExecuteAsync(db => db.SelectMultiAsync<User, Rank>(expression));
+
+            return results.FirstOrDefault();
         }
-    }
 
-    /// <summary>
-    /// Get the User with the Current Rank
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Tuple"/>.
-    /// </returns>
-    public async static Task<Tuple<User, Rank>> GetUserAndRankAsync(this IRepository<Rank> repository, int userId)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+        /// <summary>
+        /// Gets the Style from Current User Rank.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>Returns the Style if the Rank has one</returns>
+        public async Task<string> GetRankStyleForUserAsync(int userId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Rank>();
 
-        expression.Join<Rank>((u, r) => r.ID == u.RankID).Where<User>(u => u.ID == userId);
+            expression.Join<User>((rank, user) => rank.ID == user.RankID)
+                .Where<Rank, User>((rank, user) => rank.Style != null && user.ID == userId);
 
-        var results = await repository.DbAccess.ExecuteAsync(db => db.SelectMultiAsync<User, Rank>(expression));
+            var results = await repository.DbAccess.ExecuteAsync(db => db.SingleAsync(expression));
 
-        return results.FirstOrDefault();
-    }
-
-    /// <summary>
-    /// Gets the Style from Current User Rank.
-    /// </summary>
-    /// <param name="repository">The repository.</param>
-    /// <param name="userId">The user identifier.</param>
-    /// <returns>Returns the Style if the Rank has one</returns>
-    public async static Task<string> GetRankStyleForUserAsync(
-        this IRepository<Rank> repository,
-        int userId)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Rank>();
-
-        expression.Join<User>((rank, user) => rank.ID == user.RankID)
-            .Where<Rank, User>((rank, user) => rank.Style != null && user.ID == userId);
-
-        var results = await repository.DbAccess.ExecuteAsync(db => db.SingleAsync(expression));
-
-        return results?.Style;
+            return results?.Style;
+        }
     }
 }

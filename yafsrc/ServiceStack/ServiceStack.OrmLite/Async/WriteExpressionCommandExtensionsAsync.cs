@@ -21,431 +21,410 @@ namespace ServiceStack.OrmLite;
 /// </summary>
 static internal class WriteExpressionCommandExtensionsAsync
 {
-    /// <summary>
-    /// Updates the only asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="dbCmd">The database command.</param>
-    /// <param name="model">The model.</param>
-    /// <param name="onlyFields">The only fields.</param>
-    /// <param name="commandFilter">The command filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Int32&gt;.</returns>
-    static internal Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd, T model, SqlExpression<T> onlyFields, Action<IDbCommand> commandFilter, CancellationToken token)
+    extension(IDbCommand dbCmd)
     {
-        OrmLiteUtils.AssertNotAnonType<T>();
-
-        dbCmd.UpdateOnlySql(model, onlyFields);
-        commandFilter?.Invoke(dbCmd);
-        return dbCmd.ExecNonQueryAsync(token);
-    }
-
-    /// <summary>
-    /// Updates the only asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="obj">The object.</param>
-    /// <param name="onlyFields">The only fields.</param>
-    /// <param name="where">The where.</param>
-    /// <param name="commandFilter">The command filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Int32&gt;.</returns>
-    /// <exception cref="System.ArgumentNullException">onlyFields</exception>
-    static internal Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd, T obj,
-        Expression<Func<T, object>> onlyFields,
-        Expression<Func<T, bool>> where,
-        Action<IDbCommand> commandFilter,
-        CancellationToken token)
-    {
-        OrmLiteUtils.AssertNotAnonType<T>();
-
-        ArgumentNullException.ThrowIfNull(onlyFields);
-
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
-        q.Update(onlyFields);
-        q.Where(where);
-        return dbCmd.UpdateOnlyFieldsAsync(obj, q, commandFilter, token);
-    }
-
-    /// <summary>
-    /// Updates the only asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="obj">The object.</param>
-    /// <param name="onlyFields">The only fields.</param>
-    /// <param name="where">The where.</param>
-    /// <param name="commandFilter">The command filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Int32&gt;.</returns>
-    /// <exception cref="System.ArgumentNullException">onlyFields</exception>
-    static internal Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd, T obj,
-        string[] onlyFields,
-        Expression<Func<T, bool>> where,
-        Action<IDbCommand> commandFilter,
-        CancellationToken token)
-    {
-        OrmLiteUtils.AssertNotAnonType<T>();
-
-        ArgumentNullException.ThrowIfNull(onlyFields);
-
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
-        q.Update(onlyFields);
-        q.Where(where);
-        return dbCmd.UpdateOnlyFieldsAsync(obj, q, commandFilter, token);
-    }
-
-    /// <summary>
-    /// Updates the only asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="updateFields">The update fields.</param>
-    /// <param name="q">The q.</param>
-    /// <param name="commandFilter">The command filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Int32&gt;.</returns>
-    static internal Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd,
-        Expression<Func<T>> updateFields,
-        SqlExpression<T> q,
-        Action<IDbCommand> commandFilter,
-        CancellationToken token)
-    {
-        OrmLiteUtils.AssertNotAnonType<T>();
-
-        var cmd = dbCmd.InitUpdateOnly(updateFields, q);
-        commandFilter?.Invoke(cmd);
-        return cmd.ExecNonQueryAsync(token);
-    }
-
-    /// <summary>
-    /// Updates the only asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="updateFields">The update fields.</param>
-    /// <param name="whereExpression">The where expression.</param>
-    /// <param name="sqlParams">The SQL parameters.</param>
-    /// <param name="commandFilter">The command filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Int32&gt;.</returns>
-    static internal Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd,
-        Expression<Func<T>> updateFields,
-        string whereExpression,
-        IEnumerable<IDbDataParameter> sqlParams,
-        Action<IDbCommand> commandFilter,
-        CancellationToken token)
-    {
-        OrmLiteUtils.AssertNotAnonType<T>();
-
-        var cmd = dbCmd.InitUpdateOnly(updateFields, whereExpression, sqlParams);
-        commandFilter?.Invoke(cmd);
-        return cmd.ExecNonQueryAsync(token);
-    }
-
-    /// <summary>
-    /// Updates the add asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="updateFields">The update fields.</param>
-    /// <param name="q">The q.</param>
-    /// <param name="commandFilter">The command filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Int32&gt;.</returns>
-    public static Task<int> UpdateAddAsync<T>(this IDbCommand dbCmd,
-        Expression<Func<T>> updateFields,
-        SqlExpression<T> q,
-        Action<IDbCommand> commandFilter,
-        CancellationToken token)
-    {
-        OrmLiteUtils.AssertNotAnonType<T>();
-
-        var cmd = dbCmd.InitUpdateAdd(updateFields, q);
-        commandFilter?.Invoke(cmd);
-        return cmd.ExecNonQueryAsync(token);
-    }
-
-    /// <summary>
-    /// Updates the only asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="updateFields">The update fields.</param>
-    /// <param name="where">The where.</param>
-    /// <param name="commandFilter">The command filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Int32&gt;.</returns>
-    /// <exception cref="System.ArgumentNullException">updateFields</exception>
-    public static Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd,
-        Dictionary<string, object> updateFields,
-        Expression<Func<T, bool>> where,
-        Action<IDbCommand> commandFilter = null,
-        CancellationToken token = default)
-    {
-        OrmLiteUtils.AssertNotAnonType<T>();
-
-        ArgumentNullException.ThrowIfNull(updateFields);
-
-        OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.ToFilterType<T>());
-
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
-        q.Where(where);
-        q.PrepareUpdateStatement(dbCmd, updateFields);
-        return dbCmd.UpdateAndVerifyAsync<T>(commandFilter, updateFields.ContainsKey(ModelDefinition.RowVersionName), token);
-    }
-
-    /// <summary>
-    /// Updates the only asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="updateFields">The update fields.</param>
-    /// <param name="commandFilter">The command filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Int32&gt;.</returns>
-    public static Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd,
-        Dictionary<string, object> updateFields,
-        Action<IDbCommand> commandFilter = null,
-        CancellationToken token = default)
-    {
-        return dbCmd.UpdateOnlyReferencesAsync<T>(updateFields, dbFields =>
+        /// <summary>
+        /// Updates the only asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model">The model.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        internal Task<int> UpdateOnlyFieldsAsync<T>(T model, SqlExpression<T> onlyFields, Action<IDbCommand> commandFilter, CancellationToken token)
         {
-            var whereExpr = dbCmd.GetDialectProvider().GetUpdateOnlyWhereExpression<T>(dbFields, out var exprArgs);
-            dbCmd.PrepareUpdateOnly<T>(dbFields, whereExpr, exprArgs);
-            return dbCmd.UpdateAndVerifyAsync<T>(commandFilter, dbFields.ContainsKey(ModelDefinition.RowVersionName), token);
-        }, token);
-    }
+            OrmLiteUtils.AssertNotAnonType<T>();
 
-    /// <summary>
-    /// Updates the only asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="updateFields">The update fields.</param>
-    /// <param name="whereExpression">The where expression.</param>
-    /// <param name="whereParams">The where parameters.</param>
-    /// <param name="commandFilter">The command filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Int32&gt;.</returns>
-    /// <exception cref="System.ArgumentNullException">updateFields</exception>
-    public static Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd,
-        Dictionary<string, object> updateFields,
-        string whereExpression,
-        object[] whereParams,
-        Action<IDbCommand> commandFilter = null,
-        CancellationToken token = default)
-    {
-        return dbCmd.UpdateOnlyReferencesAsync<T>(updateFields, dbFields =>
+            dbCmd.UpdateOnlySql(model, onlyFields);
+            commandFilter?.Invoke(dbCmd);
+            return dbCmd.ExecNonQueryAsync(token);
+        }
+
+        /// <summary>
+        /// Updates the only asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <param name="where">The where.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        /// <exception cref="System.ArgumentNullException">onlyFields</exception>
+        internal Task<int> UpdateOnlyFieldsAsync<T>(T obj,
+            Expression<Func<T, object>> onlyFields,
+            Expression<Func<T, bool>> where,
+            Action<IDbCommand> commandFilter,
+            CancellationToken token)
         {
+            OrmLiteUtils.AssertNotAnonType<T>();
+
+            ArgumentNullException.ThrowIfNull(onlyFields);
+
             var q = dbCmd.GetDialectProvider().SqlExpression<T>();
-            q.Where(whereExpression, whereParams);
-            q.PrepareUpdateStatement(dbCmd, dbFields);
-            return dbCmd.UpdateAndVerifyAsync<T>(commandFilter, dbFields.ContainsKey(ModelDefinition.RowVersionName), token);
-        }, token);
-    }
+            q.Update(onlyFields);
+            q.Where(where);
+            return dbCmd.UpdateOnlyFieldsAsync(obj, q, commandFilter, token);
+        }
 
-    /// <summary>
-    /// Update only references as an asynchronous operation.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="updateFields">The update fields.</param>
-    /// <param name="fn">The function.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
-    /// <exception cref="System.ArgumentNullException">updateFields</exception>
-    public async static Task<int> UpdateOnlyReferencesAsync<T>(this IDbCommand dbCmd,
-        Dictionary<string, object> updateFields, Func<Dictionary<string, object>, Task<int>> fn, CancellationToken token = default)
-    {
-        OrmLiteUtils.AssertNotAnonType<T>();
-
-        ArgumentNullException.ThrowIfNull(updateFields);
-
-        OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.ToFilterType<T>());
-
-        var dbFields = updateFields;
-        var modelDef = ModelDefinition<T>.Definition;
-        var hasReferences = modelDef.HasAnyReferences(updateFields.Keys);
-        if (hasReferences)
+        /// <summary>
+        /// Updates the only asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <param name="where">The where.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        /// <exception cref="System.ArgumentNullException">onlyFields</exception>
+        internal Task<int> UpdateOnlyFieldsAsync<T>(T obj,
+            string[] onlyFields,
+            Expression<Func<T, bool>> where,
+            Action<IDbCommand> commandFilter,
+            CancellationToken token)
         {
-            dbFields = [];
-            foreach (var entry in updateFields)
+            OrmLiteUtils.AssertNotAnonType<T>();
+
+            ArgumentNullException.ThrowIfNull(onlyFields);
+
+            var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+            q.Update(onlyFields);
+            q.Where(where);
+            return dbCmd.UpdateOnlyFieldsAsync(obj, q, commandFilter, token);
+        }
+
+        /// <summary>
+        /// Updates the only asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="q">The q.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        internal Task<int> UpdateOnlyFieldsAsync<T>(Expression<Func<T>> updateFields,
+            SqlExpression<T> q,
+            Action<IDbCommand> commandFilter,
+            CancellationToken token)
+        {
+            OrmLiteUtils.AssertNotAnonType<T>();
+
+            var cmd = dbCmd.InitUpdateOnly(updateFields, q);
+            commandFilter?.Invoke(cmd);
+            return cmd.ExecNonQueryAsync(token);
+        }
+
+        /// <summary>
+        /// Updates the only asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="whereExpression">The where expression.</param>
+        /// <param name="sqlParams">The SQL parameters.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        internal Task<int> UpdateOnlyFieldsAsync<T>(Expression<Func<T>> updateFields,
+            string whereExpression,
+            IEnumerable<IDbDataParameter> sqlParams,
+            Action<IDbCommand> commandFilter,
+            CancellationToken token)
+        {
+            OrmLiteUtils.AssertNotAnonType<T>();
+
+            var cmd = dbCmd.InitUpdateOnly(updateFields, whereExpression, sqlParams);
+            commandFilter?.Invoke(cmd);
+            return cmd.ExecNonQueryAsync(token);
+        }
+
+        /// <summary>
+        /// Updates the add asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="q">The q.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        public Task<int> UpdateAddAsync<T>(Expression<Func<T>> updateFields,
+            SqlExpression<T> q,
+            Action<IDbCommand> commandFilter,
+            CancellationToken token)
+        {
+            OrmLiteUtils.AssertNotAnonType<T>();
+
+            var cmd = dbCmd.InitUpdateAdd(updateFields, q);
+            commandFilter?.Invoke(cmd);
+            return cmd.ExecNonQueryAsync(token);
+        }
+
+        /// <summary>
+        /// Updates the only asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="where">The where.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        /// <exception cref="System.ArgumentNullException">updateFields</exception>
+        public Task<int> UpdateOnlyFieldsAsync<T>(Dictionary<string, object> updateFields,
+            Expression<Func<T, bool>> where,
+            Action<IDbCommand> commandFilter = null,
+            CancellationToken token = default)
+        {
+            OrmLiteUtils.AssertNotAnonType<T>();
+
+            ArgumentNullException.ThrowIfNull(updateFields);
+
+            OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.ToFilterType<T>());
+
+            var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+            q.Where(where);
+            q.PrepareUpdateStatement(dbCmd, updateFields);
+            return dbCmd.UpdateAndVerifyAsync<T>(commandFilter, updateFields.ContainsKey(ModelDefinition.RowVersionName), token);
+        }
+
+        /// <summary>
+        /// Updates the only asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        public Task<int> UpdateOnlyFieldsAsync<T>(Dictionary<string, object> updateFields,
+            Action<IDbCommand> commandFilter = null,
+            CancellationToken token = default)
+        {
+            return dbCmd.UpdateOnlyReferencesAsync<T>(updateFields, dbFields =>
             {
-                if (!modelDef.IsReference(entry.Key))
+                var whereExpr = dbCmd.GetDialectProvider().GetUpdateOnlyWhereExpression<T>(dbFields, out var exprArgs);
+                dbCmd.PrepareUpdateOnly<T>(dbFields, whereExpr, exprArgs);
+                return dbCmd.UpdateAndVerifyAsync<T>(commandFilter, dbFields.ContainsKey(ModelDefinition.RowVersionName), token);
+            }, token);
+        }
+
+        /// <summary>
+        /// Updates the only asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="whereExpression">The where expression.</param>
+        /// <param name="whereParams">The where parameters.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        /// <exception cref="System.ArgumentNullException">updateFields</exception>
+        public Task<int> UpdateOnlyFieldsAsync<T>(Dictionary<string, object> updateFields,
+            string whereExpression,
+            object[] whereParams,
+            Action<IDbCommand> commandFilter = null,
+            CancellationToken token = default)
+        {
+            return dbCmd.UpdateOnlyReferencesAsync<T>(updateFields, dbFields =>
+            {
+                var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+                q.Where(whereExpression, whereParams);
+                q.PrepareUpdateStatement(dbCmd, dbFields);
+                return dbCmd.UpdateAndVerifyAsync<T>(commandFilter, dbFields.ContainsKey(ModelDefinition.RowVersionName), token);
+            }, token);
+        }
+
+        /// <summary>
+        /// Update only references as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="fn">The function.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="System.ArgumentNullException">updateFields</exception>
+        public async Task<int> UpdateOnlyReferencesAsync<T>(Dictionary<string, object> updateFields, Func<Dictionary<string, object>, Task<int>> fn, CancellationToken token = default)
+        {
+            OrmLiteUtils.AssertNotAnonType<T>();
+
+            ArgumentNullException.ThrowIfNull(updateFields);
+
+            OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.ToFilterType<T>());
+
+            var dbFields = updateFields;
+            var modelDef = ModelDefinition<T>.Definition;
+            var hasReferences = modelDef.HasAnyReferences(updateFields.Keys);
+            if (hasReferences)
+            {
+                dbFields = [];
+                foreach (var entry in updateFields)
                 {
-                    dbFields[entry.Key] = entry.Value;
+                    if (!modelDef.IsReference(entry.Key))
+                    {
+                        dbFields[entry.Key] = entry.Value;
+                    }
                 }
             }
+
+            var ret = await fn(dbFields).ConfigAwait();
+
+            if (hasReferences)
+            {
+                var instance = updateFields.FromObjectDictionary<T>();
+                await dbCmd.SaveAllReferencesAsync(instance, token).ConfigAwait();
+            }
+            return ret;
         }
 
-        var ret = await fn(dbFields).ConfigAwait();
-
-        if (hasReferences)
+        /// <summary>
+        /// Updates the non defaults asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item">The item.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        internal Task<int> UpdateNonDefaultsAsync<T>(T item, Expression<Func<T, bool>> obj, CancellationToken token)
         {
-            var instance = updateFields.FromObjectDictionary<T>();
-            await dbCmd.SaveAllReferencesAsync(instance, token).ConfigAwait();
+            OrmLiteUtils.AssertNotAnonType<T>();
+
+            OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, item);
+
+            var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+            q.Where(obj);
+            q.PrepareUpdateStatement(dbCmd, item, excludeDefaults: true);
+            return dbCmd.ExecNonQueryAsync(token);
         }
-        return ret;
-    }
 
-    /// <summary>
-    /// Updates the non defaults asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="item">The item.</param>
-    /// <param name="obj">The object.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Int32&gt;.</returns>
-    static internal Task<int> UpdateNonDefaultsAsync<T>(this IDbCommand dbCmd, T item, Expression<Func<T, bool>> obj, CancellationToken token)
-    {
-        OrmLiteUtils.AssertNotAnonType<T>();
+        /// <summary>
+        /// Updates the asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item">The item.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        internal Task<int> UpdateAsync<T>(T item, Expression<Func<T, bool>> expression, Action<IDbCommand> commandFilter, CancellationToken token)
+        {
+            OrmLiteUtils.AssertNotAnonType<T>();
 
-        OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, item);
+            OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, item);
 
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
-        q.Where(obj);
-        q.PrepareUpdateStatement(dbCmd, item, excludeDefaults: true);
-        return dbCmd.ExecNonQueryAsync(token);
-    }
+            var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+            q.Where(expression);
+            q.PrepareUpdateStatement(dbCmd, item);
+            commandFilter?.Invoke(dbCmd);
+            return dbCmd.ExecNonQueryAsync(token);
+        }
 
-    /// <summary>
-    /// Updates the asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="item">The item.</param>
-    /// <param name="expression">The expression.</param>
-    /// <param name="commandFilter">The command filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Int32&gt;.</returns>
-    static internal Task<int> UpdateAsync<T>(this IDbCommand dbCmd, T item, Expression<Func<T, bool>> expression, Action<IDbCommand> commandFilter, CancellationToken token)
-    {
-        OrmLiteUtils.AssertNotAnonType<T>();
+        /// <summary>
+        /// Updates the asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="updateOnly">The update only.</param>
+        /// <param name="where">The where.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        internal Task<int> UpdateAsync<T>(object updateOnly, Expression<Func<T, bool>> where, Action<IDbCommand> commandFilter, CancellationToken token)
+        {
+            OrmLiteUtils.AssertNotAnonType<T>();
 
-        OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, item);
+            OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateOnly.ToFilterType<T>());
 
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
-        q.Where(expression);
-        q.PrepareUpdateStatement(dbCmd, item);
-        commandFilter?.Invoke(dbCmd);
-        return dbCmd.ExecNonQueryAsync(token);
-    }
+            var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+            var whereSql = q.Where(where).WhereExpression;
+            q.CopyParamsTo(dbCmd);
+            dbCmd.PrepareUpdateAnonSql<T>(dbCmd.GetDialectProvider(), updateOnly, whereSql);
+            commandFilter?.Invoke(dbCmd);
 
-    /// <summary>
-    /// Updates the asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="updateOnly">The update only.</param>
-    /// <param name="where">The where.</param>
-    /// <param name="commandFilter">The command filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Int32&gt;.</returns>
-    static internal Task<int> UpdateAsync<T>(this IDbCommand dbCmd, object updateOnly, Expression<Func<T, bool>> where, Action<IDbCommand> commandFilter, CancellationToken token)
-    {
-        OrmLiteUtils.AssertNotAnonType<T>();
+            return dbCmd.ExecNonQueryAsync(token);
+        }
 
-        OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateOnly.ToFilterType<T>());
+        /// <summary>
+        /// Inserts the only asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
+        internal Task InsertOnlyAsync<T>(T obj, string[] onlyFields, CancellationToken token)
+        {
+            OrmLiteUtils.AssertNotAnonType<T>();
 
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
-        var whereSql = q.Where(where).WhereExpression;
-        q.CopyParamsTo(dbCmd);
-        dbCmd.PrepareUpdateAnonSql<T>(dbCmd.GetDialectProvider(), updateOnly, whereSql);
-        commandFilter?.Invoke(dbCmd);
+            OrmLiteConfig.InsertFilter?.Invoke(dbCmd, obj);
 
-        return dbCmd.ExecNonQueryAsync(token);
-    }
+            var dialectProvider = dbCmd.GetDialectProvider();
+            var sql = dialectProvider.ToInsertRowStatement(dbCmd, obj, onlyFields);
 
-    /// <summary>
-    /// Inserts the only asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="obj">The object.</param>
-    /// <param name="onlyFields">The only fields.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task.</returns>
-    static internal Task InsertOnlyAsync<T>(this IDbCommand dbCmd, T obj, string[] onlyFields, CancellationToken token)
-    {
-        OrmLiteUtils.AssertNotAnonType<T>();
+            dialectProvider.SetParameterValues<T>(dbCmd, obj);
 
-        OrmLiteConfig.InsertFilter?.Invoke(dbCmd, obj);
+            return dbCmd.ExecuteSqlAsync(sql, token);
+        }
 
-        var dialectProvider = dbCmd.GetDialectProvider();
-        var sql = dialectProvider.ToInsertRowStatement(dbCmd, obj, onlyFields);
+        /// <summary>
+        /// Inserts the only asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="insertFields">The insert fields.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        public Task<int> InsertOnlyAsync<T>(Expression<Func<T>> insertFields, CancellationToken token)
+        {
+            OrmLiteUtils.AssertNotAnonType<T>();
 
-        dialectProvider.SetParameterValues<T>(dbCmd, obj);
+            return dbCmd.InitInsertOnly(insertFields).ExecNonQueryAsync(token);
+        }
 
-        return dbCmd.ExecuteSqlAsync(sql, token);
-    }
+        /// <summary>
+        /// Deletes the asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="where">The where.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        internal Task<int> DeleteAsync<T>(Expression<Func<T, bool>> where,
+            Action<IDbCommand> commandFilter, CancellationToken token)
+        {
+            var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+            q.Where(where);
+            return dbCmd.DeleteAsync(q, commandFilter, token);
+        }
 
-    /// <summary>
-    /// Inserts the only asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="insertFields">The insert fields.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Int32&gt;.</returns>
-    public static Task<int> InsertOnlyAsync<T>(this IDbCommand dbCmd, Expression<Func<T>> insertFields, CancellationToken token)
-    {
-        OrmLiteUtils.AssertNotAnonType<T>();
+        /// <summary>
+        /// Deletes the asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="q">The q.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        internal Task<int> DeleteAsync<T>(SqlExpression<T> q,
+            Action<IDbCommand> commandFilter, CancellationToken token)
+        {
+            var sql = q.ToDeleteRowStatement();
+            return dbCmd.ExecuteSqlAsync(sql, q.Params, commandFilter, token);
+        }
 
-        return dbCmd.InitInsertOnly(insertFields).ExecNonQueryAsync(token);
-    }
-
-    /// <summary>
-    /// Deletes the asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="where">The where.</param>
-    /// <param name="commandFilter">The command filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Int32&gt;.</returns>
-    static internal Task<int> DeleteAsync<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> where,
-        Action<IDbCommand> commandFilter, CancellationToken token)
-    {
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
-        q.Where(where);
-        return dbCmd.DeleteAsync(q, commandFilter, token);
-    }
-
-    /// <summary>
-    /// Deletes the asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="q">The q.</param>
-    /// <param name="commandFilter">The command filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Int32&gt;.</returns>
-    static internal Task<int> DeleteAsync<T>(this IDbCommand dbCmd, SqlExpression<T> q,
-        Action<IDbCommand> commandFilter, CancellationToken token)
-    {
-        var sql = q.ToDeleteRowStatement();
-        return dbCmd.ExecuteSqlAsync(sql, q.Params, commandFilter, token);
-    }
-
-    /// <summary>
-    /// Deletes the where asynchronous.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="whereFilter">The where filter.</param>
-    /// <param name="whereParams">The where parameters.</param>
-    /// <param name="commandFilter">The command filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Int32&gt;.</returns>
-    static internal Task<int> DeleteWhereAsync<T>(this IDbCommand dbCmd, string whereFilter, object[] whereParams,
-        Action<IDbCommand> commandFilter, CancellationToken token)
-    {
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
-        q.Where(whereFilter, whereParams);
-        var sql = q.ToDeleteRowStatement();
-        return dbCmd.ExecuteSqlAsync(sql, q.Params, commandFilter, token);
+        /// <summary>
+        /// Deletes the where asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="whereFilter">The where filter.</param>
+        /// <param name="whereParams">The where parameters.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
+        internal Task<int> DeleteWhereAsync<T>(string whereFilter, object[] whereParams,
+            Action<IDbCommand> commandFilter, CancellationToken token)
+        {
+            var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+            q.Where(whereFilter, whereParams);
+            var sql = q.ToDeleteRowStatement();
+            return dbCmd.ExecuteSqlAsync(sql, q.Params, commandFilter, token);
+        }
     }
 }

@@ -35,97 +35,93 @@ using System.Linq;
 /// </summary>
 public static class EnumerableExtensions
 {
-    /// <summary>
-    ///     Iterates through a generic list type
-    /// </summary>
-    /// <typeparam name="T"> </typeparam>
     /// <param name="list"> </param>
-    /// <param name="action"> </param>
-    public static void ForEach<T>(this IEnumerable<T> list, Action<T> action)
-    {
-        list.ToList().ForEach(action);
-    }
-
-    /// <summary>
-    ///     Iterates through a list with a isFirst flag.
-    /// </summary>
     /// <typeparam name="T"> </typeparam>
-    /// <param name="list"> </param>
-    /// <param name="action"> </param>
-    public static void ForEachFirst<T>(this IEnumerable<T> list, Action<T, bool> action)
+    extension<T>(IEnumerable<T> list)
     {
-        var isFirst = true;
+        /// <summary>
+        ///     Iterates through a generic list type
+        /// </summary>
+        /// <param name="action"> </param>
+        public void ForEach(Action<T> action)
+        {
+            list.ToList().ForEach(action);
+        }
 
-        list.ToList().ForEach(
-            item =>
+        /// <summary>
+        ///     Iterates through a list with a isFirst flag.
+        /// </summary>
+        /// <param name="action"> </param>
+        public void ForEachFirst(Action<T, bool> action)
+        {
+            var isFirst = true;
+
+            list.ToList().ForEach(
+                item =>
                 {
                     action(item, isFirst);
                     isFirst = false;
                 });
-    }
-
-    /// <summary>
-    ///     Iterates through a list with a index.
-    /// </summary>
-    /// <typeparam name="T"> </typeparam>
-    /// <param name="list"> </param>
-    /// <param name="action"> </param>
-    public static void ForEachIndex<T>(this IEnumerable<T> list, Action<T, int> action)
-    {
-        var i = 0;
-
-        list.ToList().ForEach(item => action(item, i++));
-    }
-
-    /// <summary>
-    ///     If the <paramref name="currentEnumerable" /> is <see langword="null" /> , an Empty IEnumerable of <typeparamref
-    ///      name="T" /> is returned, else <paramref name="currentEnumerable" /> is returned.
-    /// </summary>
-    /// <param name="currentEnumerable"> The current enumerable. </param>
-    /// <typeparam name="T"> </typeparam>
-    /// <returns> </returns>
-    public static IEnumerable<T> IfNullEmpty<T>(this IEnumerable<T> currentEnumerable)
-    {
-        return currentEnumerable ?? [];
-    }
-
-    /// <summary>
-    /// Checks if List is Null Or Empty
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="source">The source.</param>
-    /// <returns><c>true</c> if Null Or Empty, <c>false</c> otherwise.</returns>
-    public static bool NullOrEmpty<T>(this IEnumerable<T> source)
-    {
-        if (source is null)
-        {
-            return true;
         }
 
-        return !source.Any();
+        /// <summary>
+        ///     Iterates through a list with a index.
+        /// </summary>
+        /// <param name="action"> </param>
+        public void ForEachIndex(Action<T, int> action)
+        {
+            var i = 0;
+
+            list.ToList().ForEach(item => action(item, i++));
+        }
+
+        /// <summary>
+        ///     If the <paramref name="list" /> is <see langword="null" /> , an Empty IEnumerable of <typeparamref
+        ///      name="T" /> is returned, else <paramref name="list" /> is returned.
+        /// </summary>
+        /// <returns> </returns>
+        public IEnumerable<T> IfNullEmpty()
+        {
+            return list ?? [];
+        }
+
+        /// <summary>
+        /// Checks if List is Null Or Empty
+        /// </summary>
+        /// <returns><c>true</c> if Null Or Empty, <c>false</c> otherwise.</returns>
+        public bool NullOrEmpty()
+        {
+            if (list is null)
+            {
+                return true;
+            }
+
+            return !list.Any();
+        }
     }
 
-    /// <summary>
-    /// Existses the specified match.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="array">The array.</param>
-    /// <param name="match">The match.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool Exists<T>(this T[] array, Predicate<T> match)
+    /// <typeparam name="T"></typeparam>
+    extension<T>(T[] array)
     {
-        return Array.Exists(array, match);
-    }
+        /// <summary>
+        /// Existses the specified match.
+        /// </summary>
+        /// <param name="match">The match.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        public bool Exists(Predicate<T> match)
+        {
+            return Array.Exists(array, match);
+        }
 
-    /// <summary>
-    /// Finds the specified match.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="array">The array.</param>
-    /// <param name="match">The match.</param>
-    /// <returns>T.</returns>
-    public static T Find<T>(this T[] array, Predicate<T> match)
-    {
-        return Array.Find(array, match);
+        /// <summary>
+        /// Finds the specified match.
+        /// </summary>
+        /// <param name="match">The match.</param>
+        /// <returns>T.</returns>
+        public T Find(Predicate<T> match)
+        {
+            return Array.Find(array, match);
+        }
     }
 }

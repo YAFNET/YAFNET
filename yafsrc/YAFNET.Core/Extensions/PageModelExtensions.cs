@@ -31,86 +31,81 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 /// </summary>
 public static class PageModelExtensions
 {
-    /// <summary>
-    /// Registers the Java Script block.
-    /// </summary>
     /// <param name="pageModel">The page model.</param>
-    /// <param name="scriptBlock">The script block.</param>
-    /// <returns>PageModel.</returns>
-    public static PageModel RegisterJsBlock(this PageModel pageModel, string scriptBlock)
+    extension(PageModel pageModel)
     {
-        var tempData = pageModel.TempData;
+        /// <summary>
+        /// Registers the Java Script block.
+        /// </summary>
+        /// <param name="scriptBlock">The script block.</param>
+        /// <returns>PageModel.</returns>
+        public PageModel RegisterJsBlock(string scriptBlock)
+        {
+            var tempData = pageModel.TempData;
 
-        tempData["_jsBlock"] = scriptBlock;
+            tempData["_jsBlock"] = scriptBlock;
 
-        return pageModel;
-    }
+            return pageModel;
+        }
 
-    /// <summary>
-    /// The toast message.
-    /// </summary>
-    /// <param name="pageModel">
-    /// The page model.
-    /// </param>
-    /// <param name="type">
-    /// The type.
-    /// </param>
-    /// <param name="body">
-    /// The body.
-    /// </param>
-    /// <returns>
-    /// The <see cref="PageModel"/>.
-    /// </returns>
-    public static PageModel ToastMessage(this PageModel pageModel, string type, string body)
-    {
-        var tempData = pageModel.TempData;
+        /// <summary>
+        /// The toast message.
+        /// </summary>
+        /// <param name="type">
+        /// The type.
+        /// </param>
+        /// <param name="body">
+        /// The body.
+        /// </param>
+        /// <returns>
+        /// The <see cref="PageModel"/>.
+        /// </returns>
+        public PageModel ToastMessage(string type, string body)
+        {
+            var tempData = pageModel.TempData;
 
-        tempData["_alert.type"] = type;
-        tempData["_alert.body"] = body;
+            tempData["_alert.type"] = type;
+            tempData["_alert.body"] = body;
 
-        return pageModel;
-    }
+            return pageModel;
+        }
 
-    /// <summary>
-    /// Show BootBox Confirm Modal
-    /// </summary>
-    /// <param name="pageModel">
-    /// The page model.
-    /// </param>
-    /// <param name="title">
-    /// The title.
-    /// </param>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <param name="yes">
-    /// The yes.
-    /// </param>
-    /// <param name="no">
-    /// The no.
-    /// </param>
-    /// <param name="link">
-    /// The link.
-    /// </param>
-    /// <returns>
-    /// The <see cref="PageModel"/>.
-    /// </returns>
-    public static PageModel ConfirmModal(
-        this PageModel pageModel,
-        string title,
-        string text,
-        string yes,
-        string no,
-        string link)
-    {
-        var tempData = pageModel.TempData;
+        /// <summary>
+        /// Show BootBox Confirm Modal
+        /// </summary>
+        /// <param name="title">
+        /// The title.
+        /// </param>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <param name="yes">
+        /// The yes.
+        /// </param>
+        /// <param name="no">
+        /// The no.
+        /// </param>
+        /// <param name="link">
+        /// The link.
+        /// </param>
+        /// <returns>
+        /// The <see cref="PageModel"/>.
+        /// </returns>
+        public PageModel ConfirmModal(string title,
+            string text,
+            string yes,
+            string no,
+            string link)
+        {
+            var tempData = pageModel.TempData;
 
-        tempData["_confirm.title"] = title;
-        tempData["_confirm.text"] = text;
-        tempData["_confirm.yes"] = yes;
-        tempData["_confirm.no"] = no;
-        tempData["_confirm.link"] = link;
+            tempData["_confirm.title"] = title;
+            tempData["_confirm.text"] = text;
+            tempData["_confirm.yes"] = yes;
+            tempData["_confirm.no"] = no;
+            tempData["_confirm.link"] = link;
 
-        return pageModel;
+            return pageModel;
+        }
     }
 }

@@ -34,80 +34,80 @@ using System.Linq;
 /// </summary>
 public static class DbCommandExtensions
 {
-    /// <summary>
-    /// Extension method for adding a parameter
-    /// </summary>
     /// <param name="cmd">
     /// The cmd.
     /// </param>
-    /// <param name="name">
-    /// The name.
-    /// </param>
-    /// <param name="item">
-    /// The item.
-    /// </param>
-    public static void AddParam(this IDbCommand cmd, string name, object item)
+    extension(IDbCommand cmd)
     {
-        AddParam(cmd, new KeyValuePair<string, object>(name, item));
-    }
-
-    /// <summary>
-    /// Extension for adding single parameter named or automatically named by number (0, 1, 2, 3, 4, etc.)
-    /// </summary>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
-    /// <param name="param">
-    /// The param.
-    /// </param>
-    public static void AddParam(this IDbCommand cmd, KeyValuePair<string, object> param)
-    {
-        var item = param.Value;
-
-        var p = cmd.CreateParameter();
-
-        p.ParameterName = $"{(param.Key.IsSet() ? param.Key : cmd.Parameters.Count.ToString())}";
-
-        if (item is null)
+        /// <summary>
+        /// Extension method for adding a parameter
+        /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        public void AddParam(string name, object item)
         {
-            p.Value = DBNull.Value;
+            AddParam(cmd, new KeyValuePair<string, object>(name, item));
         }
-        else
+
+        /// <summary>
+        /// Extension for adding single parameter named or automatically named by number (0, 1, 2, 3, 4, etc.)
+        /// </summary>
+        /// <param name="param">
+        /// The param.
+        /// </param>
+        public void AddParam(KeyValuePair<string, object> param)
         {
-            if (item is string asString)
-            {
-                if (asString.Length < 4000)
-                {
-                    p.Size = 4000;
-                }
-                else
-                {
-                    p.Size = -1;
-                }
+            var item = param.Value;
 
-                p.Value = asString;
+            var p = cmd.CreateParameter();
+
+            p.ParameterName = $"{(param.Key.IsSet() ? param.Key : cmd.Parameters.Count.ToString())}";
+
+            if (item is null)
+            {
+                p.Value = DBNull.Value;
             }
-
-            switch (item)
+            else
             {
-                case Guid:
-                    p.Value = item.ToString();
-                    p.DbType = DbType.String;
-                    p.Size = 4000;
-                    break;
-                case ExpandoObject:
+                if (item is string asString)
+                {
+                    if (asString.Length < 4000)
+                    {
+                        p.Size = 4000;
+                    }
+                    else
+                    {
+                        p.Size = -1;
+                    }
+
+                    p.Value = asString;
+                }
+
+                switch (item)
+                {
+                    case Guid:
+                        p.Value = item.ToString();
+                        p.DbType = DbType.String;
+                        p.Size = 4000;
+                        break;
+                    case ExpandoObject:
                     {
                         var d = (IDictionary<string, object>)item;
                         p.Value = d.Values.FirstOrDefault();
                         break;
                     }
 
-                default:
-                    p.Value = item;
-                    break;
+                    default:
+                        p.Value = item;
+                        break;
+                }
             }
-        }
 
-        cmd.Parameters.Add(p);
+            cmd.Parameters.Add(p);
+        }
     }
 }

@@ -34,60 +34,53 @@ using System.Linq;
 /// </summary>
 public static class NameValueCollectionExtensions
 {
-    /// <summary>
-    /// Gets the first value of <paramref name="paramName"/> in the collection or default (Null).
-    /// </summary>
     /// <param name="collection">
     /// The collection.
     /// </param>
-    /// <param name="paramName">
-    /// The parameter Name.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static string GetFirstOrDefault(
-        this NameValueCollection collection,
-        string paramName)
+    extension(NameValueCollection collection)
     {
-       return collection.GetValueList(paramName).FirstOrDefault();
-    }
+        /// <summary>
+        /// Gets the first value of <paramref name="paramName"/> in the collection or default (Null).
+        /// </summary>
+        /// <param name="paramName">
+        /// The parameter Name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string GetFirstOrDefault(string paramName)
+        {
+            return collection.GetValueList(paramName).FirstOrDefault();
+        }
 
-    /// <summary>
-    /// Gets the value as an <see cref="IEnumerable"/> handling splitting the string if needed.
-    /// </summary>
-    /// <param name="collection">
-    /// The collection.
-    /// </param>
-    /// <param name="paramName">
-    /// The parameter Name.
-    /// </param>
-    /// <returns>
-    /// Does not return null.
-    /// </returns>
-    public static IEnumerable<string> GetValueList(
-        this NameValueCollection collection,
-        string paramName)
-    {
-        return collection[paramName] is null
-                   ? []
-                   : collection[paramName].Split(',').AsEnumerable();
-    }
+        /// <summary>
+        /// Gets the value as an <see cref="IEnumerable"/> handling splitting the string if needed.
+        /// </summary>
+        /// <param name="paramName">
+        /// The parameter Name.
+        /// </param>
+        /// <returns>
+        /// Does not return null.
+        /// </returns>
+        public IEnumerable<string> GetValueList(string paramName)
+        {
+            return collection[paramName] is null
+                ? []
+                : collection[paramName].Split(',').AsEnumerable();
+        }
 
-    /// <summary>
-    /// Check if Element Exists in the collection
-    /// </summary>
-    /// <param name="collection">
-    /// The collection.
-    /// </param>
-    /// <param name="paramName">
-    /// The parameter name.
-    /// </param>
-    /// <returns>
-    /// The <see cref="bool"/>.
-    /// </returns>
-    public static bool Exists(this NameValueCollection collection, string paramName)
-    {
-        return collection[paramName] is not null;
+        /// <summary>
+        /// Check if Element Exists in the collection
+        /// </summary>
+        /// <param name="paramName">
+        /// The parameter name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool Exists(string paramName)
+        {
+            return collection[paramName] is not null;
+        }
     }
 }

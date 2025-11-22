@@ -41,227 +41,205 @@ using YAF.Types.Objects.Model;
 /// </summary>
 public static class TopicRepositoryExtensions
 {
-    /// <summary>
-    /// Get the Topic From Message.
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="messageId">
-    /// The message id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Topic"/>.
-    /// </returns>
-    public static Task<Topic> GetTopicFromMessageAsync(this IRepository<Topic> repository, int messageId)
+    extension(IRepository<Topic> repository)
     {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+        /// <summary>
+        /// Get the Topic From Message.
+        /// </summary>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Topic"/>.
+        /// </returns>
+        public Task<Topic> GetTopicFromMessageAsync(int messageId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
-        expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => m.ID == messageId).Take(1);
+            expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => m.ID == messageId).Take(1);
 
-        return repository.DbAccess.ExecuteAsync(db => db.SingleAsync<Topic>(expression));
-    }
+            return repository.DbAccess.ExecuteAsync(db => db.SingleAsync<Topic>(expression));
+        }
 
-    /// <summary>
-    /// Attach a Poll to a Topic
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic id.
-    /// </param>
-    /// <param name="pollId">
-    /// The poll id.
-    /// </param>
-    public static void AttachPoll(this IRepository<Topic> repository, int topicId, int pollId)
-    {
-        repository.UpdateOnly(() => new Topic { PollID = pollId }, t => t.ID == topicId);
-    }
+        /// <summary>
+        /// Attach a Poll to a Topic
+        /// </summary>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <param name="pollId">
+        /// The poll id.
+        /// </param>
+        public void AttachPoll(int topicId, int pollId)
+        {
+            repository.UpdateOnly(() => new Topic { PollID = pollId }, t => t.ID == topicId);
+        }
 
-    /// <summary>
-    /// Sets the answer message.
-    /// </summary>
-    /// <param name="repository">The repository.</param>
-    /// <param name="topicId">The topic identifier.</param>
-    /// <param name="messageId">The message identifier.</param>
-    public static Task SetAnswerMessageAsync(
-        this IRepository<Topic> repository,
-        int topicId,
-        int messageId)
-    {
-        return repository.UpdateOnlyAsync(() => new Topic { AnswerMessageId = messageId }, t => t.ID == topicId);
-    }
+        /// <summary>
+        /// Sets the answer message.
+        /// </summary>
+        /// <param name="topicId">The topic identifier.</param>
+        /// <param name="messageId">The message identifier.</param>
+        public Task SetAnswerMessageAsync(int topicId,
+            int messageId)
+        {
+            return repository.UpdateOnlyAsync(() => new Topic { AnswerMessageId = messageId }, t => t.ID == topicId);
+        }
 
-    /// <summary>
-    /// Removes answer message.
-    /// </summary>
-    /// <param name="repository">The repository.</param>
-    /// <param name="topicId">The topic identifier.</param>
-    public static Task RemoveAnswerMessageAsync(this IRepository<Topic> repository, int topicId)
-    {
-        return repository.UpdateOnlyAsync(() => new Topic { AnswerMessageId = null }, t => t.ID == topicId);
-    }
+        /// <summary>
+        /// Removes answer message.
+        /// </summary>
+        /// <param name="topicId">The topic identifier.</param>
+        public Task RemoveAnswerMessageAsync(int topicId)
+        {
+            return repository.UpdateOnlyAsync(() => new Topic { AnswerMessageId = null }, t => t.ID == topicId);
+        }
 
-    /// <summary>
-    /// Gets the answer message.
-    /// </summary>
-    /// <param name="repository">The repository.</param>
-    /// <param name="topicId">The topic identifier.</param>
-    /// <returns>Returns the Answer Message identifier</returns>
-    public static int? GetAnswerMessage(this IRepository<Topic> repository, int topicId)
-    {
-        var topic = repository.GetById(topicId);
+        /// <summary>
+        /// Gets the answer message.
+        /// </summary>
+        /// <param name="topicId">The topic identifier.</param>
+        /// <returns>Returns the Answer Message identifier</returns>
+        public int? GetAnswerMessage(int topicId)
+        {
+            var topic = repository.GetById(topicId);
 
-        return topic?.AnswerMessageId;
-    }
+            return topic?.AnswerMessageId;
+        }
 
-    /// <summary>
-    /// Locks/Unlock the topic.
-    /// </summary>
-    /// <param name="repository">The repository.</param>
-    /// <param name="topicId">The topic identifier.</param>
-    /// <param name="flags">The topic flags.</param>
-    public static void Lock(this IRepository<Topic> repository, int topicId, int flags)
-    {
-        repository.UpdateOnly(() => new Topic { Flags = flags }, t => t.ID == topicId);
-    }
+        /// <summary>
+        /// Locks/Unlock the topic.
+        /// </summary>
+        /// <param name="topicId">The topic identifier.</param>
+        /// <param name="flags">The topic flags.</param>
+        public void Lock(int topicId, int flags)
+        {
+            repository.UpdateOnly(() => new Topic { Flags = flags }, t => t.ID == topicId);
+        }
 
-    /// <summary>
-    /// Returns topics which have no replies.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="pageUserId">
-    /// The page user id.
-    /// </param>
-    /// <param name="sinceDate">
-    /// The since Date.
-    /// </param>
-    /// <param name="toDate">
-    /// The to Date.
-    /// </param>
-    /// <param name="pageIndex">
-    /// The page Index.
-    /// </param>
-    /// <param name="pageSize">
-    /// The page Size.
-    /// </param>
-    /// <param name="findLastRead">
-    /// Indicates if the Table should contain the last Access Date
-    /// </param>
-    /// <returns>
-    /// Returns the List with the Topics
-    /// </returns>
-    public static List<PagedTopic> ListUnansweredPaged(
-        this IRepository<Topic> repository,
-        int pageUserId,
-        DateTime sinceDate,
-        DateTime toDate,
-        int pageIndex,
-        int pageSize,
-        bool findLastRead)
-    {
-        return repository.ListPaged(
-            pageUserId,
-            pageIndex,
-            pageSize,
-            findLastRead,
-            (t, x, c) => x.UserID == pageUserId && x.ReadAccess && (t.Flags & 8) != 8 && t.TopicMovedID == null &&
-                         t.LastPosted != null && t.LastPosted > sinceDate && t.LastPosted < toDate &&
-                         t.NumPosts == 1);
-    }
+        /// <summary>
+        /// Returns topics which have no replies.
+        /// </summary>
+        /// <param name="pageUserId">
+        /// The page user id.
+        /// </param>
+        /// <param name="sinceDate">
+        /// The since Date.
+        /// </param>
+        /// <param name="toDate">
+        /// The to Date.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
+        /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the Table should contain the last Access Date
+        /// </param>
+        /// <returns>
+        /// Returns the List with the Topics
+        /// </returns>
+        public List<PagedTopic> ListUnansweredPaged(int pageUserId,
+            DateTime sinceDate,
+            DateTime toDate,
+            int pageIndex,
+            int pageSize,
+            bool findLastRead)
+        {
+            return repository.ListPaged(
+                pageUserId,
+                pageIndex,
+                pageSize,
+                findLastRead,
+                (t, x, c) => x.UserID == pageUserId && x.ReadAccess && (t.Flags & 8) != 8 && t.TopicMovedID == null &&
+                             t.LastPosted != null && t.LastPosted > sinceDate && t.LastPosted < toDate &&
+                             t.NumPosts == 1);
+        }
 
-    /// <summary>
-    /// Lists the Active Topics
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="pageUserId">
-    /// The page user id.
-    /// </param>
-    /// <param name="sinceDate">
-    /// The since Date.
-    /// </param>
-    /// <param name="toDate">
-    /// The to Date.
-    /// </param>
-    /// <param name="pageIndex">
-    /// The page Index.
-    /// </param>
-    /// <param name="pageSize">
-    /// The page Size.
-    /// </param>
-    /// <param name="findLastRead">
-    /// Indicates if the Table should contain the last Access Date
-    /// </param>
-    /// <returns>
-    /// Returns the Active Topics
-    /// </returns>
-    public static List<PagedTopic> ListActivePaged(
-        this IRepository<Topic> repository,
-        int pageUserId,
-        DateTime sinceDate,
-        DateTime toDate,
-        int pageIndex,
-        int pageSize,
-        bool findLastRead)
-    {
-        return repository.ListPaged(
-            pageUserId,
-            pageIndex,
-            pageSize,
-            findLastRead,
-            (t, x, c) => x.UserID == pageUserId && x.ReadAccess &&
-                         (t.Flags & 8) != 8 && t.TopicMovedID == null && t.LastPosted != null && t.LastPosted > sinceDate && t.LastPosted < toDate);
-    }
+        /// <summary>
+        /// Lists the Active Topics
+        /// </summary>
+        /// <param name="pageUserId">
+        /// The page user id.
+        /// </param>
+        /// <param name="sinceDate">
+        /// The since Date.
+        /// </param>
+        /// <param name="toDate">
+        /// The to Date.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
+        /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the Table should contain the last Access Date
+        /// </param>
+        /// <returns>
+        /// Returns the Active Topics
+        /// </returns>
+        public List<PagedTopic> ListActivePaged(int pageUserId,
+            DateTime sinceDate,
+            DateTime toDate,
+            int pageIndex,
+            int pageSize,
+            bool findLastRead)
+        {
+            return repository.ListPaged(
+                pageUserId,
+                pageIndex,
+                pageSize,
+                findLastRead,
+                (t, x, c) => x.UserID == pageUserId && x.ReadAccess &&
+                             (t.Flags & 8) != 8 && t.TopicMovedID == null && t.LastPosted != null && t.LastPosted > sinceDate && t.LastPosted < toDate);
+        }
 
-    /// <summary>
-    /// List all Topics Watched by a user
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="sinceDate">
-    /// The since Date.
-    /// </param>
-    /// <param name="toDate">
-    /// The to Date.
-    /// </param>
-    /// <param name="pageIndex">
-    /// The page Index.
-    /// </param>
-    /// <param name="pageSize">
-    /// The page Size.
-    /// </param>
-    /// <param name="findLastRead">
-    /// Indicates if the Table should contain the last Access Date
-    /// </param>
-    /// <returns>
-    /// Returns the List with the Topics Watched by a user
-    /// </returns>
-    public static List<PagedTopic> ListWatchedPaged(
-        this IRepository<Topic> repository,
-        int userId,
-        DateTime sinceDate,
-        DateTime toDate,
-        int pageIndex,
-        int pageSize,
-        bool findLastRead = false)
-    {
-        Expression<Func<Topic, bool>> whereCriteria = t =>
-            (t.Flags & 8) != 8 && t.TopicMovedID == null && t.LastPosted != null && t.LastPosted > sinceDate
-            && t.LastPosted < toDate;
+        /// <summary>
+        /// List all Topics Watched by a user
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="sinceDate">
+        /// The since Date.
+        /// </param>
+        /// <param name="toDate">
+        /// The to Date.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
+        /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the Table should contain the last Access Date
+        /// </param>
+        /// <returns>
+        /// Returns the List with the Topics Watched by a user
+        /// </returns>
+        public List<PagedTopic> ListWatchedPaged(int userId,
+            DateTime sinceDate,
+            DateTime toDate,
+            int pageIndex,
+            int pageSize,
+            bool findLastRead = false)
+        {
+            Expression<Func<Topic, bool>> whereCriteria = t =>
+                (t.Flags & 8) != 8 && t.TopicMovedID == null && t.LastPosted != null && t.LastPosted > sinceDate
+                && t.LastPosted < toDate;
 
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchTopic>();
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchTopic>();
 
-        return repository.DbAccess.Execute(
-            db =>
+            return repository.DbAccess.Execute(
+                db =>
                 {
                     expression.Join<User>((t, u) => u.ID == t.UserID)
                         .Join<Topic>((a, b) => b.ID == a.TopicID).Join<Topic, Forum>((t, f) => f.ID == t.ForumID)
@@ -351,205 +329,185 @@ public static class TopicRepositoryExtensions
 
                     expression.Select<Topic, User, Forum>(
                         (c, b, d) => new
-                                         {
-                                             ForumID = d.ID,
-                                             ForumName = d.Name,
-                                             TopicID = c.ID,
-                                             c.Posted,
-                                             LinkTopicID = c.TopicMovedID ?? c.ID,
-                                             c.TopicMovedID,
-                                             Subject = c.TopicName,
-                                             c.Description,
-                                             c.Status,
-                                             c.Styles,
-                                             c.UserID,
-                                             Starter = c.UserName ?? b.Name,
-                                             StarterDisplay =
-                                                 c.UserDisplayName ?? b.DisplayName,
-                                             Replies = c.NumPosts - 1,
-                                             NumPostsDeleted = Sql.Custom($"({countDeletedSql})"),
-                                             c.Views,
-                                             c.LastPosted,
-                                             c.LastUserID,
-                                             LastUserName = Sql.Custom($"({lastUserNameSql})"),
-                                             LastUserDisplayName = Sql.Custom($"({lastUserDisplayNameSql})"),
-                                             LastUserSuspended = Sql.Custom($"({lastUserSuspendedSql})"),
-                                             LastUserStyle = Sql.Custom($"({lastUserStyleSql})"),
-                                             c.LastMessageFlags,
-                                             c.LastMessageID,
-                                             LastTopicID = c.ID,
-                                             c.LinkDate,
-                                             TopicFlags = c.Flags,
-                                             c.Priority,
-                                             c.PollID,
-                                             ForumFlags = d.Flags,
-                                             LastMessage = Sql.Custom($"({lastMessageSql})"),
-                                             StarterStyle = b.UserStyle,
-                                             StarterSuspended = b.Suspended,
-                                             LastForumAccess = Sql.Custom($"({lastForumAccessSql})"),
-                                             LastTopicAccess = Sql.Custom($"({lastTopicAccessSql})"),
-                                             c.TopicImage,
-                                             TotalRows = Sql.Custom($"({countTotalSql})")
-                                         });
+                        {
+                            ForumID = d.ID,
+                            ForumName = d.Name,
+                            TopicID = c.ID,
+                            c.Posted,
+                            LinkTopicID = c.TopicMovedID ?? c.ID,
+                            c.TopicMovedID,
+                            Subject = c.TopicName,
+                            c.Description,
+                            c.Status,
+                            c.Styles,
+                            c.UserID,
+                            Starter = c.UserName ?? b.Name,
+                            StarterDisplay =
+                                c.UserDisplayName ?? b.DisplayName,
+                            Replies = c.NumPosts - 1,
+                            NumPostsDeleted = Sql.Custom($"({countDeletedSql})"),
+                            c.Views,
+                            c.LastPosted,
+                            c.LastUserID,
+                            LastUserName = Sql.Custom($"({lastUserNameSql})"),
+                            LastUserDisplayName = Sql.Custom($"({lastUserDisplayNameSql})"),
+                            LastUserSuspended = Sql.Custom($"({lastUserSuspendedSql})"),
+                            LastUserStyle = Sql.Custom($"({lastUserStyleSql})"),
+                            c.LastMessageFlags,
+                            c.LastMessageID,
+                            LastTopicID = c.ID,
+                            c.LinkDate,
+                            TopicFlags = c.Flags,
+                            c.Priority,
+                            c.PollID,
+                            ForumFlags = d.Flags,
+                            LastMessage = Sql.Custom($"({lastMessageSql})"),
+                            StarterStyle = b.UserStyle,
+                            StarterSuspended = b.Suspended,
+                            LastForumAccess = Sql.Custom($"({lastForumAccessSql})"),
+                            LastTopicAccess = Sql.Custom($"({lastTopicAccessSql})"),
+                            c.TopicImage,
+                            TotalRows = Sql.Custom($"({countTotalSql})")
+                        });
 
                     return db.Connection.Select<PagedTopic>(expression);
                 });
-    }
+        }
 
-    /// <summary>
-    /// Gets all topics where the page User id has posted
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="pageUserId">
-    /// The page user id.
-    /// </param>
-    /// <param name="sinceDate">
-    /// The since Date.
-    /// </param>
-    /// <param name="toDate">
-    /// The to Date.
-    /// </param>
-    /// <param name="pageIndex">
-    /// The page Index.
-    /// </param>
-    /// <param name="pageSize">
-    /// The page Size.
-    /// </param>
-    /// <param name="findLastRead">
-    /// Indicates if the Table should contain the last Access Date
-    /// </param>
-    /// <returns>
-    /// Returns the List with the User Topics
-    /// </returns>
-    public static List<PagedTopic> ListByUserPaged(
-        this IRepository<Topic> repository,
-        int pageUserId,
-        DateTime sinceDate,
-        DateTime toDate,
-        int pageIndex,
-        int pageSize,
-        bool findLastRead = false)
-    {
-        return repository.ListPaged(
-            pageUserId,
-            pageIndex,
-            pageSize,
-            findLastRead,
-            (t, x, c) => x.UserID == pageUserId && x.ReadAccess && (t.Flags & 8) != 8 && t.TopicMovedID == null &&
-                         t.LastPosted != null && t.LastPosted > sinceDate && t.LastPosted < toDate &&
-                         t.UserID == pageUserId);
-    }
+        /// <summary>
+        /// Gets all topics where the page User id has posted
+        /// </summary>
+        /// <param name="pageUserId">
+        /// The page user id.
+        /// </param>
+        /// <param name="sinceDate">
+        /// The since Date.
+        /// </param>
+        /// <param name="toDate">
+        /// The to Date.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
+        /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the Table should contain the last Access Date
+        /// </param>
+        /// <returns>
+        /// Returns the List with the User Topics
+        /// </returns>
+        public List<PagedTopic> ListByUserPaged(int pageUserId,
+            DateTime sinceDate,
+            DateTime toDate,
+            int pageIndex,
+            int pageSize,
+            bool findLastRead = false)
+        {
+            return repository.ListPaged(
+                pageUserId,
+                pageIndex,
+                pageSize,
+                findLastRead,
+                (t, x, c) => x.UserID == pageUserId && x.ReadAccess && (t.Flags & 8) != 8 && t.TopicMovedID == null &&
+                             t.LastPosted != null && t.LastPosted > sinceDate && t.LastPosted < toDate &&
+                             t.UserID == pageUserId);
+        }
 
-    /// <summary>
-    /// Create New Topic By Message.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="messageId">
-    /// The message Id.
-    /// </param>
-    /// <param name="forumId">
-    /// The forum id.
-    /// </param>
-    /// <param name="newTopicSubject">
-    /// The new topic subject.
-    /// </param>
-    /// <returns>
-    /// Returns the new Topic ID
-    /// </returns>
-    public async static Task<int> CreateByMessageAsync(
-        this IRepository<Topic> repository,
-        int messageId,
-        int forumId,
-        string newTopicSubject)
-    {
-        var message = await BoardContext.Current.GetRepository<Message>().GetByIdAsync(messageId);
+        /// <summary>
+        /// Create New Topic By Message.
+        /// </summary>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <param name="newTopicSubject">
+        /// The new topic subject.
+        /// </param>
+        /// <returns>
+        /// Returns the new Topic ID
+        /// </returns>
+        public async Task<int> CreateByMessageAsync(int messageId,
+            int forumId,
+            string newTopicSubject)
+        {
+            var message = await BoardContext.Current.GetRepository<Message>().GetByIdAsync(messageId);
 
-        var topic = new Topic
-                        {
-                            ForumID = forumId,
-                            TopicName = newTopicSubject,
-                            UserID = message.UserID,
-                            Posted = message.Posted,
-                            Views = 0,
-                            Priority = 0,
-                            PollID = null,
-                            UserName = null,
-                            NumPosts = 0
-                        };
+            var topic = new Topic
+            {
+                ForumID = forumId,
+                TopicName = newTopicSubject,
+                UserID = message.UserID,
+                Posted = message.Posted,
+                Views = 0,
+                Priority = 0,
+                PollID = null,
+                UserName = null,
+                NumPosts = 0
+            };
 
-        return await repository.InsertAsync(topic);
-    }
+            return await repository.InsertAsync(topic);
+        }
 
-    /// <summary>
-    /// Get the Latest Topics for the RSS Feed.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="boardId">
-    /// The board Id.
-    /// </param>
-    /// <param name="numOfPostsToRetrieve">
-    /// The number of posts to retrieve.
-    /// </param>
-    /// <param name="pageUserId">
-    /// The page UserId id.
-    /// </param>
-    /// <returns>
-    /// Returns the Latest Topics for the RSS Feed.
-    /// </returns>
-    public static List<Tuple<Message, Topic, User>> RssLatest(
-        this IRepository<Topic> repository,
-        int boardId,
-        int numOfPostsToRetrieve,
-        int pageUserId)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+        /// <summary>
+        /// Get the Latest Topics for the RSS Feed.
+        /// </summary>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <param name="numOfPostsToRetrieve">
+        /// The number of posts to retrieve.
+        /// </param>
+        /// <param name="pageUserId">
+        /// The page UserId id.
+        /// </param>
+        /// <returns>
+        /// Returns the Latest Topics for the RSS Feed.
+        /// </returns>
+        public List<Tuple<Message, Topic, User>> RssLatest(int boardId,
+            int numOfPostsToRetrieve,
+            int pageUserId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
-        expression.Join<Topic>((m, t) => m.ID == t.LastMessageID).Join<Topic, User>((t, u) => u.ID == t.LastUserID)
-            .Join<Topic, Forum>((c, d) => d.ID == c.ForumID).Join<Forum, Category>((d, e) => e.ID == d.CategoryID)
-            .Join<Forum, ActiveAccess>((d, x) => x.ForumID == d.ID)
-            .Where<Topic, Message, ActiveAccess, Category>(
-                (topic, message, x, e) => e.BoardID == boardId && (e.Flags & 1) == 1 && topic.TopicMovedID == null &&
-                                          x.UserID == pageUserId && x.ReadAccess && (topic.Flags & 8) != 8 &&
-                                          (message.Flags & 8) != 8 && topic.LastPosted != null)
-            .OrderByDescending<Message>(x => x.Posted).Take(numOfPostsToRetrieve);
+            expression.Join<Topic>((m, t) => m.ID == t.LastMessageID).Join<Topic, User>((t, u) => u.ID == t.LastUserID)
+                .Join<Topic, Forum>((c, d) => d.ID == c.ForumID).Join<Forum, Category>((d, e) => e.ID == d.CategoryID)
+                .Join<Forum, ActiveAccess>((d, x) => x.ForumID == d.ID)
+                .Where<Topic, Message, ActiveAccess, Category>(
+                    (topic, message, x, e) => e.BoardID == boardId && (e.Flags & 1) == 1 && topic.TopicMovedID == null &&
+                                              x.UserID == pageUserId && x.ReadAccess && (topic.Flags & 8) != 8 &&
+                                              (message.Flags & 8) != 8 && topic.LastPosted != null)
+                .OrderByDescending<Message>(x => x.Posted).Take(numOfPostsToRetrieve);
 
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, Topic, User>(expression));
-    }
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, Topic, User>(expression));
+        }
 
-    /// <summary>
-    /// Gets all Topics for an RSS Feed of specified forum id.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="forumId">
-    /// The forum id.
-    /// </param>
-    /// <param name="pageUserId">
-    /// The page User Id.
-    /// </param>
-    /// <param name="topicLimit">
-    /// The topic limit.
-    /// </param>
-    /// <returns>
-    /// Returns all Topics for an RSS Feed of specified forum id.
-    /// </returns>
-    public static List<LatestTopic> RssList(
-        this IRepository<Topic> repository,
-        int forumId,
-        int pageUserId,
-        int topicLimit)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
+        /// <summary>
+        /// Gets all Topics for an RSS Feed of specified forum id.
+        /// </summary>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <param name="pageUserId">
+        /// The page User Id.
+        /// </param>
+        /// <param name="topicLimit">
+        /// The topic limit.
+        /// </param>
+        /// <returns>
+        /// Returns all Topics for an RSS Feed of specified forum id.
+        /// </returns>
+        public List<LatestTopic> RssList(int forumId,
+            int pageUserId,
+            int topicLimit)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
-        return repository.DbAccess.Execute(
-            db =>
+            return repository.DbAccess.Execute(
+                db =>
                 {
                     expression.Join<Forum>((t, f) => f.ID == t.ForumID).Join<Message>((t, m) => m.ID == t.LastMessageID)
                         .Join<Forum, Category>((f, c) => c.ID == f.CategoryID)
@@ -564,65 +522,60 @@ public static class TopicRepositoryExtensions
 
                     expression.Take(topicLimit).Select<Topic, Message, Forum>(
                         (t, m, f) => new
-                                         {
-                                             Topic = t.TopicName,
-                                             TopicID = t.ID,
-                                             Forum = f.Name,
-                                             LastPosted = t.LastPosted ?? t.Posted,
-                                             LastUserID = t.LastUserID ?? t.UserID,
-                                             t.LastMessageID,
-                                             LastMessage = m.MessageText,
-                                             LastMessageFlags = m.Flags
-                                         });
+                        {
+                            Topic = t.TopicName,
+                            TopicID = t.ID,
+                            Forum = f.Name,
+                            LastPosted = t.LastPosted ?? t.Posted,
+                            LastUserID = t.LastUserID ?? t.UserID,
+                            t.LastMessageID,
+                            LastMessage = m.MessageText,
+                            LastMessageFlags = m.Flags
+                        });
 
                     return db.Connection.Select<LatestTopic>(expression);
                 });
-    }
+        }
 
-    /// <summary>
-    /// Get the Latest Topics
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="boardId">
-    /// The board Id.
-    /// </param>
-    /// <param name="categoryId">
-    /// The category Id.
-    /// </param>
-    /// <param name="numOfPostsToRetrieve">
-    /// The number of posts to retrieve.
-    /// </param>
-    /// <param name="pageUserId">
-    /// The page UserId id.
-    /// </param>
-    /// <param name="showNoCountPosts">
-    /// The show No Count Posts.
-    /// </param>
-    /// <param name="findLastRead">
-    /// Indicates if the Table should contain the last Access Date
-    /// </param>
-    /// <param name="sortOrder">
-    /// The sort Order 0 == LastPosted, 1 == Views, 2 == Number of Posts.
-    /// </param>
-    /// <returns>
-    /// The List of Latest Topics
-    /// </returns>
-    public static List<LatestTopic> Latest(
-        this IRepository<Topic> repository,
-        int boardId,
-        int categoryId,
-        int numOfPostsToRetrieve,
-        int pageUserId,
-        bool showNoCountPosts,
-        bool findLastRead,
-        int sortOrder = 0)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
+        /// <summary>
+        /// Get the Latest Topics
+        /// </summary>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <param name="categoryId">
+        /// The category Id.
+        /// </param>
+        /// <param name="numOfPostsToRetrieve">
+        /// The number of posts to retrieve.
+        /// </param>
+        /// <param name="pageUserId">
+        /// The page UserId id.
+        /// </param>
+        /// <param name="showNoCountPosts">
+        /// The show No Count Posts.
+        /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the Table should contain the last Access Date
+        /// </param>
+        /// <param name="sortOrder">
+        /// The sort Order 0 == LastPosted, 1 == Views, 2 == Number of Posts.
+        /// </param>
+        /// <returns>
+        /// The List of Latest Topics
+        /// </returns>
+        public List<LatestTopic> Latest(int boardId,
+            int categoryId,
+            int numOfPostsToRetrieve,
+            int pageUserId,
+            bool showNoCountPosts,
+            bool findLastRead,
+            int sortOrder = 0)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
-        return repository.DbAccess.Execute(
-            db =>
+            return repository.DbAccess.Execute(
+                db =>
                 {
                     expression.Join<Message>((t, m) => m.ID == t.LastMessageID).Join<Forum>((t, f) => f.ID == t.ForumID)
                         .Join<User>((t, u) => u.ID == t.UserID)
@@ -690,150 +643,140 @@ public static class TopicRepositoryExtensions
 
                         expression.Take(numOfPostsToRetrieve).Select<Topic, Message, Forum, User, User>(
                             (t, m, f, u, lastUser) => new
-                                                          {
-                                                              t.LastPosted,
-                                                              t.ForumID,
-                                                              Forum = f.Name,
-                                                              t.TopicName,
-                                                              t.Status,
-                                                              t.Styles,
-                                                              TopicID = t.ID,
-                                                              t.TopicMovedID,
-                                                              t.UserID,
-                                                              UserName = t.UserName ?? u.Name,
-                                                              UserDisplayName = t.UserDisplayName ?? u.Name,
-                                                              t.LastMessageID,
-                                                              t.LastMessageFlags,
-                                                              t.LastUserID,
-                                                              t.NumPosts,
-                                                              t.Views,
-                                                              t.Posted,
-                                                              LastMessage = m.MessageText,
-                                                              LastUserName = Sql.TableAlias(lastUser.Name, "lastUser"),
-                                                              LastUserDisplayName = Sql.TableAlias(lastUser.DisplayName, "lastUser"),
-                                                              LastUserStyle = Sql.TableAlias(lastUser.UserStyle, "lastUser"),
-                                                              LastUserSuspended = Sql.TableAlias(lastUser.Suspended, "lastUser"),
-                                                              LastForumAccess = Sql.Custom($"({forumReadTrackSql})"),
-                                                              LastTopicAccess = Sql.Custom($"({topicReadTrackSql})")
-                                                          });
+                            {
+                                t.LastPosted,
+                                t.ForumID,
+                                Forum = f.Name,
+                                t.TopicName,
+                                t.Status,
+                                t.Styles,
+                                TopicID = t.ID,
+                                t.TopicMovedID,
+                                t.UserID,
+                                UserName = t.UserName ?? u.Name,
+                                UserDisplayName = t.UserDisplayName ?? u.Name,
+                                t.LastMessageID,
+                                t.LastMessageFlags,
+                                t.LastUserID,
+                                t.NumPosts,
+                                t.Views,
+                                t.Posted,
+                                LastMessage = m.MessageText,
+                                LastUserName = Sql.TableAlias(lastUser.Name, "lastUser"),
+                                LastUserDisplayName = Sql.TableAlias(lastUser.DisplayName, "lastUser"),
+                                LastUserStyle = Sql.TableAlias(lastUser.UserStyle, "lastUser"),
+                                LastUserSuspended = Sql.TableAlias(lastUser.Suspended, "lastUser"),
+                                LastForumAccess = Sql.Custom($"({forumReadTrackSql})"),
+                                LastTopicAccess = Sql.Custom($"({topicReadTrackSql})")
+                            });
                     }
                     else
                     {
                         expression.Take(numOfPostsToRetrieve).Select<Topic, Message, Forum, User, User>(
                             (t, m, f, u, lastUser) => new
-                                                          {
-                                                              t.LastPosted,
-                                                              t.ForumID,
-                                                              Forum = f.Name,
-                                                              t.TopicName,
-                                                              t.Status,
-                                                              t.Styles,
-                                                              TopicID = t.ID,
-                                                              t.TopicMovedID,
-                                                              t.UserID,
-                                                              UserName = t.UserName ?? u.Name,
-                                                              UserDisplayName = t.UserDisplayName ?? u.Name,
-                                                              t.LastMessageID,
-                                                              t.LastMessageFlags,
-                                                              t.LastUserID,
-                                                              t.NumPosts,
-                                                              t.Views,
-                                                              t.Posted,
-                                                              LastMessage = m.MessageText,
-                                                              LastUserName = Sql.TableAlias(lastUser.Name, "lastUser"),
-                                                              LastUserDisplayName = Sql.TableAlias(lastUser.DisplayName, "lastUser"),
-                                                              LastUserStyle = Sql.TableAlias(lastUser.UserStyle, "lastUser"),
-                                                              LastUserSuspended = Sql.TableAlias(lastUser.Suspended, "lastUser"),
-                                                              LastForumAccess = Sql.Custom("(NULL)"),
-                                                              LastTopicAccess = Sql.Custom("(NULL)")
-                                                          });
+                            {
+                                t.LastPosted,
+                                t.ForumID,
+                                Forum = f.Name,
+                                t.TopicName,
+                                t.Status,
+                                t.Styles,
+                                TopicID = t.ID,
+                                t.TopicMovedID,
+                                t.UserID,
+                                UserName = t.UserName ?? u.Name,
+                                UserDisplayName = t.UserDisplayName ?? u.Name,
+                                t.LastMessageID,
+                                t.LastMessageFlags,
+                                t.LastUserID,
+                                t.NumPosts,
+                                t.Views,
+                                t.Posted,
+                                LastMessage = m.MessageText,
+                                LastUserName = Sql.TableAlias(lastUser.Name, "lastUser"),
+                                LastUserDisplayName = Sql.TableAlias(lastUser.DisplayName, "lastUser"),
+                                LastUserStyle = Sql.TableAlias(lastUser.UserStyle, "lastUser"),
+                                LastUserSuspended = Sql.TableAlias(lastUser.Suspended, "lastUser"),
+                                LastForumAccess = Sql.Custom("(NULL)"),
+                                LastTopicAccess = Sql.Custom("(NULL)")
+                            });
                     }
 
                     return db.Connection.Select<LatestTopic>(expression);
                 });
-    }
+        }
 
-    /// <summary>
-    /// Gets the paged Topic List
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="forumId">
-    /// The forum Id.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="sinceDate">
-    /// The since Date.
-    /// </param>
-    /// <param name="pageIndex">
-    /// The page Index.
-    /// </param>
-    /// <param name="pageSize">
-    /// The page Size.
-    /// </param>
-    /// <param name="findLastRead">
-    /// Indicates if the list should contain the last Access Date
-    /// </param>
-    /// <returns>
-    /// Returns the paged Topic List
-    /// </returns>
-    public static List<PagedTopic> ListPaged(
-        this IRepository<Topic> repository,
-        int forumId,
-        int userId,
-        DateTime? sinceDate,
-        int pageIndex,
-        int pageSize,
-        bool findLastRead)
-    {
-        return repository.ListPaged(
-            userId,
-            pageIndex,
-            pageSize,
-            findLastRead,
-            (t, x, c) => t.ForumID == forumId && t.Priority == 0 && t.LastPosted >= sinceDate && (t.Flags & 8) != 8
-                         && x.UserID == userId && x.ReadAccess && (t.TopicMovedID != null || t.NumPosts > 0));
-    }
+        /// <summary>
+        /// Gets the paged Topic List
+        /// </summary>
+        /// <param name="forumId">
+        /// The forum Id.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="sinceDate">
+        /// The since Date.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
+        /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the list should contain the last Access Date
+        /// </param>
+        /// <returns>
+        /// Returns the paged Topic List
+        /// </returns>
+        public List<PagedTopic> ListPaged(int forumId,
+            int userId,
+            DateTime? sinceDate,
+            int pageIndex,
+            int pageSize,
+            bool findLastRead)
+        {
+            return repository.ListPaged(
+                userId,
+                pageIndex,
+                pageSize,
+                findLastRead,
+                (t, x, c) => t.ForumID == forumId && t.Priority == 0 && t.LastPosted >= sinceDate && (t.Flags & 8) != 8
+                             && x.UserID == userId && x.ReadAccess && (t.TopicMovedID != null || t.NumPosts > 0));
+        }
 
-    /// <summary>
-    /// Gets the paged Topic List
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="pageIndex">
-    /// The page Index.
-    /// </param>
-    /// <param name="pageSize">
-    /// The page Size.
-    /// </param>
-    /// <param name="findLastRead">
-    /// Indicates if the list should contain the last Access Date
-    /// </param>
-    /// <param name="whereCriteria">
-    /// The where Criteria.
-    /// </param>
-    /// <returns>
-    /// Returns the paged Topic List
-    /// </returns>
-    public static List<PagedTopic> ListPaged(
-        this IRepository<Topic> repository,
-        int userId,
-        int pageIndex,
-        int pageSize,
-        bool findLastRead,
-        Expression<Func<Topic, ActiveAccess, Category, bool>> whereCriteria)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
+        /// <summary>
+        /// Gets the paged Topic List
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
+        /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the list should contain the last Access Date
+        /// </param>
+        /// <param name="whereCriteria">
+        /// The where Criteria.
+        /// </param>
+        /// <returns>
+        /// Returns the paged Topic List
+        /// </returns>
+        public List<PagedTopic> ListPaged(int userId,
+            int pageIndex,
+            int pageSize,
+            bool findLastRead,
+            Expression<Func<Topic, ActiveAccess, Category, bool>> whereCriteria)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
-        return repository.DbAccess.Execute(
-            db =>
+            return repository.DbAccess.Execute(
+                db =>
                 {
                     expression.Join<User>((t, u) => u.ID == t.UserID).Join<Forum>((t, f) => f.ID == t.ForumID)
                         .Join<Forum, ActiveAccess>((f, x) => x.ForumID == f.ID)
@@ -977,274 +920,249 @@ public static class TopicRepositoryExtensions
 
                     return db.Connection.Select<PagedTopic>(expression);
                 });
-    }
-
-    /// <summary>
-    /// Get the Paged Announcements Topics
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="forumId">
-    /// The forum Id.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="pageIndex">
-    /// The page Index.
-    /// </param>
-    /// <param name="pageSize">
-    /// The page Size.
-    /// </param>
-    /// <param name="findLastRead">
-    /// Indicates if the list should Contain the last Access Date
-    /// </param>
-    /// <returns>
-    /// Returns the Paged Announcements Topics
-    /// </returns>
-    public static List<PagedTopic> ListAnnouncementsPaged(
-        this IRepository<Topic> repository,
-        int forumId,
-        int userId,
-        int pageIndex,
-        int pageSize,
-        bool findLastRead)
-    {
-        return repository.ListPaged(
-            userId,
-            pageIndex,
-            pageSize,
-            findLastRead,
-            (t, x, c) => t.ForumID == forumId && t.Priority > 0 && (t.Flags & 8) != 8 &&
-                         (t.TopicMovedID != null || t.NumPosts > 0) && x.UserID == userId && x.ReadAccess);
-    }
-
-    /// <summary>
-    /// The topic_save.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="forum">
-    /// The forum.
-    /// </param>
-    /// <param name="subject">
-    /// The subject.
-    /// </param>
-    /// <param name="status">
-    /// The status.
-    /// </param>
-    /// <param name="styles">
-    /// The styles.
-    /// </param>
-    /// <param name="description">
-    /// The description.
-    /// </param>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    /// <param name="user">
-    /// The user.
-    /// </param>
-    /// <param name="priority">
-    /// The priority.
-    /// </param>
-    /// <param name="userName">
-    /// The user name.
-    /// </param>
-    /// <param name="userDisplayName">
-    /// The user Display Name.
-    /// </param>
-    /// <param name="ip">
-    /// The IP Address.
-    /// </param>
-    /// <param name="posted">
-    /// The posted.
-    /// </param>
-    /// <param name="flags">
-    /// The flags.
-    /// </param>
-    /// <returns>
-    /// Returns the Topic
-    /// </returns>
-    public async static Task<Tuple<Topic, Message>> SaveNewAsync(
-        this IRepository<Topic> repository,
-        Forum forum,
-        string subject,
-        string status,
-        string styles,
-        string description,
-        string message,
-        User user,
-        short priority,
-        string userName,
-        string userDisplayName,
-        string ip,
-        DateTime posted,
-        MessageFlags flags)
-    {
-        var topicFlags = new TopicFlags { IsPersistent = flags.IsPersistent };
-
-        var topic = new Topic
-                        {
-                            ForumID = forum.ID,
-                            TopicName = subject,
-                            UserID = user.ID,
-                            Posted = posted,
-                            Views = 0,
-                            Priority = priority,
-                            UserName = userName,
-                            UserDisplayName = userDisplayName,
-                            NumPosts = 0,
-                            Description = description,
-                            Status = status,
-                            Styles = styles,
-                            Flags = topicFlags.BitValue
-        };
-
-        var topicId = await repository.InsertAsync(topic);
-
-        topic.ID = topicId.ToType<int>();
-
-        var newMessage = await BoardContext.Current.GetRepository<Message>().SaveNewAsync(
-            forum,
-            topic,
-            user,
-            message,
-            userName,
-            ip,
-            posted,
-            null,
-            flags);
-
-        return new Tuple<Topic, Message>(topic, newMessage);
-    }
-
-    /// <summary>
-    /// Move the Topic.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic id.
-    /// </param>
-    /// <param name="oldForumId">
-    /// The old Forum Id.
-    /// </param>
-    /// <param name="newForumId">
-    /// The new Forum Id.
-    /// </param>
-    /// <param name="showMoved">
-    /// The show moved.
-    /// </param>
-    /// <param name="linkDays">
-    /// The link Days.
-    /// </param>
-    public async static Task MoveAsync(
-        this IRepository<Topic> repository,
-        int topicId,
-        int oldForumId,
-        int newForumId,
-        bool showMoved,
-        int linkDays)
-    {
-        var topic = await repository.GetByIdAsync(topicId);
-
-        await repository.MoveAsync(topic, oldForumId, newForumId, showMoved, linkDays);
-    }
-
-    /// <summary>
-    /// Move the Topic.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="topic">
-    /// The topic.
-    /// </param>
-    /// <param name="oldForumId">
-    /// The old Forum Id.
-    /// </param>
-    /// <param name="newForumId">
-    /// The new Forum Id.
-    /// </param>
-    /// <param name="showMoved">
-    /// The show moved.
-    /// </param>
-    /// <param name="linkDays">
-    /// The link Days.
-    /// </param>
-    public async static Task MoveAsync(
-        this IRepository<Topic> repository,
-        Topic topic,
-        int oldForumId,
-        int newForumId,
-        bool showMoved,
-        int linkDays)
-    {
-        if (showMoved)
-        {
-            // -- delete an old link if exists
-            await repository.DeleteAsync(t => t.TopicMovedID == topic.ID);
-
-            var linkDate = DateTime.UtcNow.AddDays(linkDays);
-
-            // -- create a moved message
-            await repository.InsertAsync(
-                new Topic
-                {
-                    ForumID = topic.ForumID,
-                    UserID = topic.UserID,
-                    UserName = topic.UserName,
-                    UserDisplayName = topic.UserDisplayName,
-                    Posted = topic.Posted,
-                    TopicName = topic.TopicName,
-                    Views = 0,
-                    Flags = topic.Flags,
-                    Priority = topic.Priority,
-                    PollID = topic.PollID,
-                    TopicMovedID = topic.ID,
-                    LastPosted = topic.LastPosted,
-                    NumPosts = 0,
-                    LinkDate = linkDate
-                });
         }
 
-        // -- move the topic
-        await repository.UpdateOnlyAsync(() => new Topic { ForumID = newForumId }, t => t.ID == topic.ID);
+        /// <summary>
+        /// Get the Paged Announcements Topics
+        /// </summary>
+        /// <param name="forumId">
+        /// The forum Id.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
+        /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the list should Contain the last Access Date
+        /// </param>
+        /// <returns>
+        /// Returns the Paged Announcements Topics
+        /// </returns>
+        public List<PagedTopic> ListAnnouncementsPaged(int forumId,
+            int userId,
+            int pageIndex,
+            int pageSize,
+            bool findLastRead)
+        {
+            return repository.ListPaged(
+                userId,
+                pageIndex,
+                pageSize,
+                findLastRead,
+                (t, x, c) => t.ForumID == forumId && t.Priority > 0 && (t.Flags & 8) != 8 &&
+                             (t.TopicMovedID != null || t.NumPosts > 0) && x.UserID == userId && x.ReadAccess);
+        }
 
-        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(newForumId));
-        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(oldForumId));
-    }
+        /// <summary>
+        /// The topic_save.
+        /// </summary>
+        /// <param name="forum">
+        /// The forum.
+        /// </param>
+        /// <param name="subject">
+        /// The subject.
+        /// </param>
+        /// <param name="status">
+        /// The status.
+        /// </param>
+        /// <param name="styles">
+        /// The styles.
+        /// </param>
+        /// <param name="description">
+        /// The description.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        /// <param name="priority">
+        /// The priority.
+        /// </param>
+        /// <param name="userName">
+        /// The user name.
+        /// </param>
+        /// <param name="userDisplayName">
+        /// The user Display Name.
+        /// </param>
+        /// <param name="ip">
+        /// The IP Address.
+        /// </param>
+        /// <param name="posted">
+        /// The posted.
+        /// </param>
+        /// <param name="flags">
+        /// The flags.
+        /// </param>
+        /// <returns>
+        /// Returns the Topic
+        /// </returns>
+        public async Task<Tuple<Topic, Message>> SaveNewAsync(Forum forum,
+            string subject,
+            string status,
+            string styles,
+            string description,
+            string message,
+            User user,
+            short priority,
+            string userName,
+            string userDisplayName,
+            string ip,
+            DateTime posted,
+            MessageFlags flags)
+        {
+            var topicFlags = new TopicFlags { IsPersistent = flags.IsPersistent };
 
-    /// <summary>
-    /// The prune.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <param name="forumId">
-    /// The forum id.
-    /// </param>
-    /// <param name="days">
-    /// The days.
-    /// </param>
-    /// <returns>
-    /// The <see cref="int"/>.
-    /// </returns>
-    public static int Prune(
-        this IRepository<Topic> repository,
-        int boardId,
-        int forumId,
-        int days)
-    {
-        var topics = repository.DbAccess.Execute(
-            db =>
+            var topic = new Topic
+            {
+                ForumID = forum.ID,
+                TopicName = subject,
+                UserID = user.ID,
+                Posted = posted,
+                Views = 0,
+                Priority = priority,
+                UserName = userName,
+                UserDisplayName = userDisplayName,
+                NumPosts = 0,
+                Description = description,
+                Status = status,
+                Styles = styles,
+                Flags = topicFlags.BitValue
+            };
+
+            var topicId = await repository.InsertAsync(topic);
+
+            topic.ID = topicId.ToType<int>();
+
+            var newMessage = await BoardContext.Current.GetRepository<Message>().SaveNewAsync(
+                forum,
+                topic,
+                user,
+                message,
+                userName,
+                ip,
+                posted,
+                null,
+                flags);
+
+            return new Tuple<Topic, Message>(topic, newMessage);
+        }
+
+        /// <summary>
+        /// Move the Topic.
+        /// </summary>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <param name="oldForumId">
+        /// The old Forum Id.
+        /// </param>
+        /// <param name="newForumId">
+        /// The new Forum Id.
+        /// </param>
+        /// <param name="showMoved">
+        /// The show moved.
+        /// </param>
+        /// <param name="linkDays">
+        /// The link Days.
+        /// </param>
+        public async Task MoveAsync(int topicId,
+            int oldForumId,
+            int newForumId,
+            bool showMoved,
+            int linkDays)
+        {
+            var topic = await repository.GetByIdAsync(topicId);
+
+            await repository.MoveAsync(topic, oldForumId, newForumId, showMoved, linkDays);
+        }
+
+        /// <summary>
+        /// Move the Topic.
+        /// </summary>
+        /// <param name="topic">
+        /// The topic.
+        /// </param>
+        /// <param name="oldForumId">
+        /// The old Forum Id.
+        /// </param>
+        /// <param name="newForumId">
+        /// The new Forum Id.
+        /// </param>
+        /// <param name="showMoved">
+        /// The show moved.
+        /// </param>
+        /// <param name="linkDays">
+        /// The link Days.
+        /// </param>
+        public async Task MoveAsync(Topic topic,
+            int oldForumId,
+            int newForumId,
+            bool showMoved,
+            int linkDays)
+        {
+            if (showMoved)
+            {
+                // -- delete an old link if exists
+                await repository.DeleteAsync(t => t.TopicMovedID == topic.ID);
+
+                var linkDate = DateTime.UtcNow.AddDays(linkDays);
+
+                // -- create a moved message
+                await repository.InsertAsync(
+                    new Topic
+                    {
+                        ForumID = topic.ForumID,
+                        UserID = topic.UserID,
+                        UserName = topic.UserName,
+                        UserDisplayName = topic.UserDisplayName,
+                        Posted = topic.Posted,
+                        TopicName = topic.TopicName,
+                        Views = 0,
+                        Flags = topic.Flags,
+                        Priority = topic.Priority,
+                        PollID = topic.PollID,
+                        TopicMovedID = topic.ID,
+                        LastPosted = topic.LastPosted,
+                        NumPosts = 0,
+                        LinkDate = linkDate
+                    });
+            }
+
+            // -- move the topic
+            await repository.UpdateOnlyAsync(() => new Topic { ForumID = newForumId }, t => t.ID == topic.ID);
+
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(newForumId));
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(oldForumId));
+        }
+
+        /// <summary>
+        /// The prune.
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <param name="days">
+        /// The days.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public int Prune(int boardId,
+            int forumId,
+            int days)
+        {
+            var topics = repository.DbAccess.Execute(
+                db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
@@ -1272,228 +1190,201 @@ public static class TopicRepositoryExtensions
                     return db.Connection.Select(expression);
                 });
 
-        return topics.Count;
-    }
+            return topics.Count;
+        }
 
-    /// <summary>
-    /// Delete Topic
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="forumId">
-    /// The forum Id.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic Id.
-    /// </param>
-    public static Task DeleteAsync(this IRepository<Topic> repository, int forumId, int topicId)
-    {
-        return repository.DeleteAsync(forumId, topicId, false);
-    }
-
-    /// <summary>
-    /// Delete Topic
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="forumId">
-    /// The forum Id.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic id.
-    /// </param>
-    /// <param name="eraseTopic">
-    /// The erase topic.
-    /// </param>
-    public async static Task DeleteAsync(
-        this IRepository<Topic> repository,
-        int forumId,
-        int topicId,
-        bool eraseTopic)
-    {
-        var topic = await repository.GetByIdAsync(topicId);
-
-        await BoardContext.Current.GetRepository<Forum>().UpdateOnlyAsync(
-            () => new Forum
-            {
-                LastPosted = null,
-                LastTopicID = null,
-                LastMessageID = null,
-                LastUserID = null,
-                LastUserName = null,
-                LastUserDisplayName = null
-            },
-            x => x.LastTopicID == topicId);
-
-        await BoardContext.Current.GetRepository<Active>().UpdateOnlyAsync(
-            () => new Active { TopicID = null },
-            t => t.TopicID == topicId);
-
-        // -- delete messages and topics
-        if (eraseTopic)
+        /// <summary>
+        /// Delete Topic
+        /// </summary>
+        /// <param name="forumId">
+        /// The forum Id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        public Task DeleteAsync(int forumId, int topicId)
         {
-            await repository.DeleteAsync(x => x.TopicMovedID == topicId);
+            return repository.DeleteAsync(forumId, topicId, false);
+        }
 
-            await BoardContext.Current.GetRepository<Message>().UpdateOnlyAsync(
-                () => new Message { ReplyTo = null },
+        /// <summary>
+        /// Delete Topic
+        /// </summary>
+        /// <param name="forumId">
+        /// The forum Id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <param name="eraseTopic">
+        /// The erase topic.
+        /// </param>
+        public async Task DeleteAsync(int forumId,
+            int topicId,
+            bool eraseTopic)
+        {
+            var topic = await repository.GetByIdAsync(topicId);
+
+            await BoardContext.Current.GetRepository<Forum>().UpdateOnlyAsync(
+                () => new Forum
+                {
+                    LastPosted = null,
+                    LastTopicID = null,
+                    LastMessageID = null,
+                    LastUserID = null,
+                    LastUserName = null,
+                    LastUserDisplayName = null
+                },
+                x => x.LastTopicID == topicId);
+
+            await BoardContext.Current.GetRepository<Active>().UpdateOnlyAsync(
+                () => new Active { TopicID = null },
                 t => t.TopicID == topicId);
 
-            // -- remove all messages
-            var messages = await BoardContext.Current.GetRepository<Message>().GetAsync(x => x.TopicID == topicId);
-
-            foreach (var x in messages)
+            // -- delete messages and topics
+            if (eraseTopic)
             {
-                await BoardContext.Current.GetRepository<Message>().DeleteAsync(
-                    forumId,
-                    topicId,
-                    x,
-                    false,
-                    string.Empty,
-                    true,
-                    true,
-                    true);
+                await repository.DeleteAsync(x => x.TopicMovedID == topicId);
+
+                await BoardContext.Current.GetRepository<Message>().UpdateOnlyAsync(
+                    () => new Message { ReplyTo = null },
+                    t => t.TopicID == topicId);
+
+                // -- remove all messages
+                var messages = await BoardContext.Current.GetRepository<Message>().GetAsync(x => x.TopicID == topicId);
+
+                foreach (var x in messages)
+                {
+                    await BoardContext.Current.GetRepository<Message>().DeleteAsync(
+                        forumId,
+                        topicId,
+                        x,
+                        false,
+                        string.Empty,
+                        true,
+                        true,
+                        true);
+                }
+
+                await BoardContext.Current.GetRepository<TopicTag>().DeleteAsync(x => x.TopicID == topicId);
+                await BoardContext.Current.GetRepository<Activity>().DeleteAsync(x => x.TopicID == topicId);
+                await BoardContext.Current.GetRepository<WatchTopic>().DeleteAsync(x => x.TopicID == topicId);
+                await BoardContext.Current.GetRepository<TopicReadTracking>().DeleteAsync(x => x.TopicID == topicId);
+                await BoardContext.Current.GetRepository<Topic>().DeleteAsync(x => x.TopicMovedID == topicId);
+                await BoardContext.Current.GetRepository<Topic>().DeleteAsync(x => x.ID == topicId);
             }
+            else
+            {
+                var flags = topic.TopicFlags;
 
-            await BoardContext.Current.GetRepository<TopicTag>().DeleteAsync(x => x.TopicID == topicId);
-            await BoardContext.Current.GetRepository<Activity>().DeleteAsync(x => x.TopicID == topicId);
-            await BoardContext.Current.GetRepository<WatchTopic>().DeleteAsync(x => x.TopicID == topicId);
-            await BoardContext.Current.GetRepository<TopicReadTracking>().DeleteAsync(x => x.TopicID == topicId);
-            await BoardContext.Current.GetRepository<Topic>().DeleteAsync(x => x.TopicMovedID == topicId);
-            await BoardContext.Current.GetRepository<Topic>().DeleteAsync(x => x.ID == topicId);
-        }
-        else
-        {
-            var flags = topic.TopicFlags;
+                flags.IsDeleted = true;
 
-            flags.IsDeleted = true;
+                await repository.UpdateOnlyAsync(() => new Topic { Flags = flags.BitValue }, x => x.TopicMovedID == topicId);
 
-            await repository.UpdateOnlyAsync(() => new Topic { Flags = flags.BitValue }, x => x.TopicMovedID == topicId);
+                await repository.UpdateOnlyAsync(() => new Topic { Flags = flags.BitValue }, x => x.ID == topicId);
 
-            await repository.UpdateOnlyAsync(() => new Topic { Flags = flags.BitValue }, x => x.ID == topicId);
-
-            await BoardContext.Current.GetRepository<Message>().DbAccess.ExecuteAsync(
-                db =>
+                await BoardContext.Current.GetRepository<Message>().DbAccess.ExecuteAsync(
+                    db =>
                     {
                         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
                         return db.ExecuteSqlAsync(
                             $" update {expression.Table<Message>()} set Flags = Flags | 8 where TopicID = {topicId}");
                     });
+            }
+
+            BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByTopicId(topicId);
+
+            if (BoardContext.Current.CurrentForumPage != null)
+            {
+                BoardContext.Current.Get<ILogger<IRepository<Topic>>>().Log(
+                    BoardContext.Current.PageUserID,
+                    "YAF",
+                    BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_TOPIC", topicId),
+                    EventLogTypes.Information);
+            }
+
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
         }
 
-        BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByTopicId(topicId);
-
-        if (BoardContext.Current.CurrentForumPage != null)
+        /// <summary>
+        /// The check for duplicate topic.
+        /// </summary>
+        /// <param name="topicSubject">
+        /// The topic subject.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool CheckForDuplicate(string topicSubject)
         {
-            BoardContext.Current.Get<ILogger<IRepository<Topic>>>().Log(
-                BoardContext.Current.PageUserID,
-                "YAF",
-                BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_TOPIC", topicId),
-                EventLogTypes.Information);
+            var topic = repository.GetSingle(t => t.TopicName.Contains(topicSubject) && t.TopicMovedID == null);
+
+            return topic != null;
         }
 
-        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
-    }
+        /// <summary>
+        /// The find next topic.
+        /// </summary>
+        /// <param name="currentTopic">
+        /// The current topic.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Topic"/>.
+        /// </returns>
+        public Topic FindNext(Topic currentTopic)
+        {
+            return repository.Get(
+                t => t.LastPosted > currentTopic.LastPosted && t.ForumID == currentTopic.ForumID &&
+                     (t.Flags & 8) != 8 && t.TopicMovedID == null).MinBy(t => t.LastPosted);
+        }
 
-    /// <summary>
-    /// The check for duplicate topic.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="topicSubject">
-    /// The topic subject.
-    /// </param>
-    /// <returns>
-    /// The <see cref="bool"/>.
-    /// </returns>
-    public static bool CheckForDuplicate(this IRepository<Topic> repository, string topicSubject)
-    {
-        var topic = repository.GetSingle(t => t.TopicName.Contains(topicSubject) && t.TopicMovedID == null);
+        /// <summary>
+        /// The find previous topic.
+        /// </summary>
+        /// <param name="currentTopic">
+        /// The current topic.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Topic"/>.
+        /// </returns>
+        public Topic FindPrevious(Topic currentTopic)
+        {
+            return repository.Get(
+                t => t.LastPosted < currentTopic.LastPosted && t.ForumID == currentTopic.ForumID &&
+                     (t.Flags & 8) != 8 && t.TopicMovedID == null).MaxBy(t => t.LastPosted);
+        }
 
-        return topic != null;
-    }
+        /// <summary>
+        /// The simple list.
+        /// </summary>
+        /// <param name="startId">
+        /// The start id.
+        /// </param>
+        /// <param name="limit">
+        /// The limit.
+        /// </param>
+        /// <returns>
+        /// Returns Topic List
+        /// </returns>
+        public List<Topic> SimpleList(int startId = 0,
+            int limit = 500)
+        {
+            return [.. repository.Get(t => t.ID >= limit && t.ID < startId + limit).OrderBy(t => t.ID)];
+        }
 
-    /// <summary>
-    /// The find next topic.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="currentTopic">
-    /// The current topic.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Topic"/>.
-    /// </returns>
-    public static Topic FindNext(this IRepository<Topic> repository, Topic currentTopic)
-    {
-        return repository.Get(
-            t => t.LastPosted > currentTopic.LastPosted && t.ForumID == currentTopic.ForumID &&
-                 (t.Flags & 8) != 8 && t.TopicMovedID == null).MinBy(t => t.LastPosted);
-    }
+        /// <summary>
+        /// Un-encode All Topics and Subjects
+        /// </summary>
+        /// <param name="decodeTopicFunc">
+        /// The decode topic function
+        /// </param>
+        public void UnEncodeAllTopicsSubjects(Func<string, string> decodeTopicFunc)
+        {
+            var topics = repository.SimpleList(0, 99999999);
 
-    /// <summary>
-    /// The find previous topic.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="currentTopic">
-    /// The current topic.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Topic"/>.
-    /// </returns>
-    public static Topic FindPrevious(this IRepository<Topic> repository, Topic currentTopic)
-    {
-        return repository.Get(
-            t => t.LastPosted < currentTopic.LastPosted && t.ForumID == currentTopic.ForumID &&
-                 (t.Flags & 8) != 8 && t.TopicMovedID == null).MaxBy(t => t.LastPosted);
-    }
-
-    /// <summary>
-    /// The simple list.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="startId">
-    /// The start id.
-    /// </param>
-    /// <param name="limit">
-    /// The limit.
-    /// </param>
-    /// <returns>
-    /// Returns Topic List
-    /// </returns>
-    public static List<Topic> SimpleList(
-        this IRepository<Topic> repository,
-        int startId = 0,
-        int limit = 500)
-    {
-        return [.. repository.Get(t => t.ID >= limit && t.ID < startId + limit).OrderBy(t => t.ID)];
-    }
-
-    /// <summary>
-    /// Un-encode All Topics and Subjects
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="decodeTopicFunc">
-    /// The decode topic function
-    /// </param>
-    public static void UnEncodeAllTopicsSubjects(
-        this IRepository<Topic> repository,
-        Func<string, string> decodeTopicFunc)
-    {
-        var topics = repository.SimpleList(0, 99999999);
-
-        topics.Where(t => t.TopicName.IsSet()).ForEach(
-            topic =>
+            topics.Where(t => t.TopicName.IsSet()).ForEach(
+                topic =>
                 {
                     try
                     {
@@ -1510,185 +1401,166 @@ public static class TopicRepositoryExtensions
                         // soft-fail...
                     }
                 });
-    }
-
-    /// <summary>
-    /// Get Deleted Topics
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <param name="filter">
-    /// The filter.
-    /// </param>
-    /// <returns>
-    /// Returns the list of Deleted Topics
-    /// </returns>
-    public static Task<List<Tuple<Forum, Topic>>> GetDeletedTopicsAsync(
-        this IRepository<Topic> repository,
-        int boardId,
-        string filter)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
-
-        if (filter.IsSet())
-        {
-            expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
-                .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
-                    (t, category) =>
-                        category.BoardID == boardId && (category.Flags & 1) == 1 && (t.Flags & 8) == 8 && t.TopicName.Contains(filter));
-        }
-        else
-        {
-            expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
-                .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
-                    (t, category) => category.BoardID == boardId && (category.Flags & 1) == 1 && (t.Flags & 8) == 8);
         }
 
-        return repository.DbAccess.ExecuteAsync(db => db.SelectMultiAsync<Forum, Topic>(expression));
-    }
-
-    /// <summary>
-    /// Get Deleted Topics paged.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <param name="filter">
-    /// The filter.
-    /// </param>
-    /// <param name="pageIndex">
-    /// The page index.
-    /// </param>
-    /// <param name="pageSize">
-    /// The page size.
-    /// </param>
-    public static List<PagedTopic> GetDeletedTopicsPaged(
-        this IRepository<Topic> repository,
-        int boardId,
-        string filter,
-        int pageIndex,
-        int pageSize)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
-
-        if (filter.IsSet())
+        /// <summary>
+        /// Get Deleted Topics
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <returns>
+        /// Returns the list of Deleted Topics
+        /// </returns>
+        public Task<List<Tuple<Forum, Topic>>> GetDeletedTopicsAsync(int boardId,
+            string filter)
         {
-            expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
-                .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
-                    (t, category) =>
-                        category.BoardID == boardId && (category.Flags & 1) == 1 && (t.Flags & 8) == 8 && t.TopicName.Contains(filter));
-        }
-        else
-        {
-            expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
-                .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
-                    (t, category) => category.BoardID == boardId && (category.Flags & 1) == 1 && (t.Flags & 8) == 8);
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+
+            if (filter.IsSet())
+            {
+                expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+                    .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
+                        (t, category) =>
+                            category.BoardID == boardId && (category.Flags & 1) == 1 && (t.Flags & 8) == 8 && t.TopicName.Contains(filter));
+            }
+            else
+            {
+                expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+                    .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
+                        (t, category) => category.BoardID == boardId && (category.Flags & 1) == 1 && (t.Flags & 8) == 8);
+            }
+
+            return repository.DbAccess.ExecuteAsync(db => db.SelectMultiAsync<Forum, Topic>(expression));
         }
 
-        // -- count total
-        var countTotalExpression = expression;
-
-        var countTotalSql = countTotalExpression
-            .Select(Sql.Count($"{countTotalExpression.Column<Topic>(x => x.ID)}")).ToSelectStatement();
-
-        expression.Select<Forum, Topic>(
-            (forum, topic) => new {
-                ForumID = forum.ID,
-                ForumName = forum.Name,
-                TopicID = topic.ID,
-                topic.Posted,
-                LinkTopicID = topic.TopicMovedID ?? topic.ID,
-                topic.TopicMovedID,
-                Subject = topic.TopicName,
-                topic.Description,
-                topic.Status,
-                topic.Styles,
-                topic.UserID,
-                Replies = topic.NumPosts - 1,
-                topic.Views,
-                topic.LastPosted,
-                topic.LastUserID,
-                topic.LastMessageFlags,
-                topic.LastMessageID,
-                LastTopicID = topic.ID,
-                topic.LinkDate,
-                TopicFlags = topic.Flags,
-                topic.Priority,
-                topic.PollID,
-                ForumFlags = forum.Flags,
-                topic.TopicImage,
-                topic.NumPosts,
-                TotalRows = Sql.Custom($"({countTotalSql})")
-            });
-
-        // Set Paging
-        expression.Page(pageIndex + 1, pageSize);
-
-        return repository.DbAccess.Execute(db => db.Connection.Select<PagedTopic>(expression));
-    }
-
-    /// <summary>
-    /// Updates the Forum Last Post.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic Id.
-    /// </param>
-    public async static Task UpdateLastPostAsync(
-        this IRepository<Topic> repository,
-        int topicId)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
-
-        expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => (m.Flags & 24) == 16 && m.TopicID == topicId)
-            .OrderByDescending<Message>(m => m.Posted);
-
-        var message = repository.DbAccess.Execute(db => db.Connection.Single(expression));
-
-        if (message == null)
+        /// <summary>
+        /// Get Deleted Topics paged.
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page size.
+        /// </param>
+        public List<PagedTopic> GetDeletedTopicsPaged(int boardId,
+            string filter,
+            int pageIndex,
+            int pageSize)
         {
-            // Don't update if there are no more messages
-            return;
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+
+            if (filter.IsSet())
+            {
+                expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+                    .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
+                        (t, category) =>
+                            category.BoardID == boardId && (category.Flags & 1) == 1 && (t.Flags & 8) == 8 && t.TopicName.Contains(filter));
+            }
+            else
+            {
+                expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+                    .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
+                        (t, category) => category.BoardID == boardId && (category.Flags & 1) == 1 && (t.Flags & 8) == 8);
+            }
+
+            // -- count total
+            var countTotalExpression = expression;
+
+            var countTotalSql = countTotalExpression
+                .Select(Sql.Count($"{countTotalExpression.Column<Topic>(x => x.ID)}")).ToSelectStatement();
+
+            expression.Select<Forum, Topic>(
+                (forum, topic) => new {
+                    ForumID = forum.ID,
+                    ForumName = forum.Name,
+                    TopicID = topic.ID,
+                    topic.Posted,
+                    LinkTopicID = topic.TopicMovedID ?? topic.ID,
+                    topic.TopicMovedID,
+                    Subject = topic.TopicName,
+                    topic.Description,
+                    topic.Status,
+                    topic.Styles,
+                    topic.UserID,
+                    Replies = topic.NumPosts - 1,
+                    topic.Views,
+                    topic.LastPosted,
+                    topic.LastUserID,
+                    topic.LastMessageFlags,
+                    topic.LastMessageID,
+                    LastTopicID = topic.ID,
+                    topic.LinkDate,
+                    TopicFlags = topic.Flags,
+                    topic.Priority,
+                    topic.PollID,
+                    ForumFlags = forum.Flags,
+                    topic.TopicImage,
+                    topic.NumPosts,
+                    TotalRows = Sql.Custom($"({countTotalSql})")
+                });
+
+            // Set Paging
+            expression.Page(pageIndex + 1, pageSize);
+
+            return repository.DbAccess.Execute(db => db.Connection.Select<PagedTopic>(expression));
         }
 
-        await repository.UpdateOnlyAsync(
-            () => new Topic
-                      {
-                          LastPosted = message.Posted,
-                          LastMessageID = message.ID,
-                          LastUserID = message.UserID,
-                          LastUserName = message.UserName,
-                          LastUserDisplayName = message.UserDisplayName,
-                          LastMessageFlags = message.Flags
-                      },
-            t => t.ID == topicId);
-    }
+        /// <summary>
+        /// Updates the Forum Last Post.
+        /// </summary>
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        public async Task UpdateLastPostAsync(int topicId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
-    /// <summary>
-    /// Get Topic with References
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic Id.
-    /// </param>
-    /// <returns>
-    /// Returns topic with references
-    /// </returns>
-    public static Topic GetTopic(
-        this IRepository<Topic> repository,
-        int topicId)
-    {
-        return repository.DbAccess.Execute(db => db.Connection.LoadSelect<Topic>(t => t.ID == topicId)).FirstOrDefault();
+            expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => (m.Flags & 24) == 16 && m.TopicID == topicId)
+                .OrderByDescending<Message>(m => m.Posted);
+
+            var message = repository.DbAccess.Execute(db => db.Connection.Single(expression));
+
+            if (message == null)
+            {
+                // Don't update if there are no more messages
+                return;
+            }
+
+            await repository.UpdateOnlyAsync(
+                () => new Topic
+                {
+                    LastPosted = message.Posted,
+                    LastMessageID = message.ID,
+                    LastUserID = message.UserID,
+                    LastUserName = message.UserName,
+                    LastUserDisplayName = message.UserDisplayName,
+                    LastMessageFlags = message.Flags
+                },
+                t => t.ID == topicId);
+        }
+
+        /// <summary>
+        /// Get Topic with References
+        /// </summary>
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        /// <returns>
+        /// Returns topic with references
+        /// </returns>
+        public Topic GetTopic(int topicId)
+        {
+            return repository.DbAccess.Execute(db => db.Connection.LoadSelect<Topic>(t => t.ID == topicId)).FirstOrDefault();
+        }
     }
 }

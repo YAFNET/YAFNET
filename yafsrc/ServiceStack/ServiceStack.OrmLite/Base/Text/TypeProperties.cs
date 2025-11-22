@@ -234,45 +234,45 @@ public abstract class TypeProperties
 /// </summary>
 public static class PropertyInvoker
 {
-    /// <summary>
-    /// Creates the getter.
-    /// </summary>
     /// <param name="propertyInfo">The property information.</param>
-    /// <returns>GetMemberDelegate.</returns>
-    public static GetMemberDelegate CreateGetter(this PropertyInfo propertyInfo)
+    extension(PropertyInfo propertyInfo)
     {
-        return ReflectionOptimizer.Instance.CreateGetter(propertyInfo);
-    }
+        /// <summary>
+        /// Creates the getter.
+        /// </summary>
+        /// <returns>GetMemberDelegate.</returns>
+        public GetMemberDelegate CreateGetter()
+        {
+            return ReflectionOptimizer.Instance.CreateGetter(propertyInfo);
+        }
 
-    /// <summary>
-    /// Creates the getter.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="propertyInfo">The property information.</param>
-    /// <returns>GetMemberDelegate&lt;T&gt;.</returns>
-    public static GetMemberDelegate<T> CreateGetter<T>(this PropertyInfo propertyInfo)
-    {
-        return ReflectionOptimizer.Instance.CreateGetter<T>(propertyInfo);
-    }
+        /// <summary>
+        /// Creates the getter.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>GetMemberDelegate&lt;T&gt;.</returns>
+        public GetMemberDelegate<T> CreateGetter<T>()
+        {
+            return ReflectionOptimizer.Instance.CreateGetter<T>(propertyInfo);
+        }
 
-    /// <summary>
-    /// Creates the setter.
-    /// </summary>
-    /// <param name="propertyInfo">The property information.</param>
-    /// <returns>SetMemberDelegate.</returns>
-    public static SetMemberDelegate CreateSetter(this PropertyInfo propertyInfo)
-    {
-        return ReflectionOptimizer.Instance.CreateSetter(propertyInfo);
-    }
+        /// <summary>
+        /// Creates the setter.
+        /// </summary>
+        /// <returns>SetMemberDelegate.</returns>
+        public SetMemberDelegate CreateSetter()
+        {
+            return ReflectionOptimizer.Instance.CreateSetter(propertyInfo);
+        }
 
-    /// <summary>
-    /// Creates the setter.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="propertyInfo">The property information.</param>
-    /// <returns>SetMemberDelegate&lt;T&gt;.</returns>
-    public static SetMemberDelegate<T> CreateSetter<T>(this PropertyInfo propertyInfo)
-    {
-        return ReflectionOptimizer.Instance.CreateSetter<T>(propertyInfo);
+        /// <summary>
+        /// Creates the setter.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>SetMemberDelegate&lt;T&gt;.</returns>
+        public SetMemberDelegate<T> CreateSetter<T>()
+        {
+            return ReflectionOptimizer.Instance.CreateSetter<T>(propertyInfo);
+        }
     }
 }

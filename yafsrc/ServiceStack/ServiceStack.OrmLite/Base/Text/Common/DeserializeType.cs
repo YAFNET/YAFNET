@@ -645,49 +645,50 @@ public static class DeserializeTypeExensions
         return (flag & flags) != 0;
     }
 
-    /// <summary>
-    /// Parses the number.
-    /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>System.Object.</returns>
-    public static object ParseNumber(this ReadOnlySpan<char> value)
+    extension(ReadOnlySpan<char> value)
     {
-        return ParseNumber(value, JsConfig.TryParseIntoBestFit);
-    }
-
-    /// <summary>
-    /// Parses the number.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="bestFit">if set to <c>true</c> [best fit].</param>
-    /// <returns>System.Object.</returns>
-    public static object ParseNumber(this ReadOnlySpan<char> value, bool bestFit)
-    {
-        if (value.Length == 1)
+        /// <summary>
+        /// Parses the number.
+        /// </summary>
+        /// <returns>System.Object.</returns>
+        public object ParseNumber()
         {
-            int singleDigit = value[0];
-            if (singleDigit >= 48 || singleDigit <= 57) // 0 - 9
-            {
-                var result = singleDigit - 48;
-                if (bestFit)
-                {
-                    return (byte)result;
-                }
-
-                return result;
-            }
+            return ParseNumber(value, JsConfig.TryParseIntoBestFit);
         }
 
-        var config = JsConfig.GetConfig();
-
-        // Parse as decimal
-        var acceptDecimal = config.ParsePrimitiveFloatingPointTypes.Has(ParseAsType.Decimal);
-        var isDecimal = value.TryParseDecimal(out var decimalValue);
-
-        switch (isDecimal)
+        /// <summary>
+        /// Parses the number.
+        /// </summary>
+        /// <param name="bestFit">if set to <c>true</c> [best fit].</param>
+        /// <returns>System.Object.</returns>
+        public object ParseNumber(bool bestFit)
         {
-            // Check if the number is an Primitive Integer type given that we have a decimal
-            case true when decimalValue == decimal.Truncate(decimalValue):
+            if (value.Length == 1)
+            {
+                int singleDigit = value[0];
+                if (singleDigit >= 48 || singleDigit <= 57) // 0 - 9
+                {
+                    var result = singleDigit - 48;
+                    if (bestFit)
+                    {
+                        return (byte)result;
+                    }
+
+                    return result;
+                }
+            }
+
+            var config = JsConfig.GetConfig();
+
+            // Parse as decimal
+            var acceptDecimal = config.ParsePrimitiveFloatingPointTypes.Has(ParseAsType.Decimal);
+            var isDecimal = value.TryParseDecimal(out var decimalValue);
+
+            switch (isDecimal)
+            {
+                // Check if the number is an Primitive Integer type given that we have a decimal
+                case true when decimalValue == decimal.Truncate(decimalValue):
                 {
                     // Value is a whole number
                     var parseAs = config.ParsePrimitiveIntegerTypes;
@@ -733,41 +734,42 @@ public static class DeserializeTypeExensions
 
                     return decimalValue;
                 }
-            // Value is a floating point number
-            // Return a decimal if the user accepts a decimal
-            case true when acceptDecimal:
+                // Value is a floating point number
+                // Return a decimal if the user accepts a decimal
+                case true when acceptDecimal:
+                    return decimalValue;
+            }
+
+            var acceptFloat = config.ParsePrimitiveFloatingPointTypes.HasFlag(ParseAsType.Single);
+            var isFloat = value.TryParseFloat(out var floatValue);
+            if (acceptFloat && isFloat)
+            {
+                return floatValue;
+            }
+
+            var acceptDouble = config.ParsePrimitiveFloatingPointTypes.HasFlag(ParseAsType.Double);
+            var isDouble = value.TryParseDouble(out var doubleValue);
+            if (acceptDouble && isDouble)
+            {
+                return doubleValue;
+            }
+
+            if (isDecimal)
+            {
                 return decimalValue;
-        }
+            }
 
-        var acceptFloat = config.ParsePrimitiveFloatingPointTypes.HasFlag(ParseAsType.Single);
-        var isFloat = value.TryParseFloat(out var floatValue);
-        if (acceptFloat && isFloat)
-        {
-            return floatValue;
-        }
+            if (isFloat)
+            {
+                return floatValue;
+            }
 
-        var acceptDouble = config.ParsePrimitiveFloatingPointTypes.HasFlag(ParseAsType.Double);
-        var isDouble = value.TryParseDouble(out var doubleValue);
-        if (acceptDouble && isDouble)
-        {
-            return doubleValue;
-        }
+            if (isDouble)
+            {
+                return doubleValue;
+            }
 
-        if (isDecimal)
-        {
-            return decimalValue;
+            return null;
         }
-
-        if (isFloat)
-        {
-            return floatValue;
-        }
-
-        if (isDouble)
-        {
-            return doubleValue;
-        }
-
-        return null;
     }
 }

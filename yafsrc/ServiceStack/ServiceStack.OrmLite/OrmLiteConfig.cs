@@ -66,62 +66,65 @@ public static class OrmLiteConfig
         set => dialectProvider = value;
     }
 
-    /// <summary>
-    /// Gets the dialect provider.
-    /// </summary>
     /// <param name="dbCmd">The database command.</param>
-    /// <returns>IOrmLiteDialectProvider.</returns>
-    public static IOrmLiteDialectProvider GetDialectProvider(this IDbCommand dbCmd)
+    extension(IDbCommand dbCmd)
     {
-        return dbCmd is IHasDialectProvider hasDialectProvider
-            ? hasDialectProvider.DialectProvider
-            : DialectProvider;
+        /// <summary>
+        /// Gets the dialect provider.
+        /// </summary>
+        /// <returns>IOrmLiteDialectProvider.</returns>
+        public IOrmLiteDialectProvider GetDialectProvider()
+        {
+            return dbCmd is IHasDialectProvider hasDialectProvider
+                ? hasDialectProvider.DialectProvider
+                : DialectProvider;
+        }
+
+        /// <summary>
+        /// Dialects the specified database command.
+        /// </summary>
+        /// <returns>IOrmLiteDialectProvider.</returns>
+        public IOrmLiteDialectProvider Dialect()
+        {
+            return dbCmd is IHasDialectProvider hasDialectProvider
+                ? hasDialectProvider.DialectProvider
+                : DialectProvider;
+        }
     }
 
-    /// <summary>
-    /// Dialects the specified database command.
-    /// </summary>
-    /// <param name="dbCmd">The database command.</param>
-    /// <returns>IOrmLiteDialectProvider.</returns>
-    public static IOrmLiteDialectProvider Dialect(this IDbCommand dbCmd)
-    {
-        return dbCmd is IHasDialectProvider hasDialectProvider
-            ? hasDialectProvider.DialectProvider
-            : DialectProvider;
-    }
-
-    /// <summary>
-    /// Gets the dialect provider.
-    /// </summary>
     /// <param name="db">The database.</param>
-    /// <returns>IOrmLiteDialectProvider.</returns>
-    public static IOrmLiteDialectProvider GetDialectProvider(this IDbConnection db)
+    extension(IDbConnection db)
     {
-        return db is IHasDialectProvider hasDialectProvider
-            ? hasDialectProvider.DialectProvider
-            : DialectProvider;
-    }
+        /// <summary>
+        /// Gets the dialect provider.
+        /// </summary>
+        /// <returns>IOrmLiteDialectProvider.</returns>
+        public IOrmLiteDialectProvider GetDialectProvider()
+        {
+            return db is IHasDialectProvider hasDialectProvider
+                ? hasDialectProvider.DialectProvider
+                : DialectProvider;
+        }
 
-    /// <summary>
-    /// Gets the naming strategy.
-    /// </summary>
-    /// <param name="db">The database.</param>
-    /// <returns>INamingStrategy.</returns>
-    public static INamingStrategy GetNamingStrategy(this IDbConnection db)
-    {
-        return db.GetDialectProvider().NamingStrategy;
-    }
+        /// <summary>
+        /// Gets the naming strategy.
+        /// </summary>
+        /// <returns>INamingStrategy.</returns>
+        public INamingStrategy GetNamingStrategy()
+        {
+            return db.GetDialectProvider().NamingStrategy;
+        }
 
-    /// <summary>
-    /// Dialects the specified database.
-    /// </summary>
-    /// <param name="db">The database.</param>
-    /// <returns>IOrmLiteDialectProvider.</returns>
-    public static IOrmLiteDialectProvider Dialect(this IDbConnection db)
-    {
-        return db is IHasDialectProvider hasDialectProvider
-            ? hasDialectProvider.DialectProvider
-            : DialectProvider;
+        /// <summary>
+        /// Dialects the specified database.
+        /// </summary>
+        /// <returns>IOrmLiteDialectProvider.</returns>
+        public IOrmLiteDialectProvider Dialect()
+        {
+            return db is IHasDialectProvider hasDialectProvider
+                ? hasDialectProvider.DialectProvider
+                : DialectProvider;
+        }
     }
 
     /// <summary>
@@ -149,72 +152,76 @@ public static class OrmLiteConfig
         return dialect.GetExecFilter();
     }
 
-    /// <summary>
-    /// Gets the execute filter.
-    /// </summary>
     /// <param name="db">The database.</param>
-    /// <returns>IOrmLiteExecFilter.</returns>
-    public static IOrmLiteExecFilter GetExecFilter(this IDbConnection db)
+    extension(IDbConnection db)
     {
-        var dialect = db is IHasDialectProvider hasDialectProvider
-                          ? hasDialectProvider.DialectProvider
-                          : DialectProvider;
-        return dialect.GetExecFilter();
-    }
-
-    /// <summary>
-    /// Sets the last command text.
-    /// </summary>
-    /// <param name="db">The database.</param>
-    /// <param name="sql">The SQL.</param>
-    public static void SetLastCommandText(this IDbConnection db, string sql)
-    {
-        if (db is OrmLiteConnection ormLiteConn)
+        /// <summary>
+        /// Gets the execute filter.
+        /// </summary>
+        /// <returns>IOrmLiteExecFilter.</returns>
+        public IOrmLiteExecFilter GetExecFilter()
         {
-            ormLiteConn.LastCommandText = sql;
+            var dialect = db is IHasDialectProvider hasDialectProvider
+                ? hasDialectProvider.DialectProvider
+                : DialectProvider;
+            return dialect.GetExecFilter();
+        }
+
+        /// <summary>
+        /// Sets the last command text.
+        /// </summary>
+        /// <param name="sql">The SQL.</param>
+        public void SetLastCommandText(string sql)
+        {
+            if (db is OrmLiteConnection ormLiteConn)
+            {
+                ormLiteConn.LastCommandText = sql;
+            }
+        }
+
+        /// <summary>
+        /// Sets the last command.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        public void SetLastCommand(IDbCommand dbCmd)
+        {
+            if (db is OrmLiteConnection ormLiteConn)
+            {
+                ormLiteConn.LastCommand = dbCmd;
+            }
+        }
+
+        public IDbConnection WithTag(string name)
+        {
+            if (db is OrmLiteConnection ormLiteConn)
+            {
+                ormLiteConn.Tag = name;
+            }
+
+            return db;
+        }
+
+        public string GetTag()
+        {
+            return db is OrmLiteConnection ormLiteConn ? ormLiteConn.Tag : null;
         }
     }
 
-    /// <summary>
-    /// Sets the last command.
-    /// </summary>
-    /// <param name="db">The database.</param>
-    /// <param name="dbCmd">The database command.</param>
-    public static void SetLastCommand(this IDbConnection db, IDbCommand dbCmd)
+    extension(IDbCommand db)
     {
-        if (db is OrmLiteConnection ormLiteConn)
+        public string GetTag()
         {
-            ormLiteConn.LastCommand = dbCmd;
-        }
-    }
-
-    public static IDbConnection WithTag(this IDbConnection db, string name)
-    {
-        if (db is OrmLiteConnection ormLiteConn)
-        {
-            ormLiteConn.Tag = name;
+            return db is OrmLiteCommand ormLiteCmd
+                ? ormLiteCmd.OrmLiteConnection.GetTag()
+                : null;
         }
 
-        return db;
-    }
-
-    public static string GetTag(this IDbConnection db)
-    {
-        return db is OrmLiteConnection ormLiteConn ? ormLiteConn.Tag : null;
-    }
-
-    public static string GetTag(this IDbCommand db)
-    {
-        return db is OrmLiteCommand ormLiteCmd
-            ? ormLiteCmd.OrmLiteConnection.GetTag()
-            : null;
-    }
-
-    public static TimeSpan? GetElapsedTime(this IDbCommand db)
-    {
-        return db is OrmLiteCommand ormLiteCmd
-            ? ormLiteCmd.GetElapsedTime()
-            : null;
+        public TimeSpan? GetElapsedTime()
+        {
+            return db is OrmLiteCommand ormLiteCmd
+                ? ormLiteCmd.GetElapsedTime()
+                : null;
+        }
     }
 
     /// <summary>
@@ -222,66 +229,69 @@ public static class OrmLiteConfig
     /// </summary>
     private const string RequiresOrmLiteConnection = "{0} can only be set on a OrmLiteConnectionFactory connection, not a plain IDbConnection";
 
-    /// <summary>
-    /// Sets the wait time before terminating the attempt to execute a command and generating an error.
-    /// </summary>
     /// <param name="db"></param>
-    /// <param name="commandTimeout">Command execution timeout(in seconds)</param>
-    /// <exception cref="NotImplementedException"></exception>
-    public static void SetCommandTimeout(this IDbConnection db, int? commandTimeout)
+    extension(IDbConnection db)
     {
-        if (db is not OrmLiteConnection ormLiteConn)
+        /// <summary>
+        /// Sets the wait time before terminating the attempt to execute a command and generating an error.
+        /// </summary>
+        /// <param name="commandTimeout">Command execution timeout(in seconds)</param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void SetCommandTimeout(int? commandTimeout)
         {
-            throw new NotImplementedException(string.Format(RequiresOrmLiteConnection, nameof(CommandTimeout)));
+            if (db is not OrmLiteConnection ormLiteConn)
+            {
+                throw new NotImplementedException(string.Format(RequiresOrmLiteConnection, nameof(CommandTimeout)));
+            }
+
+            ormLiteConn.CommandTimeout = commandTimeout;
         }
 
-        ormLiteConn.CommandTimeout = commandTimeout;
+        /// <summary>
+        /// <inheritdoc cref="SetCommandTimeout(IDbConnection,int?)"/>
+        /// </summary>
+        /// <param name="commandTimeout">Command execution timeout</param>
+        public void SetCommandTimeout(TimeSpan? commandTimeout)
+        {
+            SetCommandTimeout(db, (int?)commandTimeout?.TotalSeconds);
+        }
     }
 
-    /// <summary>
-    /// <inheritdoc cref="SetCommandTimeout(IDbConnection,int?)"/>
-    /// </summary>
-    /// <param name="db"></param>
-    /// <param name="commandTimeout">Command execution timeout</param>
-    public static void SetCommandTimeout(this IDbConnection db, TimeSpan? commandTimeout)
-    {
-        SetCommandTimeout(db, (int?)commandTimeout?.TotalSeconds);
-    }
-
-    /// <summary>
-    /// Converts to dbconnection.
-    /// </summary>
     /// <param name="dbConnectionStringOrFilePath">The database connection string or file path.</param>
-    /// <returns>IDbConnection.</returns>
-    public static IDbConnection ToDbConnection(this string dbConnectionStringOrFilePath)
+    extension(string dbConnectionStringOrFilePath)
     {
-        return dbConnectionStringOrFilePath.ToDbConnection(DialectProvider);
-    }
+        /// <summary>
+        /// Converts to dbconnection.
+        /// </summary>
+        /// <returns>IDbConnection.</returns>
+        public IDbConnection ToDbConnection()
+        {
+            return dbConnectionStringOrFilePath.ToDbConnection(DialectProvider);
+        }
 
-    /// <summary>
-    /// Opens the database connection.
-    /// </summary>
-    /// <param name="dbConnectionStringOrFilePath">The database connection string or file path.</param>
-    /// <returns>IDbConnection.</returns>
-    public static IDbConnection OpenDbConnection(this string dbConnectionStringOrFilePath)
-    {
-        var sqlConn = dbConnectionStringOrFilePath.ToDbConnection(DialectProvider);
-        sqlConn.Open();
-        return sqlConn;
-    }
+        /// <summary>
+        /// Opens the database connection.
+        /// </summary>
+        /// <returns>IDbConnection.</returns>
+        public IDbConnection OpenDbConnection()
+        {
+            var sqlConn = dbConnectionStringOrFilePath.ToDbConnection(DialectProvider);
+            sqlConn.Open();
+            return sqlConn;
+        }
 
-    /// <summary>
-    /// Opens the read only database connection.
-    /// </summary>
-    /// <param name="dbConnectionStringOrFilePath">The database connection string or file path.</param>
-    /// <returns>IDbConnection.</returns>
-    public static IDbConnection OpenReadOnlyDbConnection(this string dbConnectionStringOrFilePath)
-    {
-        var options = new Dictionary<string, string> { { "Read Only", "True" } };
+        /// <summary>
+        /// Opens the read only database connection.
+        /// </summary>
+        /// <returns>IDbConnection.</returns>
+        public IDbConnection OpenReadOnlyDbConnection()
+        {
+            var options = new Dictionary<string, string> { { "Read Only", "True" } };
 
-        var dbConn = DialectProvider.CreateConnection(dbConnectionStringOrFilePath, options);
-        dbConn.Open();
-        return dbConn;
+            var dbConn = DialectProvider.CreateConnection(dbConnectionStringOrFilePath, options);
+            dbConn.Open();
+            return dbConn;
+        }
     }
 
     /// <summary>

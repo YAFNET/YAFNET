@@ -228,24 +228,27 @@ public static class SingleWriterExtensions
         };
     }
 
-    /// <summary>
-    /// Open a DB connection with a SingleWriter Lock 
-    /// </summary>
-    public static DbConnection OpenSingleWriterDb(this IDbConnectionFactory dbFactory, string? namedConnection = null)
+    extension(IDbConnectionFactory dbFactory)
     {
-        var dbConn = namedConnection != null
-            ? dbFactory.OpenDbConnection(namedConnection)
-            : dbFactory.OpenDbConnection();
-        var writeLock = dbConn.GetWriteLock() ?? Locks.GetDbLock(namedConnection);
-        return dbConn.WithWriteLock(writeLock);
-    }
+        /// <summary>
+        /// Open a DB connection with a SingleWriter Lock 
+        /// </summary>
+        public DbConnection OpenSingleWriterDb(string? namedConnection = null)
+        {
+            var dbConn = namedConnection != null
+                ? dbFactory.OpenDbConnection(namedConnection)
+                : dbFactory.OpenDbConnection();
+            var writeLock = dbConn.GetWriteLock() ?? Locks.GetDbLock(namedConnection);
+            return dbConn.WithWriteLock(writeLock);
+        }
 
-    /// <summary>
-    /// Create a DB connection with a SingleWriter Lock 
-    /// </summary>
-    public static DbConnection CreateSingleWriterDb(this IDbConnectionFactory dbFactory, string? namedConnection = null)
-    {
-        return ((OrmLiteConnectionFactory)dbFactory).CreateDbWithWriteLock(namedConnection);
+        /// <summary>
+        /// Create a DB connection with a SingleWriter Lock 
+        /// </summary>
+        public DbConnection CreateSingleWriterDb(string? namedConnection = null)
+        {
+            return ((OrmLiteConnectionFactory)dbFactory).CreateDbWithWriteLock(namedConnection);
+        }
     }
 
     public static object GetWriteLock(this IDbConnection dbConnection)

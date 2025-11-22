@@ -29,198 +29,196 @@ namespace YAF.Web.HtmlHelpers;
 /// </summary>
 public static class CategoryListHelpers
 {
-    /// <summary>
-    /// Gets the forum icon.
-    /// </summary>
     /// <param name="htmlHelper"></param>
-    /// <param name="item">
-    /// The item.
-    /// </param>
-    /// <param name="lastRead">
-    /// The last Read.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    public static IHtmlContent GetForumIcon(this IHtmlHelper htmlHelper, ForumRead item, DateTime lastRead)
+    extension(IHtmlHelper htmlHelper)
     {
-        var content = new HtmlContentBuilder();
-
-        var lastPosted = item.LastPosted ?? lastRead;
-
-        if (item.ImageURL.IsNotSet())
+        /// <summary>
+        /// Gets the forum icon.
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <param name="lastRead">
+        /// The last Read.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHtmlContent"/>.
+        /// </returns>
+        public IHtmlContent GetForumIcon(ForumRead item, DateTime lastRead)
         {
-            var forumIconNew = htmlHelper.Icon("comments", "text-success", "fas", "fa-2x");
+            var content = new HtmlContentBuilder();
 
-            var forumIconNormal = htmlHelper
-                .Icon("comments", "text-secondary", "fas", "fa-2x");
+            var lastPosted = item.LastPosted ?? lastRead;
 
-            var forumIconLocked = htmlHelper.IconStack(
-                "comments",
-                "text-secondary",
-                "lock",
-                "text-warning",
-                "fa-1x");
-
-            var iconLink = new TagBuilder(HtmlTag.A);
-
-            iconLink.MergeAttribute(HtmlAttribute.Tabindex, "0");
-            iconLink.MergeAttribute(HtmlAttribute.Role, HtmlTag.Button);
-            iconLink.MergeAttribute("data-bs-toggle", "popover");
-            iconLink.MergeAttribute(HtmlAttribute.Href, "#");
-            iconLink.MergeAttribute(HtmlAttribute.AriaLabel, "icon-legend");
-
-            iconLink.AddCssClass("btn btn-link m-0 p-0 forum-icon-legend-popvover");
-
-            if (item.ForumFlags.IsLocked)
+            if (item.ImageURL.IsNotSet())
             {
-                iconLink.InnerHtml.AppendHtml(forumIconLocked);
-            }
-            else if (lastPosted > lastRead && item.ReadAccess)
-            {
-                iconLink.InnerHtml.AppendHtml(forumIconNew);
+                var forumIconNew = htmlHelper.Icon("comments", "text-success", "fas", "fa-2x");
+
+                var forumIconNormal = htmlHelper
+                    .Icon("comments", "text-secondary", "fas", "fa-2x");
+
+                var forumIconLocked = htmlHelper.IconStack(
+                    "comments",
+                    "text-secondary",
+                    "lock",
+                    "text-warning",
+                    "fa-1x");
+
+                var iconLink = new TagBuilder(HtmlTag.A);
+
+                iconLink.MergeAttribute(HtmlAttribute.Tabindex, "0");
+                iconLink.MergeAttribute(HtmlAttribute.Role, HtmlTag.Button);
+                iconLink.MergeAttribute("data-bs-toggle", "popover");
+                iconLink.MergeAttribute(HtmlAttribute.Href, "#");
+                iconLink.MergeAttribute(HtmlAttribute.AriaLabel, "icon-legend");
+
+                iconLink.AddCssClass("btn btn-link m-0 p-0 forum-icon-legend-popvover");
+
+                if (item.ForumFlags.IsLocked)
+                {
+                    iconLink.InnerHtml.AppendHtml(forumIconLocked);
+                }
+                else if (lastPosted > lastRead && item.ReadAccess)
+                {
+                    iconLink.InnerHtml.AppendHtml(forumIconNew);
+                }
+                else
+                {
+                    iconLink.InnerHtml.AppendHtml(forumIconNormal);
+                }
+
+                content.AppendHtml(iconLink);
             }
             else
             {
-                iconLink.InnerHtml.AppendHtml(forumIconNormal);
+                var forumImage = new TagBuilder(HtmlTag.Img);
+
+                forumImage.MergeAttribute("src", $"/{BoardContext.Current.Get<BoardFolders>().Forums}/{item.ImageURL}");
+                forumImage.MergeAttribute("data-bs-toggle", "tooltip");
+
+                // Highlight custom icon images and add tool tips to them.
+                if (item.ForumFlags.IsLocked)
+                {
+                    forumImage.AddCssClass("forum_customimage_locked");
+                    forumImage.MergeAttribute(
+                        "alt",
+                        BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "FORUM_LOCKED"));
+                    forumImage.MergeAttribute(
+                        HtmlAttribute.Title,
+                        BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "FORUM_LOCKED"));
+                }
+                else if (lastPosted > lastRead)
+                {
+                    forumImage.AddCssClass("forum_customimage_newposts");
+                    forumImage.MergeAttribute(
+                        "alt",
+                        BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "NEW_POSTS"));
+                    forumImage.MergeAttribute(
+                        HtmlAttribute.Title,
+                        BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "NEW_POSTS"));
+                }
+                else
+                {
+                    forumImage.AddCssClass("forum_customimage_nonewposts");
+                    forumImage.MergeAttribute(
+                        "alt",
+                        BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "NO_NEW_POSTS"));
+                    forumImage.MergeAttribute(
+                        HtmlAttribute.Title,
+                        BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "NO_NEW_POSTS"));
+                }
+
+                content.AppendHtml(forumImage);
             }
 
-            content.AppendHtml(iconLink);
+            return content;
         }
-        else
+
+        /// <summary>
+        /// Provides the "Forum Link Text" for the ForumList control.
+        ///   Automatically disables the link if the current user doesn't
+        ///   have proper permissions.
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// Forum link text
+        /// </returns>
+        public IHtmlContent GetForumLink(ForumRead item)
         {
-            var forumImage = new TagBuilder(HtmlTag.Img);
+            var content = new HtmlContentBuilder();
 
-            forumImage.MergeAttribute("src", $"/{BoardContext.Current.Get<BoardFolders>().Forums}/{item.ImageURL}");
-            forumImage.MergeAttribute("data-bs-toggle", "tooltip");
-
-            // Highlight custom icon images and add tool tips to them.
-            if (item.ForumFlags.IsLocked)
+            if (item.ReadAccess)
             {
-                forumImage.AddCssClass("forum_customimage_locked");
-                forumImage.MergeAttribute(
-                    "alt",
-                    BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "FORUM_LOCKED"));
-                forumImage.MergeAttribute(
-                    HtmlAttribute.Title,
-                    BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "FORUM_LOCKED"));
-            }
-            else if (lastPosted > lastRead)
-            {
-                forumImage.AddCssClass("forum_customimage_newposts");
-                forumImage.MergeAttribute(
-                    "alt",
-                    BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "NEW_POSTS"));
-                forumImage.MergeAttribute(
-                    HtmlAttribute.Title,
-                    BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "NEW_POSTS"));
-            }
-            else
-            {
-                forumImage.AddCssClass("forum_customimage_nonewposts");
-                forumImage.MergeAttribute(
-                    "alt",
-                    BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "NO_NEW_POSTS"));
-                forumImage.MergeAttribute(
-                    HtmlAttribute.Title,
-                    BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "NO_NEW_POSTS"));
-            }
+                var title = item.Description.IsSet()
+                    ? item.Description
+                    : BoardContext.Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM");
 
-            content.AppendHtml(forumImage);
-        }
+                var link = new TagBuilder(HtmlTag.A);
 
-        return content;
-    }
+                link.MergeAttribute("data-bs-toggle", "tooltip");
 
-    /// <summary>
-    /// Provides the "Forum Link Text" for the ForumList control.
-    ///   Automatically disables the link if the current user doesn't
-    ///   have proper permissions.
-    /// </summary>
-    /// <param name="htmlHelper"></param>
-    /// <param name="item">
-    /// The item.
-    /// </param>
-    /// <returns>
-    /// Forum link text
-    /// </returns>
-    public static IHtmlContent GetForumLink(this IHtmlHelper htmlHelper, ForumRead item)
-    {
-        var content = new HtmlContentBuilder();
+                link.InnerHtml.AppendHtml(htmlHelper.HtmlEncode(item.Forum));
 
-        if (item.ReadAccess)
-        {
-            var title = item.Description.IsSet()
-                            ? item.Description
-                            : BoardContext.Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM");
+                if (item.RemoteURL.IsSet())
+                {
+                    link.MergeAttribute("href", item.RemoteURL);
+                    link.MergeAttribute(HtmlAttribute.Title, BoardContext.Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM"));
+                    link.MergeAttribute(HtmlAttribute.Target, "_blank");
 
-            var link = new TagBuilder(HtmlTag.A);
+                    var icon = new TagBuilder(HtmlTag.I);
 
-            link.MergeAttribute("data-bs-toggle", "tooltip");
+                    icon.AddCssClass("fas fa-external-link-alt ms-1");
 
-            link.InnerHtml.AppendHtml(htmlHelper.HtmlEncode(item.Forum));
+                    link.InnerHtml.AppendHtml(icon);
+                }
+                else
+                {
+                    link.MergeAttribute(
+                        HtmlAttribute.Href,
+                        BoardContext.Current.Get<ILinkBuilder>().GetForumLink(item.ForumID, item.Forum));
+                    link.MergeAttribute(HtmlAttribute.Title, title);
+                }
 
-            if (item.RemoteURL.IsSet())
-            {
-                link.MergeAttribute("href", item.RemoteURL);
-                link.MergeAttribute(HtmlAttribute.Title, BoardContext.Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM"));
-                link.MergeAttribute(HtmlAttribute.Target, "_blank");
-
-                var icon = new TagBuilder(HtmlTag.I);
-
-                icon.AddCssClass("fas fa-external-link-alt ms-1");
-
-                link.InnerHtml.AppendHtml(icon);
-            }
-            else
-            {
                 link.MergeAttribute(
                     HtmlAttribute.Href,
-                    BoardContext.Current.Get<ILinkBuilder>().GetForumLink(item.ForumID, item.Forum));
-                link.MergeAttribute(HtmlAttribute.Title, title);
+                    item.RemoteURL.IsSet()
+                        ? item.RemoteURL
+                        : BoardContext.Current.Get<ILinkBuilder>().GetForumLink(item.ForumID, item.Forum));
+
+                content.AppendHtml(link);
+            }
+            else
+            {
+                // no access to this forum
+                content.AppendHtml($"{item.Forum} {BoardContext.Current.Get<ILocalization>().GetText("NO_FORUM_ACCESS")}");
             }
 
-            link.MergeAttribute(
-                HtmlAttribute.Href,
-                item.RemoteURL.IsSet()
-                    ? item.RemoteURL
-                    : BoardContext.Current.Get<ILinkBuilder>().GetForumLink(item.ForumID, item.Forum));
-
-            content.AppendHtml(link);
+            return content;
         }
-        else
+
+        /// <summary>
+        /// Get moderators.
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string GetModerators(ForumRead item)
         {
-            // no access to this forum
-            content.AppendHtml($"{item.Forum} {BoardContext.Current.Get<ILocalization>().GetText("NO_FORUM_ACCESS")}");
-        }
+            var mods = BoardContext.Current.Get<ISessionService>().Mods.Where(x => x.ForumID == item.ForumID).ToList();
 
-        return content;
-    }
+            var content = new HtmlContentBuilder();
 
-    /// <summary>
-    /// Get moderators.
-    /// </summary>
-    /// <param name="htmlHelper">
-    /// The html helper.
-    /// </param>
-    /// <param name="item">
-    /// The item.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static string GetModerators(this IHtmlHelper htmlHelper, ForumRead item)
-    {
-        var mods = BoardContext.Current.Get<ISessionService>().Mods.Where(x => x.ForumID == item.ForumID).ToList();
+            var list = new TagBuilder(HtmlTag.Ol);
 
-        var content = new HtmlContentBuilder();
+            list.AddCssClass("list-unstyled");
 
-        var list = new TagBuilder(HtmlTag.Ol);
-
-        list.AddCssClass("list-unstyled");
-
-        mods.DistinctBy(x => x.ModeratorID).ForEach(
-            row =>
+            mods.DistinctBy(x => x.ModeratorID).ForEach(
+                row =>
                 {
                     var listItem = new TagBuilder(HtmlTag.Li);
 
@@ -235,118 +233,114 @@ public static class CategoryListHelpers
                     list.InnerHtml.AppendHtml(listItem);
                 });
 
-        content.AppendHtml(list);
+            content.AppendHtml(list);
 
-        return content.RenderToString().ToJsString();
-    }
-
-    /// <summary>
-    /// Provides the "Forum Link Text" for the ForumList control.
-    ///   Automatically disables the link if the current user doesn't
-    ///   have proper permissions.
-    /// </summary>
-    /// <param name="htmlHelper">
-    /// The html helper.
-    /// </param>
-    /// <param name="item">
-    /// The item.
-    /// </param>
-    /// <returns>
-    /// Forum link text
-    /// </returns>
-    public static IHtmlContent GetSubForumLink(this IHtmlHelper htmlHelper, ForumRead item)
-    {
-        var content = new HtmlContentBuilder();
-
-        if (item.ReadAccess)
-        {
-            var title = item.Description.IsSet()
-                            ? item.Description
-                            : BoardContext.Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM");
-
-            var link = new TagBuilder(HtmlTag.A);
-
-            link.AddCssClass("card-link small");
-
-            link.MergeAttribute("data-bs-toggle", "tooltip");
-
-            link.InnerHtml.AppendHtml(BoardContext.Current.CurrentForumPage.HtmlEncode(item.Forum));
-
-            link.MergeAttribute(HtmlAttribute.Href, BoardContext.Current.Get<ILinkBuilder>().GetForumLink(item.ForumID, item.Forum));
-            link.MergeAttribute(HtmlAttribute.Title, title);
-
-            link.MergeAttribute(
-                HtmlAttribute.Href,
-                item.RemoteURL.IsSet()
-                    ? item.RemoteURL
-                    : BoardContext.Current.Get<ILinkBuilder>().GetForumLink(item.ForumID, item.Forum));
-
-            content.AppendHtml(link);
-        }
-        else
-        {
-            // no access to this forum
-            content.AppendHtml($"{item.Forum} {BoardContext.Current.Get<ILocalization>().GetText("NO_FORUM_ACCESS")}");
+            return content.RenderToString().ToJsString();
         }
 
-        return content;
-    }
+        /// <summary>
+        /// Provides the "Forum Link Text" for the ForumList control.
+        ///   Automatically disables the link if the current user doesn't
+        ///   have proper permissions.
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// Forum link text
+        /// </returns>
+        public IHtmlContent GetSubForumLink(ForumRead item)
+        {
+            var content = new HtmlContentBuilder();
 
-    /// <summary>
-    /// Gets the last post info.
-    /// </summary>
-    /// <param name="htmlHelper"></param>
-    /// <param name="item">
-    /// The item.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static string GetLastPostInfo(this IHtmlHelper htmlHelper, ForumRead item)
-    {
-        // Last Post Date
-        var lastPostedDateTime = item.LastPosted.Value;
+            if (item.ReadAccess)
+            {
+                var title = item.Description.IsSet()
+                    ? item.Description
+                    : BoardContext.Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM");
 
-        // Last Topic PageUser
-        var lastUserLink = htmlHelper.UserLink(
-            item.LastUserID.Value,
-            BoardContext.Current.BoardSettings.EnableDisplayName ? item.LastUserDisplayName : item.LastUser,
-            item.LastUserSuspended,
-            BoardContext.Current.BoardSettings.UseStyledNicks && item.Style.IsSet()
-                ? BoardContext.Current.Get<IStyleTransform>().Decode(item.Style)
-                : string.Empty,
-            true);
+                var link = new TagBuilder(HtmlTag.A);
 
-        var formattedDatetime = BoardContext.Current.BoardSettings.ShowRelativeTime
-                                    ? lastPostedDateTime.ToRelativeTime()
-                                    : BoardContext.Current.Get<IDateTimeService>().Format(
-                                        DateTimeFormat.BothTopic,
-                                        lastPostedDateTime);
+                link.AddCssClass("card-link small");
 
-        var span = BoardContext.Current.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
+                link.MergeAttribute("data-bs-toggle", "tooltip");
 
-        var iconBadge = htmlHelper.IconBadge("calendar-day", "clock");
+                link.InnerHtml.AppendHtml(BoardContext.Current.CurrentForumPage.HtmlEncode(item.Forum));
 
-        return $"""
-                                          {lastUserLink.RenderToString()}
-                                          {iconBadge.RenderToString()}&nbsp;{span}{formattedDatetime}</span>
-                                         
-                """;
-    }
+                link.MergeAttribute(HtmlAttribute.Href, BoardContext.Current.Get<ILinkBuilder>().GetForumLink(item.ForumID, item.Forum));
+                link.MergeAttribute(HtmlAttribute.Title, title);
 
-    /// <summary>
-    /// Gets the sub Forums.
-    /// </summary>
-    /// <param name="htmlHelper"></param>
-    /// <param name="item">
-    /// The item.
-    /// </param>
-    /// <returns>
-    /// Returns the Sub Forums
-    /// </returns>
-    public static IEnumerable<ForumRead> GetSubForums(this IHtmlHelper htmlHelper, ForumRead item)
-    {
-        return BoardContext.Current.Get<ISessionService>().Forums.Where(forum => forum.ParentID == item.ForumID)
-            .Take(BoardContext.Current.BoardSettings.SubForumsInForumList);
+                link.MergeAttribute(
+                    HtmlAttribute.Href,
+                    item.RemoteURL.IsSet()
+                        ? item.RemoteURL
+                        : BoardContext.Current.Get<ILinkBuilder>().GetForumLink(item.ForumID, item.Forum));
+
+                content.AppendHtml(link);
+            }
+            else
+            {
+                // no access to this forum
+                content.AppendHtml($"{item.Forum} {BoardContext.Current.Get<ILocalization>().GetText("NO_FORUM_ACCESS")}");
+            }
+
+            return content;
+        }
+
+        /// <summary>
+        /// Gets the last post info.
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string GetLastPostInfo(ForumRead item)
+        {
+            // Last Post Date
+            var lastPostedDateTime = item.LastPosted.Value;
+
+            // Last Topic PageUser
+            var lastUserLink = htmlHelper.UserLink(
+                item.LastUserID.Value,
+                BoardContext.Current.BoardSettings.EnableDisplayName ? item.LastUserDisplayName : item.LastUser,
+                item.LastUserSuspended,
+                BoardContext.Current.BoardSettings.UseStyledNicks && item.Style.IsSet()
+                    ? BoardContext.Current.Get<IStyleTransform>().Decode(item.Style)
+                    : string.Empty,
+                true);
+
+            var formattedDatetime = BoardContext.Current.BoardSettings.ShowRelativeTime
+                ? lastPostedDateTime.ToRelativeTime()
+                : BoardContext.Current.Get<IDateTimeService>().Format(
+                    DateTimeFormat.BothTopic,
+                    lastPostedDateTime);
+
+            var span = BoardContext.Current.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
+
+            var iconBadge = htmlHelper.IconBadge("calendar-day", "clock");
+
+            return $"""
+                                              {lastUserLink.RenderToString()}
+                                              {iconBadge.RenderToString()}&nbsp;{span}{formattedDatetime}</span>
+                                             
+                    """;
+        }
+
+        /// <summary>
+        /// Gets the sub Forums.
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// Returns the Sub Forums
+        /// </returns>
+        public IEnumerable<ForumRead> GetSubForums(ForumRead item)
+        {
+            return BoardContext.Current.Get<ISessionService>().Forums.Where(forum => forum.ParentID == item.ForumID)
+                .Take(BoardContext.Current.BoardSettings.SubForumsInForumList);
+        }
     }
 }

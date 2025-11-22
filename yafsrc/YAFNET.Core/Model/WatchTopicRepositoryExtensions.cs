@@ -36,67 +36,62 @@ using YAF.Types.Models;
 /// </summary>
 public static class WatchTopicRepositoryExtensions
 {
-    /// <summary>
-    /// Add a new WatchTopic
-    /// </summary>
     /// <param name="repository">The repository.</param>
-    /// <param name="userId">The user identifier.</param>
-    /// <param name="topicId">The topic identifier.</param>
-    public async static Task AddAsync(this IRepository<WatchTopic> repository, int userId, int topicId)
+    extension(IRepository<WatchTopic> repository)
     {
-        var watchTopic = new WatchTopic { TopicID = topicId, UserID = userId, Created = DateTime.UtcNow };
+        /// <summary>
+        /// Add a new WatchTopic
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="topicId">The topic identifier.</param>
+        public async Task AddAsync(int userId, int topicId)
+        {
+            var watchTopic = new WatchTopic { TopicID = topicId, UserID = userId, Created = DateTime.UtcNow };
 
-        await repository.InsertAsync(watchTopic);
-    }
+            await repository.InsertAsync(watchTopic);
+        }
 
-    /// <summary>
-    /// Checks if Watch Topic Exists and Returns WatchTopic ID
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// The user identifier.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic identifier.
-    /// </param>
-    /// <returns>
-    /// The <see cref="int"/>.
-    /// </returns>
-    public async static Task<int?> CheckAsync(this IRepository<WatchTopic> repository, int userId, int topicId)
-    {
-        var topic = await repository.GetSingleAsync(w => w.UserID == userId && w.TopicID == topicId);
+        /// <summary>
+        /// Checks if Watch Topic Exists and Returns WatchTopic ID
+        /// </summary>
+        /// <param name="userId">
+        /// The user identifier.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic identifier.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public async Task<int?> CheckAsync(int userId, int topicId)
+        {
+            var topic = await repository.GetSingleAsync(w => w.UserID == userId && w.TopicID == topicId);
 
-        return topic?.ID;
-    }
+            return topic?.ID;
+        }
 
-    /// <summary>
-    /// List all Watch Topics by User
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// The user identifier.
-    /// </param>
-    /// <param name="pageIndex">
-    /// The page Index.
-    /// </param>
-    /// <param name="pageSize">
-    /// The page Size.
-    /// </param>
-    public static Task<List<WatchTopic>> ListAsync(
-        this IRepository<WatchTopic> repository,
-        int userId,
-        int pageIndex = 0,
-        int pageSize = 10000000)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchTopic>();
+        /// <summary>
+        /// List all Watch Topics by User
+        /// </summary>
+        /// <param name="userId">
+        /// The user identifier.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
+        /// </param>
+        public Task<List<WatchTopic>> ListAsync(int userId,
+            int pageIndex = 0,
+            int pageSize = 10000000)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchTopic>();
 
-        expression.Where<WatchTopic>(b => b.UserID == userId)
-            .OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);
+            expression.Where<WatchTopic>(b => b.UserID == userId)
+                .OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);
 
-        return repository.DbAccess.ExecuteAsync(db => db.LoadSelectAsync(expression));
+            return repository.DbAccess.ExecuteAsync(db => db.LoadSelectAsync(expression));
+        }
     }
 }

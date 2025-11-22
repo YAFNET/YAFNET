@@ -33,74 +33,67 @@ using YAF.Types.Models;
 /// </summary>
 public static class ChoiceRepositoryExtensions
 {
-    /// <summary>
-    /// Add new Choice to the Poll
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="pollId">
-    /// The poll id.
-    /// </param>
-    /// <param name="choice">
-    /// The choice.
-    /// </param>
-    /// <param name="objectPath">
-    /// The object path.
-    /// </param>
-    /// <returns>
-    /// The <see cref="int"/>.
-    /// </returns>
-    public static int AddChoice(
-        this IRepository<Choice> repository,
-        int pollId,
-        string choice,
-        string objectPath)
+    extension(IRepository<Choice> repository)
     {
-        var entity = new Choice { PollID = pollId, ChoiceName = choice, Votes = 0, ObjectPath = objectPath };
+        /// <summary>
+        /// Add new Choice to the Poll
+        /// </summary>
+        /// <param name="pollId">
+        /// The poll id.
+        /// </param>
+        /// <param name="choice">
+        /// The choice.
+        /// </param>
+        /// <param name="objectPath">
+        /// The object path.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public int AddChoice(int pollId,
+            string choice,
+            string objectPath)
+        {
+            var entity = new Choice { PollID = pollId, ChoiceName = choice, Votes = 0, ObjectPath = objectPath };
 
-        var newId = repository.Insert(entity);
+            var newId = repository.Insert(entity);
 
-        return newId;
-    }
+            return newId;
+        }
 
-    /// <summary>
-    /// Update Choice
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="choiceId">
-    /// The choice id.
-    /// </param>
-    /// <param name="choice">
-    /// The choice.
-    /// </param>
-    /// <param name="objectPath">
-    /// The object path.
-    /// </param>
-    public static void UpdateChoice(
-        this IRepository<Choice> repository,
-        int choiceId,
-        string choice,
-        string objectPath)
-    {
-        repository.UpdateOnly(
-            () => new Choice { ChoiceName = choice, ObjectPath = objectPath },
-            c => c.ID == choiceId);
-    }
+        /// <summary>
+        /// Update Choice
+        /// </summary>
+        /// <param name="choiceId">
+        /// The choice id.
+        /// </param>
+        /// <param name="choice">
+        /// The choice.
+        /// </param>
+        /// <param name="objectPath">
+        /// The object path.
+        /// </param>
+        public void UpdateChoice(int choiceId,
+            string choice,
+            string objectPath)
+        {
+            repository.UpdateOnly(
+                () => new Choice { ChoiceName = choice, ObjectPath = objectPath },
+                c => c.ID == choiceId);
+        }
 
-    /// <summary>
-    /// Ads A Vote to the Choice
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="choiceId">
-    /// The choice id.
-    /// </param>
-    public static Task VoteAsync(this IRepository<Choice> repository, int choiceId)
-    {
-        return repository.UpdateAddAsync(() => new Choice { Votes = 1 }, a => a.ID == choiceId);
+        /// <summary>
+        /// Ads A Vote to the Choice
+        /// </summary>
+        /// <param name="choiceId">
+        /// The choice id.
+        /// </param>
+        public Task VoteAsync(int choiceId)
+        {
+            return repository.UpdateAddAsync(() => new Choice { Votes = 1 }, a => a.ID == choiceId);
+        }
     }
 }

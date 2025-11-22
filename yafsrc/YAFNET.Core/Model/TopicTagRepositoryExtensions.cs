@@ -36,48 +36,47 @@ using YAF.Types.Models;
 /// </summary>
 public static class TopicTagRepositoryExtensions
 {
-    /// <summary>
-    /// Adds Topic Tag
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="tagId">
-    /// The tag Id.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic ID.
-    /// </param>
-    public static void Add(this IRepository<TopicTag> repository, int tagId, int topicId)
+    extension(IRepository<TopicTag> repository)
     {
-        repository.Insert(new TopicTag { TagID = tagId, TopicID = topicId });
-    }
-
-    /// <summary>
-    /// Add New or existing tags to a topic
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="tagsString">
-    /// The tags as delimited string.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic id.
-    /// </param>
-    public async static Task AddTagsToTopicAsync(this IRepository<TopicTag> repository, string tagsString, int topicId)
-    {
-        if (tagsString.IsNotSet())
+        /// <summary>
+        /// Adds Topic Tag
+        /// </summary>
+        /// <param name="tagId">
+        /// The tag Id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic ID.
+        /// </param>
+        public void Add(int tagId, int topicId)
         {
-            return;
+            repository.Insert(new TopicTag { TagID = tagId, TopicID = topicId });
         }
 
-        var tags = tagsString.Split(',');
+        /// <summary>
+        /// Add New or existing tags to a topic
+        /// </summary>
+        /// <param name="tagsString">
+        /// The tags as delimited string.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        public async Task AddTagsToTopicAsync(string tagsString, int topicId)
+        {
+            if (tagsString.IsNotSet())
+            {
+                return;
+            }
 
-        var boardTags = await BoardContext.Current.GetRepository<Tag>().GetByBoardIdAsync();
+            var tags = tagsString.Split(',');
 
-        tags.ForEach(
-            tag =>
+            var boardTags = await BoardContext.Current.GetRepository<Tag>().GetByBoardIdAsync();
+
+            tags.ForEach(
+                tag =>
                 {
                     tag = HtmlTagHelper.StripHtml(tag);
 
@@ -111,65 +110,58 @@ public static class TopicTagRepositoryExtensions
                         repository.Add(newTagId, topicId);
                     }
                 });
-    }
+        }
 
-    /// <summary>
-    /// List all Topic Tags
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic Id.
-    /// </param>
-    public static List<Tuple<TopicTag, Tag>> List(this IRepository<TopicTag> repository, int topicId)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
+        /// <summary>
+        /// List all Topic Tags
+        /// </summary>
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        public List<Tuple<TopicTag, Tag>> List(int topicId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
 
-        expression.Join<Tag>((topicTag, tag) => tag.ID == topicTag.TagID)
-            .Where<TopicTag>(t => t.TopicID == topicId);
+            expression.Join<Tag>((topicTag, tag) => tag.ID == topicTag.TagID)
+                .Where<TopicTag>(t => t.TopicID == topicId);
 
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<TopicTag, Tag>(expression));
-    }
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<TopicTag, Tag>(expression));
+        }
 
-    /// <summary>
-    /// Lists all tags By topic.
-    /// </summary>
-    /// <param name="repository">The repository.</param>
-    /// <returns>List with all tags as delimited string.</returns>
-    public static List<Tag> ListAll(
-        this IRepository<TopicTag> repository)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
+        /// <summary>
+        /// Lists all tags By topic.
+        /// </summary>
+        /// <returns>List with all tags as delimited string.</returns>
+        public List<Tag> ListAll()
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
 
-        expression.Join<Tag>((topicTag, tag) => tag.ID == topicTag.TagID);
+            expression.Join<Tag>((topicTag, tag) => tag.ID == topicTag.TagID);
 
-        expression.Select<TopicTag, Tag>(
-            (topicTag, tag) => new {
-                topicTag.TopicID,
-                tag.TagName
-            });
+            expression.Select<TopicTag, Tag>(
+                (topicTag, tag) => new {
+                    topicTag.TopicID,
+                    tag.TagName
+                });
 
-        var tags = repository.DbAccess.Execute(
-            db => db.Connection.Select<(int TopicID, string TagName)>(expression)).GroupBy(x => x.TopicID);
+            var tags = repository.DbAccess.Execute(
+                db => db.Connection.Select<(int TopicID, string TagName)>(expression)).GroupBy(x => x.TopicID);
 
-        var topicTags = tags.ToList();
+            var topicTags = tags.ToList();
 
-        return [.. topicTags.Select(topicTag => new Tag
-            { ID = topicTag.Key, TagName = topicTag.Select(t => t.TagName).ToDelimitedString(",") })];
-    }
+            return [.. topicTags.Select(topicTag => new Tag
+                { ID = topicTag.Key, TagName = topicTag.Select(t => t.TagName).ToDelimitedString(",") })];
+        }
 
-    /// <summary>
-    /// List all Topic Tags
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic Id.
-    /// </param>
-    public static string ListAsDelimitedString(this IRepository<TopicTag> repository, int topicId)
-    {
-        return repository.List(topicId).Select(t => t.Item2.TagName).ToDelimitedString(",");
+        /// <summary>
+        /// List all Topic Tags
+        /// </summary>
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        public string ListAsDelimitedString(int topicId)
+        {
+            return repository.List(topicId).Select(t => t.Item2.TagName).ToDelimitedString(",");
+        }
     }
 }

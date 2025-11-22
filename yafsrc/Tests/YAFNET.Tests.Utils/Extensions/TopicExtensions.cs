@@ -33,87 +33,87 @@ using Microsoft.Playwright;
 /// </summary>
 public static class TopicExtensions
 {
-    /// <summary>
-    /// Creates the new test topic.
-    /// </summary>
     /// <param name="page">
     /// The Page Instance
     /// </param>
-    /// <param name="testSettings">
-    /// The test Settings
-    /// </param>
-    /// <returns>
-    /// Returns if Creating of the New Topic was
-    /// successfully or not.
-    /// </returns>
-    public async static Task<bool> CreateNewTestTopicAsync(this IPage page, TestConfig testSettings)
+    extension(IPage page)
     {
-        await page.GotoAsync($"{testSettings.TestForumUrl}PostTopic/{testSettings.TestForumId}");
-
-        var pageSource = await page.ContentAsync();
-
-        if (!pageSource.Contains("Post New Topic"))
+        /// <summary>
+        /// Creates the new test topic.
+        /// </summary>
+        /// <param name="testSettings">
+        /// The test Settings
+        /// </param>
+        /// <returns>
+        /// Returns if Creating of the New Topic was
+        /// successfully or not.
+        /// </returns>
+        public async Task<bool> CreateNewTestTopicAsync(TestConfig testSettings)
         {
-            return false;
+            await page.GotoAsync($"{testSettings.TestForumUrl}PostTopic/{testSettings.TestForumId}");
+
+            var pageSource = await page.ContentAsync();
+
+            if (!pageSource.Contains("Post New Topic"))
+            {
+                return false;
+            }
+
+            // Create New Topic
+            await page.Locator("//input[contains(@id,'_TopicSubject')]").FillAsync($"Auto Created Test Topic - {DateTime.UtcNow}");
+
+            await page.FrameLocator(".sceditor-container >> iframe").Locator("body")
+                .FillAsync("This is a Test Message Created by an automated Unit Test");
+
+            // Post New Topic
+            await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
+
+            pageSource = await page.ContentAsync();
+
+            return pageSource.Contains("Next Topic");
         }
 
-        // Create New Topic
-        await page.Locator("//input[contains(@id,'_TopicSubject')]").FillAsync($"Auto Created Test Topic - {DateTime.UtcNow}");
-
-        await page.FrameLocator(".sceditor-container >> iframe").Locator("body")
-            .FillAsync("This is a Test Message Created by an automated Unit Test");
-
-        // Post New Topic
-        await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
-
-        pageSource = await page.ContentAsync();
-
-        return pageSource.Contains("Next Topic");
-    }
-
-    /// <summary>
-    /// Creates a new reply in the test topic.
-    /// </summary>
-    /// <param name="page">
-    /// The Page Instance
-    /// </param>
-    /// <param name="testSettings">
-    /// The test Settings
-    /// </param>
-    /// <param name="message">The Reply message.</param>
-    /// <returns>
-    /// Returns if Reply was Created or not
-    /// </returns>
-    public async static Task<bool> CreateNewReplyInTestTopicAsync(this IPage page, TestConfig testSettings, string message)
-    {
-        // Go to Post New Topic
-        await page.GotoAsync(
-            $"{testSettings.TestForumUrl}Posts/{testSettings.TestTopicId}/test");
-
-        var pageSource = await page.ContentAsync();
-
-        if (pageSource.Contains("You've passed an invalid value to the forum."))
+        /// <summary>
+        /// Creates a new reply in the test topic.
+        /// </summary>
+        /// <param name="testSettings">
+        /// The test Settings
+        /// </param>
+        /// <param name="message">The Reply message.</param>
+        /// <returns>
+        /// Returns if Reply was Created or not
+        /// </returns>
+        public async Task<bool> CreateNewReplyInTestTopicAsync(TestConfig testSettings, string message)
         {
-            return false;
+            // Go to Post New Topic
+            await page.GotoAsync(
+                $"{testSettings.TestForumUrl}Posts/{testSettings.TestTopicId}/test");
+
+            var pageSource = await page.ContentAsync();
+
+            if (pageSource.Contains("You've passed an invalid value to the forum."))
+            {
+                return false;
+            }
+
+            await page.Locator("//button[contains(@formaction,'ReplyLink')]").First.ClickAsync();
+
+            pageSource = await page.ContentAsync();
+
+            if (!pageSource.Contains("Post a reply"))
+            {
+                return false;
+            }
+
+            // Create New Reply
+            await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync(message);
+
+            // Post New Reply
+            await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
+
+            pageSource = await page.ContentAsync();
+
+            return pageSource.Contains(message);
         }
-
-        await page.Locator("//button[contains(@formaction,'ReplyLink')]").First.ClickAsync();
-
-        pageSource = await page.ContentAsync();
-
-        if (!pageSource.Contains("Post a reply"))
-        {
-            return false;
-        }
-
-        // Create New Reply
-        await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync(message);
-
-        // Post New Reply
-        await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
-
-        pageSource = await page.ContentAsync();
-
-        return pageSource.Contains(message);
     }
 }

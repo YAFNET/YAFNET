@@ -50,219 +50,218 @@ namespace YAF.Core.Extensions;
 /// </summary>
 public static class ServiceCollectionExtensionsExtensions
 {
-    /// <summary>
-    /// Adds YAF.NET core service extensions.
-    /// </summary>
     /// <param name="services">The services.</param>
-    /// <returns>IServiceCollection.</returns>
-    public static IServiceCollection AddYafExtensions(this IServiceCollection services)
+    extension(IServiceCollection services)
     {
-        services.AddMemoryCache();
-
-        services.AddUserAgentParser();
-        services.AddOEmbed();
-
-        services.AddSession(options =>
+        /// <summary>
+        /// Adds YAF.NET core service extensions.
+        /// </summary>
+        /// <returns>IServiceCollection.</returns>
+        public IServiceCollection AddYafExtensions()
         {
-            options.IdleTimeout = TimeSpan.FromHours(4);
-            options.Cookie.Name = ".YAFNET.Session";
-            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-            options.Cookie.SameSite = SameSiteMode.Strict;
-            options.Cookie.HttpOnly = true;
-        });
+            services.AddMemoryCache();
 
-        services.AddHttpContextAccessor();
+            services.AddUserAgentParser();
+            services.AddOEmbed();
 
-        services.AddOutputCache();
-
-        return services;
-    }
-
-    /// <summary>
-    /// Adds YAF.NET core service Identity Options.
-    /// </summary>
-    /// <param name="services">The services.</param>
-    /// <returns>IServiceCollection.</returns>
-    public static IServiceCollection AddYafIdentityOptions(this IServiceCollection services)
-    {
-        services.Configure<IdentityOptions>(
-            options =>
+            services.AddSession(options =>
             {
-                // Password settings.
-                options.Password.RequireDigit = BoardContext.Current.BoardSettings.PasswordRequireDigit;
-                options.Password.RequireLowercase = BoardContext.Current.BoardSettings.PasswordRequireLowercase;
-                options.Password.RequireNonAlphanumeric =
-                    BoardContext.Current.BoardSettings.PasswordRequireNonLetterOrDigit;
-                options.Password.RequireUppercase = BoardContext.Current.BoardSettings.PasswordRequireUppercase;
-                options.Password.RequiredLength = BoardContext.Current.BoardSettings.MinRequiredPasswordLength;
-
-                // Lockout settings.
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.AllowedForNewUsers = true;
-
-                // User settings.
-                options.User.AllowedUserNameCharacters =
-                    BoardContext.Current.BoardSettings.AllowedUserNameCharacters;
-                options.User.RequireUniqueEmail = true;
+                options.IdleTimeout = TimeSpan.FromHours(4);
+                options.Cookie.Name = ".YAFNET.Session";
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.HttpOnly = true;
             });
 
-        services.AddDefaultIdentity<AspNetUsers>(o => o.SignIn.RequireConfirmedAccount = true)
-            .AddUserManager<AspNetUserManager<AspNetUsers>>().AddRoles<AspNetRoles>().AddDefaultTokenProviders();
+            services.AddHttpContextAccessor();
 
-        return services;
-    }
+            services.AddOutputCache();
 
-    /// <summary>
-    ///  Adds YAF.NET core services to the specified services collection.
-    /// </summary>
-    /// <param name="services">The services.</param>
-    /// <param name="configuration"></param>
-    /// <returns>IServiceCollection.</returns>
-    public static IServiceCollection AddYafCore(this IServiceCollection services, IConfiguration configuration)
-    {
-        var boardConfig = configuration.GetSection("BoardConfiguration").Get<BoardConfiguration>();
-
-        services.AddControllers();
-
-        services.AddSignalR();
-
-        services.AddYafExtensions();
-
-        services.AddProgressiveWebApp(new PwaOptions
-        {
-            CacheId = "YAF.NET",
-            BaseRoute =  "/",
-            Strategy = ServiceWorkerStrategy.CustomStrategy,
-            RoutesToPreCache = "/, /Board",
-            RegisterServiceWorker = true,
-            RegisterWebmanifest = true,
-            CustomServiceWorkerStrategyFileName = "/js/serviceWorker.min.js"
-        });
-
-        services.AddYafIdentityOptions();
-
-        services.AddYafAuthentication();
-
-        services.AddYafInstallLanguages();
-
-        // Mail Configuration
-        services.Configure<MailConfiguration>(configuration.GetSection("MailConfiguration"));
-
-        // Board Configuration
-        services.Configure<BoardConfiguration>(configuration.GetSection("BoardConfiguration"));
-
-        // VAPID Configuration
-        services.Configure<VapidConfiguration>(configuration.GetSection("VapidConfiguration"));
-
-        services.AddSingleton<IActionContextAccessor, ActionContextAccessor>().AddScoped(
-            x => x.GetRequiredService<IUrlHelperFactory>()
-                .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));
-
-        services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
-
-        if (boardConfig.UseRateLimiter)
-        {
-            services.AddRateLimiter(rateOptions =>
-            {
-                rateOptions.AddPolicy("fixed", context =>
-                {
-                    var isAuthenticated = context.User.Identity?.IsAuthenticated;
-
-                    if (BoardContext.Current.IsAdmin || (isAuthenticated.HasValue && isAuthenticated.Value &&
-                                                         BoardContext.Current.PageUser.NumPosts >=
-                                                         context.RequestServices.GetService<BoardSettings>()
-                                                             .IgnoreSpamWordCheckPostCount))
-                    {
-                        return RateLimitPartition.GetNoLimiter(IPAddress.None);
-                    }
-
-                    return RateLimitPartition.GetFixedWindowLimiter(
-                        partitionKey: context.Connection.RemoteIpAddress,
-                        factory: _ => new FixedWindowRateLimiterOptions
-                        {
-                            PermitLimit = boardConfig.RateLimiterPermitLimit,
-                            Window = TimeSpan.FromSeconds(60),
-                            QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
-                            QueueLimit = 2
-                        });
-                });
-
-                rateOptions.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
-            });
+            return services;
         }
 
-        services.AddOptions();
+        /// <summary>
+        /// Adds YAF.NET core service Identity Options.
+        /// </summary>
+        /// <returns>IServiceCollection.</returns>
+        public IServiceCollection AddYafIdentityOptions()
+        {
+            services.Configure<IdentityOptions>(
+                options =>
+                {
+                    // Password settings.
+                    options.Password.RequireDigit = BoardContext.Current.BoardSettings.PasswordRequireDigit;
+                    options.Password.RequireLowercase = BoardContext.Current.BoardSettings.PasswordRequireLowercase;
+                    options.Password.RequireNonAlphanumeric =
+                        BoardContext.Current.BoardSettings.PasswordRequireNonLetterOrDigit;
+                    options.Password.RequireUppercase = BoardContext.Current.BoardSettings.PasswordRequireUppercase;
+                    options.Password.RequiredLength = BoardContext.Current.BoardSettings.MinRequiredPasswordLength;
 
-        return services;
-    }
+                    // Lockout settings.
+                    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                    options.Lockout.MaxFailedAccessAttempts = 5;
+                    options.Lockout.AllowedForNewUsers = true;
 
-    /// <summary>
-    /// Adds the yaf Authentication.
-    /// </summary>
-    /// <param name="services">The services.</param>
-    /// <returns>IServiceCollection.</returns>
-    public static IServiceCollection AddYafAuthentication(this IServiceCollection services)
-    {
-        var authenticationBuilder = services.AddAuthentication();
+                    // User settings.
+                    options.User.AllowedUserNameCharacters =
+                        BoardContext.Current.BoardSettings.AllowedUserNameCharacters;
+                    options.User.RequireUniqueEmail = true;
+                });
 
-        authenticationBuilder.AddCookie(
-            options =>
+            services.AddDefaultIdentity<AspNetUsers>(o => o.SignIn.RequireConfirmedAccount = true)
+                .AddUserManager<AspNetUserManager<AspNetUsers>>().AddRoles<AspNetRoles>().AddDefaultTokenProviders();
+
+            return services;
+        }
+
+        /// <summary>
+        ///  Adds YAF.NET core services to the specified services collection.
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <returns>IServiceCollection.</returns>
+        public IServiceCollection AddYafCore(IConfiguration configuration)
+        {
+            var boardConfig = configuration.GetSection("BoardConfiguration").Get<BoardConfiguration>();
+
+            services.AddControllers();
+
+            services.AddSignalR();
+
+            services.AddYafExtensions();
+
+            services.AddProgressiveWebApp(new PwaOptions
             {
-                options.Cookie.Expiration = TimeSpan.FromDays(7);
-                options.ExpireTimeSpan = TimeSpan.FromDays(7);
-                options.LoginPath = "/Account/Login";
-                options.LogoutPath = "/Account/Logout";
-                options.AccessDeniedPath = "/Info";
-                options.SlidingExpiration = true;
+                CacheId = "YAF.NET",
+                BaseRoute =  "/",
+                Strategy = ServiceWorkerStrategy.CustomStrategy,
+                RoutesToPreCache = "/, /Board",
+                RegisterServiceWorker = true,
+                RegisterWebmanifest = true,
+                CustomServiceWorkerStrategyFileName = "/js/serviceWorker.min.js"
             });
 
-        return services;
-    }
+            services.AddYafIdentityOptions();
 
-    /// <summary>
-    /// Adds the yaf install languages.
-    /// </summary>
-    /// <param name="services">The services.</param>
-    /// <returns>IServiceCollection.</returns>
-    public static IServiceCollection AddYafInstallLanguages(this IServiceCollection services)
-    {
-        services.Configure<RequestLocalizationOptions>(options =>
+            services.AddYafAuthentication();
+
+            services.AddYafInstallLanguages();
+
+            // Mail Configuration
+            services.Configure<MailConfiguration>(configuration.GetSection("MailConfiguration"));
+
+            // Board Configuration
+            services.Configure<BoardConfiguration>(configuration.GetSection("BoardConfiguration"));
+
+            // VAPID Configuration
+            services.Configure<VapidConfiguration>(configuration.GetSection("VapidConfiguration"));
+
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>().AddScoped(
+                x => x.GetRequiredService<IUrlHelperFactory>()
+                    .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));
+
+            services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
+
+            if (boardConfig.UseRateLimiter)
+            {
+                services.AddRateLimiter(rateOptions =>
+                {
+                    rateOptions.AddPolicy("fixed", context =>
+                    {
+                        var isAuthenticated = context.User.Identity?.IsAuthenticated;
+
+                        if (BoardContext.Current.IsAdmin || (isAuthenticated.HasValue && isAuthenticated.Value &&
+                                                             BoardContext.Current.PageUser.NumPosts >=
+                                                             context.RequestServices.GetService<BoardSettings>()
+                                                                 .IgnoreSpamWordCheckPostCount))
+                        {
+                            return RateLimitPartition.GetNoLimiter(IPAddress.None);
+                        }
+
+                        return RateLimitPartition.GetFixedWindowLimiter(
+                            partitionKey: context.Connection.RemoteIpAddress,
+                            factory: _ => new FixedWindowRateLimiterOptions
+                            {
+                                PermitLimit = boardConfig.RateLimiterPermitLimit,
+                                Window = TimeSpan.FromSeconds(60),
+                                QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                                QueueLimit = 2
+                            });
+                    });
+
+                    rateOptions.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+                });
+            }
+
+            services.AddOptions();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds the yaf Authentication.
+        /// </summary>
+        /// <returns>IServiceCollection.</returns>
+        public IServiceCollection AddYafAuthentication()
         {
-            var supportedCultures = new[] {
-                new CultureInfo("ar"),
-                new CultureInfo("zh-CN"),
-                new CultureInfo("zh-TW"),
-                new CultureInfo("cs"),
-                new CultureInfo("da"),
-                new CultureInfo("nl"),
-                new CultureInfo("en-US"),
-                new CultureInfo("et"),
-                new CultureInfo("fi"),
-                new CultureInfo("fr"),
-                new CultureInfo("de-DE"),
-                new CultureInfo("he"),
-                new CultureInfo("it"),
-                new CultureInfo("lt"),
-                new CultureInfo("no"),
-                new CultureInfo("fa"),
-                new CultureInfo("pl"),
-                new CultureInfo("pt"),
-                new CultureInfo("ro"),
-                new CultureInfo("ru"),
-                new CultureInfo("sk"),
-                new CultureInfo("es"),
-                new CultureInfo("sv"),
-                new CultureInfo("tr"),
-                new CultureInfo("vi")
-            };
+            var authenticationBuilder = services.AddAuthentication();
 
-            options.DefaultRequestCulture = new RequestCulture("en-US");
-            options.SupportedCultures = supportedCultures;
-            options.SupportedUICultures = supportedCultures;
-        });
+            authenticationBuilder.AddCookie(
+                options =>
+                {
+                    options.Cookie.Expiration = TimeSpan.FromDays(7);
+                    options.ExpireTimeSpan = TimeSpan.FromDays(7);
+                    options.LoginPath = "/Account/Login";
+                    options.LogoutPath = "/Account/Logout";
+                    options.AccessDeniedPath = "/Info";
+                    options.SlidingExpiration = true;
+                });
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds the yaf install languages.
+        /// </summary>
+        /// <returns>IServiceCollection.</returns>
+        public IServiceCollection AddYafInstallLanguages()
+        {
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[] {
+                    new CultureInfo("ar"),
+                    new CultureInfo("zh-CN"),
+                    new CultureInfo("zh-TW"),
+                    new CultureInfo("cs"),
+                    new CultureInfo("da"),
+                    new CultureInfo("nl"),
+                    new CultureInfo("en-US"),
+                    new CultureInfo("et"),
+                    new CultureInfo("fi"),
+                    new CultureInfo("fr"),
+                    new CultureInfo("de-DE"),
+                    new CultureInfo("he"),
+                    new CultureInfo("it"),
+                    new CultureInfo("lt"),
+                    new CultureInfo("no"),
+                    new CultureInfo("fa"),
+                    new CultureInfo("pl"),
+                    new CultureInfo("pt"),
+                    new CultureInfo("ro"),
+                    new CultureInfo("ru"),
+                    new CultureInfo("sk"),
+                    new CultureInfo("es"),
+                    new CultureInfo("sv"),
+                    new CultureInfo("tr"),
+                    new CultureInfo("vi")
+                };
+
+                options.DefaultRequestCulture = new RequestCulture("en-US");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
 
 
-        return services;
+            return services;
+        }
     }
 }

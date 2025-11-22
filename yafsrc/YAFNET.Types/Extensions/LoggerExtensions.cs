@@ -35,267 +35,238 @@ using YAF.Types.Models;
 /// </summary>
 public static class LoggerExtensions
 {
-    /// <summary>
-    /// The debug.
-    /// </summary>
     /// <param name="logger">
     /// The logger.
     /// </param>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    public static void Debug(this ILogger logger, string message)
+    extension(ILogger logger)
     {
-        var logEntry = new EventLog { Type = EventLogTypes.Debug.ToInt() };
-
-        message = message.Replace('\n', '_').Replace('\r', '_');
-
-        using (logger.BeginScope(logEntry))
+        /// <summary>
+        /// The debug.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public void Debug(string message)
         {
-            logger.Log(LogLevel.Debug, message);
-        }
-    }
+            var logEntry = new EventLog { Type = EventLogTypes.Debug.ToInt() };
 
-    /// <summary>
-    /// The error.
-    /// </summary>
-    /// <param name="logger">
-    /// The logger.
-    /// </param>
-    /// <param name="ex">
-    /// The ex.
-    /// </param>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    public static void Error(this ILogger logger, Exception ex, string message)
-    {
-        var logEntry = new EventLog { Type = EventLogTypes.Error.ToInt(), Description = ex.ToString(), Exception = ex };
+            message = message.Replace('\n', '_').Replace('\r', '_');
 
-        message = message.Replace('\n', '_').Replace('\r', '_');
-
-        using (logger.BeginScope(logEntry))
-        {
-            logger.Log(LogLevel.Error, message);
-        }
-    }
-
-    /// <summary>
-    /// The info.
-    /// </summary>
-    /// <param name="logger">
-    /// The logger.
-    /// </param>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    public static void Info(this ILogger logger, string message)
-    {
-        var logEntry = new EventLog { Type = EventLogTypes.Information.ToInt() };
-
-        message = message.Replace('\n', '_').Replace('\r', '_');
-
-        using (logger.BeginScope(logEntry))
-        {
-            logger.Log(LogLevel.Information, message);
-        }
-    }
-
-    /// <summary>
-    /// Log user deleted.
-    /// </summary>
-    /// <param name="logger">
-    /// The logger.
-    /// </param>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <param name="description">
-    /// The description.
-    /// </param>
-    public static void UserDeleted(this ILogger logger, int? userId, string description)
-    {
-        var logEntry = new EventLog
-                           {
-                               Type = EventLogTypes.UserDeleted.ToInt(), Source = "User Deleted", UserID = userId
-                           };
-
-        description = description.Replace('\n', '_').Replace('\r', '_');
-
-        using (logger.BeginScope(logEntry))
-        {
-            logger.Log(LogLevel.Information, description);
-        }
-    }
-
-    /// <summary>
-    /// Log spam message detected.
-    /// </summary>
-    /// <param name="logger">
-    /// The logger.
-    /// </param>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <param name="description">
-    /// The description.
-    /// </param>
-    public static void SpamMessageDetected(
-        this ILogger logger,
-        int? userId,
-        string description)
-    {
-        var logEntry = new EventLog
-                           {
-                               Type = EventLogTypes.SpamMessageDetected.ToInt(),
-                               Source = "Spam Message Detected",
-                               UserID = userId
-                           };
-
-        description = description.Replace('\n', '_').Replace('\r', '_');
-
-        using (logger.BeginScope(logEntry))
-        {
-            logger.Log(LogLevel.Information, description);
-        }
-    }
-
-    /// <summary>
-    /// Log spam bot detected.
-    /// </summary>
-    /// <param name="logger">
-    /// The logger.
-    /// </param>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <param name="description">
-    /// The description.
-    /// </param>
-    public static void SpamBotDetected(
-        this ILogger logger,
-        int? userId,
-        string description)
-    {
-        var logEntry = new EventLog
-                           {
-                               Type = EventLogTypes.SpamBotDetected.ToInt(), Source = "Bot Detected", UserID = userId
-                           };
-
-        description = description.Replace('\n', '_').Replace('\r', '_');
-
-        using (logger.BeginScope(logEntry))
-        {
-            logger.Log(LogLevel.Information, description);
-        }
-    }
-
-    /// <summary>
-    /// The log.
-    /// </summary>
-    /// <param name="logger">
-    /// The logger.
-    /// </param>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    /// <param name="eventType">
-    /// The event type.
-    /// </param>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="exception">
-    /// The exception.
-    /// </param>
-    public static void Log(
-        this ILogger logger,
-        string message,
-        EventLogTypes eventType = EventLogTypes.Error,
-        int? userId = null,
-        string source = null,
-        Exception exception = null)
-    {
-        var logEntry = new EventLog
-                           {
-                               Type = eventType.ToInt(), Source = source, UserID = userId, Exception = exception
-                           };
-
-        message = message.Replace('\n', '_').Replace('\r', '_');
-
-        using (logger.BeginScope(logEntry))
-        {
-            logger.Log(LogLevel.Information, message);
-        }
-    }
-
-    /// <summary>
-    /// The log.
-    /// </summary>
-    /// <param name="logger">
-    /// The logger.
-    /// </param>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="description">
-    /// The description.
-    /// </param>
-    /// <param name="eventType">
-    /// The event type.
-    /// </param>
-    public static void Log(
-        this ILogger logger,
-        int? userId,
-        object source,
-        string description,
-        EventLogTypes eventType = EventLogTypes.Error)
-    {
-        var sourceDescription = "unknown";
-
-        if (source is Type)
-        {
-            sourceDescription = source.GetType().FullName;
-        }
-        else if (source is not null)
-        {
-            sourceDescription = source.ToString();
+            using (logger.BeginScope(logEntry))
+            {
+                logger.Log(LogLevel.Debug, message);
+            }
         }
 
-        var logEntry = new EventLog { Type = eventType.ToInt(), Source = sourceDescription, UserID = userId };
-
-        description = description.Replace('\n', '_').Replace('\r', '_');
-
-        using (logger.BeginScope(logEntry))
+        /// <summary>
+        /// The error.
+        /// </summary>
+        /// <param name="ex">
+        /// The ex.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public void Error(Exception ex, string message)
         {
-            logger.Log(LogLevel.Error, description);
+            var logEntry = new EventLog { Type = EventLogTypes.Error.ToInt(), Description = ex.ToString(), Exception = ex };
+
+            message = message.Replace('\n', '_').Replace('\r', '_');
+
+            using (logger.BeginScope(logEntry))
+            {
+                logger.Log(LogLevel.Error, message);
+            }
         }
-    }
 
-    /// <summary>
-    /// The warn.
-    /// </summary>
-    /// <param name="logger">
-    /// The logger.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public static void Warn(this ILogger logger, string format, params object[] args)
-    {
-        var logEntry = new EventLog { Type = EventLogTypes.Warning.ToInt() };
-        using (logger.BeginScope(logEntry))
+        /// <summary>
+        /// The info.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public void Info(string message)
         {
-            logger.Log(LogLevel.Warning, string.Format(format, args));
+            var logEntry = new EventLog { Type = EventLogTypes.Information.ToInt() };
+
+            message = message.Replace('\n', '_').Replace('\r', '_');
+
+            using (logger.BeginScope(logEntry))
+            {
+                logger.Log(LogLevel.Information, message);
+            }
+        }
+
+        /// <summary>
+        /// Log user deleted.
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="description">
+        /// The description.
+        /// </param>
+        public void UserDeleted(int? userId, string description)
+        {
+            var logEntry = new EventLog
+            {
+                Type = EventLogTypes.UserDeleted.ToInt(), Source = "User Deleted", UserID = userId
+            };
+
+            description = description.Replace('\n', '_').Replace('\r', '_');
+
+            using (logger.BeginScope(logEntry))
+            {
+                logger.Log(LogLevel.Information, description);
+            }
+        }
+
+        /// <summary>
+        /// Log spam message detected.
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="description">
+        /// The description.
+        /// </param>
+        public void SpamMessageDetected(int? userId,
+            string description)
+        {
+            var logEntry = new EventLog
+            {
+                Type = EventLogTypes.SpamMessageDetected.ToInt(),
+                Source = "Spam Message Detected",
+                UserID = userId
+            };
+
+            description = description.Replace('\n', '_').Replace('\r', '_');
+
+            using (logger.BeginScope(logEntry))
+            {
+                logger.Log(LogLevel.Information, description);
+            }
+        }
+
+        /// <summary>
+        /// Log spam bot detected.
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="description">
+        /// The description.
+        /// </param>
+        public void SpamBotDetected(int? userId,
+            string description)
+        {
+            var logEntry = new EventLog
+            {
+                Type = EventLogTypes.SpamBotDetected.ToInt(), Source = "Bot Detected", UserID = userId
+            };
+
+            description = description.Replace('\n', '_').Replace('\r', '_');
+
+            using (logger.BeginScope(logEntry))
+            {
+                logger.Log(LogLevel.Information, description);
+            }
+        }
+
+        /// <summary>
+        /// The log.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="eventType">
+        /// The event type.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="source">
+        /// The source.
+        /// </param>
+        /// <param name="exception">
+        /// The exception.
+        /// </param>
+        public void Log(string message,
+            EventLogTypes eventType = EventLogTypes.Error,
+            int? userId = null,
+            string source = null,
+            Exception exception = null)
+        {
+            var logEntry = new EventLog
+            {
+                Type = eventType.ToInt(), Source = source, UserID = userId, Exception = exception
+            };
+
+            message = message.Replace('\n', '_').Replace('\r', '_');
+
+            using (logger.BeginScope(logEntry))
+            {
+                logger.Log(LogLevel.Information, message);
+            }
+        }
+
+        /// <summary>
+        /// The log.
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="source">
+        /// The source.
+        /// </param>
+        /// <param name="description">
+        /// The description.
+        /// </param>
+        /// <param name="eventType">
+        /// The event type.
+        /// </param>
+        public void Log(int? userId,
+            object source,
+            string description,
+            EventLogTypes eventType = EventLogTypes.Error)
+        {
+            var sourceDescription = "unknown";
+
+            if (source is Type)
+            {
+                sourceDescription = source.GetType().FullName;
+            }
+            else if (source is not null)
+            {
+                sourceDescription = source.ToString();
+            }
+
+            var logEntry = new EventLog { Type = eventType.ToInt(), Source = sourceDescription, UserID = userId };
+
+            description = description.Replace('\n', '_').Replace('\r', '_');
+
+            using (logger.BeginScope(logEntry))
+            {
+                logger.Log(LogLevel.Error, description);
+            }
+        }
+
+        /// <summary>
+        /// The warn.
+        /// </summary>
+        /// <param name="format">
+        /// The format.
+        /// </param>
+        /// <param name="args">
+        /// The args.
+        /// </param>
+        public void Warn(string format, params object[] args)
+        {
+            var logEntry = new EventLog { Type = EventLogTypes.Warning.ToInt() };
+            using (logger.BeginScope(logEntry))
+            {
+                logger.Log(LogLevel.Warning, string.Format(format, args));
+            }
         }
     }
 }

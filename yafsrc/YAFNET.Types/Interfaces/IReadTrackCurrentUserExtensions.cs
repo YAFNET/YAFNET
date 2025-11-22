@@ -34,70 +34,65 @@ using YAF.Types.Interfaces.Services;
 /// </summary>
 public static class IReadTrackCurrentUserExtensions
 {
-    /// <summary>
-    /// The get forum topic read.
-    /// </summary>
     /// <param name="readTrackCurrentUser">
     /// The read track current user.
     /// </param>
-    /// <param name="forumId">
-    /// The forum id.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic id.
-    /// </param>
-    /// <param name="forumReadOverride">
-    /// The forum read override.
-    /// </param>
-    /// <param name="topicReadOverride">
-    /// The topic read override.
-    /// </param>
-    /// <returns>
-    /// The <see cref="DateTime"/>.
-    /// </returns>
-    public static DateTime GetForumTopicRead(
-        this IReadTrackCurrentUser readTrackCurrentUser,
-        int forumId,
-        int topicId,
-        DateTime? forumReadOverride,
-        DateTime? topicReadOverride)
+    extension(IReadTrackCurrentUser readTrackCurrentUser)
     {
-        var lastRead = readTrackCurrentUser.GetTopicRead(topicId, topicReadOverride);
-        var lastReadForum = readTrackCurrentUser.GetForumRead(forumId, forumReadOverride);
-
-        if (lastReadForum > lastRead)
+        /// <summary>
+        /// The get forum topic read.
+        /// </summary>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <param name="forumReadOverride">
+        /// The forum read override.
+        /// </param>
+        /// <param name="topicReadOverride">
+        /// The topic read override.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DateTime"/>.
+        /// </returns>
+        public DateTime GetForumTopicRead(int forumId,
+            int topicId,
+            DateTime? forumReadOverride,
+            DateTime? topicReadOverride)
         {
-            lastRead = lastReadForum;
+            var lastRead = readTrackCurrentUser.GetTopicRead(topicId, topicReadOverride);
+            var lastReadForum = readTrackCurrentUser.GetForumRead(forumId, forumReadOverride);
+
+            if (lastReadForum > lastRead)
+            {
+                lastRead = lastReadForum;
+            }
+
+            return lastRead;
         }
 
-        return lastRead;
-    }
+        /// <summary>
+        /// The set forum read.
+        /// </summary>
+        /// <param name="forumIds">
+        /// The forum ids.
+        /// </param>
+        public void SetForumRead(IEnumerable<int> forumIds)
+        {
+            forumIds.ForEach(readTrackCurrentUser.SetForumRead);
+        }
 
-    /// <summary>
-    /// The set forum read.
-    /// </summary>
-    /// <param name="readTrackCurrentUser">
-    /// The read track current user.
-    /// </param>
-    /// <param name="forumIds">
-    /// The forum ids.
-    /// </param>
-    public static void SetForumRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> forumIds)
-    {
-        forumIds.ForEach(readTrackCurrentUser.SetForumRead);
-    }
-
-    /// <summary>
-    /// The set topic read.
-    /// </summary>
-    /// <param name="readTrackCurrentUser">
-    /// The read track current user.
-    /// </param>
-    /// <param name="topicIds">
-    /// The topic ids.
-    /// </param>
-    public static void SetTopicRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> topicIds)
-    {
-        topicIds.ForEach(readTrackCurrentUser.SetTopicRead);
+        /// <summary>
+        /// The set topic read.
+        /// </summary>
+        /// <param name="topicIds">
+        /// The topic ids.
+        /// </param>
+        public void SetTopicRead(IEnumerable<int> topicIds)
+        {
+            topicIds.ForEach(readTrackCurrentUser.SetTopicRead);
+        }
     }
 }

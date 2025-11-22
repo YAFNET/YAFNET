@@ -39,82 +39,79 @@ using YAF.Types.Models;
 /// </summary>
 public static class ActiveAccessRepositoryExtensions
 {
-    /// <summary>
-    /// Sets the Page Access for the specified user
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="boardId">
-    /// The board identifier.
-    /// </param>
-    /// <param name="userId">
-    /// The user identifier.
-    /// </param>
-    /// <param name="isGuest">
-    /// The is guest.
-    /// </param>
-    public static void InsertPageAccess(
-        this IRepository<ActiveAccess> repository,
-        int boardId,
-        int userId,
-        bool isGuest)
+    extension(IRepository<ActiveAccess> repository)
     {
-        if (repository.Exists(a => a.UserID == userId))
+        /// <summary>
+        /// Sets the Page Access for the specified user
+        /// </summary>
+        /// <param name="boardId">
+        /// The board identifier.
+        /// </param>
+        /// <param name="userId">
+        /// The user identifier.
+        /// </param>
+        /// <param name="isGuest">
+        /// The is guest.
+        /// </param>
+        public void InsertPageAccess(int boardId,
+            int userId,
+            bool isGuest)
         {
-            return;
+            if (repository.Exists(a => a.UserID == userId))
+            {
+                return;
+            }
+
+            var accessList = BoardContext.Current.GetRepository<VAccess>().Get(x => x.UserID == userId)
+                .DistinctBy(a => new { a.UserID, a.ForumID }).ToList();
+
+            var activeList = new List<ActiveAccess>();
+
+            // -- update active access
+            // -- ensure that access right are in place
+            foreach (var newItem in accessList.Where(access =>
+                         !activeList.Exists(x => x.UserID == access.UserID && x.ForumID == access.ForumID)).Select(access => new ActiveAccess
+                     {
+                         UserID = userId,
+                         BoardID = boardId,
+                         ForumID = access.ForumID,
+                         IsAdmin = access.IsAdmin > 0,
+                         IsForumModerator = access.IsForumModerator > 0,
+                         IsModerator = access.IsModerator > 0,
+                         IsGuestX = isGuest,
+                         LastActive = DateTime.UtcNow,
+                         ReadAccess = access.ReadAccess > 0,
+                         PostAccess = access.PostAccess > 0,
+                         ReplyAccess = access.ReplyAccess > 0,
+                         PriorityAccess = access.PriorityAccess > 0,
+                         PollAccess = access.PollAccess > 0,
+                         VoteAccess = access.VoteAccess > 0,
+                         ModeratorAccess = access.ModeratorAccess > 0,
+                         EditAccess = access.EditAccess > 0,
+                         DeleteAccess = access.DeleteAccess > 0
+                     }).Where(newItem => !activeList.Contains(newItem)))
+            {
+                activeList.Add(newItem);
+            }
+
+            activeList = activeList.DistinctBy(a => new { a.UserID, a.ForumID }).ToList();
+
+            repository.BulkInsert(activeList);
         }
 
-        var accessList = BoardContext.Current.GetRepository<VAccess>().Get(x => x.UserID == userId)
-            .DistinctBy(a => new { a.UserID, a.ForumID }).ToList();
-
-        var activeList = new List<ActiveAccess>();
-
-        // -- update active access
-        // -- ensure that access right are in place
-        foreach (var newItem in accessList.Where(access =>
-                     !activeList.Exists(x => x.UserID == access.UserID && x.ForumID == access.ForumID)).Select(access => new ActiveAccess
-                 {
-                     UserID = userId,
-                     BoardID = boardId,
-                     ForumID = access.ForumID,
-                     IsAdmin = access.IsAdmin > 0,
-                     IsForumModerator = access.IsForumModerator > 0,
-                     IsModerator = access.IsModerator > 0,
-                     IsGuestX = isGuest,
-                     LastActive = DateTime.UtcNow,
-                     ReadAccess = access.ReadAccess > 0,
-                     PostAccess = access.PostAccess > 0,
-                     ReplyAccess = access.ReplyAccess > 0,
-                     PriorityAccess = access.PriorityAccess > 0,
-                     PollAccess = access.PollAccess > 0,
-                     VoteAccess = access.VoteAccess > 0,
-                     ModeratorAccess = access.ModeratorAccess > 0,
-                     EditAccess = access.EditAccess > 0,
-                     DeleteAccess = access.DeleteAccess > 0
-                 }).Where(newItem => !activeList.Contains(newItem)))
+        /// <summary>
+        /// Delete all old
+        /// </summary>
+        /// <param name="activeTime">
+        /// The active Time.
+        /// </param>
+        public void Delete(int activeTime)
         {
-            activeList.Add(newItem);
-        }
-
-        activeList = activeList.DistinctBy(a => new { a.UserID, a.ForumID }).ToList();
-
-        repository.BulkInsert(activeList);
-    }
-
-    /// <summary>
-    /// Delete all old
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="activeTime">
-    /// The active Time.
-    /// </param>
-    public static void Delete(this IRepository<ActiveAccess> repository, int activeTime)
-    {
-        repository.DbAccess.Execute(
-            db =>
+            repository.DbAccess.Execute(
+                db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
 
@@ -128,5 +125,6 @@ public static class ActiveAccessRepositoryExtensions
 
                     return db.Connection.Delete(expression);
                 });
+        }
     }
 }

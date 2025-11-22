@@ -34,52 +34,52 @@ using YAF.Types.Models;
 /// </summary>
 public static class DeviceSubscriptionRepositoryExtensions
 {
-    /// <summary>
-    /// Adds new push subscription for that user and device (if not exist).
-    /// </summary>
     /// <param name="repository">The repository.</param>
-    /// <param name="deviceSubscription">The device subscription.</param>
-    public async static Task AddSubscriptionAsync(this IRepository<DeviceSubscription> repository, DeviceSubscription deviceSubscription )
+    extension(IRepository<DeviceSubscription> repository)
     {
-        if (await repository.ExistsAsync(x =>
-                x.UserID == BoardContext.Current.PageUserID && x.BoardID == BoardContext.Current.PageBoardID &&
-                x.Device == deviceSubscription.Device))
+        /// <summary>
+        /// Adds new push subscription for that user and device (if not exist).
+        /// </summary>
+        /// <param name="deviceSubscription">The device subscription.</param>
+        public async Task AddSubscriptionAsync(DeviceSubscription deviceSubscription )
         {
-            return;
+            if (await repository.ExistsAsync(x =>
+                    x.UserID == BoardContext.Current.PageUserID && x.BoardID == BoardContext.Current.PageBoardID &&
+                    x.Device == deviceSubscription.Device))
+            {
+                return;
+            }
+
+            deviceSubscription.BoardID = BoardContext.Current.PageBoardID;
+            deviceSubscription.UserID = BoardContext.Current.PageUserID;
+
+            await repository.InsertAsync(deviceSubscription);
         }
 
-        deviceSubscription.BoardID = BoardContext.Current.PageBoardID;
-        deviceSubscription.UserID = BoardContext.Current.PageUserID;
-
-        await repository.InsertAsync(deviceSubscription);
-    }
-
-    /// <summary>
-    /// Deletes the existing push subscription for that user and device (if exist).
-    /// </summary>
-    /// <param name="repository">The repository.</param>
-    /// <param name="userAgent">The Useragent.</param>
-    public async static Task DeleteSubscriptionAsync(this IRepository<DeviceSubscription> repository, string userAgent)
-    {
-        if (await repository.ExistsAsync(x =>
-                x.UserID == BoardContext.Current.PageUserID && x.BoardID == BoardContext.Current.PageBoardID &&
-                x.Device == userAgent))
+        /// <summary>
+        /// Deletes the existing push subscription for that user and device (if exist).
+        /// </summary>
+        /// <param name="userAgent">The Useragent.</param>
+        public async Task DeleteSubscriptionAsync(string userAgent)
         {
-            await repository.DeleteAsync(x =>
-                x.UserID == BoardContext.Current.PageUserID && x.BoardID == BoardContext.Current.PageBoardID &&
-                x.Device == userAgent);
+            if (await repository.ExistsAsync(x =>
+                    x.UserID == BoardContext.Current.PageUserID && x.BoardID == BoardContext.Current.PageBoardID &&
+                    x.Device == userAgent))
+            {
+                await repository.DeleteAsync(x =>
+                    x.UserID == BoardContext.Current.PageUserID && x.BoardID == BoardContext.Current.PageBoardID &&
+                    x.Device == userAgent);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets the subscriptions by user.
-    /// </summary>
-    /// <param name="repository">The repository.</param>
-    /// <param name="userId">The user identifier.</param>
-    /// <returns></returns>
-    public async static Task<List<DeviceSubscription>> GetSubscriptionsByUserAsync(
-        this IRepository<DeviceSubscription> repository, int userId)
-    {
-        return await repository.GetAsync(d => d.BoardID == repository.BoardID && d.UserID == userId);
+        /// <summary>
+        /// Gets the subscriptions by user.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
+        public async Task<List<DeviceSubscription>> GetSubscriptionsByUserAsync(int userId)
+        {
+            return await repository.GetAsync(d => d.BoardID == repository.BoardID && d.UserID == userId);
+        }
     }
 }

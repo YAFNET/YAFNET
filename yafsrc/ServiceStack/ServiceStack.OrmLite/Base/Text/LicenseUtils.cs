@@ -338,73 +338,75 @@ public static partial class LicenseUtils
     {
     }
 
-    /// <summary>
-    /// Converts to license key.
-    /// </summary>
     /// <param name="licenseKeyText">The license key text.</param>
-    /// <returns>ServiceStack.OrmLite.Base.Text.LicenseKey.</returns>
-    public static LicenseKey ToLicenseKey(this string licenseKeyText)
+    extension(string licenseKeyText)
     {
-        licenseKeyText = LicenseKeyRegex().Replace(licenseKeyText, "");
-        var parts = licenseKeyText.SplitOnFirst('-');
-        var refId = parts[0];
-        var base64 = parts[1];
-        var jsv = Convert.FromBase64String(base64).FromUtf8Bytes();
-
-        var hold = JsConfig<DateTime>.DeSerializeFn;
-        var holdRaw = JsConfig<DateTime>.RawDeserializeFn;
-
-        try
+        /// <summary>
+        /// Converts to license key.
+        /// </summary>
+        /// <returns>ServiceStack.OrmLite.Base.Text.LicenseKey.</returns>
+        public LicenseKey ToLicenseKey()
         {
-            JsConfig<DateTime>.DeSerializeFn = null;
-            JsConfig<DateTime>.RawDeserializeFn = null;
+            licenseKeyText = LicenseKeyRegex().Replace(licenseKeyText, "");
+            var parts = licenseKeyText.SplitOnFirst('-');
+            var refId = parts[0];
+            var base64 = parts[1];
+            var jsv = Convert.FromBase64String(base64).FromUtf8Bytes();
 
-            var key = jsv.FromJsv<LicenseKey>();
+            var hold = JsConfig<DateTime>.DeSerializeFn;
+            var holdRaw = JsConfig<DateTime>.RawDeserializeFn;
+
+            try
+            {
+                JsConfig<DateTime>.DeSerializeFn = null;
+                JsConfig<DateTime>.RawDeserializeFn = null;
+
+                var key = jsv.FromJsv<LicenseKey>();
+
+                if (key.Ref != refId)
+                {
+                    throw new LicenseException("The license '{0}' is not assigned to CustomerId '{1}'.".Fmt(base64, refId))
+                        .Trace();
+                }
+
+                return key;
+            }
+            finally
+            {
+                JsConfig<DateTime>.DeSerializeFn = hold;
+                JsConfig<DateTime>.RawDeserializeFn = holdRaw;
+            }
+        }
+
+        /// <summary>
+        /// Converts to license key fallback.
+        /// </summary>
+        /// <returns>ServiceStack.OrmLite.Base.Text.LicenseKey.</returns>
+        public LicenseKey ToLicenseKeyFallback()
+        {
+            licenseKeyText = LicenseKeyRegex().Replace(licenseKeyText, "");
+            var parts = licenseKeyText.SplitOnFirst('-');
+            var refId = parts[0];
+            var base64 = parts[1];
+            var jsv = Convert.FromBase64String(base64).FromUtf8Bytes();
+
+            var map = jsv.FromJsv<Dictionary<string, string>>();
+            var key = new LicenseKey
+            {
+                Ref = map.Get("Ref"),
+                Name = map.Get("Name"),
+                Type = Enum.Parse<LicenseType>(map.Get("Type"), ignoreCase: true),
+                Hash = map.Get("Hash"),
+                Expiry = DateTimeSerializer.ParseManual(map.Get("Expiry"), DateTimeKind.Utc).GetValueOrDefault()
+            };
 
             if (key.Ref != refId)
             {
-                throw new LicenseException("The license '{0}' is not assigned to CustomerId '{1}'.".Fmt(base64, refId))
-                    .Trace();
+                throw new LicenseException($"The license '{base64}' is not assigned to CustomerId '{refId}'.").Trace();
             }
 
             return key;
         }
-        finally
-        {
-            JsConfig<DateTime>.DeSerializeFn = hold;
-            JsConfig<DateTime>.RawDeserializeFn = holdRaw;
-        }
-    }
-
-    /// <summary>
-    /// Converts to license key fallback.
-    /// </summary>
-    /// <param name="licenseKeyText">The license key text.</param>
-    /// <returns>ServiceStack.OrmLite.Base.Text.LicenseKey.</returns>
-    public static LicenseKey ToLicenseKeyFallback(this string licenseKeyText)
-    {
-        licenseKeyText = LicenseKeyRegex().Replace(licenseKeyText, "");
-        var parts = licenseKeyText.SplitOnFirst('-');
-        var refId = parts[0];
-        var base64 = parts[1];
-        var jsv = Convert.FromBase64String(base64).FromUtf8Bytes();
-
-        var map = jsv.FromJsv<Dictionary<string, string>>();
-        var key = new LicenseKey
-        {
-            Ref = map.Get("Ref"),
-            Name = map.Get("Name"),
-            Type = Enum.Parse<LicenseType>(map.Get("Type"), ignoreCase: true),
-            Hash = map.Get("Hash"),
-            Expiry = DateTimeSerializer.ParseManual(map.Get("Expiry"), DateTimeKind.Utc).GetValueOrDefault()
-        };
-
-        if (key.Ref != refId)
-        {
-            throw new LicenseException($"The license '{base64}' is not assigned to CustomerId '{refId}'.").Trace();
-        }
-
-        return key;
     }
 
     /// <summary>

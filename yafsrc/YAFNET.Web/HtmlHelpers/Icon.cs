@@ -29,170 +29,161 @@ namespace YAF.Web.HtmlHelpers;
 /// </summary>
 public static class IconHtmlHelper
 {
-    /// <summary>
-    /// Render Normal Icon
-    /// </summary>
     /// <param name="htmlHelper">
     /// The html helper.
     /// </param>
-    /// <param name="iconName">
-    /// The icon Name.
-    /// </param>
-    /// <param name="iconType">
-    /// The icon Type.
-    /// </param>
-    /// <param name="iconStyle">
-    /// The icon Style.
-    /// </param>
-    /// <param name="iconSize">
-    /// The icon Size.
-    /// </param>
-    /// <param name="marginEnd">
-    /// Add margin end to icon
-    /// </param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    public static IHtmlContent Icon(
-        this IHtmlHelper htmlHelper,
-        string iconName,
-        string iconType = "",
-        string iconStyle = "fas",
-        string iconSize = "",
-        bool marginEnd = true)
+    extension(IHtmlHelper htmlHelper)
     {
-        var content = new HtmlContentBuilder();
-
-        var className = new StringBuilder();
-
-        className.Append(iconType.IsSet() ? $"fa-fw {iconType}" : "fa-fw");
-
-        if (marginEnd)
+        /// <summary>
+        /// Render Normal Icon
+        /// </summary>
+        /// <param name="iconName">
+        /// The icon Name.
+        /// </param>
+        /// <param name="iconType">
+        /// The icon Type.
+        /// </param>
+        /// <param name="iconStyle">
+        /// The icon Style.
+        /// </param>
+        /// <param name="iconSize">
+        /// The icon Size.
+        /// </param>
+        /// <param name="marginEnd">
+        /// Add margin end to icon
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHtmlContent"/>.
+        /// </returns>
+        public IHtmlContent Icon(string iconName,
+            string iconType = "",
+            string iconStyle = "fas",
+            string iconSize = "",
+            bool marginEnd = true)
         {
-            className.Append(" me-1");
+            var content = new HtmlContentBuilder();
+
+            var className = new StringBuilder();
+
+            className.Append(iconType.IsSet() ? $"fa-fw {iconType}" : "fa-fw");
+
+            if (marginEnd)
+            {
+                className.Append(" me-1");
+            }
+
+            if (iconSize.IsSet())
+            {
+                className.Append($" {iconSize}");
+            }
+
+            var iconTag = new TagBuilder(HtmlTag.I);
+
+            iconTag.AddCssClass($"{iconStyle} fa-{iconName} {className}");
+
+            iconTag.TagRenderMode = TagRenderMode.Normal;
+
+            return content.AppendHtml(iconTag);
         }
 
-        if (iconSize.IsSet())
+        /// <summary>
+        /// Render Icon Badge
+        /// </summary>
+        /// <param name="iconName">
+        /// The icon Name.
+        /// </param>
+        /// <param name="iconBadgeName">
+        /// The icon Badge Name.
+        /// </param>
+        /// <param name="iconBadgeType">
+        /// The icon Badge Type.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHtmlContent"/>.
+        /// </returns>
+        public IHtmlContent IconBadge(string iconName,
+            string iconBadgeName,
+            string iconBadgeType = "")
         {
-            className.Append($" {iconSize}");
+            var content = new HtmlContentBuilder();
+
+            var span = new TagBuilder(HtmlTag.Span);
+
+            span.AddCssClass($"fa-stack-badge me-1 {iconBadgeType}");
+
+            var iconTag = new TagBuilder(HtmlTag.I);
+
+            iconTag.AddCssClass($"fas fa-{iconName} fa-stack-badge-1x");
+
+            iconTag.TagRenderMode = TagRenderMode.Normal;
+
+            span.InnerHtml.AppendHtml(iconTag);
+
+            var iconBadgeTag = new TagBuilder(HtmlTag.I);
+
+            iconBadgeTag.AddCssClass(
+                iconBadgeType.IsSet() ? $"fa fa-{iconBadgeName} fa-badge {iconBadgeType}" : $"fa fa-{iconBadgeName} fa-badge");
+
+            span.InnerHtml.AppendHtml(iconBadgeTag);
+
+            return content.AppendHtml(span);
         }
 
-        var iconTag = new TagBuilder(HtmlTag.I);
-
-        iconTag.AddCssClass($"{iconStyle} fa-{iconName} {className}");
-
-        iconTag.TagRenderMode = TagRenderMode.Normal;
-
-        return content.AppendHtml(iconTag);
-    }
-
-    /// <summary>
-    /// Render Icon Badge
-    /// </summary>
-    /// <param name="htmlHelper">
-    /// The html helper.
-    /// </param>
-    /// <param name="iconName">
-    /// The icon Name.
-    /// </param>
-    /// <param name="iconBadgeName">
-    /// The icon Badge Name.
-    /// </param>
-    /// <param name="iconBadgeType">
-    /// The icon Badge Type.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    public static IHtmlContent IconBadge(
-        this IHtmlHelper htmlHelper,
-        string iconName,
-        string iconBadgeName,
-        string iconBadgeType = "")
-    {
-        var content = new HtmlContentBuilder();
-
-        var span = new TagBuilder(HtmlTag.Span);
-
-        span.AddCssClass($"fa-stack-badge me-1 {iconBadgeType}");
-
-        var iconTag = new TagBuilder(HtmlTag.I);
-
-        iconTag.AddCssClass($"fas fa-{iconName} fa-stack-badge-1x");
-
-        iconTag.TagRenderMode = TagRenderMode.Normal;
-
-        span.InnerHtml.AppendHtml(iconTag);
-
-        var iconBadgeTag = new TagBuilder(HtmlTag.I);
-
-        iconBadgeTag.AddCssClass(
-            iconBadgeType.IsSet() ? $"fa fa-{iconBadgeName} fa-badge {iconBadgeType}" : $"fa fa-{iconBadgeName} fa-badge");
-
-        span.InnerHtml.AppendHtml(iconBadgeTag);
-
-        return content.AppendHtml(span);
-    }
-
-    /// <summary>
-    /// Render Icon Stack
-    /// </summary>
-    /// <param name="htmlHelper">
-    /// The html helper.
-    /// </param>
-    /// <param name="iconName">
-    /// The icon Name.
-    /// </param>
-    /// <param name="iconType">
-    /// The icon Type.
-    /// </param>
-    /// <param name="iconStackName">
-    /// The icon Stack Name.
-    /// </param>
-    /// <param name="iconStackType">
-    /// The icon Stack Type.
-    /// </param>
-    /// <param name="iconStackSize">
-    /// The icon Stack Size.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    public static IHtmlContent IconStack(
-        this IHtmlHelper htmlHelper,
-        string iconName,
-        string iconType,
-        string iconStackName,
-        string iconStackType,
-        string iconStackSize)
-    {
-        var content = new HtmlContentBuilder();
-
-        if (iconStackSize.IsNotSet())
+        /// <summary>
+        /// Render Icon Stack
+        /// </summary>
+        /// <param name="iconName">
+        /// The icon Name.
+        /// </param>
+        /// <param name="iconType">
+        /// The icon Type.
+        /// </param>
+        /// <param name="iconStackName">
+        /// The icon Stack Name.
+        /// </param>
+        /// <param name="iconStackType">
+        /// The icon Stack Type.
+        /// </param>
+        /// <param name="iconStackSize">
+        /// The icon Stack Size.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHtmlContent"/>.
+        /// </returns>
+        public IHtmlContent IconStack(string iconName,
+            string iconType,
+            string iconStackName,
+            string iconStackType,
+            string iconStackSize)
         {
-            iconStackSize = "fa-2x";
+            var content = new HtmlContentBuilder();
+
+            if (iconStackSize.IsNotSet())
+            {
+                iconStackSize = "fa-2x";
+            }
+
+            var span = new TagBuilder(HtmlTag.Span);
+
+            span.AddCssClass($"fa-stack {iconStackSize} me-1");
+
+            var className = iconType.IsSet() ? $"fas fa-stack-2x {iconType}" : "fas fa-stack-2x";
+
+            var iconTag = new TagBuilder(HtmlTag.I);
+
+            iconTag.AddCssClass($"fa-{iconName} {className}");
+
+            iconTag.TagRenderMode = TagRenderMode.Normal;
+
+            span.InnerHtml.AppendHtml(iconTag);
+
+            var iconStackTag = new TagBuilder(HtmlTag.I);
+
+            iconStackTag.AddCssClass($"fa fa-{iconStackName} fa-stack-1x {iconStackType}");
+
+            span.InnerHtml.AppendHtml(iconStackTag);
+
+            return content.AppendHtml(span);
         }
-
-        var span = new TagBuilder(HtmlTag.Span);
-
-        span.AddCssClass($"fa-stack {iconStackSize} me-1");
-
-        var className = iconType.IsSet() ? $"fas fa-stack-2x {iconType}" : "fas fa-stack-2x";
-
-        var iconTag = new TagBuilder(HtmlTag.I);
-
-        iconTag.AddCssClass($"fa-{iconName} {className}");
-
-        iconTag.TagRenderMode = TagRenderMode.Normal;
-
-        span.InnerHtml.AppendHtml(iconTag);
-
-        var iconStackTag = new TagBuilder(HtmlTag.I);
-
-        iconStackTag.AddCssClass($"fa fa-{iconStackName} fa-stack-1x {iconStackType}");
-
-        span.InnerHtml.AppendHtml(iconStackTag);
-
-        return content.AppendHtml(span);
     }
 }

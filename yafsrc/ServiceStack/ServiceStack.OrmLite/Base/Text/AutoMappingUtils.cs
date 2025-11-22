@@ -94,187 +94,191 @@ public static class AutoMappingUtils
         return populators.GetValueOrDefault(key);
     }
 
-    /// <summary>
-    /// Converts to.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="from">From.</param>
-    /// <param name="defaultValue">The default value.</param>
-    /// <returns>T.</returns>
-    public static T ConvertTo<T>(this object from, T defaultValue)
+    extension(object from)
     {
-        return from is null or ""
-            ? defaultValue
-            : from.ConvertTo<T>();
-    }
-
-    /// <summary>
-    /// Converts to.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="from">From.</param>
-    /// <returns>T.</returns>
-    public static T ConvertTo<T>(this object from)
-    {
-        return from.ConvertTo<T>(false);
-    }
-
-    /// <summary>
-    /// Converts to.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="from">From.</param>
-    /// <param name="skipConverters">if set to <c>true</c> [skip converters].</param>
-    /// <returns>T.</returns>
-    public static T ConvertTo<T>(this object from, bool skipConverters)
-    {
-        if (from == null)
+        /// <summary>
+        /// Converts to.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns>T.</returns>
+        public T ConvertTo<T>(T defaultValue)
         {
-            return default;
+            return from is null or ""
+                ? defaultValue
+                : from.ConvertTo<T>();
         }
 
-        if (from is T t)
+        /// <summary>
+        /// Converts to.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>T.</returns>
+        public T ConvertTo<T>()
         {
-            return t;
+            return from.ConvertTo<T>(false);
         }
 
-        return (T)ConvertTo(from, typeof(T), skipConverters);
-    }
-
-    /// <summary>
-    /// Creates the copy.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="from">From.</param>
-    /// <returns>T.</returns>
-    public static T CreateCopy<T>(this T from)
-    {
-        if (from == null)
+        /// <summary>
+        /// Converts to.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="skipConverters">if set to <c>true</c> [skip converters].</param>
+        /// <returns>T.</returns>
+        public T ConvertTo<T>(bool skipConverters)
         {
-            return from;
-        }
-
-        var type = from.GetType();
-
-        if (from is ICloneable clone)
-        {
-            return (T)clone.Clone();
-        }
-
-        if (typeof(T).IsValueType)
-        {
-            return (T)ChangeValueType(from, type);
-        }
-
-        if (typeof(IEnumerable).IsAssignableFrom(type) && type != typeof(string))
-        {
-            var listResult = TranslateListWithElements.TryTranslateCollections(from.GetType(), type, from);
-            return (T)listResult;
-        }
-
-        var to = type.CreateInstance<T>();
-        return to.PopulateWith(from);
-    }
-
-    /// <summary>
-    /// Thens the do.
-    /// </summary>
-    /// <typeparam name="To">The type of to.</typeparam>
-    /// <param name="to">To.</param>
-    /// <param name="fn">The function.</param>
-    /// <returns>To.</returns>
-    public static To ThenDo<To>(this To to, Action<To> fn)
-    {
-        fn(to);
-        return to;
-    }
-
-    /// <summary>
-    /// Converts to.
-    /// </summary>
-    /// <param name="from">From.</param>
-    /// <param name="toType">To type.</param>
-    /// <returns>System.Object.</returns>
-    public static object ConvertTo(this object from, Type toType)
-    {
-        return from.ConvertTo(toType, skipConverters: false);
-    }
-
-    /// <summary>
-    /// Converts to.
-    /// </summary>
-    /// <param name="from">From.</param>
-    /// <param name="toType">To type.</param>
-    /// <param name="skipConverters">if set to <c>true</c> [skip converters].</param>
-    /// <returns>System.Object.</returns>
-    public static object ConvertTo(this object from, Type toType, bool skipConverters)
-    {
-        if (from == null)
-        {
-            return null;
-        }
-
-        var fromType = from.GetType();
-        if (ShouldIgnoreMapping(fromType, toType))
-        {
-            return null;
-        }
-
-        if (!skipConverters)
-        {
-            var converter = GetConverter(fromType, toType);
-            if (converter != null)
+            if (from == null)
             {
-                return converter(from);
+                return default;
             }
+
+            if (from is T t)
+            {
+                return t;
+            }
+
+            return (T)ConvertTo(from, typeof(T), skipConverters);
+        }
+    }
+
+    /// <param name="from">From.</param>
+    /// <typeparam name="T"></typeparam>
+    extension<T>(T from)
+    {
+        /// <summary>
+        /// Creates the copy.
+        /// </summary>
+        /// <returns>T.</returns>
+        public T CreateCopy()
+        {
+            if (from == null)
+            {
+                return from;
+            }
+
+            var type = from.GetType();
+
+            if (from is ICloneable clone)
+            {
+                return (T)clone.Clone();
+            }
+
+            if (typeof(T).IsValueType)
+            {
+                return (T)ChangeValueType(from, type);
+            }
+
+            if (typeof(IEnumerable).IsAssignableFrom(type) && type != typeof(string))
+            {
+                var listResult = TranslateListWithElements.TryTranslateCollections(from.GetType(), type, from);
+                return (T)listResult;
+            }
+
+            var to = type.CreateInstance<T>();
+            return to.PopulateWith(from);
         }
 
-        if (fromType == toType || toType == typeof(object))
+        /// <summary>
+        /// Thens the do.
+        /// </summary>
+        /// <param name="fn">The function.</param>
+        /// <returns>To.</returns>
+        public T ThenDo(Action<T> fn)
         {
+            fn(from);
             return from;
         }
+    }
 
-        if (fromType.IsValueType || toType.IsValueType)
+    /// <param name="from">From.</param>
+    extension(object from)
+    {
+        /// <summary>
+        /// Converts to.
+        /// </summary>
+        /// <param name="toType">To type.</param>
+        /// <returns>System.Object.</returns>
+        public object ConvertTo(Type toType)
         {
-            return ChangeValueType(from, toType);
+            return from.ConvertTo(toType, skipConverters: false);
         }
 
-        var mi = GetImplicitCastMethod(fromType, toType);
-        if (mi != null)
+        /// <summary>
+        /// Converts to.
+        /// </summary>
+        /// <param name="toType">To type.</param>
+        /// <param name="skipConverters">if set to <c>true</c> [skip converters].</param>
+        /// <returns>System.Object.</returns>
+        public object ConvertTo(Type toType, bool skipConverters)
         {
-            return mi.Invoke(null, [from]);
-        }
+            if (from == null)
+            {
+                return null;
+            }
 
-        switch (from)
-        {
-            case string str:
-                return TypeSerializer.DeserializeFromString(str, toType);
-            case ReadOnlyMemory<char> rom:
-                return TypeSerializer.DeserializeFromSpan(toType, rom.Span);
-        }
+            var fromType = from.GetType();
+            if (ShouldIgnoreMapping(fromType, toType))
+            {
+                return null;
+            }
 
-        if (toType == typeof(string))
-        {
-            return from.ToJsv();
-        }
+            if (!skipConverters)
+            {
+                var converter = GetConverter(fromType, toType);
+                if (converter != null)
+                {
+                    return converter(from);
+                }
+            }
 
-        if (typeof(IEnumerable).IsAssignableFrom(toType))
-        {
-            var listResult = TryConvertCollections(fromType, toType, from);
-            return listResult;
-        }
+            if (fromType == toType || toType == typeof(object))
+            {
+                return from;
+            }
 
-        switch (from)
-        {
-            case IEnumerable<KeyValuePair<string, object>> objDict:
-                return objDict.FromObjectDictionary(toType);
-            case IEnumerable<KeyValuePair<string, string>> strDict:
-                return strDict.ToObjectDictionary().FromObjectDictionary(toType);
-            default:
+            if (fromType.IsValueType || toType.IsValueType)
+            {
+                return ChangeValueType(from, toType);
+            }
+
+            var mi = GetImplicitCastMethod(fromType, toType);
+            if (mi != null)
+            {
+                return mi.Invoke(null, [from]);
+            }
+
+            switch (from)
+            {
+                case string str:
+                    return TypeSerializer.DeserializeFromString(str, toType);
+                case ReadOnlyMemory<char> rom:
+                    return TypeSerializer.DeserializeFromSpan(toType, rom.Span);
+            }
+
+            if (toType == typeof(string))
+            {
+                return from.ToJsv();
+            }
+
+            if (typeof(IEnumerable).IsAssignableFrom(toType))
+            {
+                var listResult = TryConvertCollections(fromType, toType, from);
+                return listResult;
+            }
+
+            switch (from)
+            {
+                case IEnumerable<KeyValuePair<string, object>> objDict:
+                    return objDict.FromObjectDictionary(toType);
+                case IEnumerable<KeyValuePair<string, string>> strDict:
+                    return strDict.ToObjectDictionary().FromObjectDictionary(toType);
+                default:
                 {
                     var to = toType.CreateInstance();
                     return to.PopulateWith(from);
                 }
+            }
         }
     }
 
@@ -679,40 +683,42 @@ public static class AutoMappingUtils
         return to;
     }
 
-    /// <summary>
-    /// Sets the property.
-    /// </summary>
     /// <param name="propertyInfo">The property information.</param>
-    /// <param name="obj">The object.</param>
-    /// <param name="value">The value.</param>
-    public static void SetProperty(this PropertyInfo propertyInfo, object obj, object value)
+    extension(PropertyInfo propertyInfo)
     {
-        if (!propertyInfo.CanWrite)
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="value">The value.</param>
+        public void SetProperty(object obj, object value)
         {
-            Tracer.Instance.WriteWarning("Attempted to set read only property '{0}'", propertyInfo.Name);
-            return;
+            if (!propertyInfo.CanWrite)
+            {
+                Tracer.Instance.WriteWarning("Attempted to set read only property '{0}'", propertyInfo.Name);
+                return;
+            }
+
+            var propertySetMethodInfo = propertyInfo.GetSetMethod(true);
+
+            propertySetMethodInfo?.Invoke(obj, [value]);
         }
 
-        var propertySetMethodInfo = propertyInfo.GetSetMethod(true);
-
-        propertySetMethodInfo?.Invoke(obj, [value]);
-    }
-
-    /// <summary>
-    /// Gets the property.
-    /// </summary>
-    /// <param name="propertyInfo">The property information.</param>
-    /// <param name="obj">The object.</param>
-    /// <returns>System.Object.</returns>
-    public static object GetProperty(this PropertyInfo propertyInfo, object obj)
-    {
-        if (propertyInfo == null || !propertyInfo.CanRead)
+        /// <summary>
+        /// Gets the property.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns>System.Object.</returns>
+        public object GetProperty(object obj)
         {
-            return null;
-        }
+            if (propertyInfo == null || !propertyInfo.CanRead)
+            {
+                return null;
+            }
 
-        var getMethod = propertyInfo.GetGetMethod(true);
-        return getMethod?.Invoke(obj, TypeConstants.EmptyObjectArray);
+            var getMethod = propertyInfo.GetGetMethod(true);
+            return getMethod?.Invoke(obj, TypeConstants.EmptyObjectArray);
+        }
     }
 
     /// <summary>

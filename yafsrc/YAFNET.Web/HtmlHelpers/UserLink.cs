@@ -31,237 +31,223 @@ using Microsoft.AspNetCore.Mvc;
 /// </summary>
 public static class UserLinkHtmlHelper
 {
-    /// <summary>
-    /// The user link.
-    /// </summary>
     /// <param name="htmlHelper">
     /// The html helper.
     /// </param>
-    /// <param name="user">
-    /// The user.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    public static IHtmlContent UserLink(
-        this IHtmlHelper htmlHelper,
-        User user)
+    extension(IHtmlHelper htmlHelper)
     {
-        return UserLink(htmlHelper, user.ID, user.DisplayOrUserName(), user.Suspended, user.UserStyle);
-    }
-
-    /// <summary>
-    /// The user link.
-    /// </summary>
-    /// <param name="htmlHelper">
-    /// The html helper.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="crawler">
-    /// The crawler.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    public static IHtmlContent UserLink(
-        this IHtmlHelper htmlHelper,
-        int userId,
-        string crawler)
-    {
-        return UserLink(htmlHelper, userId, null, null, string.Empty, false, false, false, string.Empty, crawler);
-    }
-
-    /// <summary>
-    /// Render PageUser Link for the PageUser Link BBCode Module
-    /// </summary>
-    /// <param name="htmlHelper">
-    /// The html helper.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="replaceName">
-    /// The replace name.
-    /// </param>
-    /// <param name="suspended">
-    /// The suspended.
-    /// </param>
-    /// <param name="style">
-    /// The style.
-    /// </param>
-    /// <param name="blankTarget">
-    /// The blank target.
-    /// </param>
-    /// <param name="cssClass">
-    /// The CSS class.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    public static IHtmlContent UserLink(
-        this IHtmlHelper htmlHelper,
-        int userId,
-        string replaceName,
-        DateTime? suspended,
-        string style,
-        bool blankTarget,
-        string cssClass)
-    {
-        return UserLink(htmlHelper, userId, replaceName, suspended, style, false, true, blankTarget, cssClass);
-    }
-
-    /// <summary>
-    /// The user link.
-    /// </summary>
-    /// <param name="_">
-    /// The html helper.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="replaceName">
-    /// The replace name.
-    /// </param>
-    /// <param name="suspended">
-    /// The suspended.
-    /// </param>
-    /// <param name="style">
-    /// The style.
-    /// </param>
-    /// <param name="isGuest">
-    /// The is guest.
-    /// </param>
-    /// <param name="enableHoverCard">
-    /// The enable hover card.
-    /// </param>
-    /// <param name="blankTarget">
-    /// The blank Target.
-    /// </param>
-    /// <param name="cssClassAppend">
-    /// The CSS Class Append.
-    /// </param>
-    /// <param name="crawlerName">
-    /// The crawler Name.
-    /// </param>
-    /// <param name="postFixText"></param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    public static IHtmlContent UserLink(
-        this IHtmlHelper _,
-        int userId,
-        string replaceName,
-        DateTime? suspended,
-        string style,
-        bool isGuest = false,
-        bool enableHoverCard = true,
-        bool blankTarget = false,
-        string cssClassAppend = "",
-        string crawlerName = "",
-        string postFixText = "")
-    {
-        var content = new HtmlContentBuilder();
-        var context = BoardContext.Current;
-
-        var displayName = replaceName;
-
-        // Replace Name with Crawler Name if Set, otherwise use regular display name or Replace Name if set
-        if (crawlerName.IsSet())
+        /// <summary>
+        /// The user link.
+        /// </summary>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHtmlContent"/>.
+        /// </returns>
+        public IHtmlContent UserLink(User user)
         {
-            displayName = crawlerName;
+            return UserLink(htmlHelper, user.ID, user.DisplayOrUserName(), user.Suspended, user.UserStyle);
         }
 
-        if (userId == -1)
+        /// <summary>
+        /// The user link.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="crawler">
+        /// The crawler.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHtmlContent"/>.
+        /// </returns>
+        public IHtmlContent UserLink(int userId,
+            string crawler)
         {
-            return content;
+            return UserLink(htmlHelper, userId, null, null, string.Empty, false, false, false, string.Empty, crawler);
         }
 
-        var cssClass = new StringBuilder();
-
-        var isCrawler = crawlerName.IsSet();
-
-        if (isCrawler)
+        /// <summary>
+        /// Render PageUser Link for the PageUser Link BBCode Module
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="replaceName">
+        /// The replace name.
+        /// </param>
+        /// <param name="suspended">
+        /// The suspended.
+        /// </param>
+        /// <param name="style">
+        /// The style.
+        /// </param>
+        /// <param name="blankTarget">
+        /// The blank target.
+        /// </param>
+        /// <param name="cssClass">
+        /// The CSS class.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHtmlContent"/>.
+        /// </returns>
+        public IHtmlContent UserLink(int userId,
+            string replaceName,
+            DateTime? suspended,
+            string style,
+            bool blankTarget,
+            string cssClass)
         {
-            isGuest = true;
+            return UserLink(htmlHelper, userId, replaceName, suspended, style, false, true, blankTarget, cssClass);
         }
 
-        if (!isGuest)
+        /// <summary>
+        /// The user link.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="replaceName">
+        /// The replace name.
+        /// </param>
+        /// <param name="suspended">
+        /// The suspended.
+        /// </param>
+        /// <param name="style">
+        /// The style.
+        /// </param>
+        /// <param name="isGuest">
+        /// The is guest.
+        /// </param>
+        /// <param name="enableHoverCard">
+        /// The enable hover card.
+        /// </param>
+        /// <param name="blankTarget">
+        /// The blank Target.
+        /// </param>
+        /// <param name="cssClassAppend">
+        /// The CSS Class Append.
+        /// </param>
+        /// <param name="crawlerName">
+        /// The crawler Name.
+        /// </param>
+        /// <param name="postFixText"></param>
+        /// <returns>
+        /// The <see cref="IHtmlContent"/>.
+        /// </returns>
+        public IHtmlContent UserLink(int userId,
+            string replaceName,
+            DateTime? suspended,
+            string style,
+            bool isGuest = false,
+            bool enableHoverCard = true,
+            bool blankTarget = false,
+            string cssClassAppend = "",
+            string crawlerName = "",
+            string postFixText = "")
         {
-            var link = new TagBuilder(HtmlTag.A);
+            var content = new HtmlContentBuilder();
+            var context = BoardContext.Current;
 
-            link.MergeAttribute(HtmlAttribute.Href, context.Get<ILinkBuilder>().GetUserProfileLink(userId, displayName));
+            var displayName = replaceName;
 
-            cssClass.Append("btn-sm");
-
-            if (context.Get<IPermissions>().Check(context.BoardSettings.ProfileViewPermissions) &&
-                context.BoardSettings.EnableUserInfoHoverCards && enableHoverCard)
+            // Replace Name with Crawler Name if Set, otherwise use regular display name or Replace Name if set
+            if (crawlerName.IsSet())
             {
-                cssClass.Append(" hc-user");
+                displayName = crawlerName;
+            }
 
-                var userInfoLink = context.Get<IUrlHelper>().Action(
-                    "GetUserInfo",
-                    "UserInfo",
-                    new {userId });
+            if (userId == -1)
+            {
+                return content;
+            }
 
-                link.MergeAttribute("data-hovercard", userInfoLink);
+            var cssClass = new StringBuilder();
+
+            var isCrawler = crawlerName.IsSet();
+
+            if (isCrawler)
+            {
+                isGuest = true;
+            }
+
+            if (!isGuest)
+            {
+                var link = new TagBuilder(HtmlTag.A);
+
+                link.MergeAttribute(HtmlAttribute.Href, context.Get<ILinkBuilder>().GetUserProfileLink(userId, displayName));
+
+                cssClass.Append("btn-sm");
+
+                if (context.Get<IPermissions>().Check(context.BoardSettings.ProfileViewPermissions) &&
+                    context.BoardSettings.EnableUserInfoHoverCards && enableHoverCard)
+                {
+                    cssClass.Append(" hc-user");
+
+                    var userInfoLink = context.Get<IUrlHelper>().Action(
+                        "GetUserInfo",
+                        "UserInfo",
+                        new {userId });
+
+                    link.MergeAttribute("data-hovercard", userInfoLink);
+                }
+                else
+                {
+                    link.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_USRPROFILE"));
+                }
+
+                if (cssClassAppend.IsSet())
+                {
+                    cssClass.Append(cssClassAppend);
+                }
+
+                link.AddCssClass(cssClass.ToString());
+
+                if (context.BoardSettings.UseNoFollowLinks)
+                {
+                    link.MergeAttribute(HtmlAttribute.Rel, "nofollow");
+                }
+
+                if (style.IsSet() && context.BoardSettings.UseStyledNicks)
+                {
+                    var styleFormatted = context.Get<IStyleTransform>().Decode(style);
+
+                    link.MergeAttribute(HtmlAttribute.Style, HttpUtility.HtmlEncode(styleFormatted));
+                }
+
+                if (blankTarget)
+                {
+                    link.MergeAttribute(HtmlAttribute.Target, "_blank");
+                }
+
+                if (context.BoardSettings.ShowUserOnlineStatus)
+                {
+                    link.InnerHtml.AppendHtml(RenderStatusIcon(context, userId, suspended));
+                }
+
+                link.InnerHtml.Append(displayName);
+
+                if (postFixText.IsSet())
+                {
+                    link.InnerHtml.AppendHtml(postFixText);
+                }
+
+                return content.AppendHtml(link);
             }
             else
             {
-                link.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_USRPROFILE"));
+                var link = new TagBuilder(HtmlTag.Span);
+
+                if (context.BoardSettings.ShowUserOnlineStatus)
+                {
+                    link.InnerHtml.AppendHtml(RenderStatusIcon(context, userId, suspended));
+                }
+
+                link.InnerHtml.AppendHtml(displayName);
+
+                return content.AppendHtml(link);
             }
-
-            if (cssClassAppend.IsSet())
-            {
-                cssClass.Append(cssClassAppend);
-            }
-
-            link.AddCssClass(cssClass.ToString());
-
-            if (context.BoardSettings.UseNoFollowLinks)
-            {
-                link.MergeAttribute(HtmlAttribute.Rel, "nofollow");
-            }
-
-            if (style.IsSet() && context.BoardSettings.UseStyledNicks)
-            {
-                var styleFormatted = context.Get<IStyleTransform>().Decode(style);
-
-                link.MergeAttribute(HtmlAttribute.Style, HttpUtility.HtmlEncode(styleFormatted));
-            }
-
-            if (blankTarget)
-            {
-                link.MergeAttribute(HtmlAttribute.Target, "_blank");
-            }
-
-            if (context.BoardSettings.ShowUserOnlineStatus)
-            {
-                link.InnerHtml.AppendHtml(RenderStatusIcon(context, userId, suspended));
-            }
-
-            link.InnerHtml.Append(displayName);
-
-            if (postFixText.IsSet())
-            {
-                link.InnerHtml.AppendHtml(postFixText);
-            }
-
-            return content.AppendHtml(link);
-        }
-        else
-        {
-            var link = new TagBuilder(HtmlTag.Span);
-
-            if (context.BoardSettings.ShowUserOnlineStatus)
-            {
-                link.InnerHtml.AppendHtml(RenderStatusIcon(context, userId, suspended));
-            }
-
-            link.InnerHtml.AppendHtml(displayName);
-
-            return content.AppendHtml(link);
         }
     }
 

@@ -23,115 +23,115 @@ public static class StreamExtensions
     /// </summary>
     public const int DefaultBufferSize = 8 * 1024;
 
-    /// <summary>
-    /// Reads to end.
-    /// </summary>
     /// <param name="ms">The ms.</param>
-    /// <returns>string.</returns>
-    public static string ReadToEnd(this MemoryStream ms)
+    extension(MemoryStream ms)
     {
-        return ReadToEnd(ms, JsConfig.UTF8Encoding);
-    }
-
-    /// <summary>
-    /// Reads to end.
-    /// </summary>
-    /// <param name="ms">The ms.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <returns>string.</returns>
-    public static string ReadToEnd(this MemoryStream ms, Encoding encoding)
-    {
-        ms.Position = 0;
-
-        if (ms.TryGetBuffer(out var buffer))
+        /// <summary>
+        /// Reads to end.
+        /// </summary>
+        /// <returns>string.</returns>
+        public string ReadToEnd()
         {
-            return encoding.GetString(buffer.Array, buffer.Offset, buffer.Count);
+            return ReadToEnd(ms, JsConfig.UTF8Encoding);
         }
 
-        Tracer.Instance.WriteWarning("MemoryStream wasn't created with a publiclyVisible:true byte[] buffer, falling back to slow impl");
-
-        using var reader = new StreamReader(ms, encoding, true, DefaultBufferSize, true);
-        return reader.ReadToEnd();
-    }
-
-    /// <summary>
-    /// Gets the buffer as span.
-    /// </summary>
-    /// <param name="ms">The ms.</param>
-    /// <returns>ReadOnlySpan&lt;System.Byte&gt;.</returns>
-    public static ReadOnlySpan<byte> GetBufferAsSpan(this MemoryStream ms)
-    {
-        if (ms.TryGetBuffer(out var buffer))
+        /// <summary>
+        /// Reads to end.
+        /// </summary>
+        /// <param name="encoding">The encoding.</param>
+        /// <returns>string.</returns>
+        public string ReadToEnd(Encoding encoding)
         {
-            return new ReadOnlySpan<byte>(buffer.Array, buffer.Offset, buffer.Count);
+            ms.Position = 0;
+
+            if (ms.TryGetBuffer(out var buffer))
+            {
+                return encoding.GetString(buffer.Array, buffer.Offset, buffer.Count);
+            }
+
+            Tracer.Instance.WriteWarning("MemoryStream wasn't created with a publiclyVisible:true byte[] buffer, falling back to slow impl");
+
+            using var reader = new StreamReader(ms, encoding, true, DefaultBufferSize, true);
+            return reader.ReadToEnd();
         }
 
-        Tracer.Instance.WriteWarning("MemoryStream in GetBufferAsSpan() wasn't created with a publiclyVisible:true byte[] buffer, falling back to slow impl");
-        return new ReadOnlySpan<byte>(ms.ToArray());
-    }
-
-    /// <summary>
-    /// Gets the buffer as bytes.
-    /// </summary>
-    /// <param name="ms">The ms.</param>
-    /// <returns>byte[].</returns>
-    public static byte[] GetBufferAsBytes(this MemoryStream ms)
-    {
-        if (ms.TryGetBuffer(out var buffer))
+        /// <summary>
+        /// Gets the buffer as span.
+        /// </summary>
+        /// <returns>ReadOnlySpan&lt;System.Byte&gt;.</returns>
+        public ReadOnlySpan<byte> GetBufferAsSpan()
         {
-            return buffer.Array;
+            if (ms.TryGetBuffer(out var buffer))
+            {
+                return new ReadOnlySpan<byte>(buffer.Array, buffer.Offset, buffer.Count);
+            }
+
+            Tracer.Instance.WriteWarning("MemoryStream in GetBufferAsSpan() wasn't created with a publiclyVisible:true byte[] buffer, falling back to slow impl");
+            return new ReadOnlySpan<byte>(ms.ToArray());
         }
 
-        Tracer.Instance.WriteWarning("MemoryStream in GetBufferAsBytes() wasn't created with a publiclyVisible:true byte[] buffer, falling back to slow impl");
-        return ms.ToArray();
+        /// <summary>
+        /// Gets the buffer as bytes.
+        /// </summary>
+        /// <returns>byte[].</returns>
+        public byte[] GetBufferAsBytes()
+        {
+            if (ms.TryGetBuffer(out var buffer))
+            {
+                return buffer.Array;
+            }
+
+            Tracer.Instance.WriteWarning("MemoryStream in GetBufferAsBytes() wasn't created with a publiclyVisible:true byte[] buffer, falling back to slow impl");
+            return ms.ToArray();
+        }
     }
 
-    /// <summary>
-    /// Reads to end.
-    /// </summary>
     /// <param name="stream">The stream.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <returns>string.</returns>
-    public static string ReadToEnd(this Stream stream, Encoding encoding)
+    extension(Stream stream)
     {
-        if (stream is MemoryStream ms)
+        /// <summary>
+        /// Reads to end.
+        /// </summary>
+        /// <param name="encoding">The encoding.</param>
+        /// <returns>string.</returns>
+        public string ReadToEnd(Encoding encoding)
         {
-            return ms.ReadToEnd();
+            if (stream is MemoryStream ms)
+            {
+                return ms.ReadToEnd();
+            }
+
+            if (stream.CanSeek)
+            {
+                stream.Position = 0;
+            }
+
+            using var reader = new StreamReader(stream, encoding, true, DefaultBufferSize, true);
+            return reader.ReadToEnd();
         }
 
-        if (stream.CanSeek)
+        /// <summary>
+        /// Copies to new memory stream.
+        /// </summary>
+        /// <returns>System.IO.MemoryStream.</returns>
+        public MemoryStream CopyToNewMemoryStream()
         {
-            stream.Position = 0;
+            var ms = MemoryStreamFactory.GetStream();
+            stream.CopyTo(ms);
+            ms.Position = 0;
+            return ms;
         }
 
-        using var reader = new StreamReader(stream, encoding, true, DefaultBufferSize, true);
-        return reader.ReadToEnd();
-    }
-
-
-    /// <summary>
-    /// Copies to new memory stream.
-    /// </summary>
-    /// <param name="stream">The stream.</param>
-    /// <returns>System.IO.MemoryStream.</returns>
-    public static MemoryStream CopyToNewMemoryStream(this Stream stream)
-    {
-        var ms = MemoryStreamFactory.GetStream();
-        stream.CopyTo(ms);
-        ms.Position = 0;
-        return ms;
-    }
-
-    /// <summary>
-    /// Copy to new memory stream as an asynchronous operation.
-    /// </summary>
-    /// <param name="stream">The stream.</param>
-    /// <returns>A Task representing the asynchronous operation.</returns>
-    public async static Task<MemoryStream> CopyToNewMemoryStreamAsync(this Stream stream)
-    {
-        var ms = MemoryStreamFactory.GetStream();
-        await stream.CopyToAsync(ms).ConfigAwait();
-        ms.Position = 0;
-        return ms;
+        /// <summary>
+        /// Copy to new memory stream as an asynchronous operation.
+        /// </summary>
+        /// <returns>A Task representing the asynchronous operation.</returns>
+        public async Task<MemoryStream> CopyToNewMemoryStreamAsync()
+        {
+            var ms = MemoryStreamFactory.GetStream();
+            await stream.CopyToAsync(ms).ConfigAwait();
+            ms.Position = 0;
+            return ms;
+        }
     }
 }

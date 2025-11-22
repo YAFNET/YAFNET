@@ -36,47 +36,42 @@ using YAF.Types.Objects;
 /// </summary>
 public static class GroupRepositoryExtensions
 {
-    /// <summary>
-    /// The list.
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="groupId">
-    /// The group id.
-    /// </param>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    public static IList<Group> List(
-        this IRepository<Group> repository,
-        int? groupId = null,
-        int? boardId = null)
+    extension(IRepository<Group> repository)
     {
-        return groupId.HasValue
-                   ? repository.Get(g => g.BoardID == boardId && g.ID == groupId.Value)
-                   : [.. repository.Get(g => g.BoardID == boardId).OrderBy(o => o.SortOrder)];
-    }
+        /// <summary>
+        /// The list.
+        /// </summary>
+        /// <param name="groupId">
+        /// The group id.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        public IList<Group> List(int? groupId = null,
+            int? boardId = null)
+        {
+            return groupId.HasValue
+                ? repository.Get(g => g.BoardID == boardId && g.ID == groupId.Value)
+                : [.. repository.Get(g => g.BoardID == boardId).OrderBy(o => o.SortOrder)];
+        }
 
-    /// <summary>
-    /// Gets All Roles by User indicating if User is Member or not
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="boardId">
-    /// The board Id.
-    /// </param>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    public static List<GroupMember> Member(
-        this IRepository<Group> repository,
-        int boardId,
-        int userId)
-    {
-        return repository.DbAccess.Execute(
-            db =>
+        /// <summary>
+        /// Gets All Roles by User indicating if User is Member or not
+        /// </summary>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        public List<GroupMember> Member(int boardId,
+            int userId)
+        {
+            return repository.DbAccess.Execute(
+                db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<Group>();
 
@@ -86,89 +81,84 @@ public static class GroupRepositoryExtensions
 
                     return db.Connection.Select<GroupMember>(expression);
                 });
-    }
-
-    /// <summary>
-    /// Save or Add new Group
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="groupId">
-    /// The group Id.
-    /// </param>
-    /// <param name="boardId">
-    /// The board Id.
-    /// </param>
-    /// <param name="name">
-    /// The name.
-    /// </param>
-    /// <param name="flags">
-    /// The flags.
-    /// </param>
-    /// <param name="accessMaskId">
-    /// The access mask id.
-    /// </param>
-    /// <param name="style">
-    /// The style.
-    /// </param>
-    /// <param name="sortOrder">
-    /// The sort order.
-    /// </param>
-    /// <param name="description">
-    /// The description.
-    /// </param>
-    /// <param name="signatureChars">
-    /// Defines number of allowed characters in user signature.
-    /// </param>
-    /// <param name="signatureBBCodes">
-    /// The signature BBCodes.
-    /// </param>
-    /// <param name="userAlbums">
-    /// Defines allowed number of albums.
-    /// </param>
-    /// <param name="userAlbumImages">
-    /// Defines number of images allowed for an album.
-    /// </param>
-    /// <returns>
-    /// Returns the group Id
-    /// </returns>
-    public async static Task<int> SaveAsync(
-        this IRepository<Group> repository,
-        int? groupId,
-        int boardId,
-        string name,
-        GroupFlags flags,
-        int accessMaskId,
-        string style,
-        short sortOrder,
-        string description,
-        int signatureChars,
-        string signatureBBCodes,
-        int userAlbums,
-        int userAlbumImages)
-    {
-        if (groupId.HasValue)
-        {
-            await repository.UpdateOnlyAsync(
-                () => new Group
-                          {
-                              Name = name,
-                              Flags = flags.BitValue,
-                              Style = style,
-                              SortOrder = sortOrder,
-                              Description = description,
-                              UsrSigChars = signatureChars,
-                              UsrSigBBCodes = signatureBBCodes,
-                              UsrAlbums = userAlbums,
-                              UsrAlbumImages = userAlbumImages
-                          },
-                g => g.ID == groupId.Value);
         }
-        else
+
+        /// <summary>
+        /// Save or Add new Group
+        /// </summary>
+        /// <param name="groupId">
+        /// The group Id.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="flags">
+        /// The flags.
+        /// </param>
+        /// <param name="accessMaskId">
+        /// The access mask id.
+        /// </param>
+        /// <param name="style">
+        /// The style.
+        /// </param>
+        /// <param name="sortOrder">
+        /// The sort order.
+        /// </param>
+        /// <param name="description">
+        /// The description.
+        /// </param>
+        /// <param name="signatureChars">
+        /// Defines number of allowed characters in user signature.
+        /// </param>
+        /// <param name="signatureBBCodes">
+        /// The signature BBCodes.
+        /// </param>
+        /// <param name="userAlbums">
+        /// Defines allowed number of albums.
+        /// </param>
+        /// <param name="userAlbumImages">
+        /// Defines number of images allowed for an album.
+        /// </param>
+        /// <returns>
+        /// Returns the group Id
+        /// </returns>
+        public async Task<int> SaveAsync(int? groupId,
+            int boardId,
+            string name,
+            GroupFlags flags,
+            int accessMaskId,
+            string style,
+            short sortOrder,
+            string description,
+            int signatureChars,
+            string signatureBBCodes,
+            int userAlbums,
+            int userAlbumImages)
         {
-            groupId = await repository.InsertAsync(
-                new Group
+            if (groupId.HasValue)
+            {
+                await repository.UpdateOnlyAsync(
+                    () => new Group
+                    {
+                        Name = name,
+                        Flags = flags.BitValue,
+                        Style = style,
+                        SortOrder = sortOrder,
+                        Description = description,
+                        UsrSigChars = signatureChars,
+                        UsrSigBBCodes = signatureBBCodes,
+                        UsrAlbums = userAlbums,
+                        UsrAlbumImages = userAlbumImages
+                    },
+                    g => g.ID == groupId.Value);
+            }
+            else
+            {
+                groupId = await repository.InsertAsync(
+                    new Group
                     {
                         Name = name,
                         BoardID = boardId,
@@ -182,15 +172,16 @@ public static class GroupRepositoryExtensions
                         UsrAlbumImages = userAlbumImages
                     });
 
-            BoardContext.Current.GetRepository<ForumAccess>().InitialAssignGroup(groupId.Value, accessMaskId);
-        }
+                BoardContext.Current.GetRepository<ForumAccess>().InitialAssignGroup(groupId.Value, accessMaskId);
+            }
 
-        if (style.IsSet())
-        {
-            // -- group styles override rank styles
-            await BoardContext.Current.Get<IRaiseEventAsync>().RaiseAsync(new UpdateUserStylesEvent(boardId));
-        }
+            if (style.IsSet())
+            {
+                // -- group styles override rank styles
+                await BoardContext.Current.Get<IRaiseEventAsync>().RaiseAsync(new UpdateUserStylesEvent(boardId));
+            }
 
-        return groupId.Value;
+            return groupId.Value;
+        }
     }
 }

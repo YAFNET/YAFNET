@@ -20,71 +20,71 @@ namespace ServiceStack.OrmLite.Base.Text;
 /// </summary>
 public static class JsonExtensions
 {
-    /// <summary>
-    /// JSON to Type
-    /// </summary>
-    /// <typeparam name="T">the type.</typeparam>
     /// <param name="map">The map.</param>
-    /// <param name="key">The key.</param>
-    /// <returns>the type</returns>
-    public static T JsonTo<T>(this Dictionary<string, string> map, string key)
+    extension(Dictionary<string, string> map)
     {
-        return Get<T>(map, key);
-    }
-
-    /// <summary>
-    /// Get JSON string value converted to T
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="map">The map.</param>
-    /// <param name="key">The key.</param>
-    /// <param name="defaultValue">The default value.</param>
-    /// <returns>T.</returns>
-    public static T Get<T>(this Dictionary<string, string> map, string key, T defaultValue = default)
-    {
-        if (map == null)
+        /// <summary>
+        /// JSON to Type
+        /// </summary>
+        /// <typeparam name="T">the type.</typeparam>
+        /// <param name="key">The key.</param>
+        /// <returns>the type</returns>
+        public T JsonTo<T>(string key)
         {
-            return default;
+            return Get<T>(map, key);
         }
 
-        return map.TryGetValue(key, out var strVal) ? JsonSerializer.DeserializeFromString<T>(strVal) : defaultValue;
-    }
-
-    /// <summary>
-    /// Gets the array.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="map">The map.</param>
-    /// <param name="key">The key.</param>
-    /// <returns>T[].</returns>
-    public static T[] GetArray<T>(this Dictionary<string, string> map, string key)
-    {
-        if (map == null)
+        /// <summary>
+        /// Get JSON string value converted to T
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns>T.</returns>
+        public T Get<T>(string key, T defaultValue = default)
         {
-            return TypeConstants<T>.EmptyArray;
+            if (map == null)
+            {
+                return default;
+            }
+
+            return map.TryGetValue(key, out var strVal) ? JsonSerializer.DeserializeFromString<T>(strVal) : defaultValue;
         }
 
-        return map.TryGetValue(key, out var value)
-                   ? map is JsonObject ? value.FromJson<T[]>() : value.FromJsv<T[]>()
-                   : TypeConstants<T>.EmptyArray;
-    }
-
-    /// <summary>
-    /// Get JSON string value
-    /// </summary>
-    /// <param name="map">The map.</param>
-    /// <param name="key">The key.</param>
-    /// <returns>System.String.</returns>
-    public static string Get(this Dictionary<string, string> map, string key)
-    {
-        if (map == null)
+        /// <summary>
+        /// Gets the array.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key">The key.</param>
+        /// <returns>T[].</returns>
+        public T[] GetArray<T>(string key)
         {
-            return null;
+            if (map == null)
+            {
+                return TypeConstants<T>.EmptyArray;
+            }
+
+            return map.TryGetValue(key, out var value)
+                ? map is JsonObject ? value.FromJson<T[]>() : value.FromJsv<T[]>()
+                : TypeConstants<T>.EmptyArray;
         }
 
-        return map.TryGetValue(key, out var strVal)
-                   ? JsonTypeSerializer.Instance.UnescapeString(strVal)
-                   : null;
+        /// <summary>
+        /// Get JSON string value
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>System.String.</returns>
+        public string Get(string key)
+        {
+            if (map == null)
+            {
+                return null;
+            }
+
+            return map.TryGetValue(key, out var strVal)
+                ? JsonTypeSerializer.Instance.UnescapeString(strVal)
+                : null;
+        }
     }
 
     /// <summary>
@@ -106,30 +106,32 @@ public static class JsonExtensions
         return results;
     }
 
-    /// <summary>
-    /// Converts to.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="jsonObject">The json object.</param>
-    /// <param name="convertFn">The convert function.</param>
-    /// <returns>T.</returns>
-    public static T ConvertTo<T>(this JsonObject jsonObject, Func<JsonObject, T> convertFn)
+    extension(JsonObject jsonObject)
     {
-        return jsonObject == null
-                   ? default
-                   : convertFn(jsonObject);
-    }
+        /// <summary>
+        /// Converts to.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="convertFn">The convert function.</param>
+        /// <returns>T.</returns>
+        public T ConvertTo<T>(Func<JsonObject, T> convertFn)
+        {
+            return jsonObject == null
+                ? default
+                : convertFn(jsonObject);
+        }
 
-    /// <summary>
-    /// Converts to dictionary.
-    /// </summary>
-    /// <param name="jsonObject">The json object.</param>
-    /// <returns>Dictionary&lt;System.String, System.String&gt;.</returns>
-    public static Dictionary<string, string> ToDictionary(this JsonObject jsonObject)
-    {
-        return jsonObject == null
-                   ? []
-                   : new Dictionary<string, string>(jsonObject);
+        /// <summary>
+        /// Converts to dictionary.
+        /// </summary>
+        /// <returns>Dictionary&lt;System.String, System.String&gt;.</returns>
+        public Dictionary<string, string> ToDictionary()
+        {
+            return jsonObject == null
+                ? []
+                : new Dictionary<string, string>(jsonObject);
+        }
     }
 }
 

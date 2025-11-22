@@ -34,112 +34,102 @@ using YAF.Types.Models;
 /// </summary>
 public static class GroupMedalRepositoryExtensions
 {
-    /// <summary>
-    /// Lists all Groups assigned to the medal
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="groupId">
-    /// The group Id.
-    /// </param>
-    /// <param name="medalId">
-    /// The medal Id.
-    /// </param>
-    public static List<Tuple<Medal, GroupMedal, Group>> List(
-        this IRepository<GroupMedal> repository,
-        int? groupId,
-        int medalId)
+    extension(IRepository<GroupMedal> repository)
     {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
-
-        if (groupId.HasValue)
+        /// <summary>
+        /// Lists all Groups assigned to the medal
+        /// </summary>
+        /// <param name="groupId">
+        /// The group Id.
+        /// </param>
+        /// <param name="medalId">
+        /// The medal Id.
+        /// </param>
+        public List<Tuple<Medal, GroupMedal, Group>> List(int? groupId,
+            int medalId)
         {
-            expression.Join<GroupMedal>((a, b) => b.MedalID == a.ID)
-                .Join<GroupMedal, Group>((b, c) => c.ID == b.GroupID)
-                .Where<GroupMedal>(b => b.MedalID == medalId && b.GroupID == groupId.Value).OrderBy<Group>(x => x.Name)
-                .ThenBy<GroupMedal>(x => x.SortOrder);
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
+
+            if (groupId.HasValue)
+            {
+                expression.Join<GroupMedal>((a, b) => b.MedalID == a.ID)
+                    .Join<GroupMedal, Group>((b, c) => c.ID == b.GroupID)
+                    .Where<GroupMedal>(b => b.MedalID == medalId && b.GroupID == groupId.Value).OrderBy<Group>(x => x.Name)
+                    .ThenBy<GroupMedal>(x => x.SortOrder);
+            }
+            else
+            {
+                expression.Join<GroupMedal>((a, b) => b.MedalID == a.ID)
+                    .Join<GroupMedal, Group>((b, c) => c.ID == b.GroupID)
+                    .Where(a => a.ID == medalId).OrderBy<Group>(x => x.Name).ThenBy<GroupMedal>(x => x.SortOrder);
+            }
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Medal, GroupMedal, Group>(expression));
         }
-        else
+
+        /// <summary>
+        /// Update existing group-medal allocation.
+        /// </summary>
+        /// <param name="groupId">
+        /// The group ID.
+        /// </param>
+        /// <param name="medalId">
+        /// ID of medal.
+        /// </param>
+        /// <param name="message">
+        /// Medal message, to override medal's default one. Can be null.
+        /// </param>
+        /// <param name="hide">
+        /// Hide medal in user box.
+        /// </param>
+        /// <param name="sortOrder">
+        /// Sort order in user box. Overrides medal's default sort order.
+        /// </param>
+        public void Save(int groupId,
+            int medalId,
+            string message,
+            bool hide,
+            byte sortOrder)
         {
-            expression.Join<GroupMedal>((a, b) => b.MedalID == a.ID)
-                .Join<GroupMedal, Group>((b, c) => c.ID == b.GroupID)
-                .Where(a => a.ID == medalId).OrderBy<Group>(x => x.Name).ThenBy<GroupMedal>(x => x.SortOrder);
+            repository.UpdateOnly(
+                () => new GroupMedal
+                {
+                    Message = message,
+                    Hide = hide,
+                    SortOrder = sortOrder
+                },
+                m => m.GroupID == groupId && m.MedalID == medalId);
         }
 
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Medal, GroupMedal, Group>(expression));
-    }
-
-    /// <summary>
-    /// Update existing group-medal allocation.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="groupId">
-    /// The group ID.
-    /// </param>
-    /// <param name="medalId">
-    /// ID of medal.
-    /// </param>
-    /// <param name="message">
-    /// Medal message, to override medal's default one. Can be null.
-    /// </param>
-    /// <param name="hide">
-    /// Hide medal in user box.
-    /// </param>
-    /// <param name="sortOrder">
-    /// Sort order in user box. Overrides medal's default sort order.
-    /// </param>
-    public static void Save(
-        this IRepository<GroupMedal> repository,
-        int groupId,
-        int medalId,
-        string message,
-        bool hide,
-        byte sortOrder)
-    {
-        repository.UpdateOnly(
-            () => new GroupMedal
-                      {
-                          Message = message,
-                          Hide = hide,
-                          SortOrder = sortOrder
-                      },
-            m => m.GroupID == groupId && m.MedalID == medalId);
-    }
-
-    /// <summary>
-    /// Saves new group-medal allocation.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="groupId">
-    /// The group ID.
-    /// </param>
-    /// <param name="medalId">
-    /// ID of medal.
-    /// </param>
-    /// <param name="message">
-    /// Medal message, to override medal's default one. Can be null.
-    /// </param>
-    /// <param name="hide">
-    /// Hide medal in user box.
-    /// </param>
-    /// <param name="sortOrder">
-    /// Sort order in user box. Overrides medal's default sort order.
-    /// </param>
-    public static void SaveNew(
-        this IRepository<GroupMedal> repository,
-        int groupId,
-        int medalId,
-        string message,
-        bool hide,
-        byte sortOrder)
-    {
-        repository.Insert(
-            new GroupMedal
+        /// <summary>
+        /// Saves new group-medal allocation.
+        /// </summary>
+        /// <param name="groupId">
+        /// The group ID.
+        /// </param>
+        /// <param name="medalId">
+        /// ID of medal.
+        /// </param>
+        /// <param name="message">
+        /// Medal message, to override medal's default one. Can be null.
+        /// </param>
+        /// <param name="hide">
+        /// Hide medal in user box.
+        /// </param>
+        /// <param name="sortOrder">
+        /// Sort order in user box. Overrides medal's default sort order.
+        /// </param>
+        public void SaveNew(int groupId,
+            int medalId,
+            string message,
+            bool hide,
+            byte sortOrder)
+        {
+            repository.Insert(
+                new GroupMedal
                 {
                     GroupID = groupId,
                     MedalID = medalId,
@@ -147,5 +137,6 @@ public static class GroupMedalRepositoryExtensions
                     Hide = hide,
                     SortOrder = sortOrder
                 });
+        }
     }
 }

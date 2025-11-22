@@ -426,54 +426,54 @@ public class OrmLiteDiagnosticEvent : DiagnosticEvent
 /// </summary>
 public static class DiagnosticsUtils
 {
-    /// <summary>
-    /// Gets the root.
-    /// </summary>
     /// <param name="activity">The activity.</param>
-    /// <returns>System.Nullable&lt;Activity&gt;.</returns>
-    public static Activity? GetRoot(this Activity? activity)
+    extension(Activity? activity)
     {
-        if (activity == null)
+        /// <summary>
+        /// Gets the root.
+        /// </summary>
+        /// <returns>System.Nullable&lt;Activity&gt;.</returns>
+        public Activity? GetRoot()
         {
-            return null;
+            if (activity == null)
+            {
+                return null;
+            }
+
+            while (activity.Parent != null)
+            {
+                activity = activity.Parent;
+            }
+
+            return activity;
         }
 
-        while (activity.Parent != null)
+        /// <summary>
+        /// Gets the trace identifier.
+        /// </summary>
+        /// <returns>System.Nullable&lt;System.String&gt;.</returns>
+        public string? GetTraceId()
         {
-            activity = activity.Parent;
+            return GetRoot(activity)?.ParentId;
         }
 
-        return activity;
-    }
+        /// <summary>
+        /// Gets the user identifier.
+        /// </summary>
+        /// <returns>System.Nullable&lt;System.String&gt;.</returns>
+        public string? GetUserId()
+        {
+            return GetRoot(activity)?.GetTagItem(Diagnostics.Activity.UserId) as string;
+        }
 
-    /// <summary>
-    /// Gets the trace identifier.
-    /// </summary>
-    /// <param name="activity">The activity.</param>
-    /// <returns>System.Nullable&lt;System.String&gt;.</returns>
-    public static string? GetTraceId(this Activity? activity)
-    {
-        return GetRoot(activity)?.ParentId;
-    }
-
-    /// <summary>
-    /// Gets the user identifier.
-    /// </summary>
-    /// <param name="activity">The activity.</param>
-    /// <returns>System.Nullable&lt;System.String&gt;.</returns>
-    public static string? GetUserId(this Activity? activity)
-    {
-        return GetRoot(activity)?.GetTagItem(Diagnostics.Activity.UserId) as string;
-    }
-
-    /// <summary>
-    /// Gets the tag.
-    /// </summary>
-    /// <param name="activity">The activity.</param>
-    /// <returns>System.Nullable&lt;System.String&gt;.</returns>
-    public static string? GetTag(this Activity? activity)
-    {
-        return GetRoot(activity)?.GetTagItem(Diagnostics.Activity.Tag) as string;
+        /// <summary>
+        /// Gets the tag.
+        /// </summary>
+        /// <returns>System.Nullable&lt;System.String&gt;.</returns>
+        public string? GetTag()
+        {
+            return GetRoot(activity)?.GetTagItem(Diagnostics.Activity.Tag) as string;
+        }
     }
 
     /// <summary>

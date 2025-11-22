@@ -31,279 +31,256 @@ using System.Collections.Generic;
 /// </summary>
 public static class IServiceLocatorExtensions
 {
-    /// <summary>
-    /// The get.
-    /// </summary>
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    /// <typeparam name="TService">
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="TService"/>.
-    /// </returns>
-    public static TService Get<TService>(this IServiceLocator serviceLocator)
+    extension(IServiceLocator serviceLocator)
     {
-        return (TService)serviceLocator.Get(typeof(TService));
-    }
-
-    /// <summary>
-    /// The get.
-    /// </summary>
-    /// <param name="serviceLocator">
-    /// The service locator.
-    /// </param>
-    /// <param name="named">
-    /// The named.
-    /// </param>
-    /// <typeparam name="TService">
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="TService"/>.
-    /// </returns>
-    public static TService Get<TService>(this IServiceLocator serviceLocator, string named)
-    {
-        return (TService)serviceLocator.Get(typeof(TService), named);
-    }
-
-    /// <summary>
-    /// The get.
-    /// </summary>
-    /// <param name="serviceLocator">
-    /// The service locator.
-    /// </param>
-    /// <param name="parameters">
-    /// </param>
-    /// <typeparam name="TService">
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="TService"/>.
-    /// </returns>
-    public static TService Get<TService>(
-        this IServiceLocator serviceLocator,
-        IEnumerable<IServiceLocationParameter> parameters)
-    {
-        return (TService)serviceLocator.Get(typeof(TService), parameters);
-    }
-
-    /// <summary>
-    /// The get.
-    /// </summary>
-    /// <param name="serviceLocator">
-    /// The service locator.
-    /// </param>
-    /// <param name="named">
-    /// The named.
-    /// </param>
-    /// <param name="parameters">
-    /// </param>
-    /// <typeparam name="TService">
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="TService"/>.
-    /// </returns>
-    public static TService Get<TService>(
-        this IServiceLocator serviceLocator,
-        string named,
-        IEnumerable<IServiceLocationParameter> parameters)
-    {
-        return (TService)serviceLocator.Get(typeof(TService), named, parameters);
-    }
-
-    /// <summary>
-    /// The get.
-    /// </summary>
-    /// <param name="haveLocator">
-    /// The have locator.
-    /// </param>
-    /// <typeparam name="TService">
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="TService"/>.
-    /// </returns>
-    public static TService Get<TService>(this IHaveServiceLocator haveLocator)
-    {
-        return haveLocator.ServiceLocator.Get<TService>();
-    }
-
-    /// <summary>
-    /// The get.
-    /// </summary>
-    /// <param name="haveLocator">
-    /// The have locator.
-    /// </param>
-    /// <param name="named">
-    /// The named.
-    /// </param>
-    /// <typeparam name="TService">
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="TService"/>.
-    /// </returns>
-    public static TService Get<TService>(this IHaveServiceLocator haveLocator, string named)
-    {
-        return haveLocator.ServiceLocator.Get<TService>(named);
-    }
-
-    /// <summary>
-    /// The get.
-    /// </summary>
-    /// <param name="haveLocator">
-    /// The have locator.
-    /// </param>
-    /// <param name="parameters">
-    /// The parameters.
-    /// </param>
-    /// <typeparam name="TService">
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="TService"/>.
-    /// </returns>
-    public static TService Get<TService>(
-        this IHaveServiceLocator haveLocator,
-        IEnumerable<IServiceLocationParameter> parameters)
-    {
-        return haveLocator.ServiceLocator.Get<TService>(parameters);
-    }
-
-    /// <summary>
-    /// The get.
-    /// </summary>
-    /// <param name="haveLocator">
-    /// The have locator.
-    /// </param>
-    /// <param name="named">
-    /// The named.
-    /// </param>
-    /// <param name="parameters">
-    /// The parameters.
-    /// </param>
-    /// <typeparam name="TService">
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="TService"/>.
-    /// </returns>
-    public static TService Get<TService>(
-        this IHaveServiceLocator haveLocator,
-        string named,
-        IEnumerable<IServiceLocationParameter> parameters)
-    {
-        return haveLocator.ServiceLocator.Get<TService>(named, parameters);
-    }
-
-    /// <summary>
-    /// The get repository.
-    /// </summary>
-    /// <param name="serviceLocator">
-    /// The service locator.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="IRepository{T}"/>.
-    /// </returns>
-    public static IRepository<T> GetRepository<T>(this IHaveServiceLocator serviceLocator)
-        where T : IEntity
-    {
-        return serviceLocator.Get<IRepository<T>>();
-    }
-
-    /// <summary>
-    /// The get.
-    /// </summary>
-    /// <param name="serviceLocator">
-    /// The service locator.
-    /// </param>
-    /// <param name="instance">
-    /// The instance.
-    /// </param>
-    /// <typeparam name="TService">
-    /// </typeparam>
-    /// <returns>
-    /// The try get.
-    /// </returns>
-    public static bool TryGet<TService>(this IServiceLocator serviceLocator, out TService instance)
-    {
-        instance = default;
-
-        if (!serviceLocator.TryGet(typeof(TService), out var tempInstance))
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <typeparam name="TService">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="TService"/>.
+        /// </returns>
+        public TService Get<TService>()
         {
-            return false;
+            return (TService)serviceLocator.Get(typeof(TService));
         }
 
-        instance = (TService)tempInstance;
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="named">
+        /// The named.
+        /// </param>
+        /// <typeparam name="TService">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="TService"/>.
+        /// </returns>
+        public TService Get<TService>(string named)
+        {
+            return (TService)serviceLocator.Get(typeof(TService), named);
+        }
 
-        return true;
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="parameters">
+        /// </param>
+        /// <typeparam name="TService">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="TService"/>.
+        /// </returns>
+        public TService Get<TService>(IEnumerable<IServiceLocationParameter> parameters)
+        {
+            return (TService)serviceLocator.Get(typeof(TService), parameters);
+        }
+
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="named">
+        /// The named.
+        /// </param>
+        /// <param name="parameters">
+        /// </param>
+        /// <typeparam name="TService">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="TService"/>.
+        /// </returns>
+        public TService Get<TService>(string named,
+            IEnumerable<IServiceLocationParameter> parameters)
+        {
+            return (TService)serviceLocator.Get(typeof(TService), named, parameters);
+        }
     }
 
-    /// <summary>
-    /// The get.
-    /// </summary>
+    /// <param name="haveLocator">
+    /// The have locator.
+    /// </param>
+    extension(IHaveServiceLocator haveLocator)
+    {
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <typeparam name="TService">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="TService"/>.
+        /// </returns>
+        public TService Get<TService>()
+        {
+            return haveLocator.ServiceLocator.Get<TService>();
+        }
+
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="named">
+        /// The named.
+        /// </param>
+        /// <typeparam name="TService">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="TService"/>.
+        /// </returns>
+        public TService Get<TService>(string named)
+        {
+            return haveLocator.ServiceLocator.Get<TService>(named);
+        }
+
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="parameters">
+        /// The parameters.
+        /// </param>
+        /// <typeparam name="TService">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="TService"/>.
+        /// </returns>
+        public TService Get<TService>(IEnumerable<IServiceLocationParameter> parameters)
+        {
+            return haveLocator.ServiceLocator.Get<TService>(parameters);
+        }
+
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="named">
+        /// The named.
+        /// </param>
+        /// <param name="parameters">
+        /// The parameters.
+        /// </param>
+        /// <typeparam name="TService">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="TService"/>.
+        /// </returns>
+        public TService Get<TService>(string named,
+            IEnumerable<IServiceLocationParameter> parameters)
+        {
+            return haveLocator.ServiceLocator.Get<TService>(named, parameters);
+        }
+
+        /// <summary>
+        /// The get repository.
+        /// </summary>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IRepository{T}"/>.
+        /// </returns>
+        public IRepository<T> GetRepository<T>()
+            where T : IEntity
+        {
+            return haveLocator.Get<IRepository<T>>();
+        }
+    }
+
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    /// <param name="named">
-    /// The named.
-    /// </param>
-    /// <param name="instance">
-    /// </param>
-    /// <typeparam name="TService">
-    /// </typeparam>
-    /// <returns>
-    /// The try get.
-    /// </returns>
-    public static bool TryGet<TService>(this IServiceLocator serviceLocator, string named, out TService instance)
+    extension(IServiceLocator serviceLocator)
     {
-        instance = default;
-
-        if (!serviceLocator.TryGet(typeof(TService), named, out var tempInstance))
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="instance">
+        /// The instance.
+        /// </param>
+        /// <typeparam name="TService">
+        /// </typeparam>
+        /// <returns>
+        /// The try get.
+        /// </returns>
+        public bool TryGet<TService>(out TService instance)
         {
-            return false;
+            instance = default;
+
+            if (!serviceLocator.TryGet(typeof(TService), out var tempInstance))
+            {
+                return false;
+            }
+
+            instance = (TService)tempInstance;
+
+            return true;
         }
 
-        instance = (TService)tempInstance;
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="named">
+        /// The named.
+        /// </param>
+        /// <param name="instance">
+        /// </param>
+        /// <typeparam name="TService">
+        /// </typeparam>
+        /// <returns>
+        /// The try get.
+        /// </returns>
+        public bool TryGet<TService>(string named, out TService instance)
+        {
+            instance = default;
 
-        return true;
+            if (!serviceLocator.TryGet(typeof(TService), named, out var tempInstance))
+            {
+                return false;
+            }
+
+            instance = (TService)tempInstance;
+
+            return true;
+        }
     }
 
-    /// <summary>
-    /// The get.
-    /// </summary>
     /// <param name="haveLocator">
     /// The have locator.
     /// </param>
-    /// <param name="instance">
-    /// The instance.
-    /// </param>
-    /// <typeparam name="TService">
-    /// </typeparam>
-    /// <returns>
-    /// The try get.
-    /// </returns>
-    public static bool TryGet<TService>(this IHaveServiceLocator haveLocator, out TService instance)
+    extension(IHaveServiceLocator haveLocator)
     {
-        return haveLocator.ServiceLocator.TryGet(out instance);
-    }
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="instance">
+        /// The instance.
+        /// </param>
+        /// <typeparam name="TService">
+        /// </typeparam>
+        /// <returns>
+        /// The try get.
+        /// </returns>
+        public bool TryGet<TService>(out TService instance)
+        {
+            return haveLocator.ServiceLocator.TryGet(out instance);
+        }
 
-    /// <summary>
-    /// The get.
-    /// </summary>
-    /// <param name="haveLocator">
-    /// The have locator.
-    /// </param>
-    /// <param name="named">
-    /// The named.
-    /// </param>
-    /// <param name="instance">
-    /// The instance.
-    /// </param>
-    /// <typeparam name="TService">
-    /// </typeparam>
-    /// <returns>
-    /// The try get.
-    /// </returns>
-    public static bool TryGet<TService>(this IHaveServiceLocator haveLocator, string named, out TService instance)
-    {
-        return haveLocator.ServiceLocator.TryGet(named, out instance);
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="named">
+        /// The named.
+        /// </param>
+        /// <param name="instance">
+        /// The instance.
+        /// </param>
+        /// <typeparam name="TService">
+        /// </typeparam>
+        /// <returns>
+        /// The try get.
+        /// </returns>
+        public bool TryGet<TService>(string named, out TService instance)
+        {
+            return haveLocator.ServiceLocator.TryGet(named, out instance);
+        }
     }
 }

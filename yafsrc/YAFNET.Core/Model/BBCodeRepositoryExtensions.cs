@@ -35,122 +35,118 @@ using YAF.Types.Models;
 /// </summary>
 public static class BBCodeRepositoryExtensions
 {
-    /// <summary>
-    /// The save.
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="codeId">
-    /// The b b code id.
-    /// </param>
-    /// <param name="name">
-    /// The name.
-    /// </param>
-    /// <param name="description">
-    /// The description.
-    /// </param>
-    /// <param name="onClickJs">
-    /// The on click JS.
-    /// </param>
-    /// <param name="displayJs">
-    /// The display JS.
-    /// </param>
-    /// <param name="editJs">
-    /// The edit JS.
-    /// </param>
-    /// <param name="displayCss">
-    /// The display CSS.
-    /// </param>
-    /// <param name="searchRegEx">
-    /// The search Regular Expression.
-    /// </param>
-    /// <param name="replaceRegEx">
-    /// The replace Regular Expression.
-    /// </param>
-    /// <param name="variables">
-    /// The variables.
-    /// </param>
-    /// <param name="useModule">
-    /// The use module.
-    /// </param>
-    /// <param name="useToolbar">
-    /// Thee use Toolbar
-    /// </param>
-    /// <param name="moduleClass">
-    /// The module class.
-    /// </param>
-    /// <param name="execOrder">
-    /// The exec order.
-    /// </param>
-    /// <param name="boardId">
-    /// The board Id.
-    /// </param>
-    public static Task SaveAsync(
-        this IRepository<BBCode> repository,
-        int? codeId,
-        string name,
-        string description,
-        string onClickJs,
-        string displayJs,
-        string editJs,
-        string displayCss,
-        string searchRegEx,
-        string replaceRegEx,
-        string variables,
-        bool? useModule,
-        bool? useToolbar,
-        string moduleClass,
-        int execOrder,
-        int? boardId = null)
+    extension(IRepository<BBCode> repository)
     {
-        return repository.UpsertAsync(
-            new BBCode
-            {
-                BoardID = boardId ?? repository.BoardID,
-                ID = codeId ?? 0,
-                Name = name,
-                Description = description,
-                OnClickJS = onClickJs,
-                DisplayJS = displayJs,
-                EditJS = editJs,
-                DisplayCSS = displayCss,
-                SearchRegex = searchRegEx,
-                ReplaceRegex = replaceRegEx,
-                Variables = variables,
-                UseModule = useModule,
-                UseToolbar = useToolbar,
-                ModuleClass = moduleClass,
-                ExecOrder = execOrder
-            });
-    }
+        /// <summary>
+        /// The save.
+        /// </summary>
+        /// <param name="codeId">
+        /// The b b code id.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="description">
+        /// The description.
+        /// </param>
+        /// <param name="onClickJs">
+        /// The on click JS.
+        /// </param>
+        /// <param name="displayJs">
+        /// The display JS.
+        /// </param>
+        /// <param name="editJs">
+        /// The edit JS.
+        /// </param>
+        /// <param name="displayCss">
+        /// The display CSS.
+        /// </param>
+        /// <param name="searchRegEx">
+        /// The search Regular Expression.
+        /// </param>
+        /// <param name="replaceRegEx">
+        /// The replace Regular Expression.
+        /// </param>
+        /// <param name="variables">
+        /// The variables.
+        /// </param>
+        /// <param name="useModule">
+        /// The use module.
+        /// </param>
+        /// <param name="useToolbar">
+        /// Thee use Toolbar
+        /// </param>
+        /// <param name="moduleClass">
+        /// The module class.
+        /// </param>
+        /// <param name="execOrder">
+        /// The exec order.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        public Task SaveAsync(int? codeId,
+            string name,
+            string description,
+            string onClickJs,
+            string displayJs,
+            string editJs,
+            string displayCss,
+            string searchRegEx,
+            string replaceRegEx,
+            string variables,
+            bool? useModule,
+            bool? useToolbar,
+            string moduleClass,
+            int execOrder,
+            int? boardId = null)
+        {
+            return repository.UpsertAsync(
+                new BBCode
+                {
+                    BoardID = boardId ?? repository.BoardID,
+                    ID = codeId ?? 0,
+                    Name = name,
+                    Description = description,
+                    OnClickJS = onClickJs,
+                    DisplayJS = displayJs,
+                    EditJS = editJs,
+                    DisplayCSS = displayCss,
+                    SearchRegex = searchRegEx,
+                    ReplaceRegex = replaceRegEx,
+                    Variables = variables,
+                    UseModule = useModule,
+                    UseToolbar = useToolbar,
+                    ModuleClass = moduleClass,
+                    ExecOrder = execOrder
+                });
+        }
 
-    /// <summary>
-    /// Get All BBCodes Paged by Board Id
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="boardId">
-    /// The board Id.
-    /// </param>
-    /// <param name="pageIndex">
-    /// The page index.
-    /// </param>
-    /// <param name="pageSize">
-    /// The page size.
-    /// </param>
-    public static List<BBCode> ListPaged(
-        this IRepository<BBCode> repository,
-        int boardId,
-        int? pageIndex = 0,
-        int? pageSize = 10000000)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<BBCode>();
+        /// <summary>
+        /// Get All BBCodes Paged by Board Id
+        /// </summary>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page size.
+        /// </param>
+        public List<BBCode> ListPaged(int boardId,
+            int? pageIndex = 0,
+            int? pageSize = 10000000)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<BBCode>();
 
-        expression.Where(x => x.BoardID == boardId).OrderBy(item => item.Name)
-            .Page(pageIndex + 1, pageSize);
+            expression.Where(x => x.BoardID == boardId).OrderBy(item => item.Name)
+                .Page(pageIndex + 1, pageSize);
 
-        return repository.DbAccess.Execute(db => db.Connection.Select(expression));
+            return repository.DbAccess.Execute(db => db.Connection.Select(expression));
+        }
     }
 }

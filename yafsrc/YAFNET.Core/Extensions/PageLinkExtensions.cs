@@ -36,183 +36,170 @@ using YAF.Types.Objects;
 /// </summary>
 public static class PageLinkExtensions
 {
-    /// <summary>
-    /// Adds the root.
-    /// </summary>
     /// <param name="pageLinks">The page links.</param>
-    /// <returns>returns the Page links including the root</returns>
-    public static List<PageLink> AddRoot(this List<PageLink> pageLinks)
+    extension(List<PageLink> pageLinks)
     {
-        ArgumentNullException.ThrowIfNull(pageLinks);
-
-        pageLinks.AddLink(
-            BoardContext.Current.BoardSettings.Name,
-            BoardContext.Current.Get<ILinkBuilder>().GetLink(ForumPages.Index));
-
-        return pageLinks;
-    }
-
-    /// <summary>
-    /// Adds the index of the admin.
-    /// </summary>
-    /// <param name="pageLinks">The page links.</param>
-    /// <returns>
-    /// Returns the page links.
-    /// </returns>
-    public static List<PageLink> AddAdminIndex(this List<PageLink> pageLinks)
-    {
-        ArgumentNullException.ThrowIfNull(pageLinks);
-
-        pageLinks.AddLink(
-            BoardContext.Current.Get<ILocalization>().GetText("ADMIN_ADMIN", "Administration"),
-            BoardContext.Current.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Admin));
-
-        return pageLinks;
-    }
-
-    /// <summary>
-    /// Adds the user link to the page links.
-    /// </summary>
-    /// <param name="pageLinks">
-    /// The page links.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="name">
-    /// The name.
-    /// </param>
-    /// <returns>
-    /// Returns the page links.
-    /// </returns>
-    public static List<PageLink> AddUser(this List<PageLink> pageLinks, int userId, string name)
-    {
-        ArgumentNullException.ThrowIfNull(pageLinks);
-
-        pageLinks.AddLink(name, BoardContext.Current.Get<ILinkBuilder>().GetUserProfileLink(userId, name));
-
-        return pageLinks;
-    }
-
-    /// <summary>
-    /// Adds the topic link to the page links.
-    /// </summary>
-    /// <param name="pageLinks">
-    /// The page links.
-    /// </param>
-    /// <param name="topic">
-    /// The topic.
-    /// </param>
-    /// <returns>
-    /// Returns the page links.
-    /// </returns>
-    public static List<PageLink> AddTopic(this List<PageLink> pageLinks, Topic topic)
-    {
-        ArgumentNullException.ThrowIfNull(pageLinks);
-
-        if (topic is null)
+        /// <summary>
+        /// Adds the root.
+        /// </summary>
+        /// <returns>returns the Page links including the root</returns>
+        public List<PageLink> AddRoot()
         {
+            ArgumentNullException.ThrowIfNull(pageLinks);
+
+            pageLinks.AddLink(
+                BoardContext.Current.BoardSettings.Name,
+                BoardContext.Current.Get<ILinkBuilder>().GetLink(ForumPages.Index));
+
             return pageLinks;
         }
 
-        pageLinks.AddLink(topic.TopicName, BoardContext.Current.Get<ILinkBuilder>().GetTopicLink(topic));
-
-        return pageLinks;
-    }
-
-    /// <summary>
-    /// Adds the category link to the page links.
-    /// </summary>
-    /// <param name="pageLinks">
-    /// The page links.
-    /// </param>
-    /// <param name="category">
-    /// The category.
-    /// </param>
-    /// <returns>
-    /// Returns the Page links including the Category
-    /// </returns>
-    public static List<PageLink> AddCategory(
-        this List<PageLink> pageLinks,
-        Category category)
-    {
-        ArgumentNullException.ThrowIfNull(pageLinks);
-
-        if (category is null)
+        /// <summary>
+        /// Adds the index of the admin.
+        /// </summary>
+        /// <returns>
+        /// Returns the page links.
+        /// </returns>
+        public List<PageLink> AddAdminIndex()
         {
+            ArgumentNullException.ThrowIfNull(pageLinks);
+
+            pageLinks.AddLink(
+                BoardContext.Current.Get<ILocalization>().GetText("ADMIN_ADMIN", "Administration"),
+                BoardContext.Current.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Admin));
+
             return pageLinks;
         }
 
-        pageLinks.AddLink(
-            category.Name,
-            BoardContext.Current.Get<ILinkBuilder>().GetCategoryLink(category.ID, category.Name));
-
-        return pageLinks;
-    }
-
-    /// <summary>
-    /// Adds the forum link to the page links.
-    /// </summary>
-    /// <param name="pageLinks">
-    /// The page links.
-    /// </param>
-    /// <param name="forum">
-    /// The forum.
-    /// </param>
-    /// <param name="noForumLink">
-    /// The no forum link.
-    /// </param>
-    /// <returns>
-    /// Returns the page links
-    /// </returns>
-    public static List<PageLink> AddForum(this List<PageLink> pageLinks, Forum forum, bool noForumLink = false)
-    {
-        ArgumentNullException.ThrowIfNull(pageLinks);
-
-        if (forum is null)
+        /// <summary>
+        /// Adds the user link to the page links.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <returns>
+        /// Returns the page links.
+        /// </returns>
+        public List<PageLink> AddUser(int userId, string name)
         {
+            ArgumentNullException.ThrowIfNull(pageLinks);
+
+            pageLinks.AddLink(name, BoardContext.Current.Get<ILinkBuilder>().GetUserProfileLink(userId, name));
+
             return pageLinks;
         }
 
-        if (forum.ParentID.HasValue)
+        /// <summary>
+        /// Adds the topic link to the page links.
+        /// </summary>
+        /// <param name="topic">
+        /// The topic.
+        /// </param>
+        /// <returns>
+        /// Returns the page links.
+        /// </returns>
+        public List<PageLink> AddTopic(Topic topic)
         {
-            var parent = BoardContext.Current.GetRepository<Forum>()
-                .GetById(forum.ParentID.Value);
+            ArgumentNullException.ThrowIfNull(pageLinks);
 
-            if (parent != null)
+            if (topic is null)
+            {
+                return pageLinks;
+            }
+
+            pageLinks.AddLink(topic.TopicName, BoardContext.Current.Get<ILinkBuilder>().GetTopicLink(topic));
+
+            return pageLinks;
+        }
+
+        /// <summary>
+        /// Adds the category link to the page links.
+        /// </summary>
+        /// <param name="category">
+        /// The category.
+        /// </param>
+        /// <returns>
+        /// Returns the Page links including the Category
+        /// </returns>
+        public List<PageLink> AddCategory(Category category)
+        {
+            ArgumentNullException.ThrowIfNull(pageLinks);
+
+            if (category is null)
+            {
+                return pageLinks;
+            }
+
+            pageLinks.AddLink(
+                category.Name,
+                BoardContext.Current.Get<ILinkBuilder>().GetCategoryLink(category.ID, category.Name));
+
+            return pageLinks;
+        }
+
+        /// <summary>
+        /// Adds the forum link to the page links.
+        /// </summary>
+        /// <param name="forum">
+        /// The forum.
+        /// </param>
+        /// <param name="noForumLink">
+        /// The no forum link.
+        /// </param>
+        /// <returns>
+        /// Returns the page links
+        /// </returns>
+        public List<PageLink> AddForum(Forum forum, bool noForumLink = false)
+        {
+            ArgumentNullException.ThrowIfNull(pageLinks);
+
+            if (forum is null)
+            {
+                return pageLinks;
+            }
+
+            if (forum.ParentID.HasValue)
+            {
+                var parent = BoardContext.Current.GetRepository<Forum>()
+                    .GetById(forum.ParentID.Value);
+
+                if (parent != null)
+                {
+                    pageLinks.AddLink(
+                        parent.Name,
+                        BoardContext.Current.Get<ILinkBuilder>().GetForumLink(parent));
+                }
+            }
+
+            if (BoardContext.Current.PageForumID == forum.ID)
             {
                 pageLinks.AddLink(
-                    parent.Name,
-                    BoardContext.Current.Get<ILinkBuilder>().GetForumLink(parent));
+                    BoardContext.Current.PageForum.Name,
+                    noForumLink
+                        ? string.Empty
+                        : BoardContext.Current.Get<ILinkBuilder>().GetForumLink(
+                            BoardContext.Current.PageForum));
             }
+
+            return pageLinks;
         }
 
-        if (BoardContext.Current.PageForumID == forum.ID)
+        /// <summary>
+        /// Adds new page link.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="url">The URL.</param>
+        /// <returns>Returns the page links</returns>
+        public List<PageLink> AddLink(string title, string url = "")
         {
-            pageLinks.AddLink(
-                BoardContext.Current.PageForum.Name,
-                noForumLink
-                    ? string.Empty
-                    : BoardContext.Current.Get<ILinkBuilder>().GetForumLink(
-                        BoardContext.Current.PageForum));
+            ArgumentNullException.ThrowIfNull(pageLinks);
+
+            pageLinks.Add(new PageLink { Title = title.Trim(), URL = url?.Trim() });
+
+            return pageLinks;
         }
-
-        return pageLinks;
-    }
-
-    /// <summary>
-    /// Adds new page link.
-    /// </summary>
-    /// <param name="pageLinks">The page links.</param>
-    /// <param name="title">The title.</param>
-    /// <param name="url">The URL.</param>
-    /// <returns>Returns the page links</returns>
-    public static List<PageLink> AddLink(this List<PageLink> pageLinks, string title, string url = "")
-    {
-        ArgumentNullException.ThrowIfNull(pageLinks);
-
-        pageLinks.Add(new PageLink { Title = title.Trim(), URL = url?.Trim() });
-
-        return pageLinks;
     }
 }

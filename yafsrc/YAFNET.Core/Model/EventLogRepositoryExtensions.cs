@@ -35,58 +35,58 @@ using YAF.Types.Objects.Model;
 /// </summary>
 public static class EventLogRepositoryExtensions
 {
-    /// <summary>
-    /// Gets the Event Log (Paged)
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <param name="maxRows">
-    /// The max rows.
-    /// </param>
-    /// <param name="maxDays">
-    /// The max days.
-    /// </param>
-    /// <param name="pageIndex">
-    /// The page index.
-    /// </param>
-    /// <param name="pageSize">
-    /// The page size.
-    /// </param>
-    /// <param name="sinceDate">
-    /// The since date.
-    /// </param>
-    /// <param name="toDate">
-    /// The to date.
-    /// </param>
-    /// <param name="eventType">
-    /// The event Type.
-    /// </param>
-    /// <param name="spamOnly">
-    /// The spam Only.
-    /// </param>
-    /// <returns>
-    /// Returns a Paged List of the Event Log
-    /// </returns>
-    public static List<PagedEventLog> ListPaged(
-        this IRepository<EventLog> repository,
-        int? boardId,
-        int maxRows,
-        int maxDays,
-        int pageIndex,
-        int pageSize,
-        DateTime sinceDate,
-        DateTime toDate,
-        int? eventType,
-        bool spamOnly = false)
+    extension(IRepository<EventLog> repository)
     {
-        repository.DeleteOld(maxRows, maxDays);
+        /// <summary>
+        /// Gets the Event Log (Paged)
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="maxRows">
+        /// The max rows.
+        /// </param>
+        /// <param name="maxDays">
+        /// The max days.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page size.
+        /// </param>
+        /// <param name="sinceDate">
+        /// The since date.
+        /// </param>
+        /// <param name="toDate">
+        /// The to date.
+        /// </param>
+        /// <param name="eventType">
+        /// The event Type.
+        /// </param>
+        /// <param name="spamOnly">
+        /// The spam Only.
+        /// </param>
+        /// <returns>
+        /// Returns a Paged List of the Event Log
+        /// </returns>
+        public List<PagedEventLog> ListPaged(int? boardId,
+            int maxRows,
+            int maxDays,
+            int pageIndex,
+            int pageSize,
+            DateTime sinceDate,
+            DateTime toDate,
+            int? eventType,
+            bool spamOnly = false)
+        {
+            repository.DeleteOld(maxRows, maxDays);
 
-        return repository.DbAccess.Execute(
-            db =>
+            return repository.DbAccess.Execute(
+                db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<EventLog>();
 
@@ -116,20 +116,20 @@ public static class EventLogRepositoryExtensions
 
                     expression.Select<EventLog, User>(
                         (a, b) => new
-                                      {
-                                          a.UserID,
-                                          a.ID,
-                                          a.EventTime,
-                                          a.Source,
-                                          a.Description,
-                                          a.Type,
-                                          b.Name,
-                                          b.DisplayName,
-                                          b.Suspended,
-                                          b.UserStyle,
-                                          b.Flags,
-                                          TotalRows = Sql.Custom($"({countTotalSql})")
-                                      });
+                        {
+                            a.UserID,
+                            a.ID,
+                            a.EventTime,
+                            a.Source,
+                            a.Description,
+                            a.Type,
+                            b.Name,
+                            b.DisplayName,
+                            b.Suspended,
+                            b.UserStyle,
+                            b.Flags,
+                            TotalRows = Sql.Custom($"({countTotalSql})")
+                        });
 
                     expression.OrderByDescending(a => a.ID);
 
@@ -138,40 +138,36 @@ public static class EventLogRepositoryExtensions
 
                     return db.Connection.Select<PagedEventLog>(expression);
                 });
-    }
+        }
 
-    /// <summary>
-    /// Delete Old Entries
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="maxRows">
-    /// The max rows.
-    /// </param>
-    /// <param name="maxDays">
-    /// The max days.
-    /// </param>
-    public static void DeleteOld(
-        this IRepository<EventLog> repository,
-        int maxRows,
-        int maxDays)
-    {
-        // -- delete entries older than 10 days
-        var agesAgo = DateTime.Today.AddDays(-maxDays);
-
-        repository.Delete(x => x.EventTime < agesAgo);
-
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<EventLog>();
-
-        expression.OrderBy(x => x.EventTime).Limit(100);
-
-        var entries = repository.DbAccess.Execute(db => db.Connection.Select(expression));
-
-        // -- or if there are more then 1000
-        if (entries.Count >= maxRows + 50)
+        /// <summary>
+        /// Delete Old Entries
+        /// </summary>
+        /// <param name="maxRows">
+        /// The max rows.
+        /// </param>
+        /// <param name="maxDays">
+        /// The max days.
+        /// </param>
+        public void DeleteOld(int maxRows,
+            int maxDays)
         {
-            repository.DbAccess.Execute(db => db.Connection.DeleteAll(entries));
+            // -- delete entries older than 10 days
+            var agesAgo = DateTime.Today.AddDays(-maxDays);
+
+            repository.Delete(x => x.EventTime < agesAgo);
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<EventLog>();
+
+            expression.OrderBy(x => x.EventTime).Limit(100);
+
+            var entries = repository.DbAccess.Execute(db => db.Connection.Select(expression));
+
+            // -- or if there are more then 1000
+            if (entries.Count >= maxRows + 50)
+            {
+                repository.DbAccess.Execute(db => db.Connection.DeleteAll(entries));
+            }
         }
     }
 }

@@ -27,30 +27,32 @@ public class ConflictResolution
 /// </summary>
 public static class OrmLiteConflictResolutions
 {
-    /// <summary>
-    /// Called when [conflict ignore].
-    /// </summary>
     /// <param name="dbCmd">The database command.</param>
-    public static void OnConflictIgnore(this IDbCommand dbCmd)
+    extension(IDbCommand dbCmd)
     {
-        dbCmd.OnConflict(ConflictResolution.Ignore);
-    }
-
-    /// <summary>
-    /// Called when [conflict].
-    /// </summary>
-    /// <param name="dbCmd">The database command.</param>
-    /// <param name="conflictResolution">The conflict resolution.</param>
-    /// <exception cref="System.NotSupportedException">Cannot specify ON CONFLICT resolution on Invalid SQL starting with: " + dbCmd.CommandText.SubstringWithEllipsis(0, 50)</exception>
-    public static void OnConflict(this IDbCommand dbCmd, string conflictResolution)
-    {
-        var pos = dbCmd.CommandText?.IndexOf(' ') ?? -1;
-        if (pos == -1)
+        /// <summary>
+        /// Called when [conflict ignore].
+        /// </summary>
+        public void OnConflictIgnore()
         {
-            throw new NotSupportedException("Cannot specify ON CONFLICT resolution on Invalid SQL starting with: " + dbCmd.CommandText.SubstringWithEllipsis(0, 50));
+            dbCmd.OnConflict(ConflictResolution.Ignore);
         }
 
-        var sqlConflict = dbCmd.GetDialectProvider().SqlConflict(dbCmd.CommandText, conflictResolution);
-        dbCmd.CommandText = sqlConflict;
+        /// <summary>
+        /// Called when [conflict].
+        /// </summary>
+        /// <param name="conflictResolution">The conflict resolution.</param>
+        /// <exception cref="System.NotSupportedException">Cannot specify ON CONFLICT resolution on Invalid SQL starting with: " + dbCmd.CommandText.SubstringWithEllipsis(0, 50)</exception>
+        public void OnConflict(string conflictResolution)
+        {
+            var pos = dbCmd.CommandText?.IndexOf(' ') ?? -1;
+            if (pos == -1)
+            {
+                throw new NotSupportedException("Cannot specify ON CONFLICT resolution on Invalid SQL starting with: " + dbCmd.CommandText.SubstringWithEllipsis(0, 50));
+            }
+
+            var sqlConflict = dbCmd.GetDialectProvider().SqlConflict(dbCmd.CommandText, conflictResolution);
+            dbCmd.CommandText = sqlConflict;
+        }
     }
 }

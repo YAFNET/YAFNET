@@ -47,79 +47,79 @@ public interface ILogWithException : ILog
 /// </summary>
 public static class ILogWithExceptionExtensions
 {
-    /// <summary>
-    /// Logs a Debug format message and exception.
-    /// </summary>
     /// <param name="logger">The logger</param>
-    /// <param name="exception">Exception related to the event.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="args">The args.</param>
-    public static void Debug(this ILog logger, Exception exception, string format, params object[] args)
+    extension(ILog logger)
     {
-        if (logger is ILogWithException exceptionLogger)
+        /// <summary>
+        /// Logs a Debug format message and exception.
+        /// </summary>
+        /// <param name="exception">Exception related to the event.</param>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The args.</param>
+        public void Debug(Exception exception, string format, params object[] args)
         {
-            exceptionLogger.Debug(exception, format, args);
+            if (logger is ILogWithException exceptionLogger)
+            {
+                exceptionLogger.Debug(exception, format, args);
+            }
+            else
+            {
+                logger.Debug(string.Format(format, args), exception);
+            }
         }
-        else
-        {
-            logger.Debug(string.Format(format, args), exception);
-        }
-    }
 
-    /// <summary>
-    /// Logs an Info format message and exception.
-    /// </summary>
-    /// <param name="logger">The logger</param>
-    /// <param name="exception">Exception related to the event.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="args">The args.</param>
-    public static void Info(this ILog logger, Exception exception, string format, params object[] args)
-    {
-        if (logger is ILogWithException exceptionLogger)
+        /// <summary>
+        /// Logs an Info format message and exception.
+        /// </summary>
+        /// <param name="exception">Exception related to the event.</param>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The args.</param>
+        public void Info(Exception exception, string format, params object[] args)
         {
-            exceptionLogger.Info(exception, format, args);
+            if (logger is ILogWithException exceptionLogger)
+            {
+                exceptionLogger.Info(exception, format, args);
+            }
+            else
+            {
+                logger.Info(string.Format(format, args), exception);
+            }
         }
-        else
-        {
-            logger.Info(string.Format(format, args), exception);
-        }
-    }
 
-    /// <summary>
-    /// Logs a Warn format message and exception.
-    /// </summary>
-    /// <param name="logger">The logger</param>
-    /// <param name="exception">Exception related to the event.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="args">The args.</param>
-    public static void Warn(this ILog logger, Exception exception, string format, params object[] args)
-    {
-        if (logger is ILogWithException exceptionLogger)
+        /// <summary>
+        /// Logs a Warn format message and exception.
+        /// </summary>
+        /// <param name="exception">Exception related to the event.</param>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The args.</param>
+        public void Warn(Exception exception, string format, params object[] args)
         {
-            exceptionLogger.Warn(exception, format, args);
+            if (logger is ILogWithException exceptionLogger)
+            {
+                exceptionLogger.Warn(exception, format, args);
+            }
+            else
+            {
+                logger.Warn(string.Format(format, args), exception);
+            }
         }
-        else
-        {
-            logger.Warn(string.Format(format, args), exception);
-        }
-    }
 
-    /// <summary>
-    /// Logs an Error format message and exception.
-    /// </summary>
-    /// <param name="logger">The logger</param>
-    /// <param name="exception">Exception related to the event.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="args">The args.</param>
-    public static void Error(this ILog logger, Exception exception, string format, params object[] args)
-    {
-        if (logger is ILogWithException exceptionLogger)
+        /// <summary>
+        /// Logs an Error format message and exception.
+        /// </summary>
+        /// <param name="exception">Exception related to the event.</param>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The args.</param>
+        public void Error(Exception exception, string format, params object[] args)
         {
-            exceptionLogger.Error(exception, format, args);
-        }
-        else
-        {
-            logger.Error(string.Format(format, args), exception);
+            if (logger is ILogWithException exceptionLogger)
+            {
+                exceptionLogger.Error(exception, format, args);
+            }
+            else
+            {
+                logger.Error(string.Format(format, args), exception);
+            }
         }
     }
 }
