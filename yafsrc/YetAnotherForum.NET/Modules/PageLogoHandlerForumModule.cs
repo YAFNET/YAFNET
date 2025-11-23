@@ -73,6 +73,7 @@ public class PageLogoHandlerForumModule : SimpleBaseForumModule
         image.AlternateText = "logo";
         image.ImageUrl = logoUrl;
 
+        image.Attributes["loading"] = "lazy";
         image.Attributes["class"] = "my-3 img-fluid";
 
         if (!this.CurrentForumPage.ShowToolBar)

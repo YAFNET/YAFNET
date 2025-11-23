@@ -2211,7 +2211,7 @@
     <Content Include="error.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Gruntfile.js" />
-    <Content Include="Images\Avatars\SampleAvatar.gif" />
+    <Content Include="Images\Avatars\SampleAvatar.webp" />
     <Content Include="Images\Medals\award_star_bronze_3.png" />
     <Content Include="Images\Medals\award_star_bronze_3_small.png" />
     <Content Include="Images\Medals\award_star_gold_2.png" />
@@ -2256,8 +2256,8 @@
     <Content Include="Pages\Admin\DeleteForum.ascx" />
     <Content Include="Pages\Admin\SpamWords.ascx" />
     <Content Include="Dialogs\SpamWordsImport.ascx" />
-    <Content Include="Images\Categories\categoryImageSample.gif" />
-    <Content Include="Images\Forums\forumImageSample.gif" />
+    <Content Include="Images\Categories\categoryImageSample.webp" />
+    <Content Include="Images\Forums\forumImageSample.webp" />
     <Content Include="Install\BBCodeExtensions.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -3001,7 +3001,7 @@
     <PostBuildEvent>del *.dll.config
 del *.xml
 
-xcopy "$(SolutionDir)YAF.Data\YAF.Data.Sqlite\bin\Release\net481\x64\SQLite.Interop.dll" "$(OutputDir)" /y /f</PostBuildEvent>
+xcopy "$(SolutionDir)YAF.Data\YAF.Data.Sqlite\bin\Debug\net481\x64\SQLite.Interop.dll" "$(OutputDir)" /y /f</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup>

@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Helpers;
 
 using System;
@@ -66,7 +67,6 @@ public static class FileHelper
     /// <returns>
     /// The validate file name.
     /// </returns>
-    
     public static bool ValidateFileName(string fileName)
     {
         return FileNameValidator.IsMatch(fileName);
@@ -81,7 +81,6 @@ public static class FileHelper
     /// <returns>
     /// The clean file name.
     /// </returns>
-    
     public static string CleanFileName(string fileName)
     {
         return FileNameCleaner.Replace(fileName, string.Empty);
@@ -104,17 +103,17 @@ public static class FileHelper
         List<FileInfo> files,
         string folder)
     {
-       files.Where(
-            e => e.Extension.Equals(".png", StringComparison.InvariantCultureIgnoreCase)
-                 || e.Extension.Equals(".gif", StringComparison.InvariantCultureIgnoreCase)
-                 || e.Extension.Equals(".jpg", StringComparison.InvariantCultureIgnoreCase) || e.Extension.Equals(
-                     ".svg",
-                     StringComparison.InvariantCultureIgnoreCase)).ForEach(
-            f =>
-                {
-                    var item = new NamedParameter(f.Name, $"{BoardInfo.ForumClientFileRoot}{folder}/{f.Name}");
+        files.Where(e => e.Extension.Equals(".webp", StringComparison.InvariantCultureIgnoreCase)
+                         || e.Extension.Equals(".png", StringComparison.InvariantCultureIgnoreCase)
+                         || e.Extension.Equals(".gif", StringComparison.InvariantCultureIgnoreCase)
+                         || e.Extension.Equals(".jpg", StringComparison.InvariantCultureIgnoreCase) ||
+                         e.Extension.Equals(
+                             ".svg",
+                             StringComparison.InvariantCultureIgnoreCase)).ForEach(f =>
+        {
+            var item = new NamedParameter(f.Name, $"{BoardInfo.ForumClientFileRoot}{folder}/{f.Name}");
 
-                    list.Add(item);
-                });
+            list.Add(item);
+        });
     }
 }

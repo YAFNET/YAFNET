@@ -1078,13 +1078,13 @@
     <Content Include="Content\bootstrap\bootstrap.css">
       <DependentUpon>bootstrap.scss</DependentUpon>
     </Content>
-    <Content Include="Content\favicons\android-chrome-144x144.png" />
-    <Content Include="Content\favicons\apple-touch-icon.png" />
+    <Content Include="Content\favicons\android-chrome-144x144.webp" />
+    <Content Include="Content\favicons\apple-touch-icon.webp" />
     <Content Include="Content\favicons\browserconfig.xml" />
-    <Content Include="Content\favicons\favicon-16x16.png" />
-    <Content Include="Content\favicons\favicon-32x32.png" />
+    <Content Include="Content\favicons\favicon-16x16.webp" />
+    <Content Include="Content\favicons\favicon-32x32.webp" />
     <Content Include="Content\favicons\favicon.ico" />
-    <Content Include="Content\favicons\mstile-150x150.png" />
+    <Content Include="Content\favicons\mstile-150x150.webp" />
     <Content Include="Content\favicons\safari-pinned-tab.svg" />
     <Content Include="Content\flags\1x1\ac.svg" />
     <Content Include="Content\flags\1x1\ad.svg" />
@@ -2226,29 +2226,29 @@
     <Content Include="error.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Gruntfile.js" />
-    <Content Include="Images\Avatars\SampleAvatar.gif" />
-    <Content Include="Images\Medals\award_star_bronze_3.png" />
-    <Content Include="Images\Medals\award_star_bronze_3_small.png" />
-    <Content Include="Images\Medals\award_star_gold_2.png" />
-    <Content Include="Images\Medals\award_star_gold_2_small.png" />
-    <Content Include="Images\Medals\medal.png" />
-    <Content Include="Images\Medals\medal_bronze_1.png" />
-    <Content Include="Images\Medals\medal_bronze_1_small.png" />
-    <Content Include="Images\Medals\medal_bronze_2.png" />
-    <Content Include="Images\Medals\medal_bronze_2_small.png" />
-    <Content Include="Images\Medals\medal_bronze_3.png" />
-    <Content Include="Images\Medals\medal_bronze_3_small.png" />
-    <Content Include="Images\Medals\medal_gold_1.png" />
-    <Content Include="Images\Medals\medal_gold_1_small.png" />
-    <Content Include="Images\Medals\medal_gold_2.png" />
-    <Content Include="Images\Medals\medal_gold_2_small.png" />
-    <Content Include="Images\Medals\medal_gold_3.png" />
-    <Content Include="Images\Medals\medal_gold_3_small.png" />
-    <Content Include="Images\Medals\medal_silver_1.png" />
-    <Content Include="Images\Medals\medal_silver_1_small.png" />
-    <Content Include="Images\Medals\medal_silver_2.png" />
-    <Content Include="Images\Medals\medal_silver_2_small.png" />
-    <Content Include="Images\Medals\medal_small.png" />
+    <Content Include="Images\Avatars\SampleAvatar.webp" />
+    <Content Include="Images\Medals\award_star_bronze_3.webp" />
+    <Content Include="Images\Medals\award_star_bronze_3_small.webp" />
+    <Content Include="Images\Medals\award_star_gold_2.webp" />
+    <Content Include="Images\Medals\award_star_gold_2_small.webp" />
+    <Content Include="Images\Medals\medal.webp" />
+    <Content Include="Images\Medals\medal_bronze_1.webp" />
+    <Content Include="Images\Medals\medal_bronze_1_small.webp" />
+    <Content Include="Images\Medals\medal_bronze_2.webp" />
+    <Content Include="Images\Medals\medal_bronze_2_small.webp" />
+    <Content Include="Images\Medals\medal_bronze_3.webp" />
+    <Content Include="Images\Medals\medal_bronze_3_small.webp" />
+    <Content Include="Images\Medals\medal_gold_1.webp" />
+    <Content Include="Images\Medals\medal_gold_1_small.webp" />
+    <Content Include="Images\Medals\medal_gold_2.webp" />
+    <Content Include="Images\Medals\medal_gold_2_small.webp" />
+    <Content Include="Images\Medals\medal_gold_3.webp" />
+    <Content Include="Images\Medals\medal_gold_3_small.webp" />
+    <Content Include="Images\Medals\medal_silver_1.webp" />
+    <Content Include="Images\Medals\medal_silver_1_small.webp" />
+    <Content Include="Images\Medals\medal_silver_2.webp" />
+    <Content Include="Images\Medals\medal_silver_2_small.webp" />
+    <Content Include="Images\Medals\medal_small.webp" />
     <Content Include="Images\Logos\YAFLogo.svg" />
     <Content Include="Install\mssql\upgrade\identity\upgrade.sql" />
     <Content Include="Install\SpamWords.xml" />
@@ -2271,8 +2271,8 @@
     <Content Include="Pages\Admin\DeleteForum.ascx" />
     <Content Include="Pages\Admin\SpamWords.ascx" />
     <Content Include="Dialogs\SpamWordsImport.ascx" />
-    <Content Include="Images\Categories\categoryImageSample.gif" />
-    <Content Include="Images\Forums\forumImageSample.gif" />
+    <Content Include="Images\Categories\categoryImageSample.webp" />
+    <Content Include="Images\Forums\forumImageSample.webp" />
     <Content Include="Install\BBCodeExtensions.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -3007,6 +3007,7 @@
   <!--Visual Studio 2022-->
   <PropertyGroup Condition="'$(VisualStudioVersion)' == '17.0'">
     <VisualStudioVersion>17.0</VisualStudioVersion>
+	<VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>YetAnotherForum.NET.snk</AssemblyOriginatorKeyFile>
@@ -3019,7 +3020,7 @@
     <PostBuildEvent>del *.dll.config
 del *.xml</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup>
     <Extension>zip</Extension>
     <PackageName>YAF</PackageName>

@@ -1,6 +1,7 @@
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
+using System.Data.Common;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs

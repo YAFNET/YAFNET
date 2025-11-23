@@ -156,6 +156,7 @@
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.asax" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.png" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.webp" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.gif" />
 	  <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.json" Exclude="$(MSBuildProjectDirectory)\Content\themes\**\*.*;$(MSBuildProjectDirectory)\node_modules\**;$(MSBuildProjectDirectory)\**\package.json;$(MSBuildProjectDirectory)\**\package-lock.json;$(MSBuildProjectDirectory)\**\tsconfig.json" />
     </ItemGroup>
