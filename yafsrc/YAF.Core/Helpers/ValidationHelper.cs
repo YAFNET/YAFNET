@@ -84,6 +84,18 @@ public static class ValidationHelper
     }
 
     /// <summary>
+    /// Check if String is a Number
+    /// </summary>
+    /// <param name="valueToCheck">The value to check.</param>
+    /// <returns>
+    /// Returns indicating whether the value is a valid Number
+    /// </returns>
+    public static bool IsNumeric(string valueToCheck)
+    {
+        return double.TryParse(valueToCheck, System.Globalization.NumberStyles.Any, null, out var dummy);
+    }
+
+    /// <summary>
     /// Checks if string is an valid integer
     /// </summary>
     /// <param name="input">
@@ -95,18 +107,6 @@ public static class ValidationHelper
     public static bool IsValidInt(string input)
     {
         return int.TryParse(input, out _);
-    }
-
-    /// <summary>
-    /// Check if String is a Number
-    /// </summary>
-    /// <param name="valueToCheck">The value to check.</param>
-    /// <returns>
-    /// Returns indicating whether the value is a valid Number
-    /// </returns>
-    public static bool IsNumeric(string valueToCheck)
-    {
-        return double.TryParse(valueToCheck, System.Globalization.NumberStyles.Any, null, out var dummy);
     }
 
     /// <summary>

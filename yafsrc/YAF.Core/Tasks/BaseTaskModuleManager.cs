@@ -46,13 +46,11 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// <summary>
     ///     All the names of tasks running.
     /// </summary>
-    
     public virtual IList<string> TaskManagerInstances => taskManager.Keys.ToList();
 
     /// <summary>
     ///     Gets TaskManagerSnapshot.
     /// </summary>
-    
     public virtual IDictionary<string, IBackgroundTask> TaskManagerSnapshot => taskManager.ToDictionary(k => k.Key, v => v.Value);
 
     /// <summary>

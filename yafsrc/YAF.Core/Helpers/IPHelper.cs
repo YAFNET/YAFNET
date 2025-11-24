@@ -96,11 +96,6 @@ public static class IPHelper
                 return address.ToString();
             }
 
-            // to find by host name - is not in use so far (does not work properly via rDNSing a host from it's IPv6 to IPv4).
-            // address = Dns.GetHostAddresses(Dns.GetHostName())
-            //     .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork);
-
-
             // return localhost if no IP address found or detected (prevents server IP from being listed as user IP
             // we should never get here -- connections to server ALWAYS return some form of remote IP address
             return "127.0.0.1";

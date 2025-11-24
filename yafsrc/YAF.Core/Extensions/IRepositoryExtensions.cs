@@ -195,44 +195,6 @@ public static class IRepositoryExtensions
     }
 
     /// <summary>
-    /// Update or Insert entity.
-    /// </summary>
-    /// <typeparam name="T">
-    /// The type parameter.
-    /// </typeparam>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="entity">
-    /// The entity.
-    /// </param>
-    /// <returns>
-    /// The <see cref="bool"/> .
-    /// </returns>
-    public static int Upsert<T>(
-        this IRepository<T> repository,
-        T entity)
-        where T : class, IEntity, IHaveID, new()
-    {
-        var newId = entity.ID;
-
-        if (entity.ID > 0)
-        {
-            repository.Update(entity);
-
-            repository.FireUpdated(entity.ID);
-        }
-        else
-        {
-            newId = repository.Insert(entity);
-
-            repository.FireNew(newId);
-        }
-
-        return newId;
-    }
-
-    /// <summary>
     /// The update.
     /// </summary>
     /// <param name="repository">
@@ -295,6 +257,44 @@ public static class IRepositoryExtensions
         where T : class, IEntity, IHaveID, new()
     {
         return repository.DbAccess.UpdateAdd(updateFields, where, commandFilter);
+    }
+
+    /// <summary>
+    /// Update or Insert entity.
+    /// </summary>
+    /// <typeparam name="T">
+    /// The type parameter.
+    /// </typeparam>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="entity">
+    /// The entity.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/> .
+    /// </returns>
+    public static int Upsert<T>(
+        this IRepository<T> repository,
+        T entity)
+        where T : class, IEntity, IHaveID, new()
+    {
+        var newId = entity.ID;
+
+        if (entity.ID > 0)
+        {
+            repository.Update(entity);
+
+            repository.FireUpdated(entity.ID);
+        }
+        else
+        {
+            newId = repository.Insert(entity);
+
+            repository.FireNew(newId);
+        }
+
+        return newId;
     }
 
     /// <summary>

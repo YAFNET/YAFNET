@@ -214,7 +214,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// </param>
     public void InjectMarked<TAttribute>(object instance) where TAttribute : Attribute
     {
-        // Container.InjectUnsetProperties(instance);
         var type = instance.GetType();
         var attributeType = typeof(TAttribute);
 

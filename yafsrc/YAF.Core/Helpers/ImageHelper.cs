@@ -46,7 +46,7 @@ public static class ImageHelper
     /// The image height.
     /// </param>
     /// <returns>
-    /// A resized image stream Stream.
+    /// A resized image stream.
     /// </returns>
     public static Stream GetResizedImageStreamFromImage(Image img, long x, long y)
     {
@@ -64,7 +64,6 @@ public static class ImageHelper
             newHeight = y;
         }
 
-        // TODO : Save an Animated Gif
         var bitmap = img.GetThumbnailImage((int)newWidth, (int)newHeight, null, IntPtr.Zero);
 
         var resized = new MemoryStream();

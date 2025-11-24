@@ -210,20 +210,6 @@ public class Localization : ILocalization
     }
 
     /// <summary>
-    /// Gets the attribute encoded text.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <returns>
-    /// The get text.
-    /// </returns>
-    public string GetAttributeText(string text)
-    {
-        return HttpUtility.HtmlAttributeEncode(this.GetText(text));
-    }
-
-    /// <summary>
     /// Gets the localized text
     /// </summary>
     /// <param name="page">The page.</param>
@@ -278,6 +264,20 @@ public class Localization : ILocalization
         localizedText = localizedText.Replace("[/noparse]", string.Empty);
 
         return localizedText;
+    }
+
+    /// <summary>
+    /// Gets the attribute encoded text.
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <returns>
+    /// The get text.
+    /// </returns>
+    public string GetAttributeText(string text)
+    {
+        return HttpUtility.HtmlAttributeEncode(this.GetText(text));
     }
 
     /// <summary>

@@ -15,8 +15,8 @@ We have a preliminary documentation on the [Github Wiki](https://github.com/YAFN
 
 ## Prerequisites:
 * ASP.NET .NET Framework 4.8.1 (YAF v3.2.x)
-* ASP.NET Core 8.0 (YAF v4.x)
-* BuildPackages requires .NET v8
+* ASP.NET Core 10.0 (YAF v4.x)
+* BuildPackages requires .NET v10
 
 ## Source 
 * The [netfx branch](https://github.com/YAFNET/YAFNET/tree/netfx) contains the current Stable YAF 3.2.x Release
@@ -35,14 +35,14 @@ YAF v3.x.x is also available as a DNN Module, you can download it on the [GitHub
 
 ### Screen Shots
 
-![mainscreen](https://yetanotherforum.net/images/main.png)
+![mainscreen](https://yetanotherforum.net/images/main.webp)
 
-![forumsscreen](https://yetanotherforum.net/images/forum.png)
+![forumsscreen](https://yetanotherforum.net/images/forum.webp)
 
-![topicsscreen](https://yetanotherforum.net/images/topic.png)
+![topicsscreen](https://yetanotherforum.net/images/topic.webp)
 
 Admin Control Panel
-![adminpanel](https://yetanotherforum.net/images/admin.png)
+![adminpanel](https://yetanotherforum.net/images/admin.webp)
 
 ## Community Support Forum
 
