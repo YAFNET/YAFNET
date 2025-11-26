@@ -510,4 +510,9 @@ public static class TypeExtensions
     {
         return value;
     }
+
+    public static bool IsRefStruct(this Type type)
+    {
+        return type.IsByRefLike;
+    }
 }

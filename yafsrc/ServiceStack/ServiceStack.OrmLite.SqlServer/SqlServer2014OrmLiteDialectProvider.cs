@@ -331,8 +331,6 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
             sbConstraints.Append(",\n" + uniqueConstraints);
         }
 
-        // TODO
-
         var sql = $"CREATE TABLE {this.GetQuotedTableName(modelDef)} ";
         sql += fileTableAttrib != null
                    ? $"\n AS FILETABLE{StringBuilderCache.ReturnAndFree(sbTableOptions)};"
