@@ -277,6 +277,8 @@ public static class UserLinkHtmlHelper
 
         var status = new TagBuilder(HtmlTag.Span);
 
+        status.MergeAttribute("data-bs-toggle", "tooltip");
+
         if (suspended.HasValue)
         {
             // suspended
@@ -284,7 +286,6 @@ public static class UserLinkHtmlHelper
             status.MergeAttribute(
                 HtmlAttribute.Title,
                 context.Get<ILocalization>().GetTextFormatted("USERSUSPENDED", suspended.Value));
-            status.MergeAttribute("data-bs-toggle", "tooltip");
         }
         else
         {
@@ -300,8 +301,6 @@ public static class UserLinkHtmlHelper
                 status.AddCssClass("align-middle text-danger user-offline me-1");
                 status.MergeAttribute("data-bs-title", context.Get<ILocalization>().GetText("USEROFFLINESTATUS"));
             }
-
-            status.MergeAttribute("data-bs-toggle", "tooltip");
         }
 
         var icon = new TagBuilder(HtmlTag.I);

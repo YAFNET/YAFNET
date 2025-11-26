@@ -223,6 +223,12 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
 
         cssClass.Append(actionClass);
 
+        // add unique id if not exists
+        if (!output.Attributes.ContainsName("id"))
+        {
+            output.Attributes.SetAttribute("id", context.UniqueId);
+        }
+
         if (output.Attributes.ContainsName("class"))
         {
             cssClass.Append($" {output.Attributes[HtmlAttribute.Class].Value}");
