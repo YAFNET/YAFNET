@@ -21,7 +21,7 @@
     "grunt-replace": "^2.0.2",
     "grunt-sass": "^4.0.1",
     "grunt-shell": "^4.0.0",
-    "grunt-webpack": "^7.0.0",
+    "grunt-webpack": "^7.0.1",
     "grunt-zip": "^1.0.0",
     "postcss": "^8.5.6",
     "sass": "^1.94.2",
@@ -29,7 +29,7 @@
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.4",
     "typescript": "^5.9.3",
-    "webpack": "^5.102.1",
+    "webpack": "^5.103.0",
     "webpack-cli": "^6.0.1",
     "webpack-merge": "^6.0.1"
   },
