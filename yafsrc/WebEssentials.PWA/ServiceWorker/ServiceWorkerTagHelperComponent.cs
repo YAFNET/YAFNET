@@ -10,11 +10,11 @@ namespace WebEssentials.AspNetCore.Pwa;
 
 internal class ServiceWorkerTagHelperComponent : TagHelperComponent
 {
-    private string _script;
+    private readonly string _script;
 
-    private IWebHostEnvironment _env;
-    private IHttpContextAccessor _accessor;
-    private PwaOptions _options;
+    private readonly IWebHostEnvironment _env;
+    private readonly IHttpContextAccessor _accessor;
+    private readonly PwaOptions _options;
 
     public ServiceWorkerTagHelperComponent(IWebHostEnvironment env, IHttpContextAccessor accessor, PwaOptions options)
     {

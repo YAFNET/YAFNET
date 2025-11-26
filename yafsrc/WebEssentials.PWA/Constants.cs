@@ -3,7 +3,7 @@
 /// <summary>
 /// PWA related constants
 /// </summary>
-public class Constants
+public static class Constants
 {
     /// <summary>
     /// The serviceworker route

@@ -52,7 +52,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// <summary>
     /// Gets the Current YAF Database Version
     /// </summary>
-    public int AppVersion { get; set; } = 1002;
+    public int AppVersion { get; set; } = 1003;
 
     /// <summary>
     /// Gets the Current YAF Build Date

@@ -3,18 +3,10 @@
   <PropertyGroup>
     <TargetFrameworks>net10.0</TargetFrameworks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\WebEssentials.AspNetCore.Pwa.xml</DocumentationFile>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageTags>asp.net, performance, speed, cache, caching</PackageTags>
     <Version>1.0.0</Version>
     <Authors>Mads Kristensen</Authors>
     <Description>Service worker and Web App Manifest support for ASP.NET Core projects that provides offline support as well as client-side caching.</Description>
     <Copyright>Copyright © Mads Kristensen</Copyright>
-    <PackageId>WebEssentials.AspNetCore.PWA</PackageId>
-    <Product>WebEssentials.AspNetCore.PWA</Product>
-    <PackageIconUrl>https://raw.githubusercontent.com/madskristensen/WebEssentials.AspNetCore.ServiceWorker/master/art/logo.png</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/madskristensen/WebEssentials.AspNetCore.ServiceWorker</PackageProjectUrl>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/madskristensen/WebEssentials.AspNetCore.ServiceWorker</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +20,10 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="HtmlProperties" Version="1.0.0" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.15.0.120848">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

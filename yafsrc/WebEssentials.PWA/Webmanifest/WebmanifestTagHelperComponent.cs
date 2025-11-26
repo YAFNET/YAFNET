@@ -4,13 +4,12 @@ using HtmlProperties;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.Extensions.Options;
 
 namespace WebEssentials.AspNetCore.Pwa
 {
     internal class WebmanifestTagHelperComponent : TagHelperComponent
     {
-        private PwaOptions _options;
+        private readonly PwaOptions _options;
         private readonly IServiceProvider _serviceProvider;
 
         public WebmanifestTagHelperComponent(PwaOptions options, IServiceProvider serviceProvider)

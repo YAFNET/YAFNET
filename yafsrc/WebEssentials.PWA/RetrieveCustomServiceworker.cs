@@ -11,6 +11,10 @@ public class RetrieveCustomServiceworker
 {
     private readonly IWebHostEnvironment _env;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RetrieveCustomServiceworker"/> class.
+    /// </summary>
+    /// <param name="env">The env.</param>
     public RetrieveCustomServiceworker(IWebHostEnvironment env)
     {
         this._env = env;

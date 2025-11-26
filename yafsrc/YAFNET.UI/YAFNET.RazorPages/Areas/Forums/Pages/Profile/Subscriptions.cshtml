@@ -35,12 +35,12 @@
 
 									<h6 class="card-subtitle mb-2 text-body-secondary">@Html.LocalizedText("SUBSCRIPTIONS", "ACTIVE_SUBSCRIPTIONS")</h6>
 									<ul class="list-group" id="activeSubscriptions">
-										@foreach (var sub in Model.DeviceSubscriptions)
+										@foreach (var agent in Model.DeviceSubscriptions.Select(sub => sub.UserAgent))
 										{
-											var info = await parser.ParseAsync(sub.UserAgent);
+											var info = await parser.ParseAsync(agent);
 											var active = "";
 
-											if (sub.UserAgent == this.HttpContext.Request.Headers.UserAgent.ToString())
+											if (agent == this.HttpContext.Request.Headers.UserAgent.ToString())
 											{
 												active = " active";
 											}

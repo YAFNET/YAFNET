@@ -53,7 +53,7 @@ public class AvatarController : ForumBaseController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [OutputCache(Duration = int.MaxValue)]
     [HttpGet("GetTextAvatar")]
-    public FileStreamResult GetTextAvatar(int userId)
+    public ActionResult GetTextAvatar(int userId)
     {
         try
         {
@@ -62,7 +62,7 @@ public class AvatarController : ForumBaseController
 
             if (user == null)
             {
-                return null;
+                return this.NotFound();
             }
 
             var name = new UnicodeEncoder().XSSEncode(user.DisplayOrUserName());
@@ -113,7 +113,7 @@ public class AvatarController : ForumBaseController
                     $"Exception: {x}",
                     EventLogTypes.Information);
 
-            return null;
+            return this.NotFound();
         }
     }
 
@@ -127,7 +127,7 @@ public class AvatarController : ForumBaseController
     /// The <see cref="FileStreamResult"/>.
     /// </returns>
     [HttpGet("GetResponseLocalAvatar")]
-    public FileStreamResult GetResponseLocalAvatar(int userId)
+    public ActionResult GetResponseLocalAvatar(int userId)
     {
         try
         {
@@ -136,7 +136,7 @@ public class AvatarController : ForumBaseController
 
             if (user == null)
             {
-                return null;
+                return this.NotFound();
             }
 
             var data = user.AvatarImage;
@@ -159,7 +159,7 @@ public class AvatarController : ForumBaseController
                     $"Exception: {x}",
                     EventLogTypes.Information);
 
-            return null;
+            return this.NotFound();
         }
     }
 }
