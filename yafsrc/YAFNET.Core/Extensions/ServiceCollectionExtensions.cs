@@ -155,9 +155,9 @@ public static class ServiceCollectionExtensionsExtensions
             // VAPID Configuration
             services.Configure<VapidConfiguration>(configuration.GetSection("VapidConfiguration"));
 
-            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>().AddScoped(
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>().AddScoped(
                 x => x.GetRequiredService<IUrlHelperFactory>()
-                    .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));
+                    .GetUrlHelper(x.GetRequiredService<IHttpContextAccessor>().HttpContext.GetActionContext()));
 
             services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
