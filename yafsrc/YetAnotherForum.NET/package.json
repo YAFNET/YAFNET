@@ -43,7 +43,7 @@
     "@w8tcha/bootstrap-notify": "^5.0.2",
     "@w8tcha/bs5-lightbox": "^1.8.6",
     "@w8tcha/dark-editable": "^2.1.6",
-    "@yafnet/sceditor": "^3.2.14",
+    "@yafnet/sceditor": "^3.2.15",
     "bootstrap": "^5.3.8",
     "bootswatch": "^5.3.8",
     "chart.js": "^4.5.1",
