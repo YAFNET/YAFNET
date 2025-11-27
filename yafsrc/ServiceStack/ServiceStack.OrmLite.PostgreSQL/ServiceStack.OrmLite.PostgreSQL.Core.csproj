@@ -16,7 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ServiceStack.OrmLite\ServiceStack.OrmLite.Core.csproj" />
     <PackageReference Include="Npgsql" Version="10.0.0" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.15.0.120848">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.16.0.128591">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
