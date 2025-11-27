@@ -1,50 +1,41 @@
 {
   "runtimeTarget": {
-    "name": ".NETCoreApp,Version=v9.0",
+    "name": ".NETCoreApp,Version=v10.0",
     "signature": ""
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v9.0": {
-      "YAFNET.LanguageManager/1.0.7": {
+    ".NETCoreApp,Version=v10.0": {
+      "YAFNET.LanguageManager/1.0.8": {
         "dependencies": {
-          "Newtonsoft.Json": "13.0.3",
-          "SonarAnalyzer.CSharp": "10.15.0.120848"
+          "Newtonsoft.Json": "13.0.4"
         },
         "runtime": {
           "YAFNET.LanguageManager.dll": {}
         }
       },
-      "Newtonsoft.Json/13.0.3": {
+      "Newtonsoft.Json/13.0.4": {
         "runtime": {
           "lib/net6.0/Newtonsoft.Json.dll": {
             "assemblyVersion": "13.0.0.0",
-            "fileVersion": "13.0.3.27908"
+            "fileVersion": "13.0.4.30916"
           }
         }
-      },
-      "SonarAnalyzer.CSharp/10.15.0.120848": {}
+      }
     }
   },
   "libraries": {
-    "YAFNET.LanguageManager/1.0.7": {
+    "YAFNET.LanguageManager/1.0.8": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Newtonsoft.Json/13.0.3": {
+    "Newtonsoft.Json/13.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
-      "path": "newtonsoft.json/13.0.3",
-      "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
-    },
-    "SonarAnalyzer.CSharp/10.15.0.120848": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-1hM3HVRl5jdC/ZBDu+G7CCYLXRGe/QaP01Zy+c9ETPhY7lWD8g8HiefY6sGaH0T3CJ4wAy0/waGgQTh0TYy0oQ==",
-      "path": "sonaranalyzer.csharp/10.15.0.120848",
-      "hashPath": "sonaranalyzer.csharp.10.15.0.120848.nupkg.sha512"
+      "sha512": "sha512-pdgNNMai3zv51W5aq268sujXUyx7SNdE2bj1wZcWjAQrKMFZV260lbqYop1d2GM67JI1huLRwxo9ZqnfF/lC6A==",
+      "path": "newtonsoft.json/13.0.4",
+      "hashPath": "newtonsoft.json.13.0.4.nupkg.sha512"
     }
   }
 }
