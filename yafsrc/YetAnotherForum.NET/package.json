@@ -17,9 +17,10 @@
 		"grunt-replace": "^2.0.2",
 		"grunt-sass": "^4.0.1",
 		"grunt-shell": "^4.0.0",
-		"grunt-webpack": "^7.0.0",
+		"grunt-webpack": "^7.0.1",
 		"postcss": "^8.5.6",
 		"sass": "^1.94.2",
+		"simple-webp-converter": "^1.0.3",
 		"terser-webpack-plugin": "^5.3.14",
 		"ts-loader": "^9.5.4",
 		"typescript": "^5.9.3",
@@ -34,7 +35,7 @@
 		"@w8tcha/bootstrap-notify": "^5.0.2",
 		"@w8tcha/bs5-lightbox": "^1.8.6",
 		"@w8tcha/dark-editable": "^2.1.6",
-		"@yafnet/sceditor": "^3.2.14",
+		"@yafnet/sceditor": "^3.2.15",
 		"bootstrap": "^5.3.8",
 		"bootswatch": "^5.3.8",
 		"choices.js": "^11.1.0",
@@ -45,6 +46,10 @@
 	},
 	"scripts": {
 		"build": "grunt",
-		"build-codemirror": "webpack"
+		"build-codemirror": "webpack",
+		"webp": "simple-webp-converter"
+	},
+	"simple-webp-converter": {
+		"src": "Images/**/*.{png,jpg,gif}"
 	}
 }
