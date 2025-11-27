@@ -47,9 +47,9 @@ public class AvatarController : ForumBaseController
     /// The user id.
     /// </param>
     /// <returns>
-    /// The <see cref="FileStreamResult"/>.
+    /// The <see cref="ActionResult"/>.
     /// </returns>
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [OutputCache(Duration = int.MaxValue)]
     [HttpGet("GetTextAvatar")]
@@ -124,7 +124,7 @@ public class AvatarController : ForumBaseController
     /// The User Id.
     /// </param>
     /// <returns>
-    /// The <see cref="FileStreamResult"/>.
+    /// The <see cref="ActionResult"/>.
     /// </returns>
     [HttpGet("GetResponseLocalAvatar")]
     public ActionResult GetResponseLocalAvatar(int userId)

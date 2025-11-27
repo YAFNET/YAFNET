@@ -51,7 +51,7 @@ public class Attachments : ForumBaseController
     /// <param name="attachmentId">The attachment identifier.</param>
     /// <param name="editor">if set to <c>true</c> [editor].</param>
     /// <returns>ActionResult.</returns>
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetAttachment")]
     public async Task<ActionResult> GetAttachment(int attachmentId, bool editor = false)
@@ -140,7 +140,7 @@ public class Attachments : ForumBaseController
     /// <param name="attachmentId">The attachment identifier.</param>
     /// <param name="editor">if set to <c>true</c> [editor].</param>
     /// <returns>ActionResult.</returns>
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetResponseAttachment")]
     public async Task<ActionResult> GetResponseAttachment(int attachmentId, bool editor = false)

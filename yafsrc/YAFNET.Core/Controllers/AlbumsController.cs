@@ -52,7 +52,7 @@ public class Albums : ForumBaseController
     /// <param name="imageId">The image identifier.</param>
     /// <returns>The album image</returns>
     [Produces("image/png")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetImage")]
     public async Task<ActionResult> GetImage(int imageId)
@@ -107,7 +107,7 @@ public class Albums : ForumBaseController
     /// <param name="imageId">The image identifier.</param>
     /// <returns>The album image preview</returns>
     [Produces("image/png")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetImagePreview")]
     public async Task<ActionResult> GetImagePreview(int imageId)
@@ -153,7 +153,7 @@ public class Albums : ForumBaseController
     /// <param name="coverId">The cover identifier.</param>
     /// <returns>The Album Cover Image</returns>
     [Produces("image/png")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetAlbumCover")]
     public async Task<ActionResult> GetAlbumCover(int albumId, int coverId)

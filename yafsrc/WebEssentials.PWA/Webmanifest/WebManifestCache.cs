@@ -31,14 +31,9 @@ internal class WebManifestCache
 
             var manifest = JsonSerializer.Deserialize<WebManifest>(json);
             manifest.FileName = this._fileName;
-            manifest.RawJson = Regex.Replace(json, "(\"(?:[^\"\\\\]|\\\\.)*\")|\\s+", "$1");
+            manifest.RawJson = Regex.Replace(json, "(\"(?:[^\"\\\\]|\\\\.)*\")|\\s+", "$1", RegexOptions.NonBacktracking);
 
-            if (!manifest.IsValid(out var error))
-            {
-                throw new JsonException(error);
-            }
-
-            return manifest;
+            return !manifest.IsValid(out var error) ? throw new JsonException(error) : manifest;
         });
     }
 }

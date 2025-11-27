@@ -44,7 +44,7 @@ public class Feed : ForumBaseController
     /// </summary>
     /// <returns>ActionResult.</returns>
     [Produces("application/rss+xml")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetLatestPosts")]
     public async Task<ActionResult> GetLatestPosts()
@@ -86,7 +86,7 @@ public class Feed : ForumBaseController
     /// <param name="f">The forum identifier.</param>
     /// <returns>ActionResult.</returns>
     [Produces("application/rss+xml")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetTopicsFeed")]
     public async Task<ActionResult> GetTopicsFeed(int f)
@@ -127,7 +127,7 @@ public class Feed : ForumBaseController
     /// <param name="t">The topic identifier.</param>
     /// <returns>ActionResult.</returns>
     [Produces("application/rss+xml")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetPostsFeed")]
     public async Task<ActionResult> GetPostsFeed(int t)
