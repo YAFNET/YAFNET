@@ -18,20 +18,23 @@
                         {
                             <li class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">
-                                        @(task.Key)
-                                    </h5>
-                                    <small class="d-none d-md-block">
+	                                <h5 class="mb-1">
+		                                @(task.TaskName)
+	                                </h5>
+	                                <small class="d-none d-md-block">
                                         @Html.LocalizedText("ADMIN_TASKMANAGER","DURATION"):
-                                        @(Model.FormatTimeSpan(task.Value.Started))
+                                        @(Model.FormatTimeSpan(task.Started))
                                     </small>
                                 </div>
                                 <p class="mb-1">
-                                    @Html.LocalizedText("ADMIN_TASKMANAGER","RUNNING"): 
-                                    <span class="@(Model.GetItemColor(task.Value.IsRunning))">
-                                        @(Model.GetItemName(task.Value.IsRunning))
-                                    </span>
+	                               @task.TaskDescription
                                 </p>
+                                <small>
+	                                @Html.LocalizedText("ADMIN_TASKMANAGER", "RUNNING"):
+	                                <span class="@(Model.GetItemColor(task.IsRunning))">
+		                                @(Model.GetItemName(task.IsRunning))
+	                                </span>
+                                </small>
                             </li>
                         }
                     </ul>

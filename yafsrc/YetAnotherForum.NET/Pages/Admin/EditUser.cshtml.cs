@@ -41,11 +41,6 @@ using YAF.Types.Models.Identity;
 public class EditUserModel : AdminPage
 {
     /// <summary>
-    /// The current culture information
-    /// </summary>
-    private CultureInfo currentCultureInfo;
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="EditUserModel"/> class.
     /// </summary>
     public EditUserModel()
@@ -82,16 +77,16 @@ public class EditUserModel : AdminPage
     /// </value>
     public CultureInfo CurrentCultureInfo {
         get {
-            if (this.currentCultureInfo != null)
+            if (field != null)
             {
-                return this.currentCultureInfo;
+                return field;
             }
 
-            this.currentCultureInfo = CultureInfoHelper.GetCultureByUser(
+            field = CultureInfoHelper.GetCultureByUser(
                 this.PageBoardContext.BoardSettings,
                 this.EditUser.Item1);
 
-            return this.currentCultureInfo;
+            return field;
         }
     }
 

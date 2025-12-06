@@ -6500,6 +6500,10 @@
           {
             "@tag": "USAGES",
             "#text": "שימושים:"
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "למחוק תג?"
           }
         ]
       },
@@ -14069,12 +14073,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "מנויים פעילים"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "התראה עבור [b]כל הפוסטים בכל הנושאים[/b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ אפליקציה מותקנת! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ דפדפן זה אינו תומך בהתראות"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "לחץ על הכפתור כדי להפעיל התראות"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "מקבלים פעם אחת תקציר/סיכום פעילות?"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "הפעל התראות"
           },
           {
             "@tag": "FORUM",
@@ -14085,6 +14109,10 @@
             "#text": "פורומים"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "הודעה אחרונה"
           },
@@ -14093,20 +14121,76 @@
             "#text": "{0} ע\"י {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[ב]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "כבה התראות"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ הודעות חסומות. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ הודעות חסומות. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "בחר העדפת התראות באימייל:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ הרשאה נדחתה. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ הרשאה נדחתה. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ ההרשאה נדחתה. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ ניתנה רשות! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "הודעות דחיפה של מכשיר (דפדפן)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "הוסף למסך הבית"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "הוסף את האפליקציה הזו למסך הבית שלך לגישה מהירה ולחוויה הטובה ביותר!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "תגובות"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "הגדרות דואר אלקטרוני של הודעות עודכנו"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "עצור התראות"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ הודעות דחיפה הופסקו. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ נרשם להודעות דחיפה בהצלחה!"
           },
           {
             "@tag": "TITLE",
@@ -14143,86 +14227,6 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "עליך לבחור קודם דיונים על מנת לבטל את הרישום עליהם."
-          },
-          {
-            "@tag": "ACTIVE_SUBSCRIPTIONS",
-            "#text": "מנויים פעילים"
-          },
-          {
-            "@tag": "APPINSTALLED",
-            "#text": "✅ אפליקציה מותקנת! "
-          },
-          {
-            "@tag": "BROWSERNOTSUPPORTED",
-            "#text": "❌ דפדפן זה אינו תומך בהתראות"
-          },
-          {
-            "@tag": "CLICK_ENABLE",
-            "#text": "לחץ על הכפתור כדי להפעיל התראות"
-          },
-          {
-            "@tag": "ENABLE_NOTIFICATIONS",
-            "#text": "הפעל התראות"
-          },
-          {
-            "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
-          },
-          {
-            "@tag": "MOBILE_INSTRUCTIONS",
-            "#text": "[ב]"
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKED",
-            "#text": "❌ הודעות חסומות. "
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
-            "#text": "❌ הודעות חסומות. "
-          },
-          {
-            "@tag": "PERMISSIONDENIED",
-            "#text": "❌ הרשאה נדחתה. "
-          },
-          {
-            "@tag": "PERMISSIONDENIEDMOBILE",
-            "#text": "❌ הרשאה נדחתה. "
-          },
-          {
-            "@tag": "PERMISSIONDISMISSED",
-            "#text": "⚠️ ההרשאה נדחתה. "
-          },
-          {
-            "@tag": "PERMISSIONGRANTED",
-            "#text": "✅ ניתנה רשות! "
-          },
-          {
-            "@tag": "PUSH_NOTIFICATIONS",
-            "#text": "הודעות דחיפה של מכשיר (דפדפן)."
-          },
-          {
-            "@tag": "PWA_INSTALL",
-            "#text": "הוסף למסך הבית"
-          },
-          {
-            "@tag": "PWA_INSTALL_TITLE",
-            "#text": "הוסף את האפליקציה הזו למסך הבית שלך לגישה מהירה ולחוויה הטובה ביותר!"
-          },
-          {
-            "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
-          },
-          {
-            "@tag": "STOP_NOTIFICATIONS",
-            "#text": "עצור התראות"
-          },
-          {
-            "@tag": "STOPPED",
-            "#text": "ℹ️ הודעות דחיפה הופסקו. "
-          },
-          {
-            "@tag": "SUBSCRIBED",
-            "#text": "✅ נרשם להודעות דחיפה בהצלחה!"
           }
         ]
       },

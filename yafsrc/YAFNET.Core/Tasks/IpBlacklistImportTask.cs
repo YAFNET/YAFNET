@@ -48,9 +48,20 @@ public class IpBlacklistImportTask : LongBackgroundTask
     }
 
     /// <summary>
-    ///   Gets TaskName.
+    /// Gets the name of the task.
     /// </summary>
-    public static string TaskName => nameof(IpBlacklistImportTask);
+    /// <value>
+    /// The name of the task.
+    /// </value>
+    public override string TaskName => nameof(IpBlacklistImportTask);
+
+    /// <summary>
+    /// Gets the task description.
+    /// </summary>
+    /// <value>
+    /// The task description.
+    /// </value>
+    public override string TaskDescription => "imports the newest ip blacklist from AbuseIpDb.com.";
 
     /// <summary>
     /// The run once.

@@ -27,7 +27,6 @@ namespace YAF.Core.Modules;
 using System.Reflection;
 
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 using YAF.Core.BaseModules;
 using YAF.Core.BBCode;

@@ -6492,6 +6492,10 @@
           {
             "@tag": "USAGES",
             "#text": "Zastosowania:"
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Usunąć tag?"
           }
         ]
       },
@@ -14045,12 +14049,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktywne subskrypcje"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "Notyfikacje dla [b]wszystkich postów we wszystkich tematach[/b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Aplikacja zainstalowana! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Ta przeglądarka nie obsługuje powiadomień"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Kliknij przycisk, aby włączyć powiadomienia"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "Dostawać codziennie digest/wszystkie aktywności?"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Włącz powiadomienia"
           },
           {
             "@tag": "FORUM",
@@ -14061,6 +14085,10 @@
             "#text": "Obserwowane działy"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "Ostatni post"
           },
@@ -14069,20 +14097,76 @@
             "#text": "{0} przez {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[B]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "Wyłącz notyfikacje"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Powiadomienia zablokowane. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Powiadomienia zablokowane. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "Wybierz ustawienia powiadomień e-mail:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Odmowa pozwolenia. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Odmowa pozwolenia. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️Pozwolenie oddalone. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅Pozwolenie udzielone! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Powiadomienia push na urządzeniu (przeglądarce)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Dodaj do ekranu głównego"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Dodaj tę aplikację do ekranu głównego, aby uzyskać szybki dostęp i najlepsze wrażenia!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "Odpowiedzi"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "Zaktualizowano ustawienia powiadomień e-mail"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Zatrzymaj powiadomienia"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Powiadomienia push zatrzymane. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Pomyślnie zapisałeś się na powiadomienia push!"
           },
           {
             "@tag": "TITLE",
@@ -14119,86 +14203,6 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Proszę wybierz tematy do usunięcia subskrypcji na początek."
-          },
-          {
-            "@tag": "ACTIVE_SUBSCRIPTIONS",
-            "#text": "Aktywne subskrypcje"
-          },
-          {
-            "@tag": "APPINSTALLED",
-            "#text": "✅ Aplikacja zainstalowana! "
-          },
-          {
-            "@tag": "BROWSERNOTSUPPORTED",
-            "#text": "❌ Ta przeglądarka nie obsługuje powiadomień"
-          },
-          {
-            "@tag": "CLICK_ENABLE",
-            "#text": "Kliknij przycisk, aby włączyć powiadomienia"
-          },
-          {
-            "@tag": "ENABLE_NOTIFICATIONS",
-            "#text": "Włącz powiadomienia"
-          },
-          {
-            "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
-          },
-          {
-            "@tag": "MOBILE_INSTRUCTIONS",
-            "#text": "[B]"
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKED",
-            "#text": "❌ Powiadomienia zablokowane. "
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
-            "#text": "❌ Powiadomienia zablokowane. "
-          },
-          {
-            "@tag": "PERMISSIONDENIED",
-            "#text": "❌ Odmowa pozwolenia. "
-          },
-          {
-            "@tag": "PERMISSIONDENIEDMOBILE",
-            "#text": "❌ Odmowa pozwolenia. "
-          },
-          {
-            "@tag": "PERMISSIONDISMISSED",
-            "#text": "⚠️Pozwolenie oddalone. "
-          },
-          {
-            "@tag": "PERMISSIONGRANTED",
-            "#text": "✅Pozwolenie udzielone! "
-          },
-          {
-            "@tag": "PUSH_NOTIFICATIONS",
-            "#text": "Powiadomienia push na urządzeniu (przeglądarce)."
-          },
-          {
-            "@tag": "PWA_INSTALL",
-            "#text": "Dodaj do ekranu głównego"
-          },
-          {
-            "@tag": "PWA_INSTALL_TITLE",
-            "#text": "Dodaj tę aplikację do ekranu głównego, aby uzyskać szybki dostęp i najlepsze wrażenia!"
-          },
-          {
-            "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
-          },
-          {
-            "@tag": "STOP_NOTIFICATIONS",
-            "#text": "Zatrzymaj powiadomienia"
-          },
-          {
-            "@tag": "STOPPED",
-            "#text": "ℹ️ Powiadomienia push zatrzymane. "
-          },
-          {
-            "@tag": "SUBSCRIBED",
-            "#text": "✅ Pomyślnie zapisałeś się na powiadomienia push!"
           }
         ]
       },

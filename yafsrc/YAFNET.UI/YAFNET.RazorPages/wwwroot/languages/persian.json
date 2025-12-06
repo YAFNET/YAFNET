@@ -6492,6 +6492,10 @@
           {
             "@tag": "USAGES",
             "#text": "موارد استفاده:"
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "برچسب حذف شود؟"
           }
         ]
       },
@@ -14037,12 +14041,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "اشتراک های فعال"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "اطلاع رسانی برای [b]تمام مطالب در تمام موضوعات[/b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ اپلیکیشن نصب شد "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ این مرورگر از اعلان ها پشتیبانی نمی کند"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "برای فعال کردن اعلان ها روی دکمه کلیک کنید"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "دریافت روزانه خلاصه فعالیت ها؟"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "اعلان ها را فعال کنید"
           },
           {
             "@tag": "FORUM",
@@ -14053,6 +14077,10 @@
             "#text": "انجمن های تحت پیگیری"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "آخرین ارسال‌"
           },
@@ -14061,20 +14089,76 @@
             "#text": "{0} بوسیله {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[ب]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "اعلان ها را خاموش کنید"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ اعلان ها مسدود شده است. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ اعلان ها مسدود شده است. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "انتخاب تنظیمات ایمیل اطلاع رسانی:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ اجازه داده نشد. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ اجازه داده نشد. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ اجازه رد شد. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ مجوز داده شد! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "اعلان‌های فشار دستگاه (مرورگر)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "به صفحه اصلی اضافه کنید"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "برای دسترسی سریع و بهترین تجربه، این برنامه را به صفحه اصلی خود اضافه کنید!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "پاسخ ها"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "تنظیمات ایمیل اطلاع رسانی بروز شد."
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "توقف اعلان ها"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ اعلان‌های فشاری متوقف شد. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ با موفقیت مشترک اعلان‌های فشاری شد!"
           },
           {
             "@tag": "TITLE",
@@ -14111,86 +14195,6 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "ابتدا باید عنوان مورد نظر را برای لغو پیگیری انتخاب کنید."
-          },
-          {
-            "@tag": "ACTIVE_SUBSCRIPTIONS",
-            "#text": "اشتراک های فعال"
-          },
-          {
-            "@tag": "APPINSTALLED",
-            "#text": "✅ اپلیکیشن نصب شد "
-          },
-          {
-            "@tag": "BROWSERNOTSUPPORTED",
-            "#text": "❌ این مرورگر از اعلان ها پشتیبانی نمی کند"
-          },
-          {
-            "@tag": "CLICK_ENABLE",
-            "#text": "برای فعال کردن اعلان ها روی دکمه کلیک کنید"
-          },
-          {
-            "@tag": "ENABLE_NOTIFICATIONS",
-            "#text": "اعلان ها را فعال کنید"
-          },
-          {
-            "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
-          },
-          {
-            "@tag": "MOBILE_INSTRUCTIONS",
-            "#text": "[ب]"
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKED",
-            "#text": "❌ اعلان ها مسدود شده است. "
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
-            "#text": "❌ اعلان ها مسدود شده است. "
-          },
-          {
-            "@tag": "PERMISSIONDENIED",
-            "#text": "❌ اجازه داده نشد. "
-          },
-          {
-            "@tag": "PERMISSIONDENIEDMOBILE",
-            "#text": "❌ اجازه داده نشد. "
-          },
-          {
-            "@tag": "PERMISSIONDISMISSED",
-            "#text": "⚠️ اجازه رد شد. "
-          },
-          {
-            "@tag": "PERMISSIONGRANTED",
-            "#text": "✅ مجوز داده شد! "
-          },
-          {
-            "@tag": "PUSH_NOTIFICATIONS",
-            "#text": "اعلان‌های فشار دستگاه (مرورگر)."
-          },
-          {
-            "@tag": "PWA_INSTALL",
-            "#text": "به صفحه اصلی اضافه کنید"
-          },
-          {
-            "@tag": "PWA_INSTALL_TITLE",
-            "#text": "برای دسترسی سریع و بهترین تجربه، این برنامه را به صفحه اصلی خود اضافه کنید!"
-          },
-          {
-            "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
-          },
-          {
-            "@tag": "STOP_NOTIFICATIONS",
-            "#text": "توقف اعلان ها"
-          },
-          {
-            "@tag": "STOPPED",
-            "#text": "ℹ️ اعلان‌های فشاری متوقف شد. "
-          },
-          {
-            "@tag": "SUBSCRIBED",
-            "#text": "✅ با موفقیت مشترک اعلان‌های فشاری شد!"
           }
         ]
       },

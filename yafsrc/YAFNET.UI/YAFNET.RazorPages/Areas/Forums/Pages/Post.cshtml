@@ -426,6 +426,7 @@
 </div>
 
 @section Scripts {
+	@await Html.PartialAsync("_ChoicesScriptsPartial")
     @await Html.PartialAsync("_PostScriptsPartial")
 	@if (showQuickReply)
 	{

@@ -101,7 +101,7 @@ public static class ForumPageExtensions
                         title.Append(
                             BoardContext.Current.Get<ILocalization>().GetTextFormatted(
                                 "DELETE_ACCOUNT",
-                                "TITLE", 
+                                "TITLE",
                                 BoardContext.Current.PageUser.DisplayOrUserName()));
                     }
 

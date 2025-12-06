@@ -36,14 +36,9 @@ using YAF.Types.Extensions;
 public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
 {
     /// <summary>
-    ///   The localization.
-    /// </summary>
-    private ILocalization localization;
-
-    /// <summary>
     ///   Gets Localization.
     /// </summary>
-    public ILocalization Localization => this.localization ??= this.Get<ILocalization>();
+    public ILocalization Localization => field ??= this.Get<ILocalization>();
 
     /// <summary>
     /// Gets or sets the editor mode.

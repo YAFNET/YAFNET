@@ -6500,6 +6500,10 @@
           {
             "@tag": "USAGES",
             "#text": "Anvendelser:"
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Vil du slette tag?"
           }
         ]
       },
@@ -14057,12 +14061,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktive abonnementer"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "Notifikation for [b]alle indlæg om alle emner[/b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ App installeret! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Denne browser understøtter ikke meddelelser"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Klik på knappen for at aktivere meddelelser"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "Modtage én gang daglig fordøjelse/oversigt over aktivitet?"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Aktiver meddelelser"
           },
           {
             "@tag": "FORUM",
@@ -14073,6 +14097,10 @@
             "#text": "Fora"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "Sidste Indlæg"
           },
@@ -14081,20 +14109,76 @@
             "#text": "{0} af {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "Slå notifikationer fra"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Meddelelser blokeret. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Meddelelser blokeret. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "Vælg præference for e-mailbeskeder:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Tilladelse nægtet. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Tilladelse nægtet. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Tilladelse afvist. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Tilladelse givet! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Enheds (Browser) push-meddelelser"
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Føj til startskærmen"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Tilføj denne app til din startskærm for hurtig adgang og den bedste oplevelse!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "Svar"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "Meddelelses-e-mail-indstillinger opdateret"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Stop notifikationer"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Push-meddelelser stoppet. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Har abonneret på push-meddelelser med succes!"
           },
           {
             "@tag": "TITLE",
@@ -14131,86 +14215,6 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Vælg venligst de emner du vil afmelde."
-          },
-          {
-            "@tag": "ACTIVE_SUBSCRIPTIONS",
-            "#text": "Aktive abonnementer"
-          },
-          {
-            "@tag": "APPINSTALLED",
-            "#text": "✅ App installeret! "
-          },
-          {
-            "@tag": "BROWSERNOTSUPPORTED",
-            "#text": "❌ Denne browser understøtter ikke meddelelser"
-          },
-          {
-            "@tag": "CLICK_ENABLE",
-            "#text": "Klik på knappen for at aktivere meddelelser"
-          },
-          {
-            "@tag": "ENABLE_NOTIFICATIONS",
-            "#text": "Aktiver meddelelser"
-          },
-          {
-            "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
-          },
-          {
-            "@tag": "MOBILE_INSTRUCTIONS",
-            "#text": "[b]"
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKED",
-            "#text": "❌ Meddelelser blokeret. "
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
-            "#text": "❌ Meddelelser blokeret. "
-          },
-          {
-            "@tag": "PERMISSIONDENIED",
-            "#text": "❌ Tilladelse nægtet. "
-          },
-          {
-            "@tag": "PERMISSIONDENIEDMOBILE",
-            "#text": "❌ Tilladelse nægtet. "
-          },
-          {
-            "@tag": "PERMISSIONDISMISSED",
-            "#text": "⚠️ Tilladelse afvist. "
-          },
-          {
-            "@tag": "PERMISSIONGRANTED",
-            "#text": "✅ Tilladelse givet! "
-          },
-          {
-            "@tag": "PUSH_NOTIFICATIONS",
-            "#text": "Enheds (Browser) push-meddelelser"
-          },
-          {
-            "@tag": "PWA_INSTALL",
-            "#text": "Føj til startskærmen"
-          },
-          {
-            "@tag": "PWA_INSTALL_TITLE",
-            "#text": "Tilføj denne app til din startskærm for hurtig adgang og den bedste oplevelse!"
-          },
-          {
-            "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
-          },
-          {
-            "@tag": "STOP_NOTIFICATIONS",
-            "#text": "Stop notifikationer"
-          },
-          {
-            "@tag": "STOPPED",
-            "#text": "ℹ️ Push-meddelelser stoppet. "
-          },
-          {
-            "@tag": "SUBSCRIBED",
-            "#text": "✅ Har abonneret på push-meddelelser med succes!"
           }
         ]
       },

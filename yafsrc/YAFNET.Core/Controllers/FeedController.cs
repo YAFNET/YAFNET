@@ -31,7 +31,6 @@ using System.Threading.Tasks;
 using System.Xml;
 
 using YAF.Core.BasePages;
-using YAF.Core.Filters;
 
 /// <summary>
 /// The Feed controller.

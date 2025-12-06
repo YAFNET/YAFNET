@@ -23,8 +23,6 @@
  * under the License.
  */
 
-using MimeKit.Cryptography;
-
 namespace YAF.Core.Model;
 
 using System;

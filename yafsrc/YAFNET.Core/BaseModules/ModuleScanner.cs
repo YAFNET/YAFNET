@@ -116,7 +116,9 @@ public static class ModuleScanner
 
             try
             {
+#pragma warning disable S3885
                 assembly = Assembly.LoadFrom(assemblyFile);
+#pragma warning restore S3885
             }
             catch (BadImageFormatException)
             {

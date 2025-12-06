@@ -6500,6 +6500,10 @@
           {
             "@tag": "USAGES",
             "#text": "用途："
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "删除标签？"
           }
         ]
       },
@@ -14057,12 +14061,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "活跃订阅数"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "[b]所有主题的所有帖子的通知[/b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ 应用程序已安装！"
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌此浏览器不支持通知"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "单击按钮以启用通知"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "每天收到一次活动摘要/活动摘要？"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "启用通知"
           },
           {
             "@tag": "FORUM",
@@ -14073,6 +14097,10 @@
             "#text": "论坛"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "最后更新"
           },
@@ -14081,20 +14109,76 @@
             "#text": "{0} 由 {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "关闭通知"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ 通知被阻止。"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ 通知被阻止。"
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "通知邮件地址:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ 权限被拒绝。"
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ 权限被拒绝。"
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ 许可被驳回。"
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ 已获得许可！"
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "设备（浏览器）推送通知"
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "添加到主屏幕"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "将此应用程序添加到您的主屏幕，以便快速访问和最佳体验！"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "回复"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "通知邮件地址已经更新"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "停止通知"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ 推送通知已停止。"
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ 订阅推送通知成功！"
           },
           {
             "@tag": "TITLE",
@@ -14131,86 +14215,6 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "请先选择要退订的话题."
-          },
-          {
-            "@tag": "ACTIVE_SUBSCRIPTIONS",
-            "#text": "活跃订阅数"
-          },
-          {
-            "@tag": "APPINSTALLED",
-            "#text": "✅ 应用程序已安装！"
-          },
-          {
-            "@tag": "BROWSERNOTSUPPORTED",
-            "#text": "❌此浏览器不支持通知"
-          },
-          {
-            "@tag": "CLICK_ENABLE",
-            "#text": "单击按钮以启用通知"
-          },
-          {
-            "@tag": "ENABLE_NOTIFICATIONS",
-            "#text": "启用通知"
-          },
-          {
-            "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
-          },
-          {
-            "@tag": "MOBILE_INSTRUCTIONS",
-            "#text": "[b]"
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKED",
-            "#text": "❌ 通知被阻止。"
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
-            "#text": "❌ 通知被阻止。"
-          },
-          {
-            "@tag": "PERMISSIONDENIED",
-            "#text": "❌ 权限被拒绝。"
-          },
-          {
-            "@tag": "PERMISSIONDENIEDMOBILE",
-            "#text": "❌ 权限被拒绝。"
-          },
-          {
-            "@tag": "PERMISSIONDISMISSED",
-            "#text": "⚠️ 许可被驳回。"
-          },
-          {
-            "@tag": "PERMISSIONGRANTED",
-            "#text": "✅ 已获得许可！"
-          },
-          {
-            "@tag": "PUSH_NOTIFICATIONS",
-            "#text": "设备（浏览器）推送通知"
-          },
-          {
-            "@tag": "PWA_INSTALL",
-            "#text": "添加到主屏幕"
-          },
-          {
-            "@tag": "PWA_INSTALL_TITLE",
-            "#text": "将此应用程序添加到您的主屏幕，以便快速访问和最佳体验！"
-          },
-          {
-            "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
-          },
-          {
-            "@tag": "STOP_NOTIFICATIONS",
-            "#text": "停止通知"
-          },
-          {
-            "@tag": "STOPPED",
-            "#text": "ℹ️ 推送通知已停止。"
-          },
-          {
-            "@tag": "SUBSCRIBED",
-            "#text": "✅ 订阅推送通知成功！"
           }
         ]
       },

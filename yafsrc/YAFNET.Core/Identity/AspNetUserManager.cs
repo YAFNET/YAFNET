@@ -78,7 +78,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
         ILookupNormalizer keyNormalizer,
         IdentityErrorDescriber errors,
         IServiceProvider services,
-            ILogger<UserManager<AspNetUsers>> logger)
+            ILogger<AspNetUsersManager> logger)
         : base(
             store,
             optionsAccessor,

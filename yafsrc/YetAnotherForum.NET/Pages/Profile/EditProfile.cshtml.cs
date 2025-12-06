@@ -53,11 +53,6 @@ using YAF.Types.Models.Identity;
 public class EditProfileModel : ProfilePage
 {
     /// <summary>
-    /// The current culture information
-    /// </summary>
-    private CultureInfo currentCultureInfo;
-
-    /// <summary>
     ///   Initializes a new instance of the <see cref = "EditProfileModel" /> class.
     /// </summary>
     public EditProfileModel()
@@ -107,16 +102,16 @@ public class EditProfileModel : ProfilePage
     /// </value>
     private CultureInfo CurrentCultureInfo {
         get {
-            if (this.currentCultureInfo != null)
+            if (field != null)
             {
-                return this.currentCultureInfo;
+                return field;
             }
 
-            this.currentCultureInfo = CultureInfoHelper.GetCultureByUser(
+            field = CultureInfoHelper.GetCultureByUser(
                 this.PageBoardContext.BoardSettings,
                 this.PageBoardContext.PageUser);
 
-            return this.currentCultureInfo;
+            return field;
         }
     }
 

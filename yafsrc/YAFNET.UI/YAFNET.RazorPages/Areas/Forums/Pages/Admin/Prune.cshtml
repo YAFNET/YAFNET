@@ -16,7 +16,7 @@
                 </div>
                 <div class="card-body">
 
-                    @if (Model.Get<ITaskModuleManager>().IsTaskRunning(PruneTopicTask.TaskName))
+                    @if (Model.Get<ITaskModuleManager>().IsTaskRunning(nameof(PruneTopicTask)))
                     {
                         @Html.LocalizedText("ADMIN_PRUNE", "PRUNE_INFO")
                     }
@@ -53,7 +53,7 @@
                     </div>
                 </div>
 
-                @if (!Model.Get<ITaskModuleManager>().IsTaskRunning(PruneTopicTask.TaskName))
+                @if (!Model.Get<ITaskModuleManager>().IsTaskRunning(nameof(PruneTopicTask)))
                 {
                     <div class="card-footer text-center">
                         <button button-style="Primary"

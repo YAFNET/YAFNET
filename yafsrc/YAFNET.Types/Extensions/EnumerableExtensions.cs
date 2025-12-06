@@ -22,9 +22,6 @@
  * under the License.
  */
 
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace YAF.Types.Extensions;
 
 using System.Collections.Generic;

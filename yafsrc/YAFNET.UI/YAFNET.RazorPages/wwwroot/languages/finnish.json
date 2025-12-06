@@ -6500,6 +6500,10 @@
           {
             "@tag": "USAGES",
             "#text": "Käyttökohteet:"
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Poistetaanko tunniste?"
           }
         ]
       },
@@ -14057,12 +14061,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktiiviset tilaukset"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "Ilmoitus [b]kaikista viesteistä kaikissa aiheissa[/b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Sovellus asennettu! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Tämä selain ei tue ilmoituksia"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Ota ilmoitukset käyttöön napsauttamalla painiketta"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "Saatko kerran päivässä yhteenvedon/yhteenvedon toiminnasta?"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Ota ilmoitukset käyttöön"
           },
           {
             "@tag": "FORUM",
@@ -14073,6 +14097,10 @@
             "#text": "Alueet"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "Viimeisin viesti"
           },
@@ -14081,20 +14109,76 @@
             "#text": "{0} kirjoittaja {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "Sammuta ilmoitukset"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Ilmoitukset estetty. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Ilmoitukset estetty. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "Valitse sähköposti-ilmoitusasetukset:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Lupa evätty. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Lupa evätty. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Lupa evätty. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Lupa myönnetty! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Laitteen (selaimen) push-ilmoitukset"
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Lisää aloitusnäyttöön"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Lisää tämä sovellus aloitusnäyttöön saadaksesi nopean käytön ja parhaan kokemuksen!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "Vastauksia"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "Ilmoitussähköpostiasetukset päivitetty"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Lopeta ilmoitukset"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Push-ilmoitukset pysäytetty. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Push-ilmoitusten tilaus onnistui!"
           },
           {
             "@tag": "TITLE",
@@ -14131,86 +14215,6 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Valitse ensin aiheet mitkä haluat peruuttaa."
-          },
-          {
-            "@tag": "ACTIVE_SUBSCRIPTIONS",
-            "#text": "Aktiiviset tilaukset"
-          },
-          {
-            "@tag": "APPINSTALLED",
-            "#text": "✅ Sovellus asennettu! "
-          },
-          {
-            "@tag": "BROWSERNOTSUPPORTED",
-            "#text": "❌ Tämä selain ei tue ilmoituksia"
-          },
-          {
-            "@tag": "CLICK_ENABLE",
-            "#text": "Ota ilmoitukset käyttöön napsauttamalla painiketta"
-          },
-          {
-            "@tag": "ENABLE_NOTIFICATIONS",
-            "#text": "Ota ilmoitukset käyttöön"
-          },
-          {
-            "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
-          },
-          {
-            "@tag": "MOBILE_INSTRUCTIONS",
-            "#text": "[b]"
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKED",
-            "#text": "❌ Ilmoitukset estetty. "
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
-            "#text": "❌ Ilmoitukset estetty. "
-          },
-          {
-            "@tag": "PERMISSIONDENIED",
-            "#text": "❌ Lupa evätty. "
-          },
-          {
-            "@tag": "PERMISSIONDENIEDMOBILE",
-            "#text": "❌ Lupa evätty. "
-          },
-          {
-            "@tag": "PERMISSIONDISMISSED",
-            "#text": "⚠️ Lupa evätty. "
-          },
-          {
-            "@tag": "PERMISSIONGRANTED",
-            "#text": "✅ Lupa myönnetty! "
-          },
-          {
-            "@tag": "PUSH_NOTIFICATIONS",
-            "#text": "Laitteen (selaimen) push-ilmoitukset"
-          },
-          {
-            "@tag": "PWA_INSTALL",
-            "#text": "Lisää aloitusnäyttöön"
-          },
-          {
-            "@tag": "PWA_INSTALL_TITLE",
-            "#text": "Lisää tämä sovellus aloitusnäyttöön saadaksesi nopean käytön ja parhaan kokemuksen!"
-          },
-          {
-            "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
-          },
-          {
-            "@tag": "STOP_NOTIFICATIONS",
-            "#text": "Lopeta ilmoitukset"
-          },
-          {
-            "@tag": "STOPPED",
-            "#text": "ℹ️ Push-ilmoitukset pysäytetty. "
-          },
-          {
-            "@tag": "SUBSCRIBED",
-            "#text": "✅ Push-ilmoitusten tilaus onnistui!"
           }
         ]
       },

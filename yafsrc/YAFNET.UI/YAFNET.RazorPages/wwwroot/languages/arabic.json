@@ -6492,6 +6492,10 @@
           {
             "@tag": "USAGES",
             "#text": "الأعراف:"
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "هل تريد حذف العلامة؟"
           }
         ]
       },
@@ -14037,12 +14041,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "الاشتراكات النشطة"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "إخطار [ب] جميع المشاركات في جميع المواضيع [/ ب]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ تم تثبيت التطبيق! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ هذا المتصفح لا يدعم الإشعارات"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "انقر فوق الزر لتمكين الإخطارات"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "تلقي مرة واحدة يوميا ملخص / ملخص النشاط؟"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "تمكين الإخطارات"
           },
           {
             "@tag": "FORUM",
@@ -14053,6 +14077,10 @@
             "#text": "مشاهدة المنتدى"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "آخر  مشاركة "
           },
@@ -14061,20 +14089,76 @@
             "#text": "{0} بواسطة {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[ب]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "إغلاق  الإشعارات "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ تم حظر الإشعارات. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ تم حظر الإشعارات. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "حدد تفضيل إعلام البريد الإلكتروني:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ تم رفض الإذن. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ تم رفض الإذن. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ تم رفض الإذن. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ تم منح الإذن! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "إشعارات الجهاز (المتصفح)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "أضف إلى الشاشة الرئيسية"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "أضف هذا التطبيق إلى شاشتك الرئيسية للوصول السريع وأفضل تجربة!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "الردود"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "تم تحديث إعدادات البريد الإلكتروني للإعلام"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "إيقاف الإخطارات"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ توقفت الإشعارات. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ تم الاشتراك في دفع الإشعارات بنجاح!"
           },
           {
             "@tag": "TITLE",
@@ -14111,86 +14195,6 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "الرجاء تحديد الموضوعات لإلغاء مشاهدتها أولاً."
-          },
-          {
-            "@tag": "ACTIVE_SUBSCRIPTIONS",
-            "#text": "الاشتراكات النشطة"
-          },
-          {
-            "@tag": "APPINSTALLED",
-            "#text": "✅ تم تثبيت التطبيق! "
-          },
-          {
-            "@tag": "BROWSERNOTSUPPORTED",
-            "#text": "❌ هذا المتصفح لا يدعم الإشعارات"
-          },
-          {
-            "@tag": "CLICK_ENABLE",
-            "#text": "انقر فوق الزر لتمكين الإخطارات"
-          },
-          {
-            "@tag": "ENABLE_NOTIFICATIONS",
-            "#text": "تمكين الإخطارات"
-          },
-          {
-            "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
-          },
-          {
-            "@tag": "MOBILE_INSTRUCTIONS",
-            "#text": "[ب]"
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKED",
-            "#text": "❌ تم حظر الإشعارات. "
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
-            "#text": "❌ تم حظر الإشعارات. "
-          },
-          {
-            "@tag": "PERMISSIONDENIED",
-            "#text": "❌ تم رفض الإذن. "
-          },
-          {
-            "@tag": "PERMISSIONDENIEDMOBILE",
-            "#text": "❌ تم رفض الإذن. "
-          },
-          {
-            "@tag": "PERMISSIONDISMISSED",
-            "#text": "⚠️ تم رفض الإذن. "
-          },
-          {
-            "@tag": "PERMISSIONGRANTED",
-            "#text": "✅ تم منح الإذن! "
-          },
-          {
-            "@tag": "PUSH_NOTIFICATIONS",
-            "#text": "إشعارات الجهاز (المتصفح)."
-          },
-          {
-            "@tag": "PWA_INSTALL",
-            "#text": "أضف إلى الشاشة الرئيسية"
-          },
-          {
-            "@tag": "PWA_INSTALL_TITLE",
-            "#text": "أضف هذا التطبيق إلى شاشتك الرئيسية للوصول السريع وأفضل تجربة!"
-          },
-          {
-            "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
-          },
-          {
-            "@tag": "STOP_NOTIFICATIONS",
-            "#text": "إيقاف الإخطارات"
-          },
-          {
-            "@tag": "STOPPED",
-            "#text": "ℹ️ توقفت الإشعارات. "
-          },
-          {
-            "@tag": "SUBSCRIBED",
-            "#text": "✅ تم الاشتراك في دفع الإشعارات بنجاح!"
           }
         ]
       },

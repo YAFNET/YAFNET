@@ -47,6 +47,22 @@ public class CleanUpTask : IntermittentBackgroundTask, ICriticalBackgroundTask
     public ITaskModuleManager TaskManager { get; set; }
 
     /// <summary>
+    /// Gets the name of the task.
+    /// </summary>
+    /// <value>
+    /// The name of the task.
+    /// </value>
+    public override string TaskName => nameof(CleanUpTask);
+
+    /// <summary>
+    /// Gets the task description.
+    /// </summary>
+    /// <value>
+    /// The task description.
+    /// </value>
+    public override string TaskDescription => "Deletes the completed background tasks.";
+
+    /// <summary>
     /// The run once.
     /// </summary>
     public override Task RunOnceAsync()

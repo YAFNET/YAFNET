@@ -185,13 +185,15 @@ public class ChoicesTagHelper : TagHelper
             allowMultiple: this._allowMultiple,
             htmlAttributes: htmlAttributes);
 
-        if (tagBuilder != null)
+        if (tagBuilder == null)
         {
-            TagHelperOutputExtensions.MergeAttributes(output, tagBuilder);
-            if (tagBuilder.HasInnerHtml)
-            {
-                output.PostContent.AppendHtml(tagBuilder.InnerHtml);
-            }
+            return;
+        }
+
+        TagHelperOutputExtensions.MergeAttributes(output, tagBuilder);
+        if (tagBuilder.HasInnerHtml)
+        {
+            output.PostContent.AppendHtml(tagBuilder.InnerHtml);
         }
     }
 
@@ -356,44 +358,46 @@ public class ChoicesTagHelper : TagHelper
         var optionGenerated = new bool[itemsList.Count];
         for (var i = 0; i < itemsList.Count; i++)
         {
-            if (!optionGenerated[i])
+            if (optionGenerated[i])
             {
-                var item = itemsList[i];
-                var optGroup = item.Group;
-                if (optGroup != null)
+                continue;
+            }
+
+            var item = itemsList[i];
+            var optGroup = item.Group;
+            if (optGroup != null)
+            {
+                var groupBuilder = new TagBuilder(HtmlTag.OptionGroup);
+                if (optGroup.Name != null)
                 {
-                    var groupBuilder = new TagBuilder(HtmlTag.OptionGroup);
-                    if (optGroup.Name != null)
-                    {
-                        groupBuilder.MergeAttribute("label", optGroup.Name);
-                    }
-
-                    if (optGroup.Disabled)
-                    {
-                        groupBuilder.MergeAttribute("disabled", "disabled");
-                    }
-
-                    groupBuilder.InnerHtml.AppendLine();
-
-                    for (var j = i; j < itemsList.Count; j++)
-                    {
-                        var groupItem = itemsList[j];
-
-                        if (!optionGenerated[j] &&
-                            ReferenceEquals(optGroup, groupItem.Group))
-                        {
-                            groupBuilder.InnerHtml.AppendLine(this.GenerateOption(groupItem, currentValues));
-                            optionGenerated[j] = true;
-                        }
-                    }
-
-                    listItemBuilder.AppendLine(groupBuilder);
+                    groupBuilder.MergeAttribute("label", optGroup.Name);
                 }
-                else
+
+                if (optGroup.Disabled)
                 {
-                    listItemBuilder.AppendLine(this.GenerateOption(item, currentValues));
-                    optionGenerated[i] = true;
+                    groupBuilder.MergeAttribute("disabled", "disabled");
                 }
+
+                groupBuilder.InnerHtml.AppendLine();
+
+                for (var j = i; j < itemsList.Count; j++)
+                {
+                    var groupItem = itemsList[j];
+
+                    if (!optionGenerated[j] &&
+                        ReferenceEquals(optGroup, groupItem.Group))
+                    {
+                        groupBuilder.InnerHtml.AppendLine(this.GenerateOption(groupItem, currentValues));
+                        optionGenerated[j] = true;
+                    }
+                }
+
+                listItemBuilder.AppendLine(groupBuilder);
+            }
+            else
+            {
+                listItemBuilder.AppendLine(this.GenerateOption(item, currentValues));
+                optionGenerated[i] = true;
             }
         }
 
@@ -475,22 +479,24 @@ public class ChoicesTagHelper : TagHelper
         IDictionary<string, object> htmlAttributeDictionary,
         string fallbackAttributeName)
     {
-        if (string.IsNullOrEmpty(fullName))
+        if (fullName.IsSet())
         {
-            // fullName==null is normally an error because name="" is not valid in HTML 5.
-            if (htmlAttributeDictionary is null)
-            {
-                return false;
-            }
+            return true;
+        }
 
-            // Check if user has provided an explicit name attribute.
-            // Generalized a bit because other attributes e.g. data-valmsg-for refer to element names.
-            htmlAttributeDictionary.TryGetValue(fallbackAttributeName, out var attributeObject);
-            var attributeString = Convert.ToString(attributeObject, CultureInfo.InvariantCulture);
-            if (string.IsNullOrEmpty(attributeString))
-            {
-                return false;
-            }
+        // fullName==null is normally an error because name="" is not valid in HTML 5.
+        if (htmlAttributeDictionary is null)
+        {
+            return false;
+        }
+
+        // Check if user has provided an explicit name attribute.
+        // Generalized a bit because other attributes e.g. data-valmsg-for refer to element names.
+        htmlAttributeDictionary.TryGetValue(fallbackAttributeName, out var attributeObject);
+        var attributeString = Convert.ToString(attributeObject, CultureInfo.InvariantCulture);
+        if (string.IsNullOrEmpty(attributeString))
+        {
+            return false;
         }
 
         return true;

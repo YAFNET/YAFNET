@@ -38,11 +38,6 @@ using YAF.Types.Interfaces;
 public class DigestSendForumModule : BaseForumModule
 {
     /// <summary>
-    ///   The _key name.
-    /// </summary>
-    private const string KeyName = "DigestSendTask";
-
-    /// <summary>
     /// The init.
     /// </summary>
     public override void Init()
@@ -58,6 +53,6 @@ public class DigestSendForumModule : BaseForumModule
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     private void CurrentAfterInit(object sender, EventArgs e)
     {
-        this.Get<ITaskModuleManager>().StartTask(KeyName, () => new DigestSendTask());
+        this.Get<ITaskModuleManager>().StartTask(nameof(DigestSendTask), () => new DigestSendTask());
     }
 }

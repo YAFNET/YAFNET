@@ -35,7 +35,7 @@ using YAF.Core.Extensions;
 public class TaskManagerModel : AdminPage
 {
     [BindProperty]
-    public IDictionary<string, IBackgroundTask> Tasks { get; set; }
+    public ICollection<IBackgroundTask> Tasks { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TaskManagerModel"/> class.
@@ -60,7 +60,7 @@ public class TaskManagerModel : AdminPage
     /// </summary>
     protected void BindData()
     {
-        this.Tasks = this.Get<ITaskModuleManager>().TaskManagerSnapshot;
+        this.Tasks = this.Get<ITaskModuleManager>().TaskManagerSnapshot.Values;
     }
 
     /// <summary>

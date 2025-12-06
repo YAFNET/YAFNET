@@ -46,9 +46,20 @@ public class LinkedTopicCleanUpTask : IntermittentBackgroundTask
     }
 
     /// <summary>
-    /// Gets TaskName.
+    /// Gets the name of the task.
     /// </summary>
-    public static string TaskName => "LinkedTopicCleanUpTask";
+    /// <value>
+    /// The name of the task.
+    /// </value>
+    public override string TaskName => nameof(LinkedTopicCleanUpTask);
+
+    /// <summary>
+    /// Gets the task description.
+    /// </summary>
+    /// <value>
+    /// The task description.
+    /// </value>
+    public override string TaskDescription => "Removes all old linked topic(s) that have been moved";
 
     /// <summary>
     /// The run once.
@@ -69,7 +80,7 @@ public class LinkedTopicCleanUpTask : IntermittentBackgroundTask
         }
         catch (Exception x)
         {
-            this.Logger.Error(x, $"Error In {TaskName} Task");
+            this.Logger.Error(x, $"Error In {this.TaskName} Task");
         }
     }
 }

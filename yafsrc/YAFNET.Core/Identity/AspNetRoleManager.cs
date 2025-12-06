@@ -47,7 +47,7 @@ public class AspNetRoleManager : RoleManager<AspNetRoles>, IAspNetRoleManager
                              IEnumerable<IRoleValidator<AspNetRoles>> roleValidators,
                              ILookupNormalizer keyNormalizer,
                              IdentityErrorDescriber errors,
-                             ILogger<RoleManager<AspNetRoles>> logger)
+                             ILogger<AspNetRoleManager> logger)
         : base(store, roleValidators, keyNormalizer, errors, logger)
     {
     }

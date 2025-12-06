@@ -121,7 +121,7 @@ public class DeleteForumModel : AdminPage
             return this.PageBoardContext.Notify(errorMessage, MessageTypes.danger);
         }
 
-        while (this.Get<ITaskModuleManager>().IsTaskRunning(ForumDeleteTask.TaskName))
+        while (this.Get<ITaskModuleManager>().IsTaskRunning(nameof(ForumDeleteTask)))
         {
             await Task.Delay(4000);
         }

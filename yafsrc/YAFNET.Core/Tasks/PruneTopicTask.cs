@@ -36,9 +36,20 @@ using YAF.Types.Models;
 public class PruneTopicTask : LongBackgroundTask
 {
     /// <summary>
-    /// Gets TaskName.
+    /// Gets the name of the task.
     /// </summary>
-    public static string TaskName => "PruneTopicTask";
+    /// <value>
+    /// The name of the task.
+    /// </value>
+    public override string TaskName => nameof(PruneTopicTask);
+
+    /// <summary>
+    /// Gets the task description.
+    /// </summary>
+    /// <value>
+    /// The task description.
+    /// </value>
+    public override string TaskDescription => "Delete old topic(s).";
 
     /// <summary>
     /// Gets or sets ForumId.
@@ -81,7 +92,7 @@ public class PruneTopicTask : LongBackgroundTask
         }
 
         BoardContext.Current.Get<ITaskModuleManager>().StartTask(
-            TaskName,
+            nameof(PruneTopicTask),
             () => new PruneTopicTask { Data = boardId, ForumId = forumId, Days = days, PermDelete = permDelete });
 
         return true;

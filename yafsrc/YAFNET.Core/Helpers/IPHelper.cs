@@ -143,7 +143,7 @@ public static class IPHelper
             var ipAddresses = ipString.Split(',');
             var firstNonLocalAddress =
                 Array.Find(ipAddresses,
-                    ip => IPAddress.TryParse(ipString.Split(',')[0].Trim(), out ipAddress) && ipAddress.IsRoutable());
+                    ip => IPAddress.TryParse(ipString.Split(',', StringSplitOptions.TrimEntries)[0], out ipAddress) && ipAddress.IsRoutable());
 
             if (firstNonLocalAddress.IsSet())
             {
@@ -158,7 +158,7 @@ public static class IPHelper
             return httpContext.Connection.RemoteIpAddress.ToString();
         }
 
-        return IPAddress.TryParse((ipString.Split(',').LastOrDefault() ?? string.Empty).Trim(), out ipAddress)
+        return IPAddress.TryParse((ipString.Split(',', StringSplitOptions.TrimEntries).LastOrDefault() ?? string.Empty), out ipAddress)
                    ? ipString
                    : httpContext.Connection.RemoteIpAddress.ToString();
     }

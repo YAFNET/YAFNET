@@ -135,7 +135,7 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpContex
         this.appInstance = @event.HttpContext;
 
         // create intermittent cleanup task...
-        this.StartTask("CleanUpTask", () => new CleanUpTask { TaskManager = this });
+        this.StartTask(nameof(CleanUpTask), () => new CleanUpTask { TaskManager = this });
 
         this.Get<IEnumerable<IStartTasks>>().ForEach(
             instance =>

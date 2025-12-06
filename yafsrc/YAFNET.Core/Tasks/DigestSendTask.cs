@@ -49,9 +49,20 @@ public class DigestSendTask : LongBackgroundTask
     }
 
     /// <summary>
-    ///   Gets TaskName.
+    /// Gets the name of the task.
     /// </summary>
-    public static string TaskName => "DigestSendTask";
+    /// <value>
+    /// The name of the task.
+    /// </value>
+    public override string TaskName => nameof(DigestSendTask);
+
+    /// <summary>
+    /// Gets the task description.
+    /// </summary>
+    /// <value>
+    /// The task description.
+    /// </value>
+    public override string TaskDescription => "Sends digest emails.";
 
     /// <summary>
     /// The run once.
@@ -125,7 +136,9 @@ public class DigestSendTask : LongBackgroundTask
 
             foreach (var board in boards)
             {
-                var boardSettings = this.Get<BoardSettingsService>().LoadBoardSettings(board.ID, board);
+                var boardSettings = board.ID == BoardContext.Current.PageBoardID
+                    ? BoardContext.Current.BoardSettings
+                    : this.Get<BoardSettingsService>().LoadBoardSettings(board.ID, board);
 
                 if (!IsTimeToSendDigestForBoard(boardSettings))
                 {
@@ -150,7 +163,7 @@ public class DigestSendTask : LongBackgroundTask
         }
         catch (Exception ex)
         {
-            this.Get<ILogger<DigestSendTask>>().Error(ex, $"Error In {TaskName} Task");
+            this.Get<ILogger<DigestSendTask>>().Error(ex, $"Error In {this.TaskName} Task");
         }
     }
 

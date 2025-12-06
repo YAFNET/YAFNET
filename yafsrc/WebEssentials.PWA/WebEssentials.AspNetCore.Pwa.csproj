@@ -20,7 +20,7 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="HtmlProperties" Version="1.0.0" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.16.0.128591">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.16.1.129956">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

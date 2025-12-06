@@ -6492,6 +6492,10 @@
           {
             "@tag": "USAGES",
             "#text": "Gebruiken:"
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Label verwijderen?"
           }
         ]
       },
@@ -14041,12 +14045,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Actieve abonnementen"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "Melding voor [b]alle berichten in alle topics[/b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅App geïnstalleerd! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Deze browser ondersteunt geen meldingen"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Klik op de knop om meldingen in te schakelen"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "Ontvang een dagelijkse samenvatting van alle activiteiten?"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Meldingen inschakelen"
           },
           {
             "@tag": "FORUM",
@@ -14057,6 +14081,10 @@
             "#text": "Fora"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "Laatste bericht"
           },
@@ -14065,20 +14093,76 @@
             "#text": "{0} door {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[B]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "Meldingen uitschakelen"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Meldingen geblokkeerd. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Meldingen geblokkeerd. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "Selecteerd e-mail melding voorkeur:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Toestemming geweigerd. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Toestemming geweigerd. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️Toestemming afgewezen. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅Toestemming verleend! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Apparaat (browser) pushmeldingen"
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Toevoegen aan startscherm"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Voeg deze app toe aan je startscherm voor snelle toegang en de beste ervaring!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "Reacties"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "Instellingen van de E-mail meldingen bijgewerkt"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Meldingen stoppen"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Pushmeldingen gestopt. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Succesvol geabonneerd op pushmeldingen!"
           },
           {
             "@tag": "TITLE",
@@ -14115,86 +14199,6 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Graag eerst de topics te selecteren waarop je wenst uit te schrijven."
-          },
-          {
-            "@tag": "ACTIVE_SUBSCRIPTIONS",
-            "#text": "Actieve abonnementen"
-          },
-          {
-            "@tag": "APPINSTALLED",
-            "#text": "✅App geïnstalleerd! "
-          },
-          {
-            "@tag": "BROWSERNOTSUPPORTED",
-            "#text": "❌ Deze browser ondersteunt geen meldingen"
-          },
-          {
-            "@tag": "CLICK_ENABLE",
-            "#text": "Klik op de knop om meldingen in te schakelen"
-          },
-          {
-            "@tag": "ENABLE_NOTIFICATIONS",
-            "#text": "Meldingen inschakelen"
-          },
-          {
-            "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
-          },
-          {
-            "@tag": "MOBILE_INSTRUCTIONS",
-            "#text": "[B]"
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKED",
-            "#text": "❌ Meldingen geblokkeerd. "
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
-            "#text": "❌ Meldingen geblokkeerd. "
-          },
-          {
-            "@tag": "PERMISSIONDENIED",
-            "#text": "❌ Toestemming geweigerd. "
-          },
-          {
-            "@tag": "PERMISSIONDENIEDMOBILE",
-            "#text": "❌ Toestemming geweigerd. "
-          },
-          {
-            "@tag": "PERMISSIONDISMISSED",
-            "#text": "⚠️Toestemming afgewezen. "
-          },
-          {
-            "@tag": "PERMISSIONGRANTED",
-            "#text": "✅Toestemming verleend! "
-          },
-          {
-            "@tag": "PUSH_NOTIFICATIONS",
-            "#text": "Apparaat (browser) pushmeldingen"
-          },
-          {
-            "@tag": "PWA_INSTALL",
-            "#text": "Toevoegen aan startscherm"
-          },
-          {
-            "@tag": "PWA_INSTALL_TITLE",
-            "#text": "Voeg deze app toe aan je startscherm voor snelle toegang en de beste ervaring!"
-          },
-          {
-            "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
-          },
-          {
-            "@tag": "STOP_NOTIFICATIONS",
-            "#text": "Meldingen stoppen"
-          },
-          {
-            "@tag": "STOPPED",
-            "#text": "ℹ️ Pushmeldingen gestopt. "
-          },
-          {
-            "@tag": "SUBSCRIBED",
-            "#text": "✅ Succesvol geabonneerd op pushmeldingen!"
           }
         ]
       },

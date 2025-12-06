@@ -27,7 +27,6 @@ namespace YAF.Core.Helpers;
 using System.IO;
 
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Webp;
 using SixLabors.ImageSharp.Processing;
 

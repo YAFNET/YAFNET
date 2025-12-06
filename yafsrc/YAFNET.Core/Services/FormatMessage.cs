@@ -131,7 +131,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         var formattedMessage = this.Format(
             message,
             messageId,
-            targetBlankOverride ?? false, 
+            targetBlankOverride ?? false,
             messageLastEdited ?? DateTime.UtcNow);
 
         formattedMessage = await this.Get<IBBCodeService>().FormatMessageWithCustomBBCodeAsync(

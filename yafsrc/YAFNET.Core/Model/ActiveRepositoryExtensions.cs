@@ -332,7 +332,7 @@ public static class ActiveRepositoryExtensions
                             a.LastActive,
                             a.Country,
                             a.Referer,
-                            a.Path, 
+                            a.Path,
                             Active = Sql.Custom(
                                 $"{OrmLiteConfig.DialectProvider.DateDiffFunction("minute", expression.Column<Active>(ac => ac.Login, true), expression.Column<Active>(ac => ac.LastActive, true))}"),
                             a.Browser,

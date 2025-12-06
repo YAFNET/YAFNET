@@ -52,6 +52,6 @@ public class UpdateSearchIndexTaskForumModule : BaseForumModule
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     private void CurrentAfterInit(object sender, EventArgs e)
     {
-        this.Get<ITaskModuleManager>().StartTask(UpdateSearchIndexTask.TaskName, () => new UpdateSearchIndexTask());
+        this.Get<ITaskModuleManager>().StartTask(nameof(UpdateSearchIndexTask), () => new UpdateSearchIndexTask());
     }
 }

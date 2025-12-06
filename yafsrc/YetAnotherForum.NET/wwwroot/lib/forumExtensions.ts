@@ -23,23 +23,23 @@ _global.bootbox = bootbox;
 // Generic Functions
 document.addEventListener('DOMContentLoaded', () => {
 	// handle scroll position on form submit
-	var hidden = document.getElementById('ScrollPosition') as HTMLInputElement;
+	document.querySelectorAll<HTMLButtonElement>('button[type="submit"]').forEach(button => {
+		if (button.closest('form')) {
+			button.addEventListener('click', handleSubmit);
+		};
+	});
 
-	if (hidden) {
-		document.querySelectorAll<HTMLButtonElement>('button[type="submit"]').forEach(button => {
-			if (button.closest('form')) {
-				button.addEventListener('click', handleSubmit);
-			}
-		});
+	function handleSubmit() {
+		sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+	}
 
-		function handleSubmit() {
-			hidden.value = window.scrollY.toString();
-		}
+	const scrollPosition = sessionStorage.getItem('scrollPosition');
 
-		const pos = parseInt(hidden?.value || '0');
+	if (scrollPosition) {
+		const pos = parseInt(scrollPosition);
 
 		if (pos > 0) {
-			hidden.value = '0';
+			sessionStorage.removeItem('scrollPosition');
 			window.scrollTo({ top: pos, behavior: 'instant' });
 		}
 	}

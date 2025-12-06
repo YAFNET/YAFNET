@@ -6500,6 +6500,10 @@
           {
             "@tag": "USAGES",
             "#text": "Kullanım alanları:"
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Etiket silinsin mi?"
           }
         ]
       },
@@ -14057,12 +14061,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktif Abonelikler"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "Tüm konulardaki [b]tüm gönderiler[/b] için bildirim"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Uygulama yüklendi! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Bu tarayıcı bildirimleri desteklemiyor"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Bildirimleri etkinleştirmek için düğmeye tıklayın"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "Günde bir kez faaliyet özeti/özeti alıyor musunuz?"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Bildirimleri Etkinleştir"
           },
           {
             "@tag": "FORUM",
@@ -14073,6 +14097,10 @@
             "#text": "Forumlar"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "Son Mesajlar"
           },
@@ -14081,20 +14109,76 @@
             "#text": "{0} konusunu {1} yanıtlamıştır."
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[B]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "Uyarıları kapatın"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Bildirimler engellendi. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Bildirimler engellendi. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "E-posta bildirim tercihini seçin:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌İzin reddedildi. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌İzin reddedildi. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️İzin reddedildi. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ İzin verildi! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Cihaz (Tarayıcı) anlık bildirimleri"
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Ana Ekrana Ekle"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Hızlı erişim ve en iyi deneyim için bu uygulamayı ana ekranınıza ekleyin!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "Cevaplar"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "Bildirim E-posta Ayarları Güncellendi"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Bildirimleri Durdur"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Push notifications stopped. You can re-enable anytime."
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Push bildirimlerine başarıyla abone oldum!"
           },
           {
             "@tag": "TITLE",
@@ -14131,86 +14215,6 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Öncelikle abonelik iptali yapılacak konuyu seçin"
-          },
-          {
-            "@tag": "ACTIVE_SUBSCRIPTIONS",
-            "#text": "Aktif Abonelikler"
-          },
-          {
-            "@tag": "APPINSTALLED",
-            "#text": "✅ Uygulama yüklendi! "
-          },
-          {
-            "@tag": "BROWSERNOTSUPPORTED",
-            "#text": "❌ Bu tarayıcı bildirimleri desteklemiyor"
-          },
-          {
-            "@tag": "CLICK_ENABLE",
-            "#text": "Bildirimleri etkinleştirmek için düğmeye tıklayın"
-          },
-          {
-            "@tag": "ENABLE_NOTIFICATIONS",
-            "#text": "Bildirimleri Etkinleştir"
-          },
-          {
-            "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
-          },
-          {
-            "@tag": "MOBILE_INSTRUCTIONS",
-            "#text": "[B]"
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKED",
-            "#text": "❌ Bildirimler engellendi. "
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
-            "#text": "❌ Bildirimler engellendi. "
-          },
-          {
-            "@tag": "PERMISSIONDENIED",
-            "#text": "❌İzin reddedildi. "
-          },
-          {
-            "@tag": "PERMISSIONDENIEDMOBILE",
-            "#text": "❌İzin reddedildi. "
-          },
-          {
-            "@tag": "PERMISSIONDISMISSED",
-            "#text": "⚠️İzin reddedildi. "
-          },
-          {
-            "@tag": "PERMISSIONGRANTED",
-            "#text": "✅ İzin verildi! "
-          },
-          {
-            "@tag": "PUSH_NOTIFICATIONS",
-            "#text": "Cihaz (Tarayıcı) anlık bildirimleri"
-          },
-          {
-            "@tag": "PWA_INSTALL",
-            "#text": "Ana Ekrana Ekle"
-          },
-          {
-            "@tag": "PWA_INSTALL_TITLE",
-            "#text": "Hızlı erişim ve en iyi deneyim için bu uygulamayı ana ekranınıza ekleyin!"
-          },
-          {
-            "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
-          },
-          {
-            "@tag": "STOP_NOTIFICATIONS",
-            "#text": "Bildirimleri Durdur"
-          },
-          {
-            "@tag": "STOPPED",
-            "#text": "ℹ️ Push notifications stopped. You can re-enable anytime."
-          },
-          {
-            "@tag": "SUBSCRIBED",
-            "#text": "✅ Push bildirimlerine başarıyla abone oldum!"
           }
         ]
       },

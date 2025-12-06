@@ -31,25 +31,9 @@ namespace YAF.Web.TagHelpers;
 public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
 {
     /// <summary>
-    ///   The localization.
-    /// </summary>
-    private ILocalization localization;
-
-    /// <summary>
-    ///   The _row.
-    /// </summary>
-    private Message currentMessage;
-
-    private int? messageId;
-
-    private MessageFlags messageFlags;
-
-    private IList<string> highlightWords;
-
-    /// <summary>
     ///   Gets Localization.
     /// </summary>
-    public ILocalization Localization => this.localization ??= this.Get<ILocalization>();
+    public ILocalization Localization => field ??= this.Get<ILocalization>();
 
     /// <summary>
     /// Gets or sets the current message.
@@ -58,11 +42,11 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// The current message.
     /// </value>
     public Message CurrentMessage {
-        get => this.currentMessage;
+        get;
 
         set {
-            this.currentMessage = value ?? new Message();
-            this.MessageFlags = this.currentMessage.MessageFlags;
+            field = value ?? new Message();
+            this.MessageFlags = field.MessageFlags;
         }
     }
 
@@ -106,8 +90,8 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     ///   Gets or sets the Words to highlight in this message
     /// </summary>
     public virtual IList<string> HighlightWords {
-        get => this.highlightWords ?? [];
-        set => this.highlightWords = value;
+        get => field ?? [];
+        set;
     }
 
     /// <summary>
@@ -124,16 +108,16 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     ///   Gets or sets MessageID.
     /// </summary>
     public virtual int? MessageId {
-        get => this.messageId ?? 0;
-        set => this.messageId = value;
+        get => field ?? 0;
+        set;
     }
 
     /// <summary>
     ///   Gets or sets MessageFlags.
     /// </summary>
     public virtual MessageFlags MessageFlags {
-        get => this.messageFlags ?? new MessageFlags(0);
-        set => this.messageFlags = value;
+        get => field ?? new MessageFlags(0);
+        set;
     }
 
     /// <summary>

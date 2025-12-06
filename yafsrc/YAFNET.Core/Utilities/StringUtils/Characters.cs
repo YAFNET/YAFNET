@@ -32,7 +32,7 @@ using System.Collections.Concurrent;
 /// </summary>
 public static partial class Unidecoder
 {
-    static ConcurrentDictionary<int, string[]> characters = new(3, 256);
+    private readonly static ConcurrentDictionary<int, string[]> characters = new(3, 256);
 
     /// <summary>
     /// Initializes static members of the <see cref="Unidecoder"/> class.

@@ -55,6 +55,6 @@ public class LinkedTopicCleanUpTaskForumModule : BaseForumModule
     /// </param>
     private void Current_AfterInit(object sender, EventArgs e)
     {
-        this.Get<ITaskModuleManager>().StartTask(LinkedTopicCleanUpTask.TaskName, () => new LinkedTopicCleanUpTask());
+        this.Get<ITaskModuleManager>().StartTask(nameof(LinkedTopicCleanUpTask), () => new LinkedTopicCleanUpTask());
     }
 }

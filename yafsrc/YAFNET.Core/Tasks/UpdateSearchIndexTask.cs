@@ -48,9 +48,20 @@ public class UpdateSearchIndexTask : LongBackgroundTask
     }
 
     /// <summary>
-    ///   Gets TaskName.
+    /// Gets the name of the task.
     /// </summary>
-    public static string TaskName => "UpdateSearchIndexTask";
+    /// <value>
+    /// The name of the task.
+    /// </value>
+    public override string TaskName => nameof(UpdateSearchIndexTask);
+
+    /// <summary>
+    /// Gets the task description.
+    /// </summary>
+    /// <value>
+    /// The task description.
+    /// </value>
+    public override string TaskDescription => "Updates the search index.";
 
     /// <summary>
     /// The run once.
@@ -96,7 +107,7 @@ public class UpdateSearchIndexTask : LongBackgroundTask
         }
         catch (Exception x)
         {
-            this.Logger.Error(x, $"Error In {TaskName} Task");
+            this.Logger.Error(x, $"Error In {this.TaskName} Task");
         }
         finally
         {

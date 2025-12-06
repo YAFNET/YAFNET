@@ -31,11 +31,6 @@ namespace YAF.Web.TagHelpers;
 public class EmptyTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
 {
     /// <summary>
-    ///   The localization.
-    /// </summary>
-    private ILocalization localization;
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="EmptyTagHelper"/> class.
     /// </summary>
     /// <param name="serviceLocator">
@@ -49,7 +44,7 @@ public class EmptyTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
     /// <summary>
     ///   Gets Localization.
     /// </summary>
-    public ILocalization Localization => this.localization ??= this.Get<ILocalization>();
+    public ILocalization Localization => field ??= this.Get<ILocalization>();
 
     /// <summary>
     /// Gets or sets the icon.

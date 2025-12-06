@@ -12,8 +12,6 @@
 }
 
 <form method="post">
-	@Html.HiddenFor(x => Model.ScrollPosition)
-
 	<div class="row">
 		<div class="col-xl-12">
 			<h1>@Html.LocalizedText("ADMIN_ADMIN", "TITLE")</h1>
@@ -408,7 +406,7 @@
 											   rel="noopener">
 												@Html.Icon("computer")@Html.Raw(ipAddress)
 											</a>
-											<button class="scrolltest" button-style="Danger"
+											<button button-style="Danger"
 											        button-size="Small"
 											        asp-page-handler="BanIp"
 											        asp-route-mask="@Html.Raw(ipAddress)"

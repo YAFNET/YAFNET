@@ -44,14 +44,9 @@ using RouteData = Microsoft.AspNetCore.Routing.RouteData;
 public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocalization
 {
     /// <summary>
-    ///   The localization.
-    /// </summary>
-    private ILocalization localization;
-
-    /// <summary>
     ///   Gets Localization.
     /// </summary>
-    public ILocalization Localization => this.localization ??= this.Get<ILocalization>();
+    public ILocalization Localization => field ??= this.Get<ILocalization>();
 
     /// <summary>
     ///   Gets or sets ServiceLocator.

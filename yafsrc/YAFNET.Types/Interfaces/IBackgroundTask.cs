@@ -30,6 +30,22 @@ namespace YAF.Types.Interfaces;
 public interface IBackgroundTask : IDisposable
 {
     /// <summary>
+    /// Gets the name of the task.
+    /// </summary>
+    /// <value>
+    /// The name of the task.
+    /// </value>
+    string TaskName { get; }
+
+    /// <summary>
+    /// Gets the task description.
+    /// </summary>
+    /// <value>
+    /// The task description.
+    /// </value>
+    string TaskDescription { get; }
+
+    /// <summary>
     /// Sets Data
     /// </summary>
     object Data {

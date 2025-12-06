@@ -6500,6 +6500,10 @@
           {
             "@tag": "USAGES",
             "#text": "Utilisations :"
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Supprimer la balise ?"
           }
         ]
       },
@@ -14057,12 +14061,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Abonnements actifs"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "Notification pour [b]tous les messages sur tous les sujets[/b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Application installée ! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Ce navigateur ne prend pas en charge les notifications"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Cliquez sur le bouton pour activer les notifications"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "Recevoir une fois par jour un condensé/résumé de l'activité ?"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Activer les notifications"
           },
           {
             "@tag": "FORUM",
@@ -14073,6 +14097,10 @@
             "#text": "Forums"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "Dernier Message"
           },
@@ -14081,20 +14109,76 @@
             "#text": "{0} par {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "Désactiver les notifications"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌Notifications bloquées. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌Notifications bloquées. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "Sélectionnez la préférence de notification par courriel :"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌Autorisation refusée. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌Autorisation refusée. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️Autorisation rejetée. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅Autorisation accordée ! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Notifications push de l'appareil (navigateur)"
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Ajouter à l'écran d'accueil"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Ajoutez cette application à votre écran d'accueil pour un accès rapide et la meilleure expérience !"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "Réponses"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "Mise à jour des paramètres des courriels de notification"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Arrêter les notifications"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Les notifications push ont été arrêtées. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Abonné aux notifications push avec succès !"
           },
           {
             "@tag": "TITLE",
@@ -14131,86 +14215,6 @@
           {
             "@tag": "WARN_SELECTTOPICS",
             "#text": "Veillez selectionner les sujets dont vous voulez vouz désabonner d'abord."
-          },
-          {
-            "@tag": "ACTIVE_SUBSCRIPTIONS",
-            "#text": "Abonnements actifs"
-          },
-          {
-            "@tag": "APPINSTALLED",
-            "#text": "✅ Application installée ! "
-          },
-          {
-            "@tag": "BROWSERNOTSUPPORTED",
-            "#text": "❌ Ce navigateur ne prend pas en charge les notifications"
-          },
-          {
-            "@tag": "CLICK_ENABLE",
-            "#text": "Cliquez sur le bouton pour activer les notifications"
-          },
-          {
-            "@tag": "ENABLE_NOTIFICATIONS",
-            "#text": "Activer les notifications"
-          },
-          {
-            "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
-          },
-          {
-            "@tag": "MOBILE_INSTRUCTIONS",
-            "#text": "[b]"
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKED",
-            "#text": "❌Notifications bloquées. "
-          },
-          {
-            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
-            "#text": "❌Notifications bloquées. "
-          },
-          {
-            "@tag": "PERMISSIONDENIED",
-            "#text": "❌Autorisation refusée. "
-          },
-          {
-            "@tag": "PERMISSIONDENIEDMOBILE",
-            "#text": "❌Autorisation refusée. "
-          },
-          {
-            "@tag": "PERMISSIONDISMISSED",
-            "#text": "⚠️Autorisation rejetée. "
-          },
-          {
-            "@tag": "PERMISSIONGRANTED",
-            "#text": "✅Autorisation accordée ! "
-          },
-          {
-            "@tag": "PUSH_NOTIFICATIONS",
-            "#text": "Notifications push de l'appareil (navigateur)"
-          },
-          {
-            "@tag": "PWA_INSTALL",
-            "#text": "Ajouter à l'écran d'accueil"
-          },
-          {
-            "@tag": "PWA_INSTALL_TITLE",
-            "#text": "Ajoutez cette application à votre écran d'accueil pour un accès rapide et la meilleure expérience !"
-          },
-          {
-            "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
-          },
-          {
-            "@tag": "STOP_NOTIFICATIONS",
-            "#text": "Arrêter les notifications"
-          },
-          {
-            "@tag": "STOPPED",
-            "#text": "ℹ️ Les notifications push ont été arrêtées. "
-          },
-          {
-            "@tag": "SUBSCRIBED",
-            "#text": "✅ Abonné aux notifications push avec succès !"
           }
         ]
       },

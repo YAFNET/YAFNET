@@ -58,11 +58,6 @@ using YAF.Types.Models.Identity;
 public class UsersProfileModel : AdminPage
 {
     /// <summary>
-    /// The current culture information
-    /// </summary>
-    private CultureInfo currentCultureInfo;
-
-    /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
     public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
@@ -97,16 +92,16 @@ public class UsersProfileModel : AdminPage
     /// </value>
     private CultureInfo CurrentCultureInfo {
         get {
-            if (this.currentCultureInfo != null)
+            if (field != null)
             {
-                return this.currentCultureInfo;
+                return field;
             }
 
-            this.currentCultureInfo = CultureInfoHelper.GetCultureByUser(
+            field = CultureInfoHelper.GetCultureByUser(
                 this.PageBoardContext.BoardSettings,
                 this.EditUser.Item1);
 
-            return this.currentCultureInfo;
+            return field;
         }
     }
 

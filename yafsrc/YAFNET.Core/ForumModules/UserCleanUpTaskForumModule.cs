@@ -55,6 +55,6 @@ public class UserCleanUpTaskForumModule : BaseForumModule
     /// </param>
     private void Current_AfterInit(object sender, EventArgs e)
     {
-        this.Get<ITaskModuleManager>().StartTask(UserCleanUpTask.TaskName, () => new UserCleanUpTask());
+        this.Get<ITaskModuleManager>().StartTask(nameof(UserCleanUpTask), () => new UserCleanUpTask());
     }
 }

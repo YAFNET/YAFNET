@@ -71,6 +71,22 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     public ILogger<BaseBackgroundTask> Logger { get; set; }
 
     /// <summary>
+    /// Gets or sets the name of the task.
+    /// </summary>
+    /// <value>
+    /// The name of the task.
+    /// </value>
+    public virtual string TaskName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the task description.
+    /// </summary>
+    /// <value>
+    /// The task description.
+    /// </value>
+    public virtual string TaskDescription { get; set; }
+
+    /// <summary>
     /// Gets or sets BoardID.
     /// </summary>
     public virtual object Data
@@ -129,7 +145,7 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     /// </summary>
     public virtual void Dispose()
     {
-        Dispose(true);
+        this.Dispose(true);
         GC.SuppressFinalize(this);
     }
 

@@ -6481,18 +6481,22 @@
       {
         "@name": "ADMIN_TAGS",
         "Resource": [
-          {
-            "@tag": "SHOW_TOPICS",
-            "#text": "Show Topic(s)"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Topic Tags"
-          },
-          {
-            "@tag": "USAGES",
-            "#text": "Usages:"
-          }
+	        {
+		        "@tag": "CONFIRM_DELETE",
+		        "#text": "Delete tag?"
+	        },
+            {
+                "@tag": "SHOW_TOPICS",
+                "#text": "Show Topic(s)"
+            },
+            {
+                "@tag": "TITLE",
+                "#text": "Topic Tags"
+            },
+            {
+                "@tag": "USAGES",
+                "#text": "Usages:"
+            }
         ]
       },
       {
