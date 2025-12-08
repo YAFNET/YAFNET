@@ -29,9 +29,9 @@ namespace YAF.Data.SqlServer;
 /// </summary>
 public class YafNamingStrategyBaseOverride : INamingStrategy
 {
-    public Dictionary<string, string> SchemaAliases { get; } = new();
-    public Dictionary<string, string> TableAliases { get; } = new();
-    public Dictionary<string, string> ColumnAliases { get; } = new();
+    public Dictionary<string, string> SchemaAliases { get; } = [];
+    public Dictionary<string, string> TableAliases { get; } = [];
+    public Dictionary<string, string> ColumnAliases { get; } = [];
 
     /// <summary>
     /// The get column name.
