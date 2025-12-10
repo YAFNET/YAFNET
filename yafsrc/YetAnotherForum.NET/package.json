@@ -19,7 +19,7 @@
 		"grunt-shell": "^4.0.0",
 		"grunt-webpack": "^7.0.1",
 		"postcss": "^8.5.6",
-		"sass": "^1.94.2",
+		"sass": "^1.95.1",
 		"simple-webp-converter": "^1.0.3",
 		"terser-webpack-plugin": "^5.3.14",
 		"ts-loader": "^9.5.4",
