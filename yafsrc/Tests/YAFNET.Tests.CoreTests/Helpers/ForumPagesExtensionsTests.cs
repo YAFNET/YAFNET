@@ -37,7 +37,7 @@ public class ForumPagesExtensionsTests
     /// path to Enum ForumPages Test
     /// </summary>
     [Test]
-    [Description("Count all URLs Test.")]
+    [Description("path to Enum ForumPages Test.")]
     public void ToEnum_Test()
     {
         const string path = "/Admin/Admin";
