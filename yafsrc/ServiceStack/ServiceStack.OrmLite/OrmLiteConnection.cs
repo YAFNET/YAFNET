@@ -324,17 +324,12 @@ public class OrmLiteConnection
     }
 
     /// <summary>
-    /// The connection string
-    /// </summary>
-    private string? connectionString;
-
-    /// <summary>
     /// Gets or sets the string used to open a database.
     /// </summary>
     /// <value>The connection string.</value>
     public string? ConnectionString {
-        get => this.connectionString ?? this.Factory.ConnectionString;
-        set => this.connectionString = value;
+        get => field ?? this.Factory.ConnectionString;
+        set;
     }
 
     /// <summary>

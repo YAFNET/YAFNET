@@ -52,11 +52,7 @@ public sealed class JsConfigScope : Config, IDisposable
     /// </summary>
     /// <value>The current.</value>
     static internal JsConfigScope Current =>
-#if NET10_0_OR_GREATER
-            head.Value;
-#else
-        head;
-#endif
+        head.Value;
 
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -66,11 +62,7 @@ public sealed class JsConfigScope : Config, IDisposable
         if (!this.disposed)
         {
             this.disposed = true;
-#if NET10_0_OR_GREATER
-                head.Value = this.parent;
-#else
-            head = parent;
-#endif
+            head.Value = this.parent;
 
             PclExport.Instance.EndThreadAffinity();
         }
@@ -245,22 +237,16 @@ public class Config
     public bool Indent { get; set; }
 
     /// <summary>
-    /// The type attribute
-    /// </summary>
-    private string typeAttr;
-    /// <summary>
     /// Gets or sets the type attribute.
     /// </summary>
     /// <value>The type attribute.</value>
-    public string TypeAttr
-    {
-        get => this.typeAttr;
-        set
-        {
+    public string TypeAttr {
+        get;
+        set {
             this.typeAttrSpan = null;
             this.jsonTypeAttrInObject = null;
             this.jsvTypeAttrInObject = null;
-            this.typeAttr = value;
+            field = value;
         }
     }
 

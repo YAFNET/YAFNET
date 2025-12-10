@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-#if !LITE
+
 using System;
 using System.Runtime.Serialization;
 using System.Xml;
@@ -69,4 +69,3 @@ public class XmlSerializer
         }
     }
 }
-#endif

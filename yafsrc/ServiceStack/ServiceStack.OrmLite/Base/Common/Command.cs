@@ -12,10 +12,6 @@ namespace ServiceStack;
 using System;
 using System.Collections.Generic;
 
-#if NET48
-using ServiceStack.Text.Extensions;
-#endif
-
 /// <summary>
 /// Class Command.
 /// </summary>

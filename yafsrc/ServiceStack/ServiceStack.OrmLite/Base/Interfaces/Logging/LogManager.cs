@@ -15,19 +15,13 @@ namespace ServiceStack.Logging;
 public class LogManager
 {
     /// <summary>
-    /// The log factory
-    /// </summary>
-    private static ILogFactory logFactory;
-
-    /// <summary>
     /// Gets or sets the log factory.
     /// Use this to override the factory that is used to create loggers
     /// </summary>
     /// <value>The log factory.</value>
-    public static ILogFactory LogFactory
-    {
-        get => logFactory ?? new NullLogFactory();
-        set => logFactory = value;
+    public static ILogFactory LogFactory {
+        get => field ?? new NullLogFactory();
+        set;
     }
 
     /// <summary>

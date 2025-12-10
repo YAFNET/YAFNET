@@ -28,7 +28,6 @@ public static class Env
             throw new ArgumentException("PclExport.Instance needs to be initialized");
         }
 
-#if NET10_0_OR_GREATER
         try
         {
             var fxDesc = RuntimeInformation.FrameworkDescription;
@@ -37,7 +36,6 @@ public static class Env
         catch (Exception)
         {
         } //throws PlatformNotSupportedException in AWS lambda
-#endif
     }
 
 
@@ -48,18 +46,12 @@ public static class Env
     public static bool IsMono { get; set; }
 
     /// <summary>
-    /// The strict mode
-    /// </summary>
-    private static bool strictMode;
-
-    /// <summary>
     /// Gets or sets a value indicating whether [strict mode].
     /// </summary>
     /// <value><c>true</c> if [strict mode]; otherwise, <c>false</c>.</value>
-    public static bool StrictMode
-    {
-        get => strictMode;
-        set => Config.Instance.ThrowOnError = strictMode = value;
+    public static bool StrictMode {
+        get;
+        set => Config.Instance.ThrowOnError = field = value;
     }
 
     /// <summary>

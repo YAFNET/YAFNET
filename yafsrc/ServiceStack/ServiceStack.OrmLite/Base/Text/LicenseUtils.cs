@@ -274,9 +274,7 @@ public static partial class LicenseUtils
             switch (ex)
             {
                 case FileNotFoundException or FileLoadException or BadImageFormatException or NotSupportedException
-#if NET10_0_OR_GREATER
                     or System.Net.Http.HttpRequestException
-#endif
                     or WebException or TaskCanceledException or LicenseException:
                     throw;
             }

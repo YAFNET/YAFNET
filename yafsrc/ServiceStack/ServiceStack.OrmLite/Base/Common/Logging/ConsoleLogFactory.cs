@@ -7,8 +7,6 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-
-#if !NETFX_CORE
 using System;
 
 namespace ServiceStack.Logging;
@@ -62,4 +60,3 @@ public class ConsoleLogFactory : ILogFactory
         LogManager.LogFactory = new ConsoleLogFactory();
     }
 }
-#endif

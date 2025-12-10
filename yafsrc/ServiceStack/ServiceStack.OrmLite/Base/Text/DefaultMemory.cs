@@ -28,14 +28,10 @@ namespace ServiceStack.OrmLite.Base.Text;
 public sealed class DefaultMemory : MemoryProvider
 {
     /// <summary>
-    /// The provider
-    /// </summary>
-    private static DefaultMemory provider;
-    /// <summary>
     /// Gets the provider.
     /// </summary>
     /// <value>The provider.</value>
-    public static DefaultMemory Provider => provider ??= new DefaultMemory();
+    public static DefaultMemory Provider => field ??= new DefaultMemory();
     /// <summary>
     /// Prevents a default instance of the <see cref="DefaultMemory" /> class from being created.
     /// </summary>

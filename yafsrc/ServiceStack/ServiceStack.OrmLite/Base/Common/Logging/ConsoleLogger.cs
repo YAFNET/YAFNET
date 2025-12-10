@@ -5,8 +5,6 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-
-#if !NETFX_CORE
 using System;
 
 namespace ServiceStack.Logging;
@@ -196,4 +194,3 @@ public class ConsoleLogger : ILog
         LogFormat(WARN + format, args);
     }
 }
-#endif

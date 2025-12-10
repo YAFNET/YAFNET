@@ -26,17 +26,12 @@ public static class CsvConfig
     }
 
     /// <summary>
-    /// The s real number culture information
-    /// </summary>
-    private static CultureInfo sRealNumberCultureInfo;
-    /// <summary>
     /// Gets or sets the real number culture information.
     /// </summary>
     /// <value>The real number culture information.</value>
-    public static CultureInfo RealNumberCultureInfo
-    {
-        get => sRealNumberCultureInfo ?? CultureInfo.InvariantCulture;
-        set => sRealNumberCultureInfo = value;
+    public static CultureInfo RealNumberCultureInfo {
+        get => field ?? CultureInfo.InvariantCulture;
+        set;
     }
 
     /// <summary>
@@ -117,11 +112,6 @@ public static class CsvConfig
     }
 
     /// <summary>
-    /// The default escape strings
-    /// </summary>
-    private readonly static string[] defaultEscapeStrings = GetEscapeStrings();
-
-    /// <summary>
     /// The ts escape strings
     /// </summary>
     [ThreadStatic]
@@ -136,13 +126,13 @@ public static class CsvConfig
     /// <value>The escape strings.</value>
     public static string[] EscapeStrings
     {
-        get => tsEscapeStrings ?? sEscapeStrings ?? defaultEscapeStrings;
+        get => tsEscapeStrings ?? sEscapeStrings ?? field;
         private set
         {
             tsEscapeStrings = value;
             sEscapeStrings ??= value;
         }
-    }
+    } = GetEscapeStrings();
 
     /// <summary>
     /// Gets the escape strings.

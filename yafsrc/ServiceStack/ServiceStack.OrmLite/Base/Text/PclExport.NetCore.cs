@@ -12,24 +12,23 @@ using ServiceStack.OrmLite.Base.Text.Common;
 namespace ServiceStack.OrmLite.Base.Text;
 
 /// <summary>
-/// Class Net7PclExport.
-/// Implements the <see cref="NetStandardPclExport" />
+/// 
 /// </summary>
-/// <seealso cref="NetStandardPclExport" />
-public class Net7PclExport : NetStandardPclExport
+/// <seealso cref="ServiceStack.OrmLite.Base.Text.NetStandardPclExport" />
+public class NetPclExport : NetStandardPclExport
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Net7PclExport"/> class.
+    /// Initializes a new instance of the <see cref="NetPclExport"/> class.
     /// </summary>
-    public Net7PclExport()
+    public NetPclExport()
     {
-        this.PlatformName = Platforms.Net7;
+        this.PlatformName = Platforms.Net10;
         ReflectionOptimizer.Instance = EmitReflectionOptimizer.Provider;
     }
 
     /// <summary>
     /// Gets the js reader parse string span method.
-    /// </summary>
+    /// </summary>  public Net6PclExport()
     /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringSpanDelegate.</returns>

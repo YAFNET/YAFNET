@@ -112,15 +112,10 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     public Action<OrmLiteConnection> OnDispose { get; set; }
 
     /// <summary>
-    /// The orm lite connection
-    /// </summary>
-    private OrmLiteConnection ormLiteConnection;
-
-    /// <summary>
     /// Gets the orm lite connection.
     /// </summary>
     /// <value>The orm lite connection.</value>
-    private OrmLiteConnection OrmLiteConnection => this.ormLiteConnection ??= this.DialectProvider != null
+    private OrmLiteConnection OrmLiteConnection => field ??= this.DialectProvider != null
         ? this.DialectProvider.CreateOrmLiteConnection(this)
         : new OrmLiteConnection(this);
 
@@ -442,15 +437,10 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     }
 
     /// <summary>
-    /// The dialect providers
-    /// </summary>
-    private static Dictionary<string, IOrmLiteDialectProvider> dialectProviders;
-
-    /// <summary>
     /// Gets the dialect providers.
     /// </summary>
     /// <value>The dialect providers.</value>
-    public static Dictionary<string, IOrmLiteDialectProvider> DialectProviders => dialectProviders ??= [];
+    public static Dictionary<string, IOrmLiteDialectProvider> DialectProviders => field ??= [];
 
     /// <summary>
     /// Registers the dialect provider.
@@ -463,15 +453,10 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     }
 
     /// <summary>
-    /// The named connections
-    /// </summary>
-    private static Dictionary<string, OrmLiteConnectionFactory> namedConnections;
-
-    /// <summary>
     /// Gets the named connections.
     /// </summary>
     /// <value>The named connections.</value>
-    public static Dictionary<string, OrmLiteConnectionFactory> NamedConnections => namedConnections ??= [];
+    public static Dictionary<string, OrmLiteConnectionFactory> NamedConnections => field ??= [];
 
     /// <summary>
     /// Registers the connection.

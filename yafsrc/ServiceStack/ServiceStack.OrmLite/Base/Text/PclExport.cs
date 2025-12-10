@@ -38,18 +38,14 @@ public abstract class PclExport
         /// <summary>
         /// The net core
         /// </summary>
-        public const string Net7 = "NET7";
+        public const string Net10 = "NET10";
     }
 
     /// <summary>
     /// The instance
     /// </summary>
     public static PclExport Instance { get; private set; }
-#if NETSTANDARD2_0
-          = new NetStandardPclExport();
-#elif NET10_0_OR_GREATER
-        = new Net7PclExport();
-#endif
+        = new NetPclExport();
 
     /// <summary>
     /// Gets the reflection.

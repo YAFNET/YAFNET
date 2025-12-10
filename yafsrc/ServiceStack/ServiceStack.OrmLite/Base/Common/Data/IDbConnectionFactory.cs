@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-#if !SL5
+
 using System;
 using System.Data;
 using System.Threading;
@@ -58,4 +58,3 @@ public interface IDbConnectionFactoryExtended : IDbConnectionFactory
 
     IDbConnection Use(IDbConnection connection, IDbTransaction trans = null);
 }
-#endif

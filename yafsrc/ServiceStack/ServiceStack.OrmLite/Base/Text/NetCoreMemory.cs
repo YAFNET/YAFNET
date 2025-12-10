@@ -26,15 +26,10 @@ namespace ServiceStack.OrmLite.Base.Text;
 public sealed class NetCoreMemory : MemoryProvider
 {
     /// <summary>
-    /// The provider
-    /// </summary>
-    private static NetCoreMemory provider;
-
-    /// <summary>
     /// Gets the provider.
     /// </summary>
     /// <value>The provider.</value>
-    public static NetCoreMemory Provider => provider ??= new NetCoreMemory();
+    public static NetCoreMemory Provider => field ??= new NetCoreMemory();
 
     /// <summary>
     /// Prevents a default instance of the <see cref="NetCoreMemory"/> class from being created.

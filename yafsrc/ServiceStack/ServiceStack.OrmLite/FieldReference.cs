@@ -36,14 +36,10 @@ public class FieldReference
     public Type RefModel { get; set; }
 
     /// <summary>
-    /// The reference model definition
-    /// </summary>
-    private ModelDefinition refModelDef;
-    /// <summary>
     /// Gets the reference model definition.
     /// </summary>
     /// <value>The reference model definition.</value>
-    public ModelDefinition RefModelDef => this.refModelDef ??= this.RefModel.GetModelDefinition();
+    public ModelDefinition RefModelDef => field ??= this.RefModel.GetModelDefinition();
 
     /// <summary>
     /// The Field name on current Model to use for the Foreign Key Table Lookup
@@ -52,17 +48,13 @@ public class FieldReference
     public string RefId { get; set; }
 
     /// <summary>
-    /// The reference identifier field definition
-    /// </summary>
-    private FieldDefinition refIdFieldDef;
-    /// <summary>
     /// Gets the reference identifier field definition.
     /// </summary>
     /// <value>The reference identifier field definition.</value>
     /// <exception cref="System.ArgumentException">Could not find '{this.RefId}' in '{this.RefModel.Name}'</exception>
     public FieldDefinition RefIdFieldDef =>
-        this.refIdFieldDef ??= this.FieldDef.ModelDef.GetFieldDefinition(this.RefId)
-                               ?? throw new ArgumentException($"Could not find '{this.RefId}' in '{this.RefModel.Name}'");
+        field ??= this.FieldDef.ModelDef.GetFieldDefinition(this.RefId)
+                  ?? throw new ArgumentException($"Could not find '{this.RefId}' in '{this.RefModel.Name}'");
 
     /// <summary>
     /// Specify Field to reference (if different from property name)
@@ -71,15 +63,11 @@ public class FieldReference
     public string RefField { get; set; }
 
     /// <summary>
-    /// The reference field definition
-    /// </summary>
-    private FieldDefinition refFieldDef;
-    /// <summary>
     /// Gets the reference field definition.
     /// </summary>
     /// <value>The reference field definition.</value>
     /// <exception cref="System.ArgumentException">Could not find '{this.RefField}' in '{this.RefModelDef.Name}'</exception>
     public FieldDefinition RefFieldDef =>
-        this.refFieldDef ??= this.RefModelDef.GetFieldDefinition(this.RefField)
-                             ?? throw new ArgumentException($"Could not find '{this.RefField}' in '{this.RefModelDef.Name}'");
+        field ??= this.RefModelDef.GetFieldDefinition(this.RefField)
+                  ?? throw new ArgumentException($"Could not find '{this.RefField}' in '{this.RefModelDef.Name}'");
 }

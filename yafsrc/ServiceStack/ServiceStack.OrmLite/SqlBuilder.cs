@@ -19,7 +19,6 @@ using System.Text.RegularExpressions;
 
 using PropertyAttributes = System.Reflection.PropertyAttributes;
 
-#if !NO_EXPRESSIONS
 /// <summary>
 /// Nice SqlBuilder class by @samsaffron from Dapper.Contrib:
 /// http://samsaffron.com/archive/2011/09/05/Digging+ourselves+out+of+the+mess+Linq-2-SQL+created
@@ -516,4 +515,3 @@ public class SqlBuilder
         return this;
     }
 }
-#endif

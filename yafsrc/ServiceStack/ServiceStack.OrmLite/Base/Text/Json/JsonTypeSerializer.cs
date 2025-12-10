@@ -210,14 +210,13 @@ public struct JsonTypeSerializer
     {
         var dateTime = (DateTime)oDateTime;
         var config = JsConfig.GetConfig();
-#if NET10_0_OR_GREATER
+
         if (config.SystemJsonCompatible)
         {
             var json = System.Text.Json.JsonSerializer.Serialize(dateTime, TextConfig.SystemJsonOptions);
             writer.Write(json);
             return;
         }
-#endif
 
         switch (config.DateHandler)
         {
@@ -259,14 +258,14 @@ public struct JsonTypeSerializer
     public void WriteDateTimeOffset(TextWriter writer, object oDateTimeOffset)
     {
         var dateTimeOffset = (DateTimeOffset)oDateTimeOffset;
-#if NET10_0_OR_GREATER
+
         if (JsConfig.SystemJsonCompatible)
         {
             var json = System.Text.Json.JsonSerializer.Serialize(dateTimeOffset, TextConfig.SystemJsonOptions);
             writer.Write(json);
             return;
         }
-#endif
+
         writer.Write(JsWriter.QuoteString);
         DateTimeSerializer.WriteWcfJsonDateTimeOffset(writer, dateTimeOffset);
         writer.Write(JsWriter.QuoteString);
@@ -318,7 +317,6 @@ public struct JsonTypeSerializer
         this.WriteTimeSpan(writer, ((TimeSpan?)oTimeSpan).Value);
     }
 
-#if NET10_0_OR_GREATER
     /// <summary>
     /// Writes the date only.
     /// </summary>
@@ -379,15 +377,14 @@ public struct JsonTypeSerializer
     /// <param name="writer">The writer.</param>
     /// <param name="oTimeOnly">The o time only.</param>
     public void WriteNullableTimeOnly(TextWriter writer, object oTimeOnly)
+    {
+        if (oTimeOnly == null)
         {
-            if (oTimeOnly == null)
-            {
-                return;
-            }
-
-            this.WriteTimeSpan(writer, ((TimeOnly?)oTimeOnly).Value.ToTimeSpan());
+            return;
         }
-#endif
+
+        this.WriteTimeSpan(writer, ((TimeOnly?)oTimeOnly).Value.ToTimeSpan());
+    }
 
     /// <summary>
     /// Writes the unique identifier.

@@ -869,62 +869,51 @@ public class JsConfig<T>
     }
 
     /// <summary>
-    /// Define custom serialization hook
-    /// </summary>
-    private static Func<T, T> onSerializingFn;
-    /// <summary>
     /// Gets or sets the on serializing function.
     /// </summary>
     /// <value>The on serializing function.</value>
-    public static Func<T, T> OnSerializingFn
-    {
-        get => onSerializingFn;
-        set { onSerializingFn = value; RefreshWrite(); }
+    public static Func<T, T> OnSerializingFn {
+        get;
+        set {
+            field = value;
+            RefreshWrite();
+        }
     }
-
-    /// <summary>
-    /// Define custom after serialization hook
-    /// </summary>
-    private static Action<T> onSerializedFn;
 
     /// <summary>
     /// Gets or sets the on serialized function.
     /// </summary>
     /// <value>The on serialized function.</value>
-    public static Action<T> OnSerializedFn
-    {
-        get => onSerializedFn;
-        set { onSerializedFn = value; RefreshWrite(); }
+    public static Action<T> OnSerializedFn {
+        get;
+        set {
+            field = value;
+            RefreshWrite();
+        }
     }
-
-    /// <summary>
-    /// Define custom deserialization fn for BCL Structs
-    /// </summary>
-    private static Func<string, T> deSerializeFn;
 
     /// <summary>
     /// Gets or sets the de serialize function.
     /// </summary>
     /// <value>The de serialize function.</value>
-    public static Func<string, T> DeSerializeFn
-    {
-        get => deSerializeFn;
-        set { deSerializeFn = value; RefreshRead(); }
+    public static Func<string, T> DeSerializeFn {
+        get;
+        set {
+            field = value;
+            RefreshRead();
+        }
     }
-
-    /// <summary>
-    /// Define custom raw deserialization fn for objects
-    /// </summary>
-    private static Func<string, T> rawDeserializeFn;
 
     /// <summary>
     /// Gets or sets the raw deserialize function.
     /// </summary>
     /// <value>The raw deserialize function.</value>
-    public static Func<string, T> RawDeserializeFn
-    {
-        get => rawDeserializeFn;
-        set { rawDeserializeFn = value; RefreshRead(); }
+    public static Func<string, T> RawDeserializeFn {
+        get;
+        set {
+            field = value;
+            RefreshRead();
+        }
     }
 
     /// <summary>
@@ -934,18 +923,15 @@ public class JsConfig<T>
     public static bool HasDeserializeFn => !JsState.InDeserializer<T>() && (DeSerializeFn != null || RawDeserializeFn != null);
 
     /// <summary>
-    /// The on deserialized function
-    /// </summary>
-    private static Func<T, T> onDeserializedFn;
-
-    /// <summary>
     /// Gets or sets the on deserialized function.
     /// </summary>
     /// <value>The on deserialized function.</value>
-    public static Func<T, T> OnDeserializedFn
-    {
-        get => onDeserializedFn;
-        set { onDeserializedFn = value; RefreshRead(); }
+    public static Func<T, T> OnDeserializedFn {
+        get;
+        set {
+            field = value;
+            RefreshRead();
+        }
     }
 
     /// <summary>
@@ -955,18 +941,15 @@ public class JsConfig<T>
     public static bool HasDeserializingFn => OnDeserializingFn != null;
 
     /// <summary>
-    /// The on deserializing function
-    /// </summary>
-    private static Func<T, string, object, object> onDeserializingFn;
-
-    /// <summary>
     /// Gets or sets the on deserializing function.
     /// </summary>
     /// <value>The on deserializing function.</value>
-    public static Func<T, string, object, object> OnDeserializingFn
-    {
-        get => onDeserializingFn;
-        set { onDeserializingFn = value; RefreshRead(); }
+    public static Func<T, string, object, object> OnDeserializingFn {
+        get;
+        set {
+            field = value;
+            RefreshRead();
+        }
     }
 
     /// <summary>

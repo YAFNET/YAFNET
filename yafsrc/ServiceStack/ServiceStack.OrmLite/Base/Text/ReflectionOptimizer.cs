@@ -21,12 +21,7 @@ public abstract class ReflectionOptimizer
     /// The instance
     /// </summary>
     public static ReflectionOptimizer Instance { get; set; } =
-#if NETFX || NET10_0_OR_GREATER
-            EmitReflectionOptimizer.Provider
-#else
-            ExpressionReflectionOptimizer.Provider
-#endif
-        ;
+        EmitReflectionOptimizer.Provider;
 
     /// <summary>
     /// Uses the type.
@@ -119,14 +114,10 @@ public abstract class ReflectionOptimizer
 public sealed class RuntimeReflectionOptimizer : ReflectionOptimizer
 {
     /// <summary>
-    /// The provider
-    /// </summary>
-    private static RuntimeReflectionOptimizer provider;
-    /// <summary>
     /// Gets the provider.
     /// </summary>
     /// <value>The provider.</value>
-    public static RuntimeReflectionOptimizer Provider => provider ??= new RuntimeReflectionOptimizer();
+    public static RuntimeReflectionOptimizer Provider => field ??= new RuntimeReflectionOptimizer();
     /// <summary>
     /// Prevents a default instance of the <see cref="RuntimeReflectionOptimizer" /> class from being created.
     /// </summary>
@@ -309,14 +300,10 @@ public sealed class RuntimeReflectionOptimizer : ReflectionOptimizer
 public sealed class ExpressionReflectionOptimizer : ReflectionOptimizer
 {
     /// <summary>
-    /// The provider
-    /// </summary>
-    private static ExpressionReflectionOptimizer provider;
-    /// <summary>
     /// Gets the provider.
     /// </summary>
     /// <value>The provider.</value>
-    public static ExpressionReflectionOptimizer Provider => provider ??= new ExpressionReflectionOptimizer();
+    public static ExpressionReflectionOptimizer Provider => field ??= new ExpressionReflectionOptimizer();
     /// <summary>
     /// Prevents a default instance of the <see cref="ExpressionReflectionOptimizer" /> class from being created.
     /// </summary>

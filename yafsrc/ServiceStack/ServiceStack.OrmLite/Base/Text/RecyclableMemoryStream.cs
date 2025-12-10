@@ -1457,7 +1457,6 @@ public sealed class RecyclableMemoryStream : MemoryStream
 
             RecyclableMemoryStreamManager.Events.Writer.MemoryStreamFinalized(this.id, this.tag, this.AllocationStack);
 
-#if !NETSTANDARD1_4
             if (AppDomain.CurrentDomain.IsFinalizingForUnload())
             {
                 // If we're being finalized because of a shutdown, don't go any further.
@@ -1466,7 +1465,6 @@ public sealed class RecyclableMemoryStream : MemoryStream
                 base.Dispose(disposing);
                 return;
             }
-#endif
 
             this.memoryManager.ReportStreamFinalized();
         }
@@ -1495,11 +1493,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
     /// <summary>
     /// Equivalent to Dispose
     /// </summary>
-#if NETSTANDARD1_4
-        public void Close()
-#else
     public override void Close()
-#endif
     {
         this.Dispose(true);
     }
@@ -1622,11 +1616,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
     /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
     /// <remarks>IMPORTANT: Doing a Write() after calling GetBuffer() invalidates the buffer. The old buffer is held onto
     /// until Dispose is called, but the next time GetBuffer() is called, a new buffer from the pool will be required.</remarks>
-#if NETSTANDARD1_4
-        public byte[] GetBuffer()
-#else
     public override byte[] GetBuffer()
-#endif
     {
         this.CheckDisposed();
 

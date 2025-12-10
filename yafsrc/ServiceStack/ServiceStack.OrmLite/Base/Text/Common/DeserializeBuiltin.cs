@@ -82,7 +82,9 @@ public static class DeserializeBuiltin<T>
                 case TypeCode.DateTime:
                     return value => DateTimeSerializer.ParseShortestXsdDateTime(value.ToString());
                 case TypeCode.Char:
-                    return value => value.Length == 0 ? (char)0 : value.Length == 1 ? value[0] : JsonTypeSerializer.Unescape(value)[0];
+                    return value =>
+                        value.Length == 0 ? (char)0 :
+                        value.Length == 1 ? value[0] : JsonTypeSerializer.Unescape(value)[0];
             }
 
             if (typeof(T) == typeof(Guid))
@@ -99,17 +101,16 @@ public static class DeserializeBuiltin<T>
             {
                 return value => DateTimeSerializer.ParseTimeSpan(value.ToString());
             }
-#if NET10_0_OR_GREATER
-                if (typeof(T) == typeof(DateOnly))
-                {
-                    return value => DateOnly.FromDateTime(DateTimeSerializer.ParseShortestXsdDateTime(value.ToString()));
-                }
 
-                if (typeof(T) == typeof(TimeOnly))
-                {
-                    return value => TimeOnly.FromTimeSpan(DateTimeSerializer.ParseTimeSpan(value.ToString()));
-                }
-#endif
+            if (typeof(T) == typeof(DateOnly))
+            {
+                return value => DateOnly.FromDateTime(DateTimeSerializer.ParseShortestXsdDateTime(value.ToString()));
+            }
+
+            if (typeof(T) == typeof(TimeOnly))
+            {
+                return value => TimeOnly.FromTimeSpan(DateTimeSerializer.ParseTimeSpan(value.ToString()));
+            }
         }
         else
         {

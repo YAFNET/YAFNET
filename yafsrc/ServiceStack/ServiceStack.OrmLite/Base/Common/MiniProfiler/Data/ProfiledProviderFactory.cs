@@ -47,21 +47,6 @@ public class ProfiledProviderFactory : DbProviderFactory
         this.WrappedFactory = wrappedFactory;
     }
 
-#if !NET10_0_OR_GREATER
-    /// <summary>
-    /// proxy
-    /// </summary>
-    /// <value><c>true</c> if this instance can create data source enumerator; otherwise, <c>false</c>.</value>
-    public override bool CanCreateDataSourceEnumerator => WrappedFactory.CanCreateDataSourceEnumerator;
-
-    /// <summary>
-    /// proxy
-    /// </summary>
-    /// <returns>A new instance of <see cref="T:System.Data.Common.DbDataSourceEnumerator" />.</returns>
-    public override DbDataSourceEnumerator CreateDataSourceEnumerator() =>
-        WrappedFactory.CreateDataSourceEnumerator();
-#endif
-
     /// <summary>
     /// proxy
     /// </summary>
@@ -97,28 +82,4 @@ public class ProfiledProviderFactory : DbProviderFactory
     {
         return this.WrappedFactory.CreateConnectionStringBuilder();
     }
-
-#if !NET10_0_OR_GREATER
-    /// <summary>
-    /// proxy
-    /// </summary>
-    /// <returns>A new instance of <see cref="T:System.Data.Common.DbCommandBuilder" />.</returns>
-    public override DbCommandBuilder CreateCommandBuilder() =>
-        WrappedFactory.CreateCommandBuilder();
-
-    /// <summary>
-    /// proxy
-    /// </summary>
-    /// <returns>A new instance of <see cref="T:System.Data.Common.DbDataAdapter" />.</returns>
-    public override DbDataAdapter CreateDataAdapter() =>
-        WrappedFactory.CreateDataAdapter();
-
-    /// <summary>
-    /// proxy
-    /// </summary>
-    /// <param name="state">One of the <see cref="T:System.Security.Permissions.PermissionState" /> values.</param>
-    /// <returns>A <see cref="T:System.Security.CodeAccessPermission" /> object for the specified <see cref="T:System.Security.Permissions.PermissionState" />.</returns>
-    public override System.Security.CodeAccessPermission CreatePermission(System.Security.Permissions.PermissionState state) =>
-        WrappedFactory.CreatePermission(state);
-#endif
 }

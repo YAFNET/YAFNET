@@ -364,23 +364,18 @@ public static class OrmLiteConfig
     }
 
     /// <summary>
-    /// The execute filter
-    /// </summary>
-    private static IOrmLiteExecFilter execFilter;
-    /// <summary>
     /// Gets or sets the execute filter.
     /// </summary>
     /// <value>The execute filter.</value>
-    public static IOrmLiteExecFilter ExecFilter
-    {
+    public static IOrmLiteExecFilter ExecFilter {
         get {
-            execFilter ??= new OrmLiteExecFilter();
+            field ??= new OrmLiteExecFilter();
 
             return dialectProvider != null
-                       ? dialectProvider.ExecFilter ?? execFilter
-                       : execFilter;
+                ? dialectProvider.ExecFilter ?? field
+                : field;
         }
-        set => execFilter = value;
+        set;
     }
 
     /// <summary>

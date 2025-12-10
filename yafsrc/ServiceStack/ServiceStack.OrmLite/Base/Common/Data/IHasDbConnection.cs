@@ -5,7 +5,6 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-#if !SL5 && !XBOX
 using System.Data;
 
 namespace ServiceStack.Data;
@@ -45,4 +44,3 @@ public interface IHasDbTransaction
     /// <value>The database transaction.</value>
     IDbTransaction DbTransaction { get; }
 }
-#endif

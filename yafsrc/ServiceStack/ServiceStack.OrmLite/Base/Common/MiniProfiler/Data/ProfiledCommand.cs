@@ -30,10 +30,6 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// The connection
     /// </summary>
     private DbConnection conn;
-    /// <summary>
-    /// The tran
-    /// </summary>
-    private DbTransaction tran;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ProfiledCommand" /> class.
@@ -123,14 +119,14 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// Gets or sets the <see cref="P:System.Data.Common.DbCommand.DbTransaction" /> within which this <see cref="T:System.Data.Common.DbCommand" /> object executes.
     /// </summary>
     /// <value>The database transaction.</value>
-    override protected DbTransaction DbTransaction
-    {
-        get => this.tran;
-        set
-        {
-            this.tran = value;
-            this.cmd.Transaction = value is not ProfiledDbTransaction {DbTransaction: System.Data.Common.DbTransaction} awesomeTran ?
-                                   value : (DbTransaction)awesomeTran.DbTransaction;
+    override protected DbTransaction DbTransaction {
+        get;
+        set {
+            field = value;
+            this.cmd.Transaction =
+                value is not ProfiledDbTransaction { DbTransaction: System.Data.Common.DbTransaction } awesomeTran
+                    ? value
+                    : (DbTransaction)awesomeTran.DbTransaction;
         }
     }
 

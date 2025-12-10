@@ -292,17 +292,6 @@ public class ProfiledDbDataReader : DbDataReader
         return this.reader.GetOrdinal(name);
     }
 
-#if !NET10_0_OR_GREATER
-    /// <summary>
-    /// Returns a <see cref="T:System.Data.DataTable" /> that describes the column metadata of the <see cref="T:System.Data.Common.DbDataReader" />.
-    /// </summary>
-    /// <returns>A <see cref="T:System.Data.DataTable" /> that describes the column metadata.</returns>
-    public override DataTable GetSchemaTable()
-    {
-        return reader.GetSchemaTable();
-    }
-#endif
-
     /// <summary>
     /// Gets the value of the specified column as an instance of <see cref="T:System.String" />.
     /// </summary>

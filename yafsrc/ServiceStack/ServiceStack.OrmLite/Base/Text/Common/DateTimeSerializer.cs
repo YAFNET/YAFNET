@@ -180,7 +180,6 @@ public static class DateTimeSerializer
 
         var config = JsConfig.GetConfig();
 
-#if NET10_0_OR_GREATER
         if (config.SystemJsonCompatible)
         {
             try
@@ -195,7 +194,6 @@ public static class DateTimeSerializer
                 Tracer.Instance.WriteWarning("Could not parse System.Text.Json DateTime '{0}': {1}", dateTimeStr, e);
             }
         }
-#endif
 
         try
         {
@@ -529,7 +527,6 @@ public static class DateTimeSerializer
             return default;
         }
 
-#if NET10_0_OR_GREATER
         var config = JsConfig.GetConfig();
         if (config.SystemJsonCompatible)
         {
@@ -545,7 +542,6 @@ public static class DateTimeSerializer
                 Tracer.Instance.WriteError("Could not parse System.Text.Json DateTimeOffset '{0}': {1}", dateTimeOffsetStr, e);
             }
         }
-#endif
 
         // for interop, do not assume format based on config
         // format: prefer TimestampOffset, DCJSCompatible

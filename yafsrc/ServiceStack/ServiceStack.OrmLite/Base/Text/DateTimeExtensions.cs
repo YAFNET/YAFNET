@@ -97,7 +97,6 @@ public static class DateTimeExtensions
         return (ticks - UnixEpoch) / TimeSpan.TicksPerMillisecond;
     }
 
-#if NET10_0_OR_GREATER
     /// <param name="dateOnly">The date only.</param>
     extension(DateOnly dateOnly)
     {
@@ -119,8 +118,6 @@ public static class DateTimeExtensions
             return dateOnly.ToDateTime(default, DateTimeKind.Utc).ToUnixTime();
         }
     }
-
-#endif
 
     /// <param name="msSince1970">The ms since1970.</param>
     extension(long msSince1970)

@@ -277,8 +277,6 @@ public interface ITypeSerializer
     /// <param name="enumValue">The enum value.</param>
     void WriteEnum(TextWriter writer, object enumValue);
 
-#if NET10_0_OR_GREATER
-
     /// <summary>
     /// Write Date Only
     /// </summary>
@@ -306,7 +304,6 @@ public interface ITypeSerializer
     /// <param name="writer">The writer.</param>
     /// <param name="oTimeOnly">The time value.</param>
     void WriteNullableTimeOnly(TextWriter writer, object oTimeOnly);
-#endif
 
     /// <summary>
     /// Gets the parse string span function.

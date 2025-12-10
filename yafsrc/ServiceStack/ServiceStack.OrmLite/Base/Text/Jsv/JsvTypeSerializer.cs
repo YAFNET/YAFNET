@@ -554,7 +554,6 @@ public struct JsvTypeSerializer
         }
     }
 
-#if NET10_0_OR_GREATER
     /// <summary>
     /// Writes the date only.
     /// </summary>
@@ -611,15 +610,14 @@ public struct JsvTypeSerializer
     /// <param name="writer">The writer.</param>
     /// <param name="oTimeOnly">The o time only.</param>
     public void WriteNullableTimeOnly(TextWriter writer, object oTimeOnly)
+    {
+        if (oTimeOnly == null)
         {
-            if (oTimeOnly == null)
-            {
-                return;
-            }
-
-            this.WriteTimeSpan(writer, ((TimeOnly?)oTimeOnly).Value.ToTimeSpan());
+            return;
         }
-#endif
+
+        this.WriteTimeSpan(writer, ((TimeOnly?)oTimeOnly).Value.ToTimeSpan());
+    }
 
     /// <summary>
     /// Gets the parse function.

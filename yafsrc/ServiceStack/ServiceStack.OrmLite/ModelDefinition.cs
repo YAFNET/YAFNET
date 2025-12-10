@@ -559,24 +559,16 @@ public class ModelDefinition
 public static class ModelDefinition<T>
 {
     /// <summary>
-    /// The definition
-    /// </summary>
-    private static ModelDefinition definition;
-    /// <summary>
     /// Gets the definition.
     /// </summary>
     /// <value>The definition.</value>
-    public static ModelDefinition Definition => definition ??= typeof(T).GetModelDefinition();
+    public static ModelDefinition Definition => field ??= typeof(T).GetModelDefinition();
 
-    /// <summary>
-    /// The primary key name
-    /// </summary>
-    private static string primaryKeyName;
     /// <summary>
     /// Gets the name of the primary key.
     /// </summary>
     /// <value>The name of the primary key.</value>
-    public static string PrimaryKeyName => primaryKeyName ??= Definition.PrimaryKey.FieldName;
+    public static string PrimaryKeyName => field ??= Definition.PrimaryKey.FieldName;
 }
 
 /// <summary>
