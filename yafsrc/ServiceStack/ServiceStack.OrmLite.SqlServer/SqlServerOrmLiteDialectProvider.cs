@@ -722,9 +722,18 @@ namespace ServiceStack.OrmLite.SqlServer
         {
             var sb = StringBuilderCache.Allocate();
 
-            var foreignKeyName = name.IsNullOrEmpty() ? $"PK_{this.NamingStrategy.GetTableName(modelDef)}" :
-                                 name.StartsWith("PK_", StringComparison.CurrentCultureIgnoreCase) ? name :
-                                 $"PK_{this.NamingStrategy.GetTableName(modelDef)}_{name}";
+            string foreignKeyName;
+
+            if (name.IsNullOrEmpty())
+            {
+                foreignKeyName = $"PK_{this.NamingStrategy.GetTableName(modelDef)}";
+            }
+            else
+            {
+                foreignKeyName = name.StartsWith("PK_", StringComparison.CurrentCultureIgnoreCase)
+                    ? name
+                    : $"PK_{this.NamingStrategy.GetTableName(modelDef)}_{name}";
+            }
 
             var tableName = this.GetQuotedTableName(modelDef);
 

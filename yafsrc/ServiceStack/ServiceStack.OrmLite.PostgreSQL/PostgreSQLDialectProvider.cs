@@ -102,13 +102,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         AppContext.SetSwitch("Npgsql.EnableLegacyCaseInsensitiveDbParameters", true);
 
-#if NET10_0_OR_GREATER
         this.RegisterConverter<DateOnly>(new PostgreSqlDateOnlyConverter());
-#endif
-
-#if NET48
-            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-#endif
 
         this.Variables = new Dictionary<string, string> {
             { OrmLiteVariables.SystemUtc, "now() at time zone 'utc'" },
@@ -139,19 +133,14 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     }
 
     /// <summary>
-    /// The normalize
-    /// </summary>
-    private bool normalize;
-
-    /// <summary>
     /// Gets or sets a value indicating whether this <see cref="PostgreSqlDialectProvider" /> is normalize.
     /// </summary>
     /// <value><c>true</c> if normalize; otherwise, <c>false</c>.</value>
     public bool Normalize {
-        get => this.normalize;
+        get;
         set {
-            this.normalize = value;
-            this.NamingStrategy = this.normalize
+            field = value;
+            this.NamingStrategy = field
                 ? new OrmLiteNamingStrategyBase()
                 : new PostgreSqlNamingStrategy();
         }
