@@ -67,7 +67,7 @@ public class AdminPagesTests : TestBase
 
                     page.Console += (_, msg) =>
                     {
-                        Assert.That(msg.Type, Does.Not.Match("error"));
+                        Assert.That(msg.Type, Does.Not.Match("error"), $"Error on page: {pageName}");
                     };
 
                     Assert.That(pageSource, Does.Contain("Administration"), $"Error on page: {pageName}");

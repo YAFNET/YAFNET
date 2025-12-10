@@ -29,7 +29,6 @@ using Microsoft.Extensions.DependencyInjection;
 namespace YAF.Tests.Utils;
 
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
 
 using YAF.ViewComponents;
 
