@@ -72,24 +72,24 @@
                             <div class="px-3 py-1">
                                 <div class="mb-3">
                                     <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
-                                    <asp:DropDownList runat="server" ID="PageSize"
-                                                      AutoPostBack="True"
-                                                      OnSelectedIndexChanged="PageSizeSelectedIndexChanged"
-                                                      CssClass="select2-select">
-                                    </asp:DropDownList>
+	                                <asp:DropDownList runat="server" ID="PageSize"
+	                                                  AutoPostBack="True"
+	                                                  OnSelectedIndexChanged="PageSizeSelectedIndexChanged"
+	                                                  CssClass="select2-select">
+	                                </asp:DropDownList>
                                 </div>
                                 <div class="mb-3">
                                     <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" 
                                                         LocalizedTag="showtopics" />: 
-                                    <asp:DropDownList ID="ShowList" runat="server" 
-                                          AutoPostBack="True" 
-                                          CssClass="select2-select" />
+	                                <asp:DropDownList ID="ShowList" runat="server" 
+	                                                  AutoPostBack="True" 
+	                                                  CssClass="select2-select" />
                                 </div>
                                 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
                                     <div class="mb-3">
                                         <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" 
                                             LocalizedTag="FORUM_JUMP" />:
-                                        <asp:DropDownList runat="server" ID="ForumJump"/>
+	                                    <select id="ForumJump"></select>
                                     </div>
                                 </asp:PlaceHolder>
                                 <asp:PlaceHolder ID="ForumSearchHolder" runat="server">
@@ -163,10 +163,10 @@
     <div>
         <div class="btn-group" role="group" aria-label="Tools">
             <YAF:ThemeButton runat="server" ID="WatchForum"
-                             Type="Secondary" 
-                             Size="Small"
-                             Icon="eye"
-                             TextLocalizedTag="WATCHFORUM"/>
+                             Type="Secondary"
+				Size="Small"
+				Icon="eye"
+				TextLocalizedTag="WATCHFORUM" />
             <YAF:ThemeButton runat="server" 
                              Type="Secondary" 
                              Size="Small" 

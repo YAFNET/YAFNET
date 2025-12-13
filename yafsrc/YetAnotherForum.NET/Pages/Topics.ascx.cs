@@ -79,7 +79,7 @@ public partial class Topics : ForumPage
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.SelectForumsLoadJs),
             JavaScriptBlocks.SelectForumsLoadJs(
-                this.ForumJump.ClientID,
+                "ForumJump",
                 this.GetText("FORUM_JUMP_PLACEHOLDER"),
                 true,
                 false));
@@ -142,26 +142,41 @@ public partial class Topics : ForumPage
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
-        this.ForumJumpHolder.Visible = this.PageBoardContext.BoardSettings.ShowForumJump;
-
-        this.ForumSearchHolder.Visible =
-            this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.SearchPermissions);
-
-        if (this.ForumSearchHolder.Visible)
-        {
-            this.forumSearch.Attributes.Add(
-                "onkeydown",
-                JavaScriptBlocks.ClickOnEnterJs(this.forumSearchOK.ClientID));
-        }
-
         if (!this.IsPostBack)
         {
+            this.ForumJumpHolder.Visible = this.PageBoardContext.BoardSettings.ShowForumJump;
+
+            this.ForumSearchHolder.Visible =
+                this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.SearchPermissions);
+
+            if (this.ForumSearchHolder.Visible)
+            {
+                this.forumSearch.Attributes.Add(
+                    "onkeydown",
+                    JavaScriptBlocks.ClickOnEnterJs(this.forumSearchOK.ClientID));
+            }
+
             this.ShowList.DataSource = StaticDataHelper.TopicTimes();
             this.ShowList.DataTextField = "Name";
             this.ShowList.DataValueField = "Value";
             this.showTopicListSelected = this.Get<ISession>().ShowList == -1
                                              ? this.PageBoardContext.BoardSettings.ShowTopicsDefault
                                              : this.Get<ISession>().ShowList;
+
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            try
+            {
+                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
+            }
+            catch (Exception)
+            {
+                this.PageSize.SelectedValue = "5";
+            }
+
 
             this.moderate1.NavigateUrl =
                 this.moderate2.NavigateUrl =
@@ -172,6 +187,25 @@ public partial class Topics : ForumPage
                     this.Get<LinkBuilder>().GetLink(ForumPages.PostTopic, new { f = this.PageBoardContext.PageForumID });
 
             this.HandleWatchForum();
+
+            if (this.PageBoardContext.IsGuest)
+            {
+                this.WatchForum.Visible = false;
+                this.MarkRead.Visible = false;
+            }
+
+            if (!this.PageBoardContext.ForumPostAccess
+                || this.PageBoardContext.PageForum.ForumFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
+            {
+                this.NewTopic1.Visible = false;
+                this.NewTopic2.Visible = false;
+            }
+
+            if (!this.PageBoardContext.ForumModeratorAccess)
+            {
+                this.moderate1.Visible = false;
+                this.moderate2.Visible = false;
+            }
         }
 
         if (!this.Get<HttpRequestBase>().QueryString.Exists("f"))
@@ -199,42 +233,7 @@ public partial class Topics : ForumPage
                                   ? $"{this.HtmlEncode(this.PageBoardContext.PageForum.Name)} - <em>{this.HtmlEncode(this.PageBoardContext.PageForum.Description)}</em>"
                                   : this.HtmlEncode(this.PageBoardContext.PageForum.Name);
 
-        this.PageSize.DataSource = StaticDataHelper.PageEntries();
-        this.PageSize.DataTextField = "Name";
-        this.PageSize.DataValueField = "Value";
-        this.PageSize.DataBind();
-
-        try
-        {
-            this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
-        }
-        catch (Exception)
-        {
-            this.PageSize.SelectedValue = "5";
-        }
-
         this.BindData(); // Always because of yaf:TopicLine
-
-        if (!this.PageBoardContext.ForumPostAccess
-            || this.PageBoardContext.PageForum.ForumFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
-        {
-            this.NewTopic1.Visible = false;
-            this.NewTopic2.Visible = false;
-        }
-
-        if (this.PageBoardContext.IsGuest)
-        {
-            this.WatchForum.Visible = false;
-            this.MarkRead.Visible = false;
-        }
-
-        if (this.PageBoardContext.ForumModeratorAccess)
-        {
-            return;
-        }
-
-        this.moderate1.Visible = false;
-        this.moderate2.Visible = false;
     }
 
     /// <summary>

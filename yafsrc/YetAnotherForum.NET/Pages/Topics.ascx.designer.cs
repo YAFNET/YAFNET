@@ -150,15 +150,6 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.LocalizedLabel ForumJumpLabel;
 
         /// <summary>
-        /// ForumJump control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ForumJump;
-
-        /// <summary>
         /// ForumSearchHolder control.
         /// </summary>
         /// <remarks>
