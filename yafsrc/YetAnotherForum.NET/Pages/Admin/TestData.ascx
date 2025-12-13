@@ -550,7 +550,7 @@
 <YAF:ThemeButton ID="LaunchGenerator" runat="server"
                  Text="Launch Generator"
                  Type="Primary"
-                 CssClass="card-link"
+                 CssClass="card-link btn-spinner"
                  CausesValidation="True"
                  OnClick="CreateTestData_Click" />
 <YAF:ThemeButton ID="Cancel" runat="server"

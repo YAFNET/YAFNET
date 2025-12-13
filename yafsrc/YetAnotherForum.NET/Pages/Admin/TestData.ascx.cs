@@ -26,9 +26,9 @@
 namespace YAF.Pages.Admin
 {
     using System.Text;
-
-    using YAF.Types.Models.Identity;
+    using YAF.Types.Flags;
     using YAF.Types.Models;
+    using YAF.Types.Models.Identity;
 
     /// <summary>
     /// The control generates test data for different data layers.
@@ -663,8 +663,6 @@ namespace YAF.Pages.Admin
 
             int posts;
 
-            const int replyTo = -1;
-
             for (posts = 0; posts < numMessages; posts++)
             {
                 this.randomGuid = Guid.NewGuid().ToString();
@@ -674,10 +672,10 @@ namespace YAF.Pages.Admin
                     topic,
                     this.PageBoardContext.PageUser,
                     $"msgd-{this.randomGuid}  {this.MyMessage.Text.Trim()}",
-                    this.PageBoardContext.PageUser.Name,
+                    null,
                     this.Request.GetUserRealIPAddress(),
                     DateTime.UtcNow,
-                    replyTo,
+                    null,
                     this.GetMessageFlags());
             }
 
