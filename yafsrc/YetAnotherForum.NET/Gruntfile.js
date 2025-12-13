@@ -444,7 +444,7 @@ module.exports = function (grunt) {
 		        implementation: sass,
                 sourceMap: false,
                 api: 'modern',
-                silenceDeprecations: ['color-functions', 'global-builtin', 'import','legacy-js-api']
+                silenceDeprecations: ['color-functions', 'global-builtin', 'import','legacy-js-api', 'if-function']
 	        },
             installWizard: {
                 files: {
