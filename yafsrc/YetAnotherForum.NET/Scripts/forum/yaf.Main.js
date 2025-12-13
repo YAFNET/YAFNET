@@ -1,9 +1,11 @@
 ﻿// Generic Functions
 document.addEventListener('DOMContentLoaded', function () {
-    if (document.querySelector('a.btn-login,input.btn-login, .btn-spinner') != null) {
-        document.querySelector('a.btn-login,input.btn-login, .btn-spinner').addEventListener('click', () => {
-            document.querySelector(this).innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
-        });
+	const loginButton = document.querySelector('a.btn-login,input.btn-login, .btn-spinner');
+    if (loginButton) {
+	    loginButton.addEventListener('click', () => {
+            loginButton.innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
+            loginButton.classList.add('disabled');
+	    });
     }
 
     // Gallery
@@ -37,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			    shouldSort: false,
 			    placeholderValue: select.getAttribute('placeholder'),
 			    classNames: {
-				    containerOuter: ["choices", "w-100"]
+				    containerOuter: ['choices', 'w-100']
 			    }
 		    });
     });
@@ -78,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const choice = new window.Choices(select,
 	        {
 		        classNames: {
-			        containerOuter: ["choices", "w-100"]
+			        containerOuter: ['choices', 'w-100']
 		        },
 		        allowHTML: true,
 		        shouldSort: false,

@@ -9800,9 +9800,11 @@ function setPageNumber(pageSize, pageNumber, total, pagerHolder, label, javascri
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    if (document.querySelector("a.btn-login,input.btn-login, .btn-spinner") != null) {
-        document.querySelector("a.btn-login,input.btn-login, .btn-spinner").addEventListener("click", () => {
-            document.querySelector(this).innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
+    const loginButton = document.querySelector("a.btn-login,input.btn-login, .btn-spinner");
+    if (loginButton) {
+        loginButton.addEventListener("click", () => {
+            loginButton.innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
+            loginButton.classList.add("disabled");
         });
     }
     for (const el of document.querySelectorAll('[data-toggle="lightbox"]')) {
