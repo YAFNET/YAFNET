@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "در حال مشاهده اطلاعات تشکرها"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "مشاهده لیست کشورهای ممنوعه"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "کشور ممنوع شده را ویرایش می کند"
           }
         ]
       },
@@ -1280,6 +1288,10 @@
             "#text": "ماسک"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "آدرس IP یا ماسک"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "این مورد حذف شود؟"
           },
@@ -1302,10 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "آدرس IP های مسدود"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "آدرس IP یا ماسک"
           }
         ]
       },
@@ -6482,6 +6490,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "برچسب حذف شود؟"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "نمایش موضوعات"
           },
@@ -6901,6 +6913,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "کاربران و نقش ها"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "کشورهای ممنوعه"
           }
         ]
       },
@@ -14037,12 +14053,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "اشتراک های فعال"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "اطلاع رسانی برای [b]تمام مطالب در تمام موضوعات[/b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ اپلیکیشن نصب شد "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ این مرورگر از اعلان ها پشتیبانی نمی کند"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "برای فعال کردن اعلان ها روی دکمه کلیک کنید"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "دریافت روزانه خلاصه فعالیت ها؟"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "اعلان ها را فعال کنید"
           },
           {
             "@tag": "FORUM",
@@ -14053,6 +14089,10 @@
             "#text": "انجمن های تحت پیگیری"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "آخرین ارسال‌"
           },
@@ -14061,20 +14101,76 @@
             "#text": "{0} بوسیله {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[ب]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "اعلان ها را خاموش کنید"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ اعلان ها مسدود شده است. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ اعلان ها مسدود شده است. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "انتخاب تنظیمات ایمیل اطلاع رسانی:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ اجازه داده نشد. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ اجازه داده نشد. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ اجازه رد شد. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ مجوز داده شد! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "اعلان‌های فشار دستگاه (مرورگر)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "به صفحه اصلی اضافه کنید"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "برای دسترسی سریع و بهترین تجربه، این برنامه را به صفحه اصلی خود اضافه کنید!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "پاسخ ها"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "تنظیمات ایمیل اطلاع رسانی بروز شد."
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "توقف اعلان ها"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ اعلان‌های فشاری متوقف شد. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ با موفقیت مشترک اعلان‌های فشاری شد!"
           },
           {
             "@tag": "TITLE",
@@ -14616,6 +14712,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]دیروز[/b] در {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "اضافه کردن کشور جدید"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "هیچ کشوری"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "در حال حاضر هیچ کشور ممنوعه ای وجود ندارد. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "کشور"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "کشور ممنوعه از قبل وجود دارد!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "کشور با موفقیت حذف شد"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "کشورهای ممنوعه"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "کشور:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "کشور ممنوع است."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "کشور ممنوعه را اضافه کنید"
           }
         ]
       }

@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "عرض معلومات الشكر "
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "وجهات النظر قائمة الدول المحظورة"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "تعديلات البلد المحظورة"
           }
         ]
       },
@@ -1280,6 +1288,10 @@
             "#text": "قناع"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "عنوان IP أو القناع"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "هل تريد حذف هذا العنصر المحظور؟"
           },
@@ -1302,10 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "عناوين IP المحظورة"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "عنوان IP أو القناع"
           }
         ]
       },
@@ -6482,6 +6490,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "هل تريد حذف العلامة؟"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "عرض الموضوع (المواضيع)"
           },
@@ -6901,6 +6913,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "المستخدمون والأدوار"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "الدول المحظورة"
           }
         ]
       },
@@ -14037,12 +14053,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "الاشتراكات النشطة"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "إخطار [ب] جميع المشاركات في جميع المواضيع [/ ب]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ تم تثبيت التطبيق! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ هذا المتصفح لا يدعم الإشعارات"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "انقر فوق الزر لتمكين الإخطارات"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "تلقي مرة واحدة يوميا ملخص / ملخص النشاط؟"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "تمكين الإخطارات"
           },
           {
             "@tag": "FORUM",
@@ -14053,6 +14089,10 @@
             "#text": "مشاهدة المنتدى"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "آخر  مشاركة "
           },
@@ -14061,20 +14101,76 @@
             "#text": "{0} بواسطة {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[ب]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "إغلاق  الإشعارات "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ تم حظر الإشعارات. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ تم حظر الإشعارات. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "حدد تفضيل إعلام البريد الإلكتروني:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ تم رفض الإذن. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ تم رفض الإذن. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ تم رفض الإذن. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ تم منح الإذن! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "إشعارات الجهاز (المتصفح)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "أضف إلى الشاشة الرئيسية"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "أضف هذا التطبيق إلى شاشتك الرئيسية للوصول السريع وأفضل تجربة!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "الردود"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "تم تحديث إعدادات البريد الإلكتروني للإعلام"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "إيقاف الإخطارات"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ توقفت الإشعارات. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ تم الاشتراك في دفع الإشعارات بنجاح!"
           },
           {
             "@tag": "TITLE",
@@ -14616,6 +14712,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[ب] أمس [/b] في {0: t}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "إضافة دولة جديدة"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "لا بلدان"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "حاليا لا توجد دول محظورة. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "دولة"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "الدولة المحظورة موجودة بالفعل!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "تم حذف البلد بنجاح"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "الدول المحظورة"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "دولة:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "الدولة المراد حظرها."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "إضافة دولة محظورة"
           }
         ]
       }

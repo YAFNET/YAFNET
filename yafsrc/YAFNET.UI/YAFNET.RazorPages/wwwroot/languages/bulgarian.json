@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Преглед на благодарност информация"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Преглежда списък със забранени държави"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Редактира забранена държава"
           }
         ]
       },
@@ -6482,6 +6490,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Изтриване на маркер?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Показване на тема (и)"
           },
@@ -6492,10 +6504,6 @@
           {
             "@tag": "USAGES",
             "#text": "Употреба:"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Изтриване на маркер?"
           }
         ]
       },
@@ -6905,6 +6913,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Потребители и роли"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Забранени държави"
           }
         ]
       },
@@ -14704,6 +14716,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b] вчера [/b] при {0: t}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Добавете нова държава"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Няма държави"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "В момента няма забранени държави. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "СТРАНА"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Забранената държава вече съществува!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Държавата беше изтрита успешно"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Забранени държави"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "държава:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Страната за забрана."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Добавете забранена държава"
           }
         ]
       }

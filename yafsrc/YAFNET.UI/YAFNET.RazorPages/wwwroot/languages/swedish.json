@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Visningar tack för informationen"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Visa listan över förbjudna länder"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Redigerar förbjudet land"
           }
         ]
       },
@@ -6490,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Ta bort tagg?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Visa ämne(n)"
           },
@@ -6500,10 +6512,6 @@
           {
             "@tag": "USAGES",
             "#text": "Användning:"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Ta bort tagg?"
           }
         ]
       },
@@ -6913,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Användare och roller"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Förbjudna länder"
           }
         ]
       },
@@ -14720,6 +14732,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]igår[/b] kl {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Lägg till nytt land"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Inga länder"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "För närvarande finns det inga förbjudna länder. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "LAND"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Det förbjudna landet finns redan!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Landet har raderats"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Förbjudna länder"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Land:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Landet att förbjuda."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Lägg till förbjudet land"
           }
         ]
       }

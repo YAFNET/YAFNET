@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Visualizzazioni grazie info"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Visualizza l'elenco dei paesi vietati"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Modifica il paese vietato"
           }
         ]
       },
@@ -1280,6 +1288,10 @@
             "#text": "Maschera"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "Indirizzo IP o maschera"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Cancellare questo articolo vietato?"
           },
@@ -1302,10 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "Indirizzi IP vietati"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "Indirizzo IP o maschera"
           }
         ]
       },
@@ -6482,6 +6490,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Eliminare l'etichetta?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Mostra argomenti"
           },
@@ -6901,6 +6913,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Utenti e ruoli"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Paesi vietati"
           }
         ]
       },
@@ -14041,12 +14057,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Abbonamenti attivi"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": " Ricevi notifiche per [b]tutti i nuovi messaggi in tutte le discussioni[/b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅App installata! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Questo browser non supporta le notifiche"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Fare clic sul pulsante per abilitare le notifiche"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "Vuoi ricevere un riassunto giornaliero dell'attività del forum?"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Abilita notifiche"
           },
           {
             "@tag": "FORUM",
@@ -14057,6 +14093,10 @@
             "#text": "Forum seguiti"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "Ultimo messaggio"
           },
@@ -14065,20 +14105,76 @@
             "#text": "{0} da {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[B]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "Disattiva invio notifiche"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Notifiche bloccate. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Notifiche bloccate. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "Configurazione notifiche via e-mail:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Autorizzazione negata. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Autorizzazione negata. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Autorizzazione respinta. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Autorizzazione concessa! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Notifiche push del dispositivo (browser)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Aggiungi alla schermata principale"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Aggiungi questa app alla schermata iniziale per un accesso rapido e la migliore esperienza!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "Risposte"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "Impostazioni notifiche tramite e-mail modificate"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Interrompi le notifiche"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Sospese le notifiche push. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Iscrizione alle notifiche push con successo!"
           },
           {
             "@tag": "TITLE",
@@ -14624,6 +14720,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Ieri[/b] alle {0:t}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Aggiungi nuovo paese"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nessun paese"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Attualmente non ci sono Paesi vietati. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "PAESE"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Il paese bandito esiste già!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Il paese è stato eliminato con successo"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Paesi vietati"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Paese:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Il Paese da vietare."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Aggiungi Paese vietato"
           }
         ]
       }

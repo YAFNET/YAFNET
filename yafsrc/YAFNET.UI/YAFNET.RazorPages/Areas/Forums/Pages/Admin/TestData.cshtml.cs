@@ -641,8 +641,6 @@ public class TestDataModel : AdminPage
 
         int posts;
 
-        const int replyTo = -1;
-
         for (posts = 0; posts < numMessages; posts++)
         {
             this.randomGuid = Guid.NewGuid().ToString();
@@ -652,10 +650,10 @@ public class TestDataModel : AdminPage
                 topic,
                 this.PageBoardContext.PageUser,
                 $"msgd-{this.randomGuid}  {this.Input.MyMessage}",
-                this.PageBoardContext.PageUser.Name,
+                null,
                 this.Request.GetUserRealIPAddress(),
                 DateTime.UtcNow,
-                replyTo,
+                null,
                 this.GetMessageFlags());
         }
 

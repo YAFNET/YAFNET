@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Vues merci info"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Consultez la liste des pays interdits"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Modifie le pays interdit"
           }
         ]
       },
@@ -6490,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Supprimer la balise ?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Afficher le(s) sujet(s)"
           },
@@ -6500,10 +6512,6 @@
           {
             "@tag": "USAGES",
             "#text": "Utilisations :"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Supprimer la balise ?"
           }
         ]
       },
@@ -6913,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Utilisateurs et rôles"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Pays interdits"
           }
         ]
       },
@@ -14720,6 +14732,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Hier[/b] à {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Ajouter un nouveau pays"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Aucun pays"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Actuellement, il n’y a aucun pays interdit. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "PAYS"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Le pays interdit existe déjà !"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Le pays a été supprimé avec succès"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Pays interdits"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Pays:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Le pays à interdire."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Ajouter un pays interdit"
           }
         ]
       }

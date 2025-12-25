@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Sieht Dankesinfo an "
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Zeigt die Liste der gesperrten Länder an"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Bearbeitet das gesperrte Land"
           }
         ]
       },
@@ -6482,6 +6490,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Tag löschen?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Thema(s) anzeigen"
           },
@@ -6492,10 +6504,6 @@
           {
             "@tag": "USAGES",
             "#text": "Verwendungen:"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Tag löschen?"
           }
         ]
       },
@@ -6905,6 +6913,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Benutzer und Gruppen"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Verbotene Länder"
           }
         ]
       },
@@ -14704,6 +14716,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Gestern[/b], um {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Neues Land hinzufügen"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Keine Länder"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Derzeit gibt es keine verbotenen Länder. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "LAND"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Das verbotene Land existiert bereits!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Das Land wurde erfolgreich gelöscht"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Verbotene Länder"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Land:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Das Land zum Verbot."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Verbotenes Land hinzufügen"
           }
         ]
       }

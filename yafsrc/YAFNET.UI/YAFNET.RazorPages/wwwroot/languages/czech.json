@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Pohledy díky info"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Zobrazí seznam zakázaných zemí"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Upravuje zakázanou zemi"
           }
         ]
       },
@@ -6490,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Smazat štítek?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Zobrazit témata"
           },
@@ -6500,10 +6512,6 @@
           {
             "@tag": "USAGES",
             "#text": "Použití:"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Smazat štítek?"
           }
         ]
       },
@@ -6913,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Uživatelé a role"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Zakázané země"
           }
         ]
       },
@@ -14724,6 +14736,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Včera[/b] v {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Přidat novou zemi"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žádné země"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "V současné době neexistují žádné zakázané země. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "ZEMĚ"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Zakázaná země již existuje!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Země byla úspěšně smazána"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Zakázané země"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Země:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Země k zákazu."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Přidat zakázanou zemi"
           }
         ]
       }

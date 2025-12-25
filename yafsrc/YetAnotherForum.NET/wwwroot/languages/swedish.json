@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Visningar tack för informationen"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Visa listan över förbjudna länder"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Redigerar förbjudet land"
           }
         ]
       },
@@ -1280,6 +1288,10 @@
             "#text": "Mask"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP-adress eller mask"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Ta bort denna förbjudna artikel?"
           },
@@ -1302,10 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "Förbjudna IP-adresser"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "IP-adress eller mask"
           }
         ]
       },
@@ -6490,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Ta bort tagg?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Visa ämne(n)"
           },
@@ -6909,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Användare och roller"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Förbjudna länder"
           }
         ]
       },
@@ -14057,12 +14073,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktiva prenumerationer"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "Anmälan för [b]alla inlägg i alla ämnen[/b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ App installerad! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Den här webbläsaren stöder inte aviseringar"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Klicka på knappen för att aktivera aviseringar"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "Få en daglig sammanfattning av aktiviteten?"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Aktivera aviseringar"
           },
           {
             "@tag": "FORUM",
@@ -14073,6 +14109,10 @@
             "#text": "Forum"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "Senaste meddelande"
           },
@@ -14081,20 +14121,76 @@
             "#text": "{0} av {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "Stäng av meddelanden"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Aviseringar blockerade. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Aviseringar blockerade. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "Välj önskemål för e-postmeddelanden:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Tillstånd nekad. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Tillstånd nekad. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Tillståndet avvisats. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Tillstånd beviljat! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Push-meddelanden för enhet (webbläsare)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Lägg till på startskärmen"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Lägg till den här appen på din startskärm för snabb åtkomst och den bästa upplevelsen!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "Svar"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "Inställningar för e-postmeddelanden uppdaterade"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Stoppa aviseringar"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Push-aviseringar stoppade. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Prenumererade på push-meddelanden framgångsrikt!"
           },
           {
             "@tag": "TITLE",
@@ -14636,6 +14732,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]igår[/b] kl {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Lägg till nytt land"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Inga länder"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "För närvarande finns det inga förbjudna länder. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "LAND"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Det förbjudna landet finns redan!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Landet har raderats"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Förbjudna länder"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Land:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Landet att förbjuda."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Lägg till förbjudet land"
           }
         ]
       }

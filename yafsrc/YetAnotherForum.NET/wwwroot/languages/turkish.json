@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Teşekkür bilgisini göster"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Yasaklanan ülkeler listesini görüntüler"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Yasaklanan ülkeyi düzenler"
           }
         ]
       },
@@ -1280,6 +1288,10 @@
             "#text": "Maske"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP Adresi veya Maske"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Bu Yasaklı Öğeyi Silin?"
           },
@@ -1302,10 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "Yasaklı IP Adresleri"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "IP Adresi veya Maske"
           }
         ]
       },
@@ -6490,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Etiket silinsin mi?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Konu(ları) Göster"
           },
@@ -6909,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Kullanıcılar ve Roller"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Yasaklı Ülkeler"
           }
         ]
       },
@@ -14057,12 +14073,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktif Abonelikler"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "Tüm konulardaki [b]tüm gönderiler[/b] için bildirim"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Uygulama yüklendi! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Bu tarayıcı bildirimleri desteklemiyor"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Bildirimleri etkinleştirmek için düğmeye tıklayın"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "Günde bir kez faaliyet özeti/özeti alıyor musunuz?"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Bildirimleri Etkinleştir"
           },
           {
             "@tag": "FORUM",
@@ -14073,6 +14109,10 @@
             "#text": "Forumlar"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "Son Mesajlar"
           },
@@ -14081,20 +14121,76 @@
             "#text": "{0} konusunu {1} yanıtlamıştır."
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[B]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "Uyarıları kapatın"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Bildirimler engellendi. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Bildirimler engellendi. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "E-posta bildirim tercihini seçin:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌İzin reddedildi. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌İzin reddedildi. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️İzin reddedildi. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ İzin verildi! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Cihaz (Tarayıcı) anlık bildirimleri"
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Ana Ekrana Ekle"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Hızlı erişim ve en iyi deneyim için bu uygulamayı ana ekranınıza ekleyin!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "Cevaplar"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "Bildirim E-posta Ayarları Güncellendi"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Bildirimleri Durdur"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Push notifications stopped. You can re-enable anytime."
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Push bildirimlerine başarıyla abone oldum!"
           },
           {
             "@tag": "TITLE",
@@ -14636,6 +14732,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Dün[/b] : {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Yeni Ülke Ekle"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ülke Yok"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Şu anda yasaklı ülke yok. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "ÜLKE"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Yasaklanan ülke zaten mevcut!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Ülke başarıyla silindi"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Yasaklı Ülkeler"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Ülke:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Yasaklanacak ülke."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Yasaklanan Ülkeyi Ekle"
           }
         ]
       }

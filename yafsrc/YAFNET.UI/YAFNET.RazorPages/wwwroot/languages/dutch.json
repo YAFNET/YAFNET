@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Bekijkt bedankt info"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Bekijkt de lijst met verboden landen"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Bewerkingen verboden land"
           }
         ]
       },
@@ -6482,6 +6490,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Label verwijderen?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Toon onderwerp(en)"
           },
@@ -6492,10 +6504,6 @@
           {
             "@tag": "USAGES",
             "#text": "Gebruiken:"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Label verwijderen?"
           }
         ]
       },
@@ -6905,6 +6913,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Gebruikers en rollen"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Verboden landen"
           }
         ]
       },
@@ -14704,6 +14716,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Gisteren[/b] om {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Nieuw land toevoegen"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Geen landen"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Momenteel zijn er geen verboden landen. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "LAND"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Het verboden land bestaat al!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Het land is succesvol verwijderd"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Verboden landen"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Land:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Het land dat verboden moet worden."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Voeg een verboden land toe"
           }
         ]
       }

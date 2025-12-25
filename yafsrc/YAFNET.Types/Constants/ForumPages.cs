@@ -280,6 +280,11 @@ public enum ForumPages
     Admin_Forums,
 
     /// <summary>
+    /// The Admin banned countries page.
+    /// </summary>
+    Admin_BannedCountries,
+
+    /// <summary>
     /// The Admin banned email page.
     /// </summary>
     Admin_BannedEmails,

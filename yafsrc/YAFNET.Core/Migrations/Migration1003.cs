@@ -31,7 +31,7 @@ using YAF.Types.Models;
 /// <summary>
 /// Version 1002 Migrations
 /// </summary>
-[Description("Adds the DeviceSubscription table.")]
+[Description("Adds the DeviceSubscription and the BannedCountry table.")]
 public class Migration1003 : MigrationBase
 {
     /// <summary>
@@ -42,6 +42,11 @@ public class Migration1003 : MigrationBase
         if (!this.Db.TableExists<DeviceSubscription>())
         {
             this.Db.CreateTable<DeviceSubscription>();
+        }
+
+        if (!this.Db.TableExists<BannedCountry>())
+        {
+            this.Db.CreateTable<BannedCountry>();
         }
     }
 }

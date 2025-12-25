@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Avab tänuavalduste info"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Vaatab keelatud riikide loendit"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Keelatud riigi muudatused"
           }
         ]
       },
@@ -6490,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Kas kustutada silt?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Kuva teema(d)"
           },
@@ -6500,10 +6512,6 @@
           {
             "@tag": "USAGES",
             "#text": "Kasutusalad:"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Kas kustutada silt?"
           }
         ]
       },
@@ -6913,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Kasutajad ja rollid"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Keelatud riigid"
           }
         ]
       },
@@ -14732,6 +14744,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Eile[/b] kell{0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Lisa uus riik"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei mingeid riike"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Praegu pole keelatud riike. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "RIIK"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Keelatud riik on juba olemas!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Riik kustutati edukalt"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Keelatud riigid"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Riik:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Riik, mida keelata."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Lisage keelatud riik"
           }
         ]
       }

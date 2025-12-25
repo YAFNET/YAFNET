@@ -106,6 +106,7 @@ public static class IApplicationBuilderExtensions
 
             app.UseMiddleware<CheckBannedIps>();
             app.UseMiddleware<CheckBannedUserAgents>();
+            app.UseMiddleware<CheckBannedCountries>();
 
             app.UseRouting();
 

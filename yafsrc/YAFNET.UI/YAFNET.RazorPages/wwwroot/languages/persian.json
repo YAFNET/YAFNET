@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "در حال مشاهده اطلاعات تشکرها"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "مشاهده لیست کشورهای ممنوعه"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "کشور ممنوع شده را ویرایش می کند"
           }
         ]
       },
@@ -6482,6 +6490,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "برچسب حذف شود؟"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "نمایش موضوعات"
           },
@@ -6492,10 +6504,6 @@
           {
             "@tag": "USAGES",
             "#text": "موارد استفاده:"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "برچسب حذف شود؟"
           }
         ]
       },
@@ -6905,6 +6913,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "کاربران و نقش ها"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "کشورهای ممنوعه"
           }
         ]
       },
@@ -14700,6 +14712,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]دیروز[/b] در {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "اضافه کردن کشور جدید"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "هیچ کشوری"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "در حال حاضر هیچ کشور ممنوعه ای وجود ندارد. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "کشور"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "کشور ممنوعه از قبل وجود دارد!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "کشور با موفقیت حذف شد"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "کشورهای ممنوعه"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "کشور:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "کشور ممنوع است."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "کشور ممنوعه را اضافه کنید"
           }
         ]
       }

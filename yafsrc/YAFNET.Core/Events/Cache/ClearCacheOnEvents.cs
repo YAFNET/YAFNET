@@ -41,6 +41,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
                                   IHandleEvent<RepositoryEvent<User>>,
                                   IHandleEvent<RepositoryEvent<BannedIP>>,
                                   IHandleEvent<RepositoryEvent<BannedUserAgent>>,
+                                  IHandleEvent<RepositoryEvent<BannedCountry>>,
                                   IHandleEvent<RepositoryEvent<ReplaceWords>>,
                                   IHandleEvent<RepositoryEvent<SpamWords>>,
                                   IHandleEvent<RepositoryEvent<AccessMask>>,
@@ -169,6 +170,17 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     public void Handle(RepositoryEvent<BannedUserAgent> @event)
     {
         this.DataCache.Remove(Constants.Cache.BannedUserAgent);
+    }
+
+    /// <summary>
+    /// The handle.
+    /// </summary>
+    /// <param name="event">
+    ///     The event.
+    /// </param>
+    public void Handle(RepositoryEvent<BannedCountry> @event)
+    {
+        this.DataCache.Remove(Constants.Cache.BannedCountry);
     }
 
     /// <summary>

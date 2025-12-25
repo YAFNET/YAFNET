@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Peržiūros ačiū info"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Peržiūrėti uždraustų šalių sąrašą"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Redaguoti uždrausta šalis"
           }
         ]
       },
@@ -1280,6 +1288,10 @@
             "#text": "Kaukė"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP adresas arba kaukė"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Ištrinti šį uždraustą elementą?"
           },
@@ -1302,10 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "Uždrausti IP adresai"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "IP adresas arba kaukė"
           }
         ]
       },
@@ -6490,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Ištrinti žymą?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Rodyti temą (-as)"
           },
@@ -6909,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Naudotojai ir vaidmenys"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Uždraustos šalys"
           }
         ]
       },
@@ -14057,12 +14073,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktyvūs prenumeratos"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "Pranešimas apie [b]visus pranešimus visomis temomis[/b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Programėlė įdiegta! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Ši naršyklė nepalaiko pranešimų"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Spustelėkite mygtuką, kad įgalintumėte pranešimus"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "Kartą per dieną gaunate veiklos suvestinę / santrauką?"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Įgalinti pranešimus"
           },
           {
             "@tag": "FORUM",
@@ -14073,6 +14109,10 @@
             "#text": "Forumai "
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "Last Post "
           },
@@ -14081,20 +14121,76 @@
             "#text": "{0} iš {1} "
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "Išjungti pranešimus"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Pranešimai užblokuoti. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Pranešimai užblokuoti. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "Pasirinkite pranešimo el. paštu pageidavimą:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Leidimas atmestas. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Leidimas atmestas. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Leidimas atmestas. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Leidimas suteiktas! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Įrenginio (naršyklės) tiesioginiai pranešimai"
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Pridėti prie pagrindinio ekrano"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Pridėkite šią programą prie savo pagrindinio ekrano, kad greitai pasiektumėte ir gautumėte geriausią patirtį!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "Atsakymai "
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "Atnaujinti pranešimų el. pašto nustatymai"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Sustabdyti pranešimus"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Push pranešimai sustabdyti. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Sėkmingai užsiprenumeravote tiesioginius pranešimus!"
           },
           {
             "@tag": "TITLE",
@@ -14636,6 +14732,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b] Vakar [/b] į {0:T} "
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Pridėti naują šalį"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nėra šalių"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Šiuo metu nėra uždraustų šalių. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "ŠALIS"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Uždrausta šalis jau egzistuoja!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Šalis sėkmingai ištrinta"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Uždraustos šalys"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Šalis:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Šalis, kurią reikia uždrausti."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Pridėti uždraustą šalį"
           }
         ]
       }

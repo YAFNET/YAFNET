@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Zobrazenia vďaka info"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Zobrazuje zoznam zakázaných krajín"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Upravuje zakázanú krajinu"
           }
         ]
       },
@@ -6490,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Odstrániť značku?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Zobraziť témy"
           },
@@ -6500,10 +6512,6 @@
           {
             "@tag": "USAGES",
             "#text": "Použitie:"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Odstrániť značku?"
           }
         ]
       },
@@ -6913,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Používatelia a roly"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Zakázané krajiny"
           }
         ]
       },
@@ -14720,6 +14732,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Včera[/b] o {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Pridať novú krajinu"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žiadne krajiny"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "V súčasnosti neexistujú žiadne zakázané krajiny. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "KRAJINA"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Zakázaná krajina už existuje!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Krajina bola úspešne vymazaná"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Zakázané krajiny"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Krajina:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Krajina na zákaz."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Pridať zakázanú krajinu"
           }
         ]
       }

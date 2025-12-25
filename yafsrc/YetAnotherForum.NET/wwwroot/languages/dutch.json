@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Bekijkt bedankt info"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Bekijkt de lijst met verboden landen"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Bewerkingen verboden land"
           }
         ]
       },
@@ -1280,6 +1288,10 @@
             "#text": "Masker"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP-adres of masker"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Dit verbannen item verwijderen?"
           },
@@ -1302,10 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "Geblokkeerde IP-Adressen"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "IP-adres of masker"
           }
         ]
       },
@@ -6482,6 +6490,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Label verwijderen?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Toon onderwerp(en)"
           },
@@ -6901,6 +6913,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Gebruikers en rollen"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Verboden landen"
           }
         ]
       },
@@ -14041,12 +14057,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Actieve abonnementen"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "Melding voor [b]alle berichten in alle topics[/b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅App geïnstalleerd! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Deze browser ondersteunt geen meldingen"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Klik op de knop om meldingen in te schakelen"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "Ontvang een dagelijkse samenvatting van alle activiteiten?"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Meldingen inschakelen"
           },
           {
             "@tag": "FORUM",
@@ -14057,6 +14093,10 @@
             "#text": "Fora"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "Laatste bericht"
           },
@@ -14065,20 +14105,76 @@
             "#text": "{0} door {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[B]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "Meldingen uitschakelen"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Meldingen geblokkeerd. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Meldingen geblokkeerd. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "Selecteerd e-mail melding voorkeur:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Toestemming geweigerd. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Toestemming geweigerd. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️Toestemming afgewezen. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅Toestemming verleend! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Apparaat (browser) pushmeldingen"
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Toevoegen aan startscherm"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Voeg deze app toe aan je startscherm voor snelle toegang en de beste ervaring!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "Reacties"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "Instellingen van de E-mail meldingen bijgewerkt"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Meldingen stoppen"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Pushmeldingen gestopt. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Succesvol geabonneerd op pushmeldingen!"
           },
           {
             "@tag": "TITLE",
@@ -14620,6 +14716,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Gisteren[/b] om {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Nieuw land toevoegen"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Geen landen"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Momenteel zijn er geen verboden landen. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "LAND"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Het verboden land bestaat al!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Het land is succesvol verwijderd"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Verboden landen"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Land:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Het land dat verboden moet worden."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Voeg een verboden land toe"
           }
         ]
       }

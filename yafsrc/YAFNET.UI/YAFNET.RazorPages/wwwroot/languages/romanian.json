@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Vezi info multumiri"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Vizualizează lista țărilor interzise"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Editează țara interzisă"
           }
         ]
       },
@@ -6490,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Ștergeți eticheta?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Arată tema(e)"
           },
@@ -6500,10 +6512,6 @@
           {
             "@tag": "USAGES",
             "#text": "Utilizări:"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Ștergeți eticheta?"
           }
         ]
       },
@@ -6913,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Utilizatori și roluri"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Țări interzise"
           }
         ]
       },
@@ -14720,6 +14732,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Ieri[/b] at {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Adăugați o țară nouă"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Fără țări"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "În prezent, nu există țări interzise. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "ŢARĂ"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Țara interzisă există deja!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Țara a fost ștearsă cu succes"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Țări interzise"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Ţară:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Țara de interzis."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Adăugați țara interzisă"
           }
         ]
       }

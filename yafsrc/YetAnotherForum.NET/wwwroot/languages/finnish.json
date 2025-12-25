@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Näkymät kiitos info"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Näyttää kiellettyjen maiden luettelon"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Muokkaukset kielletty maa"
           }
         ]
       },
@@ -1280,6 +1288,10 @@
             "#text": "Naamio"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP-osoite tai maski"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Poista tämä kielletty kohde?"
           },
@@ -1302,10 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "Kielletyt IP-osoitteet"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "IP-osoite tai maski"
           }
         ]
       },
@@ -6490,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Poistetaanko tunniste?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Näytä aihe(et)"
           },
@@ -6909,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Käyttäjät ja roolit"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Kielletyt maat"
           }
         ]
       },
@@ -14057,12 +14073,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktiiviset tilaukset"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "Ilmoitus [b]kaikista viesteistä kaikissa aiheissa[/b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Sovellus asennettu! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Tämä selain ei tue ilmoituksia"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Ota ilmoitukset käyttöön napsauttamalla painiketta"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "Saatko kerran päivässä yhteenvedon/yhteenvedon toiminnasta?"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Ota ilmoitukset käyttöön"
           },
           {
             "@tag": "FORUM",
@@ -14073,6 +14109,10 @@
             "#text": "Alueet"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "Viimeisin viesti"
           },
@@ -14081,20 +14121,76 @@
             "#text": "{0} kirjoittaja {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "Sammuta ilmoitukset"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Ilmoitukset estetty. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Ilmoitukset estetty. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "Valitse sähköposti-ilmoitusasetukset:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Lupa evätty. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Lupa evätty. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Lupa evätty. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Lupa myönnetty! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Laitteen (selaimen) push-ilmoitukset"
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Lisää aloitusnäyttöön"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Lisää tämä sovellus aloitusnäyttöön saadaksesi nopean käytön ja parhaan kokemuksen!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "Vastauksia"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "Ilmoitussähköpostiasetukset päivitetty"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Lopeta ilmoitukset"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Push-ilmoitukset pysäytetty. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Push-ilmoitusten tilaus onnistui!"
           },
           {
             "@tag": "TITLE",
@@ -14636,6 +14732,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Eilen[/b] kello {0:HH:mm:ss}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Lisää uusi maa"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei maita"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Tällä hetkellä ei ole kiellettyjä maita. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "MAA"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Kielletty maa on jo olemassa!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Maa poistettiin onnistuneesti"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Kielletyt maat"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Maa:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Kiellettävä maa."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Lisää kielletty maa"
           }
         ]
       }

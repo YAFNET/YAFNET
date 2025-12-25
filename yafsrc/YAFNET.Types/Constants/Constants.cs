@@ -55,6 +55,11 @@ public static class Constants
         public const string BannedUserAgent = "BannedUserAgent";
 
         /// <summary>
+        ///   The banned Country.
+        /// </summary>
+        public const string BannedCountry = "BannedCountry";
+
+        /// <summary>
         ///  The board moderators cache.
         /// </summary>
         public const string BoardModerators = "BoardModerators";

@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Teşekkür bilgisini göster"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Yasaklanan ülkeler listesini görüntüler"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Yasaklanan ülkeyi düzenler"
           }
         ]
       },
@@ -6490,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Etiket silinsin mi?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Konu(ları) Göster"
           },
@@ -6500,10 +6512,6 @@
           {
             "@tag": "USAGES",
             "#text": "Kullanım alanları:"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Etiket silinsin mi?"
           }
         ]
       },
@@ -6913,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Kullanıcılar ve Roller"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Yasaklı Ülkeler"
           }
         ]
       },
@@ -14720,6 +14732,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Dün[/b] : {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Yeni Ülke Ekle"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ülke Yok"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Şu anda yasaklı ülke yok. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "ÜLKE"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Yasaklanan ülke zaten mevcut!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Ülke başarıyla silindi"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Yasaklı Ülkeler"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Ülke:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Yasaklanacak ülke."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Yasaklanan Ülkeyi Ekle"
           }
         ]
       }

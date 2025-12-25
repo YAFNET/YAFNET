@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Xem thông tin cảm ơn"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Xem danh sách các quốc gia bị cấm"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Chỉnh sửa quốc gia bị cấm"
           }
         ]
       },
@@ -6490,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Xóa thẻ?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Hiển thị (các) Chủ đề"
           },
@@ -6500,10 +6512,6 @@
           {
             "@tag": "USAGES",
             "#text": "Tập quán:"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Xóa thẻ?"
           }
         ]
       },
@@ -6913,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Người dùng và vai trò"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Các quốc gia bị cấm"
           }
         ]
       },
@@ -14720,6 +14732,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Hôm qua[/b] vào lúc {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Thêm quốc gia mới"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Không có quốc gia"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Hiện tại không có quốc gia nào bị cấm. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "QUỐC GIA"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Quốc gia bị cấm đã tồn tại!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Quốc gia đã được xóa thành công"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Các quốc gia bị cấm"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Quốc gia:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Đất nước cấm."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Thêm quốc gia bị cấm"
           }
         ]
       }

@@ -1,0 +1,50 @@
+﻿@using YAF.Web.HtmlHelpers
+
+@model YAF.Types.Modals.BannedCountryModal
+
+<!-- Modal -->
+<div class="modal fade" id="EditDialog" tabindex="-1" role="dialog" aria-labelledby="EditDialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">
+					@Html.LocalizedText("ADMIN_BANNED_COUNTRIES_EDIT", Model.Id is > 0 ? "TITLE_EDIT" : "TITLE")
+				</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+				</button>
+			</div>
+			<div class="modal-body">
+				<form asp-controller="BannedCountry" asp-action="Edit" class="needs-validation">
+					<!-- Modal Content START !-->
+					<input asp-for="Id" type="hidden" value="@Model.Id" />
+					<div class="mb-3">
+						<label info-button="true" class="form-label"
+						       asp-for="Country"
+						       localized-tag="MASK" localized-page="ADMIN_BANNED_COUNTRIES_EDIT"></label>
+						<select asp-for="Country" class="select2-image-select">
+							@foreach (var item in Model.Countries)
+							{
+								<option value="@item.Value" item="@item" is-flag-icon="true">
+									@item.Text
+								</option>
+							}
+						</select>
+
+						<div class="invalid-feedback">
+							@Html.LocalizedText("ADMIN_BANNED_COUNTRIES_EDIT", "NEED_MASK")
+						</div>
+					</div>
+					<!-- Modal Content END !-->
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button button-style="Primary" data-bs-save="editModal"
+				        text-localized-tag="@(Model.Id is > 0 ? "SAVE" : "ADD_UA")"
+				        text-localized-page="ADMIN_BANNED_COUNTRIES"
+				        Icon="save">
+				</button>
+				<button type="button" button-style="Secondary" icon="xmark" data-bs-dismiss="modal" text-localized-tag="CANCEL"></button>
+			</div>
+		</div>
+	</div>
+</div>

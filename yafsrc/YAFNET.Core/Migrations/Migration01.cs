@@ -59,6 +59,7 @@ public class Migration01 : MigrationBase
         this.Db.CreateTable<BannedName>();
         this.Db.CreateTable<BannedEmail>();
         this.Db.CreateTable<BannedUserAgent>();
+        this.Db.CreateTable<BannedCountry>();
         this.Db.CreateTable<CheckEmail>();
         this.Db.CreateTable<Poll>();
         this.Db.CreateTable<Choice>();

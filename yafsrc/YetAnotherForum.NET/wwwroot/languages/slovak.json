@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Zobrazenia vďaka info"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Zobrazuje zoznam zakázaných krajín"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Upravuje zakázanú krajinu"
           }
         ]
       },
@@ -1280,6 +1288,10 @@
             "#text": "Maska"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "IP adresa alebo maska"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Odstrániť túto zakázanú položku?"
           },
@@ -1302,10 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "Zakázané IP adresy"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "IP adresa alebo maska"
           }
         ]
       },
@@ -6490,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Odstrániť značku?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Zobraziť témy"
           },
@@ -6909,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Používatelia a roly"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Zakázané krajiny"
           }
         ]
       },
@@ -14057,12 +14073,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Aktívne odbery"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "Upozornenie na [b]všetky príspevky vo všetkých témach[/b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Aplikácia nainštalovaná! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Tento prehliadač nepodporuje upozornenia"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Kliknutím na tlačidlo povolíte upozornenia"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "Dostať raz denne prehľad/súhrn aktivít?"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Povoliť upozornenia"
           },
           {
             "@tag": "FORUM",
@@ -14073,6 +14109,10 @@
             "#text": "Fóra"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "Posledná správa"
           },
@@ -14081,20 +14121,76 @@
             "#text": "{0} od {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "Vypnutie oznámení"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Upozornenia sú zablokované. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Upozornenia sú zablokované. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "Vyberte preferenciu e-mailového oznámenia:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Povolenie zamietnuté. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Povolenie zamietnuté. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Povolenie bolo zrušené. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Povolenie udelené! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Upozornenia push zariadenia (prehliadača)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Pridať na domovskú obrazovku"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Pridajte si túto aplikáciu na svoju domovskú obrazovku pre rýchly prístup a najlepší zážitok!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "Reakcie"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "Aktualizované nastavenia e-mailových oznámení"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Zastaviť upozornenia"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Push notifikácie zastavené. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Úspešne ste sa prihlásili na odber upozornení push!"
           },
           {
             "@tag": "TITLE",
@@ -14636,6 +14732,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Včera[/b] o {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Pridať novú krajinu"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žiadne krajiny"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "V súčasnosti neexistujú žiadne zakázané krajiny. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "KRAJINA"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Zakázaná krajina už existuje!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Krajina bola úspešne vymazaná"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Zakázané krajiny"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Krajina:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Krajina na zákaz."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Pridať zakázanú krajinu"
           }
         ]
       }

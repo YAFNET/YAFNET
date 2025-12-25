@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "צפיות תודה מידע"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "צפיות ברשימת המדינות האסורות"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "עריכת מדינה אסורה"
           }
         ]
       },
@@ -6490,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "למחוק תג?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "הצג נושאים"
           },
@@ -6500,10 +6512,6 @@
           {
             "@tag": "USAGES",
             "#text": "שימושים:"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "למחוק תג?"
           }
         ]
       },
@@ -6913,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "משתמשים ותפקידים"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "מדינות אסורות"
           }
         ]
       },
@@ -14732,6 +14744,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]אתמול[/b] ב- {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "הוסף מדינה חדשה"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "אין מדינות"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "נכון לעכשיו אין מדינות אסורות. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "מְדִינָה"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "המדינה האסורה כבר קיימת!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "המדינה נמחקה בהצלחה"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "מדינות אסורות"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "מְדִינָה:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "המדינה לאסור."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "הוסף מדינה אסורה"
           }
         ]
       }

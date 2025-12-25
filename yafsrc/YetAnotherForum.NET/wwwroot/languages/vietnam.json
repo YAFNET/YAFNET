@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Xem thông tin cảm ơn"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Xem danh sách các quốc gia bị cấm"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Chỉnh sửa quốc gia bị cấm"
           }
         ]
       },
@@ -1280,6 +1288,10 @@
             "#text": "Mặt nạ"
           },
           {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "Địa chỉ IP hoặc Mặt nạ"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Xóa mục bị cấm này?"
           },
@@ -1302,10 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "Địa chỉ IP bị cấm"
-          },
-          {
-            "@tag": "MSG_ADDBAN_IP",
-            "#text": "Địa chỉ IP hoặc Mặt nạ"
           }
         ]
       },
@@ -6490,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Xóa thẻ?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Hiển thị (các) Chủ đề"
           },
@@ -6909,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Người dùng và vai trò"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Các quốc gia bị cấm"
           }
         ]
       },
@@ -14057,12 +14073,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Đăng ký đang hoạt động"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "Thông báo cho [b] tất cả các bài đăng về tất cả các chủ đề [/ b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Đã cài đặt ứng dụng! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Trình duyệt này không hỗ trợ thông báo"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Nhấp vào nút để bật thông báo"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "Nhận thông báo / tóm tắt hoạt động hàng ngày một lần?"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Bật thông báo"
           },
           {
             "@tag": "FORUM",
@@ -14073,6 +14109,10 @@
             "#text": "Diễn đàn"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "Bài cuối"
           },
@@ -14081,20 +14121,76 @@
             "#text": "{0} bởi {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "Tắt thông báo"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Thông báo bị chặn. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Thông báo bị chặn. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "Chọn tùy chọn thông báo qua email:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Quyền bị từ chối. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Quyền bị từ chối. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Quyền bị hủy bỏ. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Đã được cấp phép! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Thông báo đẩy thiết bị (Trình duyệt)"
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Thêm vào màn hình chính"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Thêm ứng dụng này vào màn hình chính của bạn để truy cập nhanh và có trải nghiệm tốt nhất!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "Trả lới"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "Đã cập nhật cài đặt email thông báo"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Dừng thông báo"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Thông báo đẩy đã dừng. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Đã đăng ký nhận thông báo đẩy thành công!"
           },
           {
             "@tag": "TITLE",
@@ -14636,6 +14732,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Hôm qua[/b] vào lúc {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Thêm quốc gia mới"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Không có quốc gia"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Hiện tại không có quốc gia nào bị cấm. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "QUỐC GIA"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Quốc gia bị cấm đã tồn tại!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Quốc gia đã được xóa thành công"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Các quốc gia bị cấm"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Quốc gia:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Đất nước cấm."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Thêm quốc gia bị cấm"
           }
         ]
       }

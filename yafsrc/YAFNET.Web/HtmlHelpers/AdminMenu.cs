@@ -80,7 +80,7 @@ public static class AdminMenuHtmlHelper
 
         // Admin - Spam Protection Menu
         if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
-                x => x.PageName is "Admin_SpamLog" or "Admin_SpamWords" or "Admin_BannedEmails" or "Admin_BannedIps" or "Admin_BannedNames" or "Admin_BannedUserAgents"))
+                x => x.PageName is "Admin_SpamLog" or "Admin_SpamWords" or "Admin_BannedEmails" or "Admin_BannedIps" or "Admin_BannedNames" or "Admin_BannedUserAgents" or "Admin_BannedCountries"))
         {
             content.AppendHtml(RenderAdminSpamProtection(pagesAccess, context));
         }
@@ -338,7 +338,7 @@ public static class AdminMenuHtmlHelper
                 "#",
                 context.CurrentForumPage.PageName is ForumPages.Admin_SpamLog or ForumPages.Admin_SpamWords
                     or ForumPages.Admin_BannedEmails or ForumPages.Admin_BannedIps or ForumPages.Admin_BannedNames
-                    or ForumPages.Admin_BannedUserAgents,
+                    or ForumPages.Admin_BannedUserAgents or ForumPages.Admin_BannedCountries,
                 true,
                 "shield-alt"));
 
@@ -420,6 +420,19 @@ public static class AdminMenuHtmlHelper
                     context.Get<ILocalization>().GetText("ADMINMENU", "ADMIN_BANNED_USERAGENTS"),
                     context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_BannedUserAgents),
                     context.CurrentForumPage.PageName == ForumPages.Admin_BannedUserAgents,
+                    false,
+                    "user-secret"));
+        }
+
+        // Admin BannedCountries
+        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_BannedCountries"))
+        {
+            list.InnerHtml.AppendHtml(
+                RenderMenuItem(
+                    "dropdown-item",
+                    context.Get<ILocalization>().GetText("ADMINMENU", "ADMIN_BANNED_COUNTRIES"),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_BannedCountries),
+                    context.CurrentForumPage.PageName == ForumPages.Admin_BannedCountries,
                     false,
                     "user-secret"));
         }

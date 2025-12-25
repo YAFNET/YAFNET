@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Näkymät kiitos info"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Näyttää kiellettyjen maiden luettelon"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Muokkaukset kielletty maa"
           }
         ]
       },
@@ -6490,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Poistetaanko tunniste?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Näytä aihe(et)"
           },
@@ -6500,10 +6512,6 @@
           {
             "@tag": "USAGES",
             "#text": "Käyttökohteet:"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Poistetaanko tunniste?"
           }
         ]
       },
@@ -6913,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Käyttäjät ja roolit"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Kielletyt maat"
           }
         ]
       },
@@ -14720,6 +14732,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Eilen[/b] kello {0:HH:mm:ss}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Lisää uusi maa"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei maita"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Tällä hetkellä ei ole kiellettyjä maita. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "MAA"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Kielletty maa on jo olemassa!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Maa poistettiin onnistuneesti"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Kielletyt maat"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Maa:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Kiellettävä maa."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Lisää kielletty maa"
           }
         ]
       }
