@@ -150,23 +150,6 @@
     </div>
 </div>
 
-<h4>
-    @Html.LocalizedText("EDIT_PROFILE", "MESSENGER")
-</h4>
-<div class="row">
-    <div class="mb-3 col-md-6">
-        <label asp-for="Input.Xmpp" localized-page="EDIT_PROFILE" localized-tag="XMPP" class="form-label">
-        </label>
-        <input asp-for="Input.Xmpp" class="form-control"/>
-    </div>
-</div>
-
-<div class="mb-3">
-    <label asp-for="Input.Facebook" localized-page="EDIT_PROFILE" localized-tag="FACEBOOK" class="form-label">
-    </label>
-    <input asp-for="Input.Facebook" class="form-control"/>
-</div>
-
 @if (!Model.Input.CustomProfile.NullOrEmpty())
 {
     <hr/>
@@ -187,14 +170,14 @@
 
 				    if (Model.Input.CustomProfile[i].Required)
 				    {
-					    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" required="required" pattern="\S(.*\S)?" />
+					    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="@Model.Input.CustomProfile[i].Length" required="required" pattern="\S(.*\S)?" />
 					    <div class="invalid-feedback">
 						    @Html.LocalizedTextFormatted("NEED_CUSTOM", Model.Input.CustomProfile[i].Name)
 					    </div>
 				    }
 				    else
 				    {
-					    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length"/>
+                                                <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="@Model.Input.CustomProfile[i].Length" />
 				    }
 
 				    break;
@@ -205,14 +188,14 @@
 
 				    if (Model.Input.CustomProfile[i].Required)
 				    {
-					    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" required="required" type="number"/>
+					    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="@Model.Input.CustomProfile[i].Length" required="required" type="number" />
 					    <div class="invalid-feedback">
 						    @Html.LocalizedTextFormatted("NEED_CUSTOM", Model.Input.CustomProfile[i].Name)
 					    </div>
 				    }
 				    else
 				    {
-					    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" type="number"/>
+					    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="@Model.Input.CustomProfile[i].Length" type="number" />
 				    }
 
 			    }
