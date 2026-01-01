@@ -4959,9 +4959,9 @@
     return index_umd;
 });
 
-var bootbox = function(b, j) {
+var bootbox = function(b, B) {
     "use strict";
-    function B(t) {
+    function P(t) {
         const e = Object.create(null, {
             [Symbol.toStringTag]: {
                 value: "Module"
@@ -4978,7 +4978,7 @@ var bootbox = function(b, j) {
         }
         return e.default = t, Object.freeze(e);
     }
-    const v = B(j), P = {
+    const w = P(B), _ = {
         OK: "موافق",
         CANCEL: "الغاء",
         CONFIRM: "تأكيد"
@@ -4994,202 +4994,202 @@ var bootbox = function(b, j) {
         OK: "OK",
         CANCEL: "Zrušit",
         CONFIRM: "Potvrdit"
-    }, _ = {
+    }, z = {
         OK: "OK",
         CANCEL: "Annuller",
         CONFIRM: "Accepter"
-    }, z = {
+    }, $ = {
         OK: "OK",
         CANCEL: "Abbrechen",
         CONFIRM: "Akzeptieren"
-    }, $ = {
+    }, U = {
         OK: "Εντάξει",
         CANCEL: "Ακύρωση",
         CONFIRM: "Επιβεβαίωση"
-    }, U = {
+    }, G = {
         OK: "OK",
         CANCEL: "Cancel",
         CONFIRM: "OK"
-    }, G = {
+    }, W = {
         OK: "OK",
         CANCEL: "Cancelar",
         CONFIRM: "Aceptar"
-    }, W = {
+    }, Z = {
         OK: "OK",
         CANCEL: "Katkesta",
         CONFIRM: "OK"
-    }, Z = {
+    }, J = {
         OK: "OK",
         CANCEL: "Ezeztatu",
         CONFIRM: "Onartu"
-    }, J = {
+    }, X = {
         OK: "قبول",
         CANCEL: "لغو",
         CONFIRM: "تایید"
-    }, X = {
+    }, Q = {
         OK: "OK",
         CANCEL: "Peruuta",
         CONFIRM: "OK"
-    }, Q = {
+    }, Y = {
         OK: "OK",
         CANCEL: "Annuler",
         CONFIRM: "Confirmer"
-    }, Y = {
+    }, ee = {
         OK: "אישור",
         CANCEL: "ביטול",
         CONFIRM: "אישור"
-    }, ee = {
+    }, te = {
         OK: "OK",
         CANCEL: "Odustani",
         CONFIRM: "Potvrdi"
-    }, te = {
+    }, oe = {
         OK: "OK",
         CANCEL: "Mégsem",
         CONFIRM: "Megerősít"
-    }, oe = {
+    }, re = {
         OK: "OK",
         CANCEL: "Batal",
         CONFIRM: "OK"
-    }, re = {
+    }, ae = {
         OK: "OK",
         CANCEL: "Annulla",
         CONFIRM: "Conferma"
-    }, ae = {
+    }, ne = {
         OK: "OK",
         CANCEL: "キャンセル",
         CONFIRM: "OK"
-    }, ne = {
+    }, le = {
         OK: "OK",
         CANCEL: "გაუქმება",
         CONFIRM: "დადასტურება"
-    }, le = {
+    }, ie = {
         OK: "OK",
         CANCEL: "취소",
         CONFIRM: "확인"
-    }, ie = {
+    }, ce = {
         OK: "Gerai",
         CANCEL: "Atšaukti",
         CONFIRM: "Patvirtinti"
-    }, ce = {
+    }, se = {
         OK: "Labi",
         CANCEL: "Atcelt",
         CONFIRM: "Apstiprināt"
-    }, se = {
+    }, ue = {
         OK: "OK",
         CANCEL: "Annuleren",
         CONFIRM: "Accepteren"
-    }, ue = {
+    }, de = {
         OK: "OK",
         CANCEL: "Avbryt",
         CONFIRM: "OK"
-    }, de = {
+    }, fe = {
         OK: "OK",
         CANCEL: "Anuluj",
         CONFIRM: "Potwierdź"
-    }, fe = {
-        OK: "OK",
-        CANCEL: "Cancelar",
-        CONFIRM: "Confirmar"
     }, be = {
         OK: "OK",
         CANCEL: "Cancelar",
-        CONFIRM: "Sim"
+        CONFIRM: "Confirmar"
     }, pe = {
+        OK: "OK",
+        CANCEL: "Cancelar",
+        CONFIRM: "Sim"
+    }, me = {
         OK: "OK",
         CANCEL: "Отмена",
         CONFIRM: "Применить"
-    }, me = {
+    }, Oe = {
         OK: "OK",
         CANCEL: "Zrušiť",
         CONFIRM: "Potvrdiť"
-    }, Oe = {
+    }, he = {
         OK: "OK",
         CANCEL: "Prekliči",
         CONFIRM: "Potrdi"
-    }, he = {
+    }, Ce = {
         OK: "OK",
         CANCEL: "Anulo",
         CONFIRM: "Prano"
-    }, Ce = {
+    }, ve = {
         OK: "OK",
         CANCEL: "Avbryt",
         CONFIRM: "OK"
-    }, ve = {
+    }, ye = {
         OK: "Sawa",
         CANCEL: "Ghairi",
         CONFIRM: "Thibitisha"
-    }, ye = {
+    }, we = {
         OK: "சரி",
         CANCEL: "ரத்து செய்",
         CONFIRM: "உறுதி செய்"
-    }, we = {
+    }, ge = {
         OK: "ตกลง",
         CANCEL: "ยกเลิก",
         CONFIRM: "ยืนยัน"
-    }, ge = {
+    }, Ee = {
         OK: "Tamam",
         CANCEL: "İptal",
         CONFIRM: "Onayla"
-    }, Ee = {
+    }, Ne = {
         OK: "OK",
         CANCEL: "Відміна",
         CONFIRM: "Прийняти"
-    }, Ne = {
+    }, Ae = {
         OK: "OK",
         CANCEL: "Hủy bỏ",
         CONFIRM: "Xác nhận"
-    }, Ae = {
-        OK: "OK",
-        CANCEL: "取消",
-        CONFIRM: "确认"
     }, Le = {
         OK: "OK",
         CANCEL: "取消",
+        CONFIRM: "确认"
+    }, ke = {
+        OK: "OK",
+        CANCEL: "取消",
         CONFIRM: "確認"
-    }, ke = "6.0.6", Ke = {
-        ar: P,
+    }, Ke = "6.0.6", xe = {
+        ar: _,
         az: H,
         bgBG: V,
         cs: D,
-        da: _,
-        de: z,
-        el: $,
-        en: U,
-        es: G,
-        et: W,
-        eu: Z,
-        fa: J,
-        fi: X,
-        fr: Q,
-        he: Y,
-        hr: ee,
-        hu: te,
-        id: oe,
-        it: re,
-        ja: ae,
-        ka: ne,
-        ko: le,
-        lt: ie,
-        lv: ce,
-        nl: se,
-        no: ue,
-        pl: de,
-        pt: fe,
-        ptBR: be,
-        ru: pe,
-        sk: me,
-        sl: Oe,
-        sq: he,
-        sv: Ce,
-        sw: ve,
-        ta: ye,
-        th: we,
-        tr: ge,
-        uk: Ee,
-        vi: Ne,
-        zhCN: Ae,
-        zhTW: Le
-    }, xe = {
+        da: z,
+        de: $,
+        el: U,
+        en: G,
+        es: W,
+        et: Z,
+        eu: J,
+        fa: X,
+        fi: Q,
+        fr: Y,
+        he: ee,
+        hr: te,
+        hu: oe,
+        id: re,
+        it: ae,
+        ja: ne,
+        ka: le,
+        ko: ie,
+        lt: ce,
+        lv: se,
+        nl: ue,
+        no: de,
+        pl: fe,
+        pt: be,
+        ptBR: pe,
+        ru: me,
+        sk: Oe,
+        sl: he,
+        sq: Ce,
+        sv: ve,
+        sw: ye,
+        ta: we,
+        th: ge,
+        tr: Ee,
+        uk: Ne,
+        vi: Ae,
+        zhCN: Le,
+        zhTW: ke
+    }, Me = {
         dialog: '<div class="bootbox modal" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="bootbox-body"></div></div></div></div></div>',
         header: '<div class="modal-header"><h5 class="modal-title"></h5></div>',
         footer: '<div class="modal-footer"></div>',
@@ -5211,7 +5211,7 @@ var bootbox = function(b, j) {
             password: '<input class="bootbox-input bootbox-input-password form-control" autocomplete="off" type="password" />',
             range: '<input class="bootbox-input bootbox-input-range form-control-range" autocomplete="off" type="range" />'
         }
-    }, Me = {
+    }, Ie = {
         locale: "en",
         backdrop: "static",
         animate: !0,
@@ -5245,32 +5245,35 @@ var bootbox = function(b, j) {
             t.dispatchEvent(o);
         }
     }
-    const Ie = ke, y = Ke, m = xe, h = Me;
-    function Se(t) {
-        return y[t];
+    const Se = Ke, C = xe, m = Me, h = Ie;
+    function Fe(t) {
+        return C[t];
     }
-    function Fe(t, e) {
+    function Re() {
+        return C;
+    }
+    function qe(t, e) {
         [ "OK", "CANCEL", "CONFIRM" ].forEach((o, a) => {
             if (!e[o]) throw new Error(`Please supply a translation for "${o}"`);
-        }), y[t] = {
+        }), C[t] = {
             OK: e.OK,
             CANCEL: e.CANCEL,
             CONFIRM: e.CONFIRM
         };
     }
-    function Re(t) {
-        if (t !== "en") delete y[t]; else throw new Error('"en" is used as the default and fallback locale and cannot be removed.');
+    function Te(t) {
+        if (t !== "en") delete C[t]; else throw new Error('"en" is used as the default and fallback locale and cannot be removed.');
     }
-    function qe(t) {
+    function je(t) {
         return t && (t = t.replace("-", "")), I("locale", t);
     }
     function I(...t) {
         let e = {};
         t.length === 2 ? e[t[0]] = t[1] : e = t[0], Object.assign(h, e);
     }
-    function Te() {
+    function Be() {
         document.querySelectorAll(".bootbox").forEach(t => {
-            const e = v.Modal.getInstance(t);
+            const e = w.Modal.getInstance(t);
             e && e.hide();
         });
     }
@@ -5278,8 +5281,8 @@ var bootbox = function(b, j) {
         return S();
     }
     function E(t) {
-        if (v.Modal === void 0) throw new Error('"bootstrap.Modal" is not defined; please double check you have included the Bootstrap JavaScript library. See https://getbootstrap.com/docs/5.3/getting-started/introduction/ for more details.');
-        t = ze(t);
+        if (w.Modal === void 0) throw new Error('"bootstrap.Modal" is not defined; please double check you have included the Bootstrap JavaScript library. See https://getbootstrap.com/docs/5.3/getting-started/introduction/ for more details.');
+        t = Ue(t);
         let e = p(m.dialog), o = e.querySelector(".modal-dialog"), a = e.querySelector(".modal-body"), r = p(m.header), n = p(m.footer), i = t.buttons;
         t.messageForm ? a.querySelector(".bootbox-body").append(t.messageForm) : typeof t.message == "string" ? a.querySelector(".bootbox-body").innerHTML = t.message : a.querySelector(".bootbox-body").append(t.message);
         let u = {};
@@ -5287,8 +5290,8 @@ var bootbox = function(b, j) {
             for (const [ l, d ] of Object.entries(i)) {
                 let O = p(m.button);
                 O.dataset.bbHandler = l;
-                var C = d.className.split(" ");
-                switch (C.forEach(L => {
+                var v = d.className.split(" ");
+                switch (v.forEach(L => {
                     O.classList.add(L);
                 }), l) {
                   case "ok":
@@ -5364,21 +5367,25 @@ var bootbox = function(b, j) {
         }), e.addEventListener("keyup", l => {
             (l.which === 27 || l.detail.which === 27) && g(e, "escape.close.bb");
         }), typeof t.container == "object" ? t.container.append(e) : document.querySelector(t.container)?.append(e);
-        const w = new v.Modal(e, {
+        const y = new w.Modal(e, {
             backdrop: t.backdrop,
             keyboard: !1
         });
-        return t.show && (t.relatedTarget ? w.show(t.relatedTarget) : w.show()), 
-        e;
+        return t.show && (t.relatedTarget ? y.show(t.relatedTarget) : y.show()), 
+        {
+            _element: e,
+            _modal: y,
+            _options: t
+        };
     }
-    function je(...t) {
+    function Pe(...t) {
         const e = k("alert", [ "ok" ], [ "message", "callback" ], t);
         if (e.callback && typeof e.callback != "function") throw new Error('alert requires the "callback" property to be a function when provided');
         return e.buttons.ok.callback = e.onEscape = function() {
             return typeof e.callback == "function" ? e.callback.call(this) : !0;
         }, E(e);
     }
-    function Be(...t) {
+    function _e(...t) {
         let e;
         if (e = k("confirm", [ "cancel", "confirm" ], [ "message", "callback" ], t), 
         typeof e.callback != "function") throw new Error("confirm requires a callback");
@@ -5390,7 +5397,7 @@ var bootbox = function(b, j) {
             return e.callback?.call(this, !0);
         }, e.buttons.cancel = o, e.buttons.confirm = a, E(e);
     }
-    function Pe(...t) {
+    function He(...t) {
         let e, o, a, r, n, i;
         a = p(m.form), e = k("prompt", [ "cancel", "confirm" ], [ "title", "callback" ], t), 
         e.value || (e.value = h.value), e.inputType || (e.inputType = h.inputType), 
@@ -5399,9 +5406,9 @@ var bootbox = function(b, j) {
         u || (e.buttons.cancel = N("cancel", e.locale), u = e.buttons.cancel), u.callback = e.onEscape = function() {
             return e.callback?.call(this, null);
         }, e.buttons.cancel = u;
-        var C = e.buttons.confirm;
-        if (C || (e.buttons.confirm = N("confirm", e.locale), C = e.buttons.confirm), 
-        C.callback = function() {
+        var v = e.buttons.confirm;
+        if (v || (e.buttons.confirm = N("confirm", e.locale), v = e.buttons.confirm), 
+        v.callback = function() {
             let s;
             if (a.classList.add("was-validated"), e.inputType === "checkbox") {
                 const c = Array.from(r.querySelectorAll('input[type="checkbox"]:checked'));
@@ -5413,11 +5420,11 @@ var bootbox = function(b, j) {
                 e.inputType === "select" && e.multiple === !0 ? s = Array.from(r.querySelectorAll("option:checked")).map(f => f.value) : s = c.value;
             }
             return e.callback?.call(this, s);
-        }, e.buttons.confirm = C, !e.title) throw new Error("prompt requires a title");
+        }, e.buttons.confirm = v, !e.title) throw new Error("prompt requires a title");
         if (typeof e.callback != "function") throw new Error("prompt requires a callback");
-        var w = m.inputs;
-        if (!w[e.inputType]) throw new Error("Invalid prompt type");
-        switch (r = p(w[e.inputType]), e.inputType !== "textarea" && r.addEventListener("keydown", function(s) {
+        var y = m.inputs;
+        if (!y[e.inputType]) throw new Error("Invalid prompt type");
+        switch (r = p(y[e.inputType]), e.inputType !== "textarea" && r.addEventListener("keydown", function(s) {
             if (s.key === "Enter") {
                 s.preventDefault();
                 var c = o.querySelector(".bootbox-accept");
@@ -5440,7 +5447,7 @@ var bootbox = function(b, j) {
             if (r.value = e.value.toString(), e.placeholder && r.setAttribute("placeholder", e.placeholder), 
             e.pattern ? r.setAttribute("pattern", e.pattern) : e.inputType === "date" ? r.setAttribute("pattern", "d{4}-d{2}-d{2}") : e.inputType === "time" && r.setAttribute("pattern", "d{2}:d{2}"), 
             e.required && (r.required = !0), e.step) if (typeof e.step == "string" && (e.step === "any" || parseFloat(e.step) > 0)) r.setAttribute("step", e.step); else if (typeof e.step == "number" && !isNaN(e.step) && e.step > 0) r.setAttribute("step", e.step.toString()); else throw new Error('"step" must be a valid positive number or the value "any". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-step for more information.');
-            $e(e.inputType, e.min, e.max) && (e.min !== void 0 && r.setAttribute("min", e.min.toString()), 
+            Ge(e.inputType, e.min, e.max) && (e.min !== void 0 && r.setAttribute("min", e.min.toString()), 
             e.max !== void 0 && r.setAttribute("max", e.max.toString()));
             break;
 
@@ -5477,7 +5484,7 @@ var bootbox = function(b, j) {
                 let f = p(m.inputs[e.inputType]);
                 f.querySelector("input")?.setAttribute("value", c.value), f.querySelector("label")?.append(`
 ${c.text}`);
-                for (const [ We, Ge ] of Object.entries(O)) Ge === c.value && f.querySelector("input")?.setAttribute("checked", "true");
+                for (const [ Je, Ze ] of Object.entries(O)) Ze === c.value && f.querySelector("input")?.setAttribute("checked", "true");
                 r.append(f);
             }
             break;
@@ -5504,11 +5511,12 @@ ${c.text}`), e.value !== void 0 && c.value === e.value && (f.querySelector("inpu
             let s = p(m.promptMessage).innerHTML = e.message;
             a.prepend(s), e.messageForm = a;
         } else e.messageForm = a;
-        o = E(e), o.removeEventListener("shown.bs.modal", q), o.addEventListener("shown.bs.modal", () => {
+        const j = E(e);
+        o = j._element, o.removeEventListener("shown.bs.modal", q), o.addEventListener("shown.bs.modal", () => {
             r.focus();
         });
-        const Ue = new v.Modal(o);
-        return n === !0 && Ue.show(), o;
+        const We = j._modal;
+        return n === !0 && We.show(), o;
     }
     function F(...t) {
         const e = {};
@@ -5525,22 +5533,22 @@ ${c.text}`), e.value !== void 0 && c.value === e.value && (f.querySelector("inpu
         }
         return e;
     }
-    function He(t, e) {
+    function Ve(t, e) {
         const o = t.length;
         let a = {};
         if (o < 1 || o > 2) throw new Error("Invalid argument length");
         return o === 2 || typeof t[0] == "string" ? (a[e[0]] = t[0], a[e[1]] = t[1]) : a = t[0], 
         a;
     }
-    function Ve(t, e, o) {
-        return F({}, t, He(e, o));
+    function De(t, e, o) {
+        return F({}, t, Ve(e, o));
     }
     function k(t, e, o, a) {
         let r;
         a && a[0] && (r = a[0].locale || h.locale, (a[0].swapButtonOrder || h.swapButtonOrder) && (e = e.reverse()));
         const n = {
             className: `bootbox-${t}`,
-            buttons: _e(e, r),
+            buttons: $e(e, r),
             show: !0,
             closeButton: !0,
             animate: !0,
@@ -5550,15 +5558,15 @@ ${c.text}`), e.value !== void 0 && c.value === e.value && (f.querySelector("inpu
             reusable: !1,
             centerVertical: !1
         };
-        return De(Ve(n, a, o), e);
+        return ze(De(n, a, o), e);
     }
-    function De(t, e) {
+    function ze(t, e) {
         const o = {};
         for (const [ a, r ] of Object.entries(e)) o[r] = !0;
         for (const [ a ] of Object.entries(t.buttons)) if (o[a] === void 0) throw new Error(`button key "${a}" is not allowed (options are ${e.join(" ")})`);
         return t;
     }
-    function _e(t, e) {
+    function $e(t, e) {
         const o = {};
         for (let a = 0, r = t.length; a < r; a++) {
             const n = t[a], i = n.toLowerCase(), u = n.toUpperCase();
@@ -5576,10 +5584,10 @@ ${c.text}`), e.value !== void 0 && c.value === e.value && (f.querySelector("inpu
         };
     }
     function R(t, e) {
-        const o = y[e];
-        return o ? o[t] : y.en[t];
+        const o = C[e];
+        return o ? o[t] : C.en[t];
     }
-    function ze(t) {
+    function Ue(t) {
         let e, o;
         if (!t.message && !t.messageForm) throw new Error('"message" option must not be null or an empty string.');
         t = Object.assign({}, h, t), t.backdrop ? t.backdrop = typeof t.backdrop == "string" && t.backdrop.toLowerCase() === "static" ? "static" : !0 : t.backdrop = t.backdrop === !1 || t.backdrop === 0 ? !1 : "static", 
@@ -5607,9 +5615,9 @@ ${c.text}`), e.value !== void 0 && c.value === e.value && (f.querySelector("inpu
         return Object.keys(t).length;
     }
     function K(t, e, o) {
-        t.stopPropagation(), t.preventDefault(), !(typeof o == "function" && o.call(e, t) === !1) && e && v.Modal.getInstance(e)?.hide();
+        t.stopPropagation(), t.preventDefault(), !(typeof o == "function" && o.call(e, t) === !1) && e && w.Modal.getInstance(e)?.hide();
     }
-    function $e(t, e, o) {
+    function Ge(t, e, o) {
         let a = !1, r = !0, n = !0;
         if (t === "date") e !== void 0 && !(r = M(e)) ? console.warn('Invalid "min" date format for input type "date".') : o !== void 0 && !(n = M(o)) && console.warn('Invalid "max" date format for input type "date".'); else if (t === "time") {
             if (e !== void 0 && !(r = x(e))) throw new Error('"min" is not a valid time.');
@@ -5644,9 +5652,9 @@ ${c.text}`), e.value !== void 0 && c.value === e.value && (f.querySelector("inpu
             return t.addEventListener(e, r), r;
         }
     }
-    return b.VERSION = Ie, b.addLocale = Fe, b.alert = je, b.confirm = Be, b.dialog = E, 
-    b.getLocale = Se, b.hideAll = Te, b.init = S, b.prompt = Pe, b.removeLocale = Re, 
-    b.setDefaults = I, b.setLocale = qe, Object.defineProperty(b, Symbol.toStringTag, {
+    return b.VERSION = Se, b.addLocale = qe, b.alert = Pe, b.confirm = _e, b.dialog = E, 
+    b.getAllLocales = Re, b.getLocale = Fe, b.hideAll = Be, b.init = S, b.prompt = He, 
+    b.removeLocale = Te, b.setDefaults = I, b.setLocale = je, Object.defineProperty(b, Symbol.toStringTag, {
         value: "Module"
     }), b;
 }({}, bootstrap);

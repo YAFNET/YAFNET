@@ -44,7 +44,7 @@
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
     <PackageReference Include="OEmbed.Core" Version="2.0.6" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.16.1.129956">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.17.0.131074">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
