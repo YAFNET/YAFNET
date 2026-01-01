@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -214,18 +214,6 @@ public class UsersProfileModel : AdminPage
             return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }
 
-        if (this.Input.Xmpp.IsSet() && !ValidationHelper.IsValidXmpp(this.Input.Xmpp))
-        {
-            this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning);
-            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
-        }
-
-        if (this.Input.Facebook.IsSet() && !ValidationHelper.IsValidUrl(this.Input.Facebook))
-        {
-            this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.warning);
-            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
-        }
-
         string displayName = null;
 
         if (this.PageBoardContext.BoardSettings.EnableDisplayName && this.PageBoardContext.BoardSettings.AllowDisplayNameModification)
@@ -343,8 +331,6 @@ public class UsersProfileModel : AdminPage
         this.Input.Facebook = ValidationHelper.IsNumeric(this.EditUser.Item2.Profile_Facebook)
                                   ? $"https://www.facebook.com/profile.php?id={this.EditUser.Item2.Profile_Facebook}"
                                   : this.EditUser.Item2.Profile_Facebook;
-
-        this.Input.Xmpp = this.EditUser.Item2.Profile_XMPP;
 
         this.LoadCountriesAndRegions(this.EditUser.Item2.Profile_Country);
 
@@ -536,7 +522,6 @@ public class UsersProfileModel : AdminPage
         this.EditUser.Item2.Profile_City = userProfile.City;
         this.EditUser.Item2.Profile_Occupation = userProfile.Occupation;
         this.EditUser.Item2.Profile_RealName = userProfile.RealName;
-        this.EditUser.Item2.Profile_XMPP = userProfile.XMPP;
 
         return this.Get<IAspNetUsersHelper>().UpdateUserAsync(this.EditUser.Item2);
     }

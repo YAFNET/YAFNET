@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -549,19 +549,9 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             userProfile.Homepage = (string)row["Homepage"];
         }
 
-        if (row.Table.Columns.Contains("XMPP") && ((string)row["XMPP"]).IsSet())
-        {
-            userProfile.XMPP = (string)row["XMPP"];
-        }
-
         if (row.Table.Columns.Contains("Occupation") && ((string)row["Occupation"]).IsSet())
         {
             userProfile.Occupation = (string)row["Occupation"];
-        }
-
-        if (row.Table.Columns.Contains("Facebook") && ((string)row["Facebook"]).IsSet())
-        {
-            userProfile.Facebook = (string)row["Facebook"];
         }
 
         var user = new AspNetUsers
@@ -577,15 +567,13 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             Profile_Blog = userProfile.Blog,
             Profile_Gender = userProfile.Gender,
             Profile_Homepage = userProfile.Homepage,
-            Profile_Facebook = userProfile.Facebook,
             Profile_Interests = userProfile.Interests,
             Profile_Location = userProfile.Location,
             Profile_Country = userProfile.Country,
             Profile_Region = userProfile.Region,
             Profile_City = userProfile.City,
             Profile_Occupation = userProfile.Occupation,
-            Profile_RealName = userProfile.RealName,
-            Profile_XMPP = userProfile.XMPP
+            Profile_RealName = userProfile.RealName
         };
 
         await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, pass);

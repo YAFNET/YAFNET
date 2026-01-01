@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -48,20 +48,6 @@ public static class ValidationHelper
             email,
             "^([0-9a-z]+[-._+&])*[0-9a-z]+@([-0-9a-z]+[.])+[a-z]{2,6}$",
             RegexOptions.IgnoreCase,TimeSpan.FromMilliseconds(100));
-    }
-
-    /// <summary>
-    /// Checks if string is a valid email address (XMPP).
-    /// </summary>
-    /// <param name="xmpp">
-    /// The XMPP string to check
-    /// </param>
-    /// <returns>
-    /// Returns indicating whether the value is a valid XMPP
-    /// </returns>
-    public static bool IsValidXmpp(string xmpp)
-    {
-        return IsValidEmail(xmpp);
     }
 
     /// <summary>

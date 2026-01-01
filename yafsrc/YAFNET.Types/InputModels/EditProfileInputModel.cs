@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -112,18 +112,6 @@ public class EditProfileInputModel
     /// <value>The blog.</value>
     [DataType(DataType.Url)]
     public string Blog { get; set; }
-
-    /// <summary>
-    /// Gets or sets the XMPP.
-    /// </summary>
-    /// <value>The XMPP.</value>
-    public string Xmpp { get; set; }
-
-    /// <summary>
-    /// Gets or sets the facebook.
-    /// </summary>
-    /// <value>The facebook.</value>
-    public string Facebook { get; set; }
 
     /// <summary>
     /// Gets or sets the custom profile.

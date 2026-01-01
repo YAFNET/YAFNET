@@ -706,7 +706,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 "object_id = OBJECT_ID(N'[{0}].[{1}]')",
                 this.NamingStrategy.GetSchemaName(modelDef),
                 this.NamingStrategy.GetTableName(modelDef));
-            sb.AppendFormat("and is_primary_key = 1");
+            sb.Append("and is_primary_key = 1");
 
             return StringBuilderCache.ReturnAndFree(sb);
         }
@@ -1740,8 +1740,8 @@ namespace ServiceStack.OrmLite.SqlServer
         public override string SqlLimit(int? offset = null, int? rows = null)
         {
             return rows == null && offset == null ? string.Empty :
-                rows != null ? "OFFSET " + offset.GetValueOrDefault() + " ROWS FETCH NEXT " + rows + " ROWS ONLY" :
-                "OFFSET " + offset.GetValueOrDefault(int.MaxValue) + " ROWS";
+                rows != null ? $"OFFSET {offset.GetValueOrDefault()} ROWS FETCH NEXT {rows} ROWS ONLY" :
+                $"OFFSET {offset.GetValueOrDefault(int.MaxValue)} ROWS";
         }
 
         /// <summary>

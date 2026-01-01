@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -424,13 +424,6 @@ public class UserProfileModel : ForumPage
             this.FacebookUrl = ValidationHelper.IsNumeric(this.CombinedUser.Item2.Profile_Facebook)
                 ? $"https://www.facebook.com/profile.php?id={this.CombinedUser.Item2.Profile_Facebook}"
                 : this.CombinedUser.Item2.Profile_Facebook;
-        }
-
-        if (this.CombinedUser.Item2.Profile_XMPP.IsSet())
-        {
-            this.XmppUrl = this.Get<ILinkBuilder>().GetLink(
-                ForumPages.Jabber,
-                new { u = this.CombinedUser.Item1.ID });
         }
 
         if (!this.BlogUrl.IsSet() && !this.XmppUrl.IsSet() && !this.FacebookUrl.IsSet())

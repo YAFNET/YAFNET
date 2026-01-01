@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -331,12 +331,6 @@ public class AspNetUsers<TKey> : IEntity, IHasId<TKey>
     public string Profile_Homepage { get; set; }
 
     /// <summary>
-    /// Gets or sets Facebook.
-    /// </summary>
-    [StringLength(400)]
-    public string Profile_Facebook { get; set; }
-
-    /// <summary>
     /// Gets or sets Interests.
     /// </summary>
     [StringLength(4000)]
@@ -377,10 +371,4 @@ public class AspNetUsers<TKey> : IEntity, IHasId<TKey>
     /// </summary>
     [StringLength(255)]
     public string Profile_RealName { get; set; }
-
-    /// <summary>
-    /// Gets or sets XMPP.
-    /// </summary>
-    [StringLength(255)]
-    public string Profile_XMPP { get; set; }
 }
