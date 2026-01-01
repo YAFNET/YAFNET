@@ -1,11 +1,15 @@
-let connection = new signalR.HubConnectionBuilder().withUrl('/allChatHub').configureLogging(signalR.LogLevel.Error).build();
+import * as signalR from '@microsoft/signalr';
+
+const connection = new signalR.HubConnectionBuilder().withUrl('/allChatHub').configureLogging(signalR.LogLevel.Error).build();
+
+const sendButton = (document.getElementById('sendButton') as HTMLInputElement)!;
 
 //Disable the send button until connection is established.
-document.getElementById('sendButton').disabled = true;
+sendButton.disabled = true;
 
 connection.on('ReceiveMessage', function (name, message, dateTime, side, timeSide, msgClass) {
     const divChat = document.createElement('div'),
-        toAvatar = document.getElementById('userAvatar').value;
+        toAvatar = (document.getElementById('userAvatar') as HTMLInputElement).value;
 
     divChat.className = `direct-chat-msg ${side}`;
 
@@ -32,18 +36,18 @@ connection.on('ReceiveMessage', function (name, message, dateTime, side, timeSid
     divChat.appendChild(avatarImg);
     divChat.appendChild(msgDiv);
 
-    document.getElementById('divMessage').appendChild(divChat);
+    document.getElementById('divMessage')!.appendChild(divChat);
 });
 
 connection.start().then(function () {
-    document.getElementById('sendButton').disabled = false;
+	sendButton.disabled = false;
     
 }).catch(function (err) {
     return console.error(err.toString());
 });
 
-document.getElementById('sendButton').addEventListener('click', function (event) {
-    const message = document.getElementById('messageInput').value;
+sendButton.addEventListener('click', function (event) {
+    const message = (document.getElementById('messageInput') as HTMLInputElement).value;
     connection.invoke('SendMessage', message).catch(function (err) {
         return console.log(err.toString());
     });

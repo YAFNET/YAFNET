@@ -16,7 +16,7 @@
     <PackageReference Include="Microsoft.Playwright" Version="1.57.0" />
     <PackageReference Include="netDumbster" Version="3.1.1" />
 	  <PackageReference Include="NUnit" Version="4.4.0" />
-	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.16.1.129956">
+	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.17.0.131074">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>

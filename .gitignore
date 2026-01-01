@@ -118,3 +118,4 @@ yafsrc/YAFNET.RazorPages/yarn.lock
 yafsrc/YAFNET.UI/YAFNET.RazorPages/yarn.lock
 yafsrc/Tools/GitHubReleaser/YAFNET.json
 yafsrc/YAFNET.UI/YAFNET.RazorPages/package-lock.json
+yafsrc/YAFNET.UI/YAFNET.UI.Chat/yarn.lock

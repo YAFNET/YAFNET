@@ -13,11 +13,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\lib\chat.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup>
-	<EmbeddedResource Include="wwwroot\js\chat.js" />
+	<EmbeddedResource Include="wwwroot\lib\chat.ts" />
   </ItemGroup>
 
 	<PropertyGroup>
@@ -31,6 +35,7 @@
 	</PropertyGroup>          
 	<ItemGroup>
     <Folder Include="Areas\Chat\Pages\" />
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
   <ItemGroup>
