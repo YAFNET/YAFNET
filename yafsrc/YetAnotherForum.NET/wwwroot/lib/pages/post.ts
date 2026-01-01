@@ -4,16 +4,11 @@ import * as Attachments from '../forum/attachments';
 import * as Albums from '../forum/albums';
 import * as Utilities from '../forum/utilities';
 import '../forum/similarTitles';
-import Lightbox from '@w8tcha/bs5-lightbox';
+import '@w8tcha/bs5-lightbox';
 
 const _global = (window /* browser */ || global /* node */) as any;
 
 document.addEventListener('DOMContentLoaded', () => {
-	// Gallery
-	document.querySelectorAll<HTMLElement>('[data-toggle="lightbox"]').forEach(element => {
-		element.addEventListener('click', Lightbox.initialize);
-	});
-
 	_global.Prism.highlightAll();
 
 	const postAttachmentListPlaceholder = document.getElementById('PostAttachmentListPlaceholder');
