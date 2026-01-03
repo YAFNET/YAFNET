@@ -39,6 +39,7 @@
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.1" />
     <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.2.3" />
     <PackageReference Include="Microsoft.Owin.Security" Version="4.2.3" />
+    <PackageReference Include="Microsoft.Owin.Security.Cookies" Version="4.2.3" />
     <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4">
       <TreatAsUsed>true</TreatAsUsed>
