@@ -186,8 +186,8 @@ public class PostMessageModel : ForumPage
         this.Input = new PostMessageInputModel();
 
         if (this.PageBoardContext.PageForumID == 0 ||
-            !this.PageBoardContext.ForumPostAccess && !this.PageBoardContext.ForumReplyAccess ||
-            this.PageBoardContext.PageTopic.TopicFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
+            (!this.PageBoardContext.ForumPostAccess && !this.PageBoardContext.ForumReplyAccess) ||
+            (this.PageBoardContext.PageTopic.TopicFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess))
         {
             return this.Get<ILinkBuilder>().AccessDenied();
         }
@@ -203,8 +203,7 @@ public class PostMessageModel : ForumPage
                 {
                     var quotedMessageText = HttpUtility.UrlDecode(text);
 
-                    this.quotedMessage.MessageText = HtmlTagHelper.StripHtml(
-                        BBCodeHelper.EncodeCodeBlocks(HtmlTagHelper.CleanHtmlString(quotedMessageText)));
+                    this.quotedMessage.MessageText = quotedMessageText;
                 }
 
                 if (this.quotedMessage.TopicID != this.PageBoardContext.PageTopicID || !this.CanQuotePostCheck(this.PageBoardContext.PageTopic))
@@ -508,7 +507,7 @@ public class PostMessageModel : ForumPage
     /// </param>
     private void InitQuotedReply(Message message)
     {
-        var messageContent = message.MessageText;
+        var messageContent = BBCodeHelper.DecodeCodeBlocks(message.MessageText);
 
         if (this.PageBoardContext.BoardSettings.RemoveNestedQuotes)
         {

@@ -328,10 +328,6 @@ public class UsersProfileModel : AdminPage
         this.Input.Interests = this.EditUser.Item2.Profile_Interests;
         this.Input.Blog = this.EditUser.Item2.Profile_Blog;
 
-        this.Input.Facebook = ValidationHelper.IsNumeric(this.EditUser.Item2.Profile_Facebook)
-                                  ? $"https://www.facebook.com/profile.php?id={this.EditUser.Item2.Profile_Facebook}"
-                                  : this.EditUser.Item2.Profile_Facebook;
-
         this.LoadCountriesAndRegions(this.EditUser.Item2.Profile_Country);
 
         this.LoadGenders(this.EditUser.Item2.Profile_Gender);
@@ -465,9 +461,6 @@ public class UsersProfileModel : AdminPage
                                                   this.Input.Location.IsSet() ? this.Input.Location.Trim() : null,
                                               Homepage =
                                                   this.Input.HomePage.IsSet() ? this.Input.HomePage.Trim() : null,
-                                              Facebook =
-                                                  this.Input.Facebook.IsSet() ? this.Input.Facebook.Trim() : null,
-                                              XMPP = this.Input.Xmpp.IsSet() ? this.Input.Xmpp.Trim() : null,
                                               RealName =
                                                   this.Input.RealName.IsSet() ? this.Input.RealName.Trim() : null,
                                               Occupation =
@@ -514,7 +507,6 @@ public class UsersProfileModel : AdminPage
         this.EditUser.Item2.Profile_Blog = userProfile.Blog;
         this.EditUser.Item2.Profile_Gender = userProfile.Gender;
         this.EditUser.Item2.Profile_Homepage = userProfile.Homepage;
-        this.EditUser.Item2.Profile_Facebook = userProfile.Facebook;
         this.EditUser.Item2.Profile_Interests = userProfile.Interests;
         this.EditUser.Item2.Profile_Location = userProfile.Location;
         this.EditUser.Item2.Profile_Country = userProfile.Country;

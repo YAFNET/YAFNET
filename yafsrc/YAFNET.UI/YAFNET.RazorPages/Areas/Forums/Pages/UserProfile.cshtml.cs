@@ -103,22 +103,10 @@ public class UserProfileModel : ForumPage
     [BindProperty] public string Medals { get; set; }
 
     /// <summary>
-    /// Gets or sets the facebook URL.
-    /// </summary>
-    /// <value>The facebook URL.</value>
-    [BindProperty] public string FacebookUrl { get; set; }
-
-    /// <summary>
     /// Gets or sets the blog URL.
     /// </summary>
     /// <value>The blog URL.</value>
     [BindProperty] public string BlogUrl { get; set; }
-
-    /// <summary>
-    /// Gets or sets the XMPP URL.
-    /// </summary>
-    /// <value>The XMPP URL.</value>
-    [BindProperty] public string XmppUrl { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [show add buddy link].
@@ -419,21 +407,7 @@ public class UserProfileModel : ForumPage
             this.BlogUrl = link;
         }
 
-        if (this.CombinedUser.Item2.Profile_Facebook.IsSet())
-        {
-            this.FacebookUrl = ValidationHelper.IsNumeric(this.CombinedUser.Item2.Profile_Facebook)
-                ? $"https://www.facebook.com/profile.php?id={this.CombinedUser.Item2.Profile_Facebook}"
-                : this.CombinedUser.Item2.Profile_Facebook;
-        }
-
-        if (!this.BlogUrl.IsSet() && !this.XmppUrl.IsSet() && !this.FacebookUrl.IsSet())
-        {
-            this.ShowSocialMediaCard = false;
-        }
-        else
-        {
-            this.ShowSocialMediaCard = true;
-        }
+        this.ShowSocialMediaCard = this.BlogUrl.IsSet();
 
         this.CustomProfile = this.DataCache.GetOrSet(
             string.Format(Constants.Cache.UserCustomProfileData, this.CombinedUser.Item1.ID),

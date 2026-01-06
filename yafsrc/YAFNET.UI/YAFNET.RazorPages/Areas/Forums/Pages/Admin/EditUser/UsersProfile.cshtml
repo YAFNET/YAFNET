@@ -141,16 +141,7 @@
     </div>
 </div>
 
-<h4>
-    @Html.LocalizedText("EDIT_PROFILE", "MESSENGER")
-</h4>
-<div class="mb-3">
-    <label asp-for="Input.Facebook" localized-page="EDIT_PROFILE" localized-tag="FACEBOOK" class="form-label">
-    </label>
-    <input asp-for="Input.Facebook" class="form-control"/>
-</div>
-
-    @if (Model.Input.CustomProfile.HasItems())
+@if (Model.Input.CustomProfile.HasItems())
 {
     <hr/>
     <h4>

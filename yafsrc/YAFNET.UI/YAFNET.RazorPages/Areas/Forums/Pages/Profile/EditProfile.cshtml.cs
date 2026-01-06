@@ -213,18 +213,6 @@ public class EditProfileModel : ProfilePage
                 ForumPages.Profile_EditProfile);
         }
 
-        if (this.Input.Xmpp.IsSet() && !ValidationHelper.IsValidXmpp(this.Input.Xmpp))
-        {
-            return this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning,
-                ForumPages.Profile_EditProfile);
-        }
-
-        if (this.Input.Facebook.IsSet() && !ValidationHelper.IsValidUrl(this.Input.Facebook))
-        {
-            return this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.warning,
-                ForumPages.Profile_EditProfile);
-        }
-
         string displayName = null;
 
         if (this.PageBoardContext.BoardSettings.EnableDisplayName &&
@@ -322,12 +310,6 @@ public class EditProfileModel : ProfilePage
         this.Input.Occupation = this.PageBoardContext.MembershipUser.Profile_Occupation;
         this.Input.Interests = this.PageBoardContext.MembershipUser.Profile_Interests;
         this.Input.Blog = this.PageBoardContext.MembershipUser.Profile_Blog;
-
-        this.Input.Facebook = ValidationHelper.IsNumeric(this.PageBoardContext.MembershipUser.Profile_Facebook)
-                                  ? $"https://www.facebook.com/profile.php?id={this.PageBoardContext.MembershipUser.Profile_Facebook}"
-                                  : this.PageBoardContext.MembershipUser.Profile_Facebook;
-
-        this.Input.Xmpp = this.PageBoardContext.MembershipUser.Profile_XMPP;
 
         this.LoadCountriesAndRegions(this.PageBoardContext.MembershipUser.Profile_Country);
 
@@ -461,9 +443,6 @@ public class EditProfileModel : ProfilePage
                                                   this.Input.Location.IsSet() ? this.Input.Location.Trim() : null,
                                               Homepage =
                                                   this.Input.HomePage.IsSet() ? this.Input.HomePage.Trim() : null,
-                                              Facebook =
-                                                  this.Input.Facebook.IsSet() ? this.Input.Facebook.Trim() : null,
-                                              XMPP = this.Input.Xmpp.IsSet() ? this.Input.Xmpp.Trim() : null,
                                               RealName =
                                                   this.Input.RealName.IsSet() ? this.Input.RealName.Trim() : null,
                                               Occupation =
@@ -512,7 +491,6 @@ public class EditProfileModel : ProfilePage
         user.Profile_Blog = userProfile.Blog;
         user.Profile_Gender = userProfile.Gender;
         user.Profile_Homepage = userProfile.Homepage;
-        user.Profile_Facebook = userProfile.Facebook;
         user.Profile_Interests = userProfile.Interests;
         user.Profile_Location = userProfile.Location;
         user.Profile_Country = userProfile.Country;
@@ -520,7 +498,6 @@ public class EditProfileModel : ProfilePage
         user.Profile_City = userProfile.City;
         user.Profile_Occupation = userProfile.Occupation;
         user.Profile_RealName = userProfile.RealName;
-        user.Profile_XMPP = userProfile.XMPP;
 
         return this.Get<IAspNetUsersHelper>().UpdateUserAsync(user);
     }

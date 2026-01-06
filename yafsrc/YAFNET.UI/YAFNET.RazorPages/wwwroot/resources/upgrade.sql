@@ -43,16 +43,13 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetUsers](
     [Profile_Blog] NVARCHAR (255) NULL,
     [Profile_Gender] INT NULL,
     [Profile_Homepage] NVARCHAR (255) NULL,
-    [Profile_Facebook] NVARCHAR (400) NULL,
     [Profile_Interests] NVARCHAR (4000) NULL,
     [Profile_Location] NVARCHAR (255) NULL,
     [Profile_Country] NVARCHAR (2) NULL,
     [Profile_Region] NVARCHAR (255) NULL,
     [Profile_City] NVARCHAR (255) NULL,
     [Profile_Occupation] NVARCHAR (400) NULL,
-    [Profile_RealName] NVARCHAR (255) NULL,
-    [Profile_Skype] NVARCHAR (255) NULL,
-    [Profile_XMPP] NVARCHAR (255) NULL
+    [Profile_RealName] NVARCHAR (255) NULL
     CONSTRAINT [PK_{databaseOwner}.AspNetUsers] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
@@ -75,12 +72,6 @@ GO
 if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Occupation')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Occupation nvarchar(255)  Null
-end
-GO
-
-if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Skype')
-begin
-    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Skype nvarchar(255)  Null
 end
 GO
 
@@ -114,12 +105,6 @@ begin
 end
 GO
 
-if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Facebook')
-begin
-    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Facebook nvarchar(255)  Null
-end
-GO
-
 if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Country')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Country nvarchar(255) Null
@@ -137,13 +122,6 @@ begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add City nvarchar(255) Null
 end
 GO
-
-if not exists (select 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='XMPP')
-begin
-    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add XMPP nvarchar(255) Null
-end
-GO
-
 
  -- Migrate users standard provider
 if exists (select  1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[aspnet_Users]') and type in (N'U'))
@@ -249,16 +227,13 @@ GO
        Profile_Blog,
        Profile_Gender,
        Profile_Homepage,
-       Profile_Facebook,
        Profile_Interests,
        Profile_Location,
        Profile_Country,
        Profile_Region,
        Profile_City,
        Profile_Occupation,
-       Profile_RealName,
-       Profile_Skype,
-       Profile_XMPP
+       Profile_RealName
       )
   SELECT
        [{databaseOwner}].[{objectQualifier}prov_Membership].ApplicationId,
@@ -292,16 +267,13 @@ GO
       p.Blog,
       p.Gender,
       p.Homepage,
-      p.Facebook,
       p.Interests,
       p.Location,
       p.Country,
       p.Region,
       p.City,
       p.Occupation,
-      p.RealName,
-      p.Skype,
-      p.XMPP
+      p.RealName
   FROM
       [{databaseOwner}].[{objectQualifier}prov_Membership]
       LEFT OUTER JOIN [{databaseOwner}].[{objectQualifier}AspNetUsers] ON [{databaseOwner}].[{objectQualifier}prov_Membership].UserId = [{databaseOwner}].[{objectQualifier}AspNetUsers].Id

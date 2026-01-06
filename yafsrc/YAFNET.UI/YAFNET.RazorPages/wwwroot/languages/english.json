@@ -561,6 +561,14 @@
                     "#text": "Uses Email"
                 },
                 {
+                    "@tag": "IM_MSN",
+                    "#text": "Uses MSN"
+                },
+                {
+                    "@tag": "IM_XMPP",
+                    "#text": "Uses XMPP"
+                },
+                {
                     "@tag": "IMGPRV",
                     "#text": "Views an image in a user album"
                 },
@@ -4026,7 +4034,7 @@
                 },
                 {
                     "@tag": "ALLOW_SHARE_TOPIC_HELP",
-                    "#text": "Enables/disables the share Menu, where a user can Email a Topic."
+                    "#text": "Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Reddit or Tumblr a Topic."
                 },
                 {
                     "@tag": "ALLOW_SIGNATURE",
@@ -4338,7 +4346,7 @@
                 },
                 {
                     "@tag": "ENABLE_HOVERCARDS_HELP",
-                    "#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name.\r\n     "
+                    "#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Facebook Profile Button.\r\n     "
                 },
                 {
                     "@tag": "ENABLE_RETWEET_MSG",
@@ -9862,6 +9870,10 @@
                     "#text": "Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks."
                 },
                 {
+                    "@tag": "AIM",
+                    "#text": "Your AIM Name:"
+                },
+                {
                     "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
                     "#text": "Watch every topic in which you have made a post and receive email notifications of activities in those topics?"
                 },
@@ -9870,12 +9882,24 @@
                     "#text": "You have entered an illegal e-mail address."
                 },
                 {
+                    "@tag": "BAD_FACEBOOK",
+                    "#text": "You have entered an incorrect URL as Facebook Profile."
+                },
+                {
                     "@tag": "BAD_HOME",
                     "#text": "You have entered an invalid address for your home page."
                 },
                 {
+                    "@tag": "BAD_MSN",
+                    "#text": "You have entered an invalid e-mail address for your MSN account."
+                },
+                {
                     "@tag": "BAD_WEBLOG",
                     "#text": "You have entered an invalid address for your Blog."
+                },
+                {
+                    "@tag": "BAD_XMPP",
+                    "#text": "You have entered an invalid name for your XMPP account."
                 },
                 {
                     "@tag": "BIRTHDAY",
@@ -9912,6 +9936,10 @@
                 {
                     "@tag": "EMAIL",
                     "#text": "You must always have a valid email address."
+                },
+                {
+                    "@tag": "FACEBOOK",
+                    "#text": "Your Facebook Profile URL:"
                 },
                 {
                     "@tag": "FIELD_TOOLONG",
@@ -10004,6 +10032,10 @@
                 {
                     "@tag": "WHERE",
                     "#text": "Where do you live?"
+                },
+                {
+                    "@tag": "XMPP",
+                    "#text": "Your Jabber ID:"
                 }
             ]
         },
@@ -10646,6 +10678,27 @@
                 {
                     "@tag": "TITLE2",
                     "#text": "Send E-mail to {0}"
+                }
+            ]
+        },
+        {
+            "@name": "IM_XMPP",
+            "Resource": [
+                {
+                    "@tag": "SERVEROTHER",
+                    "#text": "The user uses the servers {0}. To communicate to him you should register there, as you don't have an account."
+                },
+                {
+                    "@tag": "SERVERSAME",
+                    "#text": "The user uses the same XMPP server - you can connect to him using a client like Pidgin. His account is {0}"
+                },
+                {
+                    "@tag": "SERVERYOU",
+                    "#text": "Are you sure you want speak to yourself?"
+                },
+                {
+                    "@tag": "TITLE",
+                    "#text": "XMPP Messenger"
                 }
             ]
         },
@@ -12355,6 +12408,14 @@
                     "#text": "You must enter something into your post."
                 },
                 {
+                    "@tag": "FACEBOOK",
+                    "#text": "Facebook"
+                },
+                {
+                    "@tag": "FACEBOOK_TITLE",
+                    "#text": "Visit {0}'s Facebook Profile"
+                },
+                {
                     "@tag": "FORUM_JUMP",
                     "#text": "Forum Jump"
                 },
@@ -12596,7 +12657,7 @@
                 },
                 {
                     "@tag": "SHARE_TOOLTIP",
-                    "#text": "Share this Topic via Email."
+                    "#text": "Share this Topic via Email, Facebook or Reddit."
                 },
                 {
                     "@tag": "SIMILAR_TOPICS",
@@ -12765,6 +12826,14 @@
                 {
                     "@tag": "WATCHTOPIC",
                     "#text": "Watch this topic"
+                },
+                {
+                    "@tag": "XMPP",
+                    "#text": "XMPP"
+                },
+                {
+                    "@tag": "XMPP_TITLE",
+                    "#text": "Contact {0} via Jabber"
                 }
             ]
         },
@@ -12852,6 +12921,10 @@
                 {
                     "@tag": "ERROR_GUESTACCOUNT",
                     "#text": "You cannot suspend the guest account."
+                },
+                {
+                    "@tag": "FACEBOOK",
+                    "#text": "Facebook Profile:"
                 },
                 {
                     "@tag": "FORUM_ACCESS",
@@ -13024,6 +13097,10 @@
                 {
                     "@tag": "WEBSITE",
                     "#text": "Home Page:"
+                },
+                {
+                    "@tag": "XMPP",
+                    "#text": "XMPP Name:"
                 },
                 {
                     "@tag": "YEARS",
