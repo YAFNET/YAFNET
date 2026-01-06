@@ -72,7 +72,7 @@ _global.loadSelectMenus = (): void => {
 					const removeItemButton = this.config.removeItemButton;
 
 					return {
-						item({ classNames }: { classNames: { item: string; highlightedState: string; itemSelectable: string; button: string; placeholder: string } }, data: { label: string; customProperties?: string; placeholder: string;highlighted?: boolean; id: string; value: string; active?: boolean; disabled?: boolean }) {
+						item({ classNames }: { classNames: { item: string; highlightedState: string; itemSelectable: string; button: Array<string>; placeholder: string } }, data: { label: string; customProperties?: string; placeholder: string;highlighted?: boolean; id: string; value: string; active?: boolean; disabled?: boolean }) {
 							let label = data.label;
 
 							if (data.customProperties) {
@@ -98,7 +98,7 @@ _global.loadSelectMenus = (): void => {
 									: '')}>
                                     ${String(label)}
                                     ${String(removeItemButton
-									? `<button type="button" class="${String(classNames.button)
+										? `<button type="button" class="${String(classNames.button.join(' '))
 									}" aria-label="Remove item: '${String(data.value)
 									}'" data-button="">Remove item</button>`
 									: '')}
@@ -165,7 +165,7 @@ _global.createTagsSelectTemplates = function(this: any, template: (templateStrin
 	const removeItemButton = config.removeItemButton;
 
 	return {
-		item({ classNames }: { classNames: { item: string; highlightedState: string; itemSelectable: string; button: string } }, data: { label: string; customProperties?: string; highlighted?: boolean; id: string; value: string; active?: boolean; disabled?: boolean }) {
+		item({ classNames }: { classNames: { item: string; highlightedState: string; itemSelectable: string; button: Array<string> } }, data: { label: string; customProperties?: string; highlighted?: boolean; id: string; value: string; active?: boolean; disabled?: boolean }) {
 			let label = data.label;
 
 			if (data.customProperties) {
@@ -190,7 +190,7 @@ _global.createTagsSelectTemplates = function(this: any, template: (templateStrin
 						? 'aria-disabled="true"'
 						: '')}>
                         <i class="fas fa-tag align-middle me-1"></i>${String(label)}
-                        ${String(removeItemButton ? `<button type="button" class="${String(classNames.button)}" aria-label="Remove item: '${String(data.value)}'" data-button="">Remove item</button>` : '')}
+                        ${String(removeItemButton ? `<button type="button" class="${String(classNames.button.join(' '))}" aria-label="Remove item: '${String(data.value)}'" data-button="">Remove item</button>` : '')}
                      </div>
                     `
 			);

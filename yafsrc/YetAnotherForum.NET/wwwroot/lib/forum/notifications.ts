@@ -17,7 +17,6 @@ export function getNotifyData(
         PageNumber: pageNumber,
     };
 
-    console.log(pagedResults);
     const ajaxUrl = '/api/Notify/GetNotifications';
 
     fetch(ajaxUrl, {
