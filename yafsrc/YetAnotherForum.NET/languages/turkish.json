@@ -64,7 +64,7 @@
           },
           {
             "@tag": "GIVEN_THANKS_MSG",
-            "#text": "1} Konusundaki {0} Sayesinde Verilmiştir"
+            "#text": "{1} Konusundaki {0} Sayesinde Verilmiştir"
           },
           {
             "@tag": "GROUPS",
