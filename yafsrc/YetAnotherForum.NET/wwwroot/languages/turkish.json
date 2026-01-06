@@ -108,7 +108,7 @@
           },
           {
             "@tag": "RECEIVED_THANKS_MSG",
-            "#text": "1} Konusunda {0}'dan Bir Teşekkür Aldı"
+            "#text": "{1} Konusunda {0}'dan Bir Teşekkür Aldı"
           },
           {
             "@tag": "SIGNATURE",
