@@ -9727,7 +9727,7 @@
           },
           {
             "@tag": "SELECT_FILE",
-            "#text": "Vyberte soubor obrázku ('.jpg', '.gif', '.png' nebo '.bmp'), který chcete nahrát."
+            "#text": "Vyberte soubor obrázku ('.webp','.jpg','.jpeg', '.gif', '.png' nebo '.bmp'), který chcete nahrát."
           },
           {
             "@tag": "TITLE",

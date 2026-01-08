@@ -9719,7 +9719,7 @@
           },
           {
             "@tag": "SELECT_FILE",
-            "#text": "Wybierz plik obrazu ('.jpg', '.gif', '.png' lub '.bmp'), który chcesz przesłać."
+            "#text": "Wybierz plik obrazu ('.webp','.jpg','.jpeg', '.gif', '.png' lub '.bmp'), który chcesz przesłać."
           },
           {
             "@tag": "TITLE",

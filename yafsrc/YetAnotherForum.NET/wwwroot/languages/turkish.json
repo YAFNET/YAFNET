@@ -9723,7 +9723,7 @@
           },
           {
             "@tag": "SELECT_FILE",
-            "#text": "Yüklemek istediğiniz bir Görüntü Dosyası ('.jpg', '.gif', '.png' veya '.bmp') seçin."
+            "#text": "Yüklemek istediğiniz bir Görüntü Dosyası ('.webp','.jpg','.jpeg', '.gif', '.png' veya '.bmp') seçin."
           },
           {
             "@tag": "TITLE",

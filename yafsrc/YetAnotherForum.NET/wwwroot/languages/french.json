@@ -9723,7 +9723,7 @@
           },
           {
             "@tag": "SELECT_FILE",
-            "#text": "Sélectionnez le fichier image ('.jpg', '.gif', '.png' ou '.bmp') que vous souhaitez télécharger."
+            "#text": "Sélectionnez le fichier image ('.webp','.jpg','.jpeg', '.gif', '.png' ou '.bmp') que vous souhaitez télécharger."
           },
           {
             "@tag": "TITLE",
