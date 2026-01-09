@@ -19,7 +19,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.1" />
     <PackageReference Include="MySql.Data" Version="9.5.0" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.17.0.131074">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.18.0.131500">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
