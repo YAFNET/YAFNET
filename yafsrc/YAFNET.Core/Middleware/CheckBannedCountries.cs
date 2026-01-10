@@ -68,7 +68,8 @@ public class CheckBannedCountries : IHaveServiceLocator
     {
         if (!this.Get<IGeoIpCountryService>().DatabaseExists())
         {
-            context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+            await this.requestDelegate(context);
+
             return;
         }
 

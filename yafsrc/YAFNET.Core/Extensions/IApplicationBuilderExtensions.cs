@@ -120,7 +120,6 @@ public static class IApplicationBuilderExtensions
             app.UseAuthentication();
             app.UseAuthorization();
 
-
             if (Config.UseRateLimiter)
             {
                 app.UseRateLimiter();
