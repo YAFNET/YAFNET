@@ -48,7 +48,7 @@ builder.Services.AddRazorPages(options =>
     options.Conventions.AddPageRoute("/SiteMap", "Sitemap.xml");
 });
 
-builder.Services.AddYafCore(builder.Configuration);
+builder.Services.AddYafCore(builder.Configuration, "/, /Board");
 
 var app = builder.Build();
 

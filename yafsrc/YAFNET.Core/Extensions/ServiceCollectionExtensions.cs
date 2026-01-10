@@ -118,8 +118,9 @@ public static class ServiceCollectionExtensionsExtensions
         ///  Adds YAF.NET core services to the specified services collection.
         /// </summary>
         /// <param name="configuration"></param>
+        /// <param name="routesToPreCache">A comma separated list of routes to pre-cache when service worker installs in the browser.</param>
         /// <returns>IServiceCollection.</returns>
-        public IServiceCollection AddYafCore(IConfiguration configuration)
+        public IServiceCollection AddYafCore(IConfiguration configuration, string routesToPreCache)
         {
             var boardConfig = configuration.GetSection("BoardConfiguration").Get<BoardConfiguration>();
 
@@ -134,7 +135,7 @@ public static class ServiceCollectionExtensionsExtensions
                 CacheId = "YAF.NET",
                 BaseRoute =  "/",
                 Strategy = ServiceWorkerStrategy.CustomStrategy,
-                RoutesToPreCache = "/, /Board",
+                RoutesToPreCache = routesToPreCache,
                 RegisterServiceWorker = true,
                 RegisterWebmanifest = true,
                 CustomServiceWorkerStrategyFileName = "/js/serviceWorker.min.js"
