@@ -57,8 +57,6 @@ public static class MessageRepositoryExtensions
         int topicId,
         int userId)
     {
-        
-
         return repository.Count(m => m.TopicID == topicId && m.UserID == userId) > 0;
     }
 
@@ -291,8 +289,6 @@ public static class MessageRepositoryExtensions
         int pageSize,
         int messagePosition)
     {
-        
-
         if (updateViewCount)
         {
             BoardContext.Current.GetRepository<Topic>().UpdateAdd(
