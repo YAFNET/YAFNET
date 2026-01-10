@@ -78,9 +78,9 @@
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
-	<PackageReference Include="YAFNET.Core" Version="4.0.2" />
-	<PackageReference Include="YAFNET.Types" Version="4.0.3" />
-	<PackageReference Include="YAFNET.Web" Version="4.0.3" />
+	<PackageReference Include="YAFNET.Core" Version="4.0.4" />
+	<PackageReference Include="YAFNET.Types" Version="4.0.4" />
+	<PackageReference Include="YAFNET.Web" Version="4.0.4" />
 	<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" version="10.0.1" />
   </ItemGroup>
 
