@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net10.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\WebEssentials.AspNetCore.Pwa.xml</DocumentationFile>
     <Version>1.0.0</Version>
     <Authors>Mads Kristensen</Authors>
