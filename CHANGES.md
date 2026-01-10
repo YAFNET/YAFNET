@@ -1,6 +1,9 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.2.11
+* bug fixes
+
 # YetAnotherForum.NET v3.2.10
 * bug fixes
 

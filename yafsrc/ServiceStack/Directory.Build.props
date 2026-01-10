@@ -1,12 +1,12 @@
 ﻿<Project>
 
   <PropertyGroup>
-	<Version>3.2.10</Version>
-	<AssemblyVersion>3.2.10</AssemblyVersion>
-	<FileVersion>3.2.10</FileVersion>
+	<Version>3.2.11</Version>
+	<AssemblyVersion>3.2.11</AssemblyVersion>
+	<FileVersion>3.2.11</FileVersion>
     <Authors>ServiceStack</Authors>
     <Company>ServiceStack, Inc.</Company>
-    <Copyright>&#169; 2008-2025 ServiceStack, Inc</Copyright>
+    <Copyright>&#169; 2008-2026 ServiceStack, Inc</Copyright>
     <DebugType>embedded</DebugType>
     <LangVersion>latest</LangVersion>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

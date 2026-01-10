@@ -162,7 +162,7 @@ namespace YAF.Pages.Admin
         /// </param>
         override protected void OnPreRender(EventArgs e)
         {
-            // setup jQuery and Jquery Ui Tabs.
+            // setup Tabs js.
             this.PageBoardContext.PageElements.RegisterJsBlock(
                 "yafPmTabsJs",
                 JavaScriptBlocks.BootstrapTabsLoadJs(this.TestDataTabs.ClientID, this.hidLastTab.ClientID));
