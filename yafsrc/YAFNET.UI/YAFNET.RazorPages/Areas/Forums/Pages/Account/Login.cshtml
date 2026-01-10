@@ -1,16 +1,13 @@
 ﻿@page
-@using Microsoft.AspNetCore.Identity
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
 @using YAF.Web.HtmlHelpers
-@using YAF.Types.Models.Identity
 @model LoginModel
-@inject SignInManager<AspNetUsers> SignInManager
 
 <div class="row mb-3">
     <div class="col">
         <div class="card mx-auto rounded-4 shadow" style="max-width:450px">
-            <div class="card-body p-4">
+            <div class="card-body p-4 m-4">
 	            <section>
 					<h1 class="fw-bold mb-4 fs-2">@Html.IconHeader("sign-in-alt", "LOGIN", "TITLE")</h1>
 		            <form method="post" class="needs-validation" novalidate>

@@ -9715,7 +9715,7 @@
           },
           {
             "@tag": "SELECT_FILE",
-            "#text": "Selecteer een afbeeldingsbestand ('.jpg', '.gif', '.png' of '.bmp') dat u wilt uploaden."
+            "#text": "Selecteer een afbeeldingsbestand ('.webp','.jpg','.jpeg', '.gif', '.png' of '.bmp') dat u wilt uploaden."
           },
           {
             "@tag": "TITLE",

@@ -57,7 +57,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public DateTime AppVersionDate { get; set; } = new (2025, 09, 24, 11, 37, 00, DateTimeKind.Utc);
+    public DateTime AppVersionDate { get; set; } = new (2026, 01, 07, 11, 37, 00, DateTimeKind.Utc);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value
@@ -121,7 +121,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     }
 
     /// <summary>
-    /// Gets complete application external (client-side) URL of the forum. (e.g. http://domain.com/forum
+    /// Gets complete application external (client-side) URL of the forum. (e.g. https://domain.com/forum
     /// </summary>
     public string ForumBaseUrl
     {

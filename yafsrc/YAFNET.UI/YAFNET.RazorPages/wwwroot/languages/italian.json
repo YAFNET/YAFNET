@@ -9715,7 +9715,7 @@
           },
           {
             "@tag": "SELECT_FILE",
-            "#text": "Seleziona un'immagine ('.jpg', '.gif', '.png' or '.bmp') che vuoi caricare."
+            "#text": "Seleziona un'immagine ('.webp','.jpg','.jpeg', '.gif', '.png' or '.bmp') che vuoi caricare."
           },
           {
             "@tag": "TITLE",

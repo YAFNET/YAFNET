@@ -1,9 +1,9 @@
 <Project>
 
   <PropertyGroup>
-	<Version>4.0.2</Version>
-	<AssemblyVersion>4.0.2</AssemblyVersion>
-	<FileVersion>4.0.2</FileVersion>
+	<Version>4.0.3</Version>
+	<AssemblyVersion>4.0.3</AssemblyVersion>
+	<FileVersion>4.0.3</FileVersion>
     <Authors>YetAnotherForum.NET</Authors>
     <Copyright>Copyright © YetAnotherForum.NET</Copyright>
     <LangVersion>latest</LangVersion>

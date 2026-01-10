@@ -1,15 +1,11 @@
-﻿<Project>
+<Project>
+
   <PropertyGroup>
-    <Version>4.0.1</Version>
-	<AssemblyVersion>4.0.1</AssemblyVersion>
-	<FileVersion>4.0.1</FileVersion>
+	<Version>4.0.3</Version>
+	<AssemblyVersion>4.0.3</AssemblyVersion>
+	<FileVersion>4.0.3</FileVersion>
+    <Authors>YetAnotherForum.NET</Authors>
+    <Copyright>Copyright © YetAnotherForum.NET</Copyright>
     <LangVersion>latest</LangVersion>
-    <Company>YetAnotherForum.NET</Company>
-	<Copyright>Copyright &#169; YetAnotherForum.NET</Copyright>
-	<PackageTags>forums;yaf;yaf.net;YetAnotherForum.net;forum</PackageTags>
-	<PackageProjectUrl>https://yetanotherforum.net/</PackageProjectUrl>
-	<RepositoryUrl>https://github.com/YAFNET/YAFNET</RepositoryUrl>
-	<RepositoryType>git</RepositoryType>
-    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
   </PropertyGroup>
 </Project>

@@ -9723,7 +9723,7 @@
           },
           {
             "@tag": "SELECT_FILE",
-            "#text": "Vælg en billedfil ('.jpg', '.gif', '.png' eller '.bmp'), du vil uploade."
+            "#text": "Vælg en billedfil ('.webp','.jpg','.jpeg', '.gif', '.png' eller '.bmp'), du vil uploade."
           },
           {
             "@tag": "TITLE",

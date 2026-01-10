@@ -9723,7 +9723,7 @@
           },
           {
             "@tag": "SELECT_FILE",
-            "#text": "Selectați un fișier imagine ('.jpg', '.gif', '.png' sau '.bmp') pe care doriți să îl încărcați."
+            "#text": "Selectați un fișier imagine ('.webp','.jpg','.jpeg', '.gif', '.png' sau '.bmp') pe care doriți să îl încărcați."
           },
           {
             "@tag": "TITLE",

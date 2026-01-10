@@ -264,6 +264,17 @@ public class AdminModel : AdminPage
     }
 
     /// <summary>
+    /// Counts the ip requests.
+    /// </summary>
+    /// <param name="ip">The ip address.</param>
+    /// <returns></returns>
+    public string CountRequests(string ip)
+    {
+        return
+            $"{this.ActiveUserIpList.First(x => x.Label == ip).Data}{this.GetText("ADMIN_ADMIN", "ACTIVE_REQUESTS")}";
+    }
+
+    /// <summary>
     /// Shows the upgrade message.
     /// </summary>
     private async Task ShowUpgradeMessageAsync()
@@ -310,7 +321,7 @@ public class AdminModel : AdminPage
         this.ActiveUserIpList =
         [
             .. this.GetRepository<Active>().GetByBoardId().GroupBy(x => x.IP)
-                .Select(a => new StatsData { Label = a.Key, Data = a.Count() }).Where(x => x.Data > 1)
+                .Select(a => new StatsData { Label = a.Key, Data = a.Count() })
                 .OrderByDescending(x => x.Data)
         ];
     }
@@ -339,7 +350,7 @@ public class AdminModel : AdminPage
 
         await this.BindUnverifiedUsersAsync(p2);
 
-        // get stats for current board, selected board or all boards (see function)
+        // get stats for current board
         var data = await this.Get<IDataCache>().GetOrSetAsync(
             Constants.Cache.AdminStats, () => this.GetRepository<Board>().StatsAsync(this.PageBoardContext.PageBoardID));
 

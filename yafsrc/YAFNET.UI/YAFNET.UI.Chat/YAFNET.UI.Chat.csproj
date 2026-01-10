@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-	<Version>4.0.2</Version>
+	<Version>4.0.3</Version>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <RootNamespace>YAF.UI.Chat</RootNamespace>
     <Description>Chat UI for YAF.NET.</Description>
@@ -55,7 +55,7 @@
 
   <ItemGroup>
 	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.1" />
-	<PackageReference Include="SonarAnalyzer.CSharp" Version="10.17.0.131074">
+	<PackageReference Include="SonarAnalyzer.CSharp" Version="10.18.0.131500">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>

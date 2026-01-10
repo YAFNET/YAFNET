@@ -92,9 +92,9 @@
 @if (Model.PageBoardContext.BoardSettings.ShowRecentUsers && !recentUsers.NullOrEmpty())
 {
     <div class="card mb-3">
-        <div class="card-header d-flex align-items-center">
-            @Html.IconHeader("users", "DEFAULT", "RECENT_USERS", "fa-2x")
-        </div>
+	    <div class="card-header d-flex align-items-center">
+		    @Html.IconHeader("users", "DEFAULT", "RECENT_USERS", "fa-2x")
+	    </div>
         <div class="card-body">
             @Html.ActiveUsers(recentUsers)
         </div>
