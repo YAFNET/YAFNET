@@ -13,7 +13,7 @@ jobs:
         dotnet-version: [ '10.0.x' ]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v3
         with:
