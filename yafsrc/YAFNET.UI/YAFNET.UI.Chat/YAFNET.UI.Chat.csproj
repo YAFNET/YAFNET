@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-	<Version>4.0.3</Version>
+	<Version>4.0.4</Version>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <RootNamespace>YAF.UI.Chat</RootNamespace>
     <Description>Chat UI for YAF.NET.</Description>
@@ -60,8 +60,8 @@
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
 	<PackageReference Include="YAFNET.Core" Version="4.0.2" />
-	<PackageReference Include="YAFNET.Types" Version="4.0.2" />
-	<PackageReference Include="YAFNET.Web" Version="4.0.2" />
+	<PackageReference Include="YAFNET.Types" Version="4.0.3" />
+	<PackageReference Include="YAFNET.Web" Version="4.0.3" />
   </ItemGroup>
 
 </Project>

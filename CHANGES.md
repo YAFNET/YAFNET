@@ -1,7 +1,7 @@
 YetAnotherForum.NET Changelog
 ====================
 
-# YetAnotherForum.NET v4.0.3
+# YetAnotherForum.NET v4.0.4
 * Upgraded to .NET 10.0
 * [NEW] Ban Ip Addresses by Country
 * [NEW] Allowed UserName Characters can be set via the host settings
