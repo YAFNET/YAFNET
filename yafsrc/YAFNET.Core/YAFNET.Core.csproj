@@ -43,7 +43,7 @@
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Runtime.Caching" Version="10.0.1" />
+    <PackageReference Include="System.Runtime.Caching" Version="10.0.2" />
     <PackageReference Include="System.ServiceModel.Syndication" Version="10.0.1" />
     <PackageReference Include="UAParser.Core" Version="4.0.5" />
     <PackageReference Include="WebPush" Version="1.0.12" />
