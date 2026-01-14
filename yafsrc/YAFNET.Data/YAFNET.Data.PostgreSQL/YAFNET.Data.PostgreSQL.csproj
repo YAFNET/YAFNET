@@ -18,7 +18,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.ComponentModel.Composition" Version="10.0.1" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="10.0.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite.PostgreSQL\ServiceStack.OrmLite.PostgreSQL.Core.csproj" />
