@@ -81,7 +81,7 @@ public class SecurityHeaderMiddleware
 
         var baseUrl = context.Request.BaseAuthority();
 
-        if (baseUrl.Contains("localhost"))
+        if (this.boardConfig.ContentSecurityPolicy.IsSet())
         {
             return this.next.Invoke(context);
         }

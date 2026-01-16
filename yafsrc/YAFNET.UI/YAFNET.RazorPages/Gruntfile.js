@@ -33,8 +33,8 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         src: '**/*.*',
-                        cwd: '../../YetAnotherForum.NET/wwwroot/favicons',
-                        dest: 'wwwroot/favicons'
+                        cwd: '../../YetAnotherForum.NET/wwwroot/assets',
+                        dest: 'wwwroot/assets'
                     },
                     {
                         expand: true,

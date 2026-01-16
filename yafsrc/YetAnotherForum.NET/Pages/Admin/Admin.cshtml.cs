@@ -167,6 +167,7 @@ public class AdminModel : AdminPage
     {
         if (await this.GetRepository<BannedIP>().ExistsAsync(x => x.Mask == mask))
         {
+            await this.BindDataAsync(p, p2);
             return this.Page();
         }
 

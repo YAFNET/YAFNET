@@ -4,6 +4,7 @@
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
+@using YAF.Web.Extensions
 
 @inject BoardContext Current
 
@@ -12,10 +13,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - YAF.SampleApp</title>
+    <title>@Html.Raw(Current.CurrentForumPage.GeneratePageTitle())</title>
     <link rel="stylesheet" href="@Html.Raw(Current.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"))"
           type="text/css" asp-append-version="true" />
-    <link href="~/assets/favicon.ico" rel="shortcut icon" />
 </head>
 <body>
     <header>

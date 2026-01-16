@@ -42,11 +42,5 @@ public class SecurityIntegrationTests : Setup
         response.Headers.Contains("X-Frame-Options").Should().BeTrue();
         response.Headers.Contains("X-Content-Type-Options").Should().BeTrue();
         response.Headers.Contains("Referrer-Policy").Should().BeTrue();
-
-        if (!this.TestSettings.TestForumUrl.Contains("localhost"))
-        {
-            response.Headers.Contains("Content-Security-Policy").Should().BeTrue();
-        }
     }
-
 }

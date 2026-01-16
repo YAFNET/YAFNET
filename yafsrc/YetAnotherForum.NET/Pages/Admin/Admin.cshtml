@@ -1,10 +1,13 @@
 @page "{p:int=1}/{p2:int=1}/{handler?}"
 @model AdminModel
+@using YAF.Core.Context
+@using YAF.Core.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
 @using YAF.Types.Constants
 @using YAF.Core.Helpers
 @using YAF.Types.Extensions
+@using YAF.Types.Models
 @using YAF.Web.HtmlHelpers
 
 @section StyleSheets {
@@ -342,11 +345,18 @@
 			<div class="card-body">
 				@if (!Model.ActiveUserList.NullOrEmpty())
 				{
+					var bannedIPs = Model.Get<IDataCache>().GetOrSet(
+						Constants.Cache.BannedIP,
+						() => Model.GetRepository<BannedIP>().Get(x => x.BoardID == BoardContext.Current.PageBoardID)
+							.Select(x => x.Mask.Trim()).ToList());
+
 					<ul class="list-group">
 
 						@foreach (var activeUser in Model.ActiveUserList)
 						{
 							var ipAddress = IPHelper.GetIpAddressAsString(activeUser.IP);
+
+							var isBanned = bannedIPs.Contains(ipAddress);
 
 							<li class="list-group-item list-group-item-action list-group-item-menu">
 								<div class="d-flex w-100 justify-content-between text-break">
@@ -365,15 +375,18 @@
 											   rel="noopener">
 												@Html.Icon("computer")@Html.Raw(ipAddress) (@Model.CountRequests(activeUser.IP))
 											</a>
-											<button button-style="Danger"
-											        button-size="Small"
-											        asp-page-handler="BanIp"
-											        asp-route-mask="@Html.Raw(ipAddress)"
-											        asp-route-p="@Model.Request.RouteValues["p"]"
-											        asp-route-p2="@Model.Request.RouteValues["p2"]"
-											        text-localized-page="ADMIN_BANNEDIP_EDIT"
-											        text-localized-tag="TITLE"
-											        Icon="edit"></button>
+											@if (!isBanned)
+											{
+												<button button-style="Danger"
+												        button-size="Small"
+												        asp-page-handler="BanIp"
+												        asp-route-mask="@Html.Raw(ipAddress)"
+												        asp-route-p="@Model.Request.RouteValues["p"]"
+												        asp-route-p2="@Model.Request.RouteValues["p2"]"
+												        text-localized-page="ADMIN_BANNEDIP_EDIT"
+												        text-localized-tag="TITLE"
+												        Icon="edit"></button>
+											}
 										</div>
 
 									</small>
@@ -410,13 +423,16 @@
 									</span>
 								</small>
 								<div class="dropdown-menu context-menu" aria-labelledby="context menu">
-									<button button-style="None"
-									        class="dropdown-item"
-									        bs-toggle="ajax-modal"
-									        bs-target-url="@(Url.Page("BannedIps", "Edit", new { mask = ipAddress }))"
-									        text-localized-page="ADMIN_BANNEDIP_EDIT"
-									        text-localized-tag="TITLE"
-									        Icon="edit"></button>
+									@if (isBanned)
+									{
+										<button button-style="None"
+										        class="dropdown-item"
+										        bs-toggle="ajax-modal"
+										        bs-target-url="@(Url.Page("BannedIps", "Edit", new { mask = ipAddress }))"
+										        text-localized-page="ADMIN_BANNEDIP_EDIT"
+										        text-localized-tag="TITLE"
+										        Icon="edit"></button>
+									}
 								</div>
 							</li>
 						}

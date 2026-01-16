@@ -242,21 +242,21 @@
 	@if (Model.Get<VapidConfiguration>().IsPwaEnabled())
 	{
 		<script src="~/js/subscriptions.min.js" asp-append-version="true"></script>
+
+		<script>
+			@Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.CreateSubscriptionsJs(
+					Model.GetText("SUBSCRIPTIONS", "AppInstalled"),
+					Model.GetText("SUBSCRIPTIONS", "Subscribed"),
+					Model.GetText("SUBSCRIPTIONS", "BrowserNotSupported"),
+					Model.GetText("SUBSCRIPTIONS", "IosHandling"),
+					Model.GetText("SUBSCRIPTIONS", "Stopped"),
+					Model.GetText("SUBSCRIPTIONS", "NotificationsBlocked"),
+					Model.GetText("SUBSCRIPTIONS", "NotificationsBlockedMobile"),
+					Model.GetText("SUBSCRIPTIONS", "RequestingPermission"),
+					Model.GetText("SUBSCRIPTIONS", "PermissionGranted"),
+					Model.GetText("SUBSCRIPTIONS", "PermissionDenied"),
+					Model.GetText("SUBSCRIPTIONS", "PermissionDeniedMobile"),
+					Model.GetText("SUBSCRIPTIONS", "PermissionDismissed"))))
+		</script>
 	}
-	
-	<script>
-		@Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.CreateSubscriptionsJs(
-			Model.GetText("SUBSCRIPTIONS", "AppInstalled"),
-			Model.GetText("SUBSCRIPTIONS", "Subscribed"),
-			Model.GetText("SUBSCRIPTIONS", "BrowserNotSupported"),
-			Model.GetText("SUBSCRIPTIONS", "IosHandling"),
-			Model.GetText("SUBSCRIPTIONS", "Stopped"),
-			Model.GetText("SUBSCRIPTIONS", "NotificationsBlocked"),
-			Model.GetText("SUBSCRIPTIONS", "NotificationsBlockedMobile"),
-			Model.GetText("SUBSCRIPTIONS", "RequestingPermission"),
-			Model.GetText("SUBSCRIPTIONS", "PermissionGranted"),
-			Model.GetText("SUBSCRIPTIONS", "PermissionDenied"),
-			Model.GetText("SUBSCRIPTIONS", "PermissionDeniedMobile"),
-			Model.GetText("SUBSCRIPTIONS", "PermissionDismissed"))))
-	</script>
 }

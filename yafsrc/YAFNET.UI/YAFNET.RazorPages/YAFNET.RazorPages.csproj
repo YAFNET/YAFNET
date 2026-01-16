@@ -73,7 +73,7 @@
 
   <ItemGroup>
 	<PackageReference Include="HtmlProperties" Version="1.0.0" />
-	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" version="10.0.1" />
+	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" version="10.0.2" />
 	<PackageReference Include="SonarAnalyzer.CSharp" Version="10.18.0.131500">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -81,7 +81,7 @@
 	<PackageReference Include="YAFNET.Core" Version="4.0.4" />
 	<PackageReference Include="YAFNET.Types" Version="4.0.4" />
 	<PackageReference Include="YAFNET.Web" Version="4.0.4" />
-	<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" version="10.0.1" />
+	<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" version="10.0.2" />
   </ItemGroup>
 
 </Project>

@@ -219,17 +219,17 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
         while (await streamReader.ReadLineAsync() is { } line)
         {
-            if (line.IsNotSet() || !IPAddress.TryParse(line, out var importAddress))
+            if (line.IsNotSet())
             {
                 continue;
             }
 
-            if (existingBannedIpList.Exists(b => b.Mask == importAddress.ToString()))
+            if (existingBannedIpList.Exists(b => b.Mask == line))
             {
                 continue;
             }
 
-            if (repository.Save(null, importAddress.ToString(), "Imported IP Address", userId, boardId))
+            if (repository.Save(null, line, "Imported IP Address", userId, boardId))
             {
                 importedCount++;
             }

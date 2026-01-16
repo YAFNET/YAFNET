@@ -69,9 +69,6 @@ _global.Subscriptions = class Subscriptions {
         const mobileInstructions = document.getElementById('mobileInstructions')!;
         const applicationServerKey = (document.getElementById('ApplicationServerKey') as HTMLInputElement).value;
 
-       
-
-
         // Detect mobile
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
