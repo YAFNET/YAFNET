@@ -26,11 +26,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using FieldInfosWriter = YAF.Lucene.Net.Codecs.FieldInfosWriter;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using Counter = Lucene.Net.Util.Counter;
+    using FieldInfosWriter = Lucene.Net.Codecs.FieldInfosWriter;
+    using IOContext = Lucene.Net.Store.IOContext;
 
     /// <summary>
     /// This is a <see cref="DocConsumer"/> that gathers all fields under the
@@ -143,7 +143,7 @@ namespace YAF.Lucene.Net.Index
                 }
             }
 
-            // If any errors occured, throw it.
+            // If any errors occurred, throw it.
             if (th != null)
             {
                 if (th.IsRuntimeException()) ExceptionDispatchInfo.Capture(th).Throw(); // LUCENENET: Rethrow to preserve stack details from the original throw

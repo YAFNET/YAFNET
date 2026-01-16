@@ -21,10 +21,10 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DirectoryReader = YAF.Lucene.Net.Index.DirectoryReader;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using IndexWriter = YAF.Lucene.Net.Index.IndexWriter;
+    using Directory = Lucene.Net.Store.Directory;
+    using DirectoryReader = Lucene.Net.Index.DirectoryReader;
+    using IndexReader = Lucene.Net.Index.IndexReader;
+    using IndexWriter = Lucene.Net.Index.IndexWriter;
 
     /// <summary>
     /// Utility class to safely share <see cref="IndexSearcher"/> instances across multiple
@@ -143,7 +143,7 @@ namespace YAF.Lucene.Net.Search
         }
 
         /// <summary>
-        /// Returns <c>true</c> if no changes have occured since this searcher
+        /// Returns <c>true</c> if no changes have occurred since this searcher
         /// ie. reader was opened, otherwise <c>false</c>. </summary>
         /// <seealso cref="DirectoryReader.IsCurrent()"/>
         public bool IsSearcherCurrent()
