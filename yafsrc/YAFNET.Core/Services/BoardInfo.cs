@@ -57,7 +57,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public DateTime AppVersionDate { get; set; } = new (2026, 01, 10, 10, 37, 00, DateTimeKind.Utc);
+    public DateTime AppVersionDate { get; set; } = new (2026, 01, 17, 10, 37, 00, DateTimeKind.Utc);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value
@@ -71,8 +71,8 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
         {
             Major = 4,
             Minor = 0,
-            Build = 4,
-            ReleaseType = ReleaseType.Regular,
+            Build = 5,
+            ReleaseType = ReleaseType.BETA,
             ReleaseNumber = 0
         };
 
