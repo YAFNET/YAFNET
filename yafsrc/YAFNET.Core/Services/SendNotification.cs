@@ -242,6 +242,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
 
         var watchUsers = await this.GetRepository<User>().WatchMailListAsync(message.TopicID, message.UserID);
 
+        var topicLink = this.Get<ILinkBuilder>().GetAbsoluteLink(
+            ForumPages.Post,
+            new { m = message.ID, name = message.Topic.TopicName });
+
         var watchEmail = new TemplateEmail("TOPICPOST")
                              {
                                  TemplateParams =
@@ -252,66 +256,65 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                          ["{postedby}"] = this.Get<IUserDisplayName>().GetNameById(message.UserID),
                                          ["{body}"] = bodyText,
                                          ["{bodytruncated}"] = bodyText.Truncate(160),
-                                         ["{link}"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
-                                             ForumPages.Post,
-                                             new {m = message.ID, name = message.Topic.TopicName}),
+                                         ["{link}"] = topicLink,
                                          ["{subscriptionlink}"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
                                              ForumPages.Profile_Subscriptions)
                                      }
                              };
 
-        watchUsers.AsParallel().ForAll(async user =>
+        await Task.WhenAll(watchUsers.Select(async user =>
+        {
+            // Add to stream
+            if (user.Activity)
+            {
+                if (newTopic)
                 {
-                    // Add to stream
-                    if (user.Activity)
-                    {
-                        if (newTopic)
-                        {
-                            this.Get<IActivityStream>().AddWatchTopicToStream(
-                                user,
-                                message.TopicID,
-                                message.ID,
-                                message.Topic.TopicName,
-                                message.MessageText,
-                                message.UserID);
-                        }
-                        else
-                        {
-                            this.Get<IActivityStream>().AddWatchReplyToStream(
-                                user,
-                                message.TopicID,
-                                message.ID,
-                                message.Topic.TopicName,
-                                message.MessageText,
-                                message.UserID);
-                        }
-                    }
+                    this.Get<IActivityStream>().AddWatchTopicToStream(
+                        user,
+                        message.TopicID,
+                        message.ID,
+                        message.Topic.TopicName,
+                        message.MessageText,
+                        message.UserID);
+                }
+                else
+                {
+                    this.Get<IActivityStream>().AddWatchReplyToStream(
+                        user,
+                        message.TopicID,
+                        message.ID,
+                        message.Topic.TopicName,
+                        message.MessageText,
+                        message.UserID);
+                }
+            }
 
-                    var languageFile = user.LanguageFile.IsSet() && this.Get<BoardSettings>().AllowUserLanguage
-                        ? user.LanguageFile
-                        : this.Get<BoardSettings>().Language;
+            var languageFile = user.LanguageFile.IsSet() && this.Get<BoardSettings>().AllowUserLanguage
+                ? user.LanguageFile
+                : this.Get<BoardSettings>().Language;
 
 
-                    var subject = string.Format(
-                        this.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile),
-                        boardName);
+            var subject = string.Format(
+                this.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile),
+                boardName);
 
-                    // Send push Notifications
-                    if (this.Get<VapidConfiguration>().IsPwaEnabled())
-                    {
-                        await this.Get<ISendPushNotification>().SendTopicPushNotificationAsync(user, message, newTopic, subject);
-                    }
+            // Send push Notifications
+            if (this.Get<VapidConfiguration>().IsPwaEnabled())
+            {
+                await this.Get<ISendPushNotification>()
+                    .SendTopicPushNotificationAsync(user, message, newTopic, subject, topicLink);
+            }
 
-                    watchEmail.TemplateLanguageFile = languageFile;
+            watchEmail.TemplateLanguageFile = languageFile;
 
-                    var fromAddress = MailboxAddress.Parse(forumEmail);
-                    fromAddress.Name = boardName;
+            var fromAddress = MailboxAddress.Parse(forumEmail);
+            fromAddress.Name = boardName;
 
-                    var toAddress = MailboxAddress.Parse(user.Email);
-                    toAddress.Name = this.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name;
+            var toAddress = MailboxAddress.Parse(user.Email);
+            toAddress.Name = this.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name;
 
-                    mailMessages.Add(watchEmail.CreateEmail(fromAddress, toAddress, subject));
-                });
+            mailMessages.Add(watchEmail.CreateEmail(fromAddress, toAddress, subject));
+        }));
 
         if (mailMessages.HasItems())
         {
@@ -321,7 +324,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Send an Email to the Newly Created PageUser with
+    /// Send email to the Newly Created PageUser with
     /// his Account Info (Pass)
     /// </summary>
     /// <param name="user">

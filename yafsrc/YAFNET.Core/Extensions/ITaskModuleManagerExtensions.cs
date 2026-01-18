@@ -74,7 +74,7 @@ public static class ITaskModuleManagerExtensions
         {
             ArgumentNullException.ThrowIfNull(taskModuleManager);
 
-            return Start(taskModuleManager, () => new T { Data = data });
+            return taskModuleManager.Start(() => new T { Data = data });
         }
     }
 }

@@ -55,9 +55,7 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
     /// <summary>
     ///     The _injection cache.
     /// </summary>
-    private readonly static
-        ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>> InjectionCache =
-            new();
+    private readonly static ConcurrentDictionary<TypePair, IList<Tuple<Type, Type, Action<object, object>>>> InjectionCache = new();
 
     /// <summary>
     ///     Gets or sets Container.
@@ -225,7 +223,7 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
         var type = instance.GetType();
         var attributeType = typeof(TAttribute);
 
-        var keyPair = new KeyValuePair<Type, Type>(type, attributeType);
+        var keyPair = new TypePair(type, attributeType);
 
         if (!InjectionCache.TryGetValue(keyPair, out var properties))
         {
@@ -239,7 +237,7 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
                         p.DeclaringType,
                         new Action<object, object>((i, v) => p.SetValue(i, v, null))))];
 
-            InjectionCache.AddOrUpdate(keyPair, _ => properties, (k, v) => properties);
+            InjectionCache.AddOrUpdate(keyPair, _ => properties, (_, _) => properties);
         }
 
         properties.ForEach(

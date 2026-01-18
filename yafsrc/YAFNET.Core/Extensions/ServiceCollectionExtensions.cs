@@ -28,8 +28,9 @@ using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -156,9 +157,9 @@ public static class ServiceCollectionExtensionsExtensions
             // VAPID Configuration
             services.Configure<VapidConfiguration>(configuration.GetSection("VapidConfiguration"));
 
-            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>().AddScoped(
-                x => x.GetRequiredService<IUrlHelperFactory>()
-                    .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>().AddScoped(x => x
+                .GetRequiredService<IUrlHelperFactory>()
+                .GetUrlHelper(x.GetRequiredService<IHttpContextAccessor>().HttpContext.GetActionContext()));
 
             services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 

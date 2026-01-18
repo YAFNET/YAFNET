@@ -60,7 +60,7 @@ public static class IReplaceBlocksExtensions
         {
             var sb = new StringBuilder(strText);
 
-            ReplaceHtmlFromText(replaceBlocks, ref sb);
+            replaceBlocks.ReplaceHtmlFromText(ref sb);
 
             strText = sb.ToString();
         }

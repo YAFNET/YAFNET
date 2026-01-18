@@ -81,7 +81,7 @@ public class SecurityHeaderMiddleware
 
         var baseUrl = context.Request.BaseAuthority();
 
-        if (this.boardConfig.ContentSecurityPolicy.IsSet())
+        if (this.boardConfig.ContentSecurityPolicy.IsNotSet())
         {
             return this.next.Invoke(context);
         }
