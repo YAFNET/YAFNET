@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-sm-2 mb-3">
-        <span class="pull-right">
+        <span class="float-end">
             <asp:Image runat="server" ID="AvatarImage" 
                        CssClass="img-fluid rounded" 
                        AlternateText="avatar" />
