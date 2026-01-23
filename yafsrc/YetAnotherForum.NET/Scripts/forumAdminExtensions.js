@@ -14908,7 +14908,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                       ${String(removeItemButton ? "data-deletable" : "")}
                                       ${String(data.active ? 'aria-selected="true"' : "")} ${String(data.disabled ? 'aria-disabled="true"' : "")}>
                                     ${String(label)}
-                                    ${String(removeItemButton ? `<button type="button" class="${String(classNames.button)}" aria-label="Remove item: '${String(data.value)}'" data-button="">Remove item</button>` : "")}
+                                    ${String(removeItemButton ? `<button type="button" class="${String(classNames.button.join(" "))}" aria-label="Remove item: '${String(data.value)}'" data-button="">Remove item</button>` : "")}
                                  </div>
                                 `);
                     },

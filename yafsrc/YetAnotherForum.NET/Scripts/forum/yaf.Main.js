@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
 							        : '')}>
                                     ${String(label)}
                                     ${String(removeItemButton
-							        ? `<button type="button" class="${String(classNames.button)
+                                        ? `<button type="button" class="${String(classNames.button.join(' '))
 							        }" aria-label="Remove item: '${String(data.value)
 							        }'" data-button="">Remove item</button>`
 							        : '')}
