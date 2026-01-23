@@ -123,7 +123,7 @@ public class EditForumModel : AdminPage
         {
             var files = dir.GetFiles("*.*").ToList();
 
-            list.AddImageFiles(files, this.Get<BoardFolders>().Categories);
+            list.AddImageFiles(files, this.Get<BoardFolders>().Forums);
         }
 
         this.ForumImages = list;
