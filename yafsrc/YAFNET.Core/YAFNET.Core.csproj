@@ -46,6 +46,5 @@
     <PackageReference Include="System.Runtime.Caching" Version="10.0.2" />
     <PackageReference Include="System.ServiceModel.Syndication" Version="10.0.2" />
     <PackageReference Include="UAParser.Core" Version="4.0.5" />
-    <PackageReference Include="WebPush" Version="1.0.12" />
   </ItemGroup>
 </Project>

@@ -23,7 +23,7 @@ public static class OrmLiteLog
     {
         log ??= Log;
 
-        if (!log.IsDebugEnabled || cmd is not OrmLiteCommand ormCmd)
+        if (!log.IsDebugEnabled || cmd is not OrmLite.OrmLiteCommand { StartTimestamp: > 0 } ormCmd)
         {
             return result;
         }
@@ -38,7 +38,7 @@ public static class OrmLiteLog
         {
             log.DebugFormat("TIME: {0:N3}ms", elapsed.TotalMilliseconds);
         }
+
         return result;
     }
-
 }

@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.6.2" />
     <PackageReference Include="HtmlProperties" Version="1.0.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="10.18.0.131500">
       <PrivateAssets>all</PrivateAssets>

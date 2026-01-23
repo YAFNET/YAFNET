@@ -26,7 +26,8 @@ using Microsoft.Extensions.Logging;
 
 using Newtonsoft.Json;
 
-using WebPush;
+using WebEssentials.AspNetCore.Pwa.WebPush;
+using WebEssentials.AspNetCore.Pwa.WebPush.Model;
 
 using YAF.Core.Model;
 using YAF.Types.Objects;
@@ -66,7 +67,8 @@ public class SendPushNotification : IHaveServiceLocator, ISendPushNotification
     /// <param name="message">The message.</param>
     /// <param name="newTopic">if set to <c>true</c> [new topic].</param>
     /// <param name="subject">The subject.</param>
-    public async Task SendTopicPushNotificationAsync(User user, Message message, bool newTopic, string subject)
+    /// <param name="topicLink">The topic link.</param>
+    public async Task SendTopicPushNotificationAsync(User user, Message message, bool newTopic, string subject, string topicLink)
     {
         // Get the user's push subscription(s)
         var subscriptions = await this.GetRepository<DeviceSubscription>()
@@ -84,10 +86,6 @@ public class SendPushNotification : IHaveServiceLocator, ISendPushNotification
             : "data:image/svg+xml,<svg style=\"fill:white\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 640\"><!--!Font Awesome Free by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d=\"M576 304C576 436.5 461.4 544 320 544C282.9 544 247.7 536.6 215.9 523.3L97.5 574.1C88.1 578.1 77.3 575.8 70.4 568.3C63.5 560.8 62 549.8 66.8 540.8L115.6 448.6C83.2 408.3 64 358.3 64 304C64 171.5 178.6 64 320 64C461.4 64 576 171.5 576 304z\"/></svg>";
 
         var postedUserName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
-
-        var topicLink = this.Get<ILinkBuilder>().GetLink(
-            ForumPages.Post,
-            new { m = message.ID, name = message.Topic.TopicName });
 
         var body = this.Get<ILocalization>().GetTextFormatted(newTopic ? "WATCH_FORUM_MSG" : "WATCH_TOPIC_MSG",
             postedUserName, message.Topic.TopicName);

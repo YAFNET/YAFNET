@@ -40,5 +40,6 @@ public interface ISendPushNotification
     /// <param name="message">The message.</param>
     /// <param name="newTopic">if set to <c>true</c> [new topic].</param>
     /// <param name="subject">The subject.</param>
-    Task SendTopicPushNotificationAsync(User user, Message message, bool newTopic, string subject);
+    /// <param name="topicLink">The topic link.</param>
+    Task SendTopicPushNotificationAsync(User user, Message message, bool newTopic, string subject, string topicLink);
 }
