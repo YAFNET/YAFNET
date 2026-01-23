@@ -247,6 +247,8 @@ public class EditForumModel : AdminPage
         this.Input.ThemeURL = forum.ThemeURL;
 
         this.Input.RemoteURL = forum.RemoteURL;
+		
+		this.Input.ImageURL = forum.ImageURL;
 
         return this.Page();
     }
