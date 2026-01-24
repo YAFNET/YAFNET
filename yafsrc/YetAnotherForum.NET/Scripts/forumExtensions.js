@@ -14439,7 +14439,7 @@ function createTagsSelectTemplates(template) {
                           ${String(removeItemButton ? "data-deletable" : "")}
                           ${String(data.active ? 'aria-selected="true"' : "")} ${String(data.disabled ? 'aria-disabled="true"' : "")}>
                         <i class="fas fa-tag align-middle me-1"></i>${String(label)}
-                        ${String(removeItemButton ? `<button type="button" class="${String(classNames.button)}" aria-label="Remove item: '${String(data.value)}'" data-button="">Remove item</button>` : "")}
+                        ${String(removeItemButton ? `<button type="button" class="${String(classNames.button.join(" "))}" title="Remove item" data-button=""></button>` : "")}
                      </div>
                     `);
         }
@@ -15167,7 +15167,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                       ${String(removeItemButton ? "data-deletable" : "")}
                                       ${String(data.active ? 'aria-selected="true"' : "")} ${String(data.disabled ? 'aria-disabled="true"' : "")}>
                                     ${String(label)}
-                                    ${String(removeItemButton ? `<button type="button" class="${String(classNames.button.join(" "))}" aria-label="Remove item: '${String(data.value)}'" data-button="">Remove item</button>` : "")}
+                                    ${String(removeItemButton ? `<button type="button" class="${String(classNames.button.join(" "))}" title="Remove item" data-button=""></button>` : "")}
                                  </div>
                                 `);
                     },

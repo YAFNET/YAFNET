@@ -27,7 +27,7 @@
                     ? 'aria-disabled="true"'
                     : '')}>
                         <i class="fas fa-tag align-middle me-1"></i>${String(label)}
-                        ${String(removeItemButton ? `<button type="button" class="${String(classNames.button)}" aria-label="Remove item: '${String(data.value)}'" data-button="">Remove item</button>` : '')}
+                        ${String(removeItemButton ? `<button type="button" class="${String(classNames.button.join(' '))}" title="Remove item" data-button=""></button>` : '')}
                      </div>
                     `
             );

@@ -59,7 +59,7 @@ public class ImageListBox : DropDownList
         this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()).ForEach(
             item => item.Attributes.Add(
                 "data-custom-properties",
-                $$"""{ "label": "<img src='{{item.Value.ToLower()}}' />{{item.Text}}" }"""));
+                $$"""{ "label": "<img src='{{item.Value.ToLower()}}' class='mx-2' />{{item.Text}}" }"""));
 
         base.Render(writer);
     }

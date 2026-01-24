@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						        `
                                  <div class="${String(classNames.item)} ${String(data.highlighted
 							        ? classNames.highlightedState
-							        : classNames.itemSelectable)} ${String(data.placeholder ? classNames.placeholder : '')}"
+                                     : classNames.itemSelectable)} ${String(data.placeholder ? classNames.placeholder : '')}"
                                       data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
                                       ${String(removeItemButton ? 'data-deletable' : '')}
                                       ${String(data.active ? 'aria-selected="true"' : '')} ${String(data.disabled
@@ -118,8 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     ${String(label)}
                                     ${String(removeItemButton
                                         ? `<button type="button" class="${String(classNames.button.join(' '))
-							        }" aria-label="Remove item: '${String(data.value)
-							        }'" data-button="">Remove item</button>`
+							        }" title="Remove item" data-button=""></button>`
 							        : '')}
                                  </div>
                                 `
