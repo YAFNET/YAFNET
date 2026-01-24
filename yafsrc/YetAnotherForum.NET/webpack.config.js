@@ -3,7 +3,6 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 const pckg = require('./package.json');
 
-
 module.exports = [
 	{
 		entry: {

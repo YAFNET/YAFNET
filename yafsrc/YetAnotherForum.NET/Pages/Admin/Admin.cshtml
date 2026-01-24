@@ -448,7 +448,7 @@
 	<div class="col-auto">
 		<pager page-size="@Model.Size"
 		       count="@Model.ActiveUserList.HasItems() ? Model.ActiveUserList[0].UserCount : 0"
-		       query-name="p">
+		       query-name="p" use-submit="false">
 		</pager>
 	</div>
 </div>
@@ -631,7 +631,7 @@
 	<div class="col-auto">
 		<pager page-size="@Model.Input.UnverifiedPageSize"
 		       count="@Model.Input.UnverifiedCount"
-		       query-name="p2">
+		       query-name="p2" use-submit="false">
 		</pager>
 	</div>
 </div>

@@ -124,7 +124,7 @@ public class EditCategoryModel : AdminPage
 
         if (this.Input.CategoryImage.IsSet() && this.Input.CategoryImage != this.GetText("COMMON", "NONE"))
         {
-           categoryImage = this.Input.CategoryImage;
+           categoryImage = this.Input.CategoryImage[(this.Input.CategoryImage.LastIndexOf('/') + 1)..];
         }
 
         var category = await this.GetRepository<Category>().GetSingleAsync(check => check.Name == this.Input.Name);
@@ -197,10 +197,14 @@ public class EditCategoryModel : AdminPage
 
         this.Input.Name = category.Name;
         this.Input.SortOrder = category.SortOrder;
-
         this.Input.Active = category.CategoryFlags.IsActive;
 
-        this.Input.CategoryImage = category.CategoryImage;
+        if (category.CategoryImage.IsSet())
+        {
+            this.Input.CategoryImage = !category.CategoryImage.Contains('/')
+                ? $"/{this.Get<BoardFolders>().Categories}/{category.CategoryImage}"
+                : category.CategoryImage;
+        }
 
         return this.Page();
     }

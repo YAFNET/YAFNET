@@ -247,8 +247,13 @@ public class EditForumModel : AdminPage
         this.Input.ThemeURL = forum.ThemeURL;
 
         this.Input.RemoteURL = forum.RemoteURL;
-		
-		this.Input.ImageURL = forum.ImageURL;
+
+        if (forum.ImageURL.IsSet())
+        {
+            this.Input.ImageURL = !forum.ImageURL.Contains('/')
+                ? $"/{this.Get<BoardFolders>().Forums}/{forum.ImageURL}"
+                : forum.ImageURL;
+        }
 
         return this.Page();
     }
@@ -351,9 +356,11 @@ public class EditForumModel : AdminPage
             moderatedPostCount = this.Input.ModeratedPostCount;
         }
 
-        if (this.Input.ImageURL.IsSet() && this.Input.ImageURL.Equals(this.GetText("COMMON", "NONE")))
+        string imageUrl = null;
+
+        if (this.Input.ImageURL.IsSet() && this.Input.ImageURL != this.GetText("COMMON", "NONE"))
         {
-            this.Input.ImageURL = null;
+            imageUrl = this.Input.ImageURL[(this.Input.ImageURL.LastIndexOf('/') + 1)..];
         }
 
         var newForumId = this.GetRepository<Forum>().Save(
@@ -371,7 +378,7 @@ public class EditForumModel : AdminPage
             this.Input.ModerateNewTopicOnly,
             this.Input.RemoteURL,
             themeUrl,
-            this.Input.ImageURL,
+            imageUrl,
             this.Input.Styles);
 
         // Access
