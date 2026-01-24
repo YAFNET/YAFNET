@@ -56,7 +56,7 @@ static internal class Encryptor
     private static byte[] GenerateSalt(int length)
     {
         var salt = new byte[length];
-        var random = new Random();
+        var random = new SecureRandom();
         random.NextBytes(salt);
         return salt;
     }

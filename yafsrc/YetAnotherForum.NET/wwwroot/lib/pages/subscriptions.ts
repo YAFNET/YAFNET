@@ -1,6 +1,6 @@
-﻿const _global = (window /* browser */ || global /* node */) as any;
+﻿const _globalWindow = (window /* browser */ || global /* node */) as any;
 
-_global.Subscriptions = class Subscriptions {
+_globalWindow.Subscriptions = class Subscriptions {
     TextAppInstalled: string;
     TextSubscribed: string;
     TextBrowserNotSupported: string;
@@ -81,8 +81,17 @@ _global.Subscriptions = class Subscriptions {
             mobileInstructions.classList.remove('d-none');
         }
 
+        installBtn.style.display = 'none';
+
         // PWA Install prompt
         let deferredPrompt: any;
+
+        _globalWindow.addEventListener('beforeinstallprompt', (e: Event) => {
+	        e.preventDefault();
+	        deferredPrompt = e;
+
+	        installBtn.style.display = 'inline-block';
+        });
 
 
         installBtn.addEventListener('click', async () => {

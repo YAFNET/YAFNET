@@ -1649,7 +1649,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     {
         dbCmd.Parameters.Clear();
         var dialectProvider = dbCmd.GetDialectProvider();
-        dialectProvider.PrepareParameterizedUpdateStatement<T>(dbCmd);
+        dialectProvider.PrepareParameterizedUpdateStatement<T>(dbCmd, updateFields);
 
         if (string.IsNullOrEmpty(dbCmd.CommandText))
         {

@@ -47,7 +47,7 @@ public static class UserLinkHtmlHelper
         /// </returns>
         public IHtmlContent UserLink(User user)
         {
-            return UserLink(htmlHelper, user.ID, user.DisplayOrUserName(), user.Suspended, user.UserStyle);
+            return htmlHelper.UserLink(user.ID, user.DisplayOrUserName(), user.Suspended, user.UserStyle);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ public static class UserLinkHtmlHelper
         public IHtmlContent UserLink(int userId,
             string crawler)
         {
-            return UserLink(htmlHelper, userId, null, null, string.Empty, false, false, false, string.Empty, crawler);
+            return htmlHelper.UserLink(userId, null, null, string.Empty, false, false, false, string.Empty, crawler);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ public static class UserLinkHtmlHelper
             bool blankTarget,
             string cssClass)
         {
-            return UserLink(htmlHelper, userId, replaceName, suspended, style, false, true, blankTarget, cssClass);
+            return htmlHelper.UserLink(userId, replaceName, suspended, style, false, true, blankTarget, cssClass);
         }
 
         /// <summary>

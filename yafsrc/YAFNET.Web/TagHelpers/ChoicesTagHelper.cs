@@ -384,12 +384,14 @@ public class ChoicesTagHelper : TagHelper
                 {
                     var groupItem = itemsList[j];
 
-                    if (!optionGenerated[j] &&
-                        ReferenceEquals(optGroup, groupItem.Group))
+                    if (optionGenerated[j] ||
+                        !ReferenceEquals(optGroup, groupItem.Group))
                     {
-                        groupBuilder.InnerHtml.AppendLine(this.GenerateOption(groupItem, currentValues));
-                        optionGenerated[j] = true;
+                        continue;
                     }
+
+                    groupBuilder.InnerHtml.AppendLine(this.GenerateOption(groupItem, currentValues));
+                    optionGenerated[j] = true;
                 }
 
                 listItemBuilder.AppendLine(groupBuilder);
@@ -461,23 +463,12 @@ public class ChoicesTagHelper : TagHelper
     /// </summary>
     /// <param name="fullName">The full name.</param>
     /// <param name="htmlAttributeDictionary">The HTML attribute dictionary.</param>
-    /// <returns><c>true</c> if [is full name valid] [the specified full name]; otherwise, <c>false</c>.</returns>
-    private static bool IsFullNameValid(string fullName, IDictionary<string, object> htmlAttributeDictionary)
-    {
-        return IsFullNameValid(fullName, htmlAttributeDictionary, fallbackAttributeName: "name");
-    }
-
-    /// <summary>
-    /// Determines whether [is full name valid] [the specified full name].
-    /// </summary>
-    /// <param name="fullName">The full name.</param>
-    /// <param name="htmlAttributeDictionary">The HTML attribute dictionary.</param>
     /// <param name="fallbackAttributeName">Name of the fallback attribute.</param>
     /// <returns><c>true</c> if [is full name valid] [the specified full name]; otherwise, <c>false</c>.</returns>
     private static bool IsFullNameValid(
         string fullName,
         IDictionary<string, object> htmlAttributeDictionary,
-        string fallbackAttributeName)
+        string fallbackAttributeName = "name")
     {
         if (fullName.IsSet())
         {

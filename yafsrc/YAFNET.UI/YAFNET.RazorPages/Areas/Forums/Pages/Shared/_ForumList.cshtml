@@ -40,7 +40,7 @@ forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
     if (forum.ImageURL.IsSet())
     {
-        imageUrl = $"/{Current.Get<BoardFolders>().Forums}/{forum.ImageURL}";
+        imageUrl = forum.ImageURL.Contains('/') ? forum.ImageURL : $"/{Current.Get<BoardFolders>().Forums}/{forum.ImageURL}";
 
         // Highlight custom icon images and add tool tips to them.
         try

@@ -90,7 +90,7 @@ _global.loadSelectMenus = (): void => {
 								`
                                  <div class="${String(classNames.item)} ${String(data.highlighted
 									? classNames.highlightedState
-									: classNames.itemSelectable)} ${String(data.placeholder ? classNames.placeholder : '')}"
+									 : classNames.itemSelectable)} ${String(data.placeholder ? classNames.placeholder : '')}"
                                       data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
                                       ${String(removeItemButton ? 'data-deletable' : '')}
                                       ${String(data.active ? 'aria-selected="true"' : '')} ${String(data.disabled
@@ -99,8 +99,7 @@ _global.loadSelectMenus = (): void => {
                                     ${String(label)}
                                     ${String(removeItemButton
 										? `<button type="button" class="${String(classNames.button.join(' '))
-									}" aria-label="Remove item: '${String(data.value)
-									}'" data-button="">Remove item</button>`
+									}" title="Remove item" data-button=""></button>`
 									: '')}
                                  </div>
                                 `
@@ -190,7 +189,7 @@ _global.createTagsSelectTemplates = function(this: any, template: (templateStrin
 						? 'aria-disabled="true"'
 						: '')}>
                         <i class="fas fa-tag align-middle me-1"></i>${String(label)}
-                        ${String(removeItemButton ? `<button type="button" class="${String(classNames.button.join(' '))}" aria-label="Remove item: '${String(data.value)}'" data-button="">Remove item</button>` : '')}
+                        ${String(removeItemButton ? `<button type="button" class="${String(classNames.button.join(' '))}" title="Remove item" data-button=""></button>` : '')}
                      </div>
                     `
 			);

@@ -26,19 +26,25 @@
                ? tuple.Item2.ToList()
                : tuple.Item2.Where(x => !x.ParentID.HasValue).ToList();
 
-    var hasCategoryImage = category.CategoryImage.IsSet();
+    TagBuilder categoryImage;
 
-    var image = new TagBuilder(HtmlTag.Img) { TagRenderMode = TagRenderMode.SelfClosing };
+    if (category.CategoryImage.IsSet())
+    {
+	    var image = new TagBuilder(HtmlTag.Img) { TagRenderMode = TagRenderMode.SelfClosing };
 
-    image.MergeAttribute("alt", category.Category);
-    image.MergeAttribute("src", $"/{Current.Get<BoardFolders>().Categories}/{category.CategoryImage}");
+	    image.MergeAttribute("alt", category.Category);
+	    image.MergeAttribute("src", category.CategoryImage.Contains('/') ? category.CategoryImage : $"/{Current.Get<BoardFolders>().Categories}/{category.CategoryImage}");
 
-    var icon = new TagBuilder(HtmlTag.I);
+		categoryImage = image;
+    }
+    else
+    {
+	    var icon = new TagBuilder(HtmlTag.I);
 
-    icon.AddCssClass("fas fa-folder text-warning me-1");
+	    icon.AddCssClass("fas fa-folder text-warning me-1");
 
-    var categoryImage = hasCategoryImage ? image : icon;
-
+		categoryImage = icon;
+    }
 
     <div class="row">
         <div class="col">
@@ -86,7 +92,6 @@
 
                                     @if (forum.Viewing > 0)
                                     {
-
                                         <span class="badge text-light-emphasis bg-light-subtl">
                                             @Html.Icon("eye", "", "far")
                                             @forum.Viewing

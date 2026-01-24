@@ -94,7 +94,7 @@ static internal class DeserializeTypeRefJson
             }
 
             var propertyValueStr = Serializer.EatValue(strType, ref index);
-            var possibleTypeInfo = propertyValueStr != null && propertyValueStr.Length > 1;
+            var possibleTypeInfo = !propertyValueStr.IsEmpty && propertyValueStr.Length > 1;
 
             switch (instance)
             {
@@ -205,7 +205,7 @@ static internal class DeserializeTypeRefJson
                 }
             }
 
-            if (typeAccessor is {GetProperty: { }, SetProperty: { }})
+            if (typeAccessor is {GetProperty: not null, SetProperty: not null })
             {
                 try
                 {

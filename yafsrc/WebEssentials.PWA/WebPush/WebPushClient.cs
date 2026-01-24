@@ -362,7 +362,7 @@ public class WebPushClient : IWebPushClient
     /// </summary>
     /// <param name="response"></param>
     /// <param name="subscription"></param>
-    private static async Task HandleResponse(HttpResponseMessage response, PushSubscription subscription)
+    private async static Task HandleResponse(HttpResponseMessage response, PushSubscription subscription)
     {
         // Successful
         if (response.IsSuccessStatusCode)

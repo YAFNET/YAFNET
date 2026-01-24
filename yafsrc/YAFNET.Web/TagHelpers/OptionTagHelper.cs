@@ -80,15 +80,15 @@ public class OptionTagHelper : TagHelper, IHaveServiceLocator
             {
                 output.Attributes.SetAttribute(
                     "data-custom-properties",
-                    $$"""{ "label": "<span class='fi fi-{{this.Item.Value.ToLower()}} me-1'></span>{{this.Item.Text}}" }""");
+                    $$"""{ "label": "<span class='fi fi-{{this.Item.Value.ToLower()}} mx-2'></span>{{this.Item.Text}}" }""");
             }
             else
             {
                 output.Attributes.SetAttribute(
                     "data-custom-properties",
                     this.IconName.IsSet()
-                        ? $$"""{ "label": "<i class='fas fa-{{this.IconName}} text-secondary me-1'></i>{{this.Item.Text}}" }"""
-                        : $$"""{ "label": "<img src='{{this.Item.Value}}' alt='{{this.Item.Text}}' />&nbsp;{{this.Item.Text}}" }""");
+                        ? $$"""{ "label": "<i class='fas fa-{{this.IconName}} text-secondary mx-2'></i>{{this.Item.Text}}" }"""
+                        : $$"""{ "label": "<img src='{{this.Item.Value}}' alt='{{this.Item.Text}}' class='ms-2' />&nbsp;<span class='ms-2'>{{this.Item.Text}}</span>" }""");
             }
         }
 
