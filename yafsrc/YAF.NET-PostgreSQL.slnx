@@ -46,7 +46,7 @@
   <Project Path="YAF.Web/YAF.Web.csproj">
     <Build Solution="*|x86" Project="false" />
   </Project>
-  <Project Path="YetAnotherForum.NET/YAF-PostgreSQL.csproj">
+  <Project DefaultStartup="true" Path="YetAnotherForum.NET/YAF-PostgreSQL.csproj" Id="555357e5-a150-4c4d-bc81-97f4ae19086a">
     <BuildDependency Project="YAF.UrlRewriter/YAF.UrlRewriter.csproj" />
     <BuildDependency Project="YAF.Web/YAF.Web.csproj" />
     <Build Solution="*|x86" Project="false" />
