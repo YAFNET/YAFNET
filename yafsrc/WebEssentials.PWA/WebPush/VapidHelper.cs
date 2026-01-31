@@ -203,7 +203,7 @@ public static class VapidHelper
     /// <returns></returns>
     private static long UnixTimeNow()
     {
-        var timeSpan = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0);
+        var timeSpan = DateTime.UtcNow - DateTime.UnixEpoch;
         return (long)timeSpan.TotalSeconds;
     }
 

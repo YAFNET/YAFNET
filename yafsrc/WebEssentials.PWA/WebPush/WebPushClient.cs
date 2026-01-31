@@ -16,6 +16,10 @@ public class WebPushClient : IWebPushClient
 {
     // default TTL is 4 weeks.
     private const int DefaultTtl = 2419200;
+
+    /// <summary>
+    /// The HTTP client handler
+    /// </summary>
     private readonly HttpClientHandler _httpClientHandler;
 
     private string _gcmApiKey;
@@ -143,8 +147,11 @@ public class WebPushClient : IWebPushClient
         if (options != null)
         {
             var validOptionsKeys = new List<string> { "headers", "gcmAPIKey", "vapidDetails", "TTL" };
-            foreach (var key in options.Keys.Where(key => !validOptionsKeys.Contains(key)))
+
+            if (options.Keys.Any(key => !validOptionsKeys.Contains(key)))
             {
+                var key = options.Keys.Select(key => !validOptionsKeys.Contains(key)).First();
+
                 throw new ArgumentException(
                     $"{key} is an invalid options. The valid options are{string.Join(",", validOptionsKeys)}");
             }
@@ -248,6 +255,13 @@ public class WebPushClient : IWebPushClient
         return request;
     }
 
+    /// <summary>
+    /// Encrypts the payload.
+    /// </summary>
+    /// <param name="subscription">The subscription.</param>
+    /// <param name="payload">The payload.</param>
+    /// <returns></returns>
+    /// <exception cref="InvalidEncryptionDetailsException">Unable to encrypt the payload with the encryption key of this subscription.</exception>
     private static EncryptionResult EncryptPayload(PushSubscription subscription, string payload)
     {
         try
@@ -256,7 +270,7 @@ public class WebPushClient : IWebPushClient
         }
         catch (Exception ex)
         {
-            if (ex is FormatException || ex is ArgumentException)
+            if (ex is FormatException or ArgumentException)
             {
                 throw new InvalidEncryptionDetailsException("Unable to encrypt the payload with the encryption key of this subscription.", subscription);
             }
@@ -401,6 +415,9 @@ public class WebPushClient : IWebPushClient
         throw new WebPushException(message, subscription, response);
     }
 
+    /// <summary>
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+    /// </summary>
     public void Dispose()
     {
         if (this._httpClient == null || !this._isHttpClientInternallyCreated)
