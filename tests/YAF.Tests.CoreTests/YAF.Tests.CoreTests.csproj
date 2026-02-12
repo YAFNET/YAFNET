@@ -22,10 +22,10 @@
     <Compile Include="..\..\yafsrc\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\yafsrc\YAF.Core\YAF.Core.csproj" />
-    <ProjectReference Include="..\..\yafsrc\YAF.Types\YAF.Types.csproj" />
+    <PackageReference Include="xunit.v3" Version="3.2.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="xunit" Version="2.9.3" />
+    <ProjectReference Include="..\..\yafsrc\YAF.Core\YAF.Core.csproj" />
+    <ProjectReference Include="..\..\yafsrc\YAF.Types\YAF.Types.csproj" />
   </ItemGroup>
 </Project>
