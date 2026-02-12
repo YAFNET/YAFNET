@@ -43,10 +43,8 @@ public class WebPushClient : IWebPushClient
         this._httpClientHandler = httpClientHandler;
     }
 
-    protected HttpClient HttpClient
-    {
-        get
-        {
+    protected HttpClient HttpClient {
+        get {
             if (this._httpClient != null)
             {
                 return this._httpClient;
@@ -160,7 +158,8 @@ public class WebPushClient : IWebPushClient
             {
                 var headers = option as Dictionary<string, object>;
 
-                extraHeaders = headers ?? throw new ArgumentException("options.headers must be of type Dictionary<string,object>");
+                extraHeaders = headers ??
+                               throw new ArgumentException("options.headers must be of type Dictionary<string,object>");
             }
 
             if (options.TryGetValue("gcmAPIKey", out var option1))
@@ -173,7 +172,8 @@ public class WebPushClient : IWebPushClient
             if (options.TryGetValue("vapidDetails", out var option2))
             {
                 var vapidDetails = option2 as VapidDetails;
-                currentVapidDetails = vapidDetails ?? throw new ArgumentException("options.vapidDetails must be of type VapidDetails");
+                currentVapidDetails = vapidDetails ??
+                                      throw new ArgumentException("options.vapidDetails must be of type VapidDetails");
             }
 
             if (options.TryGetValue("TTL", out var option3))
@@ -272,7 +272,8 @@ public class WebPushClient : IWebPushClient
         {
             if (ex is FormatException or ArgumentException)
             {
-                throw new InvalidEncryptionDetailsException("Unable to encrypt the payload with the encryption key of this subscription.", subscription);
+                throw new InvalidEncryptionDetailsException(
+                    "Unable to encrypt the payload with the encryption key of this subscription.", subscription);
             }
 
             throw;
@@ -365,7 +366,8 @@ public class WebPushClient : IWebPushClient
     /// <param name="payload">The payload you wish to send to the user</param>
     /// <param name="gcmApiKey">The GCM API key</param>
     /// <param name="cancellationToken"></param>
-    public async Task SendNotificationAsync(PushSubscription subscription, string payload, string gcmApiKey, CancellationToken cancellationToken = default)
+    public async Task SendNotificationAsync(PushSubscription subscription, string payload, string gcmApiKey,
+        CancellationToken cancellationToken = default)
     {
         var options = new Dictionary<string, object> { ["gcmAPIKey"] = gcmApiKey };
         await this.SendNotificationAsync(subscription, payload, options, cancellationToken).ConfigureAwait(false);
@@ -420,6 +422,21 @@ public class WebPushClient : IWebPushClient
     /// </summary>
     public void Dispose()
     {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    /// Releases unmanaged and - optionally - managed resources.
+    /// </summary>
+    /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposing)
+        {
+            return;
+        }
+
         if (this._httpClient == null || !this._isHttpClientInternallyCreated)
         {
             return;
