@@ -278,7 +278,7 @@ public partial class EventLog : AdminPage
 
         allItem.Attributes.Add(
             "data-custom-properties",
-            $$"""{ "label": "<i class='fas fa-filter text-secondary me-1'></i>{{this.GetText("ALL")}}" }""");
+            $$"""{ "label": "<i class='fas fa-filter text-secondary ms-1'></i>{{this.GetText("ALL")}}" }""");
 
         this.Types.Items.Add(allItem);
 
@@ -311,7 +311,7 @@ public partial class EventLog : AdminPage
 
                     item.Attributes.Add(
                         "data-custom-properties",
-                        $$"""{ "label": "<i class='fas fa-{{icon}} text-secondary me-1'></i>{{type}}" }""");
+                        $$"""{ "label": "<i class='fas fa-{{icon}} text-secondary ms-1'></i>{{type}}" }""");
 
                     this.Types.Items.Add(item);
                 });
