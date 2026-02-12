@@ -88,7 +88,7 @@ public class ForumPageBase : Page, IHaveServiceLocator, IRequireStartupServices
 
         var error = this.Get<HttpServerUtilityBase>().GetLastError();
 
-        if (error.GetType() == typeof(HttpException) && error.InnerException is ViewStateException
+        if ((error.GetType() == typeof(HttpException) && error.InnerException is ViewStateException)
             || error.Source.Contains("ViewStateException"))
         {
             if (this.PageBoardContext.BoardSettings.LogViewStateError)

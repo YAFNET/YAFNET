@@ -135,7 +135,7 @@
                         const topicTags = dataItem.TopicTags.split(',');
 
                         topicTags.forEach((d) => {
-                            tags += `<span class='badge text-bg-secondary me-1'><i class='fas fa-tag me-1'></i>${d
+                            tags += `<span class='badge text-bg-secondary me-1'><i class='fas fa-tag ms-1'></i>${d
                                 }</span>`;
                         });
                     }

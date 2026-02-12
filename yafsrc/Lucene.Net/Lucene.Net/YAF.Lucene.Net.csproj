@@ -38,9 +38,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="J2N" Version="2.2.0-alpha-0026" />
-		<PackageReference Include="Microsoft.Bcl.Memory" Version="10.0.2" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.2" />
-		<PackageReference Include="Microsoft.Extensions.Primitives" Version="10.0.2" />
+		<PackageReference Include="Microsoft.Bcl.Memory" Version="10.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Primitives" Version="10.0.3" />
 		<PackageReference Include="System.Memory" Version="4.6.3" />
 	</ItemGroup>
 
