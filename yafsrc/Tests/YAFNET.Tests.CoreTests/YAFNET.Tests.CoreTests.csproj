@@ -15,7 +15,7 @@
     <ProjectReference Include="..\..\YAFNET.Core\YAFNET.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AwesomeAssertions" Version="9.3.0" />
+    <PackageReference Include="AwesomeAssertions" Version="9.4.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageReference Include="NUnit" Version="4.4.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="6.1.0" />
