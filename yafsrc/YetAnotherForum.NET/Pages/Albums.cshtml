@@ -53,29 +53,25 @@
                             
 	                    </a>
                         <div class="card-body">
-                            <p class="card-text">
-                                @if (Model.AlbumUser.ID != Model.PageBoardContext.PageUserID)
-                                {
-                                    <p class="card-text">
-                                        @Html.HtmlEncode(album.Title)
-                                    </p>
-                                }
-                                else
-                                {
-                                    var caption = album.Title.IsNotSet() ? Model.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE") : Html.HtmlEncode(album.Title);
+	                        @if (Model.AlbumUser.ID != Model.PageBoardContext.PageUserID)
+	                        {
+		                        <p class="card-text">
+			                        @Html.HtmlEncode(album.Title)
+		                        </p>
+	                        }
+	                        else
+	                        {
+		                        var caption = album.Title.IsNotSet() ? Model.Get<ILocalization>().GetText("ALBUM_CHANGE_TIT6LE") : Html.HtmlEncode(album.Title);
 
-                                    <p class="card-text mb-3">
-                                        @Html.Icon("pen", "text-secondary")
-                                        <a class="album-caption border-bottom border-danger border-3" data-type="text"
-                                           id="@Html.Raw(album.ID)"
-                                           data-id="@Html.Raw(album.ID)"
-                                           data-url="/api/Album/ChangeAlbumTitle"
-                                           data-title="@Html.LocalizedText("ALBUM_CHANGE_TITLE")">@caption</a>
-                                    </p>
-                                }
-                                
-
-                            </p>
+		                        <p class="card-text mb-3">
+			                        @Html.Icon("pen", "text-secondary")
+			                        <a class="album-caption border-bottom border-danger border-3" data-type="text"
+			                           id="@Html.Raw(album.ID)"
+			                           data-id="@Html.Raw(album.ID)"
+			                           data-url="/api/Album/ChangeAlbumTitle"
+			                           data-title="@Html.LocalizedText("ALBUM_CHANGE_TITLE")">@caption</a>
+		                        </p>
+	                        }
                             <form method="post">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">

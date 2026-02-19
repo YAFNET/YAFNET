@@ -1,6 +1,34 @@
 # Begin robots.txt file
 Sitemap: https://www.mydomain.com/Sitemap.xml
 
+User-Agent: *
+Content-signal: search=yes, ai-train=no
+Allow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
 User-agent: *
 Disallow: /resources/
 Disallow: /UserProfile/	# Do not index user profiles

@@ -23,6 +23,12 @@
  * under the License.
  */
 
+using Microsoft.Extensions.Logging;
+
+using YAF.Core.Context;
+using YAF.Core.Services;
+using YAF.Types.Extensions;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -74,7 +80,7 @@ public class MailModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public  void OnGet()
+    public void OnGet()
     {
         this.Input = new MailInputModel();
         this.BindData();
@@ -107,6 +113,8 @@ public class MailModel : AdminPage
         this.Input.Subject = string.Empty;
         this.Input.Body = string.Empty;
 
+        this.BindData();
+
         return this.PageBoardContext.Notify(this.GetText("ADMIN_MAIL", "MSG_QUEUED"), MessageTypes.success);
     }
 
@@ -124,10 +132,16 @@ public class MailModel : AdminPage
                 this.Input.TestSubject,
                 this.Input.TestBody);
 
+            this.BindData();
+
             return this.PageBoardContext.Notify(this.GetText("TEST_SUCCESS"), MessageTypes.success);
         }
         catch (Exception x)
         {
+            this.Get<ILogger<MailModel>>().Error(
+                x,
+                x.Message);
+
             return this.PageBoardContext.Notify(x.Message, MessageTypes.danger);
         }
     }
@@ -137,12 +151,13 @@ public class MailModel : AdminPage
     /// </summary>
     private void BindData()
     {
-        var groups = this.GetRepository<Group>().List(boardId: this.PageBoardContext.PageBoardID).Where(g => !g.GroupFlags.IsGuest).ToList();
+        var groups = this.GetRepository<Group>().List(boardId: this.PageBoardContext.PageBoardID)
+            .Where(g => !g.GroupFlags.IsGuest).ToList();
 
         this.List = [..new SelectList(groups, nameof(Group.ID), nameof(Group.Name))];
 
         this.Input.TestSubject = this.GetText("TEST_SUBJECT");
-           this.Input.TestBody = this.GetText("TEST_BODY");
-           this.Input.TestFromEmail = this.PageBoardContext.BoardSettings.ForumEmail;
+        this.Input.TestBody = this.GetText("TEST_BODY");
+        this.Input.TestFromEmail = this.PageBoardContext.BoardSettings.ForumEmail;
     }
 }

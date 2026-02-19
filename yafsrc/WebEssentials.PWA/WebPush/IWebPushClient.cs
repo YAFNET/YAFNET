@@ -8,6 +8,10 @@ using WebEssentials.AspNetCore.Pwa.WebPush.Model;
 
 namespace WebEssentials.AspNetCore.Pwa.WebPush;
 
+/// <summary>
+/// 
+/// </summary>
+/// <seealso cref="System.IDisposable" />
 public interface IWebPushClient : IDisposable
 {
     /// <summary>

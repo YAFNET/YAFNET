@@ -12,6 +12,10 @@ using WebEssentials.AspNetCore.Pwa.WebPush.Util;
 
 namespace WebEssentials.AspNetCore.Pwa.WebPush;
 
+/// <summary>
+/// 
+/// </summary>
+/// <seealso cref="WebEssentials.AspNetCore.Pwa.WebPush.IWebPushClient" />
 public class WebPushClient : IWebPushClient
 {
     // default TTL is 4 weeks.
@@ -29,20 +33,37 @@ public class WebPushClient : IWebPushClient
     // Used so we only cleanup internally created http clients
     private bool _isHttpClientInternallyCreated;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WebPushClient"/> class.
+    /// </summary>
     public WebPushClient()
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WebPushClient"/> class.
+    /// </summary>
+    /// <param name="httpClient">The HTTP client.</param>
     public WebPushClient(HttpClient httpClient)
     {
         this._httpClient = httpClient;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WebPushClient"/> class.
+    /// </summary>
+    /// <param name="httpClientHandler">The HTTP client handler.</param>
     public WebPushClient(HttpClientHandler httpClientHandler)
     {
         this._httpClientHandler = httpClientHandler;
     }
 
+    /// <summary>
+    /// Gets the HTTP client.
+    /// </summary>
+    /// <value>
+    /// The HTTP client.
+    /// </value>
     protected HttpClient HttpClient {
         get {
             if (this._httpClient != null)

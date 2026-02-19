@@ -1,7 +1,13 @@
 ﻿namespace WebEssentials.AspNetCore.Pwa.WebPush.Model;
 
+/// <summary>
+/// 
+/// </summary>
 public class VapidDetails
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="VapidDetails"/> class.
+    /// </summary>
     public VapidDetails()
     {
     }
@@ -16,9 +22,35 @@ public class VapidDetails
         this.PrivateKey = privateKey;
     }
 
+    /// <summary>
+    /// Gets or sets the subject.
+    /// </summary>
+    /// <value>
+    /// The subject.
+    /// </value>
     public string Subject { get; set; }
+
+    /// <summary>
+    /// Gets or sets the public key.
+    /// </summary>
+    /// <value>
+    /// The public key.
+    /// </value>
     public string PublicKey { get; set; }
+
+    /// <summary>
+    /// Gets or sets the private key.
+    /// </summary>
+    /// <value>
+    /// The private key.
+    /// </value>
     public string PrivateKey { get; set; }
 
+    /// <summary>
+    /// Gets or sets the expiration.
+    /// </summary>
+    /// <value>
+    /// The expiration.
+    /// </value>
     public long Expiration { get; set; } = -1;
 }
