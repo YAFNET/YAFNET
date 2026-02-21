@@ -1,6 +1,5 @@
 ﻿@page "{u:int}/{name}/{handler?}"
 
-@using System.Globalization
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
 @using YAF.Core.Model
@@ -264,110 +263,8 @@
 	</div>
 </div>
 
-@if (!Model.Friends.NullOrEmpty())
-{
-	<div class="card my-3">
-		<div class="card-body">
-			<h5 class="card-title">
-				@Html.LocalizedText("PROFILE", Model.CombinedUser.Item1.ID == Model.PageBoardContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE")
-			</h5>
-			<ul class="list-group list-group-horizontal">
-				@foreach (var user in Model.Friends)
-				{
-					<li class="list-group-item">
-						@Html.UserLink(user.UserID,
-							Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name,
-							user.Suspended,
-							user.UserStyle)
-					</li>
-				}
-			</ul>
-		</div>
-	</div>
-}
-
 <div class="row mt-3">
-<div class="col">
-		@if (Model.PageBoardContext.IsAdmin || Model.PageBoardContext.IsForumModerator)
-		{
-			<div class="card mb-3 border-danger">
-				<div class="card-header border-danger">
-					@Html.LocalizedText("PROFILE", "MODERATION")
-				</div>
-				<div class="card-body border-danger">
-					@if (Model.CombinedUser.Item1.Suspended.HasValue)
-					{
-						var suspendedByUser = await Model.GetRepository<User>().GetByIdAsync(Model.CombinedUser.Item1.SuspendedBy);
-
-						<div class="alert alert-warning" role="alert">
-							<h4 class="alert-heading">
-								@Html.LocalizedText("PROFILE", "SUSPEND_CURRENT")
-							</h4>
-							<p>
-								<strong>
-									@Html.LocalizedText("PROFILE", "SUSPEND_REASON")
-								</strong>
-								@Model.CombinedUser.Item1.SuspendedReason
-								<strong> @Html.LocalizedText("PROFILE", "SUSPEND_BY")</strong>
-								@Html.UserLink(suspendedByUser)
-								<strong> @Html.LocalizedText("PROFILE", "ENDS")</strong>
-								@Html.Raw(Model.Get<IDateTimeService>().GetUserDateTime(
-									Model.CombinedUser.Item1.Suspended.Value,
-									Model.CombinedUser.Item1.TimeZoneInfo).ToString(CultureInfo.InvariantCulture))
-							</p>
-							<hr/>
-							<form method="post" class="mb-0">
-								<button type="submit"
-								        asp-page-handler="RemoveSuspension"
-								        button-style="Danger"
-								        button-size="Small"
-								        text-localized-page="PROFILE"
-								        text-localized-tag="REMOVESUSPENSION"
-								        icon="flag"></button>
-							</form>
-						</div>
-						<hr/>
-					}
-					<form method="post">
-						<h2>
-							@Html.LocalizedText("PROFILE", "SUSPEND_NEW")
-						</h2>
-						<div class="mb-3">
-							<label asp-for="SuspendReason" class="form-label"
-							       localized-page="PROFILE" localized-tag="SUSPEND_REASON">
-							</label>
-							<textarea asp-for="SuspendReason" class="form-control" rows="3" cols="20"></textarea>
-						</div>
-						<div class="mb-3">
-							<label asp-for="SuspendCount" class="form-label"
-							       localized-page="PROFILE" localized-tag="SUSPEND_USER">
-							</label>
-							<div class="input-group">
-								<input asp-for="SuspendCount" class="form-control"/>
-								<select asp-for="SuspendUnit" asp-items="Model.SuspendUnits" class="form-select" title="Suspend Unit"></select>
-							</div>
-						</div>
-						<div class="text-break alert alert-info" role="alert">
-							@Html.Icon("info-circle")
-							@Html.Raw(Model.Get<ILocalization>().GetTextFormatted(
-								"SUSPEND_INFO",
-								Model.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow, Model.CombinedUser.Item1.TimeZoneInfo)
-									.ToString(CultureInfo.InvariantCulture)))
-						</div>
-
-						<div class="text-center">
-							<button type="submit"
-							        asp-page-handler="Suspend"
-							        button-style="Primary"
-							        icon="flag"
-							        text-localized-page="PROFILE"
-							        text-localized-tag="SUSPEND"></button>
-						</div>
-					</form>
-				</div>
-			</div>
-		}
-
+	<div class="col col-lg-8">
 
 		@if (!Model.LastPosts.NullOrEmpty())
 		{
@@ -416,7 +313,66 @@
 				</div>
 			</div>
 		}
-</div>
+		
+	</div>
+	
+
+	@if (!Model.Albums.NullOrEmpty())
+	{
+		<div class="col col-lg-4">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">@Html.LocalizedText("ALBUM", "ALBUMS")</h5>
+					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+						@foreach (var album in Model.Albums)
+						{
+							<div class="col">
+								<div class="card mb-4 shadow-sm">
+									<a href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Album, new { u = album.UserID, a = album.ID }))"
+									   target="_parent" title="@Html.HtmlEncode(album.Title)" bs-toggle="tooltip">
+										<img title="@Html.HtmlEncode(album.Title)" alt="@Html.Raw(album.ID)" class="card-img-top"
+										     src='@Html.Raw(Model.Get<IUrlHelper>().Action("GetAlbumCover", "Albums", new { albumId = album.ID, coverId = album.CoverImageID ?? 0 }))'/>
+
+									</a>
+								</div>
+							</div>
+						}
+					</div>
+					<div class="row justify-content-end">
+						<div class="col-auto">
+							<pager page-size="@Model.PageBoardContext.BoardSettings.AlbumsPerPage" use-submit="false"
+							       count="!Model.Albums.NullOrEmpty() ? Model.GetRepository<UserAlbum>().ListByUser(Model.CombinedUser.Item1.ID).Count.ToType<int>() : 0">
+							</pager>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+
+	@if (!Model.Friends.NullOrEmpty())
+	{
+		<div class="col">
+			<div class="card my-3">
+				<div class="card-body">
+					<h5 class="card-title">
+						@Html.LocalizedText("PROFILE", Model.CombinedUser.Item1.ID == Model.PageBoardContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE")
+					</h5>
+					<ul class="list-group list-group-horizontal">
+						@foreach (var user in Model.Friends)
+						{
+							<li class="list-group-item">
+								@Html.UserLink(user.UserID,
+									Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name,
+									user.Suspended,
+									user.UserStyle)
+							</li>
+						}
+					</ul>
+				</div>
+			</div>
+		</div>
+	}
 </div>
 
 @section Scripts {

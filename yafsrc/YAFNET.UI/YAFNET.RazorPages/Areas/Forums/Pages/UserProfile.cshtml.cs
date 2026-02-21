@@ -28,14 +28,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Logging;
 
 using YAF.Core.Extensions;
-using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
-using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
@@ -157,6 +153,12 @@ public class UserProfileModel : ForumPage
     [BindProperty] public string SuspendUnit { get; set; }
 
     /// <summary>
+    /// Gets or sets the albums.
+    /// </summary>
+    [BindProperty]
+    public List<UserAlbum> Albums { get; set; }
+
+    /// <summary>
     /// Gets the suspend units.
     /// </summary>
     /// <value>The suspend units.</value>
@@ -193,117 +195,6 @@ public class UserProfileModel : ForumPage
             // No such user exists
             this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid)
             : await this.BindDataAsync(u);
-    }
-
-    /// <summary>
-    /// Remove active suspension.
-    /// </summary>
-    /// <param name="u">The u.</param>
-    /// <returns>System.Threading.Tasks.Task.</returns>
-    public async Task OnPostRemoveSuspensionAsync(int u)
-    {
-        await this.BindDataAsync(u);
-
-        // un-suspend user
-        await this.GetRepository<User>().SuspendAsync(u);
-
-        if (this.PageBoardContext.BoardSettings.LogUserSuspendedUnsuspended)
-        {
-            this.Get<ILogger<UserProfileModel>>().Log(
-                this.PageBoardContext.PageUserID,
-                "YAF.Controls.EditUsersSuspend",
-                $"User {this.CombinedUser.Item1.DisplayOrUserName()} was unsuspended by {this.CombinedUser.Item1.DisplayOrUserName()}.",
-                EventLogTypes.UserUnsuspended);
-        }
-
-        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(u));
-
-        await this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(
-            this.CombinedUser.Item1.Email,
-            this.CombinedUser.Item1.DisplayOrUserName());
-    }
-
-    /// <summary>
-    /// Suspends the user.
-    /// </summary>
-    /// <param name="u">The u.</param>
-    /// <returns>System.Threading.Tasks.Task.</returns>
-    public async Task OnPostSuspendAsync(int u)
-    {
-        await this.BindDataAsync(u);
-
-        var access = await this.GetRepository<VAccess>().GetSingleAsync(v => v.UserID == u);
-
-        // is user to be suspended admin?
-        if (access.IsAdmin > 0)
-        {
-            // tell user he can't suspend admin
-            this.PageBoardContext.Notify(this.GetText("PROFILE", "ERROR_ADMINISTRATORS"), MessageTypes.danger);
-            return;
-        }
-
-        // is user to be suspended forum moderator, while user suspending him is not admin?
-        if (!this.PageBoardContext.IsAdmin && access.IsForumModerator > 0)
-        {
-            // tell user he can't suspend forum moderator when he's not admin
-            this.PageBoardContext.Notify(this.GetText("PROFILE", "ERROR_FORUMMODERATORS"), MessageTypes.danger);
-            return;
-        }
-
-        var isGuest = this.CombinedUser.Item1.UserFlags.IsGuest;
-
-        // verify the user isn't guest...
-        if (isGuest)
-        {
-            this.PageBoardContext.Notify(this.GetText("PROFILE", "ERROR_GUESTACCOUNT"), MessageTypes.danger);
-        }
-
-        // time until when user is suspended
-        var suspend = this.Get<IDateTimeService>().GetUserDateTime(
-            DateTime.UtcNow,
-            this.CombinedUser.Item1.TimeZoneInfo);
-
-        // number inserted by suspending user
-        var count = this.SuspendCount;
-
-        // what time units are used for suspending
-        suspend = this.SuspendUnit switch
-        {
-            // days
-            "1" =>
-                // add user inserted suspension time to current time
-                suspend.AddDays(count),
-            // hours
-            "2" =>
-                // add user inserted suspension time to current time
-                suspend.AddHours(count),
-            // minutes
-            "3" =>
-                // add user inserted suspension time to current time
-                suspend.AddHours(count),
-            _ => suspend
-        };
-
-        // suspend user by calling appropriate method
-        await this.GetRepository<User>().SuspendAsync(u, suspend, this.SuspendReason.Trim(), this.PageBoardContext.PageUserID);
-
-        this.Get<ILogger<UserProfileModel>>().Log(
-            this.PageBoardContext.PageUserID,
-            "YAF.Controls.EditUsersSuspend",
-            $"User {this.CombinedUser.Item1.DisplayOrUserName()} was suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()} until: {suspend} (UTC)",
-            EventLogTypes.UserSuspended);
-
-        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(u));
-
-        await this.Get<ISendNotification>().SendUserSuspensionNotificationAsync(
-            suspend,
-            this.SuspendReason.Trim(),
-            this.CombinedUser.Item1.Email,
-            this.CombinedUser.Item1.DisplayOrUserName());
-
-        this.SuspendReason = string.Empty;
-
-        await this.BindDataAsync(u);
     }
 
     /// <summary>
@@ -353,6 +244,18 @@ public class UserProfileModel : ForumPage
 
         // default number of hours to suspend user for
         this.SuspendCount = 2;
+
+        if (!this.PageBoardContext.BoardSettings.EnableAlbum)
+        {
+            return this.Page();
+        }
+
+        var albums = this.GetRepository<UserAlbum>().ListByUserPaged(
+            userId,
+            this.PageBoardContext.PageIndex,
+            this.PageBoardContext.BoardSettings.AlbumsPerPage);
+
+        this.Albums = !albums.NullOrEmpty() ? albums : [];
 
         return this.Page();
     }
