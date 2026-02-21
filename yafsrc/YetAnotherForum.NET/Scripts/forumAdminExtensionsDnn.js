@@ -1341,7 +1341,7 @@ var DarkEditable = function(l) {
         }
         disable() {
             this.options.disabled = !0, this.element.classList.add("dark-editable-element-disabled"), 
-            this.modeElement.enable();
+            this.modeElement.disable();
         }
         setValue(e) {
             this.options.value = e, this.init_text();
