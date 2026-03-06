@@ -100,23 +100,23 @@ public class SpamLogModel : AdminPage
                 var addressLink = string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, json.UserIP);
 
                 var exceptionSource = ((string)json.ExceptionSource).IsSet()
-                    ? $"""<span class="badge text-light-emphasis bg-light-subtle m-1"><i class="fa-solid fa-code me-1"></i>{json.ExceptionSource}</span>"""
+                    ? $"""<span class="badge text-light-emphasis bg-light-subtle m-1"><i class="fa-solid fa-code me-1"></i>{this.HtmlEncode((string)json.ExceptionSource)}</span>"""
                     : "";
 
                 var url = ((string)json.Url).IsSet()
-                    ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-globe me-1"></i>{json.Url}</span>"""
+                    ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-globe me-1"></i>{HtmlTagHelper.StripHtml((string)json.Url)}</span>"""
                     : "";
 
                 var userIp = ((string)json.UserIP).IsSet()
-                    ? $"""<span class="badge text-bg-info m-1"><i class="fa-solid fa-desktop me-1"></i><a href="{addressLink}" target="_blank">{json.UserIP}</a></span>"""
+                    ? $"""<span class="badge text-bg-info m-1"><i class="fa-solid fa-desktop me-1"></i><a href="{addressLink}" target="_blank">{this.HtmlEncode((string)json.UserIP)}</a></span>"""
                     : "";
 
                 var userAgent = ((string)json.Url).IsSet()
-                    ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-computer me-1"></i>{json.UserAgent}</span>"""
+                    ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-computer me-1"></i>{this.HtmlEncode((string)json.UserAgent)}</span>"""
                     : "";
 
                 return $"""
-                        <h6 class="card-subtitle">{json.Message}</h6><h5>{userIp}{url}{exceptionSource}{userAgent}</h5><div>{json.ExceptionMessage}</div>
+                        <h6 class="card-subtitle">{this.HtmlEncode((string)json.Message)}</h6><h5>{userIp}{url}{exceptionSource}{userAgent}</h5><div>{this.HtmlEncode((string)json.ExceptionMessage)}</div>
                                                  <div>{this.beautify.Beautify(this.HtmlEncode(json.ExceptionStackTrace.ToString()))}</div>
                         """;
             }
