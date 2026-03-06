@@ -36,7 +36,7 @@
     @Html.CanonicalMetaTag()
 </head>
 <body id="YafBody">
-    <a title="@Html.Raw(Current.Get<ILocalization>().GetText("TOOLBAR", "FORUM_TITLE"))" asp-page="@ForumPages.Index.GetPageName()" class="d-block w-50">
+    <a title="@Html.Raw(Current.Get<ILocalization>().GetText("TOOLBAR", "FORUM_TITLE"))" href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Index))" class="d-block w-50">
     <img alt="board logo" src="@Html.Raw($"/{Current.Get<BoardFolders>().Logos}/{Current.BoardSettings.ForumLogo}")" class="my-3 img-fluid" loading="lazy"  />
 </a>
 <div class="yafnet">
@@ -45,7 +45,7 @@
         <header class="mb-2">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand mb-1" asp-area="" asp-page="@ForumPages.Index.GetPageName()">
+                    <a class="navbar-brand mb-1" href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Index))">
                         @Html.Raw(Current.BoardSettings.Name)
                     </a>
 
