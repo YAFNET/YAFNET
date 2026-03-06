@@ -354,7 +354,7 @@ public class LinkBuilder : IHaveServiceLocator, ILinkBuilder
 
         this.Get<IHttpContextAccessor>().HttpContext?.Response.Redirect(page.GetPageName());
 
-        return null;
+        return new EmptyResult();
     }
 
     /// <summary>
