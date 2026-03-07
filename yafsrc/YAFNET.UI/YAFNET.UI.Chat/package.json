@@ -6,17 +6,18 @@
 	"license": "Apache-2.0",
 	"devDependencies": {
 		"@tsconfig/recommended": "^1.0.13",
+		"terser-webpack-plugin": "^5.3.17",
 		"ts-loader": "^9.5.4",
 		"typescript": "^5.9.3",
-		"webpack": "^5.104.1",
+		"webpack": "^5.105.4",
 		"webpack-cli": "^6.0.1",
-		"webpack-merge": "^6.0.1",
-		"terser-webpack-plugin": "^5.3.16"
+		"webpack-merge": "^6.0.1"
 	},
 	"dependencies": {
 		"@microsoft/signalr": "^10.0.0"
 	},
 	"scripts": {
-		"build": "webpack"
+		"build": "webpack",
+		"updatePackages": "npm-check -y"
 	}
 }

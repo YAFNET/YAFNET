@@ -36,7 +36,6 @@ using YAF.Core.Model;
 using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Models;
-using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
 
 /// <summary>
@@ -60,7 +59,7 @@ public class TopicsModel : ForumPage
     /// <summary>
     /// Gets or sets the sub forums.
     /// </summary>
-    public Tuple<List<SimpleModerator>, List<ForumRead>> SubForums { get; set; }
+    public List<ForumRead> SubForums { get; set; }
 
     /// <summary>
     /// Gets or sets the announcements.
@@ -240,7 +239,7 @@ public class TopicsModel : ForumPage
             this.PageBoardContext.PageForumID);
 
         // Render Sub forum(s)
-        if (forums.Item2.Count != 0)
+        if (forums.Count != 0)
         {
             this.SubForums = forums;
         }

@@ -41,9 +41,11 @@
 
 	<ItemGroup>
 	  <Content Remove="package.json" />
-	</ItemGroup>          <ItemGroup>
-    <Folder Include="Areas\Forums\Pages\" />
-  </ItemGroup>
+	</ItemGroup>          
+	
+	<ItemGroup>
+		<Folder Include="Areas\Forums\Pages\" />
+	</ItemGroup>
 
 	<Target Name="MyPreCompileTarget" BeforeTargets="Build">
 		<!-- Ensure Node.js is installed -->
@@ -74,7 +76,7 @@
   <ItemGroup>
 	<PackageReference Include="HtmlProperties" Version="1.0.0" />
 	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" version="10.0.3" />
-	<PackageReference Include="SonarAnalyzer.CSharp" Version="10.19.0.132793">
+	<PackageReference Include="SonarAnalyzer.CSharp" Version="10.20.0.135146">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>

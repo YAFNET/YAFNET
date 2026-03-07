@@ -394,7 +394,7 @@ public static class ForumRepositoryExtensions
         /// <returns>
         /// Returns List of Forum Read
         /// </returns>
-        public List<ForumRead> ListRead(int boardId,
+        public async Task<List<ForumRead>> ListReadAsync(int boardId,
             int userId,
             int? categoryId,
             int? parentId,
@@ -402,12 +402,11 @@ public static class ForumRepositoryExtensions
             int pageIndex,
             int pageSize)
         {
-            return repository.DbAccess.Execute(
-                db =>
+            return await repository.DbAccess.ExecuteAsync(async db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
 
-                    var countViewsExpression = db.Connection.From<Active>(db.Connection.TableAlias("x"));
+                    var countViewsExpression = db.From<Active>(db.TableAlias("x"));
                     countViewsExpression.Where(
                         $"""
                          x.{countViewsExpression.Column<Active>(x => x.ForumID)}=
@@ -421,7 +420,7 @@ public static class ForumRepositoryExtensions
                     if (findLastRead)
                     {
                         var topicAccessExpression =
-                            db.Connection.From<TopicReadTracking>(db.Connection.TableAlias("y"));
+                            db.From<TopicReadTracking>(db.TableAlias("y"));
                         topicAccessExpression.Where(
                             $"""
                              y.{topicAccessExpression.Column<TopicReadTracking>(y => y.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
@@ -432,7 +431,7 @@ public static class ForumRepositoryExtensions
                             .ToSelectStatement();
 
                         var forumAccessExpression =
-                            db.Connection.From<ForumReadTracking>(db.Connection.TableAlias("x"));
+                            db.From<ForumReadTracking>(db.TableAlias("x"));
                         forumAccessExpression.Where(
                             $"""
                              x.{forumAccessExpression.Column<ForumReadTracking>(x => x.ForumID)}={expression.Column<Topic>(x => x.ForumID, true)}
@@ -455,7 +454,7 @@ public static class ForumRepositoryExtensions
                             (forum, category, x) => category.BoardID == boardId && (category.Flags & 1) == 1 && x.UserID == userId && x.ReadAccess);
 
                     // -- count sub-forums
-                    var countSubForumsExpression = db.Connection.From<Forum>(db.Connection.TableAlias("sub"));
+                    var countSubForumsExpression = db.From<Forum>(db.TableAlias("sub"));
 
                     countSubForumsExpression.Where(
                         $"sub.{countSubForumsExpression.Column<Forum>(x => x.ParentID)}={expression.Column<Forum>(x => x.ID, true)}");
@@ -515,7 +514,7 @@ public static class ForumRepositoryExtensions
                             Total = Sql.Custom($"({countTotalSql})")
                         });
 
-                    return db.Connection.Select<ForumRead>(expression);
+                    return await db.SelectAsync<ForumRead>(expression);
                 });
         }
 

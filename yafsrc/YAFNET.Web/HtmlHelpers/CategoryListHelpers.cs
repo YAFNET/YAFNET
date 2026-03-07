@@ -199,17 +199,19 @@ public static class CategoryListHelpers
         }
 
         /// <summary>
-        /// Get moderators.
+        /// Get moderators by Forum Id.
         /// </summary>
-        /// <param name="item">
-        /// The item.
+        /// <param name="forumId">
+        /// The forum id.
         /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string GetModerators(ForumRead item)
+        public async Task<string> GetModeratorsAsync(int forumId)
         {
-            var mods = BoardContext.Current.Get<ISessionService>().Mods.Where(x => x.ForumID == item.ForumID).ToList();
+            var modsAll = await BoardContext.Current.Get<DataBroker>().GetModeratorsAsync();
+
+            var mods = modsAll.Where(x => x.ForumID == forumId).ToList();
 
             var content = new HtmlContentBuilder();
 

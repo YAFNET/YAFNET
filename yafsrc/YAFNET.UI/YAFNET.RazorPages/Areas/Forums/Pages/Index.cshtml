@@ -93,13 +93,6 @@
 	        JsAndCssHelper.CompressJavaScript(
 		        JavaScriptBlocks.TopicLinkPopoverJs($"{Model.Get<ILocalization>().GetText("LASTPOST")}&nbsp;{Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...", ".topic-link-popover", "focus hover")))
 
-        @if (Model.PageBoardContext.BoardSettings.ShowModeratorList)
-        {
-            @Html.Raw(
-	            JsAndCssHelper.CompressJavaScript(
-		            JavaScriptBlocks.ForumModsPopoverJs($"<i class=\"fa fa-user-secret text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
-        }
-
         @Html.Raw(
                  JsAndCssHelper.CompressJavaScript(
                  JavaScriptBlocks.ForumIconLegendPopoverJs((await Html.PartialAsync("_ForumIconLegend")).RenderToString().ToJsString(),

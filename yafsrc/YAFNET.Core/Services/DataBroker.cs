@@ -123,7 +123,7 @@ public class DataBroker : IHaveServiceLocator
     /// <returns>
     /// The <see cref="Tuple"/>.
     /// </returns>
-    public async Task<Tuple<List<SimpleModerator>, List<ForumRead>>> BoardLayoutAsync(
+    public async Task<List<ForumRead>> BoardLayoutAsync(
         int boardId,
         int userId,
         int pageIndex,
@@ -131,29 +131,26 @@ public class DataBroker : IHaveServiceLocator
         int? categoryId,
         int? parentId)
     {
-        if (categoryId is 0)
+        try
         {
-            categoryId = null;
+            if (categoryId is 0)
+            {
+                categoryId = null;
+            }
+
+            return await this.GetRepository<Forum>().ListReadAsync(
+                boardId,
+                userId,
+                categoryId,
+                parentId,
+                this.BoardSettings.UseReadTrackingByDatabase,
+                pageIndex,
+                pageSize);
         }
-
-        // get the cached version of forum moderators if it's valid
-        var moderators = new List<SimpleModerator>();
-
-        if (this.BoardSettings.ShowModeratorList)
+        catch (Exception)
         {
-            moderators = await this.GetModeratorsAsync();
+            return [];
         }
-
-        var forums = this.GetRepository<Forum>().ListRead(
-            boardId,
-            userId,
-            categoryId,
-            parentId,
-            this.BoardSettings.UseReadTrackingByDatabase,
-            pageIndex,
-            pageSize);
-
-        return new Tuple<List<SimpleModerator>, List<ForumRead>>(moderators, forums);
     }
 
     /// <summary>

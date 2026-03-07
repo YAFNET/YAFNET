@@ -91,7 +91,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             {
                 var name = row["Name"].ToString();
 
-                var bbCodeExtension = bbcodeList.FirstOrDefault(b => b.Name.Equals(name));
+                var bbCodeExtension = bbcodeList.Find(b => b.Name.Equals(name));
 
                 var updateEntry = new BBCode
                 {

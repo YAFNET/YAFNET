@@ -117,7 +117,7 @@
 	                    <span class="badge text-bg-success">@Html.LocalizedText("COMMON", "NEW_MESSAGE")</span>
                     }
 
-                    <a class=" p-0 text-start"
+                    <a class="text-body-secondary p-0 text-start"
                        role="button"
                        button-style="@ButtonStyle.Link"
                        text="@Html.Raw($"({topic.Forum})")"
@@ -130,7 +130,7 @@
                        text-localized-tag="BY"
                        text-param0="@Html.Raw(Current.BoardSettings.EnableDisplayName ? topic.LastUserDisplayName : topic.LastUserName)"
                        bs-content="@infoData"
-                       class=" topic-link-popover p-0 text-start"
+                       class="text-body-secondary topic-link-popover p-0 text-start"
                        bs-toggle="popover"></a>
 
                 </li>

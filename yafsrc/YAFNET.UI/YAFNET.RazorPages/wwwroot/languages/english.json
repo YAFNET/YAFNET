@@ -5325,22 +5325,6 @@
                     "#text": "Should medals of a user be visible on the posts page."
                 },
                 {
-                    "@tag": "SHOW_MODLIST",
-                    "#text": "Show Moderator List:"
-                },
-                {
-                    "@tag": "SHOW_MODLIST_ASCOLUMN",
-                    "#text": "Show Moderator List in column:"
-                },
-                {
-                    "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-                    "#text": "Shows moderator list as a separate column in a category list."
-                },
-                {
-                    "@tag": "SHOW_MODLIST_HELP",
-                    "#text": "If this is checked, the moderator list column is displayed in the forum list."
-                },
-                {
                     "@tag": "SHOW_MOVED_TOPICS",
                     "#text": "Show Moved Topics:"
                 },

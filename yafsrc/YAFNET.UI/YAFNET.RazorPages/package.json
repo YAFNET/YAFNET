@@ -12,9 +12,10 @@
     "url": "https://github.com/YAFNET/YAFNET/issues"
   },
   "homepage": "https://yetanotherforum.net/",
-  "scripts": {
-    "preinstall": "npm install -g ruby sass"
-  },
+    "scripts": {
+        "preinstall": "npm install -g ruby sass",
+        "updatePackages": "npm-check -y"
+    },
   "devDependencies": {
     "@lodder/time-grunt": "^4.0.0",
     "@w8tcha/grunt-dev-update": "^2.3.4",

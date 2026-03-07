@@ -59,17 +59,6 @@ public class SessionService : ISessionService
     }
 
     /// <summary>
-    /// Gets or sets the mods.
-    /// </summary>
-    /// <value>The mods.</value>
-    public List<SimpleModerator> Mods
-    {
-        get => this.SessionState.GetData<List<SimpleModerator>>("Mods");
-
-        set => this.SessionState.SetData("Mods", value);
-    }
-
-    /// <summary>
     /// Gets or sets the forums.
     /// </summary>
     /// <value>The forums.</value>

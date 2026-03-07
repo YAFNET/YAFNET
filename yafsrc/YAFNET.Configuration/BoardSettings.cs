@@ -1474,16 +1474,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether ShowModeratorList.
-    /// </summary>
-    public bool ShowModeratorList
-    {
-        get => this.Registry.GetValue("ShowModeratorList", true);
-
-        set => this.Registry.SetValue("ShowModeratorList", value);
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether UseNoFollowLinks.
     /// </summary>
     public bool UseNoFollowLinks

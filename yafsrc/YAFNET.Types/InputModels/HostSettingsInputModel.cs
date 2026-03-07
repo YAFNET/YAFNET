@@ -516,12 +516,6 @@ public class HostSettingsInputModel
     public bool ShowTeamTo { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [show moderator list].
-    /// </summary>
-    /// <value><c>true</c> if [show moderator list]; otherwise, <c>false</c>.</value>
-    public bool ShowModeratorList { get; set; }
-
-    /// <summary>
     /// Gets or sets a value indicating whether [scroll to post].
     /// </summary>
     /// <value><c>true</c> if [scroll to post]; otherwise, <c>false</c>.</value>

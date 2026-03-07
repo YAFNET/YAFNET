@@ -94,7 +94,7 @@ public static class TopicTagRepositoryExtensions
                         return;
                     }
 
-                    var existTag = boardTags.FirstOrDefault(t => t.TagName == tag);
+                    var existTag = boardTags.Find(t => t.TagName == tag);
 
                     if (existTag != null)
                     {
