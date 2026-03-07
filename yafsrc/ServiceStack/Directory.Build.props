@@ -10,7 +10,7 @@
     <DebugType>embedded</DebugType>
     <LangVersion>latest</LangVersion>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateAssemblyVersionAttribute>true</GenerateAssemblyVersionAttribute>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' != 'Debug' ">
