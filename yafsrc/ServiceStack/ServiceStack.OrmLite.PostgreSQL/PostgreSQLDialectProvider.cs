@@ -293,16 +293,13 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         var defaultValue = this.GetDefaultValue(fieldDef);
         if (!string.IsNullOrEmpty(defaultValue))
         {
-            if (!string.IsNullOrEmpty(defaultValue))
+            if (fieldDef.ColumnType == typeof(bool))
             {
-                if (fieldDef.ColumnType == typeof(bool))
-                {
-                    sql.AppendFormat(this.DefaultValueFormat, defaultValue == "1" ? "TRUE" : "FALSE");
-                }
-                else
-                {
-                    sql.AppendFormat(this.DefaultValueFormat, defaultValue);
-                }
+                sql.AppendFormat(this.DefaultValueFormat, defaultValue == "1" ? "TRUE" : "FALSE");
+            }
+            else
+            {
+                sql.AppendFormat(this.DefaultValueFormat, defaultValue);
             }
         }
 
