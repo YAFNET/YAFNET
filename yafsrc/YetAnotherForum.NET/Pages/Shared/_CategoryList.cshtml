@@ -18,13 +18,12 @@
 {
     var forumsCount = 0;
 
-    var tuple = new Tuple<List<SimpleModerator>, List<ForumRead>>(
-        Current.Get<ISessionService>().Mods,
-        Current.Get<ISessionService>().Forums.Where(forum => forum.CategoryID == category.CategoryID).ToList());
+    var tuple = new List<ForumRead>(
+	    Current.Get<ISessionService>().Forums.Where(forum => forum.CategoryID == category.CategoryID).ToList());
 
     var forums  = Current.PageForumID > 0
-               ? tuple.Item2.ToList()
-               : tuple.Item2.Where(x => !x.ParentID.HasValue).ToList();
+               ? tuple.ToList()
+               : tuple.Where(x => !x.ParentID.HasValue).ToList();
 
     TagBuilder categoryImage;
 
@@ -112,17 +111,6 @@
                                             @Html.Icon("comment", "", "far")
                                             @Html.Raw(forum.RemoteURL.IsNotSet() ? $"{forum.Posts:N0}" : "-")
                                         </span>
-                                    }
-
-                                    @if (Current.BoardSettings.ShowModeratorList && forum.RemoteURL.IsNotSet() && !Current.Get<ISessionService>().Mods.Where(x => x.ForumID == forum.ForumID).NullOrEmpty())
-                                    {
-                                        <button button-style="OutlineInfo"
-                                                button-size="Small"
-                                                bs-toggle="popover"
-                                                class="forum-mods-popover"
-                                                bs-content="@Html.GetModerators(category)"
-                                                text="@Html.Raw($"{Current.Get<ILocalization>().GetText("SHOW")} {Current.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")}")"
-                                                icon="user-secret"></button>
                                     }
                                 </h5>
                                 @if (forum.Description.IsSet())

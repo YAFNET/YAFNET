@@ -12,7 +12,7 @@
 
 @{
     var forumList = Current.PageForumID > 0 ?
-        Model.SubForums.Item2 : Model.SubForums.Item2.Where(x => !x.ParentID.HasValue).ToList();
+        Model.SubForums : Model.SubForums.Where(x => !x.ParentID.HasValue).ToList();
 
     var forumsCount = 0;
 }
@@ -20,17 +20,14 @@
 @foreach (var forum in forumList)
 {
 	forumsCount++;
-
-    var mods = Model.SubForums.Item1.Where(x => x.ForumID == forum.ForumID).DistinctBy(x => x.ModeratorID).ToList();
-
-    var subForums = Model.SubForums.Item2.Where(item => item.ParentID == forum.ForumID)
+    var subForums = Model.SubForums.Where(item => item.ParentID == forum.ForumID)
         .Take(Current.BoardSettings.SubForumsInForumList).ToList();
 
     var lastRead = Current.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-    forum.ForumID,
-forum.LastTopicID,
-forum.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
-forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
+	    forum.ForumID,
+	    forum.LastTopicID,
+	    forum.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
+	    forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
     var lastPosted = forum.LastPosted ?? lastRead;
 
@@ -163,11 +160,6 @@ forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
                         @Html.Raw($"{forum.Posts:N0}")
                     </span>
                 }
-                
-                @if (!mods.NullOrEmpty())
-                {
-                    @await Html.PartialAsync("_ForumModeratorList", mods)
-                }
             </h5>
 
             @if (forum.Description.IsSet())
@@ -190,7 +182,7 @@ forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
         }
     </div>
 
-    @if (Model.SubForums.Item2.Exists(item => item.ParentID == forum.ForumID))
+    @if (Model.SubForums.Exists(item => item.ParentID == forum.ForumID))
     {
         <div class="row">
             <div class="col">

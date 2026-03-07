@@ -11,7 +11,7 @@
 
 @model TopicsModel
 
-@if (Model.SubForums != null && Model.SubForums.Item2.HasItems())
+@if (Model.SubForums != null && Model.SubForums.HasItems())
 {
     <div class="row">
         <div class="col">
@@ -217,6 +217,15 @@
                     </button>
                 </form>
             }
+			
+            <button button-style="Secondary"
+                    button-size="Small"
+                    bs-toggle="popover"
+                    class="forum-mods-popover"
+                    bs-content="@await Html.GetModeratorsAsync(Model.PageBoardContext.PageForumID)"
+                    text-localized-page="DEFAULT"
+                    text-localized-tag="MODERATORS"
+                    icon="user-secret"></button>
 
             @if (Model.Get<IPermissions>().Check(Model.PageBoardContext.BoardSettings.TopicsFeedAccess))
             {

@@ -173,21 +173,13 @@ public class IndexModel : ForumPage
                 this.PageBoardContext.PageCategoryID,
                 null);
 
-            var mods = this.Get<ISessionService>().Mods;
-
-            foreach (var mod in newData.Item1.Where(mod => mods.TrueForAll(x => x.ForumID != mod.ForumID)))
-            {
-                mods.Add(mod);
-            }
-
             var forums = this.Get<ISessionService>().Forums;
 
-            foreach (var forum in newData.Item2.Where(mod => forums.TrueForAll(x => x.ForumID != mod.ForumID)))
+            foreach (var forum in newData.Where(mod => forums.TrueForAll(x => x.ForumID != mod.ForumID)))
             {
                 forums.Add(forum);
             }
 
-            this.Get<ISessionService>().Mods = mods;
             this.Get<ISessionService>().Forums = forums;
         }
         else
@@ -201,9 +193,7 @@ public class IndexModel : ForumPage
                 20,
                 this.PageBoardContext.PageCategoryID,
                 null);
-
-            this.Get<ISessionService>().Mods = data.Item1;
-            this.Get<ISessionService>().Forums = data.Item2;
+            this.Get<ISessionService>().Forums = data;
         }
 
         // Filter Categories
