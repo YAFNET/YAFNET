@@ -11,7 +11,7 @@
 @model MyMessagesModel
 
 <div class="row">
-    <div class="col-sm-auto">
+    <div class="col col-sm-2">
         <profileMenu></profileMenu>
         
         <div class="card mt-2 mb-2">
@@ -71,10 +71,18 @@
         </div>
     </div>
 
-    <div class="col">
+    <div class="col-xl-10">
         <div class="row">
             <div class="col">
 	            <div id="PriChatDiv" data-placeholder="@Model.GetText("PM", "PLACEHOLDER")">
+		            <div class="card">
+			            <div class="card-body text-center">
+                            <div class="spinner-border spinner-border" role="status" aria-hidden="true" style="width: 3rem; height: 3rem;">
+					            <span class="visually-hidden">@Html.LocalizedText("COMMON", "LOADING")</span>
+				            </div>
+			            </div>
+		            </div>
+		            
 	            </div>
             </div>
         </div>
