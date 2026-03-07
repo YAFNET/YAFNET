@@ -821,19 +821,6 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		devUpdate: {
-			main: {
-				options: {
-					reportUpdated: true,
-					updateType: 'force',
-					semver: false,
-					packages: {
-						devDependencies: true, //only check for devDependencies
-						dependencies: true
-					}
-				}
-			}
-		},
 		zip: {
 			"YAF-SqlServer-Deploy": {
 				cwd: 'bin/Release/net10.0/publish/',
@@ -862,7 +849,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('@lodder/grunt-postcss');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('@w8tcha/grunt-dev-update');
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-shell');
 	grunt.loadNpmTasks('grunt-replace');
@@ -872,11 +858,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('default',
 		[
 			'webpack', 'sass', 'postcss', 'cssmin'
-		]);
-
-	grunt.registerTask('updatePackages',
-		[
-			'devUpdate'
 		]);
 
 	grunt.registerTask('syncLanguages',
