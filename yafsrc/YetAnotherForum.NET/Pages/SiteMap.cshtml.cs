@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using YAF.Core.Services;
+
 namespace YAF.Pages;
 
 using System.Globalization;
@@ -34,7 +36,6 @@ using Types.Models;
 using Types.Interfaces;
 
 using YAF.Core.Context;
-using YAF.Core.Extensions;
 using YAF.Types.Objects;
 
 /// <summary>
@@ -68,7 +69,7 @@ public class SiteMapModel : ForumPage
             forum => siteMap.Add(
                 new UrlLocation {
                                     Url =
-                                        $"{this.Request.BaseUrl()}{BoardContext.Current.Get<ILinkBuilder>().GetForumLink(
+                                        $"{BoardContext.Current.Get<BoardInfo>().ForumBaseUrl}{BoardContext.Current.Get<ILinkBuilder>().GetForumLink(
                                             forum.Item1.ID,
                                             forum.Item1.Name)}",
                                     Priority = 0.8D,
