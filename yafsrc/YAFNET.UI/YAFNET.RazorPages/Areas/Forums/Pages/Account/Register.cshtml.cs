@@ -279,7 +279,7 @@ public class RegisterModel : AccountPage
         // Check content for spam
         if (check.IsBot)
         {
-            // Flag user as spam bot
+            // Flag user as spambot
             this.IsPossibleSpamBot = true;
 
             this.GetRepository<Registry>().IncrementDeniedRegistrations();
@@ -299,16 +299,18 @@ public class RegisterModel : AccountPage
                     new BanUserEvent(this.PageBoardContext.PageUserID, userName, this.Input.Email, userIpAddress));
             }
 
-            if (this.PageBoardContext.BoardSettings.BotHandlingOnRegister.Equals(2))
+            if (!this.PageBoardContext.BoardSettings.BotHandlingOnRegister.Equals(2))
             {
-                this.GetRepository<Registry>().IncrementBannedUsers();
-
-                this.PageBoardContext.Notify(
-                    this.GetText("BOT_MESSAGE"),
-                    MessageTypes.danger);
-
-                return false;
+                return true;
             }
+
+            this.GetRepository<Registry>().IncrementBannedUsers();
+
+            this.PageBoardContext.Notify(
+                this.GetText("BOT_MESSAGE"),
+                MessageTypes.danger);
+
+            return false;
         }
 
         return true;

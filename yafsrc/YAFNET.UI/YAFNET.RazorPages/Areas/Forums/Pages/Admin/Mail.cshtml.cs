@@ -25,8 +25,6 @@
 
 using Microsoft.Extensions.Logging;
 
-using YAF.Core.Context;
-using YAF.Core.Services;
 using YAF.Types.Extensions;
 
 namespace YAF.Pages.Admin;

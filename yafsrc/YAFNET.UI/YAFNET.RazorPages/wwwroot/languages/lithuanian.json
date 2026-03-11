@@ -221,6 +221,14 @@
             "#text": "Peržiūros admin indeksas"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Peržiūrėti uždraustų šalių sąrašą"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Redaguoti uždrausta šalis"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Peržiūrų uždraustų vartotojų agentų sąrašas"
           },
@@ -703,14 +711,6 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Peržiūros ačiū info"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Peržiūrėti uždraustų šalių sąrašą"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
-            "#text": "Redaguoti uždrausta šalis"
           }
         ]
       },
@@ -1027,6 +1027,56 @@
           {
             "@tag": "TITLE",
             "#text": "Naudotojo priedai"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Pridėti naują šalį"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nėra šalių"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Šiuo metu nėra uždraustų šalių. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "ŠALIS"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Uždrausta šalis jau egzistuoja!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Šalis sėkmingai ištrinta"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Uždraustos šalys"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Šalis:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Šalis, kurią reikia uždrausti."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Pridėti uždraustą šalį"
           }
         ]
       },
@@ -5291,22 +5341,6 @@
             "#text": "Ar naudotojo medaliai turėtų būti matomi pranešimų puslapyje."
           },
           {
-            "@tag": "SHOW_MODLIST",
-            "#text": "Rodyti moderatorių sąrašą:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN",
-            "#text": "Rodyti moderatorių sąrašą stulpelyje:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-            "#text": "Rodo moderatorių sąrašą kaip atskirą stulpelį kategorijų sąraše."
-          },
-          {
-            "@tag": "SHOW_MODLIST_HELP",
-            "#text": "Jei ši parinktis pažymėta, forumo sąraše rodomas moderatorių sąrašo stulpelis."
-          },
-          {
             "@tag": "SHOW_MOVED_TOPICS",
             "#text": "Rodyti perkeltas temas:"
           },
@@ -6751,6 +6785,10 @@
             "#text": "Priedai"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Uždraustos šalys"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Uždrausti vartotojų"
           },
@@ -6921,10 +6959,6 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Naudotojai ir vaidmenys"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Uždraustos šalys"
           }
         ]
       },
@@ -14732,56 +14766,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b] Vakar [/b] į {0:T} "
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES",
-        "Resource": [
-          {
-            "@tag": "ADD_COUNTRY",
-            "#text": "Pridėti naują šalį"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "Nėra šalių"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Šiuo metu nėra uždraustų šalių. "
-          },
-          {
-            "@tag": "MASK",
-            "#text": "ŠALIS"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "Uždrausta šalis jau egzistuoja!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "Šalis sėkmingai ištrinta"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Uždraustos šalys"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
-        "Resource": [
-          {
-            "@tag": "MASK",
-            "#text": "Šalis:"
-          },
-          {
-            "@tag": "MASK_HELP",
-            "#text": "Šalis, kurią reikia uždrausti."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Pridėti uždraustą šalį"
           }
         ]
       }

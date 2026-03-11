@@ -335,7 +335,7 @@ public class UsersAvatarModel : AdminPage
 
             var memoryStream = new MemoryStream();
 
-            await image.SaveAsync(memoryStream, image.Metadata.DecodedImageFormat);
+            await image.SaveAsync(memoryStream, image.Metadata.DecodedImageFormat!);
 
             await this.GetRepository<User>().SaveAvatarAsync(
                 this.Input.UserId,

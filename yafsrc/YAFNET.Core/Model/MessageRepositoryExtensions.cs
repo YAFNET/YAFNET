@@ -345,6 +345,7 @@ public static class MessageRepositoryExtensions
                         .Select(Sql.Count($"{thanksCountExpression.Column<Thanks>(x => x.ID)}")).ToSelectStatement();
 
 #pragma warning disable IDE0075
+#pragma warning disable S1125 // Boolean literals should not be redundant
                     expression.Select<Message, User, Topic, Forum, Category, Rank>(
                         (m, b, d, g, h, c) => new
                                                   {
@@ -401,6 +402,7 @@ public static class MessageRepositoryExtensions
                                                       PageIndex = pageIndex,
                                                       TotalRows = totalRows
                                                   });
+#pragma warning restore S1125 // Boolean literals should not be redundant
 #pragma warning restore IDE0075
 
                     return db.Connection.Select<PagedMessage>(expression);

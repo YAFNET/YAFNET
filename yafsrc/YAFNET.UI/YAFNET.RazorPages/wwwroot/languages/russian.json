@@ -221,6 +221,14 @@
             "#text": "Просматривает главную страницу администратора"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Просмотры списка запрещенных стран"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Редактирует запрещенную страну"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Просмотры запрещенные пользовательские агенты список"
           },
@@ -703,14 +711,6 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Просмотр «Спасибо»"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Просмотры списка запрещенных стран"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
-            "#text": "Редактирует запрещенную страну"
           }
         ]
       },
@@ -1027,6 +1027,56 @@
           {
             "@tag": "TITLE",
             "#text": "Вложения пользователя"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Добавить новую страну"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Нет стран"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "В настоящее время нет запрещенных стран. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "СТРАНА"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Запрещенная страна уже существует!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Страна успешно удалена"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Запрещенные страны"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Страна:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Страна, которую нужно запретить."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Добавить запрещенную страну"
           }
         ]
       },
@@ -5283,22 +5333,6 @@
             "#text": "Отображение медалей пользователя в постах."
           },
           {
-            "@tag": "SHOW_MODLIST",
-            "#text": "Показывать список модераторов:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN",
-            "#text": "Показывать список модераторов в столбце:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-            "#text": "Показывает список модераторов в виде столбца в списке категорий."
-          },
-          {
-            "@tag": "SHOW_MODLIST_HELP",
-            "#text": "Колонка со списком модераторов будет отображаться в списках форумов."
-          },
-          {
             "@tag": "SHOW_MOVED_TOPICS",
             "#text": "Показывать перемещённые темы:"
           },
@@ -6743,6 +6777,10 @@
             "#text": "Вложения"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Запрещенные страны"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Запретные пользователи"
           },
@@ -6913,10 +6951,6 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Пользователи и роли"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Запрещенные страны"
           }
         ]
       },
@@ -14716,56 +14750,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Вчера[/b] в {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES",
-        "Resource": [
-          {
-            "@tag": "ADD_COUNTRY",
-            "#text": "Добавить новую страну"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "Нет стран"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "В настоящее время нет запрещенных стран. "
-          },
-          {
-            "@tag": "MASK",
-            "#text": "СТРАНА"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "Запрещенная страна уже существует!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "Страна успешно удалена"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Запрещенные страны"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
-        "Resource": [
-          {
-            "@tag": "MASK",
-            "#text": "Страна:"
-          },
-          {
-            "@tag": "MASK_HELP",
-            "#text": "Страна, которую нужно запретить."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Добавить запрещенную страну"
           }
         ]
       }

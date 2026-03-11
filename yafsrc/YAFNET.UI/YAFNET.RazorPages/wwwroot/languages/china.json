@@ -221,6 +221,14 @@
             "#text": "查看管理索引"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "查看禁止国家列表"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "编辑禁止国家"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "视图禁止用户代理列表"
           },
@@ -703,14 +711,6 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "查看感谢信息"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "查看禁止国家列表"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
-            "#text": "编辑禁止国家"
           }
         ]
       },
@@ -1027,6 +1027,56 @@
           {
             "@tag": "TITLE",
             "#text": "用户附件"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "添加新国家/地区"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "没有国家"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "目前没有被禁止的国家。"
+          },
+          {
+            "@tag": "MASK",
+            "#text": "国家"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "禁国已经存在！"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "该国家已成功删除"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "被禁止的国家"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "国家："
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "国家禁止。"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "添加禁止国家/地区"
           }
         ]
       },
@@ -5291,22 +5341,6 @@
             "#text": "用户的奖章是否应该在帖子页面上可见。"
           },
           {
-            "@tag": "SHOW_MODLIST",
-            "#text": "显示版主列表："
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN",
-            "#text": "在列中显示主持人列表："
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-            "#text": "将主持人列表显示为类别列表中的单独列。"
-          },
-          {
-            "@tag": "SHOW_MODLIST_HELP",
-            "#text": "如果选中此项，则版主列表列将显示在论坛列表中。"
-          },
-          {
             "@tag": "SHOW_MOVED_TOPICS",
             "#text": "显示移动的主题："
           },
@@ -6751,6 +6785,10 @@
             "#text": "附件"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "被禁止的国家"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "禁止使用的用户"
           },
@@ -6921,10 +6959,6 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "用户和角色"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "被禁止的国家"
           }
         ]
       },
@@ -14732,56 +14766,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]昨天[/b] 于 {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES",
-        "Resource": [
-          {
-            "@tag": "ADD_COUNTRY",
-            "#text": "添加新国家/地区"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "没有国家"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "目前没有被禁止的国家。"
-          },
-          {
-            "@tag": "MASK",
-            "#text": "国家"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "禁国已经存在！"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "该国家已成功删除"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "被禁止的国家"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
-        "Resource": [
-          {
-            "@tag": "MASK",
-            "#text": "国家："
-          },
-          {
-            "@tag": "MASK_HELP",
-            "#text": "国家禁止。"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "添加禁止国家/地区"
           }
         ]
       }

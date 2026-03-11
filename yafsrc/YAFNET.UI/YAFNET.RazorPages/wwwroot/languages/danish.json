@@ -221,6 +221,14 @@
             "#text": "Vis admin index"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Viser listen over forbudte lande"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Redigerer forbudt land"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Visninger forbudt brugeragenterliste"
           },
@@ -703,14 +711,6 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Viser takke info"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Viser listen over forbudte lande"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
-            "#text": "Redigerer forbudt land"
           }
         ]
       },
@@ -1027,6 +1027,56 @@
           {
             "@tag": "TITLE",
             "#text": "Brugervedhæftede filer"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Tilføj nyt land"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingen lande"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "I øjeblikket er der ingen forbudte lande. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "LAND"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Det forbudte land eksisterer allerede!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Landet blev slettet"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Forbudte lande"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Land:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Landet at forbyde."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Tilføj forbudt land"
           }
         ]
       },
@@ -5291,22 +5341,6 @@
             "#text": "Skal medaljer af en bruger være synlige på indlægssiden."
           },
           {
-            "@tag": "SHOW_MODLIST",
-            "#text": "Vis moderatorliste:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN",
-            "#text": "Vis moderatorliste i kolonne:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-            "#text": "Viser moderatorliste som en separat kolonne i en kategoriliste."
-          },
-          {
-            "@tag": "SHOW_MODLIST_HELP",
-            "#text": "Hvis dette er markeret, vises moderatorlistekolonnen i forumlisten."
-          },
-          {
             "@tag": "SHOW_MOVED_TOPICS",
             "#text": "Vis flyttede emner:"
           },
@@ -6751,6 +6785,10 @@
             "#text": "Vedhæftede filer"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Forbudte lande"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Forbudte brugeragenter"
           },
@@ -6921,10 +6959,6 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Brugere og roller"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Forbudte lande"
           }
         ]
       },
@@ -14732,56 +14766,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Igår[/b] klokken {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES",
-        "Resource": [
-          {
-            "@tag": "ADD_COUNTRY",
-            "#text": "Tilføj nyt land"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "Ingen lande"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "I øjeblikket er der ingen forbudte lande. "
-          },
-          {
-            "@tag": "MASK",
-            "#text": "LAND"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "Det forbudte land eksisterer allerede!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "Landet blev slettet"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Forbudte lande"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
-        "Resource": [
-          {
-            "@tag": "MASK",
-            "#text": "Land:"
-          },
-          {
-            "@tag": "MASK_HELP",
-            "#text": "Landet at forbyde."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Tilføj forbudt land"
           }
         ]
       }

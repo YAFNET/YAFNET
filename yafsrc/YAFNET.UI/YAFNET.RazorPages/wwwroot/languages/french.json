@@ -221,6 +221,14 @@
             "#text": "Vues de l'index admin"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Consultez la liste des pays interdits"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Modifie le pays interdit"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Vues de la liste des agents des utilisateurs interdits"
           },
@@ -703,14 +711,6 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Vues merci info"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Consultez la liste des pays interdits"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
-            "#text": "Modifie le pays interdit"
           }
         ]
       },
@@ -1027,6 +1027,56 @@
           {
             "@tag": "TITLE",
             "#text": "Pièces jointes par l'utilisateur"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Ajouter un nouveau pays"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Aucun pays"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Actuellement, il n’y a aucun pays interdit. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "PAYS"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Le pays interdit existe déjà !"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Le pays a été supprimé avec succès"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Pays interdits"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Pays:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Le pays à interdire."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Ajouter un pays interdit"
           }
         ]
       },
@@ -5291,22 +5341,6 @@
             "#text": "Les médailles d'un utilisateur doivent-elles être visibles sur la page des messages ?"
           },
           {
-            "@tag": "SHOW_MODLIST",
-            "#text": "Afficher la liste des modérateurs :"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN",
-            "#text": "Afficher la liste des modérateurs en colonne :"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-            "#text": "Affiche la liste des modérateurs sous forme de colonne distincte dans une liste de catégories."
-          },
-          {
-            "@tag": "SHOW_MODLIST_HELP",
-            "#text": "Si cette case est cochée, la colonne de la liste des modérateurs est affichée dans la liste des forums."
-          },
-          {
             "@tag": "SHOW_MOVED_TOPICS",
             "#text": "Afficher les sujets déplacés :"
           },
@@ -6751,6 +6785,10 @@
             "#text": "Pièces jointes"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Pays interdits"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Interdiction des utilisateurs"
           },
@@ -6921,10 +6959,6 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Utilisateurs et rôles"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Pays interdits"
           }
         ]
       },
@@ -14732,56 +14766,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Hier[/b] à {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES",
-        "Resource": [
-          {
-            "@tag": "ADD_COUNTRY",
-            "#text": "Ajouter un nouveau pays"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "Aucun pays"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Actuellement, il n’y a aucun pays interdit. "
-          },
-          {
-            "@tag": "MASK",
-            "#text": "PAYS"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "Le pays interdit existe déjà !"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "Le pays a été supprimé avec succès"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Pays interdits"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
-        "Resource": [
-          {
-            "@tag": "MASK",
-            "#text": "Pays:"
-          },
-          {
-            "@tag": "MASK_HELP",
-            "#text": "Le pays à interdire."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Ajouter un pays interdit"
           }
         ]
       }

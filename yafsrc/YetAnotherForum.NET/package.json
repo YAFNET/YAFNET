@@ -12,7 +12,7 @@
     "@tsconfig/recommended": "^1.0.13",
     "@types/bootstrap": "^5.2.10",
     "autoprefixer": "^10.4.27",
-    "babel-loader": "^10.1.0",
+    "babel-loader": "^10.1.1",
     "css-loader": "^7.1.4",
     "grunt": "^1.6.1",
     "grunt-contrib-copy": "^1.0.0",
@@ -23,7 +23,7 @@
     "grunt-webpack": "^7.0.1",
     "grunt-zip": "^1.0.0",
     "postcss": "^8.5.8",
-    "sass": "^1.97.3",
+    "sass": "^1.98.0",
     "simple-webp-converter": "^1.1.2",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.4",
@@ -47,7 +47,7 @@
     "bootstrap": "^5.3.8",
     "bootswatch": "^5.3.8",
     "chart.js": "^4.5.1",
-    "choices.js": "^11.1.0",
+    "choices.js": "^11.2.1",
     "codemirror": "^6.0.2",
     "flag-icons": "^7.5.0",
     "form-serialize": "^0.7.2",
@@ -57,7 +57,7 @@
     "prismjs": "^1.30.0",
     "scss": "^0.2.4",
     "smooth-scroll-into-view-if-needed": "^2.0.2",
-    "terser-webpack-plugin": "^5.3.17"
+    "terser-webpack-plugin": "^5.4.0"
   },
   "scripts": {
     "build": "grunt",

@@ -100,7 +100,6 @@
 
                 <li class="list-group-item pt-2 list-group-item-action">
                     <a button-style="@ButtonStyle.Link"
-                       role="button"
                        icon="comment"
                        icon-css-class="far"
                        icon-color="text-secondary"
@@ -118,7 +117,6 @@
                     }
 
                     <a class="text-body-secondary p-0 text-start"
-                       role="button"
                        button-style="@ButtonStyle.Link"
                        text="@Html.Raw($"({topic.Forum})")"
                        href="@Html.Raw(Current.Get<ILinkBuilder>().GetForumLink(topic.ForumID, topic.Forum))"></a>
