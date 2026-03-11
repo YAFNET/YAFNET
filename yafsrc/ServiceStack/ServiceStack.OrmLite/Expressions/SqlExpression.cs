@@ -65,7 +65,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// Gets or sets the only fields.
     /// </summary>
     /// <value>The only fields.</value>
-    public HashSet<string> OnlyFields { get; protected set; }
+    public HashSet<string> OnlyFields { get; set; }
 
     /// <summary>
     /// Gets or sets the update fields.
@@ -2409,7 +2409,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     public virtual SqlExpression<T> Update(Expression<Func<T, object>> fields)
     {
         this.Reset(this.Sep = string.Empty, this.useFieldName = false);
-        this.UpdateFields = fields.GetFieldNames().ToList();
+        this.UpdateFields = [.. fields.GetFieldNames()];
         return this;
     }
 
