@@ -489,7 +489,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
         }
       });
       datePickerBodyHtml = tempDiv.innerHTML;
-      if (setting.modalMode == true) {
+      if (setting.modalMode) {
         this.setModalHtml(title, datePickerBodyHtml, setting);
         this.bsPopover = null;
         setTimeout(() => {
@@ -499,7 +499,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
             this.enableMainEvents();
           }
         }, 200);
-      } else if (setting.inLine == true) {
+      } else if (setting.inLine) {
         this.bsPopover = null;
         this.element.innerHTML = datePickerBodyHtml;
         this.enableInLineEvents();
@@ -1037,7 +1037,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
         modalDialogElement.classList.remove('modal-xl');
       }
     } else {
-      console.warn('mds.bs.datetimepicker: element with `data-mds-dtp-guid` selector not found !')
+	    console.warn('mds.bs.datetimepicker: element with `data-mds-dtp-guid` selector not found !');
     }
   }
   private getYearsBoxBodyHtml(setting: MdsPersianDateTimePickerSetting, yearToStart: number): MdsPersianDateTimePickerYearToSelect {
@@ -1078,8 +1078,8 @@ data-bs-toggle="dropdown" aria-expanded="false">
       let currentYearDisabledAttr = '';
       let yearText = setting.isGregorian ? i.toString() : MdsPersianDateTimePicker.toPersianNumber(i);
       let yearDateNumber = MdsPersianDateTimePicker.convertToNumber2(i, selectedDateTimeToShowJson.month, 1);
-      let todayAttr = todayDateTimeJson.year == i ? 'data-current-year="true"' : ''
-      let selectedYearAttr = selectedDateTimeToShowJson.year == i ? 'data-selected-year' : ''
+      let todayAttr = todayDateTimeJson.year == i ? 'data-current-year="true"' : '';
+      let selectedYearAttr = selectedDateTimeToShowJson.year == i ? 'data-selected-year' : '';
       let selectedYearTitle = '';
       if (todayAttr)
         selectedYearTitle = setting.isGregorian ? MdsPersianDateTimePicker.currentYearText : MdsPersianDateTimePicker.currentYearTextPersian;
@@ -1593,7 +1593,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
       yearListBox!.classList.add('w-0');
       yearListBox!.innerHTML = '';
     }
-  }
+  };
   private showYearsBox = (element: Element): void => {
     const instance = MdsPersianDateTimePicker.getInstance(element);
     if (!instance) {
@@ -1612,14 +1612,14 @@ data-bs-toggle="dropdown" aria-expanded="false">
     dateTimePickerYearsToSelectContainer!.innerHTML = dateTimePickerYearsToSelectHtml;
     dateTimePickerYearsToSelectContainer!.classList.remove('w-0');
     if (setting.inLine) {
-      mdDatePickerContainer.classList.add('overflow-hidden')
+      mdDatePickerContainer.classList.add('overflow-hidden');
       dateTimePickerYearsToSelectContainer!.classList.add('inline');
     } else if (setting.modalMode) {
       mdDatePickerContainer.querySelector('[data-name="mds-dtp-body"]')!.setAttribute('hidden', '');
     } else {
       dateTimePickerYearsToSelectContainer!.classList.remove('inline');
     }
-  }
+  };
   private changeYearList = (element: Element): void => {
     // کلیک روی دکمه های عوض کردن رنج سال انتخابی
     const instance = MdsPersianDateTimePicker.getInstance(element);
@@ -1635,7 +1635,8 @@ data-bs-toggle="dropdown" aria-expanded="false">
     else
       element.closest('[data-mds-dtp]')!.querySelector('[data-mds-dtp-year-list-box]')!.innerHTML = yearsToSelectObject.html;
     this.setPopoverHeaderHtml(element, setting, this.getYearsBoxHeaderHtml(setting, yearsToSelectObject.yearStart, yearsToSelectObject.yearEnd));
-  }
+  };
+
   private getPopoverHeaderTitle(setting: MdsPersianDateTimePickerSetting): string {
     let selectedDateToShowJson: GetDateTimeJson1;
     let title = '';
@@ -1681,7 +1682,8 @@ data-bs-toggle="dropdown" aria-expanded="false">
       let inlineTitleBox = element.closest('[data-mds-dtp-guid]')!.querySelector('[data-mds-dtp-title] .modal-title')!;
       inlineTitleBox.innerHTML = htmlString;
     }
-  }
+  };
+
   private getDateTimePickerBodyHtml(setting: MdsPersianDateTimePickerSetting): string {
     let selectedDateToShow = MdsPersianDateTimePicker.getClonedDate(setting.selectedDateToShow);
     let html = MdsPersianDateTimePicker.dateTimePickerHtmlTemplate;
@@ -1771,14 +1773,14 @@ data-bs-toggle="dropdown" aria-expanded="false">
     if (containerElement == null) {
       containerElement = element.closest('[data-mds-dtp-guid]');
       if (containerElement == null) {
-        console.error('mds.bs.datetimepicker: `data-mds-dtp-guid` element not found !')
+        console.error('mds.bs.datetimepicker: `data-mds-dtp-guid` element not found !');
         return;
       }
       if (setting.modalMode)
         containerElement = containerElement.querySelector('[data-name="mds-dtp-body"]');
     }
     if (!containerElement) {
-      console.error('mds.bs.datetimepicker: `data-mds-dtp-guid` element not found!')
+      console.error('mds.bs.datetimepicker: `data-mds-dtp-guid` element not found!');
       return;
     }
     this.setPopoverHeaderHtml(element, setting, dtpInlineHeader.trim());
@@ -1786,7 +1788,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
     this.hideYearsBox(element, setting);
     this.enableEvents();
     this.enableInLineEvents();
-  }
+  };
   private changeMonth = (element: Element): void => {
     const instance = MdsPersianDateTimePicker.getInstance(element);
     if (!instance || instance.setting.disabled)
@@ -1800,7 +1802,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
     this.updateCalendarBodyHtml(element, setting);
     if (setting.calendarViewOnChange != undefined)
       setting.calendarViewOnChange(selectedDateToShow);
-  }
+  };
   private selectDay = (element: Element): void => {
     // کلیک روی روزها
     // انتخاب روز
@@ -1921,7 +1923,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
       dtp!.querySelectorAll(`[data-day]:not([data-number="${element.getAttribute('data-number')}"])`)
         .forEach(e => e.removeAttribute('data-mds-dtp-selected-day'));
     }
-  }
+  };
   private hoverOnDays = (e: Event): void => {
     // هاور روی روزها
     const element = <Element>e.target;
@@ -1974,7 +1976,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
       }
     }
 
-  }
+  };
   private goToday = (e: Event): void => {
     const element = <Element>e.target;
     const instance = MdsPersianDateTimePicker.getInstance(element);
@@ -1984,7 +1986,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
     setting.selectedDateToShow = new Date();
     MdsPersianDateTimePickerData.set(instance.guid, instance);
     this.updateCalendarBodyHtml(element, setting);
-  }
+  };
   private timeChanged = (e: Event): void => {
     // عوض کردن ساعت
     const element = <Element>e.target;
@@ -2005,7 +2007,8 @@ data-bs-toggle="dropdown" aria-expanded="false">
     setting.selectedDate = new Date(setting.selectedDate.setMinutes(minute));
     MdsPersianDateTimePickerData.set(instance.guid, instance);
     MdsPersianDateTimePicker.setSelectedData(setting);
-  }
+  };
+
   private enableMainEvents(): void {
     if (this.setting.inLine) return;
     if (this.bsPopover != null) {
@@ -2029,13 +2032,14 @@ data-bs-toggle="dropdown" aria-expanded="false">
     if (!instance) return;
     const setting = instance.setting;
     this.hideYearsBox(element, setting);
-  }
+  };
   private popoverOrModalShownEvent = (): void => {
     this.enableEvents();
-  }
+  };
   private popoverOrModalHiddenEvent = (): void => {
     this.disableEvents();
-  }
+  };
+
   private enableInLineEvents(): void {
     if (!this.setting.inLine) return;
     setTimeout(() => {
@@ -2086,7 +2090,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
     } else if (element.getAttribute('data-year-range-button-change') != null && element.getAttribute('disabled') == null) {
       this.changeYearList(element);
     }
-  }
+  };
   private showPopoverEvent = (e: Event): void => {
     MdsPersianDateTimePickerData.getAll().forEach(i => i.hide());
     const element = <Element>e.target;
@@ -2094,7 +2098,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
     if (!instance || instance.setting.disabled)
       return;
     instance.show();
-  }
+  };
   private hidePopoverEvent = (e: Event): void => {
     const element = <Element>e.target;
     if (element.tagName == 'HTML') {
@@ -2105,7 +2109,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
     if (!isWithinDatePicker) {
       MdsPersianDateTimePickerData.getAll().forEach(i => i.hide());
     }
-  }
+  };
 
   /**
    * نمایش تقویم
@@ -2287,7 +2291,7 @@ data-bs-toggle="dropdown" aria-expanded="false">
       year: jalaliJsonModel.jy,
       month: jalaliJsonModel.jm,
       day: jalaliJsonModel.jd,
-    }
+    };
   };
   /**
    * دریافت اینستنس تقویم از روی المانی که تقویم روی آن فعال شده است
@@ -2321,32 +2325,32 @@ interface GetDateTimeJson1 {
   minute: number,
   second: number,
   millisecond: number,
-  dayOfWeek: number
+  dayOfWeek: number;
 }
 
 interface JalaliJsonModel {
   jy: number,
   jm: number,
-  jd: number
+  jd: number;
 }
 
 
 interface GregorianJsonModel {
   gy: number,
   gm: number,
-  gd: number
+  gd: number;
 }
 
 interface JalCalModel {
   leap: number,
   gy: number,
-  march: number
+  march: number;
 }
 
 interface MdsPersianDateTimePickerYearToSelect {
   yearStart: number,
   yearEnd: number,
-  html: string
+  html: string;
 }
 
 type PopoverPlacement = 'auto' | 'top' | 'bottom' | 'left' | 'right';
@@ -2485,7 +2489,7 @@ export class MdsPersianDateTimePickerSetting {
    * رویداد انتخاب روز در دیت پیکر
    * @param _ تمامی تنظیمات دیت پیکر
    */
-  onDayClick = (_: MdsPersianDateTimePickerSetting) => { }
+  onDayClick = (_: MdsPersianDateTimePickerSetting) => { };
 }
 
 export interface MdsPersianDateTimePickerConvertedDateModel {
