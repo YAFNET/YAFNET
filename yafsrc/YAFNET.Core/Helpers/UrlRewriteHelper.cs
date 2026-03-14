@@ -47,7 +47,7 @@ public static class UrlRewriteHelper
         var sb = new StringBuilder();
 
         // fix ampersand...
-        inputString = inputString.Replace(" & ", "and").Replace("ـ", string.Empty);
+        inputString = inputString.Replace(" & ", " and ").Replace("ـ", string.Empty);
 
         // trim...
         inputString = Config.UrlRewritingMode == "Unicode"
