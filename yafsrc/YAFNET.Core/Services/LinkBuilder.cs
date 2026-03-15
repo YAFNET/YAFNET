@@ -137,9 +137,7 @@ public class LinkBuilder : IHaveServiceLocator, ILinkBuilder
     /// </returns>
     public string GetCategoryLink(int categoryId, string categoryName)
     {
-        return this.Get<ILinkBuilder>().GetLink(
-            ForumPages.Index,
-            new {c = categoryId, name = categoryName});
+        return CategoryRouteHelper.BuildUrl(this.Get<BoardConfiguration>().Area, categoryId, categoryName);
     }
 
     /// <summary>
