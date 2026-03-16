@@ -24,12 +24,9 @@
 
 namespace YAF.Core.Services;
 
-using System.Web;
-
 using Microsoft.AspNetCore.Routing;
-
-using YAF.Types.Objects;
 using YAF.Types.Models;
+using YAF.Types.Objects;
 
 /// <summary>
 /// Class with link building functions.
@@ -168,7 +165,7 @@ public class LinkBuilder : IHaveServiceLocator, ILinkBuilder
     /// </returns>
     public string GetTopicLink(int topicId, string topicName)
     {
-        var topicSubject = HttpUtility.HtmlEncode(this.Get<IBadWordReplace>().Replace(topicName));
+        var topicSubject = this.Get<IBadWordReplace>().Replace(topicName);
 
         return this.Get<ILinkBuilder>().GetLink(
             ForumPages.Posts,
@@ -189,7 +186,7 @@ public class LinkBuilder : IHaveServiceLocator, ILinkBuilder
     /// </returns>
     public string GetMessageLink(Topic topic, int messageId)
     {
-        var topicSubject = HttpUtility.HtmlEncode(this.Get<IBadWordReplace>().Replace(topic.TopicName));
+        var topicSubject = this.Get<IBadWordReplace>().Replace(topic.TopicName);
 
         return this.Get<ILinkBuilder>().GetLink(
             ForumPages.Post,
@@ -210,7 +207,7 @@ public class LinkBuilder : IHaveServiceLocator, ILinkBuilder
     /// </returns>
     public string GetMessageLink(string topicName, int messageId)
     {
-        var topicSubject = HttpUtility.HtmlEncode(this.Get<IBadWordReplace>().Replace(topicName));
+        var topicSubject = this.Get<IBadWordReplace>().Replace(topicName);
 
         return this.Get<ILinkBuilder>().GetLink(
             ForumPages.Post,
