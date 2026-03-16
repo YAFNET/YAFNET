@@ -83,6 +83,13 @@ public class IndexModel : ForumPage
     /// </summary>
     public async Task<IActionResult> OnGetAsync()
     {
+        // Return 404 for unrecognized handler names that fall through to OnGetAsync
+        // (e.g. /asdf would otherwise render the index page)
+        if (this.RouteData.Values.TryGetValue("handler", out var handler) && handler is not null)
+        {
+            return this.NotFound();
+        }
+
         await this.BindDataAsync();
 
         return this.Page();
