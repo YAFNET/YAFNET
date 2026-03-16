@@ -26,6 +26,7 @@ using Autofac.Extensions.DependencyInjection;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -107,6 +108,9 @@ public static class IApplicationBuilderExtensions
             app.UseMiddleware<CheckBannedIps>();
             app.UseMiddleware<CheckBannedUserAgents>();
             app.UseMiddleware<CheckBannedCountries>();
+
+            // Rewrite /Category/{id}/{name} to /Index?c={id}
+            app.UseRewriter(CategoryRouteHelper.AddCategoryRules(new RewriteOptions(), serviceLocator.Get<BoardConfiguration>().Area));
 
             app.UseRouting();
 
