@@ -10694,6 +10694,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Ups! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Próbujesz się dostać do miejsca, do którego nie masz dostępu."
           },
@@ -10748,14 +10752,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Wymagane ciasteczka"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "Wymagany JavaScript"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "Wersja JavaScript"
           },
           {
             "@tag": "TITLE_EXCEPTION",

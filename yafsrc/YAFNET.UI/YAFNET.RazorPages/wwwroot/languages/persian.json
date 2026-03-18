@@ -10686,6 +10686,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "اوه! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "شما مجاز به دسترسی به این بخش نمی باشید"
           },
@@ -10740,14 +10744,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "کوکی مورد نیاز است"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "جاوا اسکریپت مورد نیاز است"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "نسخه جاوا اسکریپت"
           },
           {
             "@tag": "TITLE_EXCEPTION",

@@ -226,7 +226,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
 
         var userList = new List<AspNetUsers>();
 
-        this.Get<IAspNetUsersHelper>().Users.ForEach(
+        this.Get<IAspNetUsersHelper>().Users.AsEnumerable().ForEach(
             user =>
                 {
                     if (users.Exists(u => u.UserId == user.Id))

@@ -10690,6 +10690,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Упс! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Вы попытались попасть в область, куда у Вас нет прав доступа."
           },
@@ -10744,14 +10748,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Включите куки"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "Включите JavaScript"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "Версия JavaScript"
           },
           {
             "@tag": "TITLE_EXCEPTION",

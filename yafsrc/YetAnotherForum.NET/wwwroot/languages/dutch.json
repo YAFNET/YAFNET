@@ -221,6 +221,14 @@
             "#text": "Bekijkt admin index"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Bekijkt de lijst met verboden landen"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Bewerkingen verboden land"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Bekijkt verboden gebruikersagentenlijst"
           },
@@ -703,14 +711,6 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Bekijkt bedankt info"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Bekijkt de lijst met verboden landen"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
-            "#text": "Bewerkingen verboden land"
           }
         ]
       },
@@ -1027,6 +1027,56 @@
           {
             "@tag": "TITLE",
             "#text": "Gebruikersbijlagen"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Nieuw land toevoegen"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Geen landen"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Momenteel zijn er geen verboden landen. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "LAND"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Het verboden land bestaat al!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Het land is succesvol verwijderd"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Verboden landen"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Land:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Het land dat verboden moet worden."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Voeg een verboden land toe"
           }
         ]
       },
@@ -5283,22 +5333,6 @@
             "#text": "Laat Medailles zien op de berichtenpagina."
           },
           {
-            "@tag": "SHOW_MODLIST",
-            "#text": "Laat Moderator lijst zien:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN",
-            "#text": "Laat eenkolom met de Moderatorlijst zien:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-            "#text": "Laat de Moderators zien in een aparte kolom in de categorie&euml;n lijst."
-          },
-          {
-            "@tag": "SHOW_MODLIST_HELP",
-            "#text": "Als deze is aangevinkt, wordt een kolom in de forumlijst zichtbaar met de moderators."
-          },
-          {
             "@tag": "SHOW_MOVED_TOPICS",
             "#text": "Laat verplaatste Topics zien:"
           },
@@ -6743,6 +6777,10 @@
             "#text": "Bijlagen"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Verboden landen"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Verboden gebruikersagents"
           },
@@ -6913,10 +6951,6 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Gebruikers en rollen"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Verboden landen"
           }
         ]
       },
@@ -10656,6 +10690,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Oeps! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Je hebt hier geen toegang toe."
           },
@@ -10710,14 +10748,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "cookies verplicht"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "JavaScript verplicht"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "JavaScript versie"
           },
           {
             "@tag": "TITLE_EXCEPTION",
@@ -14716,56 +14746,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Gisteren[/b] om {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES",
-        "Resource": [
-          {
-            "@tag": "ADD_COUNTRY",
-            "#text": "Nieuw land toevoegen"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "Geen landen"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Momenteel zijn er geen verboden landen. "
-          },
-          {
-            "@tag": "MASK",
-            "#text": "LAND"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "Het verboden land bestaat al!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "Het land is succesvol verwijderd"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Verboden landen"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
-        "Resource": [
-          {
-            "@tag": "MASK",
-            "#text": "Land:"
-          },
-          {
-            "@tag": "MASK_HELP",
-            "#text": "Het land dat verboden moet worden."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Voeg een verboden land toe"
           }
         ]
       }

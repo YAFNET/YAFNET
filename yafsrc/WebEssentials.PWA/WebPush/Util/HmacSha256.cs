@@ -9,6 +9,9 @@ namespace WebEssentials.AspNetCore.Pwa.WebPush.Util;
 /// </summary>
 public class HmacSha256
 {
+    /// <summary>
+    /// The hmac
+    /// </summary>
     private readonly HMac _hmac;
 
     /// <summary>

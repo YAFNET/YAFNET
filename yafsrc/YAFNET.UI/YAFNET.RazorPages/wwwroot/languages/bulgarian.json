@@ -10690,6 +10690,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Опа! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Опитахте се да влезете в зона, в която сте го направили"
           },
@@ -10744,14 +10748,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Изисква бисквитки"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "JavaScript изисква"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "JavaScript версия"
           },
           {
             "@tag": "TITLE_EXCEPTION",

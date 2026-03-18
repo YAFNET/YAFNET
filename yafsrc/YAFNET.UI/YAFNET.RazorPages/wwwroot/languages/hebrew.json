@@ -10710,6 +10710,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "אופס! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "ניסית להיכנס לאיזור בו אין לך גישה."
           },
@@ -10764,14 +10768,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "דורש עוגיות"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "נדרש JavaScript"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "גרסת JavaScript"
           },
           {
             "@tag": "TITLE_EXCEPTION",

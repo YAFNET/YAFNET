@@ -10706,6 +10706,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Oho! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "You tried to enter a area where you didn't have access."
           },
@@ -10760,14 +10764,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Vaatii evästeet"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "JavaScript tarvitaan"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "JavaScript-versio"
           },
           {
             "@tag": "TITLE_EXCEPTION",

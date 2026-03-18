@@ -9,6 +9,9 @@ namespace WebEssentials.AspNetCore.Pwa;
 /// </summary>
 public class RetrieveCustomServiceworker
 {
+    /// <summary>
+    /// The env
+    /// </summary>
     private readonly IWebHostEnvironment _env;
 
     /// <summary>

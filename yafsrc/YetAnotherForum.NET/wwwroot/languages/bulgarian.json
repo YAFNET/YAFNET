@@ -221,6 +221,14 @@
             "#text": "Изгледи Администраторски индекс"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Преглежда списък със забранени държави"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Редактира забранена държава"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Списък на изгледи за забранени потребителски агенти"
           },
@@ -703,14 +711,6 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Преглед на благодарност информация"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Преглежда списък със забранени държави"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
-            "#text": "Редактира забранена държава"
           }
         ]
       },
@@ -1027,6 +1027,56 @@
           {
             "@tag": "TITLE",
             "#text": "Потребителски прикачени файлове"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Добавете нова държава"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Няма държави"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "В момента няма забранени държави. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "СТРАНА"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Забранената държава вече съществува!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Държавата беше изтрита успешно"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Забранени държави"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "държава:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Страната за забрана."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Добавете забранена държава"
           }
         ]
       },
@@ -5283,22 +5333,6 @@
             "#text": "Трябва ли медалите на потребителя да се виждат на страницата за публикации."
           },
           {
-            "@tag": "SHOW_MODLIST",
-            "#text": "Покажи списък на модераторите:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN",
-            "#text": "Показване на списъка с модератори в колона:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-            "#text": "Показва списъка на модератора като отделна колона в списък с категории."
-          },
-          {
-            "@tag": "SHOW_MODLIST_HELP",
-            "#text": "Ако това е проверено, колоната на списъка на модераторите се показва в списъка на форума."
-          },
-          {
             "@tag": "SHOW_MOVED_TOPICS",
             "#text": "Показване на преместени теми:"
           },
@@ -6743,6 +6777,10 @@
             "#text": "Прикачени файлове"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Забранени държави"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Забранени потребители"
           },
@@ -6913,10 +6951,6 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Потребители и роли"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Забранени държави"
           }
         ]
       },
@@ -10656,6 +10690,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Опа! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Опитахте се да влезете в зона, в която сте го направили"
           },
@@ -10710,14 +10748,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Изисква бисквитки"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "JavaScript изисква"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "JavaScript версия"
           },
           {
             "@tag": "TITLE_EXCEPTION",
@@ -14716,56 +14746,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b] вчера [/b] при {0: t}"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES",
-        "Resource": [
-          {
-            "@tag": "ADD_COUNTRY",
-            "#text": "Добавете нова държава"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "Няма държави"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "В момента няма забранени държави. "
-          },
-          {
-            "@tag": "MASK",
-            "#text": "СТРАНА"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "Забранената държава вече съществува!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "Държавата беше изтрита успешно"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Забранени държави"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
-        "Resource": [
-          {
-            "@tag": "MASK",
-            "#text": "държава:"
-          },
-          {
-            "@tag": "MASK_HELP",
-            "#text": "Страната за забрана."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Добавете забранена държава"
           }
         ]
       }

@@ -221,6 +221,14 @@
             "#text": "Zobrazení indexu správce"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Zobrazí seznam zakázaných zemí"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Upravuje zakázanou zemi"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Zobrazení zakázané uživatelské agenty Seznam"
           },
@@ -703,14 +711,6 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Pohledy díky info"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Zobrazí seznam zakázaných zemí"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
-            "#text": "Upravuje zakázanou zemi"
           }
         ]
       },
@@ -1027,6 +1027,56 @@
           {
             "@tag": "TITLE",
             "#text": "Uživatelské přílohy"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Přidat novou zemi"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žádné země"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "V současné době neexistují žádné zakázané země. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "ZEMĚ"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Zakázaná země již existuje!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Země byla úspěšně smazána"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Zakázané země"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Země:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Země k zákazu."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Přidat zakázanou zemi"
           }
         ]
       },
@@ -5291,22 +5341,6 @@
             "#text": "Měly by být na stránce příspěvků viditelné medaile uživatele."
           },
           {
-            "@tag": "SHOW_MODLIST",
-            "#text": "Zobrazit seznam moderátorů:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN",
-            "#text": "Zobrazit seznam moderátorů ve sloupci:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-            "#text": "Zobrazí seznam moderátorů jako samostatný sloupec v seznamu kategorií."
-          },
-          {
-            "@tag": "SHOW_MODLIST_HELP",
-            "#text": "Pokud je toto zaškrtnuto, zobrazí se v seznamu fóra sloupec seznamu moderátorů."
-          },
-          {
             "@tag": "SHOW_MOVED_TOPICS",
             "#text": "Zobrazit přesunutá témata:"
           },
@@ -6751,6 +6785,10 @@
             "#text": "Přílohy"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Zakázané země"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Zakázané uživatele"
           },
@@ -6921,10 +6959,6 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Uživatelé a role"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Zakázané země"
           }
         ]
       },
@@ -10676,6 +10710,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Jejda! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Zkusili jste vstoupit do části fóra, kam nemáte povolený přístup."
           },
@@ -10730,14 +10768,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Vyžaduje soubory cookie"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "Je vyžadován JavaScript"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "Verze JavaScriptu"
           },
           {
             "@tag": "TITLE_EXCEPTION",
@@ -14736,56 +14766,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Včera[/b] v {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES",
-        "Resource": [
-          {
-            "@tag": "ADD_COUNTRY",
-            "#text": "Přidat novou zemi"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "Žádné země"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "V současné době neexistují žádné zakázané země. "
-          },
-          {
-            "@tag": "MASK",
-            "#text": "ZEMĚ"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "Zakázaná země již existuje!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "Země byla úspěšně smazána"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Zakázané země"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
-        "Resource": [
-          {
-            "@tag": "MASK",
-            "#text": "Země:"
-          },
-          {
-            "@tag": "MASK_HELP",
-            "#text": "Země k zákazu."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Přidat zakázanou zemi"
           }
         ]
       }

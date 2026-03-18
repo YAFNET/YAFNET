@@ -221,6 +221,14 @@
             "#text": "Näkymät admin index"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Näyttää kiellettyjen maiden luettelon"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Muokkaukset kielletty maa"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Näkymät kielletyt käyttäjäagenttiluettelon"
           },
@@ -703,14 +711,6 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Näkymät kiitos info"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Näyttää kiellettyjen maiden luettelon"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
-            "#text": "Muokkaukset kielletty maa"
           }
         ]
       },
@@ -1027,6 +1027,56 @@
           {
             "@tag": "TITLE",
             "#text": "Käyttäjän liitteet"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Lisää uusi maa"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei maita"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Tällä hetkellä ei ole kiellettyjä maita. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "MAA"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Kielletty maa on jo olemassa!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Maa poistettiin onnistuneesti"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Kielletyt maat"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Maa:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Kiellettävä maa."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Lisää kielletty maa"
           }
         ]
       },
@@ -5291,22 +5341,6 @@
             "#text": "Pitäisikö käyttäjän mitalit näkyä viestit-sivulla."
           },
           {
-            "@tag": "SHOW_MODLIST",
-            "#text": "Näytä moderaattoriluettelo:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN",
-            "#text": "Näytä moderaattoriluettelo sarakkeessa:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-            "#text": "Näyttää moderaattoriluettelon erillisenä sarakkeena kategorialuettelossa."
-          },
-          {
-            "@tag": "SHOW_MODLIST_HELP",
-            "#text": "Jos tämä on valittuna, moderaattoriluettelo-sarake näkyy foorumiluettelossa."
-          },
-          {
             "@tag": "SHOW_MOVED_TOPICS",
             "#text": "Näytä siirretyt aiheet:"
           },
@@ -6751,6 +6785,10 @@
             "#text": "Liitteet"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Kielletyt maat"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Kielletyt käyttäjät"
           },
@@ -6921,10 +6959,6 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Käyttäjät ja roolit"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Kielletyt maat"
           }
         ]
       },
@@ -10672,6 +10706,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Oho! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "You tried to enter a area where you didn't have access."
           },
@@ -10726,14 +10764,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Vaatii evästeet"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "JavaScript tarvitaan"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "JavaScript-versio"
           },
           {
             "@tag": "TITLE_EXCEPTION",
@@ -14732,56 +14762,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Eilen[/b] kello {0:HH:mm:ss}"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES",
-        "Resource": [
-          {
-            "@tag": "ADD_COUNTRY",
-            "#text": "Lisää uusi maa"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "Ei maita"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Tällä hetkellä ei ole kiellettyjä maita. "
-          },
-          {
-            "@tag": "MASK",
-            "#text": "MAA"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "Kielletty maa on jo olemassa!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "Maa poistettiin onnistuneesti"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Kielletyt maat"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
-        "Resource": [
-          {
-            "@tag": "MASK",
-            "#text": "Maa:"
-          },
-          {
-            "@tag": "MASK_HELP",
-            "#text": "Kiellettävä maa."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Lisää kielletty maa"
           }
         ]
       }

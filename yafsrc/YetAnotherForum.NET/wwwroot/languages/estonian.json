@@ -221,6 +221,14 @@
             "#text": "Avab admin indeksi"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Vaatab keelatud riikide loendit"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Keelatud riigi muudatused"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Vaated keelatud kasutajaagentide nimekirja"
           },
@@ -703,14 +711,6 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Avab tänuavalduste info"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Vaatab keelatud riikide loendit"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
-            "#text": "Keelatud riigi muudatused"
           }
         ]
       },
@@ -1027,6 +1027,56 @@
           {
             "@tag": "TITLE",
             "#text": "Kasutaja manused"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Lisa uus riik"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei mingeid riike"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Praegu pole keelatud riike. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "RIIK"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Keelatud riik on juba olemas!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Riik kustutati edukalt"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Keelatud riigid"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Riik:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Riik, mida keelata."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Lisage keelatud riik"
           }
         ]
       },
@@ -5291,22 +5341,6 @@
             "#text": "Kas kasutaja medalid peaksid olema postituste lehel nähtavad."
           },
           {
-            "@tag": "SHOW_MODLIST",
-            "#text": "Näita moderaatorite nimekirja:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN",
-            "#text": "Kuva moderaatorite loend veerus:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-            "#text": "Näitab moderaatorite loendit eraldi veeruna kategooriate loendis."
-          },
-          {
-            "@tag": "SHOW_MODLIST_HELP",
-            "#text": "Kui see on märgitud, kuvatakse foorumiloendis moderaatorite loendi veerg."
-          },
-          {
             "@tag": "SHOW_MOVED_TOPICS",
             "#text": "Kuva teisaldatud teemad:"
           },
@@ -6751,6 +6785,10 @@
             "#text": "Manused"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Keelatud riigid"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Keelatud kasutajaagendid"
           },
@@ -6921,10 +6959,6 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Kasutajad ja rollid"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Keelatud riigid"
           }
         ]
       },
@@ -10672,6 +10706,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Oih! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Teil puudub ligipääs antud foorumiosale."
           },
@@ -10726,14 +10764,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Vajab küpsiseid"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "JavaScript on nõutud "
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "JavaScript versioon"
           },
           {
             "@tag": "TITLE_EXCEPTION",
@@ -14744,56 +14774,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Eile[/b] kell{0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES",
-        "Resource": [
-          {
-            "@tag": "ADD_COUNTRY",
-            "#text": "Lisa uus riik"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "Ei mingeid riike"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Praegu pole keelatud riike. "
-          },
-          {
-            "@tag": "MASK",
-            "#text": "RIIK"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "Keelatud riik on juba olemas!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "Riik kustutati edukalt"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Keelatud riigid"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
-        "Resource": [
-          {
-            "@tag": "MASK",
-            "#text": "Riik:"
-          },
-          {
-            "@tag": "MASK_HELP",
-            "#text": "Riik, mida keelata."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Lisage keelatud riik"
           }
         ]
       }

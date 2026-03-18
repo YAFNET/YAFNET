@@ -83,6 +83,14 @@ public class ErrorModel : ForumPage
     /// <returns>IActionResult.</returns>
     private PageResult ShowError()
     {
+        if (this.Response.StatusCode is 404)
+        {
+            this.ErrorMessage = "404";
+            this.ErrorDescription = this.GetText("INFO", "404_TITLE");
+
+            return this.Page();
+        }
+
         var exceptionHandlerPathFeature =
             this.HttpContext.Features.Get<IExceptionHandlerPathFeature>();
 

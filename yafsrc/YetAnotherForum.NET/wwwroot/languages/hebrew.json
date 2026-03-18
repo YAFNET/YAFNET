@@ -221,6 +221,14 @@
             "#text": "צפיות באינדקס הניהול"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "צפיות ברשימת המדינות האסורות"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "עריכת מדינה אסורה"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "תצוגות רשימת סוכני משתמש אסורים"
           },
@@ -703,14 +711,6 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "צפיות תודה מידע"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "צפיות ברשימת המדינות האסורות"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
-            "#text": "עריכת מדינה אסורה"
           }
         ]
       },
@@ -1027,6 +1027,56 @@
           {
             "@tag": "TITLE",
             "#text": "קבצים מצורפים למשתמש"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "הוסף מדינה חדשה"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "אין מדינות"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "נכון לעכשיו אין מדינות אסורות. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "מְדִינָה"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "המדינה האסורה כבר קיימת!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "המדינה נמחקה בהצלחה"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "מדינות אסורות"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "מְדִינָה:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "המדינה לאסור."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "הוסף מדינה אסורה"
           }
         ]
       },
@@ -5291,22 +5341,6 @@
             "#text": "האם מדליות של משתמש יהיו גלויות בדף הפוסטים."
           },
           {
-            "@tag": "SHOW_MODLIST",
-            "#text": "הצג רשימת מנחים:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN",
-            "#text": "הצג רשימת מנחים בעמודה:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-            "#text": "מציג את רשימת המנחה כעמודה נפרדת ברשימת קטגוריות."
-          },
-          {
-            "@tag": "SHOW_MODLIST_HELP",
-            "#text": "אם זה מסומן, עמודת רשימת המנחים תוצג ברשימת הפורומים."
-          },
-          {
             "@tag": "SHOW_MOVED_TOPICS",
             "#text": "הצג נושאים זזים:"
           },
@@ -6751,6 +6785,10 @@
             "#text": "קבצים מצורפים"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "מדינות אסורות"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "אסור על גורמי משתמש"
           },
@@ -6921,10 +6959,6 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "משתמשים ותפקידים"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "מדינות אסורות"
           }
         ]
       },
@@ -10676,6 +10710,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "אופס! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "ניסית להיכנס לאיזור בו אין לך גישה."
           },
@@ -10730,14 +10768,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "דורש עוגיות"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "נדרש JavaScript"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "גרסת JavaScript"
           },
           {
             "@tag": "TITLE_EXCEPTION",
@@ -14744,56 +14774,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]אתמול[/b] ב- {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES",
-        "Resource": [
-          {
-            "@tag": "ADD_COUNTRY",
-            "#text": "הוסף מדינה חדשה"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "אין מדינות"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "נכון לעכשיו אין מדינות אסורות. "
-          },
-          {
-            "@tag": "MASK",
-            "#text": "מְדִינָה"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "המדינה האסורה כבר קיימת!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "המדינה נמחקה בהצלחה"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "מדינות אסורות"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
-        "Resource": [
-          {
-            "@tag": "MASK",
-            "#text": "מְדִינָה:"
-          },
-          {
-            "@tag": "MASK_HELP",
-            "#text": "המדינה לאסור."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "הוסף מדינה אסורה"
           }
         ]
       }

@@ -10690,6 +10690,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Hoppla! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Du hast versucht in einem Bereich zu gelangen, für den Du keine Zugriffsberechtigung besitzt."
           },
@@ -10744,14 +10748,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Cookies benötigt"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "JavaScript wird benötigt"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "JavaScript-Version"
           },
           {
             "@tag": "TITLE_EXCEPTION",

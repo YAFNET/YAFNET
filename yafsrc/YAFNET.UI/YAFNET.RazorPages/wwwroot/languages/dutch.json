@@ -10690,6 +10690,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Oeps! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Je hebt hier geen toegang toe."
           },
@@ -10744,14 +10748,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "cookies verplicht"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "JavaScript verplicht"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "JavaScript versie"
           },
           {
             "@tag": "TITLE_EXCEPTION",

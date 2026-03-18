@@ -8,14 +8,38 @@ using Microsoft.Extensions.Hosting;
 
 namespace WebEssentials.AspNetCore.Pwa;
 
+/// <summary>
+/// 
+/// </summary>
+/// <seealso cref="Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent" />
 internal class ServiceWorkerTagHelperComponent : TagHelperComponent
 {
+    /// <summary>
+    /// The script
+    /// </summary>
     private readonly string _script;
 
+    /// <summary>
+    /// The env
+    /// </summary>
     private readonly IWebHostEnvironment _env;
+
+    /// <summary>
+    /// The accessor
+    /// </summary>
     private readonly IHttpContextAccessor _accessor;
+
+    /// <summary>
+    /// The options
+    /// </summary>
     private readonly PwaOptions _options;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ServiceWorkerTagHelperComponent"/> class.
+    /// </summary>
+    /// <param name="env">The env.</param>
+    /// <param name="accessor">The accessor.</param>
+    /// <param name="options">The options.</param>
     public ServiceWorkerTagHelperComponent(IWebHostEnvironment env, IHttpContextAccessor accessor, PwaOptions options)
     {
         this._env = env;

@@ -2,8 +2,10 @@
 
 namespace WebEssentials.AspNetCore.Pwa.WebPush.Model;
 
-// @LogicSoftware
-// Originally From: https://github.com/LogicSoftware/WebPushEncryption/blob/master/src/EncryptionResult.cs
+/// <summary>
+///  @LogicSoftware
+///  Originally From: https://github.com/LogicSoftware/WebPushEncryption/blob/master/src/EncryptionResult.cs
+/// </summary>
 public class EncryptionResult
 {
     /// <summary>

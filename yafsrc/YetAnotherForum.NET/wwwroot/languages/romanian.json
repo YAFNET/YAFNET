@@ -221,6 +221,14 @@
             "#text": "Vezi index admin"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Vizualizează lista țărilor interzise"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Editează țara interzisă"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Vizualizări lista de agenți utilizatori interzisă"
           },
@@ -703,14 +711,6 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Vezi info multumiri"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Vizualizează lista țărilor interzise"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
-            "#text": "Editează țara interzisă"
           }
         ]
       },
@@ -1027,6 +1027,56 @@
           {
             "@tag": "TITLE",
             "#text": "Atașamente de utilizator"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Adăugați o țară nouă"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Fără țări"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "În prezent, nu există țări interzise. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "ŢARĂ"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Țara interzisă există deja!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Țara a fost ștearsă cu succes"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Țări interzise"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Ţară:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Țara de interzis."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Adăugați țara interzisă"
           }
         ]
       },
@@ -5291,22 +5341,6 @@
             "#text": "Ar trebui ca medaliile unui utilizator să fie vizibile pe pagina de mesaje."
           },
           {
-            "@tag": "SHOW_MODLIST",
-            "#text": "Afișați lista moderatorilor:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN",
-            "#text": "Afișați lista moderatorilor în coloană:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-            "#text": "Afișează lista de moderatori ca o coloană separată într-o listă de categorii."
-          },
-          {
-            "@tag": "SHOW_MODLIST_HELP",
-            "#text": "Dacă această opțiune este bifată, coloana listei de moderatori este afișată în lista forumurilor."
-          },
-          {
             "@tag": "SHOW_MOVED_TOPICS",
             "#text": "Afișați subiectele mutate:"
           },
@@ -6751,6 +6785,10 @@
             "#text": "Atașamente"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Țări interzise"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Utilizatori interzisi"
           },
@@ -6921,10 +6959,6 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Utilizatori și roluri"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Țări interzise"
           }
         ]
       },
@@ -10672,6 +10706,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Hopa! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "You tried to enter a area where you didn't have access."
           },
@@ -10726,14 +10764,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Necesită cookie-uri"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "JavaScript necesar"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "Versiunea JavaScript"
           },
           {
             "@tag": "TITLE_EXCEPTION",
@@ -14732,56 +14762,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Ieri[/b] at {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES",
-        "Resource": [
-          {
-            "@tag": "ADD_COUNTRY",
-            "#text": "Adăugați o țară nouă"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "Fără țări"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "În prezent, nu există țări interzise. "
-          },
-          {
-            "@tag": "MASK",
-            "#text": "ŢARĂ"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "Țara interzisă există deja!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "Țara a fost ștearsă cu succes"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Țări interzise"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
-        "Resource": [
-          {
-            "@tag": "MASK",
-            "#text": "Ţară:"
-          },
-          {
-            "@tag": "MASK_HELP",
-            "#text": "Țara de interzis."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Adăugați țara interzisă"
           }
         ]
       }

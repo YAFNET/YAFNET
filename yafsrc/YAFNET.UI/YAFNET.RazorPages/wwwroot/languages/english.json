@@ -10690,8 +10690,12 @@
             "@name": "INFO",
             "Resource": [
                 {
-                    "@tag": "ACCESSDENIED",
-                    "#text": "You tried to enter an area where you didn't have access."
+                    "@tag": "404_TITLE",
+                    "#text": "Oops! The page you're looking for doesn't exist."
+                },
+                {
+	                "@tag": "ACCESSDENIED",
+	                "#text": "You tried to enter an area where you didn't have access."
                 },
                 {
                     "@tag": "CONTINUE",
@@ -10744,14 +10748,6 @@
                 {
                     "@tag": "TITLE_COOKIES",
                     "#text": "Requires cookies"
-                },
-                {
-                    "@tag": "TITLE_ECMAREQUIRED",
-                    "#text": "JavaScript required"
-                },
-                {
-                    "@tag": "TITLE_ECMAVERSION",
-                    "#text": "JavaScript version"
                 },
                 {
                     "@tag": "TITLE_EXCEPTION",

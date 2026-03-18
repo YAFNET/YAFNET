@@ -10706,6 +10706,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Ối! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Bạn đang cố gắng truy cập vào trang không hợp lệ."
           },
@@ -10760,14 +10764,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Yêu cầu cookie"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "Yêu cầu JavaScript"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "Phiên bản JavaScript"
           },
           {
             "@tag": "TITLE_EXCEPTION",

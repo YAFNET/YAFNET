@@ -12,10 +12,19 @@ using WebEssentials.AspNetCore.Pwa.WebPush.Model;
 
 namespace WebEssentials.AspNetCore.Pwa.WebPush.Util;
 
-// @LogicSoftware
-// Originally from https://github.com/LogicSoftware/WebPushEncryption/blob/master/src/Encryptor.cs
+/// <summary>
+/// @LogicSoftware
+/// Originally from https://github.com/LogicSoftware/WebPushEncryption/blob/master/src/Encryptor.cs
+/// </summary>
 static internal class Encryptor
 {
+    /// <summary>
+    /// Encrypts the specified user key.
+    /// </summary>
+    /// <param name="userKey">The user key.</param>
+    /// <param name="userSecret">The user secret.</param>
+    /// <param name="payload">The payload.</param>
+    /// <returns></returns>
     public static EncryptionResult Encrypt(string userKey, string userSecret, string payload)
     {
         var userKeyBytes = UrlBase64.Decode(userKey);
@@ -25,6 +34,13 @@ static internal class Encryptor
         return Encrypt(userKeyBytes, userSecretBytes, payloadBytes);
     }
 
+    /// <summary>
+    /// Encrypts the specified user key.
+    /// </summary>
+    /// <param name="userKey">The user key.</param>
+    /// <param name="userSecret">The user secret.</param>
+    /// <param name="payload">The payload.</param>
+    /// <returns></returns>
     public static EncryptionResult Encrypt(byte[] userKey, byte[] userSecret, byte[] payload)
     {
         var salt = GenerateSalt(16);
@@ -53,6 +69,11 @@ static internal class Encryptor
         };
     }
 
+    /// <summary>
+    /// Generates the salt.
+    /// </summary>
+    /// <param name="length">The length.</param>
+    /// <returns></returns>
     private static byte[] GenerateSalt(int length)
     {
         var salt = new byte[length];
@@ -61,6 +82,11 @@ static internal class Encryptor
         return salt;
     }
 
+    /// <summary>
+    /// Adds the padding to input.
+    /// </summary>
+    /// <param name="data">The data.</param>
+    /// <returns></returns>
     private static byte[] AddPaddingToInput(byte[] data)
     {
         var input = new byte[0 + 2 + data.Length];
@@ -69,6 +95,13 @@ static internal class Encryptor
         return input;
     }
 
+    /// <summary>
+    /// Encrypts the aes.
+    /// </summary>
+    /// <param name="nonce">The nonce.</param>
+    /// <param name="cek">The cek.</param>
+    /// <param name="message">The message.</param>
+    /// <returns></returns>
     private static byte[] EncryptAes(byte[] nonce, byte[] cek, byte[] message)
     {
         var cipher = new GcmBlockCipher(new AesEngine());
@@ -83,6 +116,13 @@ static internal class Encryptor
         return cipherText;
     }
 
+    /// <summary>
+    /// HKDFs the second step.
+    /// </summary>
+    /// <param name="key">The key.</param>
+    /// <param name="info">The information.</param>
+    /// <param name="length">The length.</param>
+    /// <returns></returns>
     public static byte[] HKDFSecondStep(byte[] key, byte[] info, int length)
     {
         var hmac = new HmacSha256(key);
@@ -97,6 +137,14 @@ static internal class Encryptor
         return result;
     }
 
+    /// <summary>
+    /// HKDFs the specified salt.
+    /// </summary>
+    /// <param name="salt">The salt.</param>
+    /// <param name="prk">The PRK.</param>
+    /// <param name="info">The information.</param>
+    /// <param name="length">The length.</param>
+    /// <returns></returns>
     public static byte[] HKDF(byte[] salt, byte[] prk, byte[] info, int length)
     {
         var hmac = new HmacSha256(salt);
@@ -105,6 +153,11 @@ static internal class Encryptor
         return HKDFSecondStep(key, info, length);
     }
 
+    /// <summary>
+    /// Converts the int.
+    /// </summary>
+    /// <param name="number">The number.</param>
+    /// <returns></returns>
     public static byte[] ConvertInt(int number)
     {
         var output = BitConverter.GetBytes(Convert.ToUInt16(number));
@@ -116,6 +169,13 @@ static internal class Encryptor
         return output;
     }
 
+    /// <summary>
+    /// Creates the information chunk.
+    /// </summary>
+    /// <param name="type">The type.</param>
+    /// <param name="recipientPublicKey">The recipient public key.</param>
+    /// <param name="senderPublicKey">The sender public key.</param>
+    /// <returns></returns>
     public static byte[] CreateInfoChunk(string type, byte[] recipientPublicKey, byte[] senderPublicKey)
     {
         var output = new List<byte>();

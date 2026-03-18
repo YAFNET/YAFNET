@@ -10,8 +10,16 @@ using Org.BouncyCastle.Security;
 
 namespace WebEssentials.AspNetCore.Pwa.WebPush.Util;
 
+/// <summary>
+/// 
+/// </summary>
 static internal class ECKeyHelper
 {
+    /// <summary>
+    /// Gets the private key.
+    /// </summary>
+    /// <param name="privateKey">The private key.</param>
+    /// <returns></returns>
     public static ECPrivateKeyParameters GetPrivateKey(byte[] privateKey)
     {
         Asn1Object version = new DerInteger(1);
@@ -32,6 +40,11 @@ static internal class ECKeyHelper
         return (ECPrivateKeyParameters)keyPair.Private;
     }
 
+    /// <summary>
+    /// Gets the public key.
+    /// </summary>
+    /// <param name="publicKey">The public key.</param>
+    /// <returns></returns>
     public static ECPublicKeyParameters GetPublicKey(byte[] publicKey)
     {
         Asn1Object keyTypeParameters = new DerSequence(new DerObjectIdentifier("1.2.840.10045.2.1"),
@@ -51,6 +64,10 @@ static internal class ECKeyHelper
         return (ECPublicKeyParameters)keyPair;
     }
 
+    /// <summary>
+    /// Generates the keys.
+    /// </summary>
+    /// <returns></returns>
     public static AsymmetricCipherKeyPair GenerateKeys()
     {
         var ecParameters = NistNamedCurves.GetByName("P-256");

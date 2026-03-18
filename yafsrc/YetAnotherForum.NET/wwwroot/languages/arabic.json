@@ -221,6 +221,14 @@
             "#text": "عرض المحتوى الاداري"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "وجهات النظر قائمة الدول المحظورة"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "تعديلات البلد المحظورة"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "طرق عرض قائمة وكلاء المستخدمين المحظورة"
           },
@@ -703,14 +711,6 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "عرض معلومات الشكر "
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "وجهات النظر قائمة الدول المحظورة"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
-            "#text": "تعديلات البلد المحظورة"
           }
         ]
       },
@@ -1027,6 +1027,56 @@
           {
             "@tag": "TITLE",
             "#text": "مرفقات المستخدم"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "إضافة دولة جديدة"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "لا بلدان"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "حاليا لا توجد دول محظورة. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "دولة"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "الدولة المحظورة موجودة بالفعل!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "تم حذف البلد بنجاح"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "الدول المحظورة"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "دولة:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "الدولة المراد حظرها."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "إضافة دولة محظورة"
           }
         ]
       },
@@ -5283,22 +5333,6 @@
             "#text": "هل يجب أن تكون ميداليات المستخدم ظاهرة على صفحة المشاركات."
           },
           {
-            "@tag": "SHOW_MODLIST",
-            "#text": "إظهار قائمة الوسطاء:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN",
-            "#text": "إظهار قائمة الوسطاء في العمود:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-            "#text": "إظهار قائمة الوسطاء كعمود منفصل في قائمة الفئات."
-          },
-          {
-            "@tag": "SHOW_MODLIST_HELP",
-            "#text": "إذا تم تحديد ذلك ، فسيتم عرض عمود قائمة الوسطاء في قائمة المنتدى."
-          },
-          {
             "@tag": "SHOW_MOVED_TOPICS",
             "#text": "إظهار المواضيع التي تم نقلها:"
           },
@@ -6743,6 +6777,10 @@
             "#text": "المرفقات"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "الدول المحظورة"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "المستخدمون المحظورون"
           },
@@ -6913,10 +6951,6 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "المستخدمون والأدوار"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "الدول المحظورة"
           }
         ]
       },
@@ -10652,6 +10686,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "أُووبس! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "لايمكن الدخول الى هذه الصفة ."
           },
@@ -10706,14 +10744,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "مطلوب )cookies("
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "(JavaScript)يجب ان يوجد"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "(JavaScript) إصدار"
           },
           {
             "@tag": "TITLE_EXCEPTION",
@@ -14712,56 +14742,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[ب] أمس [/b] في {0: t}"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES",
-        "Resource": [
-          {
-            "@tag": "ADD_COUNTRY",
-            "#text": "إضافة دولة جديدة"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "لا بلدان"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "حاليا لا توجد دول محظورة. "
-          },
-          {
-            "@tag": "MASK",
-            "#text": "دولة"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "الدولة المحظورة موجودة بالفعل!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "تم حذف البلد بنجاح"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "الدول المحظورة"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
-        "Resource": [
-          {
-            "@tag": "MASK",
-            "#text": "دولة:"
-          },
-          {
-            "@tag": "MASK_HELP",
-            "#text": "الدولة المراد حظرها."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "إضافة دولة محظورة"
           }
         ]
       }

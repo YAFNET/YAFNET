@@ -10686,6 +10686,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "أُووبس! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "لايمكن الدخول الى هذه الصفة ."
           },
@@ -10740,14 +10744,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "مطلوب )cookies("
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "(JavaScript)يجب ان يوجد"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "(JavaScript) إصدار"
           },
           {
             "@tag": "TITLE_EXCEPTION",

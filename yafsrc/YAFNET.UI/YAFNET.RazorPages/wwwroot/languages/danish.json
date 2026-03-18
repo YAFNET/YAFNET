@@ -10706,6 +10706,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Ups! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Du prøvede at få adgang til en sektion du ikke har adgang til."
           },
@@ -10760,14 +10764,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Kræver cookies"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "JavaScript påkrævet"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "JavaScript-version"
           },
           {
             "@tag": "TITLE_EXCEPTION",

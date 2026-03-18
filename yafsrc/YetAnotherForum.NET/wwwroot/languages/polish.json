@@ -221,6 +221,14 @@
             "#text": "Przegląda informacje w panelu administracyjnym"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Wyświetla listę zakazanych krajów"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Edytuje zakazany kraj"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Widoki zakazane lista agentów użytkowników"
           },
@@ -703,14 +711,6 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Przegląda informacje o podziękowaniach"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Wyświetla listę zakazanych krajów"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
-            "#text": "Edytuje zakazany kraj"
           }
         ]
       },
@@ -1027,6 +1027,56 @@
           {
             "@tag": "TITLE",
             "#text": "Załączniki użytkownika"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Dodaj nowy kraj"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Brak krajów"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Obecnie nie ma zakazanych krajów. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "KRAJ"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Zakazany kraj już istnieje!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Kraj został pomyślnie usunięty"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Zakazane kraje"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Kraj:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Kraj, którego należy zakazać."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Dodaj zakazany kraj"
           }
         ]
       },
@@ -5283,22 +5333,6 @@
             "#text": "Czy medale użytkownika powinny być widoczne na stronie z postami."
           },
           {
-            "@tag": "SHOW_MODLIST",
-            "#text": "Pokaż listę moderatorów:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN",
-            "#text": "Pokaż listę moderatorów w kolumnie:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-            "#text": "Wyświetla listę moderatorów jako osobną kolumnę na liście kategorii."
-          },
-          {
-            "@tag": "SHOW_MODLIST_HELP",
-            "#text": "Jeśli ta opcja jest zaznaczona, kolumna Lista moderatorów będzie wyświetlana na liście forów."
-          },
-          {
             "@tag": "SHOW_MOVED_TOPICS",
             "#text": "Pokaż przeniesione tematy:"
           },
@@ -6743,6 +6777,10 @@
             "#text": "Załączniki"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Zakazane kraje"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Zakazany użytkowników"
           },
@@ -6913,10 +6951,6 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Użytkownicy i Role"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Zakazane kraje"
           }
         ]
       },
@@ -10660,6 +10694,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Ups! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Próbujesz się dostać do miejsca, do którego nie masz dostępu."
           },
@@ -10714,14 +10752,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Wymagane ciasteczka"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "Wymagany JavaScript"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "Wersja JavaScript"
           },
           {
             "@tag": "TITLE_EXCEPTION",
@@ -14720,56 +14750,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Wczoraj[/b] o godzinie {0:T}."
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES",
-        "Resource": [
-          {
-            "@tag": "ADD_COUNTRY",
-            "#text": "Dodaj nowy kraj"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "Brak krajów"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Obecnie nie ma zakazanych krajów. "
-          },
-          {
-            "@tag": "MASK",
-            "#text": "KRAJ"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "Zakazany kraj już istnieje!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "Kraj został pomyślnie usunięty"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Zakazane kraje"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
-        "Resource": [
-          {
-            "@tag": "MASK",
-            "#text": "Kraj:"
-          },
-          {
-            "@tag": "MASK_HELP",
-            "#text": "Kraj, którego należy zakazać."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Dodaj zakazany kraj"
           }
         ]
       }

@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Text;
 
 namespace WebEssentials.AspNetCore.Pwa.WebPush.Util;
 
+/// <summary>
+/// 
+/// </summary>
 static internal class UrlBase64
 {
     /// <summary>
@@ -11,14 +15,16 @@ static internal class UrlBase64
     /// <returns></returns>
     public static byte[] Decode(string base64)
     {
-        base64 = base64.Replace('-', '+').Replace('_', '/');
+        var base64StringBuilder = new StringBuilder();
+
+        base64StringBuilder.Append(base64.Replace('-', '+').Replace('_', '/'));
 
         while (base64.Length % 4 != 0)
         {
-            base64 += "=";
+            base64StringBuilder.Append('=');
         }
 
-        return Convert.FromBase64String(base64);
+        return Convert.FromBase64String(base64StringBuilder.ToString());
     }
 
     /// <summary>

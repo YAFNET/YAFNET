@@ -59,8 +59,10 @@ public static class CategoryRouteHelper
         var areaSegment = area.IsSet() ? $"{area}/" : string.Empty;
 
         return options
-            .AddRewrite($@"(?i)^{areaSegment}{PathSegment}/(\d+)/([^/]+)$", $"{areaSegment}Index?c=$1", skipRemainingRules: true)
+            .AddRewrite($@"(?i)^{areaSegment}{PathSegment}/(\d+)/([^/]+)$", $"{areaSegment}Index?c=$1",
+                skipRemainingRules: true)
             // Also rewrite /Category/{id}/{name}/{handler} so page handlers like ShowMore work
-            .AddRewrite($@"(?i)^{areaSegment}{PathSegment}/(\d+)/([^/]+)/([A-Za-z]+)$", $"{areaSegment}Index/$3?c=$1", skipRemainingRules: true);
+            .AddRewrite($@"(?i)^{areaSegment}{PathSegment}/(\d+)/([^/]+)/([A-Za-z]+)$", $"{areaSegment}Index/$3?c=$1",
+                skipRemainingRules: true);
     }
 }

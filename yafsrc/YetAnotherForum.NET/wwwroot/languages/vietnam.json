@@ -221,6 +221,14 @@
             "#text": "Xem chỉ mục quản trị viên"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Xem danh sách các quốc gia bị cấm"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Chỉnh sửa quốc gia bị cấm"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Lượt xem danh sách đại lý người dùng bị cấm"
           },
@@ -703,14 +711,6 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Xem thông tin cảm ơn"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Xem danh sách các quốc gia bị cấm"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
-            "#text": "Chỉnh sửa quốc gia bị cấm"
           }
         ]
       },
@@ -1027,6 +1027,56 @@
           {
             "@tag": "TITLE",
             "#text": "Tệp đính kèm của người dùng"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Thêm quốc gia mới"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Không có quốc gia"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Hiện tại không có quốc gia nào bị cấm. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "QUỐC GIA"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Quốc gia bị cấm đã tồn tại!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Quốc gia đã được xóa thành công"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Các quốc gia bị cấm"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Quốc gia:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Đất nước cấm."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Thêm quốc gia bị cấm"
           }
         ]
       },
@@ -5291,22 +5341,6 @@
             "#text": "Nếu huy chương của một người dùng được hiển thị trên trang bài viết."
           },
           {
-            "@tag": "SHOW_MODLIST",
-            "#text": "Hiển thị danh sách người điều hành:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN",
-            "#text": "Hiển thị Danh sách người điều hành trong cột:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-            "#text": "Hiển thị danh sách người kiểm duyệt dưới dạng một cột riêng biệt trong danh sách danh mục."
-          },
-          {
-            "@tag": "SHOW_MODLIST_HELP",
-            "#text": "Nếu điều này được chọn, cột danh sách người kiểm duyệt sẽ được hiển thị trong danh sách diễn đàn."
-          },
-          {
             "@tag": "SHOW_MOVED_TOPICS",
             "#text": "Hiển thị các chủ đề đã chuyển:"
           },
@@ -6751,6 +6785,10 @@
             "#text": "Tập tin đính kèm"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Các quốc gia bị cấm"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Người dùng bị cấm"
           },
@@ -6921,10 +6959,6 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Người dùng và vai trò"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Các quốc gia bị cấm"
           }
         ]
       },
@@ -10672,6 +10706,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Ối! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Bạn đang cố gắng truy cập vào trang không hợp lệ."
           },
@@ -10726,14 +10764,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Yêu cầu cookie"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "Yêu cầu JavaScript"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "Phiên bản JavaScript"
           },
           {
             "@tag": "TITLE_EXCEPTION",
@@ -14732,56 +14762,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Hôm qua[/b] vào lúc {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES",
-        "Resource": [
-          {
-            "@tag": "ADD_COUNTRY",
-            "#text": "Thêm quốc gia mới"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "Không có quốc gia"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Hiện tại không có quốc gia nào bị cấm. "
-          },
-          {
-            "@tag": "MASK",
-            "#text": "QUỐC GIA"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "Quốc gia bị cấm đã tồn tại!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "Quốc gia đã được xóa thành công"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Các quốc gia bị cấm"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
-        "Resource": [
-          {
-            "@tag": "MASK",
-            "#text": "Quốc gia:"
-          },
-          {
-            "@tag": "MASK_HELP",
-            "#text": "Đất nước cấm."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Thêm quốc gia bị cấm"
           }
         ]
       }

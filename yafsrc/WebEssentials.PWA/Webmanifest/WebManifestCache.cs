@@ -7,12 +7,31 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace WebEssentials.AspNetCore.Pwa;
 
+/// <summary>
+/// 
+/// </summary>
 internal class WebManifestCache
 {
+    /// <summary>
+    /// The env
+    /// </summary>
     private readonly IWebHostEnvironment _env;
+
+    /// <summary>
+    /// The cache
+    /// </summary>
     private readonly MemoryCache _cache;
+
+    /// <summary>
+    /// The file name
+    /// </summary>
     private readonly string _fileName;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WebManifestCache"/> class.
+    /// </summary>
+    /// <param name="env">The env.</param>
+    /// <param name="fileName">Name of the file.</param>
     public WebManifestCache(IWebHostEnvironment env, string fileName)
     {
         this._env = env;
@@ -20,6 +39,10 @@ internal class WebManifestCache
         this._cache = new MemoryCache(new MemoryCacheOptions());
     }
 
+    /// <summary>
+    /// Gets the manifest.
+    /// </summary>
+    /// <returns></returns>
     public WebManifest GetManifest()
     {
         return this._cache.GetOrCreate("webmanifest", (entry) =>

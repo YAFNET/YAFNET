@@ -10710,6 +10710,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Jejda! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Zkusili jste vstoupit do části fóra, kam nemáte povolený přístup."
           },
@@ -10764,14 +10768,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Vyžaduje soubory cookie"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "Je vyžadován JavaScript"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "Verze JavaScriptu"
           },
           {
             "@tag": "TITLE_EXCEPTION",

@@ -10706,6 +10706,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Oi! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Jūs bandėte įvesti, kur Jūs neturėjo galimybės. "
           },
@@ -10760,14 +10764,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Reikalingi slapukai"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "Reikalingas \"JavaScript"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "\"JavaScript\" versija"
           },
           {
             "@tag": "TITLE_EXCEPTION",

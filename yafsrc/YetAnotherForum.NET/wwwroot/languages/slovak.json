@@ -221,6 +221,14 @@
             "#text": "Zobrazenia indexu správcu"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Zobrazuje zoznam zakázaných krajín"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Upravuje zakázanú krajinu"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Zobrazy Zoznam zakázaných užívateľských agentov"
           },
@@ -703,14 +711,6 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Zobrazenia vďaka info"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Zobrazuje zoznam zakázaných krajín"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
-            "#text": "Upravuje zakázanú krajinu"
           }
         ]
       },
@@ -1027,6 +1027,56 @@
           {
             "@tag": "TITLE",
             "#text": "Prílohy používateľa"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Pridať novú krajinu"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žiadne krajiny"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "V súčasnosti neexistujú žiadne zakázané krajiny. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "KRAJINA"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Zakázaná krajina už existuje!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Krajina bola úspešne vymazaná"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Zakázané krajiny"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Krajina:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Krajina na zákaz."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Pridať zakázanú krajinu"
           }
         ]
       },
@@ -5291,22 +5341,6 @@
             "#text": "Mali by byť medailóny používateľa viditeľné na stránke s príspevkami."
           },
           {
-            "@tag": "SHOW_MODLIST",
-            "#text": "Zobraziť zoznam moderátorov:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN",
-            "#text": "Zobrazenie zoznamu moderátorov v stĺpci:"
-          },
-          {
-            "@tag": "SHOW_MODLIST_ASCOLUMN_HELP",
-            "#text": "Zobrazí zoznam moderátorov ako samostatný stĺpec v zozname kategórií."
-          },
-          {
-            "@tag": "SHOW_MODLIST_HELP",
-            "#text": "Ak je táto možnosť začiarknutá, v zozname fóra sa zobrazí stĺpec Zoznam moderátorov."
-          },
-          {
             "@tag": "SHOW_MOVED_TOPICS",
             "#text": "Zobraziť presunuté témy:"
           },
@@ -6751,6 +6785,10 @@
             "#text": "Prílohy"
           },
           {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Zakázané krajiny"
+          },
+          {
             "@tag": "ADMIN_BANNED_USERAGENTS",
             "#text": "Zakázané používateľa"
           },
@@ -6921,10 +6959,6 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Používatelia a roly"
-          },
-          {
-            "@tag": "ADMIN_BANNED_COUNTRIES",
-            "#text": "Zakázané krajiny"
           }
         ]
       },
@@ -10672,6 +10706,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Ojoj! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Pokúsili ste sa vstúpiť do časti fóra, kam nemáte povolený prístup."
           },
@@ -10726,14 +10764,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Vyžaduje súbory cookie"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "Vyžaduje sa JavaScript"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "Verzia JavaScript"
           },
           {
             "@tag": "TITLE_EXCEPTION",
@@ -14732,56 +14762,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Včera[/b] o {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES",
-        "Resource": [
-          {
-            "@tag": "ADD_COUNTRY",
-            "#text": "Pridať novú krajinu"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "Žiadne krajiny"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "V súčasnosti neexistujú žiadne zakázané krajiny. "
-          },
-          {
-            "@tag": "MASK",
-            "#text": "KRAJINA"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "Zakázaná krajina už existuje!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "Krajina bola úspešne vymazaná"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Zakázané krajiny"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
-        "Resource": [
-          {
-            "@tag": "MASK",
-            "#text": "Krajina:"
-          },
-          {
-            "@tag": "MASK_HELP",
-            "#text": "Krajina na zákaz."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Pridať zakázanú krajinu"
           }
         ]
       }

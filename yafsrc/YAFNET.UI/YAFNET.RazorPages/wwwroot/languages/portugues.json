@@ -10706,6 +10706,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Ops! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Você tentou ter acesso a uma área não disponível para você."
           },
@@ -10760,14 +10764,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Requer cookies"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "JavaScript necessário"
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "Versão JavaScript"
           },
           {
             "@tag": "TITLE_EXCEPTION",

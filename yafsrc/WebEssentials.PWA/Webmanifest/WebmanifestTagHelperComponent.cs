@@ -13,7 +13,14 @@ namespace WebEssentials.AspNetCore.Pwa;
 /// <seealso cref="Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent" />
 internal class WebmanifestTagHelperComponent : TagHelperComponent
 {
+    /// <summary>
+    /// The options
+    /// </summary>
     private readonly PwaOptions _options;
+
+    /// <summary>
+    /// The service provider
+    /// </summary>
     private readonly IServiceProvider _serviceProvider;
 
     /// <summary>

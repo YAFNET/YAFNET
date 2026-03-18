@@ -10706,6 +10706,10 @@
         "@name": "INFO",
         "Resource": [
           {
+            "@tag": "404_TITLE",
+            "#text": "Oih! "
+          },
+          {
             "@tag": "ACCESSDENIED",
             "#text": "Teil puudub ligipääs antud foorumiosale."
           },
@@ -10760,14 +10764,6 @@
           {
             "@tag": "TITLE_COOKIES",
             "#text": "Vajab küpsiseid"
-          },
-          {
-            "@tag": "TITLE_ECMAREQUIRED",
-            "#text": "JavaScript on nõutud "
-          },
-          {
-            "@tag": "TITLE_ECMAVERSION",
-            "#text": "JavaScript versioon"
           },
           {
             "@tag": "TITLE_EXCEPTION",
