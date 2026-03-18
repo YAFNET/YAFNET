@@ -39,12 +39,12 @@ namespace ServiceStack
         /// <param name="lambdaExpression">The lambda expression.</param>
         /// <returns>Func&lt;TModel, TValue&gt;.</returns>
         /// <exception cref="System.ArgumentNullException">lambdaExpression</exception>
-        public static Func<TModel, TValue> Compile<TModel, TValue>(this Expression<Func<TModel, TValue>> lambdaExpression)
+        public static Func<TModel, TValue> Compile<TModel, TValue>(
+            this Expression<Func<TModel, TValue>> lambdaExpression)
         {
-            if (lambdaExpression == null)
-                throw new ArgumentNullException(nameof(lambdaExpression));
-
-            return ExpressionUtil.CachedExpressionCompiler.Process(lambdaExpression);
+            return lambdaExpression == null
+                ? throw new ArgumentNullException(nameof(lambdaExpression))
+                : ExpressionUtil.CachedExpressionCompiler.Process(lambdaExpression);
         }
 
         // Evaluates an expression (not a LambdaExpression), e.g. 2 + 2.
