@@ -34,15 +34,15 @@ public class EmojiOneTests
     /// <summary>
     /// The ASCII to Unicode test.
     /// </summary>
-    [Fact]
+    [Test]
     [Description("Ascii To Unicode Test")]
     public void AsciiToUnicode_Test()
     {
         // single smiley
-        var text = @":D";
-        var expected = "😃";
-        var actual = EmojiOne.AsciiToUnicode(EmojiOne.ShortNameToUnicode(text));
+        const string text = ":D";
+        const string expected = "😃";
+        var actual = EmojiOne.AsciiToUnicode(EmojiOne.ShortNameToUnicode(text, true));
 
-        Assert.Equal(expected, actual);
+        actual.Should().Be(expected);
     }
 }

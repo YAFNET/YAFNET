@@ -32,15 +32,14 @@ public class BBCodeHelperTests
     /// <summary>
     /// Strips all BBCodes from a string.
     /// </summary>
-    [Fact]
+    [Test]
     [Description("Strips all BBCodes from a string.")]
     public void StripBBCode_Test()
     {
-        const string TestMessage =
+        const string testMessage =
             "This is a test text containing [b]bold[/b] and [i]italic[i] text and other bbcodes [img]http://test.com/testimage.jpg[/img]";
 
-        Assert.Equal(
-            "This is a test text containing bold and italic text and other bbcodes http://test.com/testimage.jpg",
-            BBCodeHelper.StripBBCode(TestMessage));
+        BBCodeHelper.StripBBCode(testMessage).Should()
+            .Be("This is a test text containing bold and italic text and other bbcodes http://test.com/testimage.jpg");
     }
 }

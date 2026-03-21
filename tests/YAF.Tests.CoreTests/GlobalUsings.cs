@@ -1,7 +1,7 @@
 // Global using directives
 
-global using System.ComponentModel;
+global using AwesomeAssertions;
 
-global using Xunit;
+global using NUnit.Framework;
 
 global using YAF.Core.Helpers;

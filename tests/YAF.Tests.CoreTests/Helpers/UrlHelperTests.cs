@@ -32,16 +32,14 @@ public class UrlHelperTests
     /// <summary>
     /// Count all URLs Test
     /// </summary>
-    [Fact]
+    [Test]
     [Description("Count all URLs Test.")]
     public void CountUrls_Test()
     {
-        const string TestMessage =
+        const string testMessage =
             @"Indeed, back to the drawing board. You might be against [url=http://supplementsbook.org/ketoslim/]Ketoslim[/url] for some reason. 
                  Read More: [url = http://supplementsbook.org/ketoslim/]http://supplementsbook.org/ketoslim/[/url]";
 
-        Assert.Equal(
-            3,
-            UrlHelper.CountUrls(TestMessage));
+        UrlHelper.CountUrls(testMessage).Should().Be(3);
     }
 }

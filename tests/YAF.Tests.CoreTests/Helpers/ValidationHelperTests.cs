@@ -32,12 +32,22 @@ public class ValidationHelperTests
     /// <summary>
     /// Determines whether [is valid email test].
     /// </summary>
-    [Fact]
+    [Test]
     [Description("Determines whether [is valid email test]")]
     public void IsValidEmail_Test()
     {
-        const string TestEmail = "yaf@co.geauga.oh.us";
+        const string testEmail = "yaf@co.geauga.oh.us";
 
-        Assert.True(ValidationHelper.IsValidEmail(TestEmail), "Email address is not valid");
+        ValidationHelper.IsValidEmail(testEmail).Should().BeTrue("Email address is not valid");
+    }
+
+    /// <summary>
+    /// Test the IPHelper if the ip address matches the pattern.
+    /// </summary>
+    [Test]
+    [Description("Test the IPHelper if the ip address matches the pattern.")]
+    public void IpHelperTest()
+    {
+        IPHelper.IsBanned("43.*.*.*", "43.134.127.238").Should().BeTrue("true");
     }
 }
