@@ -22,11 +22,14 @@
  * under the License.
  */
 
+using Microsoft.Extensions.Logging;
+
 namespace YAF.Core.Middleware;
 
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.RateLimiting;
 using System.Threading.Tasks;
 
 using YAF.Types.Models;
@@ -88,6 +91,18 @@ public class CheckBannedUserAgents : IHaveServiceLocator
             return;
         }
 
+        var isAuthenticated = context.User.Identity?.IsAuthenticated;
+
+        if (BoardContext.Current.IsAdmin || (isAuthenticated.HasValue && isAuthenticated.Value &&
+                                             BoardContext.Current.PageUser.NumPosts >=
+                                             this.Get<BoardSettings>()
+                                                 .IgnoreSpamWordCheckPostCount))
+        {
+            await this.requestDelegate(context);
+
+            return;
+        }
+
         var userAgent = context.Request.Headers.UserAgent.ToString();
 
         if (userAgent.IsNotSet())
@@ -102,6 +117,17 @@ public class CheckBannedUserAgents : IHaveServiceLocator
             await this.requestDelegate(context);
 
             return;
+        }
+
+        if (BoardContext.Current.BoardSettings.LogBannedIP)
+        {
+            this.Get<ILogger<CheckBannedUserAgents>>().Log(
+                null,
+                "Banned UserAgent Blocked",
+                $"""
+                 Ending Response for User with UserAgent "{userAgent}"
+                 """,
+                EventLogTypes.IpBanDetected);
         }
 
         context.Response.StatusCode = (int)HttpStatusCode.Forbidden;

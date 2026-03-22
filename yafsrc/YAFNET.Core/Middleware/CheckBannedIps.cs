@@ -89,7 +89,12 @@ public class CheckBannedIps : IHaveServiceLocator
             return;
         }
 
-        if (context.Connection.RemoteIpAddress is null)
+        var isAuthenticated = context.User.Identity?.IsAuthenticated;
+
+        if (BoardContext.Current.IsAdmin || (isAuthenticated.HasValue && isAuthenticated.Value &&
+                                             BoardContext.Current.PageUser.NumPosts >=
+                                             this.Get<BoardSettings>()
+                                                 .IgnoreSpamWordCheckPostCount) || context.Connection.RemoteIpAddress is null)
         {
             await this.requestDelegate(context);
 
@@ -112,7 +117,7 @@ public class CheckBannedIps : IHaveServiceLocator
                 null,
                 "Banned IP Blocked",
                 $"""
-                 Ending Response for Banned PageUser at IP "{ipToCheck}"
+                 Ending Response for Banned User at IP "{ipToCheck}"
                  """,
                 EventLogTypes.IpBanDetected);
         }

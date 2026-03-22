@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.Extensions.Logging;
+
 namespace YAF.Core.Middleware;
 
 using System;
@@ -89,7 +91,12 @@ public class CheckBannedCountries : IHaveServiceLocator
             return;
         }
 
-        if (bannedCountries == null)
+        var isAuthenticated = context.User.Identity?.IsAuthenticated;
+
+        if (BoardContext.Current.IsAdmin || (isAuthenticated.HasValue && isAuthenticated.Value &&
+                                             BoardContext.Current.PageUser.NumPosts >=
+                                             this.Get<BoardSettings>()
+                                                 .IgnoreSpamWordCheckPostCount) || bannedCountries == null)
         {
             await this.requestDelegate(context);
 
@@ -113,6 +120,17 @@ public class CheckBannedCountries : IHaveServiceLocator
             await this.requestDelegate(context);
 
             return;
+        }
+
+        if (BoardContext.Current.BoardSettings.LogBannedIP)
+        {
+            this.Get<ILogger<CheckBannedCountries>>().Log(
+                null,
+                "Banned Country Blocked",
+                $"""
+                 Ending Response for Banned User with Country "{country}"
+                 """,
+                EventLogTypes.IpBanDetected);
         }
 
         context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
