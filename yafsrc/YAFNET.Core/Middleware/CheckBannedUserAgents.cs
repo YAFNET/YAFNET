@@ -29,7 +29,6 @@ namespace YAF.Core.Middleware;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Threading.RateLimiting;
 using System.Threading.Tasks;
 
 using YAF.Types.Models;
@@ -85,18 +84,6 @@ public class CheckBannedUserAgents : IHaveServiceLocator
                     .Select(x => x.UserAgent.Trim()).ToList());
         }
         catch (Exception)
-        {
-            await this.requestDelegate(context);
-
-            return;
-        }
-
-        var isAuthenticated = context.User.Identity?.IsAuthenticated;
-
-        if (BoardContext.Current.IsAdmin || (isAuthenticated.HasValue && isAuthenticated.Value &&
-                                             BoardContext.Current.PageUser.NumPosts >=
-                                             this.Get<BoardSettings>()
-                                                 .IgnoreSpamWordCheckPostCount))
         {
             await this.requestDelegate(context);
 

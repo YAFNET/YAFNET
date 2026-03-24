@@ -89,18 +89,6 @@ public class CheckBannedIps : IHaveServiceLocator
             return;
         }
 
-        var isAuthenticated = context.User.Identity?.IsAuthenticated;
-
-        if (BoardContext.Current.IsAdmin || (isAuthenticated.HasValue && isAuthenticated.Value &&
-                                             BoardContext.Current.PageUser.NumPosts >=
-                                             this.Get<BoardSettings>()
-                                                 .IgnoreSpamWordCheckPostCount) || context.Connection.RemoteIpAddress is null)
-        {
-            await this.requestDelegate(context);
-
-            return;
-        }
-
         var ipToCheck = context.Connection.RemoteIpAddress.ToString();
 
         // check for this user in the list...

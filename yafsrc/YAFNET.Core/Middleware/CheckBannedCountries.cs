@@ -91,18 +91,6 @@ public class CheckBannedCountries : IHaveServiceLocator
             return;
         }
 
-        var isAuthenticated = context.User.Identity?.IsAuthenticated;
-
-        if (BoardContext.Current.IsAdmin || (isAuthenticated.HasValue && isAuthenticated.Value &&
-                                             BoardContext.Current.PageUser.NumPosts >=
-                                             this.Get<BoardSettings>()
-                                                 .IgnoreSpamWordCheckPostCount) || bannedCountries == null)
-        {
-            await this.requestDelegate(context);
-
-            return;
-        }
-
         var ipAddress = context.GetUserRealIPAddress();
 
         var country = this.Get<IGeoIpCountryService>().GetCountry(ipAddress).CountryCode;
