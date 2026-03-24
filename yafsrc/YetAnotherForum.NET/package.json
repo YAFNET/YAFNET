@@ -27,9 +27,9 @@
     "simple-webp-converter": "^1.1.2",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.4",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "webpack": "^5.105.4",
-    "webpack-cli": "^7.0.1",
+    "webpack-cli": "^7.0.2",
     "webpack-merge": "^6.0.1"
   },
   "dependencies": {
