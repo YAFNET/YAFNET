@@ -66,7 +66,7 @@ public static class CategoryRouteHelper
 
         if (routeOptions.AppendTrailingSlash)
         {
-            url.AppendTrailingSlash();
+            url = url.AppendTrailingSlash();
         }
 
         return url;
@@ -80,32 +80,34 @@ public static class CategoryRouteHelper
     public static RewriteOptions AddCategoryRules(RewriteOptions options, string area,
         RouteOptions routeOptions = null)
     {
-        var areaSegment = area.IsSet() ? $"{area}/" : string.Empty;
         var indexPage = ForumPages.Index.GetPageName();
-
-        var trailingSlash = "";
+        var indexReplacement = area.CombineWith(indexPage);
+        var handlerReplacement = indexReplacement.CombineWith("$3");
 
         if (routeOptions is not null)
         {
             if (routeOptions.AppendTrailingSlash)
             {
-                trailingSlash = "/";
+                indexReplacement = indexReplacement.AppendTrailingSlash();
+                handlerReplacement = handlerReplacement.AppendTrailingSlash();
             }
 
             if (routeOptions.LowercaseUrls)
             {
-                areaSegment = areaSegment.ToLowerInvariant();
-                indexPage = indexPage.ToLowerInvariant();
+                indexReplacement = indexReplacement.ToLowerInvariant();
+                handlerReplacement = handlerReplacement.ToLowerInvariant();
             }
         }
 
+        var categoryBase = area.IsSet() ? $"{area}/{PathSegment}" : PathSegment;
+
         return options
-            .AddRewrite($@"(?i)^{areaSegment}{PathSegment}/(\d+)/([^/]+)/?$",
-                $"{areaSegment}{indexPage}{trailingSlash}?c=$1",
+            .AddRewrite($@"(?i)^{categoryBase}/(\d+)/([^/]+)/?$",
+                $"{indexReplacement}?c=$1",
                 skipRemainingRules: true)
             // Also rewrite /Category/{id}/{name}/{handler} so page handlers like ShowMore work
-            .AddRewrite($@"(?i)^{areaSegment}{PathSegment}/(\d+)/([^/]+)/([A-Za-z]+)/?$",
-                $"{areaSegment}{indexPage}/$3{trailingSlash}?c=$1",
+            .AddRewrite($@"(?i)^{categoryBase}/(\d+)/([^/]+)/([A-Za-z]+)/?$",
+                $"{handlerReplacement}?c=$1",
                 skipRemainingRules: true);
     }
 }
