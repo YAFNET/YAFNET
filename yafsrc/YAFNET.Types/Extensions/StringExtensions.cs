@@ -446,5 +446,14 @@ public static class StringExtensions
 
             return list;
         }
+
+        /// <summary>
+        /// Appends the trailing slash to a string if the string does not already contain it.
+        /// </summary>
+        /// <returns>String with '/'</returns>
+        public string AppendTrailingSlash()
+        {
+            return !path.EndsWith('/') ? $"{path}/" : path;
+        }
     }
 }

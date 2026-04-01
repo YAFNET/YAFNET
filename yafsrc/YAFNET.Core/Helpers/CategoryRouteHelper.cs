@@ -54,16 +54,19 @@ public static class CategoryRouteHelper
             ? $"/{area}/{PathSegment}/{categoryId}/{name}"
             : $"/{PathSegment}/{categoryId}/{name}";
 
-        if (routeOptions != null)
+        if (routeOptions == null)
         {
-            if (routeOptions.LowercaseUrls)
-            {
-                url = url.ToLowerInvariant();
-            }
-            if (routeOptions.AppendTrailingSlash && !url.EndsWith('/'))
-            {
-                url += "/";
-            }
+            return url;
+        }
+
+        if (routeOptions.LowercaseUrls)
+        {
+            url = url.ToLowerInvariant();
+        }
+
+        if (routeOptions.AppendTrailingSlash)
+        {
+            url.AppendTrailingSlash();
         }
 
         return url;
@@ -78,15 +81,17 @@ public static class CategoryRouteHelper
         RouteOptions routeOptions = null)
     {
         var areaSegment = area.IsSet() ? $"{area}/" : string.Empty;
-        var indexPage = "Index";
+        var indexPage = ForumPages.Index.GetPageName();
 
         var trailingSlash = "";
-        if (routeOptions != null)
+
+        if (routeOptions is not null)
         {
             if (routeOptions.AppendTrailingSlash)
             {
                 trailingSlash = "/";
             }
+
             if (routeOptions.LowercaseUrls)
             {
                 areaSegment = areaSegment.ToLowerInvariant();
