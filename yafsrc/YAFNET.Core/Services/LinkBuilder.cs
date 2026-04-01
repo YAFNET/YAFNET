@@ -25,6 +25,7 @@
 namespace YAF.Core.Services;
 
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Options;
 
 using YAF.Types.Models;
 using YAF.Types.Objects;
@@ -135,7 +136,11 @@ public class LinkBuilder : IHaveServiceLocator, ILinkBuilder
     /// </returns>
     public string GetCategoryLink(int categoryId, string categoryName)
     {
-        return CategoryRouteHelper.BuildUrl(this.Get<BoardConfiguration>().Area, categoryId, categoryName);
+        return CategoryRouteHelper.BuildUrl(
+            this.Get<BoardConfiguration>().Area, 
+            categoryId, 
+            categoryName,
+            this.Get<IOptions<RouteOptions>>().Value);
     }
 
     /// <summary>

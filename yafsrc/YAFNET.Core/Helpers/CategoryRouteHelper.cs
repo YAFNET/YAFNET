@@ -25,6 +25,7 @@
 namespace YAF.Core.Helpers;
 
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.AspNetCore.Routing;
 
 using YAF.Types.Extensions;
 
@@ -41,28 +42,65 @@ public static class CategoryRouteHelper
 
     /// <summary>
     /// Builds a category URL: /Category/{id}/{name} or /{area}/Category/{id}/{name}.
+    /// When <paramref name="routeOptions"/> is provided, the URL respects
+    /// <see cref="RouteOptions.LowercaseUrls"/> and <see cref="RouteOptions.AppendTrailingSlash"/>.
     /// </summary>
-    public static string BuildUrl(string area, int categoryId, string categoryName)
+    public static string BuildUrl(string area, int categoryId, string categoryName,
+        RouteOptions routeOptions = null)
     {
         var name = UrlRewriteHelper.CleanStringForUrl(categoryName);
 
-        return area.IsSet()
+        var url = area.IsSet()
             ? $"/{area}/{PathSegment}/{categoryId}/{name}"
             : $"/{PathSegment}/{categoryId}/{name}";
+
+        if (routeOptions != null)
+        {
+            if (routeOptions.LowercaseUrls)
+            {
+                url = url.ToLowerInvariant();
+            }
+            if (routeOptions.AppendTrailingSlash && !url.EndsWith('/'))
+            {
+                url += "/";
+            }
+        }
+
+        return url;
     }
 
     /// <summary>
     /// Adds rewrite rules that map /Category/{id}/{name} to the Index page.
+    /// When <paramref name="routeOptions"/> is provided, the rewrite targets respect
+    /// <see cref="RouteOptions.LowercaseUrls"/> and <see cref="RouteOptions.AppendTrailingSlash"/>.
     /// </summary>
-    public static RewriteOptions AddCategoryRules(RewriteOptions options, string area)
+    public static RewriteOptions AddCategoryRules(RewriteOptions options, string area,
+        RouteOptions routeOptions = null)
     {
         var areaSegment = area.IsSet() ? $"{area}/" : string.Empty;
+        var indexPage = "Index";
+
+        var trailingSlash = "";
+        if (routeOptions != null)
+        {
+            if (routeOptions.AppendTrailingSlash)
+            {
+                trailingSlash = "/";
+            }
+            if (routeOptions.LowercaseUrls)
+            {
+                areaSegment = areaSegment.ToLowerInvariant();
+                indexPage = indexPage.ToLowerInvariant();
+            }
+        }
 
         return options
-            .AddRewrite($@"(?i)^{areaSegment}{PathSegment}/(\d+)/([^/]+)$", $"{areaSegment}Index?c=$1",
+            .AddRewrite($@"(?i)^{areaSegment}{PathSegment}/(\d+)/([^/]+)/?$",
+                $"{areaSegment}{indexPage}{trailingSlash}?c=$1",
                 skipRemainingRules: true)
             // Also rewrite /Category/{id}/{name}/{handler} so page handlers like ShowMore work
-            .AddRewrite($@"(?i)^{areaSegment}{PathSegment}/(\d+)/([^/]+)/([A-Za-z]+)$", $"{areaSegment}Index/$3?c=$1",
+            .AddRewrite($@"(?i)^{areaSegment}{PathSegment}/(\d+)/([^/]+)/([A-Za-z]+)/?$",
+                $"{areaSegment}{indexPage}/$3{trailingSlash}?c=$1",
                 skipRemainingRules: true);
     }
 }
