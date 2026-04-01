@@ -827,7 +827,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             new SyntaxHighlighterRegexReplaceRule(
                 new Regex(
                     @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]\r\n|\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]",
-                    Options,
+                    Options | RegexOptions.NonBacktracking,
                     TimeSpan.FromMilliseconds(100)),
                 """<div class="code">${inner}</div>""") {
                                                             RuleRank = 2
@@ -849,7 +849,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             new SyntaxHighlighterRegexReplaceRule(
                 new Regex(
                     @"\[code\](?<inner>(.*?))\[/code\]\r\n|\[code\](?<inner>(.*?))\[/code\]",
-                    Options,
+                    Options | RegexOptions.NonBacktracking,
                     TimeSpan.FromMilliseconds(100)),
                 """<div class="code">${inner}</div>"""));
 
@@ -864,7 +864,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                     </div>
                 </div>
                 """,
-                Options) { RuleRank = 61 });
+                Options | RegexOptions.NonBacktracking) { RuleRank = 61 });
 
         // simple open quote tag
         const string SimpleOpenQuoteReplace = """
