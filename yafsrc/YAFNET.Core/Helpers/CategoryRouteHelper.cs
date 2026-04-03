@@ -64,12 +64,7 @@ public static class CategoryRouteHelper
             url = url.ToLowerInvariant();
         }
 
-        if (routeOptions.AppendTrailingSlash)
-        {
-            url.AppendTrailingSlash();
-        }
-
-        return url;
+        return routeOptions.AppendTrailingSlash ? url.AppendTrailingSlash() : url;
     }
 
     /// <summary>
@@ -81,24 +76,43 @@ public static class CategoryRouteHelper
         RouteOptions routeOptions = null)
     {
         var areaSegment = area.IsSet() ? $"{area}/" : string.Empty;
-        var indexPage = ForumPages.Index.GetPageName();
+        var indexPage = nameof(ForumPages.Index);
 
         var trailingSlash = "";
 
-        if (routeOptions is not null)
+        if (routeOptions is null)
         {
-            if (routeOptions.AppendTrailingSlash)
-            {
-                trailingSlash = "/";
-            }
-
-            if (routeOptions.LowercaseUrls)
-            {
-                areaSegment = areaSegment.ToLowerInvariant();
-                indexPage = indexPage.ToLowerInvariant();
-            }
+            return AddRewriteOptions(options, areaSegment, indexPage, trailingSlash);
         }
 
+        if (routeOptions.AppendTrailingSlash)
+        {
+            trailingSlash = "/";
+        }
+
+        if (!routeOptions.LowercaseUrls)
+        {
+            return AddRewriteOptions(options, areaSegment, indexPage, trailingSlash);
+        }
+
+        areaSegment = areaSegment.ToLowerInvariant();
+        indexPage = indexPage.ToLowerInvariant();
+
+
+        return AddRewriteOptions(options, areaSegment, indexPage, trailingSlash);
+    }
+
+    /// <summary>
+    /// Adds the rewrite options.
+    /// </summary>
+    /// <param name="options">The options.</param>
+    /// <param name="areaSegment">The area segment.</param>
+    /// <param name="indexPage">The index page.</param>
+    /// <param name="trailingSlash">The trailing slash.</param>
+    /// <returns></returns>
+    private static RewriteOptions AddRewriteOptions(RewriteOptions options, string areaSegment, string indexPage,
+        string trailingSlash)
+    {
         return options
             .AddRewrite($@"(?i)^{areaSegment}{PathSegment}/(\d+)/([^/]+)/?$",
                 $"{areaSegment}{indexPage}{trailingSlash}?c=$1",
