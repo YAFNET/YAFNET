@@ -647,7 +647,7 @@ public static class JavaScriptBlocks
                          locale: '{{{locale}}}',
                          toolbar: '{{{toolbar}}}',
                          root: '',
-                         plugins: 'plaintext,dragdrop,undo,mentions',
+                         plugins: 'plaintext,dragdrop,undo,mentions,alternative-lists',
                          styles: [{{{styles}}}],
                          extensionsUrl: '{{{extensionsUrl}}}',
                          albumsPreviewUrl: '/api/Albums/GetImagePreview?imageId=',

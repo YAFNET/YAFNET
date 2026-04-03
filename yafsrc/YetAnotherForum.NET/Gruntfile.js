@@ -374,19 +374,6 @@ module.exports = function(grunt) {
 		},
 
 		shell: {
-			syncLanguages: {
-				command: [
-					'@echo off',
-					'echo update languages',
-					'..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\wwwroot\\languages\\ -sync'
-				].join('&&')
-			},
-			translateLanguages: {
-				command: [
-					'@echo off',
-					'..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\wwwroot\\languages\\ -translateGoogle'
-				].join('&&')
-			},
 			compileLanguages: {
 				command: [
 					'@echo off',
@@ -858,16 +845,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('default',
 		[
 			'webpack', 'sass', 'postcss', 'cssmin'
-		]);
-
-	grunt.registerTask('syncLanguages',
-		[
-			'shell:syncLanguages'
-		]);
-
-	grunt.registerTask('translateLanguages',
-		[
-			'shell:translateLanguages'
 		]);
 
 	grunt.registerTask('updateBootstrap',
