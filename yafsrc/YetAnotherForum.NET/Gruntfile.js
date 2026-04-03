@@ -132,12 +132,6 @@ module.exports = function (grunt) {
         },
 
         shell: {
-            syncLanguages: {
-                command: [
-                    '@echo off',
-                    '..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\languages\\ -sync'
-                ].join('&&')
-            },
             translateLanguages: {
 	            command: [
 		            '@echo off',
@@ -589,11 +583,6 @@ module.exports = function (grunt) {
     grunt.registerTask('default',
         [
             'uglify', 'sass', 'postcss', 'cssmin'
-        ]);
-
-    grunt.registerTask('syncLanguages',
-        [
-            'shell:syncLanguages'
         ]);
 
     grunt.registerTask('translateLanguages',

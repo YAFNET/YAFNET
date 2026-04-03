@@ -18,10 +18,10 @@
 		"grunt-shell": "^4.0.0",
 		"grunt-webpack": "^7.0.1",
 		"postcss": "^8.5.8",
-		"sass": "^1.98.0",
+		"sass": "^1.99.0",
 		"simple-webp-converter": "^1.1.2",
 		"terser-webpack-plugin": "^5.4.0",
-		"ts-loader": "^9.5.4",
+		"ts-loader": "^9.5.7",
 		"typescript": "^6.0.2",
 		"webpack": "^5.105.4",
 		"webpack-cli": "^7.0.2"
@@ -35,7 +35,7 @@
 		"@w8tcha/bootstrap-notify": "^5.0.2",
 		"@w8tcha/bs5-lightbox": "^1.8.6",
 		"@w8tcha/dark-editable": "^2.1.7",
-		"@yafnet/sceditor": "^3.2.15",
+		"@yafnet/sceditor": "^3.2.16",
 		"bootstrap": "^5.3.8",
 		"bootswatch": "^5.3.8",
 		"choices.js": "^11.2.1",
@@ -50,7 +50,8 @@
 		"build": "grunt",
 		"build-codemirror": "webpack",
 		"webp": "simple-webp-converter",
-		"updatePackages": "npm-check -y"
+		"updatePackages": "npm-check -y",
+		"syncLanguages": "@echo off && ..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\languages\\ -sync"
 	},
 	"simple-webp-converter": {
 		"src": "Images/**/*.{png,jpg,gif}"
