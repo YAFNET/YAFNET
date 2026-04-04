@@ -111,6 +111,14 @@ public class BoardConfiguration
     public bool MultiBoardFolders { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether to force uploads and images from within a specific sub folder inside wwwroot...
+    /// E.g. wwwroot/[StaticFilesRoot]/Uploads
+    ///
+    /// ** Defaults to: '' **
+    /// </summary>
+    public string StaticFilesRoot { get; set; }
+
+    /// <summary>
     /// Gets or sets the Option to Set the SQL Command Timeout
     /// In some cases is need to set it to Unlimited value="0"
     ///

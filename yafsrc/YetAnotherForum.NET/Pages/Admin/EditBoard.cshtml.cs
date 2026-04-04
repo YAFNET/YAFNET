@@ -150,6 +150,7 @@ public class EditBoardModel : AdminPage
         // Successfully created the new board
         var boardFolder = Path.Combine(
             this.Get<IWebHostEnvironment>().WebRootPath,
+            this.Get<BoardConfiguration>().StaticFilesRoot,
             $"{newBoardId}/");
 
         // Create New Folders.
