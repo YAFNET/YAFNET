@@ -1,0 +1,43 @@
+﻿{
+	"copyFiles": [
+		{
+			"from": "../../YetAnotherForum.NET/Pages/**/*.*",
+			"to": "Areas/Forums/Pages"
+		},
+		{
+			"from": "../../YetAnotherForum.NET/ViewComponents/**/*.*",
+			"to": "ViewComponents"
+		},
+		{
+			"from": "../../YetAnotherForum.NET/wwwroot/css/**/*.*",
+			"to": "wwwroot/css"
+		},
+		{
+			"from": "../../YetAnotherForum.NET/wwwroot/assets/**/*.*",
+			"to": "wwwroot/assets"
+		},
+		{
+			"from": "../../YetAnotherForum.NET/wwwroot/images/**/*.*",
+			"to": "wwwroot/images"
+		},
+		{
+			"from": "../../YetAnotherForum.NET/wwwroot/js/**/*.*",
+			"to": "wwwroot/js"
+		},
+		{
+			"from": "../../YetAnotherForum.NET/wwwroot/languages/**/*.*",
+			"to": "wwwroot/languages"
+		},
+		{
+			"from": "../../YetAnotherForum.NET/wwwroot/resources/**/*.*",
+			"to": "wwwroot/resources"
+		},
+		{
+			"from": "../../YetAnotherForum.NET/wwwroot/webfonts/**/*.*",
+			"to": "wwwroot/webfonts"
+		}
+	],
+	"copyFilesSettings": {
+		"whenFileExists": "overwrite"
+	}
+}

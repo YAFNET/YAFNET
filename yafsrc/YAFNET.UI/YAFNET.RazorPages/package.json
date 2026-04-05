@@ -1,25 +1,23 @@
 {
-  "name": "yafnet-razorpages",
-  "version": "4.0.4",
-  "description": "This Application is a Standard Visual Studio Sample ASP.NET Core Application, including YAF.NET integrated",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/YAFNET/YAF.SampleWebApplication.git"
-  },
-  "author": "Ingo Herbote",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/YAFNET/YAFNET/issues"
-  },
-  "homepage": "https://yetanotherforum.net/",
-    "scripts": {
-        "preinstall": "npm install -g ruby sass",
-        "updatePackages": "npm-check -y"
+    "name": "yafnet-razorpages",
+    "version": "4.0.4",
+    "description": "This Application is a Standard Visual Studio Sample ASP.NET Core Application, including YAF.NET integrated",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/YAFNET/YAF.SampleWebApplication.git"
     },
-  "devDependencies": {
-    "@lodder/time-grunt": "^4.0.0",
-    "@w8tcha/grunt-dev-update": "^2.3.4",
-    "grunt": "^1.6.1",
-    "grunt-contrib-copy": "^1.0.0"
-  }
+    "author": "Ingo Herbote",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/YAFNET/YAFNET/issues"
+    },
+    "homepage": "https://yetanotherforum.net/",
+    "scripts": {
+        "preinstall": "npm install -g copy-files-from-to npm-check",
+        "updatePackages": "npm-check -y",
+        "copy": "copy-files-from-to"
+    },
+    "dependencies": {
+        "copy-files-from-to": "^4.0.0"
+    }
 }
