@@ -87,7 +87,9 @@ public class YafNamingStrategyBaseOverride : INamingStrategy
     /// <returns>Returns the name of the table.</returns>
     public string GetTableName(string name)
     {
-        return $"{Config.DatabaseObjectQualifier}{name}";
+        return name is "UserRoles" or "Roles"
+            ? name
+            : $"{Config.DatabaseObjectQualifier}{name}";
     }
 
     /// <summary>

@@ -103,18 +103,18 @@ public class PostgreSQLDbInformation : IDbInformation, IHaveServiceLocator
 
         vaccessGroupSelect.AppendFormat(
             " {0} AS b",
-            OrmLiteConfig.DialectProvider.GetQuotedName("UserGroup", Config.DatabaseSchema));
+            dbCommand.Connection.GetQuotedTableName<UserGroup>());
         vaccessGroupSelect.AppendFormat(
             " INNER JOIN {0} AS c on c.{1}=b.{1}",
-            OrmLiteConfig.DialectProvider.GetQuotedName("ForumAccess", Config.DatabaseSchema),
+            dbCommand.Connection.GetQuotedTableName<ForumAccess>(),
             OrmLiteConfig.DialectProvider.GetQuotedColumnName("GroupID"));
         vaccessGroupSelect.AppendFormat(
             " INNER JOIN {0} AS d on d.{1}=c.{1}",
-            OrmLiteConfig.DialectProvider.GetQuotedName("AccessMask", Config.DatabaseSchema),
+            dbCommand.Connection.GetQuotedTableName<AccessMask>(),
             OrmLiteConfig.DialectProvider.GetQuotedColumnName("AccessMaskID"));
         vaccessGroupSelect.AppendFormat(
             " INNER JOIN {0} AS e on e.{1}=b.{1}",
-            OrmLiteConfig.DialectProvider.GetQuotedName("Group", Config.DatabaseSchema),
+            dbCommand.Connection.GetQuotedTableName<Group>(),
             OrmLiteConfig.DialectProvider.GetQuotedColumnName("GroupID"));
 
         dbCommand.Connection.CreateView<VaccessGroup>(vaccessGroupSelect);
@@ -140,7 +140,7 @@ public class PostgreSQLDbInformation : IDbInformation, IHaveServiceLocator
 
         vaccessNullSelect.AppendFormat(
             " {0} AS a",
-            OrmLiteConfig.DialectProvider.GetQuotedName("User", Config.DatabaseSchema));
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("User"));
 
         dbCommand.Connection.CreateView<VaccessNull>(vaccessNullSelect);
 
@@ -165,10 +165,10 @@ public class PostgreSQLDbInformation : IDbInformation, IHaveServiceLocator
         vaccessUserSelect.Append(" from");
         vaccessUserSelect.AppendFormat(
             " {0} AS b",
-            OrmLiteConfig.DialectProvider.GetQuotedName("UserForum", Config.DatabaseSchema));
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("UserForum"));
         vaccessUserSelect.AppendFormat(
             " INNER JOIN {0} AS c on c.{1}=b.{1}",
-            OrmLiteConfig.DialectProvider.GetQuotedName("AccessMask", Config.DatabaseSchema),
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("AccessMask"),
             OrmLiteConfig.DialectProvider.GetQuotedColumnName("AccessMaskID"));
 
         dbCommand.Connection.CreateView<VaccessUser>(vaccessUserSelect);
@@ -192,11 +192,11 @@ public class PostgreSQLDbInformation : IDbInformation, IHaveServiceLocator
 
         vaccessFullSelect.AppendFormat(
             "FROM {0} AS b ",
-            OrmLiteConfig.DialectProvider.GetQuotedName("UserForum", Config.DatabaseSchema));
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("UserForum"));
 
         vaccessFullSelect.AppendFormat(
             "INNER JOIN {0} AS c ",
-            OrmLiteConfig.DialectProvider.GetQuotedName("AccessMask", Config.DatabaseSchema));
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("AccessMask"));
 
         vaccessFullSelect.AppendFormat("ON c.{0} = b.{0} ",
             OrmLiteConfig.DialectProvider.GetQuotedColumnName("AccessMaskID"));
@@ -219,21 +219,21 @@ public class PostgreSQLDbInformation : IDbInformation, IHaveServiceLocator
 
         vaccessFullSelect.AppendFormat(
             " FROM {0} AS b",
-            OrmLiteConfig.DialectProvider.GetQuotedName("UserGroup", Config.DatabaseSchema));
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("UserGroup"));
 
         vaccessFullSelect.AppendFormat(
             " INNER JOIN {0} AS c ON c.{1} = b.{1} ",
-            OrmLiteConfig.DialectProvider.GetQuotedName("ForumAccess", Config.DatabaseSchema),
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("ForumAccess"),
             OrmLiteConfig.DialectProvider.GetQuotedColumnName("GroupID"));
 
         vaccessFullSelect.AppendFormat(
             " INNER JOIN {0} AS d ON d.{1} = c.{1} ",
-            OrmLiteConfig.DialectProvider.GetQuotedName("AccessMask", Config.DatabaseSchema),
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("AccessMask"),
             OrmLiteConfig.DialectProvider.GetQuotedColumnName("AccessMaskID"));
 
         vaccessFullSelect.AppendFormat(
             " INNER JOIN {0} e ON e.{1} = b.{1} ",
-            OrmLiteConfig.DialectProvider.GetQuotedName("Group", Config.DatabaseSchema),
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("Group"),
             OrmLiteConfig.DialectProvider.GetQuotedColumnName("GroupID"));
 
         vaccessFullSelect.Append(" UNION ALL ");
@@ -254,7 +254,7 @@ public class PostgreSQLDbInformation : IDbInformation, IHaveServiceLocator
 
         vaccessFullSelect.AppendFormat(
             "FROM {0} AS a",
-            OrmLiteConfig.DialectProvider.GetQuotedName("User", Config.DatabaseSchema));
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("User"));
 
         dbCommand.Connection.CreateView<VAccessFull>(vaccessFullSelect);
 
@@ -271,19 +271,19 @@ public class PostgreSQLDbInformation : IDbInformation, IHaveServiceLocator
 
         vaccessSelect.AppendFormat(
             "FROM {0} AS v",
-            OrmLiteConfig.DialectProvider.GetQuotedName("UserGroup", Config.DatabaseSchema));
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("UserGroup"));
         vaccessSelect.AppendFormat(
             " INNER JOIN {0} AS w ON v.{1} = w.{1}",
-            OrmLiteConfig.DialectProvider.GetQuotedName("Group", Config.DatabaseSchema),
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("Group"),
             OrmLiteConfig.DialectProvider.GetQuotedColumnName("GroupID"));
 
         vaccessSelect.AppendFormat(
             " CROSS JOIN  {0} AS x",
-            OrmLiteConfig.DialectProvider.GetQuotedName("ForumAccess", Config.DatabaseSchema));
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("ForumAccess"));
 
         vaccessSelect.AppendFormat(
             " CROSS JOIN  {0} AS y",
-            OrmLiteConfig.DialectProvider.GetQuotedName("AccessMask", Config.DatabaseSchema));
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("AccessMask"));
 
         vaccessSelect.Append(" WHERE(v.\"UserID\" = a.\"UserID\")");
         vaccessSelect.Append(" AND(x.\"GroupID\" = w.\"GroupID\")");
@@ -302,16 +302,16 @@ public class PostgreSQLDbInformation : IDbInformation, IHaveServiceLocator
 
         vaccessSelect.AppendFormat(
             " FROM {0} x_1 ",
-            OrmLiteConfig.DialectProvider.GetQuotedName("vaccessfull", Config.DatabaseSchema));
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("vaccessfull"));
 
         vaccessSelect.AppendFormat(
             " INNER JOIN  {0} AS a ON a.{1} = x_1.{1} ",
-            OrmLiteConfig.DialectProvider.GetQuotedName("UserGroup", Config.DatabaseSchema),
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("UserGroup"),
             OrmLiteConfig.DialectProvider.GetQuotedColumnName("UserID"));
 
         vaccessSelect.AppendFormat(
             " INNER JOIN {0} AS b ON b.{1} = a.{1} ",
-            OrmLiteConfig.DialectProvider.GetQuotedName("Group", Config.DatabaseSchema),
+            OrmLiteConfig.DialectProvider.GetQuotedTableName("Group"),
             OrmLiteConfig.DialectProvider.GetQuotedColumnName("GroupID"));
 
         vaccessSelect.Append(" GROUP BY a.\"UserID\", x_1.\"ForumID\"");
