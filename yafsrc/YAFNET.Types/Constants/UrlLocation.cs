@@ -75,25 +75,25 @@ public class UrlLocation
     /// <summary>
     /// Gets or sets the url.
     /// </summary>
-    [XmlElement("loc")]
+    [XmlElement("loc", Order = 1)]
     public string Url { get; set; }
-
-    /// <summary>
-    /// Gets or sets the change frequency.
-    /// </summary>
-    [XmlElement("changefreq")]
-    public ChangeFrequencies? ChangeFrequency { get; set; }
 
     /// <summary>
     /// Gets or sets the last modified.
     /// </summary>
-    [XmlElement("lastmod")]
+    [XmlElement("lastmod", Order = 2)]
     public string LastModified { get; set; }
+
+    /// <summary>
+    /// Gets or sets the change frequency.
+    /// </summary>
+    [XmlElement("changefreq", Order = 3)]
+    public ChangeFrequencies? ChangeFrequency { get; set; }
 
     /// <summary>
     /// Gets or sets the priority.
     /// </summary>
-    [XmlElement("priority")]
+    [XmlElement("priority", Order = 4)]
     public double? Priority { get; set; }
 
     /// <summary>
