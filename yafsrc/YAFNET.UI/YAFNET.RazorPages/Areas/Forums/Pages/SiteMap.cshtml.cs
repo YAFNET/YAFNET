@@ -34,8 +34,8 @@ using System.Xml.Serialization;
 
 using Core.Model;
 
-using Types.Models;
 using Types.Interfaces;
+using Types.Models;
 
 using YAF.Core.Context;
 using YAF.Types.Objects;
@@ -77,10 +77,10 @@ public class SiteMapModel : ForumPage
                                     Priority = 0.8D,
                                     LastModified = forum.Item1.LastPosted.HasValue
                                                        ? forum.Item1.LastPosted.Value.ToString(
-                                                           "yyyy-MM-ddTHH:mm:ss",
+                                                           "yyyy-MM-ddTHH:mm:ssZ",
                                                            CultureInfo.InvariantCulture)
                                                        : DateTime.UtcNow.ToString(
-                                                           "yyyy-MM-ddTHH:mm:ss",
+                                                           "yyyy-MM-ddTHH:mm:ssZ",
                                                            CultureInfo.InvariantCulture),
                                     ChangeFrequency = UrlLocation.ChangeFrequencies.always
                                 }));

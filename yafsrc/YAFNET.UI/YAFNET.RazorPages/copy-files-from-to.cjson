@@ -33,6 +33,10 @@
 			"to": "wwwroot/Forums/images/Logos"
 		},
 		{
+			"from": "../../YetAnotherForum.NET/wwwroot/images/Medals/*.*",
+			"to": "wwwroot/Forums/images/Medals"
+		},
+		{
 			"from": "../../YetAnotherForum.NET/wwwroot/images/InstallBackground.webp",
 			"to": "wwwroot/images/"
 		},
