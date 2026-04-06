@@ -28,12 +28,14 @@ namespace YAF.Pages;
 
 using System.Globalization;
 using System.IO;
+using System.Net.Mime;
+using System.Text;
 using System.Xml.Serialization;
 
 using Core.Model;
 
-using Types.Models;
 using Types.Interfaces;
+using Types.Models;
 
 using YAF.Core.Context;
 using YAF.Types.Objects;
@@ -85,13 +87,14 @@ public class SiteMapModel : ForumPage
 
         var xmlSerializer = new XmlSerializer(typeof(SiteMap));
 
-        using var textWriter = new StringWriter();
-        xmlSerializer.Serialize(textWriter, siteMap);
+        using var writer = new Utf8StringWriter();
+        xmlSerializer.Serialize(writer, siteMap);
 
-        return new ContentResult {
-                                     ContentType = "application/xml",
-                                     Content = textWriter.ToString(),
-                                     StatusCode = 200
-                                 };
+        return this.Content(writer.ToString(), MediaTypeNames.Application.Xml, Encoding.UTF8);
+    }
+
+    private sealed class Utf8StringWriter : StringWriter
+    {
+        public override Encoding Encoding => Encoding.UTF8;
     }
 }
