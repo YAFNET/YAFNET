@@ -182,6 +182,7 @@
 		</script>
 	}
     
+    @await Html.PartialAsync("_PostScriptsPartial")
     @await Html.PartialAsync("_BBCodeEditorScriptsPartial")
 
     @if (Model.PageBoardContext.UploadAccess)
