@@ -60,18 +60,13 @@ public class SqlServerBoolConverter : BoolConverter
     }
 
     /// <summary>
-    /// Froms the database value.
+    /// Parameterized value in parameterized queries
     /// </summary>
     /// <param name="fieldType">Type of the field.</param>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
     public override object FromDbValue(Type fieldType, object value)
     {
-        if (value is bool)
-        {
-            return value;
-        }
-
-        return 0 != (long)this.ConvertNumber(typeof(long), value);
+        return this.ToDbValue(fieldType, value);
     }
 }

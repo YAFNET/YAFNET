@@ -1,10 +1,12 @@
 ﻿@using YAF.Types.Interfaces
+@using YAF.Types.Objects
 
 @inject ILocalization Localization;
 @inject IDataCache Cache;
+@inject BoardConfiguration BoardConfiguration;
 
 <!doctype html>
-<html lang="en">
+<html lang="en" style="background: url(../images/@Html.Raw(BoardConfiguration.StaticFilesRoot)InstallBackground.webp) no-repeat center center fixed">
 <head id="YafHead">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -181,8 +181,8 @@
 			@Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.GetBoardTagsJs("Tags", "Input_TagsValue")))
 		</script>
 	}
-    
-    @await Html.PartialAsync("_PostScriptsPartial")
+
+	@await Html.PartialAsync("_PostScriptsPartial")
     @await Html.PartialAsync("_BBCodeEditorScriptsPartial")
 
     @if (Model.PageBoardContext.UploadAccess)

@@ -46,7 +46,7 @@ public static class ModuleScanner
     {
         var files = GetMatchingFiles(pattern).ToList();
 
-        return GetValidateAssemblies(files).ToList();
+        return [.. GetValidateAssemblies(files)];
     }
 
     /// <summary>
@@ -109,7 +109,11 @@ public static class ModuleScanner
     private static IEnumerable<Assembly> GetValidateAssemblies(IEnumerable<string> fileNames)
     {
         ArgumentNullException.ThrowIfNull(fileNames);
+        return GetValidateAssembliesIterator(fileNames);
+    }
 
+    private static IEnumerable<Assembly> GetValidateAssembliesIterator(IEnumerable<string> fileNames)
+    {
         foreach (var assemblyFile in fileNames.Where(File.Exists))
         {
             Assembly assembly;
@@ -122,7 +126,6 @@ public static class ModuleScanner
             }
             catch (BadImageFormatException)
             {
-                // fail on native images...
                 continue;
             }
 

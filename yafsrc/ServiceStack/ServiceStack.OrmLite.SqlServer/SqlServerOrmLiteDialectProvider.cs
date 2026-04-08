@@ -1274,9 +1274,6 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <returns>System.String.</returns>
         protected string Sequence(string schema, string sequence)
         {
-            /*if (schema == null)
-                return this.GetQuotedName(sequence);*/
-
             var escapedSchema = this.NamingStrategy.GetSchemaName(schema).Replace(".", "\".\"");
 
             return this.GetQuotedName(escapedSchema) + "." + this.GetQuotedName(sequence);

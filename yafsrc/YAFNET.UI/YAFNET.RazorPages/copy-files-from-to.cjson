@@ -17,28 +17,8 @@
 			"to": "wwwroot/assets"
 		},
 		{
-			"from": "../../YetAnotherForum.NET/wwwroot/images/Avatars/*.*",
-			"to": "wwwroot/Forums/images/Avatars"
-		},
-		{
-			"from": "../../YetAnotherForum.NET/wwwroot/images/Categories/*.*",
-			"to": "wwwroot/Forums/images/Categories"
-		},
-		{
-			"from": "../../YetAnotherForum.NET/wwwroot/images/Forums/*.*",
-			"to": "wwwroot/Forums/images/Forums"
-		},
-		{
-			"from": "../../YetAnotherForum.NET/wwwroot/images/Logos/*.*",
-			"to": "wwwroot/Forums/images/Logos"
-		},
-		{
-			"from": "../../YetAnotherForum.NET/wwwroot/images/Medals/*.*",
-			"to": "wwwroot/Forums/images/Medals"
-		},
-		{
-			"from": "../../YetAnotherForum.NET/wwwroot/images/InstallBackground.webp",
-			"to": "wwwroot/images/"
+			"from": "../../YetAnotherForum.NET/wwwroot/images/**/*.*",
+			"to": "wwwroot/Forums/images"
 		},
 		{
 			"from": "../../YetAnotherForum.NET/wwwroot/js/**/*.*",
