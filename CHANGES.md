@@ -1,6 +1,24 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v4.0.5
+* [FIXED #1637] Fix attachment list not loading on EditMessage page - Thanks @mt0321
+* [FIXED #1636] Fix sitemap XML: UTF-8 encoding, correct namespace, and element order - Thanks @mt0321
+* [FIXED #1635] Fixed new install with postgreSQL
+* [FIXED #1628] Fix [list] and [*] BBCode for old posts - Thanks @mt0321
+* [FIXED #1620] Update ampersand URL handling to ensure "A & B" in forum/topic names becomes "A-and-B" - Thanks @mt0321
+* [FIXED #1619] Return 404 for unrecognized handler names that fall through to Index - Thanks @mt0321
+* [FIXED #1599] double slash in sitemap URLs - Thanks @mt0321
+* [FIXED #1597] Encode topic name in GeneratePageTitle - Thanks @mt0321
+* [FIXED #1595] Encode dynamic fields in admin EventLog and SpamLog - Thanks @mt0321
+* [FIXED #1573] forum Image now showing correctly
+* [FIXED #1572] load saved Forum image
+* [NEW #1622] Add category URL segments (/Category/{id}/{name}) - Thanks @mt0321
+* [NEW] include albums on the user profile page
+
+
+* bug fixes
+
 # YetAnotherForum.NET v4.0.4
 * Upgraded to .NET 10.0
 * [NEW] Ban Ip Addresses by Country
