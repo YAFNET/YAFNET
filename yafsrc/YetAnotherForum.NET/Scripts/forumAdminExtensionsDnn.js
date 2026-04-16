@@ -1955,8 +1955,44 @@ document.addEventListener("DOMContentLoaded", function() {
         };
         Input.prototype.setWidth = function() {
             var element = this.element;
-            element.style.minWidth = "".concat(element.placeholder.length + 1, "ch");
-            element.style.width = "".concat(element.value.length + 1, "ch");
+            var value = element.value, placeholder = element.placeholder;
+            var minWidth = 0;
+            var width = 0;
+            if (value || placeholder) {
+                var e = document.createElement("span");
+                e.style.position = "absolute";
+                e.style.visibility = "hidden";
+                e.style.whiteSpace = "pre";
+                e.style.height = "auto";
+                e.style.width = "auto";
+                e.style.minWidth = "1ch";
+                addClassesToElement(e, Array.from(element.classList));
+                element.after(e);
+                var chInPx = parseFloat(getComputedStyle(e).width);
+                var dropDown = document.querySelector(".is-active");
+                if (dropDown) {
+                    if (placeholder) {
+                        e.innerText = placeholder;
+                        minWidth = parseFloat(getComputedStyle(dropDown).width) / chInPx;
+                    }
+                    if (value) {
+                        e.innerText = value;
+                        width = parseFloat(getComputedStyle(dropDown).width) / chInPx;
+                    }
+                } else {
+                    if (placeholder) {
+                        e.innerText = placeholder;
+                        minWidth = parseFloat(getComputedStyle(e).width) / chInPx;
+                    }
+                    if (value) {
+                        e.innerText = value;
+                        width = parseFloat(getComputedStyle(e).width) / chInPx;
+                    }
+                }
+                e.remove();
+            }
+            element.style.minWidth = "".concat(Math.ceil(minWidth) + 1, "ch");
+            element.style.width = "".concat(Math.ceil(width) + 1, "ch");
         };
         Input.prototype.setActiveDescendant = function(activeDescendantID) {
             this.element.setAttribute("aria-activedescendant", activeDescendantID);
@@ -1965,9 +2001,7 @@ document.addEventListener("DOMContentLoaded", function() {
             this.element.removeAttribute("aria-activedescendant");
         };
         Input.prototype._onInput = function() {
-            if (this.type !== PassedElementTypes.SelectOne) {
-                this.setWidth();
-            }
+            this.setWidth();
         };
         Input.prototype._onPaste = function(event) {
             if (this.preventPaste) {
@@ -2795,6 +2829,24 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         return e;
     }
+    function _objectWithoutProperties(e, t) {
+        if (null == e) return {};
+        var o, r, i = _objectWithoutPropertiesLoose(e, t);
+        if (Object.getOwnPropertySymbols) {
+            var n = Object.getOwnPropertySymbols(e);
+            for (r = 0; r < n.length; r++) o = n[r], -1 === t.indexOf(o) && {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
+        }
+        return i;
+    }
+    function _objectWithoutPropertiesLoose(r, e) {
+        if (null == r) return {};
+        var t = {};
+        for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
+            if (-1 !== e.indexOf(n)) continue;
+            t[n] = r[n];
+        }
+        return t;
+    }
     function _toPrimitive(t, r) {
         if ("object" != typeof t || !t) return t;
         var e = t[Symbol.toPrimitive];
@@ -2809,6 +2861,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var i = _toPrimitive(t, "string");
         return "symbol" == typeof i ? i : i + "";
     }
+    const _excluded = [ "getFn" ];
     function isArray(value) {
         return !Array.isArray ? getTag(value) === "[object Array]" : Array.isArray(value);
     }
@@ -2816,7 +2869,10 @@ document.addEventListener("DOMContentLoaded", function() {
         if (typeof value == "string") {
             return value;
         }
-        let result = value + "";
+        if (typeof value === "bigint") {
+            return value.toString();
+        }
+        const result = value + "";
         return result == "0" && 1 / value == -Infinity ? "-0" : result;
     }
     function toString(value) {
@@ -2858,7 +2914,7 @@ document.addEventListener("DOMContentLoaded", function() {
             this._keyMap = {};
             let totalWeight = 0;
             keys.forEach(key => {
-                let obj = createKey(key);
+                const obj = createKey(key);
                 this._keys.push(obj);
                 this._keyMap[obj.id] = obj;
                 totalWeight += obj.weight;
@@ -2918,29 +2974,35 @@ document.addEventListener("DOMContentLoaded", function() {
         return isArray(key) ? key.join(".") : key;
     }
     function get(obj, path) {
-        let list = [];
+        const list = [];
         let arr = false;
-        const deepGet = (obj, path, index) => {
+        const deepGet = (obj, path, index, arrayIndex) => {
             if (!isDefined(obj)) {
                 return;
             }
             if (!path[index]) {
-                list.push(obj);
+                list.push(arrayIndex !== undefined ? {
+                    v: obj,
+                    i: arrayIndex
+                } : obj);
             } else {
-                let key = path[index];
+                const key = path[index];
                 const value = obj[key];
                 if (!isDefined(value)) {
                     return;
                 }
-                if (index === path.length - 1 && (isString(value) || isNumber(value) || isBoolean(value))) {
-                    list.push(toString(value));
+                if (index === path.length - 1 && (isString(value) || isNumber(value) || isBoolean(value) || typeof value === "bigint")) {
+                    list.push(arrayIndex !== undefined ? {
+                        v: toString(value),
+                        i: arrayIndex
+                    } : toString(value));
                 } else if (isArray(value)) {
                     arr = true;
                     for (let i = 0, len = value.length; i < len; i += 1) {
-                        deepGet(value[i], path, index + 1);
+                        deepGet(value[i], path, index + 1, i);
                     }
                 } else if (path.length) {
-                    deepGet(value, path, index + 1);
+                    deepGet(value, path, index + 1, arrayIndex);
                 }
             }
         };
@@ -2954,6 +3016,7 @@ document.addEventListener("DOMContentLoaded", function() {
     };
     const BasicOptions = {
         isCaseSensitive: false,
+        ignoreDiacritics: false,
         includeScore: false,
         keys: [],
         shouldSort: true,
@@ -2966,12 +3029,13 @@ document.addEventListener("DOMContentLoaded", function() {
     };
     const AdvancedOptions = {
         useExtendedSearch: false,
+        useTokenSearch: false,
         getFn: get,
         ignoreLocation: false,
         ignoreFieldNorm: false,
         fieldNormWeight: 1
     };
-    var Config = _objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2({}, BasicOptions), MatchOptions), FuzzyOptions), AdvancedOptions);
+    const Config = Object.freeze(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2({}, BasicOptions), MatchOptions), FuzzyOptions), AdvancedOptions));
     const SPACE = /[^ ]+/g;
     function norm(weight = 1, mantissa = 3) {
         const cache = new Map();
@@ -3000,6 +3064,9 @@ document.addEventListener("DOMContentLoaded", function() {
             this.norm = norm(fieldNormWeight, 3);
             this.getFn = getFn;
             this.isCreated = false;
+            this.docs = [];
+            this.keys = [];
+            this._keysMap = {};
             this.setIndexRecords();
         }
         setSources(docs = []) {
@@ -3045,6 +3112,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 this.records[i].i -= 1;
             }
         }
+        removeAll(indices) {
+            for (let i = indices.length - 1; i >= 0; i -= 1) {
+                this.records.splice(indices[i], 1);
+            }
+            for (let i = 0, len = this.records.length; i < len; i += 1) {
+                this.records[i].i = i;
+            }
+        }
         getValueForItemAtKeyId(item, keyId) {
             return item[this._keysMap[keyId]];
         }
@@ -3055,7 +3130,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!isDefined(doc) || isBlank(doc)) {
                 return;
             }
-            let record = {
+            const record = {
                 v: doc,
                 i: docIndex,
                 n: this.norm.get(doc)
@@ -3063,48 +3138,46 @@ document.addEventListener("DOMContentLoaded", function() {
             this.records.push(record);
         }
         _addObject(doc, docIndex) {
-            let record = {
+            const record = {
                 i: docIndex,
                 $: {}
             };
             this.keys.forEach((key, keyIndex) => {
-                let value = key.getFn ? key.getFn(doc) : this.getFn(doc, key.path);
+                const value = key.getFn ? key.getFn(doc) : this.getFn(doc, key.path);
                 if (!isDefined(value)) {
                     return;
                 }
                 if (isArray(value)) {
-                    let subRecords = [];
-                    const stack = [ {
-                        nestedArrIndex: -1,
-                        value: value
-                    } ];
-                    while (stack.length) {
-                        const {
-                            nestedArrIndex,
-                            value
-                        } = stack.pop();
-                        if (!isDefined(value)) {
+                    const subRecords = [];
+                    for (let i = 0, len = value.length; i < len; i += 1) {
+                        const item = value[i];
+                        if (!isDefined(item)) {
                             continue;
                         }
-                        if (isString(value) && !isBlank(value)) {
-                            let subRecord = {
-                                v: value,
-                                i: nestedArrIndex,
-                                n: this.norm.get(value)
-                            };
-                            subRecords.push(subRecord);
-                        } else if (isArray(value)) {
-                            value.forEach((item, k) => {
-                                stack.push({
-                                    nestedArrIndex: k,
-                                    value: item
-                                });
-                            });
-                        } else;
+                        if (isString(item)) {
+                            if (!isBlank(item)) {
+                                const subRecord = {
+                                    v: item,
+                                    i: i,
+                                    n: this.norm.get(item)
+                                };
+                                subRecords.push(subRecord);
+                            }
+                        } else if (isDefined(item.v)) {
+                            const text = isString(item.v) ? item.v : toString(item.v);
+                            if (!isBlank(text)) {
+                                const subRecord = {
+                                    v: text,
+                                    i: item.i,
+                                    n: this.norm.get(text)
+                                };
+                                subRecords.push(subRecord);
+                            }
+                        }
                     }
                     record.$[keyIndex] = subRecords;
                 } else if (isString(value) && !isBlank(value)) {
-                    let subRecord = {
+                    const subRecord = {
                         v: value,
                         n: this.norm.get(value)
                     };
@@ -3115,7 +3188,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         toJSON() {
             return {
-                keys: this.keys,
+                keys: this.keys.map(_ref => {
+                    let {
+                        getFn
+                    } = _ref, key = _objectWithoutProperties(_ref, _excluded);
+                    return key;
+                }),
                 records: this.records
             };
         }
@@ -3149,30 +3227,13 @@ document.addEventListener("DOMContentLoaded", function() {
         myIndex.setIndexRecords(records);
         return myIndex;
     }
-    function computeScore$1(pattern, {
-        errors = 0,
-        currentLocation = 0,
-        expectedLocation = 0,
-        distance = Config.distance,
-        ignoreLocation = Config.ignoreLocation
-    } = {}) {
-        const accuracy = errors / pattern.length;
-        if (ignoreLocation) {
-            return accuracy;
-        }
-        const proximity = Math.abs(expectedLocation - currentLocation);
-        if (!distance) {
-            return proximity ? 1 : accuracy;
-        }
-        return accuracy + proximity / distance;
-    }
     function convertMaskToIndices(matchmask = [], minMatchCharLength = Config.minMatchCharLength) {
-        let indices = [];
+        const indices = [];
         let start = -1;
         let end = -1;
         let i = 0;
         for (let len = matchmask.length; i < len; i += 1) {
-            let match = matchmask[i];
+            const match = matchmask[i];
             if (match && start === -1) {
                 start = i;
             } else if (!match && start !== -1) {
@@ -3206,16 +3267,18 @@ document.addEventListener("DOMContentLoaded", function() {
         const expectedLocation = Math.max(0, Math.min(location, textLen));
         let currentThreshold = threshold;
         let bestLocation = expectedLocation;
+        const calcScore = (errors, currentLocation) => {
+            const accuracy = errors / patternLen;
+            if (ignoreLocation) return accuracy;
+            const proximity = Math.abs(expectedLocation - currentLocation);
+            if (!distance) return proximity ? 1 : accuracy;
+            return accuracy + proximity / distance;
+        };
         const computeMatches = minMatchCharLength > 1 || includeMatches;
         const matchMask = computeMatches ? Array(textLen) : [];
         let index;
         while ((index = text.indexOf(pattern, bestLocation)) > -1) {
-            let score = computeScore$1(pattern, {
-                currentLocation: index,
-                expectedLocation: expectedLocation,
-                distance: distance,
-                ignoreLocation: ignoreLocation
-            });
+            const score = calcScore(0, index);
             currentThreshold = Math.min(score, currentThreshold);
             bestLocation = index + patternLen;
             if (computeMatches) {
@@ -3235,13 +3298,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let binMin = 0;
             let binMid = binMax;
             while (binMin < binMid) {
-                const score = computeScore$1(pattern, {
-                    errors: i,
-                    currentLocation: expectedLocation + binMid,
-                    expectedLocation: expectedLocation,
-                    distance: distance,
-                    ignoreLocation: ignoreLocation
-                });
+                const score = calcScore(i, expectedLocation + binMid);
                 if (score <= currentThreshold) {
                     binMin = binMid;
                 } else {
@@ -3251,12 +3308,12 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             binMax = binMid;
             let start = Math.max(1, expectedLocation - binMid + 1);
-            let finish = findAllMatches ? textLen : Math.min(expectedLocation + binMid, textLen) + patternLen;
-            let bitArr = Array(finish + 2);
+            const finish = findAllMatches ? textLen : Math.min(expectedLocation + binMid, textLen) + patternLen;
+            const bitArr = Array(finish + 2);
             bitArr[finish + 1] = (1 << i) - 1;
             for (let j = finish; j >= start; j -= 1) {
-                let currentLocation = j - 1;
-                let charMatch = patternAlphabet[text.charAt(currentLocation)];
+                const currentLocation = j - 1;
+                const charMatch = patternAlphabet[text[currentLocation]];
                 if (computeMatches) {
                     matchMask[currentLocation] = +!!charMatch;
                 }
@@ -3265,13 +3322,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     bitArr[j] |= (lastBitArr[j + 1] | lastBitArr[j]) << 1 | 1 | lastBitArr[j + 1];
                 }
                 if (bitArr[j] & mask) {
-                    finalScore = computeScore$1(pattern, {
-                        errors: i,
-                        currentLocation: currentLocation,
-                        expectedLocation: expectedLocation,
-                        distance: distance,
-                        ignoreLocation: ignoreLocation
-                    });
+                    finalScore = calcScore(i, currentLocation);
                     if (finalScore <= currentThreshold) {
                         currentThreshold = finalScore;
                         bestLocation = currentLocation;
@@ -3282,13 +3333,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 }
             }
-            const score = computeScore$1(pattern, {
-                errors: i + 1,
-                currentLocation: expectedLocation,
-                expectedLocation: expectedLocation,
-                distance: distance,
-                ignoreLocation: ignoreLocation
-            });
+            const score = calcScore(i + 1, expectedLocation);
             if (score > currentThreshold) {
                 break;
             }
@@ -3309,13 +3354,44 @@ document.addEventListener("DOMContentLoaded", function() {
         return result;
     }
     function createPatternAlphabet(pattern) {
-        let mask = {};
+        const mask = {};
         for (let i = 0, len = pattern.length; i < len; i += 1) {
             const char = pattern.charAt(i);
             mask[char] = (mask[char] || 0) | 1 << len - i - 1;
         }
         return mask;
     }
+    function mergeIndices(indices) {
+        if (indices.length <= 1) return indices;
+        indices.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+        const merged = [ indices[0] ];
+        for (let i = 1, len = indices.length; i < len; i += 1) {
+            const last = merged[merged.length - 1];
+            const curr = indices[i];
+            if (curr[0] <= last[1] + 1) {
+                last[1] = Math.max(last[1], curr[1]);
+            } else {
+                merged.push(curr);
+            }
+        }
+        return merged;
+    }
+    const NON_DECOMPOSABLE_MAP = {
+        "ł": "l",
+        "Ł": "L",
+        "đ": "d",
+        "Đ": "D",
+        "ø": "o",
+        "Ø": "O",
+        "ħ": "h",
+        "Ħ": "H",
+        "ŧ": "t",
+        "Ŧ": "T",
+        "ı": "i",
+        "ß": "ss"
+    };
+    const NON_DECOMPOSABLE_RE = new RegExp("[" + Object.keys(NON_DECOMPOSABLE_MAP).join("") + "]", "g");
+    const stripDiacritics = String.prototype.normalize ? str => str.normalize("NFD").replace(/[\u0300-\u036F\u0483-\u0489\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7\u06E8\u06EA-\u06ED\u0711\u0730-\u074A\u07A6-\u07B0\u07EB-\u07F3\u07FD\u0816-\u0819\u081B-\u0823\u0825-\u0827\u0829-\u082D\u0859-\u085B\u08D3-\u08E1\u08E3-\u0903\u093A-\u093C\u093E-\u094F\u0951-\u0957\u0962\u0963\u0981-\u0983\u09BC\u09BE-\u09C4\u09C7\u09C8\u09CB-\u09CD\u09D7\u09E2\u09E3\u09FE\u0A01-\u0A03\u0A3C\u0A3E-\u0A42\u0A47\u0A48\u0A4B-\u0A4D\u0A51\u0A70\u0A71\u0A75\u0A81-\u0A83\u0ABC\u0ABE-\u0AC5\u0AC7-\u0AC9\u0ACB-\u0ACD\u0AE2\u0AE3\u0AFA-\u0AFF\u0B01-\u0B03\u0B3C\u0B3E-\u0B44\u0B47\u0B48\u0B4B-\u0B4D\u0B56\u0B57\u0B62\u0B63\u0B82\u0BBE-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCD\u0BD7\u0C00-\u0C04\u0C3E-\u0C44\u0C46-\u0C48\u0C4A-\u0C4D\u0C55\u0C56\u0C62\u0C63\u0C81-\u0C83\u0CBC\u0CBE-\u0CC4\u0CC6-\u0CC8\u0CCA-\u0CCD\u0CD5\u0CD6\u0CE2\u0CE3\u0D00-\u0D03\u0D3B\u0D3C\u0D3E-\u0D44\u0D46-\u0D48\u0D4A-\u0D4D\u0D57\u0D62\u0D63\u0D82\u0D83\u0DCA\u0DCF-\u0DD4\u0DD6\u0DD8-\u0DDF\u0DF2\u0DF3\u0E31\u0E34-\u0E3A\u0E47-\u0E4E\u0EB1\u0EB4-\u0EB9\u0EBB\u0EBC\u0EC8-\u0ECD\u0F18\u0F19\u0F35\u0F37\u0F39\u0F3E\u0F3F\u0F71-\u0F84\u0F86\u0F87\u0F8D-\u0F97\u0F99-\u0FBC\u0FC6\u102B-\u103E\u1056-\u1059\u105E-\u1060\u1062-\u1064\u1067-\u106D\u1071-\u1074\u1082-\u108D\u108F\u109A-\u109D\u135D-\u135F\u1712-\u1714\u1732-\u1734\u1752\u1753\u1772\u1773\u17B4-\u17D3\u17DD\u180B-\u180D\u1885\u1886\u18A9\u1920-\u192B\u1930-\u193B\u1A17-\u1A1B\u1A55-\u1A5E\u1A60-\u1A7C\u1A7F\u1AB0-\u1ABE\u1B00-\u1B04\u1B34-\u1B44\u1B6B-\u1B73\u1B80-\u1B82\u1BA1-\u1BAD\u1BE6-\u1BF3\u1C24-\u1C37\u1CD0-\u1CD2\u1CD4-\u1CE8\u1CED\u1CF2-\u1CF4\u1CF7-\u1CF9\u1DC0-\u1DF9\u1DFB-\u1DFF\u20D0-\u20F0\u2CEF-\u2CF1\u2D7F\u2DE0-\u2DFF\u302A-\u302F\u3099\u309A\uA66F-\uA672\uA674-\uA67D\uA69E\uA69F\uA6F0\uA6F1\uA802\uA806\uA80B\uA823-\uA827\uA880\uA881\uA8B4-\uA8C5\uA8E0-\uA8F1\uA8FF\uA926-\uA92D\uA947-\uA953\uA980-\uA983\uA9B3-\uA9C0\uA9E5\uAA29-\uAA36\uAA43\uAA4C\uAA4D\uAA7B-\uAA7D\uAAB0\uAAB2-\uAAB4\uAAB7\uAAB8\uAABE\uAABF\uAAC1\uAAEB-\uAAEF\uAAF5\uAAF6\uABE3-\uABEA\uABEC\uABED\uFB1E\uFE00-\uFE0F\uFE20-\uFE2F]/g, "").replace(NON_DECOMPOSABLE_RE, ch => NON_DECOMPOSABLE_MAP[ch]) : str => str;
     class BitapSearch {
         constructor(pattern, {
             location = Config.location,
@@ -3325,6 +3401,7 @@ document.addEventListener("DOMContentLoaded", function() {
             findAllMatches = Config.findAllMatches,
             minMatchCharLength = Config.minMatchCharLength,
             isCaseSensitive = Config.isCaseSensitive,
+            ignoreDiacritics = Config.ignoreDiacritics,
             ignoreLocation = Config.ignoreLocation
         } = {}) {
             this.options = {
@@ -3335,9 +3412,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 findAllMatches: findAllMatches,
                 minMatchCharLength: minMatchCharLength,
                 isCaseSensitive: isCaseSensitive,
+                ignoreDiacritics: ignoreDiacritics,
                 ignoreLocation: ignoreLocation
             };
-            this.pattern = isCaseSensitive ? pattern : pattern.toLowerCase();
+            pattern = isCaseSensitive ? pattern : pattern.toLowerCase();
+            pattern = ignoreDiacritics ? stripDiacritics(pattern) : pattern;
+            this.pattern = pattern;
             this.chunks = [];
             if (!this.pattern.length) {
                 return;
@@ -3369,13 +3449,13 @@ document.addEventListener("DOMContentLoaded", function() {
         searchIn(text) {
             const {
                 isCaseSensitive,
+                ignoreDiacritics,
                 includeMatches
             } = this.options;
-            if (!isCaseSensitive) {
-                text = text.toLowerCase();
-            }
+            text = isCaseSensitive ? text : text.toLowerCase();
+            text = ignoreDiacritics ? stripDiacritics(text) : text;
             if (this.pattern === text) {
-                let result = {
+                const result = {
                     isMatch: true,
                     score: 0
                 };
@@ -3392,7 +3472,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 minMatchCharLength,
                 ignoreLocation
             } = this.options;
-            let allIndices = [];
+            const allIndices = [];
             let totalScore = 0;
             let hasMatches = false;
             this.chunks.forEach(({
@@ -3418,15 +3498,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 totalScore += score;
                 if (isMatch && indices) {
-                    allIndices = [ ...allIndices, ...indices ];
+                    allIndices.push(...indices);
                 }
             });
-            let result = {
+            const result = {
                 isMatch: hasMatches,
                 score: hasMatches ? totalScore / this.chunks.length : 1
             };
             if (hasMatches && includeMatches) {
-                result.indices = allIndices;
+                result.indices = mergeIndices(allIndices);
             }
             return result;
         }
@@ -3441,7 +3521,12 @@ document.addEventListener("DOMContentLoaded", function() {
         static isSingleMatch(pattern) {
             return getMatch(pattern, this.singleRegex);
         }
-        search() {}
+        search(_text) {
+            return {
+                isMatch: false,
+                score: 1
+            };
+        }
     }
     function getMatch(pattern, exp) {
         const matches = pattern.match(exp);
@@ -3589,6 +3674,7 @@ document.addEventListener("DOMContentLoaded", function() {
             findAllMatches = Config.findAllMatches,
             minMatchCharLength = Config.minMatchCharLength,
             isCaseSensitive = Config.isCaseSensitive,
+            ignoreDiacritics = Config.ignoreDiacritics,
             ignoreLocation = Config.ignoreLocation
         } = {}) {
             super(pattern);
@@ -3600,6 +3686,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 findAllMatches: findAllMatches,
                 minMatchCharLength: minMatchCharLength,
                 isCaseSensitive: isCaseSensitive,
+                ignoreDiacritics: ignoreDiacritics,
                 ignoreLocation: ignoreLocation
             });
         }
@@ -3648,19 +3735,56 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     const searchers = [ ExactMatch, IncludeMatch, PrefixExactMatch, InversePrefixExactMatch, InverseSuffixExactMatch, SuffixExactMatch, InverseExactMatch, FuzzyMatch ];
     const searchersLen = searchers.length;
-    const SPACE_RE = / +(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/;
+    const ESCAPED_PIPE = "\0";
     const OR_TOKEN = "|";
+    function tokenize(pattern) {
+        const tokens = [];
+        const len = pattern.length;
+        let i = 0;
+        while (i < len) {
+            while (i < len && pattern[i] === " ") i++;
+            if (i >= len) break;
+            let j = i;
+            while (j < len && pattern[j] !== " " && pattern[j] !== '"') j++;
+            if (j < len && pattern[j] === '"') {
+                j++;
+                while (j < len) {
+                    if (pattern[j] === '"') {
+                        const next = j + 1;
+                        if (next >= len || pattern[next] === " ") {
+                            j++;
+                            break;
+                        }
+                        if (pattern[next] === "$" && (next + 1 >= len || pattern[next + 1] === " ")) {
+                            j += 2;
+                            break;
+                        }
+                    }
+                    j++;
+                }
+                tokens.push(pattern.substring(i, j));
+                i = j;
+            } else {
+                while (j < len && pattern[j] !== " ") j++;
+                tokens.push(pattern.substring(i, j));
+                i = j;
+            }
+        }
+        return tokens;
+    }
     function parseQuery(pattern, options = {}) {
-        return pattern.split(OR_TOKEN).map(item => {
-            let query = item.trim().split(SPACE_RE).filter(item => item && !!item.trim());
-            let results = [];
+        const escaped = pattern.replace(/\\\|/g, ESCAPED_PIPE);
+        return escaped.split(OR_TOKEN).map(item => {
+            const restored = item.replace(/\u0000/g, "|");
+            const query = tokenize(restored.trim()).filter(item => item && !!item.trim());
+            const results = [];
             for (let i = 0, len = query.length; i < len; i += 1) {
                 const queryItem = query[i];
                 let found = false;
                 let idx = -1;
                 while (!found && ++idx < searchersLen) {
                     const searcher = searchers[idx];
-                    let token = searcher.isMultiMatch(queryItem);
+                    const token = searcher.isMultiMatch(queryItem);
                     if (token) {
                         results.push(new searcher(token, options));
                         found = true;
@@ -3672,7 +3796,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 idx = -1;
                 while (++idx < searchersLen) {
                     const searcher = searchers[idx];
-                    let token = searcher.isSingleMatch(queryItem);
+                    const token = searcher.isSingleMatch(queryItem);
                     if (token) {
                         results.push(new searcher(token, options));
                         break;
@@ -3686,6 +3810,7 @@ document.addEventListener("DOMContentLoaded", function() {
     class ExtendedSearch {
         constructor(pattern, {
             isCaseSensitive = Config.isCaseSensitive,
+            ignoreDiacritics = Config.ignoreDiacritics,
             includeMatches = Config.includeMatches,
             minMatchCharLength = Config.minMatchCharLength,
             ignoreLocation = Config.ignoreLocation,
@@ -3697,6 +3822,7 @@ document.addEventListener("DOMContentLoaded", function() {
             this.query = null;
             this.options = {
                 isCaseSensitive: isCaseSensitive,
+                ignoreDiacritics: ignoreDiacritics,
                 includeMatches: includeMatches,
                 minMatchCharLength: minMatchCharLength,
                 findAllMatches: findAllMatches,
@@ -3705,7 +3831,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 threshold: threshold,
                 distance: distance
             };
-            this.pattern = isCaseSensitive ? pattern : pattern.toLowerCase();
+            pattern = isCaseSensitive ? pattern : pattern.toLowerCase();
+            pattern = ignoreDiacritics ? stripDiacritics(pattern) : pattern;
+            this.pattern = pattern;
             this.query = parseQuery(this.pattern, this.options);
         }
         static condition(_, options) {
@@ -3721,16 +3849,20 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             const {
                 includeMatches,
-                isCaseSensitive
+                isCaseSensitive,
+                ignoreDiacritics
             } = this.options;
             text = isCaseSensitive ? text : text.toLowerCase();
+            text = ignoreDiacritics ? stripDiacritics(text) : text;
             let numMatches = 0;
-            let allIndices = [];
+            const allIndices = [];
             let totalScore = 0;
+            let hasInverse = false;
             for (let i = 0, qLen = query.length; i < qLen; i += 1) {
                 const searchers = query[i];
                 allIndices.length = 0;
                 numMatches = 0;
+                hasInverse = false;
                 for (let j = 0, pLen = searchers.length; j < pLen; j += 1) {
                     const searcher = searchers[j];
                     const {
@@ -3741,10 +3873,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (isMatch) {
                         numMatches += 1;
                         totalScore += score;
+                        const type = searcher.constructor.type;
+                        if (type.startsWith("inverse")) {
+                            hasInverse = true;
+                        }
                         if (includeMatches) {
-                            const type = searcher.constructor.type;
                             if (MultiMatchSet.has(type)) {
-                                allIndices = [ ...allIndices, ...indices ];
+                                allIndices.push(...indices);
                             } else {
                                 allIndices.push(indices);
                             }
@@ -3753,16 +3888,20 @@ document.addEventListener("DOMContentLoaded", function() {
                         totalScore = 0;
                         numMatches = 0;
                         allIndices.length = 0;
+                        hasInverse = false;
                         break;
                     }
                 }
                 if (numMatches) {
-                    let result = {
+                    const result = {
                         isMatch: true,
                         score: totalScore / numMatches
                     };
+                    if (hasInverse) {
+                        result.hasInverse = true;
+                    }
                     if (includeMatches) {
-                        result.indices = allIndices;
+                        result.indices = mergeIndices(allIndices);
                     }
                     return result;
                 }
@@ -3779,7 +3918,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     function createSearcher(pattern, options) {
         for (let i = 0, len = registeredSearchers.length; i < len; i += 1) {
-            let searcherClass = registeredSearchers[i];
+            const searcherClass = registeredSearchers[i];
             if (searcherClass.condition(pattern, options)) {
                 return new searcherClass(pattern, options);
             }
@@ -3806,7 +3945,17 @@ document.addEventListener("DOMContentLoaded", function() {
         auto = true
     } = {}) {
         const next = query => {
-            let keys = Object.keys(query);
+            if (isString(query)) {
+                const obj = {
+                    keyId: null,
+                    pattern: query
+                };
+                if (auto) {
+                    obj.searcher = createSearcher(query, options);
+                }
+                return obj;
+            }
+            const keys = Object.keys(query);
             const isQueryPath = isPath(query);
             if (!isQueryPath && keys.length > 1 && !isExpression(query)) {
                 return next(convertToExplicit(query));
@@ -3826,7 +3975,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 return obj;
             }
-            let node = {
+            const node = {
                 children: [],
                 operator: keys[0]
             };
@@ -3845,21 +3994,84 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         return next(query);
     }
+    function computeScoreSingle(matches, {
+        ignoreFieldNorm = Config.ignoreFieldNorm
+    }) {
+        let totalScore = 1;
+        matches.forEach(({
+            key,
+            norm,
+            score
+        }) => {
+            const weight = key ? key.weight : null;
+            totalScore *= Math.pow(score === 0 && weight ? Number.EPSILON : score, (weight || 1) * (ignoreFieldNorm ? 1 : norm));
+        });
+        return totalScore;
+    }
     function computeScore(results, {
         ignoreFieldNorm = Config.ignoreFieldNorm
     }) {
         results.forEach(result => {
-            let totalScore = 1;
-            result.matches.forEach(({
-                key,
-                norm,
-                score
-            }) => {
-                const weight = key ? key.weight : null;
-                totalScore *= Math.pow(score === 0 && weight ? Number.EPSILON : score, (weight || 1) * (ignoreFieldNorm ? 1 : norm));
+            result.score = computeScoreSingle(result.matches, {
+                ignoreFieldNorm: ignoreFieldNorm
             });
-            result.score = totalScore;
         });
+    }
+    class MaxHeap {
+        constructor(limit) {
+            this.limit = limit;
+            this.heap = [];
+        }
+        get size() {
+            return this.heap.length;
+        }
+        shouldInsert(score) {
+            return this.size < this.limit || score < this.heap[0].score;
+        }
+        insert(item) {
+            if (this.size < this.limit) {
+                this.heap.push(item);
+                this._bubbleUp(this.size - 1);
+            } else if (item.score < this.heap[0].score) {
+                this.heap[0] = item;
+                this._sinkDown(0);
+            }
+        }
+        extractSorted(sortFn) {
+            return this.heap.sort(sortFn);
+        }
+        _bubbleUp(i) {
+            const heap = this.heap;
+            while (i > 0) {
+                const parent = i - 1 >> 1;
+                if (heap[i].score <= heap[parent].score) break;
+                const tmp = heap[i];
+                heap[i] = heap[parent];
+                heap[parent] = tmp;
+                i = parent;
+            }
+        }
+        _sinkDown(i) {
+            const heap = this.heap;
+            const len = heap.length;
+            let largest = i;
+            do {
+                i = largest;
+                const left = 2 * i + 1;
+                const right = 2 * i + 2;
+                if (left < len && heap[left].score > heap[largest].score) {
+                    largest = left;
+                }
+                if (right < len && heap[right].score > heap[largest].score) {
+                    largest = right;
+                }
+                if (largest !== i) {
+                    const tmp = heap[i];
+                    heap[i] = heap[largest];
+                    heap[largest] = tmp;
+                }
+            } while (largest !== i);
+        }
     }
     function transformMatches(result, data) {
         const matches = result.matches;
@@ -3875,7 +4087,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 indices,
                 value
             } = match;
-            let obj = {
+            const obj = {
                 indices: indices,
                 value: value
             };
@@ -3914,12 +4126,169 @@ document.addEventListener("DOMContentLoaded", function() {
             return data;
         });
     }
+    const WORD = /\b\w+\b/g;
+    function createAnalyzer({
+        isCaseSensitive = false,
+        ignoreDiacritics = false
+    } = {}) {
+        return {
+            tokenize(text) {
+                if (!isCaseSensitive) {
+                    text = text.toLowerCase();
+                }
+                if (ignoreDiacritics) {
+                    text = stripDiacritics(text);
+                }
+                return text.match(WORD) || [];
+            }
+        };
+    }
+    function buildInvertedIndex(records, keyCount, analyzer) {
+        const terms = new Map();
+        const df = new Map();
+        let fieldCount = 0;
+        function addField(text, docIdx, keyIdx, subIdx) {
+            const tokens = analyzer.tokenize(text);
+            if (!tokens.length) return;
+            fieldCount++;
+            const termFreqs = new Map();
+            for (const token of tokens) {
+                termFreqs.set(token, (termFreqs.get(token) || 0) + 1);
+            }
+            for (const [ term, tf ] of termFreqs) {
+                const posting = {
+                    docIdx: docIdx,
+                    keyIdx: keyIdx,
+                    subIdx: subIdx,
+                    tf: tf
+                };
+                let postings = terms.get(term);
+                if (!postings) {
+                    postings = [];
+                    terms.set(term, postings);
+                }
+                postings.push(posting);
+                df.set(term, (df.get(term) || 0) + 1);
+            }
+        }
+        for (const record of records) {
+            const {
+                i: docIdx,
+                v,
+                $: fields
+            } = record;
+            if (v !== undefined) {
+                addField(v, docIdx, -1, -1);
+                continue;
+            }
+            if (fields) {
+                for (let keyIdx = 0; keyIdx < keyCount; keyIdx++) {
+                    const value = fields[keyIdx];
+                    if (!value) continue;
+                    if (Array.isArray(value)) {
+                        for (const sub of value) {
+                            addField(sub.v, docIdx, keyIdx, sub.i ?? -1);
+                        }
+                    } else {
+                        addField(value.v, docIdx, keyIdx, -1);
+                    }
+                }
+            }
+        }
+        return {
+            terms: terms,
+            fieldCount: fieldCount,
+            df: df
+        };
+    }
+    function addToInvertedIndex(index, record, keyCount, analyzer) {
+        const {
+            i: docIdx,
+            v,
+            $: fields
+        } = record;
+        function addField(text, keyIdx, subIdx) {
+            const tokens = analyzer.tokenize(text);
+            if (!tokens.length) return;
+            index.fieldCount++;
+            const termFreqs = new Map();
+            for (const token of tokens) {
+                termFreqs.set(token, (termFreqs.get(token) || 0) + 1);
+            }
+            for (const [ term, tf ] of termFreqs) {
+                const posting = {
+                    docIdx: docIdx,
+                    keyIdx: keyIdx,
+                    subIdx: subIdx,
+                    tf: tf
+                };
+                let postings = index.terms.get(term);
+                if (!postings) {
+                    postings = [];
+                    index.terms.set(term, postings);
+                }
+                postings.push(posting);
+                index.df.set(term, (index.df.get(term) || 0) + 1);
+            }
+        }
+        if (v !== undefined) {
+            addField(v, -1, -1);
+            return;
+        }
+        if (fields) {
+            for (let keyIdx = 0; keyIdx < keyCount; keyIdx++) {
+                const value = fields[keyIdx];
+                if (!value) continue;
+                if (Array.isArray(value)) {
+                    for (const sub of value) {
+                        addField(sub.v, keyIdx, sub.i ?? -1);
+                    }
+                } else {
+                    addField(value.v, keyIdx, -1);
+                }
+            }
+        }
+    }
+    function removeFromInvertedIndex(index, docIdx) {
+        for (const [ term, postings ] of index.terms) {
+            const filtered = postings.filter(p => p.docIdx !== docIdx);
+            const removed = postings.length - filtered.length;
+            if (removed > 0) {
+                index.fieldCount -= removed;
+                index.df.set(term, (index.df.get(term) || 0) - removed);
+                if (filtered.length === 0) {
+                    index.terms.delete(term);
+                    index.df.delete(term);
+                } else {
+                    index.terms.set(term, filtered);
+                }
+            }
+        }
+    }
     class Fuse {
-        constructor(docs, options = {}, index) {
+        constructor(docs, options, index) {
             this.options = _objectSpread2(_objectSpread2({}, Config), options);
             if (this.options.useExtendedSearch && false);
+            if (this.options.useTokenSearch && false);
             this._keyStore = new KeyStore(this.options.keys);
+            this._docs = docs;
+            this._myIndex = null;
+            this._invertedIndex = null;
             this.setCollection(docs, index);
+            this._lastQuery = null;
+            this._lastSearcher = null;
+        }
+        _getSearcher(query) {
+            if (this._lastQuery === query) {
+                return this._lastSearcher;
+            }
+            const opts = this._invertedIndex ? _objectSpread2(_objectSpread2({}, this.options), {}, {
+                _invertedIndex: this._invertedIndex
+            }) : this.options;
+            const searcher = createSearcher(query, opts);
+            this._lastQuery = query;
+            this._lastSearcher = searcher;
+            return searcher;
         }
         setCollection(docs, index) {
             this._docs = docs;
@@ -3930,6 +4299,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 getFn: this.options.getFn,
                 fieldNormWeight: this.options.fieldNormWeight
             });
+            if (this.options.useTokenSearch) {
+                const analyzer = createAnalyzer({
+                    isCaseSensitive: this.options.isCaseSensitive,
+                    ignoreDiacritics: this.options.ignoreDiacritics
+                });
+                this._invertedIndex = buildInvertedIndex(this._myIndex.records, this._myIndex.keys.length, analyzer);
+            }
         }
         add(doc) {
             if (!isDefined(doc)) {
@@ -3937,30 +4313,52 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             this._docs.push(doc);
             this._myIndex.add(doc);
+            if (this._invertedIndex) {
+                const record = this._myIndex.records[this._myIndex.records.length - 1];
+                const analyzer = createAnalyzer({
+                    isCaseSensitive: this.options.isCaseSensitive,
+                    ignoreDiacritics: this.options.ignoreDiacritics
+                });
+                addToInvertedIndex(this._invertedIndex, record, this._myIndex.keys.length, analyzer);
+            }
         }
         remove(predicate = () => false) {
             const results = [];
+            const indicesToRemove = [];
             for (let i = 0, len = this._docs.length; i < len; i += 1) {
-                const doc = this._docs[i];
-                if (predicate(doc, i)) {
-                    this.removeAt(i);
-                    i -= 1;
-                    len -= 1;
-                    results.push(doc);
+                if (predicate(this._docs[i], i)) {
+                    results.push(this._docs[i]);
+                    indicesToRemove.push(i);
                 }
+            }
+            if (indicesToRemove.length) {
+                if (this._invertedIndex) {
+                    for (const idx of indicesToRemove) {
+                        removeFromInvertedIndex(this._invertedIndex, idx);
+                    }
+                }
+                for (let i = indicesToRemove.length - 1; i >= 0; i -= 1) {
+                    this._docs.splice(indicesToRemove[i], 1);
+                }
+                this._myIndex.removeAll(indicesToRemove);
             }
             return results;
         }
         removeAt(idx) {
-            this._docs.splice(idx, 1);
+            if (this._invertedIndex) {
+                removeFromInvertedIndex(this._invertedIndex, idx);
+            }
+            const doc = this._docs.splice(idx, 1)[0];
             this._myIndex.removeAt(idx);
+            return doc;
         }
         getIndex() {
             return this._myIndex;
         }
-        search(query, {
-            limit = -1
-        } = {}) {
+        search(query, options) {
+            const {
+                limit = -1
+            } = options || {};
             const {
                 includeMatches,
                 includeScore,
@@ -3968,27 +4366,58 @@ document.addEventListener("DOMContentLoaded", function() {
                 sortFn,
                 ignoreFieldNorm
             } = this.options;
-            let results = isString(query) ? isString(this._docs[0]) ? this._searchStringList(query) : this._searchObjectList(query) : this._searchLogical(query);
-            computeScore(results, {
-                ignoreFieldNorm: ignoreFieldNorm
-            });
-            if (shouldSort) {
-                results.sort(sortFn);
+            if (isString(query) && !query.trim()) {
+                let docs = this._docs.map((item, idx) => ({
+                    item: item,
+                    refIndex: idx
+                }));
+                if (isNumber(limit) && limit > -1) {
+                    docs = docs.slice(0, limit);
+                }
+                return docs;
             }
-            if (isNumber(limit) && limit > -1) {
-                results = results.slice(0, limit);
+            const useHeap = isNumber(limit) && limit > 0 && isString(query);
+            let results;
+            if (useHeap) {
+                const heap = new MaxHeap(limit);
+                if (isString(this._docs[0])) {
+                    this._searchStringList(query, {
+                        heap: heap,
+                        ignoreFieldNorm: ignoreFieldNorm
+                    });
+                } else {
+                    this._searchObjectList(query, {
+                        heap: heap,
+                        ignoreFieldNorm: ignoreFieldNorm
+                    });
+                }
+                results = heap.extractSorted(sortFn);
+            } else {
+                results = isString(query) ? isString(this._docs[0]) ? this._searchStringList(query) : this._searchObjectList(query) : this._searchLogical(query);
+                computeScore(results, {
+                    ignoreFieldNorm: ignoreFieldNorm
+                });
+                if (shouldSort) {
+                    results.sort(sortFn);
+                }
+                if (isNumber(limit) && limit > -1) {
+                    results = results.slice(0, limit);
+                }
             }
             return format(results, this._docs, {
                 includeMatches: includeMatches,
                 includeScore: includeScore
             });
         }
-        _searchStringList(query) {
-            const searcher = createSearcher(query, this.options);
+        _searchStringList(query, {
+            heap,
+            ignoreFieldNorm
+        } = {}) {
+            const searcher = this._getSearcher(query);
             const {
                 records
             } = this._myIndex;
-            const results = [];
+            const results = heap ? null : [];
             records.forEach(({
                 v: text,
                 i: idx,
@@ -4003,7 +4432,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     indices
                 } = searcher.searchIn(text);
                 if (isMatch) {
-                    results.push({
+                    const result = {
                         item: text,
                         idx: idx,
                         matches: [ {
@@ -4012,7 +4441,17 @@ document.addEventListener("DOMContentLoaded", function() {
                             norm: norm,
                             indices: indices
                         } ]
-                    });
+                    };
+                    if (heap) {
+                        result.score = computeScoreSingle(result.matches, {
+                            ignoreFieldNorm: ignoreFieldNorm
+                        });
+                        if (heap.shouldInsert(result.score)) {
+                            heap.insert(result);
+                        }
+                    } else {
+                        results.push(result);
+                    }
                 }
             });
             return results;
@@ -4020,16 +4459,28 @@ document.addEventListener("DOMContentLoaded", function() {
         _searchLogical(query) {
             const expression = parse(query, this.options);
             const evaluate = (node, item, idx) => {
-                if (!node.children) {
+                if (!("children" in node)) {
                     const {
                         keyId,
                         searcher
                     } = node;
-                    const matches = this._findMatches({
-                        key: this._keyStore.get(keyId),
-                        value: this._myIndex.getValueForItemAtKeyId(item, keyId),
-                        searcher: searcher
-                    });
+                    let matches;
+                    if (keyId === null) {
+                        matches = [];
+                        this._myIndex.keys.forEach((key, keyIndex) => {
+                            matches.push(...this._findMatches({
+                                key: key,
+                                value: item[keyIndex],
+                                searcher: searcher
+                            }));
+                        });
+                    } else {
+                        matches = this._findMatches({
+                            key: this._keyStore.get(keyId),
+                            value: this._myIndex.getValueForItemAtKeyId(item, keyId),
+                            searcher: searcher
+                        });
+                    }
                     if (matches && matches.length) {
                         return [ {
                             idx: idx,
@@ -4039,53 +4490,60 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                     return [];
                 }
+                const {
+                    children,
+                    operator
+                } = node;
                 const res = [];
-                for (let i = 0, len = node.children.length; i < len; i += 1) {
-                    const child = node.children[i];
+                for (let i = 0, len = children.length; i < len; i += 1) {
+                    const child = children[i];
                     const result = evaluate(child, item, idx);
                     if (result.length) {
                         res.push(...result);
-                    } else if (node.operator === LogicalOperator.AND) {
+                    } else if (operator === LogicalOperator.AND) {
                         return [];
                     }
                 }
                 return res;
             };
             const records = this._myIndex.records;
-            const resultMap = {};
+            const resultMap = new Map();
             const results = [];
             records.forEach(({
                 $: item,
                 i: idx
             }) => {
                 if (isDefined(item)) {
-                    let expResults = evaluate(expression, item, idx);
+                    const expResults = evaluate(expression, item, idx);
                     if (expResults.length) {
-                        if (!resultMap[idx]) {
-                            resultMap[idx] = {
+                        if (!resultMap.has(idx)) {
+                            resultMap.set(idx, {
                                 idx: idx,
                                 item: item,
                                 matches: []
-                            };
-                            results.push(resultMap[idx]);
+                            });
+                            results.push(resultMap.get(idx));
                         }
                         expResults.forEach(({
                             matches
                         }) => {
-                            resultMap[idx].matches.push(...matches);
+                            resultMap.get(idx).matches.push(...matches);
                         });
                     }
                 }
             });
             return results;
         }
-        _searchObjectList(query) {
-            const searcher = createSearcher(query, this.options);
+        _searchObjectList(query, {
+            heap,
+            ignoreFieldNorm
+        } = {}) {
+            const searcher = this._getSearcher(query);
             const {
                 keys,
                 records
             } = this._myIndex;
-            const results = [];
+            const results = heap ? null : [];
             records.forEach(({
                 $: item,
                 i: idx
@@ -4093,20 +4551,43 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (!isDefined(item)) {
                     return;
                 }
-                let matches = [];
+                const matches = [];
+                let anyKeyFailed = false;
+                let hasInverse = false;
                 keys.forEach((key, keyIndex) => {
-                    matches.push(...this._findMatches({
+                    const keyMatches = this._findMatches({
                         key: key,
                         value: item[keyIndex],
                         searcher: searcher
-                    }));
+                    });
+                    if (keyMatches.length) {
+                        matches.push(...keyMatches);
+                        if (keyMatches[0].hasInverse) {
+                            hasInverse = true;
+                        }
+                    } else {
+                        anyKeyFailed = true;
+                    }
                 });
+                if (hasInverse && anyKeyFailed) {
+                    return;
+                }
                 if (matches.length) {
-                    results.push({
+                    const result = {
                         idx: idx,
                         item: item,
                         matches: matches
-                    });
+                    };
+                    if (heap) {
+                        result.score = computeScoreSingle(result.matches, {
+                            ignoreFieldNorm: ignoreFieldNorm
+                        });
+                        if (heap.shouldInsert(result.score)) {
+                            heap.insert(result);
+                        }
+                    } else {
+                        results.push(result);
+                    }
                 }
             });
             return results;
@@ -4119,7 +4600,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!isDefined(value)) {
                 return [];
             }
-            let matches = [];
+            const matches = [];
             if (isArray(value)) {
                 value.forEach(({
                     v: text,
@@ -4132,7 +4613,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     const {
                         isMatch,
                         score,
-                        indices
+                        indices,
+                        hasInverse
                     } = searcher.searchIn(text);
                     if (isMatch) {
                         matches.push({
@@ -4141,7 +4623,8 @@ document.addEventListener("DOMContentLoaded", function() {
                             value: text,
                             idx: idx,
                             norm: norm,
-                            indices: indices
+                            indices: indices,
+                            hasInverse: hasInverse
                         });
                     }
                 });
@@ -4153,7 +4636,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 const {
                     isMatch,
                     score,
-                    indices
+                    indices,
+                    hasInverse
                 } = searcher.searchIn(text);
                 if (isMatch) {
                     matches.push({
@@ -4161,23 +4645,109 @@ document.addEventListener("DOMContentLoaded", function() {
                         key: key,
                         value: text,
                         norm: norm,
-                        indices: indices
+                        indices: indices,
+                        hasInverse: hasInverse
                     });
                 }
             }
             return matches;
         }
     }
-    Fuse.version = "7.0.0";
+    class TokenSearch {
+        static condition(_, options) {
+            return options.useTokenSearch;
+        }
+        constructor(pattern, options) {
+            this.options = options;
+            this.analyzer = createAnalyzer({
+                isCaseSensitive: options.isCaseSensitive,
+                ignoreDiacritics: options.ignoreDiacritics
+            });
+            const queryTerms = this.analyzer.tokenize(pattern);
+            const invertedIndex = options._invertedIndex;
+            const {
+                df,
+                fieldCount
+            } = invertedIndex;
+            this.termSearchers = [];
+            this.idfWeights = [];
+            for (const term of queryTerms) {
+                this.termSearchers.push(new BitapSearch(term, {
+                    location: options.location,
+                    threshold: options.threshold,
+                    distance: options.distance,
+                    includeMatches: options.includeMatches,
+                    findAllMatches: options.findAllMatches,
+                    minMatchCharLength: options.minMatchCharLength,
+                    isCaseSensitive: options.isCaseSensitive,
+                    ignoreDiacritics: options.ignoreDiacritics,
+                    ignoreLocation: true
+                }));
+                const docFreq = df.get(term) || 0;
+                const idf = Math.log(1 + (fieldCount - docFreq + .5) / (docFreq + .5));
+                this.idfWeights.push(idf);
+            }
+        }
+        searchIn(text) {
+            if (!this.termSearchers.length) {
+                return {
+                    isMatch: false,
+                    score: 1
+                };
+            }
+            const allIndices = [];
+            let weightedScore = 0;
+            let maxPossibleScore = 0;
+            let matchedCount = 0;
+            for (let i = 0; i < this.termSearchers.length; i++) {
+                const result = this.termSearchers[i].searchIn(text);
+                const idf = this.idfWeights[i];
+                maxPossibleScore += idf;
+                if (result.isMatch) {
+                    matchedCount++;
+                    weightedScore += idf * (1 - result.score);
+                    if (result.indices) {
+                        allIndices.push(...result.indices);
+                    }
+                }
+            }
+            if (matchedCount === 0) {
+                return {
+                    isMatch: false,
+                    score: 1
+                };
+            }
+            const normalized = maxPossibleScore > 0 ? 1 - weightedScore / maxPossibleScore : 0;
+            const searchResult = {
+                isMatch: true,
+                score: Math.max(.001, normalized)
+            };
+            if (this.options.includeMatches && allIndices.length) {
+                searchResult.indices = mergeIndices(allIndices);
+            }
+            return searchResult;
+        }
+    }
+    Fuse.version = "7.3.0";
     Fuse.createIndex = createIndex;
     Fuse.parseIndex = parseIndex;
     Fuse.config = Config;
+    Fuse.match = function(pattern, text, options) {
+        const searcher = createSearcher(pattern, _objectSpread2(_objectSpread2({}, Config), options));
+        return searcher.searchIn(text);
+    };
     {
         Fuse.parseQuery = parse;
     }
     {
         register(ExtendedSearch);
     }
+    {
+        register(TokenSearch);
+    }
+    Fuse.use = function(...plugins) {
+        plugins.forEach(plugin => register(plugin));
+    };
     var SearchByFuse = function() {
         function SearchByFuse(config) {
             this._haystack = [];
@@ -4859,7 +5429,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 _this.passedElement.triggerEvent(EventType.showDropdown);
                 var activeElement = _this.choiceList.element.querySelector(getClassNamesSelector(_this.config.classNames.selectedState));
                 if (activeElement !== null && !isScrolledIntoView(activeElement, _this.choiceList.element)) {
-                    activeElement.scrollIntoView();
+                    _this.choiceList.element.scrollTop = activeElement.offsetTop;
                 }
             });
             return this;
@@ -4976,7 +5546,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (!Array.isArray(fetcher_1)) {
                     throw new TypeError(".setChoices first argument function must return either array of choices or Promise, got: ".concat(typeof fetcher_1));
                 }
-                return this.setChoices(fetcher_1, value, label, false);
+                choicesArrayOrFetcher = fetcher_1;
             }
             if (!Array.isArray(choicesArrayOrFetcher)) {
                 throw new TypeError(".setChoices must be called either with array of choices with a function resulting into Promise of array of choices");
@@ -5018,6 +5588,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
                 _this.unhighlightAll();
             });
+            if (this.dropdown.isActive && this._canAddUserChoices) {
+                this._canCreateItem(this.input.value);
+            }
             this._searcher.reset();
             return this;
         };
@@ -5544,7 +6117,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!config.singleModeForMultiSelect && maxItemCount > 0 && maxItemCount <= this._store.items.length) {
                 this.choiceList.element.replaceChildren("");
                 this._notice = undefined;
-                this._displayNotice(typeof maxItemText === "function" ? maxItemText(maxItemCount) : maxItemText, NoticeTypes.addChoice);
+                this._displayNotice(typeof maxItemText === "function" ? maxItemText(maxItemCount) : maxItemText, NoticeTypes.addChoice, false);
                 return false;
             }
             if (this._notice && this._notice.type === NoticeTypes.addChoice) {
@@ -6295,7 +6868,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 throw new TypeError("".concat(caller, " called for an element which has multiple instances of Choices initialised on it"));
             }
         };
-        Choices.version = "11.2.1";
+        Choices.version = "11.2.2";
         return Choices;
     }();
     return Choices;
