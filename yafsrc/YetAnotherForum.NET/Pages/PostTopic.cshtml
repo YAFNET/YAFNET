@@ -170,7 +170,7 @@
     @await Html.PartialAsync("_ChoicesScriptsPartial")
     @await Html.PartialAsync("_PostScriptsPartial")
     <script>
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.GetBoardTagsJs("Tags", "Input_TagsValue")))
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.GetBoardTagsJs("Tags", "Input_TagsValue", Model.Get<ILocalization>().GetText("POSTTOPIC", "TAG_PLACEHOLDER"))))
     </script>
     
     @await Html.PartialAsync("_BBCodeEditorScriptsPartial")
