@@ -12819,6 +12819,10 @@
           {
             "@tag": "TAGS",
             "#text": "Tag:"
+          },
+          {
+            "@tag": "TAG_PLACEHOLDER",
+            "#text": "Inserisci un tag argomento facoltativo"
           }
         ]
       },

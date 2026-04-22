@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Web;
+
 namespace YAF.Core.Services;
 
 using System;
@@ -349,7 +351,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
             html = html.Insert(mc2[i].Index + 1, " \r");
         }
 
-        return html;
+        return HttpUtility.HtmlEncode(html);
     }
 
     /// <summary>

@@ -12835,6 +12835,10 @@
           {
             "@tag": "TAGS",
             "#text": "Thẻ:"
+          },
+          {
+            "@tag": "TAG_PLACEHOLDER",
+            "#text": "Nhập thẻ chủ đề tùy chọn"
           }
         ]
       },

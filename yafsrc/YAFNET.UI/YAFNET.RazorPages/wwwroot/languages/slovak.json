@@ -12835,6 +12835,10 @@
           {
             "@tag": "TAGS",
             "#text": "Tagy:"
+          },
+          {
+            "@tag": "TAG_PLACEHOLDER",
+            "#text": "Zadajte voliteľnú značku témy"
           }
         ]
       },

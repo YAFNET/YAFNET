@@ -12835,6 +12835,10 @@
           {
             "@tag": "TAGS",
             "#text": "Etiquetas:"
+          },
+          {
+            "@tag": "TAG_PLACEHOLDER",
+            "#text": "Insira uma tag de tópico opcional"
           }
         ]
       },

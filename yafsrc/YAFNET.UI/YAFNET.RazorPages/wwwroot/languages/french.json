@@ -12835,6 +12835,10 @@
           {
             "@tag": "TAGS",
             "#text": "Tags :"
+          },
+          {
+            "@tag": "TAG_PLACEHOLDER",
+            "#text": "Saisissez une balise de sujet facultative"
           }
         ]
       },

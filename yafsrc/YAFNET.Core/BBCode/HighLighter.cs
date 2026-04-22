@@ -90,7 +90,7 @@ public class HighLighter
                 $"<div class=\"card\"><div class=\"card-body\"><pre class=\"line-numbers {language}\"{(highlight.IsSet() ? $" data-line=\"{highlight}\"" : string.Empty)}><code>");
 
             tmpOutput.Append(
-                $"<!---->{(StringHelper.IsHtmlEncoded(codeText) ? beautify.Beautify(codeText) : beautify.Beautify(HttpUtility.HtmlEncode(codeText)))}<!---->");
+                $"<!---->{beautify.Beautify(HttpUtility.HtmlDecode(codeText))}<!---->");
 
             tmpOutput.Append($"</code></pre></div></div>{Environment.NewLine}");
         }
@@ -103,7 +103,7 @@ public class HighLighter
                 highlight.IsSet() ? $" data-line=\"{highlight}\"" : string.Empty);
 
             tmpOutput.Append(
-                $"<!---->{(StringHelper.IsHtmlEncoded(codeText) ? codeText : HttpUtility.HtmlEncode(codeText))}<!---->");
+                $"<!---->{HttpUtility.HtmlDecode(codeText)}<!---->");
 
             tmpOutput.Append($"</code></pre>{Environment.NewLine}");
         }

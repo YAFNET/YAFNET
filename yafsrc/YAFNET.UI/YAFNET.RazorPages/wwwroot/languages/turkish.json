@@ -12835,6 +12835,10 @@
           {
             "@tag": "TAGS",
             "#text": "Etiketler:"
+          },
+          {
+            "@tag": "TAG_PLACEHOLDER",
+            "#text": "İsteğe bağlı bir konu etiketi girin"
           }
         ]
       },

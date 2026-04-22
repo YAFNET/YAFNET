@@ -83,7 +83,7 @@ public class MySqlDialectProvider : MySqlDialectProviderBase<MySqlDialectProvide
 
         var mysqlConn = (MySqlConnection)db.ToDbConnection();
 
-        var tmpPath = Path.GetTempFileName();
+        var tmpPath = Path.GetRandomFileName();
         using (var fs = File.OpenWrite(tmpPath))
         {
             CsvSerializer.SerializeToStream(objs, fs);

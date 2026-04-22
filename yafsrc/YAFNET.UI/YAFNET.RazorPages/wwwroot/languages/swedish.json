@@ -12835,6 +12835,10 @@
           {
             "@tag": "TAGS",
             "#text": "Taggar:"
+          },
+          {
+            "@tag": "TAG_PLACEHOLDER",
+            "#text": "Ange en valfri ämnestagg"
           }
         ]
       },

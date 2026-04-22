@@ -25,20 +25,19 @@
 
 namespace YAF.Pages;
 
-using YAF.Core.Extensions;
-using YAF.Core.Helpers;
-using YAF.Core.Model;
-using YAF.Types.Extensions;
-using YAF.Types.Flags;
-using YAF.Types.Interfaces.Identity;
-using YAF.Types.Objects;
-using YAF.Types.Models;
-
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-
 using Microsoft.Extensions.Logging;
+using YAF.Core.Extensions;
+using YAF.Core.Helpers;
+using YAF.Core.Model;
+using YAF.Core.Services;
+using YAF.Types.Extensions;
+using YAF.Types.Flags;
+using YAF.Types.Interfaces.Identity;
+using YAF.Types.Models;
+using YAF.Types.Objects;
 
 /// <summary>
 /// The post message Page.
@@ -190,6 +189,12 @@ public class PostMessageModel : ForumPage
             (this.PageBoardContext.PageTopic.TopicFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess))
         {
             return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
+        if (this.PageBoardContext.PageForum.ForumFlags.IsLocked
+            && !this.PageBoardContext.ForumModeratorAccess)
+        {
+            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
         }
 
         // we reply to a post with a quote
@@ -495,8 +500,8 @@ public class PostMessageModel : ForumPage
         }
 
         // Ederon : 9/9/2007 - moderator can reply to locked topics
-        return !forumInfo.ForumFlags.IsLocked && !topicInfo.TopicFlags.IsLocked
-               || this.PageBoardContext.ForumModeratorAccess && this.PageBoardContext.ForumReplyAccess;
+        return (!forumInfo.ForumFlags.IsLocked && !topicInfo.TopicFlags.IsLocked)
+               || (this.PageBoardContext.ForumModeratorAccess && this.PageBoardContext.ForumReplyAccess);
     }
 
     /// <summary>

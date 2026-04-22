@@ -12835,6 +12835,10 @@
           {
             "@tag": "TAGS",
             "#text": "标签："
+          },
+          {
+            "@tag": "TAG_PLACEHOLDER",
+            "#text": "输入可选的主题标签"
           }
         ]
       },

@@ -12819,6 +12819,10 @@
           {
             "@tag": "TAGS",
             "#text": "Stichworte:"
+          },
+          {
+            "@tag": "TAG_PLACEHOLDER",
+            "#text": "Geben Sie ein optionales Themen-Tag ein"
           }
         ]
       },

@@ -27,7 +27,7 @@
     "simple-webp-converter": "^1.1.2",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.7",
-    "typescript": "^6.0.2",
+    "typescript": "^6.0.3",
     "webpack": "^5.106.2",
     "webpack-cli": "^7.0.2",
     "webpack-merge": "^6.0.1"
@@ -51,7 +51,7 @@
     "codemirror": "^6.0.2",
     "flag-icons": "^7.5.0",
     "form-serialize": "^0.7.2",
-    "long-press-event": "^2.5.0",
+    "long-press-event": "^2.5.2",
     "md.bootstrappersiandatetimepicker": "^4.5.0",
     "prism": "^4.1.2",
     "prismjs": "^1.30.0",

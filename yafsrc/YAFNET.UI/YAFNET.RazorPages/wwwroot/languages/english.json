@@ -12827,6 +12827,10 @@
                 {
                     "@tag": "TAGS",
                     "#text": "Tags:"
+                },
+                {
+	                "@tag": "TAG_PLACEHOLDER",
+	                "#text": "Enter an optional topic tag"
                 }
             ]
         },

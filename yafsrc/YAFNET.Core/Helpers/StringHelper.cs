@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Helpers;
 
-using System.Web;
-
 /// <summary>
 /// Class StringHelper.
 /// </summary>
@@ -58,36 +56,5 @@ public static class StringHelper
         }
 
         return trimmedData.Length <= 3 ? trimmedData.ToUpper() : trimmedData[..3].ToUpper();
-    }
-
-    /// <summary>
-    /// Determines whether the text is Html Encoded or not
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <returns>Returns if text is Html Encoded or not</returns>
-    public static bool IsHtmlEncoded(string text)
-    {
-        if (text.Contains('<'))
-        {
-            return false;
-        }
-
-        if (text.Contains('>'))
-        {
-            return false;
-        }
-
-        if (text.Contains('\"'))
-        {
-            return false;
-        }
-
-        if (text.Contains('\''))
-        {
-            return false;
-        }
-
-        // if decoded string == original string, it is already encoded
-        return HttpUtility.HtmlDecode(text) != text;
     }
 }

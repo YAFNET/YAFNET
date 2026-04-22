@@ -12839,6 +12839,10 @@
           {
             "@tag": "TAGS",
             "#text": "Štítky:"
+          },
+          {
+            "@tag": "TAG_PLACEHOLDER",
+            "#text": "Zadejte volitelnou značku tématu"
           }
         ]
       },

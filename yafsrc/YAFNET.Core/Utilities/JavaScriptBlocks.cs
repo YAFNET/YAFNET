@@ -113,10 +113,13 @@ public static class JavaScriptBlocks
     /// The input Id.
     /// </param>
     /// <param name="hiddenId"></param>
+    /// <param name="placeHolder">
+    /// The placeholder for the select
+    /// </param>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string GetBoardTagsJs(string inputId, string hiddenId)
+    public static string GetBoardTagsJs(string inputId, string hiddenId, string placeHolder)
     {
         return $$"""
                   var tagsSelect = new Choices('#{{inputId}}', {
@@ -124,7 +127,7 @@ public static class JavaScriptBlocks
                           addChoices: true,
                           shouldSort: false,
                           removeItemButton: true,
-                          placeholder: false,
+                          placeholderValue: '{{placeHolder}}',
                           classNames: { containerOuter: ['choices', 'w-100'] },
                           resetScrollPosition: false,
                           callbackOnCreateTemplates: createTagsSelectTemplates

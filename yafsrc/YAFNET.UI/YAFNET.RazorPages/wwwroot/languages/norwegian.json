@@ -12835,6 +12835,10 @@
           {
             "@tag": "TAGS",
             "#text": "Tagger:"
+          },
+          {
+            "@tag": "TAG_PLACEHOLDER",
+            "#text": "Skriv inn en valgfri emnekode"
           }
         ]
       },

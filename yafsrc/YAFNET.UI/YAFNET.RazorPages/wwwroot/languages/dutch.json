@@ -12819,6 +12819,10 @@
           {
             "@tag": "TAGS",
             "#text": "Trefwoorden:"
+          },
+          {
+            "@tag": "TAG_PLACEHOLDER",
+            "#text": "Voer een optionele onderwerptag in"
           }
         ]
       },

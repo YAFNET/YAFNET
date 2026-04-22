@@ -178,7 +178,7 @@
 	@if (Model.PageBoardContext.PageTopic.UserID == Model.PageBoardContext.PageMessage.UserID || Model.PageBoardContext.ForumModeratorAccess)
 	{
 		<script>
-			@Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.GetBoardTagsJs("Tags", "Input_TagsValue")))
+            @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.GetBoardTagsJs("Tags", "Input_TagsValue", Model.Get<ILocalization>().GetText("POSTTOPIC", "TAG_PLACEHOLDER"))))
 		</script>
 	}
 

@@ -12823,6 +12823,10 @@
           {
             "@tag": "TAGS",
             "#text": "Tagi:"
+          },
+          {
+            "@tag": "TAG_PLACEHOLDER",
+            "#text": "Wprowadź opcjonalny tag tematu"
           }
         ]
       },
