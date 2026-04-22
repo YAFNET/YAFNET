@@ -45,7 +45,7 @@ namespace YAF.Lucene.Net.Util
     [Serializable]
 #endif
     // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
-    [DebuggerDisplay("{ToString()} {Utf8ToString()}")]
+    [DebuggerDisplay("{DebuggerDisplay,nq}")]
     public sealed class BytesRef : IComparable<BytesRef>, IComparable, IEquatable<BytesRef> // LUCENENET specific - implemented IComparable for FieldComparator, IEquatable<BytesRef>
     {
         /// <summary>
@@ -316,6 +316,11 @@ namespace YAF.Lucene.Net.Util
             return false;
         }
         #nullable restore
+
+        // LUCENENET specific: "Invalid UTF-8" disambiguates a decode failure from a legitimate U+FFFD in the data.
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Referenced by DebuggerDisplay attribute")]
+        private string DebuggerDisplay
+            => $"{(TryUtf8ToString(out var s) ? s : "Invalid UTF-8")} {ToString()}";
 
         /// <summary>
         /// Returns hex encoded bytes, eg [0x6c 0x75 0x63 0x65 0x6e 0x65] </summary>
@@ -631,6 +636,36 @@ namespace YAF.Lucene.Net.Util
 #endif
         }
 
+        /// <summary>
+        /// Creates a new read-only span over a portion of a target bytes
+        /// using the range start and end indexes.
+        /// </summary>
+        /// <param name="range">The range that has start and end indexes to use for slicing the bytes.</param>
+        /// <returns>The read-only span representation of the bytes.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="range"/>'s start or end index is not within the bounds of the bytes.
+        /// -or-
+        /// <paramref name="range"/>'s start index is greater than its end index.
+        /// </exception>
+        public ReadOnlySpan<byte> AsSpan(Range range) // LUCENENET specific
+        {
+            (int start, int length) = range.GetOffsetAndLength(Length);
+
+            // Compute offset in uint to prevent overflow
+            uint totalOffset = (uint)Offset + (uint)start;
+
+            // Ensure we stay within the backing array bounds
+            if (totalOffset + (uint)length > (uint)bytes.Length)
+                throw new ArgumentOutOfRangeException(nameof(start));
+
+#if FEATURE_MEMORYMARSHAL_CREATEREADONLYSPAN && FEATURE_MEMORYMARSHAL_GETARRAYDATAREFERENCE
+            return MemoryMarshal.CreateReadOnlySpan<byte>(ref Unsafe.Add(ref MemoryMarshal.GetArrayDataReference(bytes),
+                (nint)totalOffset /* force zero-extension */), length);
+#else
+            return new ReadOnlySpan<byte>(bytes, checked((int)totalOffset), length);
+#endif
+        }
+
         #endregion AsSpan
 
         #region AsMemory
@@ -722,6 +757,31 @@ namespace YAF.Lucene.Net.Util
                 throw new ArgumentOutOfRangeException(nameof(startIndex));
 
             return new ReadOnlyMemory<byte>(bytes, checked((int)totalOffset), Length - actualIndex);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="ReadOnlyMemory{T}"/> over the portion of <see cref="Bytes"/>
+        /// between <see cref="Offset"/> + <paramref name="range"/>.Start and <paramref name="range"/>.Length.
+        /// </summary>
+        /// <param name="range">The range used to indicate the start and length of the sliced string.</param>
+        /// <returns>The read-only byte memory representation of the backing array.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="range"/>'s start or end index is not within the bounds of the array.
+        /// -or-
+        /// <paramref name="range"/>'s start index is greater than its end index.
+        /// </exception>
+        public ReadOnlyMemory<byte> AsMemory(Range range) // LUCENENET specific
+        {
+            (int start, int length) = range.GetOffsetAndLength(Length);
+
+            // Compute offset in uint to prevent overflow
+            uint totalOffset = (uint)Offset + (uint)start;
+
+            // Ensure we stay within the backing array bounds
+            if (totalOffset + (uint)length > (uint)bytes.Length)
+                throw new ArgumentOutOfRangeException(nameof(start));
+
+            return new ReadOnlyMemory<byte>(bytes, checked((int)totalOffset), length);
         }
 
         #endregion AsMemory

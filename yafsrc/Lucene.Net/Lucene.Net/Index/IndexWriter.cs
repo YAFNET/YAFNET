@@ -34,24 +34,24 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Analyzer = Lucene.Net.Analysis.Analyzer;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using Codec = Lucene.Net.Codecs.Codec;
-    using CompoundFileDirectory = Lucene.Net.Store.CompoundFileDirectory;
-    using Constants = Lucene.Net.Util.Constants;
-    using Directory = Lucene.Net.Store.Directory;
-    using FieldNumbers = Lucene.Net.Index.FieldInfos.FieldNumbers;
-    using IBits = Lucene.Net.Util.IBits;
-    using InfoStream = Lucene.Net.Util.InfoStream;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using Lock = Lucene.Net.Store.Lock;
-    using LockObtainFailedException = Lucene.Net.Store.LockObtainFailedException;
-    using Lucene3xCodec = Lucene.Net.Codecs.Lucene3x.Lucene3xCodec;
-    using Lucene3xSegmentInfoFormat = Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
-    using MergeInfo = Lucene.Net.Store.MergeInfo;
-    using Query = Lucene.Net.Search.Query;
-    using TrackingDirectoryWrapper = Lucene.Net.Store.TrackingDirectoryWrapper;
+    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
+    using Constants = YAF.Lucene.Net.Util.Constants;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FieldNumbers = YAF.Lucene.Net.Index.FieldInfos.FieldNumbers;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using Lock = YAF.Lucene.Net.Store.Lock;
+    using LockObtainFailedException = YAF.Lucene.Net.Store.LockObtainFailedException;
+    using Lucene3xCodec = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xCodec;
+    using Lucene3xSegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
+    using MergeInfo = YAF.Lucene.Net.Store.MergeInfo;
+    using Query = YAF.Lucene.Net.Search.Query;
+    using TrackingDirectoryWrapper = YAF.Lucene.Net.Store.TrackingDirectoryWrapper;
 
     /// <summary>
     /// An <see cref="IndexWriter"/> creates and maintains an index.
@@ -1174,7 +1174,7 @@ namespace YAF.Lucene.Net.Index
         /// then return. </param>
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources;
         /// <c>false</c> to release only unmanaged resources. </param>
-        // LUCENENET specific - Added this overload to allow subclasses to dispose resoruces
+        // LUCENENET specific - Added this overload to allow subclasses to dispose resources
         // in one place without also having to override Dispose(bool).
         [MethodImpl(MethodImplOptions.NoInlining)] // Stack trace needed intact in TestConcurrentMergeScheduler and TestIndexWriterWithThreads
         protected virtual void Dispose(bool disposing, bool waitForMerges)
@@ -2615,7 +2615,7 @@ namespace YAF.Lucene.Net.Index
                 MergePolicy.MergeSpecification spec;
                 if (maxNumSegments != UNBOUNDED_MAX_MERGE_SEGMENTS)
                 {
-                    if (Debugging.AssertsEnabled) Debugging.Assert(trigger == MergeTrigger.EXPLICIT || trigger == MergeTrigger.MERGE_FINISHED, "Expected EXPLICT or MERGE_FINISHED as trigger even with maxNumSegments set but was: {0}", trigger);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(trigger == MergeTrigger.EXPLICIT || trigger == MergeTrigger.MERGE_FINISHED, "Expected EXPLICIT or MERGE_FINISHED as trigger even with maxNumSegments set but was: {0}", trigger);
                     spec = mergePolicy.FindForcedMerges(segmentInfos, maxNumSegments, segmentsToMerge);
                     newMergesFound = spec != null;
                     if (newMergesFound)

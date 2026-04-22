@@ -431,7 +431,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         }
 
         html = !allowHtml
-                   ? html//this.HttpServer.HtmlEncode(html)
+                   ? this.HttpServer.HtmlEncode(html)
                    : RemoveHtmlByList(html, this.Get<BoardSettings>().AcceptedHTML.Split(','));
 
         return html;

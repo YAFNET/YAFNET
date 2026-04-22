@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Search
     /// searcher:
     ///
     /// <code>
-    ///     // Record the current searcher, and save the returend
+    ///     // Record the current searcher, and save the returned
     ///     // token into user's search results (eg as a  hidden
     ///     // HTML form field):
     ///     long token = mgr.Record(searcher);
@@ -265,7 +265,7 @@ namespace YAF.Lucene.Net.Search
         /// entries are passed to the <see cref="IPruner"/> in sorted (newest to
         /// oldest <see cref="IndexSearcher"/>) order.
         ///
-        /// <para/><b>NOTE</b>: you must peridiocally call this, ideally
+        /// <para/><b>NOTE</b>: you must periodically call this, ideally
         /// from the same background thread that opens new
         /// searchers.
         /// </summary>

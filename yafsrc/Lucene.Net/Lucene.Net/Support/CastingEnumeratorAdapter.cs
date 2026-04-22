@@ -1,9 +1,7 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace YAF.Lucene.Net.Support.Threading
+namespace YAF.Lucene.Net.Support
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -22,26 +20,29 @@ namespace YAF.Lucene.Net.Support.Threading
      * limitations under the License.
      */
 
-    internal class TaskSchedulerCompletionService<T>
+    /// <summary>
+    /// LUCENENET specific struct used to adapt an <see cref="IEnumerator{T}"/> to one with a different type parameter.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the original enumerator.</typeparam>
+    /// <typeparam name="U">The type of elements in the adapted enumerator.</typeparam>
+    internal readonly struct CastingEnumeratorAdapter<T, U> : IEnumerator<U>
+        where T : U
     {
-        private readonly TaskFactory<T> factory;
-        private readonly Queue<Task<T>> taskQueue = new Queue<Task<T>>();
+        private readonly IEnumerator<T> enumerator;
 
-        public TaskSchedulerCompletionService(TaskScheduler scheduler)
+        public CastingEnumeratorAdapter(IEnumerator<T> enumerator)
         {
-            this.factory = new TaskFactory<T>(scheduler ?? TaskScheduler.Default);
+            this.enumerator = enumerator;
         }
 
-        public Task<T> Submit(Func<T> task, CancellationToken cancellationToken = default)
-        {
-            var t = factory.StartNew(task, cancellationToken);
-            taskQueue.Enqueue(t);
-            return t;
-        }
+        public U Current => enumerator.Current;
 
-        public Task<T> Take()
-        {
-            return taskQueue.Dequeue();
-        }
+        object IEnumerator.Current => enumerator.Current;
+
+        public bool MoveNext() => enumerator.MoveNext();
+
+        public void Reset() => enumerator.Reset();
+
+        public void Dispose() => enumerator.Dispose();
     }
 }

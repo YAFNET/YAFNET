@@ -14972,7 +14972,13 @@ Prism.languages.vba = Prism.languages["visual-basic"];
     document.addEventListener(mouseMove, mouseMoveHandler, true);
     document.addEventListener("wheel", clearLongPressTimer, true);
     document.addEventListener("scroll", clearLongPressTimer, true);
-    document.addEventListener("contextmenu", clearLongPressTimer, true);
+    document.addEventListener("contextmenu", function(e) {
+        if (isTouch) {
+            e.preventDefault();
+            return;
+        }
+        clearLongPressTimer();
+    }, true);
     document.addEventListener(mouseDown, mouseDownHandler, true);
 })(window, document);
 

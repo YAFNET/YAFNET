@@ -89,7 +89,7 @@ public class HighLighter
 
         tmpOutput.AppendFormat(
             "<!---->{0}<!---->",
-            StringHelper.IsHtmlEncoded(codeText) ? codeText : HttpUtility.HtmlEncode(codeText));
+            HttpUtility.HtmlDecode(codeText));
 
         tmpOutput.AppendFormat("</code></pre>{0}", Environment.NewLine);
 
