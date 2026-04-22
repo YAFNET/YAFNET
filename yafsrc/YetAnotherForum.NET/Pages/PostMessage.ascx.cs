@@ -157,6 +157,22 @@ public partial class PostMessage : ForumPage
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
     override protected void OnInit(EventArgs e)
     {
+        // Block replies to locked topics (moderators bypass)
+        if (this.PageBoardContext.PageTopic != null
+            && this.PageBoardContext.PageTopic.TopicFlags.IsLocked
+            && !this.PageBoardContext.ForumModeratorAccess)
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+        }
+
+        // Also block if the whole forum is locked
+        if (this.PageBoardContext.PageForum != null
+            && this.PageBoardContext.PageForum.ForumFlags.IsLocked
+            && !this.PageBoardContext.ForumModeratorAccess)
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+        }
+
         if (this.PageBoardContext.UploadAccess)
         {
             this.PageBoardContext.PageElements.AddScriptReference("FileUploadScript");
@@ -558,9 +574,9 @@ public partial class PostMessage : ForumPage
         }
 
         // Ederon : 9/9/2007 - moderator can reply to locked topics
-        return !forumInfo.ForumFlags.IsLocked
-               && !topicInfo.TopicFlags.IsLocked || this.PageBoardContext.ForumModeratorAccess
-               && this.PageBoardContext.ForumReplyAccess;
+        return (!forumInfo.ForumFlags.IsLocked
+                && !topicInfo.TopicFlags.IsLocked) || (this.PageBoardContext.ForumModeratorAccess
+                                                       && this.PageBoardContext.ForumReplyAccess);
     }
 
     /// <summary>
