@@ -26,6 +26,7 @@ using YAF.Core.Model;
 
 namespace YAF.Core.BasePages;
 
+using System;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -40,8 +41,6 @@ using YAF.Types.Models;
 /// The class that all YAF forum pages are derived from.
 /// </summary>
 [EnableRateLimiting("fixed")]
-//[PageSecurityCheck]
-[UserSuspendCheck]
 public abstract class ForumPage : PageModel,
                                   IHaveServiceLocator,
                                   ILocatablePage,
@@ -75,6 +74,27 @@ public abstract class ForumPage : PageModel,
             if (result != null)
             {
                 context.Result = result;
+                return;
+            }
+        }
+
+        // check for suspension if enabled...
+        if (BoardContext.Current.Globals.IsSuspendCheckEnabled && BoardContext.Current.IsSuspended)
+        {
+            if (this.Get<IDateTimeService>().GetUserDateTime(BoardContext.Current.SuspendedUntil)
+                <= this.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow))
+            {
+                await this.GetRepository<User>().SuspendAsync(BoardContext.Current.PageUserID);
+
+                await this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(
+                    BoardContext.Current.PageUser.Email,
+                    BoardContext.Current.PageUser.DisplayOrUserName());
+
+                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(BoardContext.Current.PageUserID));
+            }
+            else
+            {
+                context.Result = this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Suspended);
                 return;
             }
         }

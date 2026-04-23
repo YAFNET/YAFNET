@@ -63,6 +63,6 @@ public class AdminAuthorizationAttribute : AuthorizeAttribute, IAuthorizationFil
             return;
         }
 
-        context.Result = new StatusCodeResult((int)System.Net.HttpStatusCode.Forbidden);
+        context.Result = new StatusCodeResult((int)HttpStatusCode.Forbidden);
     }
 }
