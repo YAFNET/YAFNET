@@ -22,7 +22,11 @@
  * under the License.
  */
 
+using YAF.Core.Model;
+
 namespace YAF.Core.BasePages;
+
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -30,12 +34,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using YAF.Core.Filters;
 using YAF.Core.Handlers;
 using YAF.Types.Attributes;
+using YAF.Types.Models;
 
 /// <summary>
 /// The class that all YAF forum pages are derived from.
 /// </summary>
 [EnableRateLimiting("fixed")]
-[PageSecurityCheck]
+//[PageSecurityCheck]
 [UserSuspendCheck]
 public abstract class ForumPage : PageModel,
                                   IHaveServiceLocator,
@@ -46,6 +51,105 @@ public abstract class ForumPage : PageModel,
     /// The Unicode Encoder
     /// </summary>
     private readonly UnicodeEncoder unicodeEncoder;
+
+    /// <summary>
+    /// Called asynchronously before the handler method is invoked, after model binding is complete.
+    /// </summary>
+    /// <param name="context">The <see cref="T:Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext" />.</param>
+    /// <param name="next">The <see cref="T:Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutionDelegate" />. Invoked to execute the next page filter or the handler method itself.</param>
+    public async override Task OnPageHandlerExecutionAsync(PageHandlerExecutingContext context, PageHandlerExecutionDelegate next)
+    {
+        // no security features for login/logout pages
+        if (BoardContext.Current.CurrentForumPage.IsAccountPage)
+        {
+            await next.Invoke();
+        }
+
+        // check if login is required
+        if (BoardContext.Current.BoardSettings.RequireLogin && BoardContext.Current.IsGuest &&
+            BoardContext.Current.CurrentForumPage.IsProtected)
+        {
+            // redirect to login page if login is required
+            var result = this.Get<IPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
+
+            if (result != null)
+            {
+                context.Result = result;
+                return;
+            }
+        }
+
+        // check if it's a "registered user only page" and check permissions.
+        if (BoardContext.Current.CurrentForumPage.IsRegisteredPage &&
+            BoardContext.Current.CurrentForumPage.AspNetUser == null)
+        {
+            var result = this.Get<IPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
+
+            if (result != null)
+            {
+                context.Result = result;
+
+                return;
+            }
+        }
+
+        // Handle admin pages
+        if (BoardContext.Current.CurrentForumPage.IsAdminPage)
+        {
+            if (!BoardContext.Current.IsAdmin)
+            {
+                context.Result = this.Get<ILinkBuilder>().AccessDenied();
+                return;
+            }
+
+            // Load the page access list.
+            var hasAccess = this.GetRepository<AdminPageUserAccess>().HasAccess(
+                BoardContext.Current.PageUserID,
+                BoardContext.Current.CurrentForumPage.PageName.ToString());
+
+            // Check access rights to the page.
+            if (!BoardContext.Current.PageUser.UserFlags.IsHostAdmin &&
+                (!BoardContext.Current.CurrentForumPage.PageName.ToString().IsSet() || !hasAccess))
+            {
+                context.Result = this.Get<ILinkBuilder>()
+                    .RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
+
+                return;
+            }
+        }
+
+        // handle security features...
+        if (BoardContext.Current.CurrentForumPage.PageName == ForumPages.Account_Register &&
+            BoardContext.Current.BoardSettings.DisableRegistrations)
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+
+            return;
+        }
+
+        // check access permissions for specific pages...
+        var resultPermission = BoardContext.Current.CurrentForumPage.PageName switch
+        {
+            ForumPages.ActiveUsers => this.Get<IPermissions>()
+                .HandleRequest((ViewPermissions)BoardContext.Current.BoardSettings.ActiveUsersViewPermissions),
+            ForumPages.Members => this.Get<IPermissions>()
+                .HandleRequest((ViewPermissions)BoardContext.Current.BoardSettings.MembersListViewPermissions),
+            ForumPages.UserProfile or ForumPages.Albums or ForumPages.Album => this.Get<IPermissions>()
+                .HandleRequest((ViewPermissions)BoardContext.Current.BoardSettings.ProfileViewPermissions),
+            ForumPages.Search => this.Get<IPermissions>()
+                .HandleRequest((ViewPermissions)BoardContext.Current.BoardSettings.SearchPermissions),
+            _ => null
+        };
+
+        if (resultPermission != null)
+        {
+            context.Result = resultPermission;
+
+            return;
+        }
+
+        await next.Invoke();
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ForumPage"/> class.
