@@ -70,7 +70,7 @@ public class PostgreSQLDbInformation : IDbInformation
     /// </summary>
     public IDbConnectionParam[] DbConnectionParameters()
     {
-        return this.connectionParameters.OfType<IDbConnectionParam>().ToArray();
+        return [.. this.connectionParameters.OfType<IDbConnectionParam>()];
     }
 
     /// <summary>

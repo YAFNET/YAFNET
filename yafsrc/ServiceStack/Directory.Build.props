@@ -1,9 +1,9 @@
 ﻿<Project>
 
   <PropertyGroup>
-	<Version>3.2.11</Version>
-	<AssemblyVersion>3.2.11</AssemblyVersion>
-	<FileVersion>3.2.11</FileVersion>
+	<Version>3.2.12</Version>
+	<AssemblyVersion>3.2.12</AssemblyVersion>
+	<FileVersion>3.2.12</FileVersion>
     <Authors>ServiceStack</Authors>
     <Company>ServiceStack, Inc.</Company>
     <Copyright>&#169; 2008-2026 ServiceStack, Inc</Copyright>

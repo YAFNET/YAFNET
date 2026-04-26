@@ -414,7 +414,7 @@ public class SyndicationFeeds : IHaveServiceLocator
 
         if (formattedUrl.EndsWith("/"))
         {
-            formattedUrl = formattedUrl.Remove(formattedUrl.Length - 1);
+            formattedUrl = formattedUrl[..^1];
         }
 
         return formattedUrl;

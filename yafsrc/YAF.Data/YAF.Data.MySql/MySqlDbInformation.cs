@@ -70,7 +70,7 @@ public class MySqlDbInformation : IDbInformation
     /// Gets the DB Connection Parameters.
     /// </summary>
     public IDbConnectionParam[] DbConnectionParameters () {
-        return this.connectionParameters.OfType<IDbConnectionParam>().ToArray();
+        return [.. this.connectionParameters.OfType<IDbConnectionParam>()];
     }
 
     /// <summary>
