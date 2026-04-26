@@ -25,28 +25,28 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BlockPackedWriter = YAF.Lucene.Net.Util.Packed.BlockPackedWriter;
-    using BufferedChecksumIndexInput = YAF.Lucene.Net.Store.BufferedChecksumIndexInput;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using Fields = YAF.Lucene.Net.Index.Fields;
-    using GrowableByteArrayDataOutput = YAF.Lucene.Net.Util.GrowableByteArrayDataOutput;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using MergeState = YAF.Lucene.Net.Index.MergeState;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using SegmentReader = YAF.Lucene.Net.Index.SegmentReader;
-    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
+    using AtomicReader = Lucene.Net.Index.AtomicReader;
+    using IBits = Lucene.Net.Util.IBits;
+    using BlockPackedWriter = Lucene.Net.Util.Packed.BlockPackedWriter;
+    using BufferedChecksumIndexInput = Lucene.Net.Store.BufferedChecksumIndexInput;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using ChecksumIndexInput = Lucene.Net.Store.ChecksumIndexInput;
+    using DataInput = Lucene.Net.Store.DataInput;
+    using Directory = Lucene.Net.Store.Directory;
+    using FieldInfo = Lucene.Net.Index.FieldInfo;
+    using FieldInfos = Lucene.Net.Index.FieldInfos;
+    using Fields = Lucene.Net.Index.Fields;
+    using GrowableByteArrayDataOutput = Lucene.Net.Util.GrowableByteArrayDataOutput;
+    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
+    using IndexInput = Lucene.Net.Store.IndexInput;
+    using IndexOutput = Lucene.Net.Store.IndexOutput;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using MergeState = Lucene.Net.Index.MergeState;
+    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
+    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
+    using SegmentReader = Lucene.Net.Index.SegmentReader;
+    using StringHelper = Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// <see cref="TermVectorsWriter"/> for <see cref="CompressingTermVectorsFormat"/>.
@@ -472,7 +472,14 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
             int numDistinctFields = fieldNums.Count;
             if (Debugging.AssertsEnabled) Debugging.Assert(numDistinctFields > 0);
-            int bitsRequired = PackedInt32s.BitsRequired(fieldNums.Max);
+            // LUCENENET specific - Java would throw a NoSuchElementException, but in .NET we throw an
+            // InvalidOperationException instead, since the collection is empty and .NET doesn't throw
+            // in this case. In practice, this exception should never happen.
+            if (!fieldNums.TryGetLast(out int last))
+            {
+                throw new InvalidOperationException("fieldNums must not be empty");
+            }
+            int bitsRequired = PackedInt32s.BitsRequired(last);
             int token = (Math.Min(numDistinctFields - 1, 0x07) << 5) | bitsRequired;
             vectorsStream.WriteByte((byte)token);
             if (numDistinctFields - 1 >= 0x07)

@@ -20,9 +20,9 @@
 		"postcss": "^8.5.10",
 		"sass": "^1.99.0",
 		"simple-webp-converter": "^1.1.2",
-		"terser-webpack-plugin": "^5.4.0",
+		"terser-webpack-plugin": "^5.5.0",
 		"ts-loader": "^9.5.7",
-		"typescript": "^6.0.2",
+		"typescript": "^6.0.3",
 		"webpack": "^5.106.2",
 		"webpack-cli": "^7.0.2"
 	},
@@ -41,7 +41,7 @@
 		"choices.js": "^11.2.2",
 		"codemirror": "^6.0.2",
 		"flag-icons": "^7.5.0",
-		"long-press-event": "^2.5.0",
+		"long-press-event": "^2.5.2",
 		"prism": "^4.1.2",
 		"prismjs": "^1.30.0",
 		"scss": "^0.2.4"
