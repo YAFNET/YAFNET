@@ -2,8 +2,8 @@
   "name": "yetanotherforum-net",
   "author": "Ingo Herbote",
   "homepage": "https://www.yetanotherforum.net/",
-  "version": "4.0.4",
-  "versionNuget": "4.0.4",
+  "version": "4.0.5",
+  "versionNuget": "4.0.5",
   "private": true,
   "license": "Apache-2.0",
   "devDependencies": {
@@ -57,7 +57,7 @@
     "prismjs": "^1.30.0",
     "scss": "^0.2.4",
     "smooth-scroll-into-view-if-needed": "^2.0.2",
-    "terser-webpack-plugin": "^5.4.0"
+    "terser-webpack-plugin": "^5.5.0"
   },
   "scripts": {
     "build": "grunt",
