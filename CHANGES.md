@@ -15,8 +15,6 @@ YetAnotherForum.NET Changelog
 * [FIXED #1572] load saved Forum image
 * [NEW #1622] Add category URL segments (/Category/{id}/{name}) - Thanks @mt0321
 * [NEW] include albums on the user profile page
-
-
 * bug fixes
 
 # YetAnotherForum.NET v4.0.4
