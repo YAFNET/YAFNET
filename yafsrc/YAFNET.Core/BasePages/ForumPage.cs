@@ -32,7 +32,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-using YAF.Core.Filters;
 using YAF.Core.Handlers;
 using YAF.Types.Attributes;
 using YAF.Types.Models;
@@ -58,6 +57,18 @@ public abstract class ForumPage : PageModel,
     /// <param name="next">The <see cref="T:Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutionDelegate" />. Invoked to execute the next page filter or the handler method itself.</param>
     public async override Task OnPageHandlerExecutionAsync(PageHandlerExecutingContext context, PageHandlerExecutionDelegate next)
     {
+        this.Get<IRaiseEvent>().Raise(new ForumPageInitEvent());
+
+        if (this.NoDataBase)
+        {
+            return;
+        }
+
+        // fire preload event...
+        this.Get<IRaiseEvent>().Raise(new ForumPagePreLoadEvent());
+
+        this.Get<IDataCache>().Remove("TopicID");
+
         // no security features for login/logout pages
         if (BoardContext.Current.CurrentForumPage.IsAccountPage)
         {
@@ -167,6 +178,9 @@ public abstract class ForumPage : PageModel,
 
             return;
         }
+
+        // fire preload event...
+        this.Get<IRaiseEvent>().Raise(new ForumPagePostLoadEvent());
 
         await next.Invoke();
     }
@@ -288,35 +302,6 @@ public abstract class ForumPage : PageModel,
     /// Gets or sets a value indicating whether no database, Should only be set by the page that initialized the database.
     /// </summary>
     protected bool NoDataBase { get; set; }
-
-    /// <summary>
-    /// Called before the handler method executes, after model binding is complete.
-    /// </summary>
-    /// <param name="context">The <see cref="PageHandlerExecutingContext"/>.</param>
-    public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
-    {
-        this.Get<IRaiseEvent>().Raise(new ForumPageInitEvent());
-
-        if (this.NoDataBase)
-        {
-            return;
-        }
-
-        // fire preload event...
-        this.Get<IRaiseEvent>().Raise(new ForumPagePreLoadEvent());
-
-        this.Get<IDataCache>().Remove("TopicID");
-    }
-
-    /// <summary>
-    /// Called after the handler method executes, before the action result executes.
-    /// </summary>
-    /// <param name="context">The <see cref="PageHandlerExecutedContext"/>.</param>
-    public override void OnPageHandlerExecuted(PageHandlerExecutedContext context)
-    {
-        // fire preload event...
-        this.Get<IRaiseEvent>().Raise(new ForumPagePostLoadEvent());
-    }
 
     /// <summary>
     /// Encodes the HTML

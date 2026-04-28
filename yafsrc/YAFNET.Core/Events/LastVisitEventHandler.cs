@@ -75,37 +75,40 @@ public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>
     {
         const string PreviousVisitKey = "PreviousVisit";
 
-        if (!BoardContext.Current.IsGuest && BoardContext.Current.PageData.Item2.Item1.PreviousVisit.HasValue
-                                          && !this.YafSession.LastVisit.HasValue)
+        switch (BoardContext.Current.IsGuest)
         {
-            this.YafSession.LastVisit = BoardContext.Current.PageData.Item2.Item1.PreviousVisit.Value;
-        }
-        else if (BoardContext.Current.IsGuest && !this.YafSession.LastVisit.HasValue)
-        {
-            if (this.context.HttpContext.Request.Cookies.Keys.Contains(PreviousVisitKey))
+            case false when BoardContext.Current.PageData.Item2.Item1.PreviousVisit.HasValue
+                            && !this.YafSession.LastVisit.HasValue:
+                this.YafSession.LastVisit = BoardContext.Current.PageData.Item2.Item1.PreviousVisit.Value;
+                break;
+            case true when !this.YafSession.LastVisit.HasValue:
             {
-                // have previous visit cookie...
-                var previousVisitInsecure = this.context.HttpContext.Request.Cookies[PreviousVisitKey];
-
-                try
+                if (this.context.HttpContext.Request.Cookies.Keys.Contains(PreviousVisitKey))
                 {
-                    this.YafSession.LastVisit = DateTime.Parse(previousVisitInsecure, CultureInfo.InvariantCulture);
+                    // have previous visit cookie...
+                    var previousVisitInsecure = this.context.HttpContext.Request.Cookies[PreviousVisitKey];
+
+                    try
+                    {
+                        this.YafSession.LastVisit = DateTime.Parse(previousVisitInsecure, CultureInfo.InvariantCulture);
+                    }
+                    catch
+                    {
+                        this.YafSession.LastVisit = DateTimeHelper.SqlDbMinTime();
+                    }
                 }
-                catch
+                else
                 {
                     this.YafSession.LastVisit = DateTimeHelper.SqlDbMinTime();
                 }
-            }
-            else
-            {
-                this.YafSession.LastVisit = DateTimeHelper.SqlDbMinTime();
-            }
 
-            // set the last visit cookie...
-            this.context.HttpContext.Response.Cookies.Append(
-                PreviousVisitKey,
-                DateTime.UtcNow.ToString(CultureInfo.InvariantCulture),
-                new CookieOptions { Expires = DateTime.Now.AddMonths(6) });
+                // set the last visit cookie...
+                this.context.HttpContext.Response.Cookies.Append(
+                    PreviousVisitKey,
+                    DateTime.UtcNow.ToString(CultureInfo.InvariantCulture),
+                    new CookieOptions { Expires = DateTime.Now.AddMonths(6) });
+                break;
+            }
         }
     }
 }

@@ -4882,10 +4882,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         switch (m.Method.Name)
         {
             case "Contains":
-                List<object> args = this.VisitExpressionList(m.Arguments);
+                var args = this.VisitExpressionList(m.Arguments);
                 // args[0] is the collection, args[1] is the column/value to check
-                object quotedColName = args[1];
-                Expression collectionExpr = m.Arguments[0];
+                var quotedColName = args[1];
+                var collectionExpr = m.Arguments[0];
                 return ToInPartialString(collectionExpr, quotedColName);
 
             default:

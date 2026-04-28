@@ -531,14 +531,14 @@ public static class OrmLiteWriteApiAsync
         /// <summary>
         /// Insert a new row or update existing row. Returns true if a new row was inserted.
         /// Optional references param decides whether to save all related references as well. E.g:
-        /// <para>db.SaveAsync(customer, references:true)</para>
+        /// <para>db.UpsertAsync(customer, references:true)</para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="obj">The object.</param>
         /// <param name="references">if set to <c>true</c> [references].</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>true if a row was inserted; false if it was updated</returns>
-        public async Task<bool> SaveAsync<T>(T obj, bool references = false, CancellationToken token = default)
+        public async Task<bool> UpsertAsync<T>(T obj, bool references = false, CancellationToken token = default)
         {
             if (!references)
             {
@@ -566,7 +566,7 @@ public static class OrmLiteWriteApiAsync
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="objs">The objs.</param>
         /// <returns>number of rows added</returns>
-        public Task<int> SaveAsync<T>(CancellationToken token, params T[] objs)
+        public Task<int> UpsertAsync<T>(CancellationToken token, params T[] objs)
         {
             return dbConn.Exec(dbCmd => dbCmd.SaveAsync(token, objs));
         }
@@ -577,7 +577,7 @@ public static class OrmLiteWriteApiAsync
         /// <typeparam name="T"></typeparam>
         /// <param name="objs">The objs.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        public Task<int> SaveAsync<T>(params T[] objs)
+        public Task<int> UpsertAsync<T>(params T[] objs)
         {
             return dbConn.Exec(dbCmd => dbCmd.SaveAsync(CancellationToken.None, objs));
         }
@@ -590,7 +590,7 @@ public static class OrmLiteWriteApiAsync
         /// <param name="objs">The objs.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>number of rows added</returns>
-        public Task<int> SaveAllAsync<T>(IEnumerable<T> objs, CancellationToken token = default)
+        public Task<int> UpsertAllAsync<T>(IEnumerable<T> objs, CancellationToken token = default)
         {
             return dbConn.Exec(dbCmd => dbCmd.SaveAllAsync(objs, token));
         }

@@ -232,7 +232,7 @@ public static class TopicContainerHtmlHelper
 
         var infoLastPost = new TagBuilder(HtmlTag.A);
 
-        infoLastPost.AddCssClass("btn btn-link btn-sm topic-link-popover");
+        infoLastPost.AddCssClass("btn btn-link btn-sm topic-link-popover text-body-secondary");
         infoLastPost.MergeAttribute(
         "data-bs-content",
             $"{userLast.RenderToString()}{dateTimeIcon.RenderToString()}{span}{formattedDatetime}</span>");

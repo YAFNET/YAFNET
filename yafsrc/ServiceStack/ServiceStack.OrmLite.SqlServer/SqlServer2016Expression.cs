@@ -10,7 +10,6 @@ using ServiceStack.OrmLite.Base.Text;
 namespace ServiceStack.OrmLite.SqlServer;
 
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 
 /// <summary>
@@ -36,8 +35,8 @@ public class SqlServer2016Expression<T> : SqlServerExpression<T>
     /// <exception cref="System.NotSupportedException"></exception>
     override protected object VisitSqlMethodCall(MethodCallExpression m)
     {
-        List<object> args = this.VisitInSqlExpressionList(m.Arguments);
-        object quotedColName = args[0];
+        var args = this.VisitInSqlExpressionList(m.Arguments);
+        var quotedColName = args[0];
         args.RemoveAt(0);
 
         string statement;

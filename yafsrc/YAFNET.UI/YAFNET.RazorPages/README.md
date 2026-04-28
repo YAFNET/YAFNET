@@ -72,7 +72,7 @@ builder.Services.AddRazorPages(options =>
     options.Conventions.AddAreaPageRoute("Forums", "/SiteMap", "/Sitemap.xml");
 }).AddYafRazorPages(builder.Environment);
 
-builder.Services.AddYafCore(builder.Configuration);
+builder.Services.AddYafCore(builder.Configuration, "/Forums, /Forums/Board");
 
 // only needed for blazor
 builder.Services.AddServerSideBlazor();
