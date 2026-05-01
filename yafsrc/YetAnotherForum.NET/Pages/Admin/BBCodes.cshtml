@@ -146,7 +146,7 @@
     <div class="row justify-content-end">
         <div class="col-auto">
             <pager page-size="@Model.Size"
-                   count="!Model.List.NullOrEmpty() ? (await Model.GetRepository<BBCode>().CountAsync(x => x.BoardID == Model.PageBoardContext.PageBoardID)).ToType<int>() : 0">
+                   count="17">
             </pager>
         </div>
     </div>

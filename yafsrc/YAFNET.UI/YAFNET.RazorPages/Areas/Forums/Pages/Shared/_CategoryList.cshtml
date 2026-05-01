@@ -30,8 +30,8 @@
     {
 	    var image = new TagBuilder(HtmlTag.Img) { TagRenderMode = TagRenderMode.SelfClosing };
 
-	    image.MergeAttribute("alt", category.Category);
-	    image.MergeAttribute("src", category.CategoryImage.Contains('/') ? category.CategoryImage : $"/{Current.Get<BoardFolders>().Categories}/{category.CategoryImage}");
+	    image.MergeAttribute(HtmlAttribute.Alt, category.Category);
+	    image.MergeAttribute(HtmlAttribute.Src, category.CategoryImage.Contains('/') ? category.CategoryImage : $"/{Current.Get<BoardFolders>().Categories}/{category.CategoryImage}");
 
 		categoryImage = image;
     }

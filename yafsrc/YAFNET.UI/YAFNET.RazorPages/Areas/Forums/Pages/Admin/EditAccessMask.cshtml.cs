@@ -95,8 +95,10 @@ public class EditAccessMaskModel : AdminPage
                         DeleteAccess = this.Input.DeleteAccess
                     };
 
+        int? id = this.Input.Id == 0 ? null : this.Input.Id;
+
         // save it
-        await this.GetRepository<AccessMask>().SaveAsync(this.Input.Id, this.Input.Name, flags, this.Input.SortOrder);
+        await this.GetRepository<AccessMask>().SaveAsync(id, this.Input.Name, flags, this.Input.SortOrder);
 
         // get back to access masks administration
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_AccessMasks);
@@ -107,7 +109,13 @@ public class EditAccessMaskModel : AdminPage
     /// </summary>
     private async Task<IActionResult> BindDataAsync(int? i)
     {
-        if (i.HasValue)
+        if (i is null or 0)
+        {
+            this.Input.SortOrder =
+                (await this.GetRepository<AccessMask>().CountAsync(x => x.BoardID == this.PageBoardContext.PageBoardID) + 1)
+                .ToType<short>();
+        }
+        else
         {
             var accessMask = await this.GetRepository<AccessMask>()
                 .GetByIdAsync(i.Value);
@@ -135,12 +143,6 @@ public class EditAccessMaskModel : AdminPage
             {
                 return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
-        }
-        else
-        {
-            this.Input.SortOrder =
-                (await this.GetRepository<AccessMask>().CountAsync(x => x.BoardID == this.PageBoardContext.PageBoardID) + 1)
-                .ToType<short>();
         }
 
         return this.Page();

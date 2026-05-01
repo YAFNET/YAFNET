@@ -66,8 +66,10 @@ public class EditBBCodeModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostAddAsync()
     {
+        int? id = this.Input.BBCodeId == 0 ? null : this.Input.BBCodeId;
+
         await this.GetRepository<BBCode>().SaveAsync(
-            this.Input.BBCodeId,
+            id,
             this.Input.Name.Trim(),
             this.Input.Description,
             this.Input.OnClickJS,
@@ -91,7 +93,7 @@ public class EditBBCodeModel : AdminPage
     /// <param name="b">The BBCode Id</param>
     protected void BindData(int? b)
     {
-        if (!b.HasValue)
+        if (b is null or 0)
         {
             return;
         }

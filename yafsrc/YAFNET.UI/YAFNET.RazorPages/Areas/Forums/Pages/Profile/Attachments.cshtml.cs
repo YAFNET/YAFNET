@@ -143,11 +143,11 @@ public class AttachmentsModel : ProfilePage
 
         image.AddCssClass("me-2 img-thumbnail attachments-preview");
 
-        image.MergeAttribute("src", url);
-        image.MergeAttribute("alt", fileName);
-        image.MergeAttribute("title", fileName);
+        image.MergeAttribute(HtmlAttribute.Src, url);
+        image.MergeAttribute(HtmlAttribute.Alt, fileName);
+        image.MergeAttribute(HtmlAttribute.Title, fileName);
         image.MergeAttribute("data-url", url);
-        image.MergeAttribute("style", "max-width:30px");
+        image.MergeAttribute(HtmlAttribute.Style, "max-width:30px");
 
         return isImage ? image : icon;
     }

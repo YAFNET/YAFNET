@@ -70,7 +70,7 @@ public class EditRankModel : AdminPage
     {
         this.Input = new EditRankInputModel();
 
-        if (!r.HasValue)
+        if (r is null or 0)
         {
             return this.Page();
         }
@@ -78,10 +78,6 @@ public class EditRankModel : AdminPage
         var rankId = r.Value;
         var rank = this.GetRepository<Rank>().GetById(rankId);
 
-        if (rank is null)
-        {
-            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-        }
 
         this.Input.Id = rankId;
         this.Input.Name = rank.Name;

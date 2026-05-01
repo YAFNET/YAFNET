@@ -139,8 +139,8 @@ public class UsersAttachmentsModel : AdminPage
 
         image.AddCssClass("me-2 img-thumbnail attachments-preview");
 
-        image.MergeAttribute("src", url);
-        image.MergeAttribute("alt", fileName);
+        image.MergeAttribute(HtmlAttribute.Src, url);
+        image.MergeAttribute(HtmlAttribute.Alt, fileName);
         image.MergeAttribute("title", fileName);
         image.MergeAttribute("data-url", url);
         image.MergeAttribute("style", "max-width:30px");
