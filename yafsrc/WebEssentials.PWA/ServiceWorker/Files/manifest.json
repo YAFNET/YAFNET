@@ -1,0 +1,77 @@
+﻿{
+	"name": "YetAnotherForum.NET",
+	"short_name": "YAF.NET",
+	"description": "YetAnotherForum.NET (YAF.NET) ASP.NET Core Open Source Forum solution! ",
+	"start_url": "/",
+	"scope": "/",
+	"display": "standalone",
+	"background_color": "#ffffff",
+	"theme_color": "#ffffff",
+	"orientation": "portrait-primary",
+	"categories": [ "productivity" ],
+	"shortcuts": [
+		{
+			"name": "Your Notifications",
+			"url": "/MyTopics"
+		},
+		{
+			"name": "View today's events",
+			"url": "/Notification"
+		}
+	],
+	"icons": [
+		{
+			"src": "/assets/manifest-icon-192.maskable.webp",
+			"sizes": "192x192",
+			"type": "image/webp",
+			"purpose": "any"
+		},
+		{
+			"src": "/assets/manifest-icon-192.maskable.webp",
+			"sizes": "192x192",
+			"type": "image/webp",
+			"purpose": "maskable"
+		},
+		{
+			"src": "/assets/manifest-icon-512.maskable.webp",
+			"sizes": "512x512",
+			"type": "image/webp",
+			"purpose": "any"
+		},
+		{
+			"src": "/assets/manifest-icon-512.maskable.webp",
+			"sizes": "512x512",
+			"type": "image/webp",
+			"purpose": "maskable"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "/assets/main.webp",
+			"sizes": "2560x1440",
+			"type": "image/webp",
+			"form_factor": "wide",
+			"label": "Home screen showing main navigation and featured content"
+		},
+		{
+			"src": "/assets/forum.webp",
+			"sizes": "2560x1440",
+			"type": "image/webp",
+			"form_factor": "wide",
+			"label": "Screen showing a forum"
+		},
+		{
+			"src": "/assets/topic.webp",
+			"sizes": "2560x1440",
+			"type": "image/webp",
+			"form_factor": "wide",
+			"label": "Topic screen showing a forum topic "
+		},
+		{
+			"src": "/assets/admin.webp",
+			"sizes": "2560x1440",
+			"type": "image/webp",
+			"label": "Admin Dashboard view displaying key metrics"
+		}
+	]
+}

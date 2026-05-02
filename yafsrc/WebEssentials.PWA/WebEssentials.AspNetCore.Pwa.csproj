@@ -11,10 +11,12 @@
 
   <ItemGroup>
     <None Remove="ServiceWorker\Files\offline.html" />
+    <None Remove="ServiceWorker\Files\manifest.json" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="ServiceWorker\Files\offline.html" />
+    <EmbeddedResource Include="ServiceWorker\Files\manifest.json" />
   </ItemGroup>
 
   <ItemGroup>

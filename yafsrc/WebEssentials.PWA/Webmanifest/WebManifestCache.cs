@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
@@ -50,7 +51,20 @@ internal class WebManifestCache
             var file = this._env.WebRootFileProvider.GetFileInfo(this._fileName);
             entry.AddExpirationToken(this._env.WebRootFileProvider.Watch(this._fileName));
 
-            var json = File.ReadAllText(file.PhysicalPath);
+            string json;
+
+            if (file.Exists && !string.IsNullOrEmpty(file.PhysicalPath))
+            {
+                json = File.ReadAllText(file.PhysicalPath);
+            }
+            else
+            {
+                var assembly = typeof(PwaOptions).Assembly;
+                var resourceStream = assembly.GetManifestResourceStream("WebEssentials.AspNetCore.Pwa.ServiceWorker.Files.manifest.json");
+
+                using var reader = new StreamReader(resourceStream);
+                json = reader.ReadToEnd();
+            }
 
             var manifest = JsonSerializer.Deserialize<WebManifest>(json);
             manifest.FileName = this._fileName;
