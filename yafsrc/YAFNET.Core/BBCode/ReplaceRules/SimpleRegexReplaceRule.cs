@@ -56,7 +56,7 @@ public class SimpleRegexReplaceRule : BaseReplaceRule
     /// </param>
     public SimpleRegexReplaceRule(string regExSearch, string regExReplace, RegexOptions regExOptions)
     {
-        this.RegExSearch = new Regex(regExSearch, regExOptions, TimeSpan.FromMilliseconds(100));
+        this.RegExSearch = new Regex(regExSearch, regExOptions | RegexOptions.NonBacktracking, TimeSpan.FromMilliseconds(100));
         this.RegExReplace = regExReplace;
     }
 

@@ -73,7 +73,7 @@ public class BBCodeController : ForumBaseController
             return this.Ok(
                 new MessageModalNotification(
                 importedCount > 0
-                    ? string.Format(this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_SUCESS"), importedCount)
+                    ? string.Format(this.GetText("ADMIN_BBCODE_IMPORT", "IMPORT_SUCESS"), importedCount)
                     : this.GetText("ADMIN_BBCODE_IMPORT", "IMPORT_NOTHING"),
                 MessageTypes.success));
         }

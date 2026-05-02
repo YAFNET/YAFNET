@@ -164,7 +164,7 @@ public class VariableRegexReplaceRule : SimpleRegexReplaceRule
                         var varName = tVar;
                         var handlingValue = string.Empty;
 
-                        if (varName.Contains(":"))
+                        if (varName.Contains(':'))
                         {
                             // has handling section
                             var tmpSplit = varName.Split(':');

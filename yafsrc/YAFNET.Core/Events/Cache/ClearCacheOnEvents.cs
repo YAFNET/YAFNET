@@ -226,7 +226,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     public void Handle(RepositoryEvent<BBCode> @event)
     {
         this.DataCache.Remove(Constants.Cache.CustomBBCode);
-        this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
+        this.Get<IObjectStore>().Remove(Constants.Cache.CustomBBCodeRegExDictionary);
     }
 
     /// <summary>
