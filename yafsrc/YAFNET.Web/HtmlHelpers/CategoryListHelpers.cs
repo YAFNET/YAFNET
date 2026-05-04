@@ -93,7 +93,7 @@ public static class CategoryListHelpers
             {
                 var forumImage = new TagBuilder(HtmlTag.Img);
 
-                forumImage.MergeAttribute("src", item.ImageURL);
+                forumImage.MergeAttribute(HtmlAttribute.Src, item.ImageURL);
                 forumImage.MergeAttribute("data-bs-toggle", "tooltip");
 
                 // Highlight custom icon images and add tool tips to them.
@@ -101,7 +101,7 @@ public static class CategoryListHelpers
                 {
                     forumImage.AddCssClass("forum_customimage_locked");
                     forumImage.MergeAttribute(
-                        "alt",
+                        HtmlAttribute.Alt,
                         BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "FORUM_LOCKED"));
                     forumImage.MergeAttribute(
                         HtmlAttribute.Title,
@@ -111,7 +111,7 @@ public static class CategoryListHelpers
                 {
                     forumImage.AddCssClass("forum_customimage_newposts");
                     forumImage.MergeAttribute(
-                        "alt",
+                        HtmlAttribute.Alt,
                         BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "NEW_POSTS"));
                     forumImage.MergeAttribute(
                         HtmlAttribute.Title,
@@ -121,7 +121,7 @@ public static class CategoryListHelpers
                 {
                     forumImage.AddCssClass("forum_customimage_nonewposts");
                     forumImage.MergeAttribute(
-                        "alt",
+                        HtmlAttribute.Alt,
                         BoardContext.Current.Get<ILocalization>().GetText("ICONLEGEND", "NO_NEW_POSTS"));
                     forumImage.MergeAttribute(
                         HtmlAttribute.Title,

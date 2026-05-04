@@ -15,7 +15,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.7" />
     <PackageReference Include="Microsoft.Playwright" Version="1.59.0" />
     <PackageReference Include="netDumbster" Version="3.1.1" />
-	  <PackageReference Include="NUnit" Version="4.5.1" />
+	  <PackageReference Include="NUnit" Version="4.6.0" />
 	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.25.0.139117">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

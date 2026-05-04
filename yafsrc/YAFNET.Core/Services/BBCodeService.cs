@@ -899,6 +899,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         var sb = new StringBuilder(strToLocalize);
 
         var m = regExSearch.Match(strToLocalize);
+
         while (m.Success)
         {
             // get the localization tag...

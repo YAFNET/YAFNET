@@ -18,6 +18,6 @@
         "copy": "copy-files-from-to"
     },
     "dependencies": {
-        "copy-files-from-to": "^4.0.0"
+        "copy-files-from-to": "^4.0.1"
     }
 }

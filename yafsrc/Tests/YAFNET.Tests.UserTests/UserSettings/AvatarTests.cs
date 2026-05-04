@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using HtmlProperties;
+
 namespace YAF.Tests.UserTests.UserSettings;
 
 using System.IO;
@@ -75,7 +77,7 @@ public class AvatarTests : TestBase
                     // Check new avatar
                     var image = page.Locator(".img-thumbnail");
 
-                    var src = await image.GetAttributeAsync("src");
+                    var src = await image.GetAttributeAsync(HtmlAttribute.Src);
 
                     Assert.That(src, Is.Not.Null);
 
@@ -123,7 +125,7 @@ public class AvatarTests : TestBase
                     // Check new avatar
                     var image = page.Locator(".img-thumbnail");
 
-                    var src = await image.GetAttributeAsync("src");
+                    var src = await image.GetAttributeAsync(HtmlAttribute.Src);
 
                     Assert.That(src, Is.Not.Null);
 

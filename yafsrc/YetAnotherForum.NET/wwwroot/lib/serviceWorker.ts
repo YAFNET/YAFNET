@@ -14,7 +14,7 @@ var offlineUrl = '{offlineRoute}';
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
-			// @ts-ignore
+            // @ts-ignore
             return cache.addAll([offlineUrl, {routes}]);
         })
     );

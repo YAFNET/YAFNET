@@ -1,6 +1,6 @@
-﻿const _globalWindow = (window /* browser */ || global /* node */) as any;
+﻿const _global = (window /* browser */ || global /* node */) as any;
 
-_globalWindow.Subscriptions = class Subscriptions {
+_global.Subscriptions = class Subscriptions {
     TextAppInstalled: string;
     TextSubscribed: string;
     TextBrowserNotSupported: string;
@@ -86,7 +86,7 @@ _globalWindow.Subscriptions = class Subscriptions {
         // PWA Install prompt
         let deferredPrompt: any;
 
-        _globalWindow.addEventListener('beforeinstallprompt', (e: Event) => {
+        _global.addEventListener('beforeinstallprompt', (e: Event) => {
 	        e.preventDefault();
 	        deferredPrompt = e;
 
