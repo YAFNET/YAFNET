@@ -4,6 +4,7 @@ using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Codecs.Lucene40
 {
@@ -243,7 +244,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
             private readonly int[] fieldNumbers;
             private readonly long[] fieldFPs;
-            private readonly IDictionary<int, int> fieldNumberToIndex = new Dictionary<int, int>();
+            private readonly IDictionary<int, int> fieldNumberToIndex = new JCG.Dictionary<int, int>();
 
             public TVFields(Lucene40TermVectorsReader outerInstance, int docID)
             {

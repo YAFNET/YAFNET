@@ -2,6 +2,7 @@ using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Search.Spans;
 using System.Collections.Generic;
 using System.Xml;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
 {
@@ -27,7 +28,7 @@ namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
     /// </summary>
     public class SpanQueryBuilderFactory : ISpanQueryBuilder
     {
-        private readonly IDictionary<string, ISpanQueryBuilder> builders = new Dictionary<string, ISpanQueryBuilder>();
+        private readonly IDictionary<string, ISpanQueryBuilder> builders = new JCG.Dictionary<string, ISpanQueryBuilder>();
 
         public virtual Query GetQuery(XmlElement e)
         {

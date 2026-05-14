@@ -2,6 +2,7 @@ using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -288,7 +289,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (attributes is null)
             {
-                attributes = new Dictionary<string, string>();
+                attributes = new JCG.Dictionary<string, string>();
             }
 
             // The key was not previously assigned, null will be returned

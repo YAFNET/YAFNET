@@ -4,6 +4,7 @@ using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Analysis.Core
 {
@@ -55,7 +56,7 @@ namespace YAF.Lucene.Net.Analysis.Core
 
         public virtual AbstractAnalysisFactory GetMultiTermComponent()
         {
-            return new LowerCaseFilterFactory(new Dictionary<string, string>(OriginalArgs));
+            return new LowerCaseFilterFactory(new JCG.Dictionary<string, string>(OriginalArgs));
         }
     }
 }

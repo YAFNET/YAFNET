@@ -3,6 +3,7 @@ using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.Documents.Extensions;
 using System;
 using System.Collections.Generic;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -34,7 +35,7 @@ namespace YAF.Lucene.Net.Index
         // TODO: somewhat wasteful we also keep a map here; would
         // be more efficient if we could "reuse" the map/hash
         // lookup DocFieldProcessor already did "above"
-        private readonly IDictionary<string, DocValuesWriter> writers = new Dictionary<string, DocValuesWriter>();
+        private readonly IDictionary<string, DocValuesWriter> writers = new JCG.Dictionary<string, DocValuesWriter>();
 
         private readonly Counter bytesUsed;
 

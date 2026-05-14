@@ -8,6 +8,7 @@ using IBits = YAF.Lucene.Net.Util.IBits;
 using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
 using Directory = YAF.Lucene.Net.Store.Directory;
+using JCG = J2N.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
@@ -236,7 +237,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
             private readonly int[] fieldNumbers;
             private readonly long[] fieldFPs;
-            private readonly IDictionary<int, int> fieldNumberToIndex = new Dictionary<int, int>();
+            private readonly IDictionary<int, int> fieldNumberToIndex = new JCG.Dictionary<int, int>();
 
             public TVFields(Lucene3xTermVectorsReader outerInstance, int docID)
             {
