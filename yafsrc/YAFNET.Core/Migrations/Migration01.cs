@@ -99,5 +99,14 @@ public class Migration01 : MigrationBase
         this.Db.CreateTable<AspNetUserClaims>();
         this.Db.CreateTable<AspNetUserLogins>();
         this.Db.CreateTable<AspNetUserRoles>();
+
+        // define COLLATION for mysql
+        if (OrmLiteConfig.DialectProvider.SQLServerName() != "MySQL")
+        {
+            return;
+        }
+
+        this.Db.ExecuteSql($"ALTER TABLE {this.Db.GetTableName<Topic>()} CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
+        this.Db.ExecuteSql($"ALTER TABLE {this.Db.GetTableName<Topic>()} MODIFY Topic TEXT CHARSET utf8mb4;");
     }
 }
