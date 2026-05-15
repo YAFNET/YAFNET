@@ -1,0 +1,62 @@
+networks:
+  dev:
+    driver: bridge
+
+services:
+  yafnet:
+    image: ${DOCKER_REGISTRY-}yafnet
+    depends_on:
+      postgres-db:
+        condition: service_healthy          # wait for PostgreSQL to be ready
+      postgres-init:
+        condition: service_completed_successfully  # wait for DB to be created
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres-db;Database=yaf;Username=postgres;Password=MyPass@word
+      - BoardConfiguration__ConnectionProviderName=Npgsql Data Provider
+      - ASPNETCORE_URLS=http://+:89
+    build:
+      context: .
+      dockerfile: docker/yaf-postgresql/Dockerfile
+    container_name: yafnet
+    ports:
+      - "8001:89"
+    networks:
+      - dev
+
+  postgres-db:
+    container_name: postgres-db
+    image: postgres:16-alpine
+    ports:
+      - "8002:5432"
+    environment:
+      - POSTGRES_PASSWORD=MyPass@word
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres           # default maintenance DB; yaf DB is created by init
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s               # PostgreSQL starts faster than SQL Server
+    networks:
+      - dev
+
+  postgres-init:
+    image: postgres:16-alpine
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    environment:
+      - PGPASSWORD=MyPass@word
+    volumes:
+      - ./docker/yaf-postgresql:/init-db:ro   # mount the init script (read-only)
+    entrypoint: /bin/sh /init-db/create-db.sh
+    networks:
+      - dev
+    restart: "no"                            # run once and exit
+    
+# Define persistent volumes to store MySQL data.
+volumes:
+  postgresql-data:

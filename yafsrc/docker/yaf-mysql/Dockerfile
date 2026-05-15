@@ -8,9 +8,9 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 COPY ["ServiceStack/Directory.Build.props", "ServiceStack/"]
-COPY ["YetAnotherForum.NET/YAF-SqlServer.csproj", "YetAnotherForum.NET/"]
+COPY ["YetAnotherForum.NET/YAF-MySql.csproj", "YetAnotherForum.NET/"]
 
-COPY ["YAF.NET-SqlServer.slnx", ""]
+COPY ["YAF.NET-MySql.slnx", ""]
 COPY ["YAFNET.Core/YAFNET.Core.csproj", "YAFNET.Core/"]
 COPY ["Tests/YAFNET.Tests.AdminTests/YAFNET.Tests.AdminTests.csproj", "Tests/YAFNET.Tests.AdminTests/"]
 COPY ["Tests/YAFNET.Tests.CoreTests/YAFNET.Tests.CoreTests.csproj", "Tests/YAFNET.Tests.CoreTests/"]
@@ -19,8 +19,8 @@ COPY ["Tests/YAFNET.Tests.Utils/YAFNET.Tests.Utils.csproj", "Tests/YAFNET.Tests.
 COPY ["ServiceStack/ServiceStack.OrmLite/ServiceStack.OrmLite.Core.csproj", "ServiceStack/ServiceStack.OrmLite/"]
 COPY ["YAFNET.Configuration/YAFNET.Configuration.csproj", "YAFNET.Configuration/"]
 COPY ["YAFNET.Types/YAFNET.Types.csproj", "YAFNET.Types/"]
-COPY ["YAFNET.Data/YAFNET.Data.SqlServer/YAFNET.Data.SqlServer.csproj", "YAFNET.Data/YAFNET.Data.SqlServer/"]
-COPY ["ServiceStack/ServiceStack.OrmLite.SqlServer/ServiceStack.OrmLite.SqlServer.Core.csproj", "ServiceStack/ServiceStack.OrmLite.SqlServer/"]
+COPY ["YAFNET.Data/YAFNET.Data.MySql/YAFNET.Data.MySql.csproj", "YAFNET.Data/YAFNET.Data.MySql/"]
+COPY ["ServiceStack/ServiceStack.OrmLite.MySql/ServiceStack.OrmLite.MySql.Core.csproj", "ServiceStack/ServiceStack.OrmLite.MySql/"]
 COPY ["WebEssentials.PWA/WebEssentials.AspNetCore.Pwa.csproj", "WebEssentials.PWA/"]
 COPY ["YAFNET.Web/YAFNET.Web.csproj", "YAFNET.Web/"]
 COPY . .
@@ -36,7 +36,7 @@ RUN apt-get install -y nodejs
 RUN npm install
 
 FROM build AS publish
-RUN dotnet publish "YAF-SqlServer.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "YAF-MySql.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
