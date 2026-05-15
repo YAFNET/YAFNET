@@ -22,13 +22,11 @@
  * under the License.
  */
 
+using SkiaSharp;
+
 namespace YAF.Core.Helpers;
 
 using System.IO;
-
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Webp;
-using SixLabors.ImageSharp.Processing;
 
 /// <summary>
 /// The image helper.
@@ -48,9 +46,9 @@ public static class ImageHelper
     ///     The image height.
     /// </param>
     /// <returns>
-    /// A resized image stream Stream.
+    /// A resized image stream.
     /// </returns>
-    public static MemoryStream GetResizedImage(Image image, long x, long y)
+    public static MemoryStream GetResizedImage(SKBitmap image, long x, long y)
     {
         double newWidth = image.Width;
         double newHeight = image.Height;
@@ -67,12 +65,25 @@ public static class ImageHelper
             newHeight = y;
         }
 
-        image.Mutate(context => context.Resize((int)newWidth, (int)newHeight, KnownResamplers.Lanczos3));
+        // Resize
+        using var resizedBitmap = image.Resize(
+            new SKImageInfo((int)newWidth, (int)newHeight),
+            SKFilterQuality.High  // High = Lanczos-equivalent quality
+        );
 
+        // Encode to WebP and save to MemoryStream
+        using var resizedImage = SKImage.FromBitmap(resizedBitmap);
         var resized = new MemoryStream();
-
-        image.Save(resized, new WebpEncoder());
+        using var encoded = resizedImage.Encode(SKEncodedImageFormat.Webp, 100);
+        encoded.SaveTo(resized);
+        resized.Position = 0; // reset if you need to read it afterward
 
         return resized;
+    }
+
+    public static SKBitmap LoadImage(Stream stream)
+    {
+        using var skiaStream = new SKManagedStream(stream);
+        return SKBitmap.Decode(skiaStream);
     }
 }

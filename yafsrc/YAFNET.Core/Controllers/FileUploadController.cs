@@ -24,25 +24,17 @@
 
 namespace YAF.Core.Controllers;
 
-using Microsoft.AspNetCore.Hosting;
-
 using System;
 using System.Collections.Generic;
 using System.IO;
-
-using Microsoft.Extensions.Logging;
-
-using Model;
-
-using Types.Models;
-
-using YAF.Types.Objects;
-
 using System.Threading.Tasks;
-
-using SixLabors.ImageSharp;
-
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
+using Model;
+using SkiaSharp;
+using Types.Models;
 using YAF.Core.BasePages;
+using YAF.Types.Objects;
 
 /// <summary>
 /// The File Upload controller.
@@ -153,7 +145,7 @@ public class FileUpload : ForumBaseController
             try
             {
                 // resize image ?!
-                using var img = await Image.LoadAsync(file.OpenReadStream());
+                var img = ImageHelper.LoadImage(file.OpenReadStream());
 
                 if (img.Width > this.Get<BoardSettings>().ImageAttachmentResizeWidth
                     || img.Height > this.Get<BoardSettings>().ImageAttachmentResizeHeight)

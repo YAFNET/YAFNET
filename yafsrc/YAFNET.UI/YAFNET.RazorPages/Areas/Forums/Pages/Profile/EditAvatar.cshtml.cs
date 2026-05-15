@@ -22,11 +22,12 @@
  * under the License.
  */
 
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-using SixLabors.ImageSharp.Formats.Webp;
+using SkiaSharp;
 
 namespace YAF.Pages.Profile;
 
@@ -39,8 +40,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 
-using SixLabors.ImageSharp;
-
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
@@ -49,6 +48,7 @@ using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 /// <summary>
 /// The User Modify Avatar page
@@ -165,7 +165,7 @@ public class EditAvatarModel : ProfilePage
 
         try
         {
-            using var image = await Image.LoadAsync(this.Upload.OpenReadStream());
+            var image = ImageHelper.LoadImage(this.Upload.OpenReadStream());
 
             if (image.Width > x || image.Height > y)
             {
@@ -308,11 +308,12 @@ public class EditAvatarModel : ProfilePage
     {
         if (resized is null)
         {
-            using var image = await Image.LoadAsync(this.Upload.OpenReadStream());
+            var image = ImageHelper.LoadImage(this.Upload.OpenReadStream());
 
             var memoryStream = new MemoryStream();
 
-            await image.SaveAsync(memoryStream, new WebpEncoder());
+            using var encoded = image.Encode(SKEncodedImageFormat.Webp, 100);
+            encoded.SaveTo(memoryStream);
 
             await this.GetRepository<User>().SaveAvatarAsync(
                 this.PageBoardContext.PageUserID,
@@ -369,12 +370,14 @@ public class EditAvatarModel : ProfilePage
 
         if (resized is null)
         {
-            using var avatarImage = await Image.LoadAsync(this.Upload.OpenReadStream());
+            using var avatarImage = ImageHelper.LoadImage(this.Upload.OpenReadStream());
 
             using var memory = new MemoryStream();
 
             await using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
-            await avatarImage.SaveAsync(memory, new WebpEncoder());
+            //await avatarImage.SaveAsync(memory, new WebpEncoder());
+            using var encoded = avatarImage.Encode(SKEncodedImageFormat.Webp, 100);
+            encoded.SaveTo(memory);
             var bytes = memory.ToArray();
             await fs.WriteAsync(bytes);
 
