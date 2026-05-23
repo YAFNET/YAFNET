@@ -218,7 +218,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
         cancellationToken.ThrowIfCancellationRequested();
 
         return this.GetRepository<AspNetUsers>().GetSingleAsync(
-            u => u.UserName.ToLower(CultureInfo.InvariantCulture) == normalizedUserName.ToLower(CultureInfo.InvariantCulture),
+            u => u.UserName.ToLower() == normalizedUserName.ToLower(),
             cancellationToken: cancellationToken);
     }
 
@@ -338,7 +338,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
         cancellationToken.ThrowIfCancellationRequested();
 
         var role = await this.GetRepository<AspNetRoles>().GetSingleAsync(
-                       r => r.Name == roleName,
+                       r => r.Name.ToLower() == roleName.ToLower(),
                        cancellationToken: cancellationToken);
 
         if (role == null)
@@ -398,7 +398,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
         cancellationToken.ThrowIfCancellationRequested();
 
         var role = await this.GetRepository<AspNetRoles>().GetSingleAsync(
-                       r => r.Name == roleName,
+                       r => r.Name.ToLower() == roleName.ToLower(),
                        cancellationToken: cancellationToken);
 
         var isInRole = false;
@@ -442,7 +442,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
         cancellationToken.ThrowIfCancellationRequested();
 
         var role = await this.GetRepository<AspNetRoles>().GetSingleAsync(
-                       r => r.Name == roleName,
+                       r => r.Name.ToLower() == roleName.ToLower(),
                        cancellationToken: cancellationToken);
 
         if (role == null)
@@ -555,7 +555,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
         cancellationToken.ThrowIfCancellationRequested();
 
         return this.GetRepository<AspNetUsers>().GetSingleAsync(
-            u => u.Email.ToLower(CultureInfo.InvariantCulture) == normalizedEmail.ToLower(CultureInfo.InvariantCulture),
+            u => u.Email.ToLower() == normalizedEmail.ToLower(),
             cancellationToken: cancellationToken);
     }
 
@@ -890,7 +890,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     /// <returns>The <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation.</returns>
     public Task SetNormalizedUserNameAsync(AspNetUsers user, string normalizedName, CancellationToken cancellationToken)
     {
-        user.LoweredUserName = normalizedName;
+        user.NormalizedUserName = normalizedName;
         return Task.FromResult(0);
     }
 
@@ -927,7 +927,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     /// <returns>The task object representing the asynchronous operation.</returns>
     public Task SetNormalizedEmailAsync(AspNetUsers user, string normalizedEmail, CancellationToken cancellationToken)
     {
-        user.LoweredEmail = normalizedEmail;
+        user.NormalizedEmail = normalizedEmail;
         return Task.FromResult(0);
     }
 

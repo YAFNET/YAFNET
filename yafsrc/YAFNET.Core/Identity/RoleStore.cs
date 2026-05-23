@@ -148,7 +148,7 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        return this.GetRepository<AspNetRoles>().GetSingleAsync(r => r.Name == normalizedRoleName, cancellationToken);
+        return this.GetRepository<AspNetRoles>().GetSingleAsync(r => r.Name.ToLower() == normalizedRoleName.ToLower(), cancellationToken);
     }
 
     /// <summary>

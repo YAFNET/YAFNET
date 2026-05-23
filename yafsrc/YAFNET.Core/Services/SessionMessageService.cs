@@ -59,19 +59,21 @@ public class SessionMessageService
     /// <summary>
     /// Gets the session load string.
     /// </summary>
-    protected List<MessageNotification> SessionLoadString
-    {
-        get
-        {
-            if (BoardContext.Current.Get<IDataCache>().Get($"{BoardContext.Current.PageUserID}_LoadStringList") == null)
+    protected List<MessageNotification> SessionLoadString {
+        get {
+            var context = BoardContext.Current.Get<IHttpContextAccessor>().HttpContext;
+
+            var ipAddress = context.GetUserRealIPAddress();
+            if (BoardContext.Current.Get<IDataCache>().Get($"{ipAddress}_LoadStringList") == null)
             {
                 BoardContext.Current.Get<IDataCache>().Set(
-                    $"{BoardContext.Current.PageUserID}_LoadStringList",
+                    $"{ipAddress}_LoadStringList",
                     new List<MessageNotification>(),
                     TimeSpan.FromMinutes(5));
             }
 
-            return BoardContext.Current.Get<IDataCache>().Get($"{BoardContext.Current.PageUserID}_LoadStringList") as List<MessageNotification>;
+            return BoardContext.Current.Get<IDataCache>().Get($"{ipAddress}_LoadStringList") as
+                List<MessageNotification>;
         }
     }
 

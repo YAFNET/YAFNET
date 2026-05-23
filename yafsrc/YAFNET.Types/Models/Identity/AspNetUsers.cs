@@ -242,6 +242,12 @@ public class AspNetUsers<TKey> : IEntity, IHasId<TKey>
     /// <value>The name of the lowered user.</value>
     public string LoweredUserName { get; set; }
 
+    [Ignore]
+    public string NormalizedUserName { get; set; }
+
+    [Ignore]
+    public string NormalizedEmail { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether this instance is approved.
     /// </summary>

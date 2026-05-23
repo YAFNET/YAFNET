@@ -85,21 +85,18 @@ public class MailService : IMailService, IHaveServiceLocator
             await smtpClient.AuthenticateAsync(this.mailConfig.Mail, this.mailConfig.Password);
         }
 
-        // send the message...
-        foreach (var m in mailMessages.ToList())
+        try
         {
-            try
+            // send the message...
+            foreach (var m in mailMessages.AsEnumerable().Where(m => m != null))
             {
-                if (m != null)
-                {
-                    // send the message...
-                    await smtpClient.SendAsync(m);
-                }
+                // send the message...
+                await smtpClient.SendAsync(m);
             }
-            catch (Exception ex)
-            {
-                this.Get<ILogger<MailService>>().Error(ex, "Mail Error");
-            }
+        }
+        catch (Exception ex)
+        {
+            this.Get<ILogger<MailService>>().Error(ex, "Mail Error");
         }
 
         await smtpClient.DisconnectAsync(true);
