@@ -797,13 +797,12 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         var skip = pageSize * pageIndex;
         return await hits.ToAsyncEnumerable()
-            .Select(
-                async (hit, _,_) => await this.MapSearchDocumentToDataAsync(
-                    highlighter,
-                    analyzer,
-                    searcher.Doc(hit.Doc),
-                    userAccessList)
-            )
+            .Select(async (hit, _, _) => await this.MapSearchDocumentToDataAsync(
+                highlighter,
+                analyzer,
+                searcher.Doc(hit.Doc),
+                userAccessList)
+            ).Where(item => item != null)
             .OrderByDescending(item => item.MessageId).Skip(skip).Take(pageSize).ToListAsync();
     }
 
