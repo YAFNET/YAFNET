@@ -122,4 +122,8 @@ public class AspNetRoles<TKey> : IEntity, IHasId<TKey>
     [Index(Unique = true)]
     [Required]
     public string Name { get; set; }
+
+    [Ignore]
+    [StringLength(50)]
+    public string NormalizedName { get; set; }
 }

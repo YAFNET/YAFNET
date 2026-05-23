@@ -206,7 +206,7 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     /// <returns>The <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation.</returns>
     public Task SetNormalizedRoleNameAsync(AspNetRoles role, string normalizedName, CancellationToken cancellationToken)
     {
-        role.Name = normalizedName;
+        role.NormalizedName = normalizedName;
         return Task.FromResult(0);
     }
 
