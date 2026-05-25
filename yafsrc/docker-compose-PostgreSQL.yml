@@ -13,6 +13,9 @@ services:
     environment:
       - ConnectionStrings__DefaultConnection=Host=postgres-db;Database=yaf;Username=postgres;Password=MyPass@word
       - BoardConfiguration__ConnectionProviderName=Npgsql Data Provider
+      - MailConfiguration__Host=host.docker.internal # only for testing, replace with real mail settings
+      - MailConfiguration__Port=2525 # only for testing, replace with real mail settings
+      - MailConfiguration__Mail=test@localhost.com # only for testing, replace with real mail settings
       - ASPNETCORE_URLS=http://+:89
     build:
       context: .
@@ -20,20 +23,22 @@ services:
     container_name: yafnet
     ports:
       - "8001:89"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # Linux only only used for testing
     networks:
       - dev
 
   postgres-db:
     container_name: postgres-db
-    image: postgres:16-alpine
+    image: postgres:alpine
     ports:
       - "8002:5432"
     environment:
-      - POSTGRES_PASSWORD=MyPass@word
+      - POSTGRES_PASSWORD=MyPass@word # change default password
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=postgres           # default maintenance DB; yaf DB is created by init
+      - POSTGRES_DB=postgres
     volumes:
-      - postgresql-data:/var/lib/postgresql/data
+      - postgresql-data:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
@@ -44,7 +49,7 @@ services:
       - dev
 
   postgres-init:
-    image: postgres:16-alpine
+    image: postgres:alpine
     depends_on:
       postgres-db:
         condition: service_healthy

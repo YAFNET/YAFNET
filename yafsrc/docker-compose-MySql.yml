@@ -11,8 +11,11 @@ services:
       mariadb-init:
         condition: service_completed_successfully  # wait for DB to be created
     environment:
-      - ConnectionStrings__DefaultConnection=Server=mariadb;Database=yaf;User=root;Password=MyPass@word;
+      - ConnectionStrings__DefaultConnection=Server=mariadb;Database=yaf;User=root;Password=MyPass@word; # change default password
       - BoardConfiguration__ConnectionProviderName=MySql.Data.MySqlClient
+      - MailConfiguration__Host=host.docker.internal # only for testing, replace with real mail settings
+      - MailConfiguration__Port=2525 # only for testing, replace with real mail settings
+      - MailConfiguration__Mail=test@localhost.com # only for testing, replace with real mail settings
       - ASPNETCORE_URLS=http://+:89
     build:
       context: .
@@ -20,6 +23,8 @@ services:
     container_name: yafnet
     ports:
       - "8001:89"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # Linux only only used for testing
     networks:
       - dev
 
@@ -29,8 +34,8 @@ services:
     ports:
       - "8002:3306"
     environment:
-      - MARIADB_ROOT_PASSWORD=MyPass@word
-      - MARIADB_DATABASE=mysql           # default system DB; yaf DB is created by init
+      - MARIADB_ROOT_PASSWORD=MyPass@word # change default password
+      - MARIADB_DATABASE=mysql
     volumes:
       - mysql-data:/var/lib/mysql
     healthcheck:

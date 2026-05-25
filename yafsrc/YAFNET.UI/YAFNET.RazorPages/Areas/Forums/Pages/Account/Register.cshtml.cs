@@ -117,7 +117,7 @@ public class RegisterModel : AccountPage
     /// </returns>
     public async Task<IActionResult> OnPostAsync()
     {
-        if (!this.ModelState.IsValid || !await this.ValidateUserAsync().ConfigureAwait(false))
+        if (!this.ModelState.IsValid || !await this.ValidateUserAsync().ConfigureAwait(false) || this.ErrorMessage.IsSet())
         {
             return this.Page();
         }

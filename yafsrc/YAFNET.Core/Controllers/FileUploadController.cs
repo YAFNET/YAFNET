@@ -22,17 +22,21 @@
  * under the License.
  */
 
+using SixLabors.ImageSharp;
+
 namespace YAF.Core.Controllers;
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
+
 using Model;
-using SkiaSharp;
-using Types.Models;
+
+using YAF.Types.Models;
 using YAF.Core.BasePages;
 using YAF.Types.Objects;
 
@@ -145,7 +149,7 @@ public class FileUpload : ForumBaseController
             try
             {
                 // resize image ?!
-                var img = ImageHelper.LoadImage(file.OpenReadStream());
+                using var img = await Image.LoadAsync(file.OpenReadStream());
 
                 if (img.Width > this.Get<BoardSettings>().ImageAttachmentResizeWidth
                     || img.Height > this.Get<BoardSettings>().ImageAttachmentResizeHeight)

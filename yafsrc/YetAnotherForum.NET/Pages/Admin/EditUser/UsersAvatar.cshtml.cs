@@ -22,10 +22,10 @@
  * under the License.
  */
 
-using System.Net.Mime;
 using System.Threading.Tasks;
 
-using SkiaSharp;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Webp;
 
 using YAF.Core.Model;
 
@@ -180,7 +180,7 @@ public class UsersAvatarModel : AdminPage
 
         try
         {
-            var image = ImageHelper.LoadImage(this.Upload.OpenReadStream());
+            using var image = await Image.LoadAsync(this.Upload.OpenReadStream());
 
             if (image.Width > x || image.Height > y)
             {
@@ -331,12 +331,11 @@ public class UsersAvatarModel : AdminPage
     {
         if (resized is null)
         {
-            var image = ImageHelper.LoadImage(this.Upload.OpenReadStream());
+            using var image = await Image.LoadAsync(this.Upload.OpenReadStream());
 
             var memoryStream = new MemoryStream();
 
-            using var encoded = image.Encode(SKEncodedImageFormat.Webp, 100);
-            encoded.SaveTo(memoryStream);
+            await image.SaveAsync(memoryStream, image.Metadata.DecodedImageFormat!);
 
             await this.GetRepository<User>().SaveAvatarAsync(
                 this.Input.UserId,
@@ -391,13 +390,13 @@ public class UsersAvatarModel : AdminPage
 
         if (resized is null)
         {
-            var image = ImageHelper.LoadImage(this.Upload.OpenReadStream());
+            using var avatarImage = await Image.LoadAsync(this.Upload.OpenReadStream());
 
             using var memory = new MemoryStream();
             await using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
 
-            using var encoded = image.Encode(SKEncodedImageFormat.Webp, 100);
-            encoded.SaveTo(memory);
+            await avatarImage.SaveAsync(memory, new WebpEncoder());
+
             var bytes = memory.ToArray();
             await fs.WriteAsync(bytes);
 

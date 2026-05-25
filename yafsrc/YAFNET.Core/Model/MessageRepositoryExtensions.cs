@@ -1182,15 +1182,22 @@ public static class MessageRepositoryExtensions
         /// <returns>System.Nullable&lt;System.DateTime&gt;.</returns>
         public DateTime? GetUserLastPosted(int userId)
         {
-            var lastPostedExpression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+            try
+            {
+                var lastPostedExpression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
-            lastPostedExpression.Where(a => a.UserID == userId).Select(x => x.Posted).OrderByDescending(x => x.Posted)
-                .Take(1)
-                .ToMergedParamsSelectStatement();
+                lastPostedExpression.Where(a => a.UserID == userId).Select(x => x.Posted).OrderByDescending(x => x.Posted)
+                    .Take(1)
+                    .ToMergedParamsSelectStatement();
 
-            return repository.DbAccess
-                .Execute(db => db.Connection.Select<DateTime?>(lastPostedExpression))
-                .FirstOrDefault();
+                return repository.DbAccess
+                    .Execute(db => db.Connection.Select<DateTime?>(lastPostedExpression))
+                    .FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         /// <summary>

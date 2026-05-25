@@ -1972,7 +1972,7 @@ public class BoardSettings
     /// Gets or sets a value indicating whether enable wysiwyg editor.
     /// </summary>
     public bool EnableWysiwygEditor {
-        get => this.RegistryBoard.GetValue("EnableWysiwygEditor", false);
+        get => this.RegistryBoard.GetValue("EnableWysiwygEditor", true);
 
         set => this.RegistryBoard.SetValue("EnableWysiwygEditor", value);
     }

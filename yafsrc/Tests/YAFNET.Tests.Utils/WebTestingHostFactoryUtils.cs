@@ -35,7 +35,7 @@ using YAF.ViewComponents;
 /// <summary>
 /// 
 /// </summary>
-public class WebTestingHostFactoryUtils
+public static class WebTestingHostFactoryUtils
 {
     /// <summary>
     /// Creates a new instance of an <see cref="HttpClient"/> that can be used to
@@ -60,11 +60,10 @@ public class WebTestingHostFactoryUtils
                     builder.UseUrls(testSettings.TestForumUrl);
                     builder.ConfigureServices(services =>
                     {
-                        services.AddSingleton<IStartupFilter, CustomStartupFilter>(x => new CustomStartupFilter(ipAddress));
+                        services.AddSingleton<IStartupFilter, CustomStartupFilter>(_ => new CustomStartupFilter(ipAddress));
                     });
                 })
             // Create the host using the CreateDefaultClient method.
             .CreateDefaultClient();
     }
-
 }

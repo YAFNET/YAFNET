@@ -23,7 +23,7 @@
 						<p class="card-text">
 							<img alt="avatar" class="img-thumbnail"
 							     style="max-width: @Html.Raw(Model.PageBoardContext.BoardSettings.AvatarWidth.ToString());max-height: @Html.Raw(Model.PageBoardContext.BoardSettings.AvatarHeight.ToString());"
-							     src="@Model.AvatarUrl" />
+								 src="@($"{Model.AvatarUrl}?v={DateTime.Now.Ticks}")" />
 						</p>
 						@if (!Model.AvatarUrl.Contains("avatar="))
 						{

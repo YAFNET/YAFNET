@@ -58,6 +58,11 @@ public class TestConfig
     public string AdminUserName { get; set; } = "Admin";
 
     /// <summary>
+    /// Gets the name of the admin email.
+    /// </summary>
+    public string AdminEmail { get; set; } = "Admin@localhost.com";
+
+    /// <summary>
     /// Gets the admin password.
     /// </summary>
     public string AdminPassword { get; set; } = "AdminAdmin1234?!";
@@ -103,4 +108,29 @@ public class TestConfig
     /// </summary>
     /// <value>The test mail port.</value>
     public int TestMailPort { get; set; } = 25;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether [use docker].
+    /// If not application is used directly via the WebApplicationFactory
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if [use docker]; otherwise, <c>false</c>.
+    /// </value>
+    public bool UseDocker { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether create new installation before running a test.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if [new install]; otherwise, <c>false</c>.
+    /// </value>
+    public bool NewInstall { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether playwright should record videos.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if [record videos]; otherwise, <c>false</c>.
+    /// </value>
+    public bool RecordVideos { get; set; }
 }
