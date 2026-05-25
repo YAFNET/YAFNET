@@ -382,6 +382,12 @@ public class UsersAvatarModel : AdminPage
 
         var filePath = Path.Combine(uploadFolderPath, newFileName);
 
+        // Validate that the requested file stays inside the base directory
+        if (!filePath.StartsWith(Path.GetFullPath(filePath), StringComparison.OrdinalIgnoreCase))
+        {
+            throw new UnauthorizedAccessException("Access denied.");
+        }
+
         // Delete old avatar
         if (System.IO.File.Exists(filePath))
         {
