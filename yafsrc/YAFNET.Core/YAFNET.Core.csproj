@@ -39,7 +39,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="9.1.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="[3.1.12]" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.26.0.140279">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.27.0.140913">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
