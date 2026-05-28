@@ -57,7 +57,7 @@
     "prismjs": "^1.30.0",
     "scss": "^0.2.4",
     "smooth-scroll-into-view-if-needed": "^2.0.2",
-    "terser-webpack-plugin": "^5.6.0"
+    "terser-webpack-plugin": "^5.6.1"
   },
   "scripts": {
     "build": "grunt",
