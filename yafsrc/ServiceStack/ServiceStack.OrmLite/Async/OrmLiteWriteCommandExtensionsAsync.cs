@@ -748,7 +748,7 @@ namespace ServiceStack.OrmLite
         /// <returns>Task.</returns>
         static internal Task InsertAsync<T>(this IDbCommand dbCmd, Action<IDbCommand> commandFilter, CancellationToken token, T[] objs)
         {
-            return InsertAllAsync(dbCmd, objs, commandFilter, token);
+            return InsertAllAsync(dbCmd, objs, commandFilter, token:token);
         }
 
         /// <summary>
@@ -810,31 +810,55 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task representing the asynchronous operation.</returns>
-        async static internal Task InsertAllAsync<T>(this IDbCommand dbCmd, IEnumerable<T> objs, Action<IDbCommand> commandFilter, CancellationToken token)
+        async static internal Task InsertAllAsync<T>(this IDbCommand dbCmd, IEnumerable<T> objs, Action<IDbCommand> commandFilter, bool enableIdentityInsert = false, CancellationToken token = default)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
 
             IDbTransaction dbTrans = null;
 
-            dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
-
-            var dialectProvider = dbCmd.GetDialectProvider();
-
-            dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd);
-
-            using (dbTrans)
+            try
             {
-                foreach (var obj in objs)
+                if (dbCmd.Transaction == null)
+                    dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
+
+                var dialectProvider = dbCmd.GetDialectProvider();
+                if (enableIdentityInsert)
                 {
-                    OrmLiteConfig.InsertFilter?.Invoke(dbCmd, obj);
-
-                    dialectProvider.SetParameterValues<T>(dbCmd, obj);
-
-                    commandFilter?.Invoke(dbCmd); //filters can augment SQL & only should be invoked once
-                    commandFilter = null;
-
-                    await dbCmd.ExecNonQueryAsync(token).ConfigAwait();
+                    await dialectProvider.EnableIdentityInsertAsync<T>(dbCmd, token);
                 }
+                try
+                {
+                    foreach (var obj in objs)
+                    {
+                        OrmLiteConfig.InsertFilter?.Invoke(dbCmd, obj);
+
+                        var pkField = ModelDefinition<T>.Definition.FieldDefinitions.FirstOrDefault(f => f.IsPrimaryKey);
+                        if (!enableIdentityInsert || pkField is not { AutoIncrement: true })
+                        {
+                            dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd,
+                                insertFields: dialectProvider.GetNonDefaultValueInsertFields<T>(obj));
+                        }
+                        else
+                        {
+                            dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd,
+                                insertFields: dialectProvider.GetNonDefaultValueInsertFields<T>(obj),
+                                shouldInclude: f => f == pkField);
+                        }
+
+                        await dbCmd.ExecNonQueryAsync(token).ConfigAwait();
+                        await InsertInternalAsync<T>(dialectProvider, dbCmd, obj, commandFilter, selectIdentity: false, token);
+                    }
+                }
+                finally
+                {
+                    if (enableIdentityInsert)
+                    {
+                        await dialectProvider.DisableIdentityInsertAsync<T>(dbCmd, token);
+                    }
+                }
+            }
+            finally
+            {
                 dbTrans?.Commit();
             }
         }

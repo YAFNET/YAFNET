@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Analysis
@@ -20,7 +21,7 @@ namespace YAF.Lucene.Net.Analysis
      * limitations under the License.
      */
 
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
+    using AttributeSource = Lucene.Net.Util.AttributeSource;
 
     /// <summary>
     /// This class can be used if the token attributes of a <see cref="TokenStream"/>
@@ -67,6 +68,8 @@ namespace YAF.Lucene.Net.Analysis
             return true;
         }
 
+        [SuppressMessage("Design", "Lucene1001:TokenStream override of End()/Reset()/Close() must call the corresponding base method.",
+            Justification = "Caching filter intentionally restores the previously captured final state instead of chaining to base.End(); matches Lucene Java behavior.")]
         public override void End()
         {
             if (finalState != null)
@@ -82,6 +85,8 @@ namespace YAF.Lucene.Net.Analysis
         /// the first time. You should <see cref="Reset()"/> the inner tokenstream before wrapping
         /// it with <see cref="CachingTokenFilter"/>.
         /// </summary>
+        [SuppressMessage("Design", "Lucene1001:TokenStream override of End()/Reset()/Close() must call the corresponding base method.",
+            Justification = "Caching filter intentionally does not call base.Reset() (which would propagate to the wrapped input); matches Lucene Java behavior. See the doc comment.")]
         public override void Reset()
         {
             if (cache != null)

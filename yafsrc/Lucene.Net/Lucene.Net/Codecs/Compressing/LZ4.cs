@@ -2,6 +2,7 @@ using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
+using System.IO;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
@@ -23,9 +24,9 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using DataInput = Lucene.Net.Store.DataInput;
+    using DataOutput = Lucene.Net.Store.DataOutput;
+    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
 
     /// <summary>
     /// LZ4 compression and decompression routines.
@@ -137,7 +138,11 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 var byte1 = compressed.ReadByte();
                 var byte2 = compressed.ReadByte();
                 int matchDec = (byte1 & 0xFF) | ((byte2 & 0xFF) << 8);
-                if (Debugging.AssertsEnabled) Debugging.Assert(matchDec > 0);
+                // LUCENENET specific: backported from upstream Lucene 10.4.0 (apache/lucene#15570) - matchDec == 0 is invalid per the LZ4 block format
+                if (matchDec == 0)
+                {
+                    throw new IOException("offset 0 is invalid");
+                }
 
                 int matchLen = token & 0x0F;
                 if (matchLen == 0x0F)

@@ -21,16 +21,16 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using BytesRefHash = YAF.Lucene.Net.Util.BytesRefHash;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using TermState = YAF.Lucene.Net.Index.TermState;
+    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
+    using ByteBlockPool = Lucene.Net.Util.ByteBlockPool;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using BytesRefHash = Lucene.Net.Util.BytesRefHash;
+    using IndexReader = Lucene.Net.Index.IndexReader;
+    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
+    using Term = Lucene.Net.Index.Term;
+    using TermContext = Lucene.Net.Index.TermContext;
+    using TermsEnum = Lucene.Net.Index.TermsEnum;
+    using TermState = Lucene.Net.Index.TermState;
 
     /// <summary>
     /// A rewrite method that tries to pick the best
@@ -125,7 +125,7 @@ namespace YAF.Lucene.Net.Search
                     {
                         int pos = sort[i];
                         // docFreq is not used for constant score here, we pass 1
-                        // to explicitely set a fake value, so it's not calculated
+                        // to explicitly set a fake value, so it's not calculated
                         AddClause(bq, new Term(query.m_field, pendingTerms.Get(pos, new BytesRef())), 1, 1.0f, col.array.termState[pos]);
                     }
                 }
