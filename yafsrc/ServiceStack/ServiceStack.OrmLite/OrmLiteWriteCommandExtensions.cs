@@ -1343,7 +1343,8 @@ public static class OrmLiteWriteCommandExtensions
         /// <typeparam name="T"></typeparam>
         /// <param name="objs">The objs.</param>
         /// <param name="commandFilter">The command filter.</param>
-        internal void InsertAll<T>(IEnumerable<T> objs, Action<IDbCommand> commandFilter)
+        internal void InsertAll<T>(IEnumerable<T> objs, Action<IDbCommand> commandFilter,
+            bool enableIdentityInsert = false)
         {
             IDbTransaction dbTrans = null;
 
@@ -1352,25 +1353,39 @@ public static class OrmLiteWriteCommandExtensions
                 dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
 
                 var dialectProvider = dbCmd.GetDialectProvider();
-
-                dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd);
-
-                foreach (var obj in objs)
+                if (enableIdentityInsert)
                 {
-                    OrmLiteConfig.InsertFilter?.Invoke(dbCmd, obj);
-                    dialectProvider.SetParameterValues<T>(dbCmd, obj);
+                    dialectProvider.EnableIdentityInsert<T>(dbCmd);
+                }
 
-                    commandFilter?.Invoke(dbCmd); //filters can augment SQL & only should be invoked once
-                    commandFilter = null;
-
-                    try
+                try
+                {
+                    foreach (var obj in objs)
                     {
-                        dbCmd.ExecNonQuery();
+                        OrmLiteConfig.InsertFilter?.Invoke(dbCmd, obj);
+
+                        var pkField =
+                            ModelDefinition<T>.Definition.FieldDefinitions.FirstOrDefault(f => f.IsPrimaryKey);
+                        if (!enableIdentityInsert || pkField is not { AutoIncrement: true })
+                        {
+                            dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd,
+                                insertFields: dialectProvider.GetNonDefaultValueInsertFields<T>(obj));
+                        }
+                        else
+                        {
+                            dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd,
+                                insertFields: dialectProvider.GetNonDefaultValueInsertFields<T>(obj),
+                                shouldInclude: f => f == pkField);
+                        }
+
+                        InsertInternal<T>(dialectProvider, dbCmd, obj, commandFilter, selectIdentity: false);
                     }
-                    catch (Exception ex)
+                }
+                finally
+                {
+                    if (enableIdentityInsert)
                     {
-                        Log.Error($"SQL ERROR: {dbCmd.GetLastSqlAndParams()}", ex);
-                        throw;
+                        dialectProvider.DisableIdentityInsert<T>(dbCmd);
                     }
                 }
 

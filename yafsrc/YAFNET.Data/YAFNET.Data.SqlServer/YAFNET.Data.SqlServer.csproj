@@ -18,13 +18,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.9" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.1" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.26.0.140279">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.27.0.140913">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.ComponentModel.Composition" Version="10.0.8" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="10.0.9" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite.SqlServer\ServiceStack.OrmLite.SqlServer.Core.csproj" />

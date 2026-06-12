@@ -715,7 +715,8 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             if (this.ShouldReturnOnInsert(modelDef, fieldDef))
             {
                 sbReturningColumns.Append(sbReturningColumns.Length == 0 ? " RETURNING " : ",");
-                sbReturningColumns.Append(this.GetQuotedColumnName(fieldDef));
+                var colName = fieldDef.IsRowVersion ? $"{RowVersionColumnName} AS {GetQuotedColumnName(fieldDef)}" : GetQuotedColumnName(fieldDef);
+                sbReturningColumns.Append(colName);
             }
 
             if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId
@@ -774,6 +775,8 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// </summary>
     public const string RowVersionFieldComparer = "int8in(xidout(xmin))";
 
+    public const string RowVersionColumnName = "xmin";
+
     /// <summary>
     /// Gets the row version select column.
     /// </summary>
@@ -782,7 +785,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <returns>SelectItem.</returns>
     public override SelectItem GetRowVersionSelectColumn(FieldDefinition field, string tablePrefix = null)
     {
-        return new SelectItemColumn(this, "xmin", field.FieldName, tablePrefix);
+        return new SelectItemColumn(this, RowVersionColumnName, field.FieldName, tablePrefix);
     }
 
     /// <summary>

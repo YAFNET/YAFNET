@@ -1767,7 +1767,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
         {"%d", "DD"},
         {"%H", "HH"},
         {"%M", "mm"},
-        {"%S", "ss"},
+        {"%S", "ss"}
     };
     public override string SqlDateFormat(string quotedColumn, string format)
     {

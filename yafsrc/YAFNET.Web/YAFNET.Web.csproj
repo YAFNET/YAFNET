@@ -8,9 +8,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="HtmlProperties" Version="1.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.9" />
     <PackageReference Include="OEmbed.Core" Version="2.0.6" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.26.0.140279">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.27.0.140913">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

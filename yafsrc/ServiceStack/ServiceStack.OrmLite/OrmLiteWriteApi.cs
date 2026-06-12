@@ -269,9 +269,9 @@ public static class OrmLiteWriteApi
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="objs">The objs.</param>
-        public void InsertAll<T>(IEnumerable<T> objs)
+        public void InsertAll<T>(IEnumerable<T> objs, bool enableIdentityInsert = false)
         {
-            dbConn.Exec(dbCmd => dbCmd.InsertAll(objs, commandFilter: null));
+            dbConn.Exec(dbCmd => dbCmd.InsertAll(objs, commandFilter: null, enableIdentityInsert: enableIdentityInsert));
         }
 
         /// <summary>
@@ -281,9 +281,9 @@ public static class OrmLiteWriteApi
         /// <typeparam name="T"></typeparam>
         /// <param name="objs">The objs.</param>
         /// <param name="commandFilter">The command filter.</param>
-        public void InsertAll<T>(IEnumerable<T> objs, Action<IDbCommand> commandFilter)
+        public void InsertAll<T>(IEnumerable<T> objs, Action<IDbCommand> commandFilter, bool enableIdentityInsert = false)
         {
-            dbConn.Exec(dbCmd => dbCmd.InsertAll(objs, commandFilter: commandFilter));
+            dbConn.Exec(dbCmd => dbCmd.InsertAll(objs, commandFilter: commandFilter, enableIdentityInsert: enableIdentityInsert));
         }
 
         /// <summary>

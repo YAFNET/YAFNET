@@ -830,6 +830,18 @@ public static class OrmLiteReadApiAsync
             return dbConn.Exec(dbCmd => dbCmd.ExecLongScalarAsync(null, token));
         }
 
+        public async Task<T> LoadSingleAsync<T>(Expression<Func<T, bool>> predicate, string[] include = null, CancellationToken token = default)
+        {
+            var result = await dbConn.LoadSelectAsync(predicate, include, token);
+
+            if (result != null)
+            {
+                return result[0];
+            }
+
+            return default;
+        }
+
         /// <summary>
         /// Returns the first result with all its references loaded, using a primary key id. E.g:
         /// <para>db.LoadSingleByIdAsync&lt;Person&gt;(1)</para>

@@ -199,9 +199,9 @@ public static class OrmLiteWriteApiAsync
         /// <param name="objs">The objs.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task.</returns>
-        public Task InsertAllAsync<T>(IEnumerable<T> objs, CancellationToken token = default)
+        public Task InsertAllAsync<T>(IEnumerable<T> objs, bool enableIdentityInsert = false, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.InsertAllAsync(objs, commandFilter: null, token: token));
+            return dbConn.Exec(dbCmd => dbCmd.InsertAllAsync(objs, commandFilter: null, enableIdentityInsert: enableIdentityInsert, token: token));
         }
 
         /// <summary>
@@ -213,9 +213,9 @@ public static class OrmLiteWriteApiAsync
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task.</returns>
-        public Task InsertAllAsync<T>(IEnumerable<T> objs, Action<IDbCommand> commandFilter, CancellationToken token = default)
+        public Task InsertAllAsync<T>(IEnumerable<T> objs, Action<IDbCommand> commandFilter, bool enableIdentityInsert = false, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.InsertAllAsync(objs, commandFilter: commandFilter, token: token));
+            return dbConn.Exec(dbCmd => dbCmd.InsertAllAsync(objs, commandFilter: commandFilter, enableIdentityInsert: enableIdentityInsert, token: token));
         }
 
         /// <summary>
