@@ -15,11 +15,11 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.25.0.139117">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.27.0.140913">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.ComponentModel.Composition" Version="10.0.8" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="10.0.9" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
