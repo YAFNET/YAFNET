@@ -23,7 +23,7 @@
     "grunt-webpack": "^8.0.0",
     "grunt-zip": "^1.0.0",
     "postcss": "^8.5.15",
-    "sass": "^1.100.0",
+    "sass": "^1.101.0",
     "simple-webp-converter": "^1.1.2",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.6.0",
