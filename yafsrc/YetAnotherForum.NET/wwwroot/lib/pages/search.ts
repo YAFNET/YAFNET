@@ -126,7 +126,7 @@ function getSearchResultsData(pageNumber: number): void {
 		const searchInputTag = (document.querySelector('.searchTagInput') as HTMLInputElement).value;
 		const placeHolder = document.getElementById('SearchResultsPlaceholder') as HTMLDivElement;
 		const ajaxUrl = '/api/Search/GetSearchResults';
-		const loadModal: bootstrap.Modal = new Modal('#loadModal');
+	const loadModal: bootstrap.Modal = new Modal('#loadModal');
 
 		const useDisplayName =
 			(document.querySelector('.searchUserInput') as HTMLInputElement).dataset.display === 'True';
@@ -329,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	if (url.searchParams.has('search') ||
 		url.searchParams.has('forum') ||
-		url.searchParams.has('postedBy') ||
+		url.searchParams.has('postedby') ||
 		url.searchParams.has('tag')) {
 		getSearchResultsData(0);
 	}
