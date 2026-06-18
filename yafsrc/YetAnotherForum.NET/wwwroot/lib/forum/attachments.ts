@@ -28,7 +28,7 @@ export function getPaginationData(pageSize: number, pageNumber: number, isPageCh
 
         if (data.attachmentList.length === 0) {
             const li = document.createElement('div');
-            li.classList.add('col p-0');
+            li.classList.add('col', 'p-0');
 
             const noText = placeHolder.dataset.notext;
             const noAttachmentsText = noText || '';
