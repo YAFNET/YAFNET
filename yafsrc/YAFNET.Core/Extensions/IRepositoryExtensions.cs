@@ -338,7 +338,7 @@ public static class IRepositoryExtensions
         }
         else
         {
-            newId = await repository.InsertAsync(entity);
+            newId = await repository.InsertAsync(entity, selectIdentity: true);
 
             repository.FireNew();
         }
