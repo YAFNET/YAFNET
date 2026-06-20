@@ -25,12 +25,12 @@ namespace YAF.Lucene.Net.Util
      */
 
     /// <summary>
-    /// Thrown by Lucene on detecing that <see cref="System.Threading.Thread.Interrupt()"/> had been
+    /// Thrown by Lucene on detecting that <see cref="System.Threading.Thread.Interrupt()"/> had been
     /// called. This exception has the specific purpose of being allowed to pass through to the
     /// calling thread of <see cref="J2N.Threading.ThreadJob"/> so it reaches the appropriate handler.
     /// </summary>
     // LUCENENET: In Lucene, this exception was so it could be re-thrown unchecked. It has been
-    // re-purposed in .NET but used in all the same scenerios.
+    // re-purposed in .NET but used in all the same scenarios.
     // LUCENENET: It is no longer good practice to use binary serialization.
     // See: https://github.com/dotnet/corefx/issues/23584#issuecomment-325724568
 #if FEATURE_SERIALIZABLE_EXCEPTIONS

@@ -83,7 +83,7 @@ namespace YAF.Lucene.Net.Search.Spans
             this.field = maskedField;
         }
 
-        public override string Field => field;
+        public override string Field => this.field;
 
         public virtual SpanQuery MaskedQuery => maskedQuery;
 

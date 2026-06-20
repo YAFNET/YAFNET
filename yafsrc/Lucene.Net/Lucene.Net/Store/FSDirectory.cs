@@ -1,5 +1,6 @@
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.IO;
+using YAF.Lucene.Net.Support.Text;
 using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
 using System;
@@ -361,6 +362,12 @@ namespace YAF.Lucene.Net.Store
 
         protected virtual void EnsureCanWrite(string name)
         {
+            // LUCENENET-specific: validate the name is valid for a FSDirectory
+            if (!name.IsValidSinglePathComponent())
+            {
+                throw new ArgumentException("File name is not valid for a FSDirectory", nameof(name));
+            }
+
             if (!m_directory.Exists)
             {
                 try
@@ -398,6 +405,17 @@ namespace YAF.Lucene.Net.Store
             finally
             {
                 UninterruptableMonitor.Exit(m_syncLock);
+            }
+        }
+
+        // LUCENENET-specific: backported method signature (but not implementation, yet)
+        // from Lucene 6.0.0 as extensibility point to override name validation if needed
+        protected virtual void EnsureCanRead(string name)
+        {
+            // LUCENENET-specific: validate the name is valid for a FSDirectory
+            if (!name.IsValidSinglePathComponent())
+            {
+                throw new ArgumentException("File name is not valid for a FSDirectory", nameof(name));
             }
         }
 
@@ -521,7 +539,12 @@ namespace YAF.Lucene.Net.Store
                     path: Path.Combine(parent.m_directory.FullName, name),
                     mode: FileMode.OpenOrCreate,
                     access: FileAccess.Write,
-                    share: FileShare.ReadWrite,
+                    // LUCENENET specific: Add FileShare.Delete (a deliberate divergence from upstream Java's
+                    // RandomAccessFile, which omits it) so that every handle Lucene.NET opens on a file permits
+                    // deletion. Windows blocks a delete unless all open handles allow Delete share; including it
+                    // here makes "if Lucene decides a file is deletable, the delete succeeds" hold unconditionally,
+                    // regardless of which handles are open, matching POSIX semantics (#1283).
+                    share: FileShare.ReadWrite | FileShare.Delete,
                     bufferSize: CHUNK_SIZE);
                 isOpen = true;
             }
