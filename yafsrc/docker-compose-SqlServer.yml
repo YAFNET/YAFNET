@@ -4,7 +4,7 @@ networks:
 
 services:
   yafnet:
-    image: ${DOCKER_REGISTRY-}yafnet
+    image: yafnet/yafnet:latest-sqlserver
     depends_on:
       sql-server-db:
         condition: service_healthy      # wait for SQL Server to be ready
@@ -13,18 +13,13 @@ services:
     environment:
       - ConnectionStrings__DefaultConnection=data source=sql-server-db;Initial Catalog=yaf;User Id=sa;Password=MyPass@word;TrustServerCertificate=true # change default password
       - BoardConfiguration__ConnectionProviderName=Microsoft.Data.SqlClient
-      - MailConfiguration__Host=host.docker.internal # only for testing, replace with real mail settings
-      - MailConfiguration__Port=2525 # only for testing, replace with real mail settings
-      - MailConfiguration__Mail=test@localhost.com # only for testing, replace with real mail settings
+      - MailConfiguration__Host= # replace with real setting
+      - MailConfiguration__Port= # replace with real setting
+      - MailConfiguration__Mail=  # replace with real setting
       - ASPNETCORE_URLS=http://+:89 
-    build:
-      context: .
-      dockerfile: docker/yaf-sqlserver/Dockerfile
     container_name: yafnet
     ports:
       - "8001:89"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"  # Linux only only used for testing
     networks:
       - dev
 
@@ -64,6 +59,5 @@ services:
       - dev
     restart: "no"                        # run once and exit
     
-# Define persistent volumes to store MySQL data.
 volumes:
   mssql-data:
