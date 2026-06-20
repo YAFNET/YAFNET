@@ -11189,6 +11189,10 @@
           {
             "@tag": "YES",
             "#text": "JAH"
+          },
+          {
+            "@tag": "WELCOME",
+            "#text": "Tere tulemast"
           }
         ]
       },
@@ -12833,12 +12837,12 @@
             "#text": "Sõnum:"
           },
           {
-            "@tag": "TAGS",
-            "#text": "Sildid:"
-          },
-          {
             "@tag": "TAG_PLACEHOLDER",
             "#text": "Sisestage valikuline teemamärgend"
+          },
+          {
+            "@tag": "TAGS",
+            "#text": "Sildid:"
           }
         ]
       },

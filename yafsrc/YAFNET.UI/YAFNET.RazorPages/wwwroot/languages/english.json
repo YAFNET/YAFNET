@@ -7085,7 +7085,7 @@
                 },
                 {
                     "@tag": "NO_ATTACHMENTS",
-                    "#text": "The board don't have any attachments yet, to add one click on the <strong>Upload New File(s)</strong> button"
+                    "#text": "You don't have any attachments uploaded yet, to add one click on the <strong>Upload New File(s)</strong> button"
                 },
                 {
                     "@tag": "SELECT_FILE",
@@ -11157,6 +11157,10 @@
                 {
                     "@tag": "VALIDATEPERMISSIONTEXT",
                     "#text": "Click below to test if permissions are correct. If they are not, you can\r\n                        still use the installation wizard."
+                },
+                {
+	                "@tag": "WELCOME",
+	                "#text": "Welcome"
                 },
                 {
                     "@tag": "WELCOMEINSTALL",

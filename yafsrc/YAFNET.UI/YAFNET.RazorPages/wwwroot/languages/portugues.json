@@ -11189,6 +11189,10 @@
           {
             "@tag": "YES",
             "#text": "SIM"
+          },
+          {
+            "@tag": "WELCOME",
+            "#text": "Bem-vindo"
           }
         ]
       },
@@ -12833,12 +12837,12 @@
             "#text": "Mensagem:"
           },
           {
-            "@tag": "TAGS",
-            "#text": "Etiquetas:"
-          },
-          {
             "@tag": "TAG_PLACEHOLDER",
             "#text": "Insira uma tag de tópico opcional"
+          },
+          {
+            "@tag": "TAGS",
+            "#text": "Etiquetas:"
           }
         ]
       },

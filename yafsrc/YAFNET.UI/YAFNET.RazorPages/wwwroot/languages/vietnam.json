@@ -11189,6 +11189,10 @@
           {
             "@tag": "YES",
             "#text": "VÂNG"
+          },
+          {
+            "@tag": "WELCOME",
+            "#text": "Chào mừng"
           }
         ]
       },
@@ -12833,12 +12837,12 @@
             "#text": "Thông điệp:"
           },
           {
-            "@tag": "TAGS",
-            "#text": "Thẻ:"
-          },
-          {
             "@tag": "TAG_PLACEHOLDER",
             "#text": "Nhập thẻ chủ đề tùy chọn"
+          },
+          {
+            "@tag": "TAGS",
+            "#text": "Thẻ:"
           }
         ]
       },

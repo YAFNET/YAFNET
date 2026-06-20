@@ -11177,6 +11177,10 @@
           {
             "@tag": "YES",
             "#text": "TAK"
+          },
+          {
+            "@tag": "WELCOME",
+            "#text": "Powitanie"
           }
         ]
       },
@@ -12821,12 +12825,12 @@
             "#text": "Komunikat:"
           },
           {
-            "@tag": "TAGS",
-            "#text": "Tagi:"
-          },
-          {
             "@tag": "TAG_PLACEHOLDER",
             "#text": "Wprowadź opcjonalny tag tematu"
+          },
+          {
+            "@tag": "TAGS",
+            "#text": "Tagi:"
           }
         ]
       },

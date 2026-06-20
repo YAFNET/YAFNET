@@ -11189,6 +11189,10 @@
           {
             "@tag": "YES",
             "#text": "ÁNO"
+          },
+          {
+            "@tag": "WELCOME",
+            "#text": "Vitajte"
           }
         ]
       },
@@ -12833,12 +12837,12 @@
             "#text": "Správa:"
           },
           {
-            "@tag": "TAGS",
-            "#text": "Tagy:"
-          },
-          {
             "@tag": "TAG_PLACEHOLDER",
             "#text": "Zadajte voliteľnú značku témy"
+          },
+          {
+            "@tag": "TAGS",
+            "#text": "Tagy:"
           }
         ]
       },

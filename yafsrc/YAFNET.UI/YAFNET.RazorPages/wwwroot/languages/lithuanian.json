@@ -11189,6 +11189,10 @@
           {
             "@tag": "YES",
             "#text": "TAIP"
+          },
+          {
+            "@tag": "WELCOME",
+            "#text": "Sveiki atvykę"
           }
         ]
       },
@@ -12833,12 +12837,12 @@
             "#text": "Pranešimas:"
           },
           {
-            "@tag": "TAGS",
-            "#text": "Žymos:"
-          },
-          {
             "@tag": "TAG_PLACEHOLDER",
             "#text": "Įveskite pasirenkamą temos žymą"
+          },
+          {
+            "@tag": "TAGS",
+            "#text": "Žymos:"
           }
         ]
       },

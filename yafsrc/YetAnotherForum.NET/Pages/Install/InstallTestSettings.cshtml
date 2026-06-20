@@ -20,82 +20,89 @@
 }
 
 <form method="post">
-    <div class="modal-body">
-        <h4>
-            @Localization.GetText("TestSettings")
-        </h4>
-        <p>
-            @Localization.GetText("TestSettingsText")
-        </p>
-        <h4>
-            @Localization.GetText("ConnectionTest")
-        </h4>
-        <h4>
-	        @(BoardContext.Current.Get<BoardConfiguration>().ConnectionProviderName)
-        </h4>
-        <p class="text-body-secondary">
-	        @(BoardContext.Current.Get<IConfiguration>().GetConnectionString("DefaultConnection"))
-        </p>
+	<div class="modal-body">
+		<ol class="wizard-steps mb-4" id="wizard-steps">
+			<li class="completed" data-step="0">@Localization.GetText("Welcome")</li>
+			<li class="active" data-step="1">@Localization.GetText("TestSettings")</li>
+			<li data-step="2">@Localization.GetText("Initialize")</li>
+			<li data-step="3">@Localization.GetText("CreateBoard")</li>
+			<li data-step="4">@Localization.GetText("Setup") @Localization.GetText("Finished")</li>
+		</ol>
+		<h4>
+			@Localization.GetText("TestSettings")
+		</h4>
+		<p>
+			@Localization.GetText("TestSettingsText")
+		</p>
+		<h4>
+			@Localization.GetText("ConnectionTest")
+		</h4>
+		<h4>
+			@(BoardContext.Current.Get<BoardConfiguration>().ConnectionProviderName)
+		</h4>
+		<p class="text-body-secondary">
+			@(BoardContext.Current.Get<IConfiguration>().GetConnectionString("DefaultConnection"))
+		</p>
 
-        <hr/>
-        
-        @if (Model.ConnectionSuccess)
-        {
-            <div class="alert alert-success">
-                <span class="badge text-bg-success me-2">@Localization.GetText("ConnectionDetails")</span> @Localization.GetText("ConnectionSuccess")
-            </div>
-        }
-        else
-        {
-            <div class="alert alert-danger">
-                <span class="badge text-bg-danger me-2">@Localization.GetText("ConnectionDetails")</span>@Localization.GetText("ConnectionFailed") @Model.ConnectionInfo
-            </div>
-        }
-        
-        <hr />
-        <h4>
-            @Localization.GetText("MailTest")
-        </h4>
-        <p class="text-body-secondary">
-            @Localization.GetText("MailTestDesc")
-        </p>
-        <div class="mb-3">
-            <label for="fromEmail" class="form-label">@Localization.GetText("FromEmail")</label>
-            <input id="fromEmail" name="fromEmail"
-                   placeholder="@Localization.GetText("FromEmail")"
-                   type="email"
-                   class="form-control"/>
-        </div>
-        <div class="mb-3">
-            <label for="toEmail" class="form-label">@Localization.GetText("ToEmail")</label>
-            <input id="toEmail" name="toEmail"
-                   placeholder="@Localization.GetText("ToEmail")"
-                   type="Email"
-                   class="form-control"/>
-        </div>
-        <button Text="@Localization.GetText("TestEmail")"
-                button-style="Info"
-                asp-page-handler="TestSmtp"
-                asp-route-culture="@requestCulture.Culture.Name"></button>
-        
-        <hr />
+		<hr/>
 
-        @if (Model.TestEmailInfo.IsSet())
-        {
-            @if (Model.TestEmailSuccess)
-            {
-                <div class="alert alert-success">
-                    <span class="badge text-bg-success me-2">@Localization.GetText("SmtpTestDetails")</span> @Localization.GetText("SmtpTestSuccess")
-                </div>
-            }
-            else
-            {
-                <div class="alert alert-danger">
-                    <span class="badge text-bg-danger me-2">@Localization.GetText("SmtpTestDetails")</span>@Localization.GetText("ConnectionFailed") @Model.TestEmailInfo
-                </div>
-            }
-        }
-    </div>
+		@if (Model.ConnectionSuccess)
+		{
+			<div class="alert alert-success">
+				<span class="badge text-bg-success me-2">@Localization.GetText("ConnectionDetails")</span> @Localization.GetText("ConnectionSuccess")
+			</div>
+		}
+		else
+		{
+			<div class="alert alert-danger">
+				<span class="badge text-bg-danger me-2">@Localization.GetText("ConnectionDetails")</span>@Localization.GetText("ConnectionFailed") @Model.ConnectionInfo
+			</div>
+		}
+
+		<hr/>
+		<h4>
+			@Localization.GetText("MailTest")
+		</h4>
+		<p class="text-body-secondary">
+			@Localization.GetText("MailTestDesc")
+		</p>
+		<div class="mb-3">
+			<label for="fromEmail" class="form-label">@Localization.GetText("FromEmail")</label>
+			<input id="fromEmail" name="fromEmail"
+			       placeholder="@Localization.GetText("FromEmail")"
+			       type="email"
+			       class="form-control"/>
+		</div>
+		<div class="mb-3">
+			<label for="toEmail" class="form-label">@Localization.GetText("ToEmail")</label>
+			<input id="toEmail" name="toEmail"
+			       placeholder="@Localization.GetText("ToEmail")"
+			       type="Email"
+			       class="form-control"/>
+		</div>
+		<button Text="@Localization.GetText("TestEmail")"
+		        button-style="Info"
+		        asp-page-handler="TestSmtp"
+		        asp-route-culture="@requestCulture.Culture.Name"></button>
+
+		<hr/>
+
+		@if (Model.TestEmailInfo.IsSet())
+		{
+			@if (Model.TestEmailSuccess)
+			{
+				<div class="alert alert-success">
+					<span class="badge text-bg-success me-2">@Localization.GetText("SmtpTestDetails")</span> @Localization.GetText("SmtpTestSuccess")
+				</div>
+			}
+			else
+			{
+				<div class="alert alert-danger">
+					<span class="badge text-bg-danger me-2">@Localization.GetText("SmtpTestDetails")</span>@Localization.GetText("ConnectionFailed") @Model.TestEmailInfo
+				</div>
+			}
+		}
+	</div>
     <div class="modal-footer">
         <button button-style="Primary"
                 Icon="arrow-alt-circle-right"

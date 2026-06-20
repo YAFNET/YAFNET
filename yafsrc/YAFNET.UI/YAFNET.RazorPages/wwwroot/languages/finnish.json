@@ -11189,6 +11189,10 @@
           {
             "@tag": "YES",
             "#text": "JOO"
+          },
+          {
+            "@tag": "WELCOME",
+            "#text": "Tervetuloa"
           }
         ]
       },
@@ -12833,12 +12837,12 @@
             "#text": "Viesti:"
           },
           {
-            "@tag": "TAGS",
-            "#text": "Tunnisteet:"
-          },
-          {
             "@tag": "TAG_PLACEHOLDER",
             "#text": "Anna valinnainen aihetunniste"
+          },
+          {
+            "@tag": "TAGS",
+            "#text": "Tunnisteet:"
           }
         ]
       },

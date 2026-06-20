@@ -24,7 +24,15 @@
 
 <form method="post">
     <div class="modal-body">
-        @if (Model.Message.IsSet())
+	    <ol class="wizard-steps mb-4" id="wizard-steps">
+            <li class="completed" data-step="0">@Localization.GetText("Welcome")</li>
+		    <li class="completed" data-step="1">@Localization.GetText("TestSettings")</li>
+		    <li class="completed" data-step="2">@Localization.GetText("Initialize")</li>
+		    <li class="active" data-step="3">@Localization.GetText("CreateBoard")</li>
+		    <li data-step="4">@Localization.GetText("Setup") @Localization.GetText("Finished")</li>
+	    </ol>
+	    
+	    @if (Model.Message.IsSet())
         {
             <div class="alert alert-warning">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true"></button>

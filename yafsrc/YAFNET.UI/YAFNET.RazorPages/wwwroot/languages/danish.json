@@ -11189,6 +11189,10 @@
           {
             "@tag": "YES",
             "#text": "JA"
+          },
+          {
+            "@tag": "WELCOME",
+            "#text": "Velkomst"
           }
         ]
       },
@@ -12833,12 +12837,12 @@
             "#text": "Besked:"
           },
           {
-            "@tag": "TAGS",
-            "#text": "Tags:"
-          },
-          {
             "@tag": "TAG_PLACEHOLDER",
             "#text": "Indtast et valgfrit emne-tag"
+          },
+          {
+            "@tag": "TAGS",
+            "#text": "Tags:"
           }
         ]
       },

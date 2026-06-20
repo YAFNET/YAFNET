@@ -17,17 +17,24 @@
 }
 
 <form method="post">
-    <div class="modal-body">
-        <h4>
-            @Localization.GetText("WelcomeInstall")
-        </h4>
-        <p class="text-body-secondary">
-            @Localization.GetText("WelcomeInstallDesc")
-        </p>
-        <p>
-            @Localization.GetText("WelcomeInstallText")
-        </p>
-    </div>
+	<div class="modal-body">
+		<ol class="wizard-steps mb-4" id="wizard-steps">
+			<li class="active" data-step="0">@Localization.GetText("Welcome")</li>
+			<li data-step="1">@Localization.GetText("TestSettings")</li>
+			<li data-step="2">@Localization.GetText("Initialize")</li>
+			<li data-step="3">@Localization.GetText("CreateBoard")</li>
+			<li data-step="4">@Localization.GetText("Setup") @Localization.GetText("Finished")</li>
+		</ol>
+		<h4>
+			@Localization.GetText("WelcomeInstall")
+		</h4>
+		<p class="text-body-secondary">
+			@Localization.GetText("WelcomeInstallDesc")
+		</p>
+		<p>
+			@Localization.GetText("WelcomeInstallText")
+		</p>
+	</div>
     <div class="modal-footer">
         <button Icon="arrow-alt-circle-right"
                 button-style="Primary"

@@ -11173,6 +11173,10 @@
           {
             "@tag": "YES",
             "#text": "SÌ"
+          },
+          {
+            "@tag": "WELCOME",
+            "#text": "Benvenuto"
           }
         ]
       },
@@ -12817,12 +12821,12 @@
             "#text": "Messaggio:"
           },
           {
-            "@tag": "TAGS",
-            "#text": "Tag:"
-          },
-          {
             "@tag": "TAG_PLACEHOLDER",
             "#text": "Inserisci un tag argomento facoltativo"
+          },
+          {
+            "@tag": "TAGS",
+            "#text": "Tag:"
           }
         ]
       },

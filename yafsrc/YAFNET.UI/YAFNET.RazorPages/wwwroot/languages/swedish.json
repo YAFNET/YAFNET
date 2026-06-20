@@ -11189,6 +11189,10 @@
           {
             "@tag": "YES",
             "#text": "JA"
+          },
+          {
+            "@tag": "WELCOME",
+            "#text": "Välkomna"
           }
         ]
       },
@@ -12833,12 +12837,12 @@
             "#text": "Meddelande:"
           },
           {
-            "@tag": "TAGS",
-            "#text": "Taggar:"
-          },
-          {
             "@tag": "TAG_PLACEHOLDER",
             "#text": "Ange en valfri ämnestagg"
+          },
+          {
+            "@tag": "TAGS",
+            "#text": "Taggar:"
           }
         ]
       },

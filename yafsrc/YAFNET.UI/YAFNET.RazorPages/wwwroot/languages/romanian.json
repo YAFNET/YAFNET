@@ -11189,6 +11189,10 @@
           {
             "@tag": "YES",
             "#text": "DA"
+          },
+          {
+            "@tag": "WELCOME",
+            "#text": "Bun venit"
           }
         ]
       },
@@ -12833,12 +12837,12 @@
             "#text": "Mesaj:"
           },
           {
-            "@tag": "TAGS",
-            "#text": "Etichete:"
-          },
-          {
             "@tag": "TAG_PLACEHOLDER",
             "#text": "Introduceți o etichetă opțională de subiect"
+          },
+          {
+            "@tag": "TAGS",
+            "#text": "Etichete:"
           }
         ]
       },

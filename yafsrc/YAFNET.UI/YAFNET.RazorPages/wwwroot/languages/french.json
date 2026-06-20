@@ -11189,6 +11189,10 @@
           {
             "@tag": "YES",
             "#text": "OUI"
+          },
+          {
+            "@tag": "WELCOME",
+            "#text": "Accueillir"
           }
         ]
       },
@@ -12833,12 +12837,12 @@
             "#text": "Message :"
           },
           {
-            "@tag": "TAGS",
-            "#text": "Tags :"
-          },
-          {
             "@tag": "TAG_PLACEHOLDER",
             "#text": "Saisissez une balise de sujet facultative"
+          },
+          {
+            "@tag": "TAGS",
+            "#text": "Tags :"
           }
         ]
       },
