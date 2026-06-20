@@ -1,6 +1,9 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v4.0.6
+* bug fixes
+
 # YetAnotherForum.NET v4.0.5
 * [FIXED #1637] Fix attachment list not loading on EditMessage page - Thanks @mt0321
 * [FIXED #1636] Fix sitemap XML: UTF-8 encoding, correct namespace, and element order - Thanks @mt0321
