@@ -1,0 +1,69 @@
+networks: 
+  dev: 
+    driver: bridge
+
+services:
+  yafnet:
+    image: ${DOCKER_REGISTRY-}yafnet
+    depends_on:
+      sql-server-db:
+        condition: service_healthy      # wait for SQL Server to be ready
+      sql-server-init:
+        condition: service_completed_successfully   # wait for DB to be created
+    environment:
+      - ConnectionStrings__DefaultConnection=data source=sql-server-db;Initial Catalog=yaf;User Id=sa;Password=MyPass@word;TrustServerCertificate=true # change default password
+      - BoardConfiguration__ConnectionProviderName=Microsoft.Data.SqlClient
+      - MailConfiguration__Host=host.docker.internal # only for testing, replace with real mail settings
+      - MailConfiguration__Port=2525 # only for testing, replace with real mail settings
+      - MailConfiguration__Mail=test@localhost.com # only for testing, replace with real mail settings
+      - ASPNETCORE_URLS=http://+:89 
+    build:
+      context: .
+      dockerfile: docker/yaf-sqlserver/Dockerfile
+    container_name: yafnet
+    ports:
+      - "8001:89"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # Linux only only used for testing
+    networks:
+      - dev
+
+  sql-server-db:
+    container_name: sql-server-db
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    ports:
+      - "8002:1433"
+    environment:
+      - MSSQL_SA_PASSWORD=MyPass@word # change default password
+      - ACCEPT_EULA=Y
+    volumes:
+      - mssql-data:/var/lib/mssqlql/data
+    healthcheck:
+      test: >
+        /opt/mssql-tools18/bin/sqlcmd
+        -S localhost -U sa -P "MyPass@word"
+        -No -Q "SELECT 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s        # SQL Server takes ~20s to start
+    networks:
+      - dev
+
+  sql-server-init:
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    depends_on:
+      sql-server-db:
+        condition: service_healthy
+    environment:
+      - MSSQL_SA_PASSWORD=MyPass@word
+    volumes:
+      - ./docker/yaf-sqlserver:/init-db:ro    # mount the init script (read-only)
+    entrypoint: /bin/bash /init-db/create-db.sh
+    networks:
+      - dev
+    restart: "no"                        # run once and exit
+    
+# Define persistent volumes to store MySQL data.
+volumes:
+  mssql-data:

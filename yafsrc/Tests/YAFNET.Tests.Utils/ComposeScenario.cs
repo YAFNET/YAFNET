@@ -33,22 +33,22 @@ public class ComposeScenario
     public static ComposeScenario MySql => new(
         name: nameof(MySql),
         baseUrl: "http://localhost:8001/Install/Install",
-        composeFile: $"docker-compose-{nameof(MySql)}.yml");
+        composeFile: $"docker-compose-{nameof(MySql)}-test.yml");
 
     public static ComposeScenario PostgreSQL => new(
         name: nameof(PostgreSQL),
         baseUrl: "http://localhost:8001/Install/Install",
-        composeFile: $"docker-compose-{nameof(PostgreSQL)}.yml");
+        composeFile: $"docker-compose-{nameof(PostgreSQL)}-test.yml");
 
     public static ComposeScenario Sqlite => new(
         name: nameof(Sqlite),
         baseUrl: "http://localhost:8001/Install/Install",
-        composeFile: $"docker-compose-{nameof(Sqlite)}.yml");
+        composeFile: $"docker-compose-{nameof(Sqlite)}-test.yml");
 
     public static ComposeScenario SqlServer => new(
         name: nameof(SqlServer),
         baseUrl: "http://localhost:8001/Install/Install",
-        composeFile: $"docker-compose-{nameof(SqlServer)}.yml");
+        composeFile: $"docker-compose-{nameof(SqlServer)}-test.yml");
 
 
     public string Name { get; }

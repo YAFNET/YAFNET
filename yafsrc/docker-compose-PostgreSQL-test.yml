@@ -1,0 +1,67 @@
+networks:
+  dev:
+    driver: bridge
+
+services:
+  yafnet:
+    image: ${DOCKER_REGISTRY-}yafnet
+    depends_on:
+      postgres-db:
+        condition: service_healthy          # wait for PostgreSQL to be ready
+      postgres-init:
+        condition: service_completed_successfully  # wait for DB to be created
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres-db;Database=yaf;Username=postgres;Password=MyPass@word
+      - BoardConfiguration__ConnectionProviderName=Npgsql Data Provider
+      - MailConfiguration__Host=host.docker.internal # only for testing, replace with real mail settings
+      - MailConfiguration__Port=2525 # only for testing, replace with real mail settings
+      - MailConfiguration__Mail=test@localhost.com # only for testing, replace with real mail settings
+      - ASPNETCORE_URLS=http://+:89
+    build:
+      context: .
+      dockerfile: docker/yaf-postgresql/Dockerfile
+    container_name: yafnet
+    ports:
+      - "8001:89"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # Linux only only used for testing
+    networks:
+      - dev
+
+  postgres-db:
+    container_name: postgres-db
+    image: postgres:alpine
+    ports:
+      - "8002:5432"
+    environment:
+      - POSTGRES_PASSWORD=MyPass@word # change default password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - postgresql-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s               # PostgreSQL starts faster than SQL Server
+    networks:
+      - dev
+
+  postgres-init:
+    image: postgres:alpine
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    environment:
+      - PGPASSWORD=MyPass@word
+    volumes:
+      - ./docker/yaf-postgresql:/init-db:ro   # mount the init script (read-only)
+    entrypoint: /bin/sh /init-db/create-db.sh
+    networks:
+      - dev
+    restart: "no"                            # run once and exit
+    
+# Define persistent volumes to store MySQL data.
+volumes:
+  postgresql-data:

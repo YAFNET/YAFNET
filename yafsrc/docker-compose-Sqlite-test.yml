@@ -1,0 +1,24 @@
+networks: 
+  dev: 
+    driver: bridge
+
+services:
+  yafnet:
+    image: ${DOCKER_REGISTRY-}yafnet
+    environment:
+      - ConnectionStrings__DefaultConnection=Data Source=yafnet.db;Version=3;
+      - BoardConfiguration__ConnectionProviderName=System.Data.SQLite
+      - MailConfiguration__Host=host.docker.internal # only for testing, replace with real mail settings
+      - MailConfiguration__Port=2525 # only for testing, replace with real mail settings
+      - MailConfiguration__Mail=test@localhost.com  # only for testing, replace with real mail settings
+      - ASPNETCORE_URLS=http://+:89 
+    build:
+      context: .
+      dockerfile: docker/yaf-sqlite/Dockerfile
+    container_name: yafnet
+    ports:
+      - "8001:89"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # Linux only only used for testing
+    networks:
+      - dev
