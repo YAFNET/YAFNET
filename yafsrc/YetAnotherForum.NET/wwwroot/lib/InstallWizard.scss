@@ -64,3 +64,68 @@ html {
     }
   }
 }
+
+.wizard-steps {
+	counter-reset: step;
+	list-style: none;
+	padding: 0;
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+
+	li {
+		position: relative;
+		z-index: 1;
+		background: var(--bs-body-bg);
+		padding: 0 0.75rem;
+		text-align: center;
+		color: var(--bs-secondary-color);
+		font-size: 0.875rem;
+	}
+
+	li::before {
+			counter-increment: step;
+			content: counter(step);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 2rem;
+			height: 2rem;
+			margin: 0 auto 0.5rem;
+			border-radius: 50%;
+			background: var(--bs-body-tertiary-bg);
+			border: 2px solid var(--bs-border-color);
+			color: var(--bs-secondary-color);
+			font-weight: 600;
+		}
+
+	li.active {
+			color: var(--bs-primary);
+			font-weight: 600;
+		}
+
+	li.active::before {
+				background: var(--bs-primary);
+				border-color: var(--bs-primary);
+				color: #fff;
+			}
+
+	li.completed::before {
+			background: var(--bs-success);
+			border-color: var(--bs-success);
+			color: #fff;
+			content: '\f00c';
+			font-family: 'Font Awesome 7 Free';
+		}
+}
+
+	.wizard-steps::before {
+		content: '';
+		position: absolute;
+		top: 1rem;
+		left: 0;
+		right: 0;
+		height: 2px;
+		background: var(--bs-border-color);
+		z-index: 0;
+	}

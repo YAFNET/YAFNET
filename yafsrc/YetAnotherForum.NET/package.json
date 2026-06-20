@@ -2,8 +2,8 @@
   "name": "yetanotherforum-net",
   "author": "Ingo Herbote",
   "homepage": "https://www.yetanotherforum.net/",
-  "version": "4.0.5",
-  "versionNuget": "4.0.5",
+  "version": "4.0.6",
+  "versionNuget": "4.0.6",
   "private": true,
   "license": "Apache-2.0",
   "devDependencies": {
