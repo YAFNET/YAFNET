@@ -110,13 +110,6 @@ public partial class Help : ForumPage
     }
 
     /// <summary>
-    /// Create the Page links.
-    /// </summary>
-    public override void CreatePageLinks()
-    {
-    }
-
-    /// <summary>
     /// Binds the data.
     /// </summary>
     private void BindData()

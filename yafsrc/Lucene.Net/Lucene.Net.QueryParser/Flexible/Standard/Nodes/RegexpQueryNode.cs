@@ -99,7 +99,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes
 
         public virtual string Field
         {
-            get => field;
+            get => this.field;
             set => this.field = value;
         }
 

@@ -1354,16 +1354,13 @@ public static class MessageRepositoryExtensions
         }
 
         // Ederon : erase message for good
-        if (eraseMessages)
+        if (eraseMessages && BoardContext.Current.CurrentForumPage != null)
         {
-            if (BoardContext.Current.CurrentForumPage != null)
-            {
-                BoardContext.Current.Get<ILoggerService>().Log(
-                    BoardContext.Current.PageUserID,
-                    "YAF",
-                    BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_MESSAGE", message.ID),
-                    EventLogTypes.Information);
-            }
+            BoardContext.Current.Get<ILoggerService>().Log(
+                BoardContext.Current.PageUserID,
+                "YAF",
+                BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_MESSAGE", message.ID),
+                EventLogTypes.Information);
         }
 
         repository.DeleteInternal(
