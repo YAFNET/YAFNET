@@ -8,9 +8,9 @@
 
 ![build status](https://github.com/yafnet/yafnet/actions/workflows/build.yml/badge.svg)
 
-![build status](https://img.shields.io/docker/pulls/yafnet/yafnet)
+![build status](https://github.com/yafnet/yafnet/actions/workflows/build-netfx.yml/badge.svg)
 
-![docker pulls](https://img.shields.io/docker/pulls/yafnet/yafnet)
+[![docker pulls](https://img.shields.io/docker/pulls/yafnet/yafnet)](https://hub.docker.com/r/yafnet/yafnet)
 
 ## Documentation
 We have a preliminary documentation on the [Github Wiki](https://github.com/YAFNET/YAFNET/wiki) page
