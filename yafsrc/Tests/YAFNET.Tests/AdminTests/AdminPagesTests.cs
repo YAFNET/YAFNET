@@ -24,6 +24,8 @@
 
 using System.Linq;
 
+using AwesomeAssertions;
+
 using YAF.Tests.Infrastructure;
 using YAF.Types.Constants;
 
@@ -73,6 +75,34 @@ public class AdminPagesTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                     Assert.That(pageSource, Does.Contain("Administration"), $"Error on page: {pageName}");
                 }
+            });
+    }
+
+    /// <summary>
+    /// test to check if the bbcode extensions are installed
+    /// </summary>
+    [Test]
+    public Task BBCodeExtensionsInstalledTest()
+    {
+        return this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                // Log user in first!
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword), Is.True,
+                    "Login failed");
+
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/BBCodes/");
+
+                var pageSource = await page.ContentAsync();
+
+
+                pageSource.Should().Contain("ALBUMIMG");
             });
     }
 }

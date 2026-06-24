@@ -78,8 +78,10 @@ public class RobotsTxtMiddleware : IHaveServiceLocator
     {
         if (context.Request.Path.StartsWithSegments("/robots.txt"))
         {
-            var generalRobotsTxt = Path.Combine(BoardContext.Current.Get<BoardInfo>().WebRootPath, "resources", "robots.txt");
-            var environmentRobotsTxt = Path.Combine(BoardContext.Current.Get<BoardInfo>().WebRootPath, "resources", $"robots.{this.environmentName}.txt");
+            var generalRobotsTxt = Path.Combine(BoardContext.Current.Get<BoardInfo>().WebRootPath,
+                BoardContext.Current.Get<BoardFolders>().Resources, "robots.txt");
+            var environmentRobotsTxt = Path.Combine(BoardContext.Current.Get<BoardInfo>().WebRootPath,
+                BoardContext.Current.Get<BoardFolders>().Resources, $"robots.{this.environmentName}.txt");
 
             string output;
 

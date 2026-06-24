@@ -298,7 +298,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         var loadWrapper = new Action<string, Action<Stream>>(
             (file, streamAction) =>
                 {
-                    var fullFile = Path.Combine(this.Get<BoardInfo>().WebRootPath, "Resources", file);
+                    var fullFile = Path.Combine(this.Get<BoardInfo>().WebRootPath, this.Get<BoardFolders>().Resources, file);
 
                     if (!File.Exists(fullFile))
                     {
@@ -338,7 +338,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
     {
         string script;
 
-        var fileName = Path.Combine(this.Get<BoardInfo>().WebRootPath, "Resources", scriptFile);
+        var fileName = Path.Combine(this.Get<BoardInfo>().WebRootPath, this.Get<BoardFolders>().Resources, scriptFile);
 
         try
         {

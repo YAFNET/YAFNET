@@ -40,6 +40,14 @@ public class BoardFolders
             : BoardContext.Current.Get<BoardConfiguration>().StaticFilesRoot;
 
     /// <summary>
+    /// Gets the resources folder.
+    /// </summary>
+    /// <value>
+    /// The resources folder
+    /// </value>
+    public string Resources => "resources";
+
+    /// <summary>
     /// Gets Uploads.
     /// </summary>
     public string Uploads => $"{this.BoardFolder}uploads";

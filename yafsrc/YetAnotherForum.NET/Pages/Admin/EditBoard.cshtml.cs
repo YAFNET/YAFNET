@@ -27,20 +27,18 @@ namespace YAF.Pages.Admin;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
+using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
-using YAF.Types.Models.Identity;
 using YAF.Types.Models;
+using YAF.Types.Models.Identity;
 using YAF.Types.Objects;
-
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 /// <summary>
 /// Admin Edit Board Page
@@ -312,7 +310,7 @@ public class EditBoardModel : AdminPage
         var loadWrapper = new Action<string, Action<Stream>>(
             (file, streamAction) =>
             {
-                var fullFile = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, "Resources", file);
+                var fullFile = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Resources, file);
 
                 if (!System.IO.File.Exists(fullFile))
                 {

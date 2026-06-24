@@ -46,7 +46,7 @@ public static class StaticDataHelper
     /// <returns>List&lt;HelpNavigation&gt;.</returns>
     public static List<HelpNavigation> LoadHelpMenuJson()
     {
-        var json = File.ReadAllText(Path.Combine(BoardContext.Current.Get<BoardInfo>().WebRootPath, "resources", "helpMenu.json"));
+        var json = File.ReadAllText(Path.Combine(BoardContext.Current.Get<BoardInfo>().WebRootPath, BoardContext.Current.Get<BoardFolders>().Resources, "helpMenu.json"));
 
         return JsonConvert.DeserializeObject<List<HelpNavigation>>(json);
     }

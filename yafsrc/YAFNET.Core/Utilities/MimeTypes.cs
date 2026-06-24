@@ -106,7 +106,7 @@ public static class MimeTypes
     /// <returns>List&lt;MimeType&gt;.</returns>
     private static List<MimeType> LoadJson()
     {
-        var json = File.ReadAllText(Path.Combine(BoardContext.Current.Get<BoardInfo>().WebRootPath, "resources", "mimeTypes.json"));
+        var json = File.ReadAllText(Path.Combine(BoardContext.Current.Get<BoardInfo>().WebRootPath, BoardContext.Current.Get<BoardFolders>().Resources, "mimeTypes.json"));
 
        return JsonConvert.DeserializeObject<List<MimeType>>(json);
     }
