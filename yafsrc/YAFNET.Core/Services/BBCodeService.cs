@@ -520,8 +520,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 new VariableRegexReplaceRule(
                     new Regex(
                         @"\[email=(?<email>[^\]]*)\](?<inner>([^""\r\n\]\[]+?))\[/email\]",
-                        Options | RegexOptions.Compiled,
-                        TimeSpan.FromMilliseconds(100)),
+                        Options | RegexOptions.Compiled),
                     "<a href=\"mailto:${email}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>",
                     ["email"]));
 
@@ -538,8 +537,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 new VariableRegexReplaceRule(
                     new Regex(
                         @"\[url\=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^javascript:])([^""\r\n\]\[]*?))\](?<inner>(.+?))\[/url\]",
-                        Options | RegexOptions.Compiled,
-                        TimeSpan.FromMilliseconds(100)),
+                        Options | RegexOptions.Compiled),
                     "<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
                     [
@@ -553,8 +551,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 new VariableRegexReplaceRule(
                     new Regex(
                         @"\[url\](?<http>(http://)|(https://)|(ftp://)|(ftps://)|(mailto:))?(?<inner>([^javascript:])(.+?))\[/url\]",
-                        Options | RegexOptions.Compiled,
-                        TimeSpan.FromMilliseconds(100)),
+                        Options | RegexOptions.Compiled),
                     "<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
                     [
@@ -582,8 +579,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 new VariableRegexReplaceRule(
                     new Regex(
                         """^(?!.*youtu).*(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?!youtu)(?<!href=")(?<!src=")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~/(/)$]*[^.<|^.\[])?)""",
-                        RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled,
-                        TimeSpan.FromMilliseconds(100)),
+                        RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled),
                     "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
                     [
@@ -595,8 +591,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 new VariableRegexReplaceRule(
                     new Regex(
                         """(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href=")(?<!src=")(?<inner>(http://|https://)(www.)?youtube\.com\/watch\?v=(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)""",
-                        RegexOptions.Multiline | RegexOptions.Compiled,
-                        TimeSpan.FromMilliseconds(100)),
+                        RegexOptions.Multiline | RegexOptions.Compiled),
                     "${before}<div data-oembed-url=\"//youtube.com/embed/${videoId}\" class=\"ratio ratio-16x9\"><iframe src=\"//youtube.com/embed/${videoId}?hd=1\"></iframe></div>",
                     [
                         "before", "videoId"
@@ -609,8 +604,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 new VariableRegexReplaceRule(
                     new Regex(
                         """(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href=")(?<!src=")(?<inner>(http://|https://)youtu\.be\/(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)""",
-                        RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled,
-                        TimeSpan.FromMilliseconds(100)),
+                        RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled),
                     "${before}<div data-oembed-url=\"//youtube.com/embed/${videoId}\" class=\"ratio ratio-16x9\"><iframe src=\"//youtube.com/embed/${videoId}?hd=1\"></iframe></div>",
                     [
                         "before", "videoId"
@@ -759,8 +753,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 new VariableRegexReplaceRule(
                     new Regex(
                         @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\]\[/img\]]*)|(jpeg[^\[\[/img\]]*)|(bmp[^\[\[/img\]]*)|(png[^\]\[/img\]]*)|(gif[^\]\[/img\]]*)|(tif[^\]\[/img\]]*)|(ashx[^\]\[/img\]]*)|(php[^\]\[/img\]]*)|(aspx[^\]\[/img\]]*))))\]\[/img\]",
-                        Options | RegexOptions.Compiled,
-                        TimeSpan.FromMilliseconds(100)),
+                        Options | RegexOptions.Compiled),
                     imageHtml,
                     [
                         "http", "height"
@@ -773,8 +766,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 new VariableRegexReplaceRule(
                     new Regex(
                         @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\]]*)|(jpeg[^\]]*)|(bmp[^\]]*)|(png[^\]]*)|(gif[^\]]*)|(tif[^\]]*)|(ashx[^\]]*)|(php[^\]]*)|(aspx[^\]]*))))\](?<description>[^\[]*)\[/img\]",
-                        Options | RegexOptions.Compiled,
-                        TimeSpan.FromMilliseconds(100)),
+                        Options | RegexOptions.Compiled),
                     imageHtmlWithDesc,
                     [
                         "http", "description", "height"
@@ -827,8 +819,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             new SyntaxHighlighterRegexReplaceRule(
                 new Regex(
                     @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]\r\n|\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]",
-                    Options | RegexOptions.NonBacktracking,
-                    TimeSpan.FromMilliseconds(100)),
+                    Options | RegexOptions.NonBacktracking),
                 """<div class="code">${inner}</div>""") {
                                                             RuleRank = 2
                                                         });
