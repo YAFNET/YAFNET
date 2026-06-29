@@ -28,7 +28,7 @@
     "style-loader": "^4.0.0",
     "ts-loader": "^9.6.2",
     "typescript": "^6.0.3",
-    "webpack": "^5.108.0",
+    "webpack": "^5.108.1",
     "webpack-cli": "^7.0.3",
     "webpack-merge": "^6.0.1"
   },
