@@ -117,7 +117,8 @@
 				                       asp-page="@ForumPages.Moderate_Moderate.GetPageName()"
 				                       bs-toggle="tooltip"
 				                       title-localized-page="TOOLBAR" title-localized-tag="MODERATE_TITLE">
-					                    @Html.LocalizedText("TOOLBAR", "MODERATE")
+											<span class="ms-1">@Html.LocalizedText("TOOLBAR", "MODERATE")</span>
+					                    
 					                    @if (Current.ModeratePosts > 0)
 					                    {
 						                    var title = Html.LocalizedTextFormatted("MODERATE_NEW", Current.ModeratePosts.ToString());

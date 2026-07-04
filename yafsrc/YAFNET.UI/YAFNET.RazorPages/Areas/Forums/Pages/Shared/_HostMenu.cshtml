@@ -17,13 +17,14 @@
 	                 currentPageName != null && currentPageName.StartsWith("Host_");
 
 	<li class="nav-item dropdown">
-        <a class="@Html.Raw(isHostPage ? "nav-link dropdown-toggle active" : "nav-link dropdown-toggle")"
-           role="button"
-           href="#"
-           data-bs-toggle="dropdown"
-           aria-expanded="false">
-            @Html.LocalizedText("TOOLBAR", "HOST")
-        </a>
+		<a class="@Html.Raw(isHostPage ? "nav-link dropdown-toggle active" : "nav-link dropdown-toggle")"
+		   role="button"
+		   href="#"
+		   data-bs-toggle="dropdown"
+		   aria-expanded="false">
+			<span class="ms-1">@Html.LocalizedText("TOOLBAR", "HOST")</span>
+			
+		</a>
         <ul class="dropdown-menu" aria-labelledby="hostDropdown">
 	        @Html.HostMenu()
 	        <li>
