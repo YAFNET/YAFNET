@@ -30,10 +30,12 @@ namespace YAF.Types.Objects;
 public class MailConfiguration
 {
     /// <summary>
-    /// Gets or sets the sender mail.
+    /// Gets or sets the name of the user.
     /// </summary>
-    /// <value>The mail.</value>
-    public string Mail { get; set; }
+    /// <value>
+    /// The name of the user.
+    /// </value>
+    public string UserName { get; set; }
 
     /// <summary>
     /// Gets or sets the password.

@@ -80,9 +80,9 @@ public class MailService : IMailService, IHaveServiceLocator
 
         await smtpClient.ConnectAsync(this.mailConfig.Host, this.mailConfig.Port, SecureSocketOptions.StartTlsWhenAvailable);
 
-        if (this.mailConfig.Password.IsSet() && this.mailConfig.Mail.IsSet())
+        if (this.mailConfig.Password.IsSet() && this.mailConfig.UserName.IsSet())
         {
-            await smtpClient.AuthenticateAsync(this.mailConfig.Mail, this.mailConfig.Password);
+            await smtpClient.AuthenticateAsync(this.mailConfig.UserName, this.mailConfig.Password);
         }
 
         try

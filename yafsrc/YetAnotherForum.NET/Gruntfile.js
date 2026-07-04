@@ -374,9 +374,42 @@ module.exports = function(grunt) {
 		},
 
 		shell: {
+			dockerBuildSqlServer: {
+				command: [
+					'@echo off',
+					'cd ..\\ ',
+					'docker build -t yafnet/yafnet:latest-sqlserver -f docker/yaf-sqlserver/Dockerfile . ',
+					'docker push yafnet/yafnet:latest-sqlserver '
+				].join('&&')
+			},
+			dockerBuildMySql: {
+				command: [
+					'@echo off',
+					'cd ..\\ ',
+					'docker build -t yafnet/yafnet:latest-mysql -f docker/yaf-mysql/Dockerfile . ',
+					'docker push yafnet/yafnet:latest-mysql '
+				].join('&&')
+			},
+			dockerBuildPostgreSQL: {
+				command: [
+					'@echo off',
+					'cd ..\\ ',
+					'docker build -t yafnet/yafnet:latest-postgresql -f docker/yaf-postgresql/Dockerfile . ',
+					'docker push yafnet/yafnet:latest-postgresql '
+				].join('&&')
+			},
+			dockerBuildSqlite: {
+				command: [
+					'@echo off',
+					'cd ..\\ ',
+					'docker build -t yafnet/yafnet:latest-sqlite -f docker/yaf-sqlite/Dockerfile . ',
+					'docker push yafnet/yafnet:latest-sqlite '
+				].join('&&')
+			},
 			compileLanguages: {
 				command: [
 					'@echo off',
+					'cd ..\\deploy\\ ',
 					'..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\bin\\Release\\net10.0\\publish\\wwwroot\\languages\\ -minify'
 				].join('&&')
 			},
@@ -937,6 +970,12 @@ module.exports = function(grunt) {
 		[
 			'shell:deleteOldNuGetPackages', 'shell:createNuGetUIPackages', 'shell:copyNuGetUIPackages',
 			'shell:publishNuGetUIPackages'
+		]);
+
+	grunt.registerTask('publishDocker',
+		[
+			'shell:dockerBuildSqlServer', 'shell:dockerBuildMySql', 'shell:dockerBuildPostgreSQL',
+			'shell:dockerBuildSqlite'
 		]);
 
 	grunt.registerTask('updateVersionNumber',
