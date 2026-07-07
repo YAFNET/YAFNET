@@ -206,7 +206,7 @@ public static class StaticDataHelper
         var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
 
         // Get all language files info
-        var dir = new DirectoryInfo(Path.Combine(webRootPath, "languages"));
+        var dir = new DirectoryInfo(Path.Combine(webRootPath, BoardContext.Current.Get<BoardFolders>().Languages));
 
         var files = dir.GetFiles("*.json");
 
@@ -281,7 +281,7 @@ public static class StaticDataHelper
         var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
 
         // Get all language files info
-        var dir = new DirectoryInfo(Path.Combine(webRootPath, "languages"));
+        var dir = new DirectoryInfo(Path.Combine(webRootPath, BoardContext.Current.Get<BoardFolders>().Languages));
 
         var files = dir.GetFiles("*.json");
 
@@ -330,7 +330,7 @@ public static class StaticDataHelper
         var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
 
         // Get all language files info
-        var dir = new DirectoryInfo(Path.Combine(webRootPath, "languages"));
+        var dir = new DirectoryInfo(Path.Combine(webRootPath, BoardContext.Current.Get<BoardFolders>().Languages));
 
         var files = dir.GetFiles("*.json");
 
@@ -375,7 +375,7 @@ public static class StaticDataHelper
         var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
 
         // Get all language files info
-        var dir = new DirectoryInfo(Path.Combine(webRootPath, "languages"));
+        var dir = new DirectoryInfo(Path.Combine(webRootPath, BoardContext.Current.Get<BoardFolders>().Languages));
 
         var files = dir.GetFiles("*.json");
 
@@ -434,7 +434,7 @@ public static class StaticDataHelper
         var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
 
         // Get all language files info
-        var dir = new DirectoryInfo(Path.Combine(webRootPath, "languages"));
+        var dir = new DirectoryInfo(Path.Combine(webRootPath, BoardContext.Current.Get<BoardFolders>().Languages));
 
         var files = dir.GetFiles(fileName);
 

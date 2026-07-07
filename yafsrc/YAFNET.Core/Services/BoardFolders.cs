@@ -48,6 +48,14 @@ public class BoardFolders
     public string Resources => "resources";
 
     /// <summary>
+    /// Gets the languages folder.
+    /// </summary>
+    /// <value>
+    /// The languages folder
+    /// </value>
+    public string Languages => "languages";
+
+    /// <summary>
     /// Gets Uploads.
     /// </summary>
     public string Uploads => $"{this.BoardFolder}uploads";

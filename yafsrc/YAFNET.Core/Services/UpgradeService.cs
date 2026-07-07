@@ -182,7 +182,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         this.Get<IDataCache>().Remove(Constants.Cache.Version);
 
         this.GetRepository<Registry>().Save("version", this.Get<BoardInfo>().AppVersion.ToString());
-        this.GetRepository<Registry>().Save("versionname", this.Get<BoardInfo>().AppVersionName);
+        //this.GetRepository<Registry>().Save("versionname", this.Get<BoardInfo>().AppVersionName);
 
         this.Get<ILogger<UpgradeService>>().Info($"YAF.NET Upgraded to Version {this.Get<BoardInfo>().AppVersionName}");
 

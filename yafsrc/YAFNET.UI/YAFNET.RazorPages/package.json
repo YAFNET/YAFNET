@@ -1,7 +1,7 @@
 {
     "name": "yafnet-razorpages",
-    "version": "4.0.4",
-    "description": "This Application is a Standard Visual Studio Sample ASP.NET Core Application, including YAF.NET integrated",
+    "version": "4.0.6",
+    "description": "YAF.NET UI using ASP.NET Core MVC Razor Pages.",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/YAFNET/YAF.SampleWebApplication.git"

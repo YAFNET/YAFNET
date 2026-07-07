@@ -217,7 +217,6 @@ public class InstallService : IHaveServiceLocator
         this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateIndexViews(this.DbAccess, dbCommand));
 
         this.GetRepository<Registry>().Save("version", this.Get<BoardInfo>().AppVersion.ToString());
-        this.GetRepository<Registry>().Save("versionname", this.Get<BoardInfo>().AppVersionName);
 
         return true;
     }

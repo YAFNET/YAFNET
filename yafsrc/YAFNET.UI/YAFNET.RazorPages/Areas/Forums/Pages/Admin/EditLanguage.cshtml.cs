@@ -121,6 +121,7 @@ public class EditLanguageModel : AdminPage
     /// </summary>
     public void OnPostLoadPageLocalization(string x)
     {
+        this.ModelState.Clear();
         this.BindData(x);
     }
 
@@ -139,10 +140,10 @@ public class EditLanguageModel : AdminPage
     /// </summary>
     private void SaveLanguageFile(string x)
     {
-        var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
+        var webRootPath = this.Get<BoardInfo>().WebRootPath;
 
         // Get all language files info
-        var langPath = Path.Combine(webRootPath, "languages");
+        var langPath = Path.Combine(webRootPath, this.Get<BoardFolders>().Languages);
 
         var translationResource = this.Get<ILocalization>().LoadLanguageFile(Path.Combine(langPath, x));
 
@@ -239,10 +240,10 @@ public class EditLanguageModel : AdminPage
 
     private void BindData(string x)
     {
-        var webRootPath = BoardContext.Current.Get<BoardInfo>().WebRootPath;
+        var webRootPath = this.Get<BoardInfo>().WebRootPath;
 
         // Get all language files info
-        var langPath = Path.Combine(webRootPath, "languages");
+        var langPath = Path.Combine(webRootPath, this.Get<BoardFolders>().Languages);
 
         this.PagesList = [];
 
