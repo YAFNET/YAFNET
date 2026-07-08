@@ -24,11 +24,19 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label asp-for="Input.TopicSubject" class="form-label" localized-page="POSTMESSAGE" localized-tag="SUBJECT">
-                            </label>
-                            <input asp-for="Input.TopicSubject" class="form-control searchSimilarTopics" maxlength="100" autocomplete="off" />
+	                        <label asp-for="Input.TopicSubject" class="form-label" localized-page="POSTMESSAGE" localized-tag="SUBJECT">
+	                        </label>
+                            @if (Model.PageBoardContext.BoardSettings.ShowSimilarTopicsOnPostTopic)
+	                        {
+		                        <input asp-for="Input.TopicSubject" class="form-control searchSimilarTopics" maxlength="100" autocomplete="off" />
+	                        }
+                            else
+                            {
+	                            <input asp-for="Input.TopicSubject" class="form-control" maxlength="100" autocomplete="off" />
+                            }
+                            
                         </div>
-                        <div id="SearchResultsPlaceholder"></div>
+                    <div id="SearchResultsPlaceholder" data-title="@Html.LocalizedText("SIMILAR_TOPICS")"></div>
                         <div class="mb-3">
                             <label asp-for="Input.TopicDescription" class="form-label" localized-page="POSTMESSAGE" localized-tag="description">
                             </label>

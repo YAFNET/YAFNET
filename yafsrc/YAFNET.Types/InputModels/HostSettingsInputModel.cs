@@ -300,6 +300,14 @@ public class HostSettingsInputModel
     public bool UseStyledTopicTitles { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether [show similar topics on post topic].
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if [show similar topics on post topic]; otherwise, <c>false</c>.
+    /// </value>
+    public bool ShowSimilarTopicsOnPostTopic { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether [show thanks date].
     /// </summary>
     /// <value><c>true</c> if [show thanks date]; otherwise, <c>false</c>.</value>

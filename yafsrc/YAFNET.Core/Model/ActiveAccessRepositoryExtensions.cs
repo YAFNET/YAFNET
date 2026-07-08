@@ -97,7 +97,14 @@ public static class ActiveAccessRepositoryExtensions
 
             activeList = activeList.DistinctBy(a => new { a.UserID, a.ForumID }).ToList();
 
-            repository.BulkInsert(activeList);
+            try
+            {
+                repository.BulkInsert(activeList);
+            }
+            catch (Exception)
+            {
+                // Ignore
+            }
         }
 
         /// <summary>

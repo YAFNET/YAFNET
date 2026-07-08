@@ -39,6 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
 					if (data.totalRecords > 0) {
 						var list = document.createElement('ul');
 
+						// header
+						var liHeader = document.createElement('li');
+						liHeader.classList.add('list-group-item', 'fw-bold')
+						liHeader.innerHTML = placeHolder.dataset.title!;
+						list.appendChild(liHeader);
+
 						list.classList.add('list-group','list-similar');
 
 						if (data.searchResults.length > 0) {
@@ -50,8 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							data.searchResults.forEach((dataItem: any) => {
 								var li = document.createElement('li');
 
-								li.classList.add('list-group-item');
-								li.classList.add('list-group-item-action');
+								li.classList.add('list-group-item','list-group-item-action');
 
 								li.innerHTML = `<a href="${dataItem.topicUrl}" target="_blank">${dataItem.topic}</a>`;
 

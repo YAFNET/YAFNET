@@ -657,6 +657,15 @@
 	</div>
 	<div class="mb-3">
 		<label class="form-label" info-button="true"
+		       asp-for="Input.ShowSimilarTopicsOnPostTopic"
+		       localized-tag="STYLED_TOPIC_TITLES"></label>
+		<div class="form-check form-switch">
+			<input type="checkbox" asp-for="Input.ShowSimilarTopicsOnPostTopic"
+			       class="form-check-input"/>
+		</div>
+	</div>
+	<div class="mb-3">
+		<label class="form-label" info-button="true"
 		       asp-for="Input.ShowThanksDate"
 		       localized-tag="SHOW_THANK_DATE"></label>
 		<div class="form-check form-switch">

@@ -1524,6 +1524,18 @@ public class BoardSettings
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether [show similar topics on post topic].
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if [show similar topics on post topic]; otherwise, <c>false</c>.
+    /// </value>
+    public bool ShowSimilarTopicsOnPostTopic {
+        get => this.Registry.GetValue("ShowSimilarTopicsOnPostTopic", true);
+
+        set => this.Registry.SetValue("ShowSimilarTopicsOnPostTopic", value);
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether ShowUserOnlineStatus.
     /// </summary>
     public bool ShowUserOnlineStatus
