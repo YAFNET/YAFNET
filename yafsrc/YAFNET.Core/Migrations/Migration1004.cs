@@ -29,24 +29,20 @@ using ServiceStack.DataAnnotations;
 using YAF.Types.Models;
 
 /// <summary>
-/// Version 1003 Migrations
+/// Version 1004 Migrations
 /// </summary>
-[Description("Adds the DeviceSubscription and the BannedCountry table.")]
-public class Migration1003 : MigrationBase
+[Description("Remove old Board Settings")]
+public class Migration1004 : MigrationBase
 {
     /// <summary>
     /// Migrations
     /// </summary>
     public override void Up()
     {
-        if (!this.Db.TableExists<DeviceSubscription>())
-        {
-            this.Db.CreateTable<DeviceSubscription>();
-        }
-
-        if (!this.Db.TableExists<BannedCountry>())
-        {
-            this.Db.CreateTable<BannedCountry>();
-        }
+        this.Db.Delete<Registry>(x => x.Name == "versionname");
+        this.Db.Delete<Registry>(x => x.Name == "lastiplistimport");
+        this.Db.Delete<Registry>(x => x.Name == "showmoderatorlist");
+        this.Db.Delete<Registry>(x => x.Name == "cdvversion");
+        this.Db.Delete<Registry>(x => x.Name == "showmoderatorlist");
     }
 }

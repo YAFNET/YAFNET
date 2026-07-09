@@ -182,7 +182,6 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         this.Get<IDataCache>().Remove(Constants.Cache.Version);
 
         this.GetRepository<Registry>().Save("version", this.Get<BoardInfo>().AppVersion.ToString());
-        //this.GetRepository<Registry>().Save("versionname", this.Get<BoardInfo>().AppVersionName);
 
         this.Get<ILogger<UpgradeService>>().Info($"YAF.NET Upgraded to Version {this.Get<BoardInfo>().AppVersionName}");
 
@@ -221,6 +220,13 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         if (prevVersion < 1003)
         {
             var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration1003));
+
+            migrator.Run();
+        }
+
+        if (prevVersion < 1004)
+        {
+            var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration1004));
 
             migrator.Run();
         }
