@@ -8367,6 +8367,10 @@
           {
             "@tag": "YES",
             "#text": "Ja"
+          },
+          {
+            "@tag": "TT_EDITOR",
+            "#text": "Öppna Full Editor"
           }
         ]
       },
@@ -11175,6 +11179,10 @@
             "#text": "Klicka nedan för att testa om behörigheterna är korrekta. Om de inte är det kan du\r\n                        Använd fortfarande installationsguiden."
           },
           {
+            "@tag": "WELCOME",
+            "#text": "Välkomna"
+          },
+          {
             "@tag": "WELCOMEINSTALL",
             "#text": "Välkommen till YAF.NET-installationen"
           },
@@ -11189,10 +11197,6 @@
           {
             "@tag": "YES",
             "#text": "JA"
-          },
-          {
-            "@tag": "WELCOME",
-            "#text": "Välkomna"
           }
         ]
       },

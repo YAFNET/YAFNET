@@ -35,6 +35,11 @@ public enum EditorMode
     Basic,
 
     /// <summary>
+    /// The quick reply editor
+    /// </summary>
+    QuickReply,
+
+    /// <summary>
     /// standard bbcode editor.
     /// </summary>
     Standard,

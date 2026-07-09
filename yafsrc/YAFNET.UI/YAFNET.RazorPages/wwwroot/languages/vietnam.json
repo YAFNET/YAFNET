@@ -8367,6 +8367,10 @@
           {
             "@tag": "YES",
             "#text": "Đúng"
+          },
+          {
+            "@tag": "TT_EDITOR",
+            "#text": "Mở trình chỉnh sửa đầy đủ"
           }
         ]
       },
@@ -11175,6 +11179,10 @@
             "#text": "Nhấp vào bên dưới để kiểm tra nếu quyền là chính xác. Nếu họ không, bạn có thể\r\n                        vẫn sử dụng trình hướng dẫn cài đặt."
           },
           {
+            "@tag": "WELCOME",
+            "#text": "Chào mừng"
+          },
+          {
             "@tag": "WELCOMEINSTALL",
             "#text": "Chào mừng bạn đến với Cài đặt YAF.NET"
           },
@@ -11189,10 +11197,6 @@
           {
             "@tag": "YES",
             "#text": "VÂNG"
-          },
-          {
-            "@tag": "WELCOME",
-            "#text": "Chào mừng"
           }
         ]
       },

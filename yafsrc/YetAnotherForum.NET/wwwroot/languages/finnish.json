@@ -8367,6 +8367,10 @@
           {
             "@tag": "YES",
             "#text": "Kyllä"
+          },
+          {
+            "@tag": "TT_EDITOR",
+            "#text": "Avaa koko editori"
           }
         ]
       },
@@ -11175,6 +11179,10 @@
             "#text": "Napsauta alla testataksesi oikeudet oikein. Jos he eivät ole, voit\r\n                        käytä edelleen ohjattua asennusta."
           },
           {
+            "@tag": "WELCOME",
+            "#text": "Tervetuloa"
+          },
+          {
             "@tag": "WELCOMEINSTALL",
             "#text": "Tervetuloa YAF.NET-asennukseen"
           },
@@ -11189,10 +11197,6 @@
           {
             "@tag": "YES",
             "#text": "JOO"
-          },
-          {
-            "@tag": "WELCOME",
-            "#text": "Tervetuloa"
           }
         ]
       },

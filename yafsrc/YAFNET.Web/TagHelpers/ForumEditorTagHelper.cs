@@ -154,6 +154,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                             "CustomBBCodes"), dragDropJs));
                 break;
             case EditorMode.Basic:
+            case EditorMode.QuickReply:
             case EditorMode.Standard:
                 output.Attributes.SetAttribute(HtmlAttribute.Class, "BBCodeEditor form-control");
 
@@ -207,6 +208,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             switch (this.EditorMode)
             {
                 case EditorMode.Basic:
+                case EditorMode.QuickReply:
                     this.RenderBasicHeader(content);
                     break;
                 case EditorMode.Standard:
@@ -624,10 +626,10 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         content.AppendHtml(group1.RenderStartTag());
 
         // Render Undo Button
-        RenderButton(content, "setStyle('undo','')", this.GetText("COMMON", "TT_UNDO"), "rotate-left", "undo");
+        RenderButton(content, "setStyle('undo','')", this.GetText("COMMON", "TT_UNDO"), "rotate-left", id: "undo");
 
         // Render Redo Button
-        RenderButton(content, "setStyle('redo','')", this.GetText("COMMON", "TT_REDO"), "rotate-right", "redo");
+        RenderButton(content, "setStyle('redo','')", this.GetText("COMMON", "TT_REDO"), "rotate-right", id: "redo");
 
         content.AppendHtml(group1.RenderEndTag());
 
@@ -652,6 +654,41 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         RenderButton(content, "setStyle('img','')", this.GetText("COMMON", "TT_IMAGE"), "image");
 
         content.AppendHtml(group3.RenderEndTag());
+
+        if (this.EditorMode == EditorMode.QuickReply)
+        {
+            var group4 = CreateBtnGroupTag();
+            content.AppendHtml(group4.RenderStartTag());
+
+            var iconTag = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = "fa fa-up-right-from-square me-1" } };
+
+            var button = new TagBuilder(HtmlTag.A)
+            {
+                Attributes =
+                {
+                    [HtmlAttribute.Href] = this.Get<ILinkBuilder>().GetLink(
+                        ForumPages.PostMessage,
+                        new
+                        {
+                            t = BoardContext.Current.PageTopicID,
+                            f = BoardContext.Current.PageForumID
+                        }),
+                    [HtmlAttribute.Class] = "btn btn-secondary btn-sm",
+                    [HtmlAttribute.Title] = this.GetText("COMMON", "TT_EDITOR"),
+                    ["data-bs-toggle"] = "tooltip"
+                }
+            };
+
+            content.AppendHtml(button.RenderStartTag());
+
+            content.AppendHtml(iconTag);
+
+            content.Append(this.GetText("COMMON", "TT_EDITOR"));
+
+            content.AppendHtml(button.RenderEndTag());
+
+            content.AppendHtml(group4.RenderEndTag());
+        }
 
         content.AppendHtml(toolbar.RenderEndTag());
     }
@@ -1004,12 +1041,14 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="command">The command.</param>
     /// <param name="title">The title.</param>
     /// <param name="icon">The icon.</param>
+    /// <param name="btnClass">The button class.</param>
     /// <param name="id">The identifier.</param>
     private static void RenderButton(
         HtmlContentBuilder content,
         string command,
         string title,
         string icon,
+        string btnClass = "primary",
         string id = null)
     {
         var iconTag = new TagBuilder(HtmlTag.I) { Attributes = { [HtmlAttribute.Class] = $"fa fa-{icon}" } };
@@ -1018,10 +1057,11 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                          {
                              Attributes =
                                  {
-                                     [HtmlAttribute.Class] = "btn btn-primary btn-sm",
+                                     [HtmlAttribute.Class] = $"btn btn-{btnClass} btn-sm",
                                      ["onclick"] = command,
                                      [HtmlAttribute.Type] = HtmlTag.Button,
-                                     [HtmlAttribute.Title] = title
+                                     [HtmlAttribute.Title] = title,
+                                     ["data-bs-toggle"] = "tooltip"
                                  }
                          };
 

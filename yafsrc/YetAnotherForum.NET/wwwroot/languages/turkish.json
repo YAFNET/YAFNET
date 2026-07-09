@@ -8367,6 +8367,10 @@
           {
             "@tag": "YES",
             "#text": "Evet"
+          },
+          {
+            "@tag": "TT_EDITOR",
+            "#text": "Tam Düzenleyiciyi Aç"
           }
         ]
       },
@@ -11175,6 +11179,10 @@
             "#text": "İzinlerin doğru olup olmadığını test etmek için aşağıya tıklayın. Onlar değilse, yapabilirsiniz\r\n                        hala kurulum sihirbazını kullanın."
           },
           {
+            "@tag": "WELCOME",
+            "#text": "Hoş geldin"
+          },
+          {
             "@tag": "WELCOMEINSTALL",
             "#text": "YAF.NET Kurulumuna Hoşgeldiniz"
           },
@@ -11189,10 +11197,6 @@
           {
             "@tag": "YES",
             "#text": "EVET"
-          },
-          {
-            "@tag": "WELCOME",
-            "#text": "Hoş geldin"
           }
         ]
       },

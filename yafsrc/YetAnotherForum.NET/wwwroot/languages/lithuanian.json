@@ -8367,6 +8367,10 @@
           {
             "@tag": "YES",
             "#text": "Taip"
+          },
+          {
+            "@tag": "TT_EDITOR",
+            "#text": "Atidarykite visą redaktorių"
           }
         ]
       },
@@ -11175,6 +11179,10 @@
             "#text": "Spustelėkite žemiau, kad patikrintumėte, ar teisingi leidimai. Jei jų nėra, galite\r\n                        vis tiek naudokite diegimo vedlį."
           },
           {
+            "@tag": "WELCOME",
+            "#text": "Sveiki atvykę"
+          },
+          {
             "@tag": "WELCOMEINSTALL",
             "#text": "Sveiki apsilankę YAF.NET diegime"
           },
@@ -11189,10 +11197,6 @@
           {
             "@tag": "YES",
             "#text": "TAIP"
-          },
-          {
-            "@tag": "WELCOME",
-            "#text": "Sveiki atvykę"
           }
         ]
       },

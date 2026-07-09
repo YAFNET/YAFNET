@@ -8359,6 +8359,10 @@
           {
             "@tag": "YES",
             "#text": "Ja"
+          },
+          {
+            "@tag": "TT_EDITOR",
+            "#text": "Open de volledige editor"
           }
         ]
       },
@@ -11159,6 +11163,10 @@
             "#text": "Klik hieronder om te testen of machtigingen correct zijn. Als ze dat niet zijn, kunt u dat\r\n                        gebruik nog steeds de installatiewizard."
           },
           {
+            "@tag": "WELCOME",
+            "#text": "Welkom"
+          },
+          {
             "@tag": "WELCOMEINSTALL",
             "#text": "Welkom bij de YAF.NET-installatie"
           },
@@ -11173,10 +11181,6 @@
           {
             "@tag": "YES",
             "#text": "JA"
-          },
-          {
-            "@tag": "WELCOME",
-            "#text": "Welkom"
           }
         ]
       },

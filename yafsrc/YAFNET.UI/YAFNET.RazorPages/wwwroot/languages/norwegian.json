@@ -8367,6 +8367,10 @@
           {
             "@tag": "YES",
             "#text": "Ja"
+          },
+          {
+            "@tag": "TT_EDITOR",
+            "#text": "Åpne Full Editor"
           }
         ]
       },
@@ -11175,6 +11179,10 @@
             "#text": "Klikk nedenfor for å teste om tillatelsene er riktige. Hvis de ikke er det, kan du gjøre det\r\n                        bruk fortsatt installasjonsveiviseren."
           },
           {
+            "@tag": "WELCOME",
+            "#text": "Velkomst"
+          },
+          {
             "@tag": "WELCOMEINSTALL",
             "#text": "Velkommen til YAF.NET-installasjonen"
           },
@@ -11189,10 +11197,6 @@
           {
             "@tag": "YES",
             "#text": "JA"
-          },
-          {
-            "@tag": "WELCOME",
-            "#text": "Velkomst"
           }
         ]
       },

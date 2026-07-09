@@ -8367,6 +8367,10 @@
           {
             "@tag": "YES",
             "#text": "Ano"
+          },
+          {
+            "@tag": "TT_EDITOR",
+            "#text": "Otevřete Úplný editor"
           }
         ]
       },
@@ -11179,6 +11183,10 @@
             "#text": "Kliknutím níže otestujete správnost oprávnění. Pokud tomu tak není, můžete\r\n                        stále použijte průvodce instalací."
           },
           {
+            "@tag": "WELCOME",
+            "#text": "Vítejte"
+          },
+          {
             "@tag": "WELCOMEINSTALL",
             "#text": "Vítejte v instalaci YAF.NET"
           },
@@ -11193,10 +11201,6 @@
           {
             "@tag": "YES",
             "#text": "ANO"
-          },
-          {
-            "@tag": "WELCOME",
-            "#text": "Vítejte"
           }
         ]
       },

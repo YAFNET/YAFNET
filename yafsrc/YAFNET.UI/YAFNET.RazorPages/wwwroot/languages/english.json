@@ -8181,6 +8181,10 @@
                     "#text": "Create Link"
                 },
                 {
+	                "@tag": "TT_EDITOR",
+	                "#text": "Open Full Editor"
+                },
+                {
                     "@tag": "TT_CUSTOMBBCODE",
                     "#text": "More BBCode Tags"
                 },

@@ -8367,6 +8367,10 @@
           {
             "@tag": "YES",
             "#text": "Da"
+          },
+          {
+            "@tag": "TT_EDITOR",
+            "#text": "Deschide Editorul complet"
           }
         ]
       },
@@ -11175,6 +11179,10 @@
             "#text": "Faceți clic mai jos pentru a testa dacă permisiunile sunt corecte. Dacă nu sunt, poți\r\n                        utilizați în continuare expertul de instalare."
           },
           {
+            "@tag": "WELCOME",
+            "#text": "Bun venit"
+          },
+          {
             "@tag": "WELCOMEINSTALL",
             "#text": "Bine ați venit la Instalarea YAF.NET"
           },
@@ -11189,10 +11197,6 @@
           {
             "@tag": "YES",
             "#text": "DA"
-          },
-          {
-            "@tag": "WELCOME",
-            "#text": "Bun venit"
           }
         ]
       },

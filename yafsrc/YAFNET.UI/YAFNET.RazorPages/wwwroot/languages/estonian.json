@@ -8367,6 +8367,10 @@
           {
             "@tag": "YES",
             "#text": "Jah"
+          },
+          {
+            "@tag": "TT_EDITOR",
+            "#text": "Avage täisredaktor"
           }
         ]
       },
@@ -11175,6 +11179,10 @@
             "#text": "Klõpsake allpool, et kontrollida, kas õigused on õiged. Kui neid pole, saate seda teha\r\n                        kasuta ikkagi installiviisardit."
           },
           {
+            "@tag": "WELCOME",
+            "#text": "Tere tulemast"
+          },
+          {
             "@tag": "WELCOMEINSTALL",
             "#text": "Tere tulemast YAF.NET installi"
           },
@@ -11189,10 +11197,6 @@
           {
             "@tag": "YES",
             "#text": "JAH"
-          },
-          {
-            "@tag": "WELCOME",
-            "#text": "Tere tulemast"
           }
         ]
       },

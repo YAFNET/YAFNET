@@ -1609,7 +1609,7 @@
                 },
                 {
                     "@tag": "TITLE",
-                    "#text": "YafBBCode Extensions"
+                    "#text": "BBCode Extensions"
                 }
             ]
         },
@@ -8179,6 +8179,10 @@
                 {
                     "@tag": "TT_CREATELINK",
                     "#text": "Create Link"
+                },
+                {
+	                "@tag": "TT_EDITOR",
+	                "#text": "Open Full Editor"
                 },
                 {
                     "@tag": "TT_CUSTOMBBCODE",

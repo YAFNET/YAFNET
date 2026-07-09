@@ -8359,6 +8359,10 @@
           {
             "@tag": "YES",
             "#text": "Sì"
+          },
+          {
+            "@tag": "TT_EDITOR",
+            "#text": "Apri l'editor completo"
           }
         ]
       },
@@ -11159,6 +11163,10 @@
             "#text": "Fai clic di seguito per verificare se le autorizzazioni sono corrette. Se non lo sono, puoi farlo\r\n                        utilizzare ancora la procedura guidata di installazione."
           },
           {
+            "@tag": "WELCOME",
+            "#text": "Benvenuto"
+          },
+          {
             "@tag": "WELCOMEINSTALL",
             "#text": "Benvenuti nell'installazione di YAF.NET"
           },
@@ -11173,10 +11181,6 @@
           {
             "@tag": "YES",
             "#text": "SÌ"
-          },
-          {
-            "@tag": "WELCOME",
-            "#text": "Benvenuto"
           }
         ]
       },
