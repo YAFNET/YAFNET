@@ -10,7 +10,7 @@
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="11.0.1" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="11.0.2" />
     <PackageReference Include="FarsiLibrary.Core" Version="2.8.1" />
     <PackageReference Include="GoogleAuthenticator" Version="3.2.0" />
     <PackageReference Include="HtmlProperties" Version="1.0.0" />
@@ -37,7 +37,7 @@
     <ProjectReference Include="..\YAFNET.Types\YAFNET.Types.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="9.3.0" />
+    <PackageReference Include="Autofac" Version="9.3.1" />
     <PackageReference Include="SixLabors.ImageSharp" Version="[3.1.12]" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="10.28.0.143324">
 	    <PrivateAssets>all</PrivateAssets>
