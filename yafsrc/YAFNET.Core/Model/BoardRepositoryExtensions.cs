@@ -500,7 +500,7 @@ public static class BoardRepositoryExtensions
                     // -- count Users
                     var countUsersExpression = expression;
 
-                    countUsersExpression.Where(u => (u.Flags & 2) == 2 && u.BoardID == boardId);
+                    countUsersExpression.Where(u => (u.Flags & 4) != 4 && (u.Flags & 32) != 32 && (u.Flags & 2) == 2);
 
                     var countUsersSql = countUsersExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
