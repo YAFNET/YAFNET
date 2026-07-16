@@ -415,7 +415,7 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
                     var countForumsSql = countForumsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
                     expression.Take(1).Select<Message, User>(
-                        (a, e) => new 
+                        (a, e) => new
                                       {
                                           Posts = Sql.Custom<int>($"({countPostsSql})"),
                                           Topics = Sql.Custom<int>($"({countTopicsSql})"),
@@ -512,7 +512,7 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
                     // -- count Users
                     var countUsersExpression = expression;
 
-                    countUsersExpression.Where(u => (u.Flags & 2) == 2 && u.BoardID == boardId);
+                    countUsersExpression.Where(u => (u.Flags & 4) != 4 && (u.Flags & 32) != 32 && (u.Flags & 2) == 2);
 
                     var countUsersSql = countUsersExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
