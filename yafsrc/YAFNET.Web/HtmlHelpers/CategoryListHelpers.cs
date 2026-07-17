@@ -93,7 +93,11 @@ public static class CategoryListHelpers
             {
                 var forumImage = new TagBuilder(HtmlTag.Img);
 
-                forumImage.MergeAttribute(HtmlAttribute.Src, item.ImageURL);
+                var imageUrl = item.ImageURL.Contains('/')
+                    ? item.ImageURL
+                    : $"/{BoardContext.Current.Get<BoardFolders>().Forums}/{item.ImageURL}";
+
+                forumImage.MergeAttribute(HtmlAttribute.Src, imageUrl);
                 forumImage.MergeAttribute("data-bs-toggle", "tooltip");
 
                 // Highlight custom icon images and add tool tips to them.
