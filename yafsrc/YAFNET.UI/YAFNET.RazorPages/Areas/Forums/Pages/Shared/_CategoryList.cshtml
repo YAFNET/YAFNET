@@ -30,6 +30,8 @@
     {
 	    var image = new TagBuilder(HtmlTag.Img) { TagRenderMode = TagRenderMode.SelfClosing };
 
+        image.AddCssClass("me-1");
+
 	    image.MergeAttribute(HtmlAttribute.Alt, category.Category);
 	    image.MergeAttribute(HtmlAttribute.Src, category.CategoryImage.Contains('/') ? category.CategoryImage : $"/{Current.Get<BoardFolders>().Categories}/{category.CategoryImage}");
 

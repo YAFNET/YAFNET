@@ -114,7 +114,7 @@ public class EditForumModel : AdminPage
     /// </summary>
     protected void CreateImagesList()
     {
-        var list = new List<SelectListItem> {new(this.GetText("COMMON", "NONE"), "") };
+        var list = new List<SelectListItem> { new(this.GetText("COMMON", "NONE"), "") };
 
         var dir = new DirectoryInfo(
             Path.Combine(this.Get<BoardInfo>().WebRootPath, this.Get<BoardFolders>().Forums));
