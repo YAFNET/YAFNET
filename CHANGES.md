@@ -1,6 +1,28 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v4.0.7
+* [NEW] Setting to enable/disable show similiar topics when creating a new topic
+* [NEW] full editor button in quick reply (resolves #1728)
+* [FIXED #1724] Language Editor
+* [FIXED] install/update bbcode extensions on linux
+* [FIXED] Login accepted any password for accounts still using legacy Clear/Encrypted password formats
+* [FIXED] Any logged-in user could move or split another user's post via the Move Message page
+* [FIXED] Any logged-in user could restore/undelete an arbitrary deleted post
+* [FIXED] BBCode [url=...] allowed javascript:/data: links to bypass the URL scheme filter
+* [FIXED] X-Forwarded-For parsing could not resolve a client IP behind multiple proxy hops, allowing IP bans to be bypassed
+* [FIXED] Reputation/Friends/Ignored User actions were vulnerable to CSRF via simple GET links
+* [FIXED] Poll controller allowed unauthenticated access and could throw on invalid poll/topic/forum ids
+* [FIXED] Forum delete/cleanup background tasks could report as finished while still running, allowing overlapping runs
+* [FIXED] Chat hub connection tracking was not thread-safe, causing intermittent errors under concurrent use
+* [FIXED] "Hide my online status" user flag had no effect on SQLite installs
+* [FIXED] Active/message/private message cleanup queries never deleted anything on MySQL/PostgreSQL
+* [FIXED] Half/quarter-hour timezone offsets (e.g. India, Iran, Nepal) were truncated to whole hours
+* [FIXED] Reporting a message for the first time could throw an error under concurrent reports
+* [FIXED] A transient database error during posting could silently disable the anti-flood delay
+* [FIXED] Navigating away from the install wizard mid-setup returned a blank page instead of redirecting
+* bug fixes
+
 # YetAnotherForum.NET v4.0.6
 * bug fixes
 
