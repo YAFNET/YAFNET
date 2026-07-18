@@ -27,6 +27,8 @@ using System.Threading.Tasks;
 
 namespace YAF.Pages;
 
+using Microsoft.AspNetCore.Mvc.Filters;
+
 using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Types.Extensions;
@@ -49,6 +51,20 @@ public class MoveMessageModel : ForumPageRegistered
     public MoveMessageModel()
         : base("MOVEMESSAGE", ForumPages.MoveMessage)
     {
+    }
+
+    /// <summary>
+    /// Restrict this page (both the initial GET and all POST handlers) to forum moderators/admins.
+    /// </summary>
+    /// <param name="context">
+    /// The context.
+    /// </param>
+    public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
+    {
+        if (this.PageBoardContext.PageMessage is null || !this.PageBoardContext.ForumModeratorAccess)
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
     }
 
     /// <summary>
@@ -122,10 +138,5 @@ public class MoveMessageModel : ForumPageRegistered
         this.Input = new MoveMessageInputModel {
                                         ForumListSelected = this.PageBoardContext.PageForumID
                                     };
-
-        if (this.PageBoardContext.PageMessage is null || !this.PageBoardContext.ForumModeratorAccess)
-        {
-            this.Get<ILinkBuilder>().AccessDenied();
-        }
     }
 }
