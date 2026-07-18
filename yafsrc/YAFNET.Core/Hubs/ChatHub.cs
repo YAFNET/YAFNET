@@ -25,7 +25,8 @@
 namespace YAF.Core.Hubs;
 
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.SignalR;
@@ -42,9 +43,9 @@ using YAF.Types.Objects;
 public class ChatHub : Hub, IHaveServiceLocator
 {
     /// <summary>
-    /// The connected users.
+    /// The connected users, keyed by SignalR connection id.
     /// </summary>
-    private readonly static List<ChatUser> ConnectedUsers = [];
+    private readonly static ConcurrentDictionary<string, ChatUser> ConnectedUsers = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SendNotification"/> class.
@@ -74,18 +75,16 @@ public class ChatHub : Hub, IHaveServiceLocator
         var user = BoardContext.Current.PageUser;
         var userId = BoardContext.Current.PageUserID;
 
-        if (ConnectedUsers.TrueForAll(x => x.ConnectionId != id))
-        {
-            ConnectedUsers.Add(
-                new ChatUser
-                    {
-                        ConnectionId = id,
-                        UserName = user.Name,
-                        DisplayName = user.DisplayOrUserName(),
-                        UserId = userId,
-                        Avatar = avatar
-                    });
-        }
+        ConnectedUsers.TryAdd(
+            id,
+            new ChatUser
+                {
+                    ConnectionId = id,
+                    UserName = user.Name,
+                    DisplayName = user.DisplayOrUserName(),
+                    UserId = userId,
+                    Avatar = avatar
+                });
 
         // Load existing conversations form db
         var conversation = await this.GetRepository<PrivateMessage>().GetConversationAsync(userId, toUserId);
@@ -111,14 +110,7 @@ public class ChatHub : Hub, IHaveServiceLocator
     /// </returns>
     public override Task OnDisconnectedAsync(Exception exception)
     {
-        var item = ConnectedUsers.Find(x => x.ConnectionId == this.Context.ConnectionId);
-
-        if (item == null)
-        {
-            return base.OnDisconnectedAsync(exception);
-        }
-
-        ConnectedUsers.Remove(item);
+        ConnectedUsers.TryRemove(this.Context.ConnectionId, out _);
 
         return base.OnDisconnectedAsync(exception);
     }
@@ -136,9 +128,9 @@ public class ChatHub : Hub, IHaveServiceLocator
     {
         var fromUserId = this.Context.ConnectionId;
 
-        var toConnectUser = ConnectedUsers.Find(x => x.UserId == toUserId);
+        var toConnectUser = ConnectedUsers.Values.FirstOrDefault(x => x.UserId == toUserId);
 
-        var fromConnectUser = ConnectedUsers.Find(x => x.ConnectionId == fromUserId);
+        ConnectedUsers.TryGetValue(fromUserId, out var fromConnectUser);
         var currentDateTime = DateTime.UtcNow;
 
         var dateTimeFormatted = this.Get<BoardSettings>().ShowRelativeTime
