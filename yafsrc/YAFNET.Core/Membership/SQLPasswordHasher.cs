@@ -69,17 +69,21 @@ public class SQLPasswordHasher : PasswordHasher<AspNetUsers>
 
         var passwordFormat = passwordProperties[1].ToEnum<MembershipPasswordFormat>();
 
-        var encryptedPassword = EncryptPassword(providedPassword,
-            passwordFormat,
-            salt);
+        // Encrypted (legacy machineKey-based) passwords cannot be re-derived here without the
+        // original ASP.NET machineKey configuration. Rather than perform a comparison that can
+        // never validate the real secret, fail closed and require a password reset for these accounts.
+        if (passwordFormat == MembershipPasswordFormat.Encrypted)
+        {
+            return PasswordVerificationResult.Failed;
+        }
 
-        var password = passwordFormat == MembershipPasswordFormat.Hashed
-            ? passwordHash
-            : providedPassword;
+        var encryptedPassword = EncryptPassword(providedPassword, passwordFormat, salt);
 
+        // Always compare against the stored hash/cleartext value, never against the
+        // user-supplied password itself, or any password would be accepted as valid.
         return string.Equals(
             encryptedPassword,
-            password,
+            passwordHash,
             StringComparison.CurrentCultureIgnoreCase)
             ? PasswordVerificationResult.SuccessRehashNeeded
             : PasswordVerificationResult.Failed;
