@@ -190,6 +190,11 @@ public class DeleteMessageModel : ForumPage
     /// </summary>
     public async Task<IActionResult> OnPostRestoreAsync()
     {
+        if (!this.CanUnDeletePost)
+        {
+            return this.Page();
+        }
+
         await this.GetRepository<Message>().RestoreAsync(
             this.PageBoardContext.PageForumID,
             this.PageBoardContext.PageMessage.TopicID,
