@@ -1865,9 +1865,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <returns>System.String.</returns>
     public override string DateDiffFunction(string interval, string date1, string date2)
     {
+        // Matches the SqlServer/Sqlite convention of computing date2 - date1.
         return interval == "minute"
-            ? $"EXTRACT(Minute from ({date1}::timestamp - {date2}::timestamp))"
-            : $"EXTRACT(Day from ({date1}::timestamp - {date2}::timestamp))";
+            ? $"EXTRACT(Minute from ({date2}::timestamp - {date1}::timestamp))"
+            : $"EXTRACT(Day from ({date2}::timestamp - {date1}::timestamp))";
     }
 
     /// <summary>
