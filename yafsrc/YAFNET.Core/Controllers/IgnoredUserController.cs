@@ -48,7 +48,8 @@ public class IgnoredUserController : ForumBaseController
     /// </summary>
     /// <param name="m">The message id.</param>
     /// <returns>IActionResult.</returns>
-    [HttpGet]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     [Route("RemoveIgnoredUser/{m:int}")]
     public async Task<IActionResult> RemoveIgnoredUser(int m)
     {
@@ -83,7 +84,8 @@ public class IgnoredUserController : ForumBaseController
     /// </summary>
     /// <param name="m">The message id.</param>
     /// <returns>IActionResult.</returns>
-    [HttpGet]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     [Route("AddIgnoredUser/{m:int}")]
     public async Task<IActionResult> AddIgnoredUser(int m)
     {

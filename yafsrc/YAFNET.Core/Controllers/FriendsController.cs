@@ -47,7 +47,8 @@ public class FriendsController : ForumBaseController
     /// </summary>
     /// <param name="m">The message id.</param>
     /// <returns>IActionResult.</returns>
-    [HttpGet]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     [Route("AddFriend/{m:int}")]
     public IActionResult AddFriend(int m)
     {
@@ -87,7 +88,8 @@ public class FriendsController : ForumBaseController
     /// </summary>
     /// <param name="u">The user id.</param>
     /// <returns>IActionResult.</returns>
-    [HttpGet]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     [Route("AddFriendRequest/{u:int}")]
     public IActionResult AddFriendRequest(int u)
     {
@@ -127,7 +129,8 @@ public class FriendsController : ForumBaseController
     /// </summary>
     /// <param name="m">The message id.</param>
     /// <returns>IActionResult.</returns>
-    [HttpGet]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     [Route("RemoveFriend/{m:int}")]
     public IActionResult RemoveFriend(int m)
     {
@@ -165,7 +168,8 @@ public class FriendsController : ForumBaseController
     /// </summary>
     /// <param name="u">The user id.</param>
     /// <returns>IActionResult.</returns>
-    [HttpGet]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     [Route("RemoveBuddy/{u:int}")]
     public IActionResult RemoveBuddy(int u)
     {

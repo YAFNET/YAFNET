@@ -161,19 +161,19 @@
             
 			@if (Model.ShowAddBuddyLink)
 			{
-				<a asp-controller="Friends"
+				<button asp-controller="Friends"
 				   asp-action="AddFriendRequest"
 				   asp-route-u="@Model.CombinedUser.Item1.ID"
 				   button-style="Success"
 				   icon="user-plus"
 				   text-localized-page="PAGE"
 				   text-localized-tag="ADDBUDDY"
-				   class=" mb-1"></a>
+				   class=" mb-1"></button>
 			}
 
 			@if (Model.ShowRemoveBuddyLink)
 			{
-				<a asp-controller="Friends"
+				<button asp-controller="Friends"
 				   asp-action="RemoveBuddy"
 				   asp-route-u="@Model.CombinedUser.Item1.ID"
 				   button-style="Danger"
@@ -181,7 +181,7 @@
 				   text-localized-page="PAGE"
 				   text-localized-tag="REMOVEBUDDY"
 				   return-confirm-tag="NOTIFICATION_REMOVE"
-				   class=" mb-1"></a>
+				   class=" mb-1"></button>
 			}
 
 			@if (Model.ShowPmLink)

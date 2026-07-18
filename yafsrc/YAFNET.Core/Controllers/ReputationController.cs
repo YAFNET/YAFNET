@@ -48,7 +48,8 @@ public class ReputationController : ForumBaseController
     /// <summary>
     /// Adds the user reputation.
     /// </summary>
-    [HttpGet]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     [Route("AddReputation/{m:int}")]
     public async Task<IActionResult> AddReputation(int m)
     {
@@ -93,7 +94,8 @@ public class ReputationController : ForumBaseController
     /// <summary>
     /// Removes the user reputation.
     /// </summary>
-    [HttpGet]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     [Route("RemoveReputation/{m:int}")]
     public async Task<IActionResult> RemoveReputation(int m)
     {
