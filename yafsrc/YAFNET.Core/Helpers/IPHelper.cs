@@ -140,10 +140,10 @@ public static class IPHelper
 
         if (ipString.IsSet())
         {
-            var ipAddresses = ipString.Split(',');
+            var ipAddresses = ipString.Split(',', StringSplitOptions.TrimEntries);
             var firstNonLocalAddress =
                 Array.Find(ipAddresses,
-                    ip => IPAddress.TryParse(ipString.Split(',', StringSplitOptions.TrimEntries)[0], out ipAddress) && ipAddress.IsRoutable());
+                    ip => IPAddress.TryParse(ip, out ipAddress) && ipAddress.IsRoutable());
 
             if (firstNonLocalAddress.IsSet())
             {
