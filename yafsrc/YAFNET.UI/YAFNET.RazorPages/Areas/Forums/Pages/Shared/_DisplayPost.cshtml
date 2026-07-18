@@ -172,24 +172,24 @@
 
                                         @if (addReputationVisible)
                                         {
-                                            <a class='@($"AddReputation_{Model.UserID}_{Model.MessageID} me-1")'
+                                            <button class='@($"AddReputation_{Model.UserID}_{Model.MessageID} me-1")'
                                                button-size="Small"
                                                Icon="thumbs-up"
                                                icon-color="text-success"
-                                               button-style="None"
+                                               button-style="Link"
                                                title-localized-tag="VOTE_UP_TITLE"
                                                asp-controller="Reputation"
                                                asp-action="AddReputation"
                                                asp-route-t="@Current.CurrentForumPage.Request.Query["t"]"
                                                asp-route-p="@Current.CurrentForumPage.Request.Query["p"]"
                                                asp-route-m="@postData.MessageId">
-                                            </a>
+                                            </button>
                                         }
 
                                         @if (removeReputationVisible)
                                         {
-                                            <a class='@($"RemoveReputation_{Model.UserID}")'
-                                               button-style="None"
+                                            <button class='@($"RemoveReputation_{Model.UserID}")'
+                                               button-style="Link"
                                                button-size="Small"
                                                icon-color="text-danger"
                                                Icon="thumbs-down"
@@ -199,7 +199,7 @@
                                                asp-route-t="@Current.CurrentForumPage.Request.Query["t"]"
                                                asp-route-p="@Current.CurrentForumPage.Request.Query["p"]"
                                                asp-route-m="@postData.MessageId">
-                                            </a>
+                                            </button>
                                         }
                                     </li>
 
@@ -370,25 +370,25 @@
                                             {
                                                 if (isIgnored)
                                                 {
-                                                    <a button-style="None" icon="eye"
+                                                    <button button-style="None" icon="eye"
                                                             text-localized-page="POSTS" text-localized-tag="TOGGLEUSERPOSTS_SHOW"
                                                             class="dropdown-item"
                                                             asp-controller="IgnoredUser"
                                                             asp-action="RemoveIgnoredUser"
                                                             asp-route-t="@Current.CurrentForumPage.Request.Query["t"]"
                                                             asp-route-p="@Current.CurrentForumPage.Request.Query["p"]"
-                                                            asp-route-m="@(postData.MessageId)"></a>
+                                                            asp-route-m="@(postData.MessageId)"></button>
                                                 }
                                                 else
                                                 {
-                                                    <a button-style="None" icon="eye-slash"
+                                                    <button button-style="None" icon="eye-slash"
                                                             text-localized-page="POSTS" text-localized-tag="TOGGLEUSERPOSTS_HIDE"
                                                             class="dropdown-item"
                                                             asp-controller="IgnoredUser"
                                                             asp-action="AddIgnoredUser"
                                                             asp-route-t="@Current.CurrentForumPage.Request.Query["t"]"
                                                             asp-route-p="@Current.CurrentForumPage.Request.Query["p"]"
-                                                            asp-route-m="@postData.MessageId"></a>
+                                                            asp-route-m="@postData.MessageId"></button>
                                                 }
                                             }
 
@@ -402,25 +402,25 @@
                                                     if (Current.Get<IFriends>().IsBuddy(postData.UserId))
                                                     {
                                                         // Are the users approved buddies? Add the "Remove buddy" item.
-                                                        <a button-style="None" icon="user-times"
+                                                        <button button-style="None" icon="user-times"
                                                            text-localized-page="BUDDY" text-localized-tag="REMOVEBUDDY"
                                                            class="dropdown-item"
                                                            asp-controller="Friends"
                                                            asp-action="RemoveFriend"
                                                            asp-route-t="@Current.CurrentForumPage.Request.Query["t"]"
                                                            asp-route-p="@Current.CurrentForumPage.Request.Query["p"]"
-                                                           asp-route-m="@postData.MessageId"></a>
+                                                           asp-route-m="@postData.MessageId"></button>
                                                     }
                                                     else
                                                     {
-                                                        <a button-style="None" icon="user-plus"
+                                                        <button button-style="None" icon="user-plus"
                                                            text-localized-page="BUDDY" text-localized-tag="ADDBUDDY"
                                                            class="dropdown-item"
                                                            asp-controller="Friends"
                                                            asp-action="AddFriend"
                                                            asp-route-t="@Current.CurrentForumPage.Request.Query["t"]"
                                                            asp-route-p="@Current.CurrentForumPage.Request.Query["p"]"
-                                                           asp-route-m="@postData.MessageId"></a>
+                                                           asp-route-m="@postData.MessageId"></button>
                                                     }
                                                 }
                                             }

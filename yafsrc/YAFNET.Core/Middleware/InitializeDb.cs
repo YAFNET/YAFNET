@@ -85,6 +85,10 @@ public class InitializeDb : IHaveServiceLocator
         {
             if (this.Get<IDataCache>().Get("Install") != null)
             {
+                response.Redirect(this.Get<BoardConfiguration>().Area.IsSet()
+                    ? $"/{this.Get<BoardConfiguration>().Area}/Install/Install"
+                    : "/Install/Install");
+
                 return;
             }
 

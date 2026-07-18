@@ -1182,22 +1182,17 @@ public static class MessageRepositoryExtensions
         /// <returns>System.Nullable&lt;System.DateTime&gt;.</returns>
         public DateTime? GetUserLastPosted(int userId)
         {
-            try
-            {
-                var lastPostedExpression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+            // No try/catch here: a genuine DB failure must propagate rather than being treated as
+            // "user has no post history", which callers use to skip the anti-flood posting delay.
+            var lastPostedExpression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
-                lastPostedExpression.Where(a => a.UserID == userId).Select(x => x.Posted).OrderByDescending(x => x.Posted)
-                    .Take(1)
-                    .ToMergedParamsSelectStatement();
+            lastPostedExpression.Where(a => a.UserID == userId).Select(x => x.Posted).OrderByDescending(x => x.Posted)
+                .Take(1)
+                .ToMergedParamsSelectStatement();
 
-                return repository.DbAccess
-                    .Execute(db => db.Connection.Select<DateTime?>(lastPostedExpression))
-                    .FirstOrDefault();
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            return repository.DbAccess
+                .Execute(db => db.Connection.Select<DateTime?>(lastPostedExpression))
+                .FirstOrDefault();
         }
 
         /// <summary>

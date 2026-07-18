@@ -119,7 +119,20 @@ public static class MessageReportedRepositoryExtensions
 
             if (!await repository.ExistsAsync(m => m.ID == message.ID))
             {
-                await repository.InsertAsync(new MessageReported { ID = message.ID, Message = message.MessageText });
+                try
+                {
+                    await repository.InsertAsync(new MessageReported { ID = message.ID, Message = message.MessageText });
+                }
+                catch (Exception)
+                {
+                    // Only swallow this if a concurrent report of the same (previously un-reported)
+                    // message already inserted the row between the check above and this insert --
+                    // otherwise this is a genuine failure and must propagate.
+                    if (!await repository.ExistsAsync(m => m.ID == message.ID))
+                    {
+                        throw;
+                    }
+                }
             }
 
             var reportAudit = await BoardContext.Current.GetRepository<MessageReportedAudit>()
