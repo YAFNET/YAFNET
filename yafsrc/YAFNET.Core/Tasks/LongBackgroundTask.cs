@@ -25,17 +25,13 @@
 namespace YAF.Core.Tasks;
 
 using System.Threading;
+using System.Threading.Tasks;
 
 /// <summary>
 /// The long background task.
 /// </summary>
 public class LongBackgroundTask : IntermittentBackgroundTask
 {
-    /// <summary>
-    /// The lock object.
-    /// </summary>
-    private readonly Lock lockObj = new ();
-
     /// <summary>
     /// Initializes a new instance of the <see cref="LongBackgroundTask"/> class.
     /// </summary>
@@ -50,13 +46,21 @@ public class LongBackgroundTask : IntermittentBackgroundTask
     /// </summary>
     public override void ExecuteTask()
     {
-        lock (this.lockObj)
-        {
-            // run this item once...
-            this.RunOnceAsync();
-
-            // no longer running when we get here...
-            this.IsRunning = false;
-        }
+        // Run this item once in the background, without blocking the calling (request) thread,
+        // but only report IsRunning as false once the work has actually finished -- otherwise
+        // callers relying on IsRunning to avoid overlapping runs (e.g. ForumDeleteTask) would see
+        // the task as "done" while it is still executing.
+        _ = Task.Run(
+            async () =>
+                {
+                    try
+                    {
+                        await this.RunOnceAsync();
+                    }
+                    finally
+                    {
+                        this.IsRunning = false;
+                    }
+                });
     }
 }
