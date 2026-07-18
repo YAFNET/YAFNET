@@ -24,6 +24,8 @@
 
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Authorization;
+
 namespace YAF.Core.Controllers;
 
 using YAF.Core.BasePages;
@@ -35,6 +37,7 @@ using YAF.Types.Models;
 /// The Poll controller.
 /// </summary>
 [EnableRateLimiting("fixed")]
+[Authorize]
 [Route("[controller]")]
 public class PollController : ForumBaseController
 {
@@ -48,6 +51,13 @@ public class PollController : ForumBaseController
     {
         var poll = this.GetRepository<Poll>().GetById(pollId);
 
+        if (poll is null)
+        {
+            return this.Get<ILinkBuilder>().Redirect(
+                ForumPages.Info,
+                new { info = InfoMessage.Invalid.ToType<int>() });
+        }
+
         if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess
                                            && this.PageBoardContext.PageUserID != poll.UserID)
         {
@@ -57,6 +67,13 @@ public class PollController : ForumBaseController
         }
 
         var topic = this.GetRepository<Topic>().GetSingle(t => t.PollID == pollId);
+
+        if (topic is null)
+        {
+            return this.Get<ILinkBuilder>().Redirect(
+                ForumPages.Info,
+                new { info = InfoMessage.Invalid.ToType<int>() });
+        }
 
         this.GetRepository<Poll>().Remove(poll.ID);
 
@@ -87,6 +104,12 @@ public class PollController : ForumBaseController
         var topic = await this.GetRepository<Topic>().GetByIdAsync(topicId);
         var forumAccess = await this.GetRepository<ActiveAccess>()
             .GetSingleAsync(x => x.UserID == this.PageBoardContext.PageUserID && x.ForumID == forumId);
+
+        if (poll is null || topic is null || forumAccess is null)
+        {
+            return this.NotFound();
+        }
+
         var userPollVotes = this.GetRepository<PollVote>().VoteCheck(poll.ID, this.PageBoardContext.PageUserID);
 
         var isClosed = this.Get<PollService>().IsPollClosed(poll);
