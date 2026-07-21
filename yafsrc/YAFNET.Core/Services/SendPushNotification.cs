@@ -141,7 +141,7 @@ public class SendPushNotification : IHaveServiceLocator, ISendPushNotification
         }
         catch (Exception x)
         {
-            this.Get<ILogger<SendPushNotification>>().Log(0, this, x, EventLogTypes.Information);
+            this.Get<ILogger<SendPushNotification>>().Log(null, this, x, EventLogTypes.Information);
         }
     }
 }
