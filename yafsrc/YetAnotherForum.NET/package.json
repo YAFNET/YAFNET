@@ -19,7 +19,7 @@
 		"grunt-contrib-cssmin": "^5.0.0",
 		"grunt-replace": "^2.0.2",
 		"grunt-sass": "^4.1.0",
-		"grunt-shell": "^1.1.2",
+		"grunt-shell": "^4.0.0",
 		"grunt-webpack": "^8.0.0",
 		"grunt-zip": "^1.0.0",
 		"postcss": "^8.5.20",
