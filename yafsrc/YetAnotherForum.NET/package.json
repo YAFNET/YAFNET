@@ -53,7 +53,7 @@
 		"form-serialize": "^0.7.2",
 		"long-press-event": "^2.5.2",
 		"md.bootstrappersiandatetimepicker": "^4.5.0",
-		"prism": "^1.0.0",
+		"prism": "^4.1.2",
 		"prismjs": "^1.30.0",
 		"scss": "^0.2.4",
 		"smooth-scroll-into-view-if-needed": "^2.0.2",
