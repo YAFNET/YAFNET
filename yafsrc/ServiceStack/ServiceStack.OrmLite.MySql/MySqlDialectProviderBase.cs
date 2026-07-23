@@ -1224,7 +1224,17 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>System.String.</returns>
     public override string DateDiffFunction(string interval, string date1, string date2)
     {
-        return $"DATEDIFF({date1}, {date2})";
+        // TIMESTAMPDIFF(unit, start, end) computes end - start, matching the SqlServer/Sqlite
+        // convention of date2 - date1, and (unlike DATEDIFF) supports sub-day granularity.
+        var unit = interval.ToUpperInvariant() switch
+        {
+            "DD" => "DAY",
+            "DAY" => "DAY",
+            "MINUTE" => "MINUTE",
+            var other => other
+        };
+
+        return $"TIMESTAMPDIFF({unit}, {date1}, {date2})";
     }
 
     /// <summary>

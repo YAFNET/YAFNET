@@ -712,9 +712,10 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <returns>System.String.</returns>
     public override string ConvertFlag(string expression)
     {
-        var value = expression.Substring(expression.Length - 1, 1);
-
-        return $"CAST(({expression} = {value}) as integer)";
+        // expression is always a bitwise-AND mask (e.g. "Flags&16"), which evaluates to either
+        // 0 (flag not set) or the flag's own value (flag set) -- so a simple non-zero check is
+        // the correct, flag-value-agnostic way to turn it into a 0/1 result.
+        return $"CAST(({expression} <> 0) as integer)";
     }
 
     /// <summary>

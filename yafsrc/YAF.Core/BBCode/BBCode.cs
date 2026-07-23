@@ -554,7 +554,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"\[url\=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^javascript:])([^""\r\n\]\[]*?))\](?<inner>(.+?))\[/url\]",
+                        @"\[url\=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<url>(?!\s*(?:javascript|data|vbscript|file)\s*:)[^""\r\n\]\[]*?)\](?<inner>(.+?))\[/url\]",
                         Options | RegexOptions.Compiled),
                     "<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
@@ -568,7 +568,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"\[url\](?<http>(http://)|(https://)|(ftp://)|(ftps://)|(mailto:))?(?<inner>([^javascript:])(.+?))\[/url\]",
+                        @"\[url\](?<http>(http://)|(https://)|(ftp://)|(ftps://)|(mailto:))?(?<inner>(?!\s*(?:javascript|data|vbscript|file)\s*:)(.+?))\[/url\]",
                         Options | RegexOptions.Compiled),
                     "<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),

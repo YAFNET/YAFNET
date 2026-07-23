@@ -120,12 +120,10 @@ public static class DateTimeHelper
     /// <returns>Returns the Offset</returns>
     public static int GetTimeZoneOffset(TimeZoneInfo timeZoneInfo)
     {
-        var utcOffSet = timeZoneInfo.BaseUtcOffset;
-        var timeZone = utcOffSet < TimeSpan.Zero
-                           ? $"-{utcOffSet:hh}"
-                           : utcOffSet.ToString("hh");
-
-        return (timeZone.ToType<decimal>() * 60).ToType<int>();
+        // TotalMinutes preserves both the sign and the minutes component of the offset,
+        // unlike formatting BaseUtcOffset with the "hh" custom format (which drops minutes
+        // entirely, truncating half/quarter-hour offsets such as +05:30 or +05:45 to whole hours).
+        return (int)timeZoneInfo.BaseUtcOffset.TotalMinutes;
     }
 
     /// <summary>
