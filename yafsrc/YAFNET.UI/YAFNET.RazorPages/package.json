@@ -14,7 +14,7 @@
     "homepage": "https://yetanotherforum.net/",
     "scripts": {
         "preinstall": "npm install -g copy-files-from-to npm-check",
-        "updatePackages": "npm-check -y",
+        "updatePackages": "set npm_config_allow_scripts=&& npm-check -y",
         "copy": "copy-files-from-to"
     },
     "dependencies": {
