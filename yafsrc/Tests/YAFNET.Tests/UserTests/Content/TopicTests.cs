@@ -68,6 +68,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         await page.Locator("//input[contains(@id,'_TopicDescription')]").FillAsync("Test Description");
                     }
 
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
                     await page.FrameLocator(".sceditor-container >> iframe").Locator("body")
                         .FillAsync("This is a Test Message Created by an automated Unit Test");
 
@@ -120,6 +121,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.Locator("//input[contains(@id,'_TopicDescription')]").FillAsync("Test Description");
                 }
 
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
                 await page.FrameLocator(".sceditor-container >> iframe").Locator("body")
                 .FillAsync("This is a Test Message Created by an automated Unit Test");
 

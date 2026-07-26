@@ -62,6 +62,7 @@ public static class TopicExtensions
             // Create New Topic
             await page.Locator("//input[contains(@id,'_TopicSubject')]").FillAsync($"Auto Created Test Topic - {DateTime.UtcNow}");
 
+            await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
             await page.FrameLocator(".sceditor-container >> iframe").Locator("body")
                 .FillAsync("This is a Test Message Created by an automated Unit Test");
 
@@ -106,6 +107,7 @@ public static class TopicExtensions
             }
 
             // Create New Reply
+            await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
             await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync(message);
 
             // Post New Reply

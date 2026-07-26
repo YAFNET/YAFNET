@@ -67,6 +67,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 }
 
                 // Edit message
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
                 var editorContent = await page.FrameLocator(".sceditor-container >> iframe").Locator("body")
                     .TextContentAsync();
 
@@ -126,6 +127,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
                     await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync(
                         "This is a Test Reply in an Test Topic Created by an automated Unit Test");
 
@@ -185,6 +187,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
                     await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("  Quoting Test");
 
                     // Post New Topic
@@ -241,6 +244,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply A
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
                     await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("Test Reply A");
 
                     // Post New Message
@@ -269,6 +273,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply B
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
                     await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("Test Reply B");
 
                     // Post New Message
@@ -299,6 +304,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply C
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
                     await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("Test Reply C");
 
                     // Post New Message
@@ -331,6 +337,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
                     var editorContent = await page.FrameLocator(".sceditor-container >> iframe").Locator("body")
                                             .TextContentAsync();
 
@@ -341,6 +348,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Assert.That(editorContent, Does.Contain("Test Reply C"), "Test Replay C quote not found");
 
                     // Create New Reply
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
                     await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync($"{editorContent}  Multi Quoting Test");
 
                     // Post New Topic

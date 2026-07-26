@@ -31,8 +31,8 @@ namespace YAF.Tests.Infrastructure;
 [TestFixtureSource(typeof(DatabaseFixtureSource))]
 public abstract class DatabaseTestBase
 {
-    readonly protected ComposeScenario Scenario;
-    protected DatabaseFixture Fixture = null!;
+    protected readonly ComposeScenario Scenario;
+    protected DatabaseFixture Fixture;
 
     /// <summary>
     /// Gets or sets the test settings.

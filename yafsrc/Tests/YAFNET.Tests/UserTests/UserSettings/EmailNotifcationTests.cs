@@ -334,4 +334,88 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                         "Body does not match");
                 });
     }
+
+    /// <summary>
+    /// Send & receive email digest test
+    /// </summary>
+    [Test]
+    public async Task SendReceiveEmailDigestTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                // Login as Admin and enable email digest
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Admin" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Settings" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Board Settings" }).ClickAsync();
+
+                await page.GetByRole(AriaRole.Checkbox, new PageGetByRoleOptions { Name = "Allow Digest Email Sending" }).CheckAsync();
+
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Save" }).ClickAsync();
+
+                // Login test user and enable digest
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.TestUserName,
+                        this.TestSettings.TestUserPassword), Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/Subscriptions");
+
+                await page.GetByText("Receive once daily digest/").ClickAsync();
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Save" }).ClickAsync();
+
+                // Login back as Admin make test post and enable email digest
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                // sign in test user and enable digest
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.TestUserName,
+                        this.TestSettings.TestUserPassword), Is.True,
+                    "Login failed");
+
+                this.Fixture.SmtpServer.ClearReceivedEmail();
+
+                Assert.That(
+                    await page.CreateNewReplyInTestTopicAsync(this.TestSettings, "Reply Message"), Is.True,
+                    "Reply Message as Admin failed");
+
+                // Login back as Admin make test post and enable email digest
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                // Force digest send
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Digest");
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Force Digest Send" }).ClickAsync();
+
+                // Check if an Email was received
+                while (this.Fixture.SmtpServer.ReceivedEmailCount.Equals(0))
+                {
+                    await Task.Delay(3000);
+                }
+
+                var mail = this.Fixture.SmtpServer.ReceivedEmail[0];
+
+                Assert.That(
+                    mail.ToAddresses[0].ToString(), Is.EqualTo($"{this.TestSettings.TestUserName.ToLower()}@test.com"),
+                    "Receiver does not match");
+
+                Assert.That(
+                    mail.FromAddress.Address, Is.EqualTo(this.TestSettings.TestForumMail),
+                    "Sender does not match");
+
+                Assert.That(
+                    mail.Headers["Subject"], Is.EqualTo($"Active and New Topics - Daily Digest for {this.TestSettings.TestApplicationName}"),
+                    "Subject does not match");
+
+                Assert.That(
+                    mail.MessageParts[1].BodyData.Contains($"Active and New Topics - Daily Digest for {this.TestSettings.TestApplicationName}"), Is.True,
+                    "Body does not match");
+            });
+    }
 }

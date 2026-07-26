@@ -40,10 +40,10 @@ public abstract class DatabaseFixture : IAsyncDisposable
 
     private TestConfig TestSettings { get; set; }
 
-    private IPlaywright playwright = null!;
-    private IBrowser browser = null!;
+    private IPlaywright playwright;
+    private IBrowser browser;
 
-    private DockerComposeFixture docker = null!;
+    private DockerComposeFixture docker;
 
     /// <summary>
     /// Called once per fixture class — starts the container
@@ -76,9 +76,9 @@ public abstract class DatabaseFixture : IAsyncDisposable
     /// <value>The host factory.</value>
     private WebTestingHostFactory<CultureSwitcherViewComponent> HostFactory { get; set; }
 
-    public IBrowserContext Context { get; private set; } = null!;
+    public IBrowserContext Context { get; private set; }
 
-    public IPage Page { get; private set; } = null!;
+    public IPage Page { get; private set; }
 
     /// <summary>
     /// the base URL from the Docker fixture
@@ -86,7 +86,7 @@ public abstract class DatabaseFixture : IAsyncDisposable
     /// <value>
     /// The base URL.
     /// </value>
-    public string BaseUrl { get; private set; } = null!;
+    public string BaseUrl { get; private set; }
 
     /// <summary>
     /// Gets or sets the SMTP server.
