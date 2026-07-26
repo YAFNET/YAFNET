@@ -5699,6 +5699,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilizat pentru a efectua apeluri securizate de servicii web. Se schimbă constant până când salvați setările de gazdă."
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Masca URL de bază a forumului:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "URL-ul complet orientat către acest forum."
           }
         ]
       },
@@ -8205,6 +8213,10 @@
             "#text": "Descriere"
           },
           {
+            "@tag": "TT_EDITOR",
+            "#text": "Deschide Editorul complet"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Evidențiați"
           },
@@ -8367,10 +8379,6 @@
           {
             "@tag": "YES",
             "#text": "Da"
-          },
-          {
-            "@tag": "TT_EDITOR",
-            "#text": "Deschide Editorul complet"
           }
         ]
       },

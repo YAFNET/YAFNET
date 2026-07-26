@@ -5699,6 +5699,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilisé pour effectuer des appels de service web sécurisés. Il change constamment jusqu'à ce que vous sauvegardiez vos paramètres d'hôte."
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Masque d'URL de base du forum :"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "L'URL complète vers l'avant de ce forum."
           }
         ]
       },
@@ -8205,6 +8213,10 @@
             "#text": "Description"
           },
           {
+            "@tag": "TT_EDITOR",
+            "#text": "Ouvrir l'éditeur complet"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Mettre en évidence"
           },
@@ -8367,10 +8379,6 @@
           {
             "@tag": "YES",
             "#text": "Oui"
-          },
-          {
-            "@tag": "TT_EDITOR",
-            "#text": "Ouvrir l'éditeur complet"
           }
         ]
       },

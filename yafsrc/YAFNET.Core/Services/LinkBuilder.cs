@@ -255,17 +255,23 @@ public class LinkBuilder : IHaveServiceLocator, ILinkBuilder
             routeValues["name"] = UrlRewriteHelper.CleanStringForUrl(routeValues["name"]!.ToString());
         }
 
-        if (!this.Get<BoardConfiguration>().Area.IsSet())
-        {
-            return this.Get<IUrlHelper>().Page(page.GetPageName(), null, routeValues);
-        }
-
-        if (!routeValues.ContainsKey("area"))
+        if (this.Get<BoardConfiguration>().Area.IsSet() && !routeValues.ContainsKey("area"))
         {
             routeValues.AddOrUpdate("area", this.Get<BoardConfiguration>().Area);
         }
 
-        return this.Get<IUrlHelper>().Page(page.GetPageName(), null, routeValues);
+        var pageName = page.GetPageName();
+        var linkGenerator = this.Get<LinkGenerator>();
+
+        // IUrlHelper requires a current HttpContext, which isn't available outside an
+        // HTTP request (e.g. background tasks like the digest sender). LinkGenerator can
+        // build the same page links without one, falling back to ambient request values
+        // (area/pathbase/etc.) only when an HttpContext is actually present.
+        var httpContext = this.Get<IHttpContextAccessor>().HttpContext;
+
+        return httpContext is not null
+            ? linkGenerator.GetPathByPage(httpContext, pageName, values: routeValues)
+            : linkGenerator.GetPathByPage(pageName, values: routeValues);
     }
 
     /// <summary>

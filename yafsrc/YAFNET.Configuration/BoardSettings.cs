@@ -125,6 +125,17 @@ public class BoardSettings
     public Guid ApplicationId => new(this.Registry.GetValue("ApplicationId", string.Empty));
 
     /// <summary>
+    /// Gets or sets the base URL mask used to build absolute links when there is no
+    /// current HTTP request to derive the host/scheme from (e.g. digest task).
+    /// </summary>
+    public string BaseUrlMask
+    {
+        get => this.Registry.GetValue<string>("baseurlmask", null);
+
+        set => this.Registry.SetValue("baseurlmask", value);
+    }
+
+    /// <summary>
     /// Gets or sets the min required password length.
     /// </summary>
     public int MinRequiredPasswordLength

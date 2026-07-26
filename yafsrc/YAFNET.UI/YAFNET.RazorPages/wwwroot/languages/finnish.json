@@ -5699,6 +5699,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token, jota käytetään turvallisten verkkopalvelukutsujen tekemiseen. Muuttuu jatkuvasti, kunnes tallennat isäntäasetukset."
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Foorumin perus-URL-maski:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "Täysi eteenpäin suunnattu URL-osoite tälle foorumille."
           }
         ]
       },
@@ -8205,6 +8213,10 @@
             "#text": "Kuvaus"
           },
           {
+            "@tag": "TT_EDITOR",
+            "#text": "Avaa koko editori"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Korosta"
           },
@@ -8367,10 +8379,6 @@
           {
             "@tag": "YES",
             "#text": "Kyllä"
-          },
-          {
-            "@tag": "TT_EDITOR",
-            "#text": "Avaa koko editori"
           }
         ]
       },

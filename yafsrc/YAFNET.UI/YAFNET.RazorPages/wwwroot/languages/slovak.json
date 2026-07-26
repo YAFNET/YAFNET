@@ -5699,6 +5699,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token používaný na bezpečné volania webovej služby. Neustále sa mení, kým neuložíte nastavenia hostiteľa."
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Maska základnej adresy URL fóra:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "Úplná adresa URL tohto fóra smerujúca dopredu."
           }
         ]
       },
@@ -8205,6 +8213,10 @@
             "#text": "Opis"
           },
           {
+            "@tag": "TT_EDITOR",
+            "#text": "Otvorte úplný editor"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Zvýraznenie"
           },
@@ -8367,10 +8379,6 @@
           {
             "@tag": "YES",
             "#text": "Áno"
-          },
-          {
-            "@tag": "TT_EDITOR",
-            "#text": "Otvorte úplný editor"
           }
         ]
       },

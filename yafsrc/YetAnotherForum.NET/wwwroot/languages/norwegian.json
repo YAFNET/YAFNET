@@ -5699,6 +5699,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token som brukes til å foreta sikre nettjenesteanrop. Endres hele tiden til du lagrer vertsinnstillingene."
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Forum Base URL Mask:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "Hele fremadvendte url til dette forumet."
           }
         ]
       },
@@ -8205,6 +8213,10 @@
             "#text": "Beskrivelse"
           },
           {
+            "@tag": "TT_EDITOR",
+            "#text": "Åpne Full Editor"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Fremheve"
           },
@@ -8367,10 +8379,6 @@
           {
             "@tag": "YES",
             "#text": "Ja"
-          },
-          {
-            "@tag": "TT_EDITOR",
-            "#text": "Åpne Full Editor"
           }
         ]
       },

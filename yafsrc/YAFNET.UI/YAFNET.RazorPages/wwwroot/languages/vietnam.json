@@ -5699,6 +5699,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Mã thông báo được sử dụng để thực hiện các cuộc gọi dịch vụ web an toàn. Liên tục thay đổi cho đến khi bạn lưu cài đặt máy chủ của mình."
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Mặt nạ URL cơ sở diễn đàn:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "Url hướng về phía trước đầy đủ tới diễn đàn này."
           }
         ]
       },
@@ -8205,6 +8213,10 @@
             "#text": "Sự miêu tả"
           },
           {
+            "@tag": "TT_EDITOR",
+            "#text": "Mở trình chỉnh sửa đầy đủ"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Điểm nổi bật"
           },
@@ -8367,10 +8379,6 @@
           {
             "@tag": "YES",
             "#text": "Đúng"
-          },
-          {
-            "@tag": "TT_EDITOR",
-            "#text": "Mở trình chỉnh sửa đầy đủ"
           }
         ]
       },

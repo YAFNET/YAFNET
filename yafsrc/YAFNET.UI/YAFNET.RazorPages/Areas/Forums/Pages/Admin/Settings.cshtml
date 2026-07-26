@@ -37,23 +37,30 @@
 		            <textarea asp-for="Input.Description" rows="3" maxlength="255"
 		                       class="form-control"></textarea>
 	            </div>
-                <div class="mb-3">
-                    <label class="form-label" info-button="true" 
-                           asp-for="Input.BoardLogo"
-                           localized-tag="BOARD_LOGO" localized-page="ADMIN_BOARDSETTINGS"></label>
+	            <div class="mb-3">
+		            <label class="form-label" info-button="true" 
+		                   asp-for="Input.BoardLogo"
+		                   localized-tag="BOARD_LOGO" localized-page="ADMIN_BOARDSETTINGS"></label>
             
-                    <select asp-for="Input.BoardLogo"
-                            class="select2-image-select"
-                            placeholder="@Html.Raw(Model.GetText("BOARD_LOGO_SELECT"))"
-                            data-allow-clear="true">
-                        @foreach (var item in Model.LogoImages)
-                        {
-                            <option value="@item.Text" item="@item">
-                                @item.Text
-                            </option>
-                        }
-                    </select>
-                </div>
+		            <select asp-for="Input.BoardLogo"
+		                    class="select2-image-select"
+		                    placeholder="@Html.Raw(Model.GetText("BOARD_LOGO_SELECT"))"
+		                    data-allow-clear="true">
+			            @foreach (var item in Model.LogoImages)
+			            {
+				            <option value="@item.Text" item="@item">
+					            @item.Text
+				            </option>
+			            }
+		            </select>
+	            </div>
+	            <div class="mb-3">
+		            <label class="form-label" info-button="true" 
+		                   asp-for="Input.ForumBaseUrlMask"
+		                   localized-tag="FORUM_BASEURLMASK" localized-page="ADMIN_HOSTSETTINGS"></label>
+
+		            <input type="text" asp-for="Input.ForumBaseUrlMask" class="form-control"/>
+	            </div>
                 <div class="mb-3">
                     <label class="form-label" info-button="true"
                            asp-for="Input.Theme"

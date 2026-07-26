@@ -159,6 +159,7 @@ public class SettingsModel : AdminPage
             this.Input.DefaultNotificationSetting.ToEnum<UserNotificationSetting>();
         boardSettings.DefaultCollapsiblePanelState =
             this.Input.DefaultCollapsiblePanelState.ToEnum<CollapsiblePanelState>();
+        boardSettings.BaseUrlMask = this.Input.ForumBaseUrlMask;
         boardSettings.ForumEmail = this.Input.ForumEmail;
         boardSettings.DigestSendEveryXHours = this.Input.DigestSendEveryXHours;
         boardSettings.PageSizeDefault = this.Input.DefaultPageSize;
@@ -258,6 +259,7 @@ public class SettingsModel : AdminPage
         this.Input.AllowDigestEmail = boardSettings.AllowDigestEmail;
         this.Input.DefaultSendDigestEmail = boardSettings.DefaultSendDigestEmail;
         this.Input.ForumEmail = boardSettings.ForumEmail;
+        this.Input.ForumBaseUrlMask = boardSettings.BaseUrlMask;
 
         this.Input.BoardLogo = boardSettings.ForumLogo;
 

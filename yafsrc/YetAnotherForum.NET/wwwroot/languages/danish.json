@@ -5699,6 +5699,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token bruges til at foretage sikre webserviceopkald. "
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Forumbase URL-maske:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "Den fulde fremadrettede url til dette forum."
           }
         ]
       },
@@ -8205,6 +8213,10 @@
             "#text": "Beskrivelse"
           },
           {
+            "@tag": "TT_EDITOR",
+            "#text": "Åbn fuld editor"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Markér"
           },
@@ -8367,10 +8379,6 @@
           {
             "@tag": "YES",
             "#text": "Ja"
-          },
-          {
-            "@tag": "TT_EDITOR",
-            "#text": "Åbn fuld editor"
           }
         ]
       },

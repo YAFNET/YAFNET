@@ -5699,6 +5699,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Güvenli web hizmeti çağrıları yapmak için kullanılan belirteç. Ana bilgisayar ayarlarınızı kaydedinceye kadar sürekli değişir."
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Forum Temel URL Maskesi:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "Bu forumun ileriye dönük tam URL'si."
           }
         ]
       },
@@ -8205,6 +8213,10 @@
             "#text": "Tanım"
           },
           {
+            "@tag": "TT_EDITOR",
+            "#text": "Tam Düzenleyiciyi Aç"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Altı Çizili"
           },
@@ -8367,10 +8379,6 @@
           {
             "@tag": "YES",
             "#text": "Evet"
-          },
-          {
-            "@tag": "TT_EDITOR",
-            "#text": "Tam Düzenleyiciyi Aç"
           }
         ]
       },

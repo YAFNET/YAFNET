@@ -5691,6 +5691,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Merkteken om beveiligde web service calls te maken. Wijzigt voortdurend totdat je de host settings hebt opgeslagen."
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Masker basis-URL forum:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "De volledige naar voren gerichte URL naar dit forum."
           }
         ]
       },
@@ -8197,6 +8205,10 @@
             "#text": "Beschrijving"
           },
           {
+            "@tag": "TT_EDITOR",
+            "#text": "Open de volledige editor"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Markeer"
           },
@@ -8359,10 +8371,6 @@
           {
             "@tag": "YES",
             "#text": "Ja"
-          },
-          {
-            "@tag": "TT_EDITOR",
-            "#text": "Open de volledige editor"
           }
         ]
       },

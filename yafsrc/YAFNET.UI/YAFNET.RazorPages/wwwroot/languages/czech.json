@@ -5699,6 +5699,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token používaný k volání zabezpečené webové služby. "
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Základní maska ​​URL fóra:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "Úplná dopředná adresa URL tohoto fóra."
           }
         ]
       },
@@ -8205,6 +8213,10 @@
             "#text": "Popis"
           },
           {
+            "@tag": "TT_EDITOR",
+            "#text": "Otevřete Úplný editor"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Zvýraznit"
           },
@@ -8367,10 +8379,6 @@
           {
             "@tag": "YES",
             "#text": "Ano"
-          },
-          {
-            "@tag": "TT_EDITOR",
-            "#text": "Otevřete Úplný editor"
           }
         ]
       },

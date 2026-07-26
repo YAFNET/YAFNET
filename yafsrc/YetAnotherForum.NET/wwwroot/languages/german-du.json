@@ -5691,6 +5691,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token die verwendet werden, um sichere Web-Service-Anrufe zu tätigen. Ständig wechselnde, bis Sie Ihren Host Einstellungen  speichern."
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Forum-Basis-URL-Maske:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "Die vollständige vorwärtsgerichtete URL zu diesem Forum."
           }
         ]
       },
@@ -8197,6 +8205,10 @@
             "#text": "Beschreibung"
           },
           {
+            "@tag": "TT_EDITOR",
+            "#text": "Öffnen Sie den vollständigen Editor"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Hervorheben"
           },
@@ -8359,10 +8371,6 @@
           {
             "@tag": "YES",
             "#text": "Ja"
-          },
-          {
-            "@tag": "TT_EDITOR",
-            "#text": "Öffnen Sie den vollständigen Editor"
           }
         ]
       },

@@ -105,19 +105,19 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     {
         ArgumentNullException.ThrowIfNull(resourceName);
 
-        return this.Get<IUrlHelper>().Content($"~/css/themes/{resourceName}");
+        return $"/css/themes/{resourceName}";
     }
 
     /// <summary>
     /// Helper function that creates the URL to the css folder.
     /// </summary>
-    /// <param name="resourceName">Name of the resource.</param>
+    /// <param name="resourceName">Name of the resource.</param>6
     /// <returns>System.String.</returns>
     public string GetUrlToCss(string resourceName)
     {
         ArgumentNullException.ThrowIfNull(resourceName);
 
-        return this.Get<IUrlHelper>().Content($"~/css/{resourceName}");
+        return $"~/css/{resourceName}";
     }
 
     /// <summary>
@@ -127,7 +127,10 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     {
         get
         {
-            var baseUrlMask = this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
+            // No HttpContext is available outside an HTTP request (e.g. background tasks
+            // like the digest sender), so fall back to the configured base URL mask.
+            var baseUrlMask = this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl()
+                               ?? this.Get<BoardSettings>().BaseUrlMask;
 
             return TreatBaseUrl(baseUrlMask);
         }
@@ -148,6 +151,11 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// </returns>
     private static string TreatBaseUrl(string baseUrl)
     {
+        if (baseUrl.IsNotSet())
+        {
+            return baseUrl;
+        }
+
         if (baseUrl.EndsWith('/'))
         {
             // remove ending slash...
