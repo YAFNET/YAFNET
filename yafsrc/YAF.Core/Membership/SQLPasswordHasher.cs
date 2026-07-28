@@ -72,7 +72,7 @@ public class SQLPasswordHasher : PasswordHasher
         return string.Equals(
                    encryptedPassword,
                    passwordFormat == MembershipPasswordFormat.Hashed ? passwordHash : providedPassword,
-                   StringComparison.CurrentCultureIgnoreCase)
+                   StringComparison.OrdinalIgnoreCase)
                    ? PasswordVerificationResult.SuccessRehashNeeded
                    : PasswordVerificationResult.Failed;
     }
@@ -104,7 +104,7 @@ public class SQLPasswordHasher : PasswordHasher
         switch (passwordFormat)
         {
             case MembershipPasswordFormat.Clear:
-                return clearPassword;
+                return hashedPassword;
             case MembershipPasswordFormat.Hashed:
                 return HashHelper.Hash(
                     clearPassword,
