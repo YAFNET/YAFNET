@@ -144,6 +144,12 @@ public partial class LoginBox : BaseUserControl
             return;
         }
 
+        if (user.LockoutEndDateUtc.HasValue && user.LockoutEndDateUtc.Value > DateTime.UtcNow)
+        {
+            this.PageBoardContext.Notify(this.GetText("LOGIN", "ERROR_LOCKEDOUT"), MessageTypes.danger);
+            return;
+        }
+
         // Valid user, verify password
         var result = (PasswordVerificationResult)this.Get<IAspNetUsersHelper>().IPasswordHasher
             .VerifyHashedPassword(user.PasswordHash, this.Password.Text);
@@ -151,10 +157,16 @@ public partial class LoginBox : BaseUserControl
         switch (result)
         {
             case PasswordVerificationResult.Success:
+                user.AccessFailedCount = 0;
+                user.LockoutEndDateUtc = null;
+                this.Get<IAspNetUsersHelper>().Update(user);
                 this.UserAuthenticated(user);
                 break;
             case PasswordVerificationResult.SuccessRehashNeeded:
                 user.PasswordHash = this.Get<IAspNetUsersHelper>().IPasswordHasher.HashPassword(this.Password.Text);
+                user.AccessFailedCount = 0;
+                user.LockoutEndDateUtc = null;
+                this.Get<IAspNetUsersHelper>().Update(user);
                 this.UserAuthenticated(user);
                 break;
             case PasswordVerificationResult.Failed:
