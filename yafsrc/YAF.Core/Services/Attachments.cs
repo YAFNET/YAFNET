@@ -53,6 +53,29 @@ public class Attachments : IAttachment, IHaveServiceLocator
     public IServiceLocator ServiceLocator { get; set; }
 
     /// <summary>
+    /// Determines whether the current user is allowed to download the given attachment --
+    /// scoped to the forum the attachment's message belongs to, not just the board-wide download flag.
+    /// </summary>
+    /// <param name="attachment">The attachment.</param>
+    /// <returns><see langword="true"/> if access is allowed.</returns>
+    private bool HasAttachmentAccess(Attachment attachment)
+    {
+        if (!BoardContext.Current.DownloadAccess)
+        {
+            return false;
+        }
+
+        if (attachment.MessageID <= 0)
+        {
+            // not yet attached to a message -- only the uploader (or an admin) may access it
+            return attachment.UserID == BoardContext.Current.PageUserID || BoardContext.Current.IsAdmin;
+        }
+
+        return this.GetRepository<Message>()
+                   .GetMessageWithAccess(attachment.MessageID, BoardContext.Current.PageUserID) != null;
+    }
+
+    /// <summary>
     /// The get response attachment.
     /// </summary>
     /// <param name="context">
@@ -67,7 +90,7 @@ public class Attachments : IAttachment, IHaveServiceLocator
                 this.GetRepository<Attachment>()
                     .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("a"));
 
-            if (!BoardContext.Current.DownloadAccess)
+            if (attachment == null || !this.HasAttachmentAccess(attachment))
             {
                 // tear it down
                 // no permission to download
@@ -166,21 +189,21 @@ public class Attachments : IAttachment, IHaveServiceLocator
                 this.GetRepository<Attachment>()
                     .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
 
-            if (!context.Request.QueryString.Exists("editor"))
-            {
-                // add a download count...
-                this.GetRepository<Attachment>()
-                    .IncrementDownloadCounter(attachment.ID);
-            }
-
             // check download permissions here
-            if (!BoardContext.Current.DownloadAccess)
+            if (attachment == null || !this.HasAttachmentAccess(attachment))
             {
                 // tear it down
                 // no permission to download
                 context.Response.Write(
                     "You have insufficient rights to download this resource. Contact forum administrator for further details.");
                 return;
+            }
+
+            if (!context.Request.QueryString.Exists("editor"))
+            {
+                // add a download count...
+                this.GetRepository<Attachment>()
+                    .IncrementDownloadCounter(attachment.ID);
             }
 
             byte[] data;

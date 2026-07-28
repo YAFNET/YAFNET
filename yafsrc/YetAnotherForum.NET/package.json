@@ -18,13 +18,13 @@
 		"grunt-shell": "^4.0.0",
 		"grunt-webpack": "^8.0.0",
 		"npm-check": "^6.0.1",
-		"postcss": "^8.5.20",
-		"sass": "^1.101.3",
+		"postcss": "^8.5.23",
+		"sass": "^1.102.0",
 		"simple-webp-converter": "^1.1.2",
 		"terser-webpack-plugin": "^5.6.1",
 		"ts-loader": "^9.6.2",
 		"typescript": "^7.0.2",
-		"webpack": "^5.109.0",
+		"webpack": "^5.109.1",
 		"webpack-cli": "^7.2.1"
 	},
 	"dependencies": {
@@ -36,7 +36,7 @@
 		"@w8tcha/bootstrap-notify": "^5.0.2",
 		"@w8tcha/bs5-lightbox": "^1.8.6",
 		"@w8tcha/dark-editable": "^2.1.7",
-		"@yafnet/sceditor": "^3.2.16",
+		"@yafnet/sceditor": "^3.2.17",
 		"bootstrap": "^5.3.8",
 		"bootswatch": "^5.3.8",
 		"choices.js": "^11.2.3",
@@ -51,7 +51,7 @@
 		"build": "grunt",
 		"build-codemirror": "webpack",
 		"webp": "simple-webp-converter",
-		"updatePackages": "npm-check -y",
+		"updatePackages": "set npm_config_allow_scripts=&& npm-check -y",
 		"syncLanguages": "@echo off && ..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\languages\\ -sync"
 	},
 	"simple-webp-converter": {

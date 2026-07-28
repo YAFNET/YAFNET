@@ -52,6 +52,12 @@ public static class UserRepositoryExtensions
         // -- Get user and rank information
         var rankInfo = BoardContext.Current.GetRepository<Rank>().GetUserAndRank(userId);
 
+        if (rankInfo == null)
+        {
+            // -- user's RankID doesn't resolve to an existing rank (e.g. rank was deleted)
+            return;
+        }
+
         if (!rankInfo.Item2.RankFlags.IsLadder)
         {
             // -- If user isn't member of a ladder rank, exit

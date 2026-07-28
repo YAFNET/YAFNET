@@ -24,6 +24,7 @@
 namespace YAF.Core.Tasks;
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net.Mail;
 
@@ -164,7 +165,7 @@ public class DigestSendTask : LongBackgroundTask
     {
         var currentContext = HttpContext.Current;
 
-        var mailMessages = new List<MailMessage>();
+        var mailMessages = new ConcurrentBag<MailMessage>();
 
         var boardEmail = new MailAddress(boardSettings.ForumEmail, boardSettings.Name);
 

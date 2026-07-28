@@ -172,7 +172,7 @@ public class PostgreSQLDbInformation : IDbInformation
         vaccessUserSelect.Append("b.\"UserID\",");
         vaccessUserSelect.Append("b.\"ForumID\",");
         vaccessUserSelect.Append("c.\"AccessMaskID\",");
-        vaccessNullSelect.Append("0 AS \"GroupID\",");
+        vaccessUserSelect.Append("0 AS \"GroupID\",");
         vaccessUserSelect.Append("c.\"Flags\" & 1 AS \"ReadAccess\",");
         vaccessUserSelect.Append("c.\"Flags\" & 2 AS \"PostAccess\",");
         vaccessUserSelect.Append("c.\"Flags\" & 4 AS \"ReplyAccess\",");

@@ -46,7 +46,7 @@ public class AddHeaderAction : IRewriteAction
             throw new ArgumentNullException(nameof(context));
         }
 
-        context.ResponseHeaders.Add(this.Header, this.Value);
+        context.ResponseHeaders.Add(this.Header, context.Expand(this.Value));
 
         return RewriteProcessing.ContinueProcessing;
     }

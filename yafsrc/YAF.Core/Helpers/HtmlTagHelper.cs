@@ -77,17 +77,28 @@ public static class HtmlTagHelper
     /// </returns>
     public static bool IsValidTag(string tag, IEnumerable<string> allowedTags)
     {
-        if (tag.IndexOf("javascript", StringComparison.Ordinal) >= 0)
+        if (tag.IndexOf("javascript", StringComparison.OrdinalIgnoreCase) >= 0)
         {
             return false;
         }
 
-        if (tag.IndexOf("vbscript", StringComparison.Ordinal) >= 0)
+        if (tag.IndexOf("vbscript", StringComparison.OrdinalIgnoreCase) >= 0)
         {
             return false;
         }
 
-        if (tag.IndexOf("onclick", StringComparison.Ordinal) >= 0)
+        if (tag.IndexOf("data:", StringComparison.OrdinalIgnoreCase) >= 0)
+        {
+            return false;
+        }
+
+        if (tag.IndexOf("expression(", StringComparison.OrdinalIgnoreCase) >= 0)
+        {
+            return false;
+        }
+
+        // block any inline event handler attribute (onclick, onerror, onload, onmouseover, etc.), not just onclick
+        if (Regex.IsMatch(tag, @"\bon[a-z]+\s*=", RegexOptions.IgnoreCase))
         {
             return false;
         }

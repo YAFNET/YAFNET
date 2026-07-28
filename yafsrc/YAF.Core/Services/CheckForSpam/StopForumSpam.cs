@@ -76,9 +76,9 @@ public class StopForumSpam : ICheckForBot
 
             var webRequest = (HttpWebRequest)WebRequest.Create(url);
 
-            var response = (HttpWebResponse)webRequest.GetResponse();
+            using var response = (HttpWebResponse)webRequest.GetResponse();
 
-            var streamReader = new StreamReader(response.GetResponseStream());
+            using var streamReader = new StreamReader(response.GetResponseStream());
 
             responseText = streamReader.ReadToEnd();
 

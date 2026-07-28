@@ -58,9 +58,7 @@ public sealed class UrlMatchCondition : IRewriteCondition
             return this._regex;
         }
 
-        var lockObj = new object();
-
-        lock (lockObj)
+        lock (this._lock)
         {
             this._regex ??= new Regex(context.ResolveLocation(this.Pattern), RegexOptions.IgnoreCase);
         }
@@ -72,6 +70,8 @@ public sealed class UrlMatchCondition : IRewriteCondition
     /// The pattern to match.
     /// </summary>
     public string Pattern { get; }
+
+    private readonly object _lock = new();
 
     private Regex _regex;
 }

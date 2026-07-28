@@ -61,6 +61,11 @@ public class ThankYouController : ApiController, IHaveServiceLocator
 
         var message = this.GetRepository<Message>().GetById(messageId);
 
+        if (message == null)
+        {
+            return this.NotFound();
+        }
+
         var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 
         // if the user is empty, return a null object...
@@ -98,6 +103,11 @@ public class ThankYouController : ApiController, IHaveServiceLocator
 
         var message = this.GetRepository<Message>().GetById(messageId);
 
+        if (message == null)
+        {
+            return this.NotFound();
+        }
+
         var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 
         if (this.GetRepository<Thanks>().Exists(x => x.MessageID == messageId && x.ThanksFromUserID == fromUserId))
@@ -134,16 +144,29 @@ public class ThankYouController : ApiController, IHaveServiceLocator
     [HttpPost]
     public IHttpActionResult RemoveThanks(int messageId)
     {
+        if (BoardContext.Current.IsGuest)
+        {
+            return this.NotFound();
+        }
+
         var message = this.GetRepository<Message>().GetById(messageId);
+
+        if (message == null)
+        {
+            return this.NotFound();
+        }
+
+        var fromUserId = BoardContext.Current.PageUserID;
 
         var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 
-        this.GetRepository<Thanks>().RemoveMessageThanks(
-            BoardContext.Current.PageUserID,
-            messageId);
+        this.GetRepository<Thanks>().RemoveMessageThanks(fromUserId, messageId);
 
-        this.GetRepository<Activity>()
-            .Delete(a => a.MessageID == messageId && (a.Flags == 1024 || a.Flags == 2048));
+        // only remove this specific user's own given/received thanks stream entries for this message
+        this.GetRepository<Activity>().Delete(
+            a => a.MessageID == messageId
+                 && ((a.Flags == 1024 && a.UserID == fromUserId && a.FromUserID == message.UserID)
+                     || (a.Flags == 2048 && a.UserID == message.UserID && a.FromUserID == fromUserId)));
 
         return this.Ok(
             this.Get<IThankYou>().CreateThankYou(userName, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageId));

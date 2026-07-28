@@ -54,6 +54,29 @@ public class Album : IAlbum, IHaveServiceLocator
     public IServiceLocator ServiceLocator { get; set; }
 
     /// <summary>
+    /// Determines whether the current user is allowed to download the given attachment --
+    /// scoped to the forum the attachment's message belongs to, not just the board-wide download flag.
+    /// </summary>
+    /// <param name="attachment">The attachment.</param>
+    /// <returns><see langword="true"/> if access is allowed.</returns>
+    private bool HasAttachmentAccess(Attachment attachment)
+    {
+        if (!BoardContext.Current.DownloadAccess)
+        {
+            return false;
+        }
+
+        if (attachment.MessageID <= 0)
+        {
+            // not yet attached to a message -- only the uploader (or an admin) may access it
+            return attachment.UserID == BoardContext.Current.PageUserID || BoardContext.Current.IsAdmin;
+        }
+
+        return this.GetRepository<Message>()
+                   .GetMessageWithAccess(attachment.MessageID, BoardContext.Current.PageUserID) != null;
+    }
+
+    /// <summary>
     /// Deletes the specified album/image.
     /// </summary>
     /// <param name="uploadFolder">
@@ -146,7 +169,7 @@ public class Album : IAlbum, IHaveServiceLocator
     {
         var album = this.GetRepository<UserAlbum>().GetById(imageId);
 
-        if (album.UserID != BoardContext.Current.PageUserID)
+        if (album == null || album.UserID != BoardContext.Current.PageUserID)
         {
             return;
         }
@@ -169,7 +192,7 @@ public class Album : IAlbum, IHaveServiceLocator
     {
         var image = this.GetRepository<UserAlbumImage>().GetById(imageId, true);
 
-        if (image.UserAlbum.UserID != BoardContext.Current.PageUserID)
+        if (image?.UserAlbum == null || image.UserAlbum.UserID != BoardContext.Current.PageUserID)
         {
             return;
         }
@@ -287,7 +310,7 @@ public class Album : IAlbum, IHaveServiceLocator
                 {
                     var image = album.Count > 1
                                     ? this.GetRepository<UserAlbumImage>()
-                                        .GetImage(album[random.Next(1, album.Count)].ID)
+                                        .GetImage(album[random.Next(0, album.Count)].ID)
                                     : this.GetRepository<UserAlbumImage>()
                                         .GetImage(album[0].ID);
 
@@ -445,7 +468,7 @@ public class Album : IAlbum, IHaveServiceLocator
             var attachment = this.GetRepository<Attachment>()
                 .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("p"));
 
-            if (!BoardContext.Current.DownloadAccess)
+            if (attachment == null || !this.HasAttachmentAccess(attachment))
             {
                 // tear it down
                 // no permission to download

@@ -91,10 +91,9 @@
                         
 	            <div class="d-flex">
 		            <ul class="navbar-nav">
-                        <li class="nab-item dropdown">
+                        <li class="nav-item dropdown">
 	                        <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center" type="button" id="bd-theme" data-bs-toggle="dropdown" aria-expanded="false" title='<%= this.GetText("SELECT_THEME_MODE") %>'>
 		                        <YAF:Icon runat="server" IconName="moon theme-icon-active"></YAF:Icon>
-		                        <span class="d-lg-none ms-2" id="bd-theme-text"><YAF:LocalizedLabel runat="server" LocalizedTag="SELECT_THEME_MODE"></YAF:LocalizedLabel></span>
 	                        </button>
 	                        <ul class="dropdown-menu dropdown-menu-end">
 		                        <li>

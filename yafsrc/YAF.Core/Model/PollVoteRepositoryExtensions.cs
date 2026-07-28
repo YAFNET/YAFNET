@@ -105,7 +105,11 @@ public static class PollVoteRepositoryExtensions
         int userId,
         int pollId)
     {
-        
+        // re-check immediately before inserting to narrow the double-vote race window
+        if (repository.Exists(p => p.UserID == userId && p.PollID == pollId))
+        {
+            return;
+        }
 
         var entity = new PollVote { PollID = pollId, UserID = userId, ChoiceID = choiceId };
 

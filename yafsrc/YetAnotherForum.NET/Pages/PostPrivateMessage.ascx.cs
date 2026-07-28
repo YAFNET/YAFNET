@@ -76,6 +76,11 @@ public partial class PostPrivateMessage : ForumPage
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void AllUsers_Click(object sender, EventArgs e)
     {
+        if (!this.PageBoardContext.IsAdmin)
+        {
+            return;
+        }
+
         // create one entry to show in dropdown
         var li = new ListItem(this.GetText("ALLUSERS"), "0");
 
@@ -546,6 +551,12 @@ public partial class PostPrivateMessage : ForumPage
 
         if (this.ToList.SelectedItem is { Value: "0" })
         {
+            if (!this.PageBoardContext.IsAdmin)
+            {
+                this.Get<LinkBuilder>().AccessDenied();
+                return;
+            }
+
             // administrator is sending PMs to all users
             var body = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.editor.Text));
             var messageFlags = new MessageFlags

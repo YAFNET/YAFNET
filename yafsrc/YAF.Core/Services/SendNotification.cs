@@ -25,6 +25,7 @@
 namespace YAF.Core.Services;
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Mail;
@@ -361,7 +362,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </param>
     public void ToWatchingUsers(Message message, bool newTopic = false)
     {
-        var mailMessages = new List<MailMessage>();
+        var mailMessages = new ConcurrentBag<MailMessage>();
         var boardName = this.BoardSettings.Name;
         var forumEmail = this.BoardSettings.ForumEmail;
 
@@ -373,24 +374,22 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
 
         var watchUsers = this.GetRepository<User>().WatchMailList(message.TopicID, message.UserID);
 
-        var watchEmail = new TemplateEmail("TOPICPOST")
-                             {
-                                 TemplateParams =
-                                     {
-                                         ["{topic}"] =
-                                             HttpUtility.HtmlDecode(
-                                                 this.Get<IBadWordReplace>().Replace(message.Topic.TopicName)),
-                                         ["{postedby}"] =
-                                             this.Get<IUserDisplayName>().GetNameById(message.UserID),
-                                         ["{body}"] = bodyText,
-                                         ["{bodytruncated}"] = bodyText.Truncate(160),
-                                         ["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
-                                             ForumPages.Posts,
-                                             new {m = message.ID, name = message.Topic.TopicName}),
-                                         ["{subscriptionlink}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
-                                             ForumPages.Profile_Subscriptions)
-                                     }
-                             };
+        // shared, read-only template params -- each thread gets its own TemplateEmail instance below
+        var commonTemplateParams = new Dictionary<string, string>
+                                        {
+                                            ["{topic}"] =
+                                                HttpUtility.HtmlDecode(
+                                                    this.Get<IBadWordReplace>().Replace(message.Topic.TopicName)),
+                                            ["{postedby}"] =
+                                                this.Get<IUserDisplayName>().GetNameById(message.UserID),
+                                            ["{body}"] = bodyText,
+                                            ["{bodytruncated}"] = bodyText.Truncate(160),
+                                            ["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+                                                ForumPages.Posts,
+                                                new { m = message.ID, name = message.Topic.TopicName }),
+                                            ["{subscriptionlink}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+                                                ForumPages.Profile_Subscriptions)
+                                        };
 
         var currentContext = HttpContext.Current;
 
@@ -434,7 +433,14 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                             this.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile),
                             boardName);
 
-                        watchEmail.TemplateLanguageFile = languageFile;
+                        // each thread gets its own TemplateEmail + TemplateParams copy -- avoids
+                        // concurrent mutation of shared state (TemplateLanguageFile, TemplateParams dictionary)
+                        var watchEmail = new TemplateEmail("TOPICPOST") { TemplateLanguageFile = languageFile };
+
+                        foreach (var param in commonTemplateParams)
+                        {
+                            watchEmail.TemplateParams[param.Key] = param.Value;
+                        }
 
                         mailMessages.Add(
                             watchEmail.CreateEmail(

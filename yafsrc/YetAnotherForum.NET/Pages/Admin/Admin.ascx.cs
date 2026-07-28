@@ -39,7 +39,7 @@ using YAF.Types.Models;
 public partial class Admin : AdminPage
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Admin"/> class. 
+    /// Initializes a new instance of the <see cref="Admin"/> class.
     /// </summary>
     public Admin()
         : base("ADMIN_ADMIN", ForumPages.Admin_Admin)
@@ -333,9 +333,9 @@ public partial class Admin : AdminPage
 
         this.NumCategories.Text = data.Categories.ToString();
         this.NumForums.Text = data.Forums.ToString();
-        this.NumTopics.Text = $@"{data.Topics:N0}";
-        this.NumPosts.Text = $@"{data.Posts:N0}";
-        this.NumUsers.Text = $@"{data.Users:N0}";
+        this.NumTopics.Text = $"{data.Topics:N0}";
+        this.NumPosts.Text = $"{data.Posts:N0}";
+        this.NumUsers.Text = $"{data.Users:N0}";
 
         var span = DateTime.UtcNow - data.BoardStart;
         double days = span.Days;

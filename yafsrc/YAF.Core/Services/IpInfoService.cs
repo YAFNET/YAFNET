@@ -130,8 +130,8 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
             var path = string.Format(url, IPHelper.GetIpAddressAsString(ip));
 
             var webRequest = (HttpWebRequest)WebRequest.Create(path);
-            var response = (HttpWebResponse)webRequest.GetResponse();
-            var streamReader = new StreamReader(response.GetResponseStream());
+            using var response = (HttpWebResponse)webRequest.GetResponse();
+            using var streamReader = new StreamReader(response.GetResponseStream());
             var responseText = streamReader.ReadToEnd();
 
             return responseText.FromJson<IpLocator>();

@@ -895,6 +895,8 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
             analyzer.Dispose();
 
+            this.searcherManager.Release(searcher);
+
             return results;
         }
         else

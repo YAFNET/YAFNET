@@ -41,7 +41,9 @@ public sealed class MethodCondition : MatchCondition
 
     private static string GetMethodPattern(string method)
     {
-        // Convert the "GET,POST,*" pattern to a regex, e.g. "^GET|POST|.+$".
-        return $"^{Regex.Replace(method, @"[^a-zA-Z,\*]+", string.Empty).Replace(",", "|").Replace("*", ".+")}$";
+        // Convert the "GET,POST,*" pattern to a regex, e.g. "^(?:GET|POST|.+)$".
+        var alternation = Regex.Replace(method, @"[^a-zA-Z,\*]+", string.Empty).Replace(",", "|").Replace("*", ".+");
+
+        return $"^(?:{alternation})$";
     }
 }

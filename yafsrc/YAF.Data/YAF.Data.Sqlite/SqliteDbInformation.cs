@@ -144,6 +144,7 @@ public class SqliteDbInformation : IDbInformation
 
         vaccessNullSelect.Append("a.UserID,");
         vaccessNullSelect.Append("0 AS ForumID,");
+        vaccessNullSelect.Append("0 AS GroupID,");
         vaccessNullSelect.Append("0 AS ReadAccess,");
         vaccessNullSelect.Append("0 AS PostAccess,");
         vaccessNullSelect.Append("0 AS ReplyAccess,");
@@ -168,7 +169,7 @@ public class SqliteDbInformation : IDbInformation
         vaccessUserSelect.Append("b.UserID,");
         vaccessUserSelect.Append("b.ForumID,");
         vaccessUserSelect.Append("c.AccessMaskID,");
-        vaccessNullSelect.Append("0 AS GroupID,");
+        vaccessUserSelect.Append("0 AS GroupID,");
         vaccessUserSelect.Append("c.Flags & 1 AS ReadAccess,");
         vaccessUserSelect.Append("c.Flags & 2 AS PostAccess,");
         vaccessUserSelect.Append("c.Flags & 4 AS ReplyAccess,");

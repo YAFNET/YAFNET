@@ -49,8 +49,15 @@ public class AlbumController : ApiController, IHaveServiceLocator
     [HttpPost]
     public IHttpActionResult ChangeAlbumTitle()
     {
-        var imageId = this.Get<HttpRequestBase>().Form["id"].ToType<int>();
-        var newCaption = HttpUtility.HtmlEncode(this.Get<HttpRequestBase>().Form["value"].Trim());
+        var form = this.Get<HttpRequestBase>().Form;
+
+        if (form["id"].IsNotSet() || !ValidationHelper.IsNumeric(form["id"]) || form["value"] == null)
+        {
+            return this.BadRequest();
+        }
+
+        var imageId = form["id"].ToType<int>();
+        var newCaption = HttpUtility.HtmlEncode(form["value"].Trim());
 
         if (newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE")))
         {
@@ -69,8 +76,15 @@ public class AlbumController : ApiController, IHaveServiceLocator
     [HttpPost]
     public IHttpActionResult ChangeImageCaption()
     {
-        var imageId = this.Get<HttpRequestBase>().Form["id"].ToType<int>();
-        var newCaption = HttpUtility.HtmlEncode(this.Get<HttpRequestBase>().Form["value"].Trim());
+        var form = this.Get<HttpRequestBase>().Form;
+
+        if (form["id"].IsNotSet() || !ValidationHelper.IsNumeric(form["id"]) || form["value"] == null)
+        {
+            return this.BadRequest();
+        }
+
+        var imageId = form["id"].ToType<int>();
+        var newCaption = HttpUtility.HtmlEncode(form["value"].Trim());
 
         if (newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION"))
             || newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION2")))

@@ -52,6 +52,13 @@ public class Localizer
     private LanguageResource localizationLanguageResources;
 
     /// <summary>
+    /// Guards the SetPage + GetText sequence below, since this instance may be shared across
+    /// concurrent requests (cached per language file) -- without this, one thread's SetPage
+    /// can be overwritten by another before its GetText runs, returning the wrong page's text.
+    /// </summary>
+    private readonly object syncRoot = new();
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="Localizer"/> class.
     /// </summary>
     /// <param name="fileName">
@@ -95,6 +102,23 @@ public class Localizer
     }
 
     /// <summary>
+    /// Sets the page and gets the nodes using query as a single, thread-safe operation --
+    /// see remarks on <see cref="syncRoot"/> for why this matters on a shared instance.
+    /// </summary>
+    /// <param name="page">The page.</param>
+    /// <param name="predicate">The predicate.</param>
+    /// <returns>The Nodes.</returns>
+    public IEnumerable<Resource> GetNodesUsingQuery(string page, Func<Resource, bool> predicate)
+    {
+        lock (this.syncRoot)
+        {
+            this.SetPage(page);
+
+            return this.GetNodesUsingQuery(predicate);
+        }
+    }
+
+    /// <summary>
     /// Gets the text.
     /// </summary>
     /// <param name="tag">The tag.</param>
@@ -135,10 +159,29 @@ public class Localizer
     /// </returns>
     public string GetText(string page, string tag)
     {
-        this.SetPage(page);
-        this.GetText(tag, out var text);
+        lock (this.syncRoot)
+        {
+            this.SetPage(page);
+            this.GetText(tag, out var text);
 
-        return text;
+            return text;
+        }
+    }
+
+    /// <summary>
+    /// Sets the page and gets the text as a single, thread-safe operation --
+    /// see remarks on <see cref="syncRoot"/> for why this matters on a shared instance.
+    /// </summary>
+    /// <param name="page">The page.</param>
+    /// <param name="tag">The tag.</param>
+    /// <param name="localizedText">The localized text.</param>
+    public void GetText(string page, string tag, out string localizedText)
+    {
+        lock (this.syncRoot)
+        {
+            this.SetPage(page);
+            this.GetText(tag, out localizedText);
+        }
     }
 
     /// <summary>

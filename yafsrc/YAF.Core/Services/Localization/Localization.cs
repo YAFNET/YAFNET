@@ -191,8 +191,7 @@ public class Localization : ILocalization
     {
         this.LoadTranslation();
 
-        this.localizer.SetPage(page);
-        return this.localizer.GetNodesUsingQuery(predicate);
+        return this.localizer.GetNodesUsingQuery(page, predicate);
     }
 
     /// <summary>
@@ -582,8 +581,7 @@ public class Localization : ILocalization
     {
         this.LoadTranslation();
 
-        this.localizer.SetPage(page);
-        this.localizer.GetText(tag, out var localizedText);
+        this.localizer.GetText(page, tag, out var localizedText);
 
         // If not default language, try to use that instead
         if (localizedText != null || this.defaultLocale == null)
@@ -591,8 +589,7 @@ public class Localization : ILocalization
             return localizedText;
         }
 
-        this.defaultLocale.SetPage(page);
-        this.defaultLocale.GetText(tag, out localizedText);
+        this.defaultLocale.GetText(page, tag, out localizedText);
 
         if (localizedText != null)
         {

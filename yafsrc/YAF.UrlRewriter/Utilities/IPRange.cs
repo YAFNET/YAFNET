@@ -81,6 +81,12 @@ public sealed class IPRange
     /// <returns>True if the address is in the range.</returns>
     public bool InRange(IPAddress address)
     {
+        if (address == null || address.AddressFamily != this.MinimumAddress.AddressFamily)
+        {
+            // an IPv4 range can never contain an IPv6 address (and vice versa) -- not an error, just no match
+            return false;
+        }
+
         return Compare(this.MinimumAddress, address) <= 0 && Compare(address, this.MaximumAddress) <= 0;
     }
 

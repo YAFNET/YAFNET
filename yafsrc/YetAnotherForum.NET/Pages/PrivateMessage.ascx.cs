@@ -56,9 +56,18 @@ public partial class PrivateMessage : ForumPageRegistered
         switch (e.CommandName)
         {
             case "delete":
-                
+
                 var message = this.GetRepository<UserPMessage>().GetById(e.CommandArgument.ToType<int>());
-                this.GetRepository<UserPMessage>().Delete(message, message.UserID != this.PageBoardContext.PageUserID);
+
+                if (message == null || message.UserID != this.PageBoardContext.PageUserID)
+                {
+                    this.Get<LinkBuilder>().AccessDenied();
+                    return;
+                }
+
+                var deleteFromOutbox = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v") == "out";
+
+                this.GetRepository<UserPMessage>().Delete(message, deleteFromOutbox);
 
                 this.BindData();
                 this.PageBoardContext.Notify(this.GetText("msg_deleted"), MessageTypes.success);

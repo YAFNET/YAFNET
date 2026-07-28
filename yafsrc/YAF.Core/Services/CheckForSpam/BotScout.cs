@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -74,7 +74,7 @@ public class BotScout : ICheckForBot
 
             var webRequest = (HttpWebRequest)WebRequest.Create(url);
 
-            var response = (HttpWebResponse)webRequest.GetResponse();
+            using var response = (HttpWebResponse)webRequest.GetResponse();
 
             using (var streamReader = new StreamReader(response.GetResponseStream()))
             {

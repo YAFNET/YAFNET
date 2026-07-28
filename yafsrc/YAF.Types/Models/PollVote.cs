@@ -27,6 +27,7 @@ namespace YAF.Types.Models;
 ///     A class which represents the PollVote table.
 /// </summary>
 [Serializable]
+[UniqueConstraint(nameof(PollID), nameof(UserID))]
 public class PollVote : IEntity, IHaveID
 {
     /// <summary>

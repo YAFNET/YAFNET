@@ -64,7 +64,7 @@ public static class ImageHelper
             newHeight = y;
         }
 
-        var bitmap = img.GetThumbnailImage((int)newWidth, (int)newHeight, null, IntPtr.Zero);
+        using var bitmap = img.GetThumbnailImage((int)newWidth, (int)newHeight, null, IntPtr.Zero);
 
         var resized = new MemoryStream();
         bitmap.Save(resized, img.RawFormat);
