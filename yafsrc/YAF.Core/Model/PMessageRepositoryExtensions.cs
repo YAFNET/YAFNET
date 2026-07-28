@@ -195,8 +195,20 @@ public static class PMessageRepositoryExtensions
                 u => u.BoardID == repository.BoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 && u.ID != fromUserId);
 
             users.ForEach(
-                u => BoardContext.Current.GetRepository<UserPMessage>().Insert(
-                    new UserPMessage { UserID = u.ID, PMessageID = newMessageId, Flags = userPMFlags.BitValue }));
+                u =>
+                    {
+                        try
+                        {
+                            BoardContext.Current.GetRepository<UserPMessage>().Insert(
+                                new UserPMessage { UserID = u.ID, PMessageID = newMessageId, Flags = userPMFlags.BitValue });
+                        }
+                        catch (Exception ex)
+                        {
+                            // don't let one failed recipient abort delivery to the rest of the board
+                            BoardContext.Current.Get<ILoggerService>().Error(
+                                ex, $"Failed to deliver broadcast PM {newMessageId} to user {u.ID}");
+                        }
+                    });
         }
         else
         {
@@ -465,8 +477,14 @@ public static class PMessageRepositoryExtensions
         {
             var replyToId = (int)message.ReplyTo;
 
-            // Get original message
-            messages.Add(repository.GetMessage(replyToId));
+            // Get original message -- only trust it if the current user is actually a party to it
+            var originalMessage = repository.GetMessage(replyToId);
+
+            if (originalMessage != null && (originalMessage.FromUserID == BoardContext.Current.PageUserID
+                                             || originalMessage.ToUserID == BoardContext.Current.PageUserID))
+            {
+                messages.Add(originalMessage);
+            }
 
             // Get Other Replies ?!
             messages.AddRange(repository.ListReplies(replyToId));
@@ -509,7 +527,9 @@ public static class PMessageRepositoryExtensions
                     expression.Join<UserPMessage>((a, b) => a.ID == b.PMessageID)
                         .Join<UserPMessage, User>((b, c) => b.UserID == Sql.TableAlias(c.ID, "c"), db.Connection.TableAlias("c"))
                         .Join<User>((a, d) => a.FromUserID == Sql.TableAlias(d.ID, "d"), db.Connection.TableAlias("d"))
-                        .Where<PMessage>(b => b.ReplyTo == replyPMessageId).OrderBy<PMessage>(a => a.Created)
+                        .Where<PMessage>(b => b.ReplyTo == replyPMessageId)
+                        .Where<UserPMessage>(u => u.UserID == BoardContext.Current.PageUserID)
+                        .OrderBy<PMessage>(a => a.Created)
                         .Select<PMessage, UserPMessage, User, User>(
                             (a, b, c, d) => new
                                                 {
