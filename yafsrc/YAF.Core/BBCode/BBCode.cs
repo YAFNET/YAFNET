@@ -554,7 +554,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"\[url\=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<url>(?!\s*(?:javascript|data|vbscript|file)\s*:)[^""\r\n\]\[]*?)\](?<inner>(.+?))\[/url\]",
+                        @"\[url\=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<url>(?!\s*(?:javascript|data|vbscript|file)\s*:)[^""\r\n\t\]\[]*?)\](?<inner>(.+?))\[/url\]",
                         Options | RegexOptions.Compiled),
                     "<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
@@ -568,7 +568,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"\[url\](?<http>(http://)|(https://)|(ftp://)|(ftps://)|(mailto:))?(?<inner>(?!\s*(?:javascript|data|vbscript|file)\s*:)(.+?))\[/url\]",
+                        @"\[url\](?<http>(http://)|(https://)|(ftp://)|(ftps://)|(mailto:))?(?<inner>(?!\s*(?:javascript|data|vbscript|file)\s*:)[^\r\n\t]+?)\[/url\]",
                         Options | RegexOptions.Compiled),
                     "<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
@@ -777,7 +777,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\[]*)|(jpeg[^\[]*)|(bmp[^\[]*)|(png[^\[]*)|(gif[^\[]*)|(tif[^\[]*)|(ashx[^\[]*)|(php[^\[]*)|(aspx[^\[]*))))\[/img\]",
+                        @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(?!\s*(?:javascript|data|vbscript|file)\s*:)((?!.+logout)[^""\r\n\t\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\[]*)|(jpeg[^\[]*)|(bmp[^\[]*)|(png[^\[]*)|(gif[^\[]*)|(tif[^\[]*)|(ashx[^\[]*)|(php[^\[]*)|(aspx[^\[]*))))\[/img\]",
                         Options | RegexOptions.Compiled),
                     imageHtml,
                     [
@@ -791,7 +791,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\]\[/img\]]*)|(jpeg[^\[\[/img\]]*)|(bmp[^\[\[/img\]]*)|(png[^\]\[/img\]]*)|(gif[^\]\[/img\]]*)|(tif[^\]\[/img\]]*)|(ashx[^\]\[/img\]]*)|(php[^\]\[/img\]]*)|(aspx[^\]\[/img\]]*))))\]\[/img\]",
+                        @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(?!\s*(?:javascript|data|vbscript|file)\s*:)((?!.+logout)[^""\r\n\t\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\]\[/img\]]*)|(jpeg[^\[\[/img\]]*)|(bmp[^\[\[/img\]]*)|(png[^\]\[/img\]]*)|(gif[^\]\[/img\]]*)|(tif[^\]\[/img\]]*)|(ashx[^\]\[/img\]]*)|(php[^\]\[/img\]]*)|(aspx[^\]\[/img\]]*))))\]\[/img\]",
                         Options | RegexOptions.Compiled),
                     imageHtml,
                     [
@@ -805,7 +805,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\]]*)|(jpeg[^\]]*)|(bmp[^\]]*)|(png[^\]]*)|(gif[^\]]*)|(tif[^\]]*)|(ashx[^\]]*)|(php[^\]]*)|(aspx[^\]]*))))\](?<description>[^\[]*)\[/img\]",
+                        @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(?!\s*(?:javascript|data|vbscript|file)\s*:)((?!.+logout)[^""\r\n\t\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\]]*)|(jpeg[^\]]*)|(bmp[^\]]*)|(png[^\]]*)|(gif[^\]]*)|(tif[^\]]*)|(ashx[^\]]*)|(php[^\]]*)|(aspx[^\]]*))))\](?<description>[^\[]*)\[/img\]",
                         Options | RegexOptions.Compiled),
                     imageHtmlWithDesc,
                     [

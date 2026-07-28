@@ -65,7 +65,7 @@ public class Attach : BBCodeControl
         {
             writer.Write(
                 """<i class="fa fa-file"></i>&nbsp;{0} <span class="badge text-bg-warning" role="alert">{1}</span>""",
-                attachment.FileName,
+                this.HtmlEncode(attachment.FileName),
                 this.GetText("ATTACH_NO"));
 
             return;
@@ -134,7 +134,7 @@ public class Attach : BBCodeControl
                 """,
                 BoardInfo.ForumClientFileRoot,
                 attachment.ID,
-                attachment.FileName,
+                this.HtmlEncode(attachment.FileName),
                 this.GetTextFormatted("ATTACHMENTINFO", kb, attachment.Downloads),
                 this.PageBoardContext.PageBoardID);
         }
