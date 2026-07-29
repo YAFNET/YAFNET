@@ -1,6 +1,18 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.2.14
+* [FIXED] Legacy "Clear" password format lets you log in as anyone with any password
+* [FIXED] Account lockout is recorded but never enforced
+* [FIXED] Stored XSS via attachment filename
+* [FIXED] Stored XSS via [url=...] javascript: scheme bypass using an embedded tab
+* [FIXED] Private-message replies leak across users in broadcast threads
+* [FIXED] IDOR on attachments
+* [FIXED] Private message leak
+* [FIXED] PM delete IDOR — no ownership check before deleting a UserPMessage by ID.
+* [FIXED] Stored XSS via scheme bypass in bbcode url
+* bug fixes
+
 # YetAnotherForum.NET v3.2.13
 * bug fixes
 
