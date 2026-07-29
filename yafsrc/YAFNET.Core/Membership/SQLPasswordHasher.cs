@@ -84,7 +84,7 @@ public class SQLPasswordHasher : PasswordHasher<AspNetUsers>
         return string.Equals(
             encryptedPassword,
             passwordHash,
-            StringComparison.CurrentCultureIgnoreCase)
+            StringComparison.OrdinalIgnoreCase)
             ? PasswordVerificationResult.SuccessRehashNeeded
             : PasswordVerificationResult.Failed;
     }

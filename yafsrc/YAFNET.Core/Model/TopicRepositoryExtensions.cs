@@ -1370,7 +1370,7 @@ public static class TopicRepositoryExtensions
         public List<Topic> SimpleList(int startId = 0,
             int limit = 500)
         {
-            return [.. repository.Get(t => t.ID >= limit && t.ID < startId + limit).OrderBy(t => t.ID)];
+            return [.. repository.Get(t => t.ID >= startId && t.ID < startId + limit).OrderBy(t => t.ID)];
         }
 
         /// <summary>

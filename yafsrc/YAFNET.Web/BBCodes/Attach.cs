@@ -68,7 +68,7 @@ public class Attach : BBCodeControl
         if (!PageContext.DownloadAccess)
         {
             stringBuilder.Append(
-                $"""<i class="fa fa-file"></i>&nbsp;{attachment.FileName} <span class="badge text-bg-warning" role="alert">{this.GetText("ATTACH_NO")}</span>""");
+                $"""<i class="fa fa-file"></i>&nbsp;{HtmlEncode(attachment.FileName)} <span class="badge text-bg-warning" role="alert">{this.GetText("ATTACH_NO")}</span>""");
 
             return Task.CompletedTask;
         }
