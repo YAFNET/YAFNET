@@ -6,6 +6,7 @@
 	<CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
     <RootNamespace>YAF</RootNamespace>
 	<CompressionEnabled>false</CompressionEnabled>
+	<TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
   </PropertyGroup>
 
 	<ItemGroup>

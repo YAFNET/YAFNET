@@ -30,23 +30,6 @@ module.exports = function(grunt) {
 					}
 				]
 			},
-			fontAwesome: {
-				files: [
-					// includes files within path
-					{
-						expand: true,
-						src: '**/*.scss',
-						cwd: 'node_modules/@fortawesome/fontawesome-free/scss',
-						dest: 'wwwroot/lib/fontawesome/'
-					},
-					{
-						expand: true,
-						src: '**/*.*',
-						cwd: 'node_modules/@fortawesome/fontawesome-free/webfonts',
-						dest: 'wwwroot/webfonts/'
-					}
-				]
-			},
 			bootswatchThemes: {
 				files: [
 					// includes files within path
@@ -883,11 +866,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('updateBootstrap',
 		[
 			'copy:bootstrap'
-		]);
-
-	grunt.registerTask('updateFontAwesome',
-		[
-			'copy:fontAwesome'
 		]);
 
 	grunt.registerTask('updateBootswatchThemes',
