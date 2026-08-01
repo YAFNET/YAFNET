@@ -76,7 +76,6 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\ForumAdminExtensionsDnn.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\prism.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\choices\**\*.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\fontawesome\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\forum\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\editor\autoCloseTags.js" />
 	  <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\editor\mentions.js" />

@@ -41,22 +41,6 @@ module.exports = function (grunt) {
                     { expand: true, src: '**/*.scss', cwd: 'node_modules/bootswatch/dist', dest: 'Content/Themes/' }
                 ]
             },
-            fontAwesome: {
-                files: [
-                    {
-                        expand: true,
-                        src: '**/*.scss',
-                        cwd: 'node_modules/@fortawesome/fontawesome-free/scss',
-                        dest: 'Content/fontawesome/'
-                    },
-                    {
-                        expand: true,
-                        src: '**/*.*',
-                        cwd: 'node_modules/@fortawesome/fontawesome-free/webfonts',
-                        dest: 'Content/webfonts/'
-                    }
-                ]
-            },
             flagIcons: {
                 files: [
                     {
@@ -91,25 +75,6 @@ module.exports = function (grunt) {
         },
 
         replace: {
-            fontAwesome: {
-                options: {
-                    usePrefix: false,
-                    patterns: [
-                        {
-                            match: '../webfonts',
-                            replacement: '../Content/webfonts'
-                        }
-                    ]
-                },
-                files: [
-                    {
-                        expand: true,
-                        flatten: true,
-                        src: ['Content/fontawesome/_variables.scss'],
-                        dest: 'Content/fontawesome/'
-                    }
-                ]
-            },
             flagIcons: {
                 options: {
                     usePrefix: false,
@@ -593,11 +558,6 @@ module.exports = function (grunt) {
     grunt.registerTask('updateBootstrap',
         [
             'copy:bootstrap', 'file_append:bootstrap'
-        ]);
-
-    grunt.registerTask('updateFontAwesome',
-        [
-            'copy:fontAwesome','replace:fontAwesome'
         ]);
 
     grunt.registerTask('updateBootswatchThemes',
