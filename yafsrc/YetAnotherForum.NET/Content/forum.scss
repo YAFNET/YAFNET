@@ -1,8 +1,13 @@
-﻿@import "prism";
+﻿@use "../node_modules/@fortawesome/fontawesome-free/scss/variables" with ( $font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts" );
+@use "../node_modules/@fortawesome/fontawesome-free/scss/fontawesome";
+@use "../node_modules/@fortawesome/fontawesome-free/scss/solid";
+@use "../node_modules/@fortawesome/fontawesome-free/scss/regular";
+@use "../node_modules/@fortawesome/fontawesome-free/scss/brands";
+
+@import "prism";
 @import "../node_modules/@w8tcha/bootstrap-notify/dist/bootstrap-notify";
 @import "../node_modules/@w8tcha/dark-editable/dist/dark-editable";
 
-@import "fontawesome/fontawesome-all";
 @import "flag-icons/flag-icons.scss";
 
 // Forum imports
