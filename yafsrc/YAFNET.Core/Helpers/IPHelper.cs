@@ -105,62 +105,68 @@ public static class IPHelper
         return ipAddressAsString;
     }
 
-    /// <summary>
-    /// Gets PageUser IP considering X-Forwarded-For and X-Real-IP HTTP headers
-    /// </summary>
     /// <param name="httpRequest">The HTTP request.</param>
-    /// <returns>
-    /// Client IP
-    /// </returns>
-    /// <see cref="http://wiki.nginx.org/HttpRealipModule" />
-    /// <see cref="http://en.wikipedia.org/wiki/X-Forwarded-For" />
-    /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
-    public static string GetUserRealIPAddress(this HttpRequest httpRequest)
+    extension(HttpRequest httpRequest)
     {
-        ArgumentNullException.ThrowIfNull(httpRequest);
+        /// <summary>
+        /// Gets PageUser IP considering X-Forwarded-For and X-Real-IP HTTP headers
+        /// </summary>
+        /// <returns>
+        /// Client IP
+        /// </returns>
+        /// <see cref="http://wiki.nginx.org/HttpRealipModule" />
+        /// <see cref="http://en.wikipedia.org/wiki/X-Forwarded-For" />
+        /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
+        public string GetUserRealIPAddress()
+        {
+            ArgumentNullException.ThrowIfNull(httpRequest);
 
-        return httpRequest.HttpContext.GetUserRealIPAddress();
+            return httpRequest.HttpContext.GetUserRealIPAddress();
+        }
     }
 
-    /// <summary>
-    /// Gets PageUser IP considering X-Forwarded-For and X-Real-IP HTTP headers
-    /// </summary>
-    /// <returns>
-    /// Client IP
-    /// </returns>
-    /// <see cref="http://wiki.nginx.org/HttpRealipModule" />
-    /// <see cref="http://en.wikipedia.org/wiki/X-Forwarded-For" />
-    /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
-    public static string GetUserRealIPAddress(this HttpContext httpContext)
+    extension(HttpContext httpContext)
     {
-        ArgumentNullException.ThrowIfNull(httpContext);
-
-        IPAddress ipAddress;
-        var ipString = httpContext.Request.Headers["X-Forwarded-For"].ToString();
-
-        if (ipString.IsSet())
+        /// <summary>
+        /// Gets PageUser IP considering X-Forwarded-For and X-Real-IP HTTP headers
+        /// </summary>
+        /// <returns>
+        /// Client IP
+        /// </returns>
+        /// <see cref="http://wiki.nginx.org/HttpRealipModule" />
+        /// <see cref="http://en.wikipedia.org/wiki/X-Forwarded-For" />
+        /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
+        public string GetUserRealIPAddress()
         {
-            var ipAddresses = ipString.Split(',', StringSplitOptions.TrimEntries);
-            var firstNonLocalAddress =
-                Array.Find(ipAddresses,
-                    ip => IPAddress.TryParse(ip, out ipAddress) && ipAddress.IsRoutable());
+            ArgumentNullException.ThrowIfNull(httpContext);
 
-            if (firstNonLocalAddress.IsSet())
+            IPAddress ipAddress;
+            var ipString = httpContext.Request.Headers["X-Forwarded-For"].ToString();
+
+            if (ipString.IsSet())
             {
-                return firstNonLocalAddress;
+                var ipAddresses = ipString.Split(',', StringSplitOptions.TrimEntries);
+                var firstNonLocalAddress =
+                    Array.Find(ipAddresses,
+                        ip => IPAddress.TryParse(ip, out ipAddress) && ipAddress.IsRoutable());
+
+                if (firstNonLocalAddress.IsSet())
+                {
+                    return firstNonLocalAddress;
+                }
             }
+
+            ipString = httpContext.Request.Headers["X-Real-IP"].ToString();
+
+            if (ipString.IsNotSet())
+            {
+                return httpContext.Connection.RemoteIpAddress.ToString();
+            }
+
+            return IPAddress.TryParse((ipString.Split(',', StringSplitOptions.TrimEntries).LastOrDefault() ?? string.Empty), out ipAddress)
+                ? ipAddress.ToString()
+                : httpContext.Connection.RemoteIpAddress.ToString();
         }
-
-        ipString = httpContext.Request.Headers["X-Real-IP"].ToString();
-
-        if (ipString.IsNotSet())
-        {
-            return httpContext.Connection.RemoteIpAddress.ToString();
-        }
-
-        return IPAddress.TryParse((ipString.Split(',', StringSplitOptions.TrimEntries).LastOrDefault() ?? string.Empty), out ipAddress)
-                   ? ipString
-                   : httpContext.Connection.RemoteIpAddress.ToString();
     }
 
     /// <summary>

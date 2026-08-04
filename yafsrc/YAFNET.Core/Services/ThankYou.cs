@@ -182,7 +182,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
         thanks.ForEach(
             dr =>
                 {
-                    var name = HttpUtility.HtmlEncode(dr.Item2.DisplayOrUserName());
+                    var name = new UnicodeEncoder().XSSEncode(dr.Item2.DisplayOrUserName());
 
                     var title = this.Get<BoardSettings>().ShowThanksDate
                         ? $"{name} {this.Get<ILocalization>().GetTextFormatted(

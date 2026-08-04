@@ -54,7 +54,7 @@
 		</Exec>
 		<Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
 		<Message Importance="high" Text="WARN Make sure you have restored all dependencies using 'npm' before you build this project." />
-		<Exec WorkingDirectory="$(ProjectDir)" Command="node_modules\.bin\copy-files-from-to" />
+		<Exec WorkingDirectory="$(ProjectDir)" Command="npm run copy" ContinueOnError="true" />
 	</Target>
 
   <ItemGroup>
@@ -80,9 +80,9 @@
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
-	<PackageReference Include="YAFNET.Core" Version="4.0.6" />
-	<PackageReference Include="YAFNET.Types" Version="4.0.6" />
-	<PackageReference Include="YAFNET.Web" Version="4.0.6" />
+	<PackageReference Include="YAFNET.Core" Version="4.0.7" />
+	<PackageReference Include="YAFNET.Types" Version="4.0.7" />
+	<PackageReference Include="YAFNET.Web" Version="4.0.7" />
 	<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" version="10.0.10" />
   </ItemGroup>
 

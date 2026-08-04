@@ -102,7 +102,8 @@ public class EventLogModel : AdminPage
 
             try
             {
-                var addressLink = string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, json.UserIP);
+                var addressLink = this.HtmlEncode(
+                    string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, (string)json.UserIP));
 
                 var textBgColor = this.PageBoardContext.PageUser.DarkMode ? "text-bg-dark" : "text-bg-light";
 

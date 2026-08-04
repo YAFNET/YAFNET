@@ -110,12 +110,14 @@ public class AlbumController : ForumBaseController
                 var url = this.Get<IUrlHelper>()
                     .Action("GetImagePreview", "Albums", new {imageId = image.ID});
 
+                    var caption = this.HtmlEncode(image.Caption.IsSet() ? image.Caption : image.FileName);
+
                     var attachment = new AttachmentItem
                                          {
                                              FileName = image.FileName,
                                              OnClick = $"setStyle('albumimg', '{image.ID}')",
                                              IconImage =
-                                                 $"""<img src="{url}" alt="{(image.Caption.IsSet() ? image.Caption : image.FileName)}" title="{(image.Caption.IsSet() ? image.Caption : image.FileName)}" class="img-fluid img-thumbnail me-1 attachments-preview" />""",
+                                                 $"""<img src="{url}" alt="{caption}" title="{caption}" class="img-fluid img-thumbnail me-1 attachments-preview" />""",
                                              DataURL = url
                                          };
 

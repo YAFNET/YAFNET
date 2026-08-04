@@ -108,7 +108,7 @@ public class FileUpload : ForumBaseController
             if (fileName.IsSet())
             {
                 // Check for Illegal Chars
-                if (FileHelper.ValidateFileName(fileName))
+                if (!FileHelper.ValidateFileName(fileName))
                 {
                     fileName = FileHelper.CleanFileName(fileName);
                 }

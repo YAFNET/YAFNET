@@ -125,7 +125,7 @@ public class Attach : BBCodeControl
                                          <span>{2}</span>
                 """,
                 this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = true }),
-                attachment.FileName,
+                HtmlEncode(attachment.FileName),
                 this.GetTextFormatted("ATTACHMENTINFO", kb, attachment.Downloads));
         }
 

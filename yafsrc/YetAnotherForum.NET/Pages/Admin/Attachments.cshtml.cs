@@ -118,7 +118,7 @@ public class AttachmentsModel : AdminPage
             new { attachmentId = attach.ID, editor = true });
 
         return isImage
-                   ? $"<img src=\"{url}\" alt=\"{fileName}\" title=\"{fileName}\" data-url=\"{url}\" style=\"max-width:30px\" class=\"me-2 img-thumbnail attachments-preview\" />"
+                   ? $"<img src=\"{url}\" alt=\"{this.HtmlEncode(fileName)}\" title=\"{this.HtmlEncode(fileName)}\" data-url=\"{url}\" style=\"max-width:30px\" class=\"me-2 img-thumbnail attachments-preview\" />"
                    : "<i class=\"far fa-file-alt attachment-icon me-2\"></i>";
     }
 
