@@ -23,7 +23,7 @@
  */
 
 namespace YAF.Web.BBCodes;
-.
+
 /// <summary>
 /// The Attachment BB Code Module.
 /// </summary>
