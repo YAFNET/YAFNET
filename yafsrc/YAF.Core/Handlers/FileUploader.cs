@@ -153,17 +153,7 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
 
                 var extension = Path.GetExtension(fileName).Replace(".", string.Empty).ToLower();
 
-                if (!allowedExtensions.Contains(extension))
-                {
-                    statuses.Add(
-                        new FilesUploadStatus {
-                                                  error = "Invalid File"
-                                              });
-
-                    return;
-                }
-
-                if (!MimeTypes.FileMatchContentType(file))
+                if (!allowedExtensions.Contains(extension) || !MimeTypes.FileMatchContentType(file))
                 {
                     statuses.Add(
                         new FilesUploadStatus {
@@ -176,7 +166,7 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
                 if (fileName.IsSet())
                 {
                     // Check for Illegal Chars
-                    if (FileHelper.ValidateFileName(fileName))
+                    if (!FileHelper.ValidateFileName(fileName))
                     {
                         fileName = FileHelper.CleanFileName(fileName);
                     }
@@ -193,7 +183,7 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
 
                 if (fileName.Length > 220)
                 {
-                    fileName = fileName.Substring(fileName.Length - 220);
+                    fileName = fileName[^220..];
                 }
 
                 // verify the size of the attachment

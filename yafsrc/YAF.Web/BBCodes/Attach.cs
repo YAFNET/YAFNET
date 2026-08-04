@@ -23,7 +23,7 @@
  */
 
 namespace YAF.Web.BBCodes;
-
+.
 /// <summary>
 /// The Attachment BB Code Module.
 /// </summary>
@@ -33,7 +33,7 @@ public class Attach : BBCodeControl
     /// Render The Album Image as Link with Image
     /// </summary>
     /// <param name="writer">The writer.</param>
-    override protected void Render(HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         var attachId = HtmlTagHelper.StripHtml(this.Parameters["inner"]);
 

@@ -113,7 +113,7 @@ public class UnicodeEncoder
 
         // All relevant Chars to prevent XSS
         this.htmlSimpleCodes.Add(new HtmlCode("&quot;", "\""));
-        this.htmlSimpleCodes.Add(new HtmlCode("&#39;", "\\"));
+        this.htmlSimpleCodes.Add(new HtmlCode("&#39;", "'"));
         this.htmlSimpleCodes.Add(new HtmlCode("&lt;", "<"));
         this.htmlSimpleCodes.Add(new HtmlCode("&gt;", ">"));
         this.htmlSimpleCodes.Add(new HtmlCode("&#255;", "ÿ"));

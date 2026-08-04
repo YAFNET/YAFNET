@@ -46,7 +46,7 @@
                     <div class="d-flex w-100 justify-content-between text-break">
                         <h5 class="mb-1">
                             <%# this.GetPreviewImage(((Tuple<User,Attachment>)Container.DataItem).Item2) %>
-                            <%# ((Tuple<User,Attachment>)Container.DataItem).Item2.FileName  %>
+                            <%# this.HtmlEncode(((Tuple<User,Attachment>)Container.DataItem).Item2.FileName)  %>
                         </h5>
                         <small class="d-none d-md-block">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="USAGES"></YAF:LocalizedLabel>

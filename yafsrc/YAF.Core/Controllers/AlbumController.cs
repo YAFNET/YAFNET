@@ -121,32 +121,33 @@ public class AlbumController : ApiController, IHaveServiceLocator
 
         var images = new List<AttachmentItem>();
 
-        albumImages.ForEach(
-            image =>
-                {
-                    var url = $"{BoardInfo.ForumClientFileRoot}resource.ashx?imgprv={image.ID}";
+        albumImages.ForEach(image =>
+        {
+            var url = $"{BoardInfo.ForumClientFileRoot}resource.ashx?imgprv={image.ID}";
 
-                    var attachment = new AttachmentItem
-                                         {
-                                             FileName = image.FileName,
-                                             OnClick = $"setStyle('albumimg', '{image.ID}')", IconImage =
-                                                 $"""<img src="{url}" alt="{(image.Caption.IsSet() ? image.Caption : image.FileName)}" title="{(image.Caption.IsSet() ? image.Caption : image.FileName)}" class="img-fluid img-thumbnail me-1 attachments-preview" />""",
-                                             DataURL = url
-                                         };
+            var caption = image.Caption.IsSet() ? image.Caption : HttpUtility.HtmlEncode(image.FileName);
 
-                    images.Add(attachment);
-                });
+            var attachment = new AttachmentItem
+            {
+                FileName = HttpUtility.HtmlEncode(image.FileName),
+                OnClick = $"setStyle('albumimg', '{image.ID}')", IconImage =
+                    $"""<img src="{url}" alt="{caption}" title="{caption}" class="img-fluid img-thumbnail me-1 attachments-preview" />""",
+                DataURL = url
+            };
+
+            images.Add(attachment);
+        });
 
         return this.Ok(
             new GridDataSet
-                {
-                    PageNumber = pageNumber,
-                    TotalRecords =
-                        albumImages.Any()
-                            ? this.GetRepository<UserAlbumImage>().GetUserAlbumImageCount(userId)
-                            : 0,
-                    PageSize = pageSize,
-                    AttachmentList = images
-                });
+            {
+                PageNumber = pageNumber,
+                TotalRecords =
+                    albumImages.Any()
+                        ? this.GetRepository<UserAlbumImage>().GetUserAlbumImageCount(userId)
+                        : 0,
+                PageSize = pageSize,
+                AttachmentList = images
+            });
     }
 }

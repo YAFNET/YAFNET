@@ -223,7 +223,7 @@ public partial class SpamLog : AdminPage
 
             try
             {
-                var addressLink = string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, json.UserIP);
+                var addressLink = this.HtmlEncode(string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, json.UserIP));
 
                 var exceptionSource = ((string)json.ExceptionSource).IsSet() ?
                     $"""<span class="badge text-light-emphasis bg-light-subtle m-1"><i class="fa-solid fa-code me-1"></i>{this.HtmlEncode((string)json.ExceptionSource)}</span>"""

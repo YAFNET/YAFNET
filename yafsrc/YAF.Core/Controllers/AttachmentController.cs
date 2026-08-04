@@ -71,7 +71,7 @@ public class AttachmentController : ApiController, IHaveServiceLocator
                     var url =
                         $"{BoardInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&editor=true";
 
-                    var description = $"{attach.FileName} ({attach.Bytes / 1024} kb)";
+                    var description = $"{HttpUtility.HtmlEncode(attach.FileName)} ({attach.Bytes / 1024} kb)";
 
                     var iconImage = attach.FileName.IsImageName()
                                         ? $@"<img src=""{url}"" alt=""{description}"" title=""{description}"" class=""img-fluid img-thumbnail me-1 attachments-preview"" />"
