@@ -1,0 +1,117 @@
+name: Release YAF.NET v3.2.x
+
+permissions:
+  contents: write
+
+on:
+  workflow_run:
+    workflows: ["YAF.NET v3.2.x (.NET Framework v4.8.1)"]
+    types:
+      - completed
+
+jobs:
+  check-version:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'netfx'
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      should-release: ${{ steps.check-tag.outputs.should-release }}
+    steps:
+      - name: Checkout netfx
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          sparse-checkout: |
+            yafsrc/GlobalAssemblyInfo.cs
+
+      - name: Read version from GlobalAssemblyInfo.cs
+        id: version
+        run: |
+          version=$(grep -oP 'AssemblyInformationalVersion\("\K[^"]+' yafsrc/GlobalAssemblyInfo.cs)
+          if [ -z "$version" ]; then
+            echo "Could not find AssemblyInformationalVersion in yafsrc/GlobalAssemblyInfo.cs" >&2
+            exit 1
+          fi
+          echo "Found version: $version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Check version is v3.x and release does not exist yet
+        id: check-tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version="${{ steps.version.outputs.version }}"
+
+          if [[ "$version" != 3.* ]]; then
+            echo "Version $version is not a 3.x.x release, skipping."
+            echo "should-release=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if gh release view "v$version" --repo "${{ github.repository }}" >/dev/null 2>&1; then
+            echo "Release v$version already exists, skipping."
+            echo "should-release=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Release v$version does not exist yet, proceeding."
+            echo "should-release=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  release:
+    needs: check-version
+    if: needs.check-version.outputs.should-release == 'true'
+    runs-on: windows-latest
+    steps:
+      - name: Checkout netfx
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v3
+        with:
+          vs-version: '18'
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build release packages
+        working-directory: ./yafsrc
+        run: .\BuildPackages.bat
+
+      - name: Extract changelog section
+        id: changelog
+        shell: pwsh
+        run: |
+          $version = "${{ needs.check-version.outputs.version }}"
+          $lines = Get-Content CHANGES.md
+
+          $startMatch = $lines | Select-String -Pattern "^# YetAnotherForum\.NET v$([regex]::Escape($version))$"
+          if (-not $startMatch) {
+            throw "Could not find a CHANGES.md section for v$version"
+          }
+          $startIdx = $startMatch[0].LineNumber - 1
+          $rest = $lines[$startIdx..($lines.Length - 1)]
+
+          $nextMatch = $rest | Select-Object -Skip 1 | Select-String -Pattern "^# YetAnotherForum\.NET v"
+          if ($nextMatch) {
+            $endIdx = $nextMatch[0].LineNumber
+            $section = $rest[0..($endIdx - 1)]
+          } else {
+            $section = $rest
+          }
+
+          $section | Set-Content -Path RELEASE_NOTES.md
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ needs.check-version.outputs.version }}
+          name: v${{ needs.check-version.outputs.version }}
+          target_commitish: ${{ github.event.workflow_run.head_sha }}
+          body_path: RELEASE_NOTES.md
+          draft: true
+          prerelease: false
+          make_latest: 'false'
+          files: yafsrc/deploy/*.zip
