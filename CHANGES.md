@@ -1,6 +1,9 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.2.15
+* [GHSA-phc5-m6cm-5c9f] security fix
+
 # YetAnotherForum.NET v3.2.14
 * [FIXED] Legacy "Clear" password format lets you log in as anyone with any password
 * [FIXED] Account lockout is recorded but never enforced
