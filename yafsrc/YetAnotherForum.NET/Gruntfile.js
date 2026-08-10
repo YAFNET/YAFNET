@@ -12,7 +12,6 @@ module.exports = function(grunt) {
 	require('@lodder/time-grunt')(grunt);
 	// CONFIGURATION
 	grunt.initConfig({
-		secret: grunt.file.readJSON('../secret.json'),
 		pkg: grunt.file.readJSON('package.json'),
 
 		webpack: {
