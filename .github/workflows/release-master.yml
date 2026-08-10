@@ -92,6 +92,15 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: latest
+
+      - name: Install Node Packages
+        working-directory: ./yafsrc/YetAnotherForum.NET
+        run: npm install
+
       - name: Publish ${{ matrix.name }}
         shell: pwsh
         run: |
