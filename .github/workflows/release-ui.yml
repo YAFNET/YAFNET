@@ -20,6 +20,15 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '10.0.x'
+      
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: latest
+
+      - name: Install Node Packages
+        working-directory: ./yafsrc/YAFNET.UI/YAFNET.UI.Chat
+        run: npm install
 
       - name: Pack NuGet packages
         shell: pwsh
