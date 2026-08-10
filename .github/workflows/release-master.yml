@@ -144,6 +144,73 @@ jobs:
           path: yafsrc/deploy/*.zip
           retention-days: 5
 
+  publish-nuget:
+    needs: check-version
+    if: needs.check-version.outputs.should-release == 'true'
+    runs-on: windows-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Verify nuspec version matches package.json
+        shell: pwsh
+        run: |
+          $expected = "${{ needs.check-version.outputs.version }}"
+          $nuspecs = Get-ChildItem -Path yafsrc -Recurse -Filter "YAFNET.*.nuspec"
+          foreach ($file in $nuspecs) {
+            $content = Get-Content $file.FullName -Raw
+            if ($content -notmatch "<version>$([regex]::Escape($expected))</version>") {
+              throw "Version mismatch in $($file.FullName): expected $expected. Run 'grunt updateVersionNumber' and commit before releasing."
+            }
+          }
+
+      - name: Pack NuGet packages
+        shell: pwsh
+        run: |
+          $out = "yafsrc/deploy/nuget"
+          New-Item -ItemType Directory -Force -Path $out | Out-Null
+
+          $projects = @(
+            "yafsrc/YAFNET.Types/YAFNET.Types.csproj",
+            "yafsrc/YAFNET.Configuration/YAFNET.Configuration.csproj",
+            "yafsrc/YAFNET.Core/YAFNET.Core.csproj",
+            "yafsrc/YAFNET.Web/YAFNET.Web.csproj",
+            "yafsrc/YAFNET.Data/YAFNET.Data.MySql/YAFNET.Data.MySql.csproj",
+            "yafsrc/YAFNET.Data/YAFNET.Data.PostgreSQL/YAFNET.Data.PostgreSQL.csproj",
+            "yafsrc/YAFNET.Data/YAFNET.Data.Sqlite/YAFNET.Data.Sqlite.csproj",
+            "yafsrc/YAFNET.Data/YAFNET.Data.SqlServer/YAFNET.Data.SqlServer.csproj"
+          )
+
+          foreach ($proj in $projects) {
+            dotnet pack $proj -c Release -o $out
+            if ($LASTEXITCODE -ne 0) { throw "dotnet pack failed for $proj" }
+          }
+
+      - name: NuGet login (OIDC -> temporary API key)
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: Push packages to NuGet.org
+        shell: pwsh
+        run: |
+          Get-ChildItem "yafsrc/deploy/nuget" -Filter *.nupkg | ForEach-Object {
+            Write-Host "Pushing $($_.Name)"
+            dotnet nuget push $_.FullName --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+            if ($LASTEXITCODE -ne 0) { throw "dotnet nuget push failed for $($_.Name)" }
+          }
+
   create-release:
     needs: [check-version, build-zips]
     runs-on: ubuntu-latest

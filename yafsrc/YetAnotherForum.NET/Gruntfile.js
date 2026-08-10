@@ -65,58 +65,6 @@ module.exports = function(grunt) {
 						dest: 'wwwroot/js/sceditor/'
 					}
 				]
-			},
-			appSettingsMySql: {
-				files: [
-					{
-						expand: true,
-						src: 'appsettings-MySql.json',
-						cwd: '',
-						dest: 'bin/Release/net10.0/publish/',
-						rename: function(path) {
-							return path + 'appsettings.json';
-						}
-					}
-				]
-			},
-			appSettingsPostgreSQL: {
-				files: [
-					{
-						expand: true,
-						src: 'appsettings-PostgreSQL.json',
-						cwd: '',
-						dest: 'bin/Release/net10.0/publish/',
-						rename: function(path) {
-							return path + 'appsettings.json';
-						}
-					}
-				]
-			},
-			appSettingsSqlite: {
-				files: [
-					{
-						expand: true,
-						src: 'appsettings-Sqlite.json',
-						cwd: '',
-						dest: 'bin/Release/net10.0/publish/',
-						rename: function(path) {
-							return path + 'appsettings.json';
-						}
-					}
-				]
-			},
-			appSettingsSqlServer: {
-				files: [
-					{
-						expand: true,
-						src: 'appsettings-SqlServer.json',
-						cwd: '',
-						dest: 'bin/Release/net10.0/publish/',
-						rename: function(path) {
-							return path + 'appsettings.json';
-						}
-					}
-				]
 			}
 		},
 
@@ -388,113 +336,6 @@ module.exports = function(grunt) {
 					'docker push yafnet/yafnet:latest-sqlite '
 				].join('&&')
 			},
-			compileLanguages: {
-				command: [
-					'@echo off',
-					'cd ..\\deploy\\ ',
-					'..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\bin\\Release\\net10.0\\publish\\wwwroot\\languages\\ -minify'
-				].join('&&')
-			},
-			deleteOldNuGetPackages: {
-				command: [
-					'@echo off',
-					'cd ..\\deploy\\ ',
-					'if exist *.nupkg (del *.nupkg) ',
-					'cd ..\\ ',
-					'del YAFNET.Types\\bin\\Release\\*.nupkg ',
-					'del YAFNET.Configuration\\bin\\Release\\*.nupkg ',
-					'del YAFNET.Core\\bin\\Release\\*.nupkg ',
-					'del YAFNET.Web\\bin\\Release\\*.nupkg ',
-					'del YAFNET.Data\\YAFNET.Data.SqlServer\\bin\\Release\\*.nupkg ',
-					'del YAFNET.Data\\YAFNET.Data.MySql\\bin\\Release\\*.nupkg ',
-					'del YAFNET.Data\\YAFNET.Data.PostgreSQL\\bin\\Release\\*.nupkg ',
-					'del YAFNET.Data\\YAFNET.Data.Sqlite\\bin\\Release\\*.nupkg ',
-					'del YAFNET.UI\\YAFNET.RazorPages\\bin\\Release\\*.nupkg ',
-					'del YAFNET.UI\\YAFNET.UI.Chat\\bin\\Release\\*.nupkg '
-				].join('&&')
-			},
-			createNuGetPackages: {
-				command: [
-					'cd ..\\ ',
-					'dotnet pack YAFNET.Types/YAFNET.Types.csproj /p:Configuration=Release ',
-					'dotnet pack YAFNET.Configuration/YAFNET.Configuration.csproj /p:Configuration=Release ',
-					'dotnet pack YAFNET.Core/YAFNET.Core.csproj /p:Configuration=Release ',
-					'dotnet pack YAFNET.Web/YAFNET.Web.csproj /p:Configuration=Release ',
-					'dotnet pack YAFNET.Data/YAFNET.Data.SqlServer/YAFNET.Data.SqlServer.csproj /p:Configuration=Release ',
-					'dotnet pack YAFNET.Data/YAFNET.Data.MySql/YAFNET.Data.MySql.csproj /p:Configuration=Release ',
-					'dotnet pack YAFNET.Data/YAFNET.Data.PostgreSQL/YAFNET.Data.PostgreSQL.csproj /p:Configuration=Release ',
-					'dotnet pack YAFNET.Data/YAFNET.Data.Sqlite/YAFNET.Data.Sqlite.csproj /p:Configuration=Release '
-				].join('&&')
-			},
-			createNuGetUIPackages: {
-				command: [
-					'cd ..\\ ',
-					'dotnet pack YAFNET.UI/YAFNET.RazorPages/YAFNET.RazorPages.csproj /p:Configuration=Release ',
-					'dotnet pack YAFNET.UI/YAFNET.UI.Chat/YAFNET.UI.Chat.csproj /p:Configuration=Release '
-				].join('&&')
-			},
-			copyNuGetPackages: {
-				command: [
-					'cd ..\\ ',
-					'COPY YAFNET.Types\\bin\\Release\\*.nupkg deploy\\ ',
-					'COPY YAFNET.Configuration\\bin\\Release\\*.nupkg deploy\\ ',
-					'COPY YAFNET.Core\\bin\\Release\\*.nupkg deploy\\ ',
-					'COPY YAFNET.Web\\bin\\Release\\*.nupkg deploy\\ ',
-					'COPY YAFNET.Data\\YAFNET.Data.SqlServer\\bin\\Release\\*.nupkg deploy\\ ',
-					'COPY YAFNET.Data\\YAFNET.Data.MySql\\bin\\Release\\*.nupkg deploy\\ ',
-					'COPY YAFNET.Data\\YAFNET.Data.PostgreSQL\\bin\\Release\\*.nupkg deploy\\ ',
-					'COPY YAFNET.Data\\YAFNET.Data.Sqlite\\bin\\Release\\*.nupkg deploy\\ '
-				].join('&&')
-			},
-			copyNuGetUIPackages: {
-				command: [
-					'cd ..\\ ',
-					'COPY YAFNET.UI\\YAFNET.RazorPages\\bin\\Release\\*.nupkg deploy\\ ',
-					'COPY YAFNET.UI\\YAFNET.UI.Chat\\bin\\Release\\*.nupkg deploy\\ '
-				].join('&&')
-			},
-			deletePublish: {
-				command: [
-					'@echo off',
-					'if exist bin\\Release\\net10.0\\publish\\ (rmdir bin\\Release\\net10.0\\publish\\ /s /q)'
-				].join('&&')
-			},
-			deleteBeforeDeploy: {
-				command: [
-					'@echo off',
-					'del bin\\Release\\net10.0\\publish\\appsettings-MySql.json ',
-					'del bin\\Release\\net10.0\\publish\\appsettings-PostgreSQL.json ',
-					'del bin\\Release\\net10.0\\publish\\appsettings-Sqlite.json ',
-					'del bin\\Release\\net10.0\\publish\\appsettings-SqlServer.json ',
-					'del bin\\Release\\net10.0\\publish\\package.json ',
-					'del bin\\Release\\net10.0\\publish\\tsconfig.json ',
-					'rmdir bin\\Release\\net10.0\\publish\\wwwroot\\uploads\\ /s /q '
-				].join('&&')
-			},
-			deploySqlServer: {
-				command: [
-					'@echo off',
-					'dotnet publish /p:Configuration=Release ../YAF.NET-SqlServer.slnx'
-				].join('&&')
-			},
-			deployMySql: {
-				command: [
-					'@echo off',
-					'dotnet publish /p:Configuration=Release ../YAF.NET-MySql.slnx'
-				].join('&&')
-			},
-			deployPostgreSQL: {
-				command: [
-					'@echo off',
-					'dotnet publish /p:Configuration=Release ../YAF.NET-PostgreSQL.slnx'
-				].join('&&')
-			},
-			deploySqlite: {
-				command: [
-					'@echo off',
-					'dotnet publish /p:Configuration=Release ../YAF.NET-Sqlite.slnx'
-				].join('&&')
-			},
 			emailTemplates: {
 				command: [
 					'@echo off',
@@ -611,46 +452,6 @@ module.exports = function(grunt) {
 					'echo Build zephyr theme digest email template',
 					'BootstrapEmail.Cli -f ../../YetAnotherForum.NET/wwwroot/Resources/DigestTopicTemplate.html -d ../../YetAnotherForum.NET/wwwroot/css/themes/zephyr/DigestTopicTemplate.html -c ../../YetAnotherForum.NET/wwwroot/lib/themes/zephyr/bootstrap_email-digest.json',
 					'rmdir .sass-cache /s /q'
-				].join('&&')
-			},
-			publishNuGetPackages: {
-				command: [
-					'@echo off',
-					'cd ..\\deploy\\',
-					'echo publish Package YAFNET.Types to NuGet',
-					'dotnet nuget push "YAFNET.Types.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"',
-					'echo publish Package YAFNET.Configuration to NuGet',
-					'dotnet nuget push "YAFNET.Configuration.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"',
-					'echo publish Package YAFNET.Web to NuGet',
-					'dotnet nuget push "YAFNET.Web.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"',
-					'echo publish Package YAFNET.Core to NuGet',
-					'dotnet nuget push "YAFNET.Core.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"',
-					'echo publish Package YAFNET.Data.MySql to NuGet',
-					'dotnet nuget push "YAFNET.Data.MySql.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"',
-					'echo publish Package YAFNET.Data.PostgreSQL to NuGet',
-					'dotnet nuget push "YAFNET.Data.PostgreSQL.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"',
-					'echo publish Package YAFNET.Data.Sqlite to NuGet',
-					'dotnet nuget push "YAFNET.Data.Sqlite.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"',
-					'echo publish Package YAFNET.Data.SqlServer to NuGet',
-					'dotnet nuget push "YAFNET.Data.SqlServer.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"'
-				].join('&&')
-			},
-			publishNuGetUIPackages: {
-				command: [
-					'@echo off',
-					'cd ..\\deploy\\',
-					'echo publish Package YAFNET.RazorPages to NuGet',
-					'dotnet nuget push "YAFNET.RazorPages.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"',
-					'echo publish Package YAFNET.UI.Chat to NuGet',
-					'dotnet nuget push "YAFNET.UI.Chat.<%= pkg.versionNuget %>.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "<%= secret.api %>"'
-				].join('&&')
-			},
-			publishToGitHub: {
-				command: [
-					'@echo off',
-					'cd ..\\Tools\\GitHubReleaser\\bin\\Release\\net10.0',
-					'echo publish Packages to GitHub.com',
-					'GitHubReleaser YAFNET.json'
 				].join('&&')
 			}
 		},
@@ -822,28 +623,6 @@ module.exports = function(grunt) {
 						'wwwroot/css/themes/cerulean/bootstrap-forum.min.css'
 				}
 			}
-		},
-		zip: {
-			"YAF-SqlServer-Deploy": {
-				cwd: 'bin/Release/net10.0/publish/',
-				src: ['bin/Release/net10.0/publish/**/*'],
-				dest: '../deploy/YAF.SqlSever-v<%= pkg.version %>.zip'
-			},
-			"YAF-MySql-Deploy": {
-				cwd: 'bin/Release/net10.0/publish/',
-				src: ['bin/Release/net10.0/publish/**/*'],
-				dest: '../deploy/YAF.MySql-v<%= pkg.version %>.zip'
-			},
-			"YAF-PostgreSQL-Deploy": {
-				cwd: 'bin/Release/net10.0/publish/',
-				src: ['bin/Release/net10.0/publish/**/*'],
-				dest: '../deploy/YAF.PostgreSQL-v<%= pkg.version %>.zip'
-			},
-			"YAF-Sqlite-Deploy": {
-				cwd: 'bin/Release/net10.0/publish/',
-				src: ['bin/Release/net10.0/publish/**/*'],
-				dest: '../deploy/YAF.Sqlite-v<%= pkg.version %>.zip'
-			}
 		}
 	});
 
@@ -890,63 +669,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('css',
 		[
 			'sass', 'postcss', 'cssmin'
-		]);
-
-	grunt.registerTask('deploy-SqlServer',
-		[
-			'shell:deletePublish', 'shell:deploySqlServer', 'shell:compileLanguages', 'copy:appSettingsSqlServer',
-			'shell:deleteBeforeDeploy',
-			'zip:YAF-SqlServer-Deploy'
-		]);
-
-	grunt.registerTask('deploy-MySql',
-		[
-			'shell:deletePublish', 'shell:deployMySql', 'shell:compileLanguages', 'copy:appSettingsMySql',
-			'shell:deleteBeforeDeploy',
-			'zip:YAF-MySql-Deploy'
-		]);
-
-	grunt.registerTask('deploy-PostgreSQL',
-		[
-			'shell:deletePublish', 'shell:deployPostgreSQL', 'shell:compileLanguages', 'copy:appSettingsPostgreSQL',
-			'shell:deleteBeforeDeploy',
-			'zip:YAF-PostgreSQL-Deploy'
-		]);
-
-	grunt.registerTask('deploy-Sqlite',
-		[
-			'shell:deletePublish', 'shell:deploySqlite', 'shell:compileLanguages', 'copy:appSettingsSqlite',
-			'shell:deleteBeforeDeploy',
-			'zip:YAF-Sqlite-Deploy'
-		]);
-
-	grunt.registerTask('deploy',
-		[
-			'shell:deletePublish', 'shell:deploySqlite', 'shell:compileLanguages', 'copy:appSettingsSqlite',
-			'shell:deleteBeforeDeploy', 'zip:YAF-Sqlite-Deploy',
-			'shell:deletePublish', 'shell:deploySqlServer', 'shell:compileLanguages', 'copy:appSettingsSqlServer',
-			'shell:deleteBeforeDeploy', 'zip:YAF-SqlServer-Deploy',
-			'shell:deletePublish', 'shell:deployMySql', 'shell:compileLanguages', 'copy:appSettingsMySql',
-			'shell:deleteBeforeDeploy', 'zip:YAF-MySql-Deploy',
-			'shell:deletePublish', 'shell:deployPostgreSQL', 'shell:compileLanguages', 'copy:appSettingsPostgreSQL',
-			'shell:deleteBeforeDeploy', 'zip:YAF-PostgreSQL-Deploy'
-		]);
-
-	grunt.registerTask('publishGitHub',
-		[
-			'shell:publishToGitHub'
-		]);
-
-	grunt.registerTask('publishNuget',
-		[
-			'shell:deleteOldNuGetPackages', 'shell:createNuGetPackages', 'shell:copyNuGetPackages',
-			'shell:publishNuGetPackages'
-		]);
-
-	grunt.registerTask('publishNugetUI',
-		[
-			'shell:deleteOldNuGetPackages', 'shell:createNuGetUIPackages', 'shell:copyNuGetUIPackages',
-			'shell:publishNuGetUIPackages'
 		]);
 
 	grunt.registerTask('publishDocker',
