@@ -47,16 +47,6 @@
 		<Folder Include="Areas\Forums\Pages\" />
 	</ItemGroup>
 
-	<Target Name="MyPreCompileTarget" BeforeTargets="Build">
-		<!-- Ensure Node.js is installed -->
-		<Exec Command="node --version" ContinueOnError="true">
-			<Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
-		</Exec>
-		<Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
-		<Message Importance="high" Text="WARN Make sure you have restored all dependencies using 'npm' before you build this project." />
-		<Exec WorkingDirectory="$(ProjectDir)" Command="npm run copy" ContinueOnError="true" />
-	</Target>
-
   <ItemGroup>
     <None Include="..\..\..\LICENSE.md">
       <Pack>True</Pack>
@@ -71,6 +61,8 @@
       <PackagePath>\</PackagePath>
     </None>
     <None Include="package.json" />
+    <None Include="package-lock.json" />
+    <None Include="tsconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
