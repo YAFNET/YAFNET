@@ -1,0 +1,257 @@
+name: Release YAF.NET v4.x.x
+
+permissions:
+  contents: write
+
+on:
+  workflow_run:
+    workflows: ["YAF.NET v4 (.NET v10)"]
+    types:
+      - completed
+
+jobs:
+  check-version:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master'
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      should-release: ${{ steps.check-tag.outputs.should-release }}
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          sparse-checkout: |
+            yafsrc/YetAnotherForum.NET/package.json
+
+      - name: Read version from package.json
+        id: version
+        run: |
+          version=$(grep -m1 -oP '"version":\s*"\K[^"]+' yafsrc/YetAnotherForum.NET/package.json)
+          if [ -z "$version" ]; then
+            echo "Could not find version in yafsrc/YetAnotherForum.NET/package.json" >&2
+            exit 1
+          fi
+          echo "Found version: $version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Check version is v4.x and release does not exist yet
+        id: check-tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version="${{ steps.version.outputs.version }}"
+
+          if [[ "$version" != 4.* ]]; then
+            echo "Version $version is not a 4.x.x release, skipping."
+            echo "should-release=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if gh release view "v$version" --repo "${{ github.repository }}" >/dev/null 2>&1; then
+            echo "Release v$version already exists, skipping."
+            echo "should-release=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Release v$version does not exist yet, proceeding."
+            echo "should-release=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  build-zips:
+    needs: check-version
+    if: needs.check-version.outputs.should-release == 'true'
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        include:
+          - name: SqlServer
+            slnx: YAF.NET-SqlServer.slnx
+            appsettings: appsettings-SqlServer.json
+            zipPrefix: YAF.SqlServer
+          - name: MySql
+            slnx: YAF.NET-MySql.slnx
+            appsettings: appsettings-MySql.json
+            zipPrefix: YAF.MySql
+          - name: PostgreSQL
+            slnx: YAF.NET-PostgreSQL.slnx
+            appsettings: appsettings-PostgreSQL.json
+            zipPrefix: YAF.PostgreSQL
+          - name: Sqlite
+            slnx: YAF.NET-Sqlite.slnx
+            appsettings: appsettings-Sqlite.json
+            zipPrefix: YAF.Sqlite
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Publish ${{ matrix.name }}
+        shell: pwsh
+        run: |
+          $publishDir = "yafsrc/YetAnotherForum.NET/bin/Release/net10.0/publish"
+          if (Test-Path $publishDir) {
+            Remove-Item $publishDir -Recurse -Force
+          }
+          dotnet publish "yafsrc/${{ matrix.slnx }}" -c Release
+          if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed" }
+
+      - name: Minify language files
+        shell: pwsh
+        run: |
+          $languagesDir = "yafsrc/YetAnotherForum.NET/bin/Release/net10.0/publish/wwwroot/languages/"
+          & "yafsrc/Tools/LanguageManager/YAFNET.LanguageManager.exe" $languagesDir -minify
+          if ($LASTEXITCODE -ne 0) { throw "YAFNET.LanguageManager failed" }
+
+      - name: Prepare publish folder for ${{ matrix.name }}
+        shell: pwsh
+        run: |
+          $publishDir = "yafsrc/YetAnotherForum.NET/bin/Release/net10.0/publish"
+
+          Copy-Item "yafsrc/YetAnotherForum.NET/${{ matrix.appsettings }}" "$publishDir/appsettings.json" -Force
+
+          Remove-Item "$publishDir/appsettings-*.json" -Force -ErrorAction SilentlyContinue
+          Remove-Item "$publishDir/package.json" -Force -ErrorAction SilentlyContinue
+          Remove-Item "$publishDir/tsconfig.json" -Force -ErrorAction SilentlyContinue
+          Remove-Item "$publishDir/wwwroot/uploads" -Recurse -Force -ErrorAction SilentlyContinue
+
+      - name: Zip ${{ matrix.name }} package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path yafsrc/deploy | Out-Null
+          $zipName = "${{ matrix.zipPrefix }}-v${{ needs.check-version.outputs.version }}.zip"
+          Compress-Archive -Path "yafsrc/YetAnotherForum.NET/bin/Release/net10.0/publish/*" -DestinationPath "yafsrc/deploy/$zipName" -Force
+
+      - name: Upload ${{ matrix.name }} artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zip-${{ matrix.name }}
+          path: yafsrc/deploy/*.zip
+          retention-days: 5
+
+  publish-nuget:
+    needs: check-version
+    if: needs.check-version.outputs.should-release == 'true'
+    runs-on: windows-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Verify nuspec version matches package.json
+        shell: pwsh
+        run: |
+          $expected = "${{ needs.check-version.outputs.version }}"
+          $nuspecs = Get-ChildItem -Path yafsrc -Recurse -Filter "YAFNET.*.nuspec"
+          foreach ($file in $nuspecs) {
+            $content = Get-Content $file.FullName -Raw
+            if ($content -notmatch "<version>$([regex]::Escape($expected))</version>") {
+              throw "Version mismatch in $($file.FullName): expected $expected. Run 'grunt updateVersionNumber' and commit before releasing."
+            }
+          }
+
+      - name: Pack NuGet packages
+        shell: pwsh
+        run: |
+          $out = "yafsrc/deploy/nuget"
+          New-Item -ItemType Directory -Force -Path $out | Out-Null
+
+          $projects = @(
+            "yafsrc/YAFNET.Types/YAFNET.Types.csproj",
+            "yafsrc/YAFNET.Configuration/YAFNET.Configuration.csproj",
+            "yafsrc/YAFNET.Core/YAFNET.Core.csproj",
+            "yafsrc/YAFNET.Web/YAFNET.Web.csproj",
+            "yafsrc/YAFNET.Data/YAFNET.Data.MySql/YAFNET.Data.MySql.csproj",
+            "yafsrc/YAFNET.Data/YAFNET.Data.PostgreSQL/YAFNET.Data.PostgreSQL.csproj",
+            "yafsrc/YAFNET.Data/YAFNET.Data.Sqlite/YAFNET.Data.Sqlite.csproj",
+            "yafsrc/YAFNET.Data/YAFNET.Data.SqlServer/YAFNET.Data.SqlServer.csproj"
+          )
+
+          foreach ($proj in $projects) {
+            dotnet pack $proj -c Release -o $out
+            if ($LASTEXITCODE -ne 0) { throw "dotnet pack failed for $proj" }
+          }
+
+      - name: NuGet login (OIDC -> temporary API key)
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: Push packages to NuGet.org
+        shell: pwsh
+        run: |
+          Get-ChildItem "yafsrc/deploy/nuget" -Filter *.nupkg | ForEach-Object {
+            Write-Host "Pushing $($_.Name)"
+            dotnet nuget push $_.FullName --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+            if ($LASTEXITCODE -ne 0) { throw "dotnet nuget push failed for $($_.Name)" }
+          }
+
+  create-release:
+    needs: [check-version, build-zips]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          sparse-checkout: |
+            CHANGES.md
+
+      - name: Download zip artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: zip-*
+          path: release-zips
+          merge-multiple: true
+
+      - name: Extract changelog section
+        id: changelog
+        shell: pwsh
+        run: |
+          $version = "${{ needs.check-version.outputs.version }}"
+          $lines = Get-Content CHANGES.md
+
+          $startMatch = $lines | Select-String -Pattern "^# YetAnotherForum\.NET v$([regex]::Escape($version))$"
+          if (-not $startMatch) {
+            throw "Could not find a CHANGES.md section for v$version"
+          }
+          $startIdx = $startMatch[0].LineNumber - 1
+          $rest = $lines[$startIdx..($lines.Length - 1)]
+
+          $nextMatch = $rest | Select-Object -Skip 1 | Select-String -Pattern "^# YetAnotherForum\.NET v"
+          if ($nextMatch) {
+            $endIdx = $nextMatch[0].LineNumber
+            $section = $rest[0..($endIdx - 1)]
+          } else {
+            $section = $rest
+          }
+
+          $section | Set-Content -Path RELEASE_NOTES.md
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ needs.check-version.outputs.version }}
+          name: YAFNET v${{ needs.check-version.outputs.version }}
+          target_commitish: ${{ github.event.workflow_run.head_sha }}
+          body_path: RELEASE_NOTES.md
+          draft: true
+          prerelease: false
+          make_latest: 'true'
+          files: release-zips/*.zip

@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "GitHubReleaser": {
-      "commandName": "Project",
-      "commandLineArgs": "YAFNET.json"
-    }
-  }
-}
