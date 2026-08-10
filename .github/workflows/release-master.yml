@@ -138,7 +138,7 @@ jobs:
           Compress-Archive -Path "yafsrc/YetAnotherForum.NET/bin/Release/net10.0/publish/*" -DestinationPath "yafsrc/deploy/$zipName" -Force
 
       - name: Upload ${{ matrix.name }} artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: zip-${{ matrix.name }}
           path: yafsrc/deploy/*.zip

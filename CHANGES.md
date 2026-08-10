@@ -1,6 +1,9 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v4.0.8
+* [GHSA-phc5-m6cm-5c9f] security fix
+
 # YetAnotherForum.NET v4.0.7
 * [NEW] Setting to enable/disable show similiar topics when creating a new topic
 * [NEW] full editor button in quick reply (resolves #1728)
@@ -81,6 +84,9 @@ YetAnotherForum.NET Changelog
 * Real-time Notifications for Received Thanks
 * Replaced Private Messages with real-time user chat
 * Two Factor Authentication
+
+# YetAnotherForum.NET v3.2.15
+* [GHSA-phc5-m6cm-5c9f] security fix
 
 # YetAnotherForum.NET v3.2.14
 * [FIXED] Legacy "Clear" password format lets you log in as anyone with any password

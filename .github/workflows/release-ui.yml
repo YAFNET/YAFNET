@@ -1,0 +1,53 @@
+name: Release YAF.NET UI NuGet Packages
+
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish-ui-nuget:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v6
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Pack NuGet packages
+        shell: pwsh
+        run: |
+          $out = "yafsrc/deploy/nuget-ui"
+          New-Item -ItemType Directory -Force -Path $out | Out-Null
+
+          $projects = @(
+            "yafsrc/YAFNET.UI/YAFNET.RazorPages/YAFNET.RazorPages.csproj",
+            "yafsrc/YAFNET.UI/YAFNET.UI.Chat/YAFNET.UI.Chat.csproj"
+          )
+
+          foreach ($proj in $projects) {
+            dotnet pack $proj -c Release -o $out
+            if ($LASTEXITCODE -ne 0) { throw "dotnet pack failed for $proj" }
+          }
+
+      - name: NuGet login (OIDC -> temporary API key)
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: Push packages to NuGet.org
+        shell: pwsh
+        run: |
+          Get-ChildItem "yafsrc/deploy/nuget-ui" -Filter *.nupkg | ForEach-Object {
+            Write-Host "Pushing $($_.Name)"
+            dotnet nuget push $_.FullName --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+            if ($LASTEXITCODE -ne 0) { throw "dotnet nuget push failed for $($_.Name)" }
+          }
