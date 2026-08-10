@@ -35,9 +35,38 @@
 		<PackageIcon>yaf.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-		<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(MSBuildProjectDirectory)/../../../CHANGES.md"))</PackageReleaseNotes>
 		<Authors>Ingo Herbote</Authors>
 	</PropertyGroup>
+
+	<UsingTask TaskName="ExtractReleaseNotes" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+		<ParameterGroup>
+			<ChangesFile ParameterType="System.String" Required="true" />
+			<Version ParameterType="System.String" Required="true" />
+			<ReleaseNotes ParameterType="System.String" Output="true" />
+		</ParameterGroup>
+		<Task>
+			<Using Namespace="System.IO" />
+			<Using Namespace="System.Text.RegularExpressions" />
+			<Code Type="Fragment" Language="cs">
+<![CDATA[
+var text = File.ReadAllText(ChangesFile);
+var pattern = @"^# YetAnotherForum\.NET v" + Regex.Escape(Version) + @"\s*?\r?\n(.*?)(?=\r?\n# YetAnotherForum\.NET v|\z)";
+var match = Regex.Match(text, pattern, RegexOptions.Singleline | RegexOptions.Multiline);
+ReleaseNotes = match.Success ? match.Groups[1].Value.Trim() : string.Empty;
+if (ReleaseNotes.Length > 30000)
+{
+    ReleaseNotes = ReleaseNotes.Substring(0, 30000);
+}
+]]>
+			</Code>
+		</Task>
+	</UsingTask>
+
+	<Target Name="SetPackageReleaseNotes" BeforeTargets="GenerateNuspec">
+		<ExtractReleaseNotes ChangesFile="$(MSBuildProjectDirectory)/../../../CHANGES.md" Version="$(Version)">
+			<Output TaskParameter="ReleaseNotes" PropertyName="PackageReleaseNotes" />
+		</ExtractReleaseNotes>
+	</Target>
 
 	<ItemGroup>
 	  <Content Remove="package.json" />
