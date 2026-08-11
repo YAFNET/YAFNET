@@ -10011,7 +10011,7 @@
   font-style: normal;
   font-weight: 900;
   font-display: block;
-  src: url("../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2");
+  src: url("../Content/webfonts/fa-solid-900.woff2");
 }
 .fas {
   --fa-family: var(--fa-family-classic);
@@ -10043,7 +10043,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url("../node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2");
+  src: url("../Content/webfonts/fa-regular-400.woff2");
 }
 .far {
   --fa-family: var(--fa-family-classic);
