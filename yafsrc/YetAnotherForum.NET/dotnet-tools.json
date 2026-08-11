@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "yafnet.languagemanager": {
+      "version": "1.0.8",
+      "commands": [
+        "yaf-langmgr"
+      ],
+      "rollForward": false
+    },
+    "bootstrapemail.net.cli": {
+      "version": "1.7.1",
+      "commands": [
+        "bootstrap-email"
+      ],
+      "rollForward": false
+    }
+  }
+}
