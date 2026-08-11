@@ -32,6 +32,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -42,6 +43,7 @@ using YAF.Types.Extensions;
 using YAF.Types.Interfaces;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
+using YAF.Types.Objects.Language;
 
 /// <summary>
 /// Class UsersAttachmentsModel.
@@ -80,7 +82,7 @@ public class UsersAttachmentsModel : AdminPage
     /// </summary>
     /// <param name="userId">The user identifier.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnGet(int userId)
+    public IActionResult OnGet(int userId, int p)
     {
         if (!BoardContext.Current.IsAdmin)
         {
@@ -91,7 +93,7 @@ public class UsersAttachmentsModel : AdminPage
             UserId = userId
         };
 
-        return this.BindData(userId);
+        return this.BindData(userId, p - 1);
     }
 
     /// <summary>
@@ -151,13 +153,13 @@ public class UsersAttachmentsModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private PageResult BindData(int userId)
+    private PageResult BindData(int userId, int page)
     {
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 
         var list = this.GetRepository<Attachment>().GetPaged(
             a => a.UserID == userId,
-            this.PageBoardContext.PageIndex,
+            page,
             this.Size);
 
         this.Attachments = list;

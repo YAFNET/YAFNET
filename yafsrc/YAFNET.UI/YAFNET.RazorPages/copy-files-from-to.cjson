@@ -31,6 +31,10 @@
 		{
 			"from": "../../YetAnotherForum.NET/wwwroot/resources/**/*.*",
 			"to": "wwwroot/resources"
+		},
+		{
+			"from": "../../YetAnotherForum.NET/wwwroot/webfonts/**/*.*",
+			"to": "wwwroot/webfonts"
 		}
 	],
 	"copyFilesSettings": {

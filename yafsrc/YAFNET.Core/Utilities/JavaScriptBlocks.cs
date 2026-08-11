@@ -249,6 +249,12 @@ public static class JavaScriptBlocks
         return $$"""
                    const currentTab = "#" + document.getElementById("LastTab").value,
                    editUserId = {{userId}};
+                   
+                   const params = new Proxy(new URLSearchParams(window.location.search), {
+                     get: (searchParams, prop) => searchParams.get(prop),
+                   });
+                   
+                   let page = params.p ? params.p : 1;
                                
                    function loadTab(tabName) {
                        var tab = document.getElementById(tabName.substring(1))
@@ -416,7 +422,7 @@ public static class JavaScriptBlocks
                            break;
                        case "#View11":
                            if (tab.innerHTML.length === 0) {
-                               fetch("{{areaPath}}/Admin/EditUser/UsersAttachments?userId=" + editUserId,
+                               fetch("{{areaPath}}/Admin/EditUser/UsersAttachments?userId=" + editUserId + "&p=" + page,
                                        {
                                            method: "GET",
                                            headers: {

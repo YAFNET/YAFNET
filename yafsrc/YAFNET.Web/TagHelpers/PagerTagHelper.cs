@@ -24,6 +24,8 @@
 
 namespace YAF.Web.TagHelpers;
 
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 
@@ -333,7 +335,8 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
     {
         query[this.QueryName] = page.ToString();
 
-        var url = this.PageContext.CurrentForumPage.PageName switch {
+        var url = this.PageContext.CurrentForumPage.PageName switch
+        {
             ForumPages.Topics => page > 1
                 ? this.Get<ILinkBuilder>()
                     .GetLink(ForumPages.Topics,
@@ -343,6 +346,9 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
             ForumPages.Posts => this.Get<ILinkBuilder>()
                 .GetLink(ForumPages.Posts,
                     new { t = this.PageContext.PageTopicID, p = page, name = this.PageContext.PageTopic.TopicName }),
+            ForumPages.Admin_EditUser => this.Get<IUrlHelper>().Page(query["page"], null, new { p = page, view = "View11" }).Replace("UsersAttachments", this.Get<IHttpContextAccessor>().HttpContext.Request
+                .GetQueryOrRouteValue<string>("userId")
+                .ToTypeOrDefault("0")),
             _ => this.Get<ILinkBuilder>().GetLink(this.PageContext.CurrentForumPage.PageName, query)
                 .Replace("p=", $"{this.QueryName}=")
         };
