@@ -63,8 +63,8 @@
 		"webpack": "webpack",
 		"updatePackages": "set npm_config_allow_scripts=&& npm-check -y",
 		"webp": "simple-webp-converter",
-		"syncLanguages": "@echo off && echo update languages && ..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\wwwroot\\languages\\ -sync",
-		"translateLanguages": "@echo off && echo translate languages && ..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\wwwroot\\languages\\ -translateGoogle"
+		"syncLanguages": "@echo off && echo update languages && yaf-langmgr %CD%\\wwwroot\\languages\\ -sync",
+		"translateLanguages": "@echo off && echo translate languages && yaf-langmgr %CD%\\wwwroot\\languages\\ -translateGoogle"
 	},
 	"simple-webp-converter": {
 		"src": "wwwroot/**/*.{png,jpg,gif}"
