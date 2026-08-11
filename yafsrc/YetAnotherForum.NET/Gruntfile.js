@@ -41,6 +41,17 @@ module.exports = function (grunt) {
                     { expand: true, src: '**/*.scss', cwd: 'node_modules/bootswatch/dist', dest: 'Content/Themes/' }
                 ]
             },
+
+            fontAwesome: {
+	            files: [
+		            {
+			            expand: true,
+			            src: '**/*.*',
+			            cwd: 'node_modules/@fortawesome/fontawesome-free/webfonts',
+			            dest: 'Content/webfonts/'
+		            }
+	            ]
+            },
             flagIcons: {
                 files: [
                     {
@@ -100,7 +111,7 @@ module.exports = function (grunt) {
             translateLanguages: {
 	            command: [
 		            '@echo off',
-		            '..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\languages\\ -translateGoogle'
+		            'yaf-langmgr %CD%\\languages\\ -translateGoogle'
 	            ].join('&&')
             },
             emailTemplates: {
@@ -564,6 +575,11 @@ module.exports = function (grunt) {
         [
             'copy:bootswatchThemes'
         ]);
+
+    grunt.registerTask('updateFontAwesome',
+	    [
+		    'copy:fontAwesome'
+	    ]);
 
     grunt.registerTask('updateFlagIcons',
         [

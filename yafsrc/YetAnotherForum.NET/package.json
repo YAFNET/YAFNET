@@ -52,7 +52,7 @@
 		"build-codemirror": "webpack",
 		"webp": "simple-webp-converter",
 		"updatePackages": "set npm_config_allow_scripts=&& npm-check -y",
-		"syncLanguages": "@echo off && ..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\languages\\ -sync"
+		"syncLanguages": "@echo off && yaf-langmgr %CD%\\languages\\ -sync"
 	},
 	"simple-webp-converter": {
 		"src": "Images/**/*.{png,jpg,gif}"
