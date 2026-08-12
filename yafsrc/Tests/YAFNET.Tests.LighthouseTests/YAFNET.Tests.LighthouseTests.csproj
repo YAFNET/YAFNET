@@ -19,9 +19,9 @@
 		<None Remove="appsettings.json" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="LighthousePlaywright.Net" Version="1.0.1" />
+	  <PackageReference Include="LighthousePlaywright.Net" Version="1.0.2" />
 	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
-	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.31.0.145097">
+	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.32.0.713">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
