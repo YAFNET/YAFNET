@@ -41,7 +41,7 @@ public sealed class DockerComposeFixture
     /// <summary>Base URL Playwright will navigate to.</summary>
     public string AppBaseUrl { get; }
 
-    private readonly static TimeSpan StartupTimeout = TimeSpan.FromSeconds(700);
+    private readonly static TimeSpan StartupTimeout = TimeSpan.FromSeconds(7000);
 
     private readonly HttpClient http;
 

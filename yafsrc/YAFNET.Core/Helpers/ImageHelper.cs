@@ -24,11 +24,10 @@
 
 namespace YAF.Core.Helpers;
 
+using System;
 using System.IO;
 
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Webp;
-using SixLabors.ImageSharp.Processing;
+using SkiaSharp;
 
 /// <summary>
 /// The image helper.
@@ -36,7 +35,12 @@ using SixLabors.ImageSharp.Processing;
 public static class ImageHelper
 {
     /// <summary>
-    /// Returns resized image stream.
+    /// The quality used when encoding images as WebP.
+    /// </summary>
+    private const int WebpQuality = 90;
+
+    /// <summary>
+    /// Returns resized image stream, encoded as WebP.
     /// </summary>
     /// <param name="image">
     ///     The Image.
@@ -50,7 +54,7 @@ public static class ImageHelper
     /// <returns>
     /// A resized image stream.
     /// </returns>
-    public static MemoryStream GetResizedImage(Image image, long x, long y)
+    public static MemoryStream GetResizedImage(SKBitmap image, long x, long y)
     {
         double newWidth = image.Width;
         double newHeight = image.Height;
@@ -68,32 +72,44 @@ public static class ImageHelper
         }
 
         // Resize
-        /*
-        // Create a new bitmap with the desired size
-        using var resizedImage = new SKBitmap((int)newWidth, (int)newHeight);
-        using var canvas = new SKCanvas(resizedImage);
+        var info = new SKImageInfo((int)newWidth, (int)newHeight);
 
-        // Resize the image
-        canvas.DrawBitmap(image, new SKRect(0, 0, (int)newWidth, (int)newHeight));
+        using var resizedImage = image.Resize(info, new SKSamplingOptions(SKCubicResampler.Mitchell));
 
-        // Save the result
-        var resized = new MemoryStream();
-        using var encoded = resizedImage.Encode(SKEncodedImageFormat.Webp, 100);
-        encoded.SaveTo(resized);
-        resized.Position = 0;*/
-
-        image.Mutate(context => context.Resize((int)newWidth, (int)newHeight, KnownResamplers.Lanczos3));
+        if (resizedImage is null)
+        {
+            throw new InvalidOperationException("Unable to resize image.");
+        }
 
         // Save the result
         var resized = new MemoryStream();
-        image.Save(resized, new WebpEncoder());
+
+        SaveAsWebp(resizedImage, resized);
 
         return resized;
     }
 
-    /*public static SKBitmap LoadImage(Stream stream)
+    /// <summary>
+    /// Encodes the image as WebP into the given stream.
+    /// </summary>
+    /// <param name="image">The image.</param>
+    /// <param name="stream">The destination stream.</param>
+    public static void SaveAsWebp(SKBitmap image, Stream stream)
     {
-        using var skiaStream = new SKManagedStream(stream);
-        return SKBitmap.Decode(skiaStream);
-    }*/
+        Save(image, SKEncodedImageFormat.Webp, stream);
+    }
+
+    /// <summary>
+    /// Encodes the image using the given format into the given stream.
+    /// </summary>
+    /// <param name="image">The image.</param>
+    /// <param name="format">The encoded image format.</param>
+    /// <param name="stream">The destination stream.</param>
+    public static void Save(SKBitmap image, SKEncodedImageFormat format, Stream stream)
+    {
+        if (!image.Encode(stream, format, WebpQuality))
+        {
+            throw new InvalidOperationException($"Unable to encode image as {format}.");
+        }
+    }
 }

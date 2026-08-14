@@ -22,7 +22,7 @@
  * under the License.
  */
 
-using SixLabors.ImageSharp;
+using SkiaSharp;
 
 namespace YAF.Core.Controllers;
 
@@ -149,10 +149,10 @@ public class FileUpload : ForumBaseController
             try
             {
                 // resize image ?!
-                using var img = await Image.LoadAsync(file.OpenReadStream());
+                using var img = SKBitmap.Decode(file.OpenReadStream());
 
-                if (img.Width > this.Get<BoardSettings>().ImageAttachmentResizeWidth
-                    || img.Height > this.Get<BoardSettings>().ImageAttachmentResizeHeight)
+                if (img != null && (img.Width > this.Get<BoardSettings>().ImageAttachmentResizeWidth
+                    || img.Height > this.Get<BoardSettings>().ImageAttachmentResizeHeight))
                 {
                     resized = ImageHelper.GetResizedImage(
                         img,

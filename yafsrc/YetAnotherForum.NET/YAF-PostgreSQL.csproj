@@ -15,7 +15,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="10.0.11" />
     <PackageReference Include="SimdLinq" Version="1.3.2" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="[3.1.12]" />
+    <PackageReference Include="SkiaSharp" Version="[4.151.1]" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="[4.151.1]" />
     <PackageReference Include="UAParser.Core" Version="4.0.6" />
   </ItemGroup>
 
@@ -68,7 +69,7 @@
 	</Exec>
 	<Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
 	<Message Importance="high" Text="WARN Make sure you have restored all dependencies using 'npm' before you build this project." />
-	<Exec WorkingDirectory="$(ProjectDir)" Command="node_modules\.bin\grunt" />
+	<Exec WorkingDirectory="$(ProjectDir)" Command="node_modules/.bin/grunt" />
     </Target>
 	
 	<PropertyGroup>

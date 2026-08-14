@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -24,8 +24,7 @@
 
 using System.Threading.Tasks;
 
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Webp;
+using SkiaSharp;
 
 using YAF.Core.Model;
 
@@ -180,7 +179,12 @@ public class UsersAvatarModel : AdminPage
 
         try
         {
-            using var image = await Image.LoadAsync(this.Upload.OpenReadStream());
+            using var image = SKBitmap.Decode(this.Upload.OpenReadStream());
+
+            if (image is null)
+            {
+                throw new InvalidOperationException("Invalid image file.");
+            }
 
             if (image.Width > x || image.Height > y)
             {
@@ -331,11 +335,12 @@ public class UsersAvatarModel : AdminPage
     {
         if (resized is null)
         {
-            using var image = await Image.LoadAsync(this.Upload.OpenReadStream());
+            using var codec = SKCodec.Create(this.Upload.OpenReadStream());
+            using var image = SKBitmap.Decode(codec);
 
             var memoryStream = new MemoryStream();
 
-            await image.SaveAsync(memoryStream, image.Metadata.DecodedImageFormat!);
+            ImageHelper.Save(image, codec.EncodedFormat, memoryStream);
 
             await this.GetRepository<User>().SaveAvatarAsync(
                 this.Input.UserId,
@@ -396,12 +401,12 @@ public class UsersAvatarModel : AdminPage
 
         if (resized is null)
         {
-            using var avatarImage = await Image.LoadAsync(this.Upload.OpenReadStream());
+            using var avatarImage = SKBitmap.Decode(this.Upload.OpenReadStream());
 
             using var memory = new MemoryStream();
             await using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
 
-            await avatarImage.SaveAsync(memory, new WebpEncoder());
+            ImageHelper.SaveAsWebp(avatarImage, memory);
 
             var bytes = memory.ToArray();
             await fs.WriteAsync(bytes);

@@ -1,0 +1,9 @@
+**/node_modules/
+**/bin/
+**/obj/
+**/.vs/
+**/.vscode/
+**/TestResults/
+**/packages/
+**/*.user
+.git/

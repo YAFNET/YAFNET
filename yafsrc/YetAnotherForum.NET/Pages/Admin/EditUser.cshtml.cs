@@ -108,11 +108,11 @@ public class EditUserModel : AdminPage
     /// <param name="u">The user id.</param>
     /// <param name="tab">The tab.</param>
     /// <returns>IActionResult.</returns>
-    public async Task<IActionResult> OnGetAsync(int u, string tab = null)
+    public async Task<IActionResult> OnGetAsync(int u,int? p = null, string view = null)
     {
-        if (tab.IsSet())
+        if (view.IsSet())
         {
-            this.LastTab = tab;
+            this.LastTab = view;
         }
 
         var editUser = await this.Get<IAspNetUsersHelper>().GetBoardUserAsync(u, includeNonApproved: true);
