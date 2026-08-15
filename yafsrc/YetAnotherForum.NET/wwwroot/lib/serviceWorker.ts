@@ -46,11 +46,29 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
+    // Skip non-http(s) requests (e.g. chrome-extension:, blob:)
+    if (!/^https?:$/i.test(new URL(request.url).protocol)) {
+        return;
+    }
+
+    // Page navigations are never cached (see offlineFallback) - only static assets are.
+    const isNavigation = request.mode === 'navigate';
+
     event.respondWith(
 	    fetch(request)
 	    .then((response) => {
-		    // Cache successful responses
-		    if (response && response.status === 200 && /^https?:$/i.test(new URL(request.url).protocol)) {
+		    // Cache successful, same-origin, uncompressed asset responses only.
+		    // Navigation (HTML) responses are intentionally excluded: caching a Response
+		    // whose Content-Encoding header (e.g. gzip) no longer matches its already-decoded
+		    // body causes Safari on iOS to fail rendering the cached copy and offer it as a
+		    // file download instead of the page when it's later served from the fetch() catch handler.
+		    if (
+			    !isNavigation &&
+			    response &&
+			    response.ok &&
+			    response.type === 'basic' &&
+			    !response.headers.has('Content-Encoding')
+		    ) {
 			    const responseClone = response.clone();
 			    caches.open(CACHE_NAME).then((cache) => {
 				    cache.put(request, responseClone);
@@ -58,28 +76,45 @@ self.addEventListener('fetch', (event) => {
 		    }
 		    return response;
 	    })
-	    .catch(() => offlineFallback(request))
+	    .catch(() => offlineFallback(request, isNavigation))
     );
 });
 
-async function offlineFallback(request: Request): Promise<Response> {
-    var cached: any = await caches.match(offlineUrl);
+async function offlineFallback(request: Request, isNavigation: boolean): Promise<Response> {
+    // For page navigations, always fall back to the pre-cached offline page rather than a
+    // stale cached copy of the request itself.
+    if (isNavigation) {
+        const offlinePage = await caches.match(offlineUrl);
 
-    if (!cached) {
-        cached = new Response('Oops! - You\'re offline - Please check your internet connection.',
+        if (offlinePage) {
+	        return offlinePage;
+        }
+
+        return new Response('Oops! - You\'re offline - Please check your internet connection.',
 	        {
 		        status: 503,
 		        statusText: 'Service Unavailable',
 		        headers: new Headers({
-			        'Content-Type': 'text/plain'
+			        'Content-Type': 'text/html; charset=utf-8'
 		        })
 	        });
     }
 
-    // Fallback to cache on network failure
-    return caches.match(request).then((response: Response | undefined) => {
-	    return response || cached;
-    });
+    // For assets, serve the cached copy if we have one.
+    const cached = await caches.match(request);
+
+    if (cached) {
+	    return cached;
+    }
+
+    return new Response('Oops! - You\'re offline - Please check your internet connection.',
+        {
+	        status: 503,
+	        statusText: 'Service Unavailable',
+	        headers: new Headers({
+		        'Content-Type': 'text/plain'
+	        })
+        });
 }
 
 // Handle push notifications
