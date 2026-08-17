@@ -1616,7 +1616,6 @@
     <Content Include="Content\flags\4x3\za.svg" />
     <Content Include="Content\flags\4x3\zm.svg" />
     <Content Include="Content\flags\4x3\zw.svg" />
-    <Content Include="Content\fontawesome\LICENSE-fontawesome.txt" />
     <Content Include="BuildScripts\YAF-Sqlite.Package.targets" />
     <Content Include="Content\bootstrap\helpers\_stacks.scss" />
     <Content Include="Content\bootstrap\helpers\_vr.scss" />
@@ -1624,8 +1623,6 @@
     <Content Include="Content\bootstrap\mixins\_color-scheme.scss" />
     <Content Include="Content\bootstrap\_offcanvas.scss" />
     <Content Include="Content\bootstrap\_placeholders.scss" />
-    <Content Include="Content\fontawesome\_functions.scss" />
-    <Content Include="Content\fontawesome\_sizing.scss" />
     <Content Include="Content\flag-icons\flag-icons.scss" />
     <Content Include="Content\flag-icons\LICENSE.md" />
     <Content Include="Content\flag-icons\_flag-icons-base.scss" />
@@ -1695,21 +1692,6 @@
     <Content Include="Content\bootstrap\_variables.scss" />
     <Content Include="Content\bootstrap\vendor\_rfs.scss" />
     <Content Include="Content\flag-icons\_variables.scss" />
-    <Content Include="Content\fontawesome\brands.scss" />
-    <Content Include="Content\fontawesome\fontawesome.scss" />
-    <Content Include="Content\fontawesome\regular.scss" />
-    <Content Include="Content\fontawesome\solid.scss" />
-    <Content Include="Content\fontawesome\v4-shims.scss" />
-    <Content Include="Content\fontawesome\_animated.scss" />
-    <Content Include="Content\fontawesome\_core.scss" />
-    <Content Include="Content\fontawesome\_icons.scss" />
-    <Content Include="Content\fontawesome\_list.scss" />
-    <Content Include="Content\fontawesome\_mixins.scss" />
-    <Content Include="Content\fontawesome\_rotated-flipped.scss" />
-    <Content Include="Content\fontawesome\_shims.scss" />
-    <Content Include="Content\fontawesome\_stacked.scss" />
-    <Content Include="Content\fontawesome\_variables.scss" />
-    <Content Include="Content\fontawesome\fontawesome-all.scss" />
     <Content Include="Content\favicons\site.webmanifest" />
     <Content Include="Content\bootstrap\mixins\_deprecate.scss" />
     <Content Include="Content\bootstrap\_spinners.scss" />
@@ -1758,10 +1740,7 @@
     <Content Include="Content\bootstrap-email\scss\_reboot_head.scss" />
     <Content Include="Content\forum-admin.css.map" />
     <Content Include="Content\forum.css.map" />
-    <Content Include="Content\fontawesome\_bordered.scss" />
-    <Content Include="Content\fontawesome\_fa.scss" />
-    <Content Include="Content\fontawesome\_pulled.scss" />
-    <Content Include="Content\fontawesome\_widths.scss" />
+    <Content Include="Content\fontawesome-extensions.scss" />
     <None Include="Content\forum\attachments-upload.scss" />
     <None Include="Content\forum\cookie-alert.scss" />
     <Content Include="Content\InstallWizard.css">
@@ -3032,7 +3011,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

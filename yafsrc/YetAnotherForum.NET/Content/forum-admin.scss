@@ -4,6 +4,8 @@
 @use "../node_modules/@fortawesome/fontawesome-free/scss/regular";
 @use "../node_modules/@fortawesome/fontawesome-free/scss/brands";
 
+@use "fontawesome-extensions.scss";
+
 @import "prism";
 @import "../node_modules/@w8tcha/bootstrap-notify/dist/bootstrap-notify";
 

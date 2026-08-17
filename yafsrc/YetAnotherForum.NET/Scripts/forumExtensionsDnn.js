@@ -1,265 +1,262 @@
-var bootbox = function(b, B) {
-    "use strict";
-    function P(t) {
-        const e = Object.create(null, {
-            [Symbol.toStringTag]: {
-                value: "Module"
-            }
+var bootbox = function(e, t) {
+    Object.defineProperty(e, Symbol.toStringTag, {
+        value: `Module`
+    });
+    var n = Object.create, r = Object.defineProperty, i = Object.getOwnPropertyDescriptor, a = Object.getOwnPropertyNames, o = Object.getPrototypeOf, s = Object.prototype.hasOwnProperty, c = (e, t, n, o) => {
+        if (t && typeof t == `object` || typeof t == `function`) for (var c = a(t), l = 0, u = c.length, d; l < u; l++) d = c[l], 
+        !s.call(e, d) && d !== n && r(e, d, {
+            get: (e => t[e]).bind(null, d),
+            enumerable: !(o = i(t, d)) || o.enumerable
         });
-        if (t) {
-            for (const o in t) if (o !== "default") {
-                const a = Object.getOwnPropertyDescriptor(t, o);
-                Object.defineProperty(e, o, a.get ? a : {
-                    enumerable: !0,
-                    get: () => t[o]
-                });
-            }
-        }
-        return e.default = t, Object.freeze(e);
-    }
-    const w = P(B), _ = {
-        OK: "موافق",
-        CANCEL: "الغاء",
-        CONFIRM: "تأكيد"
-    }, H = {
-        OK: "OK",
-        CANCEL: "İmtina et",
-        CONFIRM: "Təsdiq et"
-    }, V = {
-        OK: "Ок",
-        CANCEL: "Отказ",
-        CONFIRM: "Потвърждавам"
-    }, D = {
-        OK: "OK",
-        CANCEL: "Zrušit",
-        CONFIRM: "Potvrdit"
-    }, z = {
-        OK: "OK",
-        CANCEL: "Annuller",
-        CONFIRM: "Accepter"
-    }, $ = {
-        OK: "OK",
-        CANCEL: "Abbrechen",
-        CONFIRM: "Akzeptieren"
-    }, U = {
-        OK: "Εντάξει",
-        CANCEL: "Ακύρωση",
-        CONFIRM: "Επιβεβαίωση"
-    }, G = {
-        OK: "OK",
-        CANCEL: "Cancel",
-        CONFIRM: "OK"
-    }, W = {
-        OK: "OK",
-        CANCEL: "Cancelar",
-        CONFIRM: "Aceptar"
-    }, Z = {
-        OK: "OK",
-        CANCEL: "Katkesta",
-        CONFIRM: "OK"
-    }, J = {
-        OK: "OK",
-        CANCEL: "Ezeztatu",
-        CONFIRM: "Onartu"
-    }, X = {
-        OK: "قبول",
-        CANCEL: "لغو",
-        CONFIRM: "تایید"
-    }, Q = {
-        OK: "OK",
-        CANCEL: "Peruuta",
-        CONFIRM: "OK"
-    }, Y = {
-        OK: "OK",
-        CANCEL: "Annuler",
-        CONFIRM: "Confirmer"
+        return e;
+    };
+    t = ((e, t, i) => (i = e == null ? {} : n(o(e)), c(t || !e || !e.__esModule || !s.call(e, `default`) ? r(i, `default`, {
+        value: e,
+        enumerable: !0
+    }) : i, e)))(t, 1);
+    var l = {
+        OK: `موافق`,
+        CANCEL: `الغاء`,
+        CONFIRM: `تأكيد`
+    }, u = {
+        OK: `OK`,
+        CANCEL: `İmtina et`,
+        CONFIRM: `Təsdiq et`
+    }, d = {
+        OK: `Ок`,
+        CANCEL: `Отказ`,
+        CONFIRM: `Потвърждавам`
+    }, f = {
+        OK: `OK`,
+        CANCEL: `Zrušit`,
+        CONFIRM: `Potvrdit`
+    }, p = {
+        OK: `OK`,
+        CANCEL: `Annuller`,
+        CONFIRM: `Accepter`
+    }, m = {
+        OK: `OK`,
+        CANCEL: `Abbrechen`,
+        CONFIRM: `Akzeptieren`
+    }, h = {
+        OK: `Εντάξει`,
+        CANCEL: `Ακύρωση`,
+        CONFIRM: `Επιβεβαίωση`
     }, ee = {
-        OK: "אישור",
-        CANCEL: "ביטול",
-        CONFIRM: "אישור"
+        OK: `OK`,
+        CANCEL: `Cancel`,
+        CONFIRM: `OK`
     }, te = {
-        OK: "OK",
-        CANCEL: "Odustani",
-        CONFIRM: "Potvrdi"
-    }, oe = {
-        OK: "OK",
-        CANCEL: "Mégsem",
-        CONFIRM: "Megerősít"
-    }, re = {
-        OK: "OK",
-        CANCEL: "Batal",
-        CONFIRM: "OK"
-    }, ae = {
-        OK: "OK",
-        CANCEL: "Annulla",
-        CONFIRM: "Conferma"
+        OK: `OK`,
+        CANCEL: `Cancelar`,
+        CONFIRM: `Aceptar`
     }, ne = {
-        OK: "OK",
-        CANCEL: "キャンセル",
-        CONFIRM: "OK"
-    }, le = {
-        OK: "OK",
-        CANCEL: "გაუქმება",
-        CONFIRM: "დადასტურება"
+        OK: `OK`,
+        CANCEL: `Katkesta`,
+        CONFIRM: `OK`
+    }, re = {
+        OK: `OK`,
+        CANCEL: `Ezeztatu`,
+        CONFIRM: `Onartu`
     }, ie = {
-        OK: "OK",
-        CANCEL: "취소",
-        CONFIRM: "확인"
-    }, ce = {
-        OK: "Gerai",
-        CANCEL: "Atšaukti",
-        CONFIRM: "Patvirtinti"
+        OK: `قبول`,
+        CANCEL: `لغو`,
+        CONFIRM: `تایید`
+    }, ae = {
+        OK: `OK`,
+        CANCEL: `Peruuta`,
+        CONFIRM: `OK`
+    }, oe = {
+        OK: `OK`,
+        CANCEL: `Annuler`,
+        CONFIRM: `Confirmer`
     }, se = {
-        OK: "Labi",
-        CANCEL: "Atcelt",
-        CONFIRM: "Apstiprināt"
+        OK: `אישור`,
+        CANCEL: `ביטול`,
+        CONFIRM: `אישור`
+    }, ce = {
+        OK: `OK`,
+        CANCEL: `Odustani`,
+        CONFIRM: `Potvrdi`
+    }, le = {
+        OK: `OK`,
+        CANCEL: `Mégsem`,
+        CONFIRM: `Megerősít`
     }, ue = {
-        OK: "OK",
-        CANCEL: "Annuleren",
-        CONFIRM: "Accepteren"
+        OK: `OK`,
+        CANCEL: `Batal`,
+        CONFIRM: `OK`
     }, de = {
-        OK: "OK",
-        CANCEL: "Avbryt",
-        CONFIRM: "OK"
+        OK: `OK`,
+        CANCEL: `Annulla`,
+        CONFIRM: `Conferma`
     }, fe = {
-        OK: "OK",
-        CANCEL: "Anuluj",
-        CONFIRM: "Potwierdź"
-    }, be = {
-        OK: "OK",
-        CANCEL: "Cancelar",
-        CONFIRM: "Confirmar"
+        OK: `OK`,
+        CANCEL: `キャンセル`,
+        CONFIRM: `OK`
     }, pe = {
-        OK: "OK",
-        CANCEL: "Cancelar",
-        CONFIRM: "Sim"
+        OK: `OK`,
+        CANCEL: `გაუქმება`,
+        CONFIRM: `დადასტურება`
     }, me = {
-        OK: "OK",
-        CANCEL: "Отмена",
-        CONFIRM: "Применить"
-    }, Oe = {
-        OK: "OK",
-        CANCEL: "Zrušiť",
-        CONFIRM: "Potvrdiť"
+        OK: `OK`,
+        CANCEL: `취소`,
+        CONFIRM: `확인`
     }, he = {
-        OK: "OK",
-        CANCEL: "Prekliči",
-        CONFIRM: "Potrdi"
-    }, Ce = {
-        OK: "OK",
-        CANCEL: "Anulo",
-        CONFIRM: "Prano"
-    }, ve = {
-        OK: "OK",
-        CANCEL: "Avbryt",
-        CONFIRM: "OK"
-    }, ye = {
-        OK: "Sawa",
-        CANCEL: "Ghairi",
-        CONFIRM: "Thibitisha"
-    }, we = {
-        OK: "சரி",
-        CANCEL: "ரத்து செய்",
-        CONFIRM: "உறுதி செய்"
+        OK: `Gerai`,
+        CANCEL: `Atšaukti`,
+        CONFIRM: `Patvirtinti`
     }, ge = {
-        OK: "ตกลง",
-        CANCEL: "ยกเลิก",
-        CONFIRM: "ยืนยัน"
-    }, Ee = {
-        OK: "Tamam",
-        CANCEL: "İptal",
-        CONFIRM: "Onayla"
-    }, Ne = {
-        OK: "OK",
-        CANCEL: "Відміна",
-        CONFIRM: "Прийняти"
-    }, Ae = {
-        OK: "OK",
-        CANCEL: "Hủy bỏ",
-        CONFIRM: "Xác nhận"
-    }, Le = {
-        OK: "OK",
-        CANCEL: "取消",
-        CONFIRM: "确认"
-    }, ke = {
-        OK: "OK",
-        CANCEL: "取消",
-        CONFIRM: "確認"
-    }, Ke = "6.0.6", xe = {
-        ar: _,
-        az: H,
-        bgBG: V,
-        cs: D,
-        da: z,
-        de: $,
-        el: U,
-        en: G,
-        es: W,
-        et: Z,
-        eu: J,
-        fa: X,
-        fi: Q,
-        fr: Y,
-        he: ee,
-        hr: te,
-        hu: oe,
-        id: re,
-        it: ae,
-        ja: ne,
-        ka: le,
-        ko: ie,
-        lt: ce,
-        lv: se,
-        nl: ue,
-        no: de,
-        pl: fe,
-        pt: be,
-        ptBR: pe,
-        ru: me,
-        sk: Oe,
-        sl: he,
-        sq: Ce,
-        sv: ve,
-        sw: ye,
-        ta: we,
-        th: ge,
-        tr: Ee,
-        uk: Ne,
-        vi: Ae,
-        zhCN: Le,
-        zhTW: ke
-    }, Me = {
-        dialog: '<div class="bootbox modal" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="bootbox-body"></div></div></div></div></div>',
-        header: '<div class="modal-header"><h5 class="modal-title"></h5></div>',
-        footer: '<div class="modal-footer"></div>',
-        closeButton: '<button type="button" class="bootbox-close-button close btn-close" aria-label="Close"></button>',
-        form: '<form class="bootbox-form"></form>',
-        button: '<button type="button" class="btn"></button>',
-        option: '<option value=""></option>',
-        promptMessage: '<div class="bootbox-prompt-message"></div>',
+        OK: `Labi`,
+        CANCEL: `Atcelt`,
+        CONFIRM: `Apstiprināt`
+    }, _e = {
+        OK: `OK`,
+        CANCEL: `Annuleren`,
+        CONFIRM: `Accepteren`
+    }, ve = {
+        OK: `OK`,
+        CANCEL: `Avbryt`,
+        CONFIRM: `OK`
+    }, ye = {
+        OK: `OK`,
+        CANCEL: `Anuluj`,
+        CONFIRM: `Potwierdź`
+    }, g = {
+        OK: `OK`,
+        CANCEL: `Cancelar`,
+        CONFIRM: `Confirmar`
+    }, _ = {
+        OK: `OK`,
+        CANCEL: `Cancelar`,
+        CONFIRM: `Sim`
+    }, v = {
+        OK: `OK`,
+        CANCEL: `Отмена`,
+        CONFIRM: `Применить`
+    }, y = {
+        OK: `OK`,
+        CANCEL: `Zrušiť`,
+        CONFIRM: `Potvrdiť`
+    }, b = {
+        OK: `OK`,
+        CANCEL: `Prekliči`,
+        CONFIRM: `Potrdi`
+    }, x = {
+        OK: `OK`,
+        CANCEL: `Anulo`,
+        CONFIRM: `Prano`
+    }, S = {
+        OK: `OK`,
+        CANCEL: `Avbryt`,
+        CONFIRM: `OK`
+    }, C = {
+        OK: `Sawa`,
+        CANCEL: `Ghairi`,
+        CONFIRM: `Thibitisha`
+    }, w = {
+        OK: `சரி`,
+        CANCEL: `ரத்து செய்`,
+        CONFIRM: `உறுதி செய்`
+    }, T = {
+        OK: `ตกลง`,
+        CANCEL: `ยกเลิก`,
+        CONFIRM: `ยืนยัน`
+    }, E = {
+        OK: `Tamam`,
+        CANCEL: `İptal`,
+        CONFIRM: `Onayla`
+    }, D = {
+        OK: `OK`,
+        CANCEL: `Відміна`,
+        CONFIRM: `Прийняти`
+    }, O = {
+        OK: `OK`,
+        CANCEL: `Hủy bỏ`,
+        CONFIRM: `Xác nhận`
+    }, k = {
+        OK: `OK`,
+        CANCEL: `取消`,
+        CONFIRM: `确认`
+    }, A = {
+        OK: `OK`,
+        CANCEL: `取消`,
+        CONFIRM: `確認`
+    }, j = `6.0.6`, M = {
+        ar: l,
+        az: u,
+        bgBG: d,
+        cs: f,
+        da: p,
+        de: m,
+        el: h,
+        en: ee,
+        es: te,
+        et: ne,
+        eu: re,
+        fa: ie,
+        fi: ae,
+        fr: oe,
+        he: se,
+        hr: ce,
+        hu: le,
+        id: ue,
+        it: de,
+        ja: fe,
+        ka: pe,
+        ko: me,
+        lt: he,
+        lv: ge,
+        nl: _e,
+        no: ve,
+        pl: ye,
+        pt: g,
+        ptBR: _,
+        ru: v,
+        sk: y,
+        sl: b,
+        sq: x,
+        sv: S,
+        sw: C,
+        ta: w,
+        th: T,
+        tr: E,
+        uk: D,
+        vi: O,
+        zhCN: k,
+        zhTW: A
+    }, N = {
+        dialog: `<div class="bootbox modal" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="bootbox-body"></div></div></div></div></div>`,
+        header: `<div class="modal-header"><h5 class="modal-title"></h5></div>`,
+        footer: `<div class="modal-footer"></div>`,
+        closeButton: `<button type="button" class="bootbox-close-button close btn-close" aria-label="Close"></button>`,
+        form: `<form class="bootbox-form"></form>`,
+        button: `<button type="button" class="btn"></button>`,
+        option: `<option value=""></option>`,
+        promptMessage: `<div class="bootbox-prompt-message"></div>`,
         inputs: {
-            text: '<input class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text" />',
-            textarea: '<textarea class="bootbox-input bootbox-input-textarea form-control"></textarea>',
-            email: '<input class="bootbox-input bootbox-input-email form-control" autocomplete="off" type="email" />',
-            select: '<select class="bootbox-input bootbox-input-select form-select"></select>',
-            checkbox: '<div class="form-check checkbox"><label class="form-check-label"><input class="form-check-input bootbox-input bootbox-input-checkbox" type="checkbox" /></label></div>',
-            radio: '<div class="form-check radio"><label class="form-check-label"><input class="form-check-input bootbox-input bootbox-input-radio" type="radio" name="bootbox-radio" /></label></div>',
-            date: '<input class="bootbox-input bootbox-input-date form-control" autocomplete="off" type="date" />',
-            time: '<input class="bootbox-input bootbox-input-time form-control" autocomplete="off" type="time" />',
-            number: '<input class="bootbox-input bootbox-input-number form-control" autocomplete="off" type="number" />',
-            password: '<input class="bootbox-input bootbox-input-password form-control" autocomplete="off" type="password" />',
-            range: '<input class="bootbox-input bootbox-input-range form-control-range" autocomplete="off" type="range" />'
+            text: `<input class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text" />`,
+            textarea: `<textarea class="bootbox-input bootbox-input-textarea form-control"></textarea>`,
+            email: `<input class="bootbox-input bootbox-input-email form-control" autocomplete="off" type="email" />`,
+            select: `<select class="bootbox-input bootbox-input-select form-select"></select>`,
+            checkbox: `<div class="form-check checkbox"><label class="form-check-label"><input class="form-check-input bootbox-input bootbox-input-checkbox" type="checkbox" /></label></div>`,
+            radio: `<div class="form-check radio"><label class="form-check-label"><input class="form-check-input bootbox-input bootbox-input-radio" type="radio" name="bootbox-radio" /></label></div>`,
+            date: `<input class="bootbox-input bootbox-input-date form-control" autocomplete="off" type="date" />`,
+            time: `<input class="bootbox-input bootbox-input-time form-control" autocomplete="off" type="time" />`,
+            number: `<input class="bootbox-input bootbox-input-number form-control" autocomplete="off" type="number" />`,
+            password: `<input class="bootbox-input bootbox-input-password form-control" autocomplete="off" type="password" />`,
+            range: `<input class="bootbox-input bootbox-input-range form-control-range" autocomplete="off" type="range" />`
         }
-    }, Ie = {
-        locale: "en",
-        backdrop: "static",
+    }, P = {
+        locale: `en`,
+        backdrop: `static`,
         animate: !0,
         className: null,
         closeButton: !0,
         show: !0,
-        container: "body",
-        value: "",
-        inputType: "text",
+        container: `body`,
+        value: ``,
+        inputType: `text`,
         errorMessage: null,
         swapButtonOrder: !1,
         centerVertical: !1,
@@ -270,432 +267,416 @@ var bootbox = function(b, B) {
         size: null,
         id: null
     };
-    function x(t) {
-        return /([01][0-9]|2[0-3]):[0-5][0-9]?:[0-5][0-9]/.test(t);
+    function F(e) {
+        return /([01][0-9]|2[0-3]):[0-5][0-9]?:[0-5][0-9]/.test(e);
     }
-    function M(t) {
-        return /(\d{4})-(\d{2})-(\d{2})/.test(t);
+    function I(e) {
+        return /(\d{4})-(\d{2})-(\d{2})/.test(e);
     }
-    function g(t, e) {
-        if (typeof e == "string" && typeof t[e] == "function") t[e](); else {
-            const o = typeof e == "string" ? new Event(e, {
+    function L(e, t) {
+        if (typeof t == `string` && typeof e[t] == `function`) e[t](); else {
+            let n = typeof t == `string` ? new Event(t, {
                 bubbles: !0
-            }) : e;
-            t.dispatchEvent(o);
+            }) : t;
+            e.dispatchEvent(n);
         }
     }
-    const Se = Ke, C = xe, m = Me, h = Ie;
-    function Fe(t) {
-        return C[t];
+    var be = j, R = M, z = N, B = P;
+    function xe(e) {
+        return R[H(e)];
     }
-    function Re() {
-        return C;
+    function Se() {
+        return R;
     }
-    function qe(t, e) {
-        [ "OK", "CANCEL", "CONFIRM" ].forEach((o, a) => {
-            if (!e[o]) throw new Error(`Please supply a translation for "${o}"`);
-        }), C[t] = {
-            OK: e.OK,
-            CANCEL: e.CANCEL,
-            CONFIRM: e.CONFIRM
+    function V(e, t) {
+        [ `OK`, `CANCEL`, `CONFIRM` ].forEach((e, n) => {
+            if (!t[e]) throw Error(`Please supply a translation for "${e}"`);
+        }), R[e] = {
+            OK: t.OK,
+            CANCEL: t.CANCEL,
+            CONFIRM: t.CONFIRM
         };
     }
-    function Te(t) {
-        if (t !== "en") delete C[t]; else throw new Error('"en" is used as the default and fallback locale and cannot be removed.');
+    function Ce(e) {
+        if (e !== `en`) delete R[e]; else throw Error(`"en" is used as the default and fallback locale and cannot be removed.`);
     }
-    function je(t) {
-        return t && (t = t.replace("-", "")), I("locale", t);
+    function we(e) {
+        return e &&= H(e), U(`locale`, e);
     }
-    function I(...t) {
-        let e = {};
-        t.length === 2 ? e[t[0]] = t[1] : e = t[0], Object.assign(h, e);
+    function H(e) {
+        return e.replace(/[-_]/g, ``);
     }
-    function Be() {
-        document.querySelectorAll(".bootbox").forEach(t => {
-            const e = w.Modal.getInstance(t);
-            e && e.hide();
+    function U(...e) {
+        let t = {};
+        e.length === 2 ? t[e[0]] = e[1] : t = e[0], Object.assign(B, t);
+    }
+    function Te() {
+        document.querySelectorAll(`.bootbox`).forEach(e => {
+            let n = t.Modal.getInstance(e);
+            n && n.hide();
         });
     }
-    function S(t) {
-        return S();
+    function Ee(e) {
+        return e || t;
     }
-    function E(t) {
-        if (w.Modal === void 0) throw new Error('"bootstrap.Modal" is not defined; please double check you have included the Bootstrap JavaScript library. See https://getbootstrap.com/docs/5.3/getting-started/introduction/ for more details.');
-        t = Ue(t);
-        let e = p(m.dialog), o = e.querySelector(".modal-dialog"), a = e.querySelector(".modal-body"), r = p(m.header), n = p(m.footer), i = t.buttons;
-        t.messageForm ? a.querySelector(".bootbox-body").append(t.messageForm) : typeof t.message == "string" ? a.querySelector(".bootbox-body").innerHTML = t.message : a.querySelector(".bootbox-body").append(t.message);
-        let u = {};
-        if (typeof t.onEscape == "function" && (u.onEscape = t.onEscape), T(t.buttons) > 0) {
-            for (const [ l, d ] of Object.entries(i)) {
-                let O = p(m.button);
-                O.dataset.bbHandler = l;
-                var v = d.className.split(" ");
-                switch (v.forEach(L => {
-                    O.classList.add(L);
-                }), l) {
-                  case "ok":
-                  case "confirm":
-                    O.classList.add("bootbox-accept");
+    function W(e) {
+        if (t.Modal === void 0) throw Error(`"bootstrap.Modal" is not defined; please double check you have included the Bootstrap JavaScript library. See https://getbootstrap.com/docs/5.3/getting-started/introduction/ for more details.`);
+        e = Pe(e);
+        let n = Q(z.dialog), r = n.querySelector(`.modal-dialog`), i = n.querySelector(`.modal-body`), a = Q(z.header), o = Q(z.footer), s = e.buttons;
+        e.messageForm ? i.querySelector(`.bootbox-body`).append(e.messageForm) : typeof e.message == `string` ? i.querySelector(`.bootbox-body`).innerHTML = e.message : i.querySelector(`.bootbox-body`).append(e.message);
+        let c = {};
+        if (typeof e.onEscape == `function` && (c.onEscape = e.onEscape), X(e.buttons) > 0) {
+            for (let [ e, t ] of Object.entries(s)) {
+                let n = Q(z.button);
+                switch (n.dataset.bbHandler = e, t.className.split(` `).forEach(e => {
+                    n.classList.add(e);
+                }), e) {
+                  case `ok`:
+                  case `confirm`:
+                    n.classList.add(`bootbox-accept`);
                     break;
 
-                  case "cancel":
-                    O.classList.add("bootbox-cancel");
-                    break;
+                  case `cancel`:
+                    n.classList.add(`bootbox-cancel`);
                 }
-                O.innerHTML = d.label, d.id && O.setAttribute("id", d.id), d.disabled === !0 && (O.disabled = !0), 
-                n.append(O), typeof d.callback == "function" && (u[l] = d.callback);
+                n.innerHTML = t.label, t.id && n.setAttribute(`id`, t.id), t.disabled === !0 && (n.disabled = !0), 
+                o.append(n), typeof t.callback == `function` && (c[e] = t.callback);
             }
-            a.after(n);
+            i.after(o);
         }
-        if (t.animate === !0 && e.classList.add("fade"), t.className && t.className.split(" ").forEach(l => {
-            e.classList.add(l);
-        }), t.id && e.setAttribute("id", t.id), t.size) switch (t.size) {
-          case "small":
-          case "sm":
-            o.classList.add("modal-sm");
+        if (e.animate === !0 && n.classList.add(`fade`), e.className && e.className.split(` `).forEach(e => {
+            n.classList.add(e);
+        }), e.id && n.setAttribute(`id`, e.id), e.size) switch (e.size) {
+          case `small`:
+          case `sm`:
+            r.classList.add(`modal-sm`);
             break;
 
-          case "large":
-          case "lg":
-            o.classList.add("modal-lg");
+          case `large`:
+          case `lg`:
+            r.classList.add(`modal-lg`);
             break;
 
-          case "extra-large":
-          case "xl":
-            o.classList.add("modal-xl");
-            break;
+          case `extra-large`:
+          case `xl`:
+            r.classList.add(`modal-xl`);
         }
-        if (t.scrollable && o.classList.add("modal-dialog-scrollable"), t.title || t.closeButton) {
-            if (t.title ? r.querySelector(".modal-title").innerHTML = t.title : r.classList.add("border-0"), 
-            t.closeButton) {
-                let l = p(m.closeButton);
-                r.append(l);
+        if (e.scrollable && r.classList.add(`modal-dialog-scrollable`), e.title || e.closeButton) {
+            if (e.title ? a.querySelector(`.modal-title`).innerHTML = e.title : a.classList.add(`border-0`), 
+            e.closeButton) {
+                let e = Q(z.closeButton);
+                a.append(e);
             }
-            a.before(r);
+            i.before(a);
         }
-        if (t.centerVertical && o.classList.add("modal-dialog-centered"), t.reusable || (e.addEventListener("hide.bs.modal", l => {
-            l.target === e && (e.removeEventListener("escape.close.bb", () => {}), 
-            e.removeEventListener("click", () => {}));
+        if (e.centerVertical && r.classList.add(`modal-dialog-centered`), e.reusable || n.addEventListener(`hidden.bs.modal`, e => {
+            e.target === n && n.remove();
         }, {
             once: !0
-        }), e.addEventListener("hidden.bs.modal", l => {
-            l.target === e && e.remove();
-        }, {
-            once: !0
-        })), t.onHide) if (typeof t.onHide == "function") e.addEventListener("hide.bs.modal", t.onHide); else throw new Error('Argument supplied to "onHide" must be a function');
-        if (t.onHidden) if (typeof t.onHidden == "function") e.addEventListener("hidden.bs.modal", t.onHidden); else throw new Error('Argument supplied to "onHidden" must be a function');
-        if (t.onShow) if (typeof t.onShow == "function") A(e, "show.bs.modal", t.onShow); else throw new Error('Argument supplied to "onShow" must be a function');
-        if (e.addEventListener("shown.bs.modal", q), t.onShown) if (typeof t.onShown == "function") A(e, "shown.bs.modal", t.onShown); else throw new Error('Argument supplied to "onShown" must be a function');
-        if (t.backdrop === !0) {
-            let l = !1;
-            A(e, "mousedown", d => {
-                d.stopPropagation(), l = !0;
-            }, ".modal-content"), A(e, "click.dismiss.bs.modal", d => {
-                l || d.target !== d.currentTarget || g(e, "escape.close.bb");
+        }), e.onHide) if (typeof e.onHide == `function`) n.addEventListener(`hide.bs.modal`, e.onHide); else throw Error(`Argument supplied to "onHide" must be a function`);
+        if (e.onHidden) if (typeof e.onHidden == `function`) n.addEventListener(`hidden.bs.modal`, e.onHidden); else throw Error(`Argument supplied to "onHidden" must be a function`);
+        if (e.onShow) if (typeof e.onShow == `function`) $(n, `show.bs.modal`, e.onShow); else throw Error(`Argument supplied to "onShow" must be a function`);
+        if (n.addEventListener(`shown.bs.modal`, Y), e.onShown) if (typeof e.onShown == `function`) $(n, `shown.bs.modal`, e.onShown); else throw Error(`Argument supplied to "onShown" must be a function`);
+        if (e.backdrop === !0) {
+            let e = !1;
+            $(n, `mousedown`, t => {
+                t.stopPropagation(), e = !0;
+            }, `.modal-content`), $(n, `click`, t => {
+                e || t.target !== t.currentTarget || L(n, `escape.close.bb`);
             });
         }
-        e.addEventListener("escape.close.bb", l => {
-            u.onEscape && K(l, e, u.onEscape);
-        }), e.addEventListener("click", l => {
-            if (l.target.nodeName.toLowerCase() === "button" && !l.target.classList.contains("disabled")) {
-                const d = l.target.dataset.bbHandler;
-                d !== void 0 && K(l, e, u[d]);
+        n.addEventListener(`escape.close.bb`, e => {
+            c.onEscape && Z(e, n, c.onEscape);
+        }), n.addEventListener(`click`, e => {
+            if (e.target.closest(`.bootbox-close-button`)) {
+                Z(e, n, c.onEscape);
+                return;
             }
-        }), document.addEventListener("click", l => {
-            l.target.closest(".bootbox-close-button") && K(l, e, u.onEscape);
-        }), e.addEventListener("keyup", l => {
-            (l.which === 27 || l.detail.which === 27) && g(e, "escape.close.bb");
-        }), typeof t.container == "object" ? t.container.append(e) : document.querySelector(t.container)?.append(e);
-        const y = new w.Modal(e, {
-            backdrop: t.backdrop,
+            if (e.target.nodeName.toLowerCase() === `button` && !e.target.classList.contains(`disabled`)) {
+                let t = e.target.dataset.bbHandler;
+                t !== void 0 && Z(e, n, c[t]);
+            }
+        }), n.addEventListener(`keyup`, e => {
+            (e.which === 27 || e.detail.which === 27) && L(n, `escape.close.bb`);
+        }), typeof e.container == `object` ? e.container.append(n) : document.querySelector(e.container)?.append(n);
+        let l = new t.Modal(n, {
+            backdrop: e.backdrop !== !1 && `static`,
             keyboard: !1
         });
-        return t.show && (t.relatedTarget ? y.show(t.relatedTarget) : y.show()), 
+        return e.show && (e.relatedTarget ? l.show(e.relatedTarget) : l.show()), 
         {
-            _element: e,
-            _modal: y,
-            _options: t
+            _element: n,
+            _modal: l,
+            _options: e
         };
     }
-    function Pe(...t) {
-        const e = k("alert", [ "ok" ], [ "message", "callback" ], t);
-        if (e.callback && typeof e.callback != "function") throw new Error('alert requires the "callback" property to be a function when provided');
-        return e.buttons.ok.callback = e.onEscape = function() {
-            return typeof e.callback == "function" ? e.callback.call(this) : !0;
-        }, E(e);
+    function De(...e) {
+        let t = K(`alert`, [ `ok` ], [ `message`, `callback` ], e);
+        if (t.callback && typeof t.callback != `function`) throw Error(`alert requires the "callback" property to be a function when provided`);
+        return t.buttons.ok.callback = t.onEscape = function() {
+            return typeof t.callback != `function` || t.callback.call(this);
+        }, W(t);
     }
-    function _e(...t) {
-        let e;
-        if (e = k("confirm", [ "cancel", "confirm" ], [ "message", "callback" ], t), 
-        typeof e.callback != "function") throw new Error("confirm requires a callback");
-        let o = e.buttons.cancel, a = e.buttons.confirm;
-        return a || (e.buttons.confirm = N("confirm", e.locale), a = e.buttons.confirm), 
-        o || (e.buttons.cancel = N("cancel", e.locale), o = e.buttons.cancel), o.callback = e.onEscape = function() {
-            return e.callback?.call(this, null);
-        }, a.callback = function() {
-            return e.callback?.call(this, !0);
-        }, e.buttons.cancel = o, e.buttons.confirm = a, E(e);
+    function Oe(...e) {
+        let t;
+        if (t = K(`confirm`, [ `cancel`, `confirm` ], [ `message`, `callback` ], e), 
+        typeof t.callback != `function`) throw Error(`confirm requires a callback`);
+        let n = t.buttons.cancel, r = t.buttons.confirm;
+        return r ||= (t.buttons.confirm = q(`confirm`, t.locale), t.buttons.confirm), 
+        n ||= (t.buttons.cancel = q(`cancel`, t.locale), t.buttons.cancel), n.callback = t.onEscape = function() {
+            return t.callback?.call(this, null);
+        }, r.callback = function() {
+            return t.callback?.call(this, !0);
+        }, t.buttons.cancel = n, t.buttons.confirm = r, W(t);
     }
-    function He(...t) {
-        let e, o, a, r, n, i;
-        a = p(m.form), e = k("prompt", [ "cancel", "confirm" ], [ "title", "callback" ], t), 
-        e.value || (e.value = h.value), e.inputType || (e.inputType = h.inputType), 
-        n = e.show === void 0 ? h.show : e.show, e.show = !1;
-        var u = e.buttons.cancel;
-        u || (e.buttons.cancel = N("cancel", e.locale), u = e.buttons.cancel), u.callback = e.onEscape = function() {
-            return e.callback?.call(this, null);
-        }, e.buttons.cancel = u;
-        var v = e.buttons.confirm;
-        if (v || (e.buttons.confirm = N("confirm", e.locale), v = e.buttons.confirm), 
-        v.callback = function() {
-            let s;
-            if (a.classList.add("was-validated"), e.inputType === "checkbox") {
-                const c = Array.from(r.querySelectorAll('input[type="checkbox"]:checked'));
-                if (s = Array.from(c).map(f => f.value), e.required === !0 && c.length === 0) return !1;
-            } else if (e.inputType === "radio") s = r.querySelector('input[type="radio"]:checked').value; else {
-                let c = r;
-                if (c.setCustomValidity(""), c.checkValidity && !c.checkValidity()) return e.errorMessage && c.setCustomValidity(e.errorMessage), 
-                c.reportValidity && c.reportValidity(), !1;
-                e.inputType === "select" && e.multiple === !0 ? s = Array.from(r.querySelectorAll("option:checked")).map(f => f.value) : s = c.value;
+    function ke(...e) {
+        let t, n, r, i, a, o;
+        r = Q(z.form), t = K(`prompt`, [ `cancel`, `confirm` ], [ `title`, `callback` ], e), 
+        t.value || (t.value = B.value), t.inputType || (t.inputType = B.inputType), 
+        a = t.show === void 0 ? B.show : t.show, t.show = !1;
+        var s = t.buttons.cancel;
+        s ||= (t.buttons.cancel = q(`cancel`, t.locale), t.buttons.cancel), s.callback = t.onEscape = function() {
+            return t.callback?.call(this, null);
+        }, t.buttons.cancel = s;
+        var c = t.buttons.confirm;
+        if (c ||= (t.buttons.confirm = q(`confirm`, t.locale), t.buttons.confirm), 
+        c.callback = function() {
+            let e;
+            if (r.classList.add(`was-validated`), t.inputType === `checkbox`) {
+                let n = Array.from(i.querySelectorAll(`input[type="checkbox"]:checked`));
+                if (e = Array.from(n).map(e => e.value), t.required === !0 && n.length === 0) return !1;
+            } else if (t.inputType === `radio`) e = i.querySelector(`input[type="radio"]:checked`).value; else {
+                let n = i;
+                if (n.setCustomValidity(``), n.checkValidity && !n.checkValidity()) return t.errorMessage && n.setCustomValidity(t.errorMessage), 
+                n.reportValidity && n.reportValidity(), !1;
+                e = t.inputType === `select` && t.multiple === !0 ? Array.from(i.querySelectorAll(`option:checked`)).map(e => e.value) : n.value;
             }
-            return e.callback?.call(this, s);
-        }, e.buttons.confirm = v, !e.title) throw new Error("prompt requires a title");
-        if (typeof e.callback != "function") throw new Error("prompt requires a callback");
-        var y = m.inputs;
-        if (!y[e.inputType]) throw new Error("Invalid prompt type");
-        switch (r = p(y[e.inputType]), e.inputType !== "textarea" && r.addEventListener("keydown", function(s) {
-            if (s.key === "Enter") {
-                s.preventDefault();
-                var c = o.querySelector(".bootbox-accept");
-                g(c, "click");
-            }
-        }), e.inputType) {
-          case "text":
-          case "textarea":
-          case "email":
-          case "password":
-            r.value = e.value.toString(), e.placeholder && r.setAttribute("placeholder", e.placeholder), 
-            e.pattern && r.setAttribute("pattern", e.pattern), e.maxlength && r.setAttribute("maxlength", e.maxlength.toString()), 
-            e.required && (r.required = !0), e.inputType === "textarea" && e.rows && !isNaN(parseInt(e.rows.toString())) && r.setAttribute("rows", e.rows.toString());
+            return t.callback?.call(this, e);
+        }, t.buttons.confirm = c, !t.title) throw Error(`prompt requires a title`);
+        if (typeof t.callback != `function`) throw Error(`prompt requires a callback`);
+        var l = z.inputs;
+        if (!l[t.inputType]) throw Error(`Invalid prompt type`);
+        switch (i = Q(l[t.inputType]), t.inputType !== `textarea` && i.addEventListener(`keydown`, function(e) {
+            e.key === `Enter` && (e.preventDefault(), L(n.querySelector(`.bootbox-accept`), `click`));
+        }), t.inputType) {
+          case `text`:
+          case `textarea`:
+          case `email`:
+          case `password`:
+            i.value = t.value.toString(), t.placeholder && i.setAttribute(`placeholder`, t.placeholder), 
+            t.pattern && i.setAttribute(`pattern`, t.pattern), t.maxlength && i.setAttribute(`maxlength`, t.maxlength.toString()), 
+            t.required && (i.required = !0), t.inputType === `textarea` && t.rows && !isNaN(parseInt(t.rows.toString())) && i.setAttribute(`rows`, t.rows.toString());
             break;
 
-          case "date":
-          case "time":
-          case "number":
-          case "range":
-            if (r.value = e.value.toString(), e.placeholder && r.setAttribute("placeholder", e.placeholder), 
-            e.pattern ? r.setAttribute("pattern", e.pattern) : e.inputType === "date" ? r.setAttribute("pattern", "d{4}-d{2}-d{2}") : e.inputType === "time" && r.setAttribute("pattern", "d{2}:d{2}"), 
-            e.required && (r.required = !0), e.step) if (typeof e.step == "string" && (e.step === "any" || parseFloat(e.step) > 0)) r.setAttribute("step", e.step); else if (typeof e.step == "number" && !isNaN(e.step) && e.step > 0) r.setAttribute("step", e.step.toString()); else throw new Error('"step" must be a valid positive number or the value "any". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-step for more information.');
-            Ge(e.inputType, e.min, e.max) && (e.min !== void 0 && r.setAttribute("min", e.min.toString()), 
-            e.max !== void 0 && r.setAttribute("max", e.max.toString()));
+          case `date`:
+          case `time`:
+          case `number`:
+          case `range`:
+            if (i.value = t.value.toString(), t.placeholder && i.setAttribute(`placeholder`, t.placeholder), 
+            t.pattern ? i.setAttribute(`pattern`, t.pattern) : t.inputType === `date` ? i.setAttribute(`pattern`, `\\d{4}-\\d{2}-\\d{2}`) : t.inputType === `time` && i.setAttribute(`pattern`, `\\d{2}:\\d{2}`), 
+            t.required && (i.required = !0), t.step) if (typeof t.step == `string` && (t.step === `any` || parseFloat(t.step) > 0)) i.setAttribute(`step`, t.step); else if (typeof t.step == `number` && !isNaN(t.step) && t.step > 0) i.setAttribute(`step`, t.step.toString()); else throw Error(`"step" must be a valid positive number or the value "any". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-step for more information.`);
+            Fe(t.inputType, t.min, t.max) && (t.min !== void 0 && i.setAttribute(`min`, t.min.toString()), 
+            t.max !== void 0 && i.setAttribute(`max`, t.max.toString()));
             break;
 
-          case "select":
-            var l = {};
-            if (i = e.inputOptions || [], !Array.isArray(i)) throw new Error("Please pass an array of input options");
-            if (!i.length) throw new Error('prompt with "inputType" set to "select" requires at least one option');
-            e.required && (r.required = !0), e.multiple && (r.multiple = !0);
-            for (const [ , s ] of Object.entries(i)) {
-                let c = r;
-                if (s.value === void 0 || s.text === void 0) throw new Error('each option needs a "value" property and a "text" property');
-                if (s.group) {
-                    if (!l[s.group]) {
-                        var d = p("<optgroup />");
-                        d.setAttribute("label", s.group), l[s.group] = {
+          case `select`:
+            var u = {};
+            if (o = t.inputOptions || [], !Array.isArray(o)) throw Error(`Please pass an array of input options`);
+            if (!o.length) throw Error(`prompt with "inputType" set to "select" requires at least one option`);
+            t.required && (i.required = !0), t.multiple && (i.multiple = !0);
+            for (let [ , e ] of Object.entries(o)) {
+                let t = i;
+                if (e.value === void 0 || e.text === void 0) throw Error(`each option needs a "value" property and a "text" property`);
+                if (e.group) {
+                    if (!u[e.group]) {
+                        var d = Q(`<optgroup />`);
+                        d.setAttribute(`label`, e.group), u[e.group] = {
                             Content: d
                         };
                     }
-                    c = l[s.group].Content;
+                    t = u[e.group].Content;
                 }
-                let f = p(m.option);
-                f.setAttribute("value", s.value), f.textContent = s.text, c.append(f);
+                let n = Q(z.option);
+                n.setAttribute(`value`, e.value), n.textContent = e.text, t.append(n);
             }
-            for (const [ s, c ] of Object.entries(l)) r.append(c.Content);
-            r.value = e.value.toString();
+            for (let [ e, t ] of Object.entries(u)) i.append(t.Content);
+            i.value = t.value.toString();
             break;
 
-          case "checkbox":
-            var O = Array.isArray(e.value) ? e.value : [ e.value ];
-            if (i = e.inputOptions || [], !i.length) throw new Error('prompt with "inputType" set to "checkbox" requires at least one option');
-            r = p('<div class="bootbox-checkbox-list"></div>');
-            for (const [ s, c ] of Object.entries(i)) {
-                if (c.value === void 0 || c.text === void 0) throw new Error('each option needs a "value" property and a "text" property');
-                let f = p(m.inputs[e.inputType]);
-                f.querySelector("input")?.setAttribute("value", c.value), f.querySelector("label")?.append(`
-${c.text}`);
-                for (const [ Je, Ze ] of Object.entries(O)) Ze === c.value && f.querySelector("input")?.setAttribute("checked", "true");
-                r.append(f);
+          case `checkbox`:
+            var f = Array.isArray(t.value) ? t.value : [ t.value ];
+            if (o = t.inputOptions || [], !o.length) throw Error(`prompt with "inputType" set to "checkbox" requires at least one option`);
+            i = Q(`<div class="bootbox-checkbox-list"></div>`);
+            for (let [ e, n ] of Object.entries(o)) {
+                if (n.value === void 0 || n.text === void 0) throw Error(`each option needs a "value" property and a "text" property`);
+                let e = Q(z.inputs[t.inputType]);
+                e.querySelector(`input`)?.setAttribute(`value`, n.value), e.querySelector(`label`)?.append(`\n${n.text}`);
+                for (let [ t, r ] of Object.entries(f)) r === n.value && e.querySelector(`input`)?.setAttribute(`checked`, `true`);
+                i.append(e);
             }
             break;
 
-          case "radio":
-            if (e.value !== void 0 && Array.isArray(e.value)) throw new Error('prompt with "inputType" set to "radio" requires a single, non-array value for "value"');
-            if (i = e.inputOptions || [], !i.length) throw new Error('prompt with "inputType" set to "radio" requires at least one option');
-            r = p('<div class="bootbox-radiobutton-list"></div>');
-            var L = !0;
-            for (const [ s, c ] of Object.entries(i)) {
-                if (c.value === void 0 || c.text === void 0) throw new Error('each option needs a "value" property and a "text" property');
-                let f = p(m.inputs[e.inputType]);
-                f.querySelector("input")?.setAttribute("value", c.value), f.querySelector("label")?.append(`
-${c.text}`), e.value !== void 0 && c.value === e.value && (f.querySelector("input").checked = !0, 
-                L = !1), r.append(f);
+          case `radio`:
+            if (t.value !== void 0 && Array.isArray(t.value)) throw Error(`prompt with "inputType" set to "radio" requires a single, non-array value for "value"`);
+            if (o = t.inputOptions || [], !o.length) throw Error(`prompt with "inputType" set to "radio" requires at least one option`);
+            i = Q(`<div class="bootbox-radiobutton-list"></div>`);
+            var p = !0;
+            for (let [ e, n ] of Object.entries(o)) {
+                if (n.value === void 0 || n.text === void 0) throw Error(`each option needs a "value" property and a "text" property`);
+                let e = Q(z.inputs[t.inputType]);
+                e.querySelector(`input`)?.setAttribute(`value`, n.value), e.querySelector(`label`)?.append(`\n${n.text}`), 
+                t.value !== void 0 && n.value === t.value && (e.querySelector(`input`).checked = !0, 
+                p = !1), i.append(e);
             }
-            L && r.querySelector('input[type="radio"]')?.setAttribute("checked", "true");
-            break;
+            p && i.querySelector(`input[type="radio"]`)?.setAttribute(`checked`, `true`);
         }
-        if (a.append(r), a.addEventListener("submit", s => {
-            s.preventDefault(), s.stopPropagation(), a.classList.remove("was-validated"), 
-            o.querySelector(".bootbox-accept")?.click();
-        }), e.message && e.message.trim() !== "") {
-            let s = p(m.promptMessage).innerHTML = e.message;
-            a.prepend(s), e.messageForm = a;
-        } else e.messageForm = a;
-        const j = E(e);
-        o = j._element, o.removeEventListener("shown.bs.modal", q), o.addEventListener("shown.bs.modal", () => {
-            r.focus();
+        if (r.append(i), r.addEventListener(`submit`, e => {
+            e.preventDefault(), e.stopPropagation(), r.classList.remove(`was-validated`), 
+            n.querySelector(`.bootbox-accept`)?.click();
+        }), t.message && t.message.trim() !== ``) {
+            let e = Q(z.promptMessage).innerHTML = t.message;
+            r.prepend(e), t.messageForm = r;
+        } else t.messageForm = r;
+        let m = W(t);
+        n = m._element, n.removeEventListener(`shown.bs.modal`, Y), n.addEventListener(`shown.bs.modal`, () => {
+            i.focus();
         });
-        const We = j._modal;
-        return n === !0 && We.show(), o;
+        let h = m._modal;
+        return a === !0 && h.show(), m;
     }
-    function F(...t) {
-        const e = {};
-        let o = !1, a = 0;
-        const r = t.length;
-        Object.prototype.toString.call(t[0]) === "[object Boolean]" && (o = t[0], 
-        a++);
-        const n = i => {
-            for (const u in i) Object.prototype.hasOwnProperty.call(i, u) && (o && Object.prototype.toString.call(i[u]) === "[object Object]" ? e[u] = F(!0, e[u], i[u]) : e[u] = i[u]);
+    function G(...e) {
+        let t = {}, n = !1, r = 0, i = e.length;
+        Object.prototype.toString.call(e[0]) === `[object Boolean]` && (n = e[0], 
+        r++);
+        let a = e => {
+            for (let r in e) Object.prototype.hasOwnProperty.call(e, r) && (n && Object.prototype.toString.call(e[r]) === `[object Object]` ? t[r] = G(!0, t[r], e[r]) : t[r] = e[r]);
         };
-        for (;a < r; a++) {
-            const i = t[a];
-            n(i);
+        for (;r < i; r++) {
+            let t = e[r];
+            a(t);
         }
-        return e;
+        return t;
     }
-    function Ve(t, e) {
-        const o = t.length;
-        let a = {};
-        if (o < 1 || o > 2) throw new Error("Invalid argument length");
-        return o === 2 || typeof t[0] == "string" ? (a[e[0]] = t[0], a[e[1]] = t[1]) : a = t[0], 
-        a;
+    function Ae(e, t) {
+        let n = e.length, r = {};
+        if (n < 1 || n > 2) throw Error(`Invalid argument length`);
+        return n === 2 || typeof e[0] == `string` ? (r[t[0]] = e[0], r[t[1]] = e[1]) : r = e[0], 
+        r;
     }
-    function De(t, e, o) {
-        return F({}, t, Ve(e, o));
+    function je(e, t, n) {
+        return G({}, e, Ae(t, n));
     }
-    function k(t, e, o, a) {
-        let r;
-        a && a[0] && (r = a[0].locale || h.locale, (a[0].swapButtonOrder || h.swapButtonOrder) && (e = e.reverse()));
-        const n = {
-            className: `bootbox-${t}`,
-            buttons: $e(e, r),
+    function K(e, t, n, r) {
+        let i;
+        return r && r[0] && (i = r[0].locale || B.locale, (r[0].swapButtonOrder || B.swapButtonOrder) && (t = t.reverse())), 
+        Me(je({
+            className: `bootbox-${e}`,
+            buttons: Ne(t, i),
             show: !0,
             closeButton: !0,
             animate: !0,
-            locale: "en",
+            locale: `en`,
             swapButtonOrder: !1,
             scrollable: !1,
             reusable: !1,
             centerVertical: !1
-        };
-        return ze(De(n, a, o), e);
+        }, r, n), t);
     }
-    function ze(t, e) {
-        const o = {};
-        for (const [ a, r ] of Object.entries(e)) o[r] = !0;
-        for (const [ a ] of Object.entries(t.buttons)) if (o[a] === void 0) throw new Error(`button key "${a}" is not allowed (options are ${e.join(" ")})`);
-        return t;
+    function Me(e, t) {
+        let n = {};
+        for (let [ e, r ] of Object.entries(t)) n[r] = !0;
+        for (let [ r ] of Object.entries(e.buttons)) if (n[r] === void 0) throw Error(`button key "${r}" is not allowed (options are ${t.join(` `)})`);
+        return e;
     }
-    function $e(t, e) {
-        const o = {};
-        for (let a = 0, r = t.length; a < r; a++) {
-            const n = t[a], i = n.toLowerCase(), u = n.toUpperCase();
-            o[i] = {
-                label: R(u, e),
-                className: ""
+    function Ne(e, t) {
+        let n = {};
+        for (let r = 0, i = e.length; r < i; r++) {
+            let i = e[r], a = i.toLowerCase();
+            n[a] = {
+                label: J(i.toUpperCase(), t),
+                className: ``
             };
         }
-        return o;
+        return n;
     }
-    function N(t, e) {
+    function q(e, t) {
         return {
-            label: R(t.toUpperCase(), e),
-            className: ""
+            label: J(e.toUpperCase(), t),
+            className: ``
         };
     }
-    function R(t, e) {
-        const o = C[e];
-        return o ? o[t] : C.en[t];
+    function J(e, t) {
+        let n = R[t];
+        return n ? n[e] : R.en[e];
     }
-    function Ue(t) {
-        let e, o;
-        if (!t.message && !t.messageForm) throw new Error('"message" option must not be null or an empty string.');
-        t = Object.assign({}, h, t), t.backdrop ? t.backdrop = typeof t.backdrop == "string" && t.backdrop.toLowerCase() === "static" ? "static" : !0 : t.backdrop = t.backdrop === !1 || t.backdrop === 0 ? !1 : "static", 
-        t.buttons || (t.buttons = {}), e = t.buttons, o = T(e);
-        let a = 0;
-        for (let [ r, n ] of Object.entries(e)) {
-            if (typeof n == "function" && (n = e[r] = {
-                callback: n,
-                label: "",
-                className: ""
-            }), Object.prototype.toString.call(n).replace(/^\[object (.+)\]$/, "$1").toLowerCase() !== "object") throw new Error(`button with key "${r}" must be an object`);
-            if (n.label || (n.label = r), !n.className) {
-                let i = !1;
-                t.swapButtonOrder ? i = a === 0 : i = a === o - 1, o <= 2 && i ? n.className = "btn-primary" : n.className = "btn-secondary";
+    function Pe(e) {
+        let t, n;
+        if (!e.message && !e.messageForm) throw Error(`"message" option must not be null or an empty string.`);
+        e = Object.assign({}, B, e), e.backdrop ? e.backdrop = typeof e.backdrop == `string` && e.backdrop.toLowerCase() === `static` ? `static` : !0 : e.backdrop = e.backdrop === !1 || e.backdrop === 0 ? !1 : `static`, 
+        e.buttons || (e.buttons = {}), t = e.buttons, n = X(t);
+        let r = 0;
+        for (let [ i, a ] of Object.entries(t)) {
+            if (typeof a == `function` && (a = t[i] = {
+                callback: a,
+                label: ``,
+                className: ``
+            }), Object.prototype.toString.call(a).replace(/^\[object (.+)\]$/, `$1`).toLowerCase() !== `object`) throw Error(`button with key "${i}" must be an object`);
+            if (a.label || (a.label = i), !a.className) {
+                let t = !1;
+                t = e.swapButtonOrder ? r === 0 : r === n - 1, n <= 2 && t ? a.className = `btn-primary` : a.className = `btn-secondary`;
             }
-            a++;
+            r++;
         }
-        return t;
+        return e;
     }
-    function q(t) {
-        const e = t?.data?.dialog?.querySelector(".bootbox-accept");
-        e && g(e, "focus");
+    function Y(e) {
+        let t = e?.data?.dialog?.querySelector(`.bootbox-accept`);
+        t && L(t, `focus`);
     }
-    function T(t) {
-        return Object.keys(t).length;
+    function X(e) {
+        return Object.keys(e).length;
     }
-    function K(t, e, o) {
-        t.stopPropagation(), t.preventDefault(), !(typeof o == "function" && o.call(e, t) === !1) && e && w.Modal.getInstance(e)?.hide();
+    function Z(e, n, r) {
+        e.stopPropagation(), e.preventDefault(), (typeof r != `function` || r.call(n, e) !== !1) && n && t.Modal.getInstance(n)?.hide();
     }
-    function Ge(t, e, o) {
-        let a = !1, r = !0, n = !0;
-        if (t === "date") e !== void 0 && !(r = M(e)) ? console.warn('Invalid "min" date format for input type "date".') : o !== void 0 && !(n = M(o)) && console.warn('Invalid "max" date format for input type "date".'); else if (t === "time") {
-            if (e !== void 0 && !(r = x(e))) throw new Error('"min" is not a valid time.');
-            if (o !== void 0 && !(n = x(o))) throw new Error('"max" is not a valid time.');
+    function Fe(e, t, n) {
+        let r = !1, i = !0, a = !0;
+        if (e === `date`) t !== void 0 && !(i = I(t)) ? console.warn(`Invalid "min" date format for input type "date".`) : n !== void 0 && !(a = I(n)) && console.warn(`Invalid "max" date format for input type "date".`); else if (e === `time`) {
+            if (t !== void 0 && !(i = F(t))) throw Error(`"min" is not a valid time.`);
+            if (n !== void 0 && !(a = F(n))) throw Error(`"max" is not a valid time.`);
         } else {
-            if (e !== void 0 && isNaN(Number(e))) throw r = !1, new Error('"min" must be a valid number.');
-            if (o !== void 0 && isNaN(Number(o))) throw n = !1, new Error('"max" must be a valid number.');
+            if (t !== void 0 && isNaN(Number(t))) throw i = !1, Error(`"min" must be a valid number.`);
+            if (n !== void 0 && isNaN(Number(n))) throw a = !1, Error(`"max" must be a valid number.`);
         }
-        if (r && n) {
-            if (typeof e == "number" && typeof o == "number" && o < e) throw new Error('"max" must be greater than or equal to "min".');
-            if (typeof e == "string" && typeof o == "string" && o < e) throw new Error('"max" must be greater than or equal to "min".');
-            a = !0;
+        if (i && a) {
+            if (typeof t == `number` && typeof n == `number` && n < t || typeof t == `string` && typeof n == `string` && n < t) throw Error(`"max" must be greater than or equal to "min".`);
+            r = !0;
         }
-        return a;
+        return r;
     }
-    function p(t) {
-        const e = document.createElement("template");
-        return e.innerHTML = t.trim(), e.content.children[0];
+    function Q(e) {
+        let t = document.createElement(`template`);
+        return t.innerHTML = e.trim(), t.content.children[0];
     }
-    function A(t, e, o, a) {
-        if (a) {
-            const r = n => {
-                if (!n.target) return;
-                const i = n.target.closest(a);
-                i && o.call(i, n);
+    function $(e, t, n, r) {
+        if (r) {
+            let i = e => {
+                if (!e.target) return;
+                let t = e.target.closest(r);
+                t && n.call(t, e);
             };
-            return t.addEventListener(e, r), r;
-        } else {
-            const r = n => {
-                o.call(t, n);
+            return e.addEventListener(t, i), i;
+        }
+        {
+            let r = t => {
+                n.call(e, t);
             };
-            return t.addEventListener(e, r), r;
+            return e.addEventListener(t, r), r;
         }
     }
-    return b.VERSION = Se, b.addLocale = qe, b.alert = Pe, b.confirm = _e, b.dialog = E, 
-    b.getAllLocales = Re, b.getLocale = Fe, b.hideAll = Be, b.init = S, b.prompt = He, 
-    b.removeLocale = Te, b.setDefaults = I, b.setLocale = je, Object.defineProperty(b, Symbol.toStringTag, {
-        value: "Module"
-    }), b;
+    return e.VERSION = be, e.addLocale = V, e.alert = De, e.confirm = Oe, e.dialog = W, 
+    e.getAllLocales = Se, e.getLocale = xe, e.hideAll = Te, e.init = Ee, e.prompt = ke, 
+    e.removeLocale = Ce, e.setDefaults = U, e.setLocale = we, e;
 }({}, bootstrap);
 
 var DarkEditable = function(l) {
