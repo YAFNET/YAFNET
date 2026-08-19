@@ -13,7 +13,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="11.0.2" />
     <PackageReference Include="FarsiLibrary.Core" Version="2.8.2" />
     <PackageReference Include="GoogleAuthenticator" Version="3.2.0" />
-    <PackageReference Include="HtmlProperties" Version="1.0.1" />
+    <PackageReference Include="HtmlProperties" Version="1.0.2" />
     <PackageReference Include="Lucene.Net" Version="4.8.0-beta00018" />
     <PackageReference Include="Lucene.Net.Analysis.Common" Version="4.8.0-beta00018" />
     <PackageReference Include="Lucene.Net.Highlighter" Version="4.8.0-beta00018" />
