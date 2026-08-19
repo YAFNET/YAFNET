@@ -6,6 +6,8 @@
 @use "../../node_modules/@fortawesome/fontawesome-free/scss/regular";
 @use "../../node_modules/@fortawesome/fontawesome-free/scss/brands";
 
+@use "fontawesome-extensions.scss";
+
 // Forum imports
 @use "forum/attachments-upload.scss";
 @use "forum/dropdowns.scss";
@@ -26,7 +28,6 @@
 
 // Event log
 .pre-scrollable {
-    overflow: auto;
     white-space: pre-line;
 }
 
@@ -38,7 +39,6 @@
     max-width: 1.2rem;
     max-height: 1.2rem;
     font-size: 2rem;
-    vertical-align: middle;
 }
 
 // Unread Icon
@@ -48,25 +48,22 @@
     left: 16px;
 }
 
+.card {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .06);
+}
+
+[data-bs-theme=dark] .card {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
 // Tabs
 .tab-content {
     padding-top: 10px;
 }
 
-// host settings tabs
-@media (min-width: 768px) {
-    .nav-settings {
-        flex-direction: column !important
-    }
-}
-
 .stats-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
-}
-
-.chart-container {
-    margin: 0 auto;
 }
 
 .dropdown-mentions {

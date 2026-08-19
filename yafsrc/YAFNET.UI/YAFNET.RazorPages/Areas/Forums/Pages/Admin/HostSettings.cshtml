@@ -10,7 +10,7 @@
 
 <div class="row">
 		<div class="col-md-auto mt-3">
-			<div class="nav nav-pills nav-settings" id="v-pills-tab" role="tablist">
+			<div class="nav nav-pills nav-settings flex-md-column" id="v-pills-tab" role="tablist">
 				<button data-bs-target="#ServerInfo" class="nav-link" data-bs-toggle="pill" role="tab" icon="server" icon-mobile-only="true"
 				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HEADER_SERVER_INFO"
 						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HEADER_SERVER_INFO">
@@ -519,7 +519,7 @@
 <div class="card mb-3">
 <div class="card-header">
 	@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
-	- @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SERVER_INFO")
+	- @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_FEATURES")
 </div>
 <div class="card-body">
 <ul class="nav nav-tabs" id="featuresTab" role="tablist">

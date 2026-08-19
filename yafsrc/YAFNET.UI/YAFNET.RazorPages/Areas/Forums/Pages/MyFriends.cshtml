@@ -74,7 +74,7 @@
                                             <div class="card-body">
                                                 <div class="d-flex">
                                                     <div class="preview">
-                                                        <img class="img-thumbnail" src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(
+                                                        <img class="img-thumbnail object-fit-cover" src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(
                                                                                             item.UserID,
                                                                                             item.Avatar,
                                                                                             item.AvatarImage != null))"

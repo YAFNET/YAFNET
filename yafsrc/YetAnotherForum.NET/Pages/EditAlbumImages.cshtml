@@ -52,11 +52,16 @@
                     <div class="mb-3">
                         @Html.LocalizedText("IMAGES")
                     </div>
-                    <ul class="list-group">
+                    <ul class="list-group mb-3">
                         @foreach (var image in Model.Images)
                         {
-                            <li class="list-group-item">
-                                @image.FileName ( @image.Bytes / 1024 Kb)
+                            <li class="list-group-item album-image-row d-flex align-items-center justify-content-between gap-2">
+                                <div class="d-flex align-items-center gap-2 text-truncate">
+                                    <img src="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImagePreview", "Albums", new { imageId = image.ID }))"
+                                         class="album-image-thumb object-fit-cover rounded-1" alt="@Html.HtmlEncode(image.FileName)" />
+                                    <span class="text-truncate">@image.FileName</span>
+                                    <span class="badge text-light-emphasis bg-light-subtle">@(image.Bytes / 1024) Kb</span>
+                                </div>
 
                                 <button type="submit"
                                         asp-page-handler="DeleteImage"
@@ -65,6 +70,7 @@
                                         text-localized-tag="DELETE"
                                         return-confirm-tag="ASK_DELETEIMAGE"
                                         button-style="Danger"
+                                        button-size="Small"
                                         icon="trash"></button>
                             </li>
                         }

@@ -9,21 +9,17 @@
     Model.PageBoardContext.CurrentForumPage.PageTitle = Html.Encode(Model.Get<ILocalization>().GetText(Model.PageBoardContext.PageMessage.MessageFlags.IsDeleted ? "UNDELETE" : "DELETE"));
 }
 
-<div class="row">
-    <div class="col-xl-12">
-        <h2>@Html.LocalizedText(Model.PageBoardContext.PageMessage.MessageFlags.IsDeleted ? "UNDELETE" : "DELETE")</h2>
-    </div>
-</div>
-
-    <form method="post" class="needs-validation" novalidate>
+<form method="post" class="needs-validation" novalidate>
     <div class="row">
         <div class="col">
             <div class="card mb-3">
                 <div class="card-header">
-                    @Html.IconStack("comment", "text-secondary", "trash", "fa-inverse", "fa-1x")
-                    @Html.LocalizedText("SUBJECT")&nbsp;@Html.Raw(Model.PageBoardContext.PageTopic.TopicName)
+                    @Html.IconHeader("trash", "DELETEMESSAGE", Model.PageBoardContext.PageMessage.MessageFlags.IsDeleted ? "UNDELETE" : "DELETE")
                 </div>
                 <div class="card-body">
+                    <div class="mb-3">
+                        <span class="fw-bold">@Html.LocalizedText("SUBJECT")</span> @Html.Raw(Model.PageBoardContext.PageTopic.TopicName)
+                    </div>
                     <div class="mb-3">
                         @Html.LocalizedText("previewtitle")
                         <div class="card text-bg-light-subtle">

@@ -4465,6 +4465,14 @@
             "#text": "Arama Dizini Görevi başlatıldı."
           },
           {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Forum Temel URL Maskesi:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "Bu forumun ileriye dönük tam URL'si."
+          },
+          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forum E-postası:"
           },
@@ -5699,14 +5707,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Güvenli web hizmeti çağrıları yapmak için kullanılan belirteç. Ana bilgisayar ayarlarınızı kaydedinceye kadar sürekli değişir."
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Forum Temel URL Maskesi:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Bu forumun ileriye dönük tam URL'si."
           }
         ]
       },
@@ -5805,6 +5805,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Test e-postasının gönderileceği E-posta Adresini girin"
+          },
+          {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Posta Testi"
           }
         ]
       },
@@ -6413,6 +6417,10 @@
           {
             "@tag": "TITLE",
             "#text": "SQL Kodunu Çalıştır"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Sonuç"
           }
         ]
       },

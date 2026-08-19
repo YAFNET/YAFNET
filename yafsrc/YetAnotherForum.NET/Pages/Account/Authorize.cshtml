@@ -2,14 +2,12 @@
 @using YAF.Web.HtmlHelpers
 @model AuthorizeModel
 
-<div class="row">
+<div class="row mb-3">
     <div class="col">
-        <div class="card mx-auto" style="max-width:450px">
-            <div class="card-header">
-                @Html.IconHeader("key", "LOGIN", "TWO_FA_VALIDATION")
-            </div>
-            <div class="card-body">
+        <div class="card mx-auto rounded-4 shadow" style="max-width:450px">
+            <div class="card-body p-4 m-4">
                 <section>
+                    <h1 class="fw-bold mb-4 fs-2">@Html.IconHeader("key", "LOGIN", "TWO_FA_VALIDATION")</h1>
                     <form method="post" class="needs-validation" novalidate>
                         <alert type="info" icon="info" localized-page="LOGIN" localized-tag="TWO_FA_INFO"></alert>
                         <div class="mb-3">

@@ -4465,6 +4465,14 @@
             "#text": "Pradėta paieškos rodyklės užduotis."
           },
           {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Forumo bazinio URL kaukė:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "Visas į priekį nukreiptas šio forumo URL."
+          },
+          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forumo el. paštas:"
           },
@@ -5699,14 +5707,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Ženklas, naudojamas saugiems žiniatinklio paslaugos skambučiams atlikti. Nuolat keičiasi, kol išsaugote prieglobos nustatymus."
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Forumo bazinio URL kaukė:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Visas į priekį nukreiptas šio forumo URL."
           }
         ]
       },
@@ -5805,6 +5805,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Įveskite el. pašto adresą, kuriuo turėtų būti siunčiamas bandomasis el. laiškas"
+          },
+          {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Pašto testavimas"
           }
         ]
       },
@@ -6413,6 +6417,10 @@
           {
             "@tag": "TITLE",
             "#text": "Paleisti SQL kodą"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Rezultatas"
           }
         ]
       },

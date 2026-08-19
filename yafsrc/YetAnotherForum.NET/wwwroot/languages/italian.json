@@ -4457,6 +4457,14 @@
             "#text": "L'attività di ricerca dell'indice è stata avviata."
           },
           {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Maschera URL di base del forum:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "L'URL completo rivolto in avanti a questo forum."
+          },
+          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forum E-mail:"
           },
@@ -5691,14 +5699,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilizzato per effettuare chiamate sicure al servizio web. Cambia continuamente finché non si salvano le impostazioni dell'host."
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Maschera URL di base del forum:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "L'URL completo rivolto in avanti a questo forum."
           }
         ]
       },
@@ -5797,6 +5797,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Inserite l'indirizzo e-mail a cui inviare l'e-mail di prova."
+          },
+          {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Test della posta"
           }
         ]
       },
@@ -6405,6 +6409,10 @@
           {
             "@tag": "TITLE",
             "#text": "Eseguire il codice SQL"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Risultato"
           }
         ]
       },

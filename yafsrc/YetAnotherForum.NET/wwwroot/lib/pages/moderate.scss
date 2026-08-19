@@ -1,0 +1,11 @@
+// Moderate Pages
+.page-Moderate_Moderate {
+
+    .moderate-forum-row {
+        transition: background-color .15s ease;
+
+        &:hover {
+            background: var(--bs-tertiary-bg);
+        }
+    }
+}

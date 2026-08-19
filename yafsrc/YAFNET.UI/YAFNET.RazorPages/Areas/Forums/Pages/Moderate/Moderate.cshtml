@@ -17,10 +17,10 @@
                         @category.Name
                     </div>
                     <div class="card-body text-center">
-                        @foreach (var forum in forums)
-                        {
-                            <div class="list-group list-group-flush small">
-                                <div class="list-group-item list-group-item-action">
+                        <div class="list-group list-group-flush small">
+                            @foreach (var forum in forums)
+                            {
+                                <div class="list-group-item list-group-item-action moderate-forum-row">
                                     <h5 class="fw-bold">
                                         @Html.Raw($"{(forum.ParentID.HasValue ? "--" : "-")}{forum.Name}")
                                     </h5>
@@ -45,7 +45,7 @@
                                                button-style="Secondary"
                                                button-size="Small"
                                                aria-disabled="true"
-                                               class=" disabled"></a>
+                                               class="disabled"></a>
                                         }
 
                                         @if (forum.ReportedCount > 0)
@@ -68,12 +68,12 @@
                                                button-style="Secondary"
                                                button-size="Small"
                                                aria-disabled="true"
-                                               class=" disabled"></a>
+                                               class="disabled"></a>
                                         }
                                     </form>
                                 </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

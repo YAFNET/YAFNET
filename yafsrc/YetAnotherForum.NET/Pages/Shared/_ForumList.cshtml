@@ -13,13 +13,10 @@
 @{
     var forumList = Current.PageForumID > 0 ?
         Model.SubForums : Model.SubForums.Where(x => !x.ParentID.HasValue).ToList();
-
-    var forumsCount = 0;
 }
 
 @foreach (var forum in forumList)
 {
-	forumsCount++;
     var subForums = Model.SubForums.Where(item => item.ParentID == forum.ForumID)
         .Take(Current.BoardSettings.SubForumsInForumList).ToList();
 
@@ -67,13 +64,13 @@
     }
 
 
-    <div class="row">
+    <div class="row forum-row align-items-start">
         <div class="@Html.Raw(forum.RemoteURL.IsNotSet() ? "col-md-8" : "col" )">
             <h5>
 
                 @if (imageUrl.IsSet())
                 {
-                    <img src="@imageUrl" alt="@imageToolTip" title="@imageToolTip" class="@imageClass"/>
+                    <img src="@imageUrl" alt="@imageToolTip" title="@imageToolTip" class="@imageClass object-fit-cover"/>
                 }
                 else
                 {
@@ -173,7 +170,7 @@
         @if (forum.RemoteURL.IsNotSet())
         {
             <div class="col-md-4 text-secondary">
-                <div class="card bg-light-subtle card-post-last">
+                <div class="card bg-light-subtle card-post-last h-100">
 	                <div class="card-body py-1 ps-2">
 		                @await Html.PartialAsync("_ForumLastPost", forum)
 	                </div>
@@ -191,12 +188,4 @@
         </div>
     }
 
-    @if (forumsCount < forumList.Count)
-    {
-	    <div class="row">
-		    <div class="col">
-			    <hr/>
-		    </div>
-	    </div>
-    }
 }

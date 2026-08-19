@@ -621,7 +621,7 @@
                                         @if (Current.IsGuest)
                                         {
 	                                        <span id="@Html.Raw($"dvThanksInfo{Model.MessageID}")">
-                                                <i class="fa fa-heart me-2" style="color: #e74c3c"></i>+@Model.ThanksNumber
+                                                <i class="fa fa-heart text-danger me-2"></i>+@Model.ThanksNumber
 	                                        </span>
                                         }
                                         else
@@ -634,7 +634,7 @@
 		                                           data-messageid="@postData.MessageId"
 		                                           title="@thanksLabelText"
 		                                           data-bs-content="@formatThanksInfo.ToJsString()">
-			                                        <i class="fa fa-heart me-1" style="color: #e74c3c"></i>+@Model.ThanksNumber
+			                                        <i class="fa fa-heart text-danger me-1"></i>+@Model.ThanksNumber
 		                                        </a>
 	                                        </span>
                                         }

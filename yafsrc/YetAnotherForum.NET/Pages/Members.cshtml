@@ -158,37 +158,42 @@
                     <ul class="list-group">
                         @foreach (var user in Model.UserList)
                         {
-                            <li class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1 text-break">
-                                        <img src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(user.UserID, user.Avatar, user.AvatarImage != null))"
-                                             alt="@Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name)"
-                                             title="@Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name)"
-                                             class="rounded img-fluid"
-                                             style="max-height: 50px; max-width: 50px"/>
-                                        @Html.UserLink(user.UserID, Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name, user.Suspended, user.UserStyle)
-                                    </h5>
-                                    <small class="d-none d-md-block">
-                                        <strong>@Html.LocalizedText("POSTS", "JOINED"):</strong>
-                                        @Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(user.Joined))
+                            <li class="list-group-item list-group-item-action member-row">
+                                <div class="d-flex align-items-center flex-wrap">
+                                    <img src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(user.UserID, user.Avatar, user.AvatarImage != null))"
+                                         alt="@Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name)"
+                                         title="@Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name)"
+                                         class="rounded member-avatar me-3"/>
+                                    <div class="flex-grow-1 member-info">
+                                        <h5 class="mb-1 text-break">
+                                            @Html.UserLink(user.UserID, Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name, user.Suspended, user.UserStyle)
+                                        </h5>
+                                        <div class="d-flex flex-wrap">
+                                            <span class="badge text-light-emphasis bg-light-subtle"
+                                                  title="@Html.LocalizedText("RANK")"
+                                                  data-bs-toggle="tooltip">
+                                                @Html.Icon("id-badge")
+                                                @user.RankName
+                                            </span>
+                                            <span class="badge text-light-emphasis bg-light-subtle"
+                                                  title="@Html.LocalizedText("ADMIN_USERS", "POSTS")"
+                                                  data-bs-toggle="tooltip">
+                                                @Html.Icon("comment", "", "far")
+                                                @($"{user.NumPosts:N0}")
+                                            </span>
+                                            <span class="badge text-light-emphasis bg-light-subtle d-none d-md-inline-flex"
+                                                  title="@Html.LocalizedText("POSTS", "JOINED")"
+                                                  data-bs-toggle="tooltip">
+                                                @Html.Icon("calendar-day")
+                                                @Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(user.Joined))
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <small class="text-secondary text-nowrap d-none d-md-block ms-2">
+                                        <strong>@Html.LocalizedText("ADMIN_USERS", "LAST_VISIT"):</strong>
+                                        @Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(user.LastVisit))
                                     </small>
                                 </div>
-                                <p class="mb-1">
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <strong>@Html.LocalizedText("RANK")</strong>
-                                            @user.RankName
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <strong>@Html.LocalizedText("ADMIN_USERS", "POSTS"):</strong>
-                                            @($"{user.NumPosts:N0}")
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <strong>@Html.LocalizedText("ADMIN_USERS", "LAST_VISIT"):</strong>
-                                            @Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(user.LastVisit))
-                                        </li>
-                                    </ul>
-                                </p>
                             </li>
                         }
                     </ul>
@@ -211,6 +216,7 @@
 </div>
 
 </form>
+
 @section Scripts {
 	@await Html.PartialAsync("_ChoicesScriptsPartial")
 }

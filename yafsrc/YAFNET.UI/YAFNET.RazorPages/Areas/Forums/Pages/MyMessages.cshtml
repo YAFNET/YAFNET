@@ -38,27 +38,24 @@
 
                         @foreach (var user in Model.Users)
                         {
-                            <li id="@(user.ID)" class="@(user.Selected ? "chat-list-user list-group-item list-group-item-action active" : "chat-list-user list-group-item list-group-item-action")">
-                                <img class="img-thumbnail rounded float-start mt-1" loading="lazy" src="@(Model.Get<IAvatars>().GetAvatarUrlForUser(user))" alt="User Image">
-                                <div class="float-start ps-2">
-                                    <span class="name">@Html.UserLabel(user)</span>
-                                    <div>
+                            <li id="@(user.ID)" class="chat-list-user list-group-item list-group-item-action d-flex align-items-center@(user.Selected ? " active" : "")">
+                                <img class="img-thumbnail rounded chat-avatar me-2 flex-shrink-0 object-fit-cover" loading="lazy" src="@(Model.Get<IAvatars>().GetAvatarUrlForUser(user))" alt="User Image">
+                                <div class="chat-user-info">
+                                    <span class="name d-block text-truncate">@Html.UserLabel(user)</span>
+                                    <small class="text-secondary">
                                         @if (Model.PageBoardContext.BoardSettings.ShowUserOnlineStatus)
                                         {
                                             if (activeUsers.Exists(x => x.UserID == user.ID && !x.IsActiveExcluded))
                                             {
-                                                <i class="fa fa-circle text-success pe-2"></i>
+                                                <i class="fa fa-circle text-success pe-1"></i>
                                             }
                                             else
                                             {
-                                                <i class="fa fa-circle text-danger pe-2"></i>
+                                                <i class="fa fa-circle text-danger pe-1"></i>
                                             }
                                         }
-                                        
-                                        <small>
-                                            @Html.DisplayDateTime(DateTimeFormat.Both, user.LastVisit)
-                                        </small>
-                                    </div>
+                                        @Html.DisplayDateTime(DateTimeFormat.Both, user.LastVisit)
+                                    </small>
                                 </div>
                             </li>
                         }

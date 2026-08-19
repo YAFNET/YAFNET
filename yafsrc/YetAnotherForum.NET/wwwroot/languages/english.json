@@ -5779,6 +5779,10 @@
                     "#text": "The email sending appears to be working from your YAF installation."
                 },
                 {
+                    "@tag": "TEST_MAIL_TITLE",
+                    "#text": "Mail Testing"
+                },
+                {
                     "@tag": "TEST_SUBJECT",
                     "#text": "Test Email From Yet Another Forum.NET"
                 },
@@ -6393,6 +6397,10 @@
                 {
                     "@tag": "RUN_QUERY",
                     "#text": "Run Query"
+                },
+                {
+                    "@tag": "RESULT",
+                    "#text": "Result"
                 },
                 {
                     "@tag": "RUN_TRANSCATION",

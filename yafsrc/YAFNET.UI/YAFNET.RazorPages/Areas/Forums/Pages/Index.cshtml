@@ -6,20 +6,47 @@
 @using YAF.Core.Utilities;
 @model IndexModel
 
-<div class="row">
-    <div class="col">
-        <div class="text-break alert alert-light float-end d-none d-md-block py-0">
-            @Html.Icon("clock")
-            @Model.TimeNow
+<div class="index-toolbar">
+    <div class="index-clock d-none d-md-inline-flex">
+        @Html.Icon("clock")
+        @Model.TimeNow
 
-            @if (Model.LastVisit.IsSet())
-            {
-                <span class="mx-1"></span>
-                @Html.IconBadge("calendar-day", "clock")
-                @Model.LastVisit
-            }
-        </div>
+        @if (Model.LastVisit.IsSet())
+        {
+            <span class="mx-1"></span>
+            @Html.IconBadge("calendar-day", "clock")
+            @Model.LastVisit
+        }
     </div>
+
+    @if (!Model.PageBoardContext.IsGuest)
+    {
+        <form method="post">
+            <div class="btn-group" role="group" aria-label="Tools">
+                <button asp-page-handler="WatchAll"
+                        button-style="Secondary"
+                        button-size="Small"
+                        icon="eye"
+                        bs-toggle="tooltip"
+                        text-localized-page="COMMON"
+                        text-localized-tag="WATCHFORUM_ALL"
+                        title-localized-page="COMMON"
+                        title-localized-tag="WATCHFORUM_ALL">
+                </button>
+
+                <button asp-page-handler="MarkAll"
+                        button-style="Secondary"
+                        button-size="Small"
+                        icon="glasses"
+                        bs-toggle="tooltip"
+                        text-localized-page="COMMON"
+                        text-localized-tag="MARKALL"
+                        title-localized-page="COMMON"
+                        title-localized-tag="MARKALL">
+                </button>
+            </div>
+        </form>
+    }
 </div>
 
 <div class="row">
@@ -30,39 +57,6 @@
             @await Html.PartialAsync("_CategoryList", Model.Categories)
         </div>
         <input type="hidden" value="0" id="category-index" />
-
-        <div class="d-flex flex-row-reverse mb-3">
-            <div>
-                <form method="post">
-                    <div class="btn-group" role="group" aria-label="Tools">
-                        @if (!Model.PageBoardContext.IsGuest)
-                        {
-                            <button asp-page-handler="WatchAll"
-                                    button-style="Secondary"
-                                    button-size="Small"
-                                    icon="eye"
-                                    bs-toggle="tooltip"
-                                    text-localized-page="COMMON"
-                                    text-localized-tag="WATCHFORUM_ALL"
-                                    title-localized-page="COMMON"
-                                    title-localized-tag="WATCHFORUM_ALL">
-                            </button>
-
-                            <button asp-page-handler="MarkAll"
-                                    button-style="Secondary"
-                                    button-size="Small"
-                                    icon="glasses"
-                                    bs-toggle="tooltip"
-                                    text-localized-page="COMMON"
-                                    text-localized-tag="MARKALL"
-                                    title-localized-page="COMMON"
-                                    title-localized-tag="MARKALL">
-                            </button>
-                        }
-                    </div>
-                </form>
-            </div>
-        </div>
 
     </div>
 

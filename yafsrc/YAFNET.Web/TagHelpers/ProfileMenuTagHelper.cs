@@ -56,6 +56,8 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// </param>
     public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
     {
+        output.TagName = null;
+
         var html = new TagBuilder(HtmlTag.Div);
         var htmlDropDown = new TagBuilder(HtmlTag.Div);
 
@@ -68,7 +70,7 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         dropDownButton.MergeAttribute(HtmlAttribute.Id, "dropdownMenuButton");
         dropDownButton.MergeAttribute(HtmlAttribute.Type, HtmlTag.Button);
         dropDownButton.MergeAttribute("data-bs-toggle", "dropdown");
-        dropDownButton.MergeAttribute("aria-haspopup", "true");
+        dropDownButton.MergeAttribute(HtmlAttribute.AriaHasPopup, "true");
         dropDownButton.MergeAttribute(HtmlAttribute.AriaExpanded, "false");
 
         var icon = new TagBuilder(HtmlTag.I);
@@ -81,9 +83,9 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         var htmlDropDownMenu = new TagBuilder(HtmlTag.Div);
         htmlDropDownMenu.AddCssClass("dropdown-menu scrollable-dropdown");
-        htmlDropDownMenu.MergeAttribute("aria-labelledby", "dropdownMenuButton");
+        htmlDropDownMenu.MergeAttribute(HtmlAttribute.AriaLabelledBy, "dropdownMenuButton");
 
-        html.AddCssClass("list-group d-none d-md-block");
+        html.AddCssClass("list-group list-group-profile-menu d-none d-md-block");
 
         html.InnerHtml.AppendHtml(this.RenderMenuItem(
             "list-group-item list-group-item-action",

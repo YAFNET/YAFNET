@@ -154,7 +154,7 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
         item.AddCssClass("page-link");
         item.MergeAttribute(HtmlAttribute.Href, "#");
         item.MergeAttribute(HtmlAttribute.Tabindex, "-1");
-        item.MergeAttribute("aria-disabled", "true");
+        item.MergeAttribute(HtmlAttribute.AriaDisabled, "true");
         item.MergeAttribute(HtmlAttribute.Title, $"{this.PageCount():N0} {this.GetText("COMMON", "PAGES")}");
 
         item.InnerHtml.AppendHtml(this.Get<IHtmlHelper>().Icon("file"));

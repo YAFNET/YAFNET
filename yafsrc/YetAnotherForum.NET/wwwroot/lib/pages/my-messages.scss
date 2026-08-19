@@ -1,0 +1,23 @@
+// MyMessages (Private Conversations) Page
+.page-MyMessages {
+
+    .chat-list-user {
+        transition: background-color .15s ease;
+
+        &:hover {
+            background: var(--bs-tertiary-bg);
+        }
+
+        .chat-avatar {
+            height: 45px;
+        }
+
+        .chat-user-info {
+            min-width: 0;
+
+            .name {
+                font-weight: 500;
+            }
+        }
+    }
+}

@@ -8,12 +8,6 @@
     Model.PageBoardContext.CurrentForumPage.PageTitle = Html.Encode(Model.Get<ILocalization>().GetText("HEADER"));
 }
 
-<div class="row">
-    <div class="col-xl-12">
-        <h2>@Html.LocalizedText("HEADER")</h2>
-    </div>
-</div>
-
 <form method="post" class="needs-validation" novalidate>
         <div class="row">
             <div class="col">

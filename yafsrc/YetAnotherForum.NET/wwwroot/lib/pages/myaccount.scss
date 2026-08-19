@@ -1,0 +1,46 @@
+// My Account Page
+.page-MyAccount {
+    .card.shadow {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, .06), inset 3px 0 0 var(--bs-primary);
+    }
+
+    .card-header {
+        font-weight: 600;
+    }
+
+    .account-detail-grid {
+        .detail-tile {
+            padding: .65rem 1rem;
+        }
+
+        .detail-tile-label {
+            font-size: .72rem;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            color: var(--bs-secondary-color);
+            margin-bottom: .15rem;
+        }
+
+        .detail-tile-value {
+            font-weight: 600;
+            word-break: break-word;
+        }
+    }
+
+    // Activity timeline
+    #activity {
+        .card-body > .row {
+            .card {
+                transition: box-shadow .15s ease, transform .15s ease;
+
+                &:hover {
+                    transform: translateY(-2px);
+                }
+            }
+        }
+
+        .fa-stack {
+            font-size: 1.15rem;
+        }
+    }
+}

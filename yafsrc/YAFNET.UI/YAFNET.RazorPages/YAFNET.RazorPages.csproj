@@ -95,7 +95,7 @@ if (ReleaseNotes.Length > 30000)
   </ItemGroup>
 
   <ItemGroup>
-	<PackageReference Include="HtmlProperties" Version="1.0.1" />
+	<PackageReference Include="HtmlProperties" Version="1.0.2" />
 	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" version="10.0.11" />
 	<PackageReference Include="SonarAnalyzer.CSharp" Version="10.32.0.713">
 	  <PrivateAssets>all</PrivateAssets>

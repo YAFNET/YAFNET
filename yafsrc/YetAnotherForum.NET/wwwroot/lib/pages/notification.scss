@@ -1,0 +1,11 @@
+// Notification Page
+.page-Notification {
+
+    .notification-row {
+        transition: background-color .15s ease;
+
+        &:hover {
+            background: var(--bs-tertiary-bg);
+        }
+    }
+}

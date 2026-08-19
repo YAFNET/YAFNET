@@ -1,0 +1,19 @@
+// Active Users Page
+.page-ActiveUsers {
+
+    .active-user-row {
+        transition: background-color .15s ease;
+
+        &:hover {
+            background: var(--bs-tertiary-bg);
+        }
+
+        .d-flex.flex-wrap {
+            gap: .4rem;
+        }
+
+        .badge {
+            font-weight: 500;
+        }
+    }
+}

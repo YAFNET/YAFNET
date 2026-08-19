@@ -1,0 +1,124 @@
+// Shared between User Profile and My Account pages
+.page-UserProfile,
+.page-MyAccount {
+
+    .profile-avatar-frame {
+        flex-shrink: 0;
+        width: 110px;
+        height: 110px;
+        padding: 4px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, .2);
+
+        img.profile-avatar {
+            border-radius: calc(var(--bs-border-radius-lg, .85rem) - 4px);
+        }
+    }
+
+    .profile-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: .35rem;
+        padding: .35em .75em;
+        font-weight: 500;
+
+        i {
+            margin: 0 !important;
+        }
+    }
+
+}
+
+// User Profile Page
+.page-UserProfile {
+
+    .profile-hero {
+        overflow: hidden;
+        border-radius: var(--bs-border-radius-lg, .75rem);
+
+        .card-body {
+            padding-top: 0;
+        }
+    }
+
+    .profile-hero-cover {
+        height: 110px;
+        background: linear-gradient(135deg,
+            rgba(var(--bs-primary-rgb), .9),
+            rgba(var(--bs-primary-rgb), .55) 55%,
+            rgba(var(--bs-info-rgb), .4));
+    }
+
+    .profile-hero-top {
+        margin-top: -48px;
+    }
+
+    .profile-name {
+        font-weight: 700;
+    }
+
+    .profile-stats {
+        .stat-tile {
+            padding: 1rem .5rem;
+            transition: transform .15s ease, box-shadow .15s ease;
+
+            i {
+                display: block;
+                margin: 0 0 .35rem !important;
+                color: var(--bs-primary);
+                font-size: 1.05rem;
+            }
+
+            &:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 18px rgba(0, 0, 0, .1);
+            }
+        }
+
+        .stat-tile-value {
+            font-size: 1.4rem;
+            line-height: 1.1;
+        }
+
+        .stat-tile-label {
+            font-size: .75rem;
+            color: var(--bs-secondary-color);
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+    }
+
+    .profile-details-label {
+        font-weight: 600;
+        margin-right: .35em;
+    }
+
+
+    .profile-actions {
+        .btn {
+            padding-left: 1.1rem;
+            padding-right: 1.1rem;
+        }
+    }
+
+    .profile-content-card {
+        border: 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, .06);
+        transition: box-shadow .15s ease, transform .15s ease;
+
+        &:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .1);
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .profile-hero-top {
+            margin-top: -40px;
+            align-items: flex-start !important;
+        }
+
+        .profile-avatar-frame {
+            width: 88px;
+            height: 88px;
+        }
+    }
+}

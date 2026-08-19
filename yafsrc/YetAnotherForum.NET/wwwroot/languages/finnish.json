@@ -4465,6 +4465,14 @@
             "#text": "Haku Indeksi Tehtävä käynnistetty."
           },
           {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Foorumin perus-URL-maski:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "Täysi eteenpäin suunnattu URL-osoite tälle foorumille."
+          },
+          {
             "@tag": "FORUM_EMAIL",
             "#text": "Foorumin sähköpostiosoite:"
           },
@@ -5699,14 +5707,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token, jota käytetään turvallisten verkkopalvelukutsujen tekemiseen. Muuttuu jatkuvasti, kunnes tallennat isäntäasetukset."
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Foorumin perus-URL-maski:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Täysi eteenpäin suunnattu URL-osoite tälle foorumille."
           }
         ]
       },
@@ -5805,6 +5805,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Kirjoita sähköpostiosoite, johon testisähköposti lähetetään."
+          },
+          {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Postin testaus"
           }
         ]
       },
@@ -6413,6 +6417,10 @@
           {
             "@tag": "TITLE",
             "#text": "Suorita SQL-koodi"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Tulos"
           }
         ]
       },

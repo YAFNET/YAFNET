@@ -31,7 +31,8 @@
                     @foreach (var content in Model.HelpContents)
                     {
                         <div class="card my-3">
-                            <div class="card-header d-flex">
+                            <div class="card-header">
+                                @Html.Icon("question-circle", "text-secondary")
                                 @content.Title
                             </div>
                             <div class="card-body">
@@ -45,7 +46,8 @@
                     @foreach (var content in Model.HelpContents.Where(check => check.HelpPage.ToLower().Equals(Request.RouteValues["faq"])))
                     {
                         <div class="card my-3">
-                            <div class="card-header d-flex">
+                            <div class="card-header">
+                                @Html.Icon("question-circle", "text-secondary")
                                 @content.Title
                             </div>
                             <div class="card-body">
@@ -60,6 +62,7 @@
                 <form method="post" asp-route-faq="search">
                     <div class="card my-3">
                         <div class="card-header">
+                            @Html.Icon("search", "text-secondary")
                             @Html.LocalizedText("HELP_INDEX", "subtitle")
                         </div>
                         <div class="card-body">

@@ -1,0 +1,28 @@
+// Members Page
+.page-Members {
+
+    .member-row {
+        transition: background-color .15s ease;
+
+        &:hover {
+            background: var(--bs-tertiary-bg);
+        }
+
+        .member-avatar {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        .member-info {
+            min-width: 0;
+
+            .d-flex.flex-wrap {
+                gap: .4rem;
+            }
+
+            .badge {
+                font-weight: 500;
+            }
+        }
+    }
+}

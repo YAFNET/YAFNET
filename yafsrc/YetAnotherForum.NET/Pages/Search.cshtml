@@ -5,62 +5,73 @@
 @using YAF.Types.Interfaces
 @model YAF.Pages.SearchModel
 
-<form method="post">
-    <div class="input-group">
-        <input asp-for="Input.SearchInput" class="form-control searchInput" id="searchInput" placeholder="@Model.GetText("BTNSEARCH")"/>
-        <a button-style="Primary" icon="search" text-localized-tag="BTNSEARCH" href="javascript:getSearchResultsData(0);"></a>
-        <a class="dropdown-toggle" id="searchOptionsDropDown" role="button" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" button-style="Secondary" icon="cog" text-localized-tag="OPTIONS"
-           text-localized-page="ADMIN_USERS"></a>
-        <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="optionsDropDown">
-            <div class="px-3 py-1">
-                <div class="mb-3">
-                    <label asp-for="Input.SearchStringFromWho" localized-tag="POSTEDBY" class="form-label"></label>
-                    <input asp-for="Input.SearchStringFromWho" class="form-control searchUserInput" data-display="@Html.Raw(Model.PageBoardContext.BoardSettings.EnableDisplayName.ToString())"/>
-                </div>
+<div class="row">
+    <div class="col">
+        <div class="card mb-3">
+            <div class="card-header">
+                @Html.IconHeader("search", "SEARCH", "TITLE")
             </div>
-            <div class="px-3 py-1">
-                <div class="mb-3">
-                    <label asp-for="Input.SearchStringTag" localized-tag="Tags" class="form-label"></label>
-                    <input asp-for="Input.SearchStringTag" class="form-control searchTagInput"/>
-                </div>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="px-3 py-1">
-                <div class="mb-3">
-                    <label asp-for="Input.SearchWhat" localized-tag="KEYWORDS" class="form-label"></label>
-                    <select asp-for="Input.SearchWhat"
-                            asp-items="Model.SearchWhatList"
-                            class="form-select searchWhat"></select>
-                </div>
-                <div class="mb-3">
-                    <label for="ForumList" localized-tag="SEARCH_IN" class="form-label"></label>
-                    <select id="ForumList" name="forumList" class="form-select"></select>
-                    <input type="hidden" asp-for="Input.ForumListSelected" value="@Model.Input.ForumListSelected"/>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Input.TitleOnly" localized-tag="SEARCH_TITLEORBOTH" class="form-label"></label>
-                    <select asp-for="Input.TitleOnly"
-                            asp-items="Model.TitleOnlyList"
-                            class="form-select titleOnly"></select>
+            <div class="card-body">
+                <form method="post">
+                    <div class="input-group">
+                        <input asp-for="Input.SearchInput" class="form-control searchInput" id="searchInput" placeholder="@Model.GetText("BTNSEARCH")"/>
+                        <a button-style="Primary" icon="search" text-localized-tag="BTNSEARCH" href="javascript:getSearchResultsData(0);"></a>
+                        <a class="dropdown-toggle" id="searchOptionsDropDown" role="button" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" button-style="Secondary" icon="cog" text-localized-tag="OPTIONS"
+                           text-localized-page="ADMIN_USERS"></a>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="optionsDropDown">
+                            <div class="px-3 py-1">
+                                <div class="mb-3">
+                                    <label asp-for="Input.SearchStringFromWho" localized-tag="POSTEDBY" class="form-label"></label>
+                                    <input asp-for="Input.SearchStringFromWho" class="form-control searchUserInput" data-display="@Html.Raw(Model.PageBoardContext.BoardSettings.EnableDisplayName.ToString())"/>
+                                </div>
+                            </div>
+                            <div class="px-3 py-1">
+                                <div class="mb-3">
+                                    <label asp-for="Input.SearchStringTag" localized-tag="Tags" class="form-label"></label>
+                                    <input asp-for="Input.SearchStringTag" class="form-control searchTagInput"/>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="px-3 py-1">
+                                <div class="mb-3">
+                                    <label asp-for="Input.SearchWhat" localized-tag="KEYWORDS" class="form-label"></label>
+                                    <select asp-for="Input.SearchWhat"
+                                            asp-items="Model.SearchWhatList"
+                                            class="form-select searchWhat"></select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ForumList" localized-tag="SEARCH_IN" class="form-label"></label>
+                                    <select id="ForumList" name="forumList" class="form-select"></select>
+                                    <input type="hidden" asp-for="Input.ForumListSelected" value="@Model.Input.ForumListSelected"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="Input.TitleOnly" localized-tag="SEARCH_TITLEORBOTH" class="form-label"></label>
+                                    <select asp-for="Input.TitleOnly"
+                                            asp-items="Model.TitleOnlyList"
+                                            class="form-select titleOnly"></select>
 
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Input.ResultsPerPage" localized-tag="SEARCH_RESULTS" class="form-label"></label>
-                    <select asp-for="Input.ResultsPerPage"
-                            asp-items="Model.ResultsPerPageList"
-                            class="form-select resultsPage"></select>
-                </div>
-            </div>
-            <div class="px-3 d-grid gap-2">
-                <a href="javascript:bootstrap.Dropdown.getInstance(document.getElementById('searchOptionsDropDown')).hide();"
-                   button-style="Primary"
-	               button-size="Small"
-	               text-localized-tag="OK"
-	               text-localized-page="COMMON"></a>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="Input.ResultsPerPage" localized-tag="SEARCH_RESULTS" class="form-label"></label>
+                                    <select asp-for="Input.ResultsPerPage"
+                                            asp-items="Model.ResultsPerPageList"
+                                            class="form-select resultsPage"></select>
+                                </div>
+                            </div>
+                            <div class="px-3 d-grid gap-2">
+                                <a href="javascript:bootstrap.Dropdown.getInstance(document.getElementById('searchOptionsDropDown')).hide();"
+                                   button-style="Primary"
+                                   button-size="Small"
+                                   text-localized-tag="OK"
+                                   text-localized-page="COMMON"></a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</form>
+</div>
 
 <div id="SearchResultsListBox">
 

@@ -4465,6 +4465,14 @@
             "#text": "Spustená úloha Index vyhľadávania."
           },
           {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Maska základnej adresy URL fóra:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "Úplná adresa URL tohto fóra smerujúca dopredu."
+          },
+          {
             "@tag": "FORUM_EMAIL",
             "#text": "E-mail fóra:"
           },
@@ -5699,14 +5707,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token používaný na bezpečné volania webovej služby. Neustále sa mení, kým neuložíte nastavenia hostiteľa."
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Maska základnej adresy URL fóra:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Úplná adresa URL tohto fóra smerujúca dopredu."
           }
         ]
       },
@@ -5805,6 +5805,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Zadajte e-mailovú adresu, na ktorú sa má odoslať testovací e-mail"
+          },
+          {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Testovanie pošty"
           }
         ]
       },
@@ -6413,6 +6417,10 @@
           {
             "@tag": "TITLE",
             "#text": "Spustenie kódu SQL"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Výsledok"
           }
         ]
       },

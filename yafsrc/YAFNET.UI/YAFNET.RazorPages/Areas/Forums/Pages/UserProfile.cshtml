@@ -1,4 +1,4 @@
-﻿@page "{u:int}/{name}/{handler?}"
+@page "{u:int}/{name}/{handler?}"
 
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
@@ -16,364 +16,378 @@
 	Model.PageBoardContext.CurrentForumPage.PageTitle = Html.HtmlEncode(Model.CombinedUser.Item1.DisplayOrUserName());
 }
 
-<div class="row justify-content-between">
-	<div class="col">
-		<h1>
-			@Html.UserLabel(Model.CombinedUser.Item1) 
-			@if (Model.CombinedUser.Item2.Profile_RealName.IsSet())
-			{
-				@Html.HtmlEncode(" (" + Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item2.Profile_RealName) + ")")
-			}
-			@if (Model.Medals.IsSet())
-			{
-				@Html.Raw(Model.Medals)
-			}
-		</h1>
-		<div class="h6 mb-3">
-			@if (Model.CombinedUser.Item2.Profile_Gender > 0)
-			{
-				var genders = EnumExtensions.GetAllItems<Gender>().ToList();
+@section StyleSheets {
+	@await Html.PartialAsync("_FlagIconsStylesSheetsPartial")
+}
 
-				@Html.Icon(genders[Model.CombinedUser.Item2.Profile_Gender] == Gender.Man ? "mars" : "venus")
-			}
-			
-
-			@if (Model.CombinedUser.Item3.Name.IsSet())
-			{
-				<span class="badge text-bg-primary" data-bs-toggle="tooltip" data-bs-title="@Html.LocalizedText("PROFILE", "RANK")">
-					@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item3.Name))
-				</span>
-			}
-		
-			@if (Model.PageBoardContext.BoardSettings.ShowGroupsProfile || Model.PageBoardContext.IsAdmin)
-			{
-				@foreach (var group in Model.Groups)
-				{
-					<span class="my-2" style="@group.Style" data-bs-toggle="tooltip" data-bs-title="@Html.LocalizedText("PROFILE", "GROUPS")">
-						@group.Name
-					</span>
-				}
-			}
-			
-			@if (Model.CombinedUser.Item2.Profile_Birthday.HasValue && Model.CombinedUser.Item2.Profile_Birthday.Value >= DateTimeHelper.SqlDbMinTime())
-			{
-				<span class="badge text-bg-secondary my-2">
-					@Html.Icon("cake-candles")
-					@Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(
-						Model.CombinedUser.Item2.Profile_Birthday.Value.AddMinutes(-DateTimeHelper.GetTimeZoneOffset(Model.CombinedUser.Item1.TimeZoneInfo))))
-				</span>
-			}
-			
-			@if (Model.CombinedUser.Item2.Profile_Country.IsSet() && !Model.CombinedUser.Item2.Profile_Country.Equals("N/A"))
-			{
-				<span class="badge text-bg-info my-2">
-					@Html.Raw($"<span class=\"fi fi-{Model.CombinedUser.Item2.Profile_Country.Trim().ToLower()}\"></span>")
-					&nbsp;@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.Get<ILocalization>().GetText("COUNTRY", Model.CombinedUser.Item2.Profile_Country.Trim())))
-				</span>
-			}
-
-			@if (Model.CombinedUser.Item2.Profile_Region.IsSet())
-			{
-				var tag = $"RGN_{(Model.CombinedUser.Item2.Profile_Country.Trim().IsSet() ? Model.CombinedUser.Item2.Profile_Country.Trim() : Model.Get<ILocalization>().Culture.Name.Remove(0, 3).ToUpperInvariant())}_{Model.CombinedUser.Item2.Profile_Region}";
-
-				<span class="badge text-bg-info my-2">
-					@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.Get<ILocalization>().GetText("REGION", tag)))
-				</span>
-			}
-
-			@if (Model.CombinedUser.Item2.Profile_City.IsSet())
-			{
-				<span class="badge text-bg-info my-2">
-					@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item2.Profile_City))
-				</span>
-			}
-
-			@if (Model.CombinedUser.Item2.Profile_Location.IsSet())
-			{
-				<span class="badge text-bg-info my-2">
-					@Html.Icon("location-pin")
-					@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item2.Profile_Location))
-				</span>
-			}
-			
-			<div class="row mt-1">
-				<div class="col-auto">
-					<strong>@Html.LocalizedText("PROFILE", "numposts")</strong>
-					@Model.Stats
+	<div class="card profile-hero border-0 shadow-sm mb-4">
+		<div class="profile-hero-cover"></div>
+		<div class="card-body">
+			<div class="profile-hero-top d-flex flex-column flex-sm-row align-items-sm-end gap-3">
+				<div class="profile-avatar-frame bg-body rounded-3">
+					<img src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(Model.CombinedUser.Item1))"
+					     alt="avatar" class="profile-avatar d-block w-100 h-100 mw-100 mh-100 object-fit-cover"/>
 				</div>
-				<div class="col-auto">
-					<strong>@Html.LocalizedText("PROFILE", "THANKSFROM")</strong>
-					@Html.Raw(Model.GetRepository<Thanks>().ThanksFromUser(Model.CombinedUser.Item1.ID).ToString())
-				</div>
-				<div class="col-auto">
-					<strong>@Html.LocalizedText("PROFILE", "THANKSTOTIMES")</strong>
-					@Html.Raw(Model.Thanks.ThanksReceived)
-				</div>
-				<div class="col-auto">
-					<strong>@Html.LocalizedText("PROFILE", "THANKSTOPOSTS")</strong>
-					@Html.Raw(Model.Thanks.Posts.ToString())
+				<div class="flex-grow-1 pb-1">
+					<h1 class="profile-name h3 mb-1">
+						@Html.UserLabel(Model.CombinedUser.Item1)
+						@if (Model.CombinedUser.Item2.Profile_RealName.IsSet())
+						{
+							@Html.HtmlEncode(" (" + Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item2.Profile_RealName) + ")")
+						}
+						@if (Model.Medals.IsSet())
+						{
+							@Html.Raw(Model.Medals)
+						}
+					</h1>
+
+					<div class="profile-meta d-flex flex-wrap align-items-center gap-2">
+						@if (Model.CombinedUser.Item2.Profile_Gender > 0)
+						{
+							var genders = EnumExtensions.GetAllItems<Gender>().ToList();
+
+							<span class="profile-pill profile-pill-plain bg-body-tertiary text-body">
+								@Html.Icon(genders[Model.CombinedUser.Item2.Profile_Gender] == Gender.Man ? "mars" : "venus")
+							</span>
+						}
+
+						@if (Model.CombinedUser.Item3.Name.IsSet())
+						{
+							<span class="badge profile-pill text-bg-primary" data-bs-toggle="tooltip" data-bs-title="@Html.LocalizedText("PROFILE", "RANK")">
+								@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item3.Name))
+							</span>
+						}
+
+						@if (Model.PageBoardContext.BoardSettings.ShowGroupsProfile || Model.PageBoardContext.IsAdmin)
+						{
+							@foreach (var group in Model.Groups)
+							{
+								<span class="profile-pill" style="@group.Style" data-bs-toggle="tooltip" data-bs-title="@Html.LocalizedText("PROFILE", "GROUPS")">
+									@group.Name
+								</span>
+							}
+						}
+
+						@if (Model.CombinedUser.Item2.Profile_Birthday.HasValue && Model.CombinedUser.Item2.Profile_Birthday.Value >= DateTimeHelper.SqlDbMinTime())
+						{
+							<span class="badge profile-pill text-bg-secondary">
+								@Html.Icon("cake-candles")
+								@Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(
+									Model.CombinedUser.Item2.Profile_Birthday.Value.AddMinutes(-DateTimeHelper.GetTimeZoneOffset(Model.CombinedUser.Item1.TimeZoneInfo))))
+							</span>
+						}
+
+						@if (Model.CombinedUser.Item2.Profile_Country.IsSet() && !Model.CombinedUser.Item2.Profile_Country.Equals("N/A"))
+						{
+							<span class="badge profile-pill text-bg-info">
+								@Html.Raw($"<span class=\"fi fi-{Model.CombinedUser.Item2.Profile_Country.Trim().ToLower()}\"></span>")
+								&nbsp;@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.Get<ILocalization>().GetText("COUNTRY", Model.CombinedUser.Item2.Profile_Country.Trim())))
+							</span>
+						}
+
+						@if (Model.CombinedUser.Item2.Profile_Region.IsSet())
+						{
+							var tag = $"RGN_{(Model.CombinedUser.Item2.Profile_Country.Trim().IsSet() ? Model.CombinedUser.Item2.Profile_Country.Trim() : Model.Get<ILocalization>().Culture.Name.Remove(0, 3).ToUpperInvariant())}_{Model.CombinedUser.Item2.Profile_Region}";
+
+							<span class="badge profile-pill text-bg-info">
+								@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.Get<ILocalization>().GetText("REGION", tag)))
+							</span>
+						}
+
+						@if (Model.CombinedUser.Item2.Profile_City.IsSet())
+						{
+							<span class="badge profile-pill text-bg-info">
+								@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item2.Profile_City))
+							</span>
+						}
+
+						@if (Model.CombinedUser.Item2.Profile_Location.IsSet())
+						{
+							<span class="badge profile-pill text-bg-info">
+								@Html.Icon("location-pin")
+								@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item2.Profile_Location))
+							</span>
+						}
+					</div>
 				</div>
 			</div>
-			
+
+			<div class="profile-stats row row-cols-2 row-cols-md-4 g-2 g-md-3 my-4">
+				<div class="col">
+					<div class="stat-tile bg-body-tertiary h-100 text-center rounded">
+						@Html.Icon("comment-dots")
+						<div class="stat-tile-value fw-bold">@Model.Stats</div>
+						<div class="stat-tile-label">@Html.LocalizedText("PROFILE", "numposts")</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="stat-tile bg-body-tertiary h-100 text-center rounded">
+						@Html.Icon("heart", "text-danger")
+						<div class="stat-tile-value fw-bold">@Html.Raw(Model.GetRepository<Thanks>().ThanksFromUser(Model.CombinedUser.Item1.ID).ToString())</div>
+						<div class="stat-tile-label">@Html.LocalizedText("PROFILE", "THANKSFROM")</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="stat-tile bg-body-tertiary h-100 text-center rounded">
+						@Html.Icon("hand-holding-heart", "text-danger")
+						<div class="stat-tile-value fw-bold">@Html.Raw(Model.Thanks.ThanksReceived)</div>
+						<div class="stat-tile-label">@Html.LocalizedText("PROFILE", "THANKSTOTIMES")</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="stat-tile bg-body-tertiary h-100 text-center rounded">
+						@Html.Icon("star", "text-warning")
+						<div class="stat-tile-value fw-bold">@Html.Raw(Model.Thanks.Posts.ToString())</div>
+						<div class="stat-tile-label">@Html.LocalizedText("PROFILE", "THANKSTOPOSTS")</div>
+					</div>
+				</div>
+			</div>
+
 			@if (!Model.CustomProfile.NullOrEmpty())
 			{
-				<div class="row mt-2">
+				<div class="profile-details row row-cols-1 row-cols-sm-2 g-2 mb-2">
 					@foreach (var item in Model.CustomProfile)
 					{
-						<div class="col-auto">
-							<strong>
-								@item.Item2.Name:
-							</strong>
+						<div class="col">
+							<span class="profile-details-label">@item.Item2.Name:</span>
 							@Html.HtmlEncode(item.Item1.Value)
 						</div>
 					}
 				</div>
 			}
-			
+
 			@if (Model.CombinedUser.Item2.Profile_Occupation.IsSet())
 			{
 				<p class="my-2">
-					<strong>
+					<span class="profile-details-label">
 						@Html.LocalizedText("PROFILE", "OCCUPATION")
-					</strong>
+					</span>
 					@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item2.Profile_Occupation))
 				</p>
 			}
-			
+
 			@if (Model.CombinedUser.Item2.Profile_Interests.IsSet())
 			{
-				<p class="my-3">
-					<strong>@Html.LocalizedText("PROFILE", "interests")</strong>
+				<p class="my-2">
+					<span class="profile-details-label">@Html.LocalizedText("PROFILE", "interests")</span>
 					@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item2.Profile_Interests))
 				</p>
 			}
 
 			@if (Model.PageBoardContext.BoardSettings.EnableUserReputation)
 			{
-				<p class="fw-bold my-3">
-					@Html.LocalizedText("PROFILE", "REPUTATION_RECEIVED")
-				</p>
-				@Html.Raw(Model.Get<IReputation>().GenerateReputationBar(Model.CombinedUser.Item1.Points, Model.CombinedUser.Item1.ID))
-			}
-		</div>
-
-		<form method="post" class="d-inline-block">
-            
-			@if (Model.ShowAddBuddyLink)
-			{
-				<button asp-controller="Friends"
-				   asp-action="AddFriendRequest"
-				   asp-route-u="@Model.CombinedUser.Item1.ID"
-				   button-style="Success"
-				   icon="user-plus"
-				   text-localized-page="PAGE"
-				   text-localized-tag="ADDBUDDY"
-				   class=" mb-1"></button>
-			}
-
-			@if (Model.ShowRemoveBuddyLink)
-			{
-				<button asp-controller="Friends"
-				   asp-action="RemoveBuddy"
-				   asp-route-u="@Model.CombinedUser.Item1.ID"
-				   button-style="Danger"
-				   icon="user-minus"
-				   text-localized-page="PAGE"
-				   text-localized-tag="REMOVEBUDDY"
-				   return-confirm-tag="NOTIFICATION_REMOVE"
-				   class=" mb-1"></button>
-			}
-
-			@if (Model.ShowPmLink)
-			{
-				<a role="button"
-				   button-style="Info"
-				   class=" mb-1"
-				   icon="envelope-open-text"
-				   text-localized-page="POSTS"
-				   text-localized-tag="PM"
-				   title-param0="@Html.HtmlEncode(Model.CombinedUser.Item1.DisplayOrUserName())"
-				   title-localized-page="POSTS"
-				   title-localized-tag="PM_TITLE"
-				   bs-toggle="tooltip"
-				   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.MyMessages, new { u = Model.CombinedUser.Item1.ID }))"></a>
-			}
-
-			@if (Model.ShowEmailLink)
-			{
-				<a role="button"
-				   button-style="Info"
-				   class=" mb-1"
-				   icon="at"
-				   text-localized-page="POSTS"
-				   text-localized-tag="EMAIL"
-				   title-param0="@Html.HtmlEncode(Model.CombinedUser.Item1.DisplayOrUserName())"
-				   title-localized-page="POSTS"
-				   title-localized-tag="EMAIL_TITLE"
-				   bs-toggle="tooltip"
-				   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Email, new { u = Model.CombinedUser.Item1.ID }))"></a>
-			}
-
-			@if (Model.PageBoardContext.IsAdmin)
-			{
-				<a role="button"
-				   button-style="Danger"
-				   class=" mb-1"
-				   icon="user-cog"
-				   text-localized-page="PROFILE"
-				   text-localized-tag="ADMIN_USER"
-				   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = Model.CombinedUser.Item1.ID }))"></a>
-			}
-			
-			@if (Model.CombinedUser.Item2.Profile_Homepage.IsSet())
-			{
-				<a  role="button"
-				    button-style="Secondary"
-				    class=" mb-1"
-				    icon="house"
-					href="@Model.CombinedUser.Item2.Profile_Homepage"
-				   text-localized-page="PROFILE"
-				   text-localized-tag="HOME"></a>
-			}
-
-			@if (Model.BlogUrl.IsSet())
-			{
-				<a role="button"
-				   target="_blank"
-				   rel="nofollow"
-				   class=" mb-1"
-				   icon="blog"
-				   button-style="Secondary"
-				   text-localized-page="POSTS"
-				   text-localized-tag="BLOG"
-				   title-localized-page="POSTS"
-				   title-localized-tag="BLOG_TITLE"
-				   title-param0="@Html.Raw(Model.CombinedUser.Item1.DisplayOrUserName())"
-				   bs-toggle="tooltip"
-				   href="@Model.BlogUrl"></a>
-			}
-
-		</form>
-
-	</div>
-	<div class="col-auto">
-		<img style="max-width: @Html.Raw(Model.PageBoardContext.BoardSettings.AvatarWidth); max-height: @Html.Raw(Model.PageBoardContext.BoardSettings.AvatarHeight)"
-		     src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(Model.CombinedUser.Item1))"
-		     alt="avatar" class="img-fluid rounded"/>
-	</div>
-</div>
-
-<div class="row mt-3">
-	<div class="col col-lg-8">
-
-		@if (!Model.LastPosts.NullOrEmpty())
-		{
-			<div class="card mb-3">
-				<div class="card-header">
-					@Html.LocalizedText("PROFILE", "LAST10")
+				<div class="profile-reputation mt-3 bg-body-tertiary rounded p-3">
+					<p class="fw-semibold mb-2">
+						@Html.LocalizedText("PROFILE", "REPUTATION_RECEIVED")
+					</p>
+					@Html.Raw(Model.Get<IReputation>().GenerateReputationBar(Model.CombinedUser.Item1.Points, Model.CombinedUser.Item1.ID))
 				</div>
-				<div class="card-body">
-					<a role="button" button-style="Secondary"
+			}
+
+			<form method="post" class="profile-actions d-flex flex-wrap gap-2 mt-4">
+
+				@if (Model.ShowAddBuddyLink)
+				{
+					<button asp-controller="Friends"
+					   asp-action="AddFriendRequest"
+					   asp-route-u="@Model.CombinedUser.Item1.ID"
+					   button-style="Success"
+					   icon="user-plus"
+					   text-localized-page="PAGE"
+					   text-localized-tag="ADDBUDDY"></button>
+				}
+
+				@if (Model.ShowRemoveBuddyLink)
+				{
+					<button asp-controller="Friends"
+					   asp-action="RemoveBuddy"
+					   asp-route-u="@Model.CombinedUser.Item1.ID"
+					   button-style="Danger"
+					   icon="user-minus"
+					   text-localized-page="PAGE"
+					   text-localized-tag="REMOVEBUDDY"
+					   return-confirm-tag="NOTIFICATION_REMOVE"></button>
+				}
+
+				@if (Model.ShowPmLink)
+				{
+					<a role="button"
+					   button-style="Info"
+					   icon="envelope-open-text"
 					   text-localized-page="POSTS"
-					   text-localized-tag="SEARCHUSER"
-					   icon="search"
-					   class=" mb-3"
-					   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Search, new { postedby = Model.CombinedUser.Item1.DisplayOrUserName() }))"></a>
+					   text-localized-tag="PM"
+					   title-param0="@Html.HtmlEncode(Model.CombinedUser.Item1.DisplayOrUserName())"
+					   title-localized-page="POSTS"
+					   title-localized-tag="PM_TITLE"
+					   bs-toggle="tooltip"
+					   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.MyMessages, new { u = Model.CombinedUser.Item1.ID }))"></a>
+				}
 
+				@if (Model.ShowEmailLink)
+				{
+					<a role="button"
+					   button-style="Info"
+					   icon="at"
+					   text-localized-page="POSTS"
+					   text-localized-tag="EMAIL"
+					   title-param0="@Html.HtmlEncode(Model.CombinedUser.Item1.DisplayOrUserName())"
+					   title-localized-page="POSTS"
+					   title-localized-tag="EMAIL_TITLE"
+					   bs-toggle="tooltip"
+					   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Email, new { u = Model.CombinedUser.Item1.ID }))"></a>
+				}
 
-					@foreach (var message in Model.LastPosts)
-					{
-						<div class="card mb-3">
-							<div class="card-header">
-								@Html.Icon("comment", "", "far")
-								<span class="fw-bold">
-									@Html.LocalizedText("TOPIC")
-								</span>
-								<a role="button"
-								   title-localized-page="COMMON"
-								   title-localized-tag="VIEW_TOPIC"
-								   bs-toggle="tooltip"
-								   href="@Html.Raw(Model.Get<ILinkBuilder>().GetTopicLink(message.Item2))"
-								   text="@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(message.Item2.TopicName))">
-								</a>
-							</div>
-							<div class="card-body">
-								<message show-attachments="false"
-								         current-message="@message.Item1"></message>
-							</div>
-							<div class="card-footer">
-								<small class="text-body-secondary">
-									@Html.LocalizedText("POSTED")
-									&nbsp;
-									@Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(message.Item1.Posted))
-								</small>
-							</div>
-						</div>
-					}
-				</div>
-			</div>
-		}
-		
+				@if (Model.PageBoardContext.IsAdmin)
+				{
+					<a role="button"
+					   button-style="Danger"
+					   icon="user-cog"
+					   text-localized-page="PROFILE"
+					   text-localized-tag="ADMIN_USER"
+					   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = Model.CombinedUser.Item1.ID }))"></a>
+				}
+
+				@if (Model.CombinedUser.Item2.Profile_Homepage.IsSet())
+				{
+					<a  role="button"
+					    button-style="Secondary"
+					    icon="house"
+						href="@Model.CombinedUser.Item2.Profile_Homepage"
+					   text-localized-page="PROFILE"
+					   text-localized-tag="HOME"></a>
+				}
+
+				@if (Model.BlogUrl.IsSet())
+				{
+					<a role="button"
+					   target="_blank"
+					   rel="nofollow"
+					   icon="blog"
+					   button-style="Secondary"
+					   text-localized-page="POSTS"
+					   text-localized-tag="BLOG"
+					   title-localized-page="POSTS"
+					   title-localized-tag="BLOG_TITLE"
+					   title-param0="@Html.Raw(Model.CombinedUser.Item1.DisplayOrUserName())"
+					   bs-toggle="tooltip"
+					   href="@Model.BlogUrl"></a>
+				}
+
+			</form>
+		</div>
 	</div>
-	
 
-	@if (!Model.Albums.NullOrEmpty())
-	{
-		<div class="col col-lg-4">
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">@Html.LocalizedText("ALBUM", "ALBUMS")</h5>
-					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-						@foreach (var album in Model.Albums)
+	<div class="row mt-3">
+		<div class="col col-lg-8">
+
+			@if (!Model.LastPosts.NullOrEmpty())
+			{
+				<div class="card profile-content-card mb-3">
+					<div class="card-header">
+						@Html.LocalizedText("PROFILE", "LAST10")
+					</div>
+					<div class="card-body">
+						<a role="button" button-style="Secondary"
+						   text-localized-page="POSTS"
+						   text-localized-tag="SEARCHUSER"
+						   icon="search"
+						   class=" mb-3"
+						   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Search, new { postedby = Model.CombinedUser.Item1.DisplayOrUserName() }))"></a>
+
+
+						@foreach (var message in Model.LastPosts)
 						{
-							<div class="col">
-								<div class="card mb-4 shadow-sm">
-									<a href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Album, new { u = album.UserID, a = album.ID }))"
-									   target="_parent" title="@Html.HtmlEncode(album.Title)" bs-toggle="tooltip">
-										<img title="@Html.HtmlEncode(album.Title)" alt="@Html.Raw(album.ID)" class="card-img-top"
-										     src='@Html.Raw(Model.Get<IUrlHelper>().Action("GetAlbumCover", "Albums", new { albumId = album.ID, coverId = album.CoverImageID ?? 0 }))'/>
-
+							<div class="card profile-content-card mb-3">
+								<div class="card-header">
+									@Html.Icon("comment", "", "far")
+									<span class="fw-bold">
+										@Html.LocalizedText("TOPIC")
+									</span>
+									<a role="button"
+									   title-localized-page="COMMON"
+									   title-localized-tag="VIEW_TOPIC"
+									   bs-toggle="tooltip"
+									   href="@Html.Raw(Model.Get<ILinkBuilder>().GetTopicLink(message.Item2))"
+									   text="@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(message.Item2.TopicName))">
 									</a>
+								</div>
+								<div class="card-body">
+									<message show-attachments="false"
+									         current-message="@message.Item1"></message>
+								</div>
+								<div class="card-footer">
+									<small class="text-body-secondary">
+										@Html.LocalizedText("POSTED")
+										&nbsp;
+										@Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(message.Item1.Posted))
+									</small>
 								</div>
 							</div>
 						}
 					</div>
-					<div class="row justify-content-end">
-						<div class="col-auto">
-							<pager page-size="@Model.PageBoardContext.BoardSettings.AlbumsPerPage" use-submit="false"
-							       count="!Model.Albums.NullOrEmpty() ? Model.GetRepository<UserAlbum>().ListByUser(Model.CombinedUser.Item1.ID).Count.ToType<int>() : 0">
-							</pager>
+				</div>
+			}
+
+		</div>
+
+
+		@if (!Model.Albums.NullOrEmpty())
+		{
+			<div class="col col-lg-4">
+				<div class="card profile-content-card">
+					<div class="card-body">
+						<h5 class="card-title">@Html.LocalizedText("ALBUM", "ALBUMS")</h5>
+						<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+							@foreach (var album in Model.Albums)
+							{
+								<div class="col">
+									<div class="card mb-4 shadow-sm">
+										<a href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Album, new { u = album.UserID, a = album.ID }))"
+										   target="_parent" title="@Html.HtmlEncode(album.Title)" bs-toggle="tooltip">
+											<img title="@Html.HtmlEncode(album.Title)" alt="@Html.Raw(album.ID)" class="card-img-top"
+											     src='@Html.Raw(Model.Get<IUrlHelper>().Action("GetAlbumCover", "Albums", new { albumId = album.ID, coverId = album.CoverImageID ?? 0 }))'/>
+
+										</a>
+									</div>
+								</div>
+							}
+						</div>
+						<div class="row justify-content-end">
+							<div class="col-auto">
+								<pager page-size="@Model.PageBoardContext.BoardSettings.AlbumsPerPage" use-submit="false"
+								       count="!Model.Albums.NullOrEmpty() ? Model.GetRepository<UserAlbum>().ListByUser(Model.CombinedUser.Item1.ID).Count.ToType<int>() : 0">
+								</pager>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	}
+		}
 
-	@if (!Model.Friends.NullOrEmpty())
-	{
-		<div class="col">
-			<div class="card my-3">
-				<div class="card-body">
-					<h5 class="card-title">
-						@Html.LocalizedText("PROFILE", Model.CombinedUser.Item1.ID == Model.PageBoardContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE")
-					</h5>
-					<ul class="list-group list-group-horizontal">
-						@foreach (var user in Model.Friends)
-						{
-							<li class="list-group-item">
-								@Html.UserLink(user.UserID,
-									Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name,
-									user.Suspended,
-									user.UserStyle)
-							</li>
-						}
-					</ul>
+		@if (!Model.Friends.NullOrEmpty())
+		{
+			<div class="col">
+				<div class="card profile-content-card my-3">
+					<div class="card-body">
+						<h5 class="card-title">
+							@Html.LocalizedText("PROFILE", Model.CombinedUser.Item1.ID == Model.PageBoardContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE")
+						</h5>
+						<ul class="list-group list-group-horizontal">
+							@foreach (var user in Model.Friends)
+							{
+								<li class="list-group-item">
+									@Html.UserLink(user.UserID,
+										Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name,
+										user.Suspended,
+										user.UserStyle)
+								</li>
+							}
+						</ul>
+					</div>
 				</div>
 			</div>
-		</div>
-	}
-</div>
+		}
+	</div>
 
 @section Scripts {
 	@await Html.PartialAsync("_PostScriptsPartial")

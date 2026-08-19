@@ -43,7 +43,7 @@
 }
 
 <form method="post">
-<div class="row justify-content-end">
+<div class="row justify-content-end posts-toolbar">
     <div class="col-auto">
         @if (Model.PageBoardContext.ForumModeratorAccess)
         {
@@ -131,7 +131,8 @@
 
 <div class="row mb-3">
 	<div class="col">
-            <nav class="navbar navbar-expand-lg bg-light-subtle">
+        <div class="card topic-toolbar-card mb-3">
+            <nav class="navbar navbar-expand-lg card-header">
 			<div class="container-fluid">
 				<a href="@Html.Raw(Model.Get<ILinkBuilder>().GetTopicLink(Model.PageBoardContext.PageTopic))" class="navbar-brand pt-0 text-wrap"
 				   title="@Html.Raw(Model.Get<IBadWordReplace>().Replace(Html.HtmlEncode(Model.PageBoardContext.PageTopic.Description)))">
@@ -274,6 +275,7 @@
 				</div>
 			</div>
 		</nav>
+        </div>
 	</div>
 </div>
 </form>
@@ -317,7 +319,7 @@
 }
 
 <form method="post">
-    <div class="row mb-3 d-flex justify-content-between">
+    <div class="row mb-3 d-flex justify-content-between posts-toolbar">
     <div class="col-md-4">
 	    <pager page-size="@Model.Size" use-submit="false"
                count="Model.Messages.NullOrEmpty() ? 0 : Model.Messages.FirstOrDefault().TotalRows">

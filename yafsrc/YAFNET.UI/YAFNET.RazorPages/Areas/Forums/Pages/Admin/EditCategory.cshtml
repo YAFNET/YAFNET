@@ -13,11 +13,11 @@
 
                     @if (Model.Input.Id > 0)
                     {
-                        @Html.LocalizedText("NEW_CATEGORY")
+                        @Html.LocalizedText("ADMIN_EDITCATEGORY", "HEADER")<strong class="ms-1">@Model.Input.Name</strong>
                     }
                     else
                     {
-                        @Html.LocalizedText("ADMIN_EDITCATEGORY", "HEADER")<strong class="ms-1">@Model.Input.Name</strong>
+                        @Html.LocalizedText("NEW_CATEGORY")
                     }
                 </div>
                 <div class="card-body">

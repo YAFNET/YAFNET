@@ -214,7 +214,7 @@ public static class TopicContainerHtmlHelper
     {
         var lastPostColumn = new TagBuilder(HtmlTag.Div);
 
-        lastPostColumn.AddCssClass("col-md-4 text-secondary");
+        lastPostColumn.AddCssClass("col-md-4 text-secondary text-end");
 
         lastPostColumn.InnerHtml.AppendHtml(htmlHelper.LocalizedText("LASTPOST"));
 

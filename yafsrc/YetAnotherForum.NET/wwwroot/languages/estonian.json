@@ -4465,6 +4465,14 @@
             "#text": "Otsinguindeksi ülesanne on alanud."
           },
           {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Foorumi baas-URL-i mask:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "Selle foorumi täielik ettepoole suunatud URL."
+          },
+          {
             "@tag": "FORUM_EMAIL",
             "#text": "Foorumi e-post:"
           },
@@ -5699,14 +5707,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token, mida kasutatakse turvaliste veebiteenuste kõnede tegemiseks. "
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Foorumi baas-URL-i mask:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Selle foorumi täielik ettepoole suunatud URL."
           }
         ]
       },
@@ -5805,6 +5805,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Sisestage e-posti aadress, kuhu testmeil saata"
+          },
+          {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Meili testimine"
           }
         ]
       },
@@ -6413,6 +6417,10 @@
           {
             "@tag": "TITLE",
             "#text": "Käivitage SQL-kood"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Tulemus"
           }
         ]
       },

@@ -4465,6 +4465,14 @@
             "#text": "搜索索引任务已启动。"
           },
           {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "论坛基本 URL 掩码："
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "该论坛的完整前向 URL。"
+          },
+          {
             "@tag": "FORUM_EMAIL",
             "#text": "论坛邮箱："
           },
@@ -5699,14 +5707,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "用于进行安全 Web 服务调用的令牌。"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "论坛基本 URL 掩码："
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "该论坛的完整前向 URL。"
           }
         ]
       },
@@ -5805,6 +5805,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "输入应发送测试电子邮件的电子邮件地址"
+          },
+          {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "邮件测试"
           }
         ]
       },
@@ -6413,6 +6417,10 @@
           {
             "@tag": "TITLE",
             "#text": "运行 SQL 代码"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "结果"
           }
         ]
       },

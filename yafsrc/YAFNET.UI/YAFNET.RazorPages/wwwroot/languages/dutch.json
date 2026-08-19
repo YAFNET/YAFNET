@@ -4457,6 +4457,14 @@
             "#text": "Zoekindextaak gestart."
           },
           {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Masker basis-URL forum:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "De volledige naar voren gerichte URL naar dit forum."
+          },
+          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forum E-mail:"
           },
@@ -5691,14 +5699,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Merkteken om beveiligde web service calls te maken. Wijzigt voortdurend totdat je de host settings hebt opgeslagen."
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Masker basis-URL forum:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "De volledige naar voren gerichte URL naar dit forum."
           }
         ]
       },
@@ -5797,6 +5797,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Voer het e-mailadres in waar de test-e-mail naartoe moet worden gestuurd"
+          },
+          {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Mail testen"
           }
         ]
       },
@@ -6405,6 +6409,10 @@
           {
             "@tag": "TITLE",
             "#text": "Voer SQL Code uit"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Resultaat"
           }
         ]
       },

@@ -266,8 +266,8 @@ function getSearchResultsData(pageNumber: number): void {
 						item.innerHTML = `
                 <div class="row">
                     <div class="col">
-                        <div class="card border-0 w-100 mb-3">
-                            <div class="card-header bg-transparent border-top border-bottom-0 px-0 pb-0 pt-4 topicTitle">
+                        <div class="card mb-3">
+                            <div class="card-header topicTitle">
                                 <h5>
                                     <a title="${topic}" href="${dataItem.topicUrl}">${dataItem.topic}</a>&nbsp;
                                     <a title="${lastPost}" href="${dataItem.messageUrl
@@ -276,7 +276,7 @@ function getSearchResultsData(pageNumber: number): void {
 							.forumName}</a>)</small>
                                 </h5>
                             </div>
-                            <div class="card-body px-0">
+                            <div class="card-body">
                                 <h6 class="card-subtitle mb-2 text-body-secondary">${dataItem.description}</h6>
                                 <p class="card-text messageContent">${dataItem.message}</p>
                             </div>

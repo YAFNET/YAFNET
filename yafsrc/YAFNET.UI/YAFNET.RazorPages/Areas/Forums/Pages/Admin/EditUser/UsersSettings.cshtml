@@ -16,10 +16,6 @@
 <form method="post">
     <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
 
-    <h4>
-        @Html.LocalizedText("EDIT_PROFILE", "FORUM_SETTINGS")
-    </h4>
-
     @if (Model.PageBoardContext.BoardSettings.AllowUserHideHimself || Model.PageBoardContext.IsAdmin)
     {
         <div class="mb-3">

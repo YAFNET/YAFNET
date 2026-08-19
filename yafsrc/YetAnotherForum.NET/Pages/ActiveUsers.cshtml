@@ -46,8 +46,8 @@
                 <ul class="list-group">
                     @foreach (var user in Model.UserList)
                     {
-                        <li class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between text-break">
+                        <li class="list-group-item list-group-item-action active-user-row">
+                            <div class="d-flex w-100 justify-content-between align-items-start flex-wrap text-break">
                                 <h5 class="mb-1">
                                     @Html.UserLink(user.UserID,
                                                  Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.UserDisplayName : user.UserName,
@@ -56,7 +56,7 @@
 
                                     @if (user.IsActiveExcluded)
                                     {
-                                        @Html.Icon("user-secret")
+                                        @Html.Icon("user-secret", "text-secondary")
                                     }
                                 </h5>
 
@@ -64,50 +64,61 @@
                                 {
                                     var ipAddress = IPHelper.GetIpAddressAsString(user.IP);
 
-                                    <small class="d-none d-md-block">
+                                    <span class="badge text-bg-secondary d-none d-md-inline-flex">
                                         @Html.LocalizedText("IP")
-                                        <span class="badge text-bg-secondary">
-                                            <a href="@Html.Raw(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, ipAddress))"
-                                               title="@Html.LocalizedText("COMMON", "TT_IPDETAILS")"
-                                               target="_blank" class="link-light" rel="noopener">
-                                                @ipAddress
-                                            </a>
-                                        </span>
-                                    </small>
+                                        <a href="@Html.Raw(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, ipAddress))"
+                                           title="@Html.LocalizedText("COMMON", "TT_IPDETAILS")"
+                                           target="_blank" class="link-light ms-1" rel="noopener">
+                                            @ipAddress
+                                        </a>
+                                    </span>
                                 }
-                                    
                             </div>
-                            <p><strong>@Html.LocalizedText("latest_action")</strong>
+                            <p class="text-secondary mb-2">
+                                <strong>@Html.LocalizedText("latest_action")</strong>
                                 @Html.ActiveLocation(user.UserID, user.HasForumAccess, user.ForumPage, user.Path, user.ForumID ?? 0, user.ForumName, user.TopicID ?? 0, user.TopicName, false)
                             </p>
-                            <small>
-                                <span>
-                                    <strong>@Html.LocalizedText("logged_in")</strong>
+                            <div class="d-flex flex-wrap">
+                                <span class="badge text-light-emphasis bg-light-subtle"
+                                      title="@Html.LocalizedText("logged_in")"
+                                      data-bs-toggle="tooltip">
+                                    @Html.Icon("sign-in-alt")
                                     @Html.Raw(Current.Get<IDateTimeService>().FormatTime(user.Login))
                                 </span>
-                                <span>
-                                    <strong>@Html.LocalizedText("last_active")</strong>
+                                <span class="badge text-light-emphasis bg-light-subtle"
+                                      title="@Html.LocalizedText("last_active")"
+                                      data-bs-toggle="tooltip">
+                                    @Html.Icon("clock")
                                     @Html.Raw(Current.Get<IDateTimeService>().FormatTime(user.LastActive))
                                 </span>
-                                <span>
-                                    <strong>@Html.LocalizedText("active")</strong>
+                                <span class="badge text-light-emphasis bg-light-subtle"
+                                      title="@Html.LocalizedText("active")"
+                                      data-bs-toggle="tooltip">
+                                    @Html.Icon("hourglass-half")
                                     @Html.Raw(Current.Get<ILocalization>().GetTextFormatted("minutes", user.Active))
                                 </span>
-                                <span>
-                                    <strong>@Html.LocalizedText("browser")</strong>
+                                <span class="badge text-light-emphasis bg-light-subtle d-none d-md-inline-flex"
+                                      title="@Html.LocalizedText("browser")"
+                                      data-bs-toggle="tooltip">
+                                    @Html.Icon("globe")
                                     @user.Browser
                                 </span>
-                                <span>
-	                                <strong>@Html.LocalizedText("platform")</strong>
-	                                @user.Platform
+                                <span class="badge text-light-emphasis bg-light-subtle d-none d-md-inline-flex"
+                                      title="@Html.LocalizedText("platform")"
+                                      data-bs-toggle="tooltip">
+                                    @Html.Icon("desktop")
+                                    @user.Platform
                                 </span>
                                 @if (user.Country.IsSet() && !user.Country.Equals("--"))
                                 {
-	                                <strong>@Html.LocalizedText("COUNTRY")</strong>
-	                                <span class="@($"fi fi-{user.Country.ToLower()}")" title="@(Model.GetText("COUNTRY", user.Country))"></span>
+                                    <span class="badge text-light-emphasis bg-light-subtle"
+                                          title="@(Model.GetText("COUNTRY", user.Country))"
+                                          data-bs-toggle="tooltip">
+                                        <span class="@($"fi fi-{user.Country.ToLower()}")"></span>
+                                        @Html.LocalizedText("COUNTRY")
+                                    </span>
                                 }
-                               
-                            </small>
+                            </div>
                         </li>
                     }
                 </ul>

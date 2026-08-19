@@ -15,8 +15,6 @@
 
 @foreach (var category in Model)
 {
-    var forumsCount = 0;
-
     var tuple = new List<ForumRead>(
 	    Current.Get<ISessionService>().Forums.Where(forum => forum.CategoryID == category.CategoryID).ToList());
 
@@ -30,7 +28,7 @@
     {
 	    var image = new TagBuilder(HtmlTag.Img) { TagRenderMode = TagRenderMode.SelfClosing };
 
-        image.AddCssClass("me-1");
+        image.AddCssClass("me-1 w-100 h-100 object-fit-cover");
 
 	    image.MergeAttribute(HtmlAttribute.Alt, category.Category);
 	    image.MergeAttribute(HtmlAttribute.Src, category.CategoryImage.Contains('/') ? category.CategoryImage : $"/{Current.Get<BoardFolders>().Categories}/{category.CategoryImage}");
@@ -52,7 +50,7 @@
                 <div class="card-header">
                     <div class="row justify-content-between align-items-center">
                         <div class="col-auto">
-	                        <div class="d-none d-md-inline-block icon-category">
+	                        <div class="d-none d-md-inline-block icon-category rounded align-middle">
 		                        @categoryImage
 	                        </div>
 	                        <a href="@Html.Raw(Current.Get<ILinkBuilder>().GetCategoryLink(category.CategoryID, category.Category))">
@@ -81,11 +79,9 @@
                  id="@Html.Raw($"categoryPanel{category.CategoryID}")">
                     @foreach (var forum in forums)
                     {
-                        forumsCount++;
-
                         var lastRead = Current.Get<IReadTrackCurrentUser>().GetForumTopicRead(forum.ForumID, forum.LastTopicID, forum.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(), forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
-                        <div class="row">
+                        <div class="row forum-row align-items-start">
                             <div class="@Html.Raw(forum.RemoteURL.IsNotSet() ? "col-md-8" : "col")">
                                 <h5>
                                     @Html.GetForumIcon(forum, lastRead)
@@ -94,7 +90,7 @@
 
                                     @if (forum.Viewing > 0)
                                     {
-                                        <span class="badge text-light-emphasis bg-light-subtl">
+                                        <span class="badge text-light-emphasis bg-light-subtle">
                                             @Html.Icon("eye", "", "far")
                                             @forum.Viewing
                                         </span>
@@ -102,13 +98,13 @@
 
                                     @if (forum.RemoteURL.IsNotSet() && forum.ReadAccess)
                                     {
-                                        <span class="badge text-light-emphasis bg-light-subtl me-1"
+                                        <span class="badge text-light-emphasis bg-light-subtle me-1"
                                               title="@Html.LocalizedText("DEFAULT", "TOPICS")"
                                               data-bs-toggle="tooltip">
                                             @Html.Icon("comments", "", "far")
                                             @Html.Raw(forum.RemoteURL.IsNotSet() ? $"{forum.Topics:N0}" : "-")
                                         </span>
-                                        <span class="badge text-light-emphasis bg-light-subtl"
+                                        <span class="badge text-light-emphasis bg-light-subtle"
                                               title="@Html.LocalizedText("DEFAULT", "POSTS")"
                                               data-bs-toggle="tooltip">
                                             @Html.Icon("comment", "", "far")
@@ -124,9 +120,9 @@
                                 }
                                 @if (forum.SubForums > 0)
                                 {
-                                    <div class="card my-1">
+                                    <div class="card card-subforums my-1 bg-body-tertiary">
                                         <div class="card-body ps-2 py-1">
-                                            <ul class="list-inline">
+                                            <ul class="list-inline d-flex flex-wrap align-items-center gap-2 m-0">
                                                 <li class="list-inline-item">
                                                     <span class="fw-bold small text-secondary">
                                                         @Html.LocalizedText("TOPICS", "SUBFORUMS"):
@@ -162,7 +158,7 @@
                             @if (forum.RemoteURL.IsNotSet())
                             {
                                 <div class="col-md-4 text-secondary">
-                                    <div class="card bg-light-subtle card-post-last">
+                                    <div class="card bg-light-subtle card-post-last h-100">
                                         <div class="card-body py-1 ps-2">
 
                                             @if (forum.ReadAccess && forum.LastPosted.HasValue)
@@ -229,14 +225,6 @@
                                 </div>
                             }
                         </div>
-                        @if (forumsCount < forums.Count)
-                        {
-                            <div class="row">
-                                <div class="col">
-                                    <hr />
-                                </div>
-                            </div>
-                        }
                     }
                 </div>
             </div>
@@ -247,7 +235,7 @@
 @if (!Current.Get<ISessionService>().Forums.NullOrEmpty() && Current.Get<ISessionService>().Forums[0].Total > Current.Get<ISessionService>().Forums.Count)
 {
     <div class="text-center" id="category-info-more">
-        <div class="alert alert-light" role="alert">
+        <div class="alert alert-light border-0 bg-body-tertiary" role="alert">
             <span class="me-3 align-top">
                 @Html.LocalizedTextFormatted("FORUMS_SHOWN", Current.Get<ISessionService>().Forums.Count.ToString(), Current.Get<ISessionService>().Forums[0].Total.ToString())
             </span>

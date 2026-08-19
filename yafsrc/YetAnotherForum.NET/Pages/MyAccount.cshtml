@@ -23,72 +23,55 @@
                         @Html.IconHeader("address-card", "TOOLBAR", "MYPROFILE")
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-2 mb-3">
-                                <span class="float-end">
-                                    <img src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForCurrentUser())"
-                                         class="img-fluid rounded"
-                                         alt="avatar"
-                                         style="max-width: @Html.Raw(Model.PageBoardContext.BoardSettings.AvatarWidth);max-height: @Html.Raw(Model.PageBoardContext.BoardSettings.AvatarHeight)" />
-                                </span>
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-3 mb-3">
+                            <div class="profile-avatar-frame flex-shrink-0 bg-body rounded-3">
+                                <img src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForCurrentUser())"
+                                     class="profile-avatar d-block w-100 h-100 mw-100 mh-100 object-fit-cover"
+                                     alt="avatar" />
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1">@Model.PageBoardContext.PageUser.Name</h5>
+                                @if (Model.PageBoardContext.BoardSettings.EnableDisplayName)
+                                {
+                                    <div class="text-body-secondary mb-2">
+                                        @Html.HtmlEncode(Model.PageBoardContext.PageUser.DisplayOrUserName())
+                                    </div>
+                                }
+                                <div class="d-flex flex-wrap gap-2">
+                                    @foreach (var group in Model.Groups)
+                                    {
+                                        <span class="profile-pill" style="@group.Style">
+                                            @group.Name
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2 g-md-3 account-detail-grid">
+                            <div class="col">
+                                <div class="detail-tile bg-body-tertiary h-100">
+                                    <div class="detail-tile-label">@Html.LocalizedText("YOUR_USERNAME")</div>
+                                    <div class="detail-tile-value">@Model.PageBoardContext.PageUser.Name</div>
+                                </div>
                             </div>
                             <div class="col">
-                                <ul class="list-group">
-                                    <li class="list-group-item fw-bold text-light bg-secondary" contenteditable="false">
-                                        @Html.LocalizedText("YOUR_ACCOUNT")
-                                    </li>
-                                    <li class="list-group-item text-end">
-                                        <span class="float-start">
-                                            <span class="fw-bold">
-                                                @Html.LocalizedText("YOUR_USERNAME")
-                                            </span>
-                                        </span> @Model.PageBoardContext.PageUser.Name
-                                    </li>
-
-                                    @if (Model.PageBoardContext.BoardSettings.EnableDisplayName)
-                                    {
-                                        <li class="list-group-item text-end">
-                                            <span class="float-start">
-                                                <span class="fw-bold">
-                                                    @Html.LocalizedText("YOUR_USERDISPLAYNAME")
-                                                </span>
-                                            </span> @Html.HtmlEncode(Model.PageBoardContext.PageUser.DisplayOrUserName())
-                                        </li>
-                                    }
-
-                                    <li class="list-group-item text-end">
-                                        <span class="float-start">
-                                            <span class="fw-bold">@Html.LocalizedText("YOUR_EMAIL")</span>
-                                        </span> @Model.PageBoardContext.PageUser.Email
-                                    </li>
-                                    <li class="list-group-item text-end">
-                                        <span class="float-start">
-                                            <span class="fw-bold">@Html.LocalizedText("NUMPOSTS")</span>
-                                        </span> @Html.Raw($"{Model.PageBoardContext.PageUser.NumPosts:N0}")
-
-                                    </li>
-                                    <li class="list-group-item text-end">
-                                        <span class="float-start">
-                                            <span class="fw-bold">@Html.LocalizedText("GROUPS")</span>
-                                        </span>
-                                        <ul class="list-inline">
-                                            @foreach (var group in Model.Groups)
-                                            {
-                                                <li class="list-inline-item">
-                                                    <span style="@group.Style">
-                                                        @group.Name
-                                                    </span>
-                                                </li>
-                                            }
-                                        </ul>
-                                    </li>
-                                    <li class="list-group-item text-end">
-                                        <span class="float-start">
-                                            <span class="fw-bold"> @Html.LocalizedText("JOINED")</span>
-                                        </span>@Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(Model.PageBoardContext.PageUser.Joined))
-
-                                    </li>
-                                </ul>
+                                <div class="detail-tile bg-body-tertiary h-100">
+                                    <div class="detail-tile-label">@Html.LocalizedText("YOUR_EMAIL")</div>
+                                    <div class="detail-tile-value">@Model.PageBoardContext.PageUser.Email</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="detail-tile bg-body-tertiary h-100">
+                                    <div class="detail-tile-label">@Html.LocalizedText("NUMPOSTS")</div>
+                                    <div class="detail-tile-value">@Html.Raw($"{Model.PageBoardContext.PageUser.NumPosts:N0}")</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="detail-tile bg-body-tertiary h-100">
+                                    <div class="detail-tile-label">@Html.LocalizedText("JOINED")</div>
+                                    <div class="detail-tile-value">@Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(Model.PageBoardContext.PageUser.Joined))</div>
+                                </div>
                             </div>
                         </div>
                     </div>

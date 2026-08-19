@@ -4457,6 +4457,14 @@
             "#text": "Wyszukiwanie indeksu Zadanie rozpoczęte."
           },
           {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Bazowa maska ​​URL forum:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "Pełny adres URL tego forum skierowany do przodu."
+          },
+          {
             "@tag": "FORUM_EMAIL",
             "#text": "Email Forum:"
           },
@@ -5691,14 +5699,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token używany do bezpiecznego wywoływania usług sieciowych. Stale się zmienia, dopóki nie zapiszesz ustawień hosta."
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Bazowa maska ​​URL forum:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Pełny adres URL tego forum skierowany do przodu."
           }
         ]
       },
@@ -5797,6 +5797,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Wprowadź adres e-mail, na który ma zostać wysłana testowa wiadomość e-mail"
+          },
+          {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Testowanie poczty"
           }
         ]
       },
@@ -6405,6 +6409,10 @@
           {
             "@tag": "TITLE",
             "#text": "Uruchom kod SQL"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Wynik"
           }
         ]
       },

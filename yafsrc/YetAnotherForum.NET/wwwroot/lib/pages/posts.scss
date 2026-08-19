@@ -1,0 +1,36 @@
+// Posts (Topic View) Page
+.page-Posts, .page-Post {
+
+    .posts-toolbar {
+        margin-bottom: 1rem;
+
+        .btn,
+        .dropdown-toggle {
+            margin-bottom: 0 !important;
+        }
+    }
+
+    .topic-toolbar-card {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, .06);
+
+        .navbar {
+            padding: .65rem 1rem;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+    }
+
+    .card-footer {
+        .thanks-popover {
+            padding: .25rem .5rem;
+            text-decoration: none;
+        }
+
+        .btn-multiquote {
+            align-items: center;
+        }
+    }
+}

@@ -11,8 +11,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    @Html.Icon("building")
-                    @Html.LocalizedText("ADMIN_PAGEACCESSEDIT", "HEADER"): <strong>@Html.HtmlEncode(Model.Get<IUserDisplayName>().GetNameById(Model.UserId))</strong>
+                    @Html.IconHeader("building", "ADMIN_PAGEACCESSEDIT", "HEADER"): <strong>@Html.HtmlEncode(Model.Get<IUserDisplayName>().GetNameById(Model.UserId))</strong>
                 </div>
                 <div class="card-body">
                     <input type="hidden" asp-for="UserId" value="@Model.UserId" />

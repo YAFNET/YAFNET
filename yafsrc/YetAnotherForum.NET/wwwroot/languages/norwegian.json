@@ -4465,6 +4465,14 @@
             "#text": "Søkeindeksoppgave startet."
           },
           {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Forum Base URL Mask:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "Hele fremadvendte url til dette forumet."
+          },
+          {
             "@tag": "FORUM_EMAIL",
             "#text": "Forum e-post:"
           },
@@ -5699,14 +5707,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token som brukes til å foreta sikre nettjenesteanrop. Endres hele tiden til du lagrer vertsinnstillingene."
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Forum Base URL Mask:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Hele fremadvendte url til dette forumet."
           }
         ]
       },
@@ -5805,6 +5805,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Skriv inn e-postadressen som test-e-posten skal sendes til"
+          },
+          {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "E-posttesting"
           }
         ]
       },
@@ -6413,6 +6417,10 @@
           {
             "@tag": "TITLE",
             "#text": "Kjør SQL-kode"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Resultat"
           }
         ]
       },

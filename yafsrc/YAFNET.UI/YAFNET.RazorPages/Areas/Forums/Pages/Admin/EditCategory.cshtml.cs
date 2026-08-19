@@ -195,6 +195,7 @@ public class EditCategoryModel : AdminPage
             return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
+        this.Input.Id = category.ID;
         this.Input.Name = category.Name;
         this.Input.SortOrder = category.SortOrder;
         this.Input.Active = category.CategoryFlags.IsActive;

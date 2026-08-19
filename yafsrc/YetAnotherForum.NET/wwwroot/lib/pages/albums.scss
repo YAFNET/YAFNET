@@ -1,0 +1,31 @@
+// Album / Albums / EditAlbumImages Pages
+.page-Albums, .page-Album {
+
+    .album-card {
+        transition: box-shadow .15s ease;
+
+        &:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .1);
+        }
+
+        .album-cover-link {
+            height: 300px;
+        }
+    }
+}
+
+.page-EditAlbumImages {
+
+    .album-image-row {
+        transition: background-color .15s ease;
+
+        &:hover {
+            background: var(--bs-tertiary-bg);
+        }
+
+        .album-image-thumb {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+    }
+}

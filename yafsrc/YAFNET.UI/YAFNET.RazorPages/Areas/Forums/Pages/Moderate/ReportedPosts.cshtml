@@ -19,7 +19,7 @@
 			<div class="col-xl-12">
 				<div class="card mb-3">
 					<div class="card-header">
-						@Html.Icon("comment", "text-secondary")
+						@Html.IconHeader("comment", "DEFAULT", "TOPIC")
 						<a asp-page="@ForumPages.Posts.GetPageName()"
 						   asp-route-t="@report.TopicID"
 						   asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(report.TopicName))">

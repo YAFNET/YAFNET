@@ -5,19 +5,11 @@
 @model EmailModel
 
 <div class="row">
-    <div class="col-xl-12">
-        <h2>
-                @Html.LocalizedTextFormatted("TITLE2", Model.EmailUser.DisplayOrUserName())
-        </h2>
-    </div>
-</div>
-
-<div class="row">
     <div class="col">
         <form method="post" class="needs-validation" novalidate>
             <div class="card mb-3">
                 <div class="card-header">
-                    @Html.IconHeader("envelope-open", "IM_EMAIL", "TITLE")
+                    @Html.IconHeader("envelope-open", "IM_EMAIL", "TITLE2", param0: Model.EmailUser.DisplayOrUserName())
                 </div>
                 <div class="card-body">
                     <div class="mb-3">

@@ -341,7 +341,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                                             [HtmlAttribute.Class] = "btn btn-primary dropdown-toggle",
                                             [HtmlAttribute.Title] = this.GetText("COMMON", "TT_CODE"),
                                             ["data-bs-toggle"] = "dropdown",
-                                            ["aria-haspopup"] = "true",
+                                            [HtmlAttribute.AriaHasPopup] = "true",
                                             [HtmlAttribute.AriaExpanded] = "false"
                                         }
                                 };
@@ -418,7 +418,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                                                 [HtmlAttribute.Class] = "btn btn-primary dropdown-toggle albums-toggle",
                                                 [HtmlAttribute.Title] = this.GetText("COMMON", "ALBUMIMG_CODE"),
                                                 ["data-bs-toggle"] = "dropdown",
-                                                ["aria-haspopup"] = "true",
+                                                [HtmlAttribute.AriaHasPopup] = "true",
                                                 [HtmlAttribute.AriaExpanded] = "false"
                                             }
                                     };
@@ -557,7 +557,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                     [HtmlAttribute.Class] = "btn btn-primary dropdown-toggle",
                     [HtmlAttribute.Title] = this.GetText("COMMON", "CUSTOM_BBCODE"),
                     ["data-bs-toggle"] = "dropdown",
-                    ["aria-haspopup"] = "true",
+                    [HtmlAttribute.AriaHasPopup] = "true",
                     [HtmlAttribute.AriaExpanded] = "false"
                 }
             };
@@ -835,7 +835,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 [HtmlAttribute.Class] = "btn btn-primary btn-sm dropdown-toggle",
                 [HtmlAttribute.Title] = this.GetText("COMMON", "FONT_NAME"),
                 ["data-bs-toggle"] = "dropdown",
-                ["aria-haspopup"] = "true",
+                [HtmlAttribute.AriaHasPopup] = "true",
                 [HtmlAttribute.AriaExpanded] = "false"
             }
         };
@@ -901,7 +901,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 [HtmlAttribute.Class] = "btn btn-primary btn-sm dropdown-toggle",
                 [HtmlAttribute.Title] = this.GetText("COMMON", "FONT_SIZE"),
                 ["data-bs-toggle"] = "dropdown",
-                ["aria-haspopup"] = "true",
+                [HtmlAttribute.AriaHasPopup] = "true",
                 [HtmlAttribute.AriaExpanded] = "false"
             }
         };
@@ -955,7 +955,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                                             [HtmlAttribute.Class] = "btn btn-primary btn-sm dropdown-toggle",
                                             [HtmlAttribute.Title] = this.GetText("COMMON", "FONT_COLOR"),
                                             ["data-bs-toggle"] = "dropdown",
-                                            ["aria-haspopup"] = "true",
+                                            [HtmlAttribute.AriaHasPopup] = "true",
                                             [HtmlAttribute.AriaExpanded] = "false"
                                         }
         };

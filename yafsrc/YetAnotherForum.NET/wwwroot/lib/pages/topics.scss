@@ -1,0 +1,61 @@
+// Topics (Topic List) Page
+.page-Topics, .page-MyTopics {
+
+    .topic-list {
+
+        > .row {
+            padding: .85rem .25rem;
+            margin: 0;
+            transition: background-color .15s ease;
+
+            &:hover {
+                background: var(--bs-tertiary-bg);
+            }
+        }
+
+        h5 {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: .4rem .5rem;
+            margin-bottom: .25rem;
+
+            .badge {
+                font-weight: 500;
+            }
+        }
+
+        .topic-icon-legend-popvover {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.75rem;
+            height: 2.75rem;
+            background: var(--bs-tertiary-bg);
+
+            .fa-stack {
+                margin: 0 !important;
+                font-size: 1.15rem;
+            }
+        }
+
+        .topic-starter-popover {
+            text-decoration: none;
+            font-weight: 600;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .pagination-sm {
+            .page-link {
+                margin: 0 .1rem;
+            }
+        }
+
+        .card-subtitle {
+            margin-left: 3.25rem;
+        }
+    }
+}

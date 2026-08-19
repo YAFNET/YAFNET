@@ -75,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body topic-list">
                     @if (!Model.TopicList.NullOrEmpty())
                     {
                         @for (var index = 0; index < Model.TopicList.Count; index++)
@@ -94,10 +94,8 @@
                     }
                     else
                     {
-                        <div class="card-body">
-                            <alert type="info" icon="info-circle" localized-tag="NO_POSTS">
-                            </alert>
-                        </div>
+                        <alert type="info" icon="info-circle" localized-tag="NO_POSTS">
+                        </alert>
                     }
                 </div>
                 <div class="card-footer">

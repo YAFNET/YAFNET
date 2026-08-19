@@ -4,46 +4,37 @@
 @using YAF.Types.Extensions
 @model ApproveModel
 
-<div class="row">
-    <div class="col-xl-12">
-        <h2>
-            @Html.LocalizedText("APPROVE", "TITLE")
-        </h2>
-    </div>
-</div>
+<div class="row mb-3">
+    <div class="col">
+        <div class="card mx-auto rounded-4 shadow" style="max-width:450px">
+            <div class="card-body p-4 m-4">
+                <section>
+                    <h1 class="fw-bold mb-4 fs-2">@Html.IconHeader("user-check", "APPROVE", "TITLE")</h1>
 
-<div class="row">
-    <div class="col-lg-6 col-12 mx-auto">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">
-                    @Html.LocalizedText("APPROVE", "TITLE")
-                </h5>
-
-                @if (Model.ErrorMessage.IsSet())
-                {
-                    <alert type="danger"
-                           icon="info-circle"
-                           icon-text-color="text-danger"
-                           message="@Model.ErrorMessage">
-
-                    </alert>
-                }
-                <form method="post">
-                    <div class="mb-3">
-                        <label asp-for="Input.Key" localized-page="APPROVE" localized-tag="ENTER_KEY" class="form-label">
-                        </label>
-                        <input asp-for="Input.Key" class="form-control" required />
-                    </div>
-                    <div class="mb-3 d-grid gap-2">
-                        <button type="submit"
-                                button-style="Primary"
-                                icon="check"
-                                text-localized-page="APPROVE"
-                                text-localized-tag="VALIDATE">
-                        </button>
-                    </div>
-                </form>
+                    @if (Model.ErrorMessage.IsSet())
+                    {
+                        <alert type="danger"
+                               icon="info-circle"
+                               icon-text-color="text-danger"
+                               message="@Model.ErrorMessage">
+                        </alert>
+                    }
+                    <form method="post">
+                        <div class="mb-3">
+                            <label asp-for="Input.Key" localized-page="APPROVE" localized-tag="ENTER_KEY" class="form-label">
+                            </label>
+                            <input asp-for="Input.Key" class="form-control" required />
+                        </div>
+                        <div class="mb-3 d-grid gap-2">
+                            <button type="submit"
+                                    button-style="Primary"
+                                    icon="check"
+                                    text-localized-page="APPROVE"
+                                    text-localized-tag="VALIDATE">
+                            </button>
+                        </div>
+                    </form>
+                </section>
             </div>
         </div>
     </div>

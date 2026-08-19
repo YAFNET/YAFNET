@@ -182,30 +182,36 @@
                                         }
                                     }
 
-                                    <li class="list-group-item list-group-item-action">
-                                        <span class="fa-stack">
-                                            <i class="@($"fas fa-circle fa-stack-2x {notify}")"></i>
-                                            <i class="@($"fas fa-{icon} fa-stack-1x fa-inverse")"></i>
-                                        </span>
+                                    <li class="list-group-item list-group-item-action notification-row">
+                                        <div class="d-flex w-100 justify-content-between align-items-start flex-wrap">
+                                            <div>
+                                                <span class="fa-stack">
+                                                    <i class="@($"fas fa-circle fa-stack-2x {notify}")"></i>
+                                                    <i class="@($"fas fa-{icon} fa-stack-1x fa-inverse")"></i>
+                                                </span>
 
-                                        @Html.Raw(message)
+                                                @Html.Raw(message)
+                                            </div>
 
-                                        @Html.IconBadge("calendar-day", "clock", "text-secondary")
-
-                                        @Html.DisplayDateTime(DateTimeFormat.Both, activity.Item1.Created)
-
-                                        @if (activity.Item1.Notification)
-                                        {
-                                            <button button-style="Secondary"
-                                                    button-size="Small"
-                                                    class="float-end"
-                                                    text-localized-tag="MARK_ASREAD"
-                                                    asp-page-handler="MarkRead"
-                                                    asp-route-id="@activity.Item1.MessageID.Value"
-                                                    Icon="glasses">
-                                            </button>
-                                        }
-
+                                            @if (activity.Item1.Notification)
+                                            {
+                                                <button button-style="Secondary"
+                                                        button-size="Small"
+                                                        text-localized-tag="MARK_ASREAD"
+                                                        asp-page-handler="MarkRead"
+                                                        asp-route-id="@activity.Item1.MessageID.Value"
+                                                        Icon="glasses">
+                                                </button>
+                                            }
+                                        </div>
+                                        <div class="mt-2">
+                                            <span class="badge text-light-emphasis bg-light-subtle"
+                                                  title="@Html.LocalizedText("POSTMESSAGE", "POSTED")"
+                                                  data-bs-toggle="tooltip">
+                                                @Html.Icon("calendar-day")
+                                                @Html.DisplayDateTime(DateTimeFormat.Both, activity.Item1.Created)
+                                            </span>
+                                        </div>
                                     </li>
                                 }
 

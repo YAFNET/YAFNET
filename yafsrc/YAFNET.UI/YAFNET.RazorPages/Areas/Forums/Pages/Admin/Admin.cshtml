@@ -15,12 +15,6 @@
 }
 
 <form method="post">
-	<div class="row">
-		<div class="col-xl-12">
-			<h1>@Html.LocalizedText("ADMIN_ADMIN", "TITLE")</h1>
-		</div>
-	</div>
-
 @if (Model.UpdateHighlight.IsSet())
 {
 	<alert type="info">
@@ -57,7 +51,7 @@
 										</span>
 									</div>
 									<div class="col-auto">
-										<span class="fa-stack fa-2x" style="vertical-align: top;">
+										<span class="fa-stack fa-2x align-top">
 											<i class="fas fa-circle fa-stack-2x"></i>
 											<i class="fas fa-folder fa-stack-1x fa-inverse text-info"></i>
 										</span>
@@ -90,7 +84,7 @@
 
 									</div>
 									<div class="col-auto">
-										<span class="fa-stack fa-2x" style="vertical-align: top;">
+										<span class="fa-stack fa-2x align-top">
 											<i class="fas fa-circle fa-stack-2x"></i>
 
 											@if (Model.PageBoardContext.PageUser.DarkMode)
@@ -121,7 +115,7 @@
 										</span>
 									</div>
 									<div class="col-auto">
-										<span class="fa-stack fa-2x" style="vertical-align: top;">
+										<span class="fa-stack fa-2x align-top">
 											<i class="fas fa-circle fa-stack-2x"></i>
 											<i class="fas fa-comments fa-stack-1x fa-inverse text-secondary"></i>
 										</span>
@@ -149,7 +143,7 @@
 										</span>
 									</div>
 									<div class="col-auto">
-										<span class="fa-stack fa-2x" style="vertical-align: top;">
+										<span class="fa-stack fa-2x align-top">
 											<i class="fas fa-circle fa-stack-2x"></i>
 											<i class="fas fa-comment fa-stack-1x fa-inverse text-primary"></i>
 										</span>
@@ -177,7 +171,7 @@
 										</span>
 									</div>
 									<div class="col-auto">
-										<span class="fa-stack fa-2x" style="vertical-align: top;">
+										<span class="fa-stack fa-2x align-top">
 											<i class="fas fa-circle fa-stack-2x"></i>
 											<i class="fas fa-users fa-stack-1x fa-inverse text-success"></i>
 										</span>
@@ -205,7 +199,7 @@
 										</span>
 									</div>
 									<div class="col-auto">
-										<span class="fa-stack fa-2x" style="vertical-align: top;">
+										<span class="fa-stack fa-2x align-top">
 											<i class="fas fa-circle fa-stack-2x"></i>
 											<i class="fas fa-globe fa-stack-1x fa-inverse text-warning"></i>
 										</span>
@@ -232,7 +226,7 @@
 										</span>
 									</div>
 									<div class="col-auto">
-										<span class="fa-stack fa-2x" style="vertical-align: top;">
+										<span class="fa-stack fa-2x align-top">
 											<i class="fas fa-circle fa-stack-2x"></i>
 											<i class="fas fa-database fa-stack-1x fa-inverse text-danger"></i>
 										</span>
@@ -262,7 +256,7 @@
 					<div class="col-xl-2 col-lg-6">
 						<div class="card mb-3">
 							<div class="card-body">
-								<div class="chart-container">
+								<div class="chart-container mx-auto">
 									<canvas id="chart-browsers"
 									        data-url="@(Model.Get<IUrlHelper>().Action("GetUserStats", "Stats"))"
 									        data-label="@(Model.GetText("BROWSER"))"
@@ -274,7 +268,7 @@
 					<div class="col-xl-2 col-lg-6">
 						<div class="card mb-3">
 							<div class="card-body">
-								<div class="chart-container">
+								<div class="chart-container mx-auto">
 									<canvas id="chart-platforms"
 									        data-label="@(Model.GetText("PLATFORM"))"
 									        data-title="@(Model.GetText("ADMIN_ADMIN", "PLATFORM"))"></canvas>
@@ -288,7 +282,7 @@
 						<div class="col-xl-2 col-lg-6">
 							<div class="card mb-3">
 								<div class="card-body">
-									<div class="chart-container">
+									<div class="chart-container mx-auto">
 										<canvas id="chart-countries"
 										        data-label="@(Model.GetText("ADMIN_ADMIN", "COUNTRY"))"
 										        data-title="@(Model.GetText("ADMIN_ADMIN", "COUNTRIES"))"></canvas>
@@ -301,7 +295,7 @@
 					<div class="col-xl-5 col-lg-6">
 						<div class="card mb-3">
 							<div class="card-body">
-								<div class="chart-container">
+								<div class="chart-container mx-auto">
 									<canvas id="chart-registrations"
 									        data-label="@(Model.GetText("ADMIN_ADMIN", "REGISTRATIONS"))"
 									        data-title="@(Model.GetText("ADMIN_ADMIN", "REGISTRATIONS_TITLE"))"></canvas>

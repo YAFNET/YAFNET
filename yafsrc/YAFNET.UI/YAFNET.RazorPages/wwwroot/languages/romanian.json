@@ -4465,6 +4465,14 @@
             "#text": "Index de căutare Sarcina a început."
           },
           {
+            "@tag": "FORUM_BASEURLMASK",
+            "#text": "Masca URL de bază a forumului:"
+          },
+          {
+            "@tag": "FORUM_BASEURLMASK_HELP",
+            "#text": "URL-ul complet orientat către acest forum."
+          },
+          {
             "@tag": "FORUM_EMAIL",
             "#text": "E-mail forum:"
           },
@@ -5699,14 +5707,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilizat pentru a efectua apeluri securizate de servicii web. Se schimbă constant până când salvați setările de gazdă."
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Masca URL de bază a forumului:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "URL-ul complet orientat către acest forum."
           }
         ]
       },
@@ -5805,6 +5805,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Introduceți adresa de e-mail la care trebuie trimis e-mailul de test"
+          },
+          {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Testarea corespondenței"
           }
         ]
       },
@@ -6413,6 +6417,10 @@
           {
             "@tag": "TITLE",
             "#text": "Rulați codul SQL"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Rezultat"
           }
         ]
       },

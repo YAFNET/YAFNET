@@ -22,8 +22,10 @@
 					@if (Model.Get<VapidConfiguration>().IsPwaEnabled())
 					{
 						<div class="card mb-3">
+							<div class="card-header">
+								@Html.IconHeader("bell", "SUBSCRIPTIONS", "PUSH_NOTIFICATIONS")
+							</div>
 							<div class="card-body">
-								<h5 class="card-title">@Html.LocalizedText("SUBSCRIPTIONS","PUSH_NOTIFICATIONS")</h5>
 								<p id="enableText" class="card-text">@Html.LocalizedText("SUBSCRIPTIONS", "CLICK_ENABLE")</p>
 								<div id="mobileInstructions" class="alert alert-warning d-none">
 									@Html.LocalizedText("SUBSCRIPTIONS", "MOBILE_INSTRUCTIONS")
