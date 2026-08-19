@@ -18,6 +18,7 @@
  */
 
 using System;
+using System.Buffers.Binary;
 using System.IO;
 using System.Threading;
 
@@ -44,7 +45,8 @@ public class GeoIpCountryService : IDisposable, IGeoIpCountryService, IHaveServi
     private const long CountryBegin = 16776960;
 
     /// <summary>
-    /// The GeoIP database name
+    /// The GeoIP database name. This is the combined MaxMind GeoIP Legacy database
+    /// (COUNTRY_EDITION_V6) which contains both IPv4 and IPv6 data.
     /// </summary>
     private const string DatabaseName = "GeoIP.dat";
 
@@ -163,7 +165,7 @@ public class GeoIpCountryService : IDisposable, IGeoIpCountryService, IHaveServi
         IPAddress address;
         try
         {
-            address = IPAddress.Parse(ipAddress).MapToIPv4();
+            address = IPAddress.Parse(ipAddress);
         }
         catch (FormatException)
         {
@@ -211,7 +213,7 @@ public class GeoIpCountryService : IDisposable, IGeoIpCountryService, IHaveServi
     /// <summary>
     /// Loads the Geo data file in to a memory stream.
     /// </summary>
-    /// <returns>MemoryStream of the GeoIP.dat file</returns>
+    /// <returns>MemoryStream of the geo database file</returns>
     private MemoryStream GeoDataFileToMemory()
     {
         var stream = new MemoryStream();
@@ -230,22 +232,24 @@ public class GeoIpCountryService : IDisposable, IGeoIpCountryService, IHaveServi
 
     private int FindIndex(IPAddress ip)
     {
-        return Convert.ToInt32(this.SeekCountry(0, AddressToLong(ip), 31));
+        return Convert.ToInt32(this.SeekCountry(0, AddressToUInt128(ip), 127));
     }
 
     /// <summary>
-    /// Converts an IPv4 address into a long, for reading from geo database
+    /// Converts an IPv4 or IPv6 address into its 128-bit numeric equivalent, for reading
+    /// from the combined IPv4/IPv6 geo database. IPv4 addresses are mapped to their
+    /// IPv4-mapped IPv6 representation (::ffff:a.b.c.d), which is how the database stores them.
     /// </summary>
     /// <param name="ip">The ip.</param>
-    /// <returns>System.Int64.</returns>
-    private static long AddressToLong(IPAddress ip)
+    /// <returns>System.UInt128.</returns>
+    private static UInt128 AddressToUInt128(IPAddress ip)
     {
-        // Convert an IP Address, (e.g. 127.0.0.1), to the numeric equivalent
-        var address = ip.ToString().Split('.');
-        return address.Length == 4
-            ? Convert.ToInt64(16777216 * Convert.ToDouble(address[0]) + 65536 * Convert.ToDouble(address[1]) +
-                              256 * Convert.ToDouble(address[2]) + Convert.ToDouble(address[3]))
-            : 0;
+        var bytes = ip.MapToIPv6().GetAddressBytes();
+
+        var upper = BinaryPrimitives.ReadUInt64BigEndian(bytes.AsSpan(0, 8));
+        var lower = BinaryPrimitives.ReadUInt64BigEndian(bytes.AsSpan(8, 8));
+
+        return new UInt128(upper, lower);
     }
 
     /// <summary>
@@ -256,7 +260,7 @@ public class GeoIpCountryService : IDisposable, IGeoIpCountryService, IHaveServi
     /// <param name="ipNumber">The ip number.</param>
     /// <param name="depth">The depth.</param>
     /// <returns>System.Int64.</returns>
-    private long SeekCountry(long offset, long ipNumber, int depth)
+    private long SeekCountry(long offset, UInt128 ipNumber, int depth)
     {
         lock (this.myLock)
         {
@@ -281,7 +285,7 @@ public class GeoIpCountryService : IDisposable, IGeoIpCountryService, IHaveServi
                 }
             }
 
-            if ((ipNumber & (1 << depth)) > 0)
+            if ((ipNumber & (UInt128.One << depth)) > 0)
             {
                 if (x[1] >= CountryBegin)
                 {
