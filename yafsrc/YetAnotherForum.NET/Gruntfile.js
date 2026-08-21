@@ -75,11 +75,18 @@ module.exports = function (grunt) {
 			            src: '**/*.css',
 			            cwd: 'node_modules/@yafnet/sceditor/dist',
 			            dest: 'Content/'
-		            }, {
+		            }, 
+					{
 			            expand: true,
 			            src: '**/*.js',
+			            cwd: 'node_modules/@yafnet/sceditor/dist/languages/',
+			            dest: 'Scripts/sceditor/languages/'
+		            }, 
+					{
+			            expand: true,
+			            src: 'sceditor.min.js',
 			            cwd: 'node_modules/@yafnet/sceditor/dist',
-			            dest: 'Scripts/sceditor'
+			            dest: 'Scripts/sceditor/'
 		            }
 	            ]
             }
