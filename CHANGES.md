@@ -1,6 +1,11 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v4.0.9
+* [FIXED #1769] paging for attachments on admin edit user page
+* [FIXED] geoipservice can now correctly handle IPV6 Addresses 
+* Replaced ImageSharp with SkiaSharp
+
 # YetAnotherForum.NET v4.0.8
 * [GHSA-phc5-m6cm-5c9f] security fix
 

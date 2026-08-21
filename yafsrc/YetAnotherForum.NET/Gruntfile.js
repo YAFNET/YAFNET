@@ -70,9 +70,16 @@ module.exports = function(grunt) {
 						src: '**/*.css',
 						cwd: 'node_modules/@yafnet/sceditor/dist',
 						dest: 'wwwroot/css/'
-					}, {
+					}, 
+					{
 						expand: true,
 						src: '**/*.js',
+						cwd: 'node_modules/@yafnet/sceditor/dist/languages',
+						dest: 'wwwroot/js/sceditor/languages/'
+					}, 
+					{
+						expand: true,
+						src: 'sceditor.min.js',
 						cwd: 'node_modules/@yafnet/sceditor/dist',
 						dest: 'wwwroot/js/sceditor/'
 					}

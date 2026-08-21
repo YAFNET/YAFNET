@@ -19,7 +19,7 @@
 		<None Remove="appsettings.json" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="AwesomeAssertions" Version="9.5.0" />
+	  <PackageReference Include="AwesomeAssertions" Version="9.6.0" />
 	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />
 	  <PackageReference Include="NUnit3TestAdapter" Version="6.2.0" />
 	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.32.0.713">
