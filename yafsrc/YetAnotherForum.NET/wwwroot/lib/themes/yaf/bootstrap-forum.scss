@@ -1,6 +1,6 @@
 ﻿@import "_variables.scss";
 
-@import "../../bootstrap/bootstrap.scss";
+@use "../../node_modules/bootstrap/scss/bootstrap";
 
 @import "../../forum/chat.scss";
 

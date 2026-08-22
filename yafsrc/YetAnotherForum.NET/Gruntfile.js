@@ -19,17 +19,6 @@ module.exports = function(grunt) {
 		},
 
 		copy: {
-			bootstrap: {
-				files: [
-					{
-						expand: true,
-						src: '**/*.scss',
-						cwd: 'node_modules/bootstrap/scss',
-						dest: 'wwwroot/lib/bootstrap/'
-					}
-				]
-			},
-
 			fontAwesome: {
 				files: [
 					// includes files within path
@@ -504,11 +493,6 @@ module.exports = function(grunt) {
 					"wwwroot/css/forum-admin.min.css": 'wwwroot/lib/forum-admin.scss'
 				}
 			},
-			bootstrap: {
-				files: {
-					"wwwroot/lib/bootstrap/bootstrap.css": 'wwwroot/lib/bootstrap/bootstrap.scss'
-				}
-			},
 			themes: {
 				files: {
 					"wwwroot/css/themes/zephyr/bootstrap-forum.min.css":
@@ -662,11 +646,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('default',
 		[
 			'webpack', 'sass', 'postcss', 'cssmin'
-		]);
-
-	grunt.registerTask('updateBootstrap',
-		[
-			'copy:bootstrap'
 		]);
 
 	grunt.registerTask('updateFontAwesome',
