@@ -47,7 +47,7 @@
 		"bootstrap": "^5.3.8",
 		"bootswatch": "^5.3.8",
 		"chart.js": "^4.5.1",
-		"choices.js": "^11.2.3",
+		"choices.js": "^11.2.4",
 		"codemirror": "^6.0.2",
 		"flag-icons": "^7.5.0",
 		"form-serialize": "^0.7.2",

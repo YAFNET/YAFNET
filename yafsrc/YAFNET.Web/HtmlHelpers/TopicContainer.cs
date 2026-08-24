@@ -72,6 +72,7 @@ public static class TopicContainerHtmlHelper
         var topicIcon = new TagBuilder(HtmlTag.A);
 
         topicIcon.AddCssClass("topic-icon-legend-popvover");
+        topicIcon.AddCssClass("rounded");
 
         topicIcon.MergeAttribute(HtmlAttribute.Tabindex, "0");
         topicIcon.MergeAttribute(HtmlAttribute.Role, HtmlTag.Button);
@@ -214,9 +215,20 @@ public static class TopicContainerHtmlHelper
     {
         var lastPostColumn = new TagBuilder(HtmlTag.Div);
 
-        lastPostColumn.AddCssClass("col-md-4 text-secondary text-end");
+        lastPostColumn.AddCssClass("col-md-4 text-secondary");
 
-        lastPostColumn.InnerHtml.AppendHtml(htmlHelper.LocalizedText("LASTPOST"));
+        var lastPostDiv = new TagBuilder(HtmlTag.Div);
+        var lastPostDivBody = new TagBuilder(HtmlTag.Div);
+
+        lastPostDiv.AddCssClass("card bg-light-subtle card-post-last");
+
+        lastPostDivBody.AddCssClass("card-body py-1 ps-2");
+
+        var lastPostHeader = new TagBuilder(HtmlTag.Span);
+        lastPostHeader.AddCssClass("text-body-secondary");
+        lastPostHeader.InnerHtml.AppendHtml(htmlHelper.LocalizedText("LASTPOST"));
+
+        lastPostDivBody.InnerHtml.AppendHtml(lastPostHeader);
 
         var lastPostedDateTime = topic.LastPosted;
 
@@ -245,7 +257,7 @@ public static class TopicContainerHtmlHelper
             ? topic.LastUserDisplayName
             : topic.LastUserName));
 
-        lastPostColumn.InnerHtml.AppendHtml(infoLastPost);
+        lastPostDivBody.InnerHtml.AppendHtml(infoLastPost);
 
         var gotoLastPost = new TagBuilder(HtmlTag.A);
 
@@ -260,7 +272,11 @@ public static class TopicContainerHtmlHelper
 
         gotoLastPost.InnerHtml.AppendHtml(htmlHelper.Icon("share-square", marginEnd: false));
 
-        lastPostColumn.InnerHtml.AppendHtml(gotoLastPost);
+        lastPostDivBody.InnerHtml.AppendHtml(gotoLastPost);
+
+        lastPostDiv.InnerHtml.AppendHtml(lastPostDivBody);
+
+        lastPostColumn.InnerHtml.AppendHtml(lastPostDiv);
 
         mainDiv.InnerHtml.AppendHtml(lastPostColumn);
 

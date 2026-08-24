@@ -73,7 +73,7 @@
 
 @if (!Model.ReadAccess || !Model.LastPosted.HasValue)
 {
-    <span class="fst-italic">
+    <span class="fst-italic text-secondary">
         @Html.LocalizedText("NO_POSTS")
     </span>
 }
