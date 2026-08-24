@@ -3,7 +3,7 @@
 @use "../node_modules/@fortawesome/fontawesome-free/scss/solid";
 @use "../node_modules/@fortawesome/fontawesome-free/scss/regular";
 
-@import "bootstrap/bootstrap.scss";
+@use "bootstrap/bootstrap.scss";
 
 html {
   background: url(images/InstallBackground.jpg) no-repeat center center fixed;

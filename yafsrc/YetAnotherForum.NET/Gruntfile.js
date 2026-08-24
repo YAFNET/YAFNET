@@ -21,19 +21,7 @@ module.exports = function (grunt) {
         copy: {
 	        bootstrap: {
 		        files: [
-			        { expand: true, src: '**/*.scss', cwd: 'node_modules/bootstrap/scss', dest: 'Content/bootstrap/' },
-			        {
-				        expand: true,
-				        src: '**/bootstrap.bundle.js',
-				        cwd: 'node_modules/bootstrap/dist/js/',
-				        dest: 'Scripts/'
-			        },
-			        {
-				        expand: true,
-				        src: '**/bootstrap.bundle.min.js',
-				        cwd: 'node_modules/bootstrap/dist/js/',
-				        dest: 'Scripts/'
-			        }
+			        { expand: true, src: '**/*.scss', cwd: 'node_modules/bootstrap/scss', dest: 'Content/bootstrap/' }
 		        ]
 	        },
             bootswatchThemes: {
@@ -434,11 +422,6 @@ module.exports = function (grunt) {
             forumAdmin: {
                 files: {
                     "Content/forum-admin.css": 'Content/forum-admin.scss'
-                }
-            },
-            bootstrap: {
-                files: {
-                    "Content/bootstrap/bootstrap.css": 'Content/bootstrap/bootstrap.scss'
                 }
             },
             themes: {
