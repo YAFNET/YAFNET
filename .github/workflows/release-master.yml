@@ -127,6 +127,7 @@ jobs:
           $publishDir = "yafsrc/YetAnotherForum.NET/bin/Release/net10.0/publish"
 
           Copy-Item "yafsrc/YetAnotherForum.NET/${{ matrix.appsettings }}" "$publishDir/appsettings.json" -Force
+          Copy-Item "README.md" "$publishDir/README.md" -Force
 
           Remove-Item "$publishDir/appsettings-*.json" -Force -ErrorAction SilentlyContinue
           Remove-Item "$publishDir/package.json" -Force -ErrorAction SilentlyContinue
